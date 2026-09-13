@@ -1,0 +1,1174 @@
+{
+  "id": "overworld",
+  "width": 128,
+  "height": 96,
+  "seed": 7319,
+  "spawn": {
+    "x": 27.5,
+    "y": 71.5
+  },
+  "paths": [
+    [
+      [
+        27,
+        88
+      ],
+      [
+        27,
+        71
+      ],
+      [
+        30,
+        65
+      ],
+      [
+        37,
+        63
+      ],
+      [
+        41,
+        55.5
+      ],
+      [
+        49,
+        55.5
+      ],
+      [
+        56,
+        47
+      ],
+      [
+        59,
+        43
+      ],
+      [
+        60,
+        40
+      ],
+      [
+        60,
+        36
+      ],
+      [
+        64,
+        34
+      ],
+      [
+        68,
+        36
+      ],
+      [
+        68,
+        40
+      ],
+      [
+        69,
+        42
+      ],
+      [
+        76,
+        41
+      ],
+      [
+        85,
+        42
+      ],
+      [
+        85,
+        52
+      ],
+      [
+        91,
+        61
+      ],
+      [
+        99,
+        63
+      ],
+      [
+        103,
+        67
+      ]
+    ],
+    [
+      [
+        49,
+        55.5
+      ],
+      [
+        50,
+        48
+      ],
+      [
+        50,
+        36
+      ],
+      [
+        52,
+        33
+      ],
+      [
+        55.5,
+        33
+      ],
+      [
+        55,
+        30
+      ]
+    ],
+    [
+      [
+        64,
+        34
+      ],
+      [
+        64,
+        27
+      ],
+      [
+        73,
+        21
+      ]
+    ],
+    [
+      [
+        60,
+        36
+      ],
+      [
+        57,
+        35
+      ],
+      [
+        55,
+        30
+      ]
+    ],
+    [
+      [
+        68,
+        36
+      ],
+      [
+        72,
+        36
+      ],
+      [
+        77,
+        30
+      ]
+    ],
+    [
+      [
+        60,
+        40
+      ],
+      [
+        61,
+        44
+      ],
+      [
+        65,
+        45
+      ],
+      [
+        69,
+        42
+      ],
+      [
+        68,
+        40
+      ]
+    ],
+    [
+      [
+        27,
+        74
+      ],
+      [
+        21,
+        73
+      ],
+      [
+        17,
+        67
+      ],
+      [
+        17,
+        60
+      ]
+    ],
+    [
+      [
+        41,
+        55.5
+      ],
+      [
+        37.5,
+        48
+      ],
+      [
+        37.5,
+        43
+      ]
+    ],
+    [
+      [
+        37,
+        63
+      ],
+      [
+        34.5,
+        66.5
+      ]
+    ],
+    [
+      [
+        85,
+        42
+      ],
+      [
+        87,
+        45
+      ],
+      [
+        91,
+        45
+      ]
+    ],
+    [
+      [
+        65,
+        45
+      ],
+      [
+        64,
+        50
+      ],
+      [
+        74,
+        56
+      ],
+      [
+        91,
+        61
+      ],
+      [
+        99,
+        63
+      ],
+      [
+        99,
+        74
+      ],
+      [
+        99.5,
+        81
+      ],
+      [
+        100.5,
+        86
+      ]
+    ],
+    [
+      [
+        64,
+        27
+      ],
+      [
+        58.5,
+        26.5
+      ],
+      [
+        58.5,
+        24
+      ]
+    ]
+  ],
+  "waters": [
+    {
+      "x": 13,
+      "y": 43,
+      "rx": 5,
+      "ry": 10
+    }
+  ],
+  "clearings": [
+    [
+      27,
+      70,
+      8
+    ],
+    [
+      37,
+      63,
+      6
+    ],
+    [
+      64,
+      38,
+      20
+    ],
+    [
+      100,
+      63,
+      6
+    ],
+    [
+      17,
+      60,
+      4
+    ],
+    [
+      104,
+      82,
+      9
+    ],
+    [
+      39,
+      43,
+      7
+    ],
+    [
+      34.5,
+      63.5,
+      9
+    ],
+    [
+      44,
+      55.5,
+      8
+    ],
+    [
+      88,
+      45,
+      7
+    ],
+    [
+      23.5,
+      69.5,
+      5
+    ],
+    [
+      103,
+      66,
+      6
+    ],
+    [
+      64,
+      40,
+      7
+    ]
+  ],
+  "night": {
+    "x": 108,
+    "y": 83,
+    "inner": 17,
+    "outer": 30,
+    "fire": [
+      105.5,
+      81.5
+    ]
+  },
+  "regions": [
+    {
+      "id": "village",
+      "rect": [
+        45,
+        23,
+        39,
+        33
+      ],
+      "ground": "meadow"
+    },
+    {
+      "id": "lake",
+      "rect": [
+        88,
+        22,
+        37,
+        57
+      ],
+      "ground": "meadow"
+    }
+  ],
+  "ambient": {
+    "kind": "forest",
+    "count": 12
+  },
+  "decoration": {
+    "trees": [
+      "oak",
+      "hornbeam",
+      "birch",
+      "crooked-oak",
+      "pine"
+    ],
+    "forest": [
+      "bush",
+      "fern",
+      "fern",
+      "berries",
+      "mushrooms",
+      "stump"
+    ],
+    "village": [],
+    "lake": [
+      "reeds",
+      "reeds",
+      "rocks",
+      "fern"
+    ]
+  },
+  "entities": [
+    {
+      "id": "picnic-barbecue",
+      "behavior": "picnic-barbecue",
+      "x": 25.5,
+      "y": 69.5
+    },
+    {
+      "id": "picnic-mushroom",
+      "behavior": "picnic-mushroom",
+      "x": 24.5,
+      "y": 67.5
+    },
+    {
+      "id": "picnic-twig",
+      "behavior": "picnic-twig",
+      "x": 30.5,
+      "y": 71.5
+    },
+    {
+      "id": "picnic-neighbor",
+      "behavior": "picnic-neighbor",
+      "x": 22.5,
+      "y": 69.5
+    },
+    {
+      "id": "forest-sign",
+      "sprite": "sign",
+      "x": 28.5,
+      "y": 74.5,
+      "rules": [
+        {
+          "when": {},
+          "effects": [
+            {
+              "type": "dialogue",
+              "key": "forestDirections"
+            }
+          ]
+        }
+      ],
+      "label": "sign"
+    },
+    {
+      "id": "story-fire",
+      "sprite": "fire",
+      "x": 105.5,
+      "y": 81.5,
+      "rules": [
+        {
+          "effects": [
+            {
+              "type": "content",
+              "key": "stories"
+            }
+          ]
+        }
+      ],
+      "label": "campfire"
+    },
+    {
+      "id": "story-bench",
+      "sprite": "bench",
+      "x": 104.5,
+      "y": 77.5,
+      "rules": [
+        {
+          "when": [],
+          "effects": [
+            {
+              "type": "dialogue",
+              "key": "campBench"
+            }
+          ]
+        }
+      ],
+      "solid": [
+        -1,
+        -0.5,
+        2,
+        0.6
+      ],
+      "label": "bench"
+    },
+    {
+      "id": "art-table",
+      "sprite": "workbench",
+      "x": 39.5,
+      "y": 41.5,
+      "rules": [
+        {
+          "effects": [
+            {
+              "type": "content",
+              "key": "art"
+            }
+          ]
+        }
+      ],
+      "solid": [
+        -1.5,
+        -1.3,
+        3,
+        1.6
+      ],
+      "label": "art"
+    },
+    {
+      "id": "art-easel",
+      "sprite": "easel",
+      "x": 35.5,
+      "y": 42.5,
+      "rules": [
+        {
+          "effects": [
+            {
+              "type": "content",
+              "key": "art"
+            }
+          ]
+        }
+      ],
+      "label": "art"
+    },
+    {
+      "id": "art-yarn",
+      "sprite": "yarn",
+      "x": 37.5,
+      "y": 41.5,
+      "rules": []
+    },
+    {
+      "id": "story-lantern",
+      "sprite": "lantern",
+      "x": 109.5,
+      "y": 78.5,
+      "rules": []
+    },
+    {
+      "id": "tavern-flower-pot",
+      "sprite": "flower-pot",
+      "x": 59.5,
+      "y": 30.5,
+      "rules": []
+    },
+    {
+      "id": "workshop-crates",
+      "sprite": "crates",
+      "x": 81.5,
+      "y": 29.5,
+      "rules": []
+    },
+    {
+      "id": "cottage-flowers",
+      "sprite": "flower-pot",
+      "x": 62.5,
+      "y": 23.5,
+      "rules": []
+    },
+    {
+      "id": "home-flowers",
+      "sprite": "flower-pot",
+      "x": 67.5,
+      "y": 22.5,
+      "rules": []
+    },
+    {
+      "id": "plaza-lantern",
+      "sprite": "lantern",
+      "x": 70.5,
+      "y": 45.5,
+      "rules": []
+    },
+    {
+      "id": "tavern-door",
+      "sprite": "tavern",
+      "x": 55.5,
+      "y": 30.5,
+      "rules": [
+        {
+          "effects": [
+            {
+              "type": "travel",
+              "scene": "tavern",
+              "x": 16.5,
+              "y": 21.5
+            }
+          ]
+        }
+      ],
+      "solid": [
+        -2.7,
+        -2.5,
+        5.4,
+        2.9
+      ],
+      "label": "tavern",
+      "portal": true
+    },
+    {
+      "id": "workshop-door",
+      "sprite": "workshop",
+      "x": 77.5,
+      "y": 30.5,
+      "rules": [
+        {
+          "effects": [
+            {
+              "type": "travel",
+              "scene": "workshop",
+              "x": 16.5,
+              "y": 21.5
+            }
+          ]
+        }
+      ],
+      "solid": [
+        -2.7,
+        -2.5,
+        5.4,
+        2.9
+      ],
+      "label": "workshop",
+      "portal": true
+    },
+    {
+      "id": "home-one",
+      "sprite": "cottage",
+      "x": 58.5,
+      "y": 22.5,
+      "rules": [
+        {
+          "effects": [
+            {
+              "type": "travel",
+              "scene": "cottage",
+              "x": 10.5,
+              "y": 13.5
+            }
+          ]
+        }
+      ],
+      "solid": [
+        -2.4,
+        -2.5,
+        4.8,
+        2.9
+      ],
+      "label": "cottage",
+      "portal": true
+    },
+    {
+      "id": "home-two",
+      "sprite": "cottage-closed",
+      "x": 71.5,
+      "y": 21.5,
+      "rules": [
+        {
+          "when": {
+            "flags": {
+              "doorKnocked": true
+            }
+          },
+          "effects": [
+            {
+              "type": "dialogue",
+              "key": "doorAgain"
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "type": "flag",
+              "flag": "doorKnocked"
+            },
+            {
+              "type": "dialogue",
+              "key": "neighborDoor"
+            },
+            {
+              "type": "sound",
+              "key": "knock"
+            }
+          ]
+        }
+      ],
+      "solid": [
+        -2.4,
+        -2.5,
+        4.8,
+        2.9
+      ],
+      "label": "house"
+    },
+    {
+      "id": "human-door",
+      "sprite": "human-house",
+      "x": 34.5,
+      "y": 62.5,
+      "rules": [
+        {
+          "effects": [
+            {
+              "type": "travel",
+              "scene": "house",
+              "x": 13.5,
+              "y": 18.5
+            }
+          ]
+        }
+      ],
+      "solid": [
+        -3.4,
+        -3.5,
+        6.8,
+        4
+      ],
+      "label": "house",
+      "portal": true
+    },
+    {
+      "id": "fisher-door",
+      "sprite": "fisher-closed",
+      "x": 103.5,
+      "y": 65.5,
+      "rules": [
+        {
+          "when": [],
+          "effects": [
+            {
+              "type": "dialogue",
+              "key": "fisherDoor"
+            }
+          ]
+        }
+      ],
+      "solid": [
+        -2.2,
+        -2.5,
+        4.4,
+        2.9
+      ],
+      "label": "fisher"
+    },
+    {
+      "id": "fountain",
+      "sprite": "fountain",
+      "x": 64.5,
+      "y": 40.5,
+      "rules": [
+        {
+          "when": [],
+          "effects": [
+            {
+              "type": "dialogue",
+              "key": "fountainWish"
+            }
+          ]
+        }
+      ],
+      "solid": [
+        -1.9,
+        -1.6,
+        3.8,
+        2.1
+      ],
+      "label": "fountain"
+    },
+    {
+      "id": "no-pooping",
+      "sprite": "sign",
+      "x": 58.5,
+      "y": 43.5,
+      "rules": [
+        {
+          "when": [],
+          "effects": [
+            {
+              "type": "dialogue",
+              "key": "noPooping"
+            }
+          ]
+        }
+      ],
+      "label": "sign"
+    },
+    {
+      "id": "lake-bench",
+      "sprite": "bench",
+      "x": 95.5,
+      "y": 59.5,
+      "rules": [
+        {
+          "when": [],
+          "effects": [
+            {
+              "type": "dialogue",
+              "key": "lakeBench"
+            }
+          ]
+        }
+      ],
+      "solid": [
+        -1,
+        -0.6,
+        2,
+        1
+      ],
+      "label": "bench"
+    },
+    {
+      "id": "lake-ferryman",
+      "behavior": "ferry",
+      "x": 91.5,
+      "y": 44.5,
+      "destination": {
+        "scene": "islet",
+        "x": 10.5,
+        "y": 25.5
+      }
+    },
+    {
+      "id": "dock-lantern",
+      "sprite": "lantern",
+      "x": 86.5,
+      "y": 43.5,
+      "rules": []
+    },
+    {
+      "id": "picnic-log",
+      "sprite": "fallen-log",
+      "x": 30.5,
+      "y": 70.5,
+      "rules": []
+    },
+    {
+      "id": "picnic-fern",
+      "sprite": "fern",
+      "x": 20.5,
+      "y": 67.5,
+      "rules": []
+    },
+    {
+      "id": "picnic-berries",
+      "sprite": "berries",
+      "x": 21.5,
+      "y": 65.5,
+      "rules": []
+    },
+    {
+      "id": "picnic-stump",
+      "sprite": "stump",
+      "x": 29.5,
+      "y": 75.5,
+      "rules": []
+    },
+    {
+      "id": "story-reeds-north",
+      "sprite": "reeds",
+      "x": 110.5,
+      "y": 77.5,
+      "rules": []
+    },
+    {
+      "id": "story-reeds-south",
+      "sprite": "reeds",
+      "x": 112.5,
+      "y": 86.5,
+      "rules": []
+    },
+    {
+      "id": "story-fern-west",
+      "sprite": "fern",
+      "x": 99.5,
+      "y": 79.5,
+      "rules": []
+    },
+    {
+      "id": "story-berries-west",
+      "sprite": "berries",
+      "x": 99.5,
+      "y": 77.5,
+      "rules": []
+    },
+    {
+      "id": "story-log-south",
+      "sprite": "fallen-log",
+      "x": 107.5,
+      "y": 88.5,
+      "rules": []
+    },
+    {
+      "id": "story-tree-south",
+      "sprite": "crooked-oak",
+      "x": 111.5,
+      "y": 89.5,
+      "rules": [],
+      "solid": [
+        -0.4,
+        -0.5,
+        0.8,
+        0.7
+      ]
+    },
+    {
+      "id": "forest-fern-bank",
+      "sprite": "fern",
+      "x": 35.5,
+      "y": 73.5,
+      "rules": []
+    },
+    {
+      "id": "forest-birch-bank",
+      "sprite": "birch",
+      "x": 33.5,
+      "y": 76.5,
+      "rules": [],
+      "solid": [
+        -0.4,
+        -0.5,
+        0.8,
+        0.7
+      ]
+    },
+    {
+      "id": "forest-berries-bank",
+      "sprite": "berries",
+      "x": 35.5,
+      "y": 76.5,
+      "rules": []
+    },
+    {
+      "id": "lake-ferry",
+      "sprite": "ferry",
+      "x": 95.5,
+      "y": 46,
+      "solid": [
+        -2.6,
+        -1.7,
+        5.2,
+        2
+      ],
+      "rules": [],
+      "interactAs": "lake-ferryman"
+    },
+    {
+      "id": "leaves-clearing",
+      "behavior": "toilet-plant",
+      "x": 19.5,
+      "y": 76.5
+    },
+    {
+      "id": "leaves-river",
+      "behavior": "toilet-plant",
+      "x": 39.5,
+      "y": 59.5
+    },
+    {
+      "id": "leaves-stories",
+      "behavior": "toilet-plant",
+      "x": 98.5,
+      "y": 87.5
+    },
+    {
+      "id": "fountain-flowers",
+      "sprite": "flower-pot",
+      "x": 62,
+      "y": 37,
+      "rules": []
+    },
+    {
+      "id": "fountain-fern",
+      "sprite": "fern",
+      "x": 66,
+      "y": 43,
+      "rules": []
+    },
+    {
+      "id": "home-birch",
+      "sprite": "birch",
+      "x": 65.5,
+      "y": 23,
+      "rules": [],
+      "solid": [
+        -0.4,
+        -0.5,
+        0.8,
+        0.7
+      ]
+    },
+    {
+      "id": "tavern-garden",
+      "sprite": "berries",
+      "x": 51.5,
+      "y": 28.5,
+      "rules": []
+    },
+    {
+      "id": "camp-birch",
+      "sprite": "birch",
+      "x": 96.5,
+      "y": 83.5,
+      "rules": [],
+      "solid": [
+        -0.4,
+        -0.5,
+        0.8,
+        0.7
+      ]
+    },
+    {
+      "id": "camp-pine",
+      "sprite": "pine",
+      "x": 102.5,
+      "y": 90,
+      "rules": [],
+      "solid": [
+        -0.4,
+        -0.5,
+        0.8,
+        0.7
+      ]
+    }
+  ],
+  "neighbors": [
+    {
+      "id": "plaza-1",
+      "x": 72.5,
+      "y": 43.5,
+      "radius": 3,
+      "dialogue": "ambientGarden"
+    },
+    {
+      "id": "plaza-2",
+      "x": 58.5,
+      "y": 47.5,
+      "radius": 3,
+      "dialogue": "ambientHat"
+    },
+    {
+      "id": "lake-friend",
+      "x": 100.5,
+      "y": 68.5,
+      "radius": 2,
+      "dialogue": "ambientLake"
+    },
+    {
+      "id": "forest-wanderer",
+      "x": 32.5,
+      "y": 69.5,
+      "radius": 2,
+      "dialogue": "ambientHunger"
+    }
+  ],
+  "gatherings": [
+    {
+      "id": "storytellers",
+      "content": "stories",
+      "x": 105.5,
+      "y": 81.5,
+      "radius": 4,
+      "min": 6,
+      "max": 10
+    }
+  ],
+  "rivers": [
+    {
+      "rect": [
+        43,
+        0,
+        4,
+        96
+      ],
+      "meander": 0.4
+    }
+  ],
+  "bridges": [
+    {
+      "rect": [
+        42,
+        54,
+        6,
+        3
+      ],
+      "sprite": "jetty"
+    },
+    {
+      "rect": [
+        89,
+        44,
+        5,
+        2
+      ],
+      "sprite": "jetty"
+    }
+  ],
+  "groundPatches": [
+    {
+      "x": 24.5,
+      "y": 69.5,
+      "rx": 4,
+      "ry": 3,
+      "color": "#628350"
+    },
+    {
+      "x": 105.5,
+      "y": 82,
+      "rx": 5,
+      "ry": 4,
+      "color": "#5e794b"
+    }
+  ],
+  "assetPacks": [
+    "ferry-aboard"
+  ],
+  "coasts": [
+    {
+      "side": "east",
+      "points": [
+        [
+          96,
+          0
+        ],
+        [
+          95,
+          20
+        ],
+        [
+          90,
+          42
+        ],
+        [
+          94,
+          54
+        ],
+        [
+          108,
+          65
+        ],
+        [
+          112,
+          82
+        ],
+        [
+          114,
+          96
+        ]
+      ]
+    }
+  ]
+}

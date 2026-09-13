@@ -1,0 +1,166 @@
+{
+  "ferry": {
+    "sprite": "person-2-down",
+    "label": "ferryman",
+    "rules": [
+      {
+        "action": "board",
+        "when": {
+          "funds": "lake"
+        },
+        "effects": [
+          {
+            "type": "spend",
+            "fare": "lake"
+          },
+          {
+            "type": "travel",
+            "presentation": "ferry"
+          },
+          {
+            "type": "sound",
+            "key": "found"
+          }
+        ]
+      },
+      {
+        "action": "board",
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "ferryPoor"
+          }
+        ]
+      },
+      {
+        "when": {
+          "flags": {
+            "picnicFed": false
+          }
+        },
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "ferryHint"
+          }
+        ]
+      },
+      {
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "ferryWelcome"
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "board",
+        "label": "boardFerry",
+        "fare": "lake"
+      }
+    ],
+    "portrait": true
+  },
+  "shells": {
+    "sprite": "shells",
+    "label": "shellName",
+    "hiddenWhen": {
+      "items": {
+        "shell": 1
+      }
+    },
+    "rules": [
+      {
+        "effects": [
+          {
+            "type": "item",
+            "item": "shell",
+            "amount": 1
+          },
+          {
+            "type": "dialogue",
+            "key": "shellFound"
+          },
+          {
+            "type": "sound",
+            "key": "found"
+          }
+        ]
+      }
+    ]
+  },
+  "shell-collector": {
+    "sprite": "person-4-down",
+    "label": "shellCollector",
+    "portrait": true,
+    "rules": [
+      {
+        "action": [
+          "give",
+          "use"
+        ],
+        "when": {
+          "items": {
+            "shell": 1
+          },
+          "using": [
+            "shell"
+          ]
+        },
+        "effects": [
+          {
+            "type": "item",
+            "item": "shell",
+            "amount": -1
+          },
+          {
+            "type": "reward",
+            "reward": "shell"
+          },
+          {
+            "type": "dialogue",
+            "key": "shellThanks"
+          },
+          {
+            "type": "sound",
+            "key": "found"
+          }
+        ]
+      },
+      {
+        "when": {
+          "items": {
+            "shell": 1
+          }
+        },
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "shellOffer"
+          }
+        ]
+      },
+      {
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "shellRequest"
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "give",
+        "label": "giveShell",
+        "when": {
+          "items": {
+            "shell": 1
+          }
+        }
+      }
+    ]
+  }
+}

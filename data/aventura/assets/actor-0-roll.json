@@ -1,0 +1,580 @@
+{
+  "frames": {
+    "person-0-down-roll-0": {
+      "source": "data/aventura/art/roll-cutout.png",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        28,
+        34
+      ],
+      "fit": true,
+      "scaleGroup": "roll",
+      "flip": false
+    },
+    "person-0-down-roll-1": {
+      "source": "data/aventura/art/roll-cutout.png",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        1,
+        0
+      ],
+      "size": [
+        28,
+        34
+      ],
+      "fit": true,
+      "scaleGroup": "roll",
+      "flip": false
+    },
+    "person-0-down-roll-2": {
+      "source": "data/aventura/art/roll-cutout.png",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        2,
+        0
+      ],
+      "size": [
+        28,
+        34
+      ],
+      "fit": true,
+      "scaleGroup": "roll",
+      "flip": false
+    },
+    "person-0-down-roll-3": {
+      "source": "data/aventura/art/roll-cutout.png",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        3,
+        0
+      ],
+      "size": [
+        28,
+        34
+      ],
+      "fit": true,
+      "scaleGroup": "roll",
+      "flip": false
+    },
+    "person-0-down-right-roll-0": {
+      "source": "data/aventura/art/roll-cutout.png",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        0,
+        1
+      ],
+      "size": [
+        28,
+        34
+      ],
+      "fit": true,
+      "scaleGroup": "roll",
+      "flip": false
+    },
+    "person-0-down-right-roll-1": {
+      "source": "data/aventura/art/roll-cutout.png",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        1,
+        1
+      ],
+      "size": [
+        28,
+        34
+      ],
+      "fit": true,
+      "scaleGroup": "roll",
+      "flip": false
+    },
+    "person-0-down-right-roll-2": {
+      "source": "data/aventura/art/roll-cutout.png",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        2,
+        1
+      ],
+      "size": [
+        28,
+        34
+      ],
+      "fit": true,
+      "scaleGroup": "roll",
+      "flip": false
+    },
+    "person-0-down-right-roll-3": {
+      "source": "data/aventura/art/roll-cutout.png",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        3,
+        1
+      ],
+      "size": [
+        28,
+        34
+      ],
+      "fit": true,
+      "scaleGroup": "roll",
+      "flip": false
+    },
+    "person-0-right-roll-0": {
+      "source": "data/aventura/art/roll-cutout.png",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        0,
+        2
+      ],
+      "size": [
+        28,
+        34
+      ],
+      "fit": true,
+      "scaleGroup": "roll",
+      "flip": false
+    },
+    "person-0-right-roll-1": {
+      "source": "data/aventura/art/roll-cutout.png",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        1,
+        2
+      ],
+      "size": [
+        28,
+        34
+      ],
+      "fit": true,
+      "scaleGroup": "roll",
+      "flip": false
+    },
+    "person-0-right-roll-2": {
+      "source": "data/aventura/art/roll-cutout.png",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        2,
+        2
+      ],
+      "size": [
+        28,
+        34
+      ],
+      "fit": true,
+      "scaleGroup": "roll",
+      "flip": false
+    },
+    "person-0-right-roll-3": {
+      "source": "data/aventura/art/roll-cutout.png",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        3,
+        2
+      ],
+      "size": [
+        28,
+        34
+      ],
+      "fit": true,
+      "scaleGroup": "roll",
+      "flip": false
+    },
+    "person-0-up-right-roll-0": {
+      "source": "data/aventura/art/roll-cutout.png",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        0,
+        3
+      ],
+      "size": [
+        28,
+        34
+      ],
+      "fit": true,
+      "scaleGroup": "roll",
+      "flip": false
+    },
+    "person-0-up-right-roll-1": {
+      "source": "data/aventura/art/roll-cutout.png",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        1,
+        3
+      ],
+      "size": [
+        28,
+        34
+      ],
+      "fit": true,
+      "scaleGroup": "roll",
+      "flip": false
+    },
+    "person-0-up-right-roll-2": {
+      "source": "data/aventura/art/roll-cutout.png",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        2,
+        3
+      ],
+      "size": [
+        28,
+        34
+      ],
+      "fit": true,
+      "scaleGroup": "roll",
+      "flip": false
+    },
+    "person-0-up-right-roll-3": {
+      "source": "data/aventura/art/roll-cutout.png",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        3,
+        3
+      ],
+      "size": [
+        28,
+        34
+      ],
+      "fit": true,
+      "scaleGroup": "roll",
+      "flip": false
+    },
+    "person-0-up-roll-0": {
+      "source": "data/aventura/art/roll-cutout.png",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        0,
+        4
+      ],
+      "size": [
+        28,
+        34
+      ],
+      "fit": true,
+      "scaleGroup": "roll",
+      "flip": false
+    },
+    "person-0-up-roll-1": {
+      "source": "data/aventura/art/roll-cutout.png",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        1,
+        4
+      ],
+      "size": [
+        28,
+        34
+      ],
+      "fit": true,
+      "scaleGroup": "roll",
+      "flip": false
+    },
+    "person-0-up-roll-2": {
+      "source": "data/aventura/art/roll-cutout.png",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        2,
+        4
+      ],
+      "size": [
+        28,
+        34
+      ],
+      "fit": true,
+      "scaleGroup": "roll",
+      "flip": false
+    },
+    "person-0-up-roll-3": {
+      "source": "data/aventura/art/roll-cutout.png",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        3,
+        4
+      ],
+      "size": [
+        28,
+        34
+      ],
+      "fit": true,
+      "scaleGroup": "roll",
+      "flip": false
+    },
+    "person-0-up-left-roll-0": {
+      "source": "data/aventura/art/roll-cutout.png",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        0,
+        3
+      ],
+      "size": [
+        28,
+        34
+      ],
+      "fit": true,
+      "scaleGroup": "roll",
+      "flip": true
+    },
+    "person-0-up-left-roll-1": {
+      "source": "data/aventura/art/roll-cutout.png",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        1,
+        3
+      ],
+      "size": [
+        28,
+        34
+      ],
+      "fit": true,
+      "scaleGroup": "roll",
+      "flip": true
+    },
+    "person-0-up-left-roll-2": {
+      "source": "data/aventura/art/roll-cutout.png",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        2,
+        3
+      ],
+      "size": [
+        28,
+        34
+      ],
+      "fit": true,
+      "scaleGroup": "roll",
+      "flip": true
+    },
+    "person-0-up-left-roll-3": {
+      "source": "data/aventura/art/roll-cutout.png",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        3,
+        3
+      ],
+      "size": [
+        28,
+        34
+      ],
+      "fit": true,
+      "scaleGroup": "roll",
+      "flip": true
+    },
+    "person-0-left-roll-0": {
+      "source": "data/aventura/art/roll-cutout.png",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        0,
+        2
+      ],
+      "size": [
+        28,
+        34
+      ],
+      "fit": true,
+      "scaleGroup": "roll",
+      "flip": true
+    },
+    "person-0-left-roll-1": {
+      "source": "data/aventura/art/roll-cutout.png",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        1,
+        2
+      ],
+      "size": [
+        28,
+        34
+      ],
+      "fit": true,
+      "scaleGroup": "roll",
+      "flip": true
+    },
+    "person-0-left-roll-2": {
+      "source": "data/aventura/art/roll-cutout.png",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        2,
+        2
+      ],
+      "size": [
+        28,
+        34
+      ],
+      "fit": true,
+      "scaleGroup": "roll",
+      "flip": true
+    },
+    "person-0-left-roll-3": {
+      "source": "data/aventura/art/roll-cutout.png",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        3,
+        2
+      ],
+      "size": [
+        28,
+        34
+      ],
+      "fit": true,
+      "scaleGroup": "roll",
+      "flip": true
+    },
+    "person-0-down-left-roll-0": {
+      "source": "data/aventura/art/roll-cutout.png",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        0,
+        1
+      ],
+      "size": [
+        28,
+        34
+      ],
+      "fit": true,
+      "scaleGroup": "roll",
+      "flip": true
+    },
+    "person-0-down-left-roll-1": {
+      "source": "data/aventura/art/roll-cutout.png",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        1,
+        1
+      ],
+      "size": [
+        28,
+        34
+      ],
+      "fit": true,
+      "scaleGroup": "roll",
+      "flip": true
+    },
+    "person-0-down-left-roll-2": {
+      "source": "data/aventura/art/roll-cutout.png",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        2,
+        1
+      ],
+      "size": [
+        28,
+        34
+      ],
+      "fit": true,
+      "scaleGroup": "roll",
+      "flip": true
+    },
+    "person-0-down-left-roll-3": {
+      "source": "data/aventura/art/roll-cutout.png",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        3,
+        1
+      ],
+      "size": [
+        28,
+        34
+      ],
+      "fit": true,
+      "scaleGroup": "roll",
+      "flip": true
+    }
+  }
+}

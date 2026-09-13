@@ -1,0 +1,10 @@
+{
+  "animation": {
+    "variant": 3,
+    "source": "data/aventura/art/guardian-cutout.png",
+    "width": 1122,
+    "rows": [0, 291, 565, 830, 1092, 1402],
+    "size": [28, 40],
+    "flipExceptions": ["down-right:3", "down-left:3"]
+  }
+}

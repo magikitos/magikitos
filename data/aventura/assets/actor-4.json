@@ -1,0 +1,10 @@
+{
+  "animation": {
+    "variant": 4,
+    "source": "data/aventura/art/moss-neighbor-cutout.png",
+    "width": 1122,
+    "rows": [0, 290, 568, 837, 1095, 1402],
+    "size": [28, 40],
+    "flipExceptions": []
+  }
+}

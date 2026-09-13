@@ -1,111 +1,137 @@
-# ✨ Los Magikitos
+# ✨ Magikitos — The Adventure
 
-> **Guardianes de la Alegría Cotidiana**
+A top-down pixel-art adventure set in the world of the Magikitos: warm art,
+original characters and music, and not a single reflex test.
 
-Los Magikitos son unos duendes campantes y traviesos cuya función principal en el mundo es la de actuar como los **Guardianes de la Alegría Cotidiana**.
-
----
-
-## 📖 Tabla de Contenidos
-
-- [Origen y Naturaleza](#-origen-y-naturaleza)
-- [La Filosofía Magikita](#-la-filosofía-magikita)
-- [El Sistema de las 12 Chispas Mágicas](#-el-sistema-de-las-12-chispas-mágicas)
-- [Tipos de Magikitos](#-tipos-de-magikitos)
-  - [Duendes](#duendes)
-  - [Hadas](#hadas)
-  - [Animagikitos](#animagikitos)
+> **Status: in development. Not released.** The world runs, but this is an
+> active build — expect rough edges, placeholder art and changing data formats.
 
 ---
 
-## 🌲 Origen y Naturaleza
+## What the game is
 
-Las leyendas sitúan su nacimiento en los **bosques de Taramundi**. Desde tiempos inmemoriales han vivido allí, asegurando la paz y el buen rollo en el entorno. Aunque son criaturas del bosque, sienten una fuerte afinidad por los hogares humanos, a los que visitan frecuentemente para cumplir su propósito.
+You play a small duende with a pointed hat. You wander, poke at things, pick
+up objects, solve little puzzles and pull harmless pranks. That's it, and
+that's on purpose.
 
-Su naturaleza es **dual**: por un lado, conservan el carácter travieso y juguetón de los Trasgos (pudiendo esconder objetos pequeños o crear desordenes leves), pero su intención principal es siempre **positiva**, buscando proteger a los Humanos de la monotonía, el aburrimiento, el mal rollo, la soledad y las injusticias.
+- **No combat, no death, no timers, no reflex challenges.**
+- An open world that grows through interlinked local adventures. Each area has
+  its own identity and can open the way to the next through what you do.
+- Humour is everyday and cheeky, never at another player's expense.
+- Movement is calm. The magic works slowly.
 
----
-
-## 🧭 La Filosofía Magikita
-
-A diferencia de otros espíritus del folclore, el comportamiento de los Magikitos parece regirse por una filosofía innata, un código de conducta basado en varios principios:
-
-### 🐌 Vivir sin prisa
-Se mueven y actúan con una paciencia absoluta. Se cree que su magia funciona lentamente, construyendo calma o creatividad día a día, en un acto de resistencia contra la prisa del mundo moderno.
-
-### 🎨 La belleza de lo imperfecto
-Los Magikitos no son criaturas de belleza perfecta o simétrica. Suelen tener rasgos desiguales, sonrisas torcidas o detalles únicos. Esta imperfección es fundamental, ya que representa su autenticidad y su "alma".
-
-### 💫 Alegría como resistencia
-Su presencia en un hogar se considera un acto activo para contrarrestar el estrés, la ansiedad o las malas noticias. Su misión es recordar a los humanos que la alegría y la calma son necesarias.
-
-### 🤝 Comunidad sobre individualidad
-No actúan solos. Se considera que forman una "tribu" y fomentan el sentido de comunidad en el hogar que protegen.
+The world is a 128 × 96 tile exterior — a starting clearing, forest, a river
+and bridge, a village on grass, a lake and a night campfire corner — plus
+separate interiors and a 64 × 48 islet you reach by boat.
 
 ---
 
-## ⚡ El Sistema de las 12 Chispas Mágicas
+## The world it belongs to
 
-La característica más distintiva y fundamental del folclore de los Magikitos es su rol como portadores de las **"Chispas Mágicas"**. Estas Chispas son doce energías específicas o propósitos que el Magikito irradia en el hogar que ha elegido.
+The **Magikitos** are mischievous, easygoing creatures whose job in the world
+is to act as the **Guardians of Everyday Joy**.
 
-> Se cree que una persona no elige a un Magikito, sino que es atraída por la Chispa (o combinación de Chispas) que más necesita en ese momento de su vida.
+Legend places their birth in the **forests of Taramundi**, where they have
+lived since time immemorial keeping the peace and the good mood of the place.
+They are forest creatures, but they feel a strong pull toward human homes,
+which they visit often to get on with their purpose.
 
-Un solo Magikito puede ser portador de una o varias de estas energías.
+Their nature is dual. They keep the playful, mischievous streak of the old
+Trasgos — they will hide small objects and cause mild disorder — but the
+intent behind it is always positive: protecting humans from monotony, boredom,
+bad moods, loneliness and unfairness.
 
-### Las 12 Chispas Canónicas
+### The Magikito philosophy
 
-| Chispa | Descripción |
-|--------|-------------|
-| 🧘 **Calma** | Serenidad, paz interior y respiración pausada |
-| 🎨 **Creatividad** | Inspiración, flujo de ideas y musa |
-| 😄 **Alegría** | Risas, buen humor y luz en días oscuros |
-| 🛡️ **Protección** | Seguridad, refugio y establecimiento de límites |
-| 🗺️ **Aventura** | Exploración, curiosidad y valor para lo nuevo |
-| 🌿 **Naturaleza** | Conexión con la tierra y lo orgánico |
-| 🏡 **Hogar** | Sentido de pertenencia, refugio y raíces |
-| 💝 **Amor** | Ternura, afecto y conexión profunda |
-| 🍀 **Fortuna** | Buena suerte, oportunidades y nuevos comienzos |
-| 📚 **Sabiduría** | Perspectiva, paciencia y visión clara |
-| 👥 **Amistad** | Conexión, comunidad y vínculos auténticos |
-| 🌙 **Sueños** | Descanso profundo y mundo onírico |
+| | |
+|---|---|
+| 🐌 **Live unhurried** | They move with absolute patience. Their magic works slowly, building calm or creativity day by day, as an act of resistance against the rush of the modern world. |
+| 🎨 **The beauty of the imperfect** | They are not symmetrical or conventionally pretty. Uneven features, crooked smiles, odd details. That imperfection is the point — it is their authenticity, their soul. |
+| 💫 **Joy as resistance** | Their presence in a home is an active push against stress, anxiety and bad news; a reminder that calm and joy are necessary, not optional. |
+| 🤝 **Community over the individual** | They never act alone. They form a tribe, and they encourage that same sense of community in the home they protect. |
+
+### The 12 Magic Sparks
+
+The most distinctive part of Magikito folklore is their role as carriers of the
+**Sparks** — twelve specific energies a Magikito radiates into the home it has
+chosen. A person does not pick a Magikito; they are drawn to the Spark they
+most need at that point in their life. One Magikito may carry several.
+
+| Spark | What it brings |
+|---|---|
+| 🧘 **Calm** | Serenity, inner peace, unhurried breathing |
+| 🎨 **Creativity** | Inspiration, the flow of ideas, the muse |
+| 😄 **Joy** | Laughter, good humour, light on dark days |
+| 🛡️ **Protection** | Safety, shelter, healthy boundaries |
+| 🗺️ **Adventure** | Exploration, curiosity, nerve for the new |
+| 🌿 **Nature** | Connection with the earth and the organic |
+| 🏡 **Home** | Belonging, refuge, roots |
+| 💝 **Love** | Tenderness, affection, deep connection |
+| 🍀 **Fortune** | Good luck, opportunity, fresh starts |
+| 📚 **Wisdom** | Perspective, patience, clear sight |
+| 👥 **Friendship** | Connection, community, honest bonds |
+| 🌙 **Dreams** | Deep rest and the world of dreaming |
+
+### Kinds of Magikitos
+
+**Duendes** — the household guardians, and the heart of the world. Earthy
+spirits bound to a specific place, usually a human home. They get specific
+roles from the Sparks they carry: kitchen duendes, sleepy duendes (Dreams),
+home protectors (Protection). Mischievous, but fundamentally benevolent: they
+keep the emotional balance of a house, encourage creativity, or simply watch
+over the calm. The most down-to-earth and practical of the Magikitos.
+
+**Animagikitos** — small animals granted Magikito powers to protect some remote
+corner of the forest. Usually little mice, for their knack of getting anywhere,
+but a sheep or even a cow works just as well.
 
 ---
 
-## 🌟 Tipos de Magikitos
+## Repository layout
 
-Aunque los Magikitos son principalmente duendes, en su universo realmente existen varios tipos de criaturas.
-
-### Duendes
-
-Los **Duendes Magikitos** son considerados los guardianes domésticos por excelencia. Son espíritus de naturaleza terrenal, a menudo representados como pequeños humanoides vinculados a un lugar específico. En este caso, su vínculo principal es el hogar humano.
-
-Se les atribuyen roles específicos según las Chispas que portan:
-- **Duendes de Cocina**
-- **Duendes Dormilones** (vinculados a la Chispa de Sueños)
-- **Protectores del Hogar** (vinculados a la Chispa de Protección)
-
-Aunque poseen las características de un ser pícaro y travieso, su intención es fundamentalmente benévola. Se dedican a mantener el equilibrio emocional de la casa, fomentar la creatividad en los estudios, o simplemente velar por la calma. Se considera que son los más **"terrenales"** y prácticos de los Magikitos.
-
-### Hadas
-
-Las **Hadas Magikitas** son descritas como seres más etéreos y conectados con el mundo natural. Son vistas como espíritus de la naturaleza, vinculadas no tanto al hogar físico como a las energías sutiles que fluyen a través de él.
-
-Suelen estar asociadas a Chispas como **Naturaleza**, **Creatividad** o **Sueños**, actuando más como musas inspiradoras que como protectores domésticos.
-
-Se cree que su presencia fomenta la conexión con el mundo orgánico (cuidando de las plantas o mascotas) o con el mundo onírico. Mientras que los Duendes se centran en la "gestión" cotidiana de la magia del hogar, las Hadas se encargan de la **conexión de este con las fuerzas mágicas del exterior**, como el bosque o la imaginación.
-
-### Animagikitos
-
-Los **Animagikitos** son unos animalitos que han recibido los poderes de los Magikitos para poder proteger alguna zona remota del bosque.
-
-Suelen ser **ratoncitos**, por su capacidad de llegar prácticamente a cualquier lugar, pero también puede ser perfectamente una oveja o incluso una vaca.
+```
+public/assets/js/adventure/   the engine — scenes, renderer, input, rules, save…
+public/assets/js/aventura.js  bundle entrypoint
+public/assets/aventura/       shipped art packs + manifest
+data/aventura/
+  catalog.json                world catalogue
+  scenes/                     scene definitions
+  behaviors/                  reusable interactions
+  locales/                    six languages (es, en, de, fr, it, pt)
+  art/                        source art
+  world.php                   world compiler (placements, fares, doors, collisions)
+src/adventure-geometry.php    door and interior geometry, used by the compiler
+tools/adventure-studio/       local composition studio for scenes and drafts
+docs/                         design contract and notes
+```
 
 ---
 
-<div align="center">
+## Contributing
 
-**✨ Los Magikitos te están esperando ✨**
+The interesting work is **scenes and dynamics**: new areas, new interactions,
+new little puzzles, characters with something to say.
 
-*Quizás hoy sea el día en que encuentres la Chispa que necesitas*
+Data, conditions and effects live **outside** the engine — there is no wall of
+per-character `if` statements anywhere, and there should never be one. Scenes
+and behaviours are declarative and reusable, kept separate from where they are
+placed. Sprites ship in independent packs per building, tree, prop and
+character, loaded per scene rather than as one giant atlas.
 
-</div>
+Read `docs/JUEGO-AVENTURA.md` first — it is the design contract, and it is
+binding. Then `data/aventura/REFACTOR.md` for the object grammar and
+`data/aventura/ART.md` for the art pipeline.
+
+**Language:** code, comments, identifiers and documentation are in English.
+Player-facing content is translated across the six locales in
+`data/aventura/locales/`; Spanish is the source language for that content.
+
+---
+
+## Notes
+
+- Progress is saved locally under `magikitos.adventure`. The in-game purse is a
+  **local test wallet** — it is not connected to any real balance.
+- The neighbours you see walking around are an ambient, deferred representation.
+  Nobody is online; their walks are computed in your browser.
+- Original art, music and characters. Please don't lift the assets.

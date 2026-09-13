@@ -1,0 +1,19 @@
+{
+  "frames": {
+    "fisher-closed": {
+      "source": "data/aventura/art/building-doors-cutout.png",
+      "grid": [
+        3,
+        2
+      ],
+      "cell": [
+        0,
+        1
+      ],
+      "size": [
+        88,
+        84
+      ]
+    }
+  }
+}

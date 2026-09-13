@@ -1,0 +1,149 @@
+{
+  "id": "tavern",
+  "width": 32,
+  "height": 27,
+  "seed": 918,
+  "indoor": true,
+  "spawn": {
+    "x": 16.5,
+    "y": 21.5
+  },
+  "paths": [],
+  "waters": [],
+  "clearings": [],
+  "regions": [],
+  "rugs": [
+    {
+      "x": 16.5,
+      "y": 14.5,
+      "width": 11,
+      "height": 6.5,
+      "color": "#647f78"
+    }
+  ],
+  "entities": [
+    {
+      "id": "exit",
+      "sprite": "doorway",
+      "x": 16.5,
+      "y": 24.5,
+      "rules": [
+        {
+          "effects": [
+            {
+              "type": "travel",
+              "scene": "overworld",
+              "x": 55.5,
+              "y": 32.5
+            }
+          ]
+        }
+      ],
+      "label": "outside",
+      "portal": true
+    },
+    {
+      "id": "bar-counter",
+      "sprite": "workbench",
+      "x": 16.5,
+      "y": 6.5,
+      "rules": [
+        {
+          "effects": [
+            {
+              "type": "content",
+              "key": "jokes"
+            }
+          ]
+        }
+      ],
+      "solid": [-2, -1.5, 4, 1.8],
+      "label": "jokes"
+    },
+    {
+      "id": "jokes",
+      "sprite": "table",
+      "x": 10.5,
+      "y": 13.5,
+      "rules": [
+        {
+          "effects": [
+            {
+              "type": "content",
+              "key": "jokes"
+            }
+          ]
+        }
+      ],
+      "solid": [-1.5, -1.5, 3, 1.8],
+      "label": "jokes"
+    },
+    {
+      "id": "tavern-table",
+      "sprite": "table",
+      "x": 23.5,
+      "y": 15.5,
+      "rules": [
+        {
+          "when": {},
+          "effects": [
+            {
+              "type": "dialogue",
+              "key": "tavernTable"
+            }
+          ]
+        }
+      ],
+      "solid": [-1.5, -1.5, 3, 1.8],
+      "label": "table"
+    },
+    {
+      "id": "tavern-plant",
+      "sprite": "flower-pot",
+      "x": 5.5,
+      "y": 5.5,
+      "rules": []
+    },
+    {
+      "id": "tavern-crates",
+      "sprite": "crates",
+      "x": 26.5,
+      "y": 6.5,
+      "rules": []
+    }
+  ],
+  "ambient": {
+    "kind": "dust",
+    "count": 5
+  },
+  "neighbors": [
+    {
+      "id": "joker-1",
+      "x": 7.5,
+      "y": 12.5,
+      "radius": 0.5,
+      "content": "jokes"
+    },
+    {
+      "id": "joker-2",
+      "x": 10.5,
+      "y": 10.5,
+      "radius": 0.5,
+      "content": "jokes"
+    },
+    {
+      "id": "joker-3",
+      "x": 13.5,
+      "y": 13.5,
+      "radius": 0.5,
+      "content": "jokes"
+    },
+    {
+      "id": "joker-4",
+      "x": 10.5,
+      "y": 16.5,
+      "radius": 0.5,
+      "content": "jokes"
+    }
+  ]
+}

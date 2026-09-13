@@ -1,0 +1,142 @@
+{
+  "id": "cottage",
+  "width": 20,
+  "height": 18,
+  "seed": 917,
+  "indoor": true,
+  "spawn": {
+    "x": 10.5,
+    "y": 13.5
+  },
+  "paths": [],
+  "waters": [],
+  "clearings": [],
+  "regions": [],
+  "rugs": [],
+  "ambient": {
+    "kind": "dust",
+    "count": 2
+  },
+  "entities": [
+    {
+      "id": "exit",
+      "sprite": "doorway",
+      "x": 10.5,
+      "y": 15.5,
+      "rules": [
+        {
+          "effects": [
+            {
+              "type": "travel",
+              "scene": "overworld",
+              "x": 58.5,
+              "y": 26.5
+            }
+          ]
+        }
+      ],
+      "label": "outside",
+      "portal": true
+    },
+    {
+      "id": "cottage-bed",
+      "sprite": "bed",
+      "x": 5.5,
+      "y": 7.5,
+      "rules": [
+        {
+          "when": {},
+          "effects": [
+            {
+              "type": "dialogue",
+              "key": "cottageBed"
+            }
+          ]
+        }
+      ],
+      "solid": [
+        -1.8,
+        -2.8,
+        3.6,
+        3.1
+      ],
+      "label": "bed"
+    },
+    {
+      "id": "cottage-table",
+      "sprite": "bedside-table",
+      "x": 14,
+      "y": 8,
+      "rules": [],
+      "solid": [
+        -1.5,
+        -1.4,
+        3,
+        1.8
+      ],
+      "interactAs": "house-lighter",
+      "interactWhen": {
+        "flags": {
+          "lighterFound": false
+        }
+      }
+    },
+    {
+      "id": "house-lighter",
+      "sprite": "lighter",
+      "x": 14,
+      "y": 8,
+      "rules": [
+        {
+          "effects": [
+            {
+              "type": "item",
+              "item": "lighter",
+              "amount": 1
+            },
+            {
+              "type": "flag",
+              "flag": "lighterFound"
+            },
+            {
+              "type": "dialogue",
+              "key": "picnicLighter"
+            },
+            {
+              "type": "sound",
+              "key": "found"
+            }
+          ]
+        }
+      ],
+      "hiddenWhen": {
+        "flags": {
+          "lighterFound": true
+        }
+      },
+      "label": "lighterName",
+      "offset": [
+        -10,
+        -20
+      ],
+      "solid": [
+        -1.5,
+        -1.4,
+        3,
+        1.8
+      ]
+    },
+    {
+      "id": "cottage-vase",
+      "sprite": "flower-vase",
+      "x": 14,
+      "y": 8,
+      "offset": [
+        10,
+        -20
+      ],
+      "rules": []
+    }
+  ],
+  "label": "cottage"
+}

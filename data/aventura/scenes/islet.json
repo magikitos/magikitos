@@ -1,0 +1,247 @@
+{
+  "id": "islet",
+  "label": "islet",
+  "width": 64,
+  "height": 48,
+  "seed": 96271,
+  "spawn": {
+    "x": 10.5,
+    "y": 25.5
+  },
+  "baseWater": true,
+  "islands": [
+    {
+      "x": 32,
+      "y": 24,
+      "rx": 24,
+      "ry": 16
+    }
+  ],
+  "waters": [],
+  "rivers": [],
+  "bridges": [
+    {
+      "rect": [
+        8.5,
+        24,
+        5.5,
+        2
+      ],
+      "sprite": "jetty"
+    }
+  ],
+  "paths": [
+    [
+      [
+        13.5,
+        25
+      ],
+      [
+        25,
+        24
+      ],
+      [
+        34,
+        23
+      ],
+      [
+        39,
+        28
+      ],
+      [
+        44,
+        34
+      ]
+    ]
+  ],
+  "clearings": [
+    [
+      18,
+      25,
+      5
+    ],
+    [
+      25,
+      27,
+      6
+    ],
+    [
+      44,
+      34,
+      4
+    ],
+    [
+      34,
+      23,
+      5
+    ],
+    [
+      11.5,
+      24,
+      5
+    ]
+  ],
+  "regions": [
+    {
+      "id": "islet",
+      "rect": [
+        0,
+        0,
+        64,
+        48
+      ],
+      "ground": "meadow"
+    }
+  ],
+  "decoration": {
+    "trees": [
+      "willow",
+      "fruit-tree"
+    ],
+    "treeRegions": [
+      "islet"
+    ],
+    "islet": [
+      "coastal-grass",
+      "coastal-grass",
+      "sandstone",
+      "fern"
+    ],
+    "count": 95
+  },
+  "ambient": {
+    "kind": "forest",
+    "count": 6
+  },
+  "actors": [
+    4
+  ],
+  "entities": [
+    {
+      "id": "islet-ferryman",
+      "behavior": "ferry",
+      "x": 11.5,
+      "y": 24.5,
+      "destination": {
+        "scene": "overworld",
+        "x": 90.5,
+        "y": 44.5
+      }
+    },
+    {
+      "id": "shell-collector",
+      "behavior": "shell-collector",
+      "x": 24.5,
+      "y": 27.5
+    },
+    {
+      "id": "shore-shells",
+      "behavior": "shells",
+      "x": 44.5,
+      "y": 35.5
+    },
+    {
+      "id": "collector-basket",
+      "sprite": "basket",
+      "x": 26.5,
+      "y": 27.5,
+      "rules": []
+    },
+    {
+      "id": "islet-bench",
+      "sprite": "bench",
+      "x": 31.5,
+      "y": 19.5,
+      "rules": [
+        {
+          "effects": [
+            {
+              "type": "dialogue",
+              "key": "isletBench"
+            }
+          ]
+        }
+      ],
+      "solid": [
+        -1,
+        -0.5,
+        2,
+        0.6
+      ],
+      "label": "bench"
+    },
+    {
+      "id": "islet-willow",
+      "sprite": "willow",
+      "x": 34.5,
+      "y": 17.5,
+      "rules": [],
+      "solid": [
+        -0.4,
+        -0.5,
+        0.8,
+        0.7
+      ]
+    },
+    {
+      "id": "islet-fruit",
+      "sprite": "fruit-tree",
+      "x": 41.5,
+      "y": 22.5,
+      "rules": [],
+      "solid": [
+        -0.4,
+        -0.5,
+        0.8,
+        0.7
+      ]
+    },
+    {
+      "id": "islet-rock",
+      "sprite": "sandstone",
+      "x": 42.5,
+      "y": 36.5,
+      "rules": []
+    },
+    {
+      "id": "islet-reeds",
+      "sprite": "coastal-grass",
+      "x": 46.5,
+      "y": 33.5,
+      "rules": []
+    },
+    {
+      "id": "islet-ferry",
+      "sprite": "ferry",
+      "x": 6.5,
+      "y": 26,
+      "solid": [
+        -2.6,
+        -1.7,
+        5.2,
+        2
+      ],
+      "rules": [],
+      "interactAs": "islet-ferryman",
+      "flip": true
+    },
+    {
+      "id": "islet-leaves",
+      "behavior": "toilet-plant",
+      "x": 31.5,
+      "y": 17.5
+    }
+  ],
+  "neighbors": [
+    {
+      "id": "islet-wanderer",
+      "x": 33.5,
+      "y": 25.5,
+      "radius": 3,
+      "dialogue": "isletGreeting"
+    }
+  ],
+  "assetPacks": [
+    "ferry-aboard"
+  ]
+}

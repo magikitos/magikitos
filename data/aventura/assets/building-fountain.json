@@ -1,0 +1,11 @@
+{
+  "frames": {
+    "fountain": {
+      "source": "data/aventura/art/buildings.png",
+      "grid": [3, 2],
+      "cell": [2, 1],
+      "size": [80, 70],
+      "cleanFragments": 0.1
+    }
+  }
+}

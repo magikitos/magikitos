@@ -1,0 +1,169 @@
+{
+  "id": "house",
+  "width": 26,
+  "height": 23,
+  "seed": 917,
+  "indoor": true,
+  "spawn": {
+    "x": 13.5,
+    "y": 18.5
+  },
+  "paths": [],
+  "waters": [],
+  "clearings": [],
+  "regions": [],
+  "rugs": [
+    {
+      "x": 13,
+      "y": 11.5,
+      "width": 9,
+      "height": 8,
+      "color": "#728578"
+    }
+  ],
+  "ambient": {
+    "kind": "dust",
+    "count": 4
+  },
+  "entities": [
+    {
+      "id": "exit",
+      "sprite": "doorway",
+      "x": 13.5,
+      "y": 20.5,
+      "rules": [
+        {
+          "effects": [
+            {
+              "type": "travel",
+              "scene": "overworld",
+              "x": 34.5,
+              "y": 66.5
+            }
+          ]
+        }
+      ],
+      "label": "outside",
+      "portal": true
+    },
+    {
+      "id": "human-bed",
+      "sprite": "bed",
+      "x": 5.5,
+      "y": 8.5,
+      "rules": [
+        {
+          "when": {},
+          "effects": [
+            {
+              "type": "dialogue",
+              "key": "humanBed"
+            }
+          ]
+        }
+      ],
+      "solid": [
+        -1.8,
+        -2.8,
+        3.6,
+        3.1
+      ],
+      "label": "bed"
+    },
+    {
+      "id": "human-table",
+      "sprite": "table",
+      "x": 5.5,
+      "y": 17.5,
+      "rules": [
+        {
+          "when": {},
+          "effects": [
+            {
+              "type": "dialogue",
+              "key": "humanTable"
+            }
+          ]
+        }
+      ],
+      "solid": [
+        -1.5,
+        -1.4,
+        3,
+        1.8
+      ],
+      "label": "table"
+    },
+    {
+      "id": "human-sideboard",
+      "sprite": "workbench",
+      "x": 21.5,
+      "y": 8.5,
+      "rules": [
+        {
+          "when": {},
+          "effects": [
+            {
+              "type": "dialogue",
+              "key": "humanDrawers"
+            }
+          ]
+        }
+      ],
+      "solid": [
+        -1.5,
+        -1.5,
+        3,
+        1.8
+      ],
+      "label": "table"
+    },
+    {
+      "id": "expression-book",
+      "sprite": "book-lectern",
+      "x": 21.5,
+      "y": 15.5,
+      "rules": [
+        {
+          "effects": [
+            {
+              "type": "content",
+              "key": "expressions"
+            }
+          ]
+        }
+      ],
+      "solid": [
+        -0.85,
+        -1.2,
+        1.7,
+        1.4
+      ],
+      "label": "expressionBook"
+    },
+    {
+      "id": "house-plant",
+      "sprite": "flower-pot",
+      "x": 21.5,
+      "y": 4.5,
+      "rules": []
+    },
+    {
+      "id": "house-lantern",
+      "sprite": "lantern",
+      "x": 13.5,
+      "y": 4.5,
+      "rules": []
+    },
+    {
+      "id": "house-crates",
+      "sprite": "crates",
+      "x": 21.5,
+      "y": 19.5,
+      "rules": []
+    }
+  ],
+  "actors": [
+    3
+  ]
+}

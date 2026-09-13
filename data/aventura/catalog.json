@@ -1,0 +1,167 @@
+{
+  "start": "overworld",
+  "flags": [
+    "introSeen",
+    "mushroomFound",
+    "lighterFound",
+    "fireLit",
+    "doorKnocked",
+    "twigFound",
+    "skewerCooked",
+    "picnicFed"
+  ],
+  "items": {
+    "mushroom": {
+      "name": "mushroomName",
+      "description": "mushroomDescription",
+      "sprite": "mushroom",
+      "max": 1,
+      "usable": true,
+      "reusable": false
+    },
+    "lighter": {
+      "name": "lighterName",
+      "description": "lighterDescription",
+      "sprite": "lighter",
+      "max": 1,
+      "usable": true,
+      "reusable": true
+    },
+    "twig": {
+      "name": "twigName",
+      "description": "twigDescription",
+      "sprite": "twig",
+      "max": 1,
+      "usable": true,
+      "reusable": false
+    },
+    "skewer": {
+      "name": "skewerName",
+      "description": "skewerDescription",
+      "sprite": "skewer",
+      "max": 1,
+      "usable": true,
+      "reusable": false
+    },
+    "shell": {
+      "name": "shellName",
+      "description": "shellDescription",
+      "sprite": "shells",
+      "max": 1,
+      "usable": true,
+      "reusable": false
+    },
+    "leaf": {
+      "name": "leafName",
+      "description": "leafDescription",
+      "sprite": "toilet-leaf",
+      "max": 99,
+      "usable": false,
+      "reusable": false
+    }
+  },
+  "avatarVariants": 5,
+  "contentRooms": {
+    "stories": {
+      "scene": "overworld",
+      "circle": [
+        105.5,
+        81.5,
+        10
+      ],
+      "kinds": [
+        "cuento",
+        "taramundi"
+      ],
+      "focus": "story-fire"
+    },
+    "jokes": {
+      "scene": "tavern",
+      "kinds": [
+        "chiste"
+      ],
+      "focus": "jokes"
+    },
+    "expressions": {
+      "scene": "house",
+      "kinds": [
+        "expresion"
+      ],
+      "focus": "expression-book"
+    },
+    "shop": {
+      "scene": "workshop",
+      "focus": "shop"
+    },
+    "art": {
+      "scene": "overworld",
+      "circle": [
+        37.5,
+        42.5,
+        8
+      ],
+      "focus": "art-table"
+    }
+  },
+  "economy": {
+    "scope": "local-preview",
+    "currency": "setines",
+    "maxBalance": 9999,
+    "fares": {
+      "lake": 5
+    },
+    "rewards": {
+      "picnic": {
+        "once": true,
+        "fare": "lake",
+        "trips": 2
+      },
+      "shell": {
+        "once": false,
+        "fare": "lake"
+      }
+    }
+  },
+  "dialogueTokens": {
+    "price": {
+      "fare": "lake"
+    },
+    "reward": {
+      "reward": "picnic"
+    }
+  },
+  "needs": {
+    "hours": {
+      "pee": [
+        6,
+        10
+      ],
+      "poop": [
+        8,
+        16
+      ]
+    },
+    "leafItem": "leaf",
+    "durations": {
+      "pee": 3.2,
+      "poop": 4.6
+    },
+    "traces": {
+      "max": 48,
+      "peeSeconds": 300,
+      "poopSeconds": 86400
+    }
+  },
+  "transports": {
+    "ferry": {
+      "duration": 4.6,
+      "spritePrefix": "ferry-aboard-",
+      "frames": 4,
+      "shoreSprites": [
+        "fern",
+        "berries",
+        "rocks"
+      ]
+    }
+  }
+}

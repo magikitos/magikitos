@@ -1,0 +1,18 @@
+{
+  "frames": {
+    "picnic-hungry": {
+      "source": "data/aventura/art/picnic-neighbor-cutout.png",
+      "rect": [0, 0, 756, 1040],
+      "size": [32, 44],
+      "fit": true,
+      "scaleGroup": "picnic"
+    },
+    "picnic-happy": {
+      "source": "data/aventura/art/picnic-neighbor-cutout.png",
+      "rect": [756, 0, 756, 1040],
+      "size": [32, 44],
+      "fit": true,
+      "scaleGroup": "picnic"
+    }
+  }
+}

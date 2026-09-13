@@ -1,0 +1,447 @@
+{
+    "packs": {
+        "actor-0-needs": {
+            "image": "packs/actor-0-needs-3e167afce0aa.png",
+            "metadata": "packs/actor-0-needs-3e167afce0aa.json",
+            "sprites": [
+                "person-0-pee-0",
+                "person-0-pee-1",
+                "person-0-pee-2",
+                "person-0-pee-3",
+                "person-0-poop-0",
+                "person-0-poop-1",
+                "person-0-poop-2",
+                "person-0-poop-3"
+            ]
+        },
+        "actor-0-roll": {
+            "image": "packs/actor-0-roll-cc6a7d7a2d12.png",
+            "metadata": "packs/actor-0-roll-cc6a7d7a2d12.json",
+            "sprites": [
+                "person-0-down-roll-0",
+                "person-0-down-roll-1",
+                "person-0-down-roll-2",
+                "person-0-down-roll-3",
+                "person-0-down-right-roll-0",
+                "person-0-down-right-roll-1",
+                "person-0-down-right-roll-2",
+                "person-0-down-right-roll-3",
+                "person-0-right-roll-0",
+                "person-0-right-roll-1",
+                "person-0-right-roll-2",
+                "person-0-right-roll-3",
+                "person-0-up-right-roll-0",
+                "person-0-up-right-roll-1",
+                "person-0-up-right-roll-2",
+                "person-0-up-right-roll-3",
+                "person-0-up-roll-0",
+                "person-0-up-roll-1",
+                "person-0-up-roll-2",
+                "person-0-up-roll-3",
+                "person-0-up-left-roll-0",
+                "person-0-up-left-roll-1",
+                "person-0-up-left-roll-2",
+                "person-0-up-left-roll-3",
+                "person-0-left-roll-0",
+                "person-0-left-roll-1",
+                "person-0-left-roll-2",
+                "person-0-left-roll-3",
+                "person-0-down-left-roll-0",
+                "person-0-down-left-roll-1",
+                "person-0-down-left-roll-2",
+                "person-0-down-left-roll-3"
+            ]
+        },
+        "actor-0": {
+            "image": "packs/actor-0-e4d3a6c3c484.png",
+            "metadata": "packs/actor-0-e4d3a6c3c484.json",
+            "sprites": [
+                "person-0-down",
+                "person-0-down-walk-1",
+                "person-0-down-walk-2",
+                "person-0-down-walk-3",
+                "person-0-down-right",
+                "person-0-down-right-walk-1",
+                "person-0-down-right-walk-2",
+                "person-0-down-right-walk-3",
+                "person-0-right",
+                "person-0-right-walk-1",
+                "person-0-right-walk-2",
+                "person-0-right-walk-3",
+                "person-0-up-right",
+                "person-0-up-right-walk-1",
+                "person-0-up-right-walk-2",
+                "person-0-up-right-walk-3",
+                "person-0-up",
+                "person-0-up-walk-1",
+                "person-0-up-walk-2",
+                "person-0-up-walk-3",
+                "person-0-up-left",
+                "person-0-up-left-walk-1",
+                "person-0-up-left-walk-2",
+                "person-0-up-left-walk-3",
+                "person-0-left",
+                "person-0-left-walk-1",
+                "person-0-left-walk-2",
+                "person-0-left-walk-3",
+                "person-0-down-left",
+                "person-0-down-left-walk-1",
+                "person-0-down-left-walk-2",
+                "person-0-down-left-walk-3"
+            ]
+        },
+        "actor-1": {
+            "image": "packs/actor-1-64a374931890.png",
+            "metadata": "packs/actor-1-64a374931890.json",
+            "sprites": [
+                "person-1-down",
+                "person-1-down-walk-1",
+                "person-1-down-walk-2",
+                "person-1-down-walk-3",
+                "person-1-down-right",
+                "person-1-down-right-walk-1",
+                "person-1-down-right-walk-2",
+                "person-1-down-right-walk-3",
+                "person-1-right",
+                "person-1-right-walk-1",
+                "person-1-right-walk-2",
+                "person-1-right-walk-3",
+                "person-1-up-right",
+                "person-1-up-right-walk-1",
+                "person-1-up-right-walk-2",
+                "person-1-up-right-walk-3",
+                "person-1-up",
+                "person-1-up-walk-1",
+                "person-1-up-walk-2",
+                "person-1-up-walk-3",
+                "person-1-up-left",
+                "person-1-up-left-walk-1",
+                "person-1-up-left-walk-2",
+                "person-1-up-left-walk-3",
+                "person-1-left",
+                "person-1-left-walk-1",
+                "person-1-left-walk-2",
+                "person-1-left-walk-3",
+                "person-1-down-left",
+                "person-1-down-left-walk-1",
+                "person-1-down-left-walk-2",
+                "person-1-down-left-walk-3"
+            ]
+        },
+        "actor-2": {
+            "image": "packs/actor-2-1f2f11837f85.png",
+            "metadata": "packs/actor-2-1f2f11837f85.json",
+            "sprites": [
+                "person-2-down",
+                "person-2-down-walk-1",
+                "person-2-down-walk-2",
+                "person-2-down-walk-3",
+                "person-2-down-right",
+                "person-2-down-right-walk-1",
+                "person-2-down-right-walk-2",
+                "person-2-down-right-walk-3",
+                "person-2-right",
+                "person-2-right-walk-1",
+                "person-2-right-walk-2",
+                "person-2-right-walk-3",
+                "person-2-up-right",
+                "person-2-up-right-walk-1",
+                "person-2-up-right-walk-2",
+                "person-2-up-right-walk-3",
+                "person-2-up",
+                "person-2-up-walk-1",
+                "person-2-up-walk-2",
+                "person-2-up-walk-3",
+                "person-2-up-left",
+                "person-2-up-left-walk-1",
+                "person-2-up-left-walk-2",
+                "person-2-up-left-walk-3",
+                "person-2-left",
+                "person-2-left-walk-1",
+                "person-2-left-walk-2",
+                "person-2-left-walk-3",
+                "person-2-down-left",
+                "person-2-down-left-walk-1",
+                "person-2-down-left-walk-2",
+                "person-2-down-left-walk-3"
+            ]
+        },
+        "actor-3": {
+            "image": "packs/actor-3-8ed9282138db.png",
+            "metadata": "packs/actor-3-8ed9282138db.json",
+            "sprites": [
+                "person-3-down",
+                "person-3-down-walk-1",
+                "person-3-down-walk-2",
+                "person-3-down-walk-3",
+                "person-3-down-right",
+                "person-3-down-right-walk-1",
+                "person-3-down-right-walk-2",
+                "person-3-down-right-walk-3",
+                "person-3-right",
+                "person-3-right-walk-1",
+                "person-3-right-walk-2",
+                "person-3-right-walk-3",
+                "person-3-up-right",
+                "person-3-up-right-walk-1",
+                "person-3-up-right-walk-2",
+                "person-3-up-right-walk-3",
+                "person-3-up",
+                "person-3-up-walk-1",
+                "person-3-up-walk-2",
+                "person-3-up-walk-3",
+                "person-3-up-left",
+                "person-3-up-left-walk-1",
+                "person-3-up-left-walk-2",
+                "person-3-up-left-walk-3",
+                "person-3-left",
+                "person-3-left-walk-1",
+                "person-3-left-walk-2",
+                "person-3-left-walk-3",
+                "person-3-down-left",
+                "person-3-down-left-walk-1",
+                "person-3-down-left-walk-2",
+                "person-3-down-left-walk-3"
+            ]
+        },
+        "actor-4": {
+            "image": "packs/actor-4-a5830c4765cc.png",
+            "metadata": "packs/actor-4-a5830c4765cc.json",
+            "sprites": [
+                "person-4-down",
+                "person-4-down-walk-1",
+                "person-4-down-walk-2",
+                "person-4-down-walk-3",
+                "person-4-down-right",
+                "person-4-down-right-walk-1",
+                "person-4-down-right-walk-2",
+                "person-4-down-right-walk-3",
+                "person-4-right",
+                "person-4-right-walk-1",
+                "person-4-right-walk-2",
+                "person-4-right-walk-3",
+                "person-4-up-right",
+                "person-4-up-right-walk-1",
+                "person-4-up-right-walk-2",
+                "person-4-up-right-walk-3",
+                "person-4-up",
+                "person-4-up-walk-1",
+                "person-4-up-walk-2",
+                "person-4-up-walk-3",
+                "person-4-up-left",
+                "person-4-up-left-walk-1",
+                "person-4-up-left-walk-2",
+                "person-4-up-left-walk-3",
+                "person-4-left",
+                "person-4-left-walk-1",
+                "person-4-left-walk-2",
+                "person-4-left-walk-3",
+                "person-4-down-left",
+                "person-4-down-left-walk-1",
+                "person-4-down-left-walk-2",
+                "person-4-down-left-walk-3"
+            ]
+        },
+        "actor-5": {
+            "image": "packs/actor-5-cbb2f8c39a11.png",
+            "metadata": "packs/actor-5-cbb2f8c39a11.json",
+            "sprites": [
+                "person-5-down",
+                "person-5-down-walk-1",
+                "person-5-down-walk-2",
+                "person-5-down-walk-3",
+                "person-5-down-right",
+                "person-5-down-right-walk-1",
+                "person-5-down-right-walk-2",
+                "person-5-down-right-walk-3",
+                "person-5-right",
+                "person-5-right-walk-1",
+                "person-5-right-walk-2",
+                "person-5-right-walk-3",
+                "person-5-up-right",
+                "person-5-up-right-walk-1",
+                "person-5-up-right-walk-2",
+                "person-5-up-right-walk-3",
+                "person-5-up",
+                "person-5-up-walk-1",
+                "person-5-up-walk-2",
+                "person-5-up-walk-3",
+                "person-5-up-left",
+                "person-5-up-left-walk-1",
+                "person-5-up-left-walk-2",
+                "person-5-up-left-walk-3",
+                "person-5-left",
+                "person-5-left-walk-1",
+                "person-5-left-walk-2",
+                "person-5-left-walk-3",
+                "person-5-down-left",
+                "person-5-down-left-walk-1",
+                "person-5-down-left-walk-2",
+                "person-5-down-left-walk-3"
+            ]
+        },
+        "barbecue": {
+            "image": "packs/barbecue-a26fcc82aa38.png",
+            "metadata": "packs/barbecue-a26fcc82aa38.json",
+            "sprites": [
+                "barbecue-lit",
+                "barbecue"
+            ]
+        },
+        "building-cottage": {
+            "image": "packs/building-cottage-a98164ddae89.png",
+            "metadata": "packs/building-cottage-a98164ddae89.json",
+            "sprites": [
+                "cottage",
+                "cottage-closed"
+            ]
+        },
+        "building-fisher": {
+            "image": "packs/building-fisher-e9b379d9feb1.png",
+            "metadata": "packs/building-fisher-e9b379d9feb1.json",
+            "sprites": [
+                "fisher-closed"
+            ]
+        },
+        "building-fountain": {
+            "image": "packs/building-fountain-56930ded49da.png",
+            "metadata": "packs/building-fountain-56930ded49da.json",
+            "sprites": [
+                "fountain"
+            ]
+        },
+        "building-human-house": {
+            "image": "packs/building-human-house-1ad400d11593.png",
+            "metadata": "packs/building-human-house-1ad400d11593.json",
+            "sprites": [
+                "human-house"
+            ]
+        },
+        "building-tavern": {
+            "image": "packs/building-tavern-cd30d4166913.png",
+            "metadata": "packs/building-tavern-cd30d4166913.json",
+            "sprites": [
+                "tavern"
+            ]
+        },
+        "building-workshop": {
+            "image": "packs/building-workshop-b10951c48686.png",
+            "metadata": "packs/building-workshop-b10951c48686.json",
+            "sprites": [
+                "workshop"
+            ]
+        },
+        "camping": {
+            "image": "packs/camping-d71f7d910b53.png",
+            "metadata": "packs/camping-d71f7d910b53.json",
+            "sprites": [
+                "fire",
+                "coals",
+                "sign",
+                "bench",
+                "lantern"
+            ]
+        },
+        "ferry-aboard": {
+            "image": "packs/ferry-aboard-f0cf165133a9.png",
+            "metadata": "packs/ferry-aboard-f0cf165133a9.json",
+            "sprites": [
+                "ferry-aboard-0",
+                "ferry-aboard-1",
+                "ferry-aboard-2",
+                "ferry-aboard-3"
+            ]
+        },
+        "forest-trees": {
+            "image": "packs/forest-trees-0c2355c24cbb.png",
+            "metadata": "packs/forest-trees-0c2355c24cbb.json",
+            "sprites": [
+                "oak",
+                "hornbeam",
+                "birch",
+                "crooked-oak",
+                "pine"
+            ]
+        },
+        "furniture": {
+            "image": "packs/furniture-c80f0c451773.png",
+            "metadata": "packs/furniture-c80f0c451773.json",
+            "sprites": [
+                "table",
+                "bed",
+                "workbench",
+                "flower-pot",
+                "crates",
+                "easel",
+                "yarn",
+                "book-lectern"
+            ]
+        },
+        "harbor": {
+            "image": "packs/harbor-914902b6359b.png",
+            "metadata": "packs/harbor-914902b6359b.json",
+            "sprites": [
+                "ferry",
+                "jetty"
+            ]
+        },
+        "inventory": {
+            "image": "packs/inventory-dedcc689cdd6.png",
+            "metadata": "packs/inventory-dedcc689cdd6.json",
+            "sprites": [
+                "mushroom",
+                "lighter",
+                "sack",
+                "twig",
+                "skewer",
+                "setin",
+                "shells"
+            ]
+        },
+        "needs-props": {
+            "image": "packs/needs-props-0614c0c2dc12.png",
+            "metadata": "packs/needs-props-0614c0c2dc12.json",
+            "sprites": [
+                "toilet-plant",
+                "toilet-leaf",
+                "bedside-table",
+                "flower-vase",
+                "poop",
+                "pee-puddle"
+            ]
+        },
+        "picnic-neighbor": {
+            "image": "packs/picnic-neighbor-46403e79a472.png",
+            "metadata": "packs/picnic-neighbor-46403e79a472.json",
+            "sprites": [
+                "picnic-hungry",
+                "picnic-happy"
+            ]
+        },
+        "shore-garden": {
+            "image": "packs/shore-garden-1b53929adfea.png",
+            "metadata": "packs/shore-garden-1b53929adfea.json",
+            "sprites": [
+                "willow",
+                "fruit-tree",
+                "coastal-grass",
+                "sandstone",
+                "basket"
+            ]
+        },
+        "undergrowth": {
+            "image": "packs/undergrowth-b4d2f3a36d64.png",
+            "metadata": "packs/undergrowth-b4d2f3a36d64.json",
+            "sprites": [
+                "bush",
+                "stump",
+                "rocks",
+                "mushrooms",
+                "berries",
+                "fern",
+                "fallen-log",
+                "reeds"
+            ]
+        }
+    }
+}

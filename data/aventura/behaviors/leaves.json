@@ -1,0 +1,44 @@
+{
+  "toilet-plant": {
+    "sprite": "toilet-plant",
+    "label": "leafPlant",
+    "solid": [
+      -0.7,
+      -0.5,
+      1.4,
+      0.8
+    ],
+    "rules": [
+      {
+        "when": {
+          "items": {
+            "leaf": 99
+          }
+        },
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "leafFull"
+          }
+        ]
+      },
+      {
+        "effects": [
+          {
+            "type": "item",
+            "item": "leaf",
+            "amount": 1
+          },
+          {
+            "type": "dialogue",
+            "key": "leafFound"
+          },
+          {
+            "type": "sound",
+            "key": "found"
+          }
+        ]
+      }
+    ]
+  }
+}

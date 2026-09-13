@@ -1,0 +1,10 @@
+{
+  "animation": {
+    "variant": 2,
+    "source": "data/aventura/art/neighbor-cutout.png",
+    "width": 1122,
+    "rows": [0, 296, 573, 832, 1098, 1402],
+    "size": [28, 40],
+    "flipExceptions": []
+  }
+}

@@ -1,0 +1,366 @@
+{
+  "picnic-barbecue": {
+    "sprite": "barbecue",
+    "label": "barbecueName",
+    "solid": [-0.65, -0.8, 1.3, 1.1],
+    "visuals": [
+      {
+        "when": {
+          "flags": {
+            "fireLit": true
+          }
+        },
+        "sprite": "barbecue-lit"
+      }
+    ],
+    "rules": [
+      {
+        "action": ["cook", "use"],
+        "when": {
+          "items": {
+            "mushroom": 1,
+            "twig": 1,
+            "lighter": 1
+          },
+          "flags": {
+            "skewerCooked": false
+          },
+          "using": ["mushroom", "twig", "lighter"]
+        },
+        "effects": [
+          {
+            "type": "item",
+            "item": "mushroom",
+            "amount": -1
+          },
+          {
+            "type": "item",
+            "item": "twig",
+            "amount": -1
+          },
+          {
+            "type": "item",
+            "item": "skewer",
+            "amount": 1
+          },
+          {
+            "type": "flag",
+            "flag": "fireLit"
+          },
+          {
+            "type": "flag",
+            "flag": "skewerCooked"
+          },
+          {
+            "type": "dialogue",
+            "key": "skewerCooked"
+          },
+          {
+            "type": "sound",
+            "key": "found"
+          }
+        ]
+      },
+      {
+        "action": ["light", "use"],
+        "when": {
+          "items": {
+            "lighter": 1
+          },
+          "flags": {
+            "fireLit": false
+          },
+          "using": ["lighter"]
+        },
+        "effects": [
+          {
+            "type": "flag",
+            "flag": "fireLit"
+          },
+          {
+            "type": "dialogue",
+            "key": "fireLit"
+          },
+          {
+            "type": "sound",
+            "key": "found"
+          }
+        ]
+      },
+      {
+        "when": {
+          "flags": {
+            "skewerCooked": true
+          }
+        },
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "barbecueAfter"
+          }
+        ]
+      },
+      {
+        "when": {
+          "items": {
+            "mushroom": 1,
+            "twig": 1,
+            "lighter": 1
+          },
+          "flags": {
+            "skewerCooked": false
+          }
+        },
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "skewerReady"
+          }
+        ]
+      },
+      {
+        "when": {
+          "items": {
+            "mushroom": 1,
+            "twig": 1
+          }
+        },
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "skewerNeedLighter"
+          }
+        ]
+      },
+      {
+        "when": {
+          "items": {
+            "mushroom": 1,
+            "lighter": 1
+          }
+        },
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "skewerNeedTwig"
+          }
+        ]
+      },
+      {
+        "when": {
+          "items": {
+            "twig": 1,
+            "lighter": 1
+          }
+        },
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "skewerNeedMushroom"
+          }
+        ]
+      },
+      {
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "barbecueHint"
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "cook",
+        "label": "cookSkewer",
+        "when": {
+          "items": {
+            "mushroom": 1,
+            "twig": 1,
+            "lighter": 1
+          },
+          "flags": {
+            "skewerCooked": false
+          }
+        }
+      },
+      {
+        "id": "light",
+        "label": "light",
+        "when": {
+          "items": {
+            "lighter": 1
+          },
+          "flags": {
+            "fireLit": false
+          }
+        }
+      }
+    ]
+  },
+  "picnic-mushroom": {
+    "sprite": "mushroom",
+    "label": "mushroomName",
+    "hiddenWhen": {
+      "flags": {
+        "mushroomFound": true
+      }
+    },
+    "rules": [
+      {
+        "effects": [
+          {
+            "type": "item",
+            "item": "mushroom",
+            "amount": 1
+          },
+          {
+            "type": "flag",
+            "flag": "mushroomFound"
+          },
+          {
+            "type": "dialogue",
+            "key": "picnicMushroom"
+          },
+          {
+            "type": "sound",
+            "key": "found"
+          }
+        ]
+      }
+    ]
+  },
+  "picnic-twig": {
+    "sprite": "twig",
+    "label": "twigName",
+    "hiddenWhen": {
+      "flags": {
+        "twigFound": true
+      }
+    },
+    "rules": [
+      {
+        "effects": [
+          {
+            "type": "item",
+            "item": "twig",
+            "amount": 1
+          },
+          {
+            "type": "flag",
+            "flag": "twigFound"
+          },
+          {
+            "type": "dialogue",
+            "key": "picnicTwig"
+          },
+          {
+            "type": "sound",
+            "key": "found"
+          }
+        ]
+      }
+    ]
+  },
+  "picnic-neighbor": {
+    "sprite": "picnic-hungry",
+    "portrait": true,
+    "label": "picnicNeighbor",
+    "solid": [-0.5, -0.65, 1, 0.9],
+    "visuals": [
+      {
+        "when": {
+          "flags": {
+            "picnicFed": true
+          }
+        },
+        "sprite": "picnic-happy"
+      }
+    ],
+    "rules": [
+      {
+        "action": ["give", "use"],
+        "when": {
+          "items": {
+            "skewer": 1
+          },
+          "flags": {
+            "picnicFed": false
+          },
+          "using": ["skewer"]
+        },
+        "effects": [
+          {
+            "type": "item",
+            "item": "skewer",
+            "amount": -1
+          },
+          {
+            "type": "flag",
+            "flag": "picnicFed"
+          },
+          {
+            "type": "reward",
+            "reward": "picnic"
+          },
+          {
+            "type": "dialogue",
+            "key": "picnicThanks"
+          },
+          {
+            "type": "sound",
+            "key": "found"
+          }
+        ]
+      },
+      {
+        "when": {
+          "flags": {
+            "picnicFed": true
+          }
+        },
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "picnicAfter"
+          }
+        ]
+      },
+      {
+        "when": {
+          "items": {
+            "skewer": 1
+          }
+        },
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "picnicSmellsGood"
+          }
+        ]
+      },
+      {
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "picnicHungry"
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "give",
+        "label": "giveSkewer",
+        "when": {
+          "items": {
+            "skewer": 1
+          },
+          "flags": {
+            "picnicFed": false
+          }
+        }
+      }
+    ]
+  }
+}

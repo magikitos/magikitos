@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Magikitos · Studio local</title>
+    <link rel="stylesheet" href="/studio.css" />
+  </head>
+  <body>
+    <header class="studio-header">
+      <a class="brand" href="/">✦ MAGIKITOS <small>STUDIO LOCAL</small></a>
+      <nav>
+        <a class="active" href="/">Mapa</a
+        ><a href="/ui/" target="_blank" rel="noopener">UI Lab ↗</a>
+      </nav>
+      <span class="safe">Borrador · nunca edita el juego</span>
+    </header>
+    <div class="project-bar">
+      <input
+        id="name"
+        aria-label="Nombre del borrador"
+        maxlength="100"
+        value="Composición del bosque"
+      /><button id="new">Nuevo</button><button id="load">Abrir…</button
+      ><button id="save" class="primary">Guardar borrador</button
+      ><button id="export">Exportar diff</button
+      ><span id="save-status" role="status">Sin cambios</span>
+    </div>
+    <main class="workspace">
+      <aside class="library">
+        <label>Escena<select id="scene"></select></label
+        ><label
+          >Buscar elementos<input
+            id="search"
+            type="search"
+            placeholder="Fuente, árbol, mesa…"
+        /></label>
+        <div class="layer-tabs">
+          <button data-layer="all" aria-pressed="true">Todo</button
+          ><button data-layer="entities">Colocados</button
+          ><button data-layer="scenery">Vegetación</button>
+        </div>
+        <p id="count"></p>
+        <div id="elements" class="element-list"></div>
+      </aside>
+      <section id="viewport" class="viewport" aria-label="Mapa editable">
+        <canvas
+          id="map"
+          tabindex="0"
+          aria-label="Selecciona y arrastra un elemento. Usa las flechas para ajustes finos."
+        ></canvas>
+        <div class="map-tools">
+          <button
+            id="hand"
+            aria-pressed="false"
+            title="Arrastrar mapa (Espacio)"
+          >
+            ✥ Mano</button
+          ><button id="undo" title="Deshacer · ⌘/Ctrl Z">↶</button
+          ><button id="redo" title="Rehacer · ⌘/Ctrl Shift Z">↷</button
+          ><button id="zoom-out" aria-label="Alejar">−</button
+          ><button id="zoom-in" aria-label="Acercar">+</button
+          ><button id="fit">Encajar</button><span id="zoom">100%</span>
+        </div>
+        <div class="map-bottom">
+          <label><input id="grid" type="checkbox" /> Cuadrícula</label
+          ><label><input id="bodies" type="checkbox" /> Colisiones</label
+          ><span>Arrastrar fondo: mover mapa · rueda / pellizco: zoom</span>
+        </div>
+        <div id="loading" class="loading">Preparando el mapa local…</div>
+      </section>
+      <aside class="inspector">
+        <h1>Colocar con calma</h1>
+        <p id="selection-help">
+          Selecciona un elemento en el mapa o en la lista. Nada se modifica en
+          el juego.
+        </p>
+        <div id="properties" hidden>
+          <div class="selected-art">
+            <canvas id="preview" width="160" height="140"></canvas>
+          </div>
+          <strong id="selected-name"></strong><small id="selected-id"></small>
+          <div class="coordinates">
+            <label>X · tiles<input id="x" type="number" step=".25" /></label
+            ><label>Y · tiles<input id="y" type="number" step=".25" /></label>
+          </div>
+          <label
+            >Ajustar al arrastrar<select id="snap">
+              <option value=".25">¼ tile · 4 píxeles</option>
+              <option value=".5">½ tile · 8 píxeles</option>
+              <option value="1">1 tile · 16 píxeles</option>
+              <option value=".0625">1 píxel</option>
+            </select></label
+          ><label>Escala<select id="scale"></select></label
+          ><label>Giro<select id="rotation"></select></label
+          ><label class="check"
+            ><input id="flip" type="checkbox" /> Reflejar horizontalmente</label
+          >
+          <p id="transform-help" class="note"></p>
+          <label class="check"
+            ><input id="linked" type="checkbox" checked /> Mover también piezas
+            apoyadas</label
+          ><button id="revert">Restablecer este elemento</button>
+          <div id="warnings" role="status"></div>
+        </div>
+        <div class="review">
+          <h2>Para revisar juntos</h2>
+          <p id="diff-count">No has movido nada todavía.</p>
+          <button id="review">Ver cambios</button>
+          <p class="note">
+            El diff incluye el antes y el después. Se revisa y se aplica
+            después, fuera del studio.
+          </p>
+        </div>
+      </aside>
+    </main>
+    <dialog id="modal">
+      <header>
+        <h2 id="modal-title"></h2>
+        <button id="modal-close" aria-label="Cerrar">×</button>
+      </header>
+      <div id="modal-body"></div>
+    </dialog>
+    <div id="toast" role="status" hidden></div>
+    <script src="/studio.js"></script>
+  </body>
+</html>

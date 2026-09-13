@@ -1,0 +1,19 @@
+{
+  "frames": {
+    "workshop": {
+      "source": "data/aventura/art/building-doors-cutout.png",
+      "grid": [
+        3,
+        2
+      ],
+      "cell": [
+        2,
+        0
+      ],
+      "size": [
+        102,
+        94
+      ]
+    }
+  }
+}
