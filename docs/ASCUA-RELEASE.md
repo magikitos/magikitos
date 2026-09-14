@@ -1,6 +1,7 @@
 # Ascua release — implementation and verification ledger
 
-Status: implemented and locally verified; production activation pending. The owner's 14 September 2026 follow-up selects Ascua and
+Status: **deployed and verified in production, 14 September 2026** at
+<https://magikitos.com/aventura>. The owner's follow-up selects Ascua and
 authorizes integration, Git push and production deployment after verification.
 This supersedes earlier local-only delivery restrictions for this release, not
 the separation between the normal website, game, Studio and local game wallet.
@@ -34,9 +35,9 @@ the separation between the normal website, game, Studio and local game wallet.
   superseded active contracts and unused runtime resources without losing masters.
 - [x] Unit, integration and browser/visual verification at desktop/tablet/mobile,
   reduced motion, reload/interruption, lazy resources and bounded caches.
-- [ ] Audit both dirty repositories and release boundary, exclude private/local
+- [x] Audit both dirty repositories and release boundary, exclude private/local
   material from public Git; exact reviewed commits pushed, reproducible artifact.
-- [ ] Verified production deployment and rollback reference, six game routes and
+- [x] Verified production deployment and rollback reference, six game routes and
   normal website/API smoke checks. No database import or unrelated website changes.
 
 ## Evidence
@@ -83,9 +84,46 @@ they are verified. Existing Studio workspace is user data, never auto-applied.
   explicit atomic activation and unchanged pointer on failure.
 - Exact local DDEV release smoke passes all six static page byte comparisons,
   hashed resources, public API, normal website and three browser sizes with zero
-  write requests. Production directory is staged/verified but **not activated**.
+  write requests. The same immutable directory was subsequently deployed below.
 
-### Recovery before activation
+### Production verification · 14 September 2026
+
+- Public game implementation commit:
+  `c3b706bf0074eab24dc6d39cbabb96017ab89da4`.
+  Installer/read-only deployment-smoke correction:
+  `8575043c5ed0a5eaf03b15ed14d85cd3dc2e5800`. Both pushed to public `main`.
+- Private website implementation/pointer commit:
+  `bca1a9a321a9df25f752d55b48fc165c61dc3aef`, pushed and deployed through
+  `bashy/deploy-to-prod-magikitos.sh`; successful pipeline, Composer unchanged,
+  cache cleared and Cloudflare purge confirmed. Later ledger-only commits do not
+  change this runtime/artifact pair.
+- Active release: `4dd7398237af6fd39953`. Server-side inventory/checksums verified
+  after activation. All six origin HTTPS routes return **byte-identical** built
+  HTML; tested with `curl --resolve` to the configured VPS address.
+- Production Apache uses a different static-file user from PHP. The first smoke
+  caught `0700` staging-directory / restrictive file permissions. Corrected with
+  explicit **0755 directories / 0644 public files**, only inside verified release
+  paths. The installer now enforces this before publishing and on idempotent
+  staging. Regression covers restrictive `umask 077` and a second install.
+- `node scripts/check-release-live.cjs https://magikitos.com
+  .local/build/releases/4dd7398237af6fd39953` passes: all six routes and bootstrap
+  locales, stories/jokes/expressions discovery, JS/CSS/manifest hashes, normal
+  home/stories/jokes/shop, and actual walking at 1440×900, 768×1024 and 390×844.
+  No JavaScript errors, missing game assets or horizontal overflow.
+- Cloudflare appends its JavaScript Detections security script at the edge.
+  The smoke permits only that single final insertion; every application byte
+  must still match. Origin comparison remains exact, protection was not disabled.
+  Browser smoke aborts all non-GET/HEAD requests: three injected challenge POSTs
+  were blocked, **zero application writes attempted and zero writes sent**.
+- Full `npm test` rerun after the installer correction passes and reproduces
+  the same artifact ID. DDEV's static comparison remains exact without any edge
+  insertion. Physical Safari/iOS testing is not claimed.
+- Standard deploy made its own pre-deploy backup of 102 tables. No data import,
+  migration, account balance change, user-save reset or media-volume change.
+  Existing untracked production media/recovery files and the dirty dev clone
+  were preserved. Studio remains local, one workspace, revision 67 intact.
+
+### Recovery reference
 
 Previous website/main production revision:
 `322daabe17615a8c4e5b18381919eac347817bc2` (tracked worktree clean).

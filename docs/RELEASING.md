@@ -20,6 +20,10 @@ No database import or account-balance migration is needed for Ascua.
 explicit `--stage-only` mode installs one complete immutable directory without
 touching the current pointer. It refuses unexpected files, invalid hashes and
 symlink targets. A failed stage preserves the installed release and pointer.
+Verified release directories are set to 0755 and public files to 0644: the
+static web server need not run as the PHP/release owner. This also avoids
+`mkdtemp`'s private 0700 directory surviving the atomic rename. No source or
+private-directory permissions are changed.
 
 Transfer the reviewed artifact and a Node bundle of this installer to a scoped
 temporary directory on the host. Do not copy source masters or Studio into a
@@ -49,6 +53,11 @@ the immutable game's lifecycle.
   browser profiles without writing real identity, vote, chat or purchase data.
 - Check normal home, stories, jokes, shop and public API DTOs remain available.
 - Record both commits, ID and checks in the release ledger.
+- Use `node scripts/check-release-live.cjs ORIGIN RELEASE_DIRECTORY` for the
+  read-only public smoke. With Cloudflare JavaScript Detections, verify the
+  origin HTML separately byte-for-byte; the public smoke permits only its one
+  final security-script insertion and blocks even its challenge POSTs. Do not
+  disable production protection to satisfy a byte comparison.
 - Keep the previous website commit and previous game release. Rollback is a
   reviewed revert of the pointer/API deployment, pushed and deployed normally;
   for the first extraction the old commit restores the old PHP-mounted game.
