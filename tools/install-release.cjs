@@ -2,6 +2,17 @@
 /** Stage an immutable artifact. Activating it is an explicit, separate decision. */
 const fs = require('node:fs'), path = require('node:path');
 const {verify} = require('./artifact.cjs');
+// Apache may run as a different user from PHP/the release owner. Only verified
+// public artifact files receive these modes; source/private trees are untouched.
+function publicModes(directory) {
+  fs.chmodSync(directory,0o755);
+  for(const entry of fs.readdirSync(directory,{withFileTypes:true})) {
+    const file=path.join(directory,entry.name);
+    if(entry.isDirectory()) publicModes(file);
+    else if(entry.isFile()) fs.chmodSync(file,0o644);
+    else throw Error('Non-regular release entry: '+file);
+  }
+}
 function installRelease(source, website, {activate=false} = {}) {
   source = fs.realpathSync(source);
   website = fs.realpathSync(website);
@@ -16,15 +27,18 @@ function installRelease(source, website, {activate=false} = {}) {
     if(fs.existsSync(directory) && fs.lstatSync(directory).isSymbolicLink())
       throw Error('Release target cannot be a symlink: '+directory);
   fs.mkdirSync(parent,{recursive:true});
+  for(const directory of [game,parent]) fs.chmodSync(directory,0o755);
   const destination = path.join(parent,id);
   if(fs.existsSync(destination)) {
     if(fs.lstatSync(destination).isSymbolicLink()) throw Error('Release cannot be a symlink');
     verify(destination,id);
+    publicModes(destination);
   } else {
     const staging = fs.mkdtempSync(path.join(parent,'.install-'));
     try {
       fs.cpSync(source,staging,{recursive:true,errorOnExist:true,force:false});
       verify(staging,id);
+      publicModes(staging);
       fs.renameSync(staging,destination);
     } finally {
       // This exact scratch directory was allocated above; installed/user data are never removed.
@@ -34,6 +48,7 @@ function installRelease(source, website, {activate=false} = {}) {
   if(activate) {
     const temporary=path.join(game,'.current-'+process.pid+'.json');
     fs.writeFileSync(temporary,JSON.stringify({id,routes:manifest.routes},null,2)+'\n',{flag:'wx'});
+    fs.chmodSync(temporary,0o644);
     fs.renameSync(temporary,path.join(game,'current.json'));
   }
   return {id,destination,activated:activate};

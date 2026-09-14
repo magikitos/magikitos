@@ -10,11 +10,24 @@ async function response(url) {
   const r=await fetch(new URL(url,origin),{signal:AbortSignal.timeout(25000),cache:'no-store'});
   assert.equal(r.status,200,url); return r;
 }
+function assertShell(actual, expected, headers, route) {
+  if(actual===expected) return 'exact';
+  // Cloudflare JavaScript Detections appends one security script at the edge.
+  // Permit that insertion only: all application HTML/config must remain identical.
+  const closing='</body>\n</html>\n', prefix=expected.slice(0,-closing.length);
+  assert(expected.endsWith(closing));
+  assert.equal(headers.get('server'),'cloudflare','Unexpected HTML transformer '+route);
+  assert(actual.startsWith(prefix) && actual.endsWith(closing),'Application shell changed '+route);
+  const inserted=actual.slice(prefix.length,-closing.length);
+  assert(/^<script>[^]*<\/script>$/.test(inserted) && (inserted.match(/<script>/g)||[]).length===1 && (inserted.match(/<\/script>/g)||[]).length===1,'Unexpected edge markup '+route);
+  assert(inserted.includes('window.__CF$cv$params=') && inserted.includes("a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js'"),'Unexpected edge script '+route);
+  return 'exact application HTML + Cloudflare security insertion';
+}
 (async()=>{
   for(const [lang,route] of Object.entries(manifest.routes)) {
     const r=await response(route), text=await r.text();
-    assert.equal(text,fs.readFileSync(path.join(directory,'pages',lang+'.html'),'utf8'),'Exact static shell '+route);
-    console.log('PASS live static shell '+route+' '+id);
+    const mode=assertShell(text,fs.readFileSync(path.join(directory,'pages',lang+'.html'),'utf8'),r.headers,route);
+    console.log('PASS live static shell '+route+' '+id+' ('+mode+')');
   }
   for(const file of ['assets/js/aventura.min.js','assets/css/aventura.min.css','assets/aventura/manifest.json']) {
     const r=await response('/game/releases/'+id+'/'+file);
@@ -35,15 +48,21 @@ async function response(url) {
     assert(!body.includes('id="world-canvas"'),'Website stays separate '+route);
   }
   const browser=await chromium.launch({channel:'chrome',headless:true});
-  const errors=[],writes=[];
+  const errors=[],writes=[],blockedSecurityRequests=[];
   try {
     for(const [width,height] of [[1440,900],[768,1024],[390,844]]) {
       const page=await browser.newPage({viewport:{width,height},hasTouch:true});
       page.on('pageerror',e=>errors.push(e.message));
       page.on('response',r=>{if(new URL(r.url()).pathname.startsWith('/game/releases/') && r.status()>=400) errors.push(r.status()+' '+r.url());});
       await page.route('**/*',r=>{
-        if(!['GET','HEAD'].includes(r.request().method())) {writes.push(r.request().url());return r.abort();}
-        return new URL(r.request().url()).origin===origin ? r.continue() : r.abort();
+        const url=new URL(r.request().url());
+        if(!['GET','HEAD'].includes(r.request().method())) {
+          // Observe but never send Cloudflare's injected challenge POST either.
+          // It is infrastructure, not an application identity/vote/chat write.
+          const target=url.origin===origin && url.pathname.startsWith('/cdn-cgi/challenge-platform/') ? blockedSecurityRequests : writes;
+          target.push(url.href); return r.abort();
+        }
+        return url.origin===origin ? r.continue() : r.abort();
       });
       await page.addInitScript(()=>localStorage.setItem('magikitos.adventure',JSON.stringify({flags:{introSeen:true},muted:true})));
       await page.goto(origin+'/aventura');
@@ -59,5 +78,5 @@ async function response(url) {
     }
     assert.deepEqual(errors,[]); assert.deepEqual(writes,[]);
   } finally {await browser.close();}
-  console.log('PASS live release '+id+': exact bytes, six locales/API, website intact, zero write requests.');
+  console.log('PASS live release '+id+': application bytes, six locales/API, website intact, zero writes sent; '+blockedSecurityRequests.length+' injected security POSTs blocked.');
 })().catch(e=>{console.error(e);process.exitCode=1;});
