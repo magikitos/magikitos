@@ -1,0 +1,44 @@
+{
+  "frames": {
+    "tavern": {
+      "source": "data/aventura/art/woodland-kit/cutouts/home-boot-worn.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        188,
+        206
+      ],
+      "fit": true,
+      "anchor": [
+        42,
+        192
+      ]
+    },
+    "home-boot-ochre": {
+      "source": "data/aventura/art/woodland-kit/cutouts/home-boot-ochre.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        188,
+        206
+      ],
+      "fit": true,
+      "anchor": [
+        103,
+        193
+      ]
+    }
+  }
+}

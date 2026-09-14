@@ -1,0 +1,12 @@
+{
+    "source": "flowers-bell-blue.png",
+    "sourceHash": "ad8118211568a5286cb129947827014275147e8bd9a69be47dca668be506be5c",
+    "bounds": [
+        148,
+        209,
+        778,
+        1074
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

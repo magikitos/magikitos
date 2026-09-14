@@ -1,0 +1,44 @@
+{
+  "frames": {
+    "book-lectern": {
+      "source": "data/aventura/art/woodland-kit/cutouts/lectern-root.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        54,
+        60
+      ],
+      "fit": true,
+      "anchor": [
+        27,
+        55
+      ]
+    },
+    "lectern-leaf": {
+      "source": "data/aventura/art/woodland-kit/cutouts/lectern-leaf.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        54,
+        60
+      ],
+      "fit": true,
+      "anchor": [
+        27,
+        55
+      ]
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "frames": {
+    "woodland-context": {
+      "source": "data/aventura/art/woodland-kit/interior-context.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        384,
+        288
+      ],
+      "anchor": [
+        0,
+        0
+      ],
+      "opaque": true
+    }
+  }
+}

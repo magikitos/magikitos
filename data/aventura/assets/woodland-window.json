@@ -1,0 +1,44 @@
+{
+  "frames": {
+    "window-arched": {
+      "source": "data/aventura/art/woodland-kit/cutouts/window-round.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        46,
+        54
+      ],
+      "fit": true,
+      "anchor": [
+        23,
+        48
+      ]
+    },
+    "window-leaf": {
+      "source": "data/aventura/art/woodland-kit/cutouts/window-leaf.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        46,
+        54
+      ],
+      "fit": true,
+      "anchor": [
+        23,
+        50
+      ]
+    }
+  }
+}

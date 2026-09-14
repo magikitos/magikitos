@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Duendes · Magikitos Studio</title>
+    <link rel="stylesheet" href="/experiments/duende-cast/style.css" />
+  </head>
+  <body>
+    <main>
+      <header class="intro">
+        <div>
+          <p class="eyebrow">ESTUDIO DE PERSONAJES / 01</p>
+          <h1>Pequeños. Con mucho carácter.</h1>
+          <p>
+            Cuatro maneras de ser duende. Un protagonista reconocible y un
+            pueblo que no parezca una fotocopiadora.
+          </p>
+        </div>
+        <span class="stamp">ARCHIVO<br />Ascua elegido</span>
+      </header>
+      <nav class="tabs" aria-label="Vistas del estudio">
+        <button data-tab="designs" aria-pressed="true">01 · Diseños</button
+        ><button data-tab="forest" aria-pressed="false">
+          02 · En el bosque</button
+        ><button data-tab="poses" aria-pressed="false">
+          03 · Propuesta inicial
+        </button>
+      </nav>
+      <p id="status" role="status">Preparando las propuestas…</p>
+      <section id="designs" aria-label="Propuestas de diseño">
+        <div class="section-note">
+          <span>4 FAMILIAS · 12 PERSONAJES</span>
+          <p>
+            Son conceptos de identidad, no sprites definitivos ni animaciones.
+            Pulsa una familia para verla con sus vecinos.
+          </p>
+        </div>
+        <div id="design-grid" class="design-grid"></div>
+        <article id="family" class="family">
+          <div id="family-copy"></div>
+          <div id="family-portraits" class="portraits"></div>
+        </article>
+      </section>
+      <section id="forest" aria-label="Comparación a escala de juego" hidden>
+        <div class="controls">
+          <label>Familia<select id="family-select"></select></label
+          ><label
+            >Zoom del mundo<select id="zoom">
+              <option value="2">2× · Contexto</option>
+              <option value="3" selected>3× · Cercano</option>
+              <option value="4">4× · Detalle</option>
+            </select></label
+          ><label
+            >Luz<select id="light">
+              <option value="day">Día</option>
+              <option value="dusk">Anochecer</option>
+            </select></label
+          ><label class="check"
+            ><input id="silhouette" type="checkbox" /> Solo siluetas</label
+          >
+        </div>
+        <div class="canvas-wrap">
+          <canvas
+            id="scene"
+            aria-label="Comparación estática de duendes en el bosque"
+          ></canvas>
+        </div>
+        <p class="caption">
+          Protagonista anterior y propuesta, con dos vecinos de la misma familia; dos filas
+          cuando falta anchura. Propuestas a 40 de altura lógica y textura 2×
+          integrada. El actual conserva su arte original como referencia. No se
+          simula caminar con una imagen quieta.
+        </p>
+        <div id="scale-strip" class="scale-strip"></div>
+        <p class="caption">
+          Las cuatro propuestas a la misma escala, sin depender del tamaño de tu
+          pantalla. El arte final necesitará una pasada de pixel art:
+          simplificar rasgos y ajustar las ocho vistas, no reducir
+          automáticamente estas ilustraciones y darlo por acabado.
+        </p>
+      </section>
+      <section id="poses" aria-label="Plan de animaciones" hidden>
+        <div class="pose-intro">
+          <div>
+            <p class="eyebrow">PROPUESTA HISTÓRICA · SUSTITUIDA</p>
+            <h2>El plan inicial, antes de simplificarlo.</h2>
+            <p>
+              Esta lista amplia no es el contrato vigente. Se aprobó un set
+              compacto de gestos reutilizables: paseo, rodar, empujar, manipular,
+              hallazgo, necesidades y arco reservado. Contrato actual en
+              docs/art-direction/DUENDES.md; aquí se conserva la propuesta original.
+            </p>
+          </div>
+          <button id="export-poses">Descargar plan JSON</button>
+        </div>
+        <div id="pose-counts" class="pose-counts"></div>
+        <div class="controls">
+          <label
+            >Bloque<select id="pose-group">
+              <option value="all">Todo el repertorio</option>
+            </select></label
+          ><label class="search"
+            >Buscar acción<input
+              type="search"
+              id="pose-search"
+              placeholder="Empujar, arco, trepar…" /></label
+          ><span id="pose-results" role="status"></span>
+        </div>
+        <div id="pose-list" class="pose-list"></div>
+        <aside class="contract">
+          <h2>Las reglas que evitan rehacerlo todo</h2>
+          <ul>
+            <li>
+              <strong>Ocho direcciones donde importa.</strong> Frente, espalda,
+              ambos lados y cuatro diagonales. No reflejar a ciegas la mano del
+              arma o el parche del gorro.
+            </li>
+            <li>
+              <strong>Empujar de verdad.</strong> Rodillas flexionadas, cuerpo
+              inclinado, manos adelantadas en el punto de contacto; las piernas
+              hacen fuerza.
+            </li>
+            <li>
+              <strong>Un cuerpo, objetos separados.</strong> Navaja, arco,
+              brocheta y hallazgos se anclan a manos o sobre la cabeza. No
+              multiplicar cada animación por cada objeto.
+            </li>
+            <li>
+              <strong>Pies y escala estables.</strong> Un lienzo lógico y
+              pivotes comunes. Recortar transparencia no cambia la altura entre
+              fotogramas ni la colisión.
+            </li>
+            <li>
+              <strong>Paquetes por uso.</strong> Base, objetos, exploración,
+              herramientas y vida. Cargar solo lo necesario; vecinos con un
+              repertorio menor.
+            </li>
+            <li>
+              <strong>Primero identidad, luego movimiento.</strong> Aprobar el
+              diseño, validar ocho vistas, probar andar / empujar / hallazgo, y
+              después producir módulos. Ningún plan puede anticipar todas las
+              mecánicas futuras.
+            </li>
+          </ul>
+        </aside>
+      </section>
+      <footer>
+        2× integrado aprobado · vegetación con movimiento selectivo y sutil ·
+        actores importantes con poses dedicadas · Ascua protagonista y los otros
+        once duendes aprobados. Esta comparación conserva el arte del experimento.
+      </footer>
+    </main>
+    <script src="/experiments/duende-cast/runtime.js" defer></script>
+  </body>
+</html>

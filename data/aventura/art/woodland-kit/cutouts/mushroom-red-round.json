@@ -1,0 +1,12 @@
+{
+    "source": "mushroom-red-round.png",
+    "sourceHash": "492f7352c6d2ca9d3c381e214d3f9cd3e5fc3815e0aeb38226ef74c6e3af00f5",
+    "bounds": [
+        253,
+        227,
+        714,
+        860
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

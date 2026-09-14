@@ -1,5 +1,6 @@
 "use strict";
 const { DoublePress } = require("./locomotion");
+const { WorldZoom } = require("./camera");
 const MOVE_KEYS = new Set([
   "arrowup",
   "arrowdown",
@@ -20,7 +21,8 @@ class WorldInput {
   constructor(game) {
     this.doublePress = new DoublePress();
     const canvas = document.getElementById("world-canvas");
-    canvas.addEventListener("pointerdown", (event) => {
+    this.zoom = new WorldZoom(game, canvas);
+    const press = (event) => {
       if (
         event.defaultPrevented ||
         event.button !== 0 ||
@@ -32,7 +34,6 @@ class WorldInput {
       )
         return;
       game.closeContent();
-      game.contactLatch = null;
       event.preventDefault();
       canvas.focus({ preventScroll: true });
       game.unlockAudio();
@@ -52,7 +53,24 @@ class WorldInput {
           game.camera.y,
       });
       if (twice) game.startRoll();
+    };
+    canvas.addEventListener("pointerdown", (event) => {
+      if (event.defaultPrevented) return;
+      if (event.pointerType === "touch") {
+        event.preventDefault();
+        this.zoom.down(event);
+        return;
+      }
+      press(event);
     });
+    canvas.addEventListener("pointermove", (event) => this.zoom.move(event));
+    canvas.addEventListener("pointerup", (event) => {
+      if (this.zoom.up(event)) press(event);
+    });
+    canvas.addEventListener("pointercancel", (event) =>
+      this.zoom.up(event, true),
+    );
+    window.addEventListener("blur", () => this.zoom.clear());
     canvas.addEventListener("dblclick", (event) => event.preventDefault());
     document.addEventListener(
       "keydown",
@@ -108,7 +126,6 @@ class WorldInput {
     document.addEventListener("keyup", (event) => {
       const key = event.key.toLowerCase();
       game.keys.delete(key);
-      if (MOVE_KEYS.has(key) && !game.keys.size) game.contactLatch = null;
     });
   }
   clearGesture() {

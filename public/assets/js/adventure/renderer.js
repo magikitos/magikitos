@@ -4,28 +4,36 @@ const { artworkBounds, drawArtwork } = require("./entity-art");
 const { matches, active } = require("./rules");
 const { characterFrame } = require("./characters");
 const { SpriteLibrary } = require("./sprites");
-const { Terrain } = require("./terrain");
+const { Terrain, drawBridges } = require("./terrain");
+const { drawInteriors, drawPartition } = require("./interiors");
 const { drawRipples } = require("./water");
+const { cameraMetrics } = require("./camera");
+const { chunkRange } = require("./scene-frame");
 class Renderer {
   constructor(canvas, viewport) {
     this.canvas = canvas;
     this.viewport = viewport;
     this.ctx = canvas.getContext("2d", { alpha: false });
     this.sprites = new SpriteLibrary();
-    this.terrain = new Terrain(this.sprites);
+    this.terrain = new Terrain();
     this.productImages = new Map();
     this.scale = 3;
+    this.viewZoom = 1;
   }
   resize(zoom = this.zoom || 1) {
     this.zoom = zoom;
     const r = this.viewport.getBoundingClientRect();
     const dpr = Math.min(window.devicePixelRatio || 1, 3);
-    const target = r.width < 600 ? 350 : 580;
-    this.scale = Math.max(2, Math.round(r.width / target)) * zoom;
-    this.width = Math.ceil(r.width / this.scale);
-    this.height = Math.ceil(r.height / this.scale);
-    this.canvas.width = Math.round(r.width * dpr);
-    this.canvas.height = Math.round(r.height * dpr);
+    const metrics = cameraMetrics(r, this.world, this.viewZoom, zoom);
+    this.viewZoom = metrics.ratio;
+    this.scale = metrics.scale;
+    this.width = metrics.width;
+    this.height = metrics.height;
+    const pixelWidth = Math.round(r.width * dpr),
+      pixelHeight = Math.round(r.height * dpr);
+    // Assigning even the same dimensions clears the canvas. Activity changes must not flash black.
+    if (this.canvas.width !== pixelWidth) this.canvas.width = pixelWidth;
+    if (this.canvas.height !== pixelHeight) this.canvas.height = pixelHeight;
     this.canvas.style.width = r.width + "px";
     this.canvas.style.height = r.height + "px";
     this.pixelScale = this.canvas.width / this.width;
@@ -45,7 +53,7 @@ class Renderer {
   frame(entity, state) {
     return (
       (entity.visuals || []).find((v) => matches(state, v.when))?.sprite ||
-      entity.sprite
+      require("./elements").frameName(entity)
     );
   }
   hit(entity, point, state) {
@@ -95,21 +103,23 @@ class Renderer {
     c.fillRect(0, 0, this.width, this.height);
     c.save();
     c.translate(-Math.round(cam.x), -Math.round(cam.y));
-    c.beginPath();
-    c.rect(0, 0, world.width * TILE, world.height * TILE);
-    c.clip();
-    for (
-      let cy = Math.max(0, Math.floor(cam.y / 256));
-      cy <= Math.floor((cam.y + this.height) / 256) &&
-      cy * 256 < world.height * TILE;
-      cy++
-    )
-      for (
-        let cx = Math.max(0, Math.floor(cam.x / 256));
-        cx <= Math.floor((cam.x + this.width) / 256) &&
-        cx * 256 < world.width * TILE;
-        cx++
-      ) {
+    if (!world.data.indoor) {
+      c.beginPath();
+      c.rect(0, 0, world.width * TILE, world.height * TILE);
+      c.clip();
+    }
+    this.terrain.beginFrame(world, {
+      ...cam,
+      width: this.width,
+      height: this.height,
+    });
+    const range = chunkRange(world, {
+      ...cam,
+      width: this.width,
+      height: this.height,
+    });
+    for (let cy = range.top; cy <= range.bottom; cy++)
+      for (let cx = range.left; cx <= range.right; cx++) {
         // Snap shared chunk edges in device pixels so fractional zoom cannot open seams.
         const x = Math.round((cx * 256 - Math.round(cam.x)) * this.pixelScale);
         const y = Math.round((cy * 256 - Math.round(cam.y)) * this.pixelScale);
@@ -122,7 +132,7 @@ class Renderer {
         c.save();
         c.setTransform(1, 0, 0, 1, 0, 0);
         c.drawImage(
-          this.terrain.chunk(world, cx, cy),
+          this.terrain.chunk(world, cx, cy, this.sprites),
           x,
           y,
           right - x,
@@ -130,67 +140,45 @@ class Renderer {
         );
         c.restore();
       }
+    drawBridges(c, world, this.sprites, {
+      ...cam,
+      width: this.width,
+      height: this.height,
+    });
     drawRipples(
       c,
       world,
       { ...cam, width: this.width, height: this.height },
       time,
     );
-    if (world.data.indoor) {
-      c.fillStyle = "#443e35";
-      c.fillRect(0, 0, world.width * TILE, 30);
-      c.fillRect(0, 0, 26, world.height * TILE);
-      c.fillRect(world.width * TILE - 26, 0, 26, world.height * TILE);
-      c.fillRect(0, world.height * TILE - 26, world.width * TILE, 26);
-      c.fillStyle = "#cdbb8c";
-      c.fillRect(26, 25, world.width * TILE - 52, 10);
-      c.fillStyle = "#a38a61";
-      c.fillRect(26, 35, world.width * TILE - 52, 18);
-      for (const door of world.entities.filter((e) => e.sprite === "doorway")) {
-        c.fillStyle = "#d0b279";
-        c.fillRect(door.x - 19, door.y - 11, 38, 24);
-        c.fillStyle = "#6b5036";
-        c.fillRect(door.x - 15, door.y - 8, 30, 18);
-        c.fillStyle = "#202f28";
-        c.fillRect(door.x - 12, door.y + 5, 24, 36);
-        c.fillStyle = "#b38b55";
-        c.fillRect(door.x - 14, door.y + 3, 28, 3);
-      }
-      for (const rug of world.data.rugs || []) {
-        const x = (rug.x - rug.width / 2) * TILE,
-          y = (rug.y - rug.height / 2) * TILE,
-          w = rug.width * TILE,
-          h = rug.height * TILE;
-        c.fillStyle = "#533e2f";
-        c.fillRect(x - 2, y - 2, w + 4, h + 4);
-        c.fillStyle = rug.color;
-        c.fillRect(x, y, w, h);
-        c.strokeStyle = "#c4b48a";
-        c.lineWidth = 1;
-        c.strokeRect(x + 4.5, y + 4.5, w - 9, h - 9);
-        for (let edge = 5; edge < w - 5; edge += 6) {
-          c.fillStyle = "#bdaa7d";
-          c.fillRect(x + edge, y - 2, 2, 3);
-          c.fillRect(x + edge, y + h - 1, 2, 3);
-        }
-      }
-    }
+    drawInteriors(c, world);
     game.self.drawGround(c);
-    const visible = (e) =>
-      e.x > cam.x - 140 &&
-      e.x < cam.x + this.width + 140 &&
-      e.y > cam.y - 40 &&
-      e.y < cam.y + this.height + 140;
+    const visible = (e) => {
+      if (e.wall) return true;
+      const frame = this.sprites.frame(this.frame(e, game.state));
+      const b = frame
+        ? artworkBounds(e, frame)
+        : { x: e.x - 32, y: e.y - 64, w: 64, h: 72 };
+      return (
+        b.x + b.w >= cam.x &&
+        b.x <= cam.x + this.width &&
+        b.y + b.h >= cam.y &&
+        b.y <= cam.y + this.height
+      );
+    };
     const player = {
       ...game.player,
       sprite:
         game.self.frame() ||
+        game.presentation?.frame() ||
         game.roll.frame() ||
+        require("./characters").pushFrame(game.player) ||
         characterFrame(0, game.player, game.walking),
       player: true,
     };
     const list = [
       ...world.props,
+      ...world.architecture,
       ...world.entities.filter(
         (e) => game.showAllEntities || active(e, game.state),
       ),
@@ -199,8 +187,12 @@ class Renderer {
       ...(game.hidePlayer ? [] : [player]),
     ]
       .filter(visible)
-      .sort((a, b) => a.y - b.y);
+      .sort((a, b) => (a.depth ?? a.y) - (b.depth ?? b.y));
     for (const e of list) {
+      if (e.wall) {
+        drawPartition(c, e.wall);
+        continue;
+      }
       const name = e.neighbor
           ? characterFrame(e.variant || 3, e, e.moving)
           : this.frame(e, game.state),
@@ -212,8 +204,18 @@ class Renderer {
         c.ellipse(e.x, e.y + 1, 8, 3, 0, 0, 7);
         c.fill();
       }
-      drawArtwork(c, this.sprites, e, name);
+      if (
+        !require("./ambient-actors").drawAmbientActor(
+          c,
+          this.sprites,
+          e,
+          name,
+          time,
+        ) && !require("./vegetation").drawVegetation(c, this.sprites, e, name, time)
+      )
+        drawArtwork(c, this.sprites, e, name);
       if (e.player) game.self.drawStream(c);
+      require("./keepsakes").drawKeepsakes(c, this.sprites, e, game.state);
       if (e.product) this.drawProduct(e);
       if (
         (e.rules?.length || e.neighbor || e.interactAs) &&
@@ -230,10 +232,15 @@ class Renderer {
         );
       }
       if (name === "fire" || name === "barbecue-lit") {
-        c.fillStyle = `rgba(250,186,80,${0.08 + Math.sin(time * 6) * 0.025})`;
-        c.beginPath();
-        c.ellipse(e.x, e.y, 27, 11, 0, 0, 7);
-        c.fill();
+        // Soft ember bounce fades to zero; a filled ellipse reads as a painted ground patch.
+        const glow = c.createRadialGradient(e.x, e.y - 8, 2, e.x, e.y - 8, 30);
+        glow.addColorStop(
+          0,
+          `rgba(250,186,80,${0.1 + Math.sin(time * 6) * 0.02})`,
+        );
+        glow.addColorStop(1, "rgba(250,186,80,0)");
+        c.fillStyle = glow;
+        c.fillRect(e.x - 30, e.y - 38, 60, 60);
         for (let i = 0; i < 3; i++) {
           const t = (time * 0.4 + i * 0.3) % 1;
           c.fillStyle = "#ffe6a0";
@@ -241,6 +248,7 @@ class Renderer {
         }
       }
     }
+    game.presentation?.draw(c);
     if (world.data.night) this.night(world.data.night, time, cam);
     if (game.path.length) {
       const end = game.path[game.path.length - 1];

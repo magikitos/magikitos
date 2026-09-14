@@ -1,0 +1,12 @@
+{
+    "source": "flowers-coral.png",
+    "sourceHash": "3c3458e2a914e3ef197643f062bf0a257e14122fefcc837171026b1882c44d00",
+    "bounds": [
+        128,
+        212,
+        1045,
+        781
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

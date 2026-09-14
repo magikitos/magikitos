@@ -1,0 +1,12 @@
+{
+    "source": "stairs-down-root.png",
+    "sourceHash": "684f8a08a4ef7ec5210df14e7e752f6c5d102c0545861823406eb0c53d7e3749",
+    "bounds": [
+        114,
+        157,
+        885,
+        1076
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

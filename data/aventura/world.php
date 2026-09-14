@@ -83,12 +83,35 @@ return (static function (): array {
         }
         $world['scenes'][$name] = $resolve($scene);
     }
-    foreach ($world['scenes'] as $scene) {
+    // Portal arrivals follow authored buildings; return trips never duplicate their coordinates.
+    $arrivals = [];
+    foreach ($world['scenes'] as $id => $scene) {
         foreach ($scene['entities'] as $entity) {
-            foreach ($entity['rules'] as $rule) {
-                foreach ($rule['effects'] as $effect) {
+            if (!empty($entity['portal']) && isset($entity['arrival'])) {
+                $arrivals[$id][$entity['id']] = $entity['arrival'];
+            }
+        }
+    }
+    foreach ($world['scenes'] as &$scene) {
+        foreach ($scene['entities'] as &$entity) {
+            foreach ($entity['rules'] as &$rule) {
+                foreach ($rule['effects'] as &$effect) {
                     if ($effect['type'] === 'travel' && !isset($world['scenes'][$effect['scene']])) {
                         throw new RuntimeException('Unknown travel destination');
+                    }
+                    if ($effect['type'] === 'travel' && !empty($effect['spawn'])) {
+                        $effect['x'] = $world['scenes'][$effect['scene']]['spawn']['x'];
+                        $effect['y'] = $world['scenes'][$effect['scene']]['spawn']['y'];
+                        unset($effect['spawn']);
+                    }
+                    if ($effect['type'] === 'travel' && isset($effect['arrivalAt'])) {
+                        $id = $effect['arrivalAt'];
+                        if (!is_string($id) || !isset($arrivals[$effect['scene']][$id])
+                            || isset($effect['x']) || isset($effect['y'])) {
+                            throw new RuntimeException('Invalid or ambiguous portal arrival');
+                        }
+                        [$effect['x'], $effect['y']] = $arrivals[$effect['scene']][$id];
+                        unset($effect['arrivalAt']);
                     }
                     if ($effect['type'] === 'travel' && isset($effect['presentation'])
                         && !isset($world['transports'][$effect['presentation']])) {
@@ -98,5 +121,6 @@ return (static function (): array {
             }
         }
     }
+    unset($scene, $entity, $rule, $effect);
     return $world;
 })();

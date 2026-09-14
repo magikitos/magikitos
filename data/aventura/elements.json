@@ -1,0 +1,1532 @@
+{
+  "families": {
+    "log-home": {
+      "label": "Casas de tronco",
+      "category": "Casitas",
+      "template": {
+        "sprite": "workshop",
+        "rules": [
+          {
+            "effects": [
+              {
+                "type": "travel",
+                "scene": "cottage",
+                "spawn": true
+              }
+            ]
+          }
+        ],
+        "solid": [
+          -3,
+          -1,
+          7,
+          1.2
+        ],
+        "portal": true,
+        "label": "cottage"
+      },
+      "aliases": [
+        "workshop",
+        "cottage",
+        "home-log-twisted"
+      ],
+      "defaults": {
+        "workshop": "taller",
+        "cottage": "redondo",
+        "home-log-twisted": "torcido"
+      },
+      "variants": [
+        {
+          "id": "taller",
+          "label": "Taller",
+          "sprite": "workshop"
+        },
+        {
+          "id": "redondo",
+          "label": "Redondo",
+          "sprite": "cottage"
+        },
+        {
+          "id": "torcido",
+          "label": "Torcido",
+          "sprite": "home-log-twisted"
+        }
+      ]
+    },
+    "boot-home": {
+      "label": "Casas de bota",
+      "category": "Casitas",
+      "template": {
+        "sprite": "tavern",
+        "rules": [
+          {
+            "effects": [
+              {
+                "type": "travel",
+                "scene": "tavern",
+                "spawn": true
+              }
+            ]
+          }
+        ],
+        "solid": [
+          -2.7,
+          -1.2,
+          7,
+          1.35
+        ],
+        "portal": true,
+        "label": "cottage"
+      },
+      "aliases": [
+        "tavern",
+        "home-boot-ochre"
+      ],
+      "defaults": {
+        "tavern": "gastada",
+        "home-boot-ochre": "remendada"
+      },
+      "variants": [
+        {
+          "id": "gastada",
+          "label": "Gastada",
+          "sprite": "tavern"
+        },
+        {
+          "id": "remendada",
+          "label": "Remendada",
+          "sprite": "home-boot-ochre"
+        }
+      ]
+    },
+    "leaf-home": {
+      "label": "Refugios de hojas",
+      "category": "Casitas",
+      "template": {
+        "sprite": "human-house",
+        "rules": [
+          {
+            "effects": [
+              {
+                "type": "travel",
+                "scene": "house",
+                "spawn": true
+              }
+            ]
+          }
+        ],
+        "solid": [
+          -3.9,
+          -1.8,
+          7.8,
+          2
+        ],
+        "portal": true,
+        "label": "cottage"
+      },
+      "aliases": [
+        "human-house",
+        "home-leaf-autumn"
+      ],
+      "defaults": {
+        "human-house": "avellano",
+        "home-leaf-autumn": "otono"
+      },
+      "variants": [
+        {
+          "id": "avellano",
+          "label": "Avellano",
+          "sprite": "human-house"
+        },
+        {
+          "id": "otono",
+          "label": "Otoño",
+          "sprite": "home-leaf-autumn"
+        }
+      ]
+    },
+    "mushroom-home": {
+      "label": "Casas de seta",
+      "category": "Casitas",
+      "template": {
+        "sprite": "cottage-closed",
+        "rules": [],
+        "solid": [
+          -3,
+          -1.4,
+          6,
+          1.6
+        ]
+      },
+      "aliases": [
+        "cottage-closed",
+        "home-mushroom-red"
+      ],
+      "defaults": {
+        "cottage-closed": "canela",
+        "home-mushroom-red": "roja"
+      },
+      "variants": [
+        {
+          "id": "canela",
+          "label": "Canela",
+          "sprite": "cottage-closed"
+        },
+        {
+          "id": "roja",
+          "label": "Roja",
+          "sprite": "home-mushroom-red"
+        }
+      ]
+    },
+    "pot-home": {
+      "label": "Casas de maceta",
+      "category": "Casitas",
+      "template": {
+        "sprite": "fisher-closed",
+        "rules": [],
+        "solid": [
+          -4,
+          -2,
+          8,
+          2.3
+        ]
+      },
+      "aliases": [
+        "fisher-closed",
+        "home-pot-moss"
+      ],
+      "defaults": {
+        "fisher-closed": "terracota",
+        "home-pot-moss": "musgo"
+      },
+      "variants": [
+        {
+          "id": "terracota",
+          "label": "Terracota",
+          "sprite": "fisher-closed"
+        },
+        {
+          "id": "musgo",
+          "label": "Musgo",
+          "sprite": "home-pot-moss"
+        }
+      ]
+    },
+    "flowers-daisy": {
+      "label": "Margaritas",
+      "category": "Flores",
+      "template": {
+        "sprite": "flowers-daisy-white",
+        "rules": [],
+        "wind": {
+          "amplitude": 0.6,
+          "fixedFrom": 0.82,
+          "share": 0.25
+        }
+      },
+      "aliases": [
+        "flowers-daisy-white",
+        "flowers-daisy-gold"
+      ],
+      "defaults": {
+        "flowers-daisy-white": "blancas",
+        "flowers-daisy-gold": "doradas"
+      },
+      "variants": [
+        {
+          "id": "blancas",
+          "label": "Blancas",
+          "sprite": "flowers-daisy-white"
+        },
+        {
+          "id": "doradas",
+          "label": "Doradas",
+          "sprite": "flowers-daisy-gold"
+        }
+      ]
+    },
+    "flowers-bell": {
+      "label": "Campanillas",
+      "category": "Flores",
+      "template": {
+        "sprite": "flowers-bell-blue",
+        "rules": [],
+        "wind": {
+          "amplitude": 0.7,
+          "fixedFrom": 0.85,
+          "share": 0.3
+        }
+      },
+      "aliases": [
+        "flowers-bell-blue",
+        "flowers-bell-violet"
+      ],
+      "defaults": {
+        "flowers-bell-blue": "azules",
+        "flowers-bell-violet": "violetas"
+      },
+      "variants": [
+        {
+          "id": "azules",
+          "label": "Azules",
+          "sprite": "flowers-bell-blue"
+        },
+        {
+          "id": "violetas",
+          "label": "Violetas",
+          "sprite": "flowers-bell-violet"
+        }
+      ]
+    },
+    "flowers-meadow": {
+      "label": "Flores del prado",
+      "category": "Flores",
+      "template": {
+        "sprite": "flowers-primrose",
+        "rules": [],
+        "wind": {
+          "amplitude": 0.6,
+          "fixedFrom": 0.82,
+          "share": 0.25
+        }
+      },
+      "aliases": [
+        "flowers-primrose",
+        "flowers-coral"
+      ],
+      "defaults": {
+        "flowers-primrose": "primulas",
+        "flowers-coral": "coral"
+      },
+      "variants": [
+        {
+          "id": "primulas",
+          "label": "Primulas",
+          "sprite": "flowers-primrose"
+        },
+        {
+          "id": "coral",
+          "label": "Coral",
+          "sprite": "flowers-coral"
+        }
+      ]
+    },
+    "fern": {
+      "label": "Helechos",
+      "category": "Vegetación",
+      "template": {
+        "sprite": "giant-fern",
+        "rules": [],
+        "wind": {
+          "amplitude": 1.25,
+          "fixedFrom": 0.92,
+          "share": 0.5
+        }
+      },
+      "aliases": [
+        "giant-fern",
+        "fern-wide"
+      ],
+      "defaults": {
+        "giant-fern": "rizada",
+        "fern-wide": "abierta"
+      },
+      "variants": [
+        {
+          "id": "rizada",
+          "label": "Rizada",
+          "sprite": "giant-fern"
+        },
+        {
+          "id": "abierta",
+          "label": "Abierta",
+          "sprite": "fern-wide"
+        }
+      ]
+    },
+    "clover": {
+      "label": "Tréboles secos",
+      "category": "Vegetación",
+      "template": {
+        "sprite": "giant-clover",
+        "rules": [],
+        "wind": {
+          "amplitude": 0.75,
+          "fixedFrom": 0.82,
+          "share": 0.3
+        }
+      },
+      "aliases": [
+        "giant-clover",
+        "clover-heart"
+      ],
+      "defaults": {
+        "giant-clover": "redondo",
+        "clover-heart": "corazon"
+      },
+      "variants": [
+        {
+          "id": "redondo",
+          "label": "Redondo",
+          "sprite": "giant-clover"
+        },
+        {
+          "id": "corazon",
+          "label": "Corazon",
+          "sprite": "clover-heart"
+        }
+      ]
+    },
+    "bolete": {
+      "label": "Setas comestibles",
+      "category": "Setas",
+      "template": {
+        "sprite": "giant-bolete",
+        "rules": []
+      },
+      "aliases": [
+        "giant-bolete",
+        "mushroom-bolete-leaning"
+      ],
+      "defaults": {
+        "giant-bolete": "redonda",
+        "mushroom-bolete-leaning": "inclinada"
+      },
+      "variants": [
+        {
+          "id": "redonda",
+          "label": "Redonda",
+          "sprite": "giant-bolete"
+        },
+        {
+          "id": "inclinada",
+          "label": "Inclinada",
+          "sprite": "mushroom-bolete-leaning"
+        }
+      ]
+    },
+    "scarlet-mushroom": {
+      "label": "Setas rojas",
+      "category": "Setas",
+      "template": {
+        "sprite": "scarlet-mushrooms",
+        "rules": []
+      },
+      "aliases": [
+        "scarlet-mushrooms",
+        "mushroom-red-pair"
+      ],
+      "defaults": {
+        "scarlet-mushrooms": "redonda",
+        "mushroom-red-pair": "pareja"
+      },
+      "variants": [
+        {
+          "id": "redonda",
+          "label": "Redonda",
+          "sprite": "scarlet-mushrooms"
+        },
+        {
+          "id": "pareja",
+          "label": "Pareja",
+          "sprite": "mushroom-red-pair"
+        }
+      ]
+    },
+    "planter": {
+      "label": "Macetas empujables",
+      "category": "Objetos",
+      "template": {
+        "sprite": "flower-pot",
+        "rules": [],
+        "solid": [
+          -0.65,
+          -0.75,
+          1.3,
+          0.9
+        ],
+        "pushable": true
+      },
+      "aliases": [
+        "flower-pot",
+        "planter-violet"
+      ],
+      "defaults": {
+        "flower-pot": "margaritas",
+        "planter-violet": "violetas"
+      },
+      "variants": [
+        {
+          "id": "margaritas",
+          "label": "Margaritas",
+          "sprite": "flower-pot"
+        },
+        {
+          "id": "violetas",
+          "label": "Violetas",
+          "sprite": "planter-violet"
+        }
+      ]
+    },
+    "crate": {
+      "label": "Cajas empujables",
+      "category": "Objetos",
+      "template": {
+        "sprite": "crates",
+        "rules": [],
+        "solid": [
+          -0.8,
+          -0.8,
+          1.6,
+          1
+        ],
+        "pushable": true
+      },
+      "aliases": [
+        "crates",
+        "crate-bark"
+      ],
+      "defaults": {
+        "crates": "sauce",
+        "crate-bark": "corteza"
+      },
+      "variants": [
+        {
+          "id": "sauce",
+          "label": "Sauce",
+          "sprite": "crates"
+        },
+        {
+          "id": "corteza",
+          "label": "Corteza",
+          "sprite": "crate-bark"
+        }
+      ]
+    },
+    "bed": {
+      "label": "Camas de duende",
+      "category": "Interior",
+      "template": {
+        "sprite": "bed",
+        "rules": [],
+        "solid": [
+          -1.65,
+          -3.1,
+          3.3,
+          3.4
+        ]
+      },
+      "aliases": [
+        "bed",
+        "bed-leaf",
+        "bed-bark"
+      ],
+      "defaults": {
+        "bed": "nuez",
+        "bed-leaf": "hoja",
+        "bed-bark": "corteza"
+      },
+      "variants": [
+        {
+          "id": "nuez",
+          "label": "Nuez",
+          "sprite": "bed"
+        },
+        {
+          "id": "hoja",
+          "label": "Hoja",
+          "sprite": "bed-leaf"
+        },
+        {
+          "id": "corteza",
+          "label": "Corteza",
+          "sprite": "bed-bark"
+        }
+      ]
+    },
+    "table": {
+      "label": "Mesas del bosque",
+      "category": "Interior",
+      "template": {
+        "sprite": "table",
+        "rules": [],
+        "solid": [
+          -1.65,
+          -1.5,
+          3.3,
+          1.8
+        ]
+      },
+      "aliases": [
+        "table",
+        "bedside-table",
+        "table-twig",
+        "workbench"
+      ],
+      "defaults": {
+        "table": "tocón",
+        "bedside-table": "tocón",
+        "table-twig": "ramitas",
+        "workbench": "ramitas"
+      },
+      "variants": [
+        {
+          "id": "tocón",
+          "label": "Tocón",
+          "sprite": "table"
+        },
+        {
+          "id": "ramitas",
+          "label": "Ramitas",
+          "sprite": "table-twig"
+        }
+      ]
+    },
+    "stool": {
+      "label": "Taburetes",
+      "category": "Interior",
+      "template": {
+        "sprite": "stool-acorn",
+        "rules": [],
+        "solid": [
+          -0.6,
+          -0.6,
+          1.2,
+          0.8
+        ],
+        "edgeSlide": true
+      },
+      "aliases": [
+        "stool-acorn",
+        "stool-shell"
+      ],
+      "defaults": {
+        "stool-acorn": "bellota",
+        "stool-shell": "cáscara"
+      },
+      "variants": [
+        {
+          "id": "bellota",
+          "label": "Bellota",
+          "sprite": "stool-acorn"
+        },
+        {
+          "id": "cáscara",
+          "label": "Cáscara",
+          "sprite": "stool-shell"
+        }
+      ]
+    },
+    "cupboard": {
+      "label": "Alacenas de corteza",
+      "category": "Interior",
+      "template": {
+        "sprite": "cupboard",
+        "rules": [],
+        "solid": [
+          -1.4,
+          -1.5,
+          2.8,
+          1.8
+        ]
+      },
+      "aliases": [
+        "cupboard",
+        "cupboard-hollow"
+      ],
+      "defaults": {
+        "cupboard": "corteza",
+        "cupboard-hollow": "hueco"
+      },
+      "variants": [
+        {
+          "id": "corteza",
+          "label": "Corteza",
+          "sprite": "cupboard"
+        },
+        {
+          "id": "hueco",
+          "label": "Hueco",
+          "sprite": "cupboard-hollow"
+        }
+      ]
+    },
+    "dresser": {
+      "label": "Aparadores de ramitas",
+      "category": "Interior",
+      "template": {
+        "sprite": "dresser",
+        "rules": [],
+        "solid": [
+          -1.9,
+          -1.2,
+          3.8,
+          1.5
+        ]
+      },
+      "aliases": [
+        "dresser",
+        "dresser-chest"
+      ],
+      "defaults": {
+        "dresser": "ramitas",
+        "dresser-chest": "castana"
+      },
+      "variants": [
+        {
+          "id": "ramitas",
+          "label": "Ramitas",
+          "sprite": "dresser"
+        },
+        {
+          "id": "castana",
+          "label": "Castaña",
+          "sprite": "dresser-chest"
+        }
+      ]
+    },
+    "shelf": {
+      "label": "Estantes de ramas",
+      "category": "Interior",
+      "template": {
+        "sprite": "kitchen-rack",
+        "rules": []
+      },
+      "aliases": [
+        "kitchen-rack",
+        "shelf-bark"
+      ],
+      "defaults": {
+        "kitchen-rack": "rama",
+        "shelf-bark": "corcho"
+      },
+      "variants": [
+        {
+          "id": "rama",
+          "label": "Rama",
+          "sprite": "kitchen-rack"
+        },
+        {
+          "id": "corcho",
+          "label": "Corcho",
+          "sprite": "shelf-bark"
+        }
+      ]
+    },
+    "stove": {
+      "label": "Estufas de barro",
+      "category": "Interior",
+      "template": {
+        "sprite": "stove",
+        "rules": [],
+        "solid": [
+          -1,
+          -1.3,
+          2,
+          1.6
+        ]
+      },
+      "aliases": [
+        "stove",
+        "stove-stone"
+      ],
+      "defaults": {
+        "stove": "barro",
+        "stove-stone": "piedrita"
+      },
+      "variants": [
+        {
+          "id": "barro",
+          "label": "Barro",
+          "sprite": "stove"
+        },
+        {
+          "id": "piedrita",
+          "label": "Piedrita",
+          "sprite": "stove-stone"
+        }
+      ]
+    },
+    "lamp": {
+      "label": "Faroles de bellota",
+      "category": "Objetos",
+      "template": {
+        "sprite": "lantern",
+        "rules": []
+      },
+      "aliases": [
+        "lantern",
+        "lamp-seed"
+      ],
+      "defaults": {
+        "lantern": "bellota",
+        "lamp-seed": "semilla"
+      },
+      "variants": [
+        {
+          "id": "bellota",
+          "label": "Bellota",
+          "sprite": "lantern"
+        },
+        {
+          "id": "semilla",
+          "label": "Semilla",
+          "sprite": "lamp-seed"
+        }
+      ]
+    },
+    "vase": {
+      "label": "Floreros de semilla",
+      "category": "Objetos",
+      "template": {
+        "sprite": "flower-vase",
+        "rules": []
+      },
+      "aliases": [
+        "flower-vase",
+        "vase-shell"
+      ],
+      "defaults": {
+        "flower-vase": "semilla",
+        "vase-shell": "cascara"
+      },
+      "variants": [
+        {
+          "id": "semilla",
+          "label": "Semilla",
+          "sprite": "flower-vase"
+        },
+        {
+          "id": "cascara",
+          "label": "Cascara",
+          "sprite": "vase-shell"
+        }
+      ]
+    },
+    "window": {
+      "label": "Ventanas de avellano",
+      "category": "Interior",
+      "template": {
+        "sprite": "window-arched",
+        "rules": []
+      },
+      "aliases": [
+        "window-arched",
+        "window-leaf"
+      ],
+      "defaults": {
+        "window-arched": "avellano",
+        "window-leaf": "hoja"
+      },
+      "variants": [
+        {
+          "id": "avellano",
+          "label": "Avellano",
+          "sprite": "window-arched"
+        },
+        {
+          "id": "hoja",
+          "label": "Hoja",
+          "sprite": "window-leaf"
+        }
+      ]
+    },
+    "stairs": {
+      "label": "Escaleras de ramas",
+      "category": "Interior",
+      "template": {
+        "sprite": "stairs-up",
+        "rules": [],
+        "solid": [
+          -1.45,
+          -3.8,
+          2.9,
+          2.7
+        ]
+      },
+      "placeable": false,
+      "aliases": [
+        "stairs-up",
+        "stairs-root"
+      ],
+      "defaults": {
+        "stairs-up": "ramitas",
+        "stairs-root": "raices"
+      },
+      "variants": [
+        {
+          "id": "ramitas",
+          "label": "Ramitas",
+          "sprite": "stairs-up"
+        },
+        {
+          "id": "raices",
+          "label": "Raíces",
+          "sprite": "stairs-root"
+        }
+      ]
+    },
+    "bridge": {
+      "label": "Puentes de ramas",
+      "category": "Paisaje",
+      "template": {
+        "sprite": "bridge-branches",
+        "rules": []
+      },
+      "placeable": false,
+      "aliases": [
+        "bridge-branches",
+        "bridge-log"
+      ],
+      "defaults": {
+        "bridge-branches": "ramas",
+        "bridge-log": "tronco"
+      },
+      "variants": [
+        {
+          "id": "ramas",
+          "label": "Ramas",
+          "sprite": "bridge-branches"
+        },
+        {
+          "id": "tronco",
+          "label": "Tronco",
+          "sprite": "bridge-log"
+        }
+      ]
+    },
+    "ferry": {
+      "label": "Barcas de hojas",
+      "category": "Paisaje",
+      "template": {
+        "sprite": "ferry",
+        "rules": [],
+        "solid": [
+          -2.6,
+          -1.1,
+          5.2,
+          1.4
+        ]
+      },
+      "placeable": false,
+      "aliases": [
+        "ferry",
+        "ferry-bark"
+      ],
+      "defaults": {
+        "ferry": "hojarasca",
+        "ferry-bark": "corteza"
+      },
+      "variants": [
+        {
+          "id": "hojarasca",
+          "label": "Hojarasca",
+          "sprite": "ferry"
+        },
+        {
+          "id": "corteza",
+          "label": "Corteza",
+          "sprite": "ferry-bark"
+        }
+      ]
+    },
+    "stairs-down": {
+      "label": "Escaleras de bajada",
+      "category": "Interior",
+      "template": {
+        "sprite": "stairs-down",
+        "rules": []
+      },
+      "placeable": false,
+      "aliases": [
+        "stairs-down",
+        "stairs-down-root"
+      ],
+      "defaults": {
+        "stairs-down": "avellano",
+        "stairs-down-root": "raices"
+      },
+      "variants": [
+        {
+          "id": "avellano",
+          "label": "Avellano",
+          "sprite": "stairs-down"
+        },
+        {
+          "id": "raices",
+          "label": "Raíces",
+          "sprite": "stairs-down-root"
+        }
+      ]
+    },
+    "chair": {
+      "label": "Asientos de duende",
+      "category": "Interior",
+      "template": {
+        "sprite": "armchair",
+        "rules": [],
+        "solid": [
+          -1,
+          -0.8,
+          2,
+          1.1
+        ]
+      },
+      "aliases": [
+        "armchair",
+        "chair-bark"
+      ],
+      "defaults": {
+        "armchair": "nuez",
+        "chair-bark": "corteza"
+      },
+      "variants": [
+        {
+          "id": "nuez",
+          "label": "Nuez",
+          "sprite": "armchair"
+        },
+        {
+          "id": "corteza",
+          "label": "Corteza",
+          "sprite": "chair-bark"
+        }
+      ]
+    },
+    "canopy-tree": {
+      "label": "Árboles de copa",
+      "category": "Bosque",
+      "template": {
+        "sprite": "ancient-root",
+        "rules": [],
+        "solid": [
+          -2.5,
+          -2.8,
+          5,
+          3.4
+        ],
+        "wind": {
+          "amplitude": 1,
+          "fixedFrom": 0.62,
+          "share": 0.35
+        }
+      },
+      "aliases": [
+        "ancient-root",
+        "forest-birch"
+      ],
+      "defaults": {
+        "ancient-root": "roble",
+        "forest-birch": "abedul"
+      },
+      "variants": [
+        {
+          "id": "roble",
+          "label": "Roble",
+          "sprite": "ancient-root"
+        },
+        {
+          "id": "abedul",
+          "label": "Abedul",
+          "sprite": "forest-birch"
+        }
+      ]
+    },
+    "art-easel": {
+      "label": "Caballetes naturales",
+      "category": "Interior",
+      "template": {
+        "sprite": "easel",
+        "rules": [],
+        "solid": [
+          -0.6,
+          -0.7,
+          1.2,
+          0.9
+        ],
+        "edgeSlide": true
+      },
+      "aliases": [
+        "easel",
+        "easel-bark"
+      ],
+      "defaults": {
+        "easel": "ramitas",
+        "easel-bark": "corteza"
+      },
+      "variants": [
+        {
+          "id": "ramitas",
+          "label": "Ramitas",
+          "sprite": "easel"
+        },
+        {
+          "id": "corteza",
+          "label": "Corteza",
+          "sprite": "easel-bark"
+        }
+      ]
+    },
+    "lectern": {
+      "label": "Atriles de bosque",
+      "category": "Interior",
+      "template": {
+        "sprite": "book-lectern",
+        "rules": [],
+        "solid": [
+          -1,
+          -1.1,
+          2,
+          1.4
+        ]
+      },
+      "aliases": [
+        "book-lectern",
+        "lectern-leaf"
+      ],
+      "defaults": {
+        "book-lectern": "raiz",
+        "lectern-leaf": "hoja"
+      },
+      "variants": [
+        {
+          "id": "raiz",
+          "label": "Raiz",
+          "sprite": "book-lectern"
+        },
+        {
+          "id": "hoja",
+          "label": "Hoja",
+          "sprite": "lectern-leaf"
+        }
+      ]
+    },
+    "basket": {
+      "label": "Cestas de labores",
+      "category": "Interior",
+      "template": {
+        "sprite": "yarn-basket",
+        "rules": [],
+        "solid": [
+          -0.6,
+          -0.5,
+          1.2,
+          0.75
+        ],
+        "edgeSlide": true
+      },
+      "aliases": [
+        "yarn-basket",
+        "basket-acorn"
+      ],
+      "defaults": {
+        "yarn-basket": "junco",
+        "basket-acorn": "bellota"
+      },
+      "variants": [
+        {
+          "id": "junco",
+          "label": "Junco",
+          "sprite": "yarn-basket"
+        },
+        {
+          "id": "bellota",
+          "label": "Bellota",
+          "sprite": "basket-acorn"
+        }
+      ]
+    },
+    "bench": {
+      "label": "Bancos de ramas",
+      "category": "Bosque",
+      "template": {
+        "sprite": "bench",
+        "rules": [],
+        "solid": [
+          -1.5,
+          -0.55,
+          3,
+          0.8
+        ]
+      },
+      "aliases": [
+        "bench",
+        "bench-log"
+      ],
+      "defaults": {
+        "bench": "ramitas",
+        "bench-log": "tronquito"
+      },
+      "variants": [
+        {
+          "id": "ramitas",
+          "label": "Ramitas",
+          "sprite": "bench"
+        },
+        {
+          "id": "tronquito",
+          "label": "Tronquito",
+          "sprite": "bench-log"
+        }
+      ]
+    },
+    "knife": {
+      "label": "Navaja de Taramundi",
+      "category": "Objetos",
+      "template": {
+        "sprite": "picnic-knife",
+        "rules": []
+      },
+      "placeable": false,
+      "aliases": [
+        "picnic-knife"
+      ],
+      "defaults": {
+        "picnic-knife": "taramundi"
+      },
+      "variants": [
+        {
+          "id": "taramundi",
+          "label": "Taramundi",
+          "sprite": "picnic-knife"
+        }
+      ]
+    },
+    "lighter": {
+      "label": "Mechero de picnic",
+      "category": "Objetos",
+      "template": {
+        "sprite": "lighter",
+        "rules": []
+      },
+      "placeable": false,
+      "aliases": [
+        "lighter"
+      ],
+      "defaults": {
+        "lighter": "coral"
+      },
+      "variants": [
+        {
+          "id": "coral",
+          "label": "Coral",
+          "sprite": "lighter"
+        }
+      ]
+    },
+    "picnic-snacks": {
+      "label": "Aperitivos de picnic",
+      "category": "Picnic",
+      "template": {
+        "sprite": "picnic-guacamole",
+        "rules": [],
+        "solid": [
+          -0.65,
+          -0.4,
+          1.3,
+          0.65
+        ],
+        "edgeSlide": true
+      },
+      "aliases": [
+        "picnic-guacamole",
+        "picnic-potato-chips"
+      ],
+      "defaults": {
+        "picnic-guacamole": "guacamole",
+        "picnic-potato-chips": "patatas"
+      },
+      "variants": [
+        {
+          "id": "guacamole",
+          "label": "Guacamole",
+          "sprite": "picnic-guacamole"
+        },
+        {
+          "id": "patatas",
+          "label": "Patatas",
+          "sprite": "picnic-potato-chips"
+        }
+      ]
+    },
+    "picnic-drinks": {
+      "label": "Bebidas de picnic",
+      "category": "Picnic",
+      "template": {
+        "sprite": "picnic-lemonade",
+        "rules": [],
+        "solid": [
+          -0.3,
+          -0.35,
+          0.6,
+          0.55
+        ],
+        "edgeSlide": true
+      },
+      "aliases": [
+        "picnic-lemonade",
+        "picnic-orange-soda"
+      ],
+      "defaults": {
+        "picnic-lemonade": "limonada",
+        "picnic-orange-soda": "naranja"
+      },
+      "variants": [
+        {
+          "id": "limonada",
+          "label": "Limonada",
+          "sprite": "picnic-lemonade"
+        },
+        {
+          "id": "naranja",
+          "label": "Naranja",
+          "sprite": "picnic-orange-soda"
+        }
+      ]
+    },
+    "picnic-speaker": {
+      "label": "Altavoz de picnic",
+      "category": "Picnic",
+      "template": {
+        "sprite": "picnic-speaker",
+        "rules": [],
+        "solid": [
+          -0.7,
+          -0.45,
+          1.4,
+          0.7
+        ],
+        "edgeSlide": true
+      },
+      "aliases": [
+        "picnic-speaker"
+      ],
+      "defaults": {
+        "picnic-speaker": "portatil"
+      },
+      "variants": [
+        {
+          "id": "portatil",
+          "label": "Portatil",
+          "sprite": "picnic-speaker"
+        }
+      ]
+    },
+    "forest-tree": {
+      "label": "Árboles del bosque",
+      "category": "Vegetación",
+      "template": {
+        "sprite": "oak",
+        "rules": [],
+        "solid": [
+          -0.5,
+          -0.5,
+          1,
+          1
+        ],
+        "wind": {
+          "amplitude": 0.8,
+          "fixedFrom": 0.6,
+          "share": 0.35
+        }
+      },
+      "variants": [
+        {
+          "id": "oak",
+          "label": "Roble",
+          "sprite": "oak"
+        },
+        {
+          "id": "hornbeam",
+          "label": "Carpe",
+          "sprite": "hornbeam"
+        },
+        {
+          "id": "birch",
+          "label": "Abedul",
+          "sprite": "birch"
+        },
+        {
+          "id": "crooked-oak",
+          "label": "Roble torcido",
+          "sprite": "crooked-oak"
+        },
+        {
+          "id": "pine",
+          "label": "Pino",
+          "sprite": "pine"
+        }
+      ],
+      "aliases": [
+        "oak",
+        "hornbeam",
+        "birch",
+        "crooked-oak",
+        "pine"
+      ],
+      "defaults": {
+        "oak": "oak",
+        "hornbeam": "hornbeam",
+        "birch": "birch",
+        "crooked-oak": "crooked-oak",
+        "pine": "pine"
+      }
+    },
+    "bush": {
+      "label": "Matorrales",
+      "category": "Vegetación",
+      "template": {
+        "sprite": "bush",
+        "rules": [],
+        "wind": {
+          "amplitude": 0.55,
+          "fixedFrom": 0.78,
+          "share": 0.3
+        }
+      },
+      "variants": [
+        {
+          "id": "bush",
+          "label": "Hojas",
+          "sprite": "bush"
+        },
+        {
+          "id": "berries",
+          "label": "Bayas",
+          "sprite": "berries"
+        }
+      ],
+      "aliases": [
+        "bush",
+        "berries"
+      ],
+      "defaults": {
+        "bush": "bush",
+        "berries": "berries"
+      }
+    },
+    "reeds": {
+      "label": "Hierbas de ribera",
+      "category": "Vegetación",
+      "template": {
+        "sprite": "reeds",
+        "rules": [],
+        "wind": {
+          "amplitude": 0.85,
+          "fixedFrom": 0.9,
+          "share": 0.45
+        }
+      },
+      "variants": [
+        {
+          "id": "reeds",
+          "label": "Juncos",
+          "sprite": "reeds"
+        },
+        {
+          "id": "coastal-grass",
+          "label": "Hierba de costa",
+          "sprite": "coastal-grass"
+        }
+      ],
+      "aliases": [
+        "reeds",
+        "coastal-grass"
+      ],
+      "defaults": {
+        "reeds": "reeds",
+        "coastal-grass": "coastal-grass"
+      }
+    },
+    "stones": {
+      "label": "Piedras",
+      "category": "Paisaje",
+      "template": {
+        "sprite": "rocks",
+        "rules": [],
+        "solid": [
+          -0.6,
+          -0.45,
+          1.2,
+          0.7
+        ]
+      },
+      "variants": [
+        {
+          "id": "rocks",
+          "label": "Grises",
+          "sprite": "rocks"
+        },
+        {
+          "id": "sandstone",
+          "label": "Arena",
+          "sprite": "sandstone"
+        }
+      ],
+      "aliases": [
+        "rocks",
+        "sandstone"
+      ],
+      "defaults": {
+        "rocks": "rocks",
+        "sandstone": "sandstone"
+      }
+    },
+    "woodland-small": {
+      "label": "Pequeñas setas",
+      "category": "Setas",
+      "template": {
+        "sprite": "mushrooms",
+        "rules": []
+      },
+      "variants": [
+        {
+          "id": "mushrooms",
+          "label": "Grupo del bosque",
+          "sprite": "mushrooms"
+        }
+      ],
+      "aliases": [
+        "mushrooms"
+      ],
+      "defaults": {
+        "mushrooms": "mushrooms"
+      }
+    },
+    "fallen-wood": {
+      "label": "Madera caída",
+      "category": "Paisaje",
+      "template": {
+        "sprite": "fallen-log",
+        "rules": [],
+        "solid": [
+          -0.8,
+          -0.5,
+          1.6,
+          0.8
+        ]
+      },
+      "variants": [
+        {
+          "id": "fallen-log",
+          "label": "Tronquito",
+          "sprite": "fallen-log"
+        },
+        {
+          "id": "stump",
+          "label": "Tocón",
+          "sprite": "stump"
+        }
+      ],
+      "aliases": [
+        "fallen-log",
+        "stump"
+      ],
+      "defaults": {
+        "fallen-log": "fallen-log",
+        "stump": "stump"
+      }
+    }
+  }
+}

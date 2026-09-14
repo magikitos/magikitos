@@ -1,0 +1,179 @@
+{
+  "profiles": [
+    {
+      "id": "1-nearest",
+      "density": 1,
+      "sampling": "nearest",
+      "label": "1× · actual",
+      "note": "Píxeles exactos del atlas actual."
+    },
+    {
+      "id": "1-area",
+      "density": 1,
+      "sampling": "area",
+      "label": "1× · reducción integrada",
+      "note": "Misma resolución; compara solo el método de reducción."
+    },
+    {
+      "id": "2-nearest",
+      "density": 2,
+      "sampling": "nearest",
+      "label": "2× · nítida",
+      "note": "Doble densidad, sin filtrar la reducción."
+    },
+    {
+      "id": "2-area",
+      "density": 2,
+      "sampling": "area",
+      "label": "2× · reducción integrada",
+      "note": "Doble densidad; integra el detalle al reducir. No aplica blur en pantalla."
+    },
+    {
+      "id": "3-nearest",
+      "density": 3,
+      "sampling": "nearest",
+      "label": "3× · nítida",
+      "note": "Triple densidad; prueba de límite, no recomendación automática."
+    },
+    {
+      "id": "3-area",
+      "density": 3,
+      "sampling": "area",
+      "label": "3× · reducción integrada",
+      "note": "Triple densidad; más memoria y transferencia."
+    }
+  ],
+  "assets": [
+    {
+      "name": "picnic-knife",
+      "label": "Navaja de Taramundi",
+      "motion": "rigid",
+      "select": true
+    },
+    {
+      "name": "lighter",
+      "label": "Mechero",
+      "motion": "rigid",
+      "select": true
+    },
+    {
+      "name": "flowers-daisy-gold",
+      "label": "Margaritas",
+      "motion": "foliage",
+      "select": true
+    },
+    {
+      "name": "giant-fern",
+      "label": "Helecho",
+      "motion": "fern",
+      "select": true
+    },
+    {
+      "name": "giant-clover",
+      "label": "Trébol",
+      "motion": "foliage",
+      "select": true
+    },
+    {
+      "name": "flower-pot",
+      "label": "Maceta",
+      "motion": "planter",
+      "select": true
+    },
+    {
+      "name": "giant-bolete",
+      "label": "Seta",
+      "motion": "rigid",
+      "select": true
+    },
+    {
+      "name": "human-house",
+      "label": "Refugio de hojas",
+      "motion": "rigid",
+      "select": true
+    },
+    {
+      "name": "picnic-blanket",
+      "label": "Manta",
+      "motion": "rigid"
+    },
+    {
+      "name": "picnic-tortilla",
+      "label": "Tortilla",
+      "motion": "rigid"
+    },
+    {
+      "name": "picnic-basket",
+      "label": "Cesta",
+      "motion": "rigid"
+    },
+    {
+      "name": "picnic-guacamole",
+      "label": "Guacamole",
+      "motion": "rigid"
+    },
+    {
+      "name": "picnic-potato-chips",
+      "label": "Patatas",
+      "motion": "rigid"
+    },
+    {
+      "name": "picnic-lemonade",
+      "label": "Limonada",
+      "motion": "rigid"
+    },
+    {
+      "name": "picnic-orange-soda",
+      "label": "Refresco",
+      "motion": "rigid"
+    },
+    {
+      "name": "picnic-speaker",
+      "label": "Altavoz",
+      "motion": "rigid"
+    },
+    {
+      "name": "picnic-smoker",
+      "label": "Humano · poses dibujadas",
+      "motion": "actor",
+      "fixed": true,
+      "select": true
+    },
+    {
+      "name": "picnic-smoker-raise",
+      "fixed": true
+    },
+    {
+      "name": "picnic-smoker-puff",
+      "fixed": true
+    },
+    {
+      "name": "picnic-smoker-lower",
+      "fixed": true
+    },
+    {
+      "name": "picnic-human-friend",
+      "label": "Humana · poses dibujadas",
+      "motion": "actor",
+      "fixed": true,
+      "select": true
+    },
+    {
+      "name": "picnic-friend-talk",
+      "fixed": true
+    },
+    {
+      "name": "picnic-friend-sip",
+      "fixed": true
+    },
+    {
+      "name": "picnic-friend-smile",
+      "fixed": true
+    },
+    {
+      "name": "person-0-down",
+      "label": "Protagonista · referencia",
+      "fixed": true
+    }
+  ]
+}

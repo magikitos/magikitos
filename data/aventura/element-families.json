@@ -1,0 +1,703 @@
+{
+  "families": {
+    "log-home": {
+      "label": "Casas de tronco",
+      "category": "Casitas",
+      "template": {
+        "sprite": "workshop",
+        "rules": [
+          {
+            "effects": [
+              {
+                "type": "travel",
+                "scene": "cottage",
+                "spawn": true
+              }
+            ]
+          }
+        ],
+        "solid": [
+          -3,
+          -1,
+          7,
+          1.2
+        ],
+        "portal": true,
+        "label": "cottage"
+      }
+    },
+    "boot-home": {
+      "label": "Casas de bota",
+      "category": "Casitas",
+      "template": {
+        "sprite": "tavern",
+        "rules": [
+          {
+            "effects": [
+              {
+                "type": "travel",
+                "scene": "tavern",
+                "spawn": true
+              }
+            ]
+          }
+        ],
+        "solid": [
+          -2.7,
+          -1.2,
+          7,
+          1.35
+        ],
+        "portal": true,
+        "label": "cottage"
+      }
+    },
+    "leaf-home": {
+      "label": "Refugios de hojas",
+      "category": "Casitas",
+      "template": {
+        "sprite": "human-house",
+        "rules": [
+          {
+            "effects": [
+              {
+                "type": "travel",
+                "scene": "house",
+                "spawn": true
+              }
+            ]
+          }
+        ],
+        "solid": [
+          -3.9,
+          -1.8,
+          7.8,
+          2
+        ],
+        "portal": true,
+        "label": "cottage"
+      }
+    },
+    "mushroom-home": {
+      "label": "Casas de seta",
+      "category": "Casitas",
+      "template": {
+        "sprite": "cottage-closed",
+        "rules": [],
+        "solid": [
+          -3,
+          -1.4,
+          6,
+          1.6
+        ]
+      }
+    },
+    "pot-home": {
+      "label": "Casas de maceta",
+      "category": "Casitas",
+      "template": {
+        "sprite": "fisher-closed",
+        "rules": [],
+        "solid": [
+          -4,
+          -2,
+          8,
+          2.3
+        ]
+      }
+    },
+    "fern": {
+      "label": "Helechos",
+      "category": "Vegetación",
+      "template": {
+        "sprite": "giant-fern",
+        "rules": [],
+        "wind": {
+          "amplitude": 1.25,
+          "fixedFrom": 0.92,
+          "share": 0.5
+        }
+      }
+    },
+    "clover": {
+      "label": "Tréboles secos",
+      "category": "Vegetación",
+      "template": {
+        "sprite": "giant-clover",
+        "rules": [],
+        "wind": {
+          "amplitude": 0.75,
+          "fixedFrom": 0.82,
+          "share": 0.3
+        }
+      }
+    },
+    "bolete": {
+      "label": "Setas comestibles",
+      "category": "Setas",
+      "template": {
+        "sprite": "giant-bolete",
+        "rules": []
+      }
+    },
+    "scarlet-mushroom": {
+      "label": "Setas rojas",
+      "category": "Setas",
+      "template": {
+        "sprite": "scarlet-mushrooms",
+        "rules": []
+      }
+    },
+    "planter": {
+      "label": "Macetas empujables",
+      "category": "Objetos",
+      "template": {
+        "sprite": "flower-pot",
+        "rules": [],
+        "solid": [
+          -0.65,
+          -0.75,
+          1.3,
+          0.9
+        ],
+        "pushable": true
+      }
+    },
+    "crate": {
+      "label": "Cajas empujables",
+      "category": "Objetos",
+      "template": {
+        "sprite": "crates",
+        "rules": [],
+        "solid": [
+          -0.8,
+          -0.8,
+          1.6,
+          1
+        ],
+        "pushable": true
+      }
+    },
+    "bed": {
+      "label": "Camas de duende",
+      "category": "Interior",
+      "template": {
+        "sprite": "bed",
+        "rules": [],
+        "solid": [
+          -1.65,
+          -3.1,
+          3.3,
+          3.4
+        ]
+      }
+    },
+    "table": {
+      "label": "Mesas del bosque",
+      "category": "Interior",
+      "template": {
+        "sprite": "table",
+        "rules": [],
+        "solid": [
+          -1.65,
+          -1.5,
+          3.3,
+          1.8
+        ]
+      }
+    },
+    "cupboard": {
+      "label": "Alacenas de corteza",
+      "category": "Interior",
+      "template": {
+        "sprite": "cupboard",
+        "rules": [],
+        "solid": [
+          -1.4,
+          -1.5,
+          2.8,
+          1.8
+        ]
+      }
+    },
+    "dresser": {
+      "label": "Aparadores de ramitas",
+      "category": "Interior",
+      "template": {
+        "sprite": "dresser",
+        "rules": [],
+        "solid": [
+          -1.9,
+          -1.2,
+          3.8,
+          1.5
+        ]
+      }
+    },
+    "shelf": {
+      "label": "Estantes de ramas",
+      "category": "Interior",
+      "template": {
+        "sprite": "kitchen-rack",
+        "rules": []
+      }
+    },
+    "stove": {
+      "label": "Estufas de barro",
+      "category": "Interior",
+      "template": {
+        "sprite": "stove",
+        "rules": [],
+        "solid": [
+          -1,
+          -1.3,
+          2,
+          1.6
+        ]
+      }
+    },
+    "lamp": {
+      "label": "Faroles de bellota",
+      "category": "Objetos",
+      "template": {
+        "sprite": "lantern",
+        "rules": []
+      }
+    },
+    "vase": {
+      "label": "Floreros de semilla",
+      "category": "Objetos",
+      "template": {
+        "sprite": "flower-vase",
+        "rules": []
+      }
+    },
+    "window": {
+      "label": "Ventanas de avellano",
+      "category": "Interior",
+      "template": {
+        "sprite": "window-arched",
+        "rules": []
+      }
+    },
+    "stairs": {
+      "label": "Escaleras de ramas",
+      "category": "Interior",
+      "template": {
+        "sprite": "stairs-up",
+        "rules": [],
+        "solid": [
+          -1.45,
+          -3.8,
+          2.9,
+          2.7
+        ]
+      },
+      "placeable": false
+    },
+    "ferry": {
+      "label": "Barcas de hojas",
+      "category": "Paisaje",
+      "template": {
+        "sprite": "ferry",
+        "rules": [],
+        "solid": [
+          -2.6,
+          -1.1,
+          5.2,
+          1.4
+        ]
+      },
+      "placeable": false
+    },
+    "forest-tree": {
+      "label": "Árboles del bosque",
+      "category": "Vegetación",
+      "template": {
+        "sprite": "oak",
+        "rules": [],
+        "solid": [
+          -0.5,
+          -0.5,
+          1,
+          1
+        ],
+        "wind": {
+          "amplitude": 0.8,
+          "fixedFrom": 0.6,
+          "share": 0.35
+        }
+      },
+      "variants": [
+        {
+          "id": "oak",
+          "label": "Roble",
+          "sprite": "oak"
+        },
+        {
+          "id": "hornbeam",
+          "label": "Carpe",
+          "sprite": "hornbeam"
+        },
+        {
+          "id": "birch",
+          "label": "Abedul",
+          "sprite": "birch"
+        },
+        {
+          "id": "crooked-oak",
+          "label": "Roble torcido",
+          "sprite": "crooked-oak"
+        },
+        {
+          "id": "pine",
+          "label": "Pino",
+          "sprite": "pine"
+        }
+      ]
+    },
+    "canopy-tree": {
+      "label": "Árboles de copa",
+      "category": "Bosque",
+      "template": {
+        "sprite": "ancient-root",
+        "rules": [],
+        "solid": [
+          -2.5,
+          -2.8,
+          5,
+          3.4
+        ],
+        "wind": {
+          "amplitude": 1,
+          "fixedFrom": 0.62,
+          "share": 0.35
+        }
+      }
+    },
+    "bush": {
+      "label": "Matorrales",
+      "category": "Vegetación",
+      "template": {
+        "sprite": "bush",
+        "rules": [],
+        "wind": {
+          "amplitude": 0.55,
+          "fixedFrom": 0.78,
+          "share": 0.3
+        }
+      },
+      "variants": [
+        {
+          "id": "bush",
+          "label": "Hojas",
+          "sprite": "bush"
+        },
+        {
+          "id": "berries",
+          "label": "Bayas",
+          "sprite": "berries"
+        }
+      ]
+    },
+    "reeds": {
+      "label": "Hierbas de ribera",
+      "category": "Vegetación",
+      "template": {
+        "sprite": "reeds",
+        "rules": [],
+        "wind": {
+          "amplitude": 0.85,
+          "fixedFrom": 0.9,
+          "share": 0.45
+        }
+      },
+      "variants": [
+        {
+          "id": "reeds",
+          "label": "Juncos",
+          "sprite": "reeds"
+        },
+        {
+          "id": "coastal-grass",
+          "label": "Hierba de costa",
+          "sprite": "coastal-grass"
+        }
+      ]
+    },
+    "stones": {
+      "label": "Piedras",
+      "category": "Paisaje",
+      "template": {
+        "sprite": "rocks",
+        "rules": [],
+        "solid": [
+          -0.6,
+          -0.45,
+          1.2,
+          0.7
+        ]
+      },
+      "variants": [
+        {
+          "id": "rocks",
+          "label": "Grises",
+          "sprite": "rocks"
+        },
+        {
+          "id": "sandstone",
+          "label": "Arena",
+          "sprite": "sandstone"
+        }
+      ]
+    },
+    "bench": {
+      "label": "Bancos de ramas",
+      "category": "Bosque",
+      "template": {
+        "sprite": "bench",
+        "rules": [],
+        "solid": [
+          -1.5,
+          -0.55,
+          3,
+          0.8
+        ]
+      }
+    },
+    "woodland-small": {
+      "label": "Pequeñas setas",
+      "category": "Setas",
+      "template": {
+        "sprite": "mushrooms",
+        "rules": []
+      },
+      "variants": [
+        {
+          "id": "mushrooms",
+          "label": "Grupo del bosque",
+          "sprite": "mushrooms"
+        }
+      ]
+    },
+    "fallen-wood": {
+      "label": "Madera caída",
+      "category": "Paisaje",
+      "template": {
+        "sprite": "fallen-log",
+        "rules": [],
+        "solid": [
+          -0.8,
+          -0.5,
+          1.6,
+          0.8
+        ]
+      },
+      "variants": [
+        {
+          "id": "fallen-log",
+          "label": "Tronquito",
+          "sprite": "fallen-log"
+        },
+        {
+          "id": "stump",
+          "label": "Tocón",
+          "sprite": "stump"
+        }
+      ]
+    },
+    "art-easel": {
+      "label": "Caballetes naturales",
+      "category": "Interior",
+      "template": {
+        "sprite": "easel",
+        "rules": [],
+        "solid": [
+          -0.6,
+          -0.7,
+          1.2,
+          0.9
+        ],
+        "edgeSlide": true
+      }
+    },
+    "flowers-daisy": {
+      "label": "Margaritas",
+      "category": "Flores",
+      "template": {
+        "sprite": "flowers-daisy-white",
+        "rules": [],
+        "wind": {
+          "amplitude": 0.6,
+          "fixedFrom": 0.82,
+          "share": 0.25
+        }
+      }
+    },
+    "flowers-bell": {
+      "label": "Campanillas",
+      "category": "Flores",
+      "template": {
+        "sprite": "flowers-bell-blue",
+        "rules": [],
+        "wind": {
+          "amplitude": 0.7,
+          "fixedFrom": 0.85,
+          "share": 0.3
+        }
+      }
+    },
+    "flowers-meadow": {
+      "label": "Flores del prado",
+      "category": "Flores",
+      "template": {
+        "sprite": "flowers-primrose",
+        "rules": [],
+        "wind": {
+          "amplitude": 0.6,
+          "fixedFrom": 0.82,
+          "share": 0.25
+        }
+      }
+    },
+    "stool": {
+      "label": "Taburetes",
+      "category": "Interior",
+      "template": {
+        "sprite": "stool-acorn",
+        "rules": [],
+        "solid": [
+          -0.6,
+          -0.6,
+          1.2,
+          0.8
+        ],
+        "edgeSlide": true
+      }
+    },
+    "bridge": {
+      "label": "Puentes de ramas",
+      "category": "Paisaje",
+      "template": {
+        "sprite": "bridge-branches",
+        "rules": []
+      },
+      "placeable": false
+    },
+    "chair": {
+      "label": "Asientos de duende",
+      "category": "Interior",
+      "template": {
+        "sprite": "armchair",
+        "rules": [],
+        "solid": [
+          -1,
+          -0.8,
+          2,
+          1.1
+        ]
+      }
+    },
+    "stairs-down": {
+      "label": "Escaleras de bajada",
+      "category": "Interior",
+      "template": {
+        "sprite": "stairs-down",
+        "rules": []
+      },
+      "placeable": false
+    },
+    "knife": {
+      "label": "Navaja de Taramundi",
+      "category": "Objetos",
+      "template": {
+        "sprite": "picnic-knife",
+        "rules": []
+      },
+      "placeable": false
+    },
+    "lectern": {
+      "label": "Atriles de bosque",
+      "category": "Interior",
+      "template": {
+        "sprite": "book-lectern",
+        "rules": [],
+        "solid": [
+          -1,
+          -1.1,
+          2,
+          1.4
+        ]
+      }
+    },
+    "basket": {
+      "label": "Cestas de labores",
+      "category": "Interior",
+      "template": {
+        "sprite": "yarn-basket",
+        "rules": [],
+        "solid": [
+          -0.6,
+          -0.5,
+          1.2,
+          0.75
+        ],
+        "edgeSlide": true
+      }
+    },
+    "lighter": {
+      "label": "Mechero de picnic",
+      "category": "Objetos",
+      "template": {
+        "sprite": "lighter",
+        "rules": []
+      },
+      "placeable": false
+    },
+    "picnic-snacks": {
+      "label": "Aperitivos de picnic",
+      "category": "Picnic",
+      "template": {
+        "sprite": "picnic-guacamole",
+        "rules": [],
+        "solid": [
+          -0.65,
+          -0.4,
+          1.3,
+          0.65
+        ],
+        "edgeSlide": true
+      }
+    },
+    "picnic-drinks": {
+      "label": "Bebidas de picnic",
+      "category": "Picnic",
+      "template": {
+        "sprite": "picnic-lemonade",
+        "rules": [],
+        "solid": [
+          -0.3,
+          -0.35,
+          0.6,
+          0.55
+        ],
+        "edgeSlide": true
+      }
+    },
+    "picnic-speaker": {
+      "label": "Altavoz de picnic",
+      "category": "Picnic",
+      "template": {
+        "sprite": "picnic-speaker",
+        "rules": [],
+        "solid": [
+          -0.7,
+          -0.45,
+          1.4,
+          0.7
+        ],
+        "edgeSlide": true
+      }
+    }
+  }
+}

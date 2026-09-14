@@ -1,110 +1,234 @@
-# Magikitos Studio · exclusivamente local
+# Local Studio
 
-## Abrir
+One working version. Open the Studio, arrange the scene, and stop.
+It automatically reopens your work next time. There is no project chooser,
+"new draft", named copy, or live-game editor.
 
-Desde la raíz del proyecto:
+## Start
 
-```sh
-node tools/adventure-studio/server.cjs
-```
-
-http://127.0.0.1:47832
-
-Solo escucha en este Mac. No es una ruta pública, no está bajo `public/` y no se añade al router PHP.
-Requiere Node, PHP y esbuild ya instalados. Si no se encuentran: `STUDIO_PHP=/ruta/php` y `WORLD_ESBUILD=/ruta/esbuild`.
-No instala dependencias, arranca contenedores, consulta producción ni necesita base de datos.
-
-## Uso
-
-1. Elige una de las seis escenas.
-2. Selecciona en el mapa o busca un elemento en la lista.
-3. Arrástralo; ajusta X/Y, escala y reflejo en el inspector.
-4. Activa colisiones o cuadrícula cuando necesites comprobar un paso.
-5. Pon nombre al borrador y guárdalo. También se guarda automáticamente tras una pausa.
-6. Usa **Ver cambios** para revisar y **Exportar diff** para entregar la propuesta.
-
-Arrastrar el fondo mueve la cámara. Rueda o pellizco ajustan el zoom; **Encajar** muestra toda la escena.
-**Mano**, botón central o Espacio + arrastrar permiten desplazar el mapa sobre objetos.
-Flechas ajustan el objeto seleccionado según el paso del inspector; Shift multiplica el paso por cuatro.
-⌘/Ctrl Z deshace; ⌘/Ctrl Shift Z o Ctrl Y rehace; ⌘/Ctrl S guarda.
-El historial de deshacer admite 100 acciones. Abrir otro borrador empieza un historial nuevo, no borra sus cambios.
-Cancelar un gesto restaura su posición anterior.
-
-**Mover también piezas apoyadas** mueve conjuntamente objetos con la misma ancla: por ejemplo, mesita, mechero y florero.
-Afecta a arrastrar y a cambiar coordenadas. No agrupa por cercanía arbitraria ni convierte toda una habitación en un bloque.
-
-## Qué permite, y qué no
-
-- Reordenar entidades existentes y la vegetación generada; inspeccionar anclas y cuerpos.
-- Escalas discretas con píxel sin interpolación: 0,75×, 1×, 1,25× y 1,5× para arte compatible.
-- Reflejo horizontal cuando es compatible.
-- Giros de 90° solo para arte plano, actualmente hojas de limpieza, marcas del suelo y conchas.
-- Puertas, actores, barcas y elementos animados críticos no ofrecen deformaciones que rompan su perspectiva o funcionamiento.
-- El estudio no permite cambiar comportamientos, recompensas, identificadores, reglas o destinos mediante JSON libre.
-- No crea escenas, no pinta caminos/agua y no añade ni elimina elementos en esta entrega.
-- El taller muestra su **plano fuente**. El juego dimensiona el interior y crea expositores desde el catálogo; esos objetos dinámicos no son colocaciones manuales del plano. El inspector y el revisor avisan de ello.
-
-Una colisión superpuesta puede ser intencionada —un objeto sobre una mesa— o un problema.
-Los avisos ayudan a revisar, pero no sustituyen probar los recorridos después de aplicar el cambio.
-Mover una puerta exige comprobar ambos sentidos; mover la hoguera puede exigir recolocar zona y luz.
-
-## Separación de borradores y juego
-
-Archivos persistentes, ignorados por Git:
-
-- `.local/adventure-studio/drafts/*.json`: borradores.
-- `.local/adventure-studio/drafts/<id>-history/`: copias de guardados anteriores.
-- `.local/adventure-studio/snapshots/`: base de cada borrador, identificada por hash.
-- `.local/adventure-studio/build/`: bundle del editor.
-- `.local/adventure-studio/ui-lab/`: copia conservada del laboratorio A/B y sus medios locales.
-
-No borrar esa carpeta para «limpiar el build»: también contiene trabajo del usuario.
-El laboratorio temporal original se conserva además; el enlace **UI Lab** abre la copia persistente en otra pestaña.
-Si se clona el repositorio en otra máquina, esa copia privada no viaja con Git y debe copiarse también.
-El editor del mapa usa los sprites y el código compartidos del proyecto, no depende de esa copia para funcionar.
-
-El servidor solo escribe en su directorio local. No tiene endpoint de aplicación, de edición de escenas ni de DB.
-Valida Host y Origin, exige token para guardar, limita el tamaño del cuerpo y valida cada transformación.
-El guardado es atómico, conserva historial y comprueba la revisión: una pestaña no pisa a otra.
-Una base antigua se conserva como tal, sin mezclarla automáticamente con el mapa nuevo.
-**Nuevo** vuelve a leer la base actual; abrir un borrador conserva su base original.
-
-## Vegetación estable y formato del diff
-
-El mundo actual genera parte del bosque de forma determinista. Mover una entidad puede afectar a las exclusiones del generador.
-Para evitar que al mover una mesa cambie medio bosque, cada borrador conserva la vegetación de su base.
-La propuesta de una escena editada incluye `scenery`: esas colocaciones explícitas, en tiles, con sus cuerpos cuando los tienen.
-Sin `scenery`, el juego sigue usando su generador actual. No se ha congelado ni recolocado ningún bosque del juego por abrir el studio.
-
-El diff contiene:
-
-- Hash global de la base y hash del archivo fuente por escena.
-- Capa, ID, sprite y valores anteriores/nuevos de cada colocación.
-- Escena propuesta completa, conservando el resto de sus reglas y propiedades.
-
-`draft.js` define y valida ese contrato. `entity-art.js` comparte geometría de dibujo, hit-test, colisiones transformadas y capacidades entre editor y juego.
-
-## Revisar antes de aplicar
+From the game repository:
 
 ```sh
-node scripts/review-adventure-draft.cjs /ruta/al/mapa-diff.json
+npm ci
+npm run studio
 ```
 
-Este comando es **solo lectura**. Comprueba que la base siga siendo la misma y que la exportación no altere reglas u otras propiedades.
-Después se revisan composición, puertas, luces, zonas, objetos relacionados y rutas.
-La aplicación al juego se hace como un cambio de código separado, con revisión del diff y pruebas. Nunca desde un botón del editor.
+Open http://127.0.0.1:47832. Node 22+, PHP with GD and esbuild are required.
+The Studio never connects to the website, a database, GitHub or production.
+It binds to loopback and writes only its own local working files.
 
-## Verificar
+## One interface, two tools
+
+**Mapa** and **Archivo de pruebas** share the Studio shell and navigation. Switching tools
+does not reload the document or discard unsaved map edits. Map shortcuts and
+rendering pause while experiments are visible.
+
+- `/#map`: the one autosaved map workspace.
+- `/#experiments/camera`: closed free-camera comparison (illustrated / hybrid / full 3D).
+- `/#experiments/forest-scale`: preserved miniature-forest scale experiment.
+- `/#experiments/conversation`: closed Conversar / Acercarse comparison, archived.
+- `/ui/` now opens that archive inside Studio, never a second interface.
+
+Experiments are registered in `experiments/registry.js`, each with its own
+directory and active/archived status. The forest study composes the game's shared
+physics, navigation, character animation, terrain and sprite loader; it does not
+boot the game, load accounts, contact the website, send events or use a game save.
+Its temporary position/proportion stays in memory while switching Studio tabs.
+It cannot enter the map diff or overwrite the user's working scene.
+
+The archived sample is read-only. Its private media remain in
+`.local/adventure-studio/ui-lab` and are not bundled into a public clone. It is
+sandboxed within the shared shell, with all assets scoped below
+`/experiments/conversation/`; leaving the archive destroys its frame to stop
+audio/animation. If that historical local sample is absent, Studio explains it
+without downloading anything. The original archived files are never rewritten.
+
+### Archived experiment: Cámara libre
+
+The owner chose the existing fixed camera. This is preserved evidence, not ongoing
+work or a dependency of the playable game. All three experiments are archived.
+
+Three independently rendered variants of one small walkable clearing: current
+billboard art, volumetric surroundings with pixel characters, and an entirely
+geometric maquette. Orbit, inclination, perspective/orthographic projection,
+mouse wheel/pinch zoom, camera-relative walking and a reachable raised lookout.
+
+Its WebGL renderer is a separate, lazy bundle, never part of the game or main
+Studio JS. The trusted local iframe only isolates DOM/lifecycle; it makes no game
+API or persistence calls. Leaving releases it instead of running a hidden 3D scene.
+The original map workspace and older experiments remain independent.
+
+Run `npm run test:camera` for isolated browser/physics/budget checks. Read the
+[comparison and feasibility report](experiments/camera/README.md) for measurements,
+module boundaries and the substantial work still required before adopting 3D.
+
+### Preserved experiment: Un bosque enorme
+
+Three relative proportions (Cercana, Diminuta, Minúscula), five jump-to viewpoints,
+walking/click-to-walk/rolling, camera pan and wheel/pinch zoom. Character pixels
+and camera zoom remain unchanged when selecting relative proportions.
+Trees are represented by monumental roots/trunk bases; a coast continuing beyond
+the scene suggests a river too large to circumnavigate. There are no human cottages.
+Doors are visual concepts here, not implemented interiors or new missions.
+
+**Arte y escala** lazily opens a separate art-direction illustration and twelve
+modular sprites: six found-material homes and six forest elements. The illustration
+is explicitly labeled as concept art, not a screenshot of the playable prototype.
+Source images and complete built-in image-generation prompts are in
+`experiments/forest-scale/art/` and `prompts.json`.
+
+Startup mechanically packages the two sprite sheets into
+`.local/adventure-studio/experiments/forest-scale/`, preserving the generated alpha
+and immutable originals. Those preview packs only load when opening the experiment;
+the larger concept image only loads in its art view. No experiment assets are
+included in game releases.
+
+Run `npm run test:experiments` for isolated browser checks of the shared shell,
+all three scale presets, routes, lifecycle, archive, lazy art, five viewport sizes
+and unchanged game source/user workspace.
+
+## Arrange objects
+
+Choose a scene, select a placed object or vegetation, and drag.
+The inspector supports coordinates, native-pixel snapping, discrete scale
+and horizontal mirroring where the art supports them. There is no rotation control:
+rotating a bitmap cannot create another top-down perspective. Existing authored
+orientations still render correctly. Doors, actors and critical animated props have
+protected transforms. Co-located pieces (table, lighter, vase) can move as one group.
+
+Drag the background or hold Space to pan. Wheel or pinch to zoom.
+Arrow keys nudge; Shift multiplies the step by four. Cmd/Ctrl-Z and
+Cmd/Ctrl-Shift-Z undo/redo the last 100 changes, including crops, paths and bodies.
+Cmd/Ctrl-S saves immediately; otherwise edits save after a short pause.
+
+## Gallery and variants
+
+Open **Galería de elementos** in the Elements pane. Search by family/category, choose
+a specific variant or **Variada · fija por objeto**, and press **Colocar**.
+The object appears at the viewport centre, selected for dragging. The inspector's
+variant selector changes only its artwork; quest rules and IDs remain intact.
+Auto uses a deterministic scene/object hash, so a reload never shuffles the map.
+
+The gallery includes the new woodland collection and retained compatible forest
+props. Homes are not offered inside interiors. Ferries, stairs and the quest knife
+are inspectable artwork but cannot be added as incomplete gameplay objects.
+Planters/crates placed as entities inherit the reusable pushing capability.
+
+**Retirar** supports added props and nonfunctional decorative objects. It refuses
+quest objects, entrances, products, actors and other functional entities.
+Additions/removals/variants share undo, redo, autosave and the one reviewed diff.
+No map change is applied live to the game. See [the collection contract](../../docs/WOODLAND-KIT.md).
+
+## Edit paths
+
+Choose an outdoor scene and switch from **Elementos** to **Caminos**.
+
+- Select a road on the map or in the list; drag its circular points.
+- **Insertar punto** then click a segment to add a bend. **Borrar punto** removes
+  the selected bend (a road needs at least two points).
+- **Nuevo camino**: click its points, then **Terminar** or Enter. Esc cancels;
+  Backspace removes the last unfinished point.
+- **Borrar camino** removes the selected road. All committed edits support the
+  same undo/redo and autosave as objects; nothing is applied to the game.
+- Hold Space or activate **Mano** to pan. Wheel/pinch zoom; a pinch cancels the
+  pending single-pointer gesture without accidentally drawing or moving a point.
+- Coordinates/snapping use tile units (16 native pixels). Arrow keys nudge the
+  selected point; Shift multiplies the step by four.
+
+Paths are scene `paths` polylines, not image strokes. Their width, edges and
+material remain shared renderer rules, so junctions keep the game's appearance.
+During a drag the line previews instantly; releasing rebuilds the ground once.
+The Studio freezes scenery: changing a road never redistributes the forest.
+Water, walls, bridges, buildings and collisions do not move with a path. Inspect
+those separately before applying a proposal; drawing over water is not a bridge.
+
+A paths-only edit (including deleting every road) appears in **Ver cambios**,
+`studio:diff` and exports as `paths: {before, after}`. Concurrent source topology
+edits require explicit review; indices are never guessed or silently merged.
+
+## Crop images
+
+Select an object and open **Recorte del sprite**. Drag the green corners or
+enter integer native-pixel values. **Ajustar al dibujo** finds its visible pixels.
+The checkerboard indicates transparent space; the orange cross is the foot anchor.
+
+A crop belongs to the **sprite definition**, so all instances of that furniture
+share it. It does not change the source image, the object's position, scale or
+physical body. Cropping moves the frame window and its foot anchor together.
+Changing a source asset remains a separate art operation.
+
+The editor reconstructs the uncropped native canvas from editor-only art packs.
+The game never loads those preview packs or scans image pixels at startup.
+
+## Collision bodies
+
+**Colisión · cuerpo físico** shows the collision independently in blue.
+Offsets and dimensions are in native pixels relative to the object's foot.
+Existing furniture bodies are editable; derived doors, stairs and actors are
+protected. The renderer and physics both apply the object's supported transform.
+
+Do not crop a tree canopy to "fix" the trunk collision. A tree's visible canopy
+and its physical trunk intentionally have different sizes.
+Turning on collision inspection also shows architectural walls and door thresholds.
+
+## Tell the agent
+
+> He cambiado las escenas.
+
+The agent runs:
 
 ```sh
-node scripts/check-adventure-studio.cjs
-node scripts/check-adventure-studio.cjs --unit
+npm run studio:diff
+node tools/adventure-studio/review.cjs --full
 ```
 
-La suite de navegador arranca otra instancia en 47833 y usa una carpeta temporal propia.
-Comprueba transformaciones, bosque congelado idéntico, agrupación, ratón, guardado/recarga, exportación, deshacer/rehacer,
-rechazo de escrituras sin token/origen, nombres inválidos, conflictos de revisión y que no cambien las fuentes del juego.
-Se revisan tamaños de escritorio, tablet, móvil y horizontal. No certifica dispositivos iOS físicos.
+The first command prints a concise before/after diff; `--full` includes proposed
+scene JSON. `/api/diff` and **Exportar diff** provide the full review payload.
+The agent reviews and edits the source scenes/asset definitions, then rebuilds
+and tests. There is deliberately **no apply or deploy endpoint** in the Studio.
 
-Arquitectura: `snapshot.cjs` (lectura), `draft.js` (contrato puro), `viewport.js` (cámara/hit-test/gestos),
-`app.js` (herramientas), `server.cjs` (persistencia aislada), `build.cjs` (build local).
+When the source changes, a three-way comparison drops edits already applied,
+keeps nonconflicting changes, and preserves conflicts for explicit review.
+A stale browser tab cannot overwrite a newer save: revisions are concurrency
+tokens, not separate user-facing drafts.
+
+Generated vegetation is frozen in the reviewed scene proposal so moving a table
+cannot inadvertently regenerate the forest. Behaviors and rules remain intact.
+When transferring positions, apply only changed placement fields: do not copy
+unchanged, inherited behavior bodies into the source as redundant overrides.
+Interior exits link to exterior portal IDs (`arrivalAt`), and saved entrances use
+the same IDs, so relocating a house does not leave its return point behind.
+Always validate reachability and entry/exit after placing a building.
+
+## Local working files — preserve these
+
+- `workspace.json`: the one editable version.
+- `snapshots/`: immutable source baselines, identified by content hash.
+- `history/`: recovery copies, not a user-facing draft system.
+- `imported-drafts/`: one-time backup of the previous Studio data on this Mac.
+- `art/`, `build/`: generated editor previews and bundle.
+- `experiments/`: generated isolated experiment preview packs.
+- `ui-lab/`: the preserved comparison laboratory and local media.
+
+All live below `.local/adventure-studio/`, ignored by Git.
+**Never delete the whole directory as build cleanup.** Scene builds do not touch
+`workspace.json`, snapshots, history or the Lab.
+
+The server validates Host, Origin, a per-process write token, payload size,
+scene/entity identifiers, supported transforms, sprite crops and collision
+dimensions. Writes are atomic. Two tabs cannot silently overwrite each other.
+
+## Scope
+
+The active **Laboratorio → Duendes** experiment presents four character families,
+an equal-scale forest comparison and the planned action catalogue. See its
+[guide](experiments/duende-cast/README.md). It never edits this workspace or the game.
+Trazo y vida is now archived: **2× integrated reduction and selective motion** were
+approved; see the [decision](../../docs/art-direction/DEFINITION-MOTION.md).
+Earlier camera, scale and conversation experiments remain in the same shell.
+
+The Studio edits objects, sprite variants/crops, collision bodies and outdoor paths.
+It adds reviewed family templates and safely removes decorations. It does not paint
+water, invent quest behaviors, change destinations or edit rewards.
+Architectural walls remain declarative scene data. The shop preview is the base
+room; live product displays are generated by the game's browser-side layout.

@@ -1,0 +1,120 @@
+"use strict";
+const assert = require("node:assert/strict"),
+  fs = require("node:fs");
+const { Adventure } = require("../public/assets/js/adventure/game");
+const {
+  World,
+  TILE,
+  insideThreshold,
+} = require("../public/assets/js/adventure/model");
+const {
+  acceptsEntry,
+  portalPath,
+} = require("../public/assets/js/adventure/portals");
+const { move, follow } = require("../public/assets/js/adventure/movement");
+const catalog = JSON.parse(fs.readFileSync(".local/build/world.json"));
+let checked = 0;
+for (const scene of Object.values(catalog.scenes)) {
+  const world = new World(scene);
+  for (const door of world.entities.filter((e) => e.entryDirection)) {
+    const [x, y, w, h] = door.threshold,
+      dir = door.entryDirection;
+    assert.equal(dir, scene.indoor ? 1 : -1);
+    assert(
+      w <= 1 && h <= 0.375,
+      "Door requires physical proximity, not a large radius",
+    );
+    const center = {
+      x: (x + w / 2) * TILE,
+      y: (y + h / 2) * TILE,
+      actor: true,
+    };
+    assert(
+      world.canStand(center.x, center.y, center),
+      scene.id + "/" + door.id + " reachable threshold",
+    );
+    const game = Object.create(Adventure.prototype);
+    Object.assign(game, {
+      world,
+      state: { flags: {}, inventory: {} },
+      player: { ...center },
+      portalLatch: new Set(),
+      interact: () => {
+        game.entered = true;
+      },
+    });
+    for (const motion of [
+      null,
+      { x: 0, y: 0 },
+      { x: 1, y: 0 },
+      { x: -1, y: 0 },
+      { x: 0, y: -dir },
+      { x: 1, y: dir * 0.3 },
+    ]) {
+      assert.equal(acceptsEntry(door, motion), false);
+      assert.equal(
+        game.checkThresholds(motion),
+        false,
+        scene.id + ": resting, sideways, retreating must not teleport",
+      );
+    }
+    assert(game.checkThresholds({ x: 0, y: dir }));
+    assert(acceptsEntry(door, { x: 1, y: dir }));
+    game.entered = false;
+    game.player = { ...center, x: center.x - 12 };
+    move(world, game.player, 24, 0, () => {}, {
+      onStep: (m) => !game.checkThresholds(m),
+    });
+    assert(!game.entered, "Walking all the way across a door is inert");
+    for (const side of [-1, 1]) {
+      const from = {
+        x: center.x + side * 24,
+        y: center.y - dir * 24,
+        actor: true,
+      };
+      if (!world.canStand(from.x, from.y, from)) continue;
+      world.actors = [from];
+      const route = portalPath(world, from, door);
+      assert(route.length, scene.id + "/" + door.id + " tap route from side");
+      const last = route.at(-1),
+        lead = route.at(-2);
+      assert.equal(last.x, lead.x);
+      assert((last.y - lead.y) * dir > 0);
+      game.player = from;
+      game.entered = false;
+      for (let i = 0; i < 1000 && route.length && !game.entered; i++)
+        follow(
+          world,
+          game.player,
+          route,
+          1 / 60,
+          72,
+          () => {},
+          (motion) => !game.checkThresholds(motion),
+        );
+      assert(
+        game.entered,
+        "The path crosses the threshold in its intended direction",
+      );
+      assert(
+        insideThreshold(door, game.player),
+        scene.id + "/" + door.id + " route reaches narrow threshold",
+      );
+      assert(game.checkThresholds({ x: 0, y: dir }));
+    }
+    const standing = { ...center };
+    world.actors = [standing];
+    assert(
+      portalPath(world, standing, door).length,
+      "Door route must ignore the player already occupying its endpoint",
+    );
+    world.actors = [];
+    checked++;
+  }
+}
+assert(checked >= 8);
+console.log(
+  "PASS:",
+  checked,
+  "directional doors: no idle/sideways/reverse activation, narrow reachable thresholds and front-routed taps.",
+);

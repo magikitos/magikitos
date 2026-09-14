@@ -1,0 +1,12 @@
+{
+    "source": "bench-log.png",
+    "sourceHash": "9410fa0aa26ecdb7e29132357c9957af4977887edf5c164131d5b32bb9b1f2e0",
+    "bounds": [
+        254,
+        93,
+        1200,
+        740
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

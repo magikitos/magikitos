@@ -1,0 +1,44 @@
+{
+  "frames": {
+    "crates": {
+      "source": "data/aventura/art/woodland-kit/cutouts/crate-willow.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        38,
+        34
+      ],
+      "fit": true,
+      "anchor": [
+        19,
+        30
+      ]
+    },
+    "crate-bark": {
+      "source": "data/aventura/art/woodland-kit/cutouts/crate-bark.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        38,
+        34
+      ],
+      "fit": true,
+      "anchor": [
+        19,
+        30
+      ]
+    }
+  }
+}

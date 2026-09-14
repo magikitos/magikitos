@@ -1,8 +1,48 @@
 {
     "packs": {
+        "actor-0-bow": {
+            "image": "packs/actor-0-bow-f80917b6f667.png",
+            "metadata": "packs/actor-0-bow-f80917b6f667.json",
+            "sprites": [
+                "person-0-down-bow-0",
+                "person-0-down-right-bow-0",
+                "person-0-right-bow-0",
+                "person-0-up-right-bow-0",
+                "person-0-up-bow-0",
+                "person-0-up-left-bow-0",
+                "person-0-left-bow-0",
+                "person-0-down-left-bow-0",
+                "person-0-down-bow-1",
+                "person-0-down-right-bow-1",
+                "person-0-right-bow-1",
+                "person-0-up-right-bow-1",
+                "person-0-up-bow-1",
+                "person-0-up-left-bow-1",
+                "person-0-left-bow-1",
+                "person-0-down-left-bow-1",
+                "person-0-down-bow-2",
+                "person-0-down-right-bow-2",
+                "person-0-right-bow-2",
+                "person-0-up-right-bow-2",
+                "person-0-up-bow-2",
+                "person-0-up-left-bow-2",
+                "person-0-left-bow-2",
+                "person-0-down-left-bow-2"
+            ]
+        },
+        "actor-0-discover": {
+            "image": "packs/actor-0-discover-2dcbf710f0f3.png",
+            "metadata": "packs/actor-0-discover-2dcbf710f0f3.json",
+            "sprites": [
+                "person-0-discover-0",
+                "person-0-discover-1",
+                "person-0-discover-2",
+                "person-0-discover-3"
+            ]
+        },
         "actor-0-needs": {
-            "image": "packs/actor-0-needs-3e167afce0aa.png",
-            "metadata": "packs/actor-0-needs-3e167afce0aa.json",
+            "image": "packs/actor-0-needs-0109e0ca4864.png",
+            "metadata": "packs/actor-0-needs-0109e0ca4864.json",
             "sprites": [
                 "person-0-pee-0",
                 "person-0-pee-1",
@@ -14,347 +54,588 @@
                 "person-0-poop-3"
             ]
         },
+        "actor-0-push": {
+            "image": "packs/actor-0-push-1f1138720f2a.png",
+            "metadata": "packs/actor-0-push-1f1138720f2a.json",
+            "sprites": [
+                "person-0-down-push-0",
+                "person-0-right-push-0",
+                "person-0-up-push-0",
+                "person-0-left-push-0",
+                "person-0-down-push-1",
+                "person-0-right-push-1",
+                "person-0-up-push-1",
+                "person-0-left-push-1",
+                "person-0-down-push-2",
+                "person-0-right-push-2",
+                "person-0-up-push-2",
+                "person-0-left-push-2",
+                "person-0-down-push-3",
+                "person-0-right-push-3",
+                "person-0-up-push-3",
+                "person-0-left-push-3"
+            ]
+        },
         "actor-0-roll": {
-            "image": "packs/actor-0-roll-cc6a7d7a2d12.png",
-            "metadata": "packs/actor-0-roll-cc6a7d7a2d12.json",
+            "image": "packs/actor-0-roll-65f49d2a3bb8.png",
+            "metadata": "packs/actor-0-roll-65f49d2a3bb8.json",
             "sprites": [
                 "person-0-down-roll-0",
-                "person-0-down-roll-1",
-                "person-0-down-roll-2",
-                "person-0-down-roll-3",
                 "person-0-down-right-roll-0",
-                "person-0-down-right-roll-1",
-                "person-0-down-right-roll-2",
-                "person-0-down-right-roll-3",
                 "person-0-right-roll-0",
-                "person-0-right-roll-1",
-                "person-0-right-roll-2",
-                "person-0-right-roll-3",
                 "person-0-up-right-roll-0",
-                "person-0-up-right-roll-1",
-                "person-0-up-right-roll-2",
-                "person-0-up-right-roll-3",
                 "person-0-up-roll-0",
-                "person-0-up-roll-1",
-                "person-0-up-roll-2",
-                "person-0-up-roll-3",
                 "person-0-up-left-roll-0",
-                "person-0-up-left-roll-1",
-                "person-0-up-left-roll-2",
-                "person-0-up-left-roll-3",
                 "person-0-left-roll-0",
-                "person-0-left-roll-1",
-                "person-0-left-roll-2",
-                "person-0-left-roll-3",
                 "person-0-down-left-roll-0",
+                "person-0-down-roll-1",
+                "person-0-down-right-roll-1",
+                "person-0-right-roll-1",
+                "person-0-up-right-roll-1",
+                "person-0-up-roll-1",
+                "person-0-up-left-roll-1",
+                "person-0-left-roll-1",
                 "person-0-down-left-roll-1",
+                "person-0-down-roll-2",
+                "person-0-down-right-roll-2",
+                "person-0-right-roll-2",
+                "person-0-up-right-roll-2",
+                "person-0-up-roll-2",
+                "person-0-up-left-roll-2",
+                "person-0-left-roll-2",
                 "person-0-down-left-roll-2",
+                "person-0-down-roll-3",
+                "person-0-down-right-roll-3",
+                "person-0-right-roll-3",
+                "person-0-up-right-roll-3",
+                "person-0-up-roll-3",
+                "person-0-up-left-roll-3",
+                "person-0-left-roll-3",
                 "person-0-down-left-roll-3"
             ]
         },
+        "actor-0-work": {
+            "image": "packs/actor-0-work-174517ce1310.png",
+            "metadata": "packs/actor-0-work-174517ce1310.json",
+            "sprites": [
+                "person-0-down-work-0",
+                "person-0-right-work-0",
+                "person-0-up-work-0",
+                "person-0-left-work-0",
+                "person-0-down-work-1",
+                "person-0-right-work-1",
+                "person-0-up-work-1",
+                "person-0-left-work-1",
+                "person-0-down-work-2",
+                "person-0-right-work-2",
+                "person-0-up-work-2",
+                "person-0-left-work-2",
+                "person-0-down-work-3",
+                "person-0-right-work-3",
+                "person-0-up-work-3",
+                "person-0-left-work-3"
+            ]
+        },
         "actor-0": {
-            "image": "packs/actor-0-e4d3a6c3c484.png",
-            "metadata": "packs/actor-0-e4d3a6c3c484.json",
+            "image": "packs/actor-0-69b743614b34.png",
+            "metadata": "packs/actor-0-69b743614b34.json",
             "sprites": [
                 "person-0-down",
-                "person-0-down-walk-1",
-                "person-0-down-walk-2",
-                "person-0-down-walk-3",
                 "person-0-down-right",
-                "person-0-down-right-walk-1",
-                "person-0-down-right-walk-2",
-                "person-0-down-right-walk-3",
                 "person-0-right",
-                "person-0-right-walk-1",
-                "person-0-right-walk-2",
-                "person-0-right-walk-3",
                 "person-0-up-right",
-                "person-0-up-right-walk-1",
-                "person-0-up-right-walk-2",
-                "person-0-up-right-walk-3",
                 "person-0-up",
-                "person-0-up-walk-1",
-                "person-0-up-walk-2",
-                "person-0-up-walk-3",
                 "person-0-up-left",
-                "person-0-up-left-walk-1",
-                "person-0-up-left-walk-2",
-                "person-0-up-left-walk-3",
                 "person-0-left",
-                "person-0-left-walk-1",
-                "person-0-left-walk-2",
-                "person-0-left-walk-3",
                 "person-0-down-left",
+                "person-0-down-walk-1",
+                "person-0-down-right-walk-1",
+                "person-0-right-walk-1",
+                "person-0-up-right-walk-1",
+                "person-0-up-walk-1",
+                "person-0-up-left-walk-1",
+                "person-0-left-walk-1",
                 "person-0-down-left-walk-1",
+                "person-0-down-walk-2",
+                "person-0-down-right-walk-2",
+                "person-0-right-walk-2",
+                "person-0-up-right-walk-2",
+                "person-0-up-walk-2",
+                "person-0-up-left-walk-2",
+                "person-0-left-walk-2",
                 "person-0-down-left-walk-2",
+                "person-0-down-walk-3",
+                "person-0-down-right-walk-3",
+                "person-0-right-walk-3",
+                "person-0-up-right-walk-3",
+                "person-0-up-walk-3",
+                "person-0-up-left-walk-3",
+                "person-0-left-walk-3",
                 "person-0-down-left-walk-3"
             ]
         },
         "actor-1": {
-            "image": "packs/actor-1-64a374931890.png",
-            "metadata": "packs/actor-1-64a374931890.json",
+            "image": "packs/actor-1-970522306d7f.png",
+            "metadata": "packs/actor-1-970522306d7f.json",
             "sprites": [
                 "person-1-down",
-                "person-1-down-walk-1",
-                "person-1-down-walk-2",
-                "person-1-down-walk-3",
                 "person-1-down-right",
-                "person-1-down-right-walk-1",
-                "person-1-down-right-walk-2",
-                "person-1-down-right-walk-3",
                 "person-1-right",
-                "person-1-right-walk-1",
-                "person-1-right-walk-2",
-                "person-1-right-walk-3",
                 "person-1-up-right",
-                "person-1-up-right-walk-1",
-                "person-1-up-right-walk-2",
-                "person-1-up-right-walk-3",
                 "person-1-up",
-                "person-1-up-walk-1",
-                "person-1-up-walk-2",
-                "person-1-up-walk-3",
                 "person-1-up-left",
-                "person-1-up-left-walk-1",
-                "person-1-up-left-walk-2",
-                "person-1-up-left-walk-3",
                 "person-1-left",
-                "person-1-left-walk-1",
-                "person-1-left-walk-2",
-                "person-1-left-walk-3",
                 "person-1-down-left",
+                "person-1-down-walk-1",
+                "person-1-down-right-walk-1",
+                "person-1-right-walk-1",
+                "person-1-up-right-walk-1",
+                "person-1-up-walk-1",
+                "person-1-up-left-walk-1",
+                "person-1-left-walk-1",
                 "person-1-down-left-walk-1",
+                "person-1-down-walk-2",
+                "person-1-down-right-walk-2",
+                "person-1-right-walk-2",
+                "person-1-up-right-walk-2",
+                "person-1-up-walk-2",
+                "person-1-up-left-walk-2",
+                "person-1-left-walk-2",
                 "person-1-down-left-walk-2",
+                "person-1-down-walk-3",
+                "person-1-down-right-walk-3",
+                "person-1-right-walk-3",
+                "person-1-up-right-walk-3",
+                "person-1-up-walk-3",
+                "person-1-up-left-walk-3",
+                "person-1-left-walk-3",
                 "person-1-down-left-walk-3"
             ]
         },
+        "actor-10": {
+            "image": "packs/actor-10-74dd109036ef.png",
+            "metadata": "packs/actor-10-74dd109036ef.json",
+            "sprites": [
+                "person-10-down",
+                "person-10-down-right",
+                "person-10-right",
+                "person-10-up-right",
+                "person-10-up",
+                "person-10-up-left",
+                "person-10-left",
+                "person-10-down-left",
+                "person-10-down-walk-1",
+                "person-10-down-right-walk-1",
+                "person-10-right-walk-1",
+                "person-10-up-right-walk-1",
+                "person-10-up-walk-1",
+                "person-10-up-left-walk-1",
+                "person-10-left-walk-1",
+                "person-10-down-left-walk-1",
+                "person-10-down-walk-2",
+                "person-10-down-right-walk-2",
+                "person-10-right-walk-2",
+                "person-10-up-right-walk-2",
+                "person-10-up-walk-2",
+                "person-10-up-left-walk-2",
+                "person-10-left-walk-2",
+                "person-10-down-left-walk-2",
+                "person-10-down-walk-3",
+                "person-10-down-right-walk-3",
+                "person-10-right-walk-3",
+                "person-10-up-right-walk-3",
+                "person-10-up-walk-3",
+                "person-10-up-left-walk-3",
+                "person-10-left-walk-3",
+                "person-10-down-left-walk-3"
+            ]
+        },
+        "actor-11": {
+            "image": "packs/actor-11-16ff023a6212.png",
+            "metadata": "packs/actor-11-16ff023a6212.json",
+            "sprites": [
+                "person-11-down",
+                "person-11-down-right",
+                "person-11-right",
+                "person-11-up-right",
+                "person-11-up",
+                "person-11-up-left",
+                "person-11-left",
+                "person-11-down-left",
+                "person-11-down-walk-1",
+                "person-11-down-right-walk-1",
+                "person-11-right-walk-1",
+                "person-11-up-right-walk-1",
+                "person-11-up-walk-1",
+                "person-11-up-left-walk-1",
+                "person-11-left-walk-1",
+                "person-11-down-left-walk-1",
+                "person-11-down-walk-2",
+                "person-11-down-right-walk-2",
+                "person-11-right-walk-2",
+                "person-11-up-right-walk-2",
+                "person-11-up-walk-2",
+                "person-11-up-left-walk-2",
+                "person-11-left-walk-2",
+                "person-11-down-left-walk-2",
+                "person-11-down-walk-3",
+                "person-11-down-right-walk-3",
+                "person-11-right-walk-3",
+                "person-11-up-right-walk-3",
+                "person-11-up-walk-3",
+                "person-11-up-left-walk-3",
+                "person-11-left-walk-3",
+                "person-11-down-left-walk-3"
+            ]
+        },
         "actor-2": {
-            "image": "packs/actor-2-1f2f11837f85.png",
-            "metadata": "packs/actor-2-1f2f11837f85.json",
+            "image": "packs/actor-2-2cc41cdde476.png",
+            "metadata": "packs/actor-2-2cc41cdde476.json",
             "sprites": [
                 "person-2-down",
-                "person-2-down-walk-1",
-                "person-2-down-walk-2",
-                "person-2-down-walk-3",
                 "person-2-down-right",
-                "person-2-down-right-walk-1",
-                "person-2-down-right-walk-2",
-                "person-2-down-right-walk-3",
                 "person-2-right",
-                "person-2-right-walk-1",
-                "person-2-right-walk-2",
-                "person-2-right-walk-3",
                 "person-2-up-right",
-                "person-2-up-right-walk-1",
-                "person-2-up-right-walk-2",
-                "person-2-up-right-walk-3",
                 "person-2-up",
-                "person-2-up-walk-1",
-                "person-2-up-walk-2",
-                "person-2-up-walk-3",
                 "person-2-up-left",
-                "person-2-up-left-walk-1",
-                "person-2-up-left-walk-2",
-                "person-2-up-left-walk-3",
                 "person-2-left",
-                "person-2-left-walk-1",
-                "person-2-left-walk-2",
-                "person-2-left-walk-3",
                 "person-2-down-left",
+                "person-2-down-walk-1",
+                "person-2-down-right-walk-1",
+                "person-2-right-walk-1",
+                "person-2-up-right-walk-1",
+                "person-2-up-walk-1",
+                "person-2-up-left-walk-1",
+                "person-2-left-walk-1",
                 "person-2-down-left-walk-1",
+                "person-2-down-walk-2",
+                "person-2-down-right-walk-2",
+                "person-2-right-walk-2",
+                "person-2-up-right-walk-2",
+                "person-2-up-walk-2",
+                "person-2-up-left-walk-2",
+                "person-2-left-walk-2",
                 "person-2-down-left-walk-2",
+                "person-2-down-walk-3",
+                "person-2-down-right-walk-3",
+                "person-2-right-walk-3",
+                "person-2-up-right-walk-3",
+                "person-2-up-walk-3",
+                "person-2-up-left-walk-3",
+                "person-2-left-walk-3",
                 "person-2-down-left-walk-3"
             ]
         },
         "actor-3": {
-            "image": "packs/actor-3-8ed9282138db.png",
-            "metadata": "packs/actor-3-8ed9282138db.json",
+            "image": "packs/actor-3-6e60b72be8da.png",
+            "metadata": "packs/actor-3-6e60b72be8da.json",
             "sprites": [
                 "person-3-down",
-                "person-3-down-walk-1",
-                "person-3-down-walk-2",
-                "person-3-down-walk-3",
                 "person-3-down-right",
-                "person-3-down-right-walk-1",
-                "person-3-down-right-walk-2",
-                "person-3-down-right-walk-3",
                 "person-3-right",
-                "person-3-right-walk-1",
-                "person-3-right-walk-2",
-                "person-3-right-walk-3",
                 "person-3-up-right",
-                "person-3-up-right-walk-1",
-                "person-3-up-right-walk-2",
-                "person-3-up-right-walk-3",
                 "person-3-up",
-                "person-3-up-walk-1",
-                "person-3-up-walk-2",
-                "person-3-up-walk-3",
                 "person-3-up-left",
-                "person-3-up-left-walk-1",
-                "person-3-up-left-walk-2",
-                "person-3-up-left-walk-3",
                 "person-3-left",
-                "person-3-left-walk-1",
-                "person-3-left-walk-2",
-                "person-3-left-walk-3",
                 "person-3-down-left",
+                "person-3-down-walk-1",
+                "person-3-down-right-walk-1",
+                "person-3-right-walk-1",
+                "person-3-up-right-walk-1",
+                "person-3-up-walk-1",
+                "person-3-up-left-walk-1",
+                "person-3-left-walk-1",
                 "person-3-down-left-walk-1",
+                "person-3-down-walk-2",
+                "person-3-down-right-walk-2",
+                "person-3-right-walk-2",
+                "person-3-up-right-walk-2",
+                "person-3-up-walk-2",
+                "person-3-up-left-walk-2",
+                "person-3-left-walk-2",
                 "person-3-down-left-walk-2",
+                "person-3-down-walk-3",
+                "person-3-down-right-walk-3",
+                "person-3-right-walk-3",
+                "person-3-up-right-walk-3",
+                "person-3-up-walk-3",
+                "person-3-up-left-walk-3",
+                "person-3-left-walk-3",
                 "person-3-down-left-walk-3"
             ]
         },
         "actor-4": {
-            "image": "packs/actor-4-a5830c4765cc.png",
-            "metadata": "packs/actor-4-a5830c4765cc.json",
+            "image": "packs/actor-4-4d380f700048.png",
+            "metadata": "packs/actor-4-4d380f700048.json",
             "sprites": [
                 "person-4-down",
-                "person-4-down-walk-1",
-                "person-4-down-walk-2",
-                "person-4-down-walk-3",
                 "person-4-down-right",
-                "person-4-down-right-walk-1",
-                "person-4-down-right-walk-2",
-                "person-4-down-right-walk-3",
                 "person-4-right",
-                "person-4-right-walk-1",
-                "person-4-right-walk-2",
-                "person-4-right-walk-3",
                 "person-4-up-right",
-                "person-4-up-right-walk-1",
-                "person-4-up-right-walk-2",
-                "person-4-up-right-walk-3",
                 "person-4-up",
-                "person-4-up-walk-1",
-                "person-4-up-walk-2",
-                "person-4-up-walk-3",
                 "person-4-up-left",
-                "person-4-up-left-walk-1",
-                "person-4-up-left-walk-2",
-                "person-4-up-left-walk-3",
                 "person-4-left",
-                "person-4-left-walk-1",
-                "person-4-left-walk-2",
-                "person-4-left-walk-3",
                 "person-4-down-left",
+                "person-4-down-walk-1",
+                "person-4-down-right-walk-1",
+                "person-4-right-walk-1",
+                "person-4-up-right-walk-1",
+                "person-4-up-walk-1",
+                "person-4-up-left-walk-1",
+                "person-4-left-walk-1",
                 "person-4-down-left-walk-1",
+                "person-4-down-walk-2",
+                "person-4-down-right-walk-2",
+                "person-4-right-walk-2",
+                "person-4-up-right-walk-2",
+                "person-4-up-walk-2",
+                "person-4-up-left-walk-2",
+                "person-4-left-walk-2",
                 "person-4-down-left-walk-2",
+                "person-4-down-walk-3",
+                "person-4-down-right-walk-3",
+                "person-4-right-walk-3",
+                "person-4-up-right-walk-3",
+                "person-4-up-walk-3",
+                "person-4-up-left-walk-3",
+                "person-4-left-walk-3",
                 "person-4-down-left-walk-3"
             ]
         },
         "actor-5": {
-            "image": "packs/actor-5-cbb2f8c39a11.png",
-            "metadata": "packs/actor-5-cbb2f8c39a11.json",
+            "image": "packs/actor-5-2465718e98b6.png",
+            "metadata": "packs/actor-5-2465718e98b6.json",
             "sprites": [
                 "person-5-down",
-                "person-5-down-walk-1",
-                "person-5-down-walk-2",
-                "person-5-down-walk-3",
                 "person-5-down-right",
-                "person-5-down-right-walk-1",
-                "person-5-down-right-walk-2",
-                "person-5-down-right-walk-3",
                 "person-5-right",
-                "person-5-right-walk-1",
-                "person-5-right-walk-2",
-                "person-5-right-walk-3",
                 "person-5-up-right",
-                "person-5-up-right-walk-1",
-                "person-5-up-right-walk-2",
-                "person-5-up-right-walk-3",
                 "person-5-up",
-                "person-5-up-walk-1",
-                "person-5-up-walk-2",
-                "person-5-up-walk-3",
                 "person-5-up-left",
-                "person-5-up-left-walk-1",
-                "person-5-up-left-walk-2",
-                "person-5-up-left-walk-3",
                 "person-5-left",
-                "person-5-left-walk-1",
-                "person-5-left-walk-2",
-                "person-5-left-walk-3",
                 "person-5-down-left",
+                "person-5-down-walk-1",
+                "person-5-down-right-walk-1",
+                "person-5-right-walk-1",
+                "person-5-up-right-walk-1",
+                "person-5-up-walk-1",
+                "person-5-up-left-walk-1",
+                "person-5-left-walk-1",
                 "person-5-down-left-walk-1",
+                "person-5-down-walk-2",
+                "person-5-down-right-walk-2",
+                "person-5-right-walk-2",
+                "person-5-up-right-walk-2",
+                "person-5-up-walk-2",
+                "person-5-up-left-walk-2",
+                "person-5-left-walk-2",
                 "person-5-down-left-walk-2",
+                "person-5-down-walk-3",
+                "person-5-down-right-walk-3",
+                "person-5-right-walk-3",
+                "person-5-up-right-walk-3",
+                "person-5-up-walk-3",
+                "person-5-up-left-walk-3",
+                "person-5-left-walk-3",
                 "person-5-down-left-walk-3"
             ]
         },
+        "actor-6": {
+            "image": "packs/actor-6-5230a98951bd.png",
+            "metadata": "packs/actor-6-5230a98951bd.json",
+            "sprites": [
+                "person-6-down",
+                "person-6-down-right",
+                "person-6-right",
+                "person-6-up-right",
+                "person-6-up",
+                "person-6-up-left",
+                "person-6-left",
+                "person-6-down-left",
+                "person-6-down-walk-1",
+                "person-6-down-right-walk-1",
+                "person-6-right-walk-1",
+                "person-6-up-right-walk-1",
+                "person-6-up-walk-1",
+                "person-6-up-left-walk-1",
+                "person-6-left-walk-1",
+                "person-6-down-left-walk-1",
+                "person-6-down-walk-2",
+                "person-6-down-right-walk-2",
+                "person-6-right-walk-2",
+                "person-6-up-right-walk-2",
+                "person-6-up-walk-2",
+                "person-6-up-left-walk-2",
+                "person-6-left-walk-2",
+                "person-6-down-left-walk-2",
+                "person-6-down-walk-3",
+                "person-6-down-right-walk-3",
+                "person-6-right-walk-3",
+                "person-6-up-right-walk-3",
+                "person-6-up-walk-3",
+                "person-6-up-left-walk-3",
+                "person-6-left-walk-3",
+                "person-6-down-left-walk-3"
+            ]
+        },
+        "actor-7": {
+            "image": "packs/actor-7-d1bf6ebdd7fd.png",
+            "metadata": "packs/actor-7-d1bf6ebdd7fd.json",
+            "sprites": [
+                "person-7-down",
+                "person-7-down-right",
+                "person-7-right",
+                "person-7-up-right",
+                "person-7-up",
+                "person-7-up-left",
+                "person-7-left",
+                "person-7-down-left",
+                "person-7-down-walk-1",
+                "person-7-down-right-walk-1",
+                "person-7-right-walk-1",
+                "person-7-up-right-walk-1",
+                "person-7-up-walk-1",
+                "person-7-up-left-walk-1",
+                "person-7-left-walk-1",
+                "person-7-down-left-walk-1",
+                "person-7-down-walk-2",
+                "person-7-down-right-walk-2",
+                "person-7-right-walk-2",
+                "person-7-up-right-walk-2",
+                "person-7-up-walk-2",
+                "person-7-up-left-walk-2",
+                "person-7-left-walk-2",
+                "person-7-down-left-walk-2",
+                "person-7-down-walk-3",
+                "person-7-down-right-walk-3",
+                "person-7-right-walk-3",
+                "person-7-up-right-walk-3",
+                "person-7-up-walk-3",
+                "person-7-up-left-walk-3",
+                "person-7-left-walk-3",
+                "person-7-down-left-walk-3"
+            ]
+        },
+        "actor-8": {
+            "image": "packs/actor-8-6d9e0c2c7e49.png",
+            "metadata": "packs/actor-8-6d9e0c2c7e49.json",
+            "sprites": [
+                "person-8-down",
+                "person-8-down-right",
+                "person-8-right",
+                "person-8-up-right",
+                "person-8-up",
+                "person-8-up-left",
+                "person-8-left",
+                "person-8-down-left",
+                "person-8-down-walk-1",
+                "person-8-down-right-walk-1",
+                "person-8-right-walk-1",
+                "person-8-up-right-walk-1",
+                "person-8-up-walk-1",
+                "person-8-up-left-walk-1",
+                "person-8-left-walk-1",
+                "person-8-down-left-walk-1",
+                "person-8-down-walk-2",
+                "person-8-down-right-walk-2",
+                "person-8-right-walk-2",
+                "person-8-up-right-walk-2",
+                "person-8-up-walk-2",
+                "person-8-up-left-walk-2",
+                "person-8-left-walk-2",
+                "person-8-down-left-walk-2",
+                "person-8-down-walk-3",
+                "person-8-down-right-walk-3",
+                "person-8-right-walk-3",
+                "person-8-up-right-walk-3",
+                "person-8-up-walk-3",
+                "person-8-up-left-walk-3",
+                "person-8-left-walk-3",
+                "person-8-down-left-walk-3"
+            ]
+        },
+        "actor-9": {
+            "image": "packs/actor-9-3031f7b4de97.png",
+            "metadata": "packs/actor-9-3031f7b4de97.json",
+            "sprites": [
+                "person-9-down",
+                "person-9-down-right",
+                "person-9-right",
+                "person-9-up-right",
+                "person-9-up",
+                "person-9-up-left",
+                "person-9-left",
+                "person-9-down-left",
+                "person-9-down-walk-1",
+                "person-9-down-right-walk-1",
+                "person-9-right-walk-1",
+                "person-9-up-right-walk-1",
+                "person-9-up-walk-1",
+                "person-9-up-left-walk-1",
+                "person-9-left-walk-1",
+                "person-9-down-left-walk-1",
+                "person-9-down-walk-2",
+                "person-9-down-right-walk-2",
+                "person-9-right-walk-2",
+                "person-9-up-right-walk-2",
+                "person-9-up-walk-2",
+                "person-9-up-left-walk-2",
+                "person-9-left-walk-2",
+                "person-9-down-left-walk-2",
+                "person-9-down-walk-3",
+                "person-9-down-right-walk-3",
+                "person-9-right-walk-3",
+                "person-9-up-right-walk-3",
+                "person-9-up-walk-3",
+                "person-9-up-left-walk-3",
+                "person-9-left-walk-3",
+                "person-9-down-left-walk-3"
+            ]
+        },
         "barbecue": {
-            "image": "packs/barbecue-a26fcc82aa38.png",
-            "metadata": "packs/barbecue-a26fcc82aa38.json",
+            "image": "packs/barbecue-82d3032b4c27.png",
+            "metadata": "packs/barbecue-82d3032b4c27.json",
             "sprites": [
                 "barbecue-lit",
                 "barbecue"
             ]
         },
-        "building-cottage": {
-            "image": "packs/building-cottage-a98164ddae89.png",
-            "metadata": "packs/building-cottage-a98164ddae89.json",
-            "sprites": [
-                "cottage",
-                "cottage-closed"
-            ]
-        },
-        "building-fisher": {
-            "image": "packs/building-fisher-e9b379d9feb1.png",
-            "metadata": "packs/building-fisher-e9b379d9feb1.json",
-            "sprites": [
-                "fisher-closed"
-            ]
-        },
         "building-fountain": {
-            "image": "packs/building-fountain-56930ded49da.png",
-            "metadata": "packs/building-fountain-56930ded49da.json",
+            "image": "packs/building-fountain-5cf1667587b7.png",
+            "metadata": "packs/building-fountain-5cf1667587b7.json",
             "sprites": [
                 "fountain"
             ]
         },
-        "building-human-house": {
-            "image": "packs/building-human-house-1ad400d11593.png",
-            "metadata": "packs/building-human-house-1ad400d11593.json",
-            "sprites": [
-                "human-house"
-            ]
-        },
-        "building-tavern": {
-            "image": "packs/building-tavern-cd30d4166913.png",
-            "metadata": "packs/building-tavern-cd30d4166913.json",
-            "sprites": [
-                "tavern"
-            ]
-        },
-        "building-workshop": {
-            "image": "packs/building-workshop-b10951c48686.png",
-            "metadata": "packs/building-workshop-b10951c48686.json",
-            "sprites": [
-                "workshop"
-            ]
-        },
         "camping": {
-            "image": "packs/camping-d71f7d910b53.png",
-            "metadata": "packs/camping-d71f7d910b53.json",
+            "image": "packs/camping-484158d9ce1f.png",
+            "metadata": "packs/camping-484158d9ce1f.json",
             "sprites": [
                 "fire",
                 "coals",
-                "sign",
-                "bench",
-                "lantern"
+                "sign"
             ]
         },
-        "ferry-aboard": {
-            "image": "packs/ferry-aboard-f0cf165133a9.png",
-            "metadata": "packs/ferry-aboard-f0cf165133a9.json",
+        "currency": {
+            "image": "packs/currency-5b780e272d09.png",
+            "metadata": "packs/currency-5b780e272d09.json",
             "sprites": [
-                "ferry-aboard-0",
-                "ferry-aboard-1",
-                "ferry-aboard-2",
-                "ferry-aboard-3"
+                "setin",
+                "setin-angle",
+                "setin-edge",
+                "setin-flat"
+            ]
+        },
+        "forest-roots": {
+            "image": "packs/forest-roots-decb625d9bdd.png",
+            "metadata": "packs/forest-roots-decb625d9bdd.json",
+            "sprites": [
+                "root-arch"
             ]
         },
         "forest-trees": {
-            "image": "packs/forest-trees-0c2355c24cbb.png",
-            "metadata": "packs/forest-trees-0c2355c24cbb.json",
+            "image": "packs/forest-trees-bc2218785934.png",
+            "metadata": "packs/forest-trees-bc2218785934.json",
             "sprites": [
                 "oak",
                 "hornbeam",
@@ -364,63 +645,83 @@
             ]
         },
         "furniture": {
-            "image": "packs/furniture-c80f0c451773.png",
-            "metadata": "packs/furniture-c80f0c451773.json",
+            "image": "packs/furniture-f8dce3155c56.png",
+            "metadata": "packs/furniture-f8dce3155c56.json",
             "sprites": [
-                "table",
-                "bed",
-                "workbench",
-                "flower-pot",
-                "crates",
-                "easel",
-                "yarn",
-                "book-lectern"
+                "yarn"
             ]
         },
         "harbor": {
-            "image": "packs/harbor-914902b6359b.png",
-            "metadata": "packs/harbor-914902b6359b.json",
+            "image": "packs/harbor-8bbe91eebfee.png",
+            "metadata": "packs/harbor-8bbe91eebfee.json",
             "sprites": [
-                "ferry",
                 "jetty"
             ]
         },
+        "interior-context": {
+            "image": "packs/interior-context-d77fe9875f55.png",
+            "metadata": "packs/interior-context-d77fe9875f55.json",
+            "sprites": [
+                "woodland-context"
+            ]
+        },
         "inventory": {
-            "image": "packs/inventory-dedcc689cdd6.png",
-            "metadata": "packs/inventory-dedcc689cdd6.json",
+            "image": "packs/inventory-5504a8da7c73.png",
+            "metadata": "packs/inventory-5504a8da7c73.json",
             "sprites": [
                 "mushroom",
-                "lighter",
                 "sack",
                 "twig",
                 "skewer",
-                "setin",
                 "shells"
             ]
         },
         "needs-props": {
-            "image": "packs/needs-props-0614c0c2dc12.png",
-            "metadata": "packs/needs-props-0614c0c2dc12.json",
+            "image": "packs/needs-props-ca1359bedc82.png",
+            "metadata": "packs/needs-props-ca1359bedc82.json",
             "sprites": [
                 "toilet-plant",
                 "toilet-leaf",
-                "bedside-table",
-                "flower-vase",
                 "poop",
                 "pee-puddle"
             ]
         },
+        "picnic-humans": {
+            "image": "packs/picnic-humans-f41652b23f24.png",
+            "metadata": "packs/picnic-humans-f41652b23f24.json",
+            "sprites": [
+                "picnic-smoker",
+                "picnic-smoker-raise",
+                "picnic-smoker-puff",
+                "picnic-smoker-lower",
+                "picnic-human-friend",
+                "picnic-friend-talk",
+                "picnic-friend-sip",
+                "picnic-friend-smile"
+            ]
+        },
         "picnic-neighbor": {
-            "image": "packs/picnic-neighbor-46403e79a472.png",
-            "metadata": "packs/picnic-neighbor-46403e79a472.json",
+            "image": "packs/picnic-neighbor-022b148f917a.png",
+            "metadata": "packs/picnic-neighbor-022b148f917a.json",
             "sprites": [
                 "picnic-hungry",
-                "picnic-happy"
+                "picnic-speaking",
+                "picnic-happy",
+                "picnic-blink"
+            ]
+        },
+        "picnic-provisions": {
+            "image": "packs/picnic-provisions-32882ba9f76b.png",
+            "metadata": "packs/picnic-provisions-32882ba9f76b.json",
+            "sprites": [
+                "picnic-blanket",
+                "picnic-tortilla",
+                "picnic-basket"
             ]
         },
         "shore-garden": {
-            "image": "packs/shore-garden-1b53929adfea.png",
-            "metadata": "packs/shore-garden-1b53929adfea.json",
+            "image": "packs/shore-garden-1046f00a13ae.png",
+            "metadata": "packs/shore-garden-1046f00a13ae.json",
             "sprites": [
                 "willow",
                 "fruit-tree",
@@ -430,8 +731,8 @@
             ]
         },
         "undergrowth": {
-            "image": "packs/undergrowth-b4d2f3a36d64.png",
-            "metadata": "packs/undergrowth-b4d2f3a36d64.json",
+            "image": "packs/undergrowth-0945790b38ca.png",
+            "metadata": "packs/undergrowth-0945790b38ca.json",
             "sprites": [
                 "bush",
                 "stump",
@@ -441,6 +742,319 @@
                 "fern",
                 "fallen-log",
                 "reeds"
+            ]
+        },
+        "woodland-art-easel": {
+            "image": "packs/woodland-art-easel-e183d72f00bd.png",
+            "metadata": "packs/woodland-art-easel-e183d72f00bd.json",
+            "sprites": [
+                "easel",
+                "easel-bark"
+            ]
+        },
+        "woodland-basket": {
+            "image": "packs/woodland-basket-883528307f01.png",
+            "metadata": "packs/woodland-basket-883528307f01.json",
+            "sprites": [
+                "yarn-basket",
+                "basket-acorn"
+            ]
+        },
+        "woodland-bed": {
+            "image": "packs/woodland-bed-e6a448c4e5dd.png",
+            "metadata": "packs/woodland-bed-e6a448c4e5dd.json",
+            "sprites": [
+                "bed",
+                "bed-leaf",
+                "bed-bark"
+            ]
+        },
+        "woodland-bench": {
+            "image": "packs/woodland-bench-9ffd44b8642c.png",
+            "metadata": "packs/woodland-bench-9ffd44b8642c.json",
+            "sprites": [
+                "bench",
+                "bench-log"
+            ]
+        },
+        "woodland-bolete": {
+            "image": "packs/woodland-bolete-a5eb16f27102.png",
+            "metadata": "packs/woodland-bolete-a5eb16f27102.json",
+            "sprites": [
+                "giant-bolete",
+                "mushroom-bolete-leaning"
+            ]
+        },
+        "woodland-boot-home": {
+            "image": "packs/woodland-boot-home-140404166349.png",
+            "metadata": "packs/woodland-boot-home-140404166349.json",
+            "sprites": [
+                "tavern",
+                "home-boot-ochre"
+            ]
+        },
+        "woodland-bridge": {
+            "image": "packs/woodland-bridge-3dda225a1851.png",
+            "metadata": "packs/woodland-bridge-3dda225a1851.json",
+            "sprites": [
+                "bridge-branches",
+                "bridge-log"
+            ]
+        },
+        "woodland-canopy-tree": {
+            "image": "packs/woodland-canopy-tree-983fdf3e2622.png",
+            "metadata": "packs/woodland-canopy-tree-983fdf3e2622.json",
+            "sprites": [
+                "ancient-root",
+                "forest-birch"
+            ]
+        },
+        "woodland-chair": {
+            "image": "packs/woodland-chair-2ba93676213b.png",
+            "metadata": "packs/woodland-chair-2ba93676213b.json",
+            "sprites": [
+                "armchair",
+                "chair-bark"
+            ]
+        },
+        "woodland-clover": {
+            "image": "packs/woodland-clover-c8038798767b.png",
+            "metadata": "packs/woodland-clover-c8038798767b.json",
+            "sprites": [
+                "giant-clover",
+                "clover-heart"
+            ]
+        },
+        "woodland-crate": {
+            "image": "packs/woodland-crate-46b832adb7b6.png",
+            "metadata": "packs/woodland-crate-46b832adb7b6.json",
+            "sprites": [
+                "crates",
+                "crate-bark"
+            ]
+        },
+        "woodland-cupboard": {
+            "image": "packs/woodland-cupboard-7ea8b54acc2e.png",
+            "metadata": "packs/woodland-cupboard-7ea8b54acc2e.json",
+            "sprites": [
+                "cupboard",
+                "cupboard-hollow"
+            ]
+        },
+        "woodland-dresser": {
+            "image": "packs/woodland-dresser-2e9ceda18249.png",
+            "metadata": "packs/woodland-dresser-2e9ceda18249.json",
+            "sprites": [
+                "dresser",
+                "dresser-chest"
+            ]
+        },
+        "woodland-fern": {
+            "image": "packs/woodland-fern-a5db353aa348.png",
+            "metadata": "packs/woodland-fern-a5db353aa348.json",
+            "sprites": [
+                "giant-fern",
+                "fern-wide"
+            ]
+        },
+        "woodland-ferry": {
+            "image": "packs/woodland-ferry-121ff752249b.png",
+            "metadata": "packs/woodland-ferry-121ff752249b.json",
+            "sprites": [
+                "ferry",
+                "ferry-bark"
+            ]
+        },
+        "woodland-flowers-bell": {
+            "image": "packs/woodland-flowers-bell-a92f18bb22ee.png",
+            "metadata": "packs/woodland-flowers-bell-a92f18bb22ee.json",
+            "sprites": [
+                "flowers-bell-blue",
+                "flowers-bell-violet"
+            ]
+        },
+        "woodland-flowers-daisy": {
+            "image": "packs/woodland-flowers-daisy-830ec73259ad.png",
+            "metadata": "packs/woodland-flowers-daisy-830ec73259ad.json",
+            "sprites": [
+                "flowers-daisy-white",
+                "flowers-daisy-gold"
+            ]
+        },
+        "woodland-flowers-meadow": {
+            "image": "packs/woodland-flowers-meadow-4c29b96c8224.png",
+            "metadata": "packs/woodland-flowers-meadow-4c29b96c8224.json",
+            "sprites": [
+                "flowers-primrose",
+                "flowers-coral"
+            ]
+        },
+        "woodland-knife": {
+            "image": "packs/woodland-knife-3eb1f10e2456.png",
+            "metadata": "packs/woodland-knife-3eb1f10e2456.json",
+            "sprites": [
+                "picnic-knife"
+            ]
+        },
+        "woodland-lamp": {
+            "image": "packs/woodland-lamp-ec461b3c7af5.png",
+            "metadata": "packs/woodland-lamp-ec461b3c7af5.json",
+            "sprites": [
+                "lantern",
+                "lamp-seed"
+            ]
+        },
+        "woodland-leaf-home": {
+            "image": "packs/woodland-leaf-home-f0002f5951a8.png",
+            "metadata": "packs/woodland-leaf-home-f0002f5951a8.json",
+            "sprites": [
+                "human-house",
+                "home-leaf-autumn"
+            ]
+        },
+        "woodland-lectern": {
+            "image": "packs/woodland-lectern-16d44cd6a989.png",
+            "metadata": "packs/woodland-lectern-16d44cd6a989.json",
+            "sprites": [
+                "book-lectern",
+                "lectern-leaf"
+            ]
+        },
+        "woodland-lighter": {
+            "image": "packs/woodland-lighter-2aba3bd11743.png",
+            "metadata": "packs/woodland-lighter-2aba3bd11743.json",
+            "sprites": [
+                "lighter"
+            ]
+        },
+        "woodland-log-home": {
+            "image": "packs/woodland-log-home-0a8e17d552c6.png",
+            "metadata": "packs/woodland-log-home-0a8e17d552c6.json",
+            "sprites": [
+                "workshop",
+                "cottage",
+                "home-log-twisted"
+            ]
+        },
+        "woodland-mushroom-home": {
+            "image": "packs/woodland-mushroom-home-37e9184f9810.png",
+            "metadata": "packs/woodland-mushroom-home-37e9184f9810.json",
+            "sprites": [
+                "cottage-closed",
+                "home-mushroom-red"
+            ]
+        },
+        "woodland-picnic-drinks": {
+            "image": "packs/woodland-picnic-drinks-0a7775f5f592.png",
+            "metadata": "packs/woodland-picnic-drinks-0a7775f5f592.json",
+            "sprites": [
+                "picnic-lemonade",
+                "picnic-orange-soda"
+            ]
+        },
+        "woodland-picnic-snacks": {
+            "image": "packs/woodland-picnic-snacks-6f39076936fa.png",
+            "metadata": "packs/woodland-picnic-snacks-6f39076936fa.json",
+            "sprites": [
+                "picnic-guacamole",
+                "picnic-potato-chips"
+            ]
+        },
+        "woodland-picnic-speaker": {
+            "image": "packs/woodland-picnic-speaker-f975f1bcb6a8.png",
+            "metadata": "packs/woodland-picnic-speaker-f975f1bcb6a8.json",
+            "sprites": [
+                "picnic-speaker"
+            ]
+        },
+        "woodland-planter": {
+            "image": "packs/woodland-planter-46485cf18f67.png",
+            "metadata": "packs/woodland-planter-46485cf18f67.json",
+            "sprites": [
+                "flower-pot",
+                "planter-violet"
+            ]
+        },
+        "woodland-pot-home": {
+            "image": "packs/woodland-pot-home-444f64c38c38.png",
+            "metadata": "packs/woodland-pot-home-444f64c38c38.json",
+            "sprites": [
+                "fisher-closed",
+                "home-pot-moss"
+            ]
+        },
+        "woodland-scarlet-mushroom": {
+            "image": "packs/woodland-scarlet-mushroom-42655322a29b.png",
+            "metadata": "packs/woodland-scarlet-mushroom-42655322a29b.json",
+            "sprites": [
+                "scarlet-mushrooms",
+                "mushroom-red-pair"
+            ]
+        },
+        "woodland-shelf": {
+            "image": "packs/woodland-shelf-7b9f5898c1de.png",
+            "metadata": "packs/woodland-shelf-7b9f5898c1de.json",
+            "sprites": [
+                "kitchen-rack",
+                "shelf-bark"
+            ]
+        },
+        "woodland-stairs-down": {
+            "image": "packs/woodland-stairs-down-587ccc9543cf.png",
+            "metadata": "packs/woodland-stairs-down-587ccc9543cf.json",
+            "sprites": [
+                "stairs-down",
+                "stairs-down-root"
+            ]
+        },
+        "woodland-stairs": {
+            "image": "packs/woodland-stairs-be6e5cf879fc.png",
+            "metadata": "packs/woodland-stairs-be6e5cf879fc.json",
+            "sprites": [
+                "stairs-up",
+                "stairs-root"
+            ]
+        },
+        "woodland-stool": {
+            "image": "packs/woodland-stool-727bd602942d.png",
+            "metadata": "packs/woodland-stool-727bd602942d.json",
+            "sprites": [
+                "stool-acorn",
+                "stool-shell"
+            ]
+        },
+        "woodland-stove": {
+            "image": "packs/woodland-stove-7c879e966ec6.png",
+            "metadata": "packs/woodland-stove-7c879e966ec6.json",
+            "sprites": [
+                "stove",
+                "stove-stone"
+            ]
+        },
+        "woodland-table": {
+            "image": "packs/woodland-table-c55d9c5b0e3a.png",
+            "metadata": "packs/woodland-table-c55d9c5b0e3a.json",
+            "sprites": [
+                "table",
+                "bedside-table",
+                "table-twig",
+                "workbench"
+            ]
+        },
+        "woodland-vase": {
+            "image": "packs/woodland-vase-e8ff3e3c5bfd.png",
+            "metadata": "packs/woodland-vase-e8ff3e3c5bfd.json",
+            "sprites": [
+                "flower-vase",
+                "vase-shell"
+            ]
+        },
+        "woodland-window": {
+            "image": "packs/woodland-window-5237746cc40e.png",
+            "metadata": "packs/woodland-window-5237746cc40e.json",
+            "sprites": [
+                "window-arched",
+                "window-leaf"
             ]
         }
     }

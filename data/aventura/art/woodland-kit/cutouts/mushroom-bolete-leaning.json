@@ -1,0 +1,12 @@
+{
+    "source": "mushroom-bolete-leaning.png",
+    "sourceHash": "959ad2f7fd63a3bc4c55e5d8a0b39e1ccbee34a796a5599d441dea79d94ea4e5",
+    "bounds": [
+        214,
+        211,
+        864,
+        854
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

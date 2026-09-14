@@ -6,6 +6,7 @@ class SpriteLibrary {
     this.pending = new Map();
     this.owners = new Map();
     this.pinned = new Set();
+    this.warm = new Set();
   }
   async initialize(url) {
     this.base = new URL(url, location.href);
@@ -73,8 +74,9 @@ class SpriteLibrary {
           f.y < 0 ||
           f.w < 1 ||
           f.h < 1 ||
-          f.x + f.w > metadata.width ||
-          f.y + f.h > metadata.height
+          !Number.isInteger(f.pixelRatio) || f.pixelRatio < 1 || f.pixelRatio > 3 ||
+          f.x + f.w * f.pixelRatio > metadata.width ||
+          f.y + f.h * f.pixelRatio > metadata.height
         )
           throw new Error("Invalid sprite frame: " + name);
       }
@@ -109,50 +111,76 @@ class SpriteLibrary {
   }
   activate(ids) {
     this.pinned = new Set(ids);
+    this.warm.clear();
     for (const id of ids) {
       const pack = this.packs.get(id);
       this.packs.delete(id);
       this.packs.set(id, pack);
     }
-    // Keep a small warm cache for returning through a door; never evict the active scene.
+    this.prune();
+  }
+  retainWarm(ids) {
+    this.warm = new Set(ids);
+    this.prune();
+  }
+  prune() {
+    const keep = new Set([...this.pinned, ...this.warm]);
     for (const id of this.packs.keys()) {
-      if (this.packs.size <= Math.max(12, ids.size + 2)) break;
-      if (!ids.has(id)) this.packs.delete(id);
+      if (this.packs.size <= Math.max(12, keep.size + 2)) break;
+      if (!keep.has(id)) this.packs.delete(id);
     }
   }
   frame(name) {
     return this.packs.get(this.owners.get(name))?.frames[name];
   }
   draw(context, name, x, y, width, height) {
+    const f = this.frame(name);
+    if (!f) return false;
+    return this.drawRegion(context,name,0,0,f.w,f.h,x,y,width??f.w,height??f.h);
+  }
+  drawRegion(context, name, sx, sy, sw, sh, x, y, width, height) {
     const pack = this.packs.get(this.owners.get(name)),
       f = pack?.frames[name];
     if (!f) return false;
     context.imageSmoothingEnabled = false;
     context.drawImage(
       pack.image,
-      f.x,
-      f.y,
-      f.w,
-      f.h,
+      f.x + sx * f.pixelRatio,
+      f.y + sy * f.pixelRatio,
+      sw * f.pixelRatio,
+      sh * f.pixelRatio,
       x,
       y,
-      width ?? f.w,
-      height ?? f.h,
+      width,
+      height,
     );
     return true;
   }
   icon(name) {
     const f = this.frame(name);
     if (!f) return null;
+    const [ix,iy,iw,ih] = f.ink;
     const canvas = document.createElement("canvas");
-    canvas.width = f.w;
-    canvas.height = f.h;
+    canvas.width = iw * f.pixelRatio;
+    canvas.height = ih * f.pixelRatio;
+    canvas.style.width = iw + "px";
+    canvas.style.height = ih + "px";
     canvas.setAttribute("aria-hidden", "true");
-    this.draw(canvas.getContext("2d"), name, 0, 0);
+    this.drawRegion(canvas.getContext("2d"), name, ix,iy,iw,ih,0,0,canvas.width,canvas.height);
     return canvas;
   }
+  portrait(context, name, width, height) {
+    const f = this.frame(name);
+    if (!f) return false;
+    const [ix,iy,iw,ih] = f.ink, scale = Math.min(width/iw,height/ih);
+    return this.drawRegion(context,name,ix,iy,iw,ih,(width-iw*scale)/2,(height-ih*scale)/2,iw*scale,ih*scale);
+  }
   inspect() {
-    return { loaded: [...this.packs.keys()], active: [...this.pinned] };
+    return {
+      loaded: [...this.packs.keys()],
+      active: [...this.pinned],
+      warm: [...this.warm],
+    };
   }
 }
 module.exports = { SpriteLibrary };

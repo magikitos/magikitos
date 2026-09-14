@@ -1,0 +1,84 @@
+{
+  "frames": {
+    "table": {
+      "source": "data/aventura/art/woodland-kit/cutouts/table-stump.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        64,
+        54
+      ],
+      "fit": true,
+      "anchor": [
+        32,
+        47
+      ]
+    },
+    "bedside-table": {
+      "source": "data/aventura/art/woodland-kit/cutouts/table-stump.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        64,
+        54
+      ],
+      "fit": true,
+      "anchor": [
+        32,
+        47
+      ]
+    },
+    "table-twig": {
+      "source": "data/aventura/art/woodland-kit/cutouts/table-twig.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        64,
+        54
+      ],
+      "fit": true,
+      "anchor": [
+        32,
+        47
+      ]
+    },
+    "workbench": {
+      "source": "data/aventura/art/woodland-kit/cutouts/table-twig.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        64,
+        54
+      ],
+      "fit": true,
+      "anchor": [
+        32,
+        47
+      ]
+    }
+  }
+}

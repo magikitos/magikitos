@@ -240,8 +240,5 @@
       "radius": 3,
       "dialogue": "isletGreeting"
     }
-  ],
-  "assetPacks": [
-    "ferry-aboard"
   ]
 }

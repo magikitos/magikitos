@@ -1,0 +1,44 @@
+{
+  "frames": {
+    "stove": {
+      "source": "data/aventura/art/woodland-kit/cutouts/stove-clay.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        48,
+        64
+      ],
+      "fit": true,
+      "anchor": [
+        24,
+        58
+      ]
+    },
+    "stove-stone": {
+      "source": "data/aventura/art/woodland-kit/cutouts/stove-stone.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        48,
+        64
+      ],
+      "fit": true,
+      "anchor": [
+        24,
+        60
+      ]
+    }
+  }
+}

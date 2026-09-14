@@ -1,0 +1,652 @@
+{
+    "frames": {
+        "person-0-down-bow-0": {
+            "source": "data/aventura/art/cast/cutouts/ascua-bow.png",
+            "grid": [
+                8,
+                3
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1423487544483986,
+                "offset": [
+                    8.199288256227756,
+                    3.864768683274015
+                ]
+            }
+        },
+        "person-0-down-right-bow-0": {
+            "source": "data/aventura/art/cast/cutouts/ascua-bow.png",
+            "grid": [
+                8,
+                3
+            ],
+            "cell": [
+                1,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1423487544483986,
+                "offset": [
+                    8.199288256227756,
+                    3.864768683274015
+                ]
+            }
+        },
+        "person-0-right-bow-0": {
+            "source": "data/aventura/art/cast/cutouts/ascua-bow.png",
+            "grid": [
+                8,
+                3
+            ],
+            "cell": [
+                2,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1423487544483986,
+                "offset": [
+                    8.270462633451956,
+                    3.864768683274015
+                ]
+            }
+        },
+        "person-0-up-right-bow-0": {
+            "source": "data/aventura/art/cast/cutouts/ascua-bow.png",
+            "grid": [
+                8,
+                3
+            ],
+            "cell": [
+                3,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1423487544483986,
+                "offset": [
+                    8.199288256227756,
+                    3.864768683274015
+                ]
+            }
+        },
+        "person-0-up-bow-0": {
+            "source": "data/aventura/art/cast/cutouts/ascua-bow.png",
+            "grid": [
+                8,
+                3
+            ],
+            "cell": [
+                4,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1423487544483986,
+                "offset": [
+                    8.199288256227756,
+                    3.864768683274015
+                ]
+            }
+        },
+        "person-0-up-left-bow-0": {
+            "source": "data/aventura/art/cast/cutouts/ascua-bow.png",
+            "grid": [
+                8,
+                3
+            ],
+            "cell": [
+                5,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1423487544483986,
+                "offset": [
+                    8.199288256227756,
+                    3.864768683274015
+                ]
+            }
+        },
+        "person-0-left-bow-0": {
+            "source": "data/aventura/art/cast/cutouts/ascua-bow.png",
+            "grid": [
+                8,
+                3
+            ],
+            "cell": [
+                6,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1423487544483986,
+                "offset": [
+                    8.270462633451956,
+                    3.864768683274015
+                ]
+            }
+        },
+        "person-0-down-left-bow-0": {
+            "source": "data/aventura/art/cast/cutouts/ascua-bow.png",
+            "grid": [
+                8,
+                3
+            ],
+            "cell": [
+                7,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1423487544483986,
+                "offset": [
+                    8.199288256227756,
+                    3.864768683274015
+                ]
+            }
+        },
+        "person-0-down-bow-1": {
+            "source": "data/aventura/art/cast/cutouts/ascua-bow.png",
+            "grid": [
+                8,
+                3
+            ],
+            "cell": [
+                0,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1423487544483986,
+                "offset": [
+                    8.199288256227756,
+                    4.007117437722414
+                ]
+            }
+        },
+        "person-0-down-right-bow-1": {
+            "source": "data/aventura/art/cast/cutouts/ascua-bow.png",
+            "grid": [
+                8,
+                3
+            ],
+            "cell": [
+                1,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1423487544483986,
+                "offset": [
+                    8.199288256227756,
+                    4.007117437722414
+                ]
+            }
+        },
+        "person-0-right-bow-1": {
+            "source": "data/aventura/art/cast/cutouts/ascua-bow.png",
+            "grid": [
+                8,
+                3
+            ],
+            "cell": [
+                2,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1423487544483986,
+                "offset": [
+                    8.270462633451956,
+                    4.007117437722414
+                ]
+            }
+        },
+        "person-0-up-right-bow-1": {
+            "source": "data/aventura/art/cast/cutouts/ascua-bow.png",
+            "grid": [
+                8,
+                3
+            ],
+            "cell": [
+                3,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1423487544483986,
+                "offset": [
+                    8.199288256227756,
+                    4.007117437722414
+                ]
+            }
+        },
+        "person-0-up-bow-1": {
+            "source": "data/aventura/art/cast/cutouts/ascua-bow.png",
+            "grid": [
+                8,
+                3
+            ],
+            "cell": [
+                4,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1423487544483986,
+                "offset": [
+                    8.199288256227756,
+                    4.007117437722414
+                ]
+            }
+        },
+        "person-0-up-left-bow-1": {
+            "source": "data/aventura/art/cast/cutouts/ascua-bow.png",
+            "grid": [
+                8,
+                3
+            ],
+            "cell": [
+                5,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1423487544483986,
+                "offset": [
+                    8.199288256227756,
+                    4.007117437722414
+                ]
+            }
+        },
+        "person-0-left-bow-1": {
+            "source": "data/aventura/art/cast/cutouts/ascua-bow.png",
+            "grid": [
+                8,
+                3
+            ],
+            "cell": [
+                6,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1423487544483986,
+                "offset": [
+                    8.270462633451956,
+                    4.007117437722414
+                ]
+            }
+        },
+        "person-0-down-left-bow-1": {
+            "source": "data/aventura/art/cast/cutouts/ascua-bow.png",
+            "grid": [
+                8,
+                3
+            ],
+            "cell": [
+                7,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1423487544483986,
+                "offset": [
+                    8.199288256227756,
+                    4.007117437722414
+                ]
+            }
+        },
+        "person-0-down-bow-2": {
+            "source": "data/aventura/art/cast/cutouts/ascua-bow.png",
+            "grid": [
+                8,
+                3
+            ],
+            "cell": [
+                0,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1423487544483986,
+                "offset": [
+                    8.199288256227756,
+                    17.103202846975087
+                ]
+            }
+        },
+        "person-0-down-right-bow-2": {
+            "source": "data/aventura/art/cast/cutouts/ascua-bow.png",
+            "grid": [
+                8,
+                3
+            ],
+            "cell": [
+                1,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1423487544483986,
+                "offset": [
+                    8.199288256227756,
+                    18.526690391459073
+                ]
+            }
+        },
+        "person-0-right-bow-2": {
+            "source": "data/aventura/art/cast/cutouts/ascua-bow.png",
+            "grid": [
+                8,
+                3
+            ],
+            "cell": [
+                2,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1423487544483986,
+                "offset": [
+                    8.270462633451956,
+                    17.67259786476868
+                ]
+            }
+        },
+        "person-0-up-right-bow-2": {
+            "source": "data/aventura/art/cast/cutouts/ascua-bow.png",
+            "grid": [
+                8,
+                3
+            ],
+            "cell": [
+                3,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1423487544483986,
+                "offset": [
+                    8.199288256227756,
+                    17.957295373665477
+                ]
+            }
+        },
+        "person-0-up-bow-2": {
+            "source": "data/aventura/art/cast/cutouts/ascua-bow.png",
+            "grid": [
+                8,
+                3
+            ],
+            "cell": [
+                4,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1423487544483986,
+                "offset": [
+                    8.199288256227756,
+                    17.245551601423486
+                ]
+            }
+        },
+        "person-0-up-left-bow-2": {
+            "source": "data/aventura/art/cast/cutouts/ascua-bow.png",
+            "grid": [
+                8,
+                3
+            ],
+            "cell": [
+                5,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1423487544483986,
+                "offset": [
+                    8.199288256227756,
+                    18.526690391459073
+                ]
+            }
+        },
+        "person-0-left-bow-2": {
+            "source": "data/aventura/art/cast/cutouts/ascua-bow.png",
+            "grid": [
+                8,
+                3
+            ],
+            "cell": [
+                6,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1423487544483986,
+                "offset": [
+                    8.270462633451956,
+                    18.66903914590747
+                ]
+            }
+        },
+        "person-0-down-left-bow-2": {
+            "source": "data/aventura/art/cast/cutouts/ascua-bow.png",
+            "grid": [
+                8,
+                3
+            ],
+            "cell": [
+                7,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1423487544483986,
+                "offset": [
+                    8.199288256227756,
+                    17.245551601423486
+                ]
+            }
+        }
+    }
+}

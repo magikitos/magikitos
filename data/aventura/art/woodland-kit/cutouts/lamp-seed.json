@@ -1,0 +1,12 @@
+{
+    "source": "lamp-seed.png",
+    "sourceHash": "5632d47dc6b276c36e0a9778c7f606c523aca0b41c5ef64df5526b97550c641d",
+    "bounds": [
+        175,
+        203,
+        546,
+        1339
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

@@ -1,0 +1,12 @@
+{
+    "source": "cupboard-hollow.png",
+    "sourceHash": "1d3af88ba5a136d1766b125f0b18e3562003999fb17d1a749db3e135caa0beb3",
+    "bounds": [
+        156,
+        113,
+        794,
+        1299
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

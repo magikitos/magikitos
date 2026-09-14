@@ -1,17 +1,22 @@
 "use strict";
 const { needStatus, reliefError, completeRelief } = require("./needs");
+const { Account } = require("./account");
 const byId = (id) => document.getElementById(id);
 /** Body status UI and presentation; deadlines/inventory accounting stay in needs.js. */
 class Self {
   constructor(game) {
     this.game = game;
     this.lastStatus = null;
+    this.account = new Account(game);
     byId("self-toggle").addEventListener("click", () => {
       if (!game.ready || game.transitioning) return;
       game.closeContent();
       game.closeDialogue();
       game.pauseMovement();
       this.paint();
+      // Reading here and not in the constructor: the panel is a deliberate
+      // act, boot is not, and this request must never ride on a page load.
+      this.account.read();
       byId("self-dialog").showModal();
     });
     for (const kind of ["pee", "poop"])

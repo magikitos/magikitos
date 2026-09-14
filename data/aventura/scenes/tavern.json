@@ -33,8 +33,7 @@
             {
               "type": "travel",
               "scene": "overworld",
-              "x": 55.5,
-              "y": 32.5
+              "arrivalAt": "tavern-door"
             }
           ]
         }
@@ -57,8 +56,14 @@
           ]
         }
       ],
-      "solid": [-2, -1.5, 4, 1.8],
-      "label": "jokes"
+      "solid": [
+        -2,
+        -1.5,
+        4,
+        1.8
+      ],
+      "label": "jokes",
+      "artVariant": "auto"
     },
     {
       "id": "jokes",
@@ -75,8 +80,14 @@
           ]
         }
       ],
-      "solid": [-1.5, -1.5, 3, 1.8],
-      "label": "jokes"
+      "solid": [
+        -1.5,
+        -1.5,
+        3,
+        1.8
+      ],
+      "label": "jokes",
+      "artVariant": "auto"
     },
     {
       "id": "tavern-table",
@@ -94,21 +105,61 @@
           ]
         }
       ],
-      "solid": [-1.5, -1.5, 3, 1.8],
-      "label": "table"
+      "solid": [
+        -1.5,
+        -1.5,
+        3,
+        1.8
+      ],
+      "label": "table",
+      "artVariant": "auto"
     },
     {
       "id": "tavern-plant",
       "sprite": "flower-pot",
       "x": 5.5,
       "y": 5.5,
-      "rules": []
+      "rules": [],
+      "artVariant": "auto"
     },
     {
       "id": "tavern-crates",
       "sprite": "crates",
       "x": 26.5,
       "y": 6.5,
+      "rules": [],
+      "artVariant": "auto"
+    },
+    {
+      "id": "tavern-stool-west",
+      "sprite": "stool-acorn",
+      "x": 8.5,
+      "y": 14.8,
+      "artVariant": "auto",
+      "rules": []
+    },
+    {
+      "id": "tavern-stool-east",
+      "sprite": "stool-acorn",
+      "x": 25.5,
+      "y": 16.8,
+      "artVariant": "auto",
+      "rules": []
+    },
+    {
+      "id": "tavern-wall-shelf",
+      "sprite": "kitchen-rack",
+      "x": 22,
+      "y": 4,
+      "artVariant": "auto",
+      "rules": []
+    },
+    {
+      "id": "tavern-leaf-light",
+      "sprite": "lantern",
+      "x": 5,
+      "y": 17,
+      "artVariant": "auto",
       "rules": []
     }
   ],
@@ -145,5 +196,57 @@
       "radius": 0.5,
       "content": "jokes"
     }
-  ]
+  ],
+  "interior": {
+    "material": "leather",
+    "background": "woodland-context",
+    "outline": [
+      [
+        0.18,
+        0
+      ],
+      [
+        0.78,
+        0
+      ],
+      [
+        0.92,
+        0.12
+      ],
+      [
+        0.92,
+        0.44
+      ],
+      [
+        1,
+        0.6
+      ],
+      [
+        1,
+        0.86
+      ],
+      [
+        0.85,
+        1
+      ],
+      [
+        0.13,
+        1
+      ],
+      [
+        0,
+        0.83
+      ],
+      [
+        0,
+        0.25
+      ]
+    ],
+    "inset": {
+      "left": 2,
+      "right": 2,
+      "top": 2.5,
+      "bottom": 2
+    }
+  }
 }

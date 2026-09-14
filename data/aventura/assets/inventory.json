@@ -2,44 +2,73 @@
   "frames": {
     "mushroom": {
       "source": "data/aventura/art/props.png",
-      "grid": [4, 3],
-      "cell": [3, 1],
-      "size": [14, 17]
-    },
-    "lighter": {
-      "source": "data/aventura/art/puzzle-props-cutout.png",
-      "rect": [750, 100, 490, 580],
-      "size": [14, 22],
-      "fit": true
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        3,
+        1
+      ],
+      "size": [
+        14,
+        17
+      ]
     },
     "sack": {
       "source": "data/aventura/art/puzzle-props-cutout.png",
-      "rect": [690, 700, 580, 520],
-      "size": [26, 30],
+      "rect": [
+        690,
+        700,
+        580,
+        520
+      ],
+      "size": [
+        26,
+        30
+      ],
       "fit": true
     },
     "twig": {
       "source": "data/aventura/art/skewer-items-cutout.png",
-      "rect": [0, 0, 683, 683],
-      "size": [18, 23],
+      "rect": [
+        0,
+        0,
+        683,
+        683
+      ],
+      "size": [
+        18,
+        23
+      ],
       "fit": true
     },
     "skewer": {
       "source": "data/aventura/art/skewer-items-cutout.png",
-      "rect": [683, 0, 682, 683],
-      "size": [20, 26],
-      "fit": true
-    },
-    "setin": {
-      "source": "data/aventura/art/skewer-items-cutout.png",
-      "rect": [1365, 0, 683, 683],
-      "size": [20, 20],
+      "rect": [
+        683,
+        0,
+        682,
+        683
+      ],
+      "size": [
+        20,
+        26
+      ],
       "fit": true
     },
     "shells": {
       "source": "data/aventura/art/shore-garden-cutout.png",
-      "rect": [580, 615, 510, 409],
-      "size": [20, 16],
+      "rect": [
+        580,
+        615,
+        510,
+        409
+      ],
+      "size": [
+        20,
+        16
+      ],
       "fit": true
     }
   }

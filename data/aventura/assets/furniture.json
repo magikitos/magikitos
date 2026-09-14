@@ -1,52 +1,17 @@
 {
   "frames": {
-    "table": {
-      "source": "data/aventura/art/props.png",
-      "grid": [4, 3],
-      "cell": [0, 2],
-      "size": [54, 42]
-    },
-    "bed": {
-      "source": "data/aventura/art/props.png",
-      "grid": [4, 3],
-      "cell": [1, 2],
-      "size": [58, 62],
-      "cleanFragments": 0.025
-    },
-    "workbench": {
-      "source": "data/aventura/art/props.png",
-      "grid": [4, 3],
-      "cell": [3, 2],
-      "size": [62, 46]
-    },
-    "flower-pot": {
-      "source": "data/aventura/art/woodland-cutout.png",
-      "rect": [1100, 420, 348, 301],
-      "size": [19, 23],
-      "fit": true
-    },
-    "crates": {
-      "source": "data/aventura/art/woodland-cutout.png",
-      "rect": [0, 721, 380, 365],
-      "size": [27, 30],
-      "fit": true
-    },
-    "easel": {
-      "source": "data/aventura/art/woodland-cutout.png",
-      "rect": [380, 721, 410, 365],
-      "size": [25, 35],
-      "fit": true
-    },
     "yarn": {
       "source": "data/aventura/art/woodland-cutout.png",
-      "rect": [1100, 721, 348, 365],
-      "size": [22, 22],
-      "fit": true
-    },
-    "book-lectern": {
-      "source": "data/aventura/art/puzzle-props-cutout.png",
-      "rect": [40, 80, 680, 625],
-      "size": [36, 40],
+      "rect": [
+        1100,
+        721,
+        348,
+        365
+      ],
+      "size": [
+        22,
+        22
+      ],
       "fit": true
     }
   }

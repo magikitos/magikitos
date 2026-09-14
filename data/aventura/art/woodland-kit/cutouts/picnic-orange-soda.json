@@ -1,0 +1,12 @@
+{
+    "source": "picnic-orange-soda.png",
+    "sourceHash": "ab0568593da1faaa1c0f37e005186b0d57a37c18b7b1cdad11f5b7df43e2fe1b",
+    "bounds": [
+        307,
+        428,
+        449,
+        714
+    ],
+    "matte": "original-alpha",
+    "fringePixels": 2
+}

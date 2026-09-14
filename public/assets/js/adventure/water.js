@@ -14,6 +14,7 @@ function drawRipples(c, world, view, time = 0) {
       col++
     ) {
       const seed = hash(world.data.seed + ":" + col + ":" + row);
+      if (seed % 3 === 0) continue;
       const phase = (seed % 628) / 100;
       const x =
         col * 32 +
@@ -27,8 +28,11 @@ function drawRipples(c, world, view, time = 0) {
       )
         continue;
       c.fillStyle =
-        "rgba(194,231,208," + (0.2 + Math.sin(time * 0.7 + phase) * 0.07) + ")";
+        "rgba(192,226,197," +
+        (0.1 + Math.sin(time * 0.65 + phase) * 0.06) +
+        ")";
       c.fillRect(x, y, width, 1);
+      if (seed % 4 === 0) c.fillRect(x + 2, y + 2, Math.max(2, width - 4), 1);
     }
 }
 module.exports = { drawRipples };

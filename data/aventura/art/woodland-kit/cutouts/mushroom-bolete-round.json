@@ -1,0 +1,12 @@
+{
+    "source": "mushroom-bolete-round.png",
+    "sourceHash": "205debae221b470c9c02c3d99a8784248525ff28579adc917622a2445fa58f8c",
+    "bounds": [
+        200,
+        172,
+        891,
+        928
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

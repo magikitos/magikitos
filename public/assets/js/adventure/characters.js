@@ -1,7 +1,6 @@
 "use strict";
 
-// Sprites turn in world space, never by rotating a flat image. The two left diagonals
-// are baked mirrors of their right-facing counterparts, with the same foot anchor.
+// Every walking heading is authored, including left diagonals. No flat-image rotation.
 const DIRECTIONS = [
   "right",
   "down-right",
@@ -30,4 +29,9 @@ function characterFrame(variant, actor, moving) {
     : 0;
   return pose ? `${base}-walk-${pose}` : base;
 }
-module.exports = { DIRECTIONS, facing, recordStep, characterFrame };
+function pushFrame(actor) {
+  if (!actor.pushing) return null;
+  const pose = actor.pushing.moved ? [1, 2, 3, 2][Math.floor((actor.walkDistance || 0) / 4) % 4] : 0;
+  return `person-0-${actor.pushing.direction}-push-${pose}`;
+}
+module.exports = { DIRECTIONS, facing, recordStep, characterFrame, pushFrame };

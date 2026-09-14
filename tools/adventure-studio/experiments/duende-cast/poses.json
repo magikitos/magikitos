@@ -1,0 +1,823 @@
+{
+  "status": "planning-not-artwork-order",
+  "directionConvention": "N=espaldas/arriba; S=frente/abajo; E=derecha; W=izquierda",
+  "directions": {
+    "eight": [
+      "S",
+      "SE",
+      "E",
+      "NE",
+      "N",
+      "NW",
+      "W",
+      "SW"
+    ],
+    "four": [
+      "S",
+      "E",
+      "N",
+      "W"
+    ],
+    "front": [
+      "S"
+    ],
+    "side": [
+      "SE",
+      "SW"
+    ]
+  },
+  "groups": [
+    {
+      "id": "base",
+      "label": "Para el core actual"
+    },
+    {
+      "id": "puzzles",
+      "label": "Objetos y enigmas futuros"
+    },
+    {
+      "id": "travel",
+      "label": "Exploración futura"
+    },
+    {
+      "id": "tools",
+      "label": "Herramientas y acción futura"
+    },
+    {
+      "id": "life",
+      "label": "Vida y gestos"
+    }
+  ],
+  "actions": [
+    {
+      "id": "idle",
+      "group": "base",
+      "label": "Reposo y parpadeo",
+      "directions": [
+        "S",
+        "SE",
+        "E",
+        "NE",
+        "N",
+        "NW",
+        "W",
+        "SW"
+      ],
+      "frames": 2,
+      "brief": "Peso relajado, ojos abiertos/cerrados. Gorro y pies estables.",
+      "playback": "loop",
+      "anchor": "feet"
+    },
+    {
+      "id": "walk",
+      "group": "base",
+      "label": "Andar",
+      "directions": [
+        "S",
+        "SE",
+        "E",
+        "NE",
+        "N",
+        "NW",
+        "W",
+        "SW"
+      ],
+      "frames": 6,
+      "brief": "Contacto, descenso, paso, contacto contrario. Pasos según distancia, no patinaje.",
+      "playback": "loop",
+      "anchor": "feet"
+    },
+    {
+      "id": "roll",
+      "group": "base",
+      "label": "Rodar",
+      "directions": [
+        "S",
+        "SE",
+        "E",
+        "NE",
+        "N",
+        "NW",
+        "W",
+        "SW"
+      ],
+      "frames": 6,
+      "brief": "Preparación, impulso, cuerpo recogido, giro, apertura y apoyo. Diagonales dibujadas.",
+      "playback": "once",
+      "anchor": "feet"
+    },
+    {
+      "id": "push",
+      "group": "base",
+      "label": "Empujar",
+      "directions": [
+        "S",
+        "SE",
+        "E",
+        "NE",
+        "N",
+        "NW",
+        "W",
+        "SW"
+      ],
+      "frames": 4,
+      "brief": "Rodillas flexionadas, tronco inclinado, brazos hacia el objeto y palmas apoyadas; pies hacen fuerza.",
+      "playback": "loop",
+      "anchor": "hands-contact"
+    },
+    {
+      "id": "collect",
+      "group": "base",
+      "label": "Recoger del suelo",
+      "directions": [
+        "S",
+        "SE",
+        "E",
+        "NE",
+        "N",
+        "NW",
+        "W",
+        "SW"
+      ],
+      "frames": 3,
+      "brief": "Agacharse, agarrar y recuperarse. Mano libre separada del cuerpo.",
+      "playback": "once",
+      "anchor": "hand"
+    },
+    {
+      "id": "discover",
+      "group": "base",
+      "label": "Enseñar hallazgo",
+      "directions": [
+        "S"
+      ],
+      "frames": 4,
+      "brief": "Mirar a cámara, levantar brazos, sostener el objeto por encima del gorro y bajar.",
+      "playback": "hold",
+      "anchor": "overhead"
+    },
+    {
+      "id": "interact",
+      "group": "base",
+      "label": "Tocar / abrir / pulsar",
+      "directions": [
+        "S",
+        "E",
+        "N",
+        "W"
+      ],
+      "frames": 3,
+      "brief": "Preparación, contacto y retirada. Puerta, cartel y botón comparten gesto cuando encaje.",
+      "playback": "once",
+      "anchor": "hand"
+    },
+    {
+      "id": "ignite",
+      "group": "base",
+      "label": "Encender el fuego",
+      "directions": [
+        "S",
+        "E",
+        "N",
+        "W"
+      ],
+      "frames": 4,
+      "brief": "Acercar mechero, accionar, prender y retirar la mano. Fuego y mechero separados.",
+      "playback": "once",
+      "anchor": "hand"
+    },
+    {
+      "id": "cut",
+      "group": "base",
+      "label": "Cortar la seta",
+      "directions": [
+        "S",
+        "E",
+        "N",
+        "W"
+      ],
+      "frames": 4,
+      "brief": "Preparar navaja, corte controlado, recoger y guardar. La mano dominante no cambia al girar.",
+      "playback": "once",
+      "anchor": "hand"
+    },
+    {
+      "id": "cook",
+      "group": "base",
+      "label": "Cocinar brocheta",
+      "directions": [
+        "S",
+        "E",
+        "N",
+        "W"
+      ],
+      "frames": 4,
+      "brief": "Acercar palo, girar suavemente y retirar; el alimento no se hornea en el personaje.",
+      "playback": "loop",
+      "anchor": "hand"
+    },
+    {
+      "id": "pee",
+      "group": "base",
+      "label": "Mear",
+      "directions": [
+        "SE",
+        "SW"
+      ],
+      "frames": 5,
+      "brief": "Orientarse, preparar ropa, aliviarse, terminar y recolocarse. Cómico y discreto, sin anatomía explícita.",
+      "playback": "sequence",
+      "anchor": "feet"
+    },
+    {
+      "id": "poop",
+      "group": "base",
+      "label": "Cagar",
+      "directions": [
+        "SE",
+        "SW"
+      ],
+      "frames": 5,
+      "brief": "Mirar alrededor, ponerse en cuclillas, esfuerzo, alivio y recuperación. Hoja aparte.",
+      "playback": "sequence",
+      "anchor": "feet"
+    },
+    {
+      "id": "wipe",
+      "group": "base",
+      "label": "Limpiarse con hoja",
+      "directions": [
+        "SE",
+        "SW"
+      ],
+      "frames": 4,
+      "brief": "Coger hoja, limpiarse, terminar y vestirse. Compatible con la secuencia anterior.",
+      "playback": "once",
+      "anchor": "hand"
+    },
+    {
+      "id": "pull",
+      "group": "puzzles",
+      "label": "Tirar de un objeto",
+      "directions": [
+        "S",
+        "SE",
+        "E",
+        "NE",
+        "N",
+        "NW",
+        "W",
+        "SW"
+      ],
+      "frames": 4,
+      "brief": "Manos agarradas, espalda hacia atrás, pasos de retroceso. No invertir empujar sin revisar contactos.",
+      "playback": "loop",
+      "anchor": "hands-contact"
+    },
+    {
+      "id": "lift",
+      "group": "puzzles",
+      "label": "Levantar un objeto",
+      "directions": [
+        "S",
+        "SE",
+        "E",
+        "NE",
+        "N",
+        "NW",
+        "W",
+        "SW"
+      ],
+      "frames": 4,
+      "brief": "Agacharse, agarrar con ambas manos, levantar y estabilizar carga.",
+      "playback": "once",
+      "anchor": "both-hands"
+    },
+    {
+      "id": "carry-idle",
+      "group": "puzzles",
+      "label": "Sostener una carga",
+      "directions": [
+        "S",
+        "SE",
+        "E",
+        "NE",
+        "N",
+        "NW",
+        "W",
+        "SW"
+      ],
+      "frames": 2,
+      "brief": "Objeto delante o por encima según su agarre; centro de gravedad creíble.",
+      "playback": "hold",
+      "anchor": "both-hands"
+    },
+    {
+      "id": "carry-walk",
+      "group": "puzzles",
+      "label": "Andar cargando",
+      "directions": [
+        "S",
+        "SE",
+        "E",
+        "NE",
+        "N",
+        "NW",
+        "W",
+        "SW"
+      ],
+      "frames": 6,
+      "brief": "Pasos más cortos con brazos sosteniendo una carga; sin atravesar cuerpo ni gorro.",
+      "playback": "loop",
+      "anchor": "both-hands"
+    },
+    {
+      "id": "place",
+      "group": "puzzles",
+      "label": "Depositar un objeto",
+      "directions": [
+        "S",
+        "SE",
+        "E",
+        "NE",
+        "N",
+        "NW",
+        "W",
+        "SW"
+      ],
+      "frames": 3,
+      "brief": "Bajar la carga, soltar y retirarse. El objeto adquiere su posición al soltar.",
+      "playback": "once",
+      "anchor": "both-hands"
+    },
+    {
+      "id": "throw",
+      "group": "puzzles",
+      "label": "Lanzar",
+      "directions": [
+        "S",
+        "SE",
+        "E",
+        "NE",
+        "N",
+        "NW",
+        "W",
+        "SW"
+      ],
+      "frames": 5,
+      "brief": "Anticipación, carga del brazo, suelta, seguimiento y recuperación.",
+      "playback": "once",
+      "anchor": "hand"
+    },
+    {
+      "id": "give",
+      "group": "puzzles",
+      "label": "Dar / recibir",
+      "directions": [
+        "S",
+        "SE",
+        "E",
+        "NE",
+        "N",
+        "NW",
+        "W",
+        "SW"
+      ],
+      "frames": 3,
+      "brief": "Extender manos, intercambio y recoger. Evento de intercambio único.",
+      "playback": "once",
+      "anchor": "hand"
+    },
+    {
+      "id": "search",
+      "group": "puzzles",
+      "label": "Rebuscar / abrir saco",
+      "directions": [
+        "SE",
+        "SW"
+      ],
+      "frames": 4,
+      "brief": "Abrir, apartar contenido, encontrar y cerrar; utensilios intercambiables.",
+      "playback": "sequence",
+      "anchor": "bag"
+    },
+    {
+      "id": "lever",
+      "group": "puzzles",
+      "label": "Accionar palanca / girar",
+      "directions": [
+        "S",
+        "E",
+        "N",
+        "W"
+      ],
+      "frames": 4,
+      "brief": "Alcanzar agarre, hacer fuerza, completar recorrido y soltar.",
+      "playback": "once",
+      "anchor": "hands-contact"
+    },
+    {
+      "id": "run",
+      "group": "travel",
+      "label": "Correr / esprintar",
+      "directions": [
+        "S",
+        "SE",
+        "E",
+        "NE",
+        "N",
+        "NW",
+        "W",
+        "SW"
+      ],
+      "frames": 6,
+      "brief": "Zancada y brazos distintos del paseo; no es solo acelerar el mismo ciclo.",
+      "playback": "loop",
+      "anchor": "feet"
+    },
+    {
+      "id": "jump",
+      "group": "travel",
+      "label": "Saltar y aterrizar",
+      "directions": [
+        "S",
+        "SE",
+        "E",
+        "NE",
+        "N",
+        "NW",
+        "W",
+        "SW"
+      ],
+      "frames": 7,
+      "brief": "Anticipación, impulso, subida, ápice, caída, contacto y recuperación.",
+      "playback": "sequence",
+      "anchor": "feet"
+    },
+    {
+      "id": "fall",
+      "group": "travel",
+      "label": "Caer / perder equilibrio",
+      "directions": [
+        "S",
+        "SE",
+        "E",
+        "NE",
+        "N",
+        "NW",
+        "W",
+        "SW"
+      ],
+      "frames": 3,
+      "brief": "Desequilibrio, caída y recuperación; sin duplicar el desplazamiento físico del motor.",
+      "playback": "sequence",
+      "anchor": "feet"
+    },
+    {
+      "id": "climb",
+      "group": "travel",
+      "label": "Trepar por raíz / escalera",
+      "directions": [
+        "S",
+        "E",
+        "N",
+        "W"
+      ],
+      "frames": 6,
+      "brief": "Dos manos y dos pies alternan apoyos; avanzar al subir y bajar mantiene contactos.",
+      "playback": "loop",
+      "anchor": "hands-contact"
+    },
+    {
+      "id": "ledge",
+      "group": "travel",
+      "label": "Agarrarse y subir a un borde",
+      "directions": [
+        "S",
+        "E",
+        "N",
+        "W"
+      ],
+      "frames": 5,
+      "brief": "Manos al borde, suspensión, tracción, rodilla arriba y ponerse de pie.",
+      "playback": "sequence",
+      "anchor": "hands-contact"
+    },
+    {
+      "id": "crawl",
+      "group": "travel",
+      "label": "Agacharse / pasar por hueco",
+      "directions": [
+        "S",
+        "SE",
+        "E",
+        "NE",
+        "N",
+        "NW",
+        "W",
+        "SW"
+      ],
+      "frames": 4,
+      "brief": "Rodillas y manos cerca del suelo; gorro comprimido sin atravesar el techo.",
+      "playback": "loop",
+      "anchor": "feet"
+    },
+    {
+      "id": "swim",
+      "group": "travel",
+      "label": "Nadar",
+      "directions": [
+        "S",
+        "SE",
+        "E",
+        "NE",
+        "N",
+        "NW",
+        "W",
+        "SW"
+      ],
+      "frames": 6,
+      "brief": "Brazadas y cabeza legibles; agua, sombra y salpicaduras se componen aparte.",
+      "playback": "loop",
+      "anchor": "waterline"
+    },
+    {
+      "id": "float",
+      "group": "travel",
+      "label": "Flotar en reposo",
+      "directions": [
+        "S",
+        "SE",
+        "E",
+        "NE",
+        "N",
+        "NW",
+        "W",
+        "SW"
+      ],
+      "frames": 2,
+      "brief": "Cabeza quieta y mínimo gesto de mantenerse a flote.",
+      "playback": "loop",
+      "anchor": "waterline"
+    },
+    {
+      "id": "water-exit",
+      "group": "travel",
+      "label": "Entrar / salir del agua",
+      "directions": [
+        "S",
+        "E",
+        "N",
+        "W"
+      ],
+      "frames": 5,
+      "brief": "Cambio de apoyo y altura de la línea de agua; no invertir a ciegas.",
+      "playback": "sequence",
+      "anchor": "feet"
+    },
+    {
+      "id": "boat",
+      "group": "travel",
+      "label": "Sentado en transporte",
+      "directions": [
+        "S",
+        "E",
+        "N",
+        "W"
+      ],
+      "frames": 3,
+      "brief": "Reposo sentado y leve reacción. La posición queda vinculada al asiento durante el viaje.",
+      "playback": "loop",
+      "anchor": "seat"
+    },
+    {
+      "id": "bow-aim",
+      "group": "tools",
+      "label": "Preparar y tensar arco",
+      "directions": [
+        "S",
+        "SE",
+        "E",
+        "NE",
+        "N",
+        "NW",
+        "W",
+        "SW"
+      ],
+      "frames": 3,
+      "brief": "Sacar arco, elevar y tensar. Mano dominante y cuerda coherentes; mantener última pose.",
+      "playback": "hold",
+      "anchor": "both-hands"
+    },
+    {
+      "id": "bow-release",
+      "group": "tools",
+      "label": "Disparar arco",
+      "directions": [
+        "S",
+        "SE",
+        "E",
+        "NE",
+        "N",
+        "NW",
+        "W",
+        "SW"
+      ],
+      "frames": 4,
+      "brief": "Soltar cuerda, seguimiento, bajar y volver a reposo. Flecha independiente.",
+      "playback": "once",
+      "anchor": "hand"
+    },
+    {
+      "id": "slingshot",
+      "group": "tools",
+      "label": "Usar tirachinas",
+      "directions": [
+        "S",
+        "SE",
+        "E",
+        "NE",
+        "N",
+        "NW",
+        "W",
+        "SW"
+      ],
+      "frames": 4,
+      "brief": "Apuntar, tensar, soltar y recuperar; no es el mismo agarre que un arco.",
+      "playback": "once",
+      "anchor": "both-hands"
+    },
+    {
+      "id": "tool-strike",
+      "group": "tools",
+      "label": "Golpear con herramienta",
+      "directions": [
+        "S",
+        "SE",
+        "E",
+        "NE",
+        "N",
+        "NW",
+        "W",
+        "SW"
+      ],
+      "frames": 5,
+      "brief": "Anticipar, levantar, contacto y recuperación. Hacha/pico/martillo necesitan agarre revisado.",
+      "playback": "once",
+      "anchor": "hand"
+    },
+    {
+      "id": "hurt",
+      "group": "tools",
+      "label": "Sobresalto / recibir golpe",
+      "directions": [
+        "S",
+        "SE",
+        "E",
+        "NE",
+        "N",
+        "NW",
+        "W",
+        "SW"
+      ],
+      "frames": 3,
+      "brief": "Reacción clara y breve; invulnerabilidad y desplazamiento son lógica, no imagen.",
+      "playback": "once",
+      "anchor": "feet"
+    },
+    {
+      "id": "get-up",
+      "group": "tools",
+      "label": "Caerse y levantarse",
+      "directions": [
+        "S",
+        "E",
+        "N",
+        "W"
+      ],
+      "frames": 5,
+      "brief": "Suelo, apoyar manos, arrodillarse y ponerse de pie. Sin violencia gráfica.",
+      "playback": "once",
+      "anchor": "feet"
+    },
+    {
+      "id": "sit",
+      "group": "life",
+      "label": "Sentarse / levantarse",
+      "directions": [
+        "S",
+        "E",
+        "N",
+        "W"
+      ],
+      "frames": 4,
+      "brief": "Buscar apoyo, sentarse, reposo y levantarse. Anclaje en asiento, no en pies.",
+      "playback": "sequence",
+      "anchor": "seat"
+    },
+    {
+      "id": "talk",
+      "group": "life",
+      "label": "Hablar / escuchar",
+      "directions": [
+        "S",
+        "E",
+        "N",
+        "W"
+      ],
+      "frames": 3,
+      "brief": "Pequeño gesto de manos y boca; mantener silueta y mirada del interlocutor.",
+      "playback": "loop",
+      "anchor": "feet"
+    },
+    {
+      "id": "eat",
+      "group": "life",
+      "label": "Comer",
+      "directions": [
+        "SE",
+        "SW"
+      ],
+      "frames": 4,
+      "brief": "Acercar comida, bocado, masticar y retirar. Brocheta intercambiable.",
+      "playback": "sequence",
+      "anchor": "hand"
+    },
+    {
+      "id": "drink",
+      "group": "life",
+      "label": "Beber",
+      "directions": [
+        "SE",
+        "SW"
+      ],
+      "frames": 4,
+      "brief": "Levantar recipiente, beber, bajar y reposo.",
+      "playback": "sequence",
+      "anchor": "hand"
+    },
+    {
+      "id": "read",
+      "group": "life",
+      "label": "Leer / observar mapa",
+      "directions": [
+        "SE",
+        "SW"
+      ],
+      "frames": 3,
+      "brief": "Abrir libro o mapa, leer y cerrar. Página y objeto externos.",
+      "playback": "hold",
+      "anchor": "both-hands"
+    },
+    {
+      "id": "sleep",
+      "group": "life",
+      "label": "Dormir / descansar",
+      "directions": [
+        "SE",
+        "SW"
+      ],
+      "frames": 3,
+      "brief": "Tumbarse, respiración mínima y despertar. Cama y manta por separado.",
+      "playback": "sequence",
+      "anchor": "bed"
+    },
+    {
+      "id": "fish",
+      "group": "life",
+      "label": "Pescar",
+      "directions": [
+        "S",
+        "E",
+        "N",
+        "W"
+      ],
+      "frames": 6,
+      "brief": "Lanzar sedal, esperar, picada, tirar, recoger y guardar. Caña/sedal externos.",
+      "playback": "sequence",
+      "anchor": "hand"
+    },
+    {
+      "id": "emotes",
+      "group": "life",
+      "label": "Gestos de carácter",
+      "directions": [
+        "S"
+      ],
+      "frames": 3,
+      "brief": "Saludar, reír, celebrar, sorpresa, duda, llanto, fastidio y vergüenza; poses diferenciadas.",
+      "playback": "once",
+      "anchor": "feet",
+      "variants": [
+        "saludar",
+        "reír",
+        "celebrar",
+        "sorpresa",
+        "duda",
+        "llanto",
+        "fastidio",
+        "vergüenza"
+      ]
+    }
+  ]
+}

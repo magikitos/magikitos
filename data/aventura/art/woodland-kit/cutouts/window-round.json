@@ -1,0 +1,12 @@
+{
+    "source": "window-round.png",
+    "sourceHash": "3fd5535cc2bd0ccabdd4667d88351c31c425d5725e3fe63479cfb35aad3b07c3",
+    "bounds": [
+        135,
+        200,
+        885,
+        962
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

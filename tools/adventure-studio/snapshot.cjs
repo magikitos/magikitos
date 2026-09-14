@@ -4,6 +4,9 @@ const fs = require("node:fs"),
   crypto = require("node:crypto"),
   cp = require("node:child_process");
 const { World, TILE } = require("../../public/assets/js/adventure/model");
+const {
+  resolveAppearance,
+} = require("../../public/assets/js/adventure/elements");
 const hash = (value) => crypto.createHash("sha256").update(value).digest("hex");
 function snapshot(root) {
   const dir = path.join(root, "data/aventura"),
@@ -19,6 +22,8 @@ function snapshot(root) {
       { maxBuffer: 8 * 1024 * 1024, encoding: "utf8" },
     ),
   );
+  for (const scene of Object.values(world.scenes))
+    scene.entities = scene.entities.map((e) => resolveAppearance(e, scene.id));
   const scenery = {};
   for (const [id, scene] of Object.entries(world.scenes)) {
     const text = fs.readFileSync(
@@ -39,13 +44,29 @@ function snapshot(root) {
     path.join(root, "public/assets/aventura/manifest.json"),
     "utf8",
   );
-  const baseHash = hash(JSON.stringify({ world, sources, manifest }));
+  const sprites = {};
+  for (const file of fs
+    .readdirSync(path.join(dir, "assets"))
+    .filter((f) => f.endsWith(".json"))) {
+    const source = fs.readFileSync(path.join(dir, "assets", file), "utf8"),
+      pack = JSON.parse(source);
+    for (const [name, definition] of Object.entries(pack.frames || {})) {
+      if (name.startsWith("person-")) continue;
+      sprites[name] = {
+        file: "data/aventura/assets/" + file,
+        sourceHash: hash(source),
+        definition,
+      };
+    }
+  }
+  const baseHash = hash(JSON.stringify({ world, sources, manifest, sprites }));
   return {
     baseHash,
     createdAt: new Date().toISOString(),
     world,
     sources,
     scenery,
+    sprites,
   };
 }
 module.exports = { snapshot, hash };

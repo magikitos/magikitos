@@ -1,0 +1,12 @@
+{
+    "source": "tree-oak-grounded.png",
+    "sourceHash": "3a6d5a45050986e5f77a8e09e4d64b4b69ce06853a75c11efb077b57f7607ea9",
+    "bounds": [
+        39,
+        22,
+        1082,
+        1213
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

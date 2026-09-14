@@ -1,0 +1,12 @@
+{
+    "source": "stove-clay.png",
+    "sourceHash": "f8b8e698da9911f27f3f13794a567cee9165487372ed1c1e5132fbc71504a32c",
+    "bounds": [
+        191,
+        216,
+        743,
+        1008
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

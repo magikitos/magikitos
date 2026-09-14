@@ -1,0 +1,12 @@
+{
+    "source": "flowers-daisy-white-keyed.png",
+    "sourceHash": "6b8eba40252c4cdead4cdebb45f2b6ebb052fd194f1b95a513b6f54a98f37fea",
+    "bounds": [
+        234,
+        140,
+        830,
+        942
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

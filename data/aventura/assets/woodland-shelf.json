@@ -1,0 +1,44 @@
+{
+  "frames": {
+    "kitchen-rack": {
+      "source": "data/aventura/art/woodland-kit/cutouts/shelf-branch.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        68,
+        42
+      ],
+      "fit": true,
+      "anchor": [
+        34,
+        37
+      ]
+    },
+    "shelf-bark": {
+      "source": "data/aventura/art/woodland-kit/cutouts/shelf-bark.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        68,
+        42
+      ],
+      "fit": true,
+      "anchor": [
+        34,
+        38
+      ]
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "frames": {
+    "picnic-blanket": {
+      "source": "data/aventura/art/human-picnic.png",
+      "grid": [
+        3,
+        2
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        234,
+        156
+      ],
+      "fit": true,
+      "anchor": [
+        117,
+        115
+      ]
+    },
+    "picnic-tortilla": {
+      "source": "data/aventura/art/human-picnic.png",
+      "grid": [
+        3,
+        2
+      ],
+      "cell": [
+        0,
+        1
+      ],
+      "size": [
+        58,
+        46
+      ],
+      "fit": true
+    },
+    "picnic-basket": {
+      "source": "data/aventura/art/human-picnic.png",
+      "grid": [
+        3,
+        2
+      ],
+      "cell": [
+        2,
+        1
+      ],
+      "size": [
+        66,
+        64
+      ],
+      "fit": true
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+    "source": "bed-walnut.png",
+    "sourceHash": "9a93a6dbe6b41f661317b82351c75abe4571cc63276e28fd309b2e8630f7794c",
+    "bounds": [
+        226,
+        196,
+        699,
+        982
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

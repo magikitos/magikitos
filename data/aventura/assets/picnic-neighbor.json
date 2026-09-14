@@ -1,18 +1,112 @@
 {
-  "frames": {
-    "picnic-hungry": {
-      "source": "data/aventura/art/picnic-neighbor-cutout.png",
-      "rect": [0, 0, 756, 1040],
-      "size": [32, 44],
-      "fit": true,
-      "scaleGroup": "picnic"
-    },
-    "picnic-happy": {
-      "source": "data/aventura/art/picnic-neighbor-cutout.png",
-      "rect": [756, 0, 756, 1040],
-      "size": [32, 44],
-      "fit": true,
-      "scaleGroup": "picnic"
+    "frames": {
+        "picnic-hungry": {
+            "source": "data/aventura/art/cast/cutouts/neighbor-seated.png",
+            "grid": [
+                4,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.05670103092783505,
+                "offset": [
+                    8.605670103092784,
+                    8.577319587628864
+                ]
+            }
+        },
+        "picnic-speaking": {
+            "source": "data/aventura/art/cast/cutouts/neighbor-seated.png",
+            "grid": [
+                4,
+                1
+            ],
+            "cell": [
+                1,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.05670103092783505,
+                "offset": [
+                    8.605670103092784,
+                    8.577319587628864
+                ]
+            }
+        },
+        "picnic-happy": {
+            "source": "data/aventura/art/cast/cutouts/neighbor-seated.png",
+            "grid": [
+                4,
+                1
+            ],
+            "cell": [
+                2,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.05670103092783505,
+                "offset": [
+                    8.605670103092784,
+                    8.634020618556704
+                ]
+            }
+        },
+        "picnic-blink": {
+            "source": "data/aventura/art/cast/cutouts/neighbor-seated.png",
+            "grid": [
+                4,
+                1
+            ],
+            "cell": [
+                3,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.05670103092783505,
+                "offset": [
+                    8.605670103092784,
+                    8.577319587628864
+                ]
+            }
+        }
     }
-  }
 }

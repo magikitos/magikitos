@@ -1,0 +1,97 @@
+{
+    "ascua-walk": {
+        "bodyHeight": 211,
+        "cellWidth": 222,
+        "ratio": 0.1895734597156398
+    },
+    "ascua-neighbor-a": {
+        "bodyHeight": 214,
+        "cellWidth": 222,
+        "ratio": 0.18691588785046728
+    },
+    "ascua-neighbor-b": {
+        "bodyHeight": 211,
+        "cellWidth": 222,
+        "ratio": 0.1895734597156398
+    },
+    "zarzal": {
+        "bodyHeight": 214,
+        "cellWidth": 222,
+        "ratio": 0.18691588785046728
+    },
+    "zarzal-neighbor-a-framed": {
+        "bodyHeight": 172,
+        "cellWidth": 222,
+        "ratio": 0.23255813953488372
+    },
+    "zarzal-neighbor-b": {
+        "bodyHeight": 213,
+        "cellWidth": 222,
+        "ratio": 0.18779342723004694
+    },
+    "trasto": {
+        "bodyHeight": 209,
+        "cellWidth": 222,
+        "ratio": 0.19138755980861244
+    },
+    "trasto-neighbor-a-framed": {
+        "bodyHeight": 185,
+        "cellWidth": 222,
+        "ratio": 0.21621621621621623
+    },
+    "trasto-neighbor-b": {
+        "bodyHeight": 201,
+        "cellWidth": 222,
+        "ratio": 0.19900497512437812
+    },
+    "candil": {
+        "bodyHeight": 213,
+        "cellWidth": 222,
+        "ratio": 0.18779342723004694
+    },
+    "candil-neighbor-a": {
+        "bodyHeight": 214,
+        "cellWidth": 222,
+        "ratio": 0.18691588785046728
+    },
+    "candil-neighbor-b": {
+        "bodyHeight": 206,
+        "cellWidth": 222,
+        "ratio": 0.1941747572815534
+    },
+    "ascua-push-corrected": {
+        "bodyHeight": 292,
+        "cellWidth": 314,
+        "ratio": 0.13356164383561644
+    },
+    "ascua-roll-matte": {
+        "bodyHeight": 211,
+        "cellWidth": 222,
+        "ratio": 0.1895734597156398
+    },
+    "ascua-work": {
+        "bodyHeight": 295,
+        "cellWidth": 314,
+        "ratio": 0.13559322033898305
+    },
+    "ascua-discover": {
+        "bodyHeight": 559,
+        "cellWidth": 543,
+        "ratio": 0.07155635062611806
+    },
+    "ascua-needs": {
+        "bodyHeight": 397,
+        "cellWidth": 444,
+        "ratio": 0.10075566750629723
+    },
+    "ascua-bow": {
+        "bodyHeight": 281,
+        "cellWidth": 222,
+        "ratio": 0.1423487544483986
+    },
+    "neighbor-seated": {
+        "bodyHeight": 582,
+        "cellWidth": 543,
+        "ratio": 0.05670103092783505
+    }
+}

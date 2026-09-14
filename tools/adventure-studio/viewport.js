@@ -52,6 +52,10 @@ class MapViewport {
       "wheel",
       (e) => {
         e.preventDefault();
+        if (this.drag?.type === "tool") {
+          this.editor.cancelGesture();
+          this.drag = null;
+        }
         this.zoomAt(
           this.zoom * Math.exp(-e.deltaY * 0.002),
           e.clientX,
@@ -64,7 +68,7 @@ class MapViewport {
     this.frame = requestAnimationFrame(() => this.tick());
   }
   async initialize() {
-    await this.renderer.sprites.initialize("/assets/aventura/manifest.json");
+    await this.renderer.sprites.initialize("/studio-art/manifest.json");
     const packs = Object.keys(this.renderer.sprites.manifest.packs);
     await this.renderer.sprites.prepare([], packs);
     this.renderer.sprites.activate(new Set(packs));
@@ -88,6 +92,7 @@ class MapViewport {
       dpr = Math.min(devicePixelRatio || 1, 2),
       oldWidth = this.renderer.width,
       oldHeight = this.renderer.height;
+    if (!r.width || !r.height) return;
     this.renderer.width = r.width / this.zoom;
     this.renderer.height = r.height / this.zoom;
     if (oldWidth && oldHeight) {
@@ -144,7 +149,9 @@ class MapViewport {
     return this.elements()
       .reverse()
       .find(({ e }) => {
-        const f = this.renderer.sprites.frame(e.sprite);
+        const f = this.renderer.sprites.frame(
+          require("../../public/assets/js/adventure/elements").frameName(e),
+        );
         if (!f)
           return (
             e.sprite === "doorway" &&
@@ -177,6 +184,7 @@ class MapViewport {
     this.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
     if (this.pointers.size === 2) {
       if (this.drag?.type === "move") this.cancelDrag();
+      if (this.drag?.type === "tool") this.editor.cancelGesture();
       const [a, b] = [...this.pointers.values()];
       this.pinch = {
         distance: Math.hypot(a.x - b.x, a.y - b.y),
@@ -185,9 +193,14 @@ class MapViewport {
       this.drag = null;
       return;
     }
-    const point = this.point(e.clientX, e.clientY),
-      hit =
-        !this.hand && !this.space && e.button === 0 ? this.hit(point) : null;
+    const point = this.point(e.clientX, e.clientY);
+    if (this.editor?.enabled && !this.hand && !this.space && e.button === 0) {
+      this.drag = { type: "tool" };
+      this.editor.down(point, e);
+      return;
+    }
+    const hit =
+      !this.hand && !this.space && e.button === 0 ? this.hit(point) : null;
     if (hit) {
       this.select(hit.e.id, hit.layer);
       this.drag = {
@@ -224,7 +237,9 @@ class MapViewport {
     }
     const d = this.drag;
     if (!d) return;
-    if (d.type === "pan") {
+    if (d.type === "tool") {
+      this.editor.motion(this.point(e.clientX, e.clientY), e);
+    } else if (d.type === "pan") {
       this.camera.x = d.camera.x - (e.clientX - d.x) / this.zoom;
       this.camera.y = d.camera.y - (e.clientY - d.y) / this.zoom;
     } else {
@@ -258,7 +273,8 @@ class MapViewport {
   }
   up(e, cancel = false) {
     if (!this.pointers.has(e.pointerId)) return;
-    if (cancel) this.cancelDrag();
+    if (this.drag?.type === "tool") this.editor.up(cancel);
+    else if (cancel) this.cancelDrag();
     else if (this.drag?.type === "move" && this.drag.moved)
       this.onMove(this.drag, null, true);
     this.pointers.delete(e.pointerId);
@@ -267,7 +283,7 @@ class MapViewport {
     this.dirty = true;
   }
   tick() {
-    if (this.world && this.dirty) {
+    if (this.active !== false && this.world && this.dirty) {
       this.renderer.render(this.game, 0);
       this.overlay();
       this.dirty = false;
@@ -301,11 +317,14 @@ class MapViewport {
       c.stroke();
     }
     if (this.bodies)
-      for (const { e } of this.elements()) {
+      for (const { e } of [
+        ...this.elements(),
+        ...this.world.architecture.map((e) => ({ e })),
+      ]) {
         if (e.solid) {
           const r = collisionBounds(e);
-          c.fillStyle = "#e98b7733";
-          c.strokeStyle = "#ffc6a6aa";
+          c.fillStyle = "#69cbe933";
+          c.strokeStyle = "#9de0f5cc";
           c.fillRect(r.x, r.y, r.w, r.h);
           c.strokeRect(r.x, r.y, r.w, r.h);
         }
@@ -317,7 +336,9 @@ class MapViewport {
       }
     if (this.selected) {
       const e = this.selected.e,
-        f = this.renderer.sprites.frame(e.sprite),
+        f = this.renderer.sprites.frame(
+          require("../../public/assets/js/adventure/elements").frameName(e),
+        ),
         r = f
           ? artworkBounds(e, f)
           : { x: e.x - 12, y: e.y - 12, w: 24, h: 24 };
@@ -329,6 +350,7 @@ class MapViewport {
       c.arc(e.x, e.y, 3 / this.zoom, 0, 7);
       c.fill();
     }
+    this.editor?.draw(c);
     c.restore();
   }
 }

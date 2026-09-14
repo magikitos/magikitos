@@ -1,0 +1,12 @@
+{
+    "source": "lamp-acorn.png",
+    "sourceHash": "1020a7e900662d8657ac24cba3f27776f048d39e85816663e35aef897144be53",
+    "bounds": [
+        124,
+        128,
+        703,
+        1499
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

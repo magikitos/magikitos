@@ -1,7 +1,6 @@
 /* The adventure entry point. Runtime modules are bundled into this page-only asset. */
 "use strict";
 const { Adventure } = require("./adventure/game");
-require("./adventure/expression-search");
 const node = document.getElementById("adventure-config");
 if (node) {
   const game = new Adventure(JSON.parse(node.textContent));

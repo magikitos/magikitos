@@ -1,9 +1,19 @@
 "use strict";
-const { TILE, clamp } = require("./model");
+const { tryPush, pushPath } = require("./movables");
+const { releaseContact } = require("./obstacles");
+const { World, TILE, clamp, insideThreshold } = require("./model");
+const { furnishWorkshop } = require("./workshop");
 const { Renderer } = require("./renderer");
+const { clampCamera } = require("./camera");
+const { portalArrival, acceptsEntry, portalPath } = require("./portals");
 const { WoodlandAudio } = require("./audio");
 const { deviceIdentity } = require("./identity");
 const { WorldSite } = require("./site");
+const { WorldApi } = require("./api");
+const { Session } = require("./session");
+const { WorldContent } = require("./content");
+const { HumanProof } = require("./proof");
+const { GuardianChat } = require("./guardian");
 const { WorldExperience } = require("./experience");
 const { WorldMedia } = require("./media");
 const { facing } = require("./characters");
@@ -19,21 +29,24 @@ const { PickupFeedback } = require("./pickups");
 const { Inventory } = require("./inventory");
 const { ContentRooms } = require("./rooms");
 const { Self } = require("./self");
+const { expireTimers } = require("./timers");
 const { needStatus } = require("./needs");
 const { Voyage } = require("./voyage");
 const { Sequence } = require("./sequence");
+const { Presentation } = require("./presentation");
 const byId = (id) => document.getElementById(id);
 
 class Adventure {
   constructor(config) {
     this.config = config;
     this.s = config.strings;
-    this.catalog = config.world;
+    this.catalog = furnishWorkshop(config.world, config.products);
     this.renderer = new Renderer(byId("world-canvas"), byId("world-viewport"));
     this.audio = new WoodlandAudio();
     this.keys = new Set();
     this.roll = new RollMotion();
     this.sequence = new Sequence();
+    this.presentation = new Presentation(this);
     this.voyage = new Voyage(this);
     this.path = [];
     this.pending = null;
@@ -48,7 +61,7 @@ class Adventure {
     this.dirty = false;
     this.storageOK = true;
     this.reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    // Bounded public pool from SSR; choose the cast locally, without polling or a socket.
+    // Public content enriches the local cast asynchronously; no polling or socket.
     const cast = new Map();
     for (const person of config.neighbors)
       if (!cast.has(person.handle)) cast.set(person.handle, person);
@@ -59,6 +72,11 @@ class Adventure {
     }
     this.state = readSave(this.catalog);
     this.deviceId = deviceIdentity();
+    this.session = new Session();
+    this.api = new WorldApi(config, this.session);
+    this.content = new WorldContent(this);
+    this.proof = new HumanProof(this);
+    this.guardianChat = new GuardianChat(this);
     this.rooms = new ContentRooms(this);
     this.site = new WorldSite(this);
     this.media = new WorldMedia(this);
@@ -82,6 +100,14 @@ class Adventure {
   }
   async init() {
     try {
+      // Show the actual terrain immediately; no modal loading screen or artificial progress.
+      this.world = new World(this.catalog.scenes[this.state.scene]);
+      this.player = { ...this.state.position, direction: "down" };
+      this.renderer.world = this.world;
+      this.renderer.resize();
+      this.centerCamera(true);
+      byId("loading").hidden = true;
+      this.renderer.render(this, 0);
       await this.renderer.sprites.initialize(this.config.assetManifest);
       const prepared = await this.scenes.prepare(
         this.state.scene,
@@ -108,6 +134,7 @@ class Adventure {
       this.frame = requestAnimationFrame((t) => this.tick(t));
     } catch (error) {
       byId("loading").textContent = this.s.loadError;
+      byId("loading").hidden = false;
       console.error("Adventure initialization:", error);
     }
   }
@@ -173,7 +200,10 @@ class Adventure {
       },
       true,
     );
-    document.addEventListener("world:guardian", () => this.summonGuardian());
+    byId("world-language").addEventListener("change", (event) => {
+      this.save();
+      location.assign(event.target.value);
+    });
   }
 
   blocked() {
@@ -184,11 +214,7 @@ class Adventure {
     );
   }
   hasOverlay() {
-    return Boolean(
-      document.querySelector(
-        'dialog[open], .product-lightbox, #quiz-modal:not(.hidden), [data-mgk-chat]:not([hidden]), [data-auth-modal][aria-hidden="false"]',
-      ),
-    );
+    return Boolean(document.querySelector("dialog[open]"));
   }
   cancelPath() {
     this.path = [];
@@ -201,6 +227,7 @@ class Adventure {
     this.cancelPath();
     this.keys.clear();
     this.walking = false;
+    this.player.pushing = null;
   }
   async unlockAudio() {
     if (!this.state.muted && !this.audio.on) {
@@ -219,24 +246,38 @@ class Adventure {
   tap(point) {
     if (this.roll.current) return;
     this.cancelPath();
+    if (
+      this.world.data.indoor &&
+      (point.x < 0 ||
+        point.y < 0 ||
+        point.x >= this.world.width * TILE ||
+        point.y >= this.world.height * TILE)
+    )
+      return; // The garden framing a cutaway is presentation, not a walking destination.
     const candidates = [
       ...this.world.entities.filter(
         (e) =>
           active(e, this.state) &&
-          (e.rules.length || e.product || e.interactAs),
+          (e.rules.length || e.product || e.interactAs || e.pushable),
       ),
       ...this.neighbors,
+      ...(this.guardian ? [this.guardian] : []),
     ].sort((a, b) => b.y - a.y);
     const hit = candidates.find((e) => this.renderer.hit(e, point, this.state));
     const entity = this.interactionTarget(hit);
     if (entity) {
+      if (entity.pushable) {
+        if (this.inventory.held) {
+          this.openDialogue(this.lines("noUse"));
+          return;
+        }
+        const path = pushPath(this.world, this.player, entity);
+        if (path) this.path = path;
+        else this.toast(this.s.blocked);
+        return;
+      }
       if (entity.threshold) {
-        const [x, y, w, h] = entity.threshold;
-        this.path =
-          this.world.path(this.player, {
-            x: (x + w / 2) * TILE,
-            y: (y + h / 2) * TILE,
-          }) || [];
+        this.path = portalPath(this.world, this.player, entity);
         return;
       }
       if (this.world.distanceTo(this.player, entity) < TILE * 1.35) {
@@ -282,18 +323,23 @@ class Adventure {
       item: held,
     };
     this.closeContent();
+    this.contactLatch = entity.id;
     this.pauseMovement();
     this.player.direction = facing(
       entity.x - this.player.x,
       entity.y - this.player.y,
       this.player.direction,
     );
+    if (typeof entity.onInteract === "function" && !held) {
+      entity.onInteract();
+      return;
+    }
     if (entity.product) {
       if (held) {
         this.openDialogue(this.lines("noUse"));
         return;
       }
-      this.site.navigate(entity.product.url);
+      this.site.showProduct(entity.product);
       return;
     }
     if (entity.neighbor) {
@@ -304,26 +350,20 @@ class Adventure {
         return;
       }
       if (entity.content && this.rooms.contains(entity.content)) {
-        if (entity.piece)
-          this.site.navigate(entity.piece.url, {
-            play: true,
-            piece: entity.piece,
-          });
+        if (entity.piece) this.site.showPiece(entity.piece, { play: true });
         else this.openContent(entity.content);
       } else
         this.openDialogue(
           this.lines(entity.dialogue || "neighborGreeting"),
           this.s.neighbors,
           entity.variant,
+          entity,
         );
       return;
     }
     this.transitioning = true;
     this.closeDialogue();
-    const busyTimer = setTimeout(() => {
-      byId("loading").textContent = this.text("travelLoading");
-      byId("loading").hidden = false;
-    }, 180);
+    this.contactLatch = entity.id;
     try {
       const plan = planReaction(entity, this.state, this.catalog, context);
       if (!plan) {
@@ -338,13 +378,16 @@ class Adventure {
           this.world.data.indoor &&
           this.state.entrance?.scene === travel.scene
         )
-          position = this.state.entrance.position;
+          position =
+            portalArrival(
+              this.catalog,
+              travel.scene,
+              this.state.entrance.portal,
+            ) || position;
         if (!this.world.data.indoor && this.catalog.scenes[travel.scene].indoor)
           plan.state.entrance = {
             scene: this.world.data.id,
-            position: entity.arrival
-              ? { x: entity.arrival[0] * TILE, y: entity.arrival[1] * TILE }
-              : { x: this.player.x, y: this.player.y },
+            portal: entity.id,
           };
         prepared = await this.scenes.prepare(
           travel.scene,
@@ -352,12 +395,14 @@ class Adventure {
           plan.state,
         );
         if (travel.presentation) {
-          clearTimeout(busyTimer);
           byId("loading").hidden = true;
           await this.voyage.play(travel, entity);
         }
       }
-      // Commit all inventory, rewards and fares together, only after the destination is ready.
+      for (const effect of plan.effects)
+        if (effect.type === "presentation") await this.presentation.play(effect, entity);
+      await this.presentation.gains(this.state, plan.state, entity);
+      // Commit effects together only after all required resources and gestures finish.
       const before = this.state;
       this.state = plan.state;
       if (prepared) {
@@ -384,13 +429,12 @@ class Adventure {
       this.world.refresh(this.state);
       this.dirty = true;
       this.updateUI();
-      this.pickups.gained(before, this.state, entity);
+      this.pickups.gained(before, this.state, { x:this.player.x, y:this.player.y-26 });
       this.save();
     } catch (error) {
       console.error("Adventure interaction:", error);
       this.toast(this.text("travelError"));
     } finally {
-      clearTimeout(busyTimer);
       byId("loading").hidden = true;
       this.transitioning = false;
     }
@@ -438,6 +482,7 @@ class Adventure {
       button.type = "button";
       button.className = "world-primary";
       button.dataset.action = action.id;
+      button.disabled = !matches(this.state, action.enabledWhen);
       button.textContent = this.text(action.label).replace(
         ":price",
         action.fare ? fare(this.catalog, action.fare) : "",
@@ -453,6 +498,7 @@ class Adventure {
     else this.paintDialogue();
   }
   closeDialogue() {
+    if (this.dialogue?.entity) this.contactLatch = this.dialogue.entity.id;
     this.dialogue = null;
     byId("dialogue").hidden = true;
     byId("world-canvas").focus({ preventScroll: true });
@@ -472,15 +518,14 @@ class Adventure {
     this.closeDialogue();
   }
   openContent(key) {
-    const url = this.config.destinations[key];
-    if (url && this.rooms.contains(key))
-      this.site.navigate(url, { enter: true });
+    if (this.rooms.contains(key)) this.site.open(key);
   }
   contact(entity) {
     entity = this.interactionTarget(entity);
     if (
       !entity ||
       entity.threshold ||
+      entity.pushable ||
       this.contactLatch === entity.id ||
       !(entity.neighbor || entity.rules?.length || entity.product)
     )
@@ -494,6 +539,10 @@ class Adventure {
     this.pauseMovement();
     // Spawn on reachable ground, then follow the same collision-safe paths as other neighbors.
     for (const offset of [
+      [-2, 0],
+      [2, 0],
+      [0, -2],
+      [0, 2],
       [-5, 0],
       [5, 0],
       [0, -5],
@@ -518,17 +567,16 @@ class Adventure {
       break;
     }
   }
-  checkThresholds(dt) {
-    this.portalCooldown = Math.max(0, this.portalCooldown - dt);
-    if (this.portalCooldown) return false;
+  checkThresholds(motion = null) {
+    if (this.transitioning || this.dialogue) return false;
     for (const entity of this.world.entities) {
       if (!entity.threshold || !active(entity, this.state)) continue;
-      const [x, y, w, h] = entity.threshold;
+      const inside = insideThreshold(entity, this.player);
+      if (!inside) this.portalLatch.delete(entity.id);
       if (
-        this.player.x >= x * TILE &&
-        this.player.x <= (x + w) * TILE &&
-        this.player.y >= y * TILE &&
-        this.player.y <= (y + h) * TILE
+        inside &&
+        !this.portalLatch.has(entity.id) &&
+        acceptsEntry(entity, motion)
       ) {
         this.interact(entity);
         return true;
@@ -552,11 +600,9 @@ class Adventure {
     c.clearRect(0, 0, c.canvas.width, c.canvas.height);
     const sprite =
       typeof variant === "string" ? variant : `person-${variant}-down`;
-    this.renderer.sprites.draw(
+    this.renderer.sprites.portrait(
       c,
       sprite,
-      0,
-      0,
       c.canvas.width,
       c.canvas.height,
     );
@@ -592,38 +638,60 @@ class Adventure {
   centerCamera(snap = false) {
     if (!this.renderer.width) return;
     const reading = !byId("world-content").hidden;
-    const subject = reading ? this.site.focus() : this.player;
-    const target = {
-      x: clamp(
-        subject.x - this.renderer.width / 2,
-        0,
-        Math.max(0, this.world.width * TILE - this.renderer.width),
-      ),
-      y: clamp(
-        subject.y - this.renderer.height * (reading ? 0.34 : 0.55),
-        0,
-        Math.max(0, this.world.height * TILE - this.renderer.height),
-      ),
-    };
-    // Small interiors stay centered; edge chunks are clipped by the renderer.
-    if (this.world.width * TILE < this.renderer.width)
-      target.x = (this.world.width * TILE - this.renderer.width) / 2;
-    if (this.world.height * TILE < this.renderer.height)
-      target.y = (this.world.height * TILE - this.renderer.height) / 2;
+    const subject = (reading ? this.site.focus() : null) || this.player;
+    const target = clampCamera(
+      {
+        x: subject.x - this.renderer.width / 2,
+        y: subject.y - this.renderer.height * (reading ? 0.34 : 0.55),
+      },
+      this.world,
+      this.renderer,
+    );
+
     if (snap) this.camera = target;
     else {
       this.camera.x += (target.x - this.camera.x) * this.cameraEase;
       this.camera.y += (target.y - this.camera.y) * this.cameraEase;
     }
+    this.camera = clampCamera(this.camera, this.world, this.renderer);
+  }
+  obstacleOptions() {
+    return {
+      resolveCollision: (entity, dx, dy) => {
+        const moved = tryPush(
+          this.world,
+          this.player,
+          entity,
+          dx,
+          dy,
+          this.state,
+        );
+        if (moved) this.dirty = true;
+        return moved;
+      },
+      edgeSlide: (entity) =>
+        !this.dialogue && entity.edgeSlide && this.contactLatch === entity.id,
+    };
   }
   follow(actor, path, dt, speed) {
-    return follow(this.world, actor, path, dt, speed, (entity) => {
-      if (actor === this.player) this.contact(entity);
-      else {
-        path.splice(0);
-        actor.pause = 3;
-      }
-    });
+    return follow(
+      this.world,
+      actor,
+      path,
+      dt,
+      speed,
+      (entity) => {
+        if (actor === this.player) this.contact(entity);
+        else {
+          path.splice(0);
+          actor.pause = 3;
+        }
+      },
+      actor === this.player
+        ? (motion) => !this.checkThresholds(motion)
+        : undefined,
+      actor === this.player ? this.obstacleOptions() : {},
+    );
   }
   updateNeighbors(dt) {
     for (const n of this.neighbors) {
@@ -724,10 +792,21 @@ class Adventure {
     this.lastTime = ms;
     this.cameraEase = 1 - Math.exp(-dt * 9);
     this.walking = false;
+    this.player.pushing = null;
+    this.contactLatch = releaseContact(
+      this.world,
+      this.player,
+      this.contactLatch,
+    );
     this.sequence.advance(dt);
     this.self.update();
+    if (expireTimers(this.state)) {
+      this.world.refresh(this.state);
+      this.dirty = true;
+      this.updateUI();
+      if (this.dialogue) this.paintActions();
+    }
     if (!this.dialogue && !this.blocked()) {
-      this.portalCooldown = Math.max(0, this.portalCooldown - dt);
       const intent = this.keyboardIntent();
       if (this.roll.current) {
         const result = this.roll.step(
@@ -735,7 +814,7 @@ class Adventure {
           this.player,
           dt,
           (entity) => this.contact(entity),
-          () => !this.checkThresholds(0),
+          (motion) => !this.checkThresholds(motion),
         );
         this.walking = result.moved;
         if (result.finished) this.finishRoll();
@@ -747,11 +826,14 @@ class Adventure {
           intent.x * k,
           intent.y * k,
           (entity) => this.contact(entity),
-          { onStep: () => !this.checkThresholds(0) },
+          {
+            ...this.obstacleOptions(),
+            onStep: (motion) => !this.checkThresholds(motion),
+          },
         );
       } else this.walking = this.follow(this.player, this.path, dt, WALK_SPEED);
       if (this.walking) this.dirty = true;
-      if (!this.transitioning && !this.dialogue) this.checkThresholds(0);
+      if (!this.transitioning && !this.dialogue) this.checkThresholds(intent);
       if (!this.path.length && this.pending) {
         const e = this.pending;
         this.pending = null;
@@ -771,7 +853,9 @@ class Adventure {
         38,
       );
       this.guardian.sprite = "person-3-" + (this.guardian.direction || "down");
+      this.guardianChat.update();
     }
+    this.scenes.prewarm(ms);
     this.rooms.enforce();
     this.centerCamera();
     // Suspend expensive animation behind reading/dialogs; render only 12fps there.
@@ -797,6 +881,7 @@ class Adventure {
       player: { ...this.player },
       camera: { ...this.camera },
       flags: { ...this.state.flags },
+      timers: { ...this.state.timers },
       inventory: { ...this.state.inventory },
       dialogue: this.dialogue ? { ...this.dialogue } : null,
       pathLength: this.path.length,
@@ -810,10 +895,15 @@ class Adventure {
       entities: this.world.entities
         .filter((e) => active(e, this.state))
         .map(({ id, x, y }) => ({ id, x, y })),
+      bounds: {
+        width: this.world.width * TILE,
+        height: this.world.height * TILE,
+      },
       view: { width: this.renderer.width, height: this.renderer.height },
       scale: this.renderer.scale,
       storageOK: this.storageOK,
       chunkCount: this.renderer.terrain.chunks.size,
+      terrainBuilds: this.renderer.terrain.buildCount,
       assets: this.renderer.sprites.inspect(),
       wallet: {
         ...this.state.wallet,
@@ -837,6 +927,8 @@ class Adventure {
           }
         : null,
       heldItem: this.inventory.held,
+      objects: JSON.parse(JSON.stringify(this.state.objects || {})),
+      contactLatch: this.contactLatch,
     };
   }
 }

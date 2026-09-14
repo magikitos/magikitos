@@ -14,11 +14,25 @@
   "regions": [],
   "rugs": [
     {
-      "x": 13,
-      "y": 11.5,
-      "width": 9,
-      "height": 8,
-      "color": "#728578"
+      "x": 5.6,
+      "y": 7.5,
+      "width": 5.5,
+      "height": 6.5,
+      "color": "#9d7960"
+    },
+    {
+      "x": 18.5,
+      "y": 8.4,
+      "width": 5.3,
+      "height": 5.6,
+      "color": "#697f72"
+    },
+    {
+      "x": 13.5,
+      "y": 16.5,
+      "width": 3.2,
+      "height": 6,
+      "color": "#a88960"
     }
   ],
   "ambient": {
@@ -37,8 +51,7 @@
             {
               "type": "travel",
               "scene": "overworld",
-              "x": 34.5,
-              "y": 66.5
+              "arrivalAt": "human-door"
             }
           ]
         }
@@ -49,8 +62,8 @@
     {
       "id": "human-bed",
       "sprite": "bed",
-      "x": 5.5,
-      "y": 8.5,
+      "x": 5.6,
+      "y": 8,
       "rules": [
         {
           "when": {},
@@ -63,18 +76,19 @@
         }
       ],
       "solid": [
-        -1.8,
-        -2.8,
-        3.6,
-        3.1
+        -1.65,
+        -3.1,
+        3.3,
+        3.4
       ],
-      "label": "bed"
+      "label": "bed",
+      "artVariant": "auto"
     },
     {
       "id": "human-table",
       "sprite": "table",
-      "x": 5.5,
-      "y": 17.5,
+      "x": 21.5,
+      "y": 13.2,
       "rules": [
         {
           "when": {},
@@ -92,13 +106,14 @@
         3,
         1.8
       ],
-      "label": "table"
+      "label": "table",
+      "artVariant": "auto"
     },
     {
       "id": "human-sideboard",
-      "sprite": "workbench",
-      "x": 21.5,
-      "y": 8.5,
+      "sprite": "dresser",
+      "x": 12.3,
+      "y": 6.5,
       "rules": [
         {
           "when": {},
@@ -116,13 +131,14 @@
         3,
         1.8
       ],
-      "label": "table"
+      "label": "table",
+      "artVariant": "auto"
     },
     {
       "id": "expression-book",
       "sprite": "book-lectern",
-      "x": 21.5,
-      "y": 15.5,
+      "x": 18.5,
+      "y": 5.75,
       "rules": [
         {
           "effects": [
@@ -144,26 +160,197 @@
     {
       "id": "house-plant",
       "sprite": "flower-pot",
-      "x": 21.5,
-      "y": 4.5,
-      "rules": []
+      "x": 22,
+      "y": 5.8,
+      "rules": [],
+      "artVariant": "auto"
     },
     {
       "id": "house-lantern",
       "sprite": "lantern",
-      "x": 13.5,
-      "y": 4.5,
-      "rules": []
+      "x": 3.7,
+      "y": 5.5,
+      "rules": [],
+      "artVariant": "auto"
     },
     {
       "id": "house-crates",
       "sprite": "crates",
-      "x": 21.5,
+      "x": 20.5,
       "y": 19.5,
-      "rules": []
+      "rules": [],
+      "artVariant": "auto"
+    },
+    {
+      "id": "house-window",
+      "sprite": "window-arched",
+      "x": 5.8,
+      "y": 3.1,
+      "rules": [],
+      "artVariant": "auto"
+    },
+    {
+      "id": "house-kitchen-rack",
+      "sprite": "kitchen-rack",
+      "x": 12.3,
+      "y": 3.5,
+      "rules": [],
+      "artVariant": "auto"
+    },
+    {
+      "id": "house-cupboard",
+      "sprite": "cupboard",
+      "x": 3.8,
+      "y": 13.5,
+      "rules": [],
+      "solid": [
+        -1.2,
+        -1.4,
+        2.4,
+        1.7
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "house-stove",
+      "sprite": "stove",
+      "x": 22,
+      "y": 16.6,
+      "rules": [],
+      "solid": [
+        -0.8,
+        -1.3,
+        1.6,
+        1.6
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "attic-stairs",
+      "sprite": "stairs-up",
+      "x": 6,
+      "y": 18,
+      "solid": [
+        -1.45,
+        -3.8,
+        2.9,
+        2.7
+      ],
+      "portal": "stairs",
+      "label": "upstairs",
+      "rules": [
+        {
+          "effects": [
+            {
+              "type": "travel",
+              "scene": "attic",
+              "x": 6,
+              "y": 15.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "house-reading-chair",
+      "sprite": "armchair",
+      "x": 18.5,
+      "y": 9.7,
+      "rules": [],
+      "solid": [
+        -0.75,
+        -0.8,
+        1.5,
+        1.1
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "house-book-window",
+      "sprite": "window-arched",
+      "x": 20.5,
+      "y": 3.1,
+      "rules": [],
+      "artVariant": "auto"
+    },
+    {
+      "id": "house-table-vase",
+      "sprite": "flower-vase",
+      "x": 21.5,
+      "y": 13.2,
+      "offset": [
+        9,
+        -20
+      ],
+      "rules": [],
+      "artVariant": "auto"
     }
   ],
   "actors": [
     3
-  ]
+  ],
+  "walls": [
+    {
+      "rect": [
+        9.5,
+        3.1,
+        0.5,
+        6.9
+      ],
+      "height": 20
+    },
+    {
+      "rect": [
+        2.5,
+        10.8,
+        4.7,
+        0.5
+      ],
+      "height": 18
+    }
+  ],
+  "interior": {
+    "material": "leaf",
+    "background": "woodland-context",
+    "outline": [
+      [
+        0.14,
+        0
+      ],
+      [
+        0.86,
+        0
+      ],
+      [
+        1,
+        0.16
+      ],
+      [
+        1,
+        0.84
+      ],
+      [
+        0.86,
+        1
+      ],
+      [
+        0.14,
+        1
+      ],
+      [
+        0,
+        0.84
+      ],
+      [
+        0,
+        0.16
+      ]
+    ],
+    "inset": {
+      "left": 2,
+      "right": 2,
+      "top": 2.5,
+      "bottom": 2
+    }
+  }
 }

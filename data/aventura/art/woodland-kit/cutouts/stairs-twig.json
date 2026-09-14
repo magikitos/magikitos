@@ -1,0 +1,12 @@
+{
+    "source": "stairs-twig.png",
+    "sourceHash": "8e4b1be21a4e4d1d235f0aeef7b703821048f7a57ff43c4af0eb55fcfdd087b5",
+    "bounds": [
+        206,
+        64,
+        784,
+        1194
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

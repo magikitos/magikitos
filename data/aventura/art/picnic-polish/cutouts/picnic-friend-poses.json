@@ -1,0 +1,12 @@
+{
+    "source": "picnic-friend-poses.png",
+    "sourceHash": "280a8f30c1f5edfda86b3804d69f31140986ce24b0e7762742b164a7e3c5e235",
+    "bounds": [
+        43,
+        24,
+        1123,
+        1171
+    ],
+    "matte": "magenta-or-original-alpha",
+    "fringePixels": 2
+}

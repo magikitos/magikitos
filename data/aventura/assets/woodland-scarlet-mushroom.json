@@ -1,0 +1,44 @@
+{
+  "frames": {
+    "scarlet-mushrooms": {
+      "source": "data/aventura/art/woodland-kit/cutouts/mushroom-red-round.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        36,
+        38
+      ],
+      "fit": true,
+      "anchor": [
+        18,
+        34
+      ]
+    },
+    "mushroom-red-pair": {
+      "source": "data/aventura/art/woodland-kit/cutouts/mushroom-red-pair.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        41,
+        38
+      ],
+      "fit": true,
+      "anchor": [
+        21,
+        34
+      ]
+    }
+  }
+}

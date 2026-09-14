@@ -1,0 +1,24 @@
+{
+  "frames": {
+    "picnic-speaker": {
+      "source": "data/aventura/art/woodland-kit/cutouts/picnic-speaker.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        35,
+        25
+      ],
+      "fit": true,
+      "anchor": [
+        17,
+        22
+      ]
+    }
+  }
+}

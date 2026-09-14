@@ -1,0 +1,44 @@
+{
+  "frames": {
+    "easel": {
+      "source": "data/aventura/art/woodland-kit/cutouts/easel-twig.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        42,
+        66
+      ],
+      "fit": true,
+      "anchor": [
+        21,
+        60
+      ]
+    },
+    "easel-bark": {
+      "source": "data/aventura/art/woodland-kit/cutouts/easel-bark.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        42,
+        66
+      ],
+      "fit": true,
+      "anchor": [
+        21,
+        60
+      ]
+    }
+  }
+}

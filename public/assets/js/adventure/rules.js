@@ -1,6 +1,8 @@
 "use strict";
 /** Pure world rules: conditions, item actions and atomic state effects. No DOM or scene names. */
 const { cleanWallet, transact } = require("./economy");
+const { startTimer } = require("./timers");
+const { remember } = require("./keepsakes");
 function matches(state, when = {}, context = {}) {
   return (
     Object.entries(when.flags || {}).every(
@@ -9,23 +11,33 @@ function matches(state, when = {}, context = {}) {
     Object.entries(when.items || {}).every(
       ([key, count]) => (state.inventory[key] || 0) >= count,
     ) &&
+    Object.entries(when.maxItems || {}).every(
+      ([key, count]) => (state.inventory[key] || 0) <= count,
+    ) &&
+    Object.entries(when.timers || {}).every(
+      ([key, running]) =>
+        (state.timers?.[key] || 0) > (context.now ?? Date.now()) === running,
+    ) &&
     (!when.funds || (state.wallet?.balance || 0) >= when.funds) &&
     (!when.using ||
       (context.action !== "use" && !context.item) ||
       when.using.includes(context.item))
   );
 }
-function active(entity, state) {
+function active(entity, state, context = {}) {
   return (
-    (!entity.hiddenWhen || !matches(state, entity.hiddenWhen)) &&
-    (!entity.visibleWhen || matches(state, entity.visibleWhen))
+    (!entity.hiddenWhen || !matches(state, entity.hiddenWhen, context)) &&
+    (!entity.visibleWhen || matches(state, entity.visibleWhen, context))
   );
 }
-function actions(entity, state) {
-  return (entity.actions || []).filter((action) => matches(state, action.when));
+function actions(entity, state, context = {}) {
+  return (entity.actions || []).filter((action) =>
+    matches(state, action.when, context),
+  );
 }
 function planReaction(entity, state, catalog, context = {}) {
-  if (!active(entity, state)) return null;
+  context = { ...context, now: context.now ?? Date.now() };
+  if (!active(entity, state, context)) return null;
   const action = context.action || "interact";
   if (context.item && !(state.inventory[context.item] > 0)) return null;
   const rule = (entity.rules || []).find(
@@ -40,10 +52,15 @@ function planReaction(entity, state, catalog, context = {}) {
     ...state,
     wallet: cleanWallet(state.wallet, catalog),
     flags: { ...state.flags },
+    timers: { ...state.timers },
     inventory: { ...state.inventory },
   };
   for (const effect of rule.effects || []) {
-    if (effect.type === "flag") {
+    if (effect.type === "keepsake") {
+      remember(draft, entity);
+    } else if (effect.type === "timer") {
+      startTimer(draft, effect.timer, catalog, context.now);
+    } else if (effect.type === "flag") {
       if (!catalog.flags.includes(effect.flag))
         throw new Error("Unknown flag: " + effect.flag);
       draft.flags[effect.flag] = effect.value !== false;
@@ -61,14 +78,14 @@ function planReaction(entity, state, catalog, context = {}) {
     } else if (["spend", "reward"].includes(effect.type)) {
       transact(draft.wallet, effect, catalog);
     } else if (
-      !["dialogue", "sound", "travel", "content"].includes(effect.type)
+      !["dialogue", "sound", "travel", "content", "presentation"].includes(effect.type)
     )
       throw new Error("Unknown effect");
   }
   return {
     state: draft,
     effects: (rule.effects || []).filter(
-      (e) => !["flag", "item", "spend", "reward"].includes(e.type),
+      (e) => !["flag", "item", "spend", "reward", "timer", "keepsake"].includes(e.type),
     ),
   };
 }

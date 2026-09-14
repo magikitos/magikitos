@@ -1,7 +1,9 @@
 "use strict";
 const { drawRipples } = require("./water");
+const { drawOccupiedBoat } = require("./boat-art");
+const { frameName } = require("./elements");
 const { clamp } = require("./model");
-/** Short shore-to-shore tableau. The occupied sprite binds both passengers to the hull. */
+/** Short shore-to-shore tableau. Shared hull artwork carries two seated native characters; input stays locked by the sequence. */
 class Voyage {
   constructor(game) {
     this.game = game;
@@ -23,6 +25,7 @@ class Voyage {
         presentation: travel.presentation,
         reverse: Boolean(boat?.flip),
         destination: travel.scene,
+        boatSprite: boat ? frameName(boat) : definition.sprite,
       },
     );
   }
@@ -80,10 +83,7 @@ class Voyage {
       game.renderer.sprites.draw(c, "jetty", shore - 13, y - 7, 52, 26);
       c.restore();
     }
-    const pose = game.reducedMotion
-      ? 0
-      : Math.floor(seq.elapsed / 0.22) % definition.frames;
-    const sprite = definition.spritePrefix + pose,
+    const sprite = seq.data.boatSprite || definition.sprite,
       frame = game.renderer.sprites.frame(sprite);
     // Keep both passengers and the entire hull visible even in narrow portrait viewports.
     const zoom = Math.min(1, (width * 0.4) / frame.w);
@@ -111,13 +111,15 @@ class Voyage {
       }
       c.globalAlpha = 1;
     }
-    game.renderer.sprites.draw(
+    drawOccupiedBoat(
       c,
+      game.renderer.sprites,
       sprite,
-      Math.round(x - frame.anchor[0] * zoom),
-      Math.round(y - frame.anchor[1] * zoom + bob),
-      Math.round(frame.w * zoom),
-      Math.round(frame.h * zoom),
+      definition.passengers,
+      definition.lip,
+      x,
+      y + bob,
+      zoom,
     );
     c.restore();
     const fade = clamp(Math.min(p * 14, (1 - p) * 14), 0, 1);

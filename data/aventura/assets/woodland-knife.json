@@ -1,0 +1,24 @@
+{
+  "frames": {
+    "picnic-knife": {
+      "source": "data/aventura/art/woodland-kit/cutouts/knife-taramundi-readable.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        43,
+        27
+      ],
+      "fit": true,
+      "anchor": [
+        22,
+        23
+      ]
+    }
+  }
+}

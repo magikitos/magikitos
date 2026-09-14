@@ -1,0 +1,12 @@
+{
+    "source": "home-boot-worn.png",
+    "sourceHash": "def53b4711ff0fbfac5dd2d93f9d0cb2d19cbfd76bac17832bf83f4c4d831540",
+    "bounds": [
+        91,
+        64,
+        1025,
+        1146
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

@@ -1,0 +1,44 @@
+{
+  "frames": {
+    "giant-fern": {
+      "source": "data/aventura/art/woodland-kit/cutouts/fern-curled.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        188,
+        188
+      ],
+      "fit": true,
+      "anchor": [
+        94,
+        179
+      ]
+    },
+    "fern-wide": {
+      "source": "data/aventura/art/woodland-kit/cutouts/fern-wide.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        188,
+        188
+      ],
+      "fit": true,
+      "anchor": [
+        94,
+        179
+      ]
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "name": "@magikitos/adventure",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Magikitos game and local scene studio",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node tools/build.cjs",
+    "dev": "node tools/preview.cjs",
+    "studio": "node tools/adventure-studio/server.cjs",
+    "studio:diff": "node tools/adventure-studio/review.cjs",
+    "test": "node scripts/test.cjs",
+    "test:browser": "node scripts/check-adventure-browser.cjs",
+    "test:ascua": "node scripts/check-ascua-browser.cjs",
+    "screenshots": "node scripts/preview-screens.cjs",
+    "install:local": "node tools/install-local.cjs",
+    "dev:offline": "node tools/preview.cjs --offline",
+    "test:camera": "node scripts/check-studio-camera.cjs",
+    "test:experiments": "node scripts/check-studio-experiments.cjs",
+    "test:studio": "node scripts/check-studio-paths-browser.cjs",
+    "test:native": "node scripts/check-native-browser.cjs",
+    "test:api:local": "node scripts/check-api-local.cjs",
+    "test:boundary": "node scripts/check-boundary-browser.cjs",
+    "test:picnic": "node scripts/check-picnic-browser.cjs",
+    "test:picnic-animation": "node scripts/check-picnic-animation-browser.cjs",
+    "test:definition": "php scripts/check-studio-definition-art.php && node scripts/check-studio-definition.cjs",
+    "test:duendes": "node scripts/check-studio-duendes.cjs",
+    "art:catalog": "node scripts/build-woodland-kit.cjs",
+    "art:review": "php scripts/audit-woodland-art.php",
+    "test:woodland": "node scripts/check-woodland-browser.cjs",
+    "test:gallery": "node scripts/check-studio-gallery-browser.cjs",
+    "review:woodland": "node scripts/review-woodland-browser.cjs"
+  },
+  "devDependencies": {
+    "esbuild": "0.27.4",
+    "playwright": "1.60.0",
+    "three": "0.186.0"
+  }
+}

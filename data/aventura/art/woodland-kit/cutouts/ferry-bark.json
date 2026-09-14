@@ -1,0 +1,12 @@
+{
+    "source": "ferry-bark.png",
+    "sourceHash": "19393937d27e72a963f3ac67e4f972badd3557e888c550f2f100109df654c511",
+    "bounds": [
+        85,
+        53,
+        1388,
+        870
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

@@ -1,0 +1,44 @@
+{
+  "frames": {
+    "stairs-down": {
+      "source": "data/aventura/art/woodland-kit/cutouts/stairs-down-twig.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        68,
+        86
+      ],
+      "fit": true,
+      "anchor": [
+        34,
+        82
+      ]
+    },
+    "stairs-down-root": {
+      "source": "data/aventura/art/woodland-kit/cutouts/stairs-down-root.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        68,
+        86
+      ],
+      "fit": true,
+      "anchor": [
+        34,
+        82
+      ]
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "frames": {
+    "giant-clover": {
+      "source": "data/aventura/art/woodland-kit/cutouts/clover-round.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        136,
+        136
+      ],
+      "fit": true,
+      "anchor": [
+        68,
+        130
+      ]
+    },
+    "clover-heart": {
+      "source": "data/aventura/art/woodland-kit/cutouts/clover-heart.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        136,
+        136
+      ],
+      "fit": true,
+      "anchor": [
+        68,
+        130
+      ]
+    }
+  }
+}

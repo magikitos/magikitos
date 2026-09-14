@@ -1,0 +1,68 @@
+{
+  "status": "exploration-not-approved",
+  "density": 2,
+  "sampling": "area",
+  "logicalHeight": 40,
+  "designs": [
+    {
+      "id": "ascua",
+      "name": "Ascua",
+      "subtitle": "El aventurero pícaro",
+      "pitch": "Calidez, gorro cobrizo con punta hacia atrás y una sonrisa de «yo no he sido».",
+      "signature": "Gorro de ascua + chaqueta petróleo + ceja descarada.",
+      "watch": "Que la cara siga teniendo carácter al reducir y no parezca un niño disfrazado.",
+      "color": "#d08045",
+      "source": "sources/ascua.png",
+      "roles": [
+        "hero",
+        "neighbor-a",
+        "neighbor-b"
+      ]
+    },
+    {
+      "id": "zarzal",
+      "name": "Zarzal",
+      "subtitle": "El duende montaraz",
+      "pitch": "Orejas angulosas, piel oliva y una silueta más salvaje, con mucha personalidad.",
+      "signature": "Punta quebrada morada + orejas abiertas + gesto astuto.",
+      "watch": "Mantenerlo simpático; que no derive en un enemigo o monstruo.",
+      "color": "#a080b6",
+      "source": "sources/zarzal.png",
+      "roles": [
+        "hero",
+        "neighbor-a",
+        "neighbor-b"
+      ]
+    },
+    {
+      "id": "trasto",
+      "name": "Trasto",
+      "subtitle": "El buscavidas",
+      "pitch": "Más robusto y cómico. Un manitas del bosque que convierte lo que encuentra en equipo.",
+      "signature": "Gorro mostaza remendado + nariz expresiva + cuerpo compacto.",
+      "watch": "Conservar agilidad y manos legibles para empujar, trepar y usar objetos.",
+      "color": "#c8aa52",
+      "source": "sources/trasto.png",
+      "roles": [
+        "hero",
+        "neighbor-a",
+        "neighbor-b"
+      ]
+    },
+    {
+      "id": "candil",
+      "name": "Candil",
+      "subtitle": "El pícaro del anochecer",
+      "pitch": "Más fantástico: piel azul grisácea, ojos ámbar y contraste coral/turquesa.",
+      "signature": "Punta curvada hacia delante + abrigo coral + orejas largas.",
+      "watch": "Que funcione también a pleno día y no se convierta en un mago con túnica.",
+      "color": "#7cb6af",
+      "source": "sources/candil.png",
+      "roles": [
+        "hero",
+        "neighbor-a",
+        "neighbor-b"
+      ]
+    }
+  ]
+}

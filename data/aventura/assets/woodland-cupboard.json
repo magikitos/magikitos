@@ -1,0 +1,44 @@
+{
+  "frames": {
+    "cupboard": {
+      "source": "data/aventura/art/woodland-kit/cutouts/cupboard-bark.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        56,
+        82
+      ],
+      "fit": true,
+      "anchor": [
+        28,
+        75
+      ]
+    },
+    "cupboard-hollow": {
+      "source": "data/aventura/art/woodland-kit/cutouts/cupboard-hollow.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        56,
+        82
+      ],
+      "fit": true,
+      "anchor": [
+        28,
+        78
+      ]
+    }
+  }
+}

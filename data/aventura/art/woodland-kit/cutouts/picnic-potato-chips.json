@@ -1,0 +1,12 @@
+{
+    "source": "picnic-potato-chips.png",
+    "sourceHash": "ab0794f1a9bcd84d7daf47b353a5e8d0e92aa288520a60ec27b117a0f37ba49a",
+    "bounds": [
+        247,
+        178,
+        957,
+        752
+    ],
+    "matte": "original-alpha",
+    "fringePixels": 2
+}

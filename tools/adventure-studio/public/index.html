@@ -9,43 +9,76 @@
     <meta name="robots" content="noindex,nofollow" />
     <title>Magikitos · Studio local</title>
     <link rel="stylesheet" href="/studio.css" />
+    <link rel="stylesheet" href="/experiments.css" />
   </head>
   <body>
     <header class="studio-header">
-      <a class="brand" href="/">✦ MAGIKITOS <small>STUDIO LOCAL</small></a>
-      <nav>
-        <a class="active" href="/">Mapa</a
-        ><a href="/ui/" target="_blank" rel="noopener">UI Lab ↗</a>
+      <a class="brand" href="#map">✦ MAGIKITOS <small>STUDIO LOCAL</small></a>
+      <nav aria-label="Herramientas del Studio">
+        <a href="#map" data-studio-tab="map" aria-current="page">Mapa</a>
+        <a href="#experiments/duende-cast" data-studio-tab="experiments"
+          >Laboratorio</a
+        >
       </nav>
-      <span class="safe">Borrador · nunca edita el juego</span>
+      <span class="safe">Tu estudio · juego intacto</span>
     </header>
-    <div class="project-bar">
-      <input
-        id="name"
-        aria-label="Nombre del borrador"
-        maxlength="100"
-        value="Composición del bosque"
-      /><button id="new">Nuevo</button><button id="load">Abrir…</button
-      ><button id="save" class="primary">Guardar borrador</button
+    <div class="project-bar" id="map-project-bar">
+      <span class="workspace-title"
+        >Una sola versión · guardado automático</span
+      >
+      <button id="save" class="primary">Guardar ahora</button
       ><button id="export">Exportar diff</button
       ><span id="save-status" role="status">Sin cambios</span>
     </div>
-    <main class="workspace">
+    <main class="workspace" id="map-panel">
       <aside class="library">
-        <label>Escena<select id="scene"></select></label
-        ><label
-          >Buscar elementos<input
-            id="search"
-            type="search"
-            placeholder="Fuente, árbol, mesa…"
-        /></label>
-        <div class="layer-tabs">
-          <button data-layer="all" aria-pressed="true">Todo</button
-          ><button data-layer="entities">Colocados</button
-          ><button data-layer="scenery">Vegetación</button>
+        <label>Escena<select id="scene"></select></label>
+        <div class="editor-modes">
+          <button id="objects-mode" aria-pressed="true">Elementos</button
+          ><button id="paths-mode" aria-pressed="false">Caminos</button>
         </div>
-        <p id="count"></p>
-        <div id="elements" class="element-list"></div>
+        <div id="path-library" hidden>
+          <div class="path-actions">
+            <button id="path-new">Nuevo camino</button
+            ><button id="path-finish" class="primary" hidden>Terminar</button
+            ><button id="path-cancel" hidden>Cancelar</button>
+          </div>
+          <p id="path-hint" class="note"></p>
+          <div id="path-list" class="element-list"></div>
+        </div>
+        <div id="object-library">
+          <details id="gallery" class="gallery">
+            <summary>Galería · añadir al mapa</summary>
+            <p class="note">
+              Coloca en el centro de la vista y arrastra. Las variantes se
+              guardan por objeto, nunca cambian al recargar.
+            </p>
+            <label
+              >Buscar en galería<input
+                type="search"
+                data-gallery-search
+                placeholder="Flores, camas, casitas…" /></label
+            ><label
+              >Categoría<select data-gallery-category>
+                <option value="">Todas</option>
+              </select></label
+            >
+            <div class="gallery-grid" data-gallery-list></div>
+          </details>
+          <label
+            >Buscar elementos<input
+              id="search"
+              type="search"
+              placeholder="Fuente, árbol, mesa…"
+          /></label>
+          <div class="layer-tabs">
+            <button data-layer="all" aria-pressed="true">Todo</button
+            ><button data-layer="entities">Colocados</button
+            ><button data-layer="scenery">Vegetación</button>
+          </div>
+          <p id="count"></p>
+          <div id="elements" class="element-list"></div>
+        </div>
       </aside>
       <section id="viewport" class="viewport" aria-label="Mapa editable">
         <canvas
@@ -69,7 +102,9 @@
         <div class="map-bottom">
           <label><input id="grid" type="checkbox" /> Cuadrícula</label
           ><label><input id="bodies" type="checkbox" /> Colisiones</label
-          ><span>Arrastrar fondo: mover mapa · rueda / pellizco: zoom</span>
+          ><span id="map-hint"
+            >Arrastrar fondo: mover mapa · rueda / pellizco: zoom</span
+          >
         </div>
         <div id="loading" class="loading">Preparando el mapa local…</div>
       </section>
@@ -79,6 +114,34 @@
           Selecciona un elemento en el mapa o en la lista. Nada se modifica en
           el juego.
         </p>
+        <div id="path-properties" hidden>
+          <h2 id="path-selection">Trazado del camino</h2>
+          <label
+            >Ajustar puntos<select id="path-snap">
+              <option value=".25">¼ tile · 4 píxeles</option>
+              <option value=".5">½ tile · 8 píxeles</option>
+              <option value="1">1 tile · 16 píxeles</option>
+              <option value=".0625">1 píxel</option>
+            </select></label
+          >
+          <div class="coordinates">
+            <label
+              >X · tiles<input id="path-x" type="number" step=".25" /></label
+            ><label
+              >Y · tiles<input id="path-y" type="number" step=".25"
+            /></label>
+          </div>
+          <div class="path-actions">
+            <button id="path-insert" aria-pressed="false">Insertar punto</button
+            ><button id="path-delete-point">Borrar punto</button
+            ><button id="path-delete">Borrar camino</button>
+          </div>
+          <p class="note">
+            Borrar se puede deshacer. Los árboles y los objetos no se recolocan
+            al editar un camino; revisa por dónde pasa. Solo se guarda en tu
+            estudio.
+          </p>
+        </div>
         <div id="properties" hidden>
           <div class="selected-art">
             <canvas id="preview" width="160" height="140"></canvas>
@@ -95,8 +158,9 @@
               <option value="1">1 tile · 16 píxeles</option>
               <option value=".0625">1 píxel</option>
             </select></label
+          ><label id="variant-field" hidden
+            >Variante<select id="variant"></select></label
           ><label>Escala<select id="scale"></select></label
-          ><label>Giro<select id="rotation"></select></label
           ><label class="check"
             ><input id="flip" type="checkbox" /> Reflejar horizontalmente</label
           >
@@ -104,20 +168,85 @@
           <label class="check"
             ><input id="linked" type="checkbox" checked /> Mover también piezas
             apoyadas</label
-          ><button id="revert">Restablecer este elemento</button>
+          ><button id="revert">Restablecer este elemento</button
+          ><button id="remove">Retirar elemento</button>
+          <details id="crop-section" open>
+            <summary>Recorte del sprite</summary>
+            <p id="sprite-scope" class="note"></p>
+            <canvas
+              id="crop-preview"
+              width="248"
+              height="208"
+              aria-label="Recorte: arrastra las esquinas o ajusta los valores"
+            ></canvas>
+            <div class="coordinates">
+              <label
+                >Izquierda<input
+                  id="crop-x"
+                  type="number"
+                  step="1"
+                  min="0" /></label
+              ><label
+                >Arriba<input id="crop-y" type="number" step="1" min="0"
+              /></label>
+            </div>
+            <div class="coordinates">
+              <label
+                >Ancho<input
+                  id="crop-w"
+                  type="number"
+                  step="1"
+                  min="1" /></label
+              ><label
+                >Alto<input id="crop-h" type="number" step="1" min="1"
+              /></label>
+            </div>
+            <div class="crop-actions">
+              <button id="crop-auto">Ajustar al dibujo</button
+              ><button id="crop-reset">Restablecer recorte</button>
+            </div>
+            <p class="note">
+              Arrastra las esquinas verdes. La cruz naranja es el pie: se
+              mantiene en su sitio.
+            </p>
+          </details>
+          <details id="collision-section">
+            <summary>Colisión · cuerpo físico</summary>
+            <p id="collision-help" class="note"></p>
+            <div class="coordinates">
+              <label>X<input id="body-x" type="number" step="1" /></label
+              ><label>Y<input id="body-y" type="number" step="1" /></label>
+            </div>
+            <div class="coordinates">
+              <label
+                >Ancho<input
+                  id="body-w"
+                  type="number"
+                  step="1"
+                  min="1" /></label
+              ><label
+                >Alto<input id="body-h" type="number" step="1" min="1"
+              /></label>
+            </div>
+          </details>
           <div id="warnings" role="status"></div>
         </div>
         <div class="review">
           <h2>Para revisar juntos</h2>
-          <p id="diff-count">No has movido nada todavía.</p>
+          <p id="diff-count">Sin cambios de colocación.</p>
           <button id="review">Ver cambios</button>
           <p class="note">
-            El diff incluye el antes y el después. Se revisa y se aplica
-            después, fuera del studio.
+            Dile al agente «he cambiado las escenas». Leerá el diff local y
+            revisará la propuesta. El estudio nunca publica ni edita el juego.
           </p>
         </div>
       </aside>
     </main>
+    <section
+      id="experiments-panel"
+      aria-label="Laboratorio de experimentos"
+      hidden
+    ></section>
     <dialog id="modal">
       <header>
         <h2 id="modal-title"></h2>

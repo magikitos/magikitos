@@ -10,7 +10,11 @@ function capabilities(entity) {
     entity.sprite === "doorway" ||
     /^(person-|ferry|picnic-|barbecue|fire|coals)/.test(entity.sprite || "");
   return {
-    scales: fixed ? [1] : [0.75, 1, 1.25, 1.5],
+    scales: fixed
+      ? [1]
+      : [...new Set([0.75, 1, 1.25, 1.5, entity.scale ?? 1])].sort(
+          (a, b) => a - b,
+        ),
     rotations: !fixed && FLAT.has(entity.sprite) ? [0, 90, 180, 270] : [0],
     mirror: !fixed,
   };
@@ -59,7 +63,8 @@ function artworkBounds(entity, frame) {
     y: rect.y + entity.y + (entity.offset?.[1] || 0),
   };
 }
-function drawArtwork(ctx, sprites, entity, name) {
+// Optional clip is in anchor-relative native coordinates, before entity transforms.
+function drawArtwork(ctx, sprites, entity, name, clip) {
   const f = sprites.frame(name);
   if (!f) return;
   ctx.save();
@@ -69,6 +74,11 @@ function drawArtwork(ctx, sprites, entity, name) {
   );
   ctx.rotate(((entity.rotation || 0) * Math.PI) / 180);
   ctx.scale((entity.scale ?? 1) * (entity.flip ? -1 : 1), entity.scale ?? 1);
+  if (clip) {
+    ctx.beginPath();
+    ctx.rect(clip.x, clip.y, clip.w, clip.h);
+    ctx.clip();
+  }
   sprites.draw(ctx, name, -f.anchor[0], -f.anchor[1]);
   ctx.restore();
 }

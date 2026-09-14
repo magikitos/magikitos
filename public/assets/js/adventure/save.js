@@ -1,7 +1,9 @@
 "use strict";
 const { World, TILE } = require("./model");
+const { portalArrival } = require("./portals");
 const { cleanWallet } = require("./economy");
 const { cleanNeeds, cleanTraces } = require("./needs");
+const { cleanTimers } = require("./timers");
 // One development format. Validate untrusted storage; no prototype migrations.
 const SAVE_KEY = "magikitos.adventure";
 function cleanSave(value, catalog) {
@@ -12,10 +14,13 @@ function cleanSave(value, catalog) {
     position: { x: spawn.x * TILE, y: spawn.y * TILE },
     flags: {},
     inventory: {},
+    timers: cleanTimers(value?.timers, catalog),
     wallet: cleanWallet(null, catalog),
     muted: false,
     needs: cleanNeeds(value?.needs, catalog),
     traces: cleanTraces(value?.traces, catalog),
+    objects: {},
+    keepsakes: require("./keepsakes").cleanKeepsakes(value?.keepsakes, catalog),
   };
   if (!value) return state;
   for (const key of catalog.flags)
@@ -27,6 +32,11 @@ function cleanSave(value, catalog) {
         definition.max || 99,
       );
   state.wallet = cleanWallet(value.wallet, catalog);
+  state.objects = require("./movables").cleanPositions(
+    value.objects,
+    catalog,
+    state,
+  );
   if (Object.hasOwn(catalog.scenes, value.scene)) {
     state.scene = value.scene;
     const world = new World(catalog.scenes[state.scene]);
@@ -36,20 +46,8 @@ function cleanSave(value, catalog) {
       : { x: world.data.spawn.x * TILE, y: world.data.spawn.y * TILE };
   }
   const entrance = value.entrance;
-  if (
-    entrance &&
-    Object.hasOwn(catalog.scenes, entrance.scene) &&
-    Number.isFinite(entrance.position?.x) &&
-    Number.isFinite(entrance.position?.y)
-  ) {
-    const world = new World(catalog.scenes[entrance.scene]);
-    world.refresh(state);
-    if (world.canStand(entrance.position.x, entrance.position.y))
-      state.entrance = {
-        scene: entrance.scene,
-        position: { x: entrance.position.x, y: entrance.position.y },
-      };
-  }
+  if (entrance && portalArrival(catalog, entrance.scene, entrance.portal))
+    state.entrance = { scene: entrance.scene, portal: entrance.portal };
   state.muted = value.muted === true;
   return state;
 }

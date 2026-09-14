@@ -1,4 +1,5 @@
 "use strict";
+const {resolveAppearance}=require("./elements");
 const { TILE, random } = require("./geometry");
 /** Deterministic vegetation only; authored scene placements always have priority. */
 function populate(world) {
@@ -6,10 +7,12 @@ function populate(world) {
   if (Array.isArray(data.scenery)) {
     for (const placement of data.scenery) {
       const prop = {
-        ...placement,
+        ...resolveAppearance(placement, data.id),
         x: placement.x * TILE,
         y: placement.y * TILE,
       };
+      // Scenery is presentation/terrain. Movable puzzle props live in the authored entity layer.
+      delete prop.pushable;
       world.props.push(prop);
       if (prop.solid) {
         const r = require("./geometry").collisionBounds(prop);
@@ -54,6 +57,7 @@ function populate(world) {
         const choices = varied.length ? varied : trees;
         world.props.push({
           id: `tree-${x}-${y}`,
+          solid: [-0.5, -0.5, 1, 1],
           sprite: choices[Math.floor(rand() * choices.length)],
           x: tx * TILE,
           y: ty * TILE,
@@ -91,5 +95,10 @@ function populate(world) {
         y: ty * TILE,
       });
     }
+  world.props = world.props.map((p) => {
+    const prop = resolveAppearance(p, data.id);
+    delete prop.pushable;
+    return prop;
+  });
 }
 module.exports = { populate };

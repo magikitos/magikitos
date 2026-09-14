@@ -1,0 +1,12 @@
+{
+    "source": "picnic-speaker.png",
+    "sourceHash": "6febf58ef28ca87951254cd600441ab3adf3694a50dde9cc473860b9605fe7eb",
+    "bounds": [
+        361,
+        386,
+        921,
+        343
+    ],
+    "matte": "original-alpha",
+    "fringePixels": 2
+}

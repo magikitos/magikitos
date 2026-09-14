@@ -51,15 +51,22 @@ function collisionBounds(entity) {
     w: source[2],
     h: source[3],
   });
-  const { x: dx, y: dy, w, h } = box;
-  const x = Math.floor(entity.x / TILE + dx) * TILE,
-    y = Math.floor(entity.y / TILE + dy) * TILE;
   return {
-    x,
-    y,
-    w: Math.ceil(entity.x / TILE + dx + w) * TILE - x,
-    h: Math.ceil(entity.y / TILE + dy + h) * TILE - y,
+    x: entity.x + box.x * TILE,
+    y: entity.y + box.y * TILE,
+    w: box.w * TILE,
+    h: box.h * TILE,
   };
+}
+function insideThreshold(entity, point) {
+  if (!entity.threshold) return false;
+  const [x, y, w, h] = entity.threshold;
+  return (
+    point.x >= x * TILE &&
+    point.x <= (x + w) * TILE &&
+    point.y >= y * TILE &&
+    point.y <= (y + h) * TILE
+  );
 }
 function spriteBounds(frame, point) {
   return {
@@ -190,6 +197,7 @@ module.exports = {
   overlaps,
   collisionBounds,
   spriteBounds,
+  insideThreshold,
   FOOTPRINT,
   actorBounds,
   coastX,

@@ -1,258 +1,161 @@
-# Aventura: desarrollo y pruebas locales
+# Adventure data and play guide
 
-## Abrir
+The normal website stays separate. The game lives at `/aventura`, with translated
+entries `/en/adventure`, `/de/abenteuer`, `/fr/aventure`, `/it/avventura` and
+`/pt/aventura`. Entry resumes saved progress, never a content query parameter.
 
-```sh
-ddev start
-```
+For commands, read [local development](../../docs/LOCAL-DEVELOPMENT.md).
+The **current game repo preview** is http://127.0.0.1:47834/aventura.
+DDEV serves an immutable artifact installed with `npm run install:local`.
+Development tools never deploy automatically. See the current approved release
+and verification evidence in [Ascua release](../../docs/ASCUA-RELEASE.md).
 
-Juego: https://magikitos.ddev.site/aventura  
-Web normal: https://magikitos.ddev.site/
+## Play
 
-Idiomas: `/aventura`, `/en/adventure`, `/de/abenteuer`, `/fr/aventure`,
-`/it/avventura`, `/pt/aventura`.
+Tap/click ground to walk; tap an object to approach and interact. Arrows, WASD
+and ZQSD also work. Walking into an interactive object has the same effect.
+There is no E key. Diagonal headings have proper directional sprites and
+distance-driven footstep animation. Every duende wears a pointed hat.
 
-**Exclusivamente local. No desplegar, consultar producción ni traer otra DB o archivos.**
-La base y las copias de medios ya disponibles bastan. El bootstrap DDEV no carga
-el `.env` compartido: usa MariaDB local y no importa credenciales de pagos, correo
-o IA. Los endpoints locales de analytics y seguimiento de audio devuelven 204 sin
-escribir eventos. El service worker local no conserva HTML anterior.
-No ejecutar los scripts de despliegue ni `bashy/migrations-*`.
+Space while moving, or a double click/tap toward a destination, produces one
+forward roll. Holding Space does not repeat it. In a dialogue, Space advances;
+Enter and Escape dismiss without activating purchase or other explicit actions.
+Most conversations fit a single box. Confirmation says “Ok”.
 
-## Jugar
+Walk through open doors to enter/leave. The leaf refuge has a real
+upstairs/downstairs connection. Inaccessible houses use closed door art.
+Wheel and two-finger pinch zoom the complete world, with no void at scene edges.
+Small houses use a restrained cutaway view with a softly defocused woodland outside
+the floor, not oversized sprites stretched to fill the screen. That exterior is
+non-walkable; doors and stairs keep their original physical thresholds.
+The permanent controls are music, “Yo” and the sack.
 
-Toca el suelo para caminar; toca un objeto para acercarte e interactuar. También
-funcionan flechas, WASD y ZQSD. Chocar con un objeto o vecino interactivo provoca
-la misma interacción y no permite atravesarlo. No hay tecla E.
-Entra y sal andando por las puertas; las salidas interiores están abajo y también
-funcionan al acercarte de lado. Solo los interiores accesibles tienen puerta abierta.
-Espacio mientras caminas o doble clic/toque en tu destino hace una voltereta.
-Cada pulsación impulsa una vez; mantener Espacio no encadena volteretas.
-En un diálogo, Espacio avanza y Enter/Escape cierran sin comprar ni activar acciones.
-Los textos caben normalmente en una caja; el sistema admite más cuando haga falta.
-La confirmación de cierre es «Ok»; las acciones conservan su nombre explícito.
-Objetos y monedas vuelan al saco al recibirlos; con movimiento reducido solo se confirma.
+Macetas and crates can be pushed by walking against them, or by tapping to approach
+and push a short distance. Their positions persist per local save. They cannot be
+pushed into water, other objects, doorways or scene arrival points.
+Closing a contact dialogue suppresses repeated opening until you move away.
 
-Comienzas libre para explorar. El vecino sentado junto a la barbacoa tiene hambre:
-puedes ayudarlo o pasar de largo. Recoge la seta, el palo junto al tronco y el mechero
-de la primera casita junto a la fuente del pueblo, en cualquier orden. Cocina la brocheta y regálasela. La seta y el
-palo se consumen; el mechero permanece. El vecino entrega **10 setines de prueba: ida y vuelta**.
+## First local adventure
 
-Remo recibe y cobra en el embarcadero. Puedes hablarle o tocar la barca: la misma
-interacción, sin duplicar reglas. El barco cobra 5 por trayecto y lleva al islote.
-La travesía se ve durante unos segundos, con Remo remando y el protagonista sentado.
-No se puede caminar, rodar ni abrir el saco durante el viaje. Se cobra al llegar;
-recargar antes de terminar conserva el puerto de origen y el pasaje.
-La vecina de las conchas paga otros 5 por un puñado de la orilla oriental. Puedes
-repetir esa ayuda para futuros viajes. El primer regreso ya está cubierto por Brizno. El puente del bosque es
-libre desde el principio; no existe el antiguo bloqueo por hambre.
+Exploration is free; the protagonist is not blocked by hunger.
+Brizno, the seated neighbour by the barbecue, is hungry. Explore north to the
+human picnic: the smoking adult has left a lighter beside the blanket, and a
+Taramundi pocketknife lies next to the potato tortilla. There is no human house.
 
-Los únicos controles permanentes son música, «Yo» y saco. Selecciona un objeto en el
-saco, pulsa «Usar» y toca su destino; × o Escape lo devuelve al saco sin gastarlo.
+Pick the **whole mushroom** near the clearing, without needing a knife first.
+Collect a twig by the fallen log. Light the barbecue; use the knife there to
+prepare and visibly cook the skewer. The mushroom and twig are consumed; knife
+and lighter stay in the sack. Ingredients can be discovered in any order.
+The barbecue gives one useful hint for the current state, not a shopping list.
 
-- Cuentos: junto al fuego nocturno del lago, con 6–10 narradores.
-- Chistes: dentro de la taberna.
-- Expresiones: el libro sobre el atril de la casa humana.
-- Arte: claro de los artistas.
-- Tienda: productos expuestos dentro del taller.
+Give the skewer to Brizno. The first reward is **10 local test setines: exactly a
+return ferry ticket**. The picnickers pack up permanently after this first meal.
+Every meal starts a **five-real-hour** hunger deadline, persisted across reloads.
+When it expires, Brizno becomes hungry again, without bringing the humans back.
+Mushrooms and twigs can be collected again; only one uncooked mushroom
+or prepared skewer is carried at a time. Later meals do not repeat the first prize.
+Uncollected utensils remain obtainable even for existing completed local saves.
 
-Los demás vecinos conversan, pero no distribuyen contenidos de otras zonas.
-El vigilante puede acercarse al pedir ayuda desde el libro.
-La fuente y las casas del pueblo están sobre hierba; el interior humano tiene
-mobiliario en los bordes y espacio libre para caminar.
-La iluminación nocturna nace del fuego, nunca del personaje.
-La fuente ocupa el centro de una confluencia verde con caminos por ambos lados.
-El lago continúa fuera del escenario: no se puede rodear para alcanzar el islote.
-Orillas, pasos, diagonales y volteretas comparten la misma geometría de pies.
+The map uses the approved **Cercana** direction: large well-defined trees and
+ferns, elf-height wild mushrooms; a boot tavern, stump home, leaf refuge, hollow-log workshop,
+and closed mushroom/pot houses. No human architecture. See [the current woodland kit](../../docs/WOODLAND-KIT.md).
 
-La presentación «Acercarse» (B) encuadra la actividad y muestra voz o pieza sobre el
-mundo, sin el marco de una página. No tiene X: Escape o un toque fuera cierra;
-el primer toque fuera no mueve al personaje. Caminar con teclado también cierra.
-Buscar, explorar categorías, ampliar imágenes y leer son acciones deliberadas.
-El audio continúa al ampliar o cerrar mientras permanezcas en su zona; al abandonarla se detiene.
-«Otra» reutiliza el content pulse existente, incluida su exploración.
-No hay cuaderno, teletransporte, enlace «abrir contenido» ni navegación `?content=`.
-Entrar en aventura siempre recupera el lugar guardado, no el de una URL.
+The ferryman greets and charges at the jetty. Clicking the boat targets the
+same ferryman interaction. A crossing costs 5. Both duendes visibly travel
+together; walking, rolling and inventory actions are locked during the voyage.
+The fare commits with the prepared destination. Reloading before the sequence
+finishes preserves the departure and fare.
 
-## Yo, hojas y necesidades
+The island shell collector pays another 5 for a shell. That help is repeatable
+for later journeys; the first return is already covered. The forest bridge is
+open from the beginning.
 
-«Yo» muestra un único estado: tranquilo, ganas de mear o ganas de cagar.
-Cada botón aparece solo cuando hay ganas de esa acción. Si estás
-tranquilo no aparece ninguno; si toca cagar, solo aparece cagar. Mear llega
-entre 6 y 10 horas reales; cagar entre 8 y 16. Cada plazo se sortea una sola vez al
-crear la partida o terminar la acción correspondiente. El tiempo sigue con el
-navegador cerrado; las ganas no caducan y no se acumulan acciones atrasadas.
-Cagar tiene prioridad si vencen ambos plazos y al hacerlo se reinician ambos.
-Mear solo reinicia su propio plazo. No hay daños, penalizaciones ni accidentes automáticos.
+## Content belongs to places
 
-Las plantas de **culilimpia**, de hojas grandes y claras, están en el bosque y el
-islote. Tocarlas recoge una hoja; se pueden volver a recoger y acumular hasta 99.
-Sin hoja aparece la pista para buscarla. Una animación de cagar consume exactamente
-una al terminar. Mear no consume objetos. Ambas acciones inmovilizan brevemente al
-personaje; si recargas a mitad, no se gasta nada ni se reinician plazos.
-La caca permanece 24 horas y el charquito 5 minutos, solo en tu mundo local;
-máximo 48 marcas guardadas, sin colisiones ni eventos en la DB.
-Los plazos se inicializan al crear la partida y se conservan al recargar.
+- Stories: the night campfire by the lake, with 6–10 storytellers.
+- Jokes: the tavern.
+- Street expressions: the special book in the leaf refuge.
+- Art: the artists' clearing.
+- Shop: the workshop displays, laid out by the browser from public product data.
 
-### Probarlo ahora, sin esperar horas
+Other neighbours converse but do not distribute content outside its place.
+Their appearances represent public contributors, not people online right now.
+Animation and wandering are browser-local; there is no presence polling.
 
-```sh
-node scripts/preview-adventure-life.cjs poop
-```
+The current B presentation focuses on the activity without a separate page
+frame. Escape or a first click outside dismisses it; walking also dismisses it.
+Audio continues within its content area, and stops when the area is left.
+“Another” preserves existing content pulse selection and exploration.
 
-Abre Chrome en una sesión desechable con ganas de cagar, al lado de la planta.
-Prueba primero sin hoja; luego recoge alguna y abre «Yo». No modifica tu partida
-habitual ni el reloj del ordenador. Cierra esa ventana al terminar.
-También admite `pee`, `boat` (10 setines de prueba) y `cottage`.
-Requiere el mismo Chrome/Playwright que las pruebas. Solo permite GET a DDEV;
-es una herramienta manual de QA, no una función ni URL especial del juego.
+Activities use the documented JSON API, not website HTML or CSS. The completed
+[repository boundary](../../docs/REPOSITORY-BOUNDARY.md) keeps account, recording,
+purchase, admin and other full website workflows outside the engine.
 
-## Guardado
+## Sack and object rules
 
-`magikitos.adventure` en localStorage conserva escena, posición, entrada
-usada, banderas, cantidades de objetos, monedero de prueba, sonido, plazos de necesidades
-y marcas temporales. Se comparte entre los seis idiomas.
-Las escrituras se agrupan cada dos segundos si hay cambios, al interactuar y al salir.
-Si el almacenamiento está bloqueado, se puede jugar pero se informa de que no se
-ha guardado. El saco muestra ese estado.
+Ascua presents new objects overhead before they fly into the sack. The generic
+work gesture composes tools and ingredients separately from the character.
+Pushing uses a bent-knee effort pose and 42% of normal walking speed.
 
-Se reutiliza el device ID existente sin crear eventos de juego ni nuevas cuentas.
-**El progreso sigue siendo local al navegador**, no sincronizado con una cuenta.
-El monedero del juego está aislado y etiquetado como prueba: **no altera los setines
-de cuentas**, que actualmente son reputación. No se escribe en su ledger SQL.
-Las recompensas únicas no se repiten; ningún pasaje se descuenta si falla la carga
-del destino. No hay deudas ni saldo negativo.
+The fountain accepts one **local** setin when the purse has funds. A visible toss
+precedes the atomic debit. Small coins remain in its bowl across reloads, bounded
+to twelve visible keepsakes. Extra wishes still cost one; no new quest or account
+reward is implied. Cancelling by reloading before commit does not spend money.
 
-Un único formato de desarrollo, sin `version`, `revision`, claves anteriores ni
-compensaciones automáticas. La validación conserva solo campos y objetos actuales.
-Una posición inválida vuelve al inicio seguro de su escena; el resto del progreso
-válido se conserva. Cambiar el idioma no cambia la clave ni crea otra partida.
-La constante del registro se comparte con las pruebas, no se copia entre scripts.
+Select a held item, choose Use, then select its target. Escape or cancel returns
+it to the sack without consuming it. Pickups visibly fly to the sack; reduced
+motion uses a concise confirmation.
 
-Para probar de nuevo sin borrar tu partida habitual, usa un perfil de navegador
-aparte o una ventana privada. No hace falta borrar cookies ni la DB.
+Scene entities reference reusable behaviors. Conditions, dialogue selection,
+effects, one-use items, reusable tools, fares and rewards are data, not branches
+inside the movement engine. Effects are planned and validated before committing.
+See [rule grammar](REFACTOR.md), [catalogue](catalog.json) and `behaviors/`.
 
-## Backend y web normal
+## “Yo”, leaves and real-time needs
 
-La web publicada conserva navegación, tienda, formularios, SEO y URLs.
-El juego no carga fuera de sus seis rutas. Cuenta, grabaciones, aportaciones y
-checkout se abren en la web normal; el carrito se comparte.
-El concurso y el admin quedan fuera de esta adaptación.
+Only one need is active: comfortable, pee or poop. Buttons exist only when
+appropriate. Pee is sampled 6–10 real hours after the last relief; poop 8–16.
+Deadlines are sampled once, survive reload and continue while the browser is
+closed. Overdue needs do not stack or expire.
 
-`GET /api/world/content?lang=es&path=/cuentos` es un endpoint interno de fragmentos,
-no una URL navegable del juego. Valida una lista de rutas públicas de lectura,
-captura los controladores existentes y les aplica las vistas de aventura.
-No duplica consultas, búsqueda, permisos ni votos. La comprobación de zona vive
-en el cliente: es una regla de juego, no una barrera de seguridad para contenido público.
-Los formularios sensibles conservan sus rutas y controles de autorización originales.
+Poop takes precedence when both deadlines have passed and resets both after
+completion. Pee resets only its own deadline. There are no penalties or forced
+accidents.
 
-Los habitantes representan autores públicos, no usuarios conectados en tiempo real.
-Su avatar se asigna de forma determinista. Animación y paseos ocurren en el navegador;
-no hay sockets, polling ni peticiones por fotograma.
-No se inventan voces cuando falta un archivo local: se muestra el error de audio.
+Broad-leaf plants in the forest and island supply cleaning leaves, stackable to 99. Pooping requires and consumes one leaf when its animation finishes; peeing
+does not. Reloading midway commits neither consumption nor new deadlines.
+The temporary trace is private to the local game: poop lasts 24 hours, puddles
+5 minutes, with at most 48 saved traces. They have no collision or DB events.
 
-Aventura y sus endpoints llevan noindex y no-store; las páginas públicas conservan
-su HTML y metadatos originales. El juego requiere JavaScript; la web normal no.
-No hay duplicados de contenidos indexables en `/aventura`.
+## Persistence and ownership
 
-## Construir y comprobar
+`magikitos.adventure` in localStorage holds scene, position, entrance, flags,
+inventory, local purse, audio preference, deadlines, movable objects, fountain
+keepsakes and temporary traces.
+The six languages share the same origin and storage key.
+Writes are batched when state changes, on interaction, and when leaving.
 
-```sh
-bash scripts/build-world.sh
-node scripts/check-world.cjs
-node scripts/check-world-controls.cjs
-node scripts/check-world-life.cjs
-node scripts/check-world-experience.cjs
-node scripts/check-adventure-studio.cjs
-```
+Invalid positions fall back to the safe spawn for that scene while retaining
+valid progress. Storage failure is visible in the sack. Use an isolated browser
+profile to test from scratch, not deletion of the user's data.
 
-Build: PHP/GD y esbuild, o `WORLD_ESBUILD=/ruta/a/esbuild`.
-Hornea los paquetes de sprites, compila assets y comprueba contratos de vistas, módulos, idiomas,
-colisiones, reglas, puertas y progresión. No accede a servidores remotos.
+Device identity follows the site's existing identifier. It is not authentication
+or an authority to alter an account. Account creation uses the existing explicit,
+controlled identity action; opening “Yo” alone mints nothing.
 
-Navegador: Chrome y Playwright; `PLAYWRIGHT_PATH=/ruta/a/node_modules/playwright`
-y `WORLD_URL=https://magikitos.ddev.site` permiten configurar las rutas.
-El test rechaza hosts no locales y bloquea solicitudes externas y métodos no GET.
-Usa guardados de prueba en su propio contexto, nunca modifica tu perfil habitual.
-Guarda capturas en una carpeta temporal y recorre la apertura con clics reales,
-puertas en ambos sentidos, saco, puente libre, receta opcional, recompensa, barco,
-fallo de carga sin descuento, regreso pagado, receta y recompensa con eventos táctiles,
-fichas, audio, buscadores,
-regiones, carrito, seis idiomas, móvil táctil, tablet y escritorio.
+Progress and the test purse are **not account-synchronised**. The real website
+reputation balance and ledger are untouched. No movement/event collection or
+new state-write API is introduced.
 
-Inspección de solo lectura: `window.MagikitosAdventure.inspect()`.
-No hay API de depuración que permita teletransportar al jugador.
+## Scene and art contract
 
-Estas pruebas no certifican Safari/iOS físico ni pagos, correo, IA o envíos externos.
-Tampoco sustituyen una futura revisión de SEO previa a publicación.
+Scene coordinates and physical bodies are in tiles; native pixels use TILE=16.
+Rendering, picking, exact transformed bodies and movement use a shared geometry.
+A spatial index bounds collision work; architectural walls and solid vegetation
+use the same precise body system as furniture. Navigation stays conservative
+and physical substeps validate the actual route.
 
-## Arte y arquitectura
-
-293 sprites repartidos en 25 paquetes PNG independientes; unos 233 KB para la
-biblioteca completa, más metadatos. El islote no descarga su vegetación al entrar
-en el bosque. Cada paquete usa nombre con hash de contenido y caché propia.
-Protagonista exclusivo + cinco variantes de vecinos, ocho direcciones y cuatro poses.
-La voltereta del protagonista tiene otras cuatro poses por dirección, en su propio paquete.
-Las poses de necesidades, los nuevos objetos y la barca con pasajeros son otros
-paquetes independientes. Las rayitas del agua se animan suavemente sobre el terreno
-cacheado: no se repinta ni invalida todo el mapa en cada fotograma.
-No se descargan originales ni se escanean píxeles al arrancar. Caché LRU de 24 chunks,
-cuatro modelos de escenario y paquetes gráficos activos más una caché acotada.
-Los árboles y casas no se transparentan; el alfa de los sprites solo elimina su fondo.
-
-Diseño de juego: [JUEGO-AVENTURA.md](../../JUEGO-AVENTURA.md).  
-Contratos y extensión: [REFACTOR.md](REFACTOR.md).  
-Revisión vigente del núcleo: [CORE-REVIEW.md](CORE-REVIEW.md).  
-Arte: [ART.md](ART.md), [prompts](ART-PROMPTS.md).
-## Historial de verificaciones locales — 12/09/2026
-
-Build y contratos verificados. 74 recorridos seguros entre colocaciones, doce órdenes
-de recogida/encendido, premios únicos, pasajes y regreso repetible. Pruebas separadas
-de deduplicación, caché de sprites, fallo y reintento.
-Controles: ocho orientaciones a tres tasas de fotogramas, dobles pulsaciones,
-colisiones durante voltereta, umbrales laterales y las reglas de monedero entonces vigentes.
-
-Integración en Chrome: web normal separada; casa, salida, libro, barbacoa y entrega;
-viaje fallido sin descuento y reintento; ambas travesías pagadas; regiones, búsqueda,
-audio, fichas y carrito. Seis idiomas, escritorio, tablet y móvil vertical/horizontal.
-Eventos táctiles reales de Playwright: recoger, cocinar, regalar, persistir recompensa
-y subir al barco en ambos sentidos, con las llegadas visibles en pantalla.
-
-Analytics local antes y después: 363.349 registros, sin nuevos eventos de juego.
-No se han consultado servicios de producción ni importado DB/medios.
-No se han ejecutado pagos, envíos ni escrituras de saldo de cuenta.
-
-Los dos archivos públicos del atlas monolítico se retiraron; copia recuperable de
-esta sesión en `/tmp/magikitos-retired-atlas.SGCANp`. Los originales artísticos
-permanecen en `data/aventura/art/`; el build usa solo los módulos actuales.
-
-### Repaso de controles, recogida y barqueros
-
-`check-world-controls.cjs` comprueba Enter/Escape/Espacio (incluido un diálogo
-de dos páginas y mantener tecla), las ocho volteretas con teclado, doble clic y
-doble toque en el mismo navegador, salida lateral de todos los interiores —también
-el taller dimensionado con los productos locales— y salida durante voltereta.
-Verifica al barquero, la pista anterior a la brocheta, que Enter no compre aunque el
-botón esté enfocado, y la ida/vuelta con 10 → 5 → 0 sin una tarea intermedia.
-También revisa la animación y limpieza de recogida, el saco, movimiento reducido
-y cuadros a 1440×960, 768×1024, 390×844 y 844×390. Solo GET a DDEV.
-
-Las cinco versiones gráficas de edificios sustituidas (10 PNG/JSON) se movieron a
-`/tmp/magikitos-door-packs.DA7KYv`. Sus originales siguen en el proyecto.
-
-### Travesía, casita y necesidades — 13/09/2026
-
-En esa pasada: 78 rutas transitables, seis idiomas y suite pura adicional de
-reloj, inventario, trazas, plazos simultáneos, cosecha repetible y secuencias finitas.
-`check-world-life.cjs` comprueba ambos alivios con poses visibles, hoja consumida
-al finalizar, recarga a mitad sin gasto, recogida del mechero sobre la mesa,
-agua, viaje bloqueado, 10 → 5 → 0, interrupción sin cobro y movimiento reducido.
-Recorre escritorio 1440×960, móvil 390×844 y tablet 820×1180 con capturas para revisión.
-También prueba «Yo» y la respuesta sin hoja mediante eventos táctiles en los seis
-idiomas a 320×568, sin desbordamiento horizontal y conservando los mismos plazos.
-Las necesidades se prueban con fechas de partida preparadas, no esperando 16 horas
-ni cambiando el reloj del sistema. Todo en contextos aislados; no se ha tocado tu partida.
-
-Tras el ajuste visual se retiraron cuatro derivados PNG/JSON obsoletos de esta
-pasada (no originales). Copia recuperable:
-`/var/folders/t3/5frkk18s0jg3tmsx2rx10w280000gn/T/magikitos-life-retired-SpChZx`.
+Source scenes, behavior modules, asset definitions and locales stay independent.
+The Studio's one working version is not the game source. It exports reviewed
+diffs and retains a private recovery history; it has no live apply/deploy endpoint.
+Read [Studio](../../tools/adventure-studio/README.md) and [art](ART.md).

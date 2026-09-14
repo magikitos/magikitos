@@ -18,6 +18,7 @@ El concurso y el admin están fuera de esta adaptación.
 | assets/*.json | Un módulo de arte por personaje, edificio o familia de elementos |
 | locales/*.json | Un catálogo completo por idioma |
 | rules.js | Evaluación pura de condiciones y propuesta atómica de estado |
+| timers.js | Plazos reales declarativos por nombre; validación, caducidad y efectos atómicos |
 | economy.js | Monedero de prueba, tarifas, límites y recompensas únicas |
 | scenes.js | Preparar escenario y recursos antes de confirmar un viaje |
 | sprites.js | Manifiesto, cargas deduplicadas, caché acotada y dibujo de sprites/iconos |
@@ -45,9 +46,8 @@ El concurso y el admin están fuera de esta adaptación.
 | pickups.js | Animación de deltas ya confirmados hacia el saco, sin modificar estado |
 | dialogue.js | Interpolación declarativa de precios y premios |
 | game.js | Coordinación, sin decisiones por ID de misión |
-| controllers-world.php / view-presentation.php | Adaptación de lectura del backend público |
-| adventure-presentation.php / views/adventure/experiences | Presentación nativa del contexto público; sin consultas paralelas |
-| tools/adventure-studio | Composición local, borradores, snapshots y exportaciones; nunca aplicación en vivo |
+| api.js / API documentada | DTO JSON del backend independiente; sin capturar HTML ni CSS de la web |
+| tools/adventure-studio | Composición local, una única propuesta, snapshots y exportaciones; nunca aplicación en vivo |
 
 ## Una aventura es un dato, no una rama del motor
 
@@ -68,6 +68,8 @@ Acción por defecto: `interact`; también puede ser una lista como `["cook","use
 
 - `when.flags`: igualdad de booleanos.
 - `when.items`: cantidades mínimas.
+- `when.maxItems`: cantidades máximas (cero significa no llevar ese objeto).
+- `when.timers`: booleano: el plazo está activo (`true`) o ya venció/no existe (`false`).
 - `when.using`: objetos aceptados al usar algo del saco.
 - `when.funds`: referencia a tarifa en el JSON fuente; el compilador la resuelve
   a un mínimo numérico, utilizable por cualquier evaluador de condiciones.
@@ -77,7 +79,15 @@ Acción por defecto: `interact`; también puede ser una lista como `["cook","use
 - `actions`: botones al final del diálogo. Una acción con `fare` muestra el precio
   desde el catálogo; no repite importes en seis traducciones.
 
-Efectos de estado: `flag`, `item`, `reward`, `spend`.
+Efectos de estado: `flag`, `item`, `reward`, `spend`, `timer`.
+El efecto `timer` referencia `catalog.timers[nombre].hours`; guarda una fecha absoluta
+por nombre, nunca un historial. El evaluador permite `context.now` en pruebas.
+`expireTimers` poda plazos vencidos en el ciclo del juego, refresca colisiones/UI y
+marca el guardado: no hay polling de servidor ni un intervalo por personaje.
+Brizno usa `picnicFed` para recordar la primera entrega y `timers.picnic` para la
+saciedad actual. Son estados distintos: volver a tener hambre no trae a los humanos.
+Recoger/cocinar consulta cantidades, no banderas permanentes de ingrediente.
+La segunda entrega reinicia cinco horas sin volver a cobrar la recompensa inicial.
 Efectos de presentación: `dialogue`, `sound`, `travel`, `content`.
 
 ```json
@@ -102,12 +112,13 @@ La interacción queda bloqueada durante esa preparación. Un error conserva inve
 saldo y posición; se permite reintentar. No se cobra antes de saber que se puede entrar.
 Cambiar de escena conserva el punto de regreso por la misma puerta.
 `travel.presentation` referencia `catalog.transports`; no se decide por ID de misión.
-La barca usa una secuencia finita de RAF, con pasajeros integrados en cuatro poses
-originales de remo, cámara de travesía y sin actor jugable separado dentro del casco.
+La barca usa una secuencia finita de RAF y el mismo casco que el embarcadero.
+`boat-art.js` dibuja a ambos personajes en asientos definidos por datos, con recorte
+bajo la borda; no hay un actor jugable independiente dentro del casco.
 Movimiento, voltereta, acciones y saco quedan bloqueados hasta terminar.
 Recargar a mitad no cobra: el plan no se ha confirmado. La pestaña oculta suspende
 la presentación; no hace avanzar un barco invisible mediante timers.
-Las anclas por pose fijan la línea de flotación aunque el remo baje más en un frame.
+El ancla del casco fija la línea de flotación durante toda la presentación.
 No se guarda una secuencia incompleta.
 
 ## Monedero local, no reputación de la web
@@ -157,8 +168,8 @@ de QA usa un perfil desechable con un guardado preparado.
 
 ## Paquetes gráficos y memoria
 
-Cada JSON de `assets/` produce un PNG y metadatos independientes. Hay un archivo por
-edificio y por personaje; las animaciones se expanden desde una plantilla de cinco
+Cada JSON de `assets/` produce un PNG y metadatos independientes. Hay paquetes por
+familia de elementos y por personaje; las animaciones se expanden desde una plantilla de cinco
 vistas y cuatro poses. Añadir otra casa no obliga a editar un atlas monolítico.
 
 El manifiesto asocia nombres de sprite con paquetes. El preparador deriva necesidades
@@ -222,7 +233,7 @@ las colocaciones importantes se excluyen de la vegetación aleatoria.
 
 `SAVE_KEY` se declara solo en `save.js`: `magikitos.adventure`. Las pruebas y
 herramientas de QA importan esa constante. El DTO actual contiene escena, posición,
-entrada, banderas, inventario, monedero, música, necesidades y trazas.
+entrada, banderas, inventario, monedero, música, necesidades, trazas y posiciones de objetos.
 No hay campo de versión, lista de claves anteriores ni reposición de objetos de
 misiones retiradas. `cleanSave` es validación de datos no fiables, no una migración.
 Si la posición ya no es válida, se usa el punto inicial seguro de su escena.
@@ -253,7 +264,7 @@ No introducir un lenguaje de scripting general sin una mecánica concreta que lo
 
 ## Contenido público y ciclo de vida
 
-Cuentos junto a la hoguera, chistes en la taberna, expresiones en el libro humano.
+Cuentos junto a la hoguera, chistes en la taberna, expresiones en el libro del refugio de hojas.
 Los demás vecinos solo conversan. Autores representados de forma diferida, sin sockets
 ni polling. Selección del backend público mediante content pulse, sin duplicar consultas.
 
@@ -299,8 +310,8 @@ su reproducción. El minirreproductor aparece al salir al mundo. Las áreas de c
 `focus` por ID de entidad; los expositores enfocan su producto.
 
 El studio reutiliza Renderer, World, SpriteLibrary y geometría, sin instanciar Adventure,
-sin jugador, device ID, cuenta, eventos ni almacenamiento de partida. Sus borradores viven
-fuera de public y no se aplican automáticamente. El contrato de diff valida antes/después y
+sin jugador, device ID, cuenta, eventos ni almacenamiento de partida. Su única propuesta vive
+fuera de public y no se aplica automáticamente. El contrato de diff valida antes/después y
 la base por hash; el revisor es solo lectura. Véase [su documentación](../../tools/adventure-studio/README.md).
 
 La colocación explícita opcional `scene.scenery` evita regenerar todo el bosque al recolocar
@@ -308,3 +319,34 @@ entidades en una propuesta del studio. Sin ella, se mantiene el generador actual
 Dibujo, hit-test y colisiones usan el mismo ancla, reflejo, escala y giro; el editor solo ofrece
 transformaciones compatibles. Los chunks se alinean en píxeles de dispositivo para no abrir
 costuras al ampliar. El juego conserva su caché de 24 chunks; el editor admite 128 al ver el mapa completo.
+
+## Woodland family and movable-object contract (current)
+
+See [WOODLAND-KIT.md](../../docs/WOODLAND-KIT.md) for the reviewed art pipeline,
+family/variant grammar, source metadata, crops, organic room footprints and tests.
+`elements.js` resolves visuals for both game and Studio; `movables.js` owns pushing,
+position validation and local persistence; `obstacles.js` owns contact release and
+small-prop edge assistance. `room-shape.js` defines the shared physical/visual floor.
+`ambient-actors.js` adds restrained native gestures without moving physical bodies.
+No mission-ID branch, DB write or generic scripting language was added.
+# Ascua additions · current contract
+
+Presentation remains separate from state. A rule may emit a `presentation` effect
+with `sequence: work|toss|discover`, duration, props/result or sprite. The generic
+`Presentation` module stages art, plays the foreground `Sequence`, and releases its
+temporary pins. It cannot mutate inventory or wallet. `Game.interact` commits the
+pure reaction plan only after preparation/animation; discovery is derived from
+positive inventory deltas. Recipe-specific branches do not belong to the renderer.
+
+`keepsake` effects increment a scene/entity counter only for authored containers.
+`cleanKeepsakes` bounds and validates saved counters; deterministic points place
+small sprites inside the declared bowl ellipse. Fountain `enabledWhen` is a UI
+affordance only: rules independently validate funds before spending. The existing
+local wallet remains the only source of game money; no server events or account
+ledger writes are added.
+
+Texture `pixelRatio: 2` is independent of native/logical size. Rendering and
+Studio crops share this contract. `ink` is the visible logical rectangle used for
+icons/portraits. Explicit actor frame definitions replace implicit mirrored rows.
+Pushing resolves actual movement at `PUSH_SPEED_RATIO`, including saved object
+coordinates and collision substeps; presentation never moves a physical object.

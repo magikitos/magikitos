@@ -1,6 +1,20 @@
 # Original adventure artwork
 
-## Current: modular harbor, picnic, island, rolling, needs and doors (13 September 2026)
+## Current: woodland family collection (14 September 2026)
+
+71 new sprites plus an interior context illustration, generated with the built-in
+image tool, then locally cut out with the owner's explicit permission.
+Masters and prompts: [woodland-kit](art/woodland-kit/prompts.json).
+Full source/pack/crop workflow, native-resolution policy and review:
+[WOODLAND-KIT.md](../../docs/WOODLAND-KIT.md).
+
+The collection replaces house, tree-base, wild mushroom, furniture, bridge, boat
+and knife artwork while retaining the protagonist. 35 family packs carry the
+new variants. The full current runtime library is 351 sprites in 58 packs, about
+763 KB of PNG; scene loading downloads a subset. The old occupied-ferry pack and
+superseded frame definitions were retired; original art was preserved.
+
+## Historical: modular harbor, picnic, island, rolling, needs and doors (13 September 2026)
 
 Built-in imagegen generated four original sheets, retained in `art/generated/`:
 `harbor.png`, `picnic-neighbor.png`, `shore-garden.png`, `skewer-items.png`.
@@ -35,7 +49,7 @@ Source sheets are separate from runtime assets. `assets/*.json` defines independ
 modules; each actor and each building has its own definition. The build expands
 animation templates, crops, fits, quantizes and packs each module separately.
 
-Runtime: **293 sprites, 25 independent packages, 232,440 PNG bytes in total**, plus
+Runtime: **301 sprites, 26 independent packages, 244,971 PNG bytes in total**, plus
 metadata. The whole library is not fetched for every scene. A manifest points to
 content-hashed PNG/JSON pairs in `public/assets/aventura/packs/`.
 There is no monolithic runtime atlas and no image scanning at startup.
@@ -48,6 +62,32 @@ php scripts/bake-adventure-atlas.php
 The generated backgrounds were prepared using the previously authorized local
 PHP/GD cutout pipeline. Originals remain untouched. Binary alpha removes backgrounds;
 trees and houses do not fade when the player walks behind them.
+
+## Native crops and Studio
+
+The following paragraph describes the earlier interior pass; its sprites are now
+replaced by the woodland family collection. The crop contract below is current.
+
+The `interior-details` module adds eight original objects: cupboard, stove,
+upstairs, arched window, dresser, armchair, downstairs and kitchen rack.
+The full brief and the separate environment study live in
+[art direction](../../docs/art-direction/PROMPTS.md). The study is concept art;
+the furniture is integrated into the house, cottage and new attic.
+
+The offline packer removes isolated source-cell fragments **before fitting**
+so a speck beside a bed or fountain cannot shrink and offset its actual artwork.
+A frame definition may then specify `crop: [x, y, width, height]` in its original
+native `size` canvas. The packer tightly trims the retained visible pixels and
+adjusts the anchor, without changing their world position.
+
+Frame metadata includes `nativeSize`, `trim` and `crop` for reconstruction.
+The foot anchor may lie outside a cropped frame; this is intentional.
+Animated people retain fixed native canvases for consistent poses.
+Collision bodies are independent scene data, never inferred from opacity.
+
+The Studio builds separate uncropped native previews for editing. Its image
+inspection runs only in the editor; the game downloads already-baked art.
+Original source images are never overwritten by cropping.
 
 ## Historical art passes
 
@@ -101,6 +141,7 @@ No original sheets or runtime pixel scans. Alpha removes sprite backgrounds only
 trees and buildings no longer fade when the player walks behind them.
 
 Retained source artwork:
+
 - `art/forest.png`: six forest sprites, build input only.
 - `art/buildings.png` and `art/props.png`: buildings, furniture and interaction props.
 - `art/duende-prototype.png` and `art/duendes.png`: historical
@@ -124,3 +165,10 @@ Use case: stylized-concept. Asset type: production sprite atlas for an original 
 ## Character prompt
 
 Use case: stylized-concept. Asset type: original playable character sprite sheet, transparent PNG 1024x1024. A beautifully designed tiny friendly woodland duende for a cozy top-down 16-bit pixel adventure. Exact 4-column by 4-row grid, sixteen isolated full-body sprites, each centered in its 256x256 cell with feet on the same baseline and consistent head and body sizes. COLUMN 1 faces camera (south), COLUMN 2 faces right (east), COLUMN 3 faces away (north), COLUMN 4 faces left (west). ROW 1 idle standing, ROW 2 walking left leg forward with opposite arm swing, ROW 3 neutral walking passing pose, ROW 4 walking right leg forward with opposite arm swing. In all frames the same character: pointed elf ears extending sideways, soft round cheeky smiling face, warm peach skin, a tousled curved cinnamon auburn hair tuft with golden tips, NO hat, NO hood, NO weapons, teal short coat with little brass buttons, mustard neckerchief, brown satchel on back, plum trousers, little dark brown walking boots. Head roughly half the character height, expressive dark brown eyes, rounded silhouette, slim little body. Art direction: meticulously hand-pixelled GBA-era RPG sprite quality, 24px wide x32px high logical pixel character, crisp stepped pixels enlarged to the sheet, rich but tightly controlled 24-color palette, warm outline rather than solid black, charming clean shading, lit from upper left. View is slightly overhead 3/4 top-down adventure game perspective, not flat frontal portrait. TRUE TRANSPARENT BACKGROUND, no floor, no ground, no shadow, no scenery, no grid lines, no text. No resemblance to any existing named character, completely original Magikitos design. Must be usable directly as an animation atlas.
+# Current policy · 14 September 2026
+
+The active contract is [2× integrated definition and selective motion](../../docs/art-direction/DEFINITION-MOTION.md)
+and [Ascua / eleven neighbors / compact reusable poses](../../docs/art-direction/DUENDES.md).
+These supersede the earlier size, character counts and prototype prompts retained
+below as provenance. All characters now wear pointed hats. The current library is
+619 frames in 73 lazy packages; masters are not runtime assets.

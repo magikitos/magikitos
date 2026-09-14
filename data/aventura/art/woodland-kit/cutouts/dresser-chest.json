@@ -1,0 +1,12 @@
+{
+    "source": "dresser-chest.png",
+    "sourceHash": "fbeceef276b92c7709d668de987d578506121fb847c6786c87a83063a42f687e",
+    "bounds": [
+        314,
+        115,
+        836,
+        844
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

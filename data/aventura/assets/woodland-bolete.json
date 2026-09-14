@@ -1,0 +1,44 @@
+{
+  "frames": {
+    "giant-bolete": {
+      "source": "data/aventura/art/woodland-kit/cutouts/mushroom-bolete-round.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        41,
+        40
+      ],
+      "fit": true,
+      "anchor": [
+        21,
+        36
+      ]
+    },
+    "mushroom-bolete-leaning": {
+      "source": "data/aventura/art/woodland-kit/cutouts/mushroom-bolete-leaning.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        41,
+        40
+      ],
+      "fit": true,
+      "anchor": [
+        21,
+        36
+      ]
+    }
+  }
+}

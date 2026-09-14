@@ -1,0 +1,64 @@
+{
+  "frames": {
+    "picnic-smoker": {
+      "source": "data/aventura/art/picnic-polish/cutouts/picnic-smoker-poses.png",
+      "rect": [40, 0, 600, 590],
+      "size": [114, 112],
+      "anchor": [52, 104],
+      "preserveCanvas": true
+    },
+    "picnic-smoker-raise": {
+      "source": "data/aventura/art/picnic-polish/cutouts/picnic-smoker-poses.png",
+      "rect": [640, 0, 600, 590],
+      "size": [114, 112],
+      "anchor": [52, 104],
+      "preserveCanvas": true
+    },
+    "picnic-smoker-puff": {
+      "source": "data/aventura/art/picnic-polish/cutouts/picnic-smoker-poses.png",
+      "rect": [40, 590, 600, 590],
+      "size": [114, 112],
+      "anchor": [52, 104],
+      "preserveCanvas": true
+    },
+    "picnic-smoker-lower": {
+      "source": "data/aventura/art/picnic-polish/cutouts/picnic-smoker-poses.png",
+      "rect": [640, 590, 600, 590],
+      "size": [114, 112],
+      "anchor": [52, 104],
+      "preserveCanvas": true
+    },
+    "picnic-human-friend": {
+      "source": "data/aventura/art/picnic-polish/cutouts/picnic-friend-poses.png",
+      "grid": [2, 2],
+      "cell": [0, 0],
+      "size": [120, 120],
+      "anchor": [57, 109],
+      "preserveCanvas": true
+    },
+    "picnic-friend-talk": {
+      "source": "data/aventura/art/picnic-polish/cutouts/picnic-friend-poses.png",
+      "grid": [2, 2],
+      "cell": [1, 0],
+      "size": [120, 120],
+      "anchor": [57, 109],
+      "preserveCanvas": true
+    },
+    "picnic-friend-sip": {
+      "source": "data/aventura/art/picnic-polish/cutouts/picnic-friend-poses.png",
+      "grid": [2, 2],
+      "cell": [0, 1],
+      "size": [120, 120],
+      "anchor": [57, 109],
+      "preserveCanvas": true
+    },
+    "picnic-friend-smile": {
+      "source": "data/aventura/art/picnic-polish/cutouts/picnic-friend-poses.png",
+      "grid": [2, 2],
+      "cell": [1, 1],
+      "size": [120, 120],
+      "anchor": [57, 109],
+      "preserveCanvas": true
+    }
+  }
+}

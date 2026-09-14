@@ -1,0 +1,44 @@
+{
+  "frames": {
+    "dresser": {
+      "source": "data/aventura/art/woodland-kit/cutouts/dresser-twig.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        68,
+        50
+      ],
+      "fit": true,
+      "anchor": [
+        34,
+        44
+      ]
+    },
+    "dresser-chest": {
+      "source": "data/aventura/art/woodland-kit/cutouts/dresser-chest.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        68,
+        50
+      ],
+      "fit": true,
+      "anchor": [
+        34,
+        46
+      ]
+    }
+  }
+}

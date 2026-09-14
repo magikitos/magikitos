@@ -1,0 +1,44 @@
+{
+  "frames": {
+    "ancient-root": {
+      "source": "data/aventura/art/woodland-kit/cutouts/tree-oak-grounded.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        368,
+        440
+      ],
+      "fit": true,
+      "anchor": [
+        184,
+        417
+      ]
+    },
+    "forest-birch": {
+      "source": "data/aventura/art/woodland-kit/cutouts/tree-birch-grounded.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        302,
+        428
+      ],
+      "fit": true,
+      "anchor": [
+        151,
+        408
+      ]
+    }
+  }
+}

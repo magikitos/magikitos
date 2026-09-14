@@ -28,34 +28,6 @@
         345
       ]
     },
-    "bedside-table": {
-      "source": "data/aventura/art/needs-props-cutout.png",
-      "size": [
-        50,
-        40
-      ],
-      "fit": true,
-      "rect": [
-        1040,
-        120,
-        440,
-        405
-      ]
-    },
-    "flower-vase": {
-      "source": "data/aventura/art/needs-props-cutout.png",
-      "size": [
-        14,
-        22
-      ],
-      "fit": true,
-      "rect": [
-        140,
-        525,
-        300,
-        440
-      ]
-    },
     "poop": {
       "source": "data/aventura/art/needs-props-cutout.png",
       "size": [

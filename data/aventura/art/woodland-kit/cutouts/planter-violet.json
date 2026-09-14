@@ -1,0 +1,12 @@
+{
+    "source": "planter-violet.png",
+    "sourceHash": "c7c62f3550f28f865e62df23453b0c07bacde7bb5d1bfc874b501a7bddd70a72",
+    "bounds": [
+        223,
+        179,
+        764,
+        940
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

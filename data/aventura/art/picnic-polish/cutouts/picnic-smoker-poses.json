@@ -1,0 +1,12 @@
+{
+    "source": "picnic-smoker-poses.png",
+    "sourceHash": "cd72b0d5c1d3d7be1bb3abd24f6dd82a3f8cb82ddff5536323aa6abb37f6343a",
+    "bounds": [
+        113,
+        32,
+        993,
+        1106
+    ],
+    "matte": "magenta-or-original-alpha",
+    "fringePixels": 2
+}

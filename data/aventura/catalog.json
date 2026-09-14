@@ -8,13 +8,14 @@
     "doorKnocked",
     "twigFound",
     "skewerCooked",
-    "picnicFed"
+    "picnicFed",
+    "knifeFound"
   ],
   "items": {
     "mushroom": {
       "name": "mushroomName",
       "description": "mushroomDescription",
-      "sprite": "mushroom",
+      "sprite": "giant-bolete",
       "max": 1,
       "usable": true,
       "reusable": false
@@ -58,9 +59,17 @@
       "max": 99,
       "usable": false,
       "reusable": false
+    },
+    "knife": {
+      "name": "knifeName",
+      "description": "knifeDescription",
+      "sprite": "picnic-knife",
+      "max": 1,
+      "usable": true,
+      "reusable": true
     }
   },
-  "avatarVariants": 5,
+  "avatarVariants": 11,
   "contentRooms": {
     "stories": {
       "scene": "overworld",
@@ -70,8 +79,7 @@
         10
       ],
       "kinds": [
-        "cuento",
-        "taramundi"
+        "cuento"
       ],
       "focus": "story-fire"
     },
@@ -108,7 +116,8 @@
     "currency": "setines",
     "maxBalance": 9999,
     "fares": {
-      "lake": 5
+      "lake": 5,
+      "wish": 1
     },
     "rewards": {
       "picnic": {
@@ -120,7 +129,8 @@
         "once": false,
         "fare": "lake"
       }
-    }
+    },
+    "sprite": "setin"
   },
   "dialogueTokens": {
     "price": {
@@ -155,13 +165,34 @@
   "transports": {
     "ferry": {
       "duration": 4.6,
-      "spritePrefix": "ferry-aboard-",
-      "frames": 4,
       "shoreSprites": [
         "fern",
         "berries",
         "rocks"
+      ],
+      "sprite": "ferry",
+      "lip": 0.76,
+      "passengers": [
+        {
+          "sprite": "person-5-down-right",
+          "seat": [
+            0.31,
+            0.74
+          ]
+        },
+        {
+          "sprite": "person-0-down-left",
+          "seat": [
+            0.69,
+            0.74
+          ]
+        }
       ]
+    }
+  },
+  "timers": {
+    "picnic": {
+      "hours": 5
     }
   }
 }

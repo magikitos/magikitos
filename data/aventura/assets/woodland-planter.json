@@ -1,0 +1,44 @@
+{
+  "frames": {
+    "flower-pot": {
+      "source": "data/aventura/art/woodland-kit/cutouts/planter-daisy.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        40,
+        44
+      ],
+      "fit": true,
+      "anchor": [
+        20,
+        40
+      ]
+    },
+    "planter-violet": {
+      "source": "data/aventura/art/woodland-kit/cutouts/planter-violet.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        40,
+        44
+      ],
+      "fit": true,
+      "anchor": [
+        20,
+        40
+      ]
+    }
+  }
+}

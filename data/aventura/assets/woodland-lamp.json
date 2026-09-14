@@ -1,0 +1,44 @@
+{
+  "frames": {
+    "lantern": {
+      "source": "data/aventura/art/woodland-kit/cutouts/lamp-acorn.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        32,
+        62
+      ],
+      "fit": true,
+      "anchor": [
+        16,
+        57
+      ]
+    },
+    "lamp-seed": {
+      "source": "data/aventura/art/woodland-kit/cutouts/lamp-seed.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        32,
+        62
+      ],
+      "fit": true,
+      "anchor": [
+        16,
+        58
+      ]
+    }
+  }
+}

@@ -1,11 +1,12 @@
 "use strict";
-/** Loopback-only studio. The only writable targets are its own drafts and snapshot archive. */
+/** Loopback-only studio. The only writable targets are its own workspace and recovery history. */
 const http = require("node:http"),
   fs = require("node:fs"),
   path = require("node:path"),
   crypto = require("node:crypto");
-const { snapshot, hash } = require("./snapshot.cjs"),
-  { validateChanges, diff } = require("./draft"),
+const { experimentRoutes } = require("./experiments/routes.cjs");
+const { snapshot } = require("./snapshot.cjs"),
+  { WorkspaceStore } = require("./workspace.cjs"),
   { build } = require("./build.cjs");
 const ROOT = path.resolve(__dirname, "../.."),
   LOCAL = process.env.STUDIO_DATA_DIR
@@ -14,19 +15,37 @@ const ROOT = path.resolve(__dirname, "../.."),
 const PORT = Number(process.env.STUDIO_PORT || 47832),
   ORIGIN = "http://127.0.0.1:" + PORT,
   TOKEN = crypto.randomBytes(24).toString("hex");
-const DRAFTS = path.join(LOCAL, "drafts"),
-  SNAPSHOTS = path.join(LOCAL, "snapshots");
-for (const dir of [DRAFTS, SNAPSHOTS]) fs.mkdirSync(dir, { recursive: true });
+const store = new WorkspaceStore(LOCAL);
+require("node:child_process").execFileSync(
+  process.env.STUDIO_PHP || "php",
+  [path.join(ROOT, "scripts/bake-adventure-atlas.php"), "--studio"],
+  { stdio: "inherit" },
+);
 build(ROOT, path.join(LOCAL, "build"));
+require("node:child_process").execFileSync(
+  process.env.STUDIO_PHP || "php",
+  [
+    path.join(__dirname, "experiments/forest-scale/bake.php"),
+    path.join(LOCAL, "experiments/forest-scale"),
+  ],
+  { stdio: "inherit" },
+);
+require("./experiments/camera/build.cjs").buildCamera(
+  ROOT,
+  path.join(LOCAL, "experiments/camera"),
+);
+require("./experiments/definition-motion/build.cjs").buildDefinition(
+  ROOT,
+  path.join(LOCAL, "experiments/definition-motion"),
+);
+require("./experiments/duende-cast/build.cjs").buildDuendes(
+  ROOT,
+  path.join(LOCAL, "experiments/duende-cast"),
+);
 let current;
 function refresh() {
   current = snapshot(ROOT);
-  const archived = path.join(SNAPSHOTS, current.baseHash + ".json");
-  if (!fs.existsSync(archived))
-    fs.writeFileSync(archived, JSON.stringify(current), {
-      flag: "wx",
-      mode: 0o600,
-    });
+  store.archive(current);
 }
 refresh();
 const headers = {
@@ -43,25 +62,12 @@ const send = (res, status, data) => {
   });
   res.end(JSON.stringify(data));
 };
-const validId = (id) =>
-  typeof id === "string" && /^[a-z0-9][a-z0-9-]{0,70}$/.test(id);
-function saved(id) {
-  if (!validId(id)) throw Error("Nombre inválido");
-  const file = path.join(DRAFTS, id + ".json");
-  return fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, "utf8")) : null;
-}
-function base(hashValue) {
-  if (!/^[a-f0-9]{64}$/.test(hashValue)) throw Error("Base inválida");
-  return JSON.parse(
-    fs.readFileSync(path.join(SNAPSHOTS, hashValue + ".json"), "utf8"),
-  );
-}
 async function body(req) {
   let size = 0,
     chunks = [];
   for await (const chunk of req) {
     size += chunk.length;
-    if (size > 1024 * 1024) throw Error("Borrador demasiado grande");
+    if (size > 1024 * 1024) throw Error("Ajustes demasiado grandes");
     chunks.push(chunk);
   }
   return JSON.parse(Buffer.concat(chunks).toString());
@@ -125,7 +131,7 @@ const server = http.createServer(async (req, res) => {
       send(res, 403, { error: "Origen no permitido" });
       return;
     }
-    if (req.method === "POST" && p === "/api/drafts") {
+    if (req.method === "POST" && p === "/api/workspace") {
       if (
         req.headers.origin !== ORIGIN ||
         req.headers["x-studio-token"] !== TOKEN ||
@@ -134,42 +140,9 @@ const server = http.createServer(async (req, res) => {
         send(res, 403, { error: "Solicitud de studio requerida" });
         return;
       }
-      const input = await body(req);
-      if (!validId(input.id)) throw Error("Nombre inválido");
-      const previous = saved(input.id);
-      if ((previous?.revision ?? 0) !== input.revision) {
-        send(res, 409, {
-          error:
-            "Otra pestaña ha guardado este borrador. Recarga o guárdalo con otro nombre.",
-        });
-        return;
-      }
-      const source = base(input.baseHash),
-        changes = validateChanges(source, input.changes);
-      const draft = {
-        id: input.id,
-        name: String(input.name || input.id).slice(0, 100),
-        baseHash: source.baseHash,
-        revision: (previous?.revision || 0) + 1,
-        updatedAt: new Date().toISOString(),
-        changes,
-      };
-      const target = path.join(DRAFTS, input.id + ".json"),
-        temp = target + "." + crypto.randomBytes(6).toString("hex") + ".tmp";
-      fs.writeFileSync(temp, JSON.stringify(draft, null, 2) + "\n", {
-        flag: "wx",
-        mode: 0o600,
-      });
-      if (previous) {
-        const history = path.join(DRAFTS, input.id + "-history");
-        fs.mkdirSync(history, { recursive: true });
-        fs.copyFileSync(
-          target,
-          path.join(history, previous.revision + ".json"),
-        );
-      }
-      fs.renameSync(temp, target);
-      send(res, 200, draft);
+      refresh();
+      store.load(current);
+      send(res, 200, store.save(await body(req)));
       return;
     }
     if (!["GET", "HEAD"].includes(req.method)) {
@@ -178,47 +151,27 @@ const server = http.createServer(async (req, res) => {
     }
     if (p === "/api/context") {
       refresh();
-      send(res, 200, { snapshot: current, token: TOKEN });
+      send(res, 200, { ...store.load(current), token: TOKEN });
       return;
     }
-    if (p === "/api/drafts") {
-      send(res, 200, {
-        drafts: fs
-          .readdirSync(DRAFTS)
-          .filter((f) => f.endsWith(".json"))
-          .map((f) => saved(f.slice(0, -5)))
-          .map(({ id, name, updatedAt, baseHash, revision }) => ({
-            id,
-            name,
-            updatedAt,
-            baseHash,
-            revision,
-          })),
-      });
+    if (p === "/api/workspace") {
+      refresh();
+      send(res, 200, store.load(current));
       return;
     }
-    if (p.startsWith("/api/drafts/")) {
-      const id = p.slice("/api/drafts/".length),
-        draft = saved(id);
-      if (!draft) {
-        send(res, 404, { error: "No existe el borrador" });
-        return;
-      }
-      const source = base(draft.baseHash);
-      if (url.searchParams.has("export")) {
-        send(res, 200, {
-          purpose: "review-only",
-          baseHash: source.baseHash,
-          draft: draft.name,
-          scenes: diff(source, draft.changes),
-        });
-        return;
-      }
-      send(res, 200, {
-        draft,
-        snapshot: source,
-        stale: source.baseHash !== current.baseHash,
-      });
+    if (p === "/api/diff") {
+      refresh();
+      const loaded = store.load(current);
+      send(res, 200, { ...store.diff(), conflicts: loaded.conflicts });
+      return;
+    }
+    if (p.startsWith("/studio-art/")) {
+      file(
+        res,
+        req,
+        path.join(ROOT, ".local/adventure-studio/art"),
+        p.slice(12),
+      );
       return;
     }
     if (p === "/") {
@@ -234,34 +187,31 @@ const server = http.createServer(async (req, res) => {
       return;
     }
     if (p.startsWith("/assets/aventura/")) {
-      file(res, req, path.join(ROOT, "public/assets/aventura"), p.slice(17));
+      file(res, req, path.join(ROOT, "public/assets/aventura"), p.slice("/assets/aventura/".length));
       return;
     }
-    if (p.startsWith("/ui/")) {
-      file(
-        res,
-        req,
-        path.join(LOCAL, "ui-lab/public"),
-        p.slice(4) || "index.html",
-      );
+    if (p === "/ui/" || p === "/ui") {
+      res.writeHead(302, {
+        ...headers,
+        Location: "/#experiments/conversation",
+      });
+      res.end();
       return;
     }
-    if (p.startsWith("/sprites/")) {
-      file(res, req, path.join(LOCAL, "ui-lab/public/sprites"), p.slice(9));
+    if (
+      experimentRoutes(req, res, p, {
+        local: LOCAL,
+        root: ROOT,
+        file,
+        headers,
+        send,
+      })
+    )
       return;
-    }
-    if (p.startsWith("/media/")) {
-      file(res, req, path.join(LOCAL, "ui-lab/public/media"), p.slice(7));
-      return;
-    }
-    if (["/lab.js", "/lab.css", "/data.json"].includes(p)) {
-      file(res, req, path.join(LOCAL, "ui-lab/public"), p.slice(1));
-      return;
-    }
     file(res, req, path.join(__dirname, "public"), p.slice(1));
   } catch (error) {
     if (!res.headersSent)
-      send(res, 400, {
+      send(res, error.status || 400, {
         error:
           error.code === "ENOENT" ? "No existe en el studio" : error.message,
       });
@@ -272,8 +222,8 @@ server.listen(PORT, "127.0.0.1", () =>
   console.log(
     "Magikitos Studio: " +
       ORIGIN +
-      "\nBorradores: " +
-      DRAFTS +
+      "\nVersión del estudio: " +
+      store.file +
       "\nSin endpoint para escribir escenas del juego.",
   ),
 );

@@ -1,0 +1,12 @@
+{
+    "source": "easel-bark.png",
+    "sourceHash": "897120b60614a0283dd9a34d47eeb533eeb1f95a83d883a796004b636aa024fe",
+    "bounds": [
+        155,
+        159,
+        679,
+        1260
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

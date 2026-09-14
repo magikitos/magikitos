@@ -1,0 +1,64 @@
+{
+  "frames": {
+    "workshop": {
+      "source": "data/aventura/art/woodland-kit/cutouts/home-log-workshop.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        196,
+        152
+      ],
+      "fit": true,
+      "anchor": [
+        75,
+        136
+      ]
+    },
+    "cottage": {
+      "source": "data/aventura/art/woodland-kit/cutouts/home-log-round.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        196,
+        160
+      ],
+      "fit": true,
+      "anchor": [
+        105,
+        151
+      ]
+    },
+    "home-log-twisted": {
+      "source": "data/aventura/art/woodland-kit/cutouts/home-log-twisted.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        196,
+        160
+      ],
+      "fit": true,
+      "anchor": [
+        98,
+        148
+      ]
+    }
+  }
+}

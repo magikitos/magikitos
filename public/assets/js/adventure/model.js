@@ -13,6 +13,10 @@ const {
   waterAt,
 } = geometry;
 const { matches, active } = require("./rules");
+const { CollisionGrid } = require("./collision-grid");
+const { resolveAppearance } = require("./elements");
+const { restorePositions } = require("./movables");
+const room = require("./room-shape");
 const { populate } = require("./placement");
 const { findPath } = require("./navigation");
 class World {
@@ -20,10 +24,24 @@ class World {
     this.data = data;
     this.width = data.width;
     this.height = data.height;
-    this.entities = data.entities.map((e) => ({
-      ...e,
-      x: e.x * TILE,
-      y: e.y * TILE,
+    this.entities = data.entities
+      .map((e) => resolveAppearance(e, data.id))
+      .map((e) => ({
+        ...e,
+        x: e.x * TILE,
+        y: e.y * TILE,
+        ...(e.pushable
+          ? { homePosition: { x: e.x * TILE, y: e.y * TILE } }
+          : {}),
+      }));
+    this.architecture = (data.walls || []).map((wall, i) => ({
+      id: "wall-" + i,
+      x: wall.rect[0] * TILE,
+      y: wall.rect[1] * TILE,
+      solid: [0, 0, wall.rect[2], wall.rect[3]],
+      rules: [],
+      wall,
+      depth: (wall.rect[1] + wall.rect[3]) * TILE,
     }));
     this.props = [];
     this.blocked = new Uint8Array(this.width * this.height);
@@ -37,8 +55,12 @@ class World {
           x < 2 || y < 2 || x >= this.width - 2 || y >= this.height - 2,
         );
       }
+    const boundaries = this.blocked.slice();
     populate(this);
-    this.terrain = this.blocked.slice();
+    // Vegetation occupancy guides procedural placement, but is not terrain.
+    // Its exact physical bodies enter the shared collision index below.
+    this.blocked = boundaries;
+    this.terrain = boundaries.slice();
     // Static navigation is built once. Picking up a leaf only refreshes entity occupancy.
     for (let y = 0; y < this.height; y++)
       for (let x = 0; x < this.width; x++)
@@ -97,7 +119,14 @@ class World {
           Math.floor((x + dx) / TILE),
           Math.floor((y + dy) / TILE),
         ),
-      ) && dryFootprint(this.data, x, y)
+      ) &&
+      [
+        [-hw, -hh],
+        [hw, -hh],
+        [-hw, hh],
+        [hw, hh],
+      ].every(([dx, dy]) => room.contains(this.data, x + dx, y + dy)) &&
+      dryFootprint(this.data, x, y)
     );
   }
   clearTerrainSegment(from, to) {
@@ -114,19 +143,56 @@ class World {
   }
   refresh(state) {
     this.state = state;
+    restorePositions(this, state);
     this.blocked = this.navigationTerrain.slice();
-    this.colliders = this.entities.filter(
+    this.occupancy = new Uint16Array(this.blocked.length);
+    this.collisionGrid = new CollisionGrid();
+    this.colliders = [
+      ...this.architecture,
+      ...this.props,
+      ...this.entities,
+    ].filter(
       (e) =>
         e.solid &&
         active(e, state) &&
         (!e.solidWhen || matches(state, e.solidWhen)),
     );
     for (const entity of this.colliders) {
-      const r = collisionBounds(entity);
-      for (let y = Math.floor(r.y / TILE); y < (r.y + r.h) / TILE; y++)
-        for (let x = Math.floor(r.x / TILE); x < (r.x + r.w) / TILE; x++)
-          this.setBlocked(x, y);
+      this.collisionGrid.add(entity);
+      this.markBody(entity, 1);
     }
+  }
+  markBody(entity, delta) {
+    const r = collisionBounds(entity);
+    for (
+      let y = Math.max(0, Math.floor(r.y / TILE));
+      y < Math.min(this.height, (r.y + r.h) / TILE);
+      y++
+    )
+      for (
+        let x = Math.max(0, Math.floor(r.x / TILE));
+        x < Math.min(this.width, (r.x + r.w) / TILE);
+        x++
+      ) {
+        const i = y * this.width + x;
+        this.occupancy[i] += delta;
+        this.blocked[i] = Number(
+          this.navigationTerrain[i] || this.occupancy[i] > 0,
+        );
+      }
+  }
+  relocate(entity, x, y) {
+    if (!this.collisionGrid.bounds.has(entity)) {
+      entity.x = x;
+      entity.y = y;
+      return;
+    }
+    this.markBody(entity, -1);
+    this.collisionGrid.remove(entity);
+    entity.x = x;
+    entity.y = y;
+    this.markBody(entity, 1);
+    this.collisionGrid.add(entity);
   }
   terrainWalkable(x, y) {
     return (
@@ -139,9 +205,11 @@ class World {
   }
   collisionAt(x, y, ignore = null) {
     return (
-      [...this.colliders, ...(this.actors || [])].find(
+      this.collisionGrid.at(x, y, ignore) ||
+      (this.actors || []).find(
         (e) => e !== ignore && overlaps(actorBounds(x, y), collisionBounds(e)),
-      ) || null
+      ) ||
+      null
     );
   }
   distanceTo(point, entity) {
@@ -166,7 +234,7 @@ class World {
             this.canStand(point.x, point.y) &&
             (target.solid || target.neighbor
               ? this.distanceTo(point, target) >= 4 &&
-                this.distanceTo(point, target) <= TILE * 1.25
+                this.distanceTo(point, target) < TILE * 1.5
               : distance(point, target) >= minDistance)
           )
             candidates.push(point);
@@ -182,7 +250,7 @@ class World {
     }
     return null;
   }
-  clearSegment(from, to) {
+  clearSegment(from, to, ignore = from) {
     const dx = to.x - from.x,
       dy = to.y - from.y;
     const steps = Math.max(1, Math.ceil(Math.hypot(dx, dy) / 2));
@@ -191,7 +259,7 @@ class World {
         !this.canStand(
           from.x + (dx * i) / steps,
           from.y + (dy * i) / steps,
-          from,
+          ignore,
         )
       )
         return false;

@@ -12,7 +12,22 @@
   "waters": [],
   "clearings": [],
   "regions": [],
-  "rugs": [],
+  "rugs": [
+    {
+      "x": 5.5,
+      "y": 8,
+      "width": 5.5,
+      "height": 7,
+      "color": "#76836a"
+    },
+    {
+      "x": 10.5,
+      "y": 14.1,
+      "width": 3.2,
+      "height": 1.4,
+      "color": "#b28a62"
+    }
+  ],
   "ambient": {
     "kind": "dust",
     "count": 2
@@ -29,8 +44,7 @@
             {
               "type": "travel",
               "scene": "overworld",
-              "x": 58.5,
-              "y": 26.5
+              "arrivalAt": "home-one"
             }
           ]
         }
@@ -42,7 +56,7 @@
       "id": "cottage-bed",
       "sprite": "bed",
       "x": 5.5,
-      "y": 7.5,
+      "y": 8.2,
       "rules": [
         {
           "when": {},
@@ -55,70 +69,20 @@
         }
       ],
       "solid": [
-        -1.8,
-        -2.8,
-        3.6,
-        3.1
+        -1.65,
+        -3.1,
+        3.3,
+        3.4
       ],
-      "label": "bed"
+      "label": "bed",
+      "artVariant": "auto"
     },
     {
       "id": "cottage-table",
       "sprite": "bedside-table",
-      "x": 14,
-      "y": 8,
+      "x": 11.3,
+      "y": 7.7,
       "rules": [],
-      "solid": [
-        -1.5,
-        -1.4,
-        3,
-        1.8
-      ],
-      "interactAs": "house-lighter",
-      "interactWhen": {
-        "flags": {
-          "lighterFound": false
-        }
-      }
-    },
-    {
-      "id": "house-lighter",
-      "sprite": "lighter",
-      "x": 14,
-      "y": 8,
-      "rules": [
-        {
-          "effects": [
-            {
-              "type": "item",
-              "item": "lighter",
-              "amount": 1
-            },
-            {
-              "type": "flag",
-              "flag": "lighterFound"
-            },
-            {
-              "type": "dialogue",
-              "key": "picnicLighter"
-            },
-            {
-              "type": "sound",
-              "key": "found"
-            }
-          ]
-        }
-      ],
-      "hiddenWhen": {
-        "flags": {
-          "lighterFound": true
-        }
-      },
-      "label": "lighterName",
-      "offset": [
-        -10,
-        -20
-      ],
       "solid": [
         -1.5,
         -1.4,
@@ -129,14 +93,105 @@
     {
       "id": "cottage-vase",
       "sprite": "flower-vase",
-      "x": 14,
-      "y": 8,
+      "x": 11.3,
+      "y": 7.7,
       "offset": [
         10,
         -20
       ],
+      "rules": [],
+      "artVariant": "auto"
+    },
+    {
+      "id": "cottage-window",
+      "sprite": "window-arched",
+      "x": 14.5,
+      "y": 3.1,
+      "rules": [],
+      "artVariant": "auto"
+    },
+    {
+      "id": "cottage-chair",
+      "sprite": "armchair",
+      "x": 5.2,
+      "y": 13,
+      "rules": [],
+      "solid": [
+        -0.75,
+        -0.8,
+        1.5,
+        1.1
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "cottage-fiber-basket",
+      "sprite": "yarn-basket",
+      "x": 14.8,
+      "y": 12,
+      "artVariant": "auto",
       "rules": []
     }
   ],
-  "label": "cottage"
+  "label": "cottage",
+  "interior": {
+    "material": "bark",
+    "background": "woodland-context",
+    "outline": [
+      [
+        0.25,
+        0
+      ],
+      [
+        0.75,
+        0
+      ],
+      [
+        0.93,
+        0.14
+      ],
+      [
+        1,
+        0.38
+      ],
+      [
+        1,
+        0.74
+      ],
+      [
+        0.86,
+        0.92
+      ],
+      [
+        0.67,
+        1
+      ],
+      [
+        0.3,
+        1
+      ],
+      [
+        0.12,
+        0.92
+      ],
+      [
+        0,
+        0.74
+      ],
+      [
+        0,
+        0.3
+      ],
+      [
+        0.1,
+        0.12
+      ]
+    ],
+    "inset": {
+      "left": 2,
+      "right": 2,
+      "top": 2.5,
+      "bottom": 2
+    }
+  }
 }

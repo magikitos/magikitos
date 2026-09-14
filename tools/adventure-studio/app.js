@@ -1,6 +1,23 @@
 "use strict";
+const { StudioShell } = require("./shell");
+const { PathEditor } = require("./path-editor");
+const { Gallery } = require("./gallery");
+const {
+  families,
+  familyOf,
+  frameName,
+  makeElement,
+} = require("../../public/assets/js/adventure/elements");
+const { CropEditor } = require("./crop-editor");
+const { validateSprites, spriteDiff, cropFor } = require("./sprite-edits");
 const { MapViewport } = require("./viewport");
-const { placement, validateChanges, renderScene, diff } = require("./draft");
+const {
+  placement,
+  validateChanges,
+  renderScene,
+  diff,
+  removable,
+} = require("./scene-edits");
 const { capabilities } = require("../../public/assets/js/adventure/entity-art");
 const {
   TILE,
@@ -22,13 +39,40 @@ const $ = (id) => document.getElementById(id),
     );
 const names = {
   overworld: "Bosque y pueblo",
-  house: "Casa humana",
-  cottage: "Casita de la fuente",
-  tavern: "Taberna",
-  workshop: "Taller",
+  house: "Refugio de hojas",
+  "human-house": "Refugio de hojas",
+  cottage: "Hogar del tocón",
+  "cottage-closed": "Casita de seta",
+  "fisher-closed": "Refugio de la maceta",
+  tavern: "Taberna de la bota",
+  workshop: "Taller del tronco",
   islet: "Islote",
+  attic: "Desván",
+  cupboard: "Armario",
+  stove: "Estufa",
+  dresser: "Cómoda",
+  armchair: "Sillón",
+  "stairs-up": "Escalera para subir",
+  "stairs-down": "Escalera para bajar",
+  "window-arched": "Ventana",
+  "kitchen-rack": "Utensilios de cocina",
   fountain: "Fuente",
   oak: "Roble",
+  "ancient-root": "Roble del bosque",
+  "forest-birch": "Abedul del bosque",
+  "giant-fern": "Helecho grande",
+  "giant-clover": "Trébol del bosque",
+  "giant-bolete": "Seta para cortar",
+  "scarlet-mushrooms": "Setas rojas",
+  mushrooms: "Setitas silvestres",
+  "picnic-blanket": "Manta del picnic",
+  "picnic-smoker": "Humano fumando",
+  "picnic-human-friend": "Humana merendando",
+  "picnic-tortilla": "Tortilla de patatas",
+  "picnic-basket": "Cesta de merienda",
+  "picnic-knife": "Cuchillo del picnic",
+  "picnic-hungry": "Brizno, con hambre",
+  "picnic-happy": "Brizno, satisfecho",
   hornbeam: "Carpe",
   birch: "Abedul",
   pine: "Pino",
@@ -45,10 +89,16 @@ const names = {
   bed: "Cama",
   lighter: "Mechero",
   "flower-vase": "Florero",
+  lantern: "Farol",
+  "book-lectern": "Libro de expresiones",
+  doorway: "Puerta",
 };
-let context,
+let gallery,
+  cropEditor,
+  pathEditor,
+  context,
   snapshot,
-  draft,
+  workspace,
   sceneId = "overworld",
   selected = null,
   layer = "all",
@@ -59,17 +109,22 @@ let context,
   saveTimer,
   dragBefore = null,
   dragLinked = null;
-const label = (e) => names[e.sprite] || e.sprite.replaceAll("-", " ");
+const label = (e) =>
+  familyOf(e)?.label || names[e.sprite] || e.sprite.replaceAll("-", " ");
 const count = () =>
-  Object.values(draft.changes).reduce(
+  Object.values(workspace.changes).reduce(
     (n, s) =>
       n +
       Object.keys(s.entities || {}).length +
-      Object.keys(s.scenery || {}).length,
+      Object.keys(s.scenery || {}).length +
+      Object.keys(s.added || {}).length +
+      (s.removed?.length || 0),
     0,
   );
-const dirty = () =>
-  JSON.stringify({ name: draft.name, changes: draft.changes }) !== savedJSON;
+const editsJSON = () =>
+  JSON.stringify({ changes: workspace.changes, sprites: workspace.sprites });
+const restoreEdits = (text) => Object.assign(workspace, JSON.parse(text));
+const dirty = () => editsJSON() !== savedJSON;
 function toast(message) {
   $("toast").textContent = message;
   $("toast").hidden = false;
@@ -103,13 +158,24 @@ const view = new MapViewport(
   },
 );
 function baseEntity(selection = selected) {
+  if (!selection) return null;
   return (
-    selection &&
-    (selection.layer === "entities"
-      ? snapshot.world.scenes[sceneId].entities
-      : snapshot.scenery[sceneId]
-    ).find((e) => e.id === selection.id)
+    (selection &&
+      (selection.layer === "entities"
+        ? snapshot.world.scenes[sceneId].entities
+        : snapshot.scenery[sceneId]
+      ).find((e) => e.id === selection.id)) ||
+    (selection.layer === "entities" && addedEntity(selection.id))
   );
+}
+function addedEntity(id) {
+  const value = workspace.changes[sceneId]?.added?.[id];
+  return value
+    ? {
+        ...makeElement(value.family, id, value.x, value.y, value.artVariant),
+        ...value,
+      }
+    : null;
 }
 function currentEntity() {
   return (
@@ -120,28 +186,21 @@ function currentEntity() {
     ).find((e) => e.id === selected.id)
   );
 }
-function newDraft() {
-  return {
-    id:
-      "mapa-" +
-      Date.now().toString(36) +
-      "-" +
-      Math.random().toString(36).slice(2, 7),
-    name: "Composición del bosque",
-    baseHash: snapshot.baseHash,
-    revision: 0,
-    changes: {},
-  };
-}
 function rebuild(fit = false, keep = selected) {
-  view.setScene(renderScene(snapshot, sceneId, draft.changes), fit);
+  cropEditor?.apply(snapshot, workspace.sprites);
+  view.setScene(renderScene(snapshot, sceneId, workspace.changes), fit);
   if (keep) view.select(keep.id, keep.layer);
+  else {
+    selected = null;
+  }
   paintList();
   paintInspector();
   paintStatus();
+  pathEditor?.refresh();
+  gallery?.sceneChanged(view.world.data);
 }
 function history(before) {
-  if (before === JSON.stringify(draft.changes)) return;
+  if (before === editsJSON()) return;
   undo.push(before);
   if (undo.length > 100) undo.shift();
   redo = [];
@@ -158,28 +217,38 @@ function changed() {
 function paintStatus() {
   $("undo").disabled = !undo.length;
   $("redo").disabled = !redo.length;
-  $("diff-count").textContent = count()
-    ? count() +
-      " elementos ajustados en " +
-      Object.keys(draft.changes).length +
-      " escena(s)."
-    : "No has movido nada todavía.";
+  const pathScenes = Object.values(workspace.changes).filter((s) =>
+    Object.hasOwn(s, "paths"),
+  ).length;
+  $("diff-count").textContent =
+    count() || pathScenes
+      ? count() +
+        " elementos ajustados" +
+        (pathScenes ? " · caminos en " + pathScenes + " escena(s)" : "") +
+        "."
+      : "Sin cambios de mapa.";
+  if (Object.keys(workspace.sprites).length)
+    $("diff-count").textContent +=
+      " · " + Object.keys(workspace.sprites).length + " sprites recortados.";
   $("save-status").textContent = dirty()
     ? "Cambios pendientes de guardar"
-    : draft.revision
-      ? "Guardado local · edición " + draft.revision
-      : "Borrador nuevo · juego intacto";
+    : workspace.revision
+      ? "Guardado automático · juego intacto"
+      : "Tu versión del estudio";
 }
 function setChanges(entries) {
-  const data = JSON.parse(JSON.stringify(draft.changes)),
+  const data = JSON.parse(JSON.stringify(workspace.changes)),
     groups = (data[sceneId] ||= { entities: {}, scenery: {} });
-  for (const { selection, value } of entries)
-    groups[selection.layer][selection.id] = value;
-  draft.changes = validateChanges(snapshot, data);
+  for (const { selection, value } of entries) {
+    if (selection.layer === "entities" && groups.added?.[selection.id])
+      groups.added[selection.id] = { ...groups.added[selection.id], ...value };
+    else (groups[selection.layer] ||= {})[selection.id] = value;
+  }
+  workspace.changes = validateChanges(snapshot, data);
 }
 function adjust(value) {
   if (!selected) return;
-  const before = JSON.stringify(draft.changes),
+  const before = editsJSON(),
     source = baseEntity();
   try {
     const current = currentEntityInTiles(),
@@ -219,7 +288,7 @@ function currentEntityInTiles() {
 }
 function drag(info, position, commit, cancel) {
   if (!dragBefore) {
-    dragBefore = JSON.stringify(draft.changes);
+    dragBefore = editsJSON();
     dragLinked = [];
     const sources = [
       ...view.world.entities.map((e) => ({ e, layer: "entities" })),
@@ -239,7 +308,7 @@ function drag(info, position, commit, cancel) {
         }));
   }
   if (cancel) {
-    draft.changes = JSON.parse(dragBefore);
+    restoreEdits(dragBefore);
     dragBefore = null;
     dragLinked = null;
     rebuild();
@@ -263,16 +332,12 @@ function drag(info, position, commit, cancel) {
       },
     ];
     for (const member of dragLinked) {
-      const original = (
-        member.selection.layer === "entities"
-          ? snapshot.world.scenes[sceneId].entities
-          : snapshot.scenery[sceneId]
-      ).find((e) => e.id === member.selection.id);
+      const original = baseEntity(member.selection);
       entries.push({
         selection: member.selection,
         value: {
           ...placement(original),
-          ...(draft.changes[sceneId]?.[member.selection.layer]?.[
+          ...(workspace.changes[sceneId]?.[member.selection.layer]?.[
             member.selection.id
           ] || {}),
           x: member.x + x - info.entity.x / TILE,
@@ -340,13 +405,13 @@ function paintList() {
       escape(e.id) +
       "</small></span>";
     const c = b.querySelector("canvas").getContext("2d"),
-      f = view.renderer.sprites.frame(e.sprite);
+      f = view.renderer.sprites.frame(frameName(e));
     c.imageSmoothingEnabled = false;
     if (f) {
       const k = Math.min(36 / f.w, 40 / f.h);
       view.renderer.sprites.draw(
         c,
-        e.sprite,
+        frameName(e),
         (40 - f.w * k) / 2,
         (44 - f.h * k) / 2,
         f.w * k,
@@ -401,9 +466,9 @@ function warnings(entity) {
   return messages;
 }
 function paintInspector() {
-  $("properties").hidden = !selected;
-  $("selection-help").hidden = !!selected;
-  if (!selected) return;
+  $("properties").hidden = !selected || pathEditor?.enabled;
+  $("selection-help").hidden = !!selected || pathEditor?.enabled;
+  if (!selected || pathEditor?.enabled) return;
   const e = currentEntity();
   if (!e) return;
   const cap = capabilities(baseEntity());
@@ -411,10 +476,7 @@ function paintInspector() {
   $("selected-id").textContent = sceneId + " / " + e.id;
   $("x").value = e.x / TILE;
   $("y").value = e.y / TILE;
-  for (const [id, values, suffix] of [
-    ["scale", cap.scales, "×"],
-    ["rotation", cap.rotations, "°"],
-  ]) {
+  for (const [id, values, suffix] of [["scale", cap.scales, "×"]]) {
     $(id).replaceChildren(
       ...values.map((v) => {
         const o = document.createElement("option");
@@ -423,17 +485,63 @@ function paintInspector() {
         return o;
       }),
     );
-    $(id).value = id === "scale" ? (e.scale ?? 1) : e.rotation || 0;
+    $(id).value = e.scale ?? 1;
     $(id).disabled = values.length === 1;
   }
+  const family = familyOf(e);
+  $("variant-field").hidden = !family;
+  $("variant").replaceChildren(
+    ...(family
+      ? [
+          { id: "auto", label: "Variada · fija para este objeto" },
+          ...family.variants,
+        ].map((v) => {
+          const option = document.createElement("option");
+          option.value = v.id;
+          option.textContent = v.label;
+          return option;
+        })
+      : []),
+  );
+  $("variant").value = e.artVariant || "auto";
+  const added = !!workspace.changes[sceneId]?.added?.[e.id];
+  $("remove").disabled =
+    !added && !removable(snapshot, sceneId, selected.layer, e.id);
+  $("remove").title = $("remove").disabled
+    ? "Elemento funcional protegido: se modifica con revisión de sus reglas."
+    : "Retirar del estudio; puedes deshacerlo.";
+  $("revert").disabled = added;
   $("flip").checked = !!e.flip;
   $("flip").disabled = !cap.mirror;
   $("transform-help").textContent =
-    cap.rotations.length > 1
-      ? "Arte plano: giros de 90° y escala por pasos, sin interpolación."
-      : "La perspectiva de este sprite no admite giro libre. Reflejo y escala solo cuando no rompen su función.";
+    "Reflejo y escala solo cuando no rompen su función. No se ofrece giro: no genera otra vista del objeto.";
+  const sprite = frameName(e),
+    record = snapshot.sprites?.[sprite];
+  $("crop-section").hidden = !record;
+  cropEditor?.select(sprite, record, workspace.sprites[sprite]);
+  $("sprite-scope").textContent = record
+    ? "Recorte compartido: afecta a todas las piezas “" +
+      label(e) +
+      " · " +
+      sprite +
+      "”. No cambia el punto de apoyo ni la colisión."
+    : "";
+  const editableBody = !!e.solid && !e.portal && !e.threshold && !e.actor;
+  $("collision-section").hidden = !e.solid;
+  for (const [index, id] of [
+    "body-x",
+    "body-y",
+    "body-w",
+    "body-h",
+  ].entries()) {
+    $(id).value = e.solid?.[index] * TILE || 0;
+    $(id).disabled = !editableBody;
+  }
+  $("collision-help").textContent = editableBody
+    ? "Cuerpo físico en píxeles, relativo al pie naranja. Independiente del recorte; azul en el mapa."
+    : "Umbral protegido: su geometría se calcula desde la puerta o escalera.";
   const c = $("preview").getContext("2d"),
-    f = view.renderer.sprites.frame(e.sprite);
+    f = view.renderer.sprites.frame(frameName(e));
   c.clearRect(0, 0, 160, 140);
   c.imageSmoothingEnabled = false;
   if (f) {
@@ -444,7 +552,7 @@ function paintInspector() {
     c.scale(e.flip ? -1 : 1, 1);
     view.renderer.sprites.draw(
       c,
-      e.sprite,
+      frameName(e),
       (-f.w * k) / 2,
       (-f.h * k) / 2,
       f.w * k,
@@ -463,19 +571,19 @@ async function save() {
     if (dirty()) return save();
     return;
   }
-  if (!dirty() && draft.revision) return;
-  const sending = JSON.parse(JSON.stringify(draft));
+  if (!dirty() && workspace.revision) return;
+  const sending = JSON.parse(JSON.stringify(workspace));
   $("save-status").textContent = "Guardando…";
-  savePromise = api("/api/drafts", {
+  savePromise = api("/api/workspace", {
     method: "POST",
     body: JSON.stringify(sending),
   });
   try {
     const result = await savePromise;
-    draft.revision = result.revision;
+    workspace.revision = result.revision;
     savedJSON = JSON.stringify({
-      name: sending.name,
       changes: sending.changes,
+      sprites: sending.sprites,
     });
     paintStatus();
   } finally {
@@ -490,9 +598,9 @@ function modal(title, body) {
 function exportDiff() {
   const payload = {
     purpose: "review-only",
-    draft: draft.name,
     baseHash: snapshot.baseHash,
-    scenes: diff(snapshot, draft.changes),
+    scenes: diff(snapshot, workspace.changes),
+    sprites: spriteDiff(snapshot, workspace.sprites),
   };
   const blob = new Blob([JSON.stringify(payload, null, 2) + "\n"], {
       type: "application/json",
@@ -500,14 +608,58 @@ function exportDiff() {
     url = URL.createObjectURL(blob),
     a = document.createElement("a");
   a.href = url;
-  a.download = draft.id + "-diff.json";
+  a.download = "magikitos-studio-diff.json";
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
+function adjustCrop(crop) {
+  const e = currentEntity();
+  if (!e) return;
+  const before = editsJSON();
+  try {
+    const next = validateSprites(snapshot, {
+      ...workspace.sprites,
+      [frameName(e)]: { crop },
+    });
+    cropEditor.apply(snapshot, next);
+    workspace.sprites = next;
+    view.renderer.terrain.chunks.clear();
+    rebuild();
+    history(before);
+  } catch (error) {
+    toast(error.message);
+    paintInspector();
+  }
+}
+$("collision-section").ontoggle = () => {
+  if ($("collision-section").open) {
+    view.bodies = true;
+    $("bodies").checked = true;
+    view.dirty = true;
+  }
+};
+$("crop-auto").onclick = () => cropEditor.auto();
+$("crop-reset").onclick = () => {
+  const record = snapshot.sprites[frameName(currentEntity() || {})];
+  if (record) adjustCrop(cropFor(record));
+};
+for (const id of ["crop-x", "crop-y", "crop-w", "crop-h"])
+  $(id).onchange = () =>
+    adjustCrop(
+      ["crop-x", "crop-y", "crop-w", "crop-h"].map((k) => Number($(k).value)),
+    );
+for (const id of ["body-x", "body-y", "body-w", "body-h"])
+  $(id).onchange = () =>
+    adjust({
+      solid: ["body-x", "body-y", "body-w", "body-h"].map(
+        (k) => Number($(k).value) / TILE,
+      ),
+    });
 $("scene").onchange = () => {
   sceneId = $("scene").value;
   selected = null;
   rebuild(true);
+  pathEditor.sceneChanged();
 };
 $("search").oninput = paintList;
 for (const b of document.querySelectorAll("[data-layer]"))
@@ -517,13 +669,10 @@ for (const b of document.querySelectorAll("[data-layer]"))
       n.setAttribute("aria-pressed", String(n === b));
     paintList();
   };
-for (const key of ["x", "y", "scale", "rotation"])
+for (const key of ["x", "y", "scale"])
   $(key).onchange = () => adjust({ [key]: Number($(key).value) });
+$("variant").onchange = () => adjust({ artVariant: $("variant").value });
 $("flip").onchange = () => adjust({ flip: $("flip").checked });
-$("name").oninput = () => {
-  draft.name = $("name").value;
-  changed();
-};
 $("grid").onchange = () => {
   view.grid = $("grid").checked;
   view.dirty = true;
@@ -541,15 +690,17 @@ $("zoom-out").onclick = () => view.zoomAt(view.zoom / 1.25);
 $("fit").onclick = () => view.fit();
 $("undo").onclick = () => {
   if (!undo.length) return;
-  redo.push(JSON.stringify(draft.changes));
-  draft.changes = JSON.parse(undo.pop());
+  pathEditor.cancel();
+  redo.push(editsJSON());
+  restoreEdits(undo.pop());
   rebuild();
   changed();
 };
 $("redo").onclick = () => {
   if (!redo.length) return;
-  undo.push(JSON.stringify(draft.changes));
-  draft.changes = JSON.parse(redo.pop());
+  pathEditor.cancel();
+  undo.push(editsJSON());
+  restoreEdits(redo.pop());
   rebuild();
   changed();
 };
@@ -557,83 +708,84 @@ $("revert").onclick = () => {
   if (!selected) return;
   adjust(placement(baseEntity()));
 };
+$("remove").onclick = () => {
+  if (!selected || $("remove").disabled) return;
+  const before = editsJSON(),
+    next = JSON.parse(JSON.stringify(workspace.changes)),
+    group = (next[sceneId] ||= { entities: {}, scenery: {} });
+  if (group.added?.[selected.id]) delete group.added[selected.id];
+  else (group.removed ||= []).push({ ...selected });
+  try {
+    workspace.changes = validateChanges(snapshot, next);
+    selected = null;
+    rebuild(false, null);
+    history(before);
+  } catch (error) {
+    toast(error.message);
+  }
+};
+function addFromGallery(family, artVariant) {
+  const before = editsJSON(),
+    id = "studio-" + crypto.randomUUID();
+  const scene = snapshot.world.scenes[sceneId],
+    center = {
+      x: (view.camera.x + view.renderer.width / 2) / TILE,
+      y: (view.camera.y + view.renderer.height / 2) / TILE,
+    };
+  const x = Math.max(
+      1,
+      Math.min(scene.width - 1, Math.round(center.x * 4) / 4),
+    ),
+    y = Math.max(1, Math.min(scene.height - 1, Math.round(center.y * 4) / 4));
+  const next = JSON.parse(JSON.stringify(workspace.changes)),
+    group = (next[sceneId] ||= { entities: {}, scenery: {} });
+  (group.added ||= {})[id] = {
+    family,
+    ...placement(makeElement(family, id, x, y, artVariant)),
+  };
+  try {
+    workspace.changes = validateChanges(snapshot, next);
+    selected = { id, layer: "entities" };
+    rebuild();
+    history(before);
+    toast(
+      "Colocado en el centro de la vista. Arrástralo a su sitio; solo cambia el estudio.",
+    );
+  } catch (error) {
+    toast(error.message);
+  }
+}
 $("save").onclick = () =>
   save()
-    .then(() => toast("Borrador guardado. El juego sigue intacto."))
+    .then(() => toast("Estudio guardado. El juego sigue intacto."))
     .catch((e) => toast(e.message));
 $("export").onclick = () =>
   save()
     .then(exportDiff)
     .catch((e) => toast(e.message));
-$("new").onclick = async () => {
-  try {
-    await save();
-    context = await api("/api/context");
-    snapshot = context.snapshot;
-    draft = newDraft();
-    savedJSON = JSON.stringify({ name: draft.name, changes: draft.changes });
-    undo = [];
-    redo = [];
-    $("name").value = draft.name;
-    rebuild(true, null);
-    toast("Nuevo borrador desde el mapa actual.");
-  } catch (e) {
-    toast(e.message);
-  }
-};
-$("load").onclick = async () => {
-  try {
-    const { drafts } = await api("/api/drafts");
-    modal(
-      "Borradores locales",
-      drafts.length
-        ? drafts
-            .map(
-              (d) =>
-                '<div class="draft-row"><span>' +
-                escape(d.name) +
-                "<small> · " +
-                escape(new Date(d.updatedAt).toLocaleString()) +
-                '</small></span><button data-load="' +
-                d.id +
-                '">Abrir</button></div>',
-            )
-            .join("")
-        : "<p>Todavía no hay borradores guardados.</p>",
-    );
-  } catch (e) {
-    toast(e.message);
-  }
-};
-$("modal-body").onclick = async (e) => {
-  const id = e.target.closest("[data-load]")?.dataset.load;
-  if (!id) return;
-  try {
-    await save();
-    const result = await api("/api/drafts/" + id);
-    snapshot = result.snapshot;
-    draft = result.draft;
-    selected = null;
-    undo = [];
-    redo = [];
-    savedJSON = JSON.stringify({ name: draft.name, changes: draft.changes });
-    $("name").value = draft.name;
-    rebuild(true, null);
-    $("modal").close();
-    if (result.stale)
-      toast(
-        "Base anterior conservada. No se mezcla automáticamente con el mapa nuevo.",
-      );
-  } catch (error) {
-    toast(error.message);
-  }
-};
 $("review").onclick = () => {
-  const scenes = diff(snapshot, draft.changes);
+  const scenes = diff(snapshot, workspace.changes),
+    sprites = spriteDiff(snapshot, workspace.sprites);
+  const art = sprites.length
+    ? "<h3>Recortes de sprites</h3><pre>" +
+      escape(
+        JSON.stringify(
+          sprites.map(({ sprite, before, after }) => ({
+            sprite,
+            before,
+            after,
+          })),
+          null,
+          2,
+        ),
+      ) +
+      "</pre>"
+    : "";
   modal(
-    "Diff de colocaciones",
-    scenes.length
-      ? "<p>Solo propuesta. No se ha escrito ningún JSON de las escenas del juego.</p>" +
+    "Cambios del estudio",
+    art +
+      (scenes.length
+        ? "<p>Solo propuesta. No se ha escrito ningún JSON de las escenas del juego.</p>" +
           scenes
             .map(
               (s) =>
@@ -652,13 +804,22 @@ $("review").onclick = () => {
                         "\n  ahora " +
                         JSON.stringify(p.after),
                     )
-                    .join("\n\n"),
+                    .join("\n\n") +
+                    (s.added
+                      ? "\n\nAñadidos\n" + JSON.stringify(s.added, null, 2)
+                      : "") +
+                    (s.removed
+                      ? "\n\nRetirados\n" + JSON.stringify(s.removed, null, 2)
+                      : "") +
+                    (s.paths
+                      ? "\n\nCaminos\n" + JSON.stringify(s.paths, null, 2)
+                      : ""),
                 ) +
                 "</pre>",
             )
             .join("") +
-          "<p>La propuesta conserva las reglas de cada objeto y fija la vegetación generada para que mover una mesa no redistribuya el bosque. Puertas, zonas de contenido, luces y pasajes requieren revisión de sus referencias antes de aplicar.</p>"
-      : "<p>No hay cambios que revisar.</p>",
+          "<p>La propuesta conserva las reglas de cada objeto y conserva la vegetación de la escena para que mover una mesa no redistribuya el bosque. Puertas, zonas de contenido, luces y pasajes requieren revisión de sus referencias antes de aplicar.</p>"
+        : "<p>No hay cambios de colocación que revisar.</p>"),
   );
 };
 $("modal-close").onclick = () => $("modal").close();
@@ -675,7 +836,7 @@ $("modal").onclick = (e) => {
   }
 };
 document.addEventListener("keydown", (e) => {
-  if ($("modal").open) return;
+  if ($("modal").open || $("map-panel").hidden) return;
   if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "s") {
     e.preventDefault();
     save().catch((error) => toast(error.message));
@@ -685,6 +846,10 @@ document.addEventListener("keydown", (e) => {
   if ((e.metaKey || e.ctrlKey) && ["z", "y"].includes(e.key.toLowerCase())) {
     e.preventDefault();
     $(e.shiftKey || e.key.toLowerCase() === "y" ? "redo" : "undo").click();
+    return;
+  }
+  if (pathEditor.key(e)) {
+    e.preventDefault();
     return;
   }
   if (e.code === "Space") {
@@ -713,17 +878,45 @@ document.addEventListener("keyup", (e) => {
 });
 window.addEventListener("blur", () => (view.space = false));
 window.addEventListener("beforeunload", (e) => {
-  if (draft && dirty()) {
+  if (workspace && dirty()) {
     e.preventDefault();
     e.returnValue = "";
   }
 });
+function setPaths(paths) {
+  const before = editsJSON();
+  try {
+    const data = JSON.parse(JSON.stringify(workspace.changes));
+    (data[sceneId] ||= { entities: {}, scenery: {} }).paths = paths;
+    workspace.changes = validateChanges(snapshot, data);
+    rebuild(false, null);
+    history(before);
+    return true;
+  } catch (error) {
+    toast(error.message);
+    return false;
+  }
+}
+pathEditor = new PathEditor(
+  view,
+  () =>
+    workspace?.changes[sceneId]?.paths ??
+    snapshot?.world.scenes[sceneId].paths ??
+    [],
+  setPaths,
+  () => paintInspector(),
+);
+const shell = new StudioShell(view);
 (async () => {
   try {
     context = await api("/api/context");
     snapshot = context.snapshot;
-    draft = newDraft();
-    savedJSON = JSON.stringify({ name: draft.name, changes: draft.changes });
+    workspace = context.workspace;
+    savedJSON = editsJSON();
+    if (context.conflicts.length)
+      toast(
+        "Cambios en conflicto conservados: " + context.conflicts.join(", "),
+      );
     $("scene").replaceChildren(
       ...Object.keys(snapshot.world.scenes).map((id) => {
         const option = document.createElement("option");
@@ -734,7 +927,14 @@ window.addEventListener("beforeunload", (e) => {
     );
     $("scene").value = sceneId;
     await view.initialize();
+    cropEditor = new CropEditor(
+      $("crop-preview"),
+      view.renderer.sprites,
+      adjustCrop,
+    );
     rebuild(true, null);
+    gallery = new Gallery($("gallery"), view.renderer.sprites, addFromGallery);
+    gallery.sceneChanged(view.world.data);
     $("loading").hidden = true;
   } catch (error) {
     $("loading").textContent = error.message;
@@ -744,12 +944,17 @@ window.addEventListener("beforeunload", (e) => {
 window.MagikitosStudio = Object.freeze({
   inspect: () => ({
     ready: !!view.world,
+    shell: shell.inspect(),
     scene: sceneId,
     selected,
-    changes: draft?.changes,
+    pathMode: pathEditor.enabled,
+    pathSelection: pathEditor.selected,
+    paths: view.world?.data.paths,
+    changes: workspace?.changes,
+    sprites: workspace?.sprites,
     baseHash: snapshot?.baseHash,
-    dirty: draft ? dirty() : false,
-    revision: draft?.revision,
+    dirty: workspace ? dirty() : false,
+    revision: workspace?.revision,
     zoom: view.zoom,
     camera: { ...view.camera },
   }),

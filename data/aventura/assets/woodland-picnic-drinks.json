@@ -1,0 +1,44 @@
+{
+  "frames": {
+    "picnic-lemonade": {
+      "source": "data/aventura/art/woodland-kit/cutouts/picnic-lemonade.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        17,
+        30
+      ],
+      "fit": true,
+      "anchor": [
+        8,
+        27
+      ]
+    },
+    "picnic-orange-soda": {
+      "source": "data/aventura/art/woodland-kit/cutouts/picnic-orange-soda.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        18,
+        25
+      ],
+      "fit": true,
+      "anchor": [
+        9,
+        22
+      ]
+    }
+  }
+}

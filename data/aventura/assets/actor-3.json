@@ -1,10 +1,868 @@
 {
-  "animation": {
-    "variant": 3,
-    "source": "data/aventura/art/guardian-cutout.png",
-    "width": 1122,
-    "rows": [0, 291, 565, 830, 1092, 1402],
-    "size": [28, 40],
-    "flipExceptions": ["down-right:3", "down-left:3"]
-  }
+    "frames": {
+        "person-3-down": {
+            "source": "data/aventura/art/cast/cutouts/zarzal.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.18691588785046728,
+                "offset": [
+                    3.2523364485981325,
+                    4.691588785046733
+                ]
+            }
+        },
+        "person-3-down-right": {
+            "source": "data/aventura/art/cast/cutouts/zarzal.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                1,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.18691588785046728,
+                "offset": [
+                    3.2523364485981325,
+                    4.504672897196265
+                ]
+            }
+        },
+        "person-3-right": {
+            "source": "data/aventura/art/cast/cutouts/zarzal.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                2,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.18691588785046728,
+                "offset": [
+                    3.3457943925233664,
+                    4.691588785046733
+                ]
+            }
+        },
+        "person-3-up-right": {
+            "source": "data/aventura/art/cast/cutouts/zarzal.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                3,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.18691588785046728,
+                "offset": [
+                    3.2523364485981325,
+                    4.878504672897201
+                ]
+            }
+        },
+        "person-3-up": {
+            "source": "data/aventura/art/cast/cutouts/zarzal.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                4,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.18691588785046728,
+                "offset": [
+                    3.2523364485981325,
+                    4.878504672897201
+                ]
+            }
+        },
+        "person-3-up-left": {
+            "source": "data/aventura/art/cast/cutouts/zarzal.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                5,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.18691588785046728,
+                "offset": [
+                    3.2523364485981325,
+                    4.878504672897201
+                ]
+            }
+        },
+        "person-3-left": {
+            "source": "data/aventura/art/cast/cutouts/zarzal.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                6,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.18691588785046728,
+                "offset": [
+                    3.3457943925233664,
+                    4.691588785046733
+                ]
+            }
+        },
+        "person-3-down-left": {
+            "source": "data/aventura/art/cast/cutouts/zarzal.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                7,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.18691588785046728,
+                "offset": [
+                    3.2523364485981325,
+                    4.504672897196265
+                ]
+            }
+        },
+        "person-3-down-walk-1": {
+            "source": "data/aventura/art/cast/cutouts/zarzal.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                0,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.18691588785046728,
+                "offset": [
+                    3.2523364485981325,
+                    5.252336448598129
+                ]
+            }
+        },
+        "person-3-down-right-walk-1": {
+            "source": "data/aventura/art/cast/cutouts/zarzal.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                1,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.18691588785046728,
+                "offset": [
+                    3.2523364485981325,
+                    5.439252336448597
+                ]
+            }
+        },
+        "person-3-right-walk-1": {
+            "source": "data/aventura/art/cast/cutouts/zarzal.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                2,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.18691588785046728,
+                "offset": [
+                    3.3457943925233664,
+                    5.813084112149532
+                ]
+            }
+        },
+        "person-3-up-right-walk-1": {
+            "source": "data/aventura/art/cast/cutouts/zarzal.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                3,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.18691588785046728,
+                "offset": [
+                    3.2523364485981325,
+                    5.6261682242990645
+                ]
+            }
+        },
+        "person-3-up-walk-1": {
+            "source": "data/aventura/art/cast/cutouts/zarzal.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                4,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.18691588785046728,
+                "offset": [
+                    3.2523364485981325,
+                    5.439252336448597
+                ]
+            }
+        },
+        "person-3-up-left-walk-1": {
+            "source": "data/aventura/art/cast/cutouts/zarzal.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                5,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.18691588785046728,
+                "offset": [
+                    3.2523364485981325,
+                    5.6261682242990645
+                ]
+            }
+        },
+        "person-3-left-walk-1": {
+            "source": "data/aventura/art/cast/cutouts/zarzal.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                6,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.18691588785046728,
+                "offset": [
+                    3.3457943925233664,
+                    5.813084112149532
+                ]
+            }
+        },
+        "person-3-down-left-walk-1": {
+            "source": "data/aventura/art/cast/cutouts/zarzal.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                7,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.18691588785046728,
+                "offset": [
+                    3.2523364485981325,
+                    5.252336448598129
+                ]
+            }
+        },
+        "person-3-down-walk-2": {
+            "source": "data/aventura/art/cast/cutouts/zarzal.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                0,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.18691588785046728,
+                "offset": [
+                    3.2523364485981325,
+                    5.439252336448597
+                ]
+            }
+        },
+        "person-3-down-right-walk-2": {
+            "source": "data/aventura/art/cast/cutouts/zarzal.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                1,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.18691588785046728,
+                "offset": [
+                    3.2523364485981325,
+                    5.6261682242990645
+                ]
+            }
+        },
+        "person-3-right-walk-2": {
+            "source": "data/aventura/art/cast/cutouts/zarzal.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                2,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.18691588785046728,
+                "offset": [
+                    3.3457943925233664,
+                    5.813084112149532
+                ]
+            }
+        },
+        "person-3-up-right-walk-2": {
+            "source": "data/aventura/art/cast/cutouts/zarzal.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                3,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.18691588785046728,
+                "offset": [
+                    3.2523364485981325,
+                    6.3738317757009355
+                ]
+            }
+        },
+        "person-3-up-walk-2": {
+            "source": "data/aventura/art/cast/cutouts/zarzal.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                4,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.18691588785046728,
+                "offset": [
+                    3.2523364485981325,
+                    5.6261682242990645
+                ]
+            }
+        },
+        "person-3-up-left-walk-2": {
+            "source": "data/aventura/art/cast/cutouts/zarzal.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                5,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.18691588785046728,
+                "offset": [
+                    3.2523364485981325,
+                    6.3738317757009355
+                ]
+            }
+        },
+        "person-3-left-walk-2": {
+            "source": "data/aventura/art/cast/cutouts/zarzal.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                6,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.18691588785046728,
+                "offset": [
+                    3.3457943925233664,
+                    5.813084112149532
+                ]
+            }
+        },
+        "person-3-down-left-walk-2": {
+            "source": "data/aventura/art/cast/cutouts/zarzal.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                7,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.18691588785046728,
+                "offset": [
+                    3.2523364485981325,
+                    5.439252336448597
+                ]
+            }
+        },
+        "person-3-down-walk-3": {
+            "source": "data/aventura/art/cast/cutouts/zarzal.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                0,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.18691588785046728,
+                "offset": [
+                    3.2523364485981325,
+                    5.813084112149532
+                ]
+            }
+        },
+        "person-3-down-right-walk-3": {
+            "source": "data/aventura/art/cast/cutouts/zarzal.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                1,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.18691588785046728,
+                "offset": [
+                    3.2523364485981325,
+                    5.813084112149532
+                ]
+            }
+        },
+        "person-3-right-walk-3": {
+            "source": "data/aventura/art/cast/cutouts/zarzal.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                2,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.18691588785046728,
+                "offset": [
+                    3.3457943925233664,
+                    6
+                ]
+            }
+        },
+        "person-3-up-right-walk-3": {
+            "source": "data/aventura/art/cast/cutouts/zarzal.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                3,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.18691588785046728,
+                "offset": [
+                    3.2523364485981325,
+                    5.813084112149532
+                ]
+            }
+        },
+        "person-3-up-walk-3": {
+            "source": "data/aventura/art/cast/cutouts/zarzal.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                4,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.18691588785046728,
+                "offset": [
+                    3.2523364485981325,
+                    5.6261682242990645
+                ]
+            }
+        },
+        "person-3-up-left-walk-3": {
+            "source": "data/aventura/art/cast/cutouts/zarzal.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                5,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.18691588785046728,
+                "offset": [
+                    3.2523364485981325,
+                    5.813084112149532
+                ]
+            }
+        },
+        "person-3-left-walk-3": {
+            "source": "data/aventura/art/cast/cutouts/zarzal.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                6,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.18691588785046728,
+                "offset": [
+                    3.3457943925233664,
+                    6
+                ]
+            }
+        },
+        "person-3-down-left-walk-3": {
+            "source": "data/aventura/art/cast/cutouts/zarzal.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                7,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.18691588785046728,
+                "offset": [
+                    3.2523364485981325,
+                    5.813084112149532
+                ]
+            }
+        }
+    }
 }

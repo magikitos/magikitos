@@ -1,0 +1,12 @@
+{
+    "source": "home-pot.png",
+    "sourceHash": "f44f8dfaf61bd8bc68106b29926da300fa6ecad79f12e6e7134c4193a354ac3e",
+    "bounds": [
+        117,
+        123,
+        1146,
+        899
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}
