@@ -1,7 +1,8 @@
 # Island and resident library
 
-Local implementation, September 2026. The public website and its API boundary are
-unchanged. No deployment or save reset is part of this work.
+Implemented locally in September 2026, then included in the owner-authorized
+[15 September release](RELEASE-2026-09-15.md). This scenery/resident work does
+not change the website's API boundary or reset existing saves.
 
 ## Play and scenery
 
