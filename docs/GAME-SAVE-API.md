@@ -1,6 +1,7 @@
 # Private progress / public kelihouses
 
-Implemented locally, 2026-09-15. The executable contract is mirrored in both
+Published with owner authorization, 2026-09-15; see
+[release evidence](RELEASE-RIVER-2026-09-15.md). The executable contract is mirrored in both
 repos as `docs/world-api.openapi.json`. Backend code and schema are private-web
 owned; the public game contains its client, data and validation UX only.
 

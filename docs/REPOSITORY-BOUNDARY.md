@@ -1,7 +1,7 @@
 # Completed game / website boundary
 
 Boundary implemented locally on 2026-09-13. Deployment state and exact release
-evidence are recorded in [the current release ledger](ASCUA-RELEASE.md).
+evidence are recorded in [the current release ledger](RELEASE-RIVER-2026-09-15.md).
 
 ## Ownership
 

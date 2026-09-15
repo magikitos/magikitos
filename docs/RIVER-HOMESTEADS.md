@@ -1,8 +1,8 @@
 # River and kelihouses — implementation log
 
-Approved scope, 15 September 2026. LOCAL ONLY; no production publication until
-the owner has tried and authorized it. This log distinguishes completed work
-from pending work and is the continuation checklist for this delivery.
+Approved scope, 15 September 2026. Subsequently published with explicit owner
+authorization; see [production evidence](RELEASE-RIVER-2026-09-15.md). This log
+describes the implementation and its boundaries, not future feature promises.
 
 ## Decisions
 
@@ -47,7 +47,7 @@ from pending work and is the continuation checklist for this delivery.
 
 ## Starting state
 
-Production remains artifact `fe26c8158651ab28d10c`. Both repositories were clean
+Production started at artifact `fe26c8158651ab28d10c`. Both repositories were clean
 at the start. Docker was recovered with owner approval in the previous turn:
 DDEV, six static shells, 167 local API checks and actual browser movement at
 1440x900, 768x1024 and 390x844 passed. Old release notes describing Docker as
@@ -126,16 +126,18 @@ palette and 44px touch targets instead of browser-default buttons.
 
 ## Operations and honest limits
 
-Installed local artifact: `2757a9112b5f30945023`. Both API-contract copies match.
+Installed local and production artifact: `2757a9112b5f30945023`.
+Both API-contract copies match.
 
-Only local migration `4229_game_profiles.sql` was applied. Prior backup:
-`../magikitos/.local/backups/before-game-profiles-20260915.sql.gz`. No user progress
-was reset. Test identities are temporary and removed; no events, reputation,
-emails or paid model calls are created. No commits, pushes or deployment.
+Local migration `4229_game_profiles.sql` was first applied after backup at
+`../magikitos/.local/backups/before-game-profiles-20260915.sql.gz`. The authorized
+production release subsequently applied the same migration with the VPS migration
+runner and its separate pre-migration backup. No user progress was reset. Local
+test identities were removed; the live browser smoke sends no mutation requests.
 
 Cloud snapshots are bounded but client-authored, not an anti-cheat economy. No
 terrain uploads, live collaboration, avatar expansion, Forest Book, trading,
 competitive rewards or new story quests. Those remain future decisions.
-Publication must coordinate the private migration/API/router and reviewed game
-artifact. Do not deploy either half alone. The current production artifact above
-is unchanged by this delivery.
+Publication coordinates the private migration/API/router and reviewed game
+artifact. Do not deploy either half alone. Exact commits, verification and
+recovery constraints are in the linked production ledger.

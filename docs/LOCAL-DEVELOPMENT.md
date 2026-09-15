@@ -2,14 +2,15 @@
 
 ## Safety boundary
 
-These changes are local only. No SSH/VPS operations, production import, database
+Development commands are local only. No SSH/VPS operations, production import, database
 migration, commit, push or deployment is part of the game tooling. The user's existing
 DDEV database and media are sufficient. Missing local media should be diagnosed
 locally, never fetched from production automatically.
 
-The approved river/parcel implementation adds one **local-only** private-web schema
-migration, applied after backup. See [delivery log](RIVER-HOMESTEADS.md) and
-[save protocol](GAME-SAVE-API.md). It is not applied by builds or preview servers.
+The river/parcel implementation needs private-web migration `4229_game_profiles.sql`,
+applied locally after backup and separately in the owner-authorized production
+release. See [delivery log](RIVER-HOMESTEADS.md), [release ledger](RELEASE-RIVER-2026-09-15.md)
+and [save protocol](GAME-SAVE-API.md). Builds and preview servers never apply it.
 
 The authoritative game working tree is the public game repository. The website
 remains its own private repository. The preview serves its own
