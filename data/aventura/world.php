@@ -8,6 +8,9 @@ return (static function (): array {
         file_get_contents($file), true, flags: JSON_THROW_ON_ERROR
     );
     $world = $read(__DIR__ . '/catalog.json');
+    // Only lightweight identities ship to browsers, never the production prompts or source masters.
+    $world['avatarProfiles'] = $read(__DIR__ . '/residents.json');
+    $world['avatarVariants'] = array_column($world['avatarProfiles'], 'id');
     // Resolve fare references once; condition consumers do not need a global catalogue.
     $resolve = static function (array $node) use (&$resolve, $world): array {
         foreach ($node as &$value) {
@@ -26,6 +29,7 @@ return (static function (): array {
         return $node;
     };
     $behaviors = [];
+    $families = $read(__DIR__ . '/elements.json')['families'];
     foreach (glob(__DIR__ . '/behaviors/*.json') as $file) {
         foreach ($read($file) as $id => $behavior) {
             if (isset($behaviors[$id])) {
@@ -42,6 +46,15 @@ return (static function (): array {
         }
         $seen = [];
         foreach ($scene['entities'] as &$entity) {
+            foreach ($families as $familyId => $family) {
+                if (($entity['family'] ?? null) !== $familyId && !in_array($entity['sprite'] ?? null, $family['aliases'], true)) continue;
+                if (($family['entrance'] ?? null) === 'open') {
+                    $entity = array_replace($family['template'], $entity);
+                    if (empty($entity['portal']) || !array_filter($entity['rules'], static fn($r) => array_filter($r['effects'], static fn($e) => $e['type'] === 'travel')))
+                        throw new RuntimeException('Open building without entrance: '.$entity['id']);
+                }
+                break;
+            }
             if (isset($seen[$entity['id']])) {
                 throw new RuntimeException("Duplicate entity in $name");
             }

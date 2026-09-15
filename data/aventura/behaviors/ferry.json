@@ -92,7 +92,7 @@
     ]
   },
   "shell-collector": {
-    "sprite": "person-4-down",
+    "sprite": "person-180-down",
     "label": "shellCollector",
     "portrait": true,
     "rules": [

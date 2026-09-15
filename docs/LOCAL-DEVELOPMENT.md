@@ -93,9 +93,13 @@ rendering and terrain-cache pinning. Physics still uses the original room bounds
 Debug `inspect().bounds` reports actual runtime dimensions: the workshop can grow
 when its optional JSON product catalogue arrives.
 
-Camera position is clamped after following and on resize. Pinch gestures cancel
-walking and do not produce an accidental tap or roll when the fingers lift.
-Single taps and double taps remain walking/rolling gestures on the same canvas.
+Camera position is clamped after following, dragging and resize. A pointer gesture
+becomes a drag after 8 CSS pixels; only a completed tap sets a destination. Dragging
+pauses travel and detaches the camera; the contextual bottom-right button recenters.
+Pinch gestures cancel walking and suppress both release taps. Wheel/pinch preserve
+the focus point when detached. Double taps and double Space still request one roll;
+held Space runs. Tap travel chooses pace from route distance, not screen pixels.
+See [mobility and Brizno](MOBILITY-BRIZNO.md) for thresholds and regression tests.
 
 Transitions have no loading modal: the current scene stays rendered while the
 destination prepares. Nearby door destinations are prewarmed as the player approaches, without polling
@@ -144,6 +148,8 @@ Bodies use exact transformed pixel bounds rather than expanding to whole tiles;
 a spatial grid indexes furniture, vegetation and architectural walls, while moving
 actors keep live bounds.
 Navigation still uses a conservative grid and validates physical substeps.
+It checks live residents and full collision bodies along every planned segment;
+click intention and dynamic rerouting are documented in [navigation](NAVIGATION.md).
 
 ## Regression checks
 
@@ -160,6 +166,13 @@ path dragging, insertion/deletion, complete road creation/removal, validation,
 undo/redo, saved diffs, mobile/tablet layouts and pinch cancellation in an isolated
 workspace. No source scene is modified by these browser tests.
 Screenshots are generated under `.local/screenshots/`.
+`npm run test:journeys` tests ground-versus-object clicks, static/resident detours
+and close-without-reopening on desktop, tablet and mobile. Its scene exists only
+in an intercepted test response; neither game nor Studio scenes are edited.
+`npm run test:zoom` checks the wider automatic starting view, orientation/resize,
+manual zoom override and complete map coverage from 320px phones to 3440px monitors.
+It preserves the old closest manual view and never changes the player's position.
+Screenshots are written to `.local/zoom-review/`.
 
 The regular website, live checkout and account minting are not mutated by these
 tests. Optional forms which need external human-proof services are not bypassed.

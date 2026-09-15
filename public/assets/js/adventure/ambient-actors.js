@@ -1,19 +1,12 @@
 "use strict";
 const { drawArtwork } = require("./entity-art");
+const { seatedClip } = require("./seating");
 /**
  * Authored ambient clips, in seconds. Feet/collision anchors never depend on time.
  * All poses live with their idle sprite in one scene-lazy pack: no GIF decoder,
  * canvas readback, timers, or per-pose network requests.
  */
 const clips = {
-  "picnic-hungry": {
-    phase: 2.1, fixedBelow: -12,
-    steps: [["picnic-hungry",7],["picnic-speaking",1.2],["picnic-hungry",5]],
-  },
-  "picnic-happy": {
-    phase: 4.3, fixedBelow: -12,
-    steps: [["picnic-happy",8],["picnic-blink",.14],["picnic-happy",6]],
-  },
   "picnic-smoker": {
     phase: 1.3,
     fixedBelow: -32,
@@ -84,7 +77,7 @@ function drawSmoke(ctx, entity, origin, progress) {
   ctx.restore();
 }
 function drawAmbientActor(ctx, sprites, entity, name, time) {
-  const clip = clips[name];
+  const clip = clips[name] || seatedClip(name);
   if (!clip || !sprites.frame(name)) return false;
   const p = pose(clip, time);
   const frame = sprites.frame(p.frame) ? p.frame : name;

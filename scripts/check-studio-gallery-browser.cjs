@@ -23,6 +23,10 @@ async function saved(p) {
   await p.locator("#save").click();
   await p.waitForFunction(() => !window.MagikitosStudio.inspect().dirty);
 }
+async function openGallery(p) {
+  if (!(await p.locator("#gallery").evaluate((e) => e.open)))
+    await p.locator("#gallery summary").click();
+}
 (async () => {
   server = cp.spawn(process.execPath, ["tools/adventure-studio/server.cjs"], {
     env: { ...process.env, STUDIO_PORT: "47842", STUDIO_DATA_DIR: temp },
@@ -31,7 +35,7 @@ async function saved(p) {
   await new Promise((resolve, reject) => {
     const timer = setTimeout(
       () => reject(Error("Studio startup timeout: " + output)),
-      60000,
+      120000,
     );
     server.stdout.on("data", (b) => {
       output += b;
@@ -98,8 +102,51 @@ async function saved(p) {
   await page.locator("#redo").click();
   assert(!(await read(page)).changes.overworld?.added?.[id]);
   await page.locator("#search").fill("");
+  // The complete resident library is editable through the same family/variant UI.
+  await openGallery(page);
+  await page
+    .locator("[data-gallery-category]")
+    .selectOption("Duendes · vecinas");
+  assert.equal(await page.locator('[data-family^="resident-"]').count(), 10);
+  const resident = page.locator('[data-family="resident-menta"]');
+  assert.equal(await resident.locator('option:not([value="auto"])').count(), 5);
+  assert.equal(
+    await page
+      .locator('[data-family^="resident-"] option:not([value="auto"])')
+      .count(),
+    50,
+  );
+  await resident.locator("select").selectOption("menta-noche");
+  await resident.getByRole("button", { name: "Colocar Menta" }).click();
+  s = await read(page);
+  assert.equal(
+    s.changes.overworld.added[s.selected.id].artVariant,
+    "menta-noche",
+  );
+  await saved(page);
+  await page
+    .locator("[data-gallery-category]")
+    .selectOption("Duendes · vecinos");
+  assert.equal(await page.locator('[data-family^="resident-"]').count(), 10);
+  assert.equal(
+    await page
+      .locator('[data-family^="resident-"] option:not([value="auto"])')
+      .count(),
+    50,
+  );
+  await page
+    .locator("[data-gallery-category]")
+    .selectOption("Isla · huerto y descanso");
+  await page.locator('[data-family="garden-trellis"] button').click();
+  s = await read(page);
+  assert.equal(
+    s.changes.overworld.added[s.selected.id].family,
+    "garden-trellis",
+  );
+  await saved(page);
+  await page.locator("[data-gallery-category]").selectOption("");
   await page.locator("#scene").selectOption("house");
-  await page.locator("#gallery summary").click();
+  await openGallery(page);
   assert.equal(
     await page.locator('[data-family="log-home"]').count(),
     0,

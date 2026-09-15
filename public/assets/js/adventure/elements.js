@@ -1,5 +1,6 @@
 "use strict";
-const { families } = require("../../../../data/aventura/elements.json");
+const { residentFamilies } = require("./resident-families");
+const families = { ...require("../../../../data/aventura/elements.json").families, ...residentFamilies };
 const { hash } = require("./geometry");
 const aliases = new Map(
   Object.entries(families).flatMap(([id, f]) =>

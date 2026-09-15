@@ -44,6 +44,14 @@ function trace(c, data) {
   c.closePath();
 }
 const THEMES = Object.freeze({
+  mushroom: {
+    base: "#b39776", light: "#c3ab89", grain: "#a58b6b",
+    wall: "#8a644a", rim: "#d5bb92", seam: "#785840", woven: false,
+  },
+  clay: {
+    base: "#b08666", light: "#bd9878", grain: "#a57c5d",
+    wall: "#8b573e", rim: "#ceab80", seam: "#774831", woven: false,
+  },
   bark: {
     base: "#92704d",
     light: "#a7865f",

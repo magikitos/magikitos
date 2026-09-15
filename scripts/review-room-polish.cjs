@@ -35,7 +35,7 @@ fs.mkdirSync(shots, { recursive: true });
         {
           scene,
           position: position || { x: spawn.x * 16, y: spawn.y * 16 },
-          flags: { introSeen: true },
+          flags: {  },
           muted: true,
         },
       );

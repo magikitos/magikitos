@@ -122,7 +122,7 @@
         168
       ],
       "subject": "A special HOUSE-SIZED mushroom DUENDE HOME, squat cinnamon cap and cream stem carved into an enchanting dwelling. This is a BUILDING not a collectible mushroom. Closed little round wooden door, two amber windows, dry leaf entry canopy and an acorn lantern, a few plants hugging its base. Fully visible cap with generous space on both sides.",
-      "sprite": "cottage-closed"
+      "sprite": "home-mushroom-canela"
     },
     {
       "id": "home-pot",
@@ -137,7 +137,7 @@
         140
       ],
       "subject": "A DUENDE HOME inside a weathered terracotta FLOWERPOT lying on its side, irregular chipped rim, patched with braided vines, dry fern roof. Closed round wooden door in the pot mouth, tiny amber porthole on side, a clay seed lantern and small daisies at base. Entire pot silhouette visible, no humans.",
-      "sprite": "fisher-closed"
+      "sprite": "home-pot-terracotta"
     },
     {
       "id": "flowers-daisy-white",
@@ -1114,10 +1114,10 @@
       "promptSource": "data/aventura/art/picnic-polish/prompts.json"
     },
     {
-      "id": "picnic-potato-chips",
+      "id": "picnic-tortilla-chips",
       "family": "picnic-snacks",
-      "variant": "patatas",
-      "sprite": "picnic-potato-chips",
+      "variant": "totopos",
+      "sprite": "picnic-tortilla-chips",
       "size": [
         35,
         27
@@ -1127,7 +1127,9 @@
         23
       ],
       "subject": "Use case: stylized-concept. Asset type: individual top-down pixel-art game sprite for a warm woodland RPG. Orthographic high three-quarter view, viewed from above at about 55 degrees, front towards bottom of image, warm upper-left light. Crisp deliberate pixel clusters, sharp dark contour, restrained detailed shading, NOT blurry illustration. One complete isolated object, centered with 12% clear padding on every side, no ground, no cast shadow, no scene, no lettering, brands, watermark or labels. Background: genuinely transparent alpha if possible; otherwise perfectly flat solid #ff00ff magenta for our authorized offline cutout pipeline, no gradients or checkerboard. Object contains no magenta. Designed to remain instantly legible at the specified small native resolution. One opened small cream paper snack bag on its side with folded back golden-yellow edges, filled with visibly separate golden ridged potato crisps, a few crisps just at its mouth. Clear potato chip shapes, not french fries. Friendly picnic food with bold silhouette. No writing on bag. Native footprint 35 by 27 pixels.",
-      "promptSource": "data/aventura/art/picnic-polish/prompts.json"
+      "promptSource": "data/aventura/art/picnic-polish/prompts.json",
+      "label": "Totopos",
+      "prompt": "Use case: precise-object-edit. Image1 is the edit target, an isolated pixel-art snack bag game sprite. Change ONLY all the potato chips: replace every rounded ridged potato crisp with unmistakable TRIANGULAR CORN TORTILLA CHIPS, golden warm yellow, thin crisp triangular corners, lightly toasted brown flecks, a few clearly separated triangles spilling out of the opened bag. They must match the triangle eaten with guacamole, NOT fries and NOT round potato slices and NO ridges. Keep cream paper bag with yellow folded edges, same open mouth facing lower left, same overall footprint, overhead three-quarter camera, warm upper-left light and crisp detailed pixel-art style. No branding, lettering or labels. Complete isolated sprite with plenty of empty margin, genuinely transparent background, no scenery or cast shadow. Keep the bag design and composition unchanged apart from the triangular chips."
     },
     {
       "id": "picnic-lemonade",

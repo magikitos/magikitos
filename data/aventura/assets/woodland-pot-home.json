@@ -1,7 +1,7 @@
 {
   "frames": {
-    "fisher-closed": {
-      "source": "data/aventura/art/woodland-kit/cutouts/home-pot.png",
+    "home-pot-terracotta": {
+      "source": "data/aventura/art/doorways/cutouts/home-pot-terracotta.png",
       "grid": [
         1,
         1
@@ -21,7 +21,7 @@
       ]
     },
     "home-pot-moss": {
-      "source": "data/aventura/art/woodland-kit/cutouts/home-pot-moss.png",
+      "source": "data/aventura/art/doorways/cutouts/home-pot-moss.png",
       "grid": [
         1,
         1

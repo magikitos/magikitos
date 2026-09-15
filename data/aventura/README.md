@@ -17,8 +17,12 @@ and ZQSD also work. Walking into an interactive object has the same effect.
 There is no E key. Diagonal headings have proper directional sprites and
 distance-driven footstep animation. Every duende wears a pointed hat.
 
-Space while moving, or a double click/tap toward a destination, produces one
-forward roll. Holding Space does not repeat it. In a dialogue, Space advances;
+Hold Space with a direction to run. Double Space (within 320 ms), or a double
+click/tap toward a destination, produces one faster forward roll; holding never
+repeats it. A tap chooses walking, running or roll→run→walk from route distance,
+with no automatic roll into a turn. Drag the map to look around without walking;
+walking resumes following the protagonist automatically, and the bottom-right
+target button recentres without moving. In a dialogue, Space advances;
 Enter and Escape dismiss without activating purchase or other explicit actions.
 Most conversations fit a single box. Confirmation says “Ok”.
 
@@ -58,7 +62,8 @@ Uncollected utensils remain obtainable even for existing completed local saves.
 
 The map uses the approved **Cercana** direction: large well-defined trees and
 ferns, elf-height wild mushrooms; a boot tavern, stump home, leaf refuge, hollow-log workshop,
-and closed mushroom/pot houses. No human architecture. See [the current woodland kit](../../docs/WOODLAND-KIT.md).
+and enterable mushroom/pot houses. No human architecture. See [the current woodland kit](../../docs/WOODLAND-KIT.md)
+and [the island and resident library](../../docs/ISLET-AND-RESIDENTS.md).
 
 The ferryman greets and charges at the jetty. Clicking the boat targets the
 same ferryman interaction. A crossing costs 5. Both duendes visibly travel
@@ -67,8 +72,8 @@ The fare commits with the prepared destination. Reloading before the sequence
 finishes preserves the departure and fare.
 
 The island shell collector pays another 5 for a shell. That help is repeatable
-for later journeys; the first return is already covered. The forest bridge is
-open from the beginning.
+for later journeys; the first return is already covered. The former picnic pond
+and stream are dry land now; the boat lake is the area's distinct water crossing.
 
 ## Content belongs to places
 
@@ -153,7 +158,10 @@ Scene coordinates and physical bodies are in tiles; native pixels use TILE=16.
 Rendering, picking, exact transformed bodies and movement use a shared geometry.
 A spatial index bounds collision work; architectural walls and solid vegetation
 use the same precise body system as furniture. Navigation stays conservative
-and physical substeps validate the actual route.
+and physical substeps validate the actual route. A* also checks live residents
+and the complete foot envelope along edges, not just terrain or occupied cells.
+Click journeys keep an explicit ground/interact/portal/push intention; incidental
+contacts reroute without executing reactions. See [navigation](../../docs/NAVIGATION.md).
 
 Source scenes, behavior modules, asset definitions and locales stay independent.
 The Studio's one working version is not the game source. It exports reviewed

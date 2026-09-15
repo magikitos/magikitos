@@ -1,0 +1,900 @@
+{
+    "frames": {
+        "person-158-down": {
+            "source": "data/aventura/art/residents/cutouts/resident-059.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19230769230769232,
+                "offset": [
+                    2.6538461538461533,
+                    4.46153846153846
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-158-down-right": {
+            "source": "data/aventura/art/residents/cutouts/resident-059.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                1,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19230769230769232,
+                "offset": [
+                    2.6538461538461533,
+                    3.8846153846153797
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-158-right": {
+            "source": "data/aventura/art/residents/cutouts/resident-059.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                2,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19230769230769232,
+                "offset": [
+                    2.75,
+                    3.8846153846153797
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-158-up-right": {
+            "source": "data/aventura/art/residents/cutouts/resident-059.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                3,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19230769230769232,
+                "offset": [
+                    2.6538461538461533,
+                    4.076923076923073
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-158-up": {
+            "source": "data/aventura/art/residents/cutouts/resident-059.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                4,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19230769230769232,
+                "offset": [
+                    2.6538461538461533,
+                    4.653846153846153
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-158-up-left": {
+            "source": "data/aventura/art/residents/cutouts/resident-059.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                5,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19230769230769232,
+                "offset": [
+                    2.6538461538461533,
+                    4.076923076923073
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-158-left": {
+            "source": "data/aventura/art/residents/cutouts/resident-059.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                6,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19230769230769232,
+                "offset": [
+                    2.75,
+                    3.8846153846153797
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-158-down-left": {
+            "source": "data/aventura/art/residents/cutouts/resident-059.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                7,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19230769230769232,
+                "offset": [
+                    2.6538461538461533,
+                    3.8846153846153797
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-158-down-walk-1": {
+            "source": "data/aventura/art/residents/cutouts/resident-059.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                0,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19230769230769232,
+                "offset": [
+                    2.6538461538461533,
+                    4.2692307692307665
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-158-down-right-walk-1": {
+            "source": "data/aventura/art/residents/cutouts/resident-059.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                1,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19230769230769232,
+                "offset": [
+                    2.6538461538461533,
+                    4.076923076923073
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-158-right-walk-1": {
+            "source": "data/aventura/art/residents/cutouts/resident-059.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                2,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19230769230769232,
+                "offset": [
+                    2.75,
+                    4.46153846153846
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-158-up-right-walk-1": {
+            "source": "data/aventura/art/residents/cutouts/resident-059.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                3,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19230769230769232,
+                "offset": [
+                    2.6538461538461533,
+                    4.46153846153846
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-158-up-walk-1": {
+            "source": "data/aventura/art/residents/cutouts/resident-059.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                4,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19230769230769232,
+                "offset": [
+                    2.6538461538461533,
+                    4.2692307692307665
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-158-up-left-walk-1": {
+            "source": "data/aventura/art/residents/cutouts/resident-059.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                5,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19230769230769232,
+                "offset": [
+                    2.6538461538461533,
+                    4.2692307692307665
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-158-left-walk-1": {
+            "source": "data/aventura/art/residents/cutouts/resident-059.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                6,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19230769230769232,
+                "offset": [
+                    2.75,
+                    4.653846153846153
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-158-down-left-walk-1": {
+            "source": "data/aventura/art/residents/cutouts/resident-059.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                7,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19230769230769232,
+                "offset": [
+                    2.6538461538461533,
+                    4.076923076923073
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-158-down-walk-2": {
+            "source": "data/aventura/art/residents/cutouts/resident-059.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                0,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19230769230769232,
+                "offset": [
+                    2.6538461538461533,
+                    4.653846153846153
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-158-down-right-walk-2": {
+            "source": "data/aventura/art/residents/cutouts/resident-059.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                1,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19230769230769232,
+                "offset": [
+                    2.6538461538461533,
+                    3.8846153846153797
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-158-right-walk-2": {
+            "source": "data/aventura/art/residents/cutouts/resident-059.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                2,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19230769230769232,
+                "offset": [
+                    2.75,
+                    4.653846153846153
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-158-up-right-walk-2": {
+            "source": "data/aventura/art/residents/cutouts/resident-059.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                3,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19230769230769232,
+                "offset": [
+                    2.6538461538461533,
+                    5.615384615384613
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-158-up-walk-2": {
+            "source": "data/aventura/art/residents/cutouts/resident-059.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                4,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19230769230769232,
+                "offset": [
+                    2.6538461538461533,
+                    4.653846153846153
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-158-up-left-walk-2": {
+            "source": "data/aventura/art/residents/cutouts/resident-059.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                5,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19230769230769232,
+                "offset": [
+                    2.6538461538461533,
+                    5.615384615384613
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-158-left-walk-2": {
+            "source": "data/aventura/art/residents/cutouts/resident-059.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                6,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19230769230769232,
+                "offset": [
+                    2.75,
+                    4.653846153846153
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-158-down-left-walk-2": {
+            "source": "data/aventura/art/residents/cutouts/resident-059.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                7,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19230769230769232,
+                "offset": [
+                    2.6538461538461533,
+                    3.8846153846153797
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-158-down-walk-3": {
+            "source": "data/aventura/art/residents/cutouts/resident-059.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                0,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19230769230769232,
+                "offset": [
+                    2.6538461538461533,
+                    4.2692307692307665
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-158-down-right-walk-3": {
+            "source": "data/aventura/art/residents/cutouts/resident-059.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                1,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19230769230769232,
+                "offset": [
+                    2.6538461538461533,
+                    4.2692307692307665
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-158-right-walk-3": {
+            "source": "data/aventura/art/residents/cutouts/resident-059.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                2,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19230769230769232,
+                "offset": [
+                    2.75,
+                    5.42307692307692
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-158-up-right-walk-3": {
+            "source": "data/aventura/art/residents/cutouts/resident-059.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                3,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19230769230769232,
+                "offset": [
+                    2.6538461538461533,
+                    4.653846153846153
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-158-up-walk-3": {
+            "source": "data/aventura/art/residents/cutouts/resident-059.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                4,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19230769230769232,
+                "offset": [
+                    2.6538461538461533,
+                    4.846153846153847
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-158-up-left-walk-3": {
+            "source": "data/aventura/art/residents/cutouts/resident-059.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                5,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19230769230769232,
+                "offset": [
+                    2.6538461538461533,
+                    4.653846153846153
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-158-left-walk-3": {
+            "source": "data/aventura/art/residents/cutouts/resident-059.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                6,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19230769230769232,
+                "offset": [
+                    2.75,
+                    5.230769230769226
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-158-down-left-walk-3": {
+            "source": "data/aventura/art/residents/cutouts/resident-059.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                7,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19230769230769232,
+                "offset": [
+                    2.6538461538461533,
+                    4.2692307692307665
+                ]
+            },
+            "cleanFragments": 0.015
+        }
+    }
+}

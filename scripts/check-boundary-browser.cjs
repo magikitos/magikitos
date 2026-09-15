@@ -50,7 +50,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   await p.addInitScript(() =>
     localStorage.setItem(
       "magikitos.adventure",
-      JSON.stringify({ flags: { introSeen: true }, muted: true }),
+      JSON.stringify({ flags: {  }, muted: true }),
     ),
   );
   await p.goto(offline + "/aventura");
@@ -131,7 +131,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
       };
       localStorage.setItem(
         "magikitos.adventure",
-        JSON.stringify({ flags: { introSeen: true }, muted: true }),
+        JSON.stringify({ flags: {  }, muted: true }),
       );
     }, mode);
     await page.goto(origin + "/aventura");
@@ -209,7 +209,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
       JSON.stringify({
         scene: "house",
         position: { x: 296, y: 127 },
-        flags: { introSeen: true },
+        flags: {  },
         muted: true,
       }),
     ),

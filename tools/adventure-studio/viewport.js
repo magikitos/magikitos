@@ -1,6 +1,9 @@
 "use strict";
 const { Renderer } = require("../../public/assets/js/adventure/renderer");
 const {
+  collisionBodies,
+} = require("../../public/assets/js/adventure/collision-grid");
+const {
   World,
   TILE,
   collisionBounds,
@@ -36,7 +39,6 @@ class MapViewport {
       hidePlayer: true,
       showAllEntities: true,
       dialogue: true,
-      path: [],
       reducedMotion: true,
       self: { frame: () => null, drawGround() {}, drawStream() {} },
       roll: { frame: () => null },
@@ -321,8 +323,8 @@ class MapViewport {
         ...this.elements(),
         ...this.world.architecture.map((e) => ({ e })),
       ]) {
-        if (e.solid) {
-          const r = collisionBounds(e);
+        for (const body of collisionBodies(e).filter((part) => part.solid)) {
+          const r = collisionBounds(body);
           c.fillStyle = "#69cbe933";
           c.strokeStyle = "#9de0f5cc";
           c.fillRect(r.x, r.y, r.w, r.h);

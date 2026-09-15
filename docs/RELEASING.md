@@ -29,6 +29,10 @@ Transfer the reviewed artifact and a Node bundle of this installer to a scoped
 temporary directory on the host. Do not copy source masters or Studio into a
 public directory. Run it as the website owner:
 
+On macOS, create the transfer archive with `COPYFILE_DISABLE=1 tar
+--no-xattrs --no-mac-metadata`. Finder/AppleDouble files are not game assets and
+the allowlisted installer correctly rejects an archive that contains them.
+
 ```sh
 node install-release.cjs /absolute/staging/ID /absolute/website --stage-only
 ```

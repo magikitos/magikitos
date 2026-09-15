@@ -10,6 +10,11 @@ const root = path.resolve(__dirname, ".."),
 const blueprint = JSON.parse(
   fs.readFileSync(path.join(dir, "element-families.json")),
 ).families;
+const doorways = JSON.parse(
+  fs.readFileSync(path.join(dir, "art/doorways/catalog.json")),
+).assets;
+const editions = new Map(doorways.map((a) => [a.asset, a.cutout]));
+if (editions.size !== doorways.length) throw Error("Duplicate doorway edition");
 const packs = {},
   families = {},
   owners = new Set(),
@@ -22,7 +27,9 @@ const label = (id) =>
   ({ otono: "Otoño", castana: "Castaña", raices: "Raíces" })[id] ||
   id[0].toUpperCase() + id.slice(1).replaceAll("-", " ");
 for (const a of kit.assets) {
-  const source = "data/aventura/art/woodland-kit/cutouts/" + a.id + ".png";
+  const source =
+    editions.get(a.id) ||
+    "data/aventura/art/woodland-kit/cutouts/" + a.id + ".png";
   if (!fs.existsSync(path.join(root, source)))
     throw Error("Missing reviewed cutout: " + a.id);
   const frame = {
@@ -95,6 +102,17 @@ for (const f of Object.values(families)) {
   if (!f.variants?.length) throw Error("Empty family " + f.label);
 }
 write(path.join(dir, "elements.json"), { families });
+// One authored cast catalog; prompts and source details never enter the runtime.
+const profiles = JSON.parse(
+  fs.readFileSync(path.join(dir, "art/residents/catalog.json")),
+).profiles.map(({ id, key, family, gender, label }) => ({
+  id,
+  key,
+  family,
+  gender,
+  label: label.replace("Castana", "Castaña").replace("Sauco", "Saúco"),
+}));
+write(path.join(dir, "residents.json"), profiles);
 console.log(
   kit.assets.length +
     " artworks; " +

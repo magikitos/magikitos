@@ -25,6 +25,7 @@
         "portal": true,
         "label": "cottage"
       },
+      "entrance": "open",
       "aliases": [
         "workshop",
         "cottage",
@@ -78,6 +79,7 @@
         "portal": true,
         "label": "cottage"
       },
+      "entrance": "open",
       "aliases": [
         "tavern",
         "home-boot-ochre"
@@ -124,6 +126,7 @@
         "portal": true,
         "label": "cottage"
       },
+      "entrance": "open",
       "aliases": [
         "human-house",
         "home-leaf-autumn"
@@ -149,28 +152,40 @@
       "label": "Casas de seta",
       "category": "Casitas",
       "template": {
-        "sprite": "cottage-closed",
-        "rules": [],
+        "sprite": "home-mushroom-canela",
+        "rules": [
+          {
+            "effects": [
+              {
+                "type": "travel",
+                "scene": "mushroom-home",
+                "spawn": true
+              }
+            ]
+          }
+        ],
         "solid": [
           -3,
           -1.4,
           6,
           1.6
-        ]
+        ],
+        "portal": true
       },
+      "entrance": "open",
       "aliases": [
-        "cottage-closed",
+        "home-mushroom-canela",
         "home-mushroom-red"
       ],
       "defaults": {
-        "cottage-closed": "canela",
+        "home-mushroom-canela": "canela",
         "home-mushroom-red": "roja"
       },
       "variants": [
         {
           "id": "canela",
           "label": "Canela",
-          "sprite": "cottage-closed"
+          "sprite": "home-mushroom-canela"
         },
         {
           "id": "roja",
@@ -183,28 +198,40 @@
       "label": "Casas de maceta",
       "category": "Casitas",
       "template": {
-        "sprite": "fisher-closed",
-        "rules": [],
+        "sprite": "home-pot-terracotta",
+        "rules": [
+          {
+            "effects": [
+              {
+                "type": "travel",
+                "scene": "pot-home",
+                "spawn": true
+              }
+            ]
+          }
+        ],
         "solid": [
           -4,
           -2,
           8,
           2.3
-        ]
+        ],
+        "portal": true
       },
+      "entrance": "open",
       "aliases": [
-        "fisher-closed",
+        "home-pot-terracotta",
         "home-pot-moss"
       ],
       "defaults": {
-        "fisher-closed": "terracota",
+        "home-pot-terracotta": "terracota",
         "home-pot-moss": "musgo"
       },
       "variants": [
         {
           "id": "terracota",
           "label": "Terracota",
-          "sprite": "fisher-closed"
+          "sprite": "home-pot-terracotta"
         },
         {
           "id": "musgo",
@@ -1231,11 +1258,11 @@
       },
       "aliases": [
         "picnic-guacamole",
-        "picnic-potato-chips"
+        "picnic-tortilla-chips"
       ],
       "defaults": {
         "picnic-guacamole": "guacamole",
-        "picnic-potato-chips": "patatas"
+        "picnic-tortilla-chips": "totopos"
       },
       "variants": [
         {
@@ -1244,9 +1271,9 @@
           "sprite": "picnic-guacamole"
         },
         {
-          "id": "patatas",
-          "label": "Patatas",
-          "sprite": "picnic-potato-chips"
+          "id": "totopos",
+          "label": "Totopos",
+          "sprite": "picnic-tortilla-chips"
         }
       ]
     },
@@ -1527,6 +1554,170 @@
         "fallen-log": "fallen-log",
         "stump": "stump"
       }
+    },
+    "garden-beds": {
+      "label": "Bancales",
+      "category": "Isla · huerto y descanso",
+      "template": {
+        "sprite": "garden-carrots",
+        "rules": [],
+        "solid": [
+          -1.8,
+          -1.25,
+          3.6,
+          1.6
+        ]
+      },
+      "aliases": [
+        "garden-carrots",
+        "garden-cabbages",
+        "garden-beets",
+        "garden-herbs"
+      ],
+      "defaults": {
+        "garden-carrots": "garden-carrots",
+        "garden-cabbages": "garden-cabbages",
+        "garden-beets": "garden-beets",
+        "garden-herbs": "garden-herbs"
+      },
+      "variants": [
+        {
+          "id": "garden-carrots",
+          "sprite": "garden-carrots",
+          "label": "Zanahorias"
+        },
+        {
+          "id": "garden-cabbages",
+          "sprite": "garden-cabbages",
+          "label": "Lechugas"
+        },
+        {
+          "id": "garden-beets",
+          "sprite": "garden-beets",
+          "label": "Remolachas"
+        },
+        {
+          "id": "garden-herbs",
+          "sprite": "garden-herbs",
+          "label": "Hierbas"
+        }
+      ]
+    },
+    "garden-workbench": {
+      "label": "Mesa de semilleros",
+      "category": "Isla · huerto y descanso",
+      "template": {
+        "sprite": "garden-potting-table",
+        "rules": [],
+        "solid": [
+          -1.5,
+          -0.6,
+          3,
+          0.9
+        ]
+      },
+      "aliases": [
+        "garden-potting-table"
+      ],
+      "defaults": {
+        "garden-potting-table": "garden-potting-table"
+      },
+      "variants": [
+        {
+          "id": "garden-potting-table",
+          "sprite": "garden-potting-table",
+          "label": "Semilleros"
+        }
+      ]
+    },
+    "garden-fence": {
+      "label": "Vallas de ramas",
+      "category": "Isla · huerto y descanso",
+      "template": {
+        "sprite": "garden-fence",
+        "rules": [],
+        "solid": [
+          -2,
+          -0.3,
+          4,
+          0.5
+        ]
+      },
+      "aliases": [
+        "garden-fence"
+      ],
+      "defaults": {
+        "garden-fence": "garden-fence"
+      },
+      "variants": [
+        {
+          "id": "garden-fence",
+          "sprite": "garden-fence",
+          "label": "Ramas atadas"
+        }
+      ]
+    },
+    "garden-hammock": {
+      "label": "Hamaca de hoja",
+      "category": "Isla · huerto y descanso",
+      "template": {
+        "sprite": "garden-hammock",
+        "rules": [],
+        "solid": [
+          -2.2,
+          -0.4,
+          4.4,
+          0.8
+        ]
+      },
+      "aliases": [
+        "garden-hammock"
+      ],
+      "defaults": {
+        "garden-hammock": "garden-hammock"
+      },
+      "variants": [
+        {
+          "id": "garden-hammock",
+          "sprite": "garden-hammock",
+          "label": "Hoja cosida"
+        }
+      ]
+    },
+    "garden-trellis": {
+      "label": "Arco de flores",
+      "category": "Isla · huerto y descanso",
+      "template": {
+        "sprite": "garden-trellis",
+        "rules": [],
+        "solids": [
+          [
+            -2,
+            -0.5,
+            0.55,
+            0.9
+          ],
+          [
+            1.45,
+            -0.5,
+            0.55,
+            0.9
+          ]
+        ]
+      },
+      "aliases": [
+        "garden-trellis"
+      ],
+      "defaults": {
+        "garden-trellis": "garden-trellis"
+      },
+      "variants": [
+        {
+          "id": "garden-trellis",
+          "sprite": "garden-trellis",
+          "label": "Flores blancas"
+        }
+      ]
     }
   }
 }

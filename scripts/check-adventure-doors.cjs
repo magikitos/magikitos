@@ -2,6 +2,7 @@
 const assert = require("node:assert/strict"),
   fs = require("node:fs");
 const { Adventure } = require("../public/assets/js/adventure/game");
+const { Journey } = require("../public/assets/js/adventure/journey");
 const {
   World,
   TILE,
@@ -36,6 +37,7 @@ for (const scene of Object.values(catalog.scenes)) {
     const game = Object.create(Adventure.prototype);
     Object.assign(game, {
       world,
+      journey: new Journey(),
       state: { flags: {}, inventory: {} },
       player: { ...center },
       portalLatch: new Set(),
@@ -59,6 +61,13 @@ for (const scene of Object.values(catalog.scenes)) {
       );
     }
     assert(game.checkThresholds({ x: 0, y: dir }));
+    game.journey.intent = { kind: "ground", point: center };
+    assert(!game.checkThresholds({ x: 0, y: dir }), "A ground route cannot enter an incidental doorway");
+    game.journey.intent = { kind: "interact", entity: door };
+    assert(!game.checkThresholds({ x: 0, y: dir }), "Only a deliberate portal intention crosses automatically");
+    game.journey.intent = { kind: "portal", entity: door };
+    assert(game.checkThresholds({ x: 0, y: dir }), "A clicked door retains directional entry");
+    game.journey.clear();
     assert(acceptsEntry(door, { x: 1, y: dir }));
     game.entered = false;
     game.player = { ...center, x: center.x - 12 };

@@ -3,7 +3,7 @@
   "label": "islet",
   "width": 64,
   "height": 48,
-  "seed": 96271,
+  "seed": 96272,
   "spawn": {
     "x": 10.5,
     "y": 25.5
@@ -37,48 +37,168 @@
         25
       ],
       [
-        25,
+        22,
+        25
+      ],
+      [
+        30,
         24
       ],
       [
-        34,
-        23
+        39,
+        25
       ],
       [
+        45,
+        32
+      ],
+      [
+        37,
+        34
+      ],
+      [
+        28,
+        33
+      ],
+      [
+        22,
+        29
+      ],
+      [
+        22,
+        25
+      ]
+    ],
+    [
+      [
+        22,
+        25
+      ],
+      [
+        22.5,
+        21
+      ],
+      [
+        22.5,
+        19
+      ]
+    ],
+    [
+      [
+        30,
+        24
+      ],
+      [
+        34.5,
+        24
+      ],
+      [
+        34.5,
+        18
+      ],
+      [
+        34.5,
+        13.5
+      ]
+    ],
+    [
+      [
         39,
-        28
+        25
       ],
       [
         44,
+        23
+      ],
+      [
+        47,
+        22
+      ],
+      [
+        47,
+        20
+      ]
+    ],
+    [
+      [
+        45,
+        32
+      ],
+      [
+        47,
+        31
+      ]
+    ],
+    [
+      [
+        37,
         34
+      ],
+      [
+        41,
+        35
+      ],
+      [
+        44,
+        35
       ]
     ]
   ],
   "clearings": [
     [
-      18,
+      13,
       25,
       5
     ],
     [
+      22,
       25,
-      27,
       6
     ],
     [
+      25,
+      17,
+      6
+    ],
+    [
+      35,
+      16,
+      6
+    ],
+    [
+      42,
+      18,
+      6
+    ],
+    [
+      47,
+      28,
+      6
+    ],
+    [
+      36,
+      31,
+      5
+    ],
+    [
+      27,
+      32,
+      5
+    ],
+    [
       44,
-      34,
+      35,
       4
     ],
     [
-      34,
-      23,
-      5
+      18,
+      17,
+      4
     ],
     [
-      11.5,
-      24,
-      5
+      47,
+      19,
+      6
     ]
   ],
   "regions": [
@@ -98,23 +218,21 @@
       "willow",
       "fruit-tree"
     ],
-    "treeRegions": [
-      "islet"
-    ],
+    "treeRegions": [],
     "islet": [
       "coastal-grass",
-      "coastal-grass",
-      "sandstone",
-      "fern"
+      "fern",
+      "flowers-primrose"
     ],
-    "count": 95
+    "count": 65
   },
   "ambient": {
     "kind": "forest",
     "count": 6
   },
   "actors": [
-    4
+    4,
+    180
   ],
   "entities": [
     {
@@ -131,8 +249,8 @@
     {
       "id": "shell-collector",
       "behavior": "shell-collector",
-      "x": 24.5,
-      "y": 27.5
+      "x": 24,
+      "y": 30
     },
     {
       "id": "shore-shells",
@@ -141,17 +259,256 @@
       "y": 35.5
     },
     {
+      "id": "islet-ferry",
+      "sprite": "ferry",
+      "x": 6.5,
+      "y": 26,
+      "solid": [
+        -2.6,
+        -1.7,
+        5.2,
+        2
+      ],
+      "rules": [],
+      "interactAs": "islet-ferryman",
+      "flip": true
+    },
+    {
+      "id": "islet-mushroom-home",
+      "sprite": "home-mushroom-red",
+      "x": 22.5,
+      "y": 18.5,
+      "rules": [
+        {
+          "effects": [
+            {
+              "type": "travel",
+              "scene": "mushroom-home",
+              "spawn": true
+            }
+          ]
+        }
+      ],
+      "portal": true,
+      "label": "mushroomHome",
+      "solid": [
+        -3,
+        -1.4,
+        6,
+        1.6
+      ]
+    },
+    {
+      "id": "islet-leaf-home",
+      "sprite": "home-leaf-autumn",
+      "x": 47,
+      "y": 19.5,
+      "rules": [
+        {
+          "effects": [
+            {
+              "type": "travel",
+              "scene": "house",
+              "spawn": true
+            }
+          ]
+        }
+      ],
+      "portal": true,
+      "label": "house",
+      "solid": [
+        -3.9,
+        -1.8,
+        7.8,
+        2
+      ]
+    },
+    {
+      "id": "islet-pot-home",
+      "sprite": "home-pot-moss",
+      "x": 47,
+      "y": 29,
+      "rules": [
+        {
+          "effects": [
+            {
+              "type": "travel",
+              "scene": "pot-home",
+              "spawn": true
+            }
+          ]
+        }
+      ],
+      "portal": true,
+      "label": "potHome",
+      "solid": [
+        -4,
+        -2,
+        8,
+        2.3
+      ]
+    },
+    {
       "id": "collector-basket",
       "sprite": "basket",
-      "x": 26.5,
-      "y": 27.5,
+      "x": 22.5,
+      "y": 31.5,
       "rules": []
+    },
+    {
+      "id": "islet-potting-table",
+      "sprite": "garden-potting-table",
+      "x": 18.5,
+      "y": 22,
+      "rules": [],
+      "solid": [
+        -1.5,
+        -0.6,
+        3,
+        0.9
+      ]
+    },
+    {
+      "id": "islet-harbor-crate",
+      "sprite": "crates",
+      "x": 16,
+      "y": 27,
+      "rules": [],
+      "artVariant": "auto"
+    },
+    {
+      "id": "islet-harbor-planter",
+      "sprite": "flower-pot",
+      "x": 16.5,
+      "y": 22,
+      "rules": [],
+      "artVariant": "auto"
+    },
+    {
+      "id": "islet-harbor-daisies",
+      "sprite": "flowers-daisy-white",
+      "x": 20,
+      "y": 20,
+      "rules": [],
+      "artVariant": "auto"
+    },
+    {
+      "id": "garden-carrots",
+      "sprite": "garden-carrots",
+      "x": 31.5,
+      "y": 16,
+      "rules": [],
+      "solid": [
+        -1.8,
+        -1.25,
+        3.6,
+        1.6
+      ]
+    },
+    {
+      "id": "garden-cabbages",
+      "sprite": "garden-cabbages",
+      "x": 38,
+      "y": 16,
+      "rules": [],
+      "solid": [
+        -1.8,
+        -1.25,
+        3.6,
+        1.6
+      ]
+    },
+    {
+      "id": "garden-beets",
+      "sprite": "garden-beets",
+      "x": 31.5,
+      "y": 20,
+      "rules": [],
+      "solid": [
+        -1.8,
+        -1.25,
+        3.6,
+        1.6
+      ]
+    },
+    {
+      "id": "garden-herbs",
+      "sprite": "garden-herbs",
+      "x": 38,
+      "y": 20,
+      "rules": [],
+      "solid": [
+        -1.8,
+        -1.25,
+        3.6,
+        1.6
+      ]
+    },
+    {
+      "id": "garden-fence-west",
+      "sprite": "garden-fence",
+      "x": 31,
+      "y": 12.5,
+      "rules": [],
+      "solid": [
+        -2,
+        -0.3,
+        4,
+        0.5
+      ]
+    },
+    {
+      "id": "garden-fence-east",
+      "sprite": "garden-fence",
+      "x": 37,
+      "y": 12.5,
+      "rules": [],
+      "solid": [
+        -2,
+        -0.3,
+        4,
+        0.5
+      ]
+    },
+    {
+      "id": "garden-trellis",
+      "sprite": "garden-trellis",
+      "x": 34.5,
+      "y": 23,
+      "rules": [],
+      "solids": [
+        [
+          -2,
+          -0.5,
+          0.55,
+          0.9
+        ],
+        [
+          1.45,
+          -0.5,
+          0.55,
+          0.9
+        ]
+      ]
+    },
+    {
+      "id": "islet-hammock",
+      "sprite": "garden-hammock",
+      "x": 29,
+      "y": 31,
+      "rules": [],
+      "solid": [
+        -2.2,
+        -0.4,
+        4.4,
+        0.8
+      ]
     },
     {
       "id": "islet-bench",
       "sprite": "bench",
-      "x": 31.5,
-      "y": 19.5,
+      "x": 36,
+      "y": 29.5,
       "rules": [
         {
           "effects": [
@@ -171,23 +528,40 @@
       "label": "bench"
     },
     {
-      "id": "islet-willow",
-      "sprite": "willow",
-      "x": 34.5,
-      "y": 17.5,
+      "id": "islet-rest-stool",
+      "sprite": "stool-acorn",
+      "x": 38,
+      "y": 30,
+      "rules": [],
+      "artVariant": "auto"
+    },
+    {
+      "id": "islet-rest-flowers",
+      "sprite": "flowers-bell-blue",
+      "x": 33,
+      "y": 29.5,
+      "rules": [],
+      "artVariant": "auto"
+    },
+    {
+      "id": "islet-canopy",
+      "sprite": "ancient-root",
+      "x": 12,
+      "y": 18,
+      "scale": 0.65,
       "rules": [],
       "solid": [
-        -0.4,
-        -0.5,
-        0.8,
-        0.7
+        -2.5,
+        -2.8,
+        5,
+        3.4
       ]
     },
     {
       "id": "islet-fruit",
       "sprite": "fruit-tree",
-      "x": 41.5,
-      "y": 22.5,
+      "x": 42,
+      "y": 12.5,
       "rules": [],
       "solid": [
         -0.4,
@@ -197,48 +571,153 @@
       ]
     },
     {
+      "id": "islet-fruit-west",
+      "sprite": "bush",
+      "x": 27,
+      "y": 12,
+      "rules": [],
+      "solid": [
+        -0.4,
+        -0.5,
+        0.8,
+        0.7
+      ],
+      "flip": true
+    },
+    {
+      "id": "islet-fern-north",
+      "sprite": "giant-fern",
+      "x": 33,
+      "y": 10.5,
+      "rules": [],
+      "artVariant": "auto"
+    },
+    {
+      "id": "islet-fern-east",
+      "sprite": "giant-fern",
+      "x": 55,
+      "y": 24,
+      "rules": [],
+      "artVariant": "auto",
+      "scale": 0.75
+    },
+    {
+      "id": "islet-south-clover",
+      "sprite": "giant-clover",
+      "x": 17,
+      "y": 32,
+      "rules": [],
+      "artVariant": "auto",
+      "scale": 0.75
+    },
+    {
+      "id": "islet-north-bells",
+      "sprite": "flowers-bell-blue",
+      "x": 36,
+      "y": 10.5,
+      "rules": [],
+      "artVariant": "auto"
+    },
+    {
+      "id": "islet-house-daisies",
+      "sprite": "flowers-daisy-white",
+      "x": 27.5,
+      "y": 20,
+      "rules": [],
+      "artVariant": "auto"
+    },
+    {
+      "id": "islet-pot-flowers",
+      "sprite": "flowers-primrose",
+      "x": 49,
+      "y": 32,
+      "rules": [],
+      "artVariant": "auto"
+    },
+    {
+      "id": "islet-leaf-flowers",
+      "sprite": "flowers-daisy-gold",
+      "x": 45,
+      "y": 21,
+      "rules": []
+    },
+    {
       "id": "islet-rock",
       "sprite": "sandstone",
-      "x": 42.5,
-      "y": 36.5,
+      "x": 43,
+      "y": 37,
       "rules": []
     },
     {
       "id": "islet-reeds",
       "sprite": "coastal-grass",
-      "x": 46.5,
+      "x": 49,
       "y": 33.5,
       "rules": []
     },
     {
-      "id": "islet-ferry",
-      "sprite": "ferry",
-      "x": 6.5,
-      "y": 26,
-      "solid": [
-        -2.6,
-        -1.7,
-        5.2,
-        2
-      ],
-      "rules": [],
-      "interactAs": "islet-ferryman",
-      "flip": true
+      "id": "islet-beach-wood",
+      "sprite": "fallen-log",
+      "x": 39,
+      "y": 37,
+      "rules": []
     },
     {
       "id": "islet-leaves",
       "behavior": "toilet-plant",
-      "x": 31.5,
-      "y": 17.5
+      "x": 24,
+      "y": 34.5
     }
   ],
   "neighbors": [
     {
       "id": "islet-wanderer",
-      "x": 33.5,
-      "y": 25.5,
-      "radius": 3,
+      "x": 29,
+      "y": 26,
+      "radius": 1,
       "dialogue": "isletGreeting"
+    },
+    {
+      "id": "islet-gardener",
+      "x": 34.5,
+      "y": 18,
+      "radius": 0.7,
+      "dialogue": "isletGardener"
+    },
+    {
+      "id": "islet-harbor-neighbor",
+      "x": 19,
+      "y": 25,
+      "radius": 0.8,
+      "dialogue": "isletHarbor"
+    },
+    {
+      "id": "islet-home-neighbor",
+      "x": 40,
+      "y": 23,
+      "radius": 0.8,
+      "dialogue": "isletHome"
+    },
+    {
+      "id": "islet-rest-neighbor",
+      "x": 34,
+      "y": 32,
+      "radius": 0.8,
+      "dialogue": "isletHammock"
+    },
+    {
+      "id": "islet-beach-neighbor",
+      "x": 41,
+      "y": 33,
+      "radius": 0.8,
+      "dialogue": "isletGreeting"
+    },
+    {
+      "id": "islet-flower-neighbor",
+      "x": 26,
+      "y": 24,
+      "radius": 0.8,
+      "dialogue": "isletFlowers"
     }
   ]
 }

@@ -64,25 +64,25 @@ function follow(
   onStep,
   options = {},
 ) {
-  if (!path.length) return false;
-  const point = path[0],
-    dx = point.x - actor.x,
-    dy = point.y - actor.y,
-    d = Math.hypot(dx, dy);
-  if (d < 0.7) {
-    path.shift();
-    return false;
+  let budget = Math.max(0, speed * dt), moved = false, interrupted = false;
+  // Spend the whole distance budget across waypoints, also on fast/low-FPS devices.
+  while (path.length && budget > 0.001 && !interrupted) {
+    const point = path[0], dx = point.x - actor.x, dy = point.y - actor.y;
+    const distance = Math.hypot(dx, dy);
+    if (distance < 0.001) { path.shift(); continue; }
+    const step = Math.min(distance, budget);
+    const moving = move(world, actor, dx / distance * step, dy / distance * step,
+      (entity) => { interrupted = true; onContact(entity); },
+      { ...options, onStep: (motion) => {
+        if (onStep?.(motion) === false) interrupted = true;
+        return !interrupted;
+      } },
+    );
+    budget -= step;
+    moved ||= moving;
+    if (!moving) { path.splice(0); break; }
+    if (Math.hypot(point.x - actor.x, point.y - actor.y) < 0.001) path.shift();
   }
-  const step = Math.min(d, speed * dt);
-  const moving = move(
-    world,
-    actor,
-    (dx / d) * step,
-    (dy / d) * step,
-    onContact,
-    { ...options, onStep },
-  );
-  if (!moving && path.length && d > 0.7) path.splice(0);
-  return moving;
+  return moved;
 }
 module.exports = { move, follow };

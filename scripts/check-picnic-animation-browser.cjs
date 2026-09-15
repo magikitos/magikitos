@@ -5,7 +5,12 @@ const fs = require("node:fs");
 const path = require("node:path");
 const { buildSync } = require("esbuild");
 const { chromium } = require("playwright");
-const { clips } = require("../public/assets/js/adventure/ambient-actors");
+const { clips: ambientClips } = require("../public/assets/js/adventure/ambient-actors");
+const { seatedClip } = require("../public/assets/js/adventure/seating");
+const { DIRECTIONS } = require("../public/assets/js/adventure/characters");
+const clips = { ...ambientClips, ...Object.fromEntries(DIRECTIONS.flatMap(d => [0,2].map(p => {
+  const name=`person-12-${d}-sit-${p}`; return [name,seatedClip(name)];
+}))) };
 const origin = process.env.GAME_ORIGIN || "http://127.0.0.1:47834";
 (async () => {
   const browser = await chromium.launch({ channel: "chrome", headless: true });
@@ -29,7 +34,7 @@ const origin = process.env.GAME_ORIGIN || "http://127.0.0.1:47834";
         JSON.stringify({
           scene: "overworld",
           position: { x: 25 * 16, y: 52.5 * 16 },
-          flags: { introSeen: true },
+          flags: {  },
           muted: true,
         }),
       ),
@@ -41,7 +46,7 @@ const origin = process.env.GAME_ORIGIN || "http://127.0.0.1:47834";
     const bundle = buildSync({
       stdin: {
         contents:
-          'module.exports = { ...require("./public/assets/js/adventure/ambient-actors"), ...require("./public/assets/js/adventure/sprites") };',
+          'module.exports = { ...require("./public/assets/js/adventure/ambient-actors"), ...require("./public/assets/js/adventure/sprites"), clips: ' + JSON.stringify(clips) + ' };',
         resolveDir: process.cwd(),
       },
       bundle: true,

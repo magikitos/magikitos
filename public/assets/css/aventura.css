@@ -111,6 +111,17 @@ body.world-page {
 .world-tool.is-muted {
   color: #acb9a3;
 }
+.world-recenter {
+  position: fixed;
+  right: max(20px, env(safe-area-inset-right));
+  bottom: calc(20px + var(--world-safe));
+  z-index: 20;
+  cursor: pointer;
+}
+.world-listening:not([hidden]) ~ .world-recenter {
+  bottom: calc(112px + var(--world-safe));
+}
+#world-canvas.is-panning { cursor: grabbing; }
 .world-listening {
   position: fixed;
   z-index: 30;

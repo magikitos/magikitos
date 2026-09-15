@@ -2,7 +2,7 @@
 declare(strict_types=1);
 require_once __DIR__ . '/adventure-sprite-packer.php';
 /** Removes only an explicitly authored magenta matte. Never resizes, recolours or reshapes the object. */
-function adventureKeyedCutout(GdImage $source, string $id, bool $foliageMatte = false): array
+function adventureKeyedCutout(GdImage $source, string $id, bool $foliageMatte = false, ?string $edgeMatte = null): array
 {
     imagepalettetotruecolor($source);
     imagealphablending($source, false); imagesavealpha($source, true);
@@ -15,7 +15,9 @@ function adventureKeyedCutout(GdImage $source, string $id, bool $foliageMatte = 
         $r = ($pixel >> 16) & 255; $g = ($pixel >> 8) & 255; $b = $pixel & 255;
         // The reviewed tree masters contain no purple subject matter: recover desaturated gaps too.
         $foliageGap = $foliageMatte && min($r,$b)-$g > 8 && $r > $g*1.07 && $b > $g*1.07 && $r > $b*.5 && $r < $b*2;
-        if ((($pixel >> 24) & 127) > 100 || $foliageGap || ($r > 200 && $b > 190 && min($r, $b) - $g > 120)) {
+        // Reviewed resident masters have a saturated red cutout fringe, never this colour in their fabric.
+        $redMatte = $edgeMatte === 'red' && $r > 245 && $g < 16 && $b < 16;
+        if ((($pixel >> 24) & 127) > 100 || $foliageGap || $redMatte || ($r > 200 && $b > 190 && min($r, $b) - $g > 120)) {
             $mask[$y * $w + $x] = "\1"; $removed++;
         }
     }
@@ -37,7 +39,8 @@ function adventureKeyedCutout(GdImage $source, string $id, bool $foliageMatte = 
     $clear = imagecolorallocatealpha($source, 0, 0, 0, 127);
     for ($y=0; $y<$h; $y++) for ($x=0; $x<$w; $x++) if ($mask[$y*$w+$x] === "\1") imagesetpixel($source,$x,$y,$clear);
     $bounds = adventureVisibleBounds($source, [0,0,$w,$h], $id);
-    if ($bounds[0] < 3 || $bounds[1] < 3 || $bounds[0]+$bounds[2]>$w-3 || $bounds[1]+$bounds[3]>$h-3)
+    // Two fully transparent source pixels prove a complete silhouette; registration adds runtime padding.
+    if ($bounds[0] < 2 || $bounds[1] < 2 || $bounds[0]+$bounds[2]>$w-2 || $bounds[1]+$bounds[3]>$h-2)
         throw new RuntimeException('Art touches source edge; regenerate with full silhouette: ' . $id);
     return ['bounds'=>$bounds, 'alpha'=>round($removed/($w*$h),3)];
 }

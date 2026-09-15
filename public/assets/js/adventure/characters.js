@@ -34,4 +34,8 @@ function pushFrame(actor) {
   const pose = actor.pushing.moved ? [1, 2, 3, 2][Math.floor((actor.walkDistance || 0) / 4) % 4] : 0;
   return `person-0-${actor.pushing.direction}-push-${pose}`;
 }
-module.exports = { DIRECTIONS, facing, recordStep, characterFrame, pushFrame };
+function runFrame(actor, running) {
+  if (!running) return null;
+  return `person-0-${actor.direction || "down"}-run-${Math.floor((actor.walkDistance || 0) / 9) % 4}`;
+}
+module.exports = { DIRECTIONS, facing, recordStep, characterFrame, pushFrame, runFrame };

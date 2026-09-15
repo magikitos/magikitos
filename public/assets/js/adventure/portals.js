@@ -29,6 +29,25 @@ function acceptsEntry(entity, motion) {
     Math.abs(motion.y) >= Math.abs(motion.x),
   );
 }
+/** Shared interiors return to the building actually entered, including buildings on another map. */
+function doorDestination(catalog, from, door, travel, entrance) {
+  const fallback = {
+    scene: travel.scene,
+    position: { x: travel.x * TILE, y: travel.y * TILE },
+  };
+  const outside = catalog.scenes[entrance?.scene];
+  if (
+    !from.indoor ||
+    !door.portal ||
+    door.entryDirection !== 1 ||
+    catalog.scenes[travel.scene].indoor ||
+    !outside ||
+    outside.indoor
+  )
+    return fallback;
+  const position = portalArrival(catalog, entrance.scene, entrance.portal);
+  return position ? { scene: entrance.scene, position } : fallback;
+}
 /** A tap routes to the front of a door, then crosses inward; it never teleports from the side. */
 function portalPath(world, from, entity) {
   const [x, y, w, h] = entity.threshold;
@@ -44,4 +63,4 @@ function portalPath(world, from, entity) {
     return [];
   return [...path, lead, target];
 }
-module.exports = { portalArrival, acceptsEntry, portalPath };
+module.exports = { portalArrival, acceptsEntry, portalPath, doorDestination };

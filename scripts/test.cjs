@@ -4,9 +4,12 @@ execFileSync(process.execPath, ["tools/build.cjs"], { stdio: "inherit" });
 for (const name of [
   "check-adventure",
   "check-adventure-geography",
+  "check-adventure-residents",
   "check-adventure-picnic",
   "check-adventure-ascua",
   "check-adventure-controls",
+  "check-adventure-mobility",
+  "check-adventure-journeys",
   "check-adventure-interactions",
   "check-adventure-assets",
   "check-adventure-life",
@@ -19,6 +22,7 @@ for (const name of [
   "check-adventure-paths",
   "check-adventure-doors",
   "check-adventure-account",
+  "check-flat-art",
   "check-release-install",
 ])
   execFileSync(process.execPath, ["scripts/" + name + ".cjs"], {

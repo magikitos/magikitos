@@ -270,80 +270,18 @@ class WorldSite {
       () => this.shop(),
     );
   }
-  art(collection = null) {
+  art() {
     return this.load(
       "art",
-      this.game.text("art"),
-      async (signal) => {
-        const data = await this.game.content.catalogue(
-          "art",
-          collection,
+      this.game.text("artSheets"),
+      async (signal) =>
+        galleryView(
+          this.game,
+          await this.game.content.catalogue("art", signal),
+          (cursor) => this.game.content.catalogue("art", signal, cursor),
           signal,
-        );
-        if (collection)
-          return galleryView(
-            this.game,
-            data,
-            (cursor) =>
-              this.game.content.catalogue("art", collection, signal, cursor),
-            () => this.art(),
-          );
-        const root = activity(this.game, "art", this.game.text("collections")),
-          list = el("div", { class: "world-native-catalogue" });
-        const append = (items) => {
-          for (const item of items) {
-            const node = button(
-              "",
-              () => this.art(item.id),
-              "world-native-card",
-            );
-            if (item.image)
-              node.append(
-                el("img", {
-                  src: item.image,
-                  alt: "",
-                  loading: "lazy",
-                  width: 120,
-                  height: 120,
-                }),
-              );
-            node.append(el("strong", { text: item.title }));
-            list.append(node);
-          }
-        };
-        append(data.items);
-        root.append(list);
-        if (!data.items.length)
-          root.append(el("p", { text: this.game.text("empty") }));
-        let cursor = data.nextCursor,
-          busy = false;
-        const more = button(this.game.text("more"), async () => {
-          if (busy || cursor === null) return;
-          busy = true;
-          more.disabled = true;
-          try {
-            const next = await this.game.content.catalogue(
-              "art",
-              null,
-              signal,
-              cursor,
-            );
-            append(next.items);
-            cursor = next.nextCursor;
-            more.hidden = cursor === null;
-          } catch (_) {
-            if (!signal.aborted)
-              this.game.toast(this.game.text("contentUnavailable"));
-          } finally {
-            busy = false;
-            more.disabled = false;
-          }
-        });
-        more.hidden = cursor === null;
-        root.append(more);
-        return root;
-      },
-      () => this.art(collection),
+        ),
+      () => this.art(),
     );
   }
 }

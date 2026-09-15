@@ -32,7 +32,7 @@ const read = (p) => p.evaluate(() => window.MagikitosAdventure.inspect());
             JSON.stringify({
               scene: "overworld",
               position: { x: 29 * 16, y: 78.5 * 16 },
-              flags: { introSeen: true },
+              flags: {  },
               muted: true,
             }),
           );

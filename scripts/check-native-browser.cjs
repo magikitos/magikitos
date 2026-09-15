@@ -52,7 +52,7 @@ async function scene(group, viewport = { width: 1440, height: 900 }) {
   await page.addInitScript(
     (state) =>
       localStorage.setItem("magikitos.adventure", JSON.stringify(state)),
-    { scene: room.scene, position, flags: { introSeen: true }, muted: true },
+    { scene: room.scene, position, flags: {}, muted: true },
   );
   await page.goto(origin + "/aventura");
   await page.waitForFunction(() => window.MagikitosAdventure?.inspect().ready);
@@ -126,8 +126,34 @@ async function scene(group, viewport = { width: 1440, height: 900 }) {
         0,
       );
       if (group === "art") {
+        const grid = p.locator(".world-native-catalogue");
+        assert(
+          (await grid.locator("button").count()) > 0,
+          "Sheets appear without a collection step",
+        );
+        assert(
+          !(await p.locator("#world-content").innerText()).includes(
+            "Colecciones",
+          ),
+        );
+        const firstThumb = await grid
+          .locator("img")
+          .first()
+          .getAttribute("src");
+        assert(firstThumb && firstThumb.includes("/colorear/"));
         await p.locator(".world-native-catalogue button").first().click();
+        await p
+          .locator(".world-experience-object img")
+          .waitFor({ state: "visible" });
         await p.getByRole("link", { name: /Imprimir en la web/ }).waitFor();
+        assert.equal(
+          new URL(
+            await p
+              .getByRole("link", { name: /Imprimir en la web/ })
+              .getAttribute("href"),
+          ).pathname,
+          "/colorear",
+        );
         assert.equal(await p.locator("[data-world-detail]").count(), 0);
       } else if (group === "shop") {
         await p.locator(".world-native-catalogue button").first().click();
@@ -189,6 +215,7 @@ async function scene(group, viewport = { width: 1440, height: 900 }) {
     ),
   );
   assert(!requests.some((r) => /\/api\/(track|track-play)/.test(r.url)));
+  assert(!requests.some((r) => new URL(r.url).searchParams.has("collection")));
   console.log(
     "PASS independent native activity UI, local real content, safe links, no website runtime, no tracking.",
   );

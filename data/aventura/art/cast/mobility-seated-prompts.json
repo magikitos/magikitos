@@ -1,0 +1,21 @@
+{
+  "tool": "built-in image_gen",
+  "jobs": [
+    {
+      "id": "elder-seated",
+      "dest": "data/aventura/art/cast/sources/elder-seated.png",
+      "refs": [
+        "data/aventura/art/cast/sources/elder-walk.png"
+      ],
+      "prompt": "Production animation sprite sheet, identity-preserve. EXACT same very potbellied old duende from reference1: huge cream linen shirt belly, short brown vest, moss green crooked pointed cap with acorns and ochre patch, white short fluffy beard ABOVE belly, warm naturally tan skin rosy nose. Generate seated poses for a low reusable bench which will be drawn separately by engine. NO bench, NO chair, no furniture in image. Actor sits on invisible bench: bottom at seat, thighs roughly horizontal, bent knees and boots planted forward lower than seat, belly round and hands resting on belly/thighs. Exactly EIGHT COLUMNS and FOUR ROWS uniform square cells, canvas2048x1024. Columns SOUTH/front, SOUTH-EAST/front-right, EAST/right, NORTH-EAST/back-right, NORTH/back, NORTH-WEST/back-left, WEST/left, SOUTH-WEST/front-left. Row1 hungry: friendly plaintive pleading expression hand on belly. Row2 same seated pose gently speaking mouth open, hand gestures slightly. Row3 content happy closed smile same seated body. Row4 same happy pose blink eyes shut. ALL poses SEATED never standing. Maintain identical body volumes and physical scale to standing reference; seated figure is naturally shorter, ~170px tall within256px cell, feet bottomline y235, rootcenterx128. Exact aligned lower body per column across rows, animate face and hands ONLY, so loops stay very subtle. Well-defined pixel art with chunky clean clusters matching reference, fixed orthographic three-quarter slightly top-down35degree RPG camera. Entire figure inside each cell with padding, nothing cut off. Background MUST perfectly solid magenta #FF00FF with no texture, no shadow, no labels, no checkerboard, no ground."
+    },
+    {
+      "id": "ascua-roll-recover",
+      "dest": "data/aventura/art/cast/sources/ascua-roll-recover.png",
+      "refs": [
+        "data/aventura/art/cast/sources/ascua-walk.png"
+      ],
+      "prompt": "Production pixel-art RPG sprite sheet. Exact same Ascua identity as reference: orange pointed cap with black stitched patch, dark tousled hair, blue cropped jacket, orange scarf, leather boots, warm natural skin and mischievous youthful face. Create EIGHT evenly spaced cells in ONE ROW, canvas2048x256, eachcell256square, fixed topdown35degrees camera. Columns SOUTH/front, SOUTH-EAST/front-right, EAST/right, NORTH-EAST/back-right, NORTH/back, NORTH-WEST/back-left, WEST/left, SOUTH-WEST/front-left. Each image is the FINISH OF A FORWARD ROLL recovering immediately into movement: torso ALMOST FULLY UPRIGHT slight forward lean, leading foot planted, other leg behind, knees only slightly flexed, arms naturally out/bent for balance. NOT crouching, NOT squatting, hands NOT near ground, cap at normal standing height. Same physical character proportions and scale as reference walk ~205px tall, root x128 y235. Full figure isolated with padding inside each cell, no scene no shadows no floor no labels no lines. Detailed clean pixel art suitable for80px physicalheight. Background perfectly flat #FF00FF magenta, no checkerboard or gradient. This is just ONE standing recovery pose per direction, not another roll or walk sequence."
+    }
+  ]
+}

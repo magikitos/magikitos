@@ -16,7 +16,7 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
     await page.addInitScript(() => {
       localStorage.setItem(
         "magikitos.adventure",
-        JSON.stringify({ flags: { introSeen: true }, muted: true }),
+        JSON.stringify({ flags: {  }, muted: true }),
       );
       window.tasks = [];
       new PerformanceObserver((l) =>

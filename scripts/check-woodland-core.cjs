@@ -8,6 +8,8 @@ const {
   drawAmbientActor,
 } = require("../public/assets/js/adventure/ambient-actors");
 const { drawOccupiedBoat } = require("../public/assets/js/adventure/boat-art");
+const { seatedClip } = require("../public/assets/js/adventure/seating");
+const { DIRECTIONS } = require("../public/assets/js/adventure/characters");
 const kit = require("../data/aventura/art/woodland-kit/prompts.json");
 const { families } = require("../data/aventura/elements.json");
 for (const a of kit.assets) {
@@ -44,7 +46,7 @@ for (const id of ["picnic-smoker-poses", "picnic-friend-poses"]) {
     "Original actor sheet is unchanged",
   );
 }
-for (const clip of Object.values(clips)) {
+for (const clip of [...Object.values(clips), ...DIRECTIONS.flatMap(d => [0,2].map(p => seatedClip(`person-12-${d}-sit-${p}`)))]) {
   for (const [name] of clip.steps) {
     assert(
       authoredFrames[name]?.preserveCanvas,

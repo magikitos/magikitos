@@ -2,7 +2,7 @@
 const { TILE, random, hash } = require("./model");
 const { artworkBounds, drawArtwork } = require("./entity-art");
 const { matches, active } = require("./rules");
-const { characterFrame } = require("./characters");
+const { characterFrame, pushFrame, runFrame } = require("./characters");
 const { SpriteLibrary } = require("./sprites");
 const { Terrain, drawBridges } = require("./terrain");
 const { drawInteriors, drawPartition } = require("./interiors");
@@ -19,12 +19,13 @@ class Renderer {
     this.productImages = new Map();
     this.scale = 3;
     this.viewZoom = 1;
+    this.requestedZoom = null; // Automatic framing until the first wheel/pinch gesture.
   }
   resize(zoom = this.zoom || 1) {
     this.zoom = zoom;
     const r = this.viewport.getBoundingClientRect();
     const dpr = Math.min(window.devicePixelRatio || 1, 3);
-    const metrics = cameraMetrics(r, this.world, this.viewZoom, zoom);
+    const metrics = cameraMetrics(r, this.world, this.requestedZoom, zoom);
     this.viewZoom = metrics.ratio;
     this.scale = metrics.scale;
     this.width = metrics.width;
@@ -172,7 +173,8 @@ class Renderer {
         game.self.frame() ||
         game.presentation?.frame() ||
         game.roll.frame() ||
-        require("./characters").pushFrame(game.player) ||
+        pushFrame(game.player) ||
+        runFrame(game.player, game.running) ||
         characterFrame(0, game.player, game.walking),
       player: true,
     };
@@ -180,7 +182,7 @@ class Renderer {
       ...world.props,
       ...world.architecture,
       ...world.entities.filter(
-        (e) => game.showAllEntities || active(e, game.state),
+        (e) => game.showAllEntities || (active(e, game.state) && !game.presentation?.hides(e)),
       ),
       ...game.neighbors,
       ...(game.guardian ? [game.guardian] : []),
@@ -194,10 +196,11 @@ class Renderer {
         continue;
       }
       const name = e.neighbor
-          ? characterFrame(e.variant || 3, e, e.moving)
+          ? characterFrame(e.variant, e, e.moving)
           : this.frame(e, game.state),
         f = this.sprites.frame(name);
       if (!f) continue;
+      require("./seating").drawSeat(c, this.sprites, e);
       if (e.player || e.neighbor) {
         c.fillStyle = "rgba(31,46,33,.22)";
         c.beginPath();
@@ -250,8 +253,9 @@ class Renderer {
     }
     game.presentation?.draw(c);
     if (world.data.night) this.night(world.data.night, time, cam);
-    if (game.path.length) {
-      const end = game.path[game.path.length - 1];
+    const destination = game.journey?.intent?.point || game.journey?.path.at(-1);
+    if (destination) {
+      const end = destination;
       c.strokeStyle = "#fff0b1";
       c.lineWidth = 1;
       c.beginPath();

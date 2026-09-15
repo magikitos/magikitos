@@ -150,43 +150,80 @@ function productView(game, item) {
   );
   return root;
 }
-function galleryView(game, data, onNextPage, choose) {
-  const root = activity(game, "art", data.collection.title);
+/** One flat catalogue. Thumbnails are the grid; a master is requested only for a chosen sheet. */
+function galleryView(game, data, onNextPage, signal) {
+  const root = activity(game, "art", game.text("artSheets"));
   root.classList.add("world-experience--art");
+  const grid = el("div", { class: "world-native-catalogue" });
   const image = el("img", { alt: "", width: 300, height: 350 });
   const count = el("figcaption", { "data-world-gallery-count": "" });
   const imageBox = el("div", { class: "world-experience-image" }, [image]);
   let index = 0,
     busy = false,
-    nextCursor = data.nextCursor,
-    items = data.items;
+    nextCursor = data.nextCursor;
+  const items = [],
+    ids = new Set();
+  const title = root.querySelector("h1");
   const paint = () => {
     const item = items[index];
     if (!item) return;
     image.src = item.image;
-    image.alt = item.title;
+    image.alt = title.textContent = item.title;
     count.textContent =
       index + 1 + " / " + items.length + (nextCursor !== null ? " +" : "");
     prev.hidden = items.length < 2;
     next.hidden = items.length < 2 && nextCursor === null;
   };
-  const step = async (delta) => {
-    if (busy) return;
-    if (delta > 0 && index === items.length - 1 && nextCursor !== null) {
-      busy = true;
-      next.disabled = true;
-      try {
-        const more = await onNextPage(nextCursor);
-        items = items.concat(more.items);
-        nextCursor = more.nextCursor;
-      } catch (_) {
-        game.toast(game.text("contentUnavailable"));
-        return;
-      } finally {
-        busy = false;
-        next.disabled = false;
-      }
+  const select = (i) => {
+    index = i;
+    grid.hidden = more.hidden = true;
+    figure.hidden = back.hidden = false;
+    paint();
+    title.focus({ preventScroll: true });
+  };
+  const append = (rows) => {
+    for (const item of rows) {
+      if (ids.has(item.id)) continue;
+      ids.add(item.id);
+      const i = items.length;
+      items.push(item);
+      const card = button("", () => select(i), "world-native-card");
+      card.append(
+        el("img", {
+          src: item.thumb,
+          alt: "",
+          width: 120,
+          height: 120,
+          loading: "lazy",
+        }),
+        el("strong", { text: item.title }),
+      );
+      grid.append(card);
     }
+  };
+  const loadPage = async () => {
+    if (busy || nextCursor === null || signal?.aborted) return false;
+    busy = true;
+    more.disabled = next.disabled = true;
+    try {
+      const page = await onNextPage(nextCursor);
+      if (signal?.aborted) return false;
+      append(page.items);
+      nextCursor = page.nextCursor;
+      more.hidden = !figure.hidden || nextCursor === null;
+      return true;
+    } catch (_) {
+      if (!signal?.aborted) game.toast(game.text("contentUnavailable"));
+      return false;
+    } finally {
+      busy = false;
+      more.disabled = next.disabled = false;
+    }
+  };
+  const step = async (delta) => {
+    if (busy || !items.length) return;
+    if (delta > 0 && index === items.length - 1 && nextCursor !== null)
+      if (!(await loadPage())) return;
     index = (index + delta + items.length) % items.length;
     paint();
   };
@@ -194,14 +231,21 @@ function galleryView(game, data, onNextPage, choose) {
     next = button("›", () => step(1));
   prev.setAttribute("aria-label", game.text("previous"));
   next.setAttribute("aria-label", game.text("next"));
-  root.prepend(
-    el("figure", { class: "world-experience-object" }, [
-      prev,
-      imageBox,
-      next,
-      count,
-    ]),
+  const figure = el(
+    "figure",
+    { class: "world-experience-object", hidden: true },
+    [prev, imageBox, next, count],
   );
+  const more = button(game.text("more"), loadPage);
+  more.hidden = nextCursor === null;
+  const back = button(game.text("artSheets"), () => {
+    figure.hidden = back.hidden = true;
+    grid.hidden = false;
+    more.hidden = nextCursor === null;
+    title.textContent = game.text("artSheets");
+    grid.children[index]?.focus({ preventScroll: true });
+  });
+  back.hidden = true;
   let start;
   imageBox.addEventListener("pointerdown", (e) => {
     start = { x: e.clientX, y: e.clientY };
@@ -216,22 +260,23 @@ function galleryView(game, data, onNextPage, choose) {
     start = null;
     if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) step(dx < 0 ? 1 : -1);
   });
+  append(data.items);
   root.append(
+    figure,
+    grid,
+    more,
     el("p", { class: "world-experience-byline", text: game.text("paperArt") }),
     el("div", { class: "world-experience-actions" }, [
       websiteLink(
         game,
         game.text("printOnWebsite") + " ↗",
-        data.collection.url,
+        game.config.destinations.art,
         "world-primary",
       ),
     ]),
-    el("div", { class: "world-experience-links" }, [
-      button(game.text("collections"), choose),
-    ]),
+    el("div", { class: "world-experience-links" }, [back]),
   );
-  if (items.length) paint();
-  else root.append(el("p", { text: game.text("empty") }));
+  if (!items.length) root.append(el("p", { text: game.text("empty") }));
   return root;
 }
 module.exports = { activity, pieceView, productView, galleryView };

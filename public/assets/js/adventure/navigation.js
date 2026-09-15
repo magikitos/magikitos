@@ -1,24 +1,39 @@
 "use strict";
 const { TILE, distance } = require("./geometry");
 /** A* over dry actor-sized cells; geometric checks also protect curved shore edges. */
-function findPath(world, from, target) {
+function findPath(world, from, target, ignore = from) {
+  // Occupancy cells alone miss feet overlapping a prop at a cell edge, and
+  // residents are deliberately not baked into the static grid. Cache the live
+  // body checks only for this search; the next search sees their new positions.
+  const cells = new Map();
+  const walkable = (x, y) => {
+    if (!world.walkable(x, y)) return false;
+    const id = y * world.width + x;
+    if (!cells.has(id))
+      cells.set(id, world.canStand((x + 0.5) * TILE, (y + 0.5) * TILE, ignore));
+    return cells.get(id);
+  };
+  const clear = (a, b) => world.clearSegment(a, b, ignore);
   let sx = Math.floor(from.x / TILE),
     sy = Math.floor(from.y / TILE),
     tx = Math.floor(target.x / TILE),
     ty = Math.floor(target.y / TILE);
 
-  if (!world.walkable(tx, ty)) return null;
-  if (!world.walkable(sx, sy)) {
+  if (!walkable(tx, ty)) return null;
+  if (
+    !walkable(sx, sy) ||
+    !clear(from, { x: (sx + 0.5) * TILE, y: (sy + 0.5) * TILE })
+  ) {
     const connectors = [];
     for (let y = sy - 1; y <= sy + 1; y++)
       for (let x = sx - 1; x <= sx + 1; x++) {
         const p = { x: (x + 0.5) * TILE, y: (y + 0.5) * TILE };
-        if (world.walkable(x, y) && world.clearSegment(from, p))
+        if (walkable(x, y) && clear(from, p))
           connectors.push(p);
       }
     connectors.sort((a, b) => distance(a, from) - distance(b, from));
     for (const point of connectors) {
-      const route = findPath(world, point, target);
+      const route = findPath(world, point, target, ignore);
       if (route) return [point, ...route];
     }
     return null;
@@ -74,7 +89,7 @@ function findPath(world, from, target) {
       out.reverse();
       // Re-targeting mid-step must not turn back to the center of the current tile.
       // Keep that alignment waypoint only when skipping it would cut a blocked corner.
-      if (!out.length || !world.clearSegment(from, out[0]))
+      if (!out.length || !clear(from, out[0]))
         out.unshift({ x: (sx + 0.5) * TILE, y: (sy + 0.5) * TILE });
       return out;
     }
@@ -85,17 +100,17 @@ function findPath(world, from, target) {
       for (let dx = -1; dx <= 1; dx++) {
         if (
           (!dx && !dy) ||
-          !world.walkable(x + dx, y + dy) ||
+          !walkable(x + dx, y + dy) ||
           (dx &&
             dy &&
-            (!world.walkable(x + dx, y) || !world.walkable(x, y + dy)))
+            (!walkable(x + dx, y) || !walkable(x, y + dy)))
         )
           continue;
         const id = (y + dy) * w + x + dx,
           cost = g[cur] + (dx && dy ? Math.SQRT2 : 1);
         if (closed[id] || cost >= g[id]) continue;
         if (
-          !world.clearTerrainSegment(
+          !clear(
             { x: (x + 0.5) * TILE, y: (y + 0.5) * TILE },
             { x: (x + dx + 0.5) * TILE, y: (y + dy + 0.5) * TILE },
           )

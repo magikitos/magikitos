@@ -64,7 +64,7 @@ function assertShell(actual, expected, headers, route) {
         }
         return url.origin===origin ? r.continue() : r.abort();
       });
-      await page.addInitScript(()=>localStorage.setItem('magikitos.adventure',JSON.stringify({flags:{introSeen:true},muted:true})));
+      await page.addInitScript(()=>localStorage.setItem('magikitos.adventure',JSON.stringify({flags:{},muted:true})));
       await page.goto(origin+'/aventura');
       await page.waitForFunction(()=>window.MagikitosAdventure?.inspect().ready);
       const before=await page.evaluate(()=>window.MagikitosAdventure.inspect());

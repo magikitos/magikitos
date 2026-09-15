@@ -13,6 +13,8 @@ original characters and music, and not a single reflex test.
 
 Current art direction: [Ascua and the approved compact cast](docs/art-direction/DUENDES.md),
 [2× integrated textures and selective motion](docs/art-direction/DEFINITION-MOTION.md).
+Current controls, Brizno and the restaurant story notes: [mobility and Brizno](docs/MOBILITY-BRIZNO.md).
+Click intentions, live obstacle avoidance and regression tests: [navigation](docs/NAVIGATION.md).
 For operations and verified delivery, see [releasing](docs/RELEASING.md) and
 [the Ascua release ledger](docs/ASCUA-RELEASE.md).
 
@@ -151,6 +153,10 @@ The [woodland collection and core review](docs/WOODLAND-KIT.md) documents the
 The [local polish review](docs/POLISH-REVIEW.md) records what changed, the
 checks actually run and the remaining boundaries. See also the
 [original art direction and prompts](docs/art-direction/PROMPTS.md).
+
+The [island and resident library](docs/ISLET-AND-RESIDENTS.md) covers the
+100 new NPC profiles, Brizno, open-door editions, Studio families and scene-local
+loading. These changes are local; they do not imply a production deployment.
 
 ## Contributing
 

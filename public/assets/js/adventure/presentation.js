@@ -1,6 +1,7 @@
 "use strict";
 const { keepsakePoint } = require("./keepsakes");
 const { facing } = require("./characters");
+const { active } = require("./rules");
 function cardinal(dx, dy) {
   return Math.abs(dx) > Math.abs(dy) ? facing(dx,0) : facing(0,dy);
 }
@@ -9,7 +10,9 @@ function gains(before, after) {
 }
 /** Reusable foreground gestures. Rules own all state; these timelines cannot grant, spend or consume. */
 class Presentation {
-  constructor(game) { this.game = game; }
+  constructor(game) { this.game = game; this.hiddenEntities = new Set(); }
+  hides(entity) { return this.hiddenEntities.has(entity.id); }
+  finish() { this.hiddenEntities.clear(); }
   async play(effect, entity) {
     const game = this.game, sprites = game.renderer.sprites;
     const kind = effect.sequence;
@@ -34,14 +37,18 @@ class Presentation {
     } finally { sprites.activate(old); }
   }
   async gains(before, after, origin) {
+    // Hide only a collected source, not reusable plants or crafting stations.
+    // This is visual transaction state: failure restores the source without granting an item.
+    if (gains(before, after).length && active(origin, before) && !active(origin, after))
+      this.hiddenEntities.add(origin.id);
     for (const id of gains(before,after))
-      await this.play({sequence:"discover",sprite:this.game.catalog.items[id].sprite,duration:.85}, origin);
+      await this.play({sequence:"discover",sprite:this.game.catalog.items[id].sprite,duration:.45}, origin);
   }
   frame() {
     const seq = this.game.sequence.current;
     if (seq?.type !== "gesture") return null;
     const p = this.game.sequence.progress(), {kind,direction} = seq.data;
-    if (kind === "discover") return "person-0-discover-" + (p < .12 ? 0 : p < .9 ? 2 : 3);
+    if (kind === "discover") return "person-0-discover-" + (p < .9 ? 2 : 3);
     const pose = kind === "toss" ? (p < .23 ? 1 : 3)
       : p < .2 ? 0 : p < .72 ? 1 + Math.floor(seq.elapsed*5)%2 : 3;
     return `person-0-${direction}-work-${pose}`;
@@ -56,7 +63,6 @@ class Presentation {
       s.draw(ctx,sprite,x-w/2,y-h/2,w,h);
     };
     if (d.kind === "discover") {
-      if (p < .12) return;
       draw(d.sprite,a.x,a.y-51,20);
       if (!game.reducedMotion) {
         ctx.fillStyle="#fff0b1";

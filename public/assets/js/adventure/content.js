@@ -115,10 +115,10 @@ class WorldContent {
         });
     }
   }
-  async catalogue(kind, collection, signal, cursor = 0) {
+  async catalogue(kind, signal, cursor = 0) {
     const data = await this.game.api.request(
       "catalog",
-      { kind, collection, cursor },
+      { kind, cursor },
       { signal },
     );
     if (
@@ -128,9 +128,7 @@ class WorldContent {
         (!Number.isSafeInteger(data.nextCursor) || data.nextCursor <= cursor))
     )
       throw new ApiError("invalid_catalogue");
-    const collectionDTO = data.collection
-      ? this.artCollection(data.collection)
-      : null;
+    const nextCursor = this.game.api.cursor(data, cursor);
     const items = data.items.map((raw) => {
       if (!Number.isSafeInteger(raw.id) || raw.id < 1)
         throw new ApiError("invalid_catalogue");
@@ -156,23 +154,13 @@ class WorldContent {
           url,
         };
       }
-      const item = collection
-        ? { id: raw.id, title: String(raw.title || "").slice(0, 300) }
-        : this.artCollection(raw);
-      return { ...item, image: this.game.api.url(raw.image) };
+      const image = this.game.api.url(raw.image),
+        thumb = this.game.api.url(raw.thumb);
+      if (kind !== "art" || typeof raw.title !== "string" || !image || !thumb)
+        throw new ApiError("invalid_sheet");
+      return { id: raw.id, title: raw.title.slice(0, 300), image, thumb };
     });
-    return { items, nextCursor: data.nextCursor, collection: collectionDTO };
-  }
-  artCollection(raw) {
-    const url = this.game.api.url(raw.url);
-    if (
-      !Number.isSafeInteger(raw.id) ||
-      raw.id < 1 ||
-      typeof raw.title !== "string" ||
-      !url
-    )
-      throw new ApiError("invalid_collection");
-    return { id: raw.id, title: raw.title.slice(0, 300), url };
+    return { items, nextCursor };
   }
   products() {
     if (this.catalogues.has("products"))
@@ -184,7 +172,7 @@ class WorldContent {
           const items = [];
           let cursor = 0;
           do {
-            const data = await this.catalogue("products", null, null, cursor);
+            const data = await this.catalogue("products", null, cursor);
             items.push(...data.items);
             cursor = data.nextCursor;
             if (items.length > 2400) throw new ApiError("catalogue_too_large");

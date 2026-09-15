@@ -35,6 +35,7 @@ const manifest = JSON.parse(
 );
 const atlas = { frames: {} };
 let spriteBytes = 0;
+let residentBytes = 0;
 for (const [id, pack] of Object.entries(manifest.packs)) {
   const meta = JSON.parse(
     fs.readFileSync("public/assets/aventura/" + pack.metadata),
@@ -47,15 +48,20 @@ for (const [id, pack] of Object.entries(manifest.packs)) {
     assert(!atlas.frames[name], "No duplicate sprites");
     atlas.frames[name] = meta.frames[name];
   }
-  spriteBytes += fs.statSync("public/assets/aventura/" + pack.image).size;
+  const bytes = fs.statSync("public/assets/aventura/" + pack.image).size;
+  spriteBytes += bytes;
+  if (/^actor-1\d\d$/.test(id)) {
+    assert(bytes < 70000, id + ": 32 integrated-2x poses stay below 70 KB");
+    residentBytes += bytes;
+  }
 }
 assert(
   Object.keys(manifest.packs).length >= 15,
   "Independent expandable asset modules",
 );
 assert(
-  spriteBytes < 3500000,
-  "The complete 2x library, twelve duendes and reserved bow stay under 3.5 MB; scenes load a subset",
+  spriteBytes - residentBytes < 3500000 && spriteBytes < 10500000,
+  "Existing world art remains below 3.5 MB; each of the 100 scene-lazy residents has a separate bounded pack",
 );
 function react(entity, state, catalog, context) {
   const plan = planReaction(entity, state, catalog, context);
@@ -137,7 +143,7 @@ for (const [i, direction] of DIRECTIONS.entries()) {
     facing(Math.cos((i * Math.PI) / 4), Math.sin((i * Math.PI) / 4)),
     direction,
   );
-  for (let variant = 0; variant <= catalog.avatarVariants; variant++)
+  for (const variant of [0, ...catalog.avatarVariants, 12])
     for (let step = 0; step < 4; step++) {
       const actor = { direction, walkDistance: step * 7 };
       assert(
@@ -367,9 +373,11 @@ for (const badEffects of [
 world.refresh(fresh());
 const west = { x: 40.5 * TILE, y: 55.5 * TILE },
   east = { x: 49.5 * TILE, y: 55.5 * TILE };
-assert(world.path(west, east)?.length, "Bridge is free before cooking");
+assert(world.path(west, east)?.length, "The former river crossing is continuous dry meadow before cooking");
 assert(!world.entities.some((e) => e.id === "bridge-hunger"), "No hunger gate");
-assert(world.waterAt(45, 45));
+assert(!world.waterAt(45, 45));
+assert(!world.waterAt(13, 43), "No picnic pond");
+assert(world.waterAt(115, 45), "The boat lake remains open water");
 assert(!world.waterAt(45, 55.5));
 const actor = { x: fire.x + 40, y: fire.y, actor: true };
 world.actors = [actor];
@@ -486,5 +494,5 @@ assert.deepEqual(
 console.log(
   "PASS: " +
     paths +
-    " collision-safe routes; modular sprites; " + (catalog.avatarVariants+1) + " duendes × 8 directions × 4 poses; all ingredient orders; atomic rewards, fares, repeatable return; free bridge; content rooms; saves.",
+    " collision-safe routes; modular sprites; " + (catalog.avatarVariants.length+2) + " duendes × 8 directions × 4 poses; all ingredient orders; atomic rewards, fares, repeatable return; free bridge; content rooms; saves.",
 );

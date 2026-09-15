@@ -1,6 +1,7 @@
 "use strict";
 const assert = require("node:assert/strict");
 const { Adventure } = require("../public/assets/js/adventure/game");
+const { Journey } = require("../public/assets/js/adventure/journey");
 // Exercise the actual tap/arrival dispatch without a browser, server or model request.
 (async () => {
   let visits = 0,
@@ -20,6 +21,7 @@ const { Adventure } = require("../public/assets/js/adventure/game");
     state: { flags: {}, inventory: {} },
     player: { x: 50, y: 80 },
     roll: {},
+    journey: new Journey(),
     inventory: {},
     neighbors: [],
     guardian,
@@ -29,12 +31,9 @@ const { Adventure } = require("../public/assets/js/adventure/game");
       width: 20,
       height: 18,
       entities: [],
+      state: { flags: {} },
       distanceTo: () => distance,
       approach: () => [{ x: 100, y: 80 }],
-    },
-    cancelPath() {
-      this.path = [];
-      this.pending = null;
     },
     pauseMovement() {
       this.cancelPath();
@@ -51,14 +50,14 @@ const { Adventure } = require("../public/assets/js/adventure/game");
     "A distant click approaches; it never runs an arrival callback immediately",
   );
   assert.equal(
-    game.pending,
+    game.journey.target,
     guardian,
     "The visitor is pickable like other neighbors",
   );
-  assert.equal(game.path.length, 1);
+  assert.equal(game.journey.path.length, 1);
   await game.interact(guardian);
   assert.equal(visits, 1, "Arrival opens the visitor interaction exactly once");
-  assert.equal(game.path.length, 0);
+  assert.equal(game.journey.path.length, 0);
   distance = 5;
   game.tap({ x: 130, y: 80 });
   assert.equal(visits, 2, "A nearby tap uses the same interaction dispatcher");
@@ -80,7 +79,7 @@ const { Adventure } = require("../public/assets/js/adventure/game");
     { x: 50, y: 289 },
   ]) {
     game.tap(point);
-    assert.equal(game.path.length, 0);
+    assert.equal(game.journey.path.length, 0);
     assert.equal(visits, 2);
   }
   console.log(

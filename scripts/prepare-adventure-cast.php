@@ -5,19 +5,46 @@ require_once __DIR__ . '/lib/adventure-cutout.php';
 $root = dirname(__DIR__);
 $dir = $root . '/data/aventura/art/cast';
 $catalog = json_decode(file_get_contents($dir . '/catalog.json'), true, 512, JSON_THROW_ON_ERROR);
+$residents = json_decode(file_get_contents($root . '/data/aventura/art/residents/catalog.json'), true, 512, JSON_THROW_ON_ERROR);
+foreach ($residents['profiles'] as $profile) {
+    $catalog['sheets'][] = [
+        'id'=>$profile['source'], 'directory'=>'residents', 'edgeMatte'=>'red', 'cleanFragments'=>0.015,
+        'grid'=>$residents['grid'], 'directions'=>$residents['directions'],
+        'height'=>$residents['height'], 'variant'=>$profile['id'], 'action'=>'walk', 'pack'=>'actor-'.$profile['id'],
+    ];
+}
+$only = getopt('', ['sheet:'])['sheet'] ?? null;
 if (!is_dir("$dir/cutouts")) mkdir("$dir/cutouts", 0775, true);
+// Studio may read art while this offline task runs: never expose half-written PNGs.
+$writePng = static function (GdImage $image, string $file): void {
+    $temporary = tempnam(dirname($file), '.cast-');
+    try {
+        if (!imagepng($image, $temporary, 9) || !rename($temporary, $file))
+            throw new RuntimeException("Could not write cutout: $file");
+    } finally { if (is_file($temporary)) unlink($temporary); }
+};
 $definitions = $measurements = [];
 foreach ($catalog['sheets'] as $sheet) {
     $id = $sheet['id'];
-    $source = imagecreatefrompng("$dir/sources/$id.png");
-    $report = adventureKeyedCutout($source, $id);
-    imagepng($source, "$dir/cutouts/$id.png", 9);
+    if ($only && $id !== $only) continue;
+    $artDir = $root . '/data/aventura/art/' . ($sheet['directory'] ?? 'cast');
+    if (!is_dir("$artDir/cutouts")) mkdir("$artDir/cutouts", 0775, true);
+    $source = imagecreatefrompng("$artDir/sources/$id.png");
+    $report = adventureKeyedCutout($source, $id, false, $sheet['edgeMatte'] ?? null);
+    $writePng($source, "$artDir/cutouts/$id.png");
     [$columns,$rows] = $sheet['grid'];
     $cells = $bounds = [];
     for ($row=0; $row<$rows; $row++) for ($col=0; $col<$columns; $col++) {
         $rect = adventureSourceCell($source, ['grid'=>[$columns,$rows],'cell'=>[$col,$row]]);
         $cells[] = $rect;
-        $bounds[] = adventureVisibleBounds($source, $rect, "$id/$col/$row");
+        if (!empty($sheet['cleanFragments'])) {
+            [$sx,$sy,$sw,$sh]=$rect;
+            $cell=adventureClearCanvas($sw,$sh);
+            imagecopy($cell,$source,0,0,$sx,$sy,$sw,$sh);
+            adventureCleanFragments($cell,$sheet['cleanFragments']);
+            [$x,$y,$w,$h]=adventureVisibleBounds($cell,[0,0,$sw,$sh],"$id/$col/$row");
+            $bounds[]=[$sx+$x,$sy+$y,$w,$h];
+        } else $bounds[] = adventureVisibleBounds($source, $rect, "$id/$col/$row");
     }
     // One scale for the entire sheet. Never fit each arm/leg pose independently.
     // Rolling borrows the standing body's scale rather than inflating a curled body.
@@ -32,6 +59,7 @@ foreach ($catalog['sheets'] as $sheet) {
     foreach ($cells as $index=>$rect) {
         [$sx,$sy,$sw,$sh] = $rect;
         $row = intdiv($index,$columns); $col = $index%$columns;
+        if (isset($sheet['exportRows']) && !in_array($row, $sheet['exportRows'], true)) continue;
         $name = $sheet['names'][$index] ?? (
             "person-{$sheet['variant']}-{$sheet['directions'][$col]}" .
             ($sheet['action']==='walk' ? ($row ? "-walk-$row" : '') : "-{$sheet['action']}-$row")
@@ -43,20 +71,25 @@ foreach ($catalog['sheets'] as $sheet) {
         if ($dx+($bx-$sx)*$ratio<0 || $dx+($bx-$sx+$bw)*$ratio>$cw
             || $dy+($by-$sy)*$ratio<0) throw new RuntimeException("Registered pose clipped: $name");
         $frames[$name]=[
-            'source'=>"data/aventura/art/cast/cutouts/$id.png",
+            'source'=>'data/aventura/art/'.($sheet['directory'] ?? 'cast')."/cutouts/$id.png",
             'grid'=>[$columns,$rows],'cell'=>[$col,$row],'size'=>$catalog['canvas'],
             'anchor'=>$catalog['anchor'],'preserveCanvas'=>true,
             'registration'=>['scale'=>$ratio,'offset'=>[$dx,$dy]]
         ];
+        if (!empty($sheet['cleanFragments'])) $frames[$name]['cleanFragments']=$sheet['cleanFragments'];
     }
-    $file=$root.'/data/aventura/assets/'.$sheet['pack'].'.json';
-    file_put_contents($file,json_encode(['frames'=>$frames],JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES)."\n");
+    $definitions[$sheet['pack']] = array_merge($definitions[$sheet['pack']] ?? [], $frames);
     echo "$id: ".count($frames)." registered poses; alpha ".$report['alpha']."\n";
     unset($source);
 }
+foreach ($definitions as $pack=>$frames) {
+    $file=$root.'/data/aventura/assets/'.$pack.'.json';
+    file_put_contents($file,json_encode(['frames'=>$frames],JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES)."\n");
+}
+if ($only) exit(0);
 $coin=imagecreatefrompng("$dir/sources/setin.png");
 adventureKeyedCutout($coin,'setin');
-imagepng($coin,"$dir/cutouts/setin.png",9);
+$writePng($coin,"$dir/cutouts/setin.png");
 $frames=[];
 foreach (['setin','setin-angle','setin-edge','setin-flat'] as $i=>$name) {
     $frames[$name]=['source'=>'data/aventura/art/cast/cutouts/setin.png','grid'=>[2,2],

@@ -1,0 +1,13 @@
+{
+    "sourceHash": "9918bdeacc2e85d3c5579570726f2d6af23132875b5084f7a12451026ec6fe47",
+    "referenceHash": "0384a7640e4fdeceefd65d82c15f4d7377ecb1f46b011bb6f57154d6ed429c37",
+    "report": {
+        "bounds": [
+            103,
+            120,
+            1000,
+            1024
+        ],
+        "alpha": 0.535
+    }
+}

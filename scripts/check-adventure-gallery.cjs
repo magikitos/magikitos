@@ -59,6 +59,19 @@ const variations = new Set(
 );
 assert(variations.size >= 4, "Auto actually distributes related variants");
 const id = "studio-test-new-pot";
+const archId = "studio-test-flower-arch";
+const arch = makeElement("garden-trellis", archId, 32, 32);
+const archChanges = validateChanges(base, {
+  overworld: {
+    added: { [archId]: { family: "garden-trellis", ...placement(arch) } },
+  },
+});
+assert.deepEqual(
+  renderScene(base, scene, archChanges).entities.find((e) => e.id === archId)
+    .solids,
+  families["garden-trellis"].template.solids,
+  "Studio preserves both arch posts without inventing a solid centre",
+);
 const added = makeElement("planter", id, 36, 48, "auto");
 const changes = validateChanges(base, {
   overworld: { added: { [id]: { family: "planter", ...placement(added) } } },

@@ -648,15 +648,15 @@
                 ]
             }
         },
-        "person-0-down-roll-3": {
-            "source": "data/aventura/art/cast/cutouts/ascua-roll-matte.png",
+        "person-0-down-recover-0": {
+            "source": "data/aventura/art/cast/cutouts/ascua-roll-recover.png",
             "grid": [
                 8,
-                4
+                1
             ],
             "cell": [
                 0,
-                3
+                0
             ],
             "size": [
                 48,
@@ -668,22 +668,23 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.1895734597156398,
+                "scale": 0.11299435028248588,
                 "offset": [
-                    2.9573459715639814,
-                    11.118483412322277
+                    8.63276836158192,
+                    -14.225988700564969
                 ]
-            }
+            },
+            "cleanFragments": 0.03
         },
-        "person-0-down-right-roll-3": {
-            "source": "data/aventura/art/cast/cutouts/ascua-roll-matte.png",
+        "person-0-down-right-recover-0": {
+            "source": "data/aventura/art/cast/cutouts/ascua-roll-recover.png",
             "grid": [
                 8,
-                4
+                1
             ],
             "cell": [
                 1,
-                3
+                0
             ],
             "size": [
                 48,
@@ -695,22 +696,23 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.1895734597156398,
+                "scale": 0.11299435028248588,
                 "offset": [
-                    2.9573459715639814,
-                    12.255924170616119
+                    8.689265536723164,
+                    -14.33898305084746
                 ]
-            }
+            },
+            "cleanFragments": 0.03
         },
-        "person-0-right-roll-3": {
-            "source": "data/aventura/art/cast/cutouts/ascua-roll-matte.png",
+        "person-0-right-recover-0": {
+            "source": "data/aventura/art/cast/cutouts/ascua-roll-recover.png",
             "grid": [
                 8,
-                4
+                1
             ],
             "cell": [
                 2,
-                3
+                0
             ],
             "size": [
                 48,
@@ -722,22 +724,23 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.1895734597156398,
+                "scale": 0.11299435028248588,
                 "offset": [
-                    3.052132701421801,
-                    11.497630331753555
+                    8.63276836158192,
+                    -14
                 ]
-            }
+            },
+            "cleanFragments": 0.03
         },
-        "person-0-up-right-roll-3": {
-            "source": "data/aventura/art/cast/cutouts/ascua-roll-matte.png",
+        "person-0-up-right-recover-0": {
+            "source": "data/aventura/art/cast/cutouts/ascua-roll-recover.png",
             "grid": [
                 8,
-                4
+                1
             ],
             "cell": [
                 3,
-                3
+                0
             ],
             "size": [
                 48,
@@ -749,22 +752,23 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.1895734597156398,
+                "scale": 0.11299435028248588,
                 "offset": [
-                    2.9573459715639814,
-                    11.308056872037916
+                    8.689265536723164,
+                    -14.112994350282484
                 ]
-            }
+            },
+            "cleanFragments": 0.03
         },
-        "person-0-up-roll-3": {
-            "source": "data/aventura/art/cast/cutouts/ascua-roll-matte.png",
+        "person-0-up-recover-0": {
+            "source": "data/aventura/art/cast/cutouts/ascua-roll-recover.png",
             "grid": [
                 8,
-                4
+                1
             ],
             "cell": [
                 4,
-                3
+                0
             ],
             "size": [
                 48,
@@ -776,22 +780,23 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.1895734597156398,
+                "scale": 0.11299435028248588,
                 "offset": [
-                    2.9573459715639814,
-                    11.687203791469194
+                    8.63276836158192,
+                    -14.564971751412429
                 ]
-            }
+            },
+            "cleanFragments": 0.03
         },
-        "person-0-up-left-roll-3": {
-            "source": "data/aventura/art/cast/cutouts/ascua-roll-matte.png",
+        "person-0-up-left-recover-0": {
+            "source": "data/aventura/art/cast/cutouts/ascua-roll-recover.png",
             "grid": [
                 8,
-                4
+                1
             ],
             "cell": [
                 5,
-                3
+                0
             ],
             "size": [
                 48,
@@ -803,22 +808,23 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.1895734597156398,
+                "scale": 0.11299435028248588,
                 "offset": [
-                    2.9573459715639814,
-                    11.118483412322277
+                    8.689265536723164,
+                    -14
                 ]
-            }
+            },
+            "cleanFragments": 0.03
         },
-        "person-0-left-roll-3": {
-            "source": "data/aventura/art/cast/cutouts/ascua-roll-matte.png",
+        "person-0-left-recover-0": {
+            "source": "data/aventura/art/cast/cutouts/ascua-roll-recover.png",
             "grid": [
                 8,
-                4
+                1
             ],
             "cell": [
                 6,
-                3
+                0
             ],
             "size": [
                 48,
@@ -830,22 +836,23 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.1895734597156398,
+                "scale": 0.11299435028248588,
                 "offset": [
-                    3.052132701421801,
-                    11.308056872037916
+                    8.63276836158192,
+                    -13.887005649717516
                 ]
-            }
+            },
+            "cleanFragments": 0.03
         },
-        "person-0-down-left-roll-3": {
-            "source": "data/aventura/art/cast/cutouts/ascua-roll-matte.png",
+        "person-0-down-left-recover-0": {
+            "source": "data/aventura/art/cast/cutouts/ascua-roll-recover.png",
             "grid": [
                 8,
-                4
+                1
             ],
             "cell": [
                 7,
-                3
+                0
             ],
             "size": [
                 48,
@@ -857,12 +864,13 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.1895734597156398,
+                "scale": 0.11299435028248588,
                 "offset": [
-                    2.9573459715639814,
-                    11.308056872037916
+                    8.689265536723164,
+                    -13.887005649717516
                 ]
-            }
+            },
+            "cleanFragments": 0.03
         }
     }
 }

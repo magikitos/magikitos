@@ -37,7 +37,7 @@ fs.mkdirSync(out, { recursive: true });
           x: (x ?? world.scenes[scene].spawn.x) * 16,
           y: (y ?? world.scenes[scene].spawn.y) * 16,
         },
-        flags: { introSeen: true },
+        flags: {  },
         inventory: {},
         timers: {},
         muted: true,

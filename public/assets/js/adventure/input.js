@@ -1,6 +1,6 @@
 "use strict";
 const { DoublePress } = require("./locomotion");
-const { WorldZoom } = require("./camera");
+const { MapGestures } = require("./map-gestures");
 const MOVE_KEYS = new Set([
   "arrowup",
   "arrowdown",
@@ -20,11 +20,11 @@ const editable = (target) =>
 class WorldInput {
   constructor(game) {
     this.doublePress = new DoublePress();
+    this.spacePress = new DoublePress();
     const canvas = document.getElementById("world-canvas");
-    this.zoom = new WorldZoom(game, canvas);
+    this.map = new MapGestures(game, canvas);
     const press = (event) => {
       if (
-        event.defaultPrevented ||
         event.button !== 0 ||
         !event.isPrimary ||
         !game.ready ||
@@ -56,21 +56,18 @@ class WorldInput {
     };
     canvas.addEventListener("pointerdown", (event) => {
       if (event.defaultPrevented) return;
-      if (event.pointerType === "touch") {
-        event.preventDefault();
-        this.zoom.down(event);
-        return;
-      }
-      press(event);
+      this.map.down(event);
     });
-    canvas.addEventListener("pointermove", (event) => this.zoom.move(event));
+    canvas.addEventListener("pointermove", (event) => this.map.move(event));
     canvas.addEventListener("pointerup", (event) => {
-      if (this.zoom.up(event)) press(event);
+      if (this.map.up(event)) press(event);
     });
     canvas.addEventListener("pointercancel", (event) =>
-      this.zoom.up(event, true),
+      this.map.up(event, true),
     );
-    window.addEventListener("blur", () => this.zoom.clear());
+    canvas.addEventListener("lostpointercapture", (event) => this.map.up(event, true));
+    window.addEventListener("blur", () => this.map.clear());
+    document.addEventListener("visibilitychange", () => { if (document.hidden) this.map.clear(); });
     canvas.addEventListener("dblclick", (event) => event.preventDefault());
     document.addEventListener(
       "keydown",
@@ -110,9 +107,13 @@ class WorldInput {
           document.getElementById("world-content").hidden
         ) {
           // Prevent a focused dialogue button from firing after the dialogue has closed.
-          if (event.target === canvas || game.movementIntent())
+          if (event.target === canvas || event.target === document.body || game.movementIntent()) {
             event.preventDefault();
-          if (!event.repeat) game.startRoll();
+            if (!event.repeat && !game.keys.has(key)) {
+              game.keys.add(key);
+              if (this.spacePress.press(0, 0, performance.now(), "keyboard")) game.startRoll();
+            }
+          }
         } else if (MOVE_KEYS.has(key)) {
           event.preventDefault();
           game.closeContent();
@@ -130,6 +131,7 @@ class WorldInput {
   }
   clearGesture() {
     this.doublePress.clear();
+    this.spacePress.clear();
   }
 }
 module.exports = { WorldInput };

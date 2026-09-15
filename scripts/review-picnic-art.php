@@ -7,7 +7,7 @@ $manifest = json_decode(file_get_contents($root . '/public/assets/aventura/manif
 $names = [
  'picnic-smoker','picnic-smoker-raise','picnic-smoker-puff','picnic-smoker-lower',
  'picnic-human-friend','picnic-friend-talk','picnic-friend-sip','picnic-friend-smile',
- 'picnic-knife','lighter','picnic-guacamole','picnic-potato-chips',
+ 'picnic-knife','lighter','picnic-guacamole','picnic-tortilla-chips',
  'picnic-lemonade','picnic-orange-soda','picnic-speaker'
 ];
 $contact = imagecreatetruecolor(1440, 1400);

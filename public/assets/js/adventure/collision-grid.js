@@ -1,5 +1,29 @@
 "use strict";
 const { TILE, actorBounds, collisionBounds, overlaps } = require("./geometry");
+/** Open arches/fences can have separate feet without making their open centre solid. */
+function collisionBodies(entity) {
+  if (!entity.solids) return [entity];
+  if (
+    entity.pushable ||
+    entity.actor ||
+    entity.neighbor ||
+    entity.solid ||
+    !Array.isArray(entity.solids) ||
+    !entity.solids.length
+  )
+    throw new Error("Invalid compound body: " + entity.id);
+  return entity.solids.map((solid) => {
+    if (
+      !Array.isArray(solid) ||
+      solid.length !== 4 ||
+      !solid.every(Number.isFinite) ||
+      solid[2] <= 0 ||
+      solid[3] <= 0
+    )
+      throw new Error("Invalid collision part: " + entity.id);
+    return { ...entity, solid, collisionSource: entity };
+  });
+}
 /** Static bodies are indexed on refresh; moving actors stay a small live list. */
 class CollisionGrid {
   constructor() {
@@ -59,11 +83,16 @@ class CollisionGrid {
         gx++
       )
         for (const entity of this.cells.get(gx + ":" + gy) || []) {
-          if (entity === ignore || seen.has(entity)) continue;
+          if (
+            entity === ignore ||
+            (ignore && entity.collisionSource === ignore) ||
+            seen.has(entity)
+          )
+            continue;
           seen.add(entity);
           if (overlaps(feet, this.bounds.get(entity))) return entity;
         }
     return null;
   }
 }
-module.exports = { CollisionGrid };
+module.exports = { CollisionGrid, collisionBodies };

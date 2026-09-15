@@ -103,29 +103,44 @@ function get(endpoint, params = {}, options = {}) {
             index.data.items[0].id,
         });
         assert.equal(filtered.status, 200);
-        if (kind === "expresion") for (const item of filtered.data.items)
-          if (item.voiceId) assert.equal(item.regionSlug, index.data.items[0].id, "Region selection must also select a voice from that region");
+        if (kind === "expresion")
+          for (const item of filtered.data.items)
+            if (item.voiceId)
+              assert.equal(
+                item.regionSlug,
+                index.data.items[0].id,
+                "Region selection must also select a voice from that region",
+              );
       }
     }
     for (const kind of ["products", "art"]) {
       const catalog = await get("catalog", { lang, kind });
       assert.equal(catalog.status, 200);
       for (const item of catalog.data.items) {
-        assert(item.url);
         if (kind === "products") {
+          assert(item.url);
           assert(Number.isInteger(item.price));
           assert.equal(item.currency, "EUR");
+        } else {
+          assert(Number.isSafeInteger(item.id) && item.id > 0);
+          assert.equal(typeof item.title, "string");
+          assert(item.image && item.thumb);
+          assert(!("url" in item));
         }
       }
-      if (kind === "art" && catalog.data.items[0]) {
-        const sheets = await get("catalog", {
+      if (kind === "art") {
+        assert(!("collection" in catalog.data));
+        const ignored = await get("catalog", {
           lang,
           kind,
-          collection: catalog.data.items[0].id,
+          collection: 999999999,
         });
-        assert.equal(sheets.status, 200);
-        assert(sheets.data.collection.title);
-        assert(Array.isArray(sheets.data.items));
+        assert.equal(ignored.status, 200);
+        assert.deepEqual(
+          ignored.data,
+          catalog.data,
+          "Retired collection selector is ignored",
+        );
       }
     }
     console.log("PASS local public API", lang);
@@ -137,7 +152,6 @@ function get(endpoint, params = {}, options = {}) {
     ["browse", { lang: "es", kind: "cuento", cursor: 10001 }, 400],
     ["browse", { lang: "es", kind: "cuento", q: "x", category: "x" }, 400],
     ["item", { lang: "es", kind: "cuento", id: 999999999 }, 404],
-    ["catalog", { lang: "es", kind: "art", collection: 999999999 }, 404],
     ["discover", { lang: "es", kind: "cuento", exclude: "1,nope" }, 400],
     ["identity", {}, 405],
     ["vote", {}, 405],

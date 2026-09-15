@@ -29,7 +29,7 @@ const errors = [];
       let state = {
         scene: "overworld",
         position: { x: 27 * 16, y: 53 * 16 },
-        flags: { introSeen: true },
+        flags: {  },
         muted: true,
       };
       await page.goto(origin + "/aventura");

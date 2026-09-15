@@ -146,7 +146,7 @@ assert(
 );
 // Existing completed local saves can still collect the newly introduced tool.
 const established = cleanSave(
-  { flags: { introSeen: true, picnicFed: true }, inventory: { lighter: 1 } },
+  { flags: { picnicFed: true }, inventory: { lighter: 1 } },
   catalog,
 );
 assert(active(entity("picnic-knife"), established));

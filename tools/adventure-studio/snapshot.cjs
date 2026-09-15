@@ -51,7 +51,7 @@ function snapshot(root) {
     const source = fs.readFileSync(path.join(dir, "assets", file), "utf8"),
       pack = JSON.parse(source);
     for (const [name, definition] of Object.entries(pack.frames || {})) {
-      if (name.startsWith("person-")) continue;
+      if (name.startsWith("person-") && !/^person-1\d\d-down$/.test(name)) continue;
       sprites[name] = {
         file: "data/aventura/assets/" + file,
         sourceHash: hash(source),

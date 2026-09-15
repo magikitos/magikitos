@@ -33,7 +33,7 @@ fs.mkdirSync(output, { recursive: true });
           JSON.stringify({
             scene,
             position: { x: spawn.x * 16, y: spawn.y * 16 },
-            flags: { introSeen: true },
+            flags: {  },
             muted: true,
           }),
         ),

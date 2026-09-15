@@ -12,6 +12,18 @@ const {
 const { shoreDistance } = require("../public/assets/js/adventure/ground");
 const { World, TILE } = require("../public/assets/js/adventure/model");
 const world = JSON.parse(fs.readFileSync(".local/build/world.json"));
+for (const [width, height, scale] of [
+  [320, 568, 1.25], [390, 844, 1.25], [844, 390, 1.25],
+  [768, 1024, 1.25], [1024, 768, 1.25], [1440, 900, 1.5],
+  [1920, 1080, 1.75], [2560, 1440, 2], [3440, 1440, 2],
+]) {
+  const view = { width, height }, scene = world.scenes.overworld;
+  const initial = cameraMetrics(view, scene);
+  assert.equal(initial.scale, scale, "Readable initial framing by short viewport side");
+  assert(initial.width >= 256 && initial.height >= 256, "Even a phone shows at least sixteen tiles on its short side");
+  assert(initial.scale < cameraMetrics(view, scene, 1).scale, "Initial zoom leaves room to zoom in manually");
+  assert(initial.scale > cameraMetrics(view, scene, 0).scale, "Even ultrawide framing leaves room to zoom out");
+}
 for (const size of [
   [320, 568],
   [390, 844],

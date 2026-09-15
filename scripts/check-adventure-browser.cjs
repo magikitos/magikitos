@@ -9,6 +9,7 @@ const origin = process.env.GAME_ORIGIN || "http://127.0.0.1:47834";
 const world = JSON.parse(fs.readFileSync(".local/build/world.json"));
 const { cameraLimits } = require("../public/assets/js/adventure/scene-frame");
 const { World, TILE } = require("../public/assets/js/adventure/model");
+const { cameraMetrics } = require("../public/assets/js/adventure/camera");
 const errors = [],
   shots = path.resolve(".local/screenshots");
 fs.mkdirSync(shots, { recursive: true });
@@ -44,7 +45,7 @@ async function pageFor(
         x: world.scenes[scene].spawn.x * TILE,
         y: world.scenes[scene].spawn.y * TILE,
       },
-      flags: { introSeen: true },
+      flags: {},
       muted: true,
       ...options,
     },
@@ -133,7 +134,10 @@ async function pinch(page) {
     for (let n = 0; n < 5; n++) await page.mouse.wheel(0, -1000);
     await page.waitForTimeout(150);
     assert(
-      Math.abs((await inspect(page)).scale - initial.scale) < 0.01,
+      Math.abs(
+        (await inspect(page)).scale -
+          cameraMetrics({ width, height }, world.scenes.overworld, 1).scale,
+      ) < 0.01,
       "Cannot zoom beyond original scale",
     );
     assert.equal(
@@ -427,7 +431,7 @@ async function pinch(page) {
       { width: 1440, height: 900 },
       {
         position: { x: 90.5 * TILE, y: 45.5 * TILE },
-        flags: { introSeen: true, picnicFed: true },
+        flags: { picnicFed: true },
         wallet: { balance: 10, claimed: { picnic: true } },
       },
     );
@@ -466,16 +470,26 @@ async function pinch(page) {
     stdio: ["ignore", "pipe", "pipe"],
   });
   await new Promise((resolve, reject) => {
-    const t = setTimeout(() => reject(Error("Test Studio timeout")), 25000);
+    // Cold Studio startup prepares its uncropped authoring atlas and archived labs.
+    // This is offline art preparation, not a game loading-time allowance.
+    let output = "";
+    const t = setTimeout(
+      () => reject(Error("Test Studio timeout: " + output)),
+      120000,
+    );
     studio.stdout.on("data", (b) => {
-      if (b.toString().includes("Magikitos Studio:")) {
+      output += b;
+      if (output.includes("Magikitos Studio:")) {
         clearTimeout(t);
         resolve();
       }
     });
+    studio.stderr.on("data", (b) => {
+      output += b;
+    });
     studio.once("exit", (code) => {
       clearTimeout(t);
-      reject(Error("Test Studio exit " + code));
+      reject(Error("Test Studio exit " + code + ": " + output));
     });
   });
   const page = await browser.newPage({

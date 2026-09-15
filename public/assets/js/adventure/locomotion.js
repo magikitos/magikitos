@@ -2,8 +2,55 @@
 const { move } = require("./movement");
 const { facing } = require("./characters");
 const WALK_SPEED = 72;
-const ROLL_DISTANCE = 86;
-const ROLL_DURATION = 0.48;
+const RUN_SPEED = 138;
+const ROLL_DISTANCE = 112;
+const ROLL_DURATION = 0.34;
+
+/** Distances are in world pixels, independent of screen size and zoom. */
+function routeDistance(actor, path) {
+  let previous = actor, distance = 0;
+  for (const point of path) {
+    distance += Math.hypot(point.x - previous.x, point.y - previous.y);
+    previous = point;
+  }
+  return distance;
+}
+
+/** A roll cannot steer: only use the straight prefix, never cut a route's corner. */
+function rollRunway(actor, path) {
+  let previous = actor, heading = null, distance = 0;
+  for (const point of path) {
+    const dx = point.x - previous.x, dy = point.y - previous.y;
+    const length = Math.hypot(dx, dy);
+    previous = point;
+    if (length < 0.01) continue;
+    const direction = { x: dx / length, y: dy / length };
+    if (heading && direction.x * heading.x + direction.y * heading.y < 0.995) break;
+    heading = direction;
+    distance += length;
+  }
+  return distance;
+}
+
+class TravelPace {
+  clear() { this.running = false; this.rollPending = false; }
+  constructor() { this.clear(); }
+  begin(actor, path, allowRoll = true) {
+    const distance = routeDistance(actor, path);
+    this.running = distance >= 80;
+    this.rollPending = allowRoll && distance >= 240;
+  }
+  speed(actor, path) {
+    if (path.length && routeDistance(actor, path) <= 48) this.running = false;
+    return this.running ? RUN_SPEED : WALK_SPEED;
+  }
+  rollDistance(actor, path) {
+    if (!this.rollPending || !path.length) return 0;
+    if (routeDistance(actor, path) < 180) { this.rollPending = false; return 0; }
+    const runway = rollRunway(actor, path);
+    return runway >= ROLL_DISTANCE ? ROLL_DISTANCE : 0;
+  }
+}
 
 /** One impulse, fixed heading, no key-repeat, and the same live collisions as walking. */
 class RollMotion {
@@ -54,7 +101,8 @@ class RollMotion {
     const roll = this.current;
     if (!roll) return null;
     const pose = Math.min(3, Math.floor((roll.elapsed / ROLL_DURATION) * 4));
-    return `person-0-${roll.direction}-roll-${pose}`;
+    // Land upright. The former fourth frame was another deep squat after the flip.
+    return `person-0-${roll.direction}-${pose === 3 ? "recover-0" : `roll-${pose}`}`;
   }
 }
 
@@ -78,4 +126,7 @@ class DoublePress {
     this.previous = null;
   }
 }
-module.exports = { RollMotion, DoublePress, WALK_SPEED, ROLL_DISTANCE };
+module.exports = {
+  RollMotion, DoublePress, TravelPace, routeDistance, rollRunway,
+  WALK_SPEED, RUN_SPEED, ROLL_DISTANCE, ROLL_DURATION,
+};

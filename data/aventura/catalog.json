@@ -1,11 +1,9 @@
 {
   "start": "overworld",
   "flags": [
-    "introSeen",
     "mushroomFound",
     "lighterFound",
     "fireLit",
-    "doorKnocked",
     "twigFound",
     "skewerCooked",
     "picnicFed",
@@ -69,7 +67,6 @@
       "reusable": true
     }
   },
-  "avatarVariants": 11,
   "contentRooms": {
     "stories": {
       "scene": "overworld",
@@ -174,7 +171,7 @@
       "lip": 0.76,
       "passengers": [
         {
-          "sprite": "person-5-down-right",
+          "sprite": "person-2-down-right",
           "seat": [
             0.31,
             0.74

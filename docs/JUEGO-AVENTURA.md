@@ -1,14 +1,14 @@
 # La aventura de los Magikitos
 
-Contrato vigente, 13 de septiembre de 2026. Sustituye las decisiones contradictorias
-de los prototipos anteriores. Desarrollo y pruebas **solo en local**; no desplegar,
+Contrato vigente, 14 de septiembre de 2026. Sustituye las decisiones contradictorias
+de los prototipos anteriores. Hay una versión publicada; esta ronda y sus pruebas son **solo en local**. No desplegar,
 consultar producción ni importar datos adicionales.
 
 ## Identidad
 
 Una aventura cenital de pixel art cálido, inspirada en la sensación de los juegos
-portátiles clásicos, con personajes, arte y música propios. No combate, vida,
-muerte ni pruebas de reflejos. Explorar, curiosear, recoger objetos, resolver
+portátiles clásicos, con personajes, arte y música propios. No combate, barra de vida,
+muerte del jugador ni pruebas de reflejos. Explorar, curiosear, recoger objetos, resolver
 pequeños enigmas y hacer travesuras simpáticas.
 
 Un mundo abierto que crece por aventuras locales entrelazadas. Cada zona tiene
@@ -32,8 +32,9 @@ en el claro inicial. No hay enlaces a contenidos que cambien la posición, pará
 ## Mundo y composición
 
 Exterior de 128 × 96 tiles: claro inicial, bosque, río y puente, pueblo sobre hierba,
-lago y rincón nocturno de la hoguera. Interiores separados de casa humana grande, casita humana de la fuente,
-taberna y taller; un islote de 64 × 48 tiles accesible en barco. Muebles cerca de paredes, centro despejado y umbrales visibles.
+lago y rincón nocturno de la hoguera. Refugios de duendes hechos de troncos,
+hojas y botas, taberna y taller; humanos en el picnic, no casas humanas por ahora.
+Un islote de 64 × 48 tiles accesible en barco. Muebles cerca de paredes, centro despejado y umbrales visibles.
 Bancos en los bordes de caminos mirando a su punto de interés, nunca bloqueando pasos.
 La fuente ocupa el centro de una confluencia sobre hierba, rodeada por caminos.
 El lago es una costa abierta que continúa fuera del mapa: no hay una orilla opuesta
@@ -48,7 +49,7 @@ La noche oscurece al protagonista igual que al entorno; la única luz local es e
 
 El protagonista tiene un diseño exclusivo: orejas puntiagudas, gorro de pico y pasos
 claros en ocho direcciones. Todos los vecinos llevan gorro de pico, pero varían
-silueta, color, piel y ropa. Su diseño se asigna de forma estable al autor público.
+silueta, gorro, ropa y tonos naturales de piel; no piel azul o verde. Su diseño se asigna de forma estable al autor público.
 No afirmar que están conectados: son una representación diferida y ambiental.
 Sin sockets ni actualización remota continua; sus paseos se calculan en el navegador.
 
@@ -56,7 +57,7 @@ Sin sockets ni actualización remota continua; sus paseos se calculan en el nave
 
 - Cuentos: 6–10 narradores alrededor de la hoguera nocturna junto al lago.
 - Chistes: corrillo dentro de la taberna del pueblo.
-- Expresiones: libro especial en el interior de la casa humana.
+- Expresiones: libro especial en el interior del refugio de hojas.
 - Colorear: zona de artistas con sus colecciones y herramientas.
 - Tienda: taller con duendes expuestos, precios, fichas y carrito.
 
@@ -82,12 +83,19 @@ no se duplican esos motores en el juego.
 ## Controles e inventario
 
 Tocar suelo para caminar, objeto para acercarse y actuar. Flechas, WASD y ZQSD
-opcionales en teclado. Sin tecla E. Los objetos interactivos y vecinos tienen cuerpo:
-no atravesarlos, y al chocar se activa la misma reacción que al tocarlos.
-Entrar/salir de casas andando, sin clic obligatorio, también entrando al umbral de lado.
+opcionales en teclado. Sin tecla E. Los objetos interactivos y vecinos tienen cuerpo.
+Un clic en suelo los esquiva, sin diálogos, usar inventario ni empujar cosas de paso;
+si alguien se cruza, recalcula conservando el destino. Un clic en objeto se acerca
+y activa solo ese objeto. Al caminar libremente con teclado se mantiene la reacción
+por contacto. Los empujes por clic y las puertas requieren su objetivo explícito.
+Entrar/salir andando en dirección al umbral, sin clic obligatorio; pasar lateralmente no absorbe al jugador.
 Puerta abierta = interior accesible; casas aún inaccesibles muestran puerta cerrada.
-Espacio mientras se camina o doble clic/toque en el destino: una voltereta por pulsación,
-con ocho orientaciones, impulso acotado y colisiones. No encadena al mantener la tecla.
+Mantener Espacio con dirección: correr. Doble Espacio o doble clic/toque en destino:
+una voltereta más rápida con recuperación erguida, ocho orientaciones y colisiones.
+No se repite al mantener la tecla. Un toque elige paseo, carrera o roll→carrera→paseo
+por distancia de ruta; no rueda automáticamente hacia curvas u obstáculos.
+Arrastrar explora el mapa sin caminar. Una mira abajo a la derecha vuelve a centrar
+en el protagonista; rueda y pellizco mantienen el zoom único sin zonas negras.
 
 Solo música, «Yo» y saco como botones permanentes.
 El saco muestra objetos, descripción y si se consumen o son herramientas.
@@ -105,16 +113,17 @@ muestra una confirmación quieta. Las monedas también tienen respuesta visual.
 El protagonista no tiene hambre ni una obligación inicial. Se entra a pasear.
 El puente, el pueblo, las casas y el lago están abiertos desde el principio.
 
-Brizno, un vecino sentado junto a la barbacoa del claro, tiene tanta hambre que
+Brizno, un anciano barrigón sentado en un banquito de ramas junto a la barbacoa, tiene tanta hambre que
 «le suena hasta el gorro». Ayudarlo se descubre hablando o recogiendo objetos.
 
-1. Encontrar una seta cerca, un palito junto al tronco y un mechero en la primera casita junto a la fuente del pueblo.
-   Dentro solo hay una cama, una mesa pequeña con el mechero y un florero; el libro
-   de expresiones sigue en la casa grande cercana al claro.
+1. Encontrar una seta, un palito y, en el picnic humano, un mechero junto al pie
+   del fumador y una navaja de Taramundi al lado de la tortilla.
 2. Encender la barbacoa y asar una brocheta; se puede encender primero o cocinar
    directamente con todo en el saco. Cualquier orden de recogida funciona.
-3. La seta y el palo se consumen; el mechero permanece. La brocheta se lleva al vecino.
-4. Brizno cambia de expresión y entrega una recompensa única: **10 setines, suficientes para ida y vuelta**.
+3. La seta y el palo se consumen; mechero y navaja permanecen. La brocheta se lleva al vecino.
+4. Brizno cambia de expresión y entrega el primer premio: **10 setines, suficientes para ida y vuelta**.
+   Los humanos se marchan tras esa primera ayuda. Brizno vuelve a tener hambre
+   cada cinco horas reales y puede recibir más brochetas; no hay hambre del jugador.
 5. Remo, el duende barquero, recibe y cobra en el embarcadero. La barca del lago lleva al islote. Cada trayecto cuesta **5 setines**, también la vuelta.
    La travesía tiene una animación breve con Remo remando y el protagonista sentado,
    sin movimiento libre ni acciones durante el trayecto. El pasaje se cobra al llegar.
@@ -122,7 +131,7 @@ Brizno, un vecino sentado junto a la barbacoa del claro, tiene tanta hambre que
    Esa ayuda es opcional y repetible para futuros viajes; no hace falta para el primer regreso.
    Antes de la brocheta, Remo invita a explorar y hablar con la peña, sin destripar el enigma.
 
-No hay temporizadores de hambre, penalizaciones, obligación de ayudar ni bloqueo
+No hay hambre del protagonista, penalizaciones, obligación de ayudar ni bloqueo
 del bosque. El viaje sí representa una primera progresión pagada, ampliable después.
 
 Los setines de esta fase son un **monedero local de prueba de la aventura**,
@@ -153,6 +162,9 @@ No se premia todavía cagar en lugares concretos: esa travesura será otro enigm
 Datos, condiciones y efectos fuera del motor: ningún muro de if por personaje.
 Objetos consumibles y reutilizables, cambios atómicos, colisiones y búsqueda de
 camino coherentes, presentación y reproducción con ciclo de vida explícito.
+La intención del recorrido vive en `journey.js`; A*, ritmo, geometría física y
+despacho de interacciones son responsabilidades separadas, sin rutas duplicadas
+para móvil o roll. Contrato y pruebas: [navegación](NAVIGATION.md).
 Un catálogo de textos por idioma; un solo backend para consultas y permisos públicos.
 Escenas y comportamientos reutilizables separados de sus colocaciones. Sprites en
 paquetes independientes de edificios, árboles, vegetación, objetos y cada personaje;
@@ -169,6 +181,12 @@ No sincronización de cuenta todavía ni creación silenciosa de usuarios.
 No recompensas reales de setines desde estado manipulable del navegador.
 
 ## Ideas posteriores, no implementadas
+
+La nueva dirección es cocinar para otros y levantar un restaurante. Brizno ofrece
+su terreno y ayuda; más adelante fallece y el lugar crece en su honor, con músicos,
+hamacas, tiendas y fiestas. Ingredientes de casas humanas, huertos, pesca y caza
+quedan por diseñar. Esto es una nota narrativa, no funciones implementadas.
+Detalles y límites en [movimiento, Brizno y restaurante](MOBILITY-BRIZNO.md).
 
 Travesuras con consecuencias visibles y recordadas; enigmas con herramientas y
 objetos que desbloquean rutas. Reacciones al cartel «prohibido cagar aquí» y otras

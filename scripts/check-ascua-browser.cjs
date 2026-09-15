@@ -12,14 +12,18 @@ const key = 'magikitos.adventure';
     for (const [width,height] of [[1440,900],[768,1024],[390,844]]) {
       for (const reducedMotion of ['no-preference','reduce']) {
         const page = await browser.newPage({ viewport:{width,height}, hasTouch:true, reducedMotion });
+        await page.addInitScript(() => {
+          const seed=sessionStorage.getItem('ascua-seed');
+          if(seed) {localStorage.setItem('magikitos.adventure',seed);sessionStorage.removeItem('ascua-seed');}
+        });
         page.on('pageerror', e => errors.push(e.message));
         await page.route('**/*', r => ['127.0.0.1','magikitos.ddev.site'].includes(new URL(r.request().url()).hostname) ? r.continue() : r.abort());
         await page.goto(origin+'/aventura');
         const inspect = () => page.evaluate(() => window.MagikitosAdventure.inspect());
         const stored = () => page.evaluate(k => JSON.parse(localStorage.getItem(k)), key);
         async function seed(extra = {}) {
-          await page.evaluate(({key,state}) => localStorage.setItem(key,JSON.stringify(state)), {
-            key, state:{ scene:'overworld', position:{x:64*16,y:44*16}, flags:{introSeen:true}, muted:true, ...extra },
+          await page.evaluate(({key,state}) => sessionStorage.setItem('ascua-seed',JSON.stringify(state)), {
+            key, state:{ scene:'overworld', position:{x:64*16,y:44*16}, flags:{}, muted:true, ...extra },
           });
           await page.reload();
           await page.waitForFunction(() => window.MagikitosAdventure?.inspect().ready);
@@ -71,13 +75,14 @@ const key = 'magikitos.adventure';
 
         await seed({ position:{x:33*16,y:70.5*16} });
         await touchEntity('picnic-mushroom',20); await gesture('discover');
+        assert.equal((await inspect()).entities.find(e=>e.id==='picnic-mushroom').presented,false,'Ground source is hidden before the first overhead pose');
         assert.equal((await inspect()).player.direction,'down');
         assert.equal((await inspect()).sequence.data.sprite,'giant-bolete');
         await dialogue();
         assert.equal((await inspect()).inventory.mushroom,1);
         assert(!(await inspect()).inventory.knife);
 
-        await seed({position:{x:25*16,y:74*16},flags:{introSeen:true,fireLit:true},inventory:{knife:1,lighter:1,mushroom:1,twig:1}});
+        await seed({position:{x:25*16,y:74*16},flags:{fireLit:true},inventory:{knife:1,lighter:1,mushroom:1,twig:1}});
         await touchEntity('picnic-barbecue'); await dialogue();
         await page.locator('[data-action="cook"]').click(); await gesture('work');
         assert.equal((await inspect()).inventory.mushroom,1,'Ingredients remain until commit');

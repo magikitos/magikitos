@@ -1,6 +1,7 @@
 "use strict";
 const { TILE, hash, random } = require("./model");
 const { facing } = require("./characters");
+const { ZoneCasting } = require("./casting");
 /** Build a local cast. One public author appears once; extra seats are fictional visitors. */
 function createNeighbors(world, config, ambientCast, choose = Math.random) {
   const slots = [...(world.data.neighbors || [])];
@@ -22,6 +23,8 @@ function createNeighbors(world, config, ambientCast, choose = Math.random) {
   }
   const seen = new Set(),
     cursors = {};
+  const casting = new ZoneCasting(config.world.avatarProfiles,
+    (world.data.actors || []));
   return slots.map((slot, index) => {
     const pool = slot.content ? config.cast?.[slot.content] || [] : ambientCast;
     const person = pool.find(
@@ -30,7 +33,7 @@ function createNeighbors(world, config, ambientCast, choose = Math.random) {
     if (person) seen.add(person.handle);
     const identity = person?.handle || slot.id;
     // Appearance is a local art decision; website identity never selects an obsolete sprite index.
-    const variant = 1 + (hash(identity) % config.world.avatarVariants);
+    const variant = casting.choose(identity, world.region(slot.x, slot.y));
     const cursor = cursors[slot.content] || 0;
     cursors[slot.content] = cursor + 1;
     // Visitors can share a published piece; its actual author remains credited in the folio.

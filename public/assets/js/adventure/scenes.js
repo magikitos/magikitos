@@ -25,6 +25,7 @@ class SceneDirector {
     for (const item of Object.values(game.catalog.items))
       sprites.add(item.sprite);
     for (const entity of [...world.entities, ...world.props]) {
+      if (entity.seat?.sprite) sprites.add(entity.seat.sprite);
       if (entity.keepsakes?.sprite) sprites.add(entity.keepsakes.sprite);
       if (entity.sprite && entity.sprite !== "doorway")
         sprites.add(frameName(entity));
@@ -47,6 +48,8 @@ class SceneDirector {
     ]);
     const packs = await game.renderer.sprites.prepare(sprites, [
       "actor-0-roll",
+      "actor-0-run",
+      "actor-0-discover",
       "actor-0-needs",
       ...(world.entities.some(e => e.pushable) ? ["actor-0-push"] : []),
       ...(data.assetPacks || []),
@@ -108,6 +111,7 @@ class SceneDirector {
   }
   enter(prepared) {
     const game = this.game;
+    game.cameraFollowing = true;
     game.world = prepared.world;
     game.renderer.world = game.world;
     game.renderer.resize();

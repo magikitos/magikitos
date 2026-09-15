@@ -13,7 +13,7 @@ const {
   waterAt,
 } = geometry;
 const { matches, active } = require("./rules");
-const { CollisionGrid } = require("./collision-grid");
+const { CollisionGrid, collisionBodies } = require("./collision-grid");
 const { resolveAppearance } = require("./elements");
 const { restorePositions } = require("./movables");
 const room = require("./room-shape");
@@ -129,18 +129,6 @@ class World {
       dryFootprint(this.data, x, y)
     );
   }
-  clearTerrainSegment(from, to) {
-    const steps = Math.max(1, Math.ceil(distance(from, to) / 2));
-    for (let i = 1; i <= steps; i++)
-      if (
-        !this.terrainCanStand(
-          from.x + ((to.x - from.x) * i) / steps,
-          from.y + ((to.y - from.y) * i) / steps,
-        )
-      )
-        return false;
-    return true;
-  }
   refresh(state) {
     this.state = state;
     restorePositions(this, state);
@@ -151,7 +139,7 @@ class World {
       ...this.architecture,
       ...this.props,
       ...this.entities,
-    ].filter(
+    ].flatMap(collisionBodies).filter(
       (e) =>
         e.solid &&
         active(e, state) &&
@@ -231,7 +219,7 @@ class World {
         if (this.walkable(x, y)) {
           const point = { x: (x + 0.5) * TILE, y: (y + 0.5) * TILE };
           if (
-            this.canStand(point.x, point.y) &&
+            this.canStand(point.x, point.y, from) &&
             (target.solid || target.neighbor
               ? this.distanceTo(point, target) >= 4 &&
                 this.distanceTo(point, target) < TILE * 1.5

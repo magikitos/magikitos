@@ -280,6 +280,7 @@
     {
       "id": "ascua-roll-matte",
       "pack": "actor-0-roll",
+      "exportRows": [0, 1, 2],
       "grid": [
         8,
         4
@@ -372,19 +373,95 @@
       "height": 40
     },
     {
-      "id": "neighbor-seated",
-      "pack": "picnic-neighbor",
+      "id": "ascua-run",
+      "cleanFragments": 0.03,
+      "pack": "actor-0-run",
       "grid": [
-        4,
+        8,
+        4
+      ],
+      "directions": [
+        "down",
+        "down-right",
+        "right",
+        "up-right",
+        "up",
+        "up-left",
+        "left",
+        "down-left"
+      ],
+      "variant": 0,
+      "action": "run",
+      "height": 40,
+      "reference": "ascua-walk"
+    },
+    {
+      "id": "ascua-roll-recover",
+      "cleanFragments": 0.03,
+      "pack": "actor-0-roll",
+      "grid": [
+        8,
         1
       ],
-      "names": [
-        "picnic-hungry",
-        "picnic-speaking",
-        "picnic-happy",
-        "picnic-blink"
+      "directions": [
+        "down",
+        "down-right",
+        "right",
+        "up-right",
+        "up",
+        "up-left",
+        "left",
+        "down-left"
       ],
-      "height": 33
+      "variant": 0,
+      "action": "recover",
+      "height": 40
+    },
+    {
+      "id": "brizno-walk",
+      "edgeMatte": "red",
+      "cleanFragments": 0.03,
+      "pack": "actor-12",
+      "grid": [
+        8,
+        4
+      ],
+      "directions": [
+        "down",
+        "down-right",
+        "right",
+        "up-right",
+        "up",
+        "up-left",
+        "left",
+        "down-left"
+      ],
+      "variant": 12,
+      "action": "walk",
+      "height": 40
+    },
+    {
+      "id": "brizno-seated",
+      "edgeMatte": "red",
+      "cleanFragments": 0.03,
+      "pack": "picnic-neighbor",
+      "grid": [
+        8,
+        4
+      ],
+      "directions": [
+        "down",
+        "down-right",
+        "right",
+        "up-right",
+        "up",
+        "up-left",
+        "left",
+        "down-left"
+      ],
+      "variant": 12,
+      "action": "sit",
+      "height": 36
     }
   ]
 }

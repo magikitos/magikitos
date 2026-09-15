@@ -104,7 +104,7 @@ assert.deepEqual(
 );
 const state = {
   scene: "overworld",
-  flags: { introSeen: true },
+  flags: {  },
   inventory: {},
   needs: fresh,
   traces: [],

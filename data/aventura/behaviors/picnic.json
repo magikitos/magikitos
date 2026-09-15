@@ -320,14 +320,14 @@
     ]
   },
   "picnic-neighbor": {
-    "sprite": "picnic-hungry",
+    "sprite": "person-12-down-right-sit-0",
     "portrait": true,
     "label": "picnicNeighbor",
     "solid": [
-      -0.5,
-      -0.65,
-      1,
-      0.9
+      -1.15,
+      -1.1,
+      2.3,
+      1.4
     ],
     "visuals": [
       {
@@ -336,7 +336,7 @@
             "picnic": true
           }
         },
-        "sprite": "picnic-happy"
+        "sprite": "person-12-down-right-sit-2"
       }
     ],
     "rules": [
@@ -487,7 +487,15 @@
           }
         }
       }
-    ]
+    ],
+    "seat": {
+      "sprite": "bench",
+      "scale": 0.72,
+      "offset": [
+        0,
+        -1
+      ]
+    }
   },
   "picnic-lighter": {
     "sprite": "lighter",

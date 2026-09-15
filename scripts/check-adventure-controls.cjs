@@ -212,11 +212,11 @@ for (const scene of Object.values(catalog.scenes))
   }
 assert.equal(
   catalog.scenes.overworld.entities.find((e) => e.id === "home-two").sprite,
-  "cottage-closed",
+  "home-mushroom-canela",
 );
 assert.equal(
   catalog.scenes.overworld.entities.find((e) => e.id === "fisher-door").sprite,
-  "fisher-closed",
+  "home-pot-terracotta",
 );
 console.log(
   "PASS: eight-direction rolling, 3 frame rates, no repeats, solid/water collisions, substep portals, reachable door thresholds, device-independent double presses, wallet validation without invented money, ferrymen.",

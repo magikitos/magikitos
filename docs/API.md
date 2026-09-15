@@ -27,7 +27,7 @@ silent content in another language.
 | GET item | kind; id; optional voice (expressions only) | One published piece; selected voice must belong to that term/language |
 | GET browse | kind; cursor; q; category or region | Up to 24 pieces and nextCursor |
 | GET index | kind | Category index for stories/jokes; region index for expressions |
-| GET catalog | kind=products or art; cursor; optional collection ID for art | Up to 24 products, art collections or sheets; nextCursor |
+| GET catalog | kind=products or art; cursor | Up to 24 products or flat colouring sheets; nextCursor |
 | GET guardian-thread | lang; term_id; optional bearer | The caller's existing conversation; opening it never creates an identity |
 | GET csrf | optional bearer | csrf_token for subsequent guardian POST |
 
@@ -64,8 +64,12 @@ moderation fields or unpublished contributor data is exposed by public DTOs.
 Names/titles/summaries are plaintext; clients must not interpret them as HTML.
 
 Products expose id, name, price (**integer EUR cents**), currency=EUR, quantity,
-image and url. Art collections expose id, title, image and url. Sheet responses
-include their public collection and id/title/image for each sheet.
+image and url. Art is a single flat catalogue: each Sheet exposes id, localized
+title, non-null image (master) and thumb (300px derivative or master fallback).
+There is no collection selector, collection object or intermediate collection UI.
+The gallery loads thumbs; selecting a sheet loads its master. Printing links to
+the localized art hub in bootstrap.destinations.art. The artwork URL is shared
+across locales, so it is not cached under separate language-specific image keys.
 Prices refer to physical products, never the local game wallet.
 
 ## Explicit writes

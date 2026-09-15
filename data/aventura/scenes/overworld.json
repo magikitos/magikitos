@@ -319,14 +319,7 @@
       ]
     ]
   ],
-  "waters": [
-    {
-      "x": 13,
-      "y": 43,
-      "rx": 5,
-      "ry": 10
-    }
-  ],
+  "waters": [],
   "clearings": [
     [
       27,
@@ -713,36 +706,16 @@
     },
     {
       "id": "home-two",
-      "sprite": "cottage-closed",
+      "sprite": "home-mushroom-canela",
       "x": 72,
       "y": 21.5,
       "rules": [
         {
-          "when": {
-            "flags": {
-              "doorKnocked": true
-            }
-          },
           "effects": [
             {
-              "type": "dialogue",
-              "key": "doorAgain"
-            }
-          ]
-        },
-        {
-          "effects": [
-            {
-              "type": "flag",
-              "flag": "doorKnocked"
-            },
-            {
-              "type": "dialogue",
-              "key": "neighborDoor"
-            },
-            {
-              "type": "sound",
-              "key": "knock"
+              "type": "travel",
+              "scene": "mushroom-home",
+              "spawn": true
             }
           ]
         }
@@ -753,7 +726,8 @@
         5.6,
         4
       ],
-      "label": "house"
+      "label": "house",
+      "portal": true
     },
     {
       "id": "human-door",
@@ -783,16 +757,16 @@
     },
     {
       "id": "fisher-door",
-      "sprite": "fisher-closed",
+      "sprite": "home-pot-terracotta",
       "x": 105,
       "y": 68.25,
       "rules": [
         {
-          "when": [],
           "effects": [
             {
-              "type": "dialogue",
-              "key": "fisherDoor"
+              "type": "travel",
+              "scene": "pot-home",
+              "spawn": true
             }
           ]
         }
@@ -803,7 +777,8 @@
         8.4,
         3.7
       ],
-      "label": "fisher"
+      "label": "fisher",
+      "portal": true
     },
     {
       "id": "fountain",
@@ -1092,24 +1067,6 @@
       ]
     },
     {
-      "id": "human-picnic-basket",
-      "sprite": "picnic-basket",
-      "x": 31.5,
-      "y": 51,
-      "hiddenWhen": {
-        "flags": {
-          "picnicFed": true
-        }
-      },
-      "solid": [
-        -1.7,
-        -1.8,
-        3.4,
-        2
-      ],
-      "rules": []
-    },
-    {
       "id": "human-picnic-guacamole",
       "sprite": "picnic-guacamole",
       "x": 24.1,
@@ -1123,7 +1080,7 @@
     },
     {
       "id": "human-picnic-chips",
-      "sprite": "picnic-potato-chips",
+      "sprite": "picnic-tortilla-chips",
       "x": 23.2,
       "y": 49.6,
       "hiddenWhen": {
@@ -1259,27 +1216,8 @@
       "max": 10
     }
   ],
-  "rivers": [
-    {
-      "rect": [
-        41,
-        0,
-        8,
-        96
-      ],
-      "meander": 0.4
-    }
-  ],
+  "rivers": [],
   "bridges": [
-    {
-      "rect": [
-        40,
-        54.5,
-        10,
-        2
-      ],
-      "sprite": "bridge-branches"
-    },
     {
       "rect": [
         89,

@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Magikitos World JSON API",
-    "version": "2026-09-13",
+    "version": "2026-09-15",
     "description": "Contract revision, not a versioned compatibility route. Server-owned public content and explicit guarded writes. No HTML fragments or game source."
   },
   "servers": [
@@ -614,15 +614,6 @@
               "minimum": 0,
               "maximum": 10000,
               "default": 0
-            }
-          },
-          {
-            "name": "collection",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "minimum": 1
             }
           }
         ],
@@ -1470,38 +1461,13 @@
           }
         }
       },
-      "Collection": {
-        "type": "object",
-        "required": [
-          "id",
-          "title",
-          "url"
-        ],
-        "properties": {
-          "id": {
-            "type": "integer",
-            "minimum": 1
-          },
-          "title": {
-            "type": "string"
-          },
-          "url": {
-            "type": "string"
-          },
-          "image": {
-            "type": [
-              "string",
-              "null"
-            ]
-          }
-        }
-      },
       "Sheet": {
         "type": "object",
         "required": [
           "id",
           "title",
-          "image"
+          "image",
+          "thumb"
         ],
         "properties": {
           "id": {
@@ -1509,13 +1475,16 @@
             "minimum": 1
           },
           "title": {
-            "type": "string"
+            "type": "string",
+            "description": "Localized description of the sheet; the artwork itself has no language"
           },
           "image": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string",
+            "description": "Full-size AVIF master, for viewing and printing"
+          },
+          "thumb": {
+            "type": "string",
+            "description": "300px AVIF variant for grids; falls back to the master when absent"
           }
         }
       },
@@ -1753,16 +1722,10 @@
                   "$ref": "#/components/schemas/Product"
                 },
                 {
-                  "$ref": "#/components/schemas/Collection"
-                },
-                {
                   "$ref": "#/components/schemas/Sheet"
                 }
               ]
             }
-          },
-          "collection": {
-            "$ref": "#/components/schemas/Collection"
           },
           "nextCursor": {
             "type": [
