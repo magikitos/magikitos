@@ -11,6 +11,10 @@ original characters and music, and not a single reflex test.
 
 ## What the game is
 
+Local development now includes [bottle navigation and editable kelihouses](docs/RIVER-HOMESTEADS.md),
+with [private API saves and public snapshots](docs/GAME-SAVE-API.md). These changes
+are **not deployed**; the release ledger below describes the prior production build.
+
 Current art direction: [Ascua and the approved compact cast](docs/art-direction/DUENDES.md),
 [2× integrated textures and selective motion](docs/art-direction/DEFINITION-MOTION.md).
 Current controls, Brizno and the restaurant story notes: [mobility and Brizno](docs/MOBILITY-BRIZNO.md).

@@ -43,7 +43,13 @@ class Self {
         game.state.inventory[game.catalog.needs.leafItem] || 0,
       );
     for (const kind of ["pee", "poop"])
-      byId("self-" + kind).hidden = status !== kind;
+      byId("self-" + kind).hidden =
+        status !== kind ||
+        Boolean(
+          game.river?.active ||
+          game.homestead?.visiting ||
+          game.homestead?.editing,
+        );
     this.lastStatus = status;
   }
   update() {
@@ -55,7 +61,14 @@ class Self {
   }
   async relieve(kind) {
     const game = this.game;
-    if (!game.ready || game.transitioning) return;
+    if (
+      !game.ready ||
+      game.transitioning ||
+      game.river?.active ||
+      game.homestead?.visiting ||
+      game.homestead?.editing
+    )
+      return;
     byId("self-dialog").close();
     const error = reliefError(game.state, kind, game.catalog);
     if (error) {

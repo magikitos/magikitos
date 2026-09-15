@@ -96,10 +96,6 @@ class Renderer {
       cam = game.camera;
     c.setTransform(this.pixelScale, 0, 0, this.pixelScale, 0, 0);
     c.imageSmoothingEnabled = false;
-    if (game.voyage.active) {
-      game.voyage.render(c, this.width, this.height, time);
-      return;
-    }
     c.fillStyle = "#273e35";
     c.fillRect(0, 0, this.width, this.height);
     c.save();
@@ -153,6 +149,7 @@ class Renderer {
       time,
     );
     drawInteriors(c, world);
+    game.river?.drawWater(c, time);
     game.self.drawGround(c);
     const visible = (e) => {
       if (e.wall) return true;
@@ -170,6 +167,7 @@ class Renderer {
     const player = {
       ...game.player,
       sprite:
+        game.river?.frame() ||
         game.self.frame() ||
         game.presentation?.frame() ||
         game.roll.frame() ||
@@ -182,7 +180,9 @@ class Renderer {
       ...world.props,
       ...world.architecture,
       ...world.entities.filter(
-        (e) => game.showAllEntities || (active(e, game.state) && !game.presentation?.hides(e)),
+        (e) =>
+          game.showAllEntities ||
+          (active(e, game.state) && !game.presentation?.hides(e)),
       ),
       ...game.neighbors,
       ...(game.guardian ? [game.guardian] : []),
@@ -201,7 +201,7 @@ class Renderer {
         f = this.sprites.frame(name);
       if (!f) continue;
       require("./seating").drawSeat(c, this.sprites, e);
-      if (e.player || e.neighbor) {
+      if ((e.player && !game.river?.active) || e.neighbor) {
         c.fillStyle = "rgba(31,46,33,.22)";
         c.beginPath();
         c.ellipse(e.x, e.y + 1, 8, 3, 0, 0, 7);
@@ -214,7 +214,8 @@ class Renderer {
           e,
           name,
           time,
-        ) && !require("./vegetation").drawVegetation(c, this.sprites, e, name, time)
+        ) &&
+        !require("./vegetation").drawVegetation(c, this.sprites, e, name, time)
       )
         drawArtwork(c, this.sprites, e, name);
       if (e.player) game.self.drawStream(c);
@@ -252,8 +253,10 @@ class Renderer {
       }
     }
     game.presentation?.draw(c);
+    game.homestead?.draw(c);
     if (world.data.night) this.night(world.data.night, time, cam);
-    const destination = game.journey?.intent?.point || game.journey?.path.at(-1);
+    const destination =
+      game.journey?.intent?.point || game.journey?.path.at(-1);
     if (destination) {
       const end = destination;
       c.strokeStyle = "#fff0b1";

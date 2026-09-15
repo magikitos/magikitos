@@ -114,6 +114,44 @@
                 "person-0-down-left-recover-0"
             ]
         },
+        "actor-0-row": {
+            "image": "packs/actor-0-row-852ca4498794.png",
+            "metadata": "packs/actor-0-row-852ca4498794.json",
+            "sprites": [
+                "boat-ascua-down-0",
+                "boat-ascua-down-right-0",
+                "boat-ascua-right-0",
+                "boat-ascua-up-right-0",
+                "boat-ascua-up-0",
+                "boat-ascua-up-left-0",
+                "boat-ascua-left-0",
+                "boat-ascua-down-left-0",
+                "boat-ascua-down-1",
+                "boat-ascua-down-right-1",
+                "boat-ascua-right-1",
+                "boat-ascua-up-right-1",
+                "boat-ascua-up-1",
+                "boat-ascua-up-left-1",
+                "boat-ascua-left-1",
+                "boat-ascua-down-left-1",
+                "boat-ascua-down-2",
+                "boat-ascua-down-right-2",
+                "boat-ascua-right-2",
+                "boat-ascua-up-right-2",
+                "boat-ascua-up-2",
+                "boat-ascua-up-left-2",
+                "boat-ascua-left-2",
+                "boat-ascua-down-left-2",
+                "boat-ascua-down-3",
+                "boat-ascua-down-right-3",
+                "boat-ascua-right-3",
+                "boat-ascua-up-right-3",
+                "boat-ascua-up-3",
+                "boat-ascua-up-left-3",
+                "boat-ascua-left-3",
+                "boat-ascua-down-left-3"
+            ]
+        },
         "actor-0-run": {
             "image": "packs/actor-0-run-cfd60a3b936d.png",
             "metadata": "packs/actor-0-run-cfd60a3b936d.json",
@@ -4635,6 +4673,21 @@
                 "picnic-blanket",
                 "picnic-tortilla",
                 "picnic-basket"
+            ]
+        },
+        "river-craft": {
+            "image": "packs/river-craft-04c0429d25fc.png",
+            "metadata": "packs/river-craft-04c0429d25fc.json",
+            "sprites": [
+                "plastic-bottle",
+                "bottle-boat"
+            ]
+        },
+        "river-picnic": {
+            "image": "packs/river-picnic-151c708beda7.png",
+            "metadata": "packs/river-picnic-151c708beda7.json",
+            "sprites": [
+                "picnic-bin"
             ]
         },
         "shore-garden": {

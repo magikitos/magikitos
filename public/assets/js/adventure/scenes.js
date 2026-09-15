@@ -2,7 +2,8 @@
 const { World, TILE, insideThreshold } = require("./model");
 const { frameName } = require("./elements");
 const { createNeighbors } = require("./neighbors");
-/** Prepares destinations and their art before any state or fare is committed. */
+const { canFloat } = require("./river-navigation");
+/** Prepares destinations and their art before any state is committed. */
 class SceneDirector {
   constructor(game) {
     this.game = game;
@@ -11,10 +12,15 @@ class SceneDirector {
     this.nextWarm = 0;
   }
   async prepare(id, position, state) {
+    await this.game.homestead?.riverNeighbors?.prepare(
+      this.game.catalog.scenes[id],
+    );
     const game = this.game,
-      data = game.catalog.scenes[id];
+      data =
+        game.homestead?.sceneData(game.catalog.scenes[id]) ||
+        game.catalog.scenes[id];
     if (!data) throw new Error("Unknown scene: " + id);
-    const cached = this.cache.get(id);
+    const cached = /^(home|guest)-/.test(id) ? null : this.cache.get(id);
     const world = cached && cached !== game.world ? cached : new World(data);
     world.actors = [];
     world.refresh(state);
@@ -24,6 +30,9 @@ class SceneDirector {
     for (const bridge of data.bridges || []) sprites.add(bridge.sprite);
     for (const item of Object.values(game.catalog.items))
       sprites.add(item.sprite);
+    if (/^home-/.test(id))
+      for (const kind of Object.values(game.catalog.homesteads.stock))
+        for (const variant of kind.variants) sprites.add(variant.sprite);
     for (const entity of [...world.entities, ...world.props]) {
       if (entity.seat?.sprite) sprites.add(entity.seat.sprite);
       if (entity.keepsakes?.sprite) sprites.add(entity.keepsakes.sprite);
@@ -31,15 +40,6 @@ class SceneDirector {
         sprites.add(frameName(entity));
       for (const visual of entity.visuals || []) sprites.add(visual.sprite);
       if (typeof entity.portrait === "string") sprites.add(entity.portrait);
-      for (const rule of entity.rules || [])
-        for (const effect of rule.effects)
-          if (effect.type === "travel" && effect.presentation) {
-            const transport = game.catalog.transports[effect.presentation];
-            sprites.add(transport.sprite);
-            for (const passenger of transport.passengers)
-              sprites.add(passenger.sprite);
-            for (const name of transport.shoreSprites || []) sprites.add(name);
-          }
     }
     const actors = new Set([
       0,
@@ -51,14 +51,19 @@ class SceneDirector {
       "actor-0-run",
       "actor-0-discover",
       "actor-0-needs",
-      ...(world.entities.some(e => e.pushable) ? ["actor-0-push"] : []),
+      ...(state.navigation?.mode === "boat" ? ["actor-0-row"] : []),
+      ...(world.entities.some((e) => e.pushable) ? ["actor-0-push"] : []),
       ...(data.assetPacks || []),
       ...[...actors].map((v) => "actor-" + v),
     ]);
-    const destination = world.canStand(position?.x, position?.y)
+    const valid =
+      state.navigation?.mode === "boat"
+        ? (x, y) => canFloat(world, x, y)
+        : (x, y) => world.canStand(x, y);
+    const destination = valid(position?.x, position?.y)
       ? { ...position }
       : { x: data.spawn.x * TILE, y: data.spawn.y * TILE };
-    if (!world.canStand(destination.x, destination.y))
+    if (!valid(destination.x, destination.y))
       throw new Error("Blocked scene arrival: " + id);
     this.cache.delete(id);
     this.cache.set(id, world);
@@ -118,7 +123,7 @@ class SceneDirector {
     game.neighbors = prepared.neighbors;
     game.player = {
       ...prepared.position,
-      direction: "down",
+      direction: game.state.navigation?.direction || "down",
       actor: true,
       walkDistance: 0,
     };
@@ -140,6 +145,7 @@ class SceneDirector {
     game.centerCamera(true);
     game.dirty = true;
     game.content?.sceneChanged(prepared.id);
+    game.homestead?.sceneChanged();
   }
 }
 module.exports = { SceneDirector };

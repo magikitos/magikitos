@@ -30,6 +30,14 @@ return (static function (): array {
     };
     $behaviors = [];
     $families = $read(__DIR__ . '/elements.json')['families'];
+    $world['homesteads'] = $read(__DIR__ . '/homesteads.json');
+    foreach ($world['homesteads']['stock'] as $id => &$item) {
+        $family = $families[$id] ?? throw new RuntimeException('Unknown homestead family');
+        $item['variants'] = array_map(static fn($v) => ['id' => $v['id'], 'sprite' => $v['sprite']], $family['variants']);
+        $item['solid'] = $family['template']['solid'] ?? null;
+        $item['scale'] ??= 1;
+    }
+    unset($item);
     foreach (glob(__DIR__ . '/behaviors/*.json') as $file) {
         foreach ($read($file) as $id => $behavior) {
             if (isset($behaviors[$id])) {
@@ -43,6 +51,17 @@ return (static function (): array {
         $name = basename($file, '.json');
         if ($scene['id'] !== $name) {
             throw new RuntimeException("Scene filename mismatch: $name");
+        }
+        foreach ($scene['navigation']['landings'] ?? [] as $landing) {
+            $dock = array_values(array_filter($scene['entities'], static fn($e) => ($e['landing'] ?? null) === $landing['id']))[0] ?? null;
+            if (!$dock) throw new RuntimeException('Landing without dock: ' . $landing['id']);
+            $scene['entities'][] = [
+                'id' => 'moored-' . $landing['id'], 'sprite' => 'bottle-boat',
+                'x' => $landing['water'][0], 'y' => $landing['water'][1],
+                'rules' => [], 'interactAs' => $dock['id'], 'generated' => 'landing-vessel',
+                'visibleWhen' => ['items' => ['boat' => 1]] + (count($scene['navigation']['landings']) > 1 ? ['landing' => $landing['id']] : []),
+                'hiddenWhen' => ['navigation' => 'boat'],
+            ];
         }
         $seen = [];
         foreach ($scene['entities'] as &$entity) {
@@ -96,6 +115,17 @@ return (static function (): array {
         }
         $world['scenes'][$name] = $resolve($scene);
     }
+    // Read-only visits reuse the same authored spaces, not copied maps per owner or visitor.
+    foreach ($read(__DIR__ . '/scene-instances.json') as $id => $instance) {
+        if (isset($world['scenes'][$id]) || !isset($world['scenes'][$instance['template']])) throw new RuntimeException('Invalid scene instance');
+        $scene = $world['scenes'][$instance['template']];
+        $scene['id'] = $id;
+        $scene['label'] = $instance['label'];
+        foreach ($scene['entities'] as &$entity) foreach ($entity['rules'] as &$rule) foreach ($rule['effects'] as &$effect)
+            if ($effect['type'] === 'travel') $effect['scene'] = $instance['destinations'][$effect['scene']] ?? $effect['scene'];
+        unset($entity, $rule, $effect);
+        $world['scenes'][$id] = $scene;
+    }
     // Portal arrivals follow authored buildings; return trips never duplicate their coordinates.
     $arrivals = [];
     foreach ($world['scenes'] as $id => $scene) {
@@ -125,10 +155,6 @@ return (static function (): array {
                         }
                         [$effect['x'], $effect['y']] = $arrivals[$effect['scene']][$id];
                         unset($effect['arrivalAt']);
-                    }
-                    if ($effect['type'] === 'travel' && isset($effect['presentation'])
-                        && !isset($world['transports'][$effect['presentation']])) {
-                        throw new RuntimeException('Unknown travel presentation');
                     }
                 }
             }

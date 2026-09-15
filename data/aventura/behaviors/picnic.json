@@ -292,7 +292,7 @@
     "label": "twigName",
     "hiddenWhen": {
       "items": {
-        "twig": 1
+        "twig": 99
       }
     },
     "rules": [

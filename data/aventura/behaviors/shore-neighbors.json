@@ -1,68 +1,4 @@
 {
-  "ferry": {
-    "sprite": "person-2-down",
-    "label": "ferryman",
-    "rules": [
-      {
-        "action": "board",
-        "when": {
-          "funds": "lake"
-        },
-        "effects": [
-          {
-            "type": "spend",
-            "fare": "lake"
-          },
-          {
-            "type": "travel",
-            "presentation": "ferry"
-          },
-          {
-            "type": "sound",
-            "key": "found"
-          }
-        ]
-      },
-      {
-        "action": "board",
-        "effects": [
-          {
-            "type": "dialogue",
-            "key": "ferryPoor"
-          }
-        ]
-      },
-      {
-        "when": {
-          "flags": {
-            "picnicFed": false
-          }
-        },
-        "effects": [
-          {
-            "type": "dialogue",
-            "key": "ferryHint"
-          }
-        ]
-      },
-      {
-        "effects": [
-          {
-            "type": "dialogue",
-            "key": "ferryWelcome"
-          }
-        ]
-      }
-    ],
-    "actions": [
-      {
-        "id": "board",
-        "label": "boardFerry",
-        "fare": "lake"
-      }
-    ],
-    "portrait": true
-  },
   "shells": {
     "sprite": "shells",
     "label": "shellName",
@@ -160,6 +96,21 @@
             "shell": 1
           }
         }
+      }
+    ]
+  },
+  "river-neighbor": {
+    "sprite": "person-2-down",
+    "label": "riverNeighbor",
+    "portrait": true,
+    "rules": [
+      {
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "riverMemory"
+          }
+        ]
       }
     ]
   }

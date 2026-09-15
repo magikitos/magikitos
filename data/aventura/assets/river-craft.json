@@ -1,0 +1,44 @@
+{
+    "frames": {
+        "plastic-bottle": {
+            "grid": [
+                2,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                44,
+                48
+            ],
+            "anchor": [
+                22,
+                42
+            ],
+            "source": "data/aventura/art/river/cutouts/bottle-craft.png",
+            "fit": true
+        },
+        "bottle-boat": {
+            "grid": [
+                2,
+                1
+            ],
+            "cell": [
+                1,
+                0
+            ],
+            "size": [
+                76,
+                58
+            ],
+            "anchor": [
+                38,
+                40
+            ],
+            "source": "data/aventura/art/river/cutouts/bottle-craft.png",
+            "fit": true
+        }
+    }
+}

@@ -24,7 +24,14 @@ const { SceneDirector } = require("./scenes");
 const { fare } = require("./economy");
 const { dialogueText } = require("./dialogue");
 const { WorldInput } = require("./input");
-const { RollMotion, WALK_SPEED, RUN_SPEED, ROLL_DISTANCE, rollRunway, routeDistance } = require("./locomotion");
+const {
+  RollMotion,
+  WALK_SPEED,
+  RUN_SPEED,
+  ROLL_DISTANCE,
+  rollRunway,
+  routeDistance,
+} = require("./locomotion");
 const { Journey } = require("./journey");
 const { PickupFeedback } = require("./pickups");
 const { Inventory } = require("./inventory");
@@ -32,7 +39,9 @@ const { ContentRooms } = require("./rooms");
 const { Self } = require("./self");
 const { expireTimers } = require("./timers");
 const { needStatus } = require("./needs");
-const { Voyage } = require("./voyage");
+const { River } = require("./river");
+const { Homestead } = require("./homestead");
+const { CloudSave } = require("./cloud-save");
 const { Sequence } = require("./sequence");
 const { Presentation } = require("./presentation");
 const byId = (id) => document.getElementById(id);
@@ -49,7 +58,6 @@ class Adventure {
     this.journey = new Journey();
     this.sequence = new Sequence();
     this.presentation = new Presentation(this);
-    this.voyage = new Voyage(this);
     this.dialogue = null;
     this.ready = false;
     this.scenes = new SceneDirector(this);
@@ -85,6 +93,9 @@ class Adventure {
     this.inventory = new Inventory(this);
     this.pickups = new PickupFeedback(this);
     this.self = new Self(this);
+    this.river = new River(this);
+    this.homestead = new Homestead(this);
+    this.cloud = new CloudSave(this);
     this.bind();
   }
   text(key) {
@@ -101,6 +112,7 @@ class Adventure {
   }
   async init() {
     try {
+      const cloud = this.cloud.connect(false);
       // Show the actual terrain immediately; no modal loading screen or artificial progress.
       this.world = new World(this.catalog.scenes[this.state.scene]);
       this.player = { ...this.state.position, direction: "down" };
@@ -110,6 +122,7 @@ class Adventure {
       byId("loading").hidden = true;
       this.renderer.render(this, 0);
       await this.renderer.sprites.initialize(this.config.assetManifest);
+      await cloud;
       const prepared = await this.scenes.prepare(
         this.state.scene,
         this.state.position,
@@ -142,7 +155,9 @@ class Adventure {
       }
     }).observe(byId("world-viewport"));
     this.input = new WorldInput(this);
-    byId("world-recenter").addEventListener("click", () => this.recenterCamera());
+    byId("world-recenter").addEventListener("click", () =>
+      this.recenterCamera(),
+    );
     window.addEventListener("blur", () => {
       this.pauseMovement();
     });
@@ -207,6 +222,7 @@ class Adventure {
     return (
       this.transitioning ||
       this.hasOverlay() ||
+      this.homestead?.editing ||
       Boolean(!byId("world-content").hidden && window.innerWidth < 800)
     );
   }
@@ -217,6 +233,7 @@ class Adventure {
     this.journey.clear();
   }
   pauseMovement({ keepPointerGesture = false } = {}) {
+    this.river?.pause();
     this.roll.stop();
     this.input?.clearGesture();
     if (!keepPointerGesture) this.input?.map.clear();
@@ -241,6 +258,11 @@ class Adventure {
       );
   }
   tap(point) {
+    if (this.homestead.tap(point)) return;
+    if (this.river.active) {
+      this.river.tap(point);
+      return;
+    }
     if (this.roll.current) return;
     this.cancelPath();
     if (
@@ -268,12 +290,19 @@ class Adventure {
           this.openDialogue(this.lines("noUse"));
           return;
         }
-        if (!this.journey.start(this.world, this.player, { kind: "push", entity }))
+        if (
+          !this.journey.start(this.world, this.player, { kind: "push", entity })
+        )
           this.toast(this.s.blocked);
         return;
       }
       if (entity.threshold) {
-        if (!this.journey.start(this.world, this.player, { kind: "portal", entity }))
+        if (
+          !this.journey.start(this.world, this.player, {
+            kind: "portal",
+            entity,
+          })
+        )
           this.toast(this.s.blocked);
         return;
       }
@@ -281,14 +310,21 @@ class Adventure {
         this.interact(entity);
         return;
       }
-      if (this.journey.start(this.world, this.player, { kind: "interact", entity })) {
+      if (
+        this.journey.start(this.world, this.player, {
+          kind: "interact",
+          entity,
+        })
+      ) {
         if (entity.neighbor) {
           entity.path = [];
           entity.pause = 30;
         }
       } else this.toast(this.s.blocked);
     } else {
-      if (!this.journey.start(this.world, this.player, { kind: "ground", point }))
+      if (
+        !this.journey.start(this.world, this.player, { kind: "ground", point })
+      )
         this.toast(this.s.blocked);
     }
   }
@@ -364,8 +400,17 @@ class Adventure {
       const travel = plan.effects.find((e) => e.type === "travel");
       let prepared = null;
       if (travel) {
-        const destination = doorDestination(this.catalog, this.world.data, entity, travel, this.state.entrance);
-        if (!this.world.data.indoor && this.catalog.scenes[destination.scene].indoor)
+        const destination = doorDestination(
+          this.catalog,
+          this.world.data,
+          entity,
+          travel,
+          this.state.entrance,
+        );
+        if (
+          !this.world.data.indoor &&
+          this.catalog.scenes[destination.scene].indoor
+        )
           plan.state.entrance = {
             scene: this.world.data.id,
             portal: entity.id,
@@ -375,13 +420,12 @@ class Adventure {
           destination.position,
           plan.state,
         );
-        if (travel.presentation) {
-          byId("loading").hidden = true;
-          await this.voyage.play(travel, entity);
-        }
       }
+      if (plan.effects.some((e) => e.type === "navigation"))
+        prepared = await this.river.prepareBoard(entity, plan.state);
       for (const effect of plan.effects)
-        if (effect.type === "presentation") await this.presentation.play(effect, entity);
+        if (effect.type === "presentation")
+          await this.presentation.play(effect, entity);
       await this.presentation.gains(this.state, plan.state, entity);
       // Commit effects together only after all required resources and gestures finish.
       const before = this.state;
@@ -410,7 +454,10 @@ class Adventure {
       this.world.refresh(this.state);
       this.dirty = true;
       this.updateUI();
-      this.pickups.gained(before, this.state, { x:this.player.x, y:this.player.y-26 });
+      this.pickups.gained(before, this.state, {
+        x: this.player.x,
+        y: this.player.y - 26,
+      });
       this.save();
     } catch (error) {
       console.error("Adventure interaction:", error);
@@ -568,6 +615,8 @@ class Adventure {
     return false;
   }
   updateUI() {
+    this.river?.paint();
+    this.homestead?.paint();
     this.inventory?.paint();
     this.self?.paint();
     byId("sound-toggle").setAttribute("aria-pressed", String(this.audio.on));
@@ -583,12 +632,7 @@ class Adventure {
     c.clearRect(0, 0, c.canvas.width, c.canvas.height);
     const sprite =
       typeof variant === "string" ? variant : `person-${variant}-down`;
-    this.renderer.sprites.portrait(
-      c,
-      sprite,
-      c.canvas.width,
-      c.canvas.height,
-    );
+    this.renderer.sprites.portrait(c, sprite, c.canvas.width, c.canvas.height);
   }
   paintCards() {
     document.querySelectorAll("[data-sprite]").forEach((el) => {
@@ -607,12 +651,14 @@ class Adventure {
   }
   save() {
     if (!this.dirty) return;
+    if (this.homestead?.visiting) return; // A visit never replaces the owner's saved position/layout.
     this.state.position = { x: this.player.x, y: this.player.y };
     try {
       localStorage.setItem(SAVE_KEY, JSON.stringify(this.state));
       this.storageOK = true;
       byId("save-status").textContent = this.s.saved;
       this.dirty = false;
+      this.cloud?.mark();
     } catch (_) {
       this.storageOK = false;
       byId("save-status").textContent = this.s.unsaved;
@@ -621,7 +667,12 @@ class Adventure {
   centerCamera(snap = false) {
     if (!this.renderer.width) return;
     const reading = !byId("world-content").hidden;
-    byId("world-recenter").hidden = this.cameraFollowing || reading || Boolean(this.dialogue) || this.hasOverlay() || this.transitioning;
+    byId("world-recenter").hidden =
+      this.cameraFollowing ||
+      reading ||
+      Boolean(this.dialogue) ||
+      this.hasOverlay() ||
+      this.transitioning;
     if (!this.cameraFollowing && !reading) {
       this.camera = clampCamera(this.camera, this.world, this.renderer);
       return;
@@ -669,17 +720,10 @@ class Adventure {
   }
   followResident(actor, dt, speed) {
     const path = actor.path;
-    return follow(
-      this.world,
-      actor,
-      path,
-      dt,
-      speed,
-      () => {
-        path.splice(0);
-        actor.pause = 3;
-      },
-    );
+    return follow(this.world, actor, path, dt, speed, () => {
+      path.splice(0);
+      actor.pause = 3;
+    });
   }
   updateNeighbors(dt) {
     for (const n of this.neighbors) {
@@ -741,7 +785,13 @@ class Adventure {
       : null;
   }
   startRoll(maximum = ROLL_DISTANCE) {
-    if (!this.ready || this.transitioning || this.dialogue || this.blocked())
+    if (
+      this.river.active ||
+      !this.ready ||
+      this.transitioning ||
+      this.dialogue ||
+      this.blocked()
+    )
       return;
     const intent = this.movementIntent();
     if (!intent) return;
@@ -780,56 +830,66 @@ class Adventure {
       if (this.dialogue) this.paintActions();
     }
     if (!this.dialogue && !this.blocked()) {
-      const intent = this.keyboardIntent();
-      if (!intent && !this.roll.current) {
-        const distance = this.journey.pace.rollDistance(
-          this.player, this.journey.path,
-        );
-        if (distance) this.startRoll(distance);
-      }
-      if (this.roll.current) {
-        const result = this.roll.step(
-          this.world,
-          this.player,
-          dt,
-          (entity) => {
-            if (!this.journey.intent) this.contact(entity);
-          },
-          (motion) => !this.checkThresholds(motion),
-        );
-        this.walking = result.moved;
-        if (result.finished) {
-          this.finishRoll();
-          // Select the resumed gait in this frame, not a one-frame walking/crouch flash.
-          this.running = this.walking && (this.keyboardIntent()
-            ? this.keys.has(" ") : this.journey.pace.running);
-        }
-      } else if (intent) {
-        const speed = this.keys.has(" ") ? RUN_SPEED : WALK_SPEED;
-        const k = (speed * dt) / Math.hypot(intent.x, intent.y);
-        this.walking = move(
-          this.world,
-          this.player,
-          intent.x * k,
-          intent.y * k,
-          (entity) => this.contact(entity),
-          {
-            ...this.obstacleOptions(),
-            onStep: (motion) => !this.checkThresholds(motion),
-          },
-        );
-        this.running = this.walking && speed === RUN_SPEED && !this.player.pushing;
+      if (this.river.active) {
+        this.river.update(dt);
       } else {
-        const speed = this.keys.has(" ")
-          ? RUN_SPEED
-          : this.journey.pace.speed(this.player, this.journey.path);
-        const travel = this.journey.step(this.world, this.player, dt, speed, {
-          onStep: (motion) => !this.checkThresholds(motion),
-          resolveCollision: this.obstacleOptions().resolveCollision,
-        });
-        this.walking = travel.moved;
-        this.running = this.walking && speed === RUN_SPEED && !this.player.pushing;
-        if (travel.arrived) this.interact(travel.arrived);
+        const intent = this.keyboardIntent();
+        if (!intent && !this.roll.current) {
+          const distance = this.journey.pace.rollDistance(
+            this.player,
+            this.journey.path,
+          );
+          if (distance) this.startRoll(distance);
+        }
+        if (this.roll.current) {
+          const result = this.roll.step(
+            this.world,
+            this.player,
+            dt,
+            (entity) => {
+              if (!this.journey.intent) this.contact(entity);
+            },
+            (motion) => !this.checkThresholds(motion),
+          );
+          this.walking = result.moved;
+          if (result.finished) {
+            this.finishRoll();
+            // Select the resumed gait in this frame, not a one-frame walking/crouch flash.
+            this.running =
+              this.walking &&
+              (this.keyboardIntent()
+                ? this.keys.has(" ")
+                : this.journey.pace.running);
+          }
+        } else if (intent) {
+          const speed = this.keys.has(" ") ? RUN_SPEED : WALK_SPEED;
+          const k = (speed * dt) / Math.hypot(intent.x, intent.y);
+          this.walking = move(
+            this.world,
+            this.player,
+            intent.x * k,
+            intent.y * k,
+            (entity) => this.contact(entity),
+            {
+              ...this.obstacleOptions(),
+              onStep: (motion) => !this.checkThresholds(motion),
+            },
+          );
+          this.running =
+            this.walking && speed === RUN_SPEED && !this.player.pushing;
+        } else {
+          const speed = this.keys.has(" ")
+            ? RUN_SPEED
+            : this.journey.pace.speed(this.player, this.journey.path);
+          const travel = this.journey.step(this.world, this.player, dt, speed, {
+            onStep: (motion) => !this.checkThresholds(motion),
+            resolveCollision: this.obstacleOptions().resolveCollision,
+          });
+          this.walking = travel.moved;
+          this.running =
+            this.walking && speed === RUN_SPEED && !this.player.pushing;
+          if (travel.arrived) this.interact(travel.arrived);
+        }
       }
       if (this.walking) this.dirty = true;
       if (!this.reducedMotion) this.updateNeighbors(dt);
@@ -841,6 +901,8 @@ class Adventure {
     }
     this.scenes.prewarm(ms);
     this.rooms.enforce();
+    this.river.paint();
+    this.homestead.paint();
     // Panning is a stationary inspection mode. Any actual player movement resumes follow.
     if (this.walking) this.cameraFollowing = true;
     this.centerCamera();
@@ -867,7 +929,13 @@ class Adventure {
       player: { ...this.player },
       camera: { ...this.camera },
       cameraFollowing: this.cameraFollowing,
-      pace: this.roll.current ? "roll" : this.running ? "run" : this.walking ? "walk" : "idle",
+      pace: this.roll.current
+        ? "roll"
+        : this.running
+          ? "run"
+          : this.walking
+            ? "walk"
+            : "idle",
       flags: { ...this.state.flags },
       timers: { ...this.state.timers },
       inventory: { ...this.state.inventory },
@@ -880,7 +948,11 @@ class Adventure {
         intent: this.journey.intent?.kind || null,
         destination: this.journey.intent?.point || null,
         replans: this.journey.replans,
-        waiting: Boolean(this.journey.intent && !this.journey.path.length && !this.roll.current),
+        waiting: Boolean(
+          this.journey.intent &&
+          !this.journey.path.length &&
+          !this.roll.current,
+        ),
       },
       pending: this.journey.target?.id,
       neighbors: this.neighbors.map(({ id, x, y, variant }) => ({
@@ -891,7 +963,12 @@ class Adventure {
       })),
       entities: this.world.entities
         .filter((e) => active(e, this.state))
-        .map((e) => ({ id:e.id, x:e.x, y:e.y, presented:!this.presentation.hides(e) })),
+        .map((e) => ({
+          id: e.id,
+          x: e.x,
+          y: e.y,
+          presented: !this.presentation.hides(e),
+        })),
       bounds: {
         width: this.world.width * TILE,
         height: this.world.height * TILE,
@@ -909,6 +986,29 @@ class Adventure {
       transitioning: this.transitioning,
       roll: this.roll.current ? { ...this.roll.current } : null,
       sequence: this.sequence.inspect(),
+      navigation: {
+        ...this.state.navigation,
+        routeLength: this.river.path.length,
+      },
+      homestead: {
+        space: this.homestead.space,
+        editing: this.homestead.editing,
+        visiting: this.homestead.visiting?.id || null,
+        objects: JSON.parse(
+          JSON.stringify(
+            (this.homestead.editing
+              ? this.homestead.draft
+              : this.homestead.layout
+            ).objects,
+          ),
+        ),
+      },
+      sync: {
+        status: this.cloud.status,
+        connected: Boolean(this.cloud.owner),
+        conflict: Boolean(this.cloud.conflict),
+        revision: this.cloud.meta.revision || 0,
+      },
       needs: {
         pee: { ...this.state.needs.pee },
         poop: { ...this.state.needs.poop },

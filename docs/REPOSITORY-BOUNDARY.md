@@ -9,7 +9,7 @@ evidence are recorded in [the current release ledger](ASCUA-RELEASE.md).
 | --- | --- |
 | Static HTML shell, six locales, engine, scenes, rules, rendering, audio UI, native activities | Public content queries, content pulse, publication rules, identity, authorization, rating accounting, guardian service |
 | Original modular art, offline compilers, Studio and regression tests | Normal website, full forms/editors, account, checkout and admin |
-| Browser save, device ID, local game wallet | JSON API under `/api/world/`; a small static artifact mount |
+| Local-first save, device ID, game wallet, parcel editing | JSON API under `/api/world/`; private profile storage/public snapshots; static artifact mount |
 
 The game stays at `/aventura` and five translated routes. The home page does
 not change. The game’s shell does not run the website bootstrap, database,
@@ -49,7 +49,8 @@ the **same origin**. Separate preview ports deliberately have isolated storage.
 
 The existing pulse selector still supplies six-item discovery batches and its
 exploration slots. The game performs no analytics collection, play-count writes,
-movement streaming or progress database writes.
+movement streaming. Bounded game snapshots use the separate private save API,
+not analytics/events. See [save contract](GAME-SAVE-API.md).
 
 The in-game setines wallet is local and untrusted. Website content ratings still
 use the website's existing real reputation rules; they do not spend or award

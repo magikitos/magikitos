@@ -1,0 +1,456 @@
+{
+  "id": "river-reeds",
+  "label": "riverReeds",
+  "width": 96,
+  "height": 80,
+  "seed": 728,
+  "spawn": {
+    "x": 68,
+    "y": 42
+  },
+  "paths": [
+    [
+      [
+        64,
+        42
+      ],
+      [
+        72,
+        40
+      ],
+      [
+        80,
+        38
+      ]
+    ]
+  ],
+  "waters": [],
+  "rivers": [
+    {
+      "rect": [
+        38,
+        -4,
+        20,
+        88
+      ],
+      "meander": 10
+    },
+    {
+      "rect": [
+        -4,
+        36,
+        62,
+        14
+      ]
+    }
+  ],
+  "bridges": [],
+  "clearings": [
+    [
+      68,
+      42,
+      8
+    ]
+  ],
+  "regions": [],
+  "decoration": {
+    "trees": [
+      "oak",
+      "hornbeam",
+      "birch",
+      "crooked-oak"
+    ],
+    "forest": [
+      "fern",
+      "berries",
+      "flowers-bell-blue",
+      "mushrooms"
+    ],
+    "count": 60
+  },
+  "ambient": "forest",
+  "entities": [],
+  "neighbors": [],
+  "scenery": [
+    {
+      "id": "bank--1-0",
+      "sprite": "forest-birch",
+      "x": 25,
+      "y": 8,
+      "scale": 0.72,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "flowers--1-0",
+      "sprite": "reeds",
+      "x": 28,
+      "y": 10,
+      "scale": 1,
+      "artVariant": "auto"
+    },
+    {
+      "id": "bank-1-0",
+      "sprite": "forest-birch",
+      "x": 71,
+      "y": 8,
+      "scale": 0.72,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "flowers-1-0",
+      "sprite": "reeds",
+      "x": 68,
+      "y": 10,
+      "scale": 1,
+      "artVariant": "auto"
+    },
+    {
+      "id": "bank--1-1",
+      "sprite": "ancient-root",
+      "x": 22,
+      "y": 16,
+      "scale": 0.72,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "flowers--1-1",
+      "sprite": "reeds",
+      "x": 25,
+      "y": 18,
+      "scale": 1,
+      "artVariant": "auto"
+    },
+    {
+      "id": "bank-1-1",
+      "sprite": "ancient-root",
+      "x": 74,
+      "y": 16,
+      "scale": 0.72,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "flowers-1-1",
+      "sprite": "reeds",
+      "x": 71,
+      "y": 18,
+      "scale": 1,
+      "artVariant": "auto"
+    },
+    {
+      "id": "bank--1-2",
+      "sprite": "crooked-oak",
+      "x": 19,
+      "y": 24,
+      "scale": 0.72,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "flowers--1-2",
+      "sprite": "reeds",
+      "x": 22,
+      "y": 26,
+      "scale": 1,
+      "artVariant": "auto"
+    },
+    {
+      "id": "bank-1-2",
+      "sprite": "crooked-oak",
+      "x": 77,
+      "y": 24,
+      "scale": 0.72,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "flowers-1-2",
+      "sprite": "reeds",
+      "x": 74,
+      "y": 26,
+      "scale": 1,
+      "artVariant": "auto"
+    },
+    {
+      "id": "bank-1-3",
+      "sprite": "forest-birch",
+      "x": 71,
+      "y": 32,
+      "scale": 0.72,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "flowers-1-3",
+      "sprite": "reeds",
+      "x": 68,
+      "y": 34,
+      "scale": 1,
+      "artVariant": "auto"
+    },
+    {
+      "id": "bank-1-4",
+      "sprite": "ancient-root",
+      "x": 74,
+      "y": 40,
+      "scale": 0.72,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "flowers-1-4",
+      "sprite": "reeds",
+      "x": 71,
+      "y": 42,
+      "scale": 1,
+      "artVariant": "auto"
+    },
+    {
+      "id": "bank-1-5",
+      "sprite": "crooked-oak",
+      "x": 77,
+      "y": 48,
+      "scale": 0.72,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "flowers-1-5",
+      "sprite": "reeds",
+      "x": 74,
+      "y": 50,
+      "scale": 1,
+      "artVariant": "auto"
+    },
+    {
+      "id": "flowers--1-6",
+      "sprite": "reeds",
+      "x": 28,
+      "y": 58,
+      "scale": 1,
+      "artVariant": "auto"
+    },
+    {
+      "id": "bank-1-6",
+      "sprite": "forest-birch",
+      "x": 71,
+      "y": 56,
+      "scale": 0.72,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "flowers-1-6",
+      "sprite": "reeds",
+      "x": 68,
+      "y": 58,
+      "scale": 1,
+      "artVariant": "auto"
+    },
+    {
+      "id": "bank--1-7",
+      "sprite": "ancient-root",
+      "x": 22,
+      "y": 64,
+      "scale": 0.72,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "flowers--1-7",
+      "sprite": "reeds",
+      "x": 25,
+      "y": 66,
+      "scale": 1,
+      "artVariant": "auto"
+    },
+    {
+      "id": "bank-1-7",
+      "sprite": "ancient-root",
+      "x": 74,
+      "y": 64,
+      "scale": 0.72,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "flowers-1-7",
+      "sprite": "reeds",
+      "x": 71,
+      "y": 66,
+      "scale": 1,
+      "artVariant": "auto"
+    },
+    {
+      "id": "bank--1-8",
+      "sprite": "crooked-oak",
+      "x": 19,
+      "y": 72,
+      "scale": 0.72,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "flowers--1-8",
+      "sprite": "reeds",
+      "x": 22,
+      "y": 74,
+      "scale": 1,
+      "artVariant": "auto"
+    },
+    {
+      "id": "bank-1-8",
+      "sprite": "crooked-oak",
+      "x": 77,
+      "y": 72,
+      "scale": 0.72,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "flowers-1-8",
+      "sprite": "reeds",
+      "x": 74,
+      "y": 74,
+      "scale": 1,
+      "artVariant": "auto"
+    }
+  ],
+  "navigation": {
+    "landings": [],
+    "currents": [
+      {
+        "area": [
+          48,
+          40,
+          14,
+          38
+        ],
+        "vector": [
+          7,
+          -12
+        ]
+      }
+    ],
+    "exits": [
+      {
+        "id": "downstream",
+        "area": [
+          28,
+          77,
+          40,
+          1.2
+        ],
+        "scene": "river-willows",
+        "position": [
+          48,
+          6
+        ],
+        "direction": "down"
+      },
+      {
+        "id": "upstream",
+        "area": [
+          28,
+          1.5,
+          40,
+          1.2
+        ],
+        "scene": "river-rapids",
+        "position": [
+          48,
+          74
+        ],
+        "direction": "up"
+      },
+      {
+        "id": "island-channel",
+        "area": [
+          1.5,
+          38,
+          1.2,
+          10
+        ],
+        "scene": "islet",
+        "position": [
+          58,
+          23
+        ],
+        "direction": "left"
+      }
+    ]
+  }
+}

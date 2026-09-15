@@ -21,6 +21,8 @@ const { Journey } = require("../public/assets/js/adventure/journey");
     state: { flags: {}, inventory: {} },
     player: { x: 50, y: 80 },
     roll: {},
+    river: { active: false },
+    homestead: { tap: () => false },
     journey: new Journey(),
     inventory: {},
     neighbors: [],

@@ -99,6 +99,7 @@ for (const fps of [20, 30, 60, 120]) {
   const f = fixture(); start(f);
   const game = Object.assign(Object.create(Adventure.prototype), {
     ready: true, world: f.world, player: f.actor, journey: f.journey,
+    river: { active: false },
     roll: new RollMotion(), keys: new Set(), blocked: () => false, unlockAudio() {},
   });
   game.startRoll();

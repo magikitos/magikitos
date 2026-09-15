@@ -1,0 +1,101 @@
+{
+  "id": "home-room",
+  "label": "homeRoom",
+  "width": 24,
+  "height": 20,
+  "seed": 8197,
+  "indoor": true,
+  "spawn": {
+    "x": 12,
+    "y": 16
+  },
+  "paths": [],
+  "waters": [],
+  "clearings": [],
+  "regions": [],
+  "rugs": [
+    {
+      "x": 12,
+      "y": 10,
+      "width": 7,
+      "height": 8,
+      "color": "#879773"
+    }
+  ],
+  "ambient": {
+    "kind": "dust",
+    "count": 3
+  },
+  "interior": {
+    "material": "bark",
+    "background": "woodland-context",
+    "outline": [
+      [
+        0.18,
+        0
+      ],
+      [
+        0.82,
+        0
+      ],
+      [
+        1,
+        0.2
+      ],
+      [
+        1,
+        0.8
+      ],
+      [
+        0.78,
+        1
+      ],
+      [
+        0.22,
+        1
+      ],
+      [
+        0,
+        0.8
+      ],
+      [
+        0,
+        0.2
+      ]
+    ],
+    "inset": {
+      "left": 2,
+      "right": 2,
+      "top": 2,
+      "bottom": 2
+    }
+  },
+  "entities": [
+    {
+      "id": "exit",
+      "sprite": "doorway",
+      "x": 12,
+      "y": 17.5,
+      "label": "outside",
+      "portal": true,
+      "rules": [
+        {
+          "effects": [
+            {
+              "type": "travel",
+              "scene": "home-garden",
+              "arrivalAt": "kelihouse"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "window",
+      "sprite": "window-arched",
+      "x": 18,
+      "y": 3,
+      "rules": []
+    }
+  ]
+}

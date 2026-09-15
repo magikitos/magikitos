@@ -200,14 +200,14 @@ assert.deepEqual(
 );
 assert.deepEqual(cleanWallet(cleanWallet(wallet, catalog), catalog), wallet);
 assert.equal(cleanWallet({ balance: 5, claimed: {} }, catalog).balance, 5);
-assert.equal(dialogueText(":price / :reward", catalog), "5 / 10");
+assert.equal(dialogueText(":reward", catalog), "10");
 for (const scene of Object.values(catalog.scenes))
   for (const boat of scene.entities.filter(
-    (e) => e.interactAs && e.sprite === "ferry",
+    (e) => e.interactAs && e.sprite === "bottle-boat",
   )) {
-    const npc = scene.entities.find((e) => e.id === boat.interactAs);
+    const dock = scene.entities.find((e) => e.id === boat.interactAs);
     assert(
-      npc.sprite.startsWith("person-") && npc.portrait && npc.rules.length,
+      dock.landing && dock.rules.some(r => r.effects.some(e => e.type === "navigation")),
     );
   }
 assert.equal(
@@ -219,5 +219,5 @@ assert.equal(
   "home-pot-terracotta",
 );
 console.log(
-  "PASS: eight-direction rolling, 3 frame rates, no repeats, solid/water collisions, substep portals, reachable door thresholds, device-independent double presses, wallet validation without invented money, ferrymen.",
+  "PASS: eight-direction rolling, 3 frame rates, no repeats, solid/water collisions, substep portals, reachable door thresholds, device-independent double presses, wallet validation without invented money, boat landings.",
 );

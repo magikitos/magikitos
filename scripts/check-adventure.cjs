@@ -75,7 +75,7 @@ let paths = 0;
 function checkConditions(when = {}) {
   for (const key of Object.keys(when))
     assert(
-      ["flags", "items", "maxItems", "timers", "using", "funds"].includes(key),
+      ["flags", "items", "maxItems", "timers", "using", "funds", "navigation", "landing"].includes(key),
       "Unknown condition: " + key,
     );
   if (when.funds !== undefined)
@@ -127,6 +127,7 @@ for (const scene of Object.values(catalog.scenes))
             "timer",
             "presentation",
             "keepsake",
+            "navigation",
           ].includes(effect.type),
         );
         if (effect.type === "flag") assert(catalog.flags.includes(effect.flag));
@@ -272,8 +273,10 @@ for (const objects of permutations([mushroom, twig, lighter, knife])) {
       if (lightFirst && state.inventory.lighter && !state.flags.fireLit)
         react(fire, state, catalog, { action: "light" });
       const snapshot = structuredClone(state);
-      react(object, state, catalog);
-      assert.deepEqual(state, snapshot, "Single collection");
+      if (object !== twig) {
+        react(object, state, catalog);
+        assert.deepEqual(state, snapshot, "Single collection for unique objects");
+      }
     }
     if (!state.flags.fireLit) react(fire, state, catalog, { action: "light" });
     assert(actions(fire, state, catalog).some((a) => a.id === "cook"));
@@ -284,7 +287,7 @@ for (const objects of permutations([mushroom, twig, lighter, knife])) {
     assert.deepEqual(state.inventory, { lighter: 1, knife: 1, skewer: 1 });
     react(hungry, state, catalog, { action: "use", item: "skewer" });
     assert(state.flags.picnicFed);
-    assert.equal(state.wallet.balance, catalog.economy.fares.lake * 2);
+    assert.equal(state.wallet.balance, catalog.economy.rewards.picnic.amount);
     assert.deepEqual(state.inventory, { lighter: 1, knife: 1 });
     const earned = structuredClone(state.wallet);
     react(hungry, state, catalog, { action: "give" });
@@ -293,27 +296,11 @@ for (const objects of permutations([mushroom, twig, lighter, knife])) {
       earned,
       "Meal reward cannot be collected twice",
     );
-    assert.equal(
-      react(ferry, state, catalog, { action: "board" }).find(
-        (e) => e.type === "travel",
-      ).scene,
-      "islet",
-    );
-    assert.equal(state.wallet.balance, catalog.economy.fares.lake);
+    assert.equal(react(ferry, state, catalog)[0].key, "riverMemory");
+    assert.deepEqual(react(ferry, state, catalog, { action: "board" }), []);
     const island = new World(catalog.scenes.islet);
     const back = island.entities.find((e) => e.id === "islet-ferryman");
-    assert.equal(
-      react(back, state, catalog, { action: "board" }).find(
-        (e) => e.type === "travel",
-      ).scene,
-      "overworld",
-      "First reward pays both crossings without another task",
-    );
-    assert.equal(state.wallet.balance, 0);
-    assert.equal(
-      react(back, state, catalog, { action: "board" })[0].key,
-      "ferryPoor",
-    );
+    assert.equal(react(back, state, catalog)[0].key, "riverMemory");
     for (let visit = 0; visit < 3; visit++) {
       react(
         island.entities.find((e) => e.id === "shore-shells"),
@@ -326,12 +313,10 @@ for (const objects of permutations([mushroom, twig, lighter, knife])) {
         catalog,
         { action: "give" },
       );
-      assert.equal(state.wallet.balance, catalog.economy.fares.lake);
-      react(back, state, catalog, { action: "board" });
       assert.equal(
         state.wallet.balance,
-        0,
-        "Repeatable help funds paid return",
+        catalog.economy.rewards.picnic.amount + (visit + 1) * catalog.economy.rewards.shell.amount,
+        "Repeatable help preserves setin rewards without paying for the river",
       );
     }
   }
@@ -494,5 +479,5 @@ assert.deepEqual(
 console.log(
   "PASS: " +
     paths +
-    " collision-safe routes; modular sprites; " + (catalog.avatarVariants.length+2) + " duendes × 8 directions × 4 poses; all ingredient orders; atomic rewards, fares, repeatable return; free bridge; content rooms; saves.",
+    " collision-safe routes; modular sprites; " + (catalog.avatarVariants.length+2) + " duendes × 8 directions × 4 poses; all ingredient orders; atomic game rewards and wishing coins; river clues; content rooms; saves.",
 );

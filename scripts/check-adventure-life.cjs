@@ -259,7 +259,7 @@ assert.equal(renderWater(0, false, false).length, 0);
     const seq = new Sequence();
     let commits = 0;
     const done = seq
-      .play("voyage", 4.6, { destination: "islet" })
+      .play("test-gesture", 4.6, { destination: "islet" })
       .then(() => commits++);
     await assert.rejects(seq.play("relief", 1), /already active/);
     seq.advance(0);
@@ -277,7 +277,7 @@ assert.equal(renderWater(0, false, false).length, 0);
     seq.advance(10);
     assert.equal(commits, 1);
   }
-  await assert.rejects(new Sequence().play("voyage", Infinity), /Invalid/);
+  await assert.rejects(new Sequence().play("test-gesture", Infinity), /Invalid/);
   console.log(
     "PASS real-time deadlines, poop precedence, no reload rerolls, atomic leaf use, bounded expiring traces, repeatable harvest, cottage contents, subtle water and finite sequences.",
   );

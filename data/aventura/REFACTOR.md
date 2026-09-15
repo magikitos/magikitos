@@ -25,7 +25,10 @@ El concurso y el admin están fuera de esta adaptación.
 | terrain.js | Suelo y puentes, chunks nativos con caché LRU |
 | water.js | Ondas suaves solo en agua visible, fuera de la caché del terreno |
 | sequence.js | Línea temporal finita con RAF, sin temporizadores adicionales |
-| voyage.js | Presentación del viaje: barca ocupada, anclas y adaptación al viewport |
+| river-navigation.js / river.js | Física del casco, corrientes, remado, atraques y conexiones; sin tarifas |
+| homestead-layout.js / homestead.js | Parcela única, stock, accesos protegidos y edición; visitas de solo lectura |
+| river-neighbors.js | Direcciones públicas en embarcaderos; sin presencia ni polling |
+| cloud-save.js | Guardado API con revisiones, reintentos idempotentes y recuperación |
 | needs.js | Plazos reales, prioridad, consumo atómico y trazas temporales validadas |
 | self.js | Panel Yo y presentación del alivio, sin reglas de inventario duplicadas |
 | renderer.js | Profundidad, cámara, personajes, iluminación y ambiente |
@@ -58,9 +61,9 @@ La escena coloca una entidad y referencia un comportamiento:
 ```
 
 El comportamiento vive en `behaviors/picnic.json`. Puede usarse en otra escena sin
-copiar su lógica. La colocación puede ajustar sprite, cuerpo o destino. Un barquero
-comparte el comportamiento `ferry` y declara su `destination`. La barca física
-tiene `interactAs` apuntando al barquero: tocarla o chocarla resuelve ese receptor.
+copiar su lógica. La colocación puede ajustar sprite, cuerpo o destino. Un atraque
+comparte `river-dock` y referencia un punto de `navigation.landings`. La barca
+amarrada se deriva de ese punto y usa `interactAs` hacia el atraque.
 El compilador valida que exista, tenga reglas y no cree cadenas de referencias.
 
 Las reglas se ordenan por prioridad. Se aplica la primera que coincide.
@@ -71,6 +74,8 @@ Acción por defecto: `interact`; también puede ser una lista como `["cook","use
 - `when.maxItems`: cantidades máximas (cero significa no llevar ese objeto).
 - `when.timers`: booleano: el plazo está activo (`true`) o ya venció/no existe (`false`).
 - `when.using`: objetos aceptados al usar algo del saco.
+- `when.navigation`: modo `foot` o `boat`; el efecto `navigation` prepara el embarque.
+- `when.landing`: atraque actual; evita que una barca aparezca en varios muelles a la vez.
 - `when.funds`: referencia a tarifa en el JSON fuente; el compilador la resuelve
   a un mínimo numérico, utilizable por cualquier evaluador de condiciones.
 - `hiddenWhen`, `visibleWhen`, `solidWhen`, `interactWhen` y `visuals` reutilizan condiciones.

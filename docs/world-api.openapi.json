@@ -3,7 +3,7 @@
   "info": {
     "title": "Magikitos World JSON API",
     "version": "2026-09-15",
-    "description": "Contract revision, not a versioned compatibility route. Server-owned public content and explicit guarded writes. No HTML fragments or game source."
+    "description": "Public content, existing identity services, private game saves and public parcel snapshots. JSON only; backend implementation stays in the private website repository."
   },
   "servers": [
     {
@@ -1276,6 +1276,560 @@
           }
         }
       }
+    },
+    "/game-state": {
+      "get": {
+        "operationId": "worldGameState",
+        "summary": "Own active save and recoverable saves from account merges",
+        "description": "No analytics/events writes. Shared game budget: 120 requests/minute/IP. Maximum JSON body 32 KiB. Origin must be allowed. No language parameter needed.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameStateResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid or unknown data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing/expired bearer; device ID is not authorization",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Origin not allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found/not owned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Wrong method",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Revision/profile changed or operation reused; fetch state and choose explicitly",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit; Retry-After: 60",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Temporarily unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/game-save": {
+      "post": {
+        "operationId": "worldGameSave",
+        "summary": "Save private progress and automatically public parcel atomically",
+        "description": "No analytics/events writes. Shared game budget: 120 requests/minute/IP. Maximum JSON body 32 KiB. Origin must be allowed. No language parameter needed.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameSaveResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid or unknown data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing/expired bearer; device ID is not authorization",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Origin not allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found/not owned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Wrong method",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Revision/profile changed or operation reused; fetch state and choose explicitly",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit; Retry-After: 60",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Temporarily unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GameSave"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/game-restore": {
+      "post": {
+        "operationId": "worldGameRestore",
+        "summary": "Activate an owned archived save without deleting the current one",
+        "description": "No analytics/events writes. Shared game budget: 120 requests/minute/IP. Maximum JSON body 32 KiB. Origin must be allowed. No language parameter needed.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameStateResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid or unknown data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing/expired bearer; device ID is not authorization",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Origin not allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found/not owned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Wrong method",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Revision/profile changed or operation reused; fetch state and choose explicitly",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit; Retry-After: 60",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Temporarily unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GameRestore"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/parcels": {
+      "get": {
+        "operationId": "worldParcels",
+        "summary": "Saved public parcel addresses, eight per page; not live presence",
+        "description": "No analytics/events writes. Shared game budget: 120 requests/minute/IP. Maximum JSON body 32 KiB. Origin must be allowed. No language parameter needed.",
+        "security": [],
+        "parameters": [
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/GameId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Parcels"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid or unknown data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing/expired bearer; device ID is not authorization",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Origin not allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found/not owned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Wrong method",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Revision/profile changed or operation reused; fetch state and choose explicitly",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit; Retry-After: 60",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Temporarily unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/parcel": {
+      "get": {
+        "operationId": "worldParcel",
+        "summary": "Saved public parcel without private game state",
+        "description": "No analytics/events writes. Shared game budget: 120 requests/minute/IP. Maximum JSON body 32 KiB. Origin must be allowed. No language parameter needed.",
+        "security": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/GameId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ParcelResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid or unknown data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing/expired bearer; device ID is not authorization",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Origin not allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found/not owned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Wrong method",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Revision/profile changed or operation reused; fetch state and choose explicitly",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit; Retry-After: 60",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Temporarily unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1733,6 +2287,639 @@
               "null"
             ],
             "maximum": 10000
+          }
+        }
+      },
+      "GameId": {
+        "type": "string",
+        "pattern": "^[a-f0-9]{32}$"
+      },
+      "GamePoint": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "x",
+          "y"
+        ],
+        "properties": {
+          "x": {
+            "type": "number",
+            "minimum": 0
+          },
+          "y": {
+            "type": "number",
+            "minimum": 0
+          }
+        }
+      },
+      "GameParcelObject": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "variant",
+          "space",
+          "x",
+          "y"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,48}$"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "variant": {
+            "type": "string"
+          },
+          "space": {
+            "type": "string",
+            "enum": [
+              "garden",
+              "room"
+            ]
+          },
+          "x": {
+            "type": "number",
+            "minimum": 0,
+            "multipleOf": 0.5
+          },
+          "y": {
+            "type": "number",
+            "minimum": 0,
+            "multipleOf": 0.5
+          }
+        }
+      },
+      "GameParcel": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "objects"
+        ],
+        "properties": {
+          "objects": {
+            "type": "array",
+            "maxItems": 48,
+            "items": {
+              "$ref": "#/components/schemas/GameParcelObject"
+            }
+          }
+        },
+        "description": "Only registered stock/variants and per-kind counts from the installed game-contract.json. Half-tile grid, space bounds, non-overlapping solids, protected dock/path/door and verified access. No HTML, URLs, uploads or arbitrary assets."
+      },
+      "GameNeed": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "last",
+          "due"
+        ],
+        "properties": {
+          "last": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "due": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      },
+      "GameState": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "scene",
+          "position",
+          "wallet",
+          "muted",
+          "needs"
+        ],
+        "properties": {
+          "scene": {
+            "type": "string"
+          },
+          "position": {
+            "$ref": "#/components/schemas/GamePoint"
+          },
+          "flags": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "boolean"
+            }
+          },
+          "inventory": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 99
+            }
+          },
+          "timers": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "wallet": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "balance",
+              "claimed"
+            ],
+            "properties": {
+              "balance": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "claimed": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "muted": {
+            "type": "boolean"
+          },
+          "needs": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "pee",
+              "poop"
+            ],
+            "properties": {
+              "pee": {
+                "$ref": "#/components/schemas/GameNeed"
+              },
+              "poop": {
+                "$ref": "#/components/schemas/GameNeed"
+              }
+            }
+          },
+          "traces": {
+            "type": "array",
+            "maxItems": 48,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "kind",
+                "scene",
+                "x",
+                "y",
+                "expires"
+              ],
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "pee",
+                    "poop"
+                  ]
+                },
+                "scene": {
+                  "type": "string"
+                },
+                "x": {
+                  "type": "number"
+                },
+                "y": {
+                  "type": "number"
+                },
+                "expires": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "objects": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/components/schemas/GamePoint"
+              },
+              "maxProperties": 128
+            }
+          },
+          "keepsakes": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 32
+              },
+              "maxProperties": 128
+            }
+          },
+          "entrance": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "scene",
+                  "portal"
+                ],
+                "properties": {
+                  "scene": {
+                    "type": "string"
+                  },
+                  "portal": {
+                    "type": "string",
+                    "pattern": "^[a-zA-Z0-9_-]{1,96}$"
+                  }
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "navigation": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "mode",
+              "direction"
+            ],
+            "properties": {
+              "mode": {
+                "type": "string",
+                "enum": [
+                  "foot",
+                  "boat"
+                ]
+              },
+              "direction": {
+                "type": "string",
+                "enum": [
+                  "up",
+                  "down",
+                  "left",
+                  "right",
+                  "up-left",
+                  "up-right",
+                  "down-left",
+                  "down-right"
+                ]
+              },
+              "landing": {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9_-]{1,96}$"
+              }
+            }
+          },
+          "home": {
+            "type": "boolean"
+          },
+          "visited": {
+            "type": "array",
+            "maxItems": 32,
+            "items": {
+              "$ref": "#/components/schemas/GameId"
+            }
+          }
+        },
+        "description": "Private bounded snapshot, not server-attested progression or website money. Allowed keys, item caps, balance cap and scene coordinates are validated against the installed data contract. Timestamps in milliseconds. Never public."
+      },
+      "GameProfile": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "revision",
+          "state",
+          "parcel"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/GameId"
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "state": {
+            "$ref": "#/components/schemas/GameState"
+          },
+          "parcel": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/GameParcel"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "GameRecovery": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "revision",
+          "hasParcel",
+          "updatedAt"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/GameId"
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "hasParcel": {
+            "type": "boolean"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        }
+      },
+      "GameStateResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "ok",
+          "profile",
+          "recoveries"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "profile": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/GameProfile"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "recoveries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GameRecovery"
+            }
+          }
+        }
+      },
+      "GameSave": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "profileId",
+          "baseRevision",
+          "operationId",
+          "state",
+          "parcel"
+        ],
+        "properties": {
+          "profileId": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/GameId"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "baseRevision": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2147483646
+          },
+          "operationId": {
+            "$ref": "#/components/schemas/GameId"
+          },
+          "state": {
+            "$ref": "#/components/schemas/GameState"
+          },
+          "parcel": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/GameParcel"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "description": "New: profileId=null, baseRevision=0. Later: last acknowledged ID/revision. Retry identical payload/operationId until acknowledged. A built parcel cannot become null through autosave."
+      },
+      "GameSaveResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "ok",
+          "profile",
+          "acknowledgedRevision",
+          "replayed"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "profile": {
+            "$ref": "#/components/schemas/GameProfile"
+          },
+          "acknowledgedRevision": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "replayed": {
+            "type": "boolean"
+          }
+        },
+        "description": "Last 16 receipts retained. A late replay returns current profile and original acknowledgedRevision; differing revisions require conflict resolution."
+      },
+      "GameRestore": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "profileId",
+          "currentId",
+          "baseRevision"
+        ],
+        "properties": {
+          "profileId": {
+            "$ref": "#/components/schemas/GameId"
+          },
+          "currentId": {
+            "$ref": "#/components/schemas/GameId"
+          },
+          "baseRevision": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      },
+      "ParcelSummary": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "revision",
+          "owner"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/GameId"
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "owner": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "handle"
+            ],
+            "properties": {
+              "name": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "handle": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "PublicParcel": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "revision",
+          "owner",
+          "parcel"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/GameId"
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "owner": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "handle"
+            ],
+            "properties": {
+              "name": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "handle": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          },
+          "parcel": {
+            "$ref": "#/components/schemas/GameParcel"
+          }
+        }
+      },
+      "Parcels": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "ok",
+          "items",
+          "nextCursor"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "items": {
+            "type": "array",
+            "maxItems": 8,
+            "items": {
+              "$ref": "#/components/schemas/ParcelSummary"
+            }
+          },
+          "nextCursor": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/GameId"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "ParcelResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "ok",
+          "plot"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "plot": {
+            "$ref": "#/components/schemas/PublicParcel"
+          }
+        }
+      },
+      "GameError": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "ok",
+          "error"
+        ],
+        "properties": {
+          "ok": {
+            "const": false
+          },
+          "error": {
+            "type": "string"
+          },
+          "profile": {
+            "$ref": "#/components/schemas/GameProfile"
           }
         }
       }

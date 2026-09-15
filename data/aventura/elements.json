@@ -1718,6 +1718,61 @@
           "label": "Flores blancas"
         }
       ]
+    },
+    "picnic-bin": {
+      "label": "Papelera del merendero",
+      "category": "Picnic",
+      "aliases": [
+        "picnic-bin"
+      ],
+      "defaults": {
+        "picnic-bin": "madera"
+      },
+      "template": {
+        "sprite": "picnic-bin",
+        "behavior": "picnic-bin",
+        "solid": [
+          -2,
+          -1.8,
+          4,
+          2.4
+        ]
+      },
+      "variants": [
+        {
+          "id": "madera",
+          "label": "Madera",
+          "sprite": "picnic-bin"
+        }
+      ]
+    },
+    "river-craft": {
+      "label": "Botella y barquita",
+      "category": "Río",
+      "aliases": [
+        "plastic-bottle",
+        "bottle-boat"
+      ],
+      "defaults": {
+        "plastic-bottle": "botella",
+        "bottle-boat": "barquita"
+      },
+      "template": {
+        "sprite": "plastic-bottle",
+        "rules": []
+      },
+      "variants": [
+        {
+          "id": "botella",
+          "label": "Botella",
+          "sprite": "plastic-bottle"
+        },
+        {
+          "id": "barquita",
+          "label": "Barquita",
+          "sprite": "bottle-boat"
+        }
+      ]
     }
   }
 }

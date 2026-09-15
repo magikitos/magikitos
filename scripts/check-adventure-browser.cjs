@@ -432,15 +432,16 @@ async function pinch(page) {
       {
         position: { x: 90.5 * TILE, y: 45.5 * TILE },
         flags: { picnicFed: true },
+        inventory: { knife: 1, bottle: 1, twig: 2, leaf: 2 },
         wallet: { balance: 10, claimed: { picnic: true } },
       },
     );
-    await clickEntity(page, "lake-ferryman");
+    await clickEntity(page, "river-dock");
     await page.locator("#dialogue-actions button").first().waitFor();
     await page.locator("#dialogue-actions button").first().click();
     await wait(
       page,
-      () => window.MagikitosAdventure.inspect().sequence?.type === "voyage",
+      () => window.MagikitosAdventure.inspect().sequence?.type === "gesture",
     );
     const before = await inspect(page);
     await page.keyboard.down("ArrowRight");
@@ -450,15 +451,20 @@ async function pinch(page) {
     assert.deepEqual(
       during.player,
       before.player,
-      "Passengers cannot walk during voyage",
+      "Crafting stays in place",
     );
-    await page.screenshot({ path: path.join(shots, "boat-journey.png") });
     await wait(
       page,
-      () => window.MagikitosAdventure.inspect().scene === "islet",
+      () => window.MagikitosAdventure.inspect().inventory.boat === 1,
     );
-    assert.equal((await inspect(page)).wallet.balance, 5);
-    console.log("PASS animated ferry and atomic fare");
+    await page.keyboard.press("Enter");
+    await clickEntity(page, "river-dock");
+    await page.locator("#dialogue-actions button").first().click();
+    await wait(page, () => window.MagikitosAdventure.inspect().navigation.mode === "boat");
+    await page.screenshot({ path: path.join(shots, "bottle-craft.png") });
+    assert.equal((await inspect(page)).wallet.balance, 10);
+    assert.equal((await inspect(page)).inventory.knife, 1);
+    console.log("PASS atomic bottle crafting and playable boarding without fare");
     await page.close();
   }
   // Full browser autosave/crop test uses an isolated Studio, never the user's working version.

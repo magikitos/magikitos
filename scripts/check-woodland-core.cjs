@@ -7,7 +7,7 @@ const {
   pose,
   drawAmbientActor,
 } = require("../public/assets/js/adventure/ambient-actors");
-const { drawOccupiedBoat } = require("../public/assets/js/adventure/boat-art");
+const { VesselMotion } = require("../public/assets/js/adventure/river-navigation");
 const { seatedClip } = require("../public/assets/js/adventure/seating");
 const { DIRECTIONS } = require("../public/assets/js/adventure/characters");
 const kit = require("../data/aventura/art/woodland-kit/prompts.json");
@@ -100,27 +100,13 @@ const sprites = {
       : { w: 24, h: 32, anchor: [12, 29] },
   draw: (_, name, ...args) => calls.push(["sprite", name, ...args]),
 };
-drawOccupiedBoat(
-  context,
-  sprites,
-  "boat",
-  [
-    { sprite: "captain", seat: [0.3, 0.74] },
-    { sprite: "hero", seat: [0.7, 0.74] },
-  ],
-  0.76,
-  100,
-  100,
-  2,
-);
-assert.deepEqual(
-  calls.filter((c) => c[0] === "sprite").map((c) => c[1]),
-  ["boat", "captain", "hero"],
-);
-assert.equal(
-  calls.filter((c) => c[0] === "save").length,
-  calls.filter((c) => c[0] === "restore").length,
-);
+const rower = new VesselMotion(), rowing = require("../data/aventura/assets/actor-0-row.json").frames;
+for (const direction of DIRECTIONS) {
+  assert(rowing[rower.frame(direction)], "Every boat direction has a still pose");
+  rower.rowing = true;
+  for (let step = 0; step < 8; step++) { rower.stroke = step / 5; assert(rowing[rower.frame(direction)], "Every rowing pose exists"); }
+  rower.stop();
+}
 calls.length = 0;
 assert(drawAmbientActor(context, sprites, { x: 1, y: 2 }, "picnic-smoker", 0));
 assert.equal(
@@ -131,7 +117,7 @@ assert.equal(drawAmbientActor(context, sprites, {}, "oak", 10), false);
 console.log(
   "PASS: " +
     kit.assets.length +
-    " immutable art masters, manifest/family consistency, authored actor gestures, reduced motion and shared-hull ferry occupants.",
+    " immutable art masters, manifest/family consistency, authored actor gestures, reduced motion and eight-direction bottle rowing.",
 );
 
 const { Terrain } = require("../public/assets/js/adventure/terrain");

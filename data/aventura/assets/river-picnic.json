@@ -1,0 +1,24 @@
+{
+    "frames": {
+        "picnic-bin": {
+            "size": [
+                94,
+                158
+            ],
+            "anchor": [
+                47,
+                152
+            ],
+            "source": "data/aventura/art/river/cutouts/picnic-bin.png",
+            "fit": true,
+            "grid": [
+                1,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ]
+        }
+    }
+}

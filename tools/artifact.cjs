@@ -34,7 +34,7 @@ function verify(directory, id) {
     throw Error("Unexpected or missing artifact files");
   for (const rel of expected) {
     if (
-      !/^(pages\/(es|en|de|fr|it|pt)\.html|assets\/(js\/[a-z.-]+\.js|css\/[a-z.-]+\.css|fonts\/[\w.-]+\.(woff2|txt)|aventura\/(manifest\.json|packs\/[a-z0-9-]+\.(json|png))))$/.test(
+      !/^(game-contract\.json|pages\/(es|en|de|fr|it|pt)\.html|assets\/(js\/[a-z.-]+\.js|css\/[a-z.-]+\.css|fonts\/[\w.-]+\.(woff2|txt)|aventura\/(manifest\.json|packs\/[a-z0-9-]+\.(json|png))))$/.test(
         rel,
       )
     )

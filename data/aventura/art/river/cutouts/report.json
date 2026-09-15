@@ -1,0 +1,29 @@
+{
+    "ascua-bottle-rowing": {
+        "bounds": [
+            18,
+            18,
+            1738,
+            846
+        ],
+        "alpha": 0.612
+    },
+    "picnic-bin": {
+        "bounds": [
+            374,
+            100,
+            506,
+            1054
+        ],
+        "alpha": 0.748
+    },
+    "bottle-craft": {
+        "bounds": [
+            113,
+            59,
+            1819,
+            646
+        ],
+        "alpha": 0.695
+    }
+}

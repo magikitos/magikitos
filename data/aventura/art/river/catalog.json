@@ -1,0 +1,86 @@
+{
+  "tool": "built-in image_gen",
+  "alphaPreparation": "Authorized local extraction; original sources retained",
+  "sheets": [
+    {
+      "source": "ascua-bottle-rowing",
+      "pack": "actor-0-row",
+      "reference": "data/aventura/art/cast/sources/ascua-walk.png",
+      "prompt": "Use case: identity-preserve. Asset type: production sprite animation atlas for an original fixed-camera top-down woodland adventure. Reference image is ONLY the identity/style reference of Ascua, the ONE small pointed-eared hero: burnt orange floppy stitched pointed hat, tousled dark brown hair, natural warm skin, cheeky face, teal short jacket, orange neck scarf, brown trousers and boots. Preserve his exact identity and proportions, do not redesign him. Create a new landscape sprite sheet EXACTLY EIGHT COLUMNS and FOUR ROWS, 32 uniformly spaced cells. Every cell contains the same hero seated safely INSIDE a tiny improvised boat made from HALF OF A CLEAR PALE AQUA PLASTIC WATER BOTTLE CUT LENGTHWISE, bottle cap still on its narrow bow, moulded ribs and rounded scalloped plastic stern recognizable, a small twig seat inside. TWO SMALL TWIG OARS with broad green LEAF BLADES, one on each side; his hands grip the sticks. NO second passenger. Whole craft and all leaf oars completely within every cell, lots of empty padding, stable actor-to-hull proportions and hull registration between rows. EIGHT camera-relative directions column order LEFT TO RIGHT: bow toward bottom, bottom-right, right, top-right, top, top-left, left, bottom-left. Do NOT rotate the whole flat picture: draw the corresponding top-down three-quarter view as the boat turns. Camera remains the reference camera. Each column is one direction throughout the four rows. ROW 1: calm seated resting oars. ROW 2: both arms extend oars forward for the next stroke. ROW 3: both arms pulling halfway through a symmetrical rowing stroke. ROW 4: both elbows back, oars finish aft. Only his arms, torso and oars move across rows, not the hull position or design. Crisp richly defined pixel-art-friendly illustration matching the reference, warm woodland colour palette with restrained clear-plastic highlights. No water, no landscape, no splash baked into the sheet, no cast ground shadows, no letters/numbers/grid/labels/brands. GENUINELY TRANSPARENT ALPHA BACKGROUND, no checkerboard, no magenta. Entire objects centered and separated on a clean regular grid. High detail source master intended for offline reduction to 2x game texture density.",
+      "grid": [
+        8,
+        4
+      ],
+      "directions": [
+        "down",
+        "down-right",
+        "right",
+        "up-right",
+        "up",
+        "up-left",
+        "left",
+        "down-left"
+      ]
+    },
+    {
+      "source": "picnic-bin",
+      "pack": "river-picnic",
+      "prompt": "Use case: stylized-concept. Production transparent sprite for an original top-down woodland duende adventure. A complete old cylindrical HUMAN picnic rubbish bin made of weathered vertical wooden slats over a dark green metal basket, single sturdy post bolted to a small flat grey foot, open round top, a couple of plain crushed plastic bottles visibly peeking over the rim. No logo or writing, no overflowing rubbish scattered on ground. Fixed top-down three-quarter RPG view, seeing top and front, warm soft upper-left light, charming natural wear, tiny bits of moss around the foot. Crisp richly defined pixel-art-friendly illustration, not chunky blocks or blurry painterly art. Human-sized compared to a tiny elf, but isolated object only, no people. Entire silhouette INCLUDING base fully inside square canvas with generous empty padding on all sides, centered. Genuinely transparent background and clean alpha, NO saturated colour fringe, no magenta, no checkerboard, no cast ground shadow. No background or grass slab.",
+      "frames": {
+        "picnic-bin": {
+          "size": [
+            94,
+            158
+          ],
+          "anchor": [
+            47,
+            152
+          ]
+        }
+      }
+    },
+    {
+      "source": "bottle-craft",
+      "pack": "river-craft",
+      "prompt": "Use case: stylized-concept. Production sprite atlas of the TWO crafting states of ONE recycled bottle object for an original fixed-camera top-down woodland elf game. Exactly two columns, one row on a wide landscape canvas, huge clear separation. LEFT CELL: a whole empty clear pale aqua ribbed plastic water bottle lying diagonally, royal blue screw cap, no label, no brand. RIGHT CELL: that SAME plastic bottle cut LENGTHWISE to become an empty boat, cap still on narrow bow toward lower-left, molded petal bottom still visible at stern, now wide open top with one rustic twig seat inside and TWO brown twig oars with broad oval green leaf blades resting across the edges, one each side. No person, no water, no shore, no loose cut-off plastic top. Both sprites fully visible with generous transparent margins, same size of original bottle and identical fixed top-down three-quarter view. Rich crisp pixel-art-friendly painted details for native 2x textures, clean silhouettes, natural warm woodland palette, pale blue translucent plastic but sharp rib highlights, not chunky blocks. Genuinely transparent background; NO saturated red/green/blue fringes, no matte, no grid, no text, no cast ground shadow.",
+      "frames": {
+        "plastic-bottle": {
+          "grid": [
+            2,
+            1
+          ],
+          "cell": [
+            0,
+            0
+          ],
+          "size": [
+            44,
+            48
+          ],
+          "anchor": [
+            22,
+            42
+          ]
+        },
+        "bottle-boat": {
+          "grid": [
+            2,
+            1
+          ],
+          "cell": [
+            1,
+            0
+          ],
+          "size": [
+            76,
+            58
+          ],
+          "anchor": [
+            38,
+            40
+          ]
+        }
+      }
+    }
+  ]
+}

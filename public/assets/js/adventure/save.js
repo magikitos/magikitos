@@ -4,7 +4,8 @@ const { portalArrival } = require("./portals");
 const { cleanWallet } = require("./economy");
 const { cleanNeeds, cleanTraces } = require("./needs");
 const { cleanTimers } = require("./timers");
-// One development format. Validate untrusted storage; no prototype migrations.
+const { canFloat } = require("./river-navigation");
+// One storage namespace. Validate untrusted storage, preserving installed-release saves.
 const SAVE_KEY = "magikitos.adventure";
 function cleanSave(value, catalog) {
   if (!value || typeof value !== "object" || Array.isArray(value)) value = null;
@@ -20,6 +21,17 @@ function cleanSave(value, catalog) {
     needs: cleanNeeds(value?.needs, catalog),
     traces: cleanTraces(value?.traces, catalog),
     objects: {},
+    navigation: { mode: "foot", direction: "down" },
+    home: value?.home === true,
+    visited: Array.isArray(value?.visited)
+      ? [
+          ...new Set(
+            value.visited.filter(
+              (id) => typeof id === "string" && /^[a-f0-9]{32}$/.test(id),
+            ),
+          ),
+        ].slice(-32)
+      : [],
     keepsakes: require("./keepsakes").cleanKeepsakes(value?.keepsakes, catalog),
   };
   if (!value) return state;
@@ -41,9 +53,45 @@ function cleanSave(value, catalog) {
     state.scene = value.scene;
     const world = new World(catalog.scenes[state.scene]);
     world.refresh(state);
-    state.position = world.canStand(value.position?.x, value.position?.y)
-      ? { x: value.position.x, y: value.position.y }
-      : { x: world.data.spawn.x * TILE, y: world.data.spawn.y * TILE };
+    if (
+      [
+        "up",
+        "down",
+        "left",
+        "right",
+        "up-left",
+        "up-right",
+        "down-left",
+        "down-right",
+      ].includes(value.navigation?.direction)
+    )
+      state.navigation.direction = value.navigation.direction;
+    if (
+      value.navigation?.mode === "boat" &&
+      state.inventory.boat &&
+      world.data.navigation &&
+      canFloat(world, value.position?.x, value.position?.y)
+    )
+      state.navigation.mode = "boat";
+    if (
+      world.data.navigation?.landings.some(
+        (l) => l.id === value.navigation?.landing,
+      )
+    )
+      state.navigation.landing = value.navigation.landing;
+    // Existing ferry passengers on the island must not be stranded by the new transport rules.
+    if (
+      !value.navigation &&
+      catalog.navigation?.restoreBoatIn.includes(value.scene)
+    ) {
+      state.inventory.boat = 1;
+      state.flags.boatBuilt = true;
+    }
+    state.position =
+      state.navigation.mode === "boat" ||
+      world.canStand(value.position?.x, value.position?.y)
+        ? { x: value.position.x, y: value.position.y }
+        : { x: world.data.spawn.x * TILE, y: world.data.spawn.y * TILE };
   }
   const entrance = value.entrance;
   if (entrance && portalArrival(catalog, entrance.scene, entrance.portal))

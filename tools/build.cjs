@@ -8,18 +8,19 @@ const { page, ROUTES } = require("./page.cjs");
 const { verify } = require("./artifact.cjs");
 const root = path.resolve(__dirname, ".."),
   out = path.join(root, ".local/build");
-function build() {
+function build({ reuseArt = false } = {}) {
   const scratch = fs.mkdtempSync(
     path.join(require("node:os").tmpdir(), "magikitos-build-"),
   );
   const assets = path.join(scratch, "assets");
   fs.mkdirSync(path.join(assets, "js"), { recursive: true });
   fs.mkdirSync(path.join(assets, "css"), { recursive: true });
-  cp.execFileSync(
-    process.env.STUDIO_PHP || "php",
-    ["scripts/bake-adventure-atlas.php"],
-    { cwd: root, stdio: "inherit" },
-  );
+  if (!reuseArt)
+    cp.execFileSync(
+      process.env.STUDIO_PHP || "php",
+      ["scripts/bake-adventure-atlas.php"],
+      { cwd: root, stdio: "inherit" },
+    );
   cp.execFileSync(
     esbuild(root),
     [
@@ -82,12 +83,19 @@ function build() {
       ),
     ]),
   );
+  const contract = require("./game-contract.cjs").gameContract(world);
+  fs.writeFileSync(
+    path.join(scratch, "game-contract.json"),
+    JSON.stringify(contract) + "\n",
+  );
   const settings = {
     apiBase: process.env.GAME_API_BASE || "/api/world/",
     websiteBase: process.env.GAME_WEBSITE_BASE || "/",
   };
   const hash = crypto.createHash("sha256");
-  hash.update(JSON.stringify({ world, locales, settings, routes: ROUTES }));
+  hash.update(
+    JSON.stringify({ world, locales, contract, settings, routes: ROUTES }),
+  );
   hash.update(fs.readFileSync(path.join(root, "public/game.html")));
   hash.update(fs.readFileSync(path.join(root, "tools/page.cjs")));
   function inventory(base, dir = "") {
@@ -162,5 +170,7 @@ function build() {
   console.log("Static game artifact: " + release);
   return release;
 }
-if (require.main === module) build();
+// Local JS/CSS iteration can reuse the already-baked, checksum-verified art. Normal builds always bake.
+if (require.main === module)
+  build({ reuseArt: process.argv.includes("--reuse-art") });
 module.exports = { build, root, out };

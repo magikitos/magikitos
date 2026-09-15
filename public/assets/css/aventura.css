@@ -707,3 +707,70 @@ body:has(.world-dialogue:not([hidden])) .world-held-item {
 .world-self-identity button {
   flex: 0 0 auto;
 }
+/* Boating controls are a movement affordance, never a permanent navigation dock. */
+.world-page .world-primary {
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid #e0d4a48c;
+  border-radius: 14px;
+  background: #263f31ed;
+  color: #fff0bd;
+  font: 14px/1.25 WorldRound, system-ui, sans-serif;
+  box-shadow: 0 3px 12px #17261c45;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.world-page .world-primary:hover { background: #405d3e; }
+.world-page .world-primary:focus-visible { outline: 2px solid #ffe4a1; outline-offset: 3px; }
+.world-home-actions button { background: #e8e8c7; color: #263f31; font: 13px/1.25 system-ui; cursor: pointer; }
+.world-home-actions #home-save { background: #d8bc75; color: #263f31; }
+.world-river-controls {
+  position: fixed; z-index: 12;
+  right: max(18px, env(safe-area-inset-right));
+  bottom: max(18px, env(safe-area-inset-bottom));
+  display: grid; grid-template-columns: repeat(3, 48px); grid-template-rows: repeat(2, 48px); gap: 5px;
+  touch-action: none; user-select: none;
+}
+.world-river-controls[hidden], .world-river-land[hidden] { display: none; }
+.world-river-controls button {
+  border: 1px solid #d9d5a886; border-radius: 16px; background: #263f31df;
+  color: #fff0bd; font: 26px/1 system-ui; box-shadow: 0 3px 12px #17261c45;
+  touch-action: none; -webkit-user-select: none;
+}
+.world-river-controls button:active { background: #60734a; transform: translateY(1px); }
+.world-river-controls [data-river-key="arrowup"] { grid-column: 2; }
+.world-river-controls [data-river-key="arrowleft"] { grid-column: 1; grid-row: 2; }
+.world-river-controls [data-river-key="arrowdown"] { grid-column: 2; grid-row: 2; }
+.world-river-controls [data-river-key="arrowright"] { grid-column: 3; grid-row: 2; }
+.world-river-land {
+  position: fixed; z-index: 12; left: max(18px, env(safe-area-inset-left));
+  bottom: max(26px, env(safe-area-inset-bottom)); max-width: calc(100vw - 200px);
+}
+.world-home-controls {
+  position: fixed; left: max(18px, env(safe-area-inset-left)); bottom: max(20px, env(safe-area-inset-bottom));
+  z-index: 12; display: flex; gap: 8px; flex-wrap: wrap; max-width: calc(100vw - 100px);
+}
+.world-home-controls[hidden], .world-home-editor[hidden] { display: none; }
+.world-home-editor {
+  position: fixed; z-index: 14; left: 16px; bottom: max(16px, env(safe-area-inset-bottom));
+  width: min(440px, calc(100vw - 32px)); border: 1px solid #c8c19b; border-radius: 20px;
+  padding: 12px; color: #fcf4db; background: #263f31f2; box-shadow: 0 8px 32px #17261c45;
+}
+.world-home-editor p { margin: 0 0 6px; font-size: 13px; }
+.world-home-editor small { display: block; margin-top: 5px; font-size: 11px; opacity: .8; }
+.world-home-palette { display: flex; gap: 6px; overflow-x: auto; padding: 4px 0 9px; overscroll-behavior: contain; }
+.world-home-palette button { flex: 0 0 54px; padding: 4px; border: 1px solid #91a078; border-radius: 10px; background: #e8e8c7; color: #263f31; }
+.world-home-palette canvas { width: 44px; height: 42px; object-fit: contain; }
+.world-home-actions { display: flex; gap: 6px; justify-content: flex-end; }
+.world-home-actions button, .world-cloud-save button { min-height: 42px; padding: 6px 10px; border-radius: 9px; border: 1px solid #a0ab88; }
+.world-home-actions button:disabled, .world-home-palette button:disabled { opacity: .4; }
+#home-neighbors-list { display: grid; gap: 10px; }
+.world-cloud-save { border-top: 1px solid #a0ab8866; margin-top: 16px; padding-top: 8px; }
+#cloud-conflict:not([hidden]), #cloud-recoveries { display: grid; gap: 8px; }
+@media (max-width: 600px) {
+  .world-home-editor p { font-size: 12px; }
+  .world-home-editor small { font-size: 10px; }
+}
+.world-page:has(#river-controls:not([hidden])) .world-recenter {
+  bottom: max(134px, calc(env(safe-area-inset-bottom) + 116px));
+}

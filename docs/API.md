@@ -6,13 +6,14 @@ PHP templates or private JavaScript. Machine-readable schema:
 
 ## Transport and ownership
 
-Same-origin default: `/api/world/`. Every public GET requires `lang`:
+Same-origin default: `/api/world/`. Every content GET requires `lang`:
 `es|en|de|fr|it|pt`. Responses are JSON, no-store and nosniff.
 Public content uses existing publication/translation rules. IDs identify a
 piece **together with kind and language**; a voice ID identifies the recording,
 not its dictionary term. A region/category slug is an identifier, not HTML.
 
-No resource returns HTML, CSS, scripts, game scenes, placements or saves.
+No resource returns HTML, CSS, scripts or authored game scenes. Explicit
+save/parcel endpoints return validated game data, never executable assets.
 URLs are public website/media links; the browser accepts only HTTP(S) URLs on
 its configured website origin. A missing local media file is not fetched from
 production. Missing translations produce an empty collection or 404, not
@@ -130,9 +131,12 @@ a later client implementation; never bypass verification to make an app work.
 | magikitos.autoplay | Playback preference |
 | magikitos.setas | Local rating display cache, keyed tipo:lang:id; server remains authoritative |
 | magikitos.adventure | Game-only progress, position, needs, inventory and local purse |
+| magikitos.adventure.home | Single committed owner layout |
+| magikitos.adventure.sync | Owner, revision, pending receipt and bounded recovery copies; no token |
 
-No gameplay analytics events or play tracking are sent by the game. Identity
-is only read on opening Yo; user creation is explicit. The private website's
+No gameplay analytics events or play tracking are sent by the game. Existing
+sessions are read at startup to restore progress; user creation stays explicit.
+The private website's
 existing independent analytics behavior is unchanged.
 
 ## Errors and tests
@@ -145,5 +149,12 @@ may return their existing precise status/error. Common envelope:
 
 Local contract checks: `npm run test:api:local`. They only use a local host,
 perform public reads/identity reads and deliberately rejected writes.
-Browser tests mock successful identity/rating/guardian writes. No test creates
-real users, votes, orders or model charges.
+Browser tests mock successful identity/rating/guardian writes. Private-web DDEV
+game tests create temporary fixture identities/sessions and remove only those
+fixtures; no emails, votes, orders or model calls.
+
+## Private saves and public parcels
+
+`game-state`, `game-save`, `game-restore`, `parcels` and `parcel` need no `lang`.
+See [save protocol](GAME-SAVE-API.md) and the mirrored OpenAPI. Authorization and
+persistence live exclusively in the private website, not this repository.

@@ -317,6 +317,28 @@
         37.5,
         48
       ]
+    ],
+    [
+      [
+        27,
+        54
+      ],
+      [
+        24,
+        45
+      ],
+      [
+        21,
+        37
+      ],
+      [
+        20,
+        32
+      ],
+      [
+        24,
+        30
+      ]
     ]
   ],
   "waters": [],
@@ -388,7 +410,7 @@
     ],
     [
       25,
-      47,
+      23,
       12
     ]
   ],
@@ -837,14 +859,9 @@
     },
     {
       "id": "lake-ferryman",
-      "behavior": "ferry",
-      "x": 91.5,
-      "y": 44.5,
-      "destination": {
-        "scene": "islet",
-        "x": 10.5,
-        "y": 25.5
-      }
+      "behavior": "river-neighbor",
+      "x": 89,
+      "y": 43.25
     },
     {
       "id": "dock-lantern",
@@ -917,20 +934,6 @@
       "rules": []
     },
     {
-      "id": "lake-ferry",
-      "sprite": "ferry",
-      "x": 95.5,
-      "y": 46,
-      "solid": [
-        -2.6,
-        -1.7,
-        5.2,
-        2
-      ],
-      "rules": [],
-      "interactAs": "lake-ferryman"
-    },
-    {
       "id": "leaves-clearing",
       "behavior": "toilet-plant",
       "x": 19.5,
@@ -973,11 +976,11 @@
       "id": "human-picnic-blanket",
       "sprite": "picnic-blanket",
       "x": 25,
-      "y": 49.5,
+      "y": 25.5,
       "depth": -1000,
       "hiddenWhen": {
         "flags": {
-          "picnicFed": true
+          "skewerCooked": true
         }
       },
       "rules": []
@@ -986,10 +989,10 @@
       "id": "human-smoker",
       "sprite": "picnic-smoker",
       "x": 21,
-      "y": 46.5,
+      "y": 22.5,
       "hiddenWhen": {
         "flags": {
-          "picnicFed": true
+          "skewerCooked": true
         }
       },
       "solid": [
@@ -1014,10 +1017,10 @@
       "id": "human-picnic-friend",
       "sprite": "picnic-human-friend",
       "x": 29,
-      "y": 46.5,
+      "y": 22.5,
       "hiddenWhen": {
         "flags": {
-          "picnicFed": true
+          "skewerCooked": true
         }
       },
       "solid": [
@@ -1042,10 +1045,10 @@
       "id": "human-picnic-tortilla",
       "sprite": "picnic-tortilla",
       "x": 26,
-      "y": 49.5,
+      "y": 25.5,
       "hiddenWhen": {
         "flags": {
-          "picnicFed": true
+          "skewerCooked": true
         }
       },
       "solid": [
@@ -1070,10 +1073,10 @@
       "id": "human-picnic-guacamole",
       "sprite": "picnic-guacamole",
       "x": 24.1,
-      "y": 47.6,
+      "y": 23.6,
       "hiddenWhen": {
         "flags": {
-          "picnicFed": true
+          "skewerCooked": true
         }
       },
       "rules": []
@@ -1082,10 +1085,10 @@
       "id": "human-picnic-chips",
       "sprite": "picnic-tortilla-chips",
       "x": 23.2,
-      "y": 49.6,
+      "y": 25.6,
       "hiddenWhen": {
         "flags": {
-          "picnicFed": true
+          "skewerCooked": true
         }
       },
       "rules": []
@@ -1094,10 +1097,10 @@
       "id": "human-picnic-lemonade",
       "sprite": "picnic-lemonade",
       "x": 23.9,
-      "y": 45.65,
+      "y": 21.65,
       "hiddenWhen": {
         "flags": {
-          "picnicFed": true
+          "skewerCooked": true
         }
       },
       "rules": []
@@ -1106,10 +1109,10 @@
       "id": "human-picnic-soda",
       "sprite": "picnic-orange-soda",
       "x": 28.1,
-      "y": 47.6,
+      "y": 23.6,
       "hiddenWhen": {
         "flags": {
-          "picnicFed": true
+          "skewerCooked": true
         }
       },
       "rules": []
@@ -1118,10 +1121,10 @@
       "id": "human-picnic-speaker",
       "sprite": "picnic-speaker",
       "x": 26.5,
-      "y": 44.5,
+      "y": 20.5,
       "hiddenWhen": {
         "flags": {
-          "picnicFed": true
+          "skewerCooked": true
         }
       },
       "rules": []
@@ -1130,13 +1133,13 @@
       "id": "picnic-lighter",
       "behavior": "picnic-lighter",
       "x": 18.8,
-      "y": 47.2
+      "y": 23.2
     },
     {
       "id": "picnic-knife",
       "behavior": "picnic-knife",
       "x": 27,
-      "y": 51
+      "y": 27
     },
     {
       "id": "picnic-waymarker",
@@ -1172,6 +1175,46 @@
       "x": 40.5,
       "y": 46,
       "artVariant": "violetas",
+      "rules": []
+    },
+    {
+      "id": "picnic-bin",
+      "behavior": "picnic-bin",
+      "x": 16.5,
+      "y": 30
+    },
+    {
+      "id": "picnic-twigs",
+      "behavior": "picnic-twig",
+      "x": 20,
+      "y": 32
+    },
+    {
+      "id": "picnic-leaves",
+      "behavior": "toilet-plant",
+      "x": 17,
+      "y": 34
+    },
+    {
+      "id": "river-dock",
+      "behavior": "river-dock",
+      "x": 92,
+      "y": 44,
+      "landing": "woodland"
+    },
+    {
+      "id": "picnic-fence",
+      "sprite": "garden-fence",
+      "x": 31,
+      "y": 31,
+      "rules": [],
+      "scale": 1.5
+    },
+    {
+      "id": "picnic-table-flower",
+      "sprite": "flowers-daisy-white",
+      "x": 32,
+      "y": 25,
       "rules": []
     }
   ],
@@ -1385,12 +1428,6 @@
       "y": 87.25370478769764
     },
     {
-      "id": "decor-55",
-      "sprite": "fern",
-      "x": 25.395725216250867,
-      "y": 20.82108628191054
-    },
-    {
       "id": "decor-57",
       "sprite": "bush",
       "x": 80.84184732846916,
@@ -1457,30 +1494,6 @@
       "y": 77.13600892061368
     },
     {
-      "id": "decor-82",
-      "sprite": "fern",
-      "x": 31.5834092637524,
-      "y": 26.470310841221362
-    },
-    {
-      "id": "decor-83",
-      "sprite": "mushrooms",
-      "x": 35.5645207115449,
-      "y": 22.76284610107541
-    },
-    {
-      "id": "decor-85",
-      "sprite": "fern",
-      "x": 12.151746979448944,
-      "y": 22.317937132436782
-    },
-    {
-      "id": "decor-89",
-      "sprite": "fern",
-      "x": 16.918719216249883,
-      "y": 32.129949600901455
-    },
-    {
       "id": "decor-90",
       "sprite": "mushrooms",
       "x": 52.06779268104583,
@@ -1509,12 +1522,6 @@
       "sprite": "berries",
       "x": 75.98682234855369,
       "y": 22.752688785083592
-    },
-    {
-      "id": "decor-101",
-      "sprite": "berries",
-      "x": 21.82514862716198,
-      "y": 33.660056720953435
     },
     {
       "id": "decor-102",
@@ -1587,12 +1594,6 @@
       "sprite": "berries",
       "x": 27.269600714556873,
       "y": 92.43214940372854
-    },
-    {
-      "id": "decor-131",
-      "sprite": "berries",
-      "x": 35.61175668751821,
-      "y": 24.692297640256584
     },
     {
       "id": "decor-136",
@@ -1757,12 +1758,6 @@
       "y": 56.68960109772161
     },
     {
-      "id": "decor-199",
-      "sprite": "fern",
-      "x": 19.388526218477637,
-      "y": 32.051198875531554
-    },
-    {
       "id": "decor-209",
       "sprite": "reeds",
       "x": 91.58945650374517,
@@ -1889,22 +1884,10 @@
       "y": 73.08875871542841
     },
     {
-      "id": "decor-258",
-      "sprite": "fern",
-      "x": 30.70669879997149,
-      "y": 18.507264195475727
-    },
-    {
       "id": "decor-259",
       "sprite": "mushrooms",
       "x": 35.32381140161306,
       "y": 7.48070301907137
-    },
-    {
-      "id": "decor-261",
-      "sprite": "mushrooms",
-      "x": 35.63753558322787,
-      "y": 18.336897340603173
     },
     {
       "id": "decor-263",
@@ -2045,12 +2028,6 @@
       "y": 70.63814751058817
     },
     {
-      "id": "decor-318",
-      "sprite": "bush",
-      "x": 25.710392540320754,
-      "y": 32.81210322584957
-    },
-    {
       "id": "decor-322",
       "sprite": "fern",
       "x": 91.67501968936995,
@@ -2061,12 +2038,6 @@
       "sprite": "bush",
       "x": 13.000318063888699,
       "y": 89.6199620696716
-    },
-    {
-      "id": "decor-330",
-      "sprite": "fern",
-      "x": 19.1987330801785,
-      "y": 31.802759894169867
     },
     {
       "id": "decor-335",
@@ -2081,21 +2052,9 @@
       "y": 48.57751180836931
     },
     {
-      "id": "decor-338",
-      "sprite": "mushrooms",
-      "x": 32.98212145222351,
-      "y": 13.377142739016563
-    },
-    {
-      "id": "decor-340",
-      "sprite": "mushrooms",
-      "x": 33.66071643959731,
-      "y": 19.950178190600127
-    },
-    {
       "id": "root-west-north",
       "sprite": "ancient-root",
-      "x": 9,
+      "x": 6,
       "y": 29,
       "scale": 1,
       "solid": [
@@ -2129,19 +2088,6 @@
         -2.8,
         4.4,
         3.4
-      ]
-    },
-    {
-      "id": "root-far-north",
-      "sprite": "ancient-root",
-      "x": 34,
-      "y": 23,
-      "scale": 1,
-      "solid": [
-        -4,
-        -3.5,
-        8,
-        4.2
       ]
     },
     {
@@ -2186,7 +2132,7 @@
     {
       "id": "fern-picnic",
       "sprite": "giant-fern",
-      "x": 19.5,
+      "x": 14,
       "y": 40,
       "scale": 1,
       "solid": [
@@ -2328,19 +2274,6 @@
       "sprite": "scarlet-mushrooms",
       "x": 10,
       "y": 57,
-      "solid": [
-        -0.6,
-        -0.4,
-        1.2,
-        0.55
-      ],
-      "artVariant": "auto"
-    },
-    {
-      "id": "red-mushrooms-north",
-      "sprite": "scarlet-mushrooms",
-      "x": 25,
-      "y": 26,
       "solid": [
         -0.6,
         -0.4,
@@ -2515,5 +2448,51 @@
       "y": 52.5,
       "artVariant": "auto"
     }
-  ]
+  ],
+  "navigation": {
+    "landings": [
+      {
+        "id": "woodland",
+        "land": [
+          92,
+          45.2
+        ],
+        "water": [
+          96.5,
+          45.2
+        ]
+      }
+    ],
+    "currents": [
+      {
+        "area": [
+          114,
+          22,
+          11,
+          19
+        ],
+        "vector": [
+          -4,
+          -14
+        ]
+      }
+    ],
+    "exits": [
+      {
+        "id": "river-mouth",
+        "area": [
+          99,
+          1.5,
+          25,
+          1.2
+        ],
+        "scene": "river-willows",
+        "position": [
+          48,
+          74
+        ],
+        "direction": "up"
+      }
+    ]
+  }
 }

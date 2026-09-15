@@ -52,8 +52,8 @@ prepare and visibly cook the skewer. The mushroom and twig are consumed; knife
 and lighter stay in the sack. Ingredients can be discovered in any order.
 The barbecue gives one useful hint for the current state, not a shopping list.
 
-Give the skewer to Brizno. The first reward is **10 local test setines: exactly a
-return ferry ticket**. The picnickers pack up permanently after this first meal.
+Give the skewer to Brizno. The first reward remains **10 game setines**, independent
+of sailing. The picnickers leave permanently when the skewer is cooked.
 Every meal starts a **five-real-hour** hunger deadline, persisted across reloads.
 When it expires, Brizno becomes hungry again, without bringing the humans back.
 Mushrooms and twigs can be collected again; only one uncooked mushroom
@@ -65,15 +65,17 @@ ferns, elf-height wild mushrooms; a boot tavern, stump home, leaf refuge, hollow
 and enterable mushroom/pot houses. No human architecture. See [the current woodland kit](../../docs/WOODLAND-KIT.md)
 and [the island and resident library](../../docs/ISLET-AND-RESIDENTS.md).
 
-The ferryman greets and charges at the jetty. Clicking the boat targets the
-same ferryman interaction. A crossing costs 5. Both duendes visibly travel
-together; walking, rolling and inventory actions are locked during the voyage.
-The fare commits with the prepared destination. Reloading before the sequence
-finishes preserves the departure and fare.
+Remo remains at the jetty with a childhood clue, not a fare. Find the plastic
+bottle in the northwest picnic bin; bring the reusable knife, two renewable twigs
+and two broad leaves to the dock. Build a half-bottle boat with leaf-bladed oars.
+Only the bottle/twigs/leaves are consumed. Board, steer with arrows/WASD or the
+bottom-right direction pad, or tap water to plot a course. Currents really push
+the vessel; use the slower banks to bypass them. No health, damage or lost items.
 
-The island shell collector pays another 5 for a shell. That help is repeatable
-for later journeys; the first return is already covered. The former picnic pond
-and stream are dry land now; the boat lake is the area's distinct water crossing.
+Five river reaches connect the lake, a side channel to the islet, neighbours'
+jetties and your kelihouse. Disembark explicitly near a jetty. The island shell
+collector still pays 5 game setines for a shell, repeatably. Neither cooking nor
+setines gates sailing. See [river/parcel delivery](../../docs/RIVER-HOMESTEADS.md).
 
 ## Content belongs to places
 
@@ -148,9 +150,15 @@ Device identity follows the site's existing identifier. It is not authentication
 or an authority to alter an account. Account creation uses the existing explicit,
 controlled identity action; opening “Yo” alone mints nothing.
 
-Progress and the test purse are **not account-synchronised**. The real website
-reputation balance and ledger are untouched. No movement/event collection or
-new state-write API is introduced.
+Progress and the game purse synchronize through the private website API when
+connected to its identity. The real website reputation balance/ledger stay
+untouched. No movement/event collection. See [save protocol](../../docs/GAME-SAVE-API.md).
+
+At your plot, edit one garden and one natural interior. Place registered objects,
+drag, change variants or put them away. There are no named drafts or publish
+buttons: saving your layout makes its snapshot public. Visitors cannot move or
+take furniture. Paths, access and shorelines stay protected. The river continues
+to work and visits return to the original neighbour jetty.
 
 ## Scene and art contract
 

@@ -22,8 +22,15 @@ function snapshot(root) {
       { maxBuffer: 8 * 1024 * 1024, encoding: "utf8" },
     ),
   );
+  // Edit each authored template once; guest instances and moored vessels are derived data.
+  const instances = JSON.parse(
+    fs.readFileSync(path.join(dir, "scene-instances.json")),
+  );
+  for (const id of Object.keys(instances)) delete world.scenes[id];
   for (const scene of Object.values(world.scenes))
-    scene.entities = scene.entities.map((e) => resolveAppearance(e, scene.id));
+    scene.entities = scene.entities
+      .filter((e) => !e.generated)
+      .map((e) => resolveAppearance(e, scene.id));
   const scenery = {};
   for (const [id, scene] of Object.entries(world.scenes)) {
     const text = fs.readFileSync(
@@ -51,7 +58,8 @@ function snapshot(root) {
     const source = fs.readFileSync(path.join(dir, "assets", file), "utf8"),
       pack = JSON.parse(source);
     for (const [name, definition] of Object.entries(pack.frames || {})) {
-      if (name.startsWith("person-") && !/^person-1\d\d-down$/.test(name)) continue;
+      if (name.startsWith("person-") && !/^person-1\d\d-down$/.test(name))
+        continue;
       sprites[name] = {
         file: "data/aventura/assets/" + file,
         sourceHash: hash(source),

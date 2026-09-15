@@ -42,7 +42,6 @@ class MapViewport {
       reducedMotion: true,
       self: { frame: () => null, drawGround() {}, drawStream() {} },
       roll: { frame: () => null },
-      voyage: { active: false },
     };
     this.resizeObserver = new ResizeObserver(() => this.resize());
     this.resizeObserver.observe(viewport);
@@ -353,6 +352,12 @@ class MapViewport {
       c.fill();
     }
     this.editor?.draw(c);
+    if (document.getElementById("river-topology")?.checked)
+      require("./river-overlay").drawRiverOverlay(
+        c,
+        this.world.data,
+        this.zoom,
+      );
     c.restore();
   }
 }

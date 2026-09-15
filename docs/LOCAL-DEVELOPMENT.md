@@ -3,9 +3,13 @@
 ## Safety boundary
 
 These changes are local only. No SSH/VPS operations, production import, database
-migration, commit, push or deployment is part of the tooling. The user's existing
+migration, commit, push or deployment is part of the game tooling. The user's existing
 DDEV database and media are sufficient. Missing local media should be diagnosed
 locally, never fetched from production automatically.
+
+The approved river/parcel implementation adds one **local-only** private-web schema
+migration, applied after backup. See [delivery log](RIVER-HOMESTEADS.md) and
+[save protocol](GAME-SAVE-API.md). It is not applied by builds or preview servers.
 
 The authoritative game working tree is the public game repository. The website
 remains its own private repository. The preview serves its own

@@ -12,12 +12,18 @@ const METHODS = Object.freeze({
   guardian: "POST",
   "guardian-thread": "GET",
   csrf: "GET",
+  "game-state": "GET",
+  "game-save": "POST",
+  "game-restore": "POST",
+  parcels: "GET",
+  parcel: "GET",
 });
 class ApiError extends Error {
-  constructor(code, status = 0) {
+  constructor(code, status = 0, details = null) {
     super(code);
     this.code = code;
     this.status = status;
+    this.details = details;
   }
 }
 function webUrl(value, base) {
@@ -145,6 +151,7 @@ class WorldApi {
       throw new ApiError(
         typeof data.error === "string" ? data.error : "unavailable",
         response.status,
+        data,
       );
     if (typeof data.token === "string" && data.token)
       this.session.set(data.token);
@@ -154,7 +161,7 @@ class WorldApi {
   once(endpoint, params = {}) {
     if (
       METHODS[endpoint] !== "GET" ||
-      ["csrf", "guardian-thread"].includes(endpoint)
+      ["csrf", "guardian-thread", "game-state"].includes(endpoint)
     )
       throw new ApiError("not_public_read");
     const key = endpoint + JSON.stringify(params);

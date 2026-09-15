@@ -73,6 +73,33 @@
       aria-live="polite"
     ></div>
     <div id="world-toast" class="world-toast" role="status" hidden></div>
+    <div id="river-controls" class="world-river-controls" aria-label="{{riverControls}}" hidden>
+      <button type="button" data-river-key="arrowup" aria-label="{{moveUp}}">↑</button>
+      <button type="button" data-river-key="arrowleft" aria-label="{{moveLeft}}">←</button>
+      <button type="button" data-river-key="arrowdown" aria-label="{{moveDown}}">↓</button>
+      <button type="button" data-river-key="arrowright" aria-label="{{moveRight}}">→</button>
+    </div>
+    <button type="button" id="river-land" class="world-primary world-river-land" hidden>{{disembark}}</button>
+    <div id="home-controls" class="world-home-controls" hidden>
+      <button type="button" class="world-primary" id="home-edit">{{homeDecorate}}</button>
+      <button type="button" class="world-primary" id="home-neighbors">{{homeVisitors}}</button>
+      <button type="button" class="world-primary" id="home-return" hidden>{{homeReturn}}</button>
+    </div>
+    <section id="home-editor" class="world-home-editor" aria-label="{{homeDecorate}}" hidden>
+      <p>{{homePlace}}</p>
+      <div id="home-palette" class="world-home-palette"></div>
+      <div class="world-home-actions">
+        <button type="button" id="home-variant">{{homeVariant}}</button>
+        <button type="button" id="home-remove">{{homeRemove}}</button>
+        <button type="button" id="home-cancel">{{homeCancel}}</button>
+        <button type="button" id="home-save" class="world-primary">{{homeSave}}</button>
+      </div>
+      <small>{{homePublic}}</small>
+    </section>
+    <dialog id="home-neighbors-dialog" class="world-modal world-neighbors" aria-labelledby="home-neighbors-title">
+      <header><h2 id="home-neighbors-title">{{homeVisitors}}</h2><button type="button" data-dismiss aria-label="{{close}}">×</button></header>
+      <div id="home-neighbors-list"></div>
+    </dialog>
     <div class="world-listening" id="world-listening" hidden>
       <audio id="world-audio" preload="none"></audio>
       <button type="button" id="listening-play" aria-label="{{listen}}">
@@ -178,6 +205,15 @@
         >
       </div>
       <p class="world-self-help">{{needsHelp}}</p>
+      <section class="world-cloud-save" aria-label="{{cloudConnect}}">
+        <p id="cloud-status" role="status"></p>
+        <button type="button" id="cloud-connect" class="world-primary">{{cloudConnect}}</button>
+        <div id="cloud-conflict" hidden>
+          <button type="button" id="cloud-remote">{{cloudUseRemote}}</button>
+          <button type="button" id="cloud-local">{{cloudUseLocal}}</button>
+        </div>
+        <div id="cloud-recoveries"></div>
+      </section>
       <label class="world-language"
         >{{language}}<select id="world-language">
           {{languageOptions}}

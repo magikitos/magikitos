@@ -17,6 +17,17 @@ Open http://127.0.0.1:47832. Node 22+, PHP with GD and esbuild are required.
 The Studio never connects to the website, a database, GitHub or production.
 It binds to loopback and writes only its own local working files.
 
+River/kelihouse scenes are in the same selector. The gallery includes the picnic
+bin and bottle/craft states. **Río** overlays current ellipses/vectors (px/s),
+land/water arrival pairs and reach exits. This overlay is read-only: topology is
+authored in each scene's `navigation` JSON and checked by `check-river-core.cjs`.
+Normal props/paths/crops remain editable in the single Studio workspace.
+Guest scenes reuse the owner's garden/interior templates; derived guest copies
+and moored boats are not exposed as independently editable duplicate source.
+
+Player parcel editing is a different tool, inside the game: it changes that
+identity's allowed decoration, never the author's map or Studio workspace.
+
 ## One interface, two tools
 
 **Mapa** and **Archivo de pruebas** share the Studio shell and navigation. Switching tools

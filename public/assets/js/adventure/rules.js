@@ -5,6 +5,9 @@ const { startTimer } = require("./timers");
 const { remember } = require("./keepsakes");
 function matches(state, when = {}, context = {}) {
   return (
+    (!when.navigation ||
+      (state.navigation?.mode || "foot") === when.navigation) &&
+    (!when.landing || state.navigation?.landing === when.landing) &&
     Object.entries(when.flags || {}).every(
       ([key, value]) => Boolean(state.flags[key]) === value,
     ) &&
@@ -78,14 +81,24 @@ function planReaction(entity, state, catalog, context = {}) {
     } else if (["spend", "reward"].includes(effect.type)) {
       transact(draft.wallet, effect, catalog);
     } else if (
-      !["dialogue", "sound", "travel", "content", "presentation"].includes(effect.type)
+      ![
+        "dialogue",
+        "sound",
+        "travel",
+        "content",
+        "presentation",
+        "navigation",
+      ].includes(effect.type)
     )
       throw new Error("Unknown effect");
   }
   return {
     state: draft,
     effects: (rule.effects || []).filter(
-      (e) => !["flag", "item", "spend", "reward", "timer", "keepsake"].includes(e.type),
+      (e) =>
+        !["flag", "item", "spend", "reward", "timer", "keepsake"].includes(
+          e.type,
+        ),
     ),
   };
 }

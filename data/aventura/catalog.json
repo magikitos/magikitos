@@ -7,7 +7,8 @@
     "twigFound",
     "skewerCooked",
     "picnicFed",
-    "knifeFound"
+    "knifeFound",
+    "boatBuilt"
   ],
   "items": {
     "mushroom": {
@@ -30,7 +31,7 @@
       "name": "twigName",
       "description": "twigDescription",
       "sprite": "twig",
-      "max": 1,
+      "max": 99,
       "usable": true,
       "reusable": false
     },
@@ -64,6 +65,22 @@
       "sprite": "picnic-knife",
       "max": 1,
       "usable": true,
+      "reusable": true
+    },
+    "bottle": {
+      "name": "bottleName",
+      "description": "bottleDescription",
+      "sprite": "plastic-bottle",
+      "max": 1,
+      "usable": true,
+      "reusable": false
+    },
+    "boat": {
+      "name": "bottleBoatName",
+      "description": "bottleBoatDescription",
+      "sprite": "bottle-boat",
+      "max": 1,
+      "usable": false,
       "reusable": true
     }
   },
@@ -113,26 +130,21 @@
     "currency": "setines",
     "maxBalance": 9999,
     "fares": {
-      "lake": 5,
       "wish": 1
     },
     "rewards": {
       "picnic": {
         "once": true,
-        "fare": "lake",
-        "trips": 2
+        "amount": 10
       },
       "shell": {
         "once": false,
-        "fare": "lake"
+        "amount": 5
       }
     },
     "sprite": "setin"
   },
   "dialogueTokens": {
-    "price": {
-      "fare": "lake"
-    },
     "reward": {
       "reward": "picnic"
     }
@@ -159,37 +171,14 @@
       "poopSeconds": 86400
     }
   },
-  "transports": {
-    "ferry": {
-      "duration": 4.6,
-      "shoreSprites": [
-        "fern",
-        "berries",
-        "rocks"
-      ],
-      "sprite": "ferry",
-      "lip": 0.76,
-      "passengers": [
-        {
-          "sprite": "person-2-down-right",
-          "seat": [
-            0.31,
-            0.74
-          ]
-        },
-        {
-          "sprite": "person-0-down-left",
-          "seat": [
-            0.69,
-            0.74
-          ]
-        }
-      ]
-    }
-  },
   "timers": {
     "picnic": {
       "hours": 5
     }
+  },
+  "navigation": {
+    "restoreBoatIn": [
+      "islet"
+    ]
   }
 }

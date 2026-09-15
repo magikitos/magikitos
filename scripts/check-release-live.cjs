@@ -29,7 +29,7 @@ function assertShell(actual, expected, headers, route) {
     const mode=assertShell(text,fs.readFileSync(path.join(directory,'pages',lang+'.html'),'utf8'),r.headers,route);
     console.log('PASS live static shell '+route+' '+id+' ('+mode+')');
   }
-  for(const file of ['assets/js/aventura.min.js','assets/css/aventura.min.css','assets/aventura/manifest.json']) {
+  for(const file of ['assets/js/aventura.min.js','assets/css/aventura.min.css','assets/aventura/manifest.json','game-contract.json']) {
     const r=await response('/game/releases/'+id+'/'+file);
     assert.equal(crypto.createHash('sha256').update(Buffer.from(await r.arrayBuffer())).digest('hex'),manifest.files[file]);
   }
@@ -42,6 +42,28 @@ function assertShell(actual, expected, headers, route) {
     assert(body.ok && Array.isArray(body.items));
     assert(body.items.every(p=>p.kind===kind && p.audio && !('html' in p)));
   }
+  const art=await (await response('/api/world/catalog?lang=es&kind=art')).json();
+  assert(art.ok && Array.isArray(art.items) && !('collection' in art));
+  assert(art.items.every(sheet=>sheet.image && sheet.thumb && !('slug' in sheet)));
+  const parcels=await (await response('/api/world/parcels')).json();
+  assert(parcels.ok && Array.isArray(parcels.items) && parcels.items.length<=8);
+  for(const item of parcels.items) {
+    assert.deepEqual(Object.keys(item).sort(),['id','owner','revision']);
+    assert.deepEqual(Object.keys(item.owner).sort(),['handle','name']);
+  }
+  if(parcels.items.length) {
+    const detail=await (await response('/api/world/parcel?id='+parcels.items[0].id)).json();
+    assert(detail.ok);
+    assert.deepEqual(Object.keys(detail.plot).sort(),['id','owner','parcel','revision']);
+  }
+  // Rejected READS only: this smoke cannot mint identities or submit any save.
+  for(const [endpoint,status] of [['game-state',401],['game-save',405],['game-restore',405],['parcel?id=invalid',400]]) {
+    const r=await fetch(new URL('/api/world/'+endpoint,origin),{signal:AbortSignal.timeout(25000)});
+    assert.equal(r.status,status,endpoint);
+    assert.equal((await r.json()).ok,false,endpoint);
+    assert.match(r.headers.get('cache-control'),/no-store/);
+  }
+  console.log('PASS live flat art, public parcel DTOs and protected game API');
   for(const route of ['/','/cuentos','/chistes','/tienda']) {
     const r=await response(route), body=await r.text();
     assert(!/Fatal error|Deprecated:|<b>Warning<\/b>/.test(body));
@@ -64,7 +86,10 @@ function assertShell(actual, expected, headers, route) {
         }
         return url.origin===origin ? r.continue() : r.abort();
       });
-      await page.addInitScript(()=>localStorage.setItem('magikitos.adventure',JSON.stringify({flags:{},muted:true})));
+      await page.addInitScript(()=>{
+        const seed=sessionStorage.getItem('smoke-next') || JSON.stringify({flags:{},muted:true});
+        localStorage.setItem('magikitos.adventure',seed);
+      });
       await page.goto(origin+'/aventura');
       await page.waitForFunction(()=>window.MagikitosAdventure?.inspect().ready);
       const before=await page.evaluate(()=>window.MagikitosAdventure.inspect());
@@ -73,8 +98,29 @@ function assertShell(actual, expected, headers, route) {
       assert(Math.hypot(after.player.x-before.player.x,after.player.y-before.player.y)>5);
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
       assert(!after.assets.loaded.includes('actor-0-bow'));
+      const seed=async(state)=>{
+        await page.evaluate(s=>sessionStorage.setItem('smoke-next',JSON.stringify(s)),{muted:true,...state});
+        await page.reload();
+        await page.waitForFunction(()=>window.MagikitosAdventure?.inspect().ready);
+      };
+      await seed({scene:'river-willows',position:{x:768,y:960},inventory:{boat:1},navigation:{mode:'boat',direction:'up'}});
+      assert(await page.locator('#river-controls').isVisible());
+      const riverBefore=await page.evaluate(()=>window.MagikitosAdventure.inspect());
+      await page.locator('#world-canvas').focus();
+      await page.keyboard.down('ArrowUp'); await page.waitForTimeout(750); await page.keyboard.up('ArrowUp');
+      const riverAfter=await page.evaluate(()=>window.MagikitosAdventure.inspect());
+      assert.equal(riverAfter.navigation.mode,'boat');
+      assert(riverAfter.player.y<riverBefore.player.y-30);
+      assert(riverAfter.assets.loaded.includes('actor-0-row'));
+      await seed({scene:'home-garden',position:{x:384,y:680},inventory:{boat:1},navigation:{mode:'boat',direction:'up'}});
+      await page.locator('#river-land').click();
+      await page.waitForFunction(()=>Boolean(window.MagikitosAdventure.inspect().dialogue));
+      await page.keyboard.press('Enter');
+      await page.locator('#home-edit').click();
+      assert(await page.locator('#home-palette').isVisible());
+      assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
       await page.close();
-      console.log('PASS live game ready/movement/assets/no overflow '+width+'×'+height);
+      console.log('PASS live forest, rowing, landing, home editor, lazy assets and no overflow '+width+'×'+height);
     }
     assert.deepEqual(errors,[]); assert.deepEqual(writes,[]);
   } finally {await browser.close();}

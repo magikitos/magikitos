@@ -237,14 +237,9 @@
   "entities": [
     {
       "id": "islet-ferryman",
-      "behavior": "ferry",
-      "x": 11.5,
-      "y": 24.5,
-      "destination": {
-        "scene": "overworld",
-        "x": 90.5,
-        "y": 44.5
-      }
+      "behavior": "river-neighbor",
+      "x": 14,
+      "y": 23
     },
     {
       "id": "shell-collector",
@@ -257,21 +252,6 @@
       "behavior": "shells",
       "x": 44.5,
       "y": 35.5
-    },
-    {
-      "id": "islet-ferry",
-      "sprite": "ferry",
-      "x": 6.5,
-      "y": 26,
-      "solid": [
-        -2.6,
-        -1.7,
-        5.2,
-        2
-      ],
-      "rules": [],
-      "interactAs": "islet-ferryman",
-      "flip": true
     },
     {
       "id": "islet-mushroom-home",
@@ -667,6 +647,13 @@
       "behavior": "toilet-plant",
       "x": 24,
       "y": 34.5
+    },
+    {
+      "id": "islet-dock",
+      "behavior": "river-dock",
+      "x": 10,
+      "y": 24.4,
+      "landing": "islet"
     }
   ],
   "neighbors": [
@@ -719,5 +706,38 @@
       "radius": 0.8,
       "dialogue": "isletFlowers"
     }
-  ]
+  ],
+  "navigation": {
+    "landings": [
+      {
+        "id": "islet",
+        "land": [
+          10,
+          25.3
+        ],
+        "water": [
+          6,
+          25.3
+        ]
+      }
+    ],
+    "currents": [],
+    "exits": [
+      {
+        "id": "back-to-reeds",
+        "area": [
+          60.5,
+          8,
+          1.2,
+          32
+        ],
+        "scene": "river-reeds",
+        "position": [
+          6,
+          42
+        ],
+        "direction": "right"
+      }
+    ]
+  }
 }

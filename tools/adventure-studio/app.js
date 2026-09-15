@@ -907,6 +907,9 @@ pathEditor = new PathEditor(
   () => paintInspector(),
 );
 const shell = new StudioShell(view);
+$("river-topology").addEventListener("change", () => {
+  view.dirty = true;
+});
 (async () => {
   try {
     context = await api("/api/context");
