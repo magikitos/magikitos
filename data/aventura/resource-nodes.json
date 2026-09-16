@@ -67,5 +67,50 @@
       "bank-twig-6",
       "bank-twig-7"
     ]
+  },
+  "harvest-islet-18000000": {
+    "renewMs": 18000000,
+    "nodes": [
+      "shore-shells"
+    ]
+  },
+  "harvest-islet-120000": {
+    "renewMs": 120000,
+    "nodes": [
+      "islet-leaves"
+    ]
+  },
+  "harvest-overworld-120000": {
+    "renewMs": 120000,
+    "nodes": [
+      "leaves-clearing",
+      "leaves-river",
+      "leaves-stories",
+      "picnic-leaves"
+    ]
+  },
+  "harvest-river-rapids-120000": {
+    "renewMs": 120000,
+    "nodes": [
+      "bank-leaf-plant"
+    ]
+  },
+  "harvest-river-reeds-120000": {
+    "renewMs": 120000,
+    "nodes": [
+      "bank-leaf-plant"
+    ]
+  },
+  "harvest-river-roots-120000": {
+    "renewMs": 120000,
+    "nodes": [
+      "bank-leaf-plant"
+    ]
+  },
+  "harvest-river-willows-120000": {
+    "renewMs": 120000,
+    "nodes": [
+      "bank-leaf-plant"
+    ]
   }
 }

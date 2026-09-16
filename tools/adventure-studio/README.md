@@ -17,16 +17,16 @@ Open http://127.0.0.1:47832. Node 22+, PHP with GD and esbuild are required.
 The Studio never connects to the website, a database, GitHub or production.
 It binds to loopback and writes only its own local working files.
 
-River/kelihouse scenes are in the same selector. The gallery includes the picnic
-bin and bottle/craft states. **Río** overlays current ellipses/vectors (px/s),
+River/shared-clearing scenes are in the same selector. The gallery includes the picnic
+bin, ground bottle, collectable twigs and cleaning-leaf plants. **Río** overlays current ellipses/vectors (px/s),
 land/water arrival pairs and reach exits. This overlay is read-only: topology is
 authored in each scene's `navigation` JSON and checked by `check-river-core.cjs`.
 Normal props/paths/crops remain editable in the single Studio workspace.
 Guest scenes reuse the owner's garden/interior templates; derived guest copies
 and moored boats are not exposed as independently editable duplicate source.
 
-Player parcel editing is a different tool, inside the game: it changes that
-identity's allowed decoration, never the author's map or Studio workspace.
+Shared construction is a different, API-authorized in-game tool. It changes
+permitted community clearings, never the protected adventure or Studio workspace.
 
 ## One interface, two tools
 
@@ -101,7 +101,7 @@ and unchanged game source/user workspace.
 ## Arrange objects
 
 Choose a scene, select a placed object or vegetation, and drag.
-The inspector supports coordinates, native-pixel snapping, discrete scale
+The inspector supports coordinates, native-pixel snapping, continuous scale (25–300% where allowed)
 and horizontal mirroring where the art supports them. There is no rotation control:
 rotating a bitmap cannot create another top-down perspective. Existing authored
 orientations still render correctly. Doors, actors and critical animated props have
@@ -120,8 +120,12 @@ The object appears at the viewport centre, selected for dragging. The inspector'
 variant selector changes only its artwork; quest rules and IDs remain intact.
 Auto uses a deterministic scene/object hash, so a reload never shuffles the map.
 
-The gallery includes the new woodland collection and retained compatible forest
-props. Homes are not offered inside interiors. Ferries, stairs and the quest knife
+The gallery includes the woodland collection, resident library and forest props.
+**Recogibles** contains **Palo recogible**, **Planta culilimpia** and **Botella tirada**.
+They export reusable behaviors, not inert decorations. When incorporating new
+twigs/plants the agent appends their stable resource IDs as described in the
+[authoring contract](../../data/aventura/REFACTOR.md#recogibles-en-el-studio).
+Moving existing pickups never changes IDs or collected state. Homes are not offered inside interiors. Ferries, stairs and the quest knife
 are inspectable artwork but cannot be added as incomplete gameplay objects.
 Planters/crates placed as entities inherit the reusable pushing capability.
 

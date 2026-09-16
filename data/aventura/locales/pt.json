@@ -235,7 +235,7 @@
   "bottleName": "Garrafa de plástico",
   "bottleDescription": "Vazia e leve… cabe aqui um duende desenrascado.",
   "bottleFound": "Uma garrafa! Um corte certinho, dois remos… isto vai dar um barquinho!",
-  "binEmpty": "O que dá jeito já está no saco. O lixo fica no sítio.",
+  "binReminder": "O lixo é aqui dentro, pá. Não é no chão.",
   "bottleBoatName": "Barco-garrafa",
   "bottleBoatDescription": "Meia garrafa e os remos do velhote. Sem bilhetes: o rio é de todos.",
   "riverDock": "Ancoradouro",

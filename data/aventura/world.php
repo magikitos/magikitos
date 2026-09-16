@@ -105,15 +105,17 @@ return (static function (): array {
             }
             if (isset($entity['harvest'])) {
                 $region = 'harvest-' . $name . '-' . $entity['harvest']['renewMs'];
-                $world['resourceRegions'][$region] ??= ['renewMs' => $entity['harvest']['renewMs'], 'nodes' => []];
-                $index = count($world['resourceRegions'][$region]['nodes']);
-                $world['resourceRegions'][$region]['nodes'][] = $entity['id'];
+                // Scene order is editable in Studio; saved bits must keep their meaning.
+                $index = array_search($entity['id'], $world['resourceRegions'][$region]['nodes'] ?? [], true);
+                if ($index === false) {
+                    throw new RuntimeException("Register harvest node $name/{$entity['id']} in resource-nodes.json ($region); append, never reorder IDs");
+                }
                 $entity['resource'] = ['region'=>$region, 'index'=>$index, 'renewMs'=>$entity['harvest']['renewMs'], 'keepVisible'=>true, 'empty'=>$entity['harvest']['empty']];
                 foreach ($entity['rules'] as &$r) if (array_filter($r['effects'], static fn($e) => $e['type']==='item' && $e['amount']>0)) array_unshift($r['effects'], ['type'=>'collect']);
                 unset($r);
             }
             foreach ($entity['rules'] as $resourceRule) foreach ($resourceRule['effects'] as $resourceEffect)
-                if ($resourceEffect['type'] === 'collect' && !isset($entity['resource'])) throw new RuntimeException('Pickup missing stable resource index: ' . $entity['id']);
+                if ($resourceEffect['type'] === 'collect' && !isset($entity['resource'])) throw new RuntimeException("Register pickup $name/{$entity['id']} in resource-nodes.json; append, never reorder IDs");
             foreach ($entity['rules'] as &$rule) {
                 foreach ($rule['effects'] as &$effect) {
                     if ($effect['type'] === 'travel' && !isset($effect['scene'])) {

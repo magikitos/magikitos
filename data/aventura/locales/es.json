@@ -235,7 +235,7 @@
   "bottleName": "Botella de plástico",
   "bottleDescription": "Vacía, ligera… aquí cabe un duende con arte.",
   "bottleFound": "¡Una botella! Con un cortecito y un par de remos, esto tiene pinta de barcazo.",
-  "binEmpty": "Lo aprovechable ya va en el saco. La basura, en su sitio.",
+  "binReminder": "La basura va aquí dentro, quillo. No por el suelo.",
   "bottleBoatName": "Barca de botella",
   "bottleBoatDescription": "Media botella y los remos del abuelo. Sin billete ni ná: el río es de todos.",
   "riverDock": "Embarcadero",

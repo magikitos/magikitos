@@ -5,6 +5,7 @@ for (const name of [
   "check-adventure",
   "check-river-core",
   "check-community-foundations",
+  "check-pickups",
   "check-material-account",
   "check-construction-layout",
   "check-homestead-layout",

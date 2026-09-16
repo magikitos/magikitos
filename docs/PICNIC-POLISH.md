@@ -1,26 +1,10 @@
-# Picnic refinement · 14 September 2026
+# Arte y animación del picnic
 
-Local only. No push, deployment, VPS access, production data import or account balance change.
-The installed preview/DDEV artifact is `baf9e39511aacef0fc91`.
-The existing player save is retained, including the permanent picnic departure.
-
-## Visible changes
-
-- Broader, clearer Taramundi knife: ochre handle, black burned stripes, two red rings,
-  bright open blade with no lettering. Native target 48×30, previously 36×30.
-- Readable coral-orange lighter, native 25×20, now at tile **18.8, 47.2** on the
-  grass beside the smoking man's shoe. The original pickup ID and reusable item stay.
-- Guacamole, potato crisps, lemonade, orange soda and a portable speaker on the blanket.
-  They use individual native assets and the existing `picnicFed` visibility condition.
-  Decorative colliders are small; both tools remain approachable and collectible.
-- Authored smoking, conversation and sipping poses with quiet pauses. No GIF or video
-  is downloaded. The cigarette produces just a few faint, short-lived smoke pixels.
-- Studio gallery category **Picnic**: snacks, drinks and speaker, with explicit variants.
-  Tools remain non-placeable quest items; moving the existing scene item still works.
-
-The recipe, five-hour hunger timer, reusable tools, first reward, travel fares,
-six locales, fixed camera and controls are unchanged. New dressing is only scenery;
-it does not invent consumable items, extra rewards or website events.
+Guía de autoría vigente; ubicaciones y recogibles están en las escenas.
+Manta y comida son piezas independientes: tortilla, nachos triangulares,
+guacamole, bebidas y altavoz. Navaja y mechero son herramientas; la botella del
+suelo se recoge aparte. Los humanos y la manta desaparecen al cocinar la primera
+brocheta; los utensilios no recogidos siguen disponibles.
 
 ## Source art and prompts
 
@@ -61,11 +45,6 @@ No source-resolution image is included in the static release.
   animation. The previous manually shifted head/painted-mouth rig has been removed.
 - The browser raster test checks **pixel-identical lower bodies** across every pose.
 
-Current full library: **362 sprites / 62 packages / 788,081 PNG bytes**.
-This pass adds **24,952 PNG bytes** versus the prior 763,129-byte library. These are
-the complete library totals, not initial download sizes; packs stay scene-lazy.
-Original generation masters are authoring inputs only.
-
 ## Reproduce and inspect
 
 ```sh
@@ -83,18 +62,5 @@ QA output (untracked): `.local/picnic-review/native-art.png`,
 `rendered-poses.png`, `animation-report.json`, `studio-gallery.png`.
 Scene/device captures: `.local/woodland-review/picnic.png` and `picnic-mobile.png`.
 
-Verified locally:
-- `npm test`: all core suites pass, including 118 safe routes, save/recipe/ferry,
-  pointer/keyboard, shoreline, crop registration, Studio and original source hashes.
-- `test:picnic`: the complete pointer-driven recipe, departure, save/reload and
-  repeated hunger pass at five desktop/tablet/mobile/orientation sizes, both in the
-  standalone preview and on the installed DDEV mount.
-- `test:picnic-animation`: real Chrome rendering, distinct poses, fixed feet and one
-  animation pack; also passes against the installed DDEV artifact.
-- `test:browser`: seven viewports, twenty interior combinations, six locales,
-  doors/stairs, ferry and isolated Studio edits all pass.
-- `test:gallery`: placement, variants, undo/redo, autosave/reload, source isolation
-  and five viewports pass.
-- Sixteen visual captures pass with no JS errors or source-master downloads.
-- Main Studio restarted and inspected: Picnic gallery visible, no JS errors, revision
-  **66**, no pending scene/sprite edits or conflicts. Existing workspace preserved.
+Verificar con `npm test`, `test:picnic-animation`, `test:picnic` y `test:gallery`.
+Resultados de publicación: [RELEASE.md](RELEASE.md).

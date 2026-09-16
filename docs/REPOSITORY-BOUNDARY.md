@@ -1,7 +1,6 @@
 # Completed game / website boundary
 
-Boundary implemented locally on 2026-09-13. Deployment state and exact release
-evidence are recorded in [the current release ledger](RELEASE-RIVER-2026-09-15.md).
+Current game/website ownership. Deployment evidence: [RELEASE.md](RELEASE.md).
 
 ## Ownership
 
@@ -9,7 +8,7 @@ evidence are recorded in [the current release ledger](RELEASE-RIVER-2026-09-15.m
 | --- | --- |
 | Static HTML shell, six locales, engine, scenes, rules, rendering, audio UI, native activities | Public content queries, content pulse, publication rules, identity, authorization, rating accounting, guardian service |
 | Original modular art, offline compilers, Studio and regression tests | Normal website, full forms/editors, account, checkout and admin |
-| Local-first save, device ID, game wallet, parcel editing | JSON API under `/api/world/`; private profile storage/public snapshots; static artifact mount |
+| Local-first save, device ID, private progress, shared construction UI | JSON API under `/api/world/`; private profiles/authoritative materials/public objects; static artifact mount |
 
 The game stays at `/aventura` and five translated routes. The home page does
 not change. The game’s shell does not run the website bootstrap, database,
@@ -52,14 +51,14 @@ exploration slots. The game performs no analytics collection, play-count writes,
 movement streaming. Bounded game snapshots use the separate private save API,
 not analytics/events. See [save contract](GAME-SAVE-API.md).
 
-The in-game setines wallet is local and untrusted. Website content ratings still
-use the website's existing real reputation rules; they do not spend or award
-the game's local currency.
+Offline progress is local and untrusted. Spendable construction materials and game
+setines have their own server-authoritative account. Website reputation, content
+ratings and real-money checkout remain separate. See [authority](GAME-SAVE-API.md).
 
-Full reading, printing, purchasing, recording, account management and expression
+Full reading, printing, purchasing, recording, account management and other full
 editing open explicit normal-website links in a new tab. They are not hidden
-modals or embedded pages. The native guardian handles conversation only;
-publication/editor workflows remain website-owned.
+modals or embedded pages. Expressions are not exposed in the game; the broader API retains website services
+without requiring game scenes for them.
 
 ## Release boundary
 

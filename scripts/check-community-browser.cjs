@@ -47,8 +47,8 @@ const fixture = (...args) =>
       assert.equal(r.status(), 200, JSON.stringify({ entity, data }));
       return data.account;
     }
-    for (const id of world.resourceRegions.overworld.nodes)
-      await action("overworld", id);
+    for (const node of world.scenes.overworld.entities.filter((e) => e.resource?.region === "overworld"))
+      await action("overworld", node.id);
     for (const id of [
       "picnic-bin",
       "picnic-knife",

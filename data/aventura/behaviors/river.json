@@ -10,33 +10,10 @@
     ],
     "rules": [
       {
-        "when": {
-          "maxItems": {
-            "bottle": 0,
-            "boat": 0
-          }
-        },
-        "effects": [
-          {
-            "type": "item",
-            "item": "bottle",
-            "amount": 1
-          },
-          {
-            "type": "dialogue",
-            "key": "bottleFound"
-          },
-          {
-            "type": "sound",
-            "key": "found"
-          }
-        ]
-      },
-      {
         "effects": [
           {
             "type": "dialogue",
-            "key": "binEmpty"
+            "key": "binReminder"
           }
         ]
       }
@@ -145,6 +122,47 @@
             "boat": 0
           }
         }
+      }
+    ]
+  },
+  "ground-bottle": {
+    "sprite": "plastic-bottle",
+    "label": "bottleName",
+    "solid": [
+      -0.5,
+      -0.35,
+      1,
+      0.5
+    ],
+    "visibleWhen": {
+      "maxItems": {
+        "bottle": 0,
+        "boat": 0
+      }
+    },
+    "rules": [
+      {
+        "when": {
+          "maxItems": {
+            "bottle": 0,
+            "boat": 0
+          }
+        },
+        "effects": [
+          {
+            "type": "item",
+            "item": "bottle",
+            "amount": 1
+          },
+          {
+            "type": "dialogue",
+            "key": "bottleFound"
+          },
+          {
+            "type": "sound",
+            "key": "found"
+          }
+        ]
       }
     ]
   }

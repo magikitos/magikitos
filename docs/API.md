@@ -13,7 +13,7 @@ piece **together with kind and language**; a voice ID identifies the recording,
 not its dictionary term. A region/category slug is an identifier, not HTML.
 
 No resource returns HTML, CSS, scripts or authored game scenes. Explicit
-save/parcel endpoints return validated game data, never executable assets.
+private-save/shared-world endpoints return validated game data, never executable assets.
 URLs are public website/media links; the browser accepts only HTTP(S) URLs on
 its configured website origin. A missing local media file is not fetched from
 production. Missing translations produce an empty collection or 404, not
@@ -88,7 +88,8 @@ validates permissions, proof, targets, limits and reputation changes.
 The guardian saves conversation and may invoke the website's paid model
 service. Its reply is plaintext; publication and the large expression editor
 remain on the website. The game discloses the save/identity behavior before
-submission. The guardian thread is private to the current identity.
+submission. The guardian thread is private to the current identity. Expressions/guardian are
+part of the broader website API, not an active game section.
 
 Authorization: `Authorization: Bearer SESSION_TOKEN`, matching the website.
 Returned `token` values are adopted centrally. Never put tokens in URLs,

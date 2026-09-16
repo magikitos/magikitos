@@ -45,4 +45,4 @@ local. Visitar experimentos no cambia posiciones, crops ni guardados.
 
 Ver [Ascua y poses](DUENDES.md), la
 [guía del experimento](../../tools/adventure-studio/experiments/definition-motion/README.md)
-y el [registro de verificación](../ASCUA-RELEASE.md).
+y el [registro de verificación](../RELEASE.md).

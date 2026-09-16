@@ -14,12 +14,12 @@ SSH/GitHub authentication does not determine the email stored in a commit.
 The 16 development commits previously attributed to the work email were
 consolidated with the owner's explicit authorization on 16 September 2026.
 The original lore commit is preserved. Recovery copies stay LOCAL, never pushed.
-Details: [personal-account audio release](RELEASE-AUDIO-2026-09-16.md).
+Details: [current release ledger](RELEASE.md).
 
 For a **static-game-only** activation, after staging the verified release, a
 guarded `git merge --ff-only` of the exact reviewed website commit is sufficient:
 require a clean tracked tree and restrict the incoming diff to the pointer and
-documentation. This avoids the general website pipeline's unrelated Composer,
+documentation (and inert test/authoring scripts when reviewed). This avoids the general website pipeline's unrelated Composer,
 database backup, cache purge and media-ownership steps. If application code,
 schema or website assets change, use the normal website pipeline instead.
 

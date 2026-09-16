@@ -1,8 +1,7 @@
 # Island and resident library
 
-Implemented locally in September 2026, then included in the owner-authorized
-[15 September release](RELEASE-2026-09-15.md). This scenery/resident work does
-not change the website's API boundary or reset existing saves.
+Current resident and scene-authoring contract. This does not reset existing saves;
+release evidence is in [RELEASE.md](RELEASE.md).
 
 ## Play and scenery
 
@@ -15,11 +14,11 @@ not change the website's API boundary or reset existing saves.
   twice. Reusable gathering plants and work stations do not disappear.
 - The separate picnic basket, picnic pond and stream are removed. The picnic,
   its animation and utensils remain; existing completion still makes the humans
-  leave. The boat lake and crossing are preserved.
+  leave. The main lake and navigable river remain.
 - The existing island now has three enterable houses, vegetable beds, a seedling
   table, branch fences, flower arch, hammock and inhabited footpaths. New dialogue
   is available in all six languages. No new quest mechanics were added; existing
-  skewer, fare and shell-collector rules are unchanged.
+  sailing and shell-collector rules are documented in [SHARED-FOREST.md](SHARED-FOREST.md).
 
 ## 100 residents, not 100 simultaneously downloaded actors
 
@@ -104,14 +103,9 @@ objects is rejected. No object-specific collision branch is needed.
 5. Review `npm run studio:diff` before applying any Studio scene proposal.
    There remains one workspace, with its edit history preserved.
 
-The runtime gallery has 3,919 sprites in 176 packages, approximately **8.9 MB of
-PNG for the complete library**. That is not the initial download. Tests enforce
-under 70 KB per resident pack, fewer than 25 resident packs per prepared scene,
-under 4 MB of scene textures, and under 10.5 MB for the entire PNG collection.
-Typical tests load roughly 2.5 MB of forest textures and 1.8 MB on the island,
-depending on the local cast. Audio, JSON and bundles are separate from these
-texture measurements. The existing bounded pack cache and scene pinning remain
-responsible for runtime memory.
+Asset budgets and counts are verified by `check-adventure-residents.cjs` and
+build output, not frozen byte counts in this guide. Packs load per scene/action;
+the bounded cache pins active packs. Audio is budgeted separately.
 
 ## Verification and local preview
 
@@ -121,9 +115,9 @@ responsible for runtime memory.
   picnic, Brizno and island; real walk-in/walk-out trips through all three island
   houses, returning to the same building.
 - `npm run test:mobility`, `test:journeys`, `test:ascua`: camera resume,
-  gait/roll controls, deliberate destination interactions, pickup presentation.
+  walking/running controls, deliberate destination interactions, pickup presentation.
 - `npm run test:browser`: seven viewport sizes, six locales, interior framing,
-  directional doors, ferry, Studio and browser errors.
+  directional doors, rowing, Studio and browser errors.
 - `npm run test:gallery`: family/variant placement, all 100 residents exposed in
   the gallery, save/reload, undo and five Studio viewport sizes.
 

@@ -235,7 +235,7 @@
   "bottleName": "Plastic bottle",
   "bottleDescription": "Empty and light… just enough room for a resourceful duende.",
   "bottleFound": "A bottle! One careful cut and a couple of oars… that's a boat in the making.",
-  "binEmpty": "The useful bit is in the sack. The rubbish stays put.",
+  "binReminder": "Rubbish belongs in here, mate. Not on the ground.",
   "bottleBoatName": "Bottle boat",
   "bottleBoatDescription": "Half a bottle and the old chap’s oars. No tickets: the river belongs to everyone.",
   "riverDock": "Landing",

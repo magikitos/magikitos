@@ -889,6 +889,229 @@
           "label": "Flores blancas"
         }
       ]
+    },
+    "picnic-bin": {
+      "label": "Papelera del merendero",
+      "category": "Picnic",
+      "aliases": [
+        "picnic-bin"
+      ],
+      "defaults": {
+        "picnic-bin": "madera"
+      },
+      "template": {
+        "sprite": "picnic-bin",
+        "behavior": "picnic-bin",
+        "solid": [
+          -2,
+          -1.8,
+          4,
+          2.4
+        ],
+        "scale": 0.5
+      },
+      "variants": [
+        {
+          "id": "madera",
+          "label": "Madera",
+          "sprite": "picnic-bin"
+        }
+      ]
+    },
+    "river-craft": {
+      "label": "Barquita de botella",
+      "category": "Río",
+      "aliases": [
+        "bottle-boat"
+      ],
+      "defaults": {
+        "bottle-boat": "barquita"
+      },
+      "template": {
+        "sprite": "bottle-boat",
+        "rules": []
+      },
+      "variants": [
+        {
+          "id": "barquita",
+          "label": "Botella con remos",
+          "sprite": "bottle-boat"
+        }
+      ]
+    },
+    "woodland-cat": {
+      "defaults": {
+        "cat-ginger-down-0": "ginger",
+        "cat-tuxedo-down-0": "tuxedo",
+        "cat-silver-down-0": "silver",
+        "cat-calico-down-0": "calico",
+        "cat-siamese-down-0": "siamese"
+      },
+      "label": "Gatos del bosque",
+      "category": "Criaturas",
+      "template": {
+        "sprite": "cat-ginger-down-0",
+        "rules": [],
+        "animal": {
+          "species": "cat",
+          "range": 7
+        }
+      },
+      "aliases": [
+        "cat-ginger-down-0",
+        "cat-tuxedo-down-0",
+        "cat-silver-down-0",
+        "cat-calico-down-0",
+        "cat-siamese-down-0"
+      ],
+      "variants": [
+        {
+          "id": "ginger",
+          "label": "Canela",
+          "sprite": "cat-ginger-down-0"
+        },
+        {
+          "id": "tuxedo",
+          "label": "Calcetines",
+          "sprite": "cat-tuxedo-down-0"
+        },
+        {
+          "id": "silver",
+          "label": "Niebla",
+          "sprite": "cat-silver-down-0"
+        },
+        {
+          "id": "calico",
+          "label": "Pecas",
+          "sprite": "cat-calico-down-0"
+        },
+        {
+          "id": "siamese",
+          "label": "Café",
+          "sprite": "cat-siamese-down-0"
+        }
+      ]
+    },
+    "twig-fence": {
+      "aliases": [
+        "twig-fence-0-0",
+        "twig-fence-1-0",
+        "twig-fence-2-0"
+      ],
+      "defaults": {
+        "twig-fence-0-0": "hazel",
+        "twig-fence-1-0": "moss",
+        "twig-fence-2-0": "tied"
+      },
+      "label": "Vallitas de ramitas",
+      "category": "Construcción",
+      "template": {
+        "sprite": "twig-fence-0-0",
+        "rules": [],
+        "solid": [
+          -1,
+          -0.25,
+          2,
+          0.5
+        ]
+      },
+      "variants": [
+        {
+          "id": "hazel",
+          "label": "Avellano",
+          "sprite": "twig-fence-0-0"
+        },
+        {
+          "id": "moss",
+          "label": "Musgo",
+          "sprite": "twig-fence-1-0"
+        },
+        {
+          "id": "tied",
+          "label": "Atada",
+          "sprite": "twig-fence-2-0"
+        }
+      ]
+    },
+    "bowl-pool": {
+      "aliases": [
+        "cat-bowl",
+        "cat-bowl-pool"
+      ],
+      "defaults": {
+        "cat-bowl": "bowl",
+        "cat-bowl-pool": "pool"
+      },
+      "label": "Cuenco y piscinita",
+      "category": "Construcción",
+      "template": {
+        "sprite": "cat-bowl",
+        "rules": [],
+        "solid": [
+          -2,
+          -1.25,
+          4,
+          2.5
+        ]
+      },
+      "variants": [
+        {
+          "id": "bowl",
+          "label": "Cuenco humano",
+          "sprite": "cat-bowl"
+        },
+        {
+          "id": "pool",
+          "label": "Piscina de duendes",
+          "sprite": "cat-bowl-pool"
+        }
+      ]
+    },
+    "ground-bottle": {
+      "label": "Botella tirada",
+      "category": "Recogibles",
+      "template": {
+        "sprite": "plastic-bottle",
+        "behavior": "ground-bottle",
+        "scale": 0.65
+      },
+      "variants": [
+        {
+          "id": "original",
+          "label": "Botella tirada",
+          "sprite": "plastic-bottle"
+        }
+      ]
+    },
+    "ground-twig": {
+      "label": "Palo recogible",
+      "category": "Recogibles",
+      "template": {
+        "sprite": "twig",
+        "behavior": "picnic-twig"
+      },
+      "variants": [
+        {
+          "id": "original",
+          "label": "Palo recogible",
+          "sprite": "twig"
+        }
+      ]
+    },
+    "toilet-leaves": {
+      "label": "Planta culilimpia",
+      "category": "Recogibles",
+      "template": {
+        "sprite": "toilet-plant",
+        "behavior": "toilet-plant"
+      },
+      "variants": [
+        {
+          "id": "original",
+          "label": "Planta culilimpia",
+          "sprite": "toilet-plant"
+        }
+      ]
     }
   }
 }

@@ -235,7 +235,7 @@
   "bottleName": "Plastikflasche",
   "bottleDescription": "Leer und leicht … Platz genug für einen pfiffigen Duende.",
   "bottleFound": "Eine Flasche! Ein sauberer Schnitt, zwei Ruder … das wird ein Boot!",
-  "binEmpty": "Das Brauchbare ist im Sack. Der Müll bleibt hier.",
+  "binReminder": "Müll gehört hier rein, nicht auf den Boden.",
   "bottleBoatName": "Flaschenboot",
   "bottleBoatDescription": "Eine halbe Flasche und Opas Ruder. Kein Ticket: Der Fluss gehört allen.",
   "riverDock": "Anleger",

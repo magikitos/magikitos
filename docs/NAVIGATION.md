@@ -13,14 +13,14 @@ guardados ni la API. No desplegada en esta ronda.
 | Clic/toque en objeto empujable | Busca un lado accesible y empuja ese objeto con la física compartida. |
 | Movimiento con teclado | Conserva contacto, empuje y umbrales direccionales. |
 
-Ratón, lápiz y dedo generan la misma intención. Caminar, correr y rodar no
+Ratón, lápiz y dedo generan la misma intención. Caminar, correr y remar no
 modifican qué se ha pedido. Cerrar el diálogo no reactiva un recorrido concluido.
 La selección visual conserva el margen táctil del objeto; un toque dentro de
 ese margen es un toque en objeto, no en suelo.
 
 ## Responsabilidades
 
-- `input.js` / `map-gestures.js`: traducen teclado, toque, arrastre y doble pulsación.
+- `input.js` / `map-gestures.js`: traducen teclado, toque, arrastre, pellizco y dirección continua.
 - `journey.js`: único propietario de intención, destino, waypoints, ritmo y
   reintento. Planea `ground`, `interact`, `portal` o `push` con servicios comunes.
   Devuelve una llegada, no abre UI ni ejecuta reglas.
@@ -30,7 +30,7 @@ ese margen es un toque en objeto, no en suelo.
 - `model.js` / `collision-grid.js` / `geometry.js`: terreno, cuerpos, pies y consulta
   espacial. El propio actor queda excluido incluso al reconectar desde media celda.
 - `movement.js`: subpasos físicos y consumo completo del presupuesto de distancia.
-- `locomotion.js`: paseo/carrera/impulso; no decide quién habla ni qué se recoge.
+- `locomotion.js`: paseo/carrera; no decide quién habla ni qué se recoge.
 - `portals.js` / `movables.js`: aproximación especializada, sin otro pathfinder.
 - `game.js`: coordina esas piezas y despacha la llegada deliberada a `interact`.
   Las reacciones siguen en datos y `rules.js`; no hay casos por cartel o personaje.
@@ -51,10 +51,6 @@ No se teletransporta, atraviesa cuerpos ni sustituye silenciosamente el destino.
 Un clic nuevo, teclado, arrastre, diálogo o cambio de escena cancela el recorrido
 y sus reintentos; no hay timers sueltos ni promesas que puedan resucitarlo.
 
-Al hacer roll se vacían los waypoints, pero no la intención. Al terminar o chocar,
-se recalcula hacia el mismo objetivo sin encadenar otro roll automático. El ritmo
-no interpreta una espera temporal como proximidad al destino.
-
 Un píxel inaccesible de suelo se resuelve al iniciar hacia una celda cercana
 alcanzable (la rejilla usa 16 unidades). Ese destino resuelto queda fijo y es el
 que muestra el marcador. Un objetivo interactivo que desaparece se cancela; si
@@ -68,9 +64,9 @@ conserva posición/estado, no una orden de caminar pendiente.
 
 `npm test` incluye `check-adventure-journeys.cjs`: desvíos estáticos y dinámicos,
 bordes de cuerpos, espera y recuperación, objetivo móvil, llegada única, empuje
-explícito, roll, cancelación y contacto de teclado. Movimiento a 20/30/60/120 Hz.
+explícito, cancelación y contacto de teclado. Movimiento a 20/30/60/120 Hz.
 `check-adventure-doors.cjs` comprueba además que una ruta incidental no entra y
-que el clic deliberado y la entrada manual conservan los ocho umbrales actuales.
+que el clic deliberado y la entrada manual conservan los umbrales actuales.
 
 `npm run test:journeys` usa Chrome con ratón y táctil a 1440×900, 768×1024 y
 390×844. Cambia solo el JSON de escena de una respuesta efímera del navegador:
@@ -83,8 +79,4 @@ Las suites `test:browser` y `test:mobility` cubren también el mundo real, seis
 idiomas, siete tamaños, interiores, puertas/escaleras, barco, Studio, zoom,
 arrastre y cambios de ritmo. No sustituyen una prueba manual del gusto de juego.
 
-Entrega de esta ronda: artefacto `3f4ad9b79a06d3d2f429`, verificado en preview y DDEV
-con hashes comprobados. Pasan `npm test`, `test:browser`, `test:journeys`,
-`test:mobility` y `test:ascua`; rutas y movilidad también contra DDEV. Studio
-recompilado y abierto sin errores JS, workspace 70 sin diffs ni conflictos.
-No se han reiniciado partidas, importado datos, hecho push ni desplegado a producción.
+Resultados de publicación: [RELEASE.md](RELEASE.md).

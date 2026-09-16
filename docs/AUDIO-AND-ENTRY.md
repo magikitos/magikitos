@@ -1,7 +1,7 @@
 # Entrada, fullscreen y paisaje sonoro
 
 Implementación del 16 de septiembre de 2026, posteriormente publicada en la web
-con autorización expresa: [registro de producción](RELEASE-AUDIO-2026-09-16.md).
+con autorización expresa: [registro de producción](RELEASE.md).
 No implica publicación en tiendas. Guía nativa: [MOBILE.md](MOBILE.md).
 
 ## Comportamiento
@@ -138,40 +138,8 @@ fixture local; no se crean ni modifican contenidos del sitio para estas pruebas.
 Esto no sustituye escuchar físicamente el resultado ni probar Safari/iPhone,
 Android WebView, auriculares Bluetooth, llamadas e interrupciones del SO.
 
-### Resultado de esta entrega
-
-Artefacto local **`04c689f5c4a7b20aab65`**, instalado en DDEV y empaquetado en
-ambas plataformas. La instalación conserva releases anteriores y no modifica
-contenidos de la base de datos. El Studio existente conserva su revisión 78.
-
-- `npm test`: aprobado, incluidas las reglas de juego, guardado, escenas, atlas,
-  contratos, instalaciones, geometría y el nuevo núcleo de audio.
-- `test:browser`: aprobado contra la API local, incluidos los seis idiomas,
-  interiores, escaleras, puertas desplazadas, botella y Studio aislado de prueba.
-- `test:world-controls` y `test:input-mode`: aprobados; cuatro tamaños de pantalla
-  y cambios de entrada mouse/teclado/touch/híbrido.
-- `test:audio`: aprobado en los cuatro tamaños y la escena de río.
-- `test:mobile:package` y `mobile:sync`: aprobados. No equivalen a compilar nativo.
-- Auditorías npm completas de ambos lockfiles: sin vulnerabilidades conocidas
-  reportadas en esta fecha. No equivale a una auditoría de seguridad integral.
-- DDEV sirve HTML nuevo y MP3 con `audio/mpeg` y respuestas Range 206 correctas.
-- Workflow Android: YAML validado, disparador exclusivamente manual; no ejecutado.
-- Xcode: paquetes Swift resueltos, ningún destino iOS elegible por componente
-  ausente. No hay IPA/AAB nativo validado, firma ni entrega a tiendas.
-
-Las primeras pruebas detectaron dos problemas del arnés: el taller esperaba API
-en un servidor offline y el selector de idioma móvil se buscaba sin abrir «Yo».
-Se corrigió el contexto de esas pruebas, sin saltar las aserciones. También se
-excluyó la nueva bienvenida del manejador antiguo de cierre de modales: su evento
-de cierre diferido podía borrar la primera tecla de movimiento tras entrar.
-La repetición completa de las regresiones anteriores terminó correctamente.
-
-Logs detallados locales: `.local/audio-core-final.log`,
-`.local/audio-adventure-final.log`, `.local/audio-controls-final.log`,
-`.local/audio-modality-final.log`, `.local/audio-browser-final.log` y
-`.local/mobile-package.log`. Este bloque registra la verificación local previa;
-el push personal y las pruebas posteriores en producción se documentan en el
-[registro de publicación](RELEASE-AUDIO-2026-09-16.md).
+Resultados medidos, artefacto y límites de publicación: [RELEASE.md](RELEASE.md).
+Entrega nativa independiente: [MOBILE.md](MOBILE.md).
 
 Referencias técnicas:
 [autoplay de Chrome](https://developer.chrome.com/blog/autoplay),

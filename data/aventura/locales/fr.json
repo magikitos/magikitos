@@ -235,7 +235,7 @@
   "bottleName": "Bouteille en plastique",
   "bottleDescription": "Vide et légère… pile la place pour un duende débrouillard.",
   "bottleFound": "Une bouteille ! Une petite découpe, deux rames… ça sent le bateau !",
-  "binEmpty": "Le morceau utile est dans le sac. Les déchets restent ici.",
+  "binReminder": "Les déchets, ça va là-dedans, pas par terre !",
   "bottleBoatName": "Bateau-bouteille",
   "bottleBoatDescription": "Une demi-bouteille et les rames du vieux. Pas de billet : la rivière est à tout le monde.",
   "riverDock": "Embarcadère",

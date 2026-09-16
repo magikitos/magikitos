@@ -15,7 +15,7 @@ Sin vidas, combate, Libro del Bosque, fiambreras ni parcelas privadas.
    y el gato del picnic se marchan **al cocinar**, no al entregar. Brizno recibe
    la primera brocheta y entrega diez setines y sus remos reutilizables. Vuelve a
    tener hambre cada cinco horas; la recompensa inicial no es una granja infinita.
-3. Recuperas una botella de la papelera. En el embarcadero: botella + navaja +
+3. Recuperas una botella tirada en el suelo junto a la papelera. En el embarcadero: botella + navaja +
    remos del viejo. Solo se consume la botella. La navegación queda desbloqueada.
 4. Cinco regiones de río de 128 × 144 tiles, con orillas explorables, desembarcos,
    vegetación, recursos y corrientes. Las rápidas empujan de verdad: busca remansos.
@@ -100,8 +100,11 @@ Ramitas/hojas son contadores, no millones de instancias con ID en inventario.
 La ramita del suelo sí tiene un nodo estable: desaparece al recogerla y renueva en
 el siguiente ciclo diario. Plantas de hojas conservan su planta y renuevan cada dos
 minutos; conchas cada cinco horas. La cosecha usa tiempo del servidor al sincronizar.
-Los 44 nodos de ramitas repartidos por las orillas permiten construir explorando,
-sin golpear árboles ni un bucle obligatorio de farmeo.
+Hay doce palos colocados deliberadamente: cuatro en el bosque inicial y dos en
+cada uno de los cuatro tramos recolectores del río. No hay esparcimiento aleatorio.
+Palos y culilimpias se añaden desde la galería Recogibles del Studio; al incorporar
+el diff se registran sus IDs sin reordenar bits de partidas existentes.
+[Contrato de autoría](../data/aventura/REFACTOR.md#recogibles-en-el-studio).
 
 Definiciones estáticas se comparten; un objeto persistido guarda únicamente tipo,
 variante, media-tile x/y, orientación, autor, revisiones y agregados sociales. No se

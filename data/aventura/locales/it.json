@@ -235,7 +235,7 @@
   "bottleName": "Bottiglia di plastica",
   "bottleDescription": "Vuota e leggera… ci sta un duende ingegnoso.",
   "bottleFound": "Una bottiglia! Un bel taglio, un paio di remi… e abbiamo una barca!",
-  "binEmpty": "La parte utile è nel sacco. I rifiuti restano qui.",
+  "binReminder": "La spazzatura va qui dentro, mica per terra!",
   "bottleBoatName": "Barca-bottiglia",
   "bottleBoatDescription": "Mezza bottiglia e i remi del nonno. Niente biglietti: il fiume è di tutti.",
   "riverDock": "Approdo",

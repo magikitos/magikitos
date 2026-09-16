@@ -158,45 +158,9 @@
       "y": 102
     },
     {
-      "id": "bank-twig-1",
-      "behavior": "picnic-twig",
-      "x": 80,
-      "y": 102
-    },
-    {
-      "id": "bank-twig-2",
-      "behavior": "picnic-twig",
-      "x": 85,
-      "y": 102
-    },
-    {
-      "id": "bank-twig-3",
-      "behavior": "picnic-twig",
-      "x": 90,
-      "y": 102
-    },
-    {
-      "id": "bank-twig-4",
-      "behavior": "picnic-twig",
-      "x": 75,
-      "y": 107
-    },
-    {
-      "id": "bank-twig-5",
-      "behavior": "picnic-twig",
-      "x": 80,
-      "y": 107
-    },
-    {
       "id": "bank-twig-6",
       "behavior": "picnic-twig",
-      "x": 85,
-      "y": 107
-    },
-    {
-      "id": "bank-twig-7",
-      "behavior": "picnic-twig",
-      "x": 90,
+      "x": 85.5,
       "y": 107
     },
     {

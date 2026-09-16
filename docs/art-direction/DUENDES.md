@@ -1,12 +1,9 @@
 # Duendes · Ascua y repertorio aprobado
 
 Decisión del propietario, 14 septiembre 2026: **Ascua es el protagonista**.
-El reparto ambiental activo tiene ocho apariencias con piel natural, no familias obligatorias. Todos
-llevan gorro de pico; la combinación cobriza/petróleo y la silueta de Ascua se
-reservan al jugador. La identidad pública de cada vecino se asigna de forma
-determinista a una de las ocho apariencias; no cambia el avatar de su cuenta web.
-La lista explícita `avatarVariants` excluye las pieles verde, gris verdosa y azul
-(3, 5, 9). Sus conceptos solo permanecen en el archivo de arte/experimentos.
+Todos llevan gorro de pico; la silueta cobriza/petróleo de Ascua se reserva al jugador.
+El reparto usa los cien perfiles de [la biblioteca de residentes](../ISLET-AND-RESIDENTS.md),
+asignados de forma determinista, con pieles naturales y sin repetir familia en la zona.
 Brizno tiene identidad propia (12), fuera del reparto aleatorio.
 
 ## Arte implementado
@@ -20,16 +17,16 @@ Los maestros y prompts están en esa misma carpeta; no se descargan al jugar.
 | --- | ---: | --- |
 | Reposo + andar | 8 × 4 | Una neutral y tres pasos, gobernados por distancia |
 | Correr | 8 × 4 | Zancada propia, inclinación, brazos y botas; ciclo por distancia |
-| Rodar | 8 × (3 + 1) | Tres poses de giro + recuperación erguida de otra hoja |
+| Rodar archivado | 8 × (3 + 1) | Arte conservado, sin habilidad activa |
 | Empujar | 4 × 4 | Rodillas flexionadas, cara de esfuerzo, manos al objeto |
 | Manipular / ofrecer | 4 × 4 | Gesto genérico, objetos y herramientas separados |
 | Enseñar hallazgo | 1 × 4 | De frente, manos sobre el gorro, objeto independiente |
 | Necesidades | 2 secuencias × 4 | Mear y cagar/limpiarse, cómico y discreto |
 | Arco reservado | 8 × 3 | Arte preparado para una misión futura; no arma jugable |
 
-**164 celdas de Ascua**, 140 utilizadas por el core y 24 reservadas para el arco.
-La última fila agachada del roll antiguo no se exporta (`exportRows`); la hoja
-original queda intacta. Cada otro duende tiene 32 celdas de reposo/paseo.
+Las hojas de rodar y arco se conservan, pero no son habilidades activas ni se cargan
+por defecto. Cada residente tiene 32 celdas de reposo/paseo. Ascua además dispone
+de remado y pose colgante para el gato, documentados en sus catálogos de arte.
 Brizno tiene 32 de reposo/paseo y 32 sentado: ocho direcciones × hambre, hablar,
 contento y parpadeo. De momento solo está sentado; la hoja de paseo no se carga
 en el mapa hasta necesitarla. El banco de ramas es un objeto de arte independiente,
@@ -52,8 +49,8 @@ Recargar antes de confirmar no consume ingredientes ni dinero.
   seta, navaja y palo en este gesto, sin atlas de «cortar esta receta».
 - Fuente: el gesto de ofrecer más trayectoria y moneda; los setines pequeños
   son recuerdos del estado local, no parte de la imagen de la fuente.
-- Barco: asiento y trayecto pertenecen al transporte. No hay control de paseo
-  durante el viaje.
+- Barco: ocho orientaciones de remado; la física mueve el casco y el personaje
+  permanece sentado. Captura del gato: pose colgante, sin paseo independiente.
 
 ## Registro y definición
 
@@ -70,7 +67,7 @@ El recorte alfa conserva anclas, tamaño lógico y colisión. `ink` describe el
 
 Levantar/cargar/depositar, lanzar, trepar y nadar son módulos posibles, no
 promesas de acciones existentes ni una orden de dibujarlos ahora. Diseñar cada
-agarre y sus direcciones al aprobar el puzzle. No hay pesca, tirachinas ni mapa.
+agarre y sus direcciones al aprobar el puzzle. No hay pesca ni tirachinas.
 El arco necesita aún integración de apuntado, proyectil y revisión contextual
 antes de convertirse en mecánica.
 
@@ -80,4 +77,4 @@ sustituida por este contrato compacto. No existe compatibilidad de runtime con
 aquella propuesta.
 
 Ver [definición y vida](DEFINITION-MOTION.md) y
-[verificación de la entrega](../ASCUA-RELEASE.md).
+[verificación de la entrega](../RELEASE.md).

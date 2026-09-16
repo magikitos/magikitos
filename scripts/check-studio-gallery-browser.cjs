@@ -9,7 +9,8 @@ const { snapshot } = require("../tools/adventure-studio/snapshot.cjs");
 const temp = fs.mkdtempSync(
     path.join(os.tmpdir(), "magikitos-gallery-browser-"),
   ),
-  origin = "http://127.0.0.1:47842";
+  port = process.env.STUDIO_TEST_PORT || "47846",
+  origin = "http://127.0.0.1:" + port;
 const initialHash = snapshot(process.cwd()).baseHash;
 const errors = [];
 let server,
@@ -29,7 +30,7 @@ async function openGallery(p) {
 }
 (async () => {
   server = cp.spawn(process.execPath, ["tools/adventure-studio/server.cjs"], {
-    env: { ...process.env, STUDIO_PORT: "47842", STUDIO_DATA_DIR: temp },
+    env: { ...process.env, STUDIO_PORT: port, STUDIO_DATA_DIR: temp },
     stdio: ["ignore", "pipe", "pipe"],
   });
   await new Promise((resolve, reject) => {
@@ -107,6 +108,20 @@ async function openGallery(p) {
   await page.locator("#redo").click();
   assert(!(await read(page)).changes.overworld?.added?.[id]);
   await page.locator("#search").fill("");
+  // Functional pickups are source proposals, never writes to the live world.
+  await openGallery(page);
+  await page.locator("[data-gallery-category]").selectOption("Recogibles");
+  for (const family of ["ground-twig", "toilet-leaves", "ground-bottle"]) {
+    await page.locator('[data-family="' + family + '"] button').click();
+    const placed = await read(page), pickup = placed.selected.id;
+    assert.equal(placed.changes.overworld.added[pickup].family, family);
+    await saved(page);
+    await page.reload();
+    await ready(page);
+    assert.equal((await read(page)).changes.overworld.added[pickup].family, family);
+    await openGallery(page);
+    await page.locator("[data-gallery-category]").selectOption("Recogibles");
+  }
   // The complete resident library is editable through the same family/variant UI.
   await openGallery(page);
   await page

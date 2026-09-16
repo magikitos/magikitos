@@ -39,7 +39,7 @@ const state = cleanSave(null, catalog),
   nodes = catalog.scenes.overworld.entities.filter(
     (e) => e.resource?.region === "overworld",
   );
-check(nodes.length === 12, "Stable registry covers all authored twigs");
+check(nodes.length === 4, "Four intentionally placed twigs, not a carpet of pickups");
 const now = 86400000 * 20200 + 1000;
 let saved = state;
 for (const node of nodes) {
@@ -48,10 +48,10 @@ for (const node of nodes) {
   check(!active(node, saved, { now }), node.id + " disappears immediately");
   check(!planReaction(node, saved, catalog, { now }), "Cannot gather twice");
 }
-check(saved.inventory.twig === 12, "Inventory stacks counts, not instances");
+check(saved.inventory.twig === nodes.length, "Inventory stacks counts, not instances");
 check(
   saved.resources.overworld.bits.length === 3,
-  "12 pickups use three hex characters",
+  "Sparse pickups retain their stable bits in three hex characters",
 );
 const restored = {
   ...saved,

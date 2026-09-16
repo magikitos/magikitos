@@ -485,7 +485,8 @@
       "id": "picnic-mushroom",
       "behavior": "picnic-mushroom",
       "x": 33,
-      "y": 68
+      "y": 68,
+      "scale": 0.85
     },
     {
       "id": "picnic-twig",
@@ -1182,11 +1183,18 @@
       "rules": []
     },
     {
-      "id": "picnic-bin",
+      "id": "picnic-trash-bin",
       "behavior": "picnic-bin",
       "scale": 0.5,
       "x": 16.5,
       "y": 30
+    },
+    {
+      "id": "picnic-bin",
+      "behavior": "ground-bottle",
+      "scale": 0.65,
+      "x": 19,
+      "y": 31
     },
     {
       "id": "picnic-twigs",
@@ -1195,58 +1203,10 @@
       "y": 32
     },
     {
-      "id": "twig-grove-west",
-      "behavior": "picnic-twig",
-      "x": 16,
-      "y": 19
-    },
-    {
-      "id": "twig-grove-east",
-      "behavior": "picnic-twig",
-      "x": 29,
-      "y": 22
-    },
-    {
-      "id": "twig-fern",
-      "behavior": "picnic-twig",
-      "x": 24,
-      "y": 39
-    },
-    {
-      "id": "twig-stump",
-      "behavior": "picnic-twig",
-      "x": 35,
-      "y": 32
-    },
-    {
-      "id": "twig-camp",
-      "behavior": "picnic-twig",
-      "x": 25,
-      "y": 76
-    },
-    {
-      "id": "twig-dock",
-      "behavior": "picnic-twig",
-      "x": 87,
-      "y": 44
-    },
-    {
       "id": "twig-fountain",
       "behavior": "picnic-twig",
       "x": 44,
       "y": 38
-    },
-    {
-      "id": "twig-workshop",
-      "behavior": "picnic-twig",
-      "x": 57,
-      "y": 33
-    },
-    {
-      "id": "twig-moss",
-      "behavior": "picnic-twig",
-      "x": 52,
-      "y": 63
     },
     {
       "id": "twig-root",

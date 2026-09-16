@@ -27,31 +27,32 @@ function gameContract(world) {
           Object.entries(world.scenes).map(([scene, data]) => [
             scene,
             Object.fromEntries(
-              data.entities
-                .filter((e) =>
-                  e.rules?.some((r) =>
-                    r.effects.some((f) =>
-                      [
-                        "item",
-                        "flag",
-                        "collect",
-                        "reward",
-                        "timer",
-                        "spend",
-                      ].includes(f.type),
-                    ),
-                  ),
-                )
-                .map((e) => [
-                  e.id,
-                  {
-                    rules: e.rules,
-                    hiddenWhen: e.hiddenWhen,
-                    visibleWhen: e.visibleWhen,
-                    resource: e.resource,
-                    requires: data.requires,
-                  },
-                ]),
+              // Retired ground nodes are terminal no-op commands, not hidden
+              // entities. Older/offline clients receive no_material_action and
+              // drain their durable outbox without minting deleted resources.
+              (world.resourceRegions[scene]?.nodes || [])
+                .filter((id) => !data.entities.some((e) => e.id === id))
+                .map((id) => [id, { rules: [{ effects: [] }] }])
+                .concat(
+                  data.entities
+                    .filter((e) =>
+                      e.rules?.some((r) =>
+                        r.effects.some((f) =>
+                          ["item", "flag", "collect", "reward", "timer", "spend"].includes(f.type),
+                        ),
+                      ),
+                    )
+                    .map((e) => [
+                      e.id,
+                      {
+                        rules: e.rules,
+                        hiddenWhen: e.hiddenWhen,
+                        visibleWhen: e.visibleWhen,
+                        resource: e.resource,
+                        requires: data.requires,
+                      },
+                    ]),
+                ),
             ),
           ]),
         ),

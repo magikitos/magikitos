@@ -17,18 +17,15 @@ cats, cooking, bottle navigation and community construction, backed by
 
 Current art direction: [Ascua and the approved compact cast](docs/art-direction/DUENDES.md),
 [2× integrated textures and selective motion](docs/art-direction/DEFINITION-MOTION.md).
-Current controls, Brizno and the restaurant story notes: [mobility and Brizno](docs/MOBILITY-BRIZNO.md).
+Current design: [game guide](docs/JUEGO-AVENTURA.md); controls and first adventure:
+[shared woodland](docs/SHARED-FOREST.md).
 Click intentions, live obstacle avoidance and regression tests: [navigation](docs/NAVIGATION.md).
 For operations and verified delivery, see [releasing](docs/RELEASING.md) and
-[the current release ledger](docs/RELEASE-AUDIO-2026-09-16.md).
+[the current release ledger](docs/RELEASE.md).
 The [entry and audio implementation](docs/AUDIO-AND-ENTRY.md) covers music,
 river ambience and fullscreen. [Mobile packaging and store workflows](docs/MOBILE.md)
 documents the shared Capacitor projects, TestFlight/Play steps and outstanding
 native validation; no native app has been built or published to stores.
-The [health review and next steps](docs/HEALTH-AND-NEXT-STEPS-2026-09-16.md)
-distinguish verified behavior from remaining maintenance and device testing.
-The [next-chapter proposal](docs/NEXT-CHAPTER-PROPOSAL.md) is a discussion, not
-implemented gameplay or an approved development commitment.
 The [resident and island guide](docs/ISLET-AND-RESIDENTS.md) covers the preserved
 100-NPC library, scene casting, open houses and expanded island.
 
@@ -164,16 +161,10 @@ See [local development](docs/LOCAL-DEVELOPMENT.md),
 [completed repository boundary](docs/REPOSITORY-BOUNDARY.md),
 [API contract](docs/API.md) and [OpenAPI](docs/world-api.openapi.json).
 
-The [woodland collection and core review](docs/WOODLAND-KIT.md) documents the
-71 new sprites, natural interiors, stable Studio variants and pushable props.
-
-The [local polish review](docs/POLISH-REVIEW.md) records what changed, the
-checks actually run and the remaining boundaries. See also the
-[original art direction and prompts](docs/art-direction/PROMPTS.md).
-
-The [island and resident library](docs/ISLET-AND-RESIDENTS.md) covers the
-100 new NPC profiles, Brizno, open-door editions, Studio families and scene-local
-loading. These changes are local; they do not imply a production deployment.
+Authoring guides: [woodland art](docs/WOODLAND-KIT.md),
+[original art and prompts](data/aventura/ART.md),
+[100 residents and Brizno](docs/ISLET-AND-RESIDENTS.md),
+[collectibles and data rules](data/aventura/REFACTOR.md).
 
 ## Contributing
 
