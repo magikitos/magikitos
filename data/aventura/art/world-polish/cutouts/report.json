@@ -1,0 +1,38 @@
+{
+    "tavern-feast": {
+        "bounds": [
+            38,
+            57,
+            1474,
+            869
+        ],
+        "alpha": 0.684
+    },
+    "riverbank-bamboo": {
+        "bounds": [
+            163,
+            116,
+            733,
+            1122
+        ],
+        "alpha": 0.818
+    },
+    "walnut-boat": {
+        "bounds": [
+            151,
+            108,
+            1516,
+            622
+        ],
+        "alpha": 0.777
+    },
+    "ground-planter": {
+        "bounds": [
+            342,
+            110,
+            863,
+            716
+        ],
+        "alpha": 0.727
+    }
+}

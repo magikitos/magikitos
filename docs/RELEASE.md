@@ -1,9 +1,45 @@
-# Release vigente
+# Estado de entregas
 
 Registro operativo único. El historial de entregas y decisiones descartadas vive
-en Git, no en varias guías contradictorias. Actualizar este archivo al publicar.
+en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
+de una activación en producción.
 
-## Producción
+## Candidato local: bosque y ribera — 16 septiembre 2026
+
+Artefacto `507c9904749f586adcdd`, instalado en DDEV. **No desplegado a producción**;
+el puntero local de la web no se incluye en el push. El código parte del juego
+`dfe4497` y la web `b7e66a3c`, conservando la integración de la pestaña Aventura.
+
+- Bosque inicial de 144×112 tiles, nueve ramales, casas más separadas y picnic
+  delimitado por vegetación. Brizno y su barbacoa están junto a su casa y el muelle.
+- Botella disponible solo después de cocinar, también en el contrato de la API.
+  Se van los humanos, permanece su gato y aparece un segundo de otra variedad.
+- Gatos con torso registrado entre fases, cadencia ligada a distancia y regreso
+  con reintento de ruta; no se teletransportan ni quedan abandonados al soltar.
+- Taberna de 40×32 con tres corrillos, personajes mirando hacia sus mesas y
+  menaje reutilizable. Las entradas usan el spawn de su habitación, sin duplicarlo.
+- Cinco tramos amplios con perfiles de orilla compartidos por dibujo, colisión
+  y corriente. Estelas sin flechas, bambú, pescadores y barquita de cáscara.
+- Jardín de los gatos conectado antes de los rincones comunitarios: cinco macetas
+  movibles ocultan al jugador; el cuenco permite construir la piscina.
+- Maceta de base invertida sustituida sin romper su ID. Arte nuevo y sus fuentes
+  revisadas en `data/aventura/art/world-polish/`; packs antiguos sustituidos retirados
+  del árbol público, recuperables en Git y `.local/art-history/world-polish-20260916/`.
+
+Verificado: `npm test`, 15 capturas de escenas, suite general de navegador
+(siete tamaños, interiores, puertas, guardado, seis idiomas y Studio), captura y
+regreso de gatos en tres tamaños, receta en cinco, galería/variantes en cinco,
+recogibles en cuatro y movimiento/cámara en tres, integración con la web y
+colocación/retirada/reembolso de valla y piscina con API
+real local en escritorio, tablet y móvil. Backend local: 34 comprobaciones de
+autoridad y 13 de concurrencia. Solo fixtures identificadas, retiradas al acabar.
+
+Los 100 duendes, partidas, autoría del Studio y construcciones previas se conservan.
+El Studio no tiene cambios pendientes ni conflictos tras el rebase. Las pruebas
+responsive usan Chrome automatizado; no certifican dispositivos físicos ni Safari.
+Pasos reproducibles: [LOCAL-DEVELOPMENT.md](LOCAL-DEVELOPMENT.md).
+
+## Última producción verificada (anterior a este candidato)
 
 Última activación verificada: `18b22405a8894271294f`, 16 septiembre 2026.
 Fuente del artefacto: `b683ed8960cf7c5cb240409cf836cca9f028b626`.
@@ -17,7 +53,7 @@ SHA-256 de `release.json`:
 limitado al puntero, documentación y herramientas de prueba/autoría inertes:
 sin cambios de backend, migraciones, seed, importaciones ni escrituras en partidas.
 
-## Pulido publicado
+### Alcance publicado
 
 - Botella independiente en el suelo junto a la papelera; mismo ID autoritativo.
 - Doce palos colocados: cuatro en el bosque y dos por tramo recolector del río.
@@ -27,7 +63,7 @@ sin cambios de backend, migraciones, seed, importaciones ni escrituras en partid
 - Quince documentos obsoletos retirados, recuperables en Git. Guías vigentes
   consolidadas; `REPOS.md` privado resume la separación real sin duplicar este registro.
 
-## Verificación
+### Verificación de aquella activación
 
 Local: `npm test`; recogibles en cuatro tamaños; galería/autoría y receta
 completa en cinco tamaños; 33 comprobaciones locales de autoridad, 13 de
@@ -68,4 +104,3 @@ de los dieciséis commits de desarrollo del 16-sep conservó el commit fundacion
 `refs/backup/audio-before-personal-squash-20260916`. La web no reescribió historial.
 
 La entrega nativa queda para su agente responsable: [MOBILE.md](MOBILE.md).
-No hay nuevas misiones ni expansión de mapa en este pulido.

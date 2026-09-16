@@ -131,12 +131,23 @@ async function pinch(page) {
     const out = await inspect(page);
     coverage(out);
     assert(out.scale < initial.scale, "Wheel zooms the complete world");
-    assert(Math.abs(out.scale-Math.max(width/out.bounds.width,height/out.bounds.height))<1e-7,"Outdoor zoom reaches real map coverage limit");
+    assert(
+      Math.abs(
+        out.scale -
+          Math.max(width / out.bounds.width, height / out.bounds.height),
+      ) < 1e-7,
+      "Outdoor zoom reaches real map coverage limit",
+    );
     await page.waitForTimeout(400);
-    const cached=(await inspect(page)).terrainBuilds;
+    const cached = (await inspect(page)).terrainBuilds;
     await page.waitForTimeout(400);
-    assert.equal((await inspect(page)).terrainBuilds,cached,"Full zoom-out reuses visible terrain chunks without cache thrashing");
-    for (let n = 0; n < 5; n++) await page.mouse.wheel(0, -1000);
+    assert.equal(
+      (await inspect(page)).terrainBuilds,
+      cached,
+      "Full zoom-out reuses visible terrain chunks without cache thrashing",
+    );
+    // Larger authored maps have a lower fit scale: traverse the full zoom range.
+    for (let n = 0; n < 16; n++) await page.mouse.wheel(0, -1000);
     await page.waitForTimeout(150);
     assert(
       Math.abs(
@@ -453,22 +464,23 @@ async function pinch(page) {
     await page.waitForTimeout(300);
     await page.keyboard.up("ArrowRight");
     const during = await inspect(page);
-    assert.deepEqual(
-      during.player,
-      before.player,
-      "Crafting stays in place",
-    );
+    assert.deepEqual(during.player, before.player, "Crafting stays in place");
     await wait(
       page,
       () => window.MagikitosAdventure.inspect().inventory.boat === 1,
     );
     await page.keyboard.press("Enter");
-    await clickWorld(page, 93.375*TILE, 45.2*TILE);
-    await wait(page, () => window.MagikitosAdventure.inspect().navigation.mode === "boat");
+    await clickWorld(page, 93.375 * TILE, 45.2 * TILE);
+    await wait(
+      page,
+      () => window.MagikitosAdventure.inspect().navigation.mode === "boat",
+    );
     await page.screenshot({ path: path.join(shots, "bottle-craft.png") });
     assert.equal((await inspect(page)).wallet.balance, 10);
     assert.equal((await inspect(page)).inventory.knife, 1);
-    console.log("PASS atomic bottle crafting and playable boarding without fare");
+    console.log(
+      "PASS atomic bottle crafting and playable boarding without fare",
+    );
     await page.close();
   }
   // Full browser autosave/crop test uses an isolated Studio, never the user's working version.

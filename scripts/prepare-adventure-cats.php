@@ -30,6 +30,27 @@ function prepareCatSource(string $dir, string $id, array &$reports): GdImage
     return $source;
 }
 $reports = [];
+/** Register the torso, not the toes: a walking paw must move without bouncing
+ * the entire cat. Ignore the tail/feet bands; keep one scale for the whole clip. */
+function registerCatWalk(GdImage $image, array $grid, array $cells, float $scale, array $offset): array
+{
+    $centres = [];
+    foreach ($cells as $cell) {
+        [$sx,$sy,$sw,$sh] = adventureSourceCell($image, ['grid'=>$grid,'cell'=>$cell]);
+        $mx=0; $my=0; $mass=0;
+        for ($y=(int)($sh*.30); $y<(int)($sh*.72); $y++) for ($x=0; $x<$sw; $x++) {
+            $alpha = imagecolorat($image,$sx+$x,$sy+$y) >> 24 & 127;
+            if ($alpha > 32) continue;
+            $mx += $x; $my += $y; $mass++;
+        }
+        if (!$mass) throw new RuntimeException('Empty cat torso');
+        $centres[] = [$mx/$mass, $my/$mass];
+    }
+    $mean=[array_sum(array_column($centres,0))/count($centres),array_sum(array_column($centres,1))/count($centres)];
+    return array_map(static fn($c)=>['scale'=>$scale,'offset'=>[
+        $offset[0]+max(-2,min(2,($mean[0]-$c[0])*$scale)),
+        $offset[1]+max(-3,min(3,($mean[1]-$c[1])*$scale))]],$centres);
+}
 foreach (['ginger', 'tuxedo', 'silver', 'calico', 'siamese', 'ascua-carried-hanging', 'old-oars', 'cat-bowl', 'twig-fence', 'garden-seeds'] as $id) {
     $source=prepareCatSource($dir, $id, $reports);
     $w=imagesx($source); $h=imagesy($source);
@@ -66,16 +87,20 @@ foreach (['ginger', 'tuxedo', 'silver', 'calico', 'siamese', 'ascua-carried-hang
         // Four separately drawn walking phases; retain the original idle/pickup masters.
         $walk = prepareCatSource($dir, "$id-walk", $reports);
         $scale=56/(imagesy($walk)/4);
-        foreach ($directions as $col=>$direction) for ($row=0;$row<4;$row++)
+        foreach ($directions as $col=>$direction) {
+          $registration=registerCatWalk($walk,[8,4],array_map(static fn($row)=>[$col,$row],range(0,3)),$scale,[(64-(imagesx($walk)/8)*$scale)/2,2]);
+          for ($row=0;$row<4;$row++)
             $frames["cat-$id-$direction-walk-$row"] = ['source'=>"data/aventura/art/cats/cutouts/$id-walk.png",'grid'=>[8,4],'cell'=>[$col,$row],'size'=>[64,64],'anchor'=>[32,58],
-                'preserveCanvas'=>true,'registration'=>['scale'=>$scale,'offset'=>[(64-(imagesx($walk)/8)*$scale)/2,2]]];
+                'preserveCanvas'=>true,'registration'=>$registration[$row]];
+        }
         // Rear-only redraw makes the alternating hind paws explicit, not a mirrored coat.
         $rear=prepareCatSource($dir, "$id-rear", $reports);
         $bounds=adventureVisibleBounds($rear,[0,0,imagesx($rear),imagesy($rear)],"$id-rear");
         $ratio=54/$bounds[3];
+        $registration=registerCatWalk($rear,[4,1],array_map(static fn($row)=>[$row,0],range(0,3)),$ratio,[(64-imagesx($rear)/4*$ratio)/2,56-($bounds[1]+$bounds[3])*$ratio]);
         for($row=0;$row<4;$row++)
             $frames["cat-$id-up-walk-$row"]=['source'=>"data/aventura/art/cats/cutouts/$id-rear.png",'grid'=>[4,1],'cell'=>[$row,0],'size'=>[64,64],'anchor'=>[32,58],
-                'preserveCanvas'=>true,'registration'=>['scale'=>$ratio,'offset'=>[(64-imagesx($rear)/4*$ratio)/2,56-($bounds[1]+$bounds[3])*$ratio]]];
+                'preserveCanvas'=>true,'registration'=>$registration[$row]];
         unset($walk,$rear);
     }
     file_put_contents("$root/data/aventura/assets/$pack.json", json_encode(['frames'=>$frames], JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES)."\n");

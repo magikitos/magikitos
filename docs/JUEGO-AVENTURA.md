@@ -44,7 +44,8 @@ barrigón junto a la barbacoa, sí. La secuencia y las reglas comunitarias está
 en [SHARED-FOREST.md](SHARED-FOREST.md), única guía detallada del recorrido:
 navaja y mechero vigilados por un gato → porción de seta y palo → brocheta →
 remos y setines → botella del suelo junto a la papelera → navegación libre.
-Los humanos se marchan al cocinar. Brizno vuelve a tener hambre cada cinco horas;
+Los humanos se marchan al cocinar: aparece la botella y se suma un segundo gato,
+sin retirar el primero. Brizno vuelve a tener hambre cada cinco horas;
 solo la primera entrega paga el premio y da los remos. No hay ferry de pago.
 
 Palos y plantas culilimpia se colocan deliberadamente, no se esparcen al azar.

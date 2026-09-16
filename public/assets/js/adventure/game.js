@@ -803,7 +803,8 @@ class Adventure {
     // the threshold, so it stays glued exactly as before; the only moment this
     // eases is right after you moved the map, which is the jolt it exists for.
     const gap = Math.hypot(target.x - this.camera.x, target.y - this.camera.y);
-    if (snap || (tracking && !reading && gap <= CAMERA_LOCK)) this.camera = target;
+    if (snap || (tracking && !reading && gap <= CAMERA_LOCK))
+      this.camera = target;
     else {
       this.camera.x += (target.x - this.camera.x) * this.cameraEase;
       this.camera.y += (target.y - this.camera.y) * this.cameraEase;
@@ -864,6 +865,7 @@ class Adventure {
         n.moving = false;
         if (n.lookAt)
           n.direction = facing(n.lookAt.x - n.x, n.lookAt.y - n.y, n.direction);
+        if (n.radius === 0) continue;
         n.pause -= dt;
         if (n.pause <= 0) {
           const target = {
@@ -1071,13 +1073,17 @@ class Adventure {
         claimed: { ...this.state.wallet.claimed },
       },
       transitioning: this.transitioning,
-      cats: this.cats.actors.map((c) => ({
-        id: c.id,
-        x: c.x,
-        y: c.y,
-        phase: c.phase,
-        direction: c.direction,
-      })),
+      cats: this.cats.actors
+        .filter((c) => active(c, this.state))
+        .map((c) => ({
+          id: c.id,
+          x: c.x,
+          y: c.y,
+          phase: c.phase,
+          direction: c.direction,
+          home: { ...c.home },
+          moving: c.moving,
+        })),
       carried: this.cats.carrier?.id || null,
       sequence: this.sequence.inspect(),
       navigation: {

@@ -7,8 +7,8 @@ const CARRY_DISTANCE = 880; // Five times the original 176px setback.
 const CARRY_SPEED = 91;
 // Walking home at patrol speed would take ~30s from a 880px drop, so the cat
 // would still be wandering the wrong side of the map long after the joke landed.
-const RETURN_SPEED = 62;
-const PATROL_SPEED = 29;
+const RETURN_SPEED = 76;
+const PATROL_SPEED = 34;
 
 /** Slab intersection, including a ray that starts inside cover. */
 function crosses(a, b, rect) {
@@ -88,7 +88,8 @@ class CatEncounters {
       (e) => e.visionBlocker || e.pushable || e.wall,
     );
     this.actors = g.world.entities
-      .filter((e) => e.animal?.species === "cat" && active(e, g.state))
+      // Keep dormant definitions: a story flag may bring another cat into this scene.
+      .filter((e) => e.animal?.species === "cat")
       .slice(0, 8)
       .map((def) => ({
         ...def,
@@ -105,6 +106,7 @@ class CatEncounters {
         routeIndex: 0,
         walkDistance: 0,
         moving: false,
+        routeRetry: 0,
         rand: random(hash(def.id)),
       }))
       .filter(
@@ -122,80 +124,61 @@ class CatEncounters {
     cat.elapsed = 0;
     cat.path = [];
     cat.think = 0;
+    cat.routeRetry = 0;
+  }
+  withoutPassenger(work) {
+    const world = this.game.world,
+      actors = world.actors;
+    world.actors = actors.filter((a) => a !== this.game.player);
+    try {
+      return work();
+    } finally {
+      world.actors = actors;
+    }
+  }
+  dropPoint(cat) {
+    const world = this.game.world;
+    // Put the passenger on dry ground away from the homeward route. The cat
+    // itself never teleports, and neither body starts inside the other.
+    const away = Math.atan2(cat.y - cat.home.y, cat.x - cat.home.x);
+    return this.withoutPassenger(() => {
+      for (const radius of [26, 34, 44])
+        for (let i = 0; i < 8; i++) {
+          const angle =
+            away + ((i % 2 ? 1 : -1) * Math.ceil(i / 2) * Math.PI) / 4;
+          const p = {
+            x: cat.x + Math.cos(angle) * radius,
+            y: cat.y + Math.sin(angle) * radius,
+          };
+          if (world.canStand(p.x, p.y) && world.clearSegment(cat, p, cat))
+            return p;
+        }
+      return this.safePosition;
+    });
   }
   release(cat) {
     const g = this.game;
     if (this.carrier === cat) {
-      // ⛔ THE CAT STEPS ASIDE FIRST, THEN YOUR FEET LAND WHERE IT WAS — in that
-      // order. Doing it the other way round leaves the cat inside you: it cannot
-      // route out (findPath rejects a blocked origin and its neighbours), and
-      // even with a route follow() is stopped on the first step by the body it
-      // is standing in. That, and not distraction, is why a cat used to sit
-      // wherever it dropped you forever. Stepping aside is also what a cat that
-      // puts something down actually does.
-      const drop = { x: cat.x, y: cat.y };
-      for (const [dx, dy] of [
-        [0, 1],
-        [1, 0],
-        [-1, 0],
-        [0, -1],
-        [1, 1],
-        [-1, 1],
-        [1, -1],
-        [-1, -1],
-      ]) {
-        const nx = cat.x + dx * TILE * 1.5,
-          ny = cat.y + dy * TILE * 1.5;
-        if (g.world.canStand(nx, ny, cat)) {
-          cat.x = nx;
-          cat.y = ny;
-          break;
-        }
-      }
-      // Feet stay on the same tested path as the carrier. A failed route also releases safely.
-      if (g.world.canStand(drop.x, drop.y, g.player))
-        Object.assign(g.player, drop);
-      else if (this.safePosition) Object.assign(g.player, this.safePosition);
+      const drop = this.dropPoint(cat);
+      if (drop) Object.assign(g.player, drop);
       this.carrier = null;
       this.safePosition = null;
-      // ⛔ And it steps aside. Your feet land on the carrier's exact spot, so
-      // without this the cat is UNDER you: it cannot stand where it is, every
-      // route out of there fails, and even with a route follow() is blocked by
-      // you on the first step. That — not distraction — is why a cat used to sit
-      // wherever it dropped you forever. A cat that puts you down moves over
-      // anyway, so the fix is also what it should have been doing.
-      for (const [dx, dy] of [
-        [0, 1],
-        [1, 0],
-        [-1, 0],
-        [0, -1],
-        [1, 1],
-        [-1, 1],
-        [1, -1],
-        [-1, -1],
-      ]) {
-        const nx = cat.x + dx * TILE,
-          ny = cat.y + dy * TILE;
-        if (g.world.canStand(nx, ny, cat)) {
-          cat.x = nx;
-          cat.y = ny;
-          break;
-        }
-      }
       g.pauseMovement();
       g.dirty = true;
       g.save();
       g.toast(g.text("catReleased"));
     }
     this.grace = 7;
-    // "homeward", not "return": a cat that has just carried you off walks back
-    // to its own patch and ignores you on the way. With the shared "return"
-    // phase it stayed eligible to notice you again (that list includes it), so
-    // seven seconds later it grabbed you a second time and never got home —
-    // which is why the cat appeared to just stay wherever it dropped you.
+    // No pursuit while returning, even after the passenger's grace expires.
     this.change(cat, "homeward");
+    cat.direction = facing(
+      cat.home.x - cat.x,
+      cat.home.y - cat.y,
+      cat.direction,
+    );
   }
   capture(cat) {
+    if (this.carrier || this.grace) return;
     const g = this.game;
     const path = safeDrop(g.world, cat, cat.rand);
     if (!path) {
@@ -224,6 +207,12 @@ class CatEncounters {
   }
   update(dt) {
     const g = this.game;
+    if (this.colliderSet !== g.world.colliders) {
+      this.colliderSet = g.world.colliders;
+      this.blockers = g.world.colliders.filter(
+        (e) => e.visionBlocker || e.pushable || e.wall,
+      );
+    }
     if (g.transitioning || g.dialogue || g.hasOverlay() || g.community?.editing)
       return;
     this.grace = Math.max(0, this.grace - dt);
@@ -234,6 +223,7 @@ class CatEncounters {
       }
       cat.elapsed += dt;
       cat.think -= dt;
+      cat.routeRetry -= dt;
       cat.moving = false;
       if (this.carrier === cat) {
         if (cat.phase === "pickup" && cat.elapsed >= 0.42) {
@@ -241,9 +231,7 @@ class CatEncounters {
           cat.path = cat.carryPath;
         } else if (cat.phase === "carry") {
           // The carried player is not an obstacle to the carrier.
-          const actors = g.world.actors;
-          g.world.actors = actors.filter((a) => a !== g.player);
-          try {
+          this.withoutPassenger(() => {
             cat.moving = follow(g.world, cat, cat.path, dt, CARRY_SPEED);
             if (
               !cat.moving &&
@@ -254,9 +242,7 @@ class CatEncounters {
               cat.path = g.world.path(cat, cat.carryTarget) || [];
               cat.moving = follow(g.world, cat, cat.path, dt, CARRY_SPEED);
             }
-          } finally {
-            g.world.actors = actors;
-          }
+          });
           Object.assign(g.player, {
             x: cat.x,
             y: cat.y,
@@ -298,37 +284,15 @@ class CatEncounters {
       } else if (cat.phase === "homeward") {
         if (cat.path.length)
           cat.moving = follow(g.world, cat, cat.path, dt, RETURN_SPEED);
-        else if (distance(cat, cat.home) < TILE) {
+        if (distance(cat, cat.home) < TILE * 2) {
           // Home again: curious as ever.
           this.change(cat, "idle");
           cat.wait = 1 + cat.rand();
-        } else {
-          // ⛔ THE PLAYER IS STANDING ON THE CAT. release() puts your feet at the
-          // carrier's exact position, so for the first frames the cat cannot
-          // stand where it is and EVERY route out of there fails — findPath
-          // rejects an origin that is not standable and its eight neighbours are
-          // measured against you too. That is the real reason a cat never walked
-          // home: not distraction, no route at all. Same trick as the carry
-          // itself: the passenger it just put down is not an obstacle to it.
-          const actors = g.world.actors;
-          g.world.actors = actors.filter((a) => a !== g.player);
-          try {
-            // approach(), not path(): the cat's own spot is routinely taken by a
-            // wandering resident by the time it gets back, and findPath refuses
-            // a destination whose exact cell is occupied.
-            cat.path =
-              g.world.approach(cat, cat.home, 3) ||
-              g.world.path(cat, cat.home) ||
-              [];
-          } finally {
-            g.world.actors = actors;
-          }
-          if (!cat.path.length) {
-            // Genuinely unreachable: stop recomputing an impossible route every
-            // frame and just live here now.
-            this.change(cat, "idle");
-            cat.wait = 1 + cat.rand();
-          }
+        } else if (!cat.path.length && cat.routeRetry <= 0) {
+          // Use the SAME live obstacles for planning and movement. Ignoring the
+          // player just in A* repeatedly planned a route through their body.
+          cat.path = g.world.approach(cat, cat.home, 2) || [];
+          cat.routeRetry = cat.path.length ? 0.4 : 1.2;
         }
       } else {
         if (!cat.path.length) {
@@ -351,7 +315,7 @@ class CatEncounters {
     const row = ["pickup", "drop"].includes(cat.phase)
       ? 4
       : cat.moving
-        ? `walk-${Math.floor(cat.walkDistance / 6) % 4}`
+        ? `walk-${Math.floor(cat.walkDistance / 9) % 4}`
         : 0;
     return `cat-${cat.variant}-${cat.direction}-${row}`;
   }

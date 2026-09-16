@@ -70,7 +70,10 @@ const origin = process.env.GAME_ORIGIN || "http://127.0.0.1:47834";
         { timeout: 45000 },
       );
       const released = await inspect();
-      const setback=Math.hypot(released.player.x-caught.player.x,released.player.y-caught.player.y);
+      const setback = Math.hypot(
+        released.player.x - caught.player.x,
+        released.player.y - caught.player.y,
+      );
       assert(
         Math.hypot(
           released.player.x - caught.player.x,
@@ -84,6 +87,25 @@ const origin = process.env.GAME_ORIGIN || "http://127.0.0.1:47834";
         (await inspect()).carried,
         null,
         "Release grace prevents immediate recapture",
+      );
+      await page.waitForFunction(
+        (id) => {
+          const cat = window.MagikitosAdventure.inspect().cats.find(
+            (c) => c.id === id,
+          );
+          return (
+            cat &&
+            Math.hypot(cat.x - cat.home.x, cat.y - cat.home.y) < 32 &&
+            cat.phase !== "homeward"
+          );
+        },
+        caught.carried,
+        { timeout: 45000 },
+      );
+      assert.equal(
+        (await inspect()).carried,
+        null,
+        "Returning cat does not recapture its passenger",
       );
       await page.reload();
       await require("./browser-entry.cjs").enterWorld(page);

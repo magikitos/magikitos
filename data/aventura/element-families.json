@@ -1,5 +1,85 @@
 {
   "families": {
+    "tavern-feast": {
+      "label": "Mesa puesta",
+      "category": "Taberna",
+      "template": {
+        "sprite": "feast-beer",
+        "rules": []
+      },
+      "variants": [
+        {
+          "id": "beer",
+          "label": "Jarras de cerveza",
+          "sprite": "feast-beer"
+        },
+        {
+          "id": "wine",
+          "label": "Vino",
+          "sprite": "feast-wine"
+        },
+        {
+          "id": "skewers",
+          "label": "Brochetas",
+          "sprite": "feast-skewers"
+        },
+        {
+          "id": "cheese",
+          "label": "Queso y pan",
+          "sprite": "feast-cheese"
+        },
+        {
+          "id": "pitcher",
+          "label": "Jarra y vasos",
+          "sprite": "feast-pitcher"
+        },
+        {
+          "id": "bottles",
+          "label": "Botellas y aperitivo",
+          "sprite": "feast-bottles"
+        },
+        {
+          "id": "stew",
+          "label": "Guiso",
+          "sprite": "feast-stew"
+        },
+        {
+          "id": "tray",
+          "label": "Bandeja",
+          "sprite": "feast-tray"
+        }
+      ]
+    },
+    "riverbank-bamboo": {
+      "label": "Cañas de bambú",
+      "category": "Vegetación",
+      "template": {
+        "sprite": "riverbank-bamboo",
+        "rules": []
+      },
+      "variants": [
+        {
+          "id": "green",
+          "label": "Verdes",
+          "sprite": "riverbank-bamboo"
+        }
+      ]
+    },
+    "river-neighbor-boat": {
+      "label": "Barquita de nuez",
+      "category": "Río",
+      "template": {
+        "sprite": "walnut-boat-0",
+        "rules": []
+      },
+      "variants": [
+        {
+          "id": "walnut",
+          "label": "Nuez y corcho",
+          "sprite": "walnut-boat-0"
+        }
+      ]
+    },
     "log-home": {
       "label": "Casas de tronco",
       "category": "Casitas",

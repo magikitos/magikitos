@@ -1,9 +1,11 @@
 "use strict";
-const { TILE, riverOffset, random } = require("./geometry");
+const { TILE, random } = require("./geometry");
+const { riverSection, riverEnvelope } = require("./river-course");
 const { currentAt } = require("./river-navigation");
 const traceRandom = random(873421);
 const TRACES = Array.from({ length: 96 }, () => ({
-  phase: traceRandom(), across: traceRandom() * 2 - 1,
+  phase: traceRandom(),
+  across: traceRandom() * 2 - 1,
   length: 0.65 + traceRandom() * 0.45,
 }));
 
@@ -14,7 +16,10 @@ function drawCurrentTraces(ctx, world, camera, view, time) {
   for (const field of world.data.navigation?.currents || []) {
     const [cx, cy, rx, ry] = field.area;
     const river = field.channel && world.data.rivers?.[0];
-    const margin = river ? Math.abs(river.meander || 0) : 0;
+    const envelope = river ? riverEnvelope(river) : null;
+    const margin = envelope
+      ? Math.max(Math.abs(envelope.left - cx), Math.abs(envelope.right - cx))
+      : 0;
     if (
       (cx + rx + margin) * TILE < camera.x ||
       (cy + ry) * TILE < camera.y ||
@@ -35,8 +40,9 @@ function drawCurrentTraces(ctx, world, camera, view, time) {
       const across = TRACES[i].across * breadth * 0.82;
       const along = (age * 2 - 1) * extent;
       const y = cy * TILE + ux * across + uy * along;
+      const banks = river ? riverSection(river, y / TILE) : null;
       const x =
-        (cx + (river ? riverOffset(river, y / TILE) : 0)) * TILE -
+        (banks ? (banks.left + banks.right) / 2 : cx) * TILE -
         uy * across +
         ux * along;
       if (
@@ -61,18 +67,6 @@ function drawCurrentTraces(ctx, world, camera, view, time) {
       ctx.moveTo(x, y);
       ctx.lineTo(x - dx * length, y - dy * length);
       ctx.stroke();
-      if (magnitude > 55 && i % 5 === 0) {
-        // Short foam crests clarify direction without turning the river into UI arrows.
-        ctx.beginPath();
-        ctx.moveTo(x - dy * 4 - dx * 3, y + dx * 4 - dy * 3);
-        ctx.quadraticCurveTo(
-          x + dx * 2,
-          y + dy * 2,
-          x + dy * 4 - dx * 3,
-          y - dx * 4 - dy * 3,
-        );
-        ctx.stroke();
-      }
     }
   }
   ctx.globalAlpha = 1;

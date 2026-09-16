@@ -1,0 +1,24 @@
+{
+    "frames": {
+        "riverbank-bamboo": {
+            "source": "data/aventura/art/world-polish/cutouts/riverbank-bamboo.png",
+            "grid": [
+                1,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                84,
+                112
+            ],
+            "anchor": [
+                42,
+                103
+            ],
+            "fit": true
+        }
+    }
+}

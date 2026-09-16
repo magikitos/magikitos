@@ -46,6 +46,12 @@ entrada, audio, bitsets, API, Studio y verificación del instalador.
 
 Según el cambio:
 
+- `node scripts/review-world.cjs nombre`: capturas locales de bosque, picnic,
+  taberna, jardín de gatos, cinco ríos y claro comunitario. Perfiles aislados,
+  escrituras bloqueadas; revisar los PNG, no solo que el comando termine.
+- `node scripts/check-world-polish.cjs`: secuencia de botella/dos gatos, transporte
+  exclusivo y regreso con bloqueo temporal, corrillos y continuidad de márgenes.
+- `node scripts/check-cats-browser.cjs`: captura y regreso real en tres tamaños.
 - `node scripts/check-pickups-browser.cjs`: botella/papelera, seta reducida,
   palos, persistencia, cuatro tamaños; peticiones de escritura bloqueadas.
 - `npm run test:gallery`: familias/recogibles, variantes, escala, autosave,

@@ -4561,8 +4561,8 @@
             ]
         },
         "cat-calico": {
-            "image": "packs/cat-calico-8b1cadd95c85.png",
-            "metadata": "packs/cat-calico-8b1cadd95c85.json",
+            "image": "packs/cat-calico-f50a7ac1b33f.png",
+            "metadata": "packs/cat-calico-f50a7ac1b33f.json",
             "sprites": [
                 "cat-calico-down-0",
                 "cat-calico-down-4",
@@ -4615,8 +4615,8 @@
             ]
         },
         "cat-ginger": {
-            "image": "packs/cat-ginger-04eb93ef4fd2.png",
-            "metadata": "packs/cat-ginger-04eb93ef4fd2.json",
+            "image": "packs/cat-ginger-139bf6bcbe0e.png",
+            "metadata": "packs/cat-ginger-139bf6bcbe0e.json",
             "sprites": [
                 "cat-ginger-down-0",
                 "cat-ginger-down-4",
@@ -4669,8 +4669,8 @@
             ]
         },
         "cat-siamese": {
-            "image": "packs/cat-siamese-0dcfcd038227.png",
-            "metadata": "packs/cat-siamese-0dcfcd038227.json",
+            "image": "packs/cat-siamese-ae2289e72f48.png",
+            "metadata": "packs/cat-siamese-ae2289e72f48.json",
             "sprites": [
                 "cat-siamese-down-0",
                 "cat-siamese-down-4",
@@ -4723,8 +4723,8 @@
             ]
         },
         "cat-silver": {
-            "image": "packs/cat-silver-9d647bbe52f5.png",
-            "metadata": "packs/cat-silver-9d647bbe52f5.json",
+            "image": "packs/cat-silver-72e6a2ef78b0.png",
+            "metadata": "packs/cat-silver-72e6a2ef78b0.json",
             "sprites": [
                 "cat-silver-down-0",
                 "cat-silver-down-4",
@@ -4777,8 +4777,8 @@
             ]
         },
         "cat-tuxedo": {
-            "image": "packs/cat-tuxedo-9db297d6d672.png",
-            "metadata": "packs/cat-tuxedo-9db297d6d672.json",
+            "image": "packs/cat-tuxedo-c9754f8c4575.png",
+            "metadata": "packs/cat-tuxedo-c9754f8c4575.json",
             "sprites": [
                 "cat-tuxedo-down-0",
                 "cat-tuxedo-down-4",
@@ -4997,6 +4997,13 @@
                 "picnic-bin"
             ]
         },
+        "riverbank-bamboo": {
+            "image": "packs/riverbank-bamboo-90bb6c3ab278.png",
+            "metadata": "packs/riverbank-bamboo-90bb6c3ab278.json",
+            "sprites": [
+                "riverbank-bamboo"
+            ]
+        },
         "shore-garden": {
             "image": "packs/shore-garden-1046f00a13ae.png",
             "metadata": "packs/shore-garden-1046f00a13ae.json",
@@ -5006,6 +5013,20 @@
                 "coastal-grass",
                 "sandstone",
                 "basket"
+            ]
+        },
+        "tavern-feast": {
+            "image": "packs/tavern-feast-e6c2462b08bf.png",
+            "metadata": "packs/tavern-feast-e6c2462b08bf.json",
+            "sprites": [
+                "feast-beer",
+                "feast-wine",
+                "feast-skewers",
+                "feast-cheese",
+                "feast-pitcher",
+                "feast-bottles",
+                "feast-stew",
+                "feast-tray"
             ]
         },
         "twig-fence": {
@@ -5032,6 +5053,14 @@
                 "fern",
                 "fallen-log",
                 "reeds"
+            ]
+        },
+        "walnut-boat": {
+            "image": "packs/walnut-boat-ccc6814648fd.png",
+            "metadata": "packs/walnut-boat-ccc6814648fd.json",
+            "sprites": [
+                "walnut-boat-0",
+                "walnut-boat-1"
             ]
         },
         "woodland-art-easel": {
@@ -5258,8 +5287,8 @@
             ]
         },
         "woodland-planter": {
-            "image": "packs/woodland-planter-46485cf18f67.png",
-            "metadata": "packs/woodland-planter-46485cf18f67.json",
+            "image": "packs/woodland-planter-379b7978b21d.png",
+            "metadata": "packs/woodland-planter-379b7978b21d.json",
             "sprites": [
                 "flower-pot",
                 "planter-violet"

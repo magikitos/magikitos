@@ -1,0 +1,91 @@
+{
+  "generator": "image_gen",
+  "date": "2026-09-16",
+  "policy": "Preserve source masters. Offline alpha cutout and 2x integrated reduction; never download masters in the game.",
+  "style": "Original warm woodland top-down pixel art, fixed high three-quarter camera, upper-left light, complete silhouettes with clear margins. No ground tiles, text or cast shadow.",
+  "assets": [
+    {
+      "id": "tavern-feast",
+      "brief": "Eight isolated table settings: beer, wine, mushroom skewers, cheese, pitcher, bottles, stew, serving tray. Four columns, two rows. Flat magenta cutout background.",
+      "grid": [
+        4,
+        2
+      ],
+      "frames": [
+        "feast-beer",
+        "feast-wine",
+        "feast-skewers",
+        "feast-cheese",
+        "feast-pitcher",
+        "feast-bottles",
+        "feast-stew",
+        "feast-tray"
+      ],
+      "size": [
+        32,
+        28
+      ],
+      "anchor": [
+        16,
+        23
+      ]
+    },
+    {
+      "id": "riverbank-bamboo",
+      "brief": "Compact clump of five segmented bamboo canes with dry green leaves, shallow grounded moss base, no droplets, transparent background.",
+      "grid": [
+        1,
+        1
+      ],
+      "frames": [
+        "riverbank-bamboo"
+      ],
+      "size": [
+        84,
+        112
+      ],
+      "anchor": [
+        42,
+        103
+      ]
+    },
+    {
+      "id": "walnut-boat",
+      "brief": "Tiny warm-skinned duende in pointed green hat paddling a walnut-shell boat, leaf backrest and cork floats. Two small oar phases, high three-quarter camera. Transparent background.",
+      "grid": [
+        2,
+        1
+      ],
+      "frames": [
+        "walnut-boat-0",
+        "walnut-boat-1"
+      ],
+      "size": [
+        84,
+        72
+      ],
+      "anchor": [
+        42,
+        54
+      ]
+    },
+    {
+      "id": "ground-planter",
+      "brief": "Low terracotta bowl firmly resting on the ground, lavender and herbs seen from above, no visible underside.",
+      "grid": [
+        1,
+        1
+      ],
+      "frames": [],
+      "size": [
+        44,
+        36
+      ],
+      "anchor": [
+        22,
+        32
+      ],
+      "editPrompt": "Precise asset background edit only. Keep the exact illustrated grounded terracotta herb planter, its lavender, leaves, pot shape, size, perspective, pixel-art rendering and position. Replace ALL background, black and colored glow, and external shadows with absolutely uniform opaque chroma-key magenta #FF00FF. No gradient, no glow, no floor, no external shadow, no black backdrop. Preserve clean complete silhouette including thin leaves and flowers. Do not add anything. This will be cut out offline for an existing top-down pixel-art game."
+    }
+  ]
+}

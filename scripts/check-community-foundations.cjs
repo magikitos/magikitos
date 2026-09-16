@@ -160,7 +160,7 @@ for(const variant of ["ginger","tuxedo","silver","calico","siamese"]) {
   for(const direction of ["down","down-right","right","up-right","up","up-left","left","down-left"]) {
     const poses=new Set();
     for(let phase=0;phase<4;phase++) {
-      const name=CatEncounters.prototype.frame({variant,direction,moving:true,walkDistance:phase*6});
+      const name=CatEncounters.prototype.frame({variant,direction,moving:true,walkDistance:phase*9});
       check(Boolean(frames[name]),"Every cat has all directional walking frames");
       poses.add(name);
     }

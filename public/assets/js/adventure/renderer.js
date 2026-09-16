@@ -1,6 +1,6 @@
 "use strict";
 const { TILE, random, hash } = require("./model");
-const { artworkBounds, drawArtwork } = require("./entity-art");
+const { artworkBounds, drawArtwork, drawAttachments } = require("./entity-art");
 const { matches, active } = require("./rules");
 const { characterFrame, pushFrame, runFrame } = require("./characters");
 const { SpriteLibrary } = require("./sprites");
@@ -193,6 +193,7 @@ class Renderer {
             (active(e, game.state) && !game.presentation?.hides(e))),
       ),
       ...game.neighbors,
+      ...require("./river-life").riverVisitors(world.data, time),
       ...(game.cats?.renderables() || []),
       ...(game.cats?.carried() ? [game.cats.carried()] : []),
       ...(game.guardian ? [game.guardian] : []),
@@ -228,15 +229,24 @@ class Renderer {
         !require("./vegetation").drawVegetation(c, this.sprites, e, name, time)
       )
         drawArtwork(c, this.sprites, e, name);
+      drawAttachments(c, this.sprites, e);
       if (e.player) game.self.drawStream(c);
+      require("./river-life").drawFishing(c, e, time);
       if (e.cat) game.cats.drawWarning(c, e);
       if (e.lightRadius) {
         const radius = e.lightRadius;
-        const light = c.createRadialGradient(e.x, e.y - 12, 1, e.x, e.y - 12, radius);
+        const light = c.createRadialGradient(
+          e.x,
+          e.y - 12,
+          1,
+          e.x,
+          e.y - 12,
+          radius,
+        );
         light.addColorStop(0, "rgba(255,225,144,.15)");
         light.addColorStop(1, "rgba(255,225,144,0)");
         c.fillStyle = light;
-        c.fillRect(e.x-radius,e.y-12-radius,radius*2,radius*2);
+        c.fillRect(e.x - radius, e.y - 12 - radius, radius * 2, radius * 2);
       }
       require("./keepsakes").drawKeepsakes(c, this.sprites, e, game.state);
       if (e.product) this.drawProduct(e);

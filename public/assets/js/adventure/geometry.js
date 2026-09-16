@@ -1,5 +1,6 @@
 "use strict";
 const { transformedRect } = require("./entity-art");
+const { riverSection, riverEnvelope } = require("./river-course");
 const TILE = 16;
 const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
 const distance = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
@@ -27,14 +28,6 @@ function segmentDistance(x, y, a, b) {
     1,
   );
   return Math.hypot(x - a[0] - t * dx, y - a[1] - t * dy);
-}
-function riverOffset(river, y) {
-  const seam = river.seamLength ? Math.max(0, Math.min(1, (y - 8) / 12, (river.seamLength - 8 - y) / 12)) : 1;
-  return (
-    seam *
-    (river.meander || 0) *
-    (Math.sin(y * 0.16) * 0.65 + Math.sin(y * 0.063) * 0.35)
-  );
 }
 function inRect(x, y, [rx, ry, w, h]) {
   return x >= rx && y >= ry && x < rx + w && y < ry + h;
@@ -115,7 +108,13 @@ function waterAt(data, x, y) {
     )
   )
     return true;
-  if ((data.rivers || []).some((r) => inRect(x - riverOffset(r, y), y, r.rect)))
+  if (
+    (data.rivers || []).some((r) => {
+      if (y < r.rect[1] || y >= r.rect[1] + r.rect[3]) return false;
+      const banks = riverSection(r, y);
+      return x >= banks.left && x < banks.right;
+    })
+  )
     return true;
   if (
     data.baseWater &&
@@ -165,11 +164,11 @@ function waterNearby(data, x, y) {
     if (coast.side === "west" ? left <= max : right >= min) return true;
   }
   for (const r of data.rivers || []) {
-    const [rx, ry, rw, rh] = r.rect,
-      margin = Math.abs(r.meander || 0);
+    const [, ry, , rh] = r.rect,
+      banks = riverEnvelope(r);
     if (
-      right >= rx - margin &&
-      left <= rx + rw + margin &&
+      right >= banks.left &&
+      left <= banks.right &&
       bottom >= ry &&
       top <= ry + rh
     )
@@ -194,7 +193,6 @@ module.exports = {
   random,
   hash,
   segmentDistance,
-  riverOffset,
   inRect,
   overlaps,
   collisionBounds,

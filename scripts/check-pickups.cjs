@@ -18,7 +18,8 @@ const entities = world.scenes.overworld.entities, find = (id) => entities.find((
 const bottle = find("picnic-bin"), bin = find("picnic-trash-bin");
 assert.equal(planReaction(bin, state, world).state.inventory.bottle, undefined, "Bin never grants loot");
 assert(Math.hypot(bottle.x - bin.x, bottle.y - bin.y) > 2, "Bottle sits beside, not inside, bin");
-assert.equal(planReaction(bottle, state, world).state.inventory.bottle, 1);
+assert.equal(planReaction(bottle, state, world), null, "Bottle appears only when the humans leave");
+assert.equal(planReaction(bottle, { ...state, flags: { skewerCooked: true } }, world).state.inventory.bottle, 1);
 for (const inventory of [{ bottle: 1 }, { boat: 1 }]) {
   const saved = cleanSave({ inventory }, world);
   assert(!active(bottle, saved), "Existing bottle/boat saves cannot duplicate the pickup");

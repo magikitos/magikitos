@@ -4,7 +4,12 @@ const { facing } = require("./characters");
 const { ZoneCasting } = require("./casting");
 /** Build a local cast. One public author appears once; extra seats are fictional visitors. */
 function createNeighbors(world, config, ambientCast, choose = Math.random) {
-  const slots = [...(world.data.neighbors || [])];
+  const slots = (world.data.neighbors || []).map((slot) => ({
+    ...slot,
+    ...(slot.lookAt
+      ? { lookAt: { x: slot.lookAt[0] * TILE, y: slot.lookAt[1] * TILE } }
+      : {}),
+  }));
   for (const gathering of world.data.gatherings || []) {
     const count =
       gathering.min +
@@ -15,7 +20,7 @@ function createNeighbors(world, config, ambientCast, choose = Math.random) {
         id: gathering.id + "-" + i,
         content: gathering.content,
         lookAt: { x: gathering.x * TILE, y: gathering.y * TILE },
-        radius: 0.7,
+        radius: gathering.wander ?? 0.7,
         x: gathering.x + Math.cos(angle) * gathering.radius,
         y: gathering.y + Math.sin(angle) * gathering.radius * 0.72,
       });
@@ -23,8 +28,10 @@ function createNeighbors(world, config, ambientCast, choose = Math.random) {
   }
   const seen = new Set(),
     cursors = {};
-  const casting = new ZoneCasting(config.world.avatarProfiles,
-    (world.data.actors || []));
+  const casting = new ZoneCasting(
+    config.world.avatarProfiles,
+    world.data.actors || [],
+  );
   return slots.map((slot, index) => {
     const pool = slot.content ? config.cast?.[slot.content] || [] : ambientCast;
     const person = pool.find(
@@ -33,7 +40,8 @@ function createNeighbors(world, config, ambientCast, choose = Math.random) {
     if (person) seen.add(person.handle);
     const identity = person?.handle || slot.id;
     // Appearance is a local art decision; website identity never selects an obsolete sprite index.
-    const variant = slot.variant ?? casting.choose(identity, world.region(slot.x, slot.y));
+    const variant =
+      slot.variant ?? casting.choose(identity, world.region(slot.x, slot.y));
     const cursor = cursors[slot.content] || 0;
     cursors[slot.content] = cursor + 1;
     // Visitors can share a published piece; its actual author remains credited in the folio.

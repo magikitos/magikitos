@@ -3,6 +3,8 @@ const assert = require("node:assert/strict"),
   fs = require("node:fs");
 const { chromium } = require("playwright");
 const origin = process.env.GAME_ORIGIN || "http://127.0.0.1:47834";
+const catalog = JSON.parse(fs.readFileSync(".local/build/world.json"));
+const { nearbyPosition } = require("./browser-world.cjs");
 const errors = [];
 (async () => {
   const browser = await chromium.launch({ channel: "chrome", headless: true });
@@ -36,7 +38,7 @@ const errors = [];
       let state = {
         scene: "overworld",
         position: { x: 27 * 16, y: 53 * 16 },
-        flags: {  },
+        flags: {},
         muted: true,
       };
       await page.goto(origin + "/aventura");
@@ -69,6 +71,10 @@ const errors = [];
           { timeout: 15000 },
         );
       }
+      async function near(id) {
+        const point = nearbyPosition(catalog.scenes.overworld, state, id);
+        await position(point.x / 16, point.y / 16);
+      }
       async function save() {
         await page.keyboard.press("Enter");
         state = await page.evaluate(() =>
@@ -87,29 +93,32 @@ const errors = [];
         () => window.MagikitosAdventure.inspect().inventory.lighter === 1,
       );
       await save();
-      await position(33, 70.5);
+      await near("picnic-mushroom");
       await click("picnic-mushroom", 20); // Elf-height mushroom: tap the cap, not the old oversized canopy.
       await page.waitForFunction(
         () => window.MagikitosAdventure.inspect().inventory.mushroom === 1,
       );
       await save();
-      await position(30.5, 73);
+      await near("picnic-twig");
       await click("picnic-twig");
       await page.waitForFunction(
         () => window.MagikitosAdventure.inspect().inventory.twig === 1,
       );
       await save();
-      await position(25, 74);
+      await near("picnic-barbecue");
       await click("picnic-barbecue");
       await page.locator("[data-action='light']").click();
-      await page.waitForFunction(() => window.MagikitosAdventure.inspect().flags.fireLit &&
-        !!window.MagikitosAdventure.inspect().dialogue);
+      await page.waitForFunction(
+        () =>
+          window.MagikitosAdventure.inspect().flags.fireLit &&
+          !!window.MagikitosAdventure.inspect().dialogue,
+      );
       await page.locator("[data-action='cook']").click();
       await page.waitForFunction(
         () => window.MagikitosAdventure.inspect().inventory.skewer === 1,
       );
       await save();
-      await position(22.5, 73);
+      await near("picnic-neighbor");
       await click("picnic-neighbor");
       await page.locator("[data-action='give']").click();
       await page.waitForFunction(
@@ -136,7 +145,7 @@ const errors = [];
       );
       // A prepared second meal waits in the test profile; the full repeat recipe is covered by pure tests.
       state.inventory.skewer = 1;
-      await position(22.5, 73);
+      await near("picnic-neighbor");
       await click("picnic-neighbor");
       assert.equal(await page.locator("[data-action='give']").count(), 0);
       // Advance the test browser's clock, not game state or the user's session.

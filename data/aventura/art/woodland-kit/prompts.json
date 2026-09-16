@@ -366,6 +366,8 @@
     },
     {
       "id": "planter-violet",
+      "source": "data/aventura/art/world-polish/cutouts/ground-planter.png",
+      "label": "Jardinera de hierbas",
       "family": "planter",
       "variant": "violetas",
       "size": [
@@ -376,7 +378,7 @@
         20,
         40
       ],
-      "subject": "A squat moss-stained old ochre clay flowerpot with tiny violet blossoms and soft rounded DRY leaves, chipped asymmetric rim patched by twine. A portable duende-scale puzzle object, visible flat pot bottom. No ground patch or dew.",
+      "subject": "Low grounded terracotta herb bowl, top visible and no underside. See art/world-polish/catalog.json.",
       "sprite": "planter-violet"
     },
     {

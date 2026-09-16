@@ -3,8 +3,10 @@
 Guía de autoría vigente; ubicaciones y recogibles están en las escenas.
 Manta y comida son piezas independientes: tortilla, nachos triangulares,
 guacamole, bebidas y altavoz. Navaja y mechero son herramientas; la botella del
-suelo se recoge aparte. Los humanos y la manta desaparecen al cocinar la primera
-brocheta; los utensilios no recogidos siguen disponibles.
+suelo aparece junto a la papelera al cocinar la primera brocheta. Los humanos y
+la manta desaparecen entonces; los utensilios no recogidos siguen disponibles.
+El gato permanece y se suma otro. Brizno y la barbacoa están junto a su casa,
+cerca del muelle. Recorrido y pistas: [SHARED-FOREST.md](SHARED-FOREST.md).
 
 ## Source art and prompts
 

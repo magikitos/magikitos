@@ -234,7 +234,7 @@ function makeScene() {
     spawn: { x: 32, y: 42 },
     paths: PATHS,
     waters: [],
-    rivers: [{ rect: [48, 0, 8, 64], meander: 0 }],
+    rivers: [{ rect: [48, 0, 8, 64] }],
     bridges: [{ rect: [47, 38, 10, 3], sprite: "jetty" }],
     scenery: [],
     clearings: [],

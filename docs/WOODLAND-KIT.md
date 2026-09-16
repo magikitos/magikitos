@@ -54,6 +54,8 @@ into design guides. Only prepared scene/action packs load, never source masters.
 
 - `element-families.json`: category, label, placement template and safety policy.
 - `art/woodland-kit/prompts.json`: artwork variants, native size/anchor and optional crop.
+  An optional `source` selects an explicitly reviewed replacement cutout while
+  retaining stable family/variant IDs used by saved constructions.
 - `build-woodland-kit.cjs`: explicit authoring command producing `elements.json` and
   independent `assets/woodland-*.json`. It retires replaced frame definitions, never
   original art. It does not call an image service.
@@ -103,6 +105,21 @@ the existing source-linked portal IDs. The leaf refuge moved away from the picni
 its large roof cannot intercept the knife tap.
 
 ## Interiors and ambient people
+
+The tavern uses three inward-facing gatherings, with fifteen or sixteen residents.
+Authored `neighbors[].lookAt` is a tile-coordinate pair; `radius: 0` keeps a
+conversation/fishing spot still. Gatherings derive their own facing points.
+Table `attachments` are scene-lazy sprites with local **native-pixel** offsets
+and optional scale. They follow the parent's position and scale, including in
+Studio, rather than duplicating world coordinates for every plate.
+
+`art/world-polish/catalog.json` owns the reviewed tavern settings, bamboo,
+walnut boat and grounded herb planter. Built-in image generation supplied the
+masters; `php scripts/prepare-world-polish.php` prepares alpha and frame metadata,
+then `npm run art:catalog` and `npm run build` produce native packs. The discarded
+underside planter is not used: its stable `violetas` variant now selects the low
+grounded bowl, preserving existing player objects. Original art remains available
+for recovery; source files are never delivered to browsers.
 
 `interior.outline` is a normalised polygon shared by the floor, walls, light clipping
 and physical navigation. Inset bounds keep exits consistent when the shop grows.

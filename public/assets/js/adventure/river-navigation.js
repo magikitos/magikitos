@@ -1,12 +1,6 @@
 "use strict";
-const {
-  TILE,
-  waterAt,
-  inRect,
-  collisionBounds,
-  clamp,
-  riverOffset,
-} = require("./geometry");
+const { TILE, waterAt, inRect, collisionBounds, clamp } = require("./geometry");
+const { riverSection } = require("./river-course");
 const { facing } = require("./characters");
 
 // The hull, not Ascua's walking footprint. Oars skim the water and are not a solid body.
@@ -50,13 +44,16 @@ function currentAt(data, x, y) {
   const result = { x: 0, y: 0 };
   for (const current of data.navigation?.currents || []) {
     const [cx, cy, rx, ry] = current.area;
-    const bend =
+    const banks =
       current.channel && data.rivers?.[0]
-        ? riverOffset(data.rivers[0], y / TILE)
-        : 0;
+        ? riverSection(data.rivers[0], y / TILE)
+        : null;
+    const bend = banks ? (banks.left + banks.right) / 2 - cx : 0;
     const d = Math.hypot((x / TILE - cx - bend) / rx, (y / TILE - cy) / ry);
     const strength = clamp((1 - d) * 4, 0, 1);
-    result.x += current.vector[0] * strength;
+    result.x +=
+      (current.vector[0] + (banks?.tangent || 0) * current.vector[1]) *
+      strength;
     result.y += current.vector[1] * strength;
   }
   return result;

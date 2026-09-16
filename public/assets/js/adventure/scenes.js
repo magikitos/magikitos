@@ -29,6 +29,8 @@ class SceneDirector {
     const sprites = new Set(["sack", "setin"]);
     if (data.interior?.background) sprites.add(data.interior.background);
     for (const bridge of data.bridges || []) sprites.add(bridge.sprite);
+    for (const visitor of data.riverLife || [])
+      for (const frame of visitor.frames) sprites.add(frame);
     for (const item of Object.values(game.catalog.items))
       sprites.add(item.sprite);
     if (shared)
@@ -39,6 +41,8 @@ class SceneDirector {
             sprites.add(name);
         }
     for (const entity of [...world.entities, ...world.props]) {
+      for (const attachment of entity.attachments || [])
+        sprites.add(attachment.sprite);
       if (entity.seat?.sprite) sprites.add(entity.seat.sprite);
       if (entity.keepsakes?.sprite) sprites.add(entity.keepsakes.sprite);
       if (entity.sprite && entity.sprite !== "doorway")

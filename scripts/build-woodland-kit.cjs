@@ -28,6 +28,7 @@ const label = (id) =>
   id[0].toUpperCase() + id.slice(1).replaceAll("-", " ");
 for (const a of kit.assets) {
   const source =
+    a.source ||
     editions.get(a.id) ||
     "data/aventura/art/woodland-kit/cutouts/" + a.id + ".png";
   if (!fs.existsSync(path.join(root, source)))

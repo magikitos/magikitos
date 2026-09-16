@@ -327,7 +327,7 @@
     ]
   },
   "picnic-neighbor": {
-    "sprite": "person-12-down-right-sit-0",
+    "sprite": "person-12-down-left-sit-0",
     "portrait": true,
     "label": "picnicNeighbor",
     "solid": [
@@ -343,7 +343,7 @@
             "picnic": true
           }
         },
-        "sprite": "person-12-down-right-sit-2"
+        "sprite": "person-12-down-left-sit-2"
       }
     ],
     "rules": [

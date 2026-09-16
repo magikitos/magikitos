@@ -1,5 +1,6 @@
 "use strict";
-const { TILE, coastX, riverOffset, hash } = require("./geometry");
+const { TILE, coastX, hash } = require("./geometry");
+const { riverSection } = require("./river-course");
 const colors = {
   grass: ["#68884e", "#6a8a4f", "#6c8c51", "#6e8e52", "#709054"],
   path: ["#b2a16b", "#c3af7b", "#cebb88"],
@@ -50,18 +51,21 @@ function nearbyPaths(data, ox, oy) {
     }
   return segments;
 }
-/** Hoist coast interpolation and river sine terms out of the per-pixel loop. */
+/** Hoist all shoreline interpolation out of the per-pixel loop. */
 function shoreRow(data, py) {
   const y = py / TILE;
   const coasts = (data.coasts || []).map((c) => ({
     edge: coastX(c, y) * TILE,
     west: c.side === "west",
   }));
-  const rivers = (data.rivers || []).map((r) => ({
-    left: (r.rect[0] + riverOffset(r, y)) * TILE,
-    width: r.rect[2] * TILE,
-    vertical: Math.min(y - r.rect[1], r.rect[1] + r.rect[3] - y) * TILE,
-  }));
+  const rivers = (data.rivers || []).map((r) => {
+    const banks = riverSection(r, y);
+    return {
+      left: banks.left * TILE,
+      width: (banks.right - banks.left) * TILE,
+      vertical: Math.min(y - r.rect[1], r.rect[1] + r.rect[3] - y) * TILE,
+    };
+  });
   const ellipse = (p) => ({
     cx: p.x * TILE,
     inverse: 1 / (p.rx * TILE),

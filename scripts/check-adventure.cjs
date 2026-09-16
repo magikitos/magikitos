@@ -304,8 +304,7 @@ for (const objects of permutations([mushroom, twig, lighter, knife])) {
       earned,
       "Meal reward cannot be collected twice",
     );
-    assert.equal(react(ferry, state, catalog)[0].key, "riverMemory");
-    assert.deepEqual(react(ferry, state, catalog, { action: "board" }), []);
+    assert(!ferry, "Brizno is the one cooking and sharing his oars near the dock");
     const island = new World(catalog.scenes.islet);
     const back = island.entities.find((e) => e.id === "islet-ferryman");
     assert.equal(react(back, state, catalog)[0].key, "riverMemory");

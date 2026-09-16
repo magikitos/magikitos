@@ -12,10 +12,13 @@ Sin vidas, combate, Libro del Bosque, fiambreras ni parcelas privadas.
    culete arriba y las extremidades colgando. Te deja más lejos, nunca en el agua,
    sin quitar objetos ni puntos de vida. Hay margen para escapar tras soltarte.
 2. Con la navaja cortas seta. Recoges una ramita, enciendes y cocinas. Los humanos
-   y el gato del picnic se marchan **al cocinar**, no al entregar. Brizno recibe
+   se marchan **al cocinar**, no al entregar. El primer gato permanece y aparece
+   un segundo de otra variedad; solo uno puede transportar al protagonista.
+   Brizno vive junto al muelle y comparte la barbacoa al lado de su casa. Recibe
    la primera brocheta y entrega diez setines y sus remos reutilizables. Vuelve a
    tener hambre cada cinco horas; la recompensa inicial no es una granja infinita.
-3. Recuperas una botella tirada en el suelo junto a la papelera. En el embarcadero: botella + navaja +
+3. Al marcharse los humanos aparece una botella tirada junto a la papelera;
+   antes no existe ni se puede obtener mediante la API. En el embarcadero: botella + navaja +
    remos del viejo. Solo se consume la botella. La navegación queda desbloqueada.
 4. Cinco regiones de río de 128 × 144 tiles, con orillas explorables, desembarcos,
    vegetación, recursos y corrientes. Las rápidas empujan de verdad: busca remansos.
@@ -104,6 +107,8 @@ dispositivo ni una garantía infalible de hardware.
 | input-modality.js | Estimación inicial conservadora y selección dinámica de entrada real, sin user-agent ni estado persistido |
 | navigation.js / journey.js / movement.js | Rutas compartidas simplificadas, intención persistente y colisión por subpasos |
 | river-navigation.js / river.js / docks.js | Casco/corrientes, navegación y umbrales direccionales derivados de cada muelle |
+| river-course.js | Márgenes dibujados mediante puntos [y, izquierda, derecha]; curva monótona compartida por agua, física y corrientes |
+| river-life.js | Barquitas ambientales y cañas de pescadores; sin eventos, colisiones ni progreso simulado |
 | construction.json | Costes, conocimiento, superficies, huellas, vistas, capacidades y zonas |
 | construction-layout.js | Previsualización pura, paridad con el validador PHP |
 | material-account.js | Cola durable de comandos, reconciliación y recuperación, sin subir saldos |
@@ -142,6 +147,12 @@ El traslado busca un punto seco a 880–1240 píxeles del gato: cinco veces el r
 anterior de 176–248. El plazo depende de la ruta, con dos reintentos si un vecino
 la bloquea y salida segura si deja de ser transitable. No se alarga un temporizador
 dejando al jugador atrapado. La búsqueda es acotada y no envía eventos al servidor.
+Al soltarlo se separan ambos cuerpos sobre suelo transitable. El gato gira y
+vuelve a su hogar a 76 px/s, sin volver a perseguir durante ese regreso. Si cambia
+la ocupación, reintenta la ruta con las mismas colisiones usadas para caminar;
+no abandona el regreso quedándose inmóvil lejos de casa. Las cuatro fases de paso
+avanzan cada nueve píxeles recorridos. El registro offline compensa el pequeño
+desplazamiento del torso, sin deformar ni inmovilizar las patas.
 Ascua tiene la pose específica colgante. Sus maestros y prompts quedan en
 `data/aventura/art/cats/`; `scripts/prepare-adventure-cats.php` prepara alfa/celdas
 localmente conservando originales. Los primeros intentos descartados no se exportan.
@@ -156,10 +167,13 @@ Los packs se piden por escena/acción, las escenas preparadas se limitan a cuatr
 el terreno por chunks visibles y los gatos a ocho por escena. No se descargan
 maestros, se escanean imágenes fuente ni se manda movimiento al servidor.
 
-Los márgenes de ríos principales se alinean en ambos extremos: mismo centro,
-anchura y transición de meandro. El contrato de navegación y pruebas de casco
+Los cinco márgenes principales usan perfiles propios, no una onda repetida.
+Se alinean en ambos extremos a 32 tiles de anchura, con centro en x=48 y tramos
+rectos de enlace. El contrato de navegación y pruebas de casco
 comprueban que se puede remontar por un remanso sin cruzar tierra ni saltar paredes.
 Las zonas siguen siendo lugares grandes, no pantallitas de una sola curva.
+Las estelas son líneas que siguen la corriente física: no llevan puntas de flecha.
+Pescadores y barquitas de nuez son ambientación local, no otros jugadores en vivo.
 
 ## Studio y expansión
 

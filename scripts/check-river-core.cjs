@@ -10,7 +10,7 @@ const {
   VesselMotion,
   HULL_RADIUS,
 } = require("../public/assets/js/adventure/river-navigation");
-const { riverOffset } = require("../public/assets/js/adventure/geometry");
+const { riverSection } = require("../public/assets/js/adventure/river-course");
 const {
   docks,
   atDock,
@@ -112,14 +112,14 @@ for (const data of Object.values(catalog.scenes).filter((s) =>
     model = new World(data),
     vessel = new VesselMotion();
   const player = {
-    x: (river.rect[0] + riverOffset(river, data.height - 6) + 3) * TILE,
+    x: (riverSection(river, data.height - 6).left + 3) * TILE,
     y: (data.height - 6) * TILE,
     direction: "up",
   };
   const route = [];
   for (let y = data.height - 8; y >= 3; y -= 2)
     route.push({
-      x: (river.rect[0] + riverOffset(river, y) + 3) * TILE,
+      x: (riverSection(river, y).left + 3) * TILE,
       y: y * TILE,
     });
   let index = 0;
@@ -147,7 +147,7 @@ const apply = (name, action = "interact") => {
   if (plan) Object.assign(state, plan.state);
   return plan;
 };
-apply("picnic-bin");
+check(!apply("picnic-bin"), "No litter bottle before picnic leaves");
 apply("picnic-knife");
 apply("picnic-twig");
 apply("picnic-twigs");
@@ -162,6 +162,7 @@ apply("picnic-lighter");
 apply("picnic-mushroom");
 apply("picnic-barbecue", "light");
 apply("picnic-barbecue", "cook");
+apply("picnic-bin");
 apply("picnic-neighbor", "give");
 const recipe = apply("river-dock", "craft");
 check(
@@ -181,8 +182,8 @@ check(
 );
 check(!apply("river-dock", "board"), "Boarding has no dialogue/button action");
 check(
-  apply("lake-ferryman").effects[0].key === "riverMemory",
-  "Old ferryman remains as clue giver",
+  !world.entities.some((e) => e.id === "lake-ferryman"),
+  "Brizno replaces the redundant ferryman",
 );
 check(!apply("river-dock", "craft"), "Cannot craft a duplicate boat");
 state.flags.skewerCooked = true;

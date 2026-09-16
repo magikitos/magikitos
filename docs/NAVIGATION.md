@@ -1,7 +1,7 @@
 # Navegación por intención
 
-Implementación local, septiembre 2026. No cambia mapas, reglas de misiones,
-guardados ni la API. No desplegada en esta ronda.
+Contrato de entrada y rutas compartido por juego y Studio. Estado de publicación:
+[RELEASE.md](RELEASE.md). El comportamiento no depende de una escena concreta.
 
 ## Contrato de interacción
 

@@ -1,7 +1,7 @@
 {
   "id": "overworld",
-  "width": 128,
-  "height": 96,
+  "width": 144,
+  "height": 112,
   "seed": 7319,
   "spawn": {
     "x": 27.5,
@@ -11,333 +11,219 @@
     [
       [
         27,
-        88
+        90
       ],
       [
         27,
-        71
+        76
       ],
       [
-        30,
-        65
-      ],
-      [
-        37,
-        63
-      ],
-      [
-        41,
-        55.5
-      ],
-      [
-        49,
-        55.5
-      ],
-      [
-        57,
-        54.5
-      ],
-      [
-        59,
-        43
-      ],
-      [
-        60,
-        40
-      ],
-      [
-        60,
-        36
-      ],
-      [
-        64,
-        34
-      ],
-      [
-        68,
-        36
-      ],
-      [
-        68,
-        40
-      ],
-      [
-        69,
-        42
-      ],
-      [
-        76,
-        41
-      ],
-      [
-        85,
-        42
-      ],
-      [
-        85,
-        52
-      ],
-      [
-        91,
-        61
-      ],
-      [
-        99,
-        63
-      ],
-      [
-        103,
-        67
-      ]
-    ],
-    [
-      [
-        49,
-        55.5
-      ],
-      [
-        50,
-        48
-      ],
-      [
-        50,
-        36
-      ],
-      [
-        52,
-        33
-      ],
-      [
-        54.5,
-        34
-      ]
-    ],
-    [
-      [
-        64,
-        34
-      ],
-      [
-        64,
-        27
-      ],
-      [
-        73,
-        21
-      ]
-    ],
-    [
-      [
-        60,
-        36
-      ],
-      [
-        57,
-        36
-      ],
-      [
-        54.5,
-        34
-      ]
-    ],
-    [
-      [
-        68,
-        36
-      ],
-      [
-        72,
-        36
-      ],
-      [
-        77.5,
-        31.5
-      ]
-    ],
-    [
-      [
-        60,
-        40
-      ],
-      [
-        61,
-        44
-      ],
-      [
-        65,
-        45
-      ],
-      [
-        69,
-        42
-      ],
-      [
-        68,
-        40
-      ]
-    ],
-    [
-      [
-        27,
-        74
-      ],
-      [
-        21,
-        73
-      ],
-      [
-        17,
-        67
-      ],
-      [
-        17,
-        60
-      ],
-      [
-        21,
-        55
-      ],
-      [
-        27,
-        54
-      ]
-    ],
-    [
-      [
-        41,
-        55.5
-      ],
-      [
-        37.5,
-        48
-      ],
-      [
-        37.5,
-        43
-      ]
-    ],
-    [
-      [
-        85,
-        42
-      ],
-      [
-        87,
-        45
-      ],
-      [
-        91,
-        45
-      ]
-    ],
-    [
-      [
-        65,
-        45
-      ],
-      [
-        64,
-        50
-      ],
-      [
-        74,
-        56
-      ],
-      [
-        91,
-        61
-      ],
-      [
-        99,
-        63
-      ],
-      [
-        99,
-        74
-      ],
-      [
-        99.5,
-        81
-      ],
-      [
-        100.5,
-        86
-      ]
-    ],
-    [
-      [
-        64,
-        27
-      ],
-      [
-        61,
-        25.5
-      ],
-      [
-        58.5,
-        24
-      ],
-      [
-        58.5,
-        21
-      ]
-    ],
-    [
-      [
-        37,
-        63
-      ],
-      [
-        35,
-        65
-      ],
-      [
-        32,
-        64
-      ],
-      [
-        32,
-        63.25
-      ]
-    ],
-    [
-      [
-        27,
-        54
-      ],
-      [
-        31,
-        54
+        29,
+        70
       ],
       [
         34,
-        49
+        63
       ],
       [
-        37.5,
-        48
+        42,
+        58
+      ],
+      [
+        51,
+        54
+      ],
+      [
+        62,
+        56
+      ],
+      [
+        74,
+        50
+      ],
+      [
+        85,
+        45
+      ],
+      [
+        92,
+        45
       ]
     ],
     [
       [
+        42,
+        58
+      ],
+      [
+        35,
+        50
+      ],
+      [
+        31,
+        41
+      ],
+      [
         27,
-        54
-      ],
-      [
-        24,
-        45
-      ],
-      [
-        21,
-        37
-      ],
-      [
-        20,
-        32
+        34
       ],
       [
         24,
         30
+      ]
+    ],
+    [
+      [
+        51,
+        54
+      ],
+      [
+        50,
+        49
+      ],
+      [
+        51,
+        43
+      ],
+      [
+        51,
+        40.6
+      ]
+    ],
+    [
+      [
+        62,
+        56
+      ],
+      [
+        64,
+        44
+      ],
+      [
+        68,
+        36
+      ],
+      [
+        73,
+        30
+      ],
+      [
+        73,
+        26
+      ],
+      [
+        73,
+        24.7
+      ]
+    ],
+    [
+      [
+        35,
+        50
+      ],
+      [
+        38,
+        39
+      ],
+      [
+        43,
+        31
+      ],
+      [
+        47,
+        24
+      ],
+      [
+        50,
+        17
+      ],
+      [
+        50,
+        15.6
+      ]
+    ],
+    [
+      [
+        34,
+        63
+      ],
+      [
+        33,
+        66
+      ],
+      [
+        32,
+        65
+      ],
+      [
+        32,
+        63.1
+      ]
+    ],
+    [
+      [
+        42,
+        58
+      ],
+      [
+        47,
+        68
+      ],
+      [
+        49,
+        76
+      ],
+      [
+        53,
+        83
+      ],
+      [
+        55,
+        89.7
+      ]
+    ],
+    [
+      [
+        74,
+        50
+      ],
+      [
+        83,
+        58
+      ],
+      [
+        94,
+        65
+      ],
+      [
+        100,
+        73
+      ],
+      [
+        103,
+        78
+      ],
+      [
+        105.5,
+        84
+      ]
+    ],
+    [
+      [
+        85,
+        45
+      ],
+      [
+        82,
+        42
+      ],
+      [
+        83,
+        38
+      ],
+      [
+        83,
+        36.2
       ]
     ]
   ],
@@ -345,73 +231,53 @@
   "clearings": [
     [
       27,
-      70,
-      8
-    ],
-    [
-      37,
-      63,
-      6
-    ],
-    [
-      64,
-      38,
-      20
-    ],
-    [
-      100,
-      63,
-      6
-    ],
-    [
-      17,
-      60,
-      4
-    ],
-    [
-      104,
-      82,
+      72,
       9
     ],
     [
-      39,
+      24,
+      25,
+      12
+    ],
+    [
+      40,
       43,
       7
     ],
     [
-      34.5,
-      63.5,
-      9
-    ],
-    [
-      44,
-      55.5,
+      51,
+      41,
       8
     ],
     [
-      88,
-      45,
+      62,
+      53,
+      9
+    ],
+    [
+      73,
+      24,
+      8
+    ],
+    [
+      50,
+      16,
       7
     ],
     [
-      23.5,
-      69.5,
-      5
-    ],
-    [
-      103,
-      66,
-      6
-    ],
-    [
-      64,
-      40,
+      55,
+      89,
       7
     ],
     [
-      25,
-      23,
-      12
+      84,
+      43,
+      10
+    ],
+    [
+      105,
+      83,
+      9
     ]
   ],
   "night": {
@@ -428,20 +294,30 @@
     {
       "id": "village",
       "rect": [
-        45,
-        23,
-        39,
-        33
+        44,
+        33,
+        29,
+        26
       ],
       "ground": "meadow"
     },
     {
       "id": "lake",
       "rect": [
-        88,
+        82,
         22,
-        37,
-        57
+        43,
+        75
+      ],
+      "ground": "meadow"
+    },
+    {
+      "id": "picnic",
+      "rect": [
+        13,
+        14,
+        25,
+        22
       ],
       "ground": "meadow"
     }
@@ -478,27 +354,27 @@
     {
       "id": "picnic-barbecue",
       "behavior": "picnic-barbecue",
-      "x": 24.75,
-      "y": 72
+      "x": 83,
+      "y": 44.5
     },
     {
       "id": "picnic-mushroom",
       "behavior": "picnic-mushroom",
-      "x": 33,
-      "y": 68,
+      "x": 78,
+      "y": 42.5,
       "scale": 0.85
     },
     {
       "id": "picnic-twig",
       "behavior": "picnic-twig",
-      "x": 30.5,
-      "y": 71.5
+      "x": 83,
+      "y": 50.5
     },
     {
       "id": "picnic-neighbor",
       "behavior": "picnic-neighbor",
-      "x": 22.5,
-      "y": 71
+      "x": 87,
+      "y": 43.5
     },
     {
       "id": "forest-sign",
@@ -507,11 +383,10 @@
       "y": 66,
       "rules": [
         {
-          "when": {},
           "effects": [
             {
               "type": "dialogue",
-              "key": "forestDirections"
+              "key": "forestSign"
             }
           ]
         }
@@ -563,8 +438,8 @@
     {
       "id": "art-table",
       "sprite": "workbench",
-      "x": 37.5,
-      "y": 42.25,
+      "x": 38,
+      "y": 43,
       "rules": [
         {
           "effects": [
@@ -586,8 +461,8 @@
     {
       "id": "art-easel",
       "sprite": "easel",
-      "x": 40.5,
-      "y": 43.5,
+      "x": 41,
+      "y": 44,
       "rules": [
         {
           "effects": [
@@ -603,8 +478,8 @@
     {
       "id": "art-yarn",
       "sprite": "yarn",
-      "x": 34.5,
-      "y": 43.25,
+      "x": 35,
+      "y": 44,
       "rules": []
     },
     {
@@ -617,51 +492,50 @@
     {
       "id": "tavern-flower-pot",
       "sprite": "flower-pot",
-      "x": 62,
-      "y": 32,
+      "x": 47,
+      "y": 41,
       "rules": []
     },
     {
       "id": "workshop-crates",
       "sprite": "crates",
-      "x": 86,
-      "y": 29,
+      "x": 80,
+      "y": 25,
       "rules": []
     },
     {
       "id": "cottage-flowers",
       "sprite": "flower-pot",
-      "x": 61.8,
-      "y": 21.3,
+      "x": 53,
+      "y": 16,
       "rules": []
     },
     {
       "id": "home-flowers",
       "sprite": "flower-pot",
-      "x": 69.3,
-      "y": 22.9,
+      "x": 59,
+      "y": 90,
       "rules": []
     },
     {
       "id": "plaza-lantern",
       "sprite": "lantern",
-      "x": 70.5,
-      "y": 45.5,
+      "x": 66,
+      "y": 54,
       "rules": []
     },
     {
       "id": "tavern-door",
       "sprite": "tavern",
-      "x": 54.5,
-      "y": 33,
+      "x": 51,
+      "y": 40,
       "rules": [
         {
           "effects": [
             {
               "type": "travel",
               "scene": "tavern",
-              "x": 16.5,
-              "y": 21.5
+              "spawn": true
             }
           ]
         }
@@ -678,16 +552,15 @@
     {
       "id": "workshop-door",
       "sprite": "workshop",
-      "x": 77.5,
-      "y": 30.5,
+      "x": 73,
+      "y": 24,
       "rules": [
         {
           "effects": [
             {
               "type": "travel",
               "scene": "workshop",
-              "x": 16.5,
-              "y": 21.5
+              "spawn": true
             }
           ]
         }
@@ -704,16 +577,15 @@
     {
       "id": "home-one",
       "sprite": "cottage",
-      "x": 58.5,
-      "y": 20,
+      "x": 50,
+      "y": 15,
       "rules": [
         {
           "effects": [
             {
               "type": "travel",
               "scene": "cottage",
-              "x": 10.5,
-              "y": 13.5
+              "spawn": true
             }
           ]
         }
@@ -730,8 +602,8 @@
     {
       "id": "home-two",
       "sprite": "home-mushroom-canela",
-      "x": 72,
-      "y": 21.5,
+      "x": 55,
+      "y": 89,
       "rules": [
         {
           "effects": [
@@ -763,8 +635,7 @@
             {
               "type": "travel",
               "scene": "house",
-              "x": 13.5,
-              "y": 18.5
+              "spawn": true
             }
           ]
         }
@@ -781,8 +652,8 @@
     {
       "id": "fisher-door",
       "sprite": "home-pot-terracotta",
-      "x": 105,
-      "y": 68.25,
+      "x": 83,
+      "y": 35.5,
       "rules": [
         {
           "effects": [
@@ -806,14 +677,14 @@
     {
       "id": "fountain",
       "behavior": "wishing-fountain",
-      "x": 64,
-      "y": 41
+      "x": 60,
+      "y": 50
     },
     {
       "id": "no-pooping",
       "sprite": "sign",
-      "x": 57.75,
-      "y": 41.75,
+      "x": 58,
+      "y": 53.5,
       "rules": [
         {
           "when": [],
@@ -837,8 +708,8 @@
     {
       "id": "lake-bench",
       "sprite": "bench",
-      "x": 94.5,
-      "y": 59.5,
+      "x": 96,
+      "y": 61,
       "rules": [
         {
           "when": [],
@@ -859,30 +730,24 @@
       "label": "bench"
     },
     {
-      "id": "lake-ferryman",
-      "behavior": "river-neighbor",
-      "x": 89,
-      "y": 43.25
-    },
-    {
       "id": "dock-lantern",
       "sprite": "lantern",
-      "x": 86.5,
-      "y": 43.5,
+      "x": 90,
+      "y": 42,
       "rules": []
     },
     {
       "id": "picnic-log",
       "sprite": "fallen-log",
-      "x": 30.5,
-      "y": 70.5,
+      "x": 84,
+      "y": 49,
       "rules": []
     },
     {
       "id": "picnic-berries",
       "sprite": "berries",
-      "x": 21.5,
-      "y": 65.5,
+      "x": 79,
+      "y": 37.5,
       "rules": []
     },
     {
@@ -955,22 +820,22 @@
     {
       "id": "fountain-flowers",
       "sprite": "flower-pot",
-      "x": 62,
-      "y": 37,
+      "x": 64.8,
+      "y": 50,
       "rules": []
     },
     {
       "id": "fountain-fern",
       "sprite": "fern",
-      "x": 66,
-      "y": 43,
+      "x": 58,
+      "y": 49,
       "rules": []
     },
     {
       "id": "tavern-garden",
       "sprite": "berries",
-      "x": 50,
-      "y": 29.5,
+      "x": 46,
+      "y": 36,
       "rules": []
     },
     {
@@ -1149,8 +1014,8 @@
     {
       "id": "picnic-waymarker",
       "sprite": "sign",
-      "x": 28,
-      "y": 56,
+      "x": 30,
+      "y": 38,
       "label": "sign",
       "rules": [
         {
@@ -1177,9 +1042,9 @@
       "id": "art-moveable-planter",
       "family": "planter",
       "sprite": "flower-pot",
-      "x": 40.5,
+      "x": 42,
       "y": 46,
-      "artVariant": "violetas",
+      "artVariant": "margaritas",
       "rules": []
     },
     {
@@ -1194,7 +1059,16 @@
       "behavior": "ground-bottle",
       "scale": 0.65,
       "x": 19,
-      "y": 31
+      "y": 31,
+      "visibleWhen": {
+        "flags": {
+          "skewerCooked": true
+        },
+        "maxItems": {
+          "bottle": 0,
+          "boat": 0
+        }
+      }
     },
     {
       "id": "picnic-twigs",
@@ -1205,14 +1079,14 @@
     {
       "id": "twig-fountain",
       "behavior": "picnic-twig",
-      "x": 44,
-      "y": 38
+      "x": 45,
+      "y": 51
     },
     {
       "id": "twig-root",
       "behavior": "picnic-twig",
-      "x": 69,
-      "y": 49
+      "x": 71,
+      "y": 60
     },
     {
       "id": "picnic-leaves",
@@ -1255,24 +1129,56 @@
         "direction": "up",
         "patrol": [
           [
-            18,
-            25
+            20,
+            27
           ],
           [
-            21,
+            27,
             29
           ],
           [
-            31,
-            28
+            33,
+            25
           ],
           [
-            33,
-            23
+            25,
+            31
           ]
         ]
       },
-      "hiddenWhen": {
+      "rules": []
+    },
+    {
+      "id": "picnic-cat-friend",
+      "family": "woodland-cat",
+      "sprite": "cat-calico-down-0",
+      "artVariant": "calico",
+      "x": 33,
+      "y": 29,
+      "animal": {
+        "species": "cat",
+        "range": 6.5,
+        "direction": "left",
+        "patrol": [
+          [
+            33,
+            29
+          ],
+          [
+            29,
+            34
+          ],
+          [
+            21,
+            32
+          ],
+          [
+            24,
+            27
+          ]
+        ]
+      },
+      "visibleWhen": {
         "flags": {
           "skewerCooked": true
         }
@@ -1283,30 +1189,30 @@
   "neighbors": [
     {
       "id": "plaza-1",
-      "x": 72.5,
-      "y": 43.5,
-      "radius": 3,
+      "x": 66,
+      "y": 57,
+      "radius": 2,
       "dialogue": "ambientGarden"
     },
     {
       "id": "plaza-2",
-      "x": 58.5,
-      "y": 47.5,
-      "radius": 3,
+      "x": 56,
+      "y": 48,
+      "radius": 2,
       "dialogue": "ambientHat"
     },
     {
       "id": "lake-friend",
-      "x": 100.5,
-      "y": 68.5,
-      "radius": 2,
+      "x": 97,
+      "y": 65,
+      "radius": 1,
       "dialogue": "ambientLake"
     },
     {
       "id": "forest-wanderer",
-      "x": 27.5,
-      "y": 62,
-      "radius": 1.2,
+      "x": 28,
+      "y": 64,
+      "radius": 1,
       "dialogue": "ambientHunger"
     }
   ],
@@ -1364,6 +1270,10 @@
         [
           114,
           96
+        ],
+        [
+          120,
+          112
         ]
       ]
     }
@@ -1388,22 +1298,10 @@
       "y": 60.8943783394061
     },
     {
-      "id": "decor-16",
-      "sprite": "fern",
-      "x": 24.48167803697288,
-      "y": 80.08321827929467
-    },
-    {
       "id": "decor-17",
       "sprite": "mushrooms",
       "x": 63.08948079217225,
       "y": 67.07754978630692
-    },
-    {
-      "id": "decor-21",
-      "sprite": "bush",
-      "x": 57.98229230521247,
-      "y": 12.227543890010566
     },
     {
       "id": "decor-22",
@@ -1436,12 +1334,6 @@
       "y": 71.81718431599438
     },
     {
-      "id": "decor-36",
-      "sprite": "fern",
-      "x": 89.51026119664311,
-      "y": 39.80241108639166
-    },
-    {
       "id": "decor-37",
       "sprite": "mushrooms",
       "x": 7.531036784872413,
@@ -1470,12 +1362,6 @@
       "sprite": "berries",
       "x": 39.7,
       "y": 71.29783987719566
-    },
-    {
-      "id": "decor-49",
-      "sprite": "reeds",
-      "x": 103.45863095624372,
-      "y": 73.63329397933558
     },
     {
       "id": "decor-52",
@@ -1520,12 +1406,6 @@
       "y": 91.54934676317498
     },
     {
-      "id": "decor-64",
-      "sprite": "fern",
-      "x": 81.26601865282282,
-      "y": 17.306292892433703
-    },
-    {
       "id": "decor-68",
       "sprite": "fern",
       "x": 7.006131352856755,
@@ -1536,12 +1416,6 @@
       "sprite": "mushrooms",
       "x": 28.138779133558273,
       "y": 6.873802036978304
-    },
-    {
-      "id": "decor-72",
-      "sprite": "mushrooms",
-      "x": 78.53072399459779,
-      "y": 18.958094391971827
     },
     {
       "id": "decor-75",
@@ -1572,18 +1446,6 @@
       "sprite": "bush",
       "x": 49.1256651468575,
       "y": 80.12494638981298
-    },
-    {
-      "id": "decor-98",
-      "sprite": "mushrooms",
-      "x": 56.20456458861008,
-      "y": 80.85877526504919
-    },
-    {
-      "id": "decor-99",
-      "sprite": "berries",
-      "x": 75.98682234855369,
-      "y": 22.752688785083592
     },
     {
       "id": "decor-102",
@@ -1652,22 +1514,10 @@
       "y": 67.15183226577938
     },
     {
-      "id": "decor-129",
-      "sprite": "berries",
-      "x": 27.269600714556873,
-      "y": 92.43214940372854
-    },
-    {
       "id": "decor-136",
       "sprite": "berries",
       "x": 92.93695145240054,
       "y": 17.527888116426766
-    },
-    {
-      "id": "decor-137",
-      "sprite": "rocks",
-      "x": 93.1055592643097,
-      "y": 67.49703248217702
     },
     {
       "id": "decor-139",
@@ -1676,40 +1526,16 @@
       "y": 13.470283955801278
     },
     {
-      "id": "decor-140",
-      "sprite": "mushrooms",
-      "x": 39.6,
-      "y": 41.21781397797167
-    },
-    {
       "id": "decor-142",
       "sprite": "berries",
       "x": 50.5,
       "y": 62.25
     },
     {
-      "id": "decor-145",
-      "sprite": "fern",
-      "x": 55.10338252782822,
-      "y": 76.13692220952362
-    },
-    {
       "id": "decor-147",
       "sprite": "mushrooms",
       "x": 38.2520537530072,
       "y": 25.889961968176067
-    },
-    {
-      "id": "decor-148",
-      "sprite": "fern",
-      "x": 49.29647434409708,
-      "y": 67.4953900272958
-    },
-    {
-      "id": "decor-152",
-      "sprite": "bush",
-      "x": 39.8,
-      "y": 36.480147162918
     },
     {
       "id": "decor-153",
@@ -1734,18 +1560,6 @@
       "sprite": "fern",
       "x": 59.21663458785042,
       "y": 74.03392675984651
-    },
-    {
-      "id": "decor-166",
-      "sprite": "rocks",
-      "x": 89.60318860830739,
-      "y": 37.20419056434184
-    },
-    {
-      "id": "decor-169",
-      "sprite": "fern",
-      "x": 105.67340372269973,
-      "y": 86.75009624054655
     },
     {
       "id": "decor-171",
@@ -1784,12 +1598,6 @@
       "y": 73.44428853783756
     },
     {
-      "id": "decor-184",
-      "sprite": "fern",
-      "x": 31.379599965643138,
-      "y": 68.174225110095
-    },
-    {
       "id": "decor-185",
       "sprite": "fern",
       "x": 38.0633570891805,
@@ -1806,12 +1614,6 @@
       "sprite": "bush",
       "x": 40.517979534808546,
       "y": 82.43668127758428
-    },
-    {
-      "id": "decor-196",
-      "sprite": "bush",
-      "x": 40.88450924074277,
-      "y": 36.392724541481584
     },
     {
       "id": "decor-198",
@@ -1838,12 +1640,6 @@
       "y": 61.89216660987586
     },
     {
-      "id": "decor-218",
-      "sprite": "fern",
-      "x": 50.6,
-      "y": 68.26630172040313
-    },
-    {
       "id": "decor-220",
       "sprite": "berries",
       "x": 39.3,
@@ -1862,12 +1658,6 @@
       "y": 52.19005937408656
     },
     {
-      "id": "decor-230",
-      "sprite": "mushrooms",
-      "x": 50.01642369804904,
-      "y": 75.38505093147978
-    },
-    {
       "id": "decor-235",
       "sprite": "fern",
       "x": 39.4,
@@ -1878,12 +1668,6 @@
       "sprite": "fern",
       "x": 26.619360390584916,
       "y": 62.56409154692665
-    },
-    {
-      "id": "decor-238",
-      "sprite": "mushrooms",
-      "x": 55.208786302711815,
-      "y": 21.08107680408284
     },
     {
       "id": "decor-239",
@@ -1914,12 +1698,6 @@
       "sprite": "bush",
       "x": 10.349369110073894,
       "y": 84.2628181069158
-    },
-    {
-      "id": "decor-247",
-      "sprite": "fern",
-      "x": 52.80490763671696,
-      "y": 72.39412734936923
     },
     {
       "id": "decor-248",
@@ -2000,18 +1778,6 @@
       "y": 89.0446553514339
     },
     {
-      "id": "decor-287",
-      "sprite": "mushrooms",
-      "x": 26.16013199277222,
-      "y": 91.40311821782961
-    },
-    {
-      "id": "decor-292",
-      "sprite": "berries",
-      "x": 50.1,
-      "y": 11.719290050212294
-    },
-    {
       "id": "decor-293",
       "sprite": "reeds",
       "x": 93.31803068518639,
@@ -2022,12 +1788,6 @@
       "sprite": "bush",
       "x": 5.19184502819553,
       "y": 6.868013641331345
-    },
-    {
-      "id": "decor-298",
-      "sprite": "fern",
-      "x": 49.1545022749342,
-      "y": 67.19690532144159
     },
     {
       "id": "decor-299",
@@ -2114,224 +1874,6 @@
       "y": 48.57751180836931
     },
     {
-      "id": "root-west-north",
-      "sprite": "ancient-root",
-      "x": 6,
-      "y": 29,
-      "scale": 1,
-      "solid": [
-        -4,
-        -3.5,
-        8,
-        4.2
-      ]
-    },
-    {
-      "id": "root-west-clearing",
-      "sprite": "ancient-root",
-      "x": 7,
-      "y": 69,
-      "scale": 0.75,
-      "solid": [
-        -4,
-        -3.5,
-        8,
-        4.2
-      ]
-    },
-    {
-      "id": "root-start",
-      "sprite": "forest-birch",
-      "x": 39,
-      "y": 92,
-      "scale": 0.75,
-      "solid": [
-        -2.2,
-        -2.8,
-        4.4,
-        3.4
-      ]
-    },
-    {
-      "id": "root-village",
-      "sprite": "forest-birch",
-      "x": 84,
-      "y": 21,
-      "scale": 0.75,
-      "solid": [
-        -2.2,
-        -2.8,
-        4.4,
-        3.4
-      ]
-    },
-    {
-      "id": "root-east",
-      "sprite": "forest-birch",
-      "x": 84,
-      "y": 74,
-      "scale": 0.75,
-      "solid": [
-        -2.2,
-        -2.8,
-        4.4,
-        3.4
-      ]
-    },
-    {
-      "id": "root-south",
-      "sprite": "ancient-root",
-      "x": 63,
-      "y": 92,
-      "scale": 1,
-      "solid": [
-        -4,
-        -3.5,
-        8,
-        4.2
-      ]
-    },
-    {
-      "id": "fern-picnic",
-      "sprite": "giant-fern",
-      "x": 14,
-      "y": 40,
-      "scale": 1,
-      "solid": [
-        -1.4,
-        -1.4,
-        2.8,
-        1.7
-      ],
-      "artVariant": "auto"
-    },
-    {
-      "id": "fern-art",
-      "sprite": "giant-fern",
-      "x": 38,
-      "y": 38,
-      "scale": 0.75,
-      "solid": [
-        -1.4,
-        -1.4,
-        2.8,
-        1.7
-      ],
-      "artVariant": "auto"
-    },
-    {
-      "id": "fern-camp",
-      "sprite": "giant-fern",
-      "x": 98,
-      "y": 76,
-      "scale": 0.75,
-      "solid": [
-        -1.4,
-        -1.4,
-        2.8,
-        1.7
-      ],
-      "artVariant": "auto"
-    },
-    {
-      "id": "fern-camp-south",
-      "sprite": "giant-fern",
-      "x": 106,
-      "y": 91,
-      "scale": 0.75,
-      "solid": [
-        -1.4,
-        -1.4,
-        2.8,
-        1.7
-      ],
-      "artVariant": "auto"
-    },
-    {
-      "id": "fern-river",
-      "sprite": "giant-fern",
-      "x": 51,
-      "y": 69,
-      "scale": 1,
-      "solid": [
-        -1.4,
-        -1.4,
-        2.8,
-        1.7
-      ],
-      "artVariant": "auto"
-    },
-    {
-      "id": "fern-entry",
-      "sprite": "giant-fern",
-      "x": 18,
-      "y": 83,
-      "scale": 0.75,
-      "solid": [
-        -1.4,
-        -1.4,
-        2.8,
-        1.7
-      ],
-      "artVariant": "auto"
-    },
-    {
-      "id": "clover-start",
-      "sprite": "giant-clover",
-      "x": 21,
-      "y": 64,
-      "scale": 0.75,
-      "solid": [
-        -0.5,
-        -0.5,
-        1,
-        0.8
-      ],
-      "artVariant": "auto"
-    },
-    {
-      "id": "clover-picnic",
-      "sprite": "giant-clover",
-      "x": 34,
-      "y": 43,
-      "scale": 1,
-      "solid": [
-        -0.5,
-        -0.5,
-        1,
-        0.8
-      ],
-      "artVariant": "auto"
-    },
-    {
-      "id": "clover-village",
-      "sprite": "giant-clover",
-      "x": 72,
-      "y": 51,
-      "scale": 0.75,
-      "solid": [
-        -0.5,
-        -0.5,
-        1,
-        0.8
-      ],
-      "artVariant": "auto"
-    },
-    {
-      "id": "clover-lake",
-      "sprite": "giant-clover",
-      "x": 87,
-      "y": 58,
-      "scale": 1,
-      "solid": [
-        -0.5,
-        -0.5,
-        1,
-        0.8
-      ],
-      "artVariant": "auto"
-    },
-    {
       "id": "red-mushrooms-west",
       "sprite": "scarlet-mushrooms",
       "x": 10,
@@ -2358,26 +1900,6 @@
       "artVariant": "auto"
     },
     {
-      "id": "birch-camp",
-      "sprite": "forest-birch",
-      "x": 94,
-      "y": 92,
-      "scale": 0.75,
-      "solid": [
-        -2.2,
-        -2.8,
-        4.4,
-        3.4
-      ]
-    },
-    {
-      "id": "woodland-flowers-0",
-      "sprite": "flowers-daisy-white",
-      "x": 29,
-      "y": 74.5,
-      "artVariant": "auto"
-    },
-    {
       "id": "woodland-flowers-1",
       "sprite": "flowers-primrose",
       "x": 23.5,
@@ -2385,73 +1907,10 @@
       "artVariant": "auto"
     },
     {
-      "id": "woodland-flowers-2",
-      "sprite": "flowers-bell-blue",
-      "x": 31.5,
-      "y": 64.5,
-      "artVariant": "auto"
-    },
-    {
       "id": "woodland-flowers-3",
       "sprite": "flowers-daisy-white",
       "x": 19.5,
       "y": 57,
-      "artVariant": "auto"
-    },
-    {
-      "id": "woodland-flowers-4",
-      "sprite": "flowers-bell-blue",
-      "x": 35,
-      "y": 53,
-      "artVariant": "auto"
-    },
-    {
-      "id": "woodland-flowers-5",
-      "sprite": "flowers-primrose",
-      "x": 37.5,
-      "y": 45,
-      "artVariant": "auto"
-    },
-    {
-      "id": "woodland-flowers-6",
-      "sprite": "flowers-daisy-white",
-      "x": 51.5,
-      "y": 34.5,
-      "artVariant": "auto"
-    },
-    {
-      "id": "woodland-flowers-7",
-      "sprite": "flowers-primrose",
-      "x": 57,
-      "y": 26.5,
-      "artVariant": "auto"
-    },
-    {
-      "id": "woodland-flowers-8",
-      "sprite": "flowers-bell-blue",
-      "x": 73.5,
-      "y": 32.5,
-      "artVariant": "auto"
-    },
-    {
-      "id": "woodland-flowers-9",
-      "sprite": "flowers-daisy-white",
-      "x": 80,
-      "y": 34.5,
-      "artVariant": "auto"
-    },
-    {
-      "id": "woodland-flowers-10",
-      "sprite": "flowers-primrose",
-      "x": 69.5,
-      "y": 47,
-      "artVariant": "auto"
-    },
-    {
-      "id": "woodland-flowers-11",
-      "sprite": "flowers-bell-blue",
-      "x": 89,
-      "y": 42,
       "artVariant": "auto"
     },
     {
@@ -2483,32 +1942,492 @@
       "artVariant": "auto"
     },
     {
-      "id": "woodland-flowers-16",
-      "sprite": "flowers-daisy-white",
-      "x": 60.5,
-      "y": 38.2,
-      "artVariant": "auto"
-    },
-    {
-      "id": "woodland-flowers-17",
-      "sprite": "flowers-bell-blue",
-      "x": 67,
-      "y": 37.8,
-      "artVariant": "auto"
-    },
-    {
-      "id": "woodland-flowers-18",
-      "sprite": "flowers-primrose",
-      "x": 55,
-      "y": 38.5,
-      "artVariant": "auto"
-    },
-    {
       "id": "woodland-flowers-19",
       "sprite": "flowers-daisy-white",
       "x": 23,
       "y": 52.5,
       "artVariant": "auto"
+    },
+    {
+      "id": "picnic-west",
+      "sprite": "ancient-root",
+      "x": 9,
+      "y": 26,
+      "scale": 1,
+      "solid": [
+        -1.3,
+        -1.2,
+        2.6,
+        1.7
+      ],
+      "visionBlocker": true
+    },
+    {
+      "id": "picnic-east",
+      "sprite": "crooked-oak",
+      "x": 40,
+      "y": 25,
+      "scale": 0.95,
+      "solid": [
+        -1.3,
+        -1.2,
+        2.6,
+        1.7
+      ],
+      "visionBlocker": true
+    },
+    {
+      "id": "picnic-south",
+      "sprite": "forest-birch",
+      "x": 41,
+      "y": 40,
+      "scale": 1.1,
+      "solid": [
+        -1.3,
+        -1.2,
+        2.6,
+        1.7
+      ],
+      "visionBlocker": true
+    },
+    {
+      "id": "picnic-north",
+      "sprite": "forest-birch",
+      "x": 20,
+      "y": 11,
+      "scale": 0.95,
+      "solid": [
+        -1.3,
+        -1.2,
+        2.6,
+        1.7
+      ],
+      "visionBlocker": true
+    },
+    {
+      "id": "forest-west",
+      "sprite": "crooked-oak",
+      "x": 10,
+      "y": 51,
+      "scale": 1.1,
+      "solid": [
+        -1.3,
+        -1.2,
+        2.6,
+        1.7
+      ],
+      "visionBlocker": true
+    },
+    {
+      "id": "forest-southwest",
+      "sprite": "ancient-root",
+      "x": 10,
+      "y": 79,
+      "scale": 0.9,
+      "solid": [
+        -1.3,
+        -1.2,
+        2.6,
+        1.7
+      ],
+      "visionBlocker": true
+    },
+    {
+      "id": "forest-south",
+      "sprite": "forest-birch",
+      "x": 20,
+      "y": 103,
+      "scale": 1.05,
+      "solid": [
+        -1.3,
+        -1.2,
+        2.6,
+        1.7
+      ],
+      "visionBlocker": true
+    },
+    {
+      "id": "clearing-rim",
+      "sprite": "crooked-oak",
+      "x": 42,
+      "y": 81,
+      "scale": 1,
+      "solid": [
+        -1.3,
+        -1.2,
+        2.6,
+        1.7
+      ],
+      "visionBlocker": true
+    },
+    {
+      "id": "south-grove",
+      "sprite": "ancient-root",
+      "x": 78,
+      "y": 105,
+      "scale": 1.1,
+      "solid": [
+        -1.3,
+        -1.2,
+        2.6,
+        1.7
+      ],
+      "visionBlocker": true
+    },
+    {
+      "id": "home-grove",
+      "sprite": "forest-birch",
+      "x": 68,
+      "y": 95,
+      "scale": 1.1,
+      "solid": [
+        -1.3,
+        -1.2,
+        2.6,
+        1.7
+      ],
+      "visionBlocker": true
+    },
+    {
+      "id": "path-shelter",
+      "sprite": "forest-birch",
+      "x": 57,
+      "y": 73,
+      "scale": 0.85,
+      "solid": [
+        -1.3,
+        -1.2,
+        2.6,
+        1.7
+      ],
+      "visionBlocker": true
+    },
+    {
+      "id": "lake-grove",
+      "sprite": "crooked-oak",
+      "x": 91,
+      "y": 76,
+      "scale": 0.85,
+      "solid": [
+        -1.3,
+        -1.2,
+        2.6,
+        1.7
+      ],
+      "visionBlocker": true
+    },
+    {
+      "id": "night-rim",
+      "sprite": "ancient-root",
+      "x": 87,
+      "y": 99,
+      "scale": 0.8,
+      "solid": [
+        -1.3,
+        -1.2,
+        2.6,
+        1.7
+      ],
+      "visionBlocker": true
+    },
+    {
+      "id": "village-grove",
+      "sprite": "forest-birch",
+      "x": 64,
+      "y": 29,
+      "scale": 0.85,
+      "solid": [
+        -1.3,
+        -1.2,
+        2.6,
+        1.7
+      ],
+      "visionBlocker": true
+    },
+    {
+      "id": "workshop-north",
+      "sprite": "crooked-oak",
+      "x": 76,
+      "y": 13,
+      "scale": 0.85,
+      "solid": [
+        -1.3,
+        -1.2,
+        2.6,
+        1.7
+      ],
+      "visionBlocker": true
+    },
+    {
+      "id": "north-rim",
+      "sprite": "forest-birch",
+      "x": 46,
+      "y": 8,
+      "scale": 0.75,
+      "solid": [
+        -1.3,
+        -1.2,
+        2.6,
+        1.7
+      ],
+      "visionBlocker": true
+    },
+    {
+      "id": "brizno-rim",
+      "sprite": "forest-birch",
+      "x": 88,
+      "y": 27,
+      "scale": 0.8,
+      "solid": [
+        -1.3,
+        -1.2,
+        2.6,
+        1.7
+      ],
+      "visionBlocker": true
+    },
+    {
+      "id": "picnic-understory-0",
+      "sprite": "giant-fern",
+      "x": 13,
+      "y": 32,
+      "scale": 0.65,
+      "artVariant": "auto"
+    },
+    {
+      "id": "picnic-understory-1",
+      "sprite": "giant-clover",
+      "x": 14,
+      "y": 18,
+      "scale": 0.65,
+      "artVariant": "auto"
+    },
+    {
+      "id": "picnic-understory-2",
+      "sprite": "flowers-daisy-white",
+      "x": 32,
+      "y": 15,
+      "scale": 1.2,
+      "artVariant": "auto"
+    },
+    {
+      "id": "picnic-understory-3",
+      "sprite": "berries",
+      "x": 36,
+      "y": 33,
+      "scale": 1.2,
+      "artVariant": "auto"
+    },
+    {
+      "id": "picnic-understory-4",
+      "sprite": "giant-fern",
+      "x": 34,
+      "y": 35,
+      "scale": 0.65,
+      "artVariant": "auto"
+    },
+    {
+      "id": "picnic-understory-5",
+      "sprite": "giant-clover",
+      "x": 18,
+      "y": 36,
+      "scale": 0.65,
+      "artVariant": "auto"
+    },
+    {
+      "id": "picnic-understory-6",
+      "sprite": "flowers-daisy-white",
+      "x": 12,
+      "y": 37,
+      "scale": 1.2,
+      "artVariant": "auto"
+    },
+    {
+      "id": "picnic-understory-7",
+      "sprite": "berries",
+      "x": 35,
+      "y": 19,
+      "scale": 1.2,
+      "artVariant": "auto"
+    },
+    {
+      "id": "village-understory-0",
+      "sprite": "giant-fern",
+      "x": 43,
+      "y": 35,
+      "scale": 0.65,
+      "artVariant": "auto"
+    },
+    {
+      "id": "village-understory-1",
+      "sprite": "giant-clover",
+      "x": 54,
+      "y": 36,
+      "scale": 0.65,
+      "artVariant": "auto"
+    },
+    {
+      "id": "village-understory-2",
+      "sprite": "flowers-daisy-white",
+      "x": 70,
+      "y": 31,
+      "scale": 1.2,
+      "artVariant": "auto"
+    },
+    {
+      "id": "village-understory-3",
+      "sprite": "berries",
+      "x": 78,
+      "y": 28,
+      "scale": 1.2,
+      "artVariant": "auto"
+    },
+    {
+      "id": "village-understory-4",
+      "sprite": "giant-fern",
+      "x": 47,
+      "y": 20,
+      "scale": 0.65,
+      "artVariant": "auto"
+    },
+    {
+      "id": "village-understory-5",
+      "sprite": "giant-clover",
+      "x": 52,
+      "y": 23,
+      "scale": 0.65,
+      "artVariant": "auto"
+    },
+    {
+      "id": "village-understory-6",
+      "sprite": "flowers-daisy-white",
+      "x": 68,
+      "y": 47,
+      "scale": 1.2,
+      "artVariant": "auto"
+    },
+    {
+      "id": "village-understory-7",
+      "sprite": "berries",
+      "x": 57,
+      "y": 59,
+      "scale": 1.2,
+      "artVariant": "auto"
+    },
+    {
+      "id": "south-understory-0",
+      "sprite": "giant-fern",
+      "x": 18,
+      "y": 88,
+      "scale": 0.65,
+      "artVariant": "auto"
+    },
+    {
+      "id": "south-understory-1",
+      "sprite": "giant-clover",
+      "x": 33,
+      "y": 99,
+      "scale": 0.65,
+      "artVariant": "auto"
+    },
+    {
+      "id": "south-understory-2",
+      "sprite": "flowers-daisy-white",
+      "x": 48,
+      "y": 98,
+      "scale": 1.2,
+      "artVariant": "auto"
+    },
+    {
+      "id": "south-understory-3",
+      "sprite": "berries",
+      "x": 70,
+      "y": 107,
+      "scale": 1.2,
+      "artVariant": "auto"
+    },
+    {
+      "id": "south-understory-4",
+      "sprite": "giant-fern",
+      "x": 92,
+      "y": 94,
+      "scale": 0.65,
+      "artVariant": "auto"
+    },
+    {
+      "id": "south-understory-5",
+      "sprite": "giant-clover",
+      "x": 56,
+      "y": 78,
+      "scale": 0.65,
+      "artVariant": "auto"
+    },
+    {
+      "id": "brizno-understory-0",
+      "sprite": "giant-fern",
+      "x": 77,
+      "y": 40,
+      "scale": 0.65,
+      "artVariant": "auto"
+    },
+    {
+      "id": "brizno-understory-1",
+      "sprite": "giant-clover",
+      "x": 78,
+      "y": 48,
+      "scale": 0.65,
+      "artVariant": "auto"
+    },
+    {
+      "id": "brizno-understory-2",
+      "sprite": "flowers-daisy-white",
+      "x": 85,
+      "y": 38,
+      "scale": 1.2,
+      "artVariant": "auto"
+    },
+    {
+      "id": "brizno-understory-3",
+      "sprite": "berries",
+      "x": 89,
+      "y": 40,
+      "scale": 1.2,
+      "artVariant": "auto"
+    },
+    {
+      "id": "brizno-understory-4",
+      "sprite": "giant-fern",
+      "x": 89,
+      "y": 53.5,
+      "scale": 0.5,
+      "artVariant": "auto"
+    },
+    {
+      "id": "picnic-fern-gate",
+      "sprite": "giant-fern",
+      "x": 35,
+      "y": 34,
+      "scale": 0.72
+    },
+    {
+      "id": "picnic-tree-root",
+      "sprite": "fallen-log",
+      "x": 14,
+      "y": 29,
+      "scale": 1.2,
+      "solid": [
+        -1,
+        -0.6,
+        2,
+        0.8
+      ]
+    },
+    {
+      "id": "picnic-approach-flowers",
+      "sprite": "flowers-bell-blue",
+      "x": 30,
+      "y": 36,
+      "scale": 1.1
     }
   ],
   "navigation": {

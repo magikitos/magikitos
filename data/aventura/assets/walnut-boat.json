@@ -1,0 +1,44 @@
+{
+    "frames": {
+        "walnut-boat-0": {
+            "source": "data/aventura/art/world-polish/cutouts/walnut-boat.png",
+            "grid": [
+                2,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                84,
+                72
+            ],
+            "anchor": [
+                42,
+                54
+            ],
+            "fit": true
+        },
+        "walnut-boat-1": {
+            "source": "data/aventura/art/world-polish/cutouts/walnut-boat.png",
+            "grid": [
+                2,
+                1
+            ],
+            "cell": [
+                1,
+                0
+            ],
+            "size": [
+                84,
+                72
+            ],
+            "anchor": [
+                42,
+                54
+            ],
+            "fit": true
+        }
+    }
+}

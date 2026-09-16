@@ -4,6 +4,7 @@ execFileSync(process.execPath, ["tools/build.cjs"], { stdio: "inherit" });
 for (const name of [
   "check-adventure",
   "check-river-core",
+  "check-world-polish",
   "check-community-foundations",
   "check-pickups",
   "check-material-account",
