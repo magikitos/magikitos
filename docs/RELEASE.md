@@ -5,38 +5,54 @@ en Git, no en varias guías contradictorias. Actualizar este archivo al publicar
 
 ## Producción
 
-Última activación verificada: `04c689f5c4a7b20aab65`, 16 septiembre 2026.
-Runtime fuente: `9298174d7e96fbe214893ae9207756fcbc74d4b1`.
-Activación web: `4b098e8fb94ce5d43e56017dc719989cea224f74`.
-Anterior conservada: `49cef729900e43397250`.
+Última activación verificada: `18b22405a8894271294f`, 16 septiembre 2026.
+Fuente del artefacto: `b683ed8960cf7c5cb240409cf836cca9f028b626`.
+Activación web: `750eecfd38377bcfe4c70571091fca9db30e7c11`.
+Anterior conservada: `04c689f5c4a7b20aab65`.
 Rutas: /aventura y cinco traducciones; web y API independientes.
 
-Incluye entrada explícita, fullscreen y música/ambiente. Audio real, voces,
-transición entre pistas y río probados públicamente en cuatro tamaños.
-No es una compilación nativa ni certificación de dispositivos físicos.
-
-## Pulido preparado para activar
-
-Artefacto verificado y staged, aún no activo: `18b22405a8894271294f`.
 SHA-256 de `release.json`:
 `c2f4928fa9cec700907e0979ae30aa1657ae5ccd056af732dcea7d2c460d58d2`.
+397 archivos verificados antes de activar el puntero. Despliegue fast-forward
+limitado al puntero, documentación y herramientas de prueba/autoría inertes:
+sin cambios de backend, migraciones, seed, importaciones ni escrituras en partidas.
+
+## Pulido publicado
 
 - Botella independiente en el suelo junto a la papelera; mismo ID autoritativo.
 - Doce palos colocados: cuatro en el bosque y dos por tramo recolector del río.
 - Galería Recogibles: palos, plantas culilimpia y botella; familias reproducibles.
 - Seta de Brizno al 85 %, dibujo y cuerpo transformados juntos.
 - Índices estables de plantas/palos; sin resetear inventarios ni partidas.
-- Documentación consolidada y guías antiguas retiradas, recuperables en Git.
+- Quince documentos obsoletos retirados, recuperables en Git. Guías vigentes
+  consolidadas; `REPOS.md` privado resume la separación real sin duplicar este registro.
 
-Verificado: `npm test`; recogibles en cuatro tamaños; galería/autoría y receta
+## Verificación
+
+Local: `npm test`; recogibles en cuatro tamaños; galería/autoría y receta
 completa en cinco tamaños; 33 comprobaciones locales de autoridad, 13 de
 concurrencia/restauración/identidad y 167 peticiones de contrato API local en
 seis idiomas. Las fixtures locales se retiran al terminar; no se usan cuentas
 reales para estas pruebas. Studio principal conserva su workspace sin conflictos.
 
-Integración general y comprobación pública pendientes de cerrar; no confundir
-el build local con una activación ya verificada.
-Procedimiento: [RELEASING.md](RELEASING.md).
+Integración general: siete tamaños de 320×568 a 2560×1440; cinco interiores en
+cuatro tamaños; seis idiomas; puertas, escaleras, barca, guardado y pruebas aisladas
+de recorte/colisión/autosave/diff del Studio.
+
+Producción: seis rutas exactas byte a byte en origen; shell y hashes de JS/CSS,
+manifest y contrato en el dominio público; API, galería plana, mundo compartido,
+web tradicional y accesos protegidos. Bosque, navegación, desembarco, controles y
+carga diferida probados en 1440×900, 768×1024 y 390×844. Cero escrituras enviadas;
+también se bloquearon los POST de seguridad inyectados por Cloudflare.
+Prueba pública específica de recogibles: botella/papelera, partida con barca,
+seta reducida, desaparición de palos y persistencia tras recargar en 1440×900,
+768×1024, 390×844 y 844×390, con todas las escrituras bloqueadas.
+
+Entrada explícita, fullscreen y música/ambiente se conservan sin cambios. Sus
+pruebas públicas de señal, voces y crossfade pertenecen a la entrega anterior;
+el núcleo de audio se vuelve a comprobar en `npm test`. No es una compilación
+nativa ni certificación de Safari/iOS o dispositivos físicos.
+Procedimiento repetible: [RELEASING.md](RELEASING.md).
 
 ## Recuperación y límites
 
