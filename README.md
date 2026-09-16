@@ -22,6 +22,9 @@ Current design: [game guide](docs/JUEGO-AVENTURA.md); controls and first adventu
 Click intentions, live obstacle avoidance and regression tests: [navigation](docs/NAVIGATION.md).
 For operations and verified delivery, see [releasing](docs/RELEASING.md) and
 [the current release ledger](docs/RELEASE.md).
+The website keeps the world loaded behind every page and lifts it full screen on
+request: [embedding contract](docs/EMBEDDING.md). The way back only exists when a
+same-origin parent is there, so a native build never grows that button.
 The [entry and audio implementation](docs/AUDIO-AND-ENTRY.md) covers music,
 river ambience and fullscreen. [Mobile packaging and store workflows](docs/MOBILE.md)
 documents the shared Capacitor projects, TestFlight/Play steps and outstanding

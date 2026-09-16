@@ -9,32 +9,7 @@ if (
   )
 )
   throw Error("Local test only");
-// Ephemeral clear arena isolates input from scenery. No test scene or writable
-// debug interface ships; production code, gestures, sprites and physics run intact.
-const arena = {
-  id: "overworld",
-  width: 128,
-  height: 128,
-  seed: 1,
-  spawn: { x: 56.25, y: 56.25 },
-  paths: [],
-  waters: [],
-  regions: [],
-  clearings: [],
-  scenery: [],
-  neighbors: [],
-  entities: [
-    {
-      id: "test-sign",
-      sprite: "sign",
-      x: 62.5,
-      y: 57.5,
-      solid: [-0.5, -0.5, 1, 1],
-      label: "sign",
-      rules: [{ effects: [{ type: "dialogue", key: "forestDirections" }] }],
-    },
-  ],
-};
+const { fulfillArena } = require("./lib/input-arena.cjs");
 (async () => {
   const browser = await chromium.launch({ channel: "chrome", headless: true }),
     errors = [];
@@ -67,20 +42,7 @@ const arena = {
             body: '{"ok":false,"error":"offline"}',
           });
         if (url.pathname !== "/aventura") return route.continue();
-        const response = await route.fetch(),
-          body = (await response.text()).replace(
-            /(<script type="application\/json" id="adventure-config">)([\s\S]*?)(<\/script>)/,
-            (_, open, json, close) => {
-              const config = JSON.parse(json);
-              config.world.scenes.overworld = arena;
-              config.neighbors = [];
-              config.cast = {};
-              return (
-                open + JSON.stringify(config).replaceAll("<", "\\u003c") + close
-              );
-            },
-          );
-        return route.fulfill({ response, body });
+        return fulfillArena(route);
       });
       await page.addInitScript(() => {
         localStorage.setItem(
@@ -116,9 +78,30 @@ const arena = {
         await page.locator("#world-boost").isHidden(),
         "Turbo starts hidden",
       );
+      // The stick is a ZONE with a ring floating inside it: neutral is wherever
+      // the thumb lands and full deflection is a fixed number of pixels from there.
       const cx = stick.x + stick.width / 2,
-        cy = stick.y + stick.height / 2,
-        radius = stick.width * 0.34;
+        cy = stick.y + stick.height / 2;
+      const reads = () =>
+        page.evaluate(() => {
+          const node = document.getElementById("world-joystick"),
+            style = getComputedStyle(node);
+          return {
+            travel: parseFloat(style.getPropertyValue("--world-stick-travel")),
+            clearance: getComputedStyle(document.documentElement)
+              .getPropertyValue("--world-control-clearance")
+              .trim(),
+            display: style.display,
+            hidden: node.hidden,
+            home: {
+              x: parseFloat(node.style.getPropertyValue("--stick-home-x")) || 0,
+              y: parseFloat(node.style.getPropertyValue("--stick-home-y")) || 0,
+            },
+          };
+        });
+      const travel = (await reads()).travel,
+        reach = stick.width / 2 - travel;
+      assert(travel > 0 && reach > 0, "A zone with room to choose neutral in");
       const cdp = await page.context().newCDPSession(page);
       const touch = (type, points) =>
         cdp.send("Input.dispatchTouchEvent", {
@@ -126,7 +109,14 @@ const arena = {
           touchPoints: points.map(([x, y, id]) => ({ x, y, id })),
         });
       // One held touch slides through all eight sectors. Equal diagonal speed.
-      await touch("touchStart", [[cx + radius, cy, 1]]);
+      // It starts at the centre, so neutral is the centre and each sector sits
+      // exactly `travel` pixels away — the geometry the sweep assumes.
+      await touch("touchStart", [[cx, cy, 1]]);
+      assert(
+        await page.locator("#world-boost").isHidden(),
+        "A thumb landing is not yet a direction",
+      );
+      await touch("touchMove", [[cx + travel, cy, 1]]);
       const boost = await page.locator("#world-boost").boundingBox();
       assert(
         boost &&
@@ -136,7 +126,7 @@ const arena = {
       for (let i = 0; i < 8; i++) {
         const a = (i * Math.PI) / 4;
         await touch("touchMove", [
-          [cx + Math.cos(a) * radius, cy + Math.sin(a) * radius, 1],
+          [cx + Math.cos(a) * travel, cy + Math.sin(a) * travel, 1],
         ]);
         const before = (await inspect()).player;
         await page.waitForTimeout(170);
@@ -180,7 +170,8 @@ const arena = {
       );
       await touch("touchEnd", []);
       // Real independent touch pointers: right thumb direction + left thumb boost.
-      const direction = [cx, cy + radius, 1],
+      const neutral = [cx, cy, 1],
+        direction = [cx, cy + travel, 1],
         accelerator = [
           boost.x + boost.width / 2,
           boost.y + boost.height / 2,
@@ -188,7 +179,8 @@ const arena = {
         ];
       async function measure(fast) {
         const before = (await inspect()).player;
-        await touch("touchStart", [direction]);
+        await touch("touchStart", [neutral]);
+        await touch("touchMove", [direction]);
         assert(await page.locator("#world-boost").isVisible());
         if (fast) await touch("touchStart", [direction, accelerator]);
         await page.waitForTimeout(450);
@@ -204,7 +196,8 @@ const arena = {
         await page.locator("#world-boost").getAttribute("aria-pressed"),
         "false",
       );
-      await touch("touchStart", [direction]);
+      await touch("touchStart", [neutral]);
+      await touch("touchMove", [direction]);
       await touch("touchStart", [direction, accelerator]);
       await touch("touchCancel", []);
       before = (await inspect()).player;
@@ -213,6 +206,59 @@ const arena = {
       assert(
         Math.hypot(after.x - before.x, after.y - before.y) < 0.1,
         "Cancellation cannot leave movement stuck",
+      );
+
+      // ⛔ THE ZONE EXISTS SO NO DIRECTION HAS TO BE REACHED FOR. Press where a
+      // thumb naturally falls — up and left inside the zone — and push down-right:
+      // the ring moves to the thumb, so full deflection finishes far from both
+      // margins. With the old ring pinned to the corner the same input ended about
+      // 47px from each edge, right on the system gesture strip.
+      const landed = [cx - reach * 0.7, cy - reach * 0.7, 1];
+      await touch("touchStart", [landed]);
+      const home = (await reads()).home;
+      assert(
+        Math.abs(home.x + reach * 0.7) < 1 && Math.abs(home.y + reach * 0.7) < 1,
+        "Neutral is wherever the thumb landed " + JSON.stringify(home),
+      );
+      const corner = [
+        landed[0] + travel * 0.7071,
+        landed[1] + travel * 0.7071,
+        1,
+      ];
+      await touch("touchMove", [corner]);
+      before = (await inspect()).player;
+      await page.waitForTimeout(170);
+      after = (await inspect()).player;
+      assert(
+        after.x - before.x > 3 && after.y - before.y > 3,
+        "Down-right from a chosen neutral " +
+          JSON.stringify({ before, after, home }),
+      );
+      assert(
+        width - corner[0] > 70 && height - corner[1] > 70,
+        "Full down-right leaves the thumb clear of both margins " +
+          JSON.stringify({ corner, width, height }),
+      );
+      await touch("touchEnd", []);
+      assert.deepEqual(
+        (await reads()).home,
+        { x: 0, y: 0 },
+        "The ring eases home on release",
+      );
+
+      // ⛔ A BIGGER TERRITORY CANNOT EAT A DESTINATION. A press that never steers
+      // is somebody pointing at the map, and it walks there like any other pixel.
+      before = (await inspect()).player;
+      await touch("touchStart", [[cx, cy, 1]]);
+      await touch("touchEnd", []);
+      await page.waitForTimeout(90);
+      const walk = (await inspect()).travel;
+      assert(
+        walk.destination &&
+          walk.destination.x > before.x &&
+          walk.destination.y > before.y,
+        "A tap on the stick's territory is a destination " +
+          JSON.stringify({ before, walk }),
       );
 
       // Touch recenter stays centered inside the joystick.
@@ -237,6 +283,40 @@ const arena = {
       assert(await recenter.isHidden());
 
       await seed({ scene: "overworld", position: { x: 900, y: 900 } });
+      // ⛔ TALKING RETIRES THE STICK, and it is the conversation doing it and not
+      // the modality: the browser is still on touch and the attribute is untouched,
+      // so what removes the control is the flag the dialogue puts on the root.
+      async function tapWorld(point) {
+        const s = await inspect(),
+          r = await page.locator("#world-canvas").boundingBox();
+        await page.touchscreen.tap(
+          r.x + ((point.x - s.camera.x) * r.width) / s.view.width,
+          r.y + ((point.y - s.camera.y) * r.height) / s.view.height,
+        );
+      }
+      assert(await page.locator("#world-joystick").isVisible());
+      await tapWorld({ x: 1000, y: 906 });
+      await page.waitForFunction(() =>
+        Boolean(window.MagikitosAdventure.inspect().dialogue),
+      );
+      const talking = await reads();
+      assert.equal(talking.display, "none", "The stick goes while talking");
+      assert.equal(talking.hidden, false, "…and the modality never touched it");
+      assert.equal(talking.clearance, "0px", "…so nothing reserves its corner");
+      const talkBox = await page.locator("#dialogue").boundingBox();
+      assert(
+        talkBox.y >= 0 && talkBox.y + talkBox.height <= height,
+        "…and the conversation gets those pixels back",
+      );
+      await page.touchscreen.tap(width * 0.5, height * 0.25);
+      await page.waitForFunction(
+        () => !window.MagikitosAdventure.inspect().dialogue,
+      );
+      assert(
+        await page.locator("#world-joystick").isVisible(),
+        "…and it comes back when the conversation ends",
+      );
+
       async function clickWorld(point) {
         const s = await inspect(),
           r = await page.locator("#world-canvas").boundingBox();
@@ -245,6 +325,99 @@ const arena = {
           r.y + ((point.y - s.camera.y) * r.height) / s.view.height,
         );
       }
+      // ⛔ VOLVER AL DUENDE ES UN VIAJE, NO UN SALTO. Tocar el mapa para caminar
+      // enciende el seguimiento y arranca las piernas en el MISMO gesto, así que con
+      // la cámara clavada al duende el mundo se teletransportaba lo que hubieras
+      // desplazado: cientos de píxeles en un frame. Ahora solo se clava cuando ya
+      // está encima (CAMERA_LOCK), y el resto del camino lo hace suavizando.
+      // Con el duende todavía andando de un paso anterior, la cámara se reengancha
+      // sola mientras arrastras y no hay hueco que cerrar: la prueba aprobaría el
+      // salto sin haberlo provocado. Se empieza desde un mundo quieto.
+      await page.waitForFunction(
+        () => {
+          const s = window.MagikitosAdventure.inspect();
+          return !s.travel.intent && s.pace === "idle";
+        },
+        null,
+        { timeout: 10000 },
+      );
+      const camAntes = (await inspect()).camera;
+      const lienzo = await page.locator("#world-canvas").boundingBox();
+      await page.mouse.move(
+        lienzo.x + lienzo.width * 0.5,
+        lienzo.y + lienzo.height * 0.5,
+      );
+      await page.mouse.down();
+      for (let i = 1; i <= 8; i++)
+        await page.mouse.move(
+          lienzo.x + lienzo.width * 0.5 - i * 22,
+          lienzo.y + lienzo.height * 0.5 - i * 11,
+        );
+      await page.mouse.up();
+      const camTrasArrastre = (await inspect()).camera;
+      const desplazada = Math.hypot(
+        camTrasArrastre.x - camAntes.x,
+        camTrasArrastre.y - camAntes.y,
+      );
+      assert(desplazada > 60, "El mapa se ha desplazado de verdad: " + desplazada);
+      assert(
+        !(await inspect()).cameraFollowing,
+        "…y desplazar suelta el seguimiento, que es lo que crea el hueco",
+      );
+      // Se mide FRAME A FRAME y no con una lectura suelta: con la cámara clavada, el
+      // salto dura UN frame, así que una lectura desde fuera llega tarde y aprueba lo
+      // que venía a denunciar (comprobado en negativo, restaurando el salto).
+      await page.evaluate(() => {
+        window.__cam = [];
+        const paso = () => {
+          const s = window.MagikitosAdventure.inspect();
+          window.__cam.push([s.camera.x, s.camera.y]);
+          if (window.__cam.length < 240) requestAnimationFrame(paso);
+        };
+        requestAnimationFrame(paso);
+      });
+      const destino = (await inspect()).player;
+      await clickWorld({ x: destino.x + 40, y: destino.y + 24 });
+      await page.waitForTimeout(700);
+      const vuelta = await page.evaluate(() => {
+        let mayor = 0,
+          total = 0;
+        for (let i = 1; i < window.__cam.length; i++) {
+          const d = Math.hypot(
+            window.__cam[i][0] - window.__cam[i - 1][0],
+            window.__cam[i][1] - window.__cam[i - 1][1],
+          );
+          mayor = Math.max(mayor, d);
+          total += d;
+        }
+        return { mayor, total, muestras: window.__cam.length };
+      });
+      assert(
+        vuelta.total > 40,
+        "La cámara ha vuelto de verdad: " + JSON.stringify(vuelta),
+      );
+      // La relación es lo que distingue las dos cosas y no depende de la escala ni
+      // del recorte del mapa: suavizando, el mayor paso es ~14% del recorrido;
+      // clavándose, el primer frame se lo lleva casi entero.
+      assert(
+        vuelta.mayor < vuelta.total * 0.4,
+        "…y vuelve suavizando, no de un salto: " +
+          JSON.stringify({ desplazada, ...vuelta }),
+      );
+      await page.waitForFunction(
+        () => {
+          const s = window.MagikitosAdventure.inspect();
+          return (
+            Math.hypot(
+              s.camera.x - (s.player.x - s.view.width / 2),
+              s.camera.y - (s.player.y - s.view.height / 2),
+            ) < 25
+          );
+        },
+        null,
+        { timeout: 4000 },
+      );
+
       await clickWorld({ x: 1000, y: 906 });
       await page.waitForFunction(() =>
         Boolean(window.MagikitosAdventure.inspect().dialogue),
@@ -366,7 +539,8 @@ const arena = {
         inventory: { boat: 1 },
         navigation: { mode: "boat", direction: "up" },
       });
-      await touch("touchStart", [[cx, cy - radius, 1]]);
+      await touch("touchStart", [[cx, cy, 1]]);
+      await touch("touchMove", [[cx, cy - travel, 1]]);
       await page.waitForFunction(
         () => window.MagikitosAdventure.inspect().scene === "river-reeds",
       );
@@ -381,7 +555,7 @@ const arena = {
       await cdp.detach();
       await page.close();
       console.log(
-        `PASS ${width}×${height}: continuous eight-way joystick, two-thumb running/rowing, cancel, center recenter, dialogue click-through, wheel/pinch full map coverage; run ${normal.toFixed(0)}→${fast.toFixed(0)}, row ${rowNormal.toFixed(0)}→${rowFast.toFixed(0)} px.`,
+        `PASS ${width}×${height}: floating eight-way stick (zone ${stick.width}px, travel ${travel}px, neutral free within ${reach.toFixed(0)}px), tap-through, talking retires it, camera returns easing (${vuelta.mayor.toFixed(0)}px el mayor paso de ${vuelta.total.toFixed(0)}), two-thumb running/rowing, cancel, center recenter, dialogue click-through, wheel/pinch full map coverage; run ${normal.toFixed(0)}→${fast.toFixed(0)}, row ${rowNormal.toFixed(0)}→${rowFast.toFixed(0)} px.`,
       );
     }
     assert.deepEqual(errors, []);

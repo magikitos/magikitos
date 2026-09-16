@@ -20,6 +20,8 @@ const editable = (target) =>
 class WorldInput {
   constructor(game) {
     const canvas = document.getElementById("world-canvas");
+    this.game = game;
+    this.canvas = canvas;
     // Dismiss before the target's pointer handler, without swallowing that gesture.
     document.addEventListener(
       "pointerdown",
@@ -36,28 +38,8 @@ class WorldInput {
     this.controls = new WorldControls(game);
     this.map = new MapGestures(game, canvas);
     const press = (event) => {
-      if (
-        event.button !== 0 ||
-        !event.isPrimary ||
-        !game.ready ||
-        game.transitioning ||
-        game.dialogue ||
-        game.hasOverlay()
-      )
-        return;
-      game.closeContent();
-      event.preventDefault();
-      canvas.focus({ preventScroll: true });
-      game.unlockAudio();
-      const rect = canvas.getBoundingClientRect();
-      game.tap({
-        x:
-          ((event.clientX - rect.left) / rect.width) * game.renderer.width +
-          game.camera.x,
-        y:
-          ((event.clientY - rect.top) / rect.height) * game.renderer.height +
-          game.camera.y,
-      });
+      if (!event.isPrimary || event.button !== 0) return;
+      if (this.tapAt(event.clientX, event.clientY)) event.preventDefault();
     };
     canvas.addEventListener("pointerdown", (event) => {
       if (event.defaultPrevented) return;
@@ -141,6 +123,33 @@ class WorldInput {
       const key = event.key.toLowerCase();
       game.keys.delete(key);
     });
+  }
+  /** The one place a screen point becomes a destination. The stick's zone borrows
+   * it so a press there that never steers walks like a press anywhere else —
+   * otherwise the corner it occupies would be the only part of the map that
+   * answers nothing. */
+  tapAt(clientX, clientY) {
+    const game = this.game;
+    if (
+      !game.ready ||
+      game.transitioning ||
+      game.dialogue ||
+      game.hasOverlay()
+    )
+      return false;
+    game.closeContent();
+    this.canvas.focus({ preventScroll: true });
+    game.unlockAudio();
+    const rect = this.canvas.getBoundingClientRect();
+    game.tap({
+      x:
+        ((clientX - rect.left) / rect.width) * game.renderer.width +
+        game.camera.x,
+      y:
+        ((clientY - rect.top) / rect.height) * game.renderer.height +
+        game.camera.y,
+    });
+    return true;
   }
 }
 module.exports = { WorldInput };

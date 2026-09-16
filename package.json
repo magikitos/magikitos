@@ -25,6 +25,7 @@
     "test:mobility": "node scripts/check-mobility-browser.cjs",
     "test:journeys": "node scripts/check-journeys-browser.cjs",
     "test:world-controls": "node scripts/check-world-controls-browser.cjs",
+    "test:embed": "node scripts/check-embed-browser.cjs",
     "test:input-mode": "node scripts/check-input-modality.cjs && node scripts/check-input-modality-browser.cjs",
     "test:chapter": "node scripts/check-chapter-browser.cjs",
     "test:residents": "node scripts/check-adventure-residents.cjs",

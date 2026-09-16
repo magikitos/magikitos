@@ -53,8 +53,16 @@ Según el cambio:
 - `npm run test:picnic`: receta completa y hambre repetida en cinco tamaños.
 - `npm run test:browser`: integración con API local, seis idiomas e interiores.
 - `npm run test:journeys`, `test:world-controls`, `test:input-mode`:
-  destinos, navegación, joystick y cambios de entrada.
+  destinos, navegación, palanca y cambios de entrada. Las dos últimas montan el
+  claro compartido de `scripts/lib/input-arena.cjs`: **el mundo de verdad está vivo**
+  y un gato que te coge en brazos convierte una prueba de controles en una lotería
+  que falla en un sitio distinto en cada pasada.
 - `npm run test:audio`: entrada, señal real, crossfade, voces y fullscreen.
+  Sirve en el 47842 por defecto: contra el preview normal, `GAME_ORIGIN=…:47834`.
+- `npm run test:embed`: el puente con la página que muestra el mundo. Comprueba las
+  DOS caras de la garantía de la app — suelto no hay logo de vuelta, empotrado con un
+  padre del mismo origen sí — más la tarjeta que no repite la pregunta, abrir con
+  sonido y callar sin pisar la preferencia. Ver [EMBEDDING.md](EMBEDDING.md).
 - `npm run test:boundary`: separación y arranque sin web; ver su arnés para puertos.
 - Scripts PHP `check-community*.php` en el repo web: autoridad/transacciones
   con fixtures locales identificados y limpieza acotada a esas fixtures.

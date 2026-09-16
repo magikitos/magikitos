@@ -35,11 +35,27 @@ Sin vidas, combate, Libro del Bosque, fiambreras ni parcelas privadas.
 - Flechas/WASD: movimiento directo. Espacio sostenido: correr o remar más rápido.
   Espacio en diálogo: siguiente; Enter/Escape: cerrar. Clic fuera del diálogo:
   cerrar y utilizar ese mismo clic para caminar/interactuar. **No hay rodar**.
-- Joystick circular de ocho direcciones a la derecha cuando se usa el táctil;
-  no depende del tamaño de pantalla. Arrastrar el pulgar cambia dirección sin
-  levantarlo, con zona muerta central y captura del puntero. El turbo aparece a
-  la izquierda **solo con dirección activa en el joystick**; al volver al centro,
-  soltar o cancelar se oculta y desactiva, incluso si el otro dedo seguía pulsando.
+- Palanca FLOTANTE de ocho direcciones a la derecha cuando se usa el táctil. La
+  zona es una caja invisible en la esquina (`--world-stick-size`) y el anillo que
+  se ve se dibuja DONDE cae el pulgar: ese punto es el neutro, y desde él todas las
+  direcciones cuestan los mismos `--world-stick-travel` píxeles. Con el anillo
+  clavado en la esquina, «abajo» y «abajo-derecha» eran las dos direcciones más
+  difíciles del juego —el neutro estaba a 84px de dos bordes y la deflexión se
+  gastaba 45, así que el pulgar terminaba a unos 47px del margen, encima de la
+  franja de gestos del sistema—; eligiendo el neutro el problema no se pelea, se
+  quita. Al soltar, el anillo vuelve a su sitio con una transición.
+  La zona es lo ÚNICO que captura el gesto, así que fuera de ella el toque para
+  caminar, el arrastre para desplazar el mapa y el pellizco siguen siendo los de
+  siempre; y una pulsación DENTRO que no llega a dirigir se reenvía como toque en
+  el mapa (`WorldInput.tapAt`), para que la esquina no se coma un destino.
+  Arrastrar el pulgar cambia dirección sin levantarlo, con zona muerta y captura
+  del puntero. El turbo aparece a la izquierda **solo con dirección activa**; al
+  volver al centro, soltar o cancelar se oculta y desactiva, incluso si el otro
+  dedo seguía pulsando. **Mientras hay conversación no hay palanca**: `openDialogue`
+  pausa el movimiento, así que una palanca en pantalla no dirige a nadie y solo le
+  cuesta al diálogo su propia altura dos veces (la que reserva y el empujón que esa
+  reserva le da). Una marca en la raíz (`data-world-talking`) pone la reserva a cero
+  y recompone las cinco reglas que se apartan de la esquina.
   Los controles son los mismos a pie y en la barca; una mano
   puede seguir dirigiendo al cruzar muelles y límites del río. Soltar, cancelar o
   perder el foco nunca deja un control pulsado. No se simulan teclas desde el DOM.

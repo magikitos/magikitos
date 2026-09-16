@@ -28,6 +28,11 @@ const { fare } = require("./economy");
 const { dialogueText } = require("./dialogue");
 const { WorldInput } = require("./input");
 const { WALK_SPEED, RUN_SPEED, routeDistance } = require("./locomotion");
+/** How close the camera has to be before it stops easing and simply follows.
+ * Running is ~1.8px of target movement per frame at 60Hz, so this never
+ * disengages while walking; a panned map is hundreds of pixels away. */
+const CAMERA_LOCK = 24;
+const { Embed } = require("./embed");
 const { Journey } = require("./journey");
 const { PickupFeedback } = require("./pickups");
 const { Inventory } = require("./inventory");
@@ -105,6 +110,9 @@ class Adventure {
     this.cloud = new CloudSave(this);
     this.materials = new MaterialAccount(this);
     this.telemetry = new Telemetry(this);
+    // Before the entry card, which asks the bridge whether there is a page that
+    // already did the asking.
+    this.embed = new Embed(this);
     this.entry = new Entry(this);
     this.bind();
   }
@@ -156,6 +164,7 @@ class Adventure {
       byId("loading").hidden = true;
       this.ready = true;
       this.entry.ready();
+      this.embed.ready();
       this.updateUI();
       this.closeContent();
       // Persist freshly sampled deadlines and normalized saves even if the player only looks around.
@@ -195,12 +204,7 @@ class Adventure {
     });
     byId("sound-toggle").addEventListener("click", () => {
       if (this.transitioning) return;
-      this.state.muted = this.audio.on && !this.audio.music?.blocked;
-      if (this.state.muted) this.audio.stop();
-      else this.unlockAudio();
-      this.dirty = true;
-      this.updateUI();
-      this.save();
+      this.setMuted(this.audio.on && !this.audio.music?.blocked);
     });
     document
       .querySelectorAll("[data-dismiss]")
@@ -290,6 +294,16 @@ class Adventure {
     this.walking = false;
     this.running = false;
     this.player.pushing = null;
+  }
+  /** The one place the sound preference changes, so the toggle and the page that
+   * embeds us cannot end up meaning different things by the same word. */
+  setMuted(muted) {
+    this.state.muted = Boolean(muted);
+    if (this.state.muted) this.audio.stop();
+    else this.unlockAudio();
+    this.dirty = true;
+    this.updateUI();
+    this.save();
   }
   async unlockAudio() {
     if (
@@ -538,6 +552,12 @@ class Adventure {
   openDialogue(lines, speaker = this.s.you, variant = 0, entity = null) {
     this.pauseMovement();
     this.dialogue = { lines, index: 0, speaker, entity };
+    // The stick cannot move anybody during a conversation (pauseMovement just
+    // ran), so leaving it on screen only costs the dialogue 132px of height AND
+    // pushes it up by the same amount — for a control that does nothing. One
+    // flag on the root: --world-control-clearance drops to zero and the five
+    // things that reserve room for the stick recompose themselves.
+    document.documentElement.dataset.worldTalking = "1";
     byId("dialogue").hidden = false;
     this.paintPortrait(
       typeof entity?.portrait === "string"
@@ -608,6 +628,7 @@ class Adventure {
   closeDialogue() {
     if (this.dialogue?.entity) this.contactLatch = this.dialogue.entity.id;
     this.dialogue = null;
+    delete document.documentElement.dataset.worldTalking;
     byId("dialogue").hidden = true;
     byId("world-canvas").focus({ preventScroll: true });
   }
@@ -775,7 +796,14 @@ class Adventure {
     // locked and eased frame by frame, which is the bounce you see on a cat
     // ride but never on your own legs, where `walking` stays steady.
     const tracking = this.walking || Boolean(this.cats?.locked);
-    if (snap || (tracking && !reading)) this.camera = target;
+    // ⛔ THE CAMERA ONLY LOCKS ONCE IT IS ALREADY THERE. Tapping the map to walk
+    // sets cameraFollowing and starts the legs in the same gesture, so a locked
+    // camera TELEPORTED across whatever you had panned — hundreds of pixels in
+    // one frame. Walking normally the target moves ~2px per frame, well inside
+    // the threshold, so it stays glued exactly as before; the only moment this
+    // eases is right after you moved the map, which is the jolt it exists for.
+    const gap = Math.hypot(target.x - this.camera.x, target.y - this.camera.y);
+    if (snap || (tracking && !reading && gap <= CAMERA_LOCK)) this.camera = target;
     else {
       this.camera.x += (target.x - this.camera.x) * this.cameraEase;
       this.camera.y += (target.y - this.camera.y) * this.cameraEase;
@@ -887,6 +915,17 @@ class Adventure {
     if (document.hidden || this.inactive) return;
     const dt = Math.min(0.05, this.lastTime ? (ms - this.lastTime) / 1000 : 0);
     this.lastTime = ms;
+    // ⛔ A FRAME THAT IS NOT ON SCREEN COSTS NOTHING BUT THE LOOP. An iframe set to
+    // `display: none` keeps its animation frames coming — its document is not
+    // `hidden`, because that follows the TOP-level page — so the website tucking
+    // the world away used to leave a whole simulation running for nobody. Skipping
+    // the work instead of the loop is what makes showing it again instant: nobody
+    // has to remember to restart anything. (Painting is refused one level down,
+    // in renderer.render(), which is the only place that touches the canvas.)
+    if (!this.renderer.width || !this.renderer.height) {
+      this.frame = requestAnimationFrame((t) => this.tick(t));
+      return;
+    }
     if (!this.entry.entered) {
       if (ms - (this.lastRender || 0) > 83) {
         this.renderer.render(this, this.reducedMotion ? 0 : ms / 1000);

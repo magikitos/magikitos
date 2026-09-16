@@ -21,6 +21,13 @@ No implica publicación en tiendas. Guía nativa: [MOBILE.md](MOBILE.md).
   el fullscreen del navegador. No se bloquea la orientación.
 - Si falla la preparación del mundo, la tarjeta muestra el error y «Reintentar»;
   no deja un botón desactivado para siempre.
+- **Empotrado en la web la tarjeta no se muestra** (ver [EMBEDDING.md](EMBEDDING.md)):
+  la página ya puso una puerta delante y la persona la cruzó, así que entrar es un solo
+  gesto con un solo significado —el bosque, con sonido— y la pantalla completa la pide
+  la página sobre su propio elemento. Bajar el bosque para y guarda, pero **no escribe
+  `state.muted`**: callar por estar fuera de la vista no es elegir el mute, y escribirlo
+  dejaría el botón de sonido mintiendo en la siguiente visita. Manda el sonido quien
+  está en pantalla.
 
 ## Mezcla y prioridades
 

@@ -91,6 +91,14 @@ class Renderer {
     );
   }
   render(game, time) {
+    // ⛔ NOTHING IS PAINTED ON A SURFACE THAT DOES NOT EXIST. The website keeps the
+    // world in an iframe and hides it with `display: none`, which leaves this
+    // canvas at 0×0 while the document still believes it is visible (an iframe's
+    // visibility follows the TOP-level page). Drawing there throws
+    // InvalidStateError on the first sprite — and inside init() that lands in the
+    // catch, so a world preloaded out of sight would come up saying it failed.
+    // The guard lives HERE, at the one place that draws, and not at each caller.
+    if (!this.width || !this.height) return;
     const c = this.ctx,
       world = game.world,
       cam = game.camera;

@@ -3,16 +3,21 @@ const assert = require("node:assert/strict"),
   fs = require("node:fs");
 const { chromium } = require("playwright");
 const origin = process.env.GAME_ORIGIN || "http://127.0.0.1:47834";
+const { fulfillArena } = require("./lib/input-arena.cjs");
 (async () => {
   const browser = await chromium.launch({ channel: "chrome", headless: true }),
     errors = [];
   fs.mkdirSync(".local/modality-review", { recursive: true });
   try {
-    const route = (r) =>
-      ["GET", "HEAD"].includes(r.request().method()) &&
-      new URL(r.request().url()).origin === origin
-        ? r.continue()
-        : r.abort();
+    // El claro compartido: aquí se mide la ENTRADA, no el bosque (ver lib/input-arena).
+    const route = (r) => {
+      const request = r.request(),
+        url = new URL(request.url());
+      if (!["GET", "HEAD"].includes(request.method()) || url.origin !== origin)
+        return r.abort();
+      if (url.pathname === "/aventura") return fulfillArena(r);
+      return r.continue();
+    };
     const noScript = await browser.newPage({ javaScriptEnabled: false });
     await noScript.route("**/*", route);
     await noScript.goto(origin + "/aventura");
@@ -96,14 +101,73 @@ const origin = process.env.GAME_ORIGIN || "http://127.0.0.1:47834";
           assert(await stick.isHidden(), "Keyboard switches immediately");
         }
         await page.touchscreen.tap(130, 140);
-        const rect = await stick.boundingBox(),
-          direction = {
+        const rect = await stick.boundingBox();
+        // La palanca FLOTA: el punto donde cae el pulgar es el neutro, y la
+        // dirección se pide alejándose de ÉL, no del centro de la zona.
+        const travel = await page.evaluate(() =>
+          parseFloat(
+            getComputedStyle(document.getElementById("world-joystick"))
+              .getPropertyValue("--world-stick-travel"),
+          ),
+        );
+        const neutral = {
             id: 1,
             x: rect.x + rect.width / 2,
-            y: rect.y + rect.height * 0.82,
-          };
-        await send("touchStart", [direction]);
-        assert(await boost.isVisible());
+            y: rect.y + rect.height / 2,
+          },
+          direction = { ...neutral, y: neutral.y + travel };
+        // ⛔ UN `touchMove` DE CDP LLEGA AL FRAME SIGUIENTE, así que una aserción en
+        // el mismo tick lee el estado de antes. Se espera a la CONDICIÓN, no a un
+        // número de milisegundos.
+        const turbo = (estado) => boost.waitFor({ state: estado, timeout: 3000 });
+        // ⛔ UN `touchMove` MANDADO PEGADO A SU `touchStart` SE PIERDE. Chrome agrupa
+        // los movimientos y los entrega en el frame siguiente, así que encadenar los
+        // dos comandos de CDP sin esperar nada por medio deja el segundo fundido con
+        // el primero: el dedo baja y no se mueve nunca. Se espera a que la palanca
+        // ACUSE la pulsación (su propia clase) y solo entonces se dirige.
+        // ⛔ EL MUNDO ESTÁ VIVO Y A VECES NO SE DEJA DIRIGIR: un gato del picnic te
+        // coge en brazos y la palanca rechaza gestos A PROPÓSITO mientras te lleva.
+        // Esta prueba mide la palanca, no al gato, así que espera a un mundo que se
+        // pueda dirigir. Y un `touchMove` mandado pegado a su `touchStart` se pierde
+        // —Chrome agrupa los movimientos y los entrega en el frame siguiente—, así
+        // que además se espera a que la palanca ACUSE la pulsación antes de dirigir.
+        const dirigible = () =>
+          page.waitForFunction(
+            () => {
+              const g = window.MagikitosAdventure.inspect();
+              return (
+                !g.carried &&
+                !g.dialogue &&
+                !g.transitioning &&
+                !document.querySelector("dialog[open]")
+              );
+            },
+            null,
+            { timeout: 25000 },
+          );
+        const presiona = async (punto) => {
+          for (let intento = 0; intento < 5; intento++) {
+            await dirigible();
+            await send("touchStart", [punto]);
+            try {
+              return await page.waitForFunction(
+                () =>
+                  document
+                    .getElementById("world-joystick")
+                    .classList.contains("is-active"),
+                null,
+                { timeout: 2000 },
+              );
+            } catch (_) {
+              await send("touchEnd", []);
+            }
+          }
+          throw Error("La palanca no acusa la pulsación");
+        };
+        await presiona(neutral);
+        await turbo("hidden");
+        await send("touchMove", [direction]);
+        await turbo("visible");
         const b = await boost.boundingBox(),
           accelerator = { id: 2, x: b.x + b.width / 2, y: b.y + b.height / 2 };
         await send("touchStart", [direction, accelerator]);
@@ -116,29 +180,26 @@ const origin = process.env.GAME_ORIGIN || "http://127.0.0.1:47834";
           path: ".local/modality-review/" + spec.name + "-active.png",
         });
         await send("touchEnd", [direction]);
-        assert(await boost.isHidden());
+        await turbo("hidden");
         assert.equal(
           await boost.getAttribute("aria-pressed"),
           "false",
           "Releasing direction disarms the held turbo",
         );
         await send("touchEnd", []);
-        await send("touchStart", [direction]);
-        assert(await boost.isVisible());
-        await send("touchMove", [
-          {
-            ...direction,
-            x: rect.x + rect.width / 2,
-            y: rect.y + rect.height / 2,
-          },
-        ]);
-        assert(await boost.isHidden());
+        await presiona(neutral);
+        await send("touchMove", [direction]);
+        await turbo("visible");
+        await send("touchMove", [neutral]);
+        await turbo("hidden"); // Volver al neutro desarma el turbo
         await send("touchCancel", []);
-        assert(await boost.isHidden());
+        await turbo("hidden");
         // Focus loss clears transient input without forgetting the touch modality.
-        await send("touchStart", [direction]);
+        await presiona(neutral);
+        await send("touchMove", [direction]);
+        await turbo("visible");
         await page.evaluate(() => window.dispatchEvent(new Event("blur")));
-        assert(await boost.isHidden());
+        await turbo("hidden");
         await send("touchEnd", []);
         await page.evaluate(() => {
           const input = document.createElement("input");
