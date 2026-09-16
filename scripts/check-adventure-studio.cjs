@@ -128,6 +128,44 @@ assert(
   fs.readdirSync(store.history).length === 1,
   "Recoverable history is kept out of the user's workflow",
 );
+// One workspace keeps several scenes; applying one must never consume the rest.
+const fountain = base.world.scenes.overworld.entities.find(
+  (e) => e.id === "fountain",
+);
+const multiple = validateChanges(base, {
+  ...edits,
+  overworld: {
+    entities: { fountain: { ...placement(fountain), x: fountain.x - 1 } },
+  },
+});
+const multiSave = store.save({ ...saved, changes: multiple });
+const reopened = new WorkspaceStore(temporary);
+assert.deepEqual(reopened.load(base).workspace.changes, multiple);
+assert.deepEqual(
+  reopened
+    .diff()
+    .scenes.map((s) => s.scene)
+    .sort(),
+  ["house", "overworld"],
+);
+const appliedHouse = structuredClone(base);
+appliedHouse.baseHash = "b".repeat(64);
+appliedHouse.world.scenes.house.entities.find((e) => e.id === bed.id).x =
+  bed.x + 1;
+appliedHouse.sources.house.data.entities.find((e) => e.id === bed.id).x =
+  bed.x + 1;
+const remaining = reopened.load(appliedHouse);
+assert.deepEqual(remaining.conflicts, []);
+assert.equal(remaining.workspace.revision, multiSave.revision + 1);
+assert.deepEqual(remaining.workspace.changes, {
+  overworld: multiple.overworld,
+});
+assert.deepEqual(remaining.workspace.sprites, sprites);
+assert.equal(
+  new WorkspaceStore(temporary).load(appliedHouse).workspace.changes.overworld
+    .entities.fountain.x,
+  fountain.x - 1,
+);
 console.log(
-  "PASS: single workspace, scene/crop/collision validation, anchors, autosave contract, revision conflicts, recovery and three-way rebase.",
+  "PASS: single multi-scene workspace, partial-application preservation, scene/crop/collision validation, anchors, autosave contract, revision conflicts, recovery and three-way rebase.",
 );

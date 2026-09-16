@@ -371,10 +371,12 @@ assert(!world.waterAt(45, 45));
 assert(!world.waterAt(13, 43), "No picnic pond");
 assert(world.waterAt(115, 45), "The boat lake remains open water");
 assert(!world.waterAt(45, 55.5));
-const actor = { x: fire.x + 40, y: fire.y, actor: true };
+// Approach the barbecue from below; the right side can legitimately seat Brizno.
+const actor = { x: fire.x, y: fire.y + 40, actor: true };
+assert(world.canStand(actor.x, actor.y), "Barbecue contact fixture starts on clear ground");
 world.actors = [actor];
 let contacts = 0;
-move(world, actor, -50, 0, (target) => {
+move(world, actor, 0, -50, (target) => {
   assert.equal(target.id, fire.id);
   contacts++;
 });

@@ -123,6 +123,15 @@ Arrow keys nudge; Shift multiplies the step by four. Cmd/Ctrl-Z and
 Cmd/Ctrl-Shift-Z undo/redo the last 100 changes, including crops, paths and bodies.
 Cmd/Ctrl-S saves immediately; otherwise edits save after a short pause.
 
+You can edit several scenes before asking the agent to apply them. Changes are
+stored per scene in the same workspace; choosing another scene does not discard
+them. Finish pending path/fence drawings before switching (unfinished previews
+are not saved). Before closing, use **Guardar ahora** or wait for **Guardado
+automático**. The reviewed diff includes all edited scenes. Applying only some
+of them keeps the others pending, including sprite crops. After the agent updates
+the source, reload the Studio tab before continuing; stale revisions cannot
+overwrite newer work. Prefer one editing tab at a time.
+
 ## Gallery and variants
 
 Open **Galería de elementos** in the Elements pane. Search by family/category, choose

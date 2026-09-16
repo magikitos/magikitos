@@ -10,224 +10,70 @@
   "paths": [
     [
       [
-        27,
-        90
-      ],
-      [
-        27,
-        76
-      ],
-      [
-        29,
-        70
-      ],
-      [
-        34,
-        63
-      ],
-      [
-        42,
-        58
-      ],
-      [
-        51,
-        54
-      ],
-      [
-        62,
-        56
-      ],
-      [
-        74,
-        50
-      ],
-      [
-        85,
-        45
-      ],
-      [
-        92,
-        45
-      ]
-    ],
-    [
-      [
-        42,
-        58
-      ],
-      [
-        35,
-        50
-      ],
-      [
-        31,
-        41
-      ],
-      [
-        27,
-        34
-      ],
-      [
-        22,
-        28
-      ],
-      [
-        20,
-        22
-      ],
-      [
-        8.5,
-        20
-      ],
-      [
-        8.5,
-        15.5
-      ]
-    ],
-    [
-      [
-        51,
-        54
-      ],
-      [
-        50,
-        49
-      ],
-      [
-        51,
-        43
-      ],
-      [
-        51,
-        40.6
-      ]
-    ],
-    [
-      [
-        62,
-        56
-      ],
-      [
-        64,
-        44
-      ],
-      [
         68,
-        36
+        52.25
       ],
       [
-        73,
-        30
-      ],
-      [
-        73,
-        26
-      ],
-      [
-        73,
-        24.7
-      ]
-    ],
-    [
-      [
-        73,
-        30
+        70.75,
+        37.25
       ],
       [
         77,
         23
       ],
       [
-        81.25,
-        16
+        83.75,
+        13.25
       ],
       [
-        81.25,
-        9.85
+        84.75,
+        4
       ]
     ],
     [
       [
-        34,
-        63
+        55.5,
+        52.25
       ],
       [
-        33,
-        66
+        50,
+        58.25
       ],
       [
-        32,
-        65
+        38.5,
+        62.25
       ],
       [
-        32,
-        63.1
-      ]
-    ],
-    [
-      [
-        42,
-        58
+        30.75,
+        69.25
       ],
       [
-        47,
-        68
+        26.25,
+        82
       ],
       [
-        49,
-        76
+        19,
+        98
       ],
       [
-        53,
-        83
+        22.5,
+        105.25
       ],
       [
-        55,
-        89.7
-      ]
-    ],
-    [
-      [
-        74,
-        50
+        30.75,
+        105.75
       ],
       [
-        83,
-        58
+        43.25,
+        109.5
       ],
       [
-        94,
-        65
-      ],
-      [
-        100,
-        73
-      ],
-      [
-        103,
-        78
+        100.25,
+        108.75
       ],
       [
         105.5,
         84
-      ]
-    ],
-    [
-      [
-        85,
-        45
-      ],
-      [
-        82,
-        42
-      ],
-      [
-        83,
-        38
-      ],
-      [
-        83,
-        36.2
       ]
     ]
   ],
@@ -358,33 +204,33 @@
     {
       "id": "picnic-barbecue",
       "behavior": "picnic-barbecue",
-      "x": 83,
-      "y": 44.5
+      "x": 82.25,
+      "y": 42.75
     },
     {
       "id": "picnic-mushroom",
       "behavior": "picnic-mushroom",
-      "x": 78,
-      "y": 42.5,
+      "x": 77.5,
+      "y": 41.25,
       "scale": 0.85
     },
     {
       "id": "picnic-twig",
       "behavior": "picnic-twig",
-      "x": 83,
-      "y": 50.5
+      "x": 58,
+      "y": 17.25
     },
     {
       "id": "picnic-neighbor",
       "behavior": "picnic-neighbor",
-      "x": 87,
-      "y": 43.5
+      "x": 86.15,
+      "y": 43
     },
     {
       "id": "forest-sign",
       "sprite": "sign",
-      "x": 27.25,
-      "y": 66,
+      "x": 98.5,
+      "y": 106.5,
       "rules": [
         {
           "effects": [
@@ -442,8 +288,8 @@
     {
       "id": "art-table",
       "sprite": "workbench",
-      "x": 38,
-      "y": 43,
+      "x": 67,
+      "y": 65.75,
       "rules": [
         {
           "effects": [
@@ -465,8 +311,8 @@
     {
       "id": "art-easel",
       "sprite": "easel",
-      "x": 41,
-      "y": 44,
+      "x": 71.75,
+      "y": 64,
       "rules": [
         {
           "effects": [
@@ -482,8 +328,8 @@
     {
       "id": "art-yarn",
       "sprite": "yarn",
-      "x": 35,
-      "y": 44,
+      "x": 63,
+      "y": 64.5,
       "rules": []
     },
     {
@@ -496,8 +342,8 @@
     {
       "id": "tavern-flower-pot",
       "sprite": "flower-pot",
-      "x": 47,
-      "y": 41,
+      "x": 31.25,
+      "y": 57.5,
       "rules": []
     },
     {
@@ -508,31 +354,24 @@
       "rules": []
     },
     {
-      "id": "cottage-flowers",
-      "sprite": "flower-pot",
-      "x": 53,
-      "y": 16,
-      "rules": []
-    },
-    {
       "id": "home-flowers",
       "sprite": "flower-pot",
-      "x": 59,
-      "y": 90,
+      "x": 33.75,
+      "y": 102.5,
       "rules": []
     },
     {
       "id": "plaza-lantern",
       "sprite": "lantern",
       "x": 66,
-      "y": 54,
+      "y": 105.75,
       "rules": []
     },
     {
       "id": "tavern-door",
       "sprite": "tavern",
-      "x": 51,
-      "y": 40,
+      "x": 39,
+      "y": 104.5,
       "rules": [
         {
           "effects": [
@@ -556,8 +395,8 @@
     {
       "id": "workshop-door",
       "sprite": "workshop",
-      "x": 73,
-      "y": 24,
+      "x": 54.25,
+      "y": 54,
       "rules": [
         {
           "effects": [
@@ -581,8 +420,8 @@
     {
       "id": "home-one",
       "sprite": "cottage",
-      "x": 81.25,
-      "y": 9.25,
+      "x": 85,
+      "y": 5.25,
       "rules": [
         {
           "effects": [
@@ -606,8 +445,8 @@
     {
       "id": "home-two",
       "sprite": "home-mushroom-canela",
-      "x": 55,
-      "y": 89,
+      "x": 57,
+      "y": 106.5,
       "rules": [
         {
           "effects": [
@@ -631,8 +470,8 @@
     {
       "id": "human-door",
       "sprite": "human-house",
-      "x": 32,
-      "y": 62.5,
+      "x": 26.75,
+      "y": 101.25,
       "rules": [
         {
           "effects": [
@@ -656,8 +495,8 @@
     {
       "id": "fisher-door",
       "sprite": "home-pot-terracotta",
-      "x": 83,
-      "y": 35.5,
+      "x": 84,
+      "y": 39.75,
       "rules": [
         {
           "effects": [
@@ -681,14 +520,15 @@
     {
       "id": "fountain",
       "behavior": "wishing-fountain",
-      "x": 60,
-      "y": 50
+      "x": 66.75,
+      "y": 59.75,
+      "scale": 1.26
     },
     {
       "id": "no-pooping",
       "sprite": "sign",
-      "x": 58,
-      "y": 53.5,
+      "x": 65.25,
+      "y": 51.5,
       "rules": [
         {
           "when": [],
@@ -712,8 +552,8 @@
     {
       "id": "lake-bench",
       "sprite": "bench",
-      "x": 96,
-      "y": 61,
+      "x": 97.5,
+      "y": 61.5,
       "rules": [
         {
           "when": [],
@@ -736,21 +576,21 @@
     {
       "id": "dock-lantern",
       "sprite": "lantern",
-      "x": 90,
-      "y": 42,
+      "x": 87.5,
+      "y": 42.75,
       "rules": []
     },
     {
       "id": "picnic-log",
       "sprite": "fallen-log",
-      "x": 84,
-      "y": 49,
+      "x": 104.5,
+      "y": 64.25,
       "rules": []
     },
     {
       "id": "picnic-berries",
       "sprite": "berries",
-      "x": 79,
+      "x": 61,
       "y": 37.5,
       "rules": []
     },
@@ -764,22 +604,8 @@
     {
       "id": "story-reeds-south",
       "sprite": "reeds",
-      "x": 112.5,
-      "y": 86.5,
-      "rules": []
-    },
-    {
-      "id": "story-fern-west",
-      "sprite": "fern",
-      "x": 99.5,
-      "y": 79.5,
-      "rules": []
-    },
-    {
-      "id": "story-berries-west",
-      "sprite": "berries",
-      "x": 99.5,
-      "y": 77.5,
+      "x": 111,
+      "y": 89.25,
       "rules": []
     },
     {
@@ -806,40 +632,40 @@
     {
       "id": "leaves-clearing",
       "behavior": "toilet-plant",
-      "x": 19.5,
-      "y": 76.5
+      "x": 27.25,
+      "y": 67.75
     },
     {
       "id": "leaves-river",
       "behavior": "toilet-plant",
-      "x": 17.25,
-      "y": 58.5
+      "x": 10.75,
+      "y": 63.75
     },
     {
       "id": "leaves-stories",
       "behavior": "toilet-plant",
-      "x": 98.5,
-      "y": 87.5
+      "x": 116.75,
+      "y": 110.75
     },
     {
       "id": "fountain-flowers",
       "sprite": "flower-pot",
-      "x": 64.8,
-      "y": 50,
+      "x": 45.5,
+      "y": 51.5,
       "rules": []
     },
     {
       "id": "fountain-fern",
       "sprite": "fern",
-      "x": 58,
-      "y": 49,
+      "x": 21.75,
+      "y": 57.25,
       "rules": []
     },
     {
       "id": "tavern-garden",
       "sprite": "berries",
-      "x": 46,
-      "y": 36,
+      "x": 19.75,
+      "y": 43.25,
       "rules": []
     },
     {
@@ -1018,8 +844,8 @@
     {
       "id": "picnic-waymarker",
       "sprite": "sign",
-      "x": 30,
-      "y": 38,
+      "x": 29.25,
+      "y": 14.5,
       "label": "sign",
       "rules": [
         {
@@ -1037,8 +863,8 @@
       "id": "clearing-willow-crate",
       "family": "crate",
       "sprite": "crates",
-      "x": 29,
-      "y": 76,
+      "x": 75.5,
+      "y": 58.75,
       "artVariant": "sauce",
       "rules": []
     },
@@ -1046,8 +872,8 @@
       "id": "art-moveable-planter",
       "family": "planter",
       "sprite": "flower-pot",
-      "x": 42,
-      "y": 46,
+      "x": 32.75,
+      "y": 54,
       "artVariant": "margaritas",
       "rules": []
     },
@@ -1077,26 +903,26 @@
     {
       "id": "picnic-twigs",
       "behavior": "picnic-twig",
-      "x": 20,
-      "y": 32
+      "x": 3.25,
+      "y": 60.75
     },
     {
       "id": "twig-fountain",
       "behavior": "picnic-twig",
-      "x": 45,
-      "y": 51
+      "x": 4.75,
+      "y": 84.5
     },
     {
       "id": "twig-root",
       "behavior": "picnic-twig",
-      "x": 71,
-      "y": 60
+      "x": 89.75,
+      "y": 98.75
     },
     {
       "id": "picnic-leaves",
       "behavior": "toilet-plant",
-      "x": 17,
-      "y": 34
+      "x": 58.5,
+      "y": 11.25
     },
     {
       "id": "river-dock",
@@ -1106,31 +932,10 @@
       "landing": "woodland"
     },
     {
-      "id": "picnic-fence",
-      "sprite": "garden-fence",
-      "x": 13.25,
-      "y": 17.5,
-      "rules": [],
-      "family": "fence-line",
-      "artVariant": "ramas",
-      "fence": {
-        "points": [
-          [
-            -3,
-            0
-          ],
-          [
-            8.6,
-            0
-          ]
-        ]
-      }
-    },
-    {
       "id": "picnic-table-flower",
       "sprite": "flowers-daisy-white",
-      "x": 32,
-      "y": 25,
+      "x": 15.25,
+      "y": 51.75,
       "rules": []
     },
     {
@@ -1205,11 +1010,6 @@
     {
       "sprite": "garden-fence",
       "rules": [],
-      "family": "fence-line",
-      "id": "studio-7b29cbd1-0ba0-465c-9b6b-c0b1bfa78bd9",
-      "x": 0.25,
-      "y": 17.25,
-      "artVariant": "ramas",
       "fence": {
         "points": [
           [
@@ -1217,15 +1017,40 @@
             0
           ],
           [
-            5.5,
+            23.25,
             0
           ],
           [
-            6.75,
-            -1.25
+            27.5,
+            -4.75
           ]
         ]
-      }
+      },
+      "family": "fence-line",
+      "id": "studio-d4e9cbd2-1a74-4df4-8fc9-02a4d3391c7e",
+      "x": 0,
+      "y": 18.25,
+      "artVariant": "ramas"
+    },
+    {
+      "sprite": "ancient-root",
+      "rules": [],
+      "solid": [
+        -2.5,
+        -2.8,
+        5,
+        3.4
+      ],
+      "wind": {
+        "amplitude": 1,
+        "fixedFrom": 0.62,
+        "share": 0.35
+      },
+      "family": "canopy-tree",
+      "id": "studio-12de300a-3f50-47c3-bd5d-e27d2bb8cc2d",
+      "x": 2,
+      "y": 88.5,
+      "artVariant": "abedul"
     }
   ],
   "neighbors": [
@@ -1322,22 +1147,10 @@
   ],
   "scenery": [
     {
-      "id": "decor-5",
-      "sprite": "fern",
-      "x": 70.10119916545227,
-      "y": 88.36151385633275
-    },
-    {
       "id": "decor-7",
       "sprite": "berries",
-      "x": 13.5,
-      "y": 58.25
-    },
-    {
-      "id": "decor-10",
-      "sprite": "fern",
-      "x": 11.910412950906903,
-      "y": 60.8943783394061
+      "x": 11.75,
+      "y": 59
     },
     {
       "id": "decor-17",
@@ -1348,38 +1161,26 @@
     {
       "id": "decor-22",
       "sprite": "fern",
-      "x": 77.07891674619168,
-      "y": 92.48959134053439
-    },
-    {
-      "id": "decor-27",
-      "sprite": "mushrooms",
-      "x": 34.99562029587105,
-      "y": 12.061169063206762
+      "x": 66.75,
+      "y": 77.75
     },
     {
       "id": "decor-30",
       "sprite": "fern",
-      "x": 39.75,
-      "y": 13.75
+      "x": 6,
+      "y": 2.25
     },
     {
       "id": "decor-31",
       "sprite": "bush",
-      "x": 80.16008170880377,
-      "y": 63.774189548101276
-    },
-    {
-      "id": "decor-35",
-      "sprite": "fern",
-      "x": 7.224010496865958,
-      "y": 71.81718431599438
+      "x": 101.5,
+      "y": 62.25
     },
     {
       "id": "decor-37",
       "sprite": "mushrooms",
-      "x": 7.25,
-      "y": 28.25
+      "x": 26,
+      "y": 19
     },
     {
       "id": "decor-39",
@@ -1388,40 +1189,16 @@
       "y": 78.10834531160071
     },
     {
-      "id": "decor-45",
-      "sprite": "fern",
-      "x": 37.53497495735064,
-      "y": 15.157801310531795
-    },
-    {
-      "id": "decor-46",
-      "sprite": "fern",
-      "x": 7.954215939156711,
-      "y": 66.23526384076104
-    },
-    {
       "id": "decor-48",
       "sprite": "berries",
       "x": 39.7,
       "y": 71.29783987719566
     },
     {
-      "id": "decor-52",
-      "sprite": "bush",
-      "x": 64.88789370236918,
-      "y": 6.158627862576395
-    },
-    {
       "id": "decor-54",
       "sprite": "fern",
       "x": 32.862921204417944,
       "y": 87.25370478769764
-    },
-    {
-      "id": "decor-57",
-      "sprite": "bush",
-      "x": 80.84184732846916,
-      "y": 82.79424637276679
     },
     {
       "id": "decor-59",
@@ -1432,8 +1209,8 @@
     {
       "id": "decor-61",
       "sprite": "fern",
-      "x": 9.587477541062981,
-      "y": 81.52981155272573
+      "x": 6.25,
+      "y": 60.75
     },
     {
       "id": "decor-62",
@@ -1448,34 +1225,16 @@
       "y": 91.54934676317498
     },
     {
-      "id": "decor-68",
-      "sprite": "fern",
-      "x": 7.006131352856755,
-      "y": 36.933308471459895
-    },
-    {
-      "id": "decor-69",
-      "sprite": "mushrooms",
-      "x": 58.75,
-      "y": 5.75
-    },
-    {
       "id": "decor-75",
       "sprite": "bush",
       "x": 61.40115382242948,
       "y": 62.277386642061174
     },
     {
-      "id": "decor-80",
-      "sprite": "berries",
-      "x": 83.34678284358233,
-      "y": 77.13600892061368
-    },
-    {
       "id": "decor-90",
       "sprite": "mushrooms",
-      "x": 52.06779268104583,
-      "y": 69.51935286819935
+      "x": 77.75,
+      "y": 66.75
     },
     {
       "id": "decor-93",
@@ -1498,20 +1257,8 @@
     {
       "id": "decor-103",
       "sprite": "fern",
-      "x": 50.67100387485698,
-      "y": 59.456271156203
-    },
-    {
-      "id": "decor-104",
-      "sprite": "berries",
-      "x": 71.48093775240704,
-      "y": 77.71423448994756
-    },
-    {
-      "id": "decor-105",
-      "sprite": "bush",
-      "x": 82.21667111013085,
-      "y": 69.39265910256654
+      "x": 57.5,
+      "y": 64
     },
     {
       "id": "decor-106",
@@ -1520,40 +1267,10 @@
       "y": 68.61611657263711
     },
     {
-      "id": "decor-113",
-      "sprite": "fern",
-      "x": 91.22959259338677,
-      "y": 84.47941576782614
-    },
-    {
-      "id": "decor-123",
-      "sprite": "bush",
-      "x": 67.98388105351478,
-      "y": 4.446412685327232
-    },
-    {
       "id": "decor-124",
       "sprite": "fern",
-      "x": 64.38108329474926,
-      "y": 60.35826443647966
-    },
-    {
-      "id": "decor-125",
-      "sprite": "fern",
-      "x": 67,
-      "y": 2.25
-    },
-    {
-      "id": "decor-126",
-      "sprite": "fern",
-      "x": 8.75,
-      "y": 36
-    },
-    {
-      "id": "decor-127",
-      "sprite": "berries",
-      "x": 67.90941660059616,
-      "y": 67.15183226577938
+      "x": 22.75,
+      "y": 69.25
     },
     {
       "id": "decor-136",
@@ -1576,26 +1293,20 @@
     {
       "id": "decor-147",
       "sprite": "mushrooms",
-      "x": 38.2520537530072,
-      "y": 25.889961968176067
+      "x": 49.252,
+      "y": 31.64
     },
     {
       "id": "decor-153",
       "sprite": "berries",
-      "x": 82.1942842095159,
-      "y": 61.15557983703911
+      "x": 92.75,
+      "y": 55.5
     },
     {
       "id": "decor-154",
       "sprite": "bush",
-      "x": 10.189392118249089,
-      "y": 73.49348008353263
-    },
-    {
-      "id": "decor-163",
-      "sprite": "fern",
-      "x": 3.09795705974102,
-      "y": 32.81495060026646
+      "x": 13,
+      "y": 41.25
     },
     {
       "id": "decor-164",
@@ -1604,40 +1315,10 @@
       "y": 74.03392675984651
     },
     {
-      "id": "decor-171",
-      "sprite": "fern",
-      "x": 90.33759946096689,
-      "y": 78.43931381078437
-    },
-    {
-      "id": "decor-173",
-      "sprite": "berries",
-      "x": 1.5,
-      "y": 19.75
-    },
-    {
-      "id": "decor-178",
-      "sprite": "mushrooms",
-      "x": 60.18772999802604,
-      "y": 4.693417795468122
-    },
-    {
-      "id": "decor-181",
-      "sprite": "fern",
-      "x": 10,
-      "y": 41
-    },
-    {
       "id": "decor-182",
       "sprite": "bush",
-      "x": 67.5154046160169,
-      "y": 61.25642255600542
-    },
-    {
-      "id": "decor-183",
-      "sprite": "mushrooms",
-      "x": 84.22820274205878,
-      "y": 73.44428853783756
+      "x": 57.5,
+      "y": 67.5
     },
     {
       "id": "decor-185",
@@ -1648,8 +1329,8 @@
     {
       "id": "decor-190",
       "sprite": "mushrooms",
-      "x": 60.61084654694423,
-      "y": 59.65165407350287
+      "x": 79,
+      "y": 41.75
     },
     {
       "id": "decor-194",
@@ -1664,28 +1345,16 @@
       "y": 56.68960109772161
     },
     {
-      "id": "decor-209",
-      "sprite": "reeds",
-      "x": 91.58945650374517,
-      "y": 72.57986829103902
-    },
-    {
       "id": "decor-215",
       "sprite": "mushrooms",
-      "x": 40.75,
-      "y": 19.25
-    },
-    {
-      "id": "decor-216",
-      "sprite": "fern",
-      "x": 11.273843945935369,
-      "y": 61.89216660987586
+      "x": 2,
+      "y": 20.25
     },
     {
       "id": "decor-220",
       "sprite": "berries",
-      "x": 39.3,
-      "y": 46.20826055249199
+      "x": 22.5,
+      "y": 51.75
     },
     {
       "id": "decor-225",
@@ -1694,16 +1363,10 @@
       "y": 74.00405084900558
     },
     {
-      "id": "decor-226",
-      "sprite": "fern",
-      "x": 9.47047509951517,
-      "y": 52.19005937408656
-    },
-    {
       "id": "decor-235",
       "sprite": "fern",
-      "x": 39.4,
-      "y": 3.7973205763846636
+      "x": 45.5,
+      "y": 28.5
     },
     {
       "id": "decor-237",
@@ -1720,26 +1383,14 @@
     {
       "id": "decor-241",
       "sprite": "berries",
-      "x": 6.25,
-      "y": 30.75
-    },
-    {
-      "id": "decor-242",
-      "sprite": "bush",
-      "x": 85.36833803774789,
-      "y": 82.17789689032361
-    },
-    {
-      "id": "decor-244",
-      "sprite": "bush",
-      "x": 63.5,
-      "y": 2.75
+      "x": 21,
+      "y": 21.25
     },
     {
       "id": "decor-245",
       "sprite": "bush",
-      "x": 10.349369110073894,
-      "y": 84.2628181069158
+      "x": 15.75,
+      "y": 30
     },
     {
       "id": "decor-248",
@@ -1750,8 +1401,8 @@
     {
       "id": "decor-251",
       "sprite": "fern",
-      "x": 41,
-      "y": 21
+      "x": 64.75,
+      "y": 36
     },
     {
       "id": "decor-255",
@@ -1760,34 +1411,16 @@
       "y": 82.15103188483045
     },
     {
-      "id": "decor-256",
-      "sprite": "bush",
-      "x": 87.6171243507415,
-      "y": 73.08875871542841
-    },
-    {
       "id": "decor-259",
       "sprite": "mushrooms",
-      "x": 35.32381140161306,
-      "y": 7.48070301907137
+      "x": 48.5,
+      "y": 51.5
     },
     {
       "id": "decor-263",
       "sprite": "fern",
-      "x": 39.35933915525675,
-      "y": 17.36716654803604
-    },
-    {
-      "id": "decor-276",
-      "sprite": "fern",
-      "x": 83.02926086820662,
-      "y": 92.69503425993025
-    },
-    {
-      "id": "decor-277",
-      "sprite": "berries",
-      "x": 5.25,
-      "y": 33.75
+      "x": 13.75,
+      "y": 1.75
     },
     {
       "id": "decor-278",
@@ -1796,46 +1429,16 @@
       "y": 83.3085869201459
     },
     {
-      "id": "decor-280",
-      "sprite": "bush",
-      "x": 8.5064338427037,
-      "y": 49.35568120284006
-    },
-    {
-      "id": "decor-281",
-      "sprite": "berries",
-      "x": 73.93713672272861,
-      "y": 3.2907626051455736
-    },
-    {
-      "id": "decor-282",
-      "sprite": "rocks",
-      "x": 94.04514588229358,
-      "y": 74.41414989950135
-    },
-    {
-      "id": "decor-283",
-      "sprite": "berries",
-      "x": 70.61557215359062,
-      "y": 89.0446553514339
-    },
-    {
       "id": "decor-293",
       "sprite": "reeds",
       "x": 93.31803068518639,
       "y": 23.054108477197587
     },
     {
-      "id": "decor-294",
-      "sprite": "bush",
-      "x": 57.75,
-      "y": 7.5
-    },
-    {
       "id": "decor-299",
       "sprite": "berries",
-      "x": 33.77809866052121,
-      "y": 9.132405423559248
+      "x": 41.5,
+      "y": 33
     },
     {
       "id": "decor-300",
@@ -1864,20 +1467,14 @@
     {
       "id": "decor-307",
       "sprite": "fern",
-      "x": 3.0251832641661167,
-      "y": 82.889295687899
-    },
-    {
-      "id": "decor-312",
-      "sprite": "bush",
-      "x": 16.18331164866686,
-      "y": 77.53735148068517
+      "x": 18.75,
+      "y": 53.5
     },
     {
       "id": "decor-314",
       "sprite": "berries",
-      "x": 35.25,
-      "y": 21.75
+      "x": 46.25,
+      "y": 27.5
     },
     {
       "id": "decor-315",
@@ -1900,26 +1497,20 @@
     {
       "id": "decor-325",
       "sprite": "bush",
-      "x": 13.000318063888699,
-      "y": 89.6199620696716
-    },
-    {
-      "id": "decor-335",
-      "sprite": "berries",
-      "x": 7.170129262376577,
-      "y": 53.65206059720367
+      "x": 9.5,
+      "y": 25.75
     },
     {
       "id": "decor-336",
       "sprite": "bush",
-      "x": 39.3,
-      "y": 48.57751180836931
+      "x": 24.25,
+      "y": 21.25
     },
     {
       "id": "red-mushrooms-west",
       "sprite": "scarlet-mushrooms",
-      "x": 10,
-      "y": 57,
+      "x": 43,
+      "y": 11.75,
       "solid": [
         -0.6,
         -0.4,
@@ -1931,8 +1522,8 @@
     {
       "id": "red-mushrooms-east",
       "sprite": "scarlet-mushrooms",
-      "x": 76,
-      "y": 64,
+      "x": 94.75,
+      "y": 60,
       "solid": [
         -0.6,
         -0.4,
@@ -1944,22 +1535,15 @@
     {
       "id": "woodland-flowers-1",
       "sprite": "flowers-primrose",
-      "x": 23.5,
+      "x": 12.5,
       "y": 68.5,
       "artVariant": "auto"
     },
     {
       "id": "woodland-flowers-3",
       "sprite": "flowers-daisy-white",
-      "x": 19.5,
-      "y": 57,
-      "artVariant": "auto"
-    },
-    {
-      "id": "woodland-flowers-12",
-      "sprite": "flowers-bell-blue",
-      "x": 97.5,
-      "y": 81,
+      "x": 20.25,
+      "y": 27.5,
       "artVariant": "auto"
     },
     {
@@ -1972,8 +1556,8 @@
     {
       "id": "woodland-flowers-14",
       "sprite": "flowers-primrose",
-      "x": 102,
-      "y": 88.5,
+      "x": 101.5,
+      "y": 90.25,
       "artVariant": "auto"
     },
     {
@@ -1986,58 +1570,16 @@
     {
       "id": "woodland-flowers-19",
       "sprite": "flowers-daisy-white",
-      "x": 23,
-      "y": 52.5,
+      "x": 13.75,
+      "y": 36,
       "artVariant": "auto"
     },
     {
       "id": "picnic-west",
       "sprite": "ancient-root",
-      "x": 25.5,
-      "y": 49.75,
+      "x": 50.5,
+      "y": 15.25,
       "scale": 1,
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "visionBlocker": true
-    },
-    {
-      "id": "picnic-east",
-      "sprite": "crooked-oak",
-      "x": 40,
-      "y": 25,
-      "scale": 0.95,
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "visionBlocker": true
-    },
-    {
-      "id": "forest-west",
-      "sprite": "crooked-oak",
-      "x": 10,
-      "y": 51,
-      "scale": 1.1,
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "visionBlocker": true
-    },
-    {
-      "id": "forest-southwest",
-      "sprite": "ancient-root",
-      "x": 10,
-      "y": 79,
-      "scale": 0.9,
       "solid": [
         -1.3,
         -1.2,
@@ -2049,8 +1591,8 @@
     {
       "id": "forest-south",
       "sprite": "forest-birch",
-      "x": 20,
-      "y": 103,
+      "x": 1.75,
+      "y": 111.938,
       "scale": 1.05,
       "solid": [
         -1.3,
@@ -2063,8 +1605,8 @@
     {
       "id": "clearing-rim",
       "sprite": "crooked-oak",
-      "x": 42,
-      "y": 81,
+      "x": 29,
+      "y": 48.25,
       "scale": 1,
       "solid": [
         -1.3,
@@ -2077,8 +1619,8 @@
     {
       "id": "south-grove",
       "sprite": "ancient-root",
-      "x": 78,
-      "y": 105,
+      "x": 79.75,
+      "y": 100,
       "scale": 1.1,
       "solid": [
         -1.3,
@@ -2091,8 +1633,8 @@
     {
       "id": "home-grove",
       "sprite": "forest-birch",
-      "x": 68,
-      "y": 95,
+      "x": 1.75,
+      "y": 63.5,
       "scale": 1.1,
       "solid": [
         -1.3,
@@ -2105,22 +1647,8 @@
     {
       "id": "path-shelter",
       "sprite": "forest-birch",
-      "x": 57,
-      "y": 73,
-      "scale": 0.85,
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "visionBlocker": true
-    },
-    {
-      "id": "lake-grove",
-      "sprite": "crooked-oak",
-      "x": 91,
-      "y": 76,
+      "x": 2,
+      "y": 44.75,
       "scale": 0.85,
       "solid": [
         -1.3,
@@ -2133,8 +1661,8 @@
     {
       "id": "night-rim",
       "sprite": "ancient-root",
-      "x": 87,
-      "y": 99,
+      "x": 89,
+      "y": 84.25,
       "scale": 0.8,
       "solid": [
         -1.3,
@@ -2147,8 +1675,8 @@
     {
       "id": "village-grove",
       "sprite": "forest-chestnut",
-      "x": 64,
-      "y": 29,
+      "x": 32,
+      "y": 8.25,
       "scale": 0.85,
       "solid": [
         -1.3,
@@ -2175,23 +1703,9 @@
     {
       "id": "north-rim",
       "sprite": "forest-birch",
-      "x": 24.75,
-      "y": 14.25,
-      "scale": 0.75,
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "visionBlocker": true
-    },
-    {
-      "id": "brizno-rim",
-      "sprite": "forest-birch",
-      "x": 88,
-      "y": 27,
-      "scale": 0.8,
+      "x": 71.75,
+      "y": 6.75,
+      "scale": 1.42,
       "solid": [
         -1.3,
         -1.2,
@@ -2204,23 +1718,15 @@
       "id": "picnic-understory-0",
       "sprite": "giant-fern",
       "x": 0,
-      "y": 14.5,
-      "scale": 0.65,
-      "artVariant": "auto"
-    },
-    {
-      "id": "picnic-understory-1",
-      "sprite": "giant-clover",
-      "x": 5.5,
-      "y": 45.25,
+      "y": 16.5,
       "scale": 0.65,
       "artVariant": "auto"
     },
     {
       "id": "picnic-understory-2",
       "sprite": "flowers-daisy-white",
-      "x": 32,
-      "y": 15,
+      "x": 27.5,
+      "y": 18,
       "scale": 1.2,
       "artVariant": "auto"
     },
@@ -2235,48 +1741,40 @@
     {
       "id": "picnic-understory-4",
       "sprite": "giant-fern",
-      "x": 12.75,
-      "y": 26.25,
+      "x": 7.5,
+      "y": 23,
       "scale": 0.65,
       "artVariant": "auto"
     },
     {
       "id": "picnic-understory-5",
       "sprite": "giant-clover",
-      "x": 18,
-      "y": 36,
+      "x": 62.25,
+      "y": 17.5,
       "scale": 0.65,
       "artVariant": "auto"
     },
     {
       "id": "picnic-understory-6",
       "sprite": "flowers-daisy-white",
-      "x": 12,
-      "y": 37,
+      "x": 13.75,
+      "y": 21.75,
       "scale": 1.2,
       "artVariant": "auto"
     },
     {
       "id": "picnic-understory-7",
       "sprite": "berries",
-      "x": 35,
-      "y": 19,
+      "x": 1.5,
+      "y": 2.5,
       "scale": 1.2,
-      "artVariant": "auto"
-    },
-    {
-      "id": "village-understory-0",
-      "sprite": "giant-fern",
-      "x": 42.75,
-      "y": 12,
-      "scale": 0.65,
       "artVariant": "auto"
     },
     {
       "id": "village-understory-1",
       "sprite": "giant-clover",
-      "x": 54,
-      "y": 36,
+      "x": 40,
+      "y": 43.75,
       "scale": 0.65,
       "artVariant": "auto"
     },
@@ -2297,26 +1795,10 @@
       "artVariant": "auto"
     },
     {
-      "id": "village-understory-4",
-      "sprite": "giant-fern",
-      "x": 47,
-      "y": 20,
-      "scale": 0.65,
-      "artVariant": "auto"
-    },
-    {
-      "id": "village-understory-5",
-      "sprite": "giant-clover",
-      "x": 52,
-      "y": 23,
-      "scale": 0.65,
-      "artVariant": "auto"
-    },
-    {
       "id": "village-understory-6",
       "sprite": "flowers-daisy-white",
-      "x": 68,
-      "y": 47,
+      "x": 72.75,
+      "y": 47.5,
       "scale": 1.2,
       "artVariant": "auto"
     },
@@ -2331,24 +1813,24 @@
     {
       "id": "south-understory-0",
       "sprite": "giant-fern",
-      "x": 18,
-      "y": 88,
+      "x": 27.75,
+      "y": 30.5,
       "scale": 0.65,
       "artVariant": "auto"
     },
     {
       "id": "south-understory-1",
       "sprite": "giant-clover",
-      "x": 33,
-      "y": 99,
+      "x": 15.75,
+      "y": 85.75,
       "scale": 0.65,
       "artVariant": "auto"
     },
     {
       "id": "south-understory-2",
       "sprite": "flowers-daisy-white",
-      "x": 48,
-      "y": 98,
+      "x": 50,
+      "y": 105.5,
       "scale": 1.2,
       "artVariant": "auto"
     },
@@ -2361,42 +1843,34 @@
       "artVariant": "auto"
     },
     {
-      "id": "south-understory-4",
-      "sprite": "giant-fern",
-      "x": 92,
-      "y": 94,
-      "scale": 0.65,
-      "artVariant": "auto"
-    },
-    {
       "id": "south-understory-5",
       "sprite": "giant-clover",
-      "x": 56,
-      "y": 78,
+      "x": 50.5,
+      "y": 74.25,
       "scale": 0.65,
       "artVariant": "auto"
     },
     {
       "id": "brizno-understory-0",
       "sprite": "giant-fern",
-      "x": 77,
-      "y": 40,
+      "x": 35,
+      "y": 27.25,
       "scale": 0.65,
       "artVariant": "auto"
     },
     {
       "id": "brizno-understory-1",
       "sprite": "giant-clover",
-      "x": 78,
-      "y": 48,
+      "x": 22.5,
+      "y": 36.75,
       "scale": 0.65,
       "artVariant": "auto"
     },
     {
       "id": "brizno-understory-2",
       "sprite": "flowers-daisy-white",
-      "x": 85,
-      "y": 38,
+      "x": 65.5,
+      "y": 47.5,
       "scale": 1.2,
       "artVariant": "auto"
     },
@@ -2404,7 +1878,7 @@
       "id": "brizno-understory-3",
       "sprite": "berries",
       "x": 89,
-      "y": 40,
+      "y": 39.25,
       "scale": 1.2,
       "artVariant": "auto"
     },
@@ -2417,17 +1891,10 @@
       "artVariant": "auto"
     },
     {
-      "id": "picnic-fern-gate",
-      "sprite": "giant-fern",
-      "x": 24.75,
-      "y": 27,
-      "scale": 0.72
-    },
-    {
       "id": "picnic-tree-root",
       "sprite": "fallen-log",
-      "x": 4.75,
-      "y": 19.5,
+      "x": 18,
+      "y": 21.5,
       "scale": 1.2,
       "solid": [
         -1,
@@ -2439,8 +1906,8 @@
     {
       "id": "picnic-approach-flowers",
       "sprite": "flowers-bell-blue",
-      "x": 30,
-      "y": 36,
+      "x": 51.75,
+      "y": 22,
       "scale": 1.1
     }
   ],
