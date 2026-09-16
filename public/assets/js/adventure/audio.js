@@ -86,8 +86,12 @@ class WoodlandAudio {
     this.changed();
   }
   setHidden(value) {
-    this.hidden = value;
-    if (value) this.pause();
+    // Called on every visibility change now, so it has to be a no-op when the
+    // state has not moved: otherwise every tab switch resumed the context and
+    // re-entered Music.start() for nothing.
+    if (Boolean(value) === Boolean(this.hidden)) return;
+    this.hidden = Boolean(value);
+    if (this.hidden) this.pause();
     else if (this.wanted) this.start();
   }
   setVoice(value) {

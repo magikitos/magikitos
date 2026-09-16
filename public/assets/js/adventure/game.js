@@ -232,12 +232,19 @@ class Adventure {
 
   syncForeground() {
     const inactive = document.hidden || Boolean(this.nativeInactive);
+    // Backgrounding a NATIVE app is a platform rule: the OS stops our audio
+    // anyway and we have not declared a background-audio mode. Hiding a browser
+    // TAB is not: an AudioContext and a playing <audio> keep running there, so
+    // stopping them was our own choice and it cut the music mid-track.
+    this.audio.setHidden(Boolean(this.nativeInactive));
     if (inactive === Boolean(this.inactive)) return;
     this.inactive = inactive;
     cancelAnimationFrame(this.frame);
-    this.audio.setHidden(inactive);
     if (inactive) {
-      this.media.suspend();
+      // The world stops (no rAF, no simulation) but what is being LISTENED to
+      // carries on. A narrated piece is a media player: switching tabs to look
+      // something up must not lose your place in the story.
+      if (this.nativeInactive) this.media.suspend();
       this.pauseMovement();
       this.save();
     } else if (this.ready) {
@@ -726,7 +733,13 @@ class Adventure {
       this.renderer,
     );
 
-    if (snap || (this.walking && !reading)) this.camera = target;
+    // Being carried is continuous travel even on the frames where follow()
+    // reports no progress (it returns false when it lands exactly on a
+    // waypoint). Reading `walking` alone made the camera alternate between
+    // locked and eased frame by frame, which is the bounce you see on a cat
+    // ride but never on your own legs, where `walking` stays steady.
+    const tracking = this.walking || Boolean(this.cats?.locked);
+    if (snap || (tracking && !reading)) this.camera = target;
     else {
       this.camera.x += (target.x - this.camera.x) * this.cameraEase;
       this.camera.y += (target.y - this.camera.y) * this.cameraEase;

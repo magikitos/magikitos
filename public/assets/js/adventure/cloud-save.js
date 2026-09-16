@@ -419,7 +419,11 @@ class CloudSave {
     byId("cloud-status").textContent = this.game.text(
       this.status || "cloudOffline",
     );
-    byId("cloud-connect").hidden = Boolean(this.owner);
+    // Without an identity there is nothing to sync to, and the sign-in block
+    // right above is already the door: two buttons offering to "save you"
+    // in the same panel is one too many.
+    byId("cloud-connect").hidden =
+      Boolean(this.owner) || !this.game.self?.account?.user;
     byId("cloud-conflict").hidden = !this.conflict;
     byId("cloud-remote").disabled = !this.conflict?.profile;
     const list = byId("cloud-recoveries");

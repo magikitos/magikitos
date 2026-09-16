@@ -47,23 +47,17 @@ class Self {
       status = needStatus(game.state.needs);
     byId("puzzle-reset").hidden =
       !game.world?.data.puzzleReset || game.river?.active || game.cats?.locked;
-    const key = {
-      comfortable: "needComfortable",
-      pee: "needPee",
-      poop: "needPoop",
-    }[status];
-    byId("self-status").textContent = game.text(key);
-    byId("self-toggle").dataset.need = status;
-    byId("self-toggle").setAttribute(
-      "aria-label",
-      game.text("self") + " · " + game.text(key),
-    );
-    byId("self-leaves").textContent = game
-      .text("leafCount")
-      .replace(
-        ":count",
-        game.state.inventory[game.catalog.needs.leafItem] || 0,
-      );
+    // Nothing to say when there is nothing to do: a line reporting that your
+    // bladder is fine is not a status, it is noise in the one panel that also
+    // holds your account. The leaf count lives in the bag, where the leaf is.
+    const key = { pee: "needPee", poop: "needPoop" }[status];
+    const line = byId("self-status");
+    line.hidden = !key;
+    line.textContent = key ? game.text(key) : "";
+    // ⛔ And a need never lights the toggle. It is a joke on a timer that the
+    // player did not ask for and cannot lose; badging it turns the panel into a
+    // chore and trains people to ignore the dot that other things DO need.
+    byId("self-toggle").setAttribute("aria-label", game.text("self"));
     for (const kind of ["pee", "poop"])
       byId("self-" + kind).hidden =
         status !== kind ||

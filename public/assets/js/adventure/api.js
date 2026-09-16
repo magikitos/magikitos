@@ -21,6 +21,17 @@ const METHODS = Object.freeze({
   "community-build": "POST",
   "community-use": "POST",
 });
+/** The website's own account door. Separate allow-list and base from the world
+ * contract on purpose: these three endpoints already exist, already carry their
+ * Turnstile gate, their rate limits and the five-strike code lock, so the game
+ * calls them instead of proxying them. Proxying would duplicate a security
+ * surface, which is the one thing worth avoiding here. Still JSON only: no page,
+ * stylesheet or script of the website is ever loaded by the game. */
+const AUTH_METHODS = Object.freeze({
+  "request-code": "POST",
+  "verify-code": "POST",
+  "google/prepare": "POST",
+});
 class ApiError extends Error {
   constructor(code, status = 0, details = null) {
     super(code);
@@ -94,7 +105,8 @@ class WorldApi {
     this.locale = config.locale;
     this.base = new URL(config.apiBase || "/api/world/", location.href);
     this.web = new URL(config.websiteBase || "/", location.href);
-    for (const base of [this.base, this.web]) {
+    this.authBase = new URL(config.authBase || "/api/auth/", location.href);
+    for (const base of [this.base, this.web, this.authBase]) {
       if (
         !["http:", "https:"].includes(base.protocol) ||
         base.username ||
@@ -113,9 +125,20 @@ class WorldApi {
     return webUrl(value, this.web);
   }
   async request(endpoint, params = {}, options = {}) {
-    const method = METHODS[endpoint];
+    return this.send(METHODS, this.base, endpoint, params, options);
+  }
+  /** The account door. Auth endpoints answer with the website's own shape, so the
+   * session field is `session_token` there and `token` in the world contract. */
+  async authRequest(endpoint, params = {}, options = {}) {
+    return this.send(AUTH_METHODS, this.authBase, endpoint, params, {
+      auth: true,
+      ...options,
+    });
+  }
+  async send(table, base, endpoint, params = {}, options = {}) {
+    const method = table[endpoint];
     if (!method) throw new ApiError("unknown_endpoint");
-    const url = new URL(endpoint, this.base);
+    const url = new URL(endpoint, base);
     if (method === "GET") {
       for (const [key, value] of Object.entries({
         lang: this.locale,
@@ -156,8 +179,8 @@ class WorldApi {
         response.status,
         data,
       );
-    if (typeof data.token === "string" && data.token)
-      this.session.set(data.token);
+    const granted = data.token || data.session_token;
+    if (typeof granted === "string" && granted) this.session.set(granted);
     return data;
   }
   /** Deduplicate public catalogue reads in flight. Never caches an identity or a mutation. */
@@ -204,4 +227,4 @@ class WorldApi {
     );
   }
 }
-module.exports = { WorldApi, ApiError, webUrl, piece, METHODS };
+module.exports = { WorldApi, ApiError, webUrl, piece, METHODS, AUTH_METHODS };

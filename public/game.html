@@ -192,10 +192,13 @@
       </header>
       <div class="world-self-summary">
         <span data-sprite="person-0-down" aria-hidden="true"></span>
-        <p id="self-status" role="status"></p>
+        <img id="self-identity-avatar" alt="" width="44" height="44" hidden />
+        <p id="self-identity-handle" hidden></p>
       </div>
-      <p id="self-leaves"></p>
-      <button type="button" id="puzzle-reset" hidden>{{puzzleReset}}</button>
+
+      <!-- The body is a running joke, not a chore list: one small line and its
+           button, and only while there is actually something to do. -->
+      <p id="self-status" class="world-self-need" role="status" hidden></p>
       <div class="world-self-actions">
         <button type="button" class="world-primary" id="self-pee" hidden>
           {{peeAction}}</button
@@ -203,19 +206,53 @@
           {{poopAction}}
         </button>
       </div>
-      <div class="world-self-identity" id="self-identity" hidden>
-        <img id="self-identity-avatar" alt="" width="48" height="48" hidden />
-        <p id="self-identity-name"></p>
-        <p id="self-identity-handle" hidden></p>
+
+      <button type="button" id="puzzle-reset" hidden>{{puzzleReset}}</button>
+
+      <section class="world-self-account">
+        <div id="self-signin" hidden>
+          <p class="world-self-lead">{{accountSave}}</p>
+          <button type="button" class="world-primary world-self-google" id="self-google">
+            {{authGoogle}}
+          </button>
+          <p class="world-self-or" id="self-signin-or"><span>{{authOr}}</span></p>
+          <form id="self-email-form" novalidate>
+            <input
+              type="email"
+              id="self-email"
+              autocomplete="email"
+              inputmode="email"
+              maxlength="190"
+              aria-label="{{authEmailPlaceholder}}"
+              placeholder="{{authEmailPlaceholder}}"
+            />
+            <button type="submit" class="world-primary">{{authSendCode}}</button>
+          </form>
+          <form id="self-code-form" hidden novalidate>
+            <input
+              type="text"
+              id="self-code"
+              inputmode="numeric"
+              pattern="[0-9]*"
+              maxlength="6"
+              autocomplete="one-time-code"
+              aria-label="{{authCodePlaceholder}}"
+              placeholder="{{authCodePlaceholder}}"
+            />
+            <button type="submit" class="world-primary">{{authConfirm}}</button>
+            <button type="button" class="world-self-link" id="self-code-back">
+              {{authChangeEmail}}
+            </button>
+          </form>
+        </div>
+        <div id="self-identity" hidden>
+          <a id="self-account-link" target="_blank" rel="noopener"
+            >{{account}} ↗</a
+          >
+        </div>
         <p id="self-identity-note" role="status"></p>
-        <button type="button" class="world-primary" id="self-claim" hidden>
-          {{identityClaim}}
-        </button>
-        <a id="self-account-link" target="_blank" rel="noopener" hidden
-          >{{account}} ↗</a
-        >
-      </div>
-      <p class="world-self-help">{{needsHelp}}</p>
+      </section>
+
       <section class="world-cloud-save" aria-label="{{cloudConnect}}">
         <p id="cloud-status" role="status"></p>
         <button type="button" id="cloud-connect" class="world-primary">{{cloudConnect}}</button>
@@ -225,6 +262,9 @@
         </div>
         <div id="cloud-recoveries"></div>
       </section>
+
+      <!-- Last and small: changing language is a once-ever setting, not something
+           you come to this panel to do. -->
       <label class="world-language"
         >{{language}}<select id="world-language">
           {{languageOptions}}

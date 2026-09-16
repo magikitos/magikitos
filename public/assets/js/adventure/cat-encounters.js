@@ -5,6 +5,10 @@ const { follow } = require("./movement");
 const { active } = require("./rules");
 const CARRY_DISTANCE = 880; // Five times the original 176px setback.
 const CARRY_SPEED = 91;
+// Walking home at patrol speed would take ~30s from a 880px drop, so the cat
+// would still be wandering the wrong side of the map long after the joke landed.
+const RETURN_SPEED = 62;
+const PATROL_SPEED = 29;
 
 /** Slab intersection, including a ray that starts inside cover. */
 function crosses(a, b, rect) {
@@ -134,7 +138,12 @@ class CatEncounters {
       g.toast(g.text("catReleased"));
     }
     this.grace = 7;
-    this.change(cat, "return");
+    // "homeward", not "return": a cat that has just carried you off walks back
+    // to its own patch and ignores you on the way. With the shared "return"
+    // phase it stayed eligible to notice you again (that list includes it), so
+    // seven seconds later it grabbed you a second time and never got home —
+    // which is why the cat appeared to just stay wherever it dropped you.
+    this.change(cat, "homeward");
   }
   capture(cat) {
     const g = this.game;
@@ -236,6 +245,22 @@ class CatEncounters {
           cat.moving = follow(g.world, cat, cat.path, dt, 104);
           if (cat.elapsed > 10) this.change(cat, "return");
         }
+      } else if (cat.phase === "homeward") {
+        if (cat.path.length)
+          cat.moving = follow(g.world, cat, cat.path, dt, RETURN_SPEED);
+        else if (distance(cat, cat.home) < TILE / 2) {
+          // Home again: curious as ever.
+          this.change(cat, "idle");
+          cat.wait = 1 + cat.rand();
+        } else {
+          cat.path = g.world.path(cat, cat.home) || [];
+          // No route back (a door closed, a prop moved): give up the errand
+          // instead of recomputing an impossible path every frame.
+          if (!cat.path.length) {
+            this.change(cat, "idle");
+            cat.wait = 1 + cat.rand();
+          }
+        }
       } else {
         if (!cat.path.length) {
           cat.wait -= dt;
@@ -249,7 +274,7 @@ class CatEncounters {
             cat.phase = "patrol";
             cat.wait = 1.5 + cat.rand() * 2;
           }
-        } else cat.moving = follow(g.world, cat, cat.path, dt, 29);
+        } else cat.moving = follow(g.world, cat, cat.path, dt, PATROL_SPEED);
       }
     }
   }
