@@ -21,10 +21,32 @@ class Self {
     });
     for (const kind of ["pee", "poop"])
       byId("self-" + kind).addEventListener("click", () => this.relieve(kind));
+    byId("puzzle-reset").onclick = async () => {
+      if (!game.world.data.puzzleReset || game.cats.locked) return;
+      byId("self-dialog").close();
+      game.pauseMovement();
+      game.transitioning = true;
+      try {
+        delete game.state.objects[game.state.scene];
+        game.scenes.cache.delete(game.state.scene);
+        const prepared = await game.scenes.prepare(
+          game.state.scene,
+          null,
+          game.state,
+        );
+        game.scenes.enter(prepared);
+        game.dirty = true;
+        game.save();
+      } finally {
+        game.transitioning = false;
+      }
+    };
   }
   paint() {
     const game = this.game,
       status = needStatus(game.state.needs);
+    byId("puzzle-reset").hidden =
+      !game.world?.data.puzzleReset || game.river?.active || game.cats?.locked;
     const key = {
       comfortable: "needComfortable",
       pee: "needPee",
@@ -45,11 +67,7 @@ class Self {
     for (const kind of ["pee", "poop"])
       byId("self-" + kind).hidden =
         status !== kind ||
-        Boolean(
-          game.river?.active ||
-          game.homestead?.visiting ||
-          game.homestead?.editing,
-        );
+        Boolean(game.river?.active || game.community?.editing);
     this.lastStatus = status;
   }
   update() {
@@ -64,15 +82,22 @@ class Self {
     if (
       !game.ready ||
       game.transitioning ||
+      game.cats?.locked ||
       game.river?.active ||
-      game.homestead?.visiting ||
-      game.homestead?.editing
+      game.community?.editing
     )
       return;
     byId("self-dialog").close();
     const error = reliefError(game.state, kind, game.catalog);
     if (error) {
       game.openDialogue(game.lines(error));
+      return;
+    }
+    if (
+      kind === "poop" &&
+      !game.materials.canRecord({ effects: [{ type: "item" }] })
+    ) {
+      game.toast(game.text("communitySyncNeeded"));
       return;
     }
     game.pauseMovement();
@@ -89,6 +114,13 @@ class Self {
       game.state = completeRelief(game.state, kind, game.catalog, game.player, {
         startedAt,
       });
+      if (kind === "poop")
+        game.materials.record(
+          "player",
+          { id: "needs" },
+          { action: "poop" },
+          { effects: [{ type: "item", item: "leaf", amount: -1 }] },
+        );
       game.world.refresh(game.state);
       game.dirty = true;
       game.updateUI();

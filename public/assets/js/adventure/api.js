@@ -15,8 +15,11 @@ const METHODS = Object.freeze({
   "game-state": "GET",
   "game-save": "POST",
   "game-restore": "POST",
-  parcels: "GET",
-  parcel: "GET",
+  "game-account": "GET",
+  "game-action": "POST",
+  community: "GET",
+  "community-build": "POST",
+  "community-use": "POST",
 });
 class ApiError extends Error {
   constructor(code, status = 0, details = null) {

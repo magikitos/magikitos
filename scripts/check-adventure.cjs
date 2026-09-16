@@ -36,6 +36,7 @@ const manifest = JSON.parse(
 const atlas = { frames: {} };
 let spriteBytes = 0;
 let residentBytes = 0;
+let creatureBytes = 0;
 for (const [id, pack] of Object.entries(manifest.packs)) {
   const meta = JSON.parse(
     fs.readFileSync("public/assets/aventura/" + pack.metadata),
@@ -50,6 +51,10 @@ for (const [id, pack] of Object.entries(manifest.packs)) {
   }
   const bytes = fs.statSync("public/assets/aventura/" + pack.image).size;
   spriteBytes += bytes;
+  if (/^cat-(ginger|tuxedo|silver|calico|siamese)$/.test(id)) {
+    assert(bytes < 160000, id + ": eight-direction creature pack stays scene-lazy and bounded");
+    creatureBytes += bytes;
+  }
   if (/^actor-1\d\d$/.test(id)) {
     assert(bytes < 70000, id + ": 32 integrated-2x poses stay below 70 KB");
     residentBytes += bytes;
@@ -60,8 +65,8 @@ assert(
   "Independent expandable asset modules",
 );
 assert(
-  spriteBytes - residentBytes < 3500000 && spriteBytes < 10500000,
-  "Existing world art remains below 3.5 MB; each of the 100 scene-lazy residents has a separate bounded pack",
+  spriteBytes - residentBytes - creatureBytes < 3500000 && spriteBytes < 10500000,
+  "Shared art stays below 3.5 MB; 100 residents and five cats use independent bounded scene-lazy packs",
 );
 function react(entity, state, catalog, context) {
   const plan = planReaction(entity, state, catalog, context);
@@ -117,6 +122,7 @@ for (const scene of Object.values(catalog.scenes))
         assert(
           [
             "flag",
+            "collect",
             "item",
             "dialogue",
             "sound",
@@ -278,6 +284,8 @@ for (const objects of permutations([mushroom, twig, lighter, knife])) {
         assert.deepEqual(state, snapshot, "Single collection for unique objects");
       }
     }
+    // Discovering the mushroom early is now a hint; return with the knife to cut it.
+    if (!state.inventory.mushroom) react(mushroom, state, catalog);
     if (!state.flags.fireLit) react(fire, state, catalog, { action: "light" });
     assert(actions(fire, state, catalog).some((a) => a.id === "cook"));
     const draft = planReaction(fire, state, catalog, { action: "cook" });
@@ -288,7 +296,7 @@ for (const objects of permutations([mushroom, twig, lighter, knife])) {
     react(hungry, state, catalog, { action: "use", item: "skewer" });
     assert(state.flags.picnicFed);
     assert.equal(state.wallet.balance, catalog.economy.rewards.picnic.amount);
-    assert.deepEqual(state.inventory, { lighter: 1, knife: 1 });
+    assert.deepEqual(state.inventory, { lighter: 1, knife: 1, oars: 1 });
     const earned = structuredClone(state.wallet);
     react(hungry, state, catalog, { action: "give" });
     assert.deepEqual(
@@ -315,8 +323,8 @@ for (const objects of permutations([mushroom, twig, lighter, knife])) {
       );
       assert.equal(
         state.wallet.balance,
-        catalog.economy.rewards.picnic.amount + (visit + 1) * catalog.economy.rewards.shell.amount,
-        "Repeatable help preserves setin rewards without paying for the river",
+        catalog.economy.rewards.picnic.amount + catalog.economy.rewards.shell.amount,
+        "Shells renew after five hours, not by repeating the same API action",
       );
     }
   }
@@ -386,7 +394,7 @@ const poisoned = cleanSave(
   catalog,
 );
 assert.deepEqual(poisoned.flags, { picnicFed: true });
-assert.deepEqual(poisoned.inventory, { lighter: 1 });
+assert.deepEqual(poisoned.inventory, { lighter: 1, oars: 1 });
 assert.equal(poisoned.position.x, catalog.scenes.house.spawn.x * TILE);
 for (const value of [null, [], 123, "invalid", { scene: "__proto__" }])
   assert.equal(cleanSave(value, catalog).scene, catalog.start);

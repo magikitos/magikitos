@@ -11,15 +11,16 @@ original characters and music, and not a single reflex test.
 
 ## What the game is
 
-The published game includes [bottle navigation and editable kelihouses](docs/RIVER-HOMESTEADS.md),
-with [private API saves and public snapshots](docs/GAME-SAVE-API.md).
+The game combines personal adventures with a [shared woodland](docs/SHARED-FOREST.md):
+cats, cooking, bottle navigation and community construction, backed by
+[private API saves and server-authoritative materials](docs/GAME-SAVE-API.md).
 
 Current art direction: [Ascua and the approved compact cast](docs/art-direction/DUENDES.md),
 [2× integrated textures and selective motion](docs/art-direction/DEFINITION-MOTION.md).
 Current controls, Brizno and the restaurant story notes: [mobility and Brizno](docs/MOBILITY-BRIZNO.md).
 Click intentions, live obstacle avoidance and regression tests: [navigation](docs/NAVIGATION.md).
 For operations and verified delivery, see [releasing](docs/RELEASING.md) and
-[the current release ledger](docs/RELEASE-RIVER-2026-09-15.md).
+[the current release ledger](docs/RELEASE-SHARED-FOREST-2026-09-16.md).
 The [next-chapter proposal](docs/NEXT-CHAPTER-PROPOSAL.md) is a discussion, not
 implemented gameplay or an approved development commitment.
 The [resident and island guide](docs/ISLET-AND-RESIDENTS.md) covers the preserved
@@ -37,8 +38,9 @@ that's on purpose.
 
 The world is a 128 × 96 tile exterior — a starting clearing, forest, human
 picnic, a village on grass, the boat lake and a night campfire corner — plus
-separate interiors and a 64 × 48 inhabited islet you reach by boat. Five 96 × 80
-river reaches connect to personal 48 × 48 gardens and 24 × 20 homes. The former
+separate interiors and a 64 × 48 inhabited islet you reach by boat. Five substantial
+128 × 144 river reaches connect to shared forest clearings, a 128 × 96 human
+garden and a communal refuge. The former
 picnic pond has been removed; the navigable river is its own adventure.
 
 ---

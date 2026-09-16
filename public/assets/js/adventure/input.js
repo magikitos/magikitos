@@ -1,5 +1,4 @@
 "use strict";
-const { DoublePress } = require("./locomotion");
 const { MapGestures } = require("./map-gestures");
 const MOVE_KEYS = new Set([
   "arrowup",
@@ -19,8 +18,6 @@ const editable = (target) =>
 /** Context priority: native form/modal > dialogue > world controls. No device detection. */
 class WorldInput {
   constructor(game) {
-    this.doublePress = new DoublePress();
-    this.spacePress = new DoublePress();
     const canvas = document.getElementById("world-canvas");
     this.map = new MapGestures(game, canvas);
     const press = (event) => {
@@ -38,12 +35,6 @@ class WorldInput {
       canvas.focus({ preventScroll: true });
       game.unlockAudio();
       const rect = canvas.getBoundingClientRect();
-      const twice = this.doublePress.press(
-        event.clientX,
-        event.clientY,
-        performance.now(),
-        event.pointerType,
-      );
       game.tap({
         x:
           ((event.clientX - rect.left) / rect.width) * game.renderer.width +
@@ -52,7 +43,6 @@ class WorldInput {
           ((event.clientY - rect.top) / rect.height) * game.renderer.height +
           game.camera.y,
       });
-      if (twice) game.startRoll();
     };
     canvas.addEventListener("pointerdown", (event) => {
       if (event.defaultPrevented) return;
@@ -111,7 +101,6 @@ class WorldInput {
             event.preventDefault();
             if (!event.repeat && !game.keys.has(key)) {
               game.keys.add(key);
-              if (this.spacePress.press(0, 0, performance.now(), "keyboard")) game.startRoll();
             }
           }
         } else if (MOVE_KEYS.has(key)) {
@@ -128,10 +117,6 @@ class WorldInput {
       const key = event.key.toLowerCase();
       game.keys.delete(key);
     });
-  }
-  clearGesture() {
-    this.doublePress.clear();
-    this.spacePress.clear();
   }
 }
 module.exports = { WorldInput };

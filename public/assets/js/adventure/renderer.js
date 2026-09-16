@@ -170,7 +170,6 @@ class Renderer {
         game.river?.frame() ||
         game.self.frame() ||
         game.presentation?.frame() ||
-        game.roll.frame() ||
         pushFrame(game.player) ||
         runFrame(game.player, game.running) ||
         characterFrame(0, game.player, game.walking),
@@ -181,12 +180,15 @@ class Renderer {
       ...world.architecture,
       ...world.entities.filter(
         (e) =>
-          game.showAllEntities ||
-          (active(e, game.state) && !game.presentation?.hides(e)),
+          !(e.animal && game.cats) &&
+          (game.showAllEntities ||
+            (active(e, game.state) && !game.presentation?.hides(e))),
       ),
       ...game.neighbors,
+      ...(game.cats?.renderables() || []),
+      ...(game.cats?.carried() ? [game.cats.carried()] : []),
       ...(game.guardian ? [game.guardian] : []),
-      ...(game.hidePlayer ? [] : [player]),
+      ...(game.hidePlayer || game.cats?.locked ? [] : [player]),
     ]
       .filter(visible)
       .sort((a, b) => (a.depth ?? a.y) - (b.depth ?? b.y));
@@ -196,7 +198,7 @@ class Renderer {
         continue;
       }
       const name = e.neighbor
-          ? characterFrame(e.variant, e, e.moving)
+          ? e.activitySprite || characterFrame(e.variant, e, e.moving)
           : this.frame(e, game.state),
         f = this.sprites.frame(name);
       if (!f) continue;
@@ -219,6 +221,15 @@ class Renderer {
       )
         drawArtwork(c, this.sprites, e, name);
       if (e.player) game.self.drawStream(c);
+      if (e.cat) game.cats.drawWarning(c, e);
+      if (e.lightRadius) {
+        const radius = e.lightRadius;
+        const light = c.createRadialGradient(e.x, e.y - 12, 1, e.x, e.y - 12, radius);
+        light.addColorStop(0, "rgba(255,225,144,.15)");
+        light.addColorStop(1, "rgba(255,225,144,0)");
+        c.fillStyle = light;
+        c.fillRect(e.x-radius,e.y-12-radius,radius*2,radius*2);
+      }
       require("./keepsakes").drawKeepsakes(c, this.sprites, e, game.state);
       if (e.product) this.drawProduct(e);
       if (
@@ -253,7 +264,7 @@ class Renderer {
       }
     }
     game.presentation?.draw(c);
-    game.homestead?.draw(c);
+    game.community?.draw(c);
     if (world.data.night) this.night(world.data.night, time, cam);
     const destination =
       game.journey?.intent?.point || game.journey?.path.at(-1);

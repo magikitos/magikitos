@@ -259,6 +259,7 @@
     ],
     "rules": [
       {
+        "when": { "items": { "knife": 1 } },
         "effects": [
           {
             "type": "item",
@@ -278,6 +279,9 @@
             "key": "found"
           }
         ]
+      },
+      {
+        "effects": [{ "type": "dialogue", "key": "skewerNeedKnife" }]
       }
     ],
     "visibleWhen": {
@@ -298,6 +302,9 @@
     "rules": [
       {
         "effects": [
+          {
+            "type": "collect"
+          },
           {
             "type": "item",
             "item": "twig",
@@ -376,6 +383,11 @@
           {
             "type": "reward",
             "reward": "picnic"
+          },
+          {
+            "type": "item",
+            "item": "oars",
+            "amount": 1
           },
           {
             "type": "dialogue",

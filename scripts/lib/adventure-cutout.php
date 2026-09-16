@@ -1,6 +1,25 @@
 <?php
 declare(strict_types=1);
 require_once __DIR__ . '/adventure-sprite-packer.php';
+/** Neutral matte reachable from the canvas border only. Outlines protect interior whites. */
+function adventureNeutralCutout(GdImage $source, int $minimum = 145): void
+{
+    $w=imagesx($source); $h=imagesy($source);
+    $visited=str_repeat("\0",$w*$h); $queue=new SplQueue();
+    $clear=imagecolorallocatealpha($source,0,0,0,127);
+    $visit=static function(int $x,int $y) use($source,$w,$h,&$visited,$queue,$clear,$minimum): void {
+        if ($x<0 || $y<0 || $x>=$w || $y>=$h) return;
+        $i=$y*$w+$x; if ($visited[$i]!=="\0") return; $visited[$i]="\1";
+        $p=imagecolorat($source,$x,$y); $r=$p>>16&255; $g=$p>>8&255; $b=$p&255;
+        if (min($r,$g,$b)<$minimum || max($r,$g,$b)-min($r,$g,$b)>22) return;
+        imagesetpixel($source,$x,$y,$clear); $queue->enqueue($i);
+    };
+    for($x=0;$x<$w;$x++){ $visit($x,0); $visit($x,$h-1); }
+    for($y=0;$y<$h;$y++){ $visit(0,$y); $visit($w-1,$y); }
+    while(!$queue->isEmpty()) { $i=$queue->dequeue(); $x=$i%$w; $y=intdiv($i,$w);
+        $visit($x-1,$y); $visit($x+1,$y); $visit($x,$y-1); $visit($x,$y+1);
+    }
+}
 /** Removes only an explicitly authored magenta matte. Never resizes, recolours or reshapes the object. */
 function adventureKeyedCutout(GdImage $source, string $id, bool $foliageMatte = false, ?string $edgeMatte = null): array
 {

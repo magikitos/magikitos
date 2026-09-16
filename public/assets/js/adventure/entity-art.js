@@ -8,16 +8,23 @@ function capabilities(entity) {
     entity.product ||
     entity.neighbor ||
     entity.sprite === "doorway" ||
-    /^(person-|ferry|picnic-|barbecue|fire|coals)/.test(entity.sprite || "");
+    /^(person-|ferry|picnic-humans|barbecue|fire|coals)/.test(
+      entity.sprite || "",
+    );
   return {
-    scales: fixed
-      ? [1]
-      : [...new Set([0.75, 1, 1.25, 1.5, entity.scale ?? 1])].sort(
-          (a, b) => a - b,
-        ),
+    scale: fixed
+      ? { min: entity.scale ?? 1, max: entity.scale ?? 1 }
+      : {
+          min: Math.min(0.25, entity.scale ?? 1),
+          max: Math.max(3, entity.scale ?? 1),
+        },
     rotations: !fixed && FLAT.has(entity.sprite) ? [0, 90, 180, 270] : [0],
     mirror: !fixed,
   };
+}
+function validScale(entity, value) {
+  const { min, max } = capabilities(entity).scale;
+  return Number.isFinite(value) && value >= min && value <= max;
 }
 function transformPoint(entity, x, y) {
   const scale = entity.scale ?? 1,
@@ -84,6 +91,7 @@ function drawArtwork(ctx, sprites, entity, name, clip) {
 }
 module.exports = {
   capabilities,
+  validScale,
   transformPoint,
   transformedRect,
   artworkBounds,

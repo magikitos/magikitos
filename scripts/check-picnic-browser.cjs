@@ -26,6 +26,13 @@ const errors = [];
           : r.abort(),
       );
       page.on("pageerror", (e) => errors.push(e.message));
+      await page.addInitScript(() => {
+        const pending = sessionStorage.getItem("picnic-seed");
+        if (pending) {
+          localStorage.setItem("magikitos.adventure", pending);
+          sessionStorage.removeItem("picnic-seed");
+        }
+      });
       let state = {
         scene: "overworld",
         position: { x: 27 * 16, y: 53 * 16 },
@@ -36,7 +43,7 @@ const errors = [];
       async function position(x, y) {
         state.position = { x: x * 16, y: y * 16 };
         await page.evaluate(
-          (s) => localStorage.setItem("magikitos.adventure", JSON.stringify(s)),
+          (s) => sessionStorage.setItem("picnic-seed", JSON.stringify(s)),
           state,
         );
         await page.reload();
@@ -70,13 +77,13 @@ const errors = [];
           JSON.parse(localStorage.getItem("magikitos.adventure")),
         );
       }
-      await position(27, 53);
+      await position(27, 29);
       await click("picnic-knife");
       await page.waitForFunction(
         () => window.MagikitosAdventure.inspect().inventory.knife === 1,
       );
       await save();
-      await position(18.8, 49.2);
+      await position(18.8, 25.2);
       await click("picnic-lighter");
       await page.waitForFunction(
         () => window.MagikitosAdventure.inspect().inventory.lighter === 1,

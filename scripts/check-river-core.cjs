@@ -60,9 +60,9 @@ for (const data of Object.values(catalog.scenes).filter((s) =>
   const river = data.rivers[0],
     model = new World(data),
     vessel = new VesselMotion();
-  const player = { x: 48 * TILE, y: 74 * TILE, direction: "up" };
+  const player = { x: (river.rect[0]+riverOffset(river,data.height-6)+3)*TILE, y: (data.height-6)*TILE, direction: "up" };
   const route = [];
-  for (let y = 72; y >= 3; y -= 2)
+  for (let y = data.height-8; y >= 3; y -= 2)
     route.push({
       x: (river.rect[0] + riverOffset(river, y) + 3) * TILE,
       y: y * TILE,
@@ -95,25 +95,27 @@ const apply = (name, action = "interact") => {
 apply("picnic-bin");
 apply("picnic-knife");
 apply("picnic-twig");
-apply("picnic-twig");
+apply("picnic-twigs");
 apply("leaves-clearing");
 apply("leaves-clearing");
 check(
-  state.inventory.twig === 2 && state.inventory.leaf === 2,
-  "Materials stack",
+  state.inventory.twig === 2 && state.inventory.leaf === 1,
+  "Separate pickups stack and a recovering plant cannot be harvested twice",
 );
+check(!apply("river-dock", "craft"), "Oars must first be earned");
+apply("picnic-lighter");apply("picnic-mushroom");apply("picnic-barbecue","light");apply("picnic-barbecue","cook");apply("picnic-neighbor","give");
 const recipe = apply("river-dock", "craft");
 check(
   recipe && state.inventory.boat === 1 && state.inventory.knife === 1,
   "Craft retains the knife",
 );
 check(
-  !state.inventory.bottle && !state.inventory.twig && !state.inventory.leaf,
-  "Only recipe ingredients consumed",
+  !state.inventory.bottle && state.inventory.twig===1 && state.inventory.leaf===1 && state.inventory.oars===1,
+  "Boat only consumes the bottle; oars and knife are reusable",
 );
 check(
-  !state.flags.picnicFed && state.wallet.balance === 0,
-  "Sailing does not require Brizno or money",
+  state.flags.picnicFed && state.wallet.balance === 10,
+  "Brizno unlocks navigation but sailing spends no money",
 );
 check(
   apply("river-dock", "board").effects.some((e) => e.type === "navigation"),
@@ -221,4 +223,16 @@ check(
   persisted.navigation.mode === "boat",
   "Reload preserves legal boating position",
 );
+const { drawCurrentTraces } = require("../public/assets/js/adventure/current-traces");
+const rapids = new World(catalog.scenes["river-rapids"]);
+const starts = [];
+const ctx = { beginPath() {}, stroke() {}, lineTo() {}, quadraticCurveTo() {}, moveTo(x,y) { starts.push([x,y]); } };
+drawCurrentTraces(ctx, rapids, {x:0,y:0}, {width:rapids.width*TILE,height:rapids.height*TILE}, 2.3);
+check(starts.length > 70 && starts.length <= 384, "Visible foam is plentiful but bounded");
+const swift = starts.filter(([x,y]) => Math.hypot(...Object.values(currentAt(rapids.data,x,y))) > 55);
+check(swift.length > 45, "Foam coincides with strong meandering currents");
+check(Math.max(...swift.map(p=>p[1]))-Math.min(...swift.map(p=>p[1])) > 700, "Tracers span the rapids, not a tiny patch at the ellipse centre");
+starts.length=0;
+drawCurrentTraces(ctx, rapids, {x:-5000,y:-5000}, {width:100,height:100}, 2.3);
+check(starts.length===0, "No off-screen current rendering");
 console.log(`${checks} river, recipe, geometry, current and save checks PASS`);

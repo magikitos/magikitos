@@ -45,25 +45,22 @@ function assertShell(actual, expected, headers, route) {
   const art=await (await response('/api/world/catalog?lang=es&kind=art')).json();
   assert(art.ok && Array.isArray(art.items) && !('collection' in art));
   assert(art.items.every(sheet=>sheet.image && sheet.thumb && !('slug' in sheet)));
-  const parcels=await (await response('/api/world/parcels')).json();
-  assert(parcels.ok && Array.isArray(parcels.items) && parcels.items.length<=8);
-  for(const item of parcels.items) {
-    assert.deepEqual(Object.keys(item).sort(),['id','owner','revision']);
-    assert.deepEqual(Object.keys(item.owner).sort(),['handle','name']);
-  }
-  if(parcels.items.length) {
-    const detail=await (await response('/api/world/parcel?id='+parcels.items[0].id)).json();
-    assert(detail.ok);
-    assert.deepEqual(Object.keys(detail.plot).sort(),['id','owner','parcel','revision']);
+  for(const zone of ['tocon-del-mirlo','remanso-del-musgo']) {
+    const shared=await (await response('/api/world/community?zone='+zone)).json();
+    assert(shared.ok && shared.zone===zone && Array.isArray(shared.objects) && shared.objects.length<=96);
+    for(const object of shared.objects) {
+      assert(!('creator_id' in object) && !('inventory' in object));
+      if(object.author)assert.deepEqual(Object.keys(object.author).sort(),['handle','name']);
+    }
   }
   // Rejected READS only: this smoke cannot mint identities or submit any save.
-  for(const [endpoint,status] of [['game-state',401],['game-save',405],['game-restore',405],['parcel?id=invalid',400]]) {
+  for(const [endpoint,status] of [['game-state',401],['game-account',401],['game-save',405],['game-restore',405],['community-build',405],['community-use',405]]) {
     const r=await fetch(new URL('/api/world/'+endpoint,origin),{signal:AbortSignal.timeout(25000)});
     assert.equal(r.status,status,endpoint);
     assert.equal((await r.json()).ok,false,endpoint);
     assert.match(r.headers.get('cache-control'),/no-store/);
   }
-  console.log('PASS live flat art, public parcel DTOs and protected game API');
+  console.log('PASS live flat art, shared world DTOs and protected game API');
   for(const route of ['/','/cuentos','/chistes','/tienda']) {
     const r=await response(route), body=await r.text();
     assert(!/Fatal error|Deprecated:|<b>Warning<\/b>/.test(body));
@@ -114,13 +111,14 @@ function assertShell(actual, expected, headers, route) {
       assert(riverAfter.assets.loaded.includes('actor-0-row'));
       await seed({scene:'home-garden',position:{x:384,y:680},inventory:{boat:1},navigation:{mode:'boat',direction:'up'}});
       await page.locator('#river-land').click();
-      await page.waitForFunction(()=>Boolean(window.MagikitosAdventure.inspect().dialogue));
-      await page.keyboard.press('Enter');
-      await page.locator('#home-edit').click();
-      assert(await page.locator('#home-palette').isVisible());
+      await page.waitForFunction(()=>window.MagikitosAdventure.inspect().navigation.mode==='foot');
+      assert(await page.locator('#home-edit').isVisible());
+      // Do not open the editor in a read-only smoke: it explicitly creates an
+      // anonymous identity. Real builds use the separate labelled example run.
+      assert.equal((await page.evaluate(()=>window.MagikitosAdventure.inspect())).community.zone,'tocon-del-mirlo');
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
       await page.close();
-      console.log('PASS live forest, rowing, landing, home editor, lazy assets and no overflow '+width+'×'+height);
+      console.log('PASS live forest, rowing, shared landing, lazy assets and no overflow '+width+'×'+height);
     }
     assert.deepEqual(errors,[]); assert.deepEqual(writes,[]);
   } finally {await browser.close();}

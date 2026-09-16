@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Magikitos World JSON API",
-    "version": "2026-09-15",
-    "description": "Public content, existing identity services, private game saves and public parcel snapshots. JSON only; backend implementation stays in the private website repository."
+    "version": "2026-09-16",
+    "description": "Public content, shared website identity, private progress and a server-authoritative shared forest. JSON only; backend implementation stays in the private website repository."
   },
   "servers": [
     {
@@ -1385,8 +1385,8 @@
     "/game-save": {
       "post": {
         "operationId": "worldGameSave",
-        "summary": "Save private progress and automatically public parcel atomically",
-        "description": "No analytics/events writes. Shared game budget: 120 requests/minute/IP. Maximum JSON body 32 KiB. Origin must be allowed. No language parameter needed.",
+        "summary": "Save private personal progress and an optional archived pre-community layout",
+        "description": "No analytics/events writes. Shared game budget: 120 requests/minute/IP. Maximum JSON body 32 KiB. Origin must be allowed. No language parameter needed. Saved inventory/wallet fields are PRIVATE snapshots, not authority to build or spend. parcel is a private recovery archive, never a public region.",
         "security": [
           {
             "bearerAuth": []
@@ -1612,19 +1612,14 @@
         }
       }
     },
-    "/parcels": {
+    "/game-account": {
       "get": {
-        "operationId": "worldParcels",
-        "summary": "Saved public parcel addresses, eight per page; not live presence",
-        "description": "No analytics/events writes. Shared game budget: 120 requests/minute/IP. Maximum JSON body 32 KiB. Origin must be allowed. No language parameter needed.",
-        "security": [],
-        "parameters": [
+        "operationId": "worldGameAccount",
+        "summary": "Read own authoritative materials, knowledge, setines and trust",
+        "description": "JSON only. Existing bearer identity for private operations. 120 requests/minute/IP; construction additionally 12 writes/minute/user. No general analytics events. Server catalog, prerequisites, costs, terrain and permissions are authoritative.",
+        "security": [
           {
-            "name": "cursor",
-            "in": "query",
-            "schema": {
-              "$ref": "#/components/schemas/GameId"
-            }
+            "bearerAuth": []
           }
         ],
         "responses": {
@@ -1633,13 +1628,13 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Parcels"
+                  "$ref": "#/components/schemas/GameAccountResponse"
                 }
               }
             }
           },
           "400": {
-            "description": "Invalid or unknown data",
+            "description": "Validated failure; no partial mutation.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1649,7 +1644,7 @@
             }
           },
           "401": {
-            "description": "Missing/expired bearer; device ID is not authorization",
+            "description": "Validated failure; no partial mutation.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1659,7 +1654,7 @@
             }
           },
           "403": {
-            "description": "Origin not allowed",
+            "description": "Validated failure; no partial mutation.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1669,17 +1664,7 @@
             }
           },
           "404": {
-            "description": "Not found/not owned",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GameError"
-                }
-              }
-            }
-          },
-          "405": {
-            "description": "Wrong method",
+            "description": "Validated failure; no partial mutation.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1689,7 +1674,7 @@
             }
           },
           "409": {
-            "description": "Revision/profile changed or operation reused; fetch state and choose explicitly",
+            "description": "Validated failure; no partial mutation.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1699,7 +1684,7 @@
             }
           },
           "429": {
-            "description": "Rate limit; Retry-After: 60",
+            "description": "Validated failure; no partial mutation.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1709,7 +1694,7 @@
             }
           },
           "503": {
-            "description": "Temporarily unavailable",
+            "description": "Validated failure; no partial mutation.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1721,35 +1706,39 @@
         }
       }
     },
-    "/parcel": {
-      "get": {
-        "operationId": "worldParcel",
-        "summary": "Saved public parcel without private game state",
-        "description": "No analytics/events writes. Shared game budget: 120 requests/minute/IP. Maximum JSON body 32 KiB. Origin must be allowed. No language parameter needed.",
-        "security": [],
-        "parameters": [
+    "/game-action": {
+      "post": {
+        "operationId": "worldGameAction",
+        "summary": "Apply one allowed recipe, pickup or reward atomically",
+        "description": "JSON only. Existing bearer identity for private operations. 120 requests/minute/IP; construction additionally 12 writes/minute/user. No general analytics events. Server catalog, prerequisites, costs, terrain and permissions are authoritative.",
+        "security": [
           {
-            "name": "id",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/GameId"
-            }
+            "bearerAuth": []
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GameAction"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ParcelResponse"
+                  "$ref": "#/components/schemas/GameAccountResponse"
                 }
               }
             }
           },
           "400": {
-            "description": "Invalid or unknown data",
+            "description": "Validated failure; no partial mutation.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1759,7 +1748,7 @@
             }
           },
           "401": {
-            "description": "Missing/expired bearer; device ID is not authorization",
+            "description": "Validated failure; no partial mutation.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1769,7 +1758,7 @@
             }
           },
           "403": {
-            "description": "Origin not allowed",
+            "description": "Validated failure; no partial mutation.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1779,17 +1768,7 @@
             }
           },
           "404": {
-            "description": "Not found/not owned",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GameError"
-                }
-              }
-            }
-          },
-          "405": {
-            "description": "Wrong method",
+            "description": "Validated failure; no partial mutation.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1799,7 +1778,7 @@
             }
           },
           "409": {
-            "description": "Revision/profile changed or operation reused; fetch state and choose explicitly",
+            "description": "Validated failure; no partial mutation.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1809,7 +1788,7 @@
             }
           },
           "429": {
-            "description": "Rate limit; Retry-After: 60",
+            "description": "Validated failure; no partial mutation.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1819,7 +1798,319 @@
             }
           },
           "503": {
-            "description": "Temporarily unavailable",
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/community": {
+      "get": {
+        "operationId": "worldCommunity",
+        "summary": "Read one bounded shared-region snapshot, not online presence",
+        "description": "JSON only. Existing bearer identity for private operations. 120 requests/minute/IP; construction additionally 12 writes/minute/user. No general analytics events. Server catalog, prerequisites, costs, terrain and permissions are authoritative.",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommunitySnapshot"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "zone",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "tocon-del-mirlo",
+                "remanso-del-musgo"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "/community-build": {
+      "post": {
+        "operationId": "worldCommunityBuild",
+        "summary": "Place, move or dismantle an owned non-heritage object",
+        "description": "JSON only. Existing bearer identity for private operations. 120 requests/minute/IP; construction additionally 12 writes/minute/user. No general analytics events. Server catalog, prerequisites, costs, terrain and permissions are authoritative.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommunityBuild"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommunitySnapshot"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/community-use": {
+      "post": {
+        "operationId": "worldCommunityUse",
+        "summary": "Explicit player use; no simulated-NPC reputation",
+        "description": "JSON only. Existing bearer identity for private operations. 120 requests/minute/IP; construction additionally 12 writes/minute/user. No general analytics events. Server catalog, prerequisites, costs, terrain and permissions are authoritative. Reputation signals require a different, contacted account aged at least seven days; once per account/object. No foreign modification rights are enabled.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommunityUse"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommunityUseResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Validated failure; no partial mutation.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2590,6 +2881,29 @@
             "items": {
               "$ref": "#/components/schemas/GameId"
             }
+          },
+          "resources": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "cycle",
+                "bits"
+              ],
+              "properties": {
+                "cycle": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 2147483646
+                },
+                "bits": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]+$",
+                  "maxLength": 512
+                }
+              }
+            }
           }
         },
         "description": "Private bounded snapshot, not server-attested progression or website money. Allowed keys, item caps, balance cap and scene coordinates are validated against the installed data contract. Timestamps in milliseconds. Never public."
@@ -2773,137 +3087,6 @@
           }
         }
       },
-      "ParcelSummary": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "id",
-          "revision",
-          "owner"
-        ],
-        "properties": {
-          "id": {
-            "$ref": "#/components/schemas/GameId"
-          },
-          "revision": {
-            "type": "integer",
-            "minimum": 1
-          },
-          "owner": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": [
-              "name",
-              "handle"
-            ],
-            "properties": {
-              "name": {
-                "type": [
-                  "string",
-                  "null"
-                ]
-              },
-              "handle": {
-                "type": [
-                  "string",
-                  "null"
-                ]
-              }
-            }
-          }
-        }
-      },
-      "PublicParcel": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "id",
-          "revision",
-          "owner",
-          "parcel"
-        ],
-        "properties": {
-          "id": {
-            "$ref": "#/components/schemas/GameId"
-          },
-          "revision": {
-            "type": "integer",
-            "minimum": 1
-          },
-          "owner": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": [
-              "name",
-              "handle"
-            ],
-            "properties": {
-              "name": {
-                "type": [
-                  "string",
-                  "null"
-                ]
-              },
-              "handle": {
-                "type": [
-                  "string",
-                  "null"
-                ]
-              }
-            }
-          },
-          "parcel": {
-            "$ref": "#/components/schemas/GameParcel"
-          }
-        }
-      },
-      "Parcels": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "ok",
-          "items",
-          "nextCursor"
-        ],
-        "properties": {
-          "ok": {
-            "const": true
-          },
-          "items": {
-            "type": "array",
-            "maxItems": 8,
-            "items": {
-              "$ref": "#/components/schemas/ParcelSummary"
-            }
-          },
-          "nextCursor": {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/GameId"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        }
-      },
-      "ParcelResponse": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "ok",
-          "plot"
-        ],
-        "properties": {
-          "ok": {
-            "const": true
-          },
-          "plot": {
-            "$ref": "#/components/schemas/PublicParcel"
-          }
-        }
-      },
       "GameError": {
         "type": "object",
         "additionalProperties": false,
@@ -2920,6 +3103,329 @@
           },
           "profile": {
             "$ref": "#/components/schemas/GameProfile"
+          }
+        }
+      },
+      "GameAccount": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "revision",
+          "setines",
+          "trust",
+          "inventory",
+          "progress",
+          "knowledge",
+          "resources"
+        ],
+        "properties": {
+          "revision": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "setines": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 999999
+          },
+          "trust": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "inventory": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 99
+            }
+          },
+          "progress": {
+            "type": "object",
+            "description": "Server-owned flags, timers and one-time reward receipts."
+          },
+          "knowledge": {
+            "type": "array",
+            "maxItems": 64,
+            "items": {
+              "type": "string"
+            }
+          },
+          "resources": {
+            "type": "object",
+            "description": "Region renewal cycles and compact collected-node hex bitsets."
+          }
+        }
+      },
+      "GameAccountResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "ok",
+          "account"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "account": {
+            "$ref": "#/components/schemas/GameAccount"
+          },
+          "replayed": {
+            "type": "boolean"
+          }
+        }
+      },
+      "GameAction": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "operationId",
+          "baseRevision",
+          "scene",
+          "entity",
+          "action"
+        ],
+        "properties": {
+          "operationId": {
+            "$ref": "#/components/schemas/GameId"
+          },
+          "baseRevision": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "scene": {
+            "type": "string",
+            "maxLength": 96
+          },
+          "entity": {
+            "type": "string",
+            "maxLength": 96
+          },
+          "action": {
+            "type": "string",
+            "maxLength": 96
+          }
+        }
+      },
+      "CommunityObject": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "variant",
+          "x",
+          "y",
+          "rotation",
+          "revision",
+          "author",
+          "createdAt",
+          "heritage",
+          "mine"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/GameId"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "variant": {
+            "type": "string"
+          },
+          "x": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 2048,
+            "multipleOf": 0.5
+          },
+          "y": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 2048,
+            "multipleOf": 0.5
+          },
+          "rotation": {
+            "type": "integer",
+            "enum": [
+              0,
+              1
+            ]
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "author": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "handle",
+              "name"
+            ],
+            "properties": {
+              "handle": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "name": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "heritage": {
+            "type": "boolean"
+          },
+          "mine": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CommunitySnapshot": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "ok",
+          "zone",
+          "revision",
+          "objects"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "zone": {
+            "type": "string",
+            "enum": [
+              "tocon-del-mirlo",
+              "remanso-del-musgo"
+            ]
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "objects": {
+            "type": "array",
+            "maxItems": 96,
+            "items": {
+              "$ref": "#/components/schemas/CommunityObject"
+            }
+          },
+          "account": {
+            "$ref": "#/components/schemas/GameAccount"
+          },
+          "replayed": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CommunityBuild": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "operationId",
+          "baseRevision",
+          "zone",
+          "zoneRevision",
+          "operation",
+          "object"
+        ],
+        "properties": {
+          "operationId": {
+            "$ref": "#/components/schemas/GameId"
+          },
+          "baseRevision": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "zone": {
+            "type": "string"
+          },
+          "zoneRevision": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "operation": {
+            "type": "string",
+            "enum": [
+              "place",
+              "move",
+              "remove"
+            ]
+          },
+          "object": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "$ref": "#/components/schemas/GameId"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "variant": {
+                "type": "string"
+              },
+              "x": {
+                "type": "number",
+                "multipleOf": 0.5
+              },
+              "y": {
+                "type": "number",
+                "multipleOf": 0.5
+              },
+              "rotation": {
+                "type": "integer",
+                "enum": [
+                  0,
+                  1
+                ]
+              },
+              "revision": {
+                "type": "integer",
+                "minimum": 1
+              }
+            },
+            "description": "place: kind,variant,x,y,rotation. move: id,revision,x,y,rotation. remove: id,revision. Catalog identity is immutable after placement."
+          }
+        }
+      },
+      "CommunityUse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/GameId"
+          }
+        }
+      },
+      "CommunityUseResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "ok",
+          "used"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "used": {
+            "const": true
           }
         }
       }

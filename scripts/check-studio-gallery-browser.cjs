@@ -84,9 +84,14 @@ async function openGallery(p) {
   s = await read(page);
   assert.equal(s.changes.overworld.added[id].x, 50.25);
   assert.equal(s.changes.overworld.added[id].artVariant, "birch");
+  await page.locator("#scale-percent").fill("137");
+  await page.locator("#scale-percent").press("Tab");
+  assert.equal((await read(page)).changes.overworld.added[id].scale, 1.37);
+  assert.equal(await page.locator("#scale").inputValue(), "1.37");
   await saved(page);
   await page.reload();
   await ready(page);
+  assert.equal((await read(page)).changes.overworld.added[id].scale, 1.37);
   assert.equal(
     (await read(page)).changes.overworld.added[id].artVariant,
     "birch",

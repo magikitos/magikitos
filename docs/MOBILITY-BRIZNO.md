@@ -1,5 +1,10 @@
 # Movimiento, cámara y Brizno
 
+**Registro histórico de la ronda del 14 de septiembre.** Los controles actuales
+están en [SHARED-FOREST.md](SHARED-FOREST.md): se retiró rodar (incluido doble
+espacio/toque y ruta larga), se conserva su arte y se corre/rema con espacio.
+Caminar vuelve a centrar la cámara. No aplicar las filas de roll de abajo al runtime.
+
 Implementación local, 14 septiembre 2026. No cambia misiones, saldos ni guardados
 del usuario. La anterior elección de arte **2× integrado y animación selectiva**
 ya estaba aplicada; los nuevos módulos usan el mismo pipeline, sin GIF ni

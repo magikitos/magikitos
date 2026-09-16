@@ -1,6 +1,6 @@
 "use strict";
 /** A reviewable map proposal: placements, explicit variants, palette additions and safe removals. */
-const { capabilities } = require("../../public/assets/js/adventure/entity-art");
+const { capabilities, validScale } = require("../../public/assets/js/adventure/entity-art");
 const {
   familyOf,
   makeElement,
@@ -66,7 +66,7 @@ function validatePlacement(scene, source, value) {
   )
     throw Error("Fuera del escenario");
   if (
-    !cap.scales.includes(next.scale) ||
+    !validScale(source, next.scale) ||
     !cap.rotations.includes(next.rotation) ||
     typeof next.flip !== "boolean" ||
     (!cap.mirror && next.flip !== !!source.flip)

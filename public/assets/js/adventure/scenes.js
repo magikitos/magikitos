@@ -12,15 +12,16 @@ class SceneDirector {
     this.nextWarm = 0;
   }
   async prepare(id, position, state) {
-    await this.game.homestead?.riverNeighbors?.prepare(
-      this.game.catalog.scenes[id],
-    );
+    await this.game.community?.prepare(this.game.catalog.scenes[id]);
     const game = this.game,
       data =
-        game.homestead?.sceneData(game.catalog.scenes[id]) ||
+        game.community?.sceneData(game.catalog.scenes[id]) ||
         game.catalog.scenes[id];
     if (!data) throw new Error("Unknown scene: " + id);
-    const cached = /^(home|guest)-/.test(id) ? null : this.cache.get(id);
+    const shared = Object.values(game.catalog.construction.zones).some(
+      (z) => z.scene === id,
+    );
+    const cached = shared ? null : this.cache.get(id);
     const world = cached && cached !== game.world ? cached : new World(data);
     world.actors = [];
     world.refresh(state);
@@ -30,9 +31,13 @@ class SceneDirector {
     for (const bridge of data.bridges || []) sprites.add(bridge.sprite);
     for (const item of Object.values(game.catalog.items))
       sprites.add(item.sprite);
-    if (/^home-/.test(id))
-      for (const kind of Object.values(game.catalog.homesteads.stock))
-        for (const variant of kind.variants) sprites.add(variant.sprite);
+    if (shared)
+      for (const kind of Object.values(game.catalog.construction.definitions))
+        for (const variant of kind.variants) {
+          sprites.add(variant.sprite);
+          for (const name of Object.values(variant.views || {}))
+            sprites.add(name);
+        }
     for (const entity of [...world.entities, ...world.props]) {
       if (entity.seat?.sprite) sprites.add(entity.seat.sprite);
       if (entity.keepsakes?.sprite) sprites.add(entity.keepsakes.sprite);
@@ -47,13 +52,16 @@ class SceneDirector {
       ...(data.actors || []),
     ]);
     const packs = await game.renderer.sprites.prepare(sprites, [
-      "actor-0-roll",
       "actor-0-run",
       "actor-0-discover",
       "actor-0-needs",
       ...(state.navigation?.mode === "boat" ? ["actor-0-row"] : []),
       ...(world.entities.some((e) => e.pushable) ? ["actor-0-push"] : []),
       ...(data.assetPacks || []),
+      ...(neighbors.some((n) => n.variant === 12) ? ["picnic-neighbor"] : []),
+      ...(world.entities.some((e) => e.animal?.species === "cat")
+        ? ["actor-0-carried"]
+        : []),
       ...[...actors].map((v) => "actor-" + v),
     ]);
     const valid =
@@ -142,10 +150,11 @@ class SceneDirector {
         .map((e) => e.id),
     );
     game.renderer.sprites.activate(prepared.packs);
+    game.cats?.enter();
     game.centerCamera(true);
     game.dirty = true;
     game.content?.sceneChanged(prepared.id);
-    game.homestead?.sceneChanged();
+    game.community?.sceneChanged();
   }
 }
 module.exports = { SceneDirector };

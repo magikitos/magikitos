@@ -72,7 +72,7 @@ const start = { x: 264, y: 200 };
         await c.detach();await page.waitForTimeout(100);
         const s=await inspect();assert.equal(s.pathLength,0);assert(!s.roll);assert.equal(s.player.y,start.y);
       }
-      for(const [distance,expected] of [[32,["walk"]],[128,["run","walk"]],[320,["roll","run","walk"]]]) {
+      for(const [distance,expected] of [[32,["walk"]],[128,["run","walk"]],[320,["run","walk"]]]) {
         await seed();await tapWorld({x:start.x,y:start.y+distance});
         await page.waitForFunction(y => {
           const s=window.MagikitosAdventure.inspect();
@@ -101,12 +101,11 @@ const start = { x: 264, y: 200 };
 
       await seed();await page.locator("#world-canvas").focus();await page.keyboard.down("ArrowDown");
       await page.keyboard.press("Space");await page.waitForTimeout(65);await page.keyboard.down("Space");
-      await page.waitForFunction(() => !!window.MagikitosAdventure.inspect().roll);
-      await page.waitForTimeout(270);await page.screenshot({path:`.local/mobility-review/roll-landing-${width}.png`});
-      await page.waitForTimeout(500);assert.equal((await inspect()).pace,"run","Hold after double Space resumes running, no repeated roll");
+      await page.waitForTimeout(350);
+      assert.equal((await inspect()).pace,"run","Double Space remains held running, never rolling");
       await page.keyboard.up("Space");await page.keyboard.up("ArrowDown");
       const trace=await page.evaluate(() => window.mobilityTrace);
-      assert.equal(trace.filter((s,i)=>s.pace==="roll"&&trace[i-1]?.pace!=="roll").length,1);
+      assert.equal(trace.filter(s=>s.pace==="roll").length,0);
       await page.waitForTimeout(50);assert.equal((await inspect()).pace,"idle");
 
       await seed(start,{});
@@ -133,7 +132,7 @@ const start = { x: 264, y: 200 };
       await seed({x:24.5*16,y:53*16});
       await page.screenshot({path:`.local/mobility-review/picnic-${width}.png`});
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth>innerWidth),false);
-      await page.close(); console.log(`PASS mobility ${width}×${height}: mouse/touch pan/recenter, walk→run→roll routes, held/double Space, dialogue isolation, natural cast, lazy elder.`);
+      await page.close(); console.log(`PASS mobility ${width}×${height}: mouse/touch pan/recenter, walk/run routes, held/double Space never rolls, dialogue isolation, natural cast, lazy elder.`);
     }
     assert.deepEqual(errors,[]);
   } finally { await browser.close(); }

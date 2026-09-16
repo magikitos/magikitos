@@ -1,12 +1,12 @@
 "use strict";
 const { TILE } = require("./geometry");
 const { findPath } = require("./navigation");
+const { drawCurrentTraces } = require("./current-traces");
 const {
   canFloat,
   VesselMotion,
   nearestLanding,
   riverExit,
-  currentAt,
 } = require("./river-navigation");
 const byId = (id) => document.getElementById(id);
 
@@ -30,7 +30,7 @@ class River {
         button.setPointerCapture(event.pointerId);
         this.pad.set(event.pointerId, button.dataset.riverKey);
         game.keys.add(button.dataset.riverKey);
-        this.path = [];
+        if (button.dataset.riverKey !== " ") this.path = [];
         game.unlockAudio();
       });
       for (const name of ["pointerup", "pointercancel", "lostpointercapture"])
@@ -114,7 +114,13 @@ class River {
         x: this.path[0].x - g.player.x,
         y: this.path[0].y - g.player.y,
       };
-    g.walking = this.motion.step(g.world, g.player, intent, dt);
+    g.walking = this.motion.step(
+      g.world,
+      g.player,
+      intent,
+      dt,
+      g.keys.has(" "),
+    );
     g.state.navigation.direction = g.player.direction;
     const exit = riverExit(g.world.data, g.player);
     if (!exit) this.failedExit = null;
@@ -123,7 +129,6 @@ class River {
   }
   async travel(exit) {
     const g = this.game;
-    exit = g.homestead?.resolveExit?.(exit) || exit;
     if (g.transitioning) return;
     g.transitioning = true;
     g.pauseMovement();
@@ -181,7 +186,7 @@ class River {
     g.recenterCamera(true);
     g.updateUI();
     g.save();
-    g.homestead?.arrive();
+    g.community?.arrive();
   }
   paint() {
     const g = this.game;
@@ -195,34 +200,7 @@ class River {
       data = g.world.data;
     if (!data.navigation) return;
     ctx.save();
-    ctx.strokeStyle = "rgba(220,241,206,.24)";
-    ctx.lineWidth = 1;
-    // A few moving strokes reveal the current direction, not a HUD meter.
-    for (const current of data.navigation.currents || []) {
-      const [cx, cy, rx, ry] = current.area;
-      for (let i = 0; i < 10; i++) {
-        const age = (time * 0.1 + i * 0.137) % 1;
-        const x =
-          (cx + Math.sin(i * 3.7) * rx * 0.65) * TILE +
-          current.vector[0] * age * 0.2;
-        const y = (cy + (age * 2 - 1) * ry * 0.7) * TILE;
-        if (
-          x < g.camera.x ||
-          y < g.camera.y ||
-          x > g.camera.x + g.renderer.width ||
-          y > g.camera.y + g.renderer.height ||
-          !g.world.waterAt(x / TILE, y / TILE)
-        )
-          continue;
-        const flow = currentAt(data, x, y),
-          length = Math.hypot(flow.x, flow.y);
-        if (length < 4) continue;
-        ctx.beginPath();
-        ctx.moveTo(x, y);
-        ctx.lineTo(x + (flow.x / length) * 7, y + (flow.y / length) * 7);
-        ctx.stroke();
-      }
-    }
+    drawCurrentTraces(ctx, g.world, g.camera, g.renderer, time);
     if (this.active && g.walking) {
       ctx.strokeStyle = "rgba(227,243,214,.35)";
       ctx.beginPath();

@@ -476,18 +476,13 @@ function paintInspector() {
   $("selected-id").textContent = sceneId + " / " + e.id;
   $("x").value = e.x / TILE;
   $("y").value = e.y / TILE;
-  for (const [id, values, suffix] of [["scale", cap.scales, "×"]]) {
-    $(id).replaceChildren(
-      ...values.map((v) => {
-        const o = document.createElement("option");
-        o.value = v;
-        o.textContent = v + suffix;
-        return o;
-      }),
-    );
-    $(id).value = e.scale ?? 1;
-    $(id).disabled = values.length === 1;
+  for (const [id, multiplier] of [["scale", 1], ["scale-percent", 100]]) {
+    $(id).min = cap.scale.min * multiplier;
+    $(id).max = cap.scale.max * multiplier;
+    $(id).value = Math.round((e.scale ?? 1) * 100) / 100 * multiplier;
+    $(id).disabled = cap.scale.min === cap.scale.max;
   }
+  $("scale-reset").disabled = cap.scale.min === cap.scale.max;
   const family = familyOf(e);
   $("variant-field").hidden = !family;
   $("variant").replaceChildren(
@@ -671,6 +666,11 @@ for (const b of document.querySelectorAll("[data-layer]"))
   };
 for (const key of ["x", "y", "scale"])
   $(key).onchange = () => adjust({ [key]: Number($(key).value) });
+$("scale").oninput = () => {
+  $("scale-percent").value = Math.round(Number($("scale").value) * 100);
+};
+$("scale-percent").onchange = () => adjust({ scale: Number($("scale-percent").value) / 100 });
+$("scale-reset").onclick = () => adjust({ scale: baseEntity().scale ?? 1 });
 $("variant").onchange = () => adjust({ artVariant: $("variant").value });
 $("flip").onchange = () => adjust({ flip: $("flip").checked });
 $("grid").onchange = () => {

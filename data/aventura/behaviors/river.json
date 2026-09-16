@@ -62,8 +62,7 @@
           "items": {
             "bottle": 1,
             "knife": 1,
-            "twig": 2,
-            "leaf": 2
+            "oars": 1
           },
           "maxItems": {
             "boat": 0
@@ -71,8 +70,7 @@
           "using": [
             "bottle",
             "knife",
-            "twig",
-            "leaf"
+            "oars"
           ]
         },
         "effects": [
@@ -82,8 +80,7 @@
             "props": [
               "bottle",
               "knife",
-              "twig",
-              "leaf"
+              "oars"
             ],
             "result": "boat",
             "duration": 2.5
@@ -92,16 +89,6 @@
             "type": "item",
             "item": "bottle",
             "amount": -1
-          },
-          {
-            "type": "item",
-            "item": "twig",
-            "amount": -2
-          },
-          {
-            "type": "item",
-            "item": "leaf",
-            "amount": -2
           },
           {
             "type": "item",
@@ -175,8 +162,7 @@
           "items": {
             "bottle": 1,
             "knife": 1,
-            "twig": 2,
-            "leaf": 2
+            "oars": 1
           },
           "maxItems": {
             "boat": 0

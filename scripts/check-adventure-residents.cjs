@@ -109,7 +109,8 @@ for (const data of Object.values(catalog.scenes)) {
     );
     const zone = w.region(n.home.x / TILE, n.home.y / TILE),
       ids = zones.get(zone) || new Set(),
-      family = profiles.find((p) => p.id === n.variant).family;
+      family = profiles.find((p) => p.id === n.variant)?.family || (n.variant===12?"named-elder":null);
+    assert(family,"Resident belongs to the repertoire or is the named elder");
     assert(!ids.has(family), data.id + ": no repeated silhouette in " + zone);
     ids.add(family);
     zones.set(zone, ids);
@@ -216,7 +217,7 @@ for (const x of [-1.8, 1.7])
     );
   }
   const w = new World(catalog.scenes.overworld),
-    before = cleanSave(null, catalog),
+    before = cleanSave({inventory:{knife:1}}, catalog),
     item = w.entities.find((e) => e.id === "picnic-mushroom"),
     after = planReaction(item, before, catalog).state;
   const presentation = new Presentation({ catalog });

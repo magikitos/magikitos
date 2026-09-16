@@ -1773,6 +1773,114 @@
           "sprite": "bottle-boat"
         }
       ]
+    },
+    "woodland-cat": {
+      "defaults": {"cat-ginger-down-0":"ginger","cat-tuxedo-down-0":"tuxedo","cat-silver-down-0":"silver","cat-calico-down-0":"calico","cat-siamese-down-0":"siamese"},
+      "label": "Gatos del bosque",
+      "category": "Criaturas",
+      "template": {
+        "sprite": "cat-ginger-down-0",
+        "rules": [],
+        "animal": {
+          "species": "cat",
+          "range": 7
+        }
+      },
+      "aliases": [
+        "cat-ginger-down-0",
+        "cat-tuxedo-down-0",
+        "cat-silver-down-0",
+        "cat-calico-down-0",
+        "cat-siamese-down-0"
+      ],
+      "variants": [
+        {
+          "id": "ginger",
+          "label": "Canela",
+          "sprite": "cat-ginger-down-0"
+        },
+        {
+          "id": "tuxedo",
+          "label": "Calcetines",
+          "sprite": "cat-tuxedo-down-0"
+        },
+        {
+          "id": "silver",
+          "label": "Niebla",
+          "sprite": "cat-silver-down-0"
+        },
+        {
+          "id": "calico",
+          "label": "Pecas",
+          "sprite": "cat-calico-down-0"
+        },
+        {
+          "id": "siamese",
+          "label": "Café",
+          "sprite": "cat-siamese-down-0"
+        }
+      ]
+    },
+    "twig-fence": {
+      "aliases": ["twig-fence-0-0","twig-fence-1-0","twig-fence-2-0"],
+      "defaults": {"twig-fence-0-0":"hazel","twig-fence-1-0":"moss","twig-fence-2-0":"tied"},
+      "label": "Vallitas de ramitas",
+      "category": "Construcción",
+      "template": {
+        "sprite": "twig-fence-0-0",
+        "rules": [],
+        "solid": [
+          -1,
+          -0.25,
+          2,
+          0.5
+        ]
+      },
+      "variants": [
+        {
+          "id": "hazel",
+          "label": "Avellano",
+          "sprite": "twig-fence-0-0"
+        },
+        {
+          "id": "moss",
+          "label": "Musgo",
+          "sprite": "twig-fence-1-0"
+        },
+        {
+          "id": "tied",
+          "label": "Atada",
+          "sprite": "twig-fence-2-0"
+        }
+      ]
+    },
+    "bowl-pool": {
+      "aliases": ["cat-bowl","cat-bowl-pool"],
+      "defaults": {"cat-bowl":"bowl","cat-bowl-pool":"pool"},
+      "label": "Cuenco y piscinita",
+      "category": "Construcción",
+      "template": {
+        "sprite": "cat-bowl",
+        "rules": [],
+        "solid": [
+          -2,
+          -1.25,
+          4,
+          2.5
+        ]
+      },
+      "variants": [
+        {
+          "id": "bowl",
+          "label": "Cuenco humano",
+          "sprite": "cat-bowl"
+        },
+        {
+          "id": "pool",
+          "label": "Piscina de duendes",
+          "sprite": "cat-bowl-pool"
+        }
+      ]
     }
   }
 }

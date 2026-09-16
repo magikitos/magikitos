@@ -153,8 +153,9 @@ Browser tests mock successful identity/rating/guardian writes. Private-web DDEV
 game tests create temporary fixture identities/sessions and remove only those
 fixtures; no emails, votes, orders or model calls.
 
-## Private saves and public parcels
+## Private adventures and shared construction
 
-`game-state`, `game-save`, `game-restore`, `parcels` and `parcel` need no `lang`.
+`game-state`, `game-save`, `game-restore`, `game-account`, `game-action`,
+`community`, `community-build` and `community-use` need no `lang`.
 See [save protocol](GAME-SAVE-API.md) and the mirrored OpenAPI. Authorization and
 persistence live exclusively in the private website, not this repository.

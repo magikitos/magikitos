@@ -29,7 +29,9 @@ function segmentDistance(x, y, a, b) {
   return Math.hypot(x - a[0] - t * dx, y - a[1] - t * dy);
 }
 function riverOffset(river, y) {
+  const seam = river.seamLength ? Math.max(0, Math.min(1, (y - 8) / 12, (river.seamLength - 8 - y) / 12)) : 1;
   return (
+    seam *
     (river.meander || 0) *
     (Math.sin(y * 0.16) * 0.65 + Math.sin(y * 0.063) * 0.35)
   );

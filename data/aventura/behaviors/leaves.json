@@ -1,5 +1,6 @@
 {
   "toilet-plant": {
+    "harvest": {"renewMs": 120000, "empty": "leavesRest"},
     "sprite": "toilet-plant",
     "label": "leafPlant",
     "solid": [

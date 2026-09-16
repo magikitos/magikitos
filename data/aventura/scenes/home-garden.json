@@ -1,6 +1,6 @@
 {
   "id": "home-garden",
-  "label": "homeGarden",
+  "label": "communityMirlo",
   "width": 48,
   "height": 48,
   "seed": 8197,
@@ -104,7 +104,21 @@
       "rules": []
     }
   ],
-  "neighbors": [],
+  "neighbors": [
+    {
+      "id": "mirlo-maker",
+      "x": 19,
+      "y": 27,
+      "radius": 7,
+      "variant": 12
+    },
+    {
+      "id": "mirlo-stroller",
+      "x": 29,
+      "y": 25,
+      "radius": 7
+    }
+  ],
   "scenery": [
     {
       "id": "old-birch",
@@ -171,7 +185,7 @@
     "exits": [
       {
         "id": "back-to-river",
-        "visitReturn": true,
+        "visitReturn": false,
         "area": [
           4,
           45.3,

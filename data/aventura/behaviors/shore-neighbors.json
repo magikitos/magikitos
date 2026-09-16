@@ -1,5 +1,6 @@
 {
   "shells": {
+    "harvest": {"renewMs": 18000000, "empty": "shellRest"},
     "sprite": "shells",
     "label": "shellName",
     "hiddenWhen": {

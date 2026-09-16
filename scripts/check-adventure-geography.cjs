@@ -10,7 +10,6 @@ const {
   collisionBounds,
 } = require("../public/assets/js/adventure/model");
 const { move } = require("../public/assets/js/adventure/movement");
-const { RollMotion } = require("../public/assets/js/adventure/locomotion");
 const {
   SAVE_KEY,
   cleanSave,
@@ -97,14 +96,12 @@ for (const y of [20, 30, 38, 50, 60, 72, 90]) {
       y: y * TILE,
     };
     if (!world.canStand(actor.x, actor.y)) continue;
-    const a = (dir * Math.PI) / 4,
-      roll = new RollMotion();
-    roll.start(Math.cos(a), Math.sin(a));
-    while (roll.current) {
-      roll.step(world, actor, 0.05, () => {});
+    const a = (dir * Math.PI) / 4;
+    for(let frame=0;frame<20;frame++) {
+      move(world,actor,Math.cos(a)*138/60,Math.sin(a)*138/60,()=>{});
       assert(
         world.canStand(actor.x, actor.y),
-        "Roll respects coast each substep",
+        "Running respects coast each substep",
       );
     }
     move(world, actor, Math.cos(a) * 80, Math.sin(a) * 80, () => {});
@@ -133,5 +130,5 @@ for (let i = 0; i < corners.length; i++)
 console.log(
   "PASS: single save contract, shared feet, " +
     checked +
-    " dry standing points, open coast, shoreline rolls, connected fountain plaza.",
+    " dry standing points, open coast, shoreline sweeps, connected fountain plaza.",
 );

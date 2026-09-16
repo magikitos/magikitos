@@ -3,10 +3,10 @@
   "alphaPreparation": "Authorized local extraction; original sources retained",
   "sheets": [
     {
-      "source": "ascua-bottle-rowing",
+      "source": "ascua-rowing-wooden-oars",
       "pack": "actor-0-row",
-      "reference": "data/aventura/art/cast/sources/ascua-walk.png",
-      "prompt": "Use case: identity-preserve. Asset type: production sprite animation atlas for an original fixed-camera top-down woodland adventure. Reference image is ONLY the identity/style reference of Ascua, the ONE small pointed-eared hero: burnt orange floppy stitched pointed hat, tousled dark brown hair, natural warm skin, cheeky face, teal short jacket, orange neck scarf, brown trousers and boots. Preserve his exact identity and proportions, do not redesign him. Create a new landscape sprite sheet EXACTLY EIGHT COLUMNS and FOUR ROWS, 32 uniformly spaced cells. Every cell contains the same hero seated safely INSIDE a tiny improvised boat made from HALF OF A CLEAR PALE AQUA PLASTIC WATER BOTTLE CUT LENGTHWISE, bottle cap still on its narrow bow, moulded ribs and rounded scalloped plastic stern recognizable, a small twig seat inside. TWO SMALL TWIG OARS with broad green LEAF BLADES, one on each side; his hands grip the sticks. NO second passenger. Whole craft and all leaf oars completely within every cell, lots of empty padding, stable actor-to-hull proportions and hull registration between rows. EIGHT camera-relative directions column order LEFT TO RIGHT: bow toward bottom, bottom-right, right, top-right, top, top-left, left, bottom-left. Do NOT rotate the whole flat picture: draw the corresponding top-down three-quarter view as the boat turns. Camera remains the reference camera. Each column is one direction throughout the four rows. ROW 1: calm seated resting oars. ROW 2: both arms extend oars forward for the next stroke. ROW 3: both arms pulling halfway through a symmetrical rowing stroke. ROW 4: both elbows back, oars finish aft. Only his arms, torso and oars move across rows, not the hull position or design. Crisp richly defined pixel-art-friendly illustration matching the reference, warm woodland colour palette with restrained clear-plastic highlights. No water, no landscape, no splash baked into the sheet, no cast ground shadows, no letters/numbers/grid/labels/brands. GENUINELY TRANSPARENT ALPHA BACKGROUND, no checkerboard, no magenta. Entire objects centered and separated on a clean regular grid. High detail source master intended for offline reduction to 2x game texture density.",
+      "reference": "data/aventura/art/river/sources/ascua-bottle-rowing.png",
+      "prompt": "Use case: precise-object-edit. Asset type: production game animation sheet. Image1 is the EDIT TARGET: exactly EIGHT columns FOUR rows of Ascua rowing a clear recycled plastic-bottle boat. Image2 is only the wood-paddle design reference. Replace ONLY every green leaf paddle in ALL 32 cells with a worn honey-brown carved WOODEN oar blade, rounded spoon-shaped, small leather binding as in Image2. Preserve Ascua's exact face, orange pointed hat, teal jacket, proportions, every pose, boat clear-plastic geometry and blue cap, direction order, stroke positions, cell registration, and 8x4 grid exactly. Do not redraw the whole character or rearrange columns. Genuinely transparent background, clean alpha, no coloured fringes, no scene, no grid, no labels. Detailed crisp pixel-art consistent with target. Complete silhouettes with padding within each cell, no clipping.",
       "grid": [
         8,
         4
@@ -20,7 +20,9 @@
         "up-left",
         "left",
         "down-left"
-      ]
+      ],
+      "additionalReference": "data/aventura/art/cats/sources/old-oars.png",
+      "neutralMatteMinimum": 80
     },
     {
       "source": "picnic-bin",
@@ -40,9 +42,9 @@
       }
     },
     {
-      "source": "bottle-craft",
+      "source": "bottle-craft-wooden-oars",
       "pack": "river-craft",
-      "prompt": "Use case: stylized-concept. Production sprite atlas of the TWO crafting states of ONE recycled bottle object for an original fixed-camera top-down woodland elf game. Exactly two columns, one row on a wide landscape canvas, huge clear separation. LEFT CELL: a whole empty clear pale aqua ribbed plastic water bottle lying diagonally, royal blue screw cap, no label, no brand. RIGHT CELL: that SAME plastic bottle cut LENGTHWISE to become an empty boat, cap still on narrow bow toward lower-left, molded petal bottom still visible at stern, now wide open top with one rustic twig seat inside and TWO brown twig oars with broad oval green leaf blades resting across the edges, one each side. No person, no water, no shore, no loose cut-off plastic top. Both sprites fully visible with generous transparent margins, same size of original bottle and identical fixed top-down three-quarter view. Rich crisp pixel-art-friendly painted details for native 2x textures, clean silhouettes, natural warm woodland palette, pale blue translucent plastic but sharp rib highlights, not chunky blocks. Genuinely transparent background; NO saturated red/green/blue fringes, no matte, no grid, no text, no cast ground shadow.",
+      "prompt": "Use case: precise-object-edit. Asset type: production game sprite atlas. Image1 is the EDIT TARGET, a TWO COLUMNS ONE ROW atlas. Image2 is a reference ONLY for the wooden oar design. Change ONLY the two green leaf-blade oars on the right boat to small worn honey-brown carved wooden paddles, with spoon-shaped wood blades and leather repair bindings as in Image2. Preserve the entire left bottle EXACTLY, the right cut-plastic-bottle hull, blue cap, twig seat, perspective, spacing, object sizes, and 2x1 cell positions. This is a tiny recycled bottle boat, not a normal wooden boat. No character. Crisp detailed painted pixel-art, match existing. Genuinely transparent background, no matte, no red fringe, no text or grid. Every complete object fully inside its cell. Keep the canvas aspect ratio and composition of Image1.",
       "frames": {
         "plastic-bottle": {
           "grid": [
@@ -80,7 +82,10 @@
             40
           ]
         }
-      }
+      },
+      "reference": "data/aventura/art/river/sources/bottle-craft.png",
+      "additionalReference": "data/aventura/art/cats/sources/old-oars.png",
+      "neutralMatteMinimum": 80
     }
   ]
 }

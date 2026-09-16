@@ -1,78 +1,126 @@
-# Private progress / public kelihouses
+# Private adventures, shared forest
 
-Published with owner authorization, 2026-09-15; see
-[release evidence](RELEASE-RIVER-2026-09-15.md). The executable contract is mirrored in both
-repos as `docs/world-api.openapi.json`. Backend code and schema are private-web
-owned; the public game contains its client, data and validation UX only.
+Current contract: **2026-09-16**, mirrored in both repositories as
+`docs/world-api.openapi.json`. PHP, identity, database and authorization belong
+only to the private website. The public game consumes JSON and ships no backend.
+
+## Separate authorities
+
+- `game_profiles`: private, client-authored location/adventure snapshots, CAS and
+  recovery. They are **not** a source of spendable construction materials.
+- `game_accounts`: server-authoritative materials, reusable tools, reward flags,
+  recipe knowledge, game setines and limited social trust.
+- `game_community_*`: public object snapshots, ownership, revisions, reversible
+  history and deduplicated eligible human use. No private parcels remain live.
+
+Existing website bearer authentication is reused. A device UUID is not a credential.
+Identity creation is explicit (connect or first build), never a scene-load side effect.
+The game currency never changes website reputation, checkout money or events.
 
 ## Endpoints
 
-No `lang` needed. Existing bearer authentication and explicit-origin rules apply;
-device UUID is never authentication. Maximum JSON body: 32 KiB. Shared game
-limit: 120 requests/minute/IP, using the website's file-backed limiter.
+All paths are relative to `/api/world/`; no locale is required. JSON is bounded
+to 32 KiB, and the shared IP limit is 120 requests/minute. Build writes additionally
+have a 12/minute author limit. Rejected requests do not debit materials.
 
-| Endpoint | Input | Result |
-| --- | --- | --- |
-| GET game-state | Bearer | Own active profile or null; owned merge-recovery metadata |
-| POST game-save | Bearer; profileId, baseRevision, operationId, state, parcel | Atomic private save and automatically public layout |
-| POST game-restore | Bearer; profileId, currentId, baseRevision | Activate owned archived profile; preserve current one |
-| GET parcels | Optional opaque cursor | At most 8 public addresses and nextCursor |
-| GET parcel | id | Public owner name/handle and saved layout only |
+| Endpoint | Authority and result |
+| --- | --- |
+| GET game-state | Bearer: own active profile and private recovery metadata |
+| POST game-save | Bearer: private snapshot CAS; `parcel` is an old private archive only |
+| POST game-restore | Bearer: activate owned archived profile, preserving displaced one |
+| GET game-account | Bearer: own account; lazily initializes an empty/frozen-legacy account |
+| POST game-action | Bearer: reviewed scene/entity/action command, never a supplied balance |
+| GET community?zone=… | Public bounded snapshot; optional bearer adds `mine` |
+| POST community-build | Bearer: place/move/remove transaction and updated account/snapshot |
+| POST community-use | Bearer: explicit human use of a usable object; no NPC calls |
 
-First save: `profileId: null`, `baseRevision: 0`. Later: acknowledged ID/revision.
-IDs and operation IDs are 32 lowercase hex characters. Keep and retry the
-**identical** pending operation after a lost response, including reload. The
-server keeps 16 receipts and locks the owner's row. CAS rejects stale revisions
-with 409; different data under an existing operation ID is rejected too. A late
-replay returns current profile plus original `acknowledgedRevision`: differing
-revisions require conflict resolution.
+`parcels` and `parcel` public discovery endpoints are removed. Public object DTOs
+contain kind, variant, position, rotation, revisions, age, heritage and public
+author name/handle; never email, internal user ID, inventory or private progress.
 
-## Local-first lifecycle
+## Transactions and retry
 
-The browser persists locally immediately and coalesces dirty cloud saves over
-10 seconds, not each frame. Unchanged states do not write. Explicit parcel save
-flushes immediately. Offline work stays local; online retries the same receipt.
-Opening a scene does not mint an identity; explicit connection/parcel save reuses
-the website's controlled anonymous-identity flow when needed.
+Actions use `operationId`, `baseRevision`, `scene`, `entity`, `action`. Construction
+also uses `zone`, `zoneRevision`, `operation` and an object descriptor. Moving and
+removing require its current revision. IDs are 32 lowercase hexadecimal characters.
+Keep and resend the **identical request** after a lost response; changing data under
+the same operation ID is rejected. Account receipts retain the latest 32 operations;
+older replays still fail stale revision checks rather than charging twice.
 
-A fresh device restores its owner's save. Competing local/remote progress prompts
-for a choice; three bounded local recovery copies remain available. Switching
-accounts cannot silently upload the previous person's game. Merge preserves both
-profiles; restoring one archives the other. Account deletion removes its profiles;
-game progress excludes an account from automatic anonymous recycling.
+Server lock order is users → accounts → zone → objects. Identity merging uses the
+same user-lock order. Definition, knowledge, journey prerequisites, costs, inventory
+bounds, real terrain mask, footprint, surface type, overlaps, protected paths,
+connected access, quotas, author and heritage are checked **on the server**.
+The browser's green preview is guidance, never permission.
 
-`parcel: null` means no home yet. Autosave cannot clear an established parcel with
-null. Both spaces share a maximum of 48 registered objects, stock limits, legal
-variants and a half-tile grid. Solids cannot overlap; dock/path/door are protected;
-walkable access is checked. Backend validation uses `game-contract.json` from its
-reviewed installed artifact, never a browser-supplied schema. PHP/JS validators
-run identical placement fixtures.
+The initial release forbids all foreign modifications, regardless of claimed trust.
+Heritage blocks even owner removal. Age alone does not confer heritage: minimum
+28 days and 10 distinct eligible visitors are required. Only contacted accounts at
+least seven days old count, once per object, excluding its author. Trust is bounded;
+it does not yet grant foreign-editing privileges. This is deliberately conservative,
+not a claim to solve Sybil resistance or make automatic moderation infallible.
 
-## Public by saving, not live
+## Local-first and migration
 
-Every saved layout is public automatically. DTO: profile ID, revision, public
-owner name/handle and layout. Never email, internal user ID, inventory, purse,
-traces, credentials or private progress; no arbitrary HTML, URLs or uploads.
+Private saves debounce for 10 seconds; unchanged states do not write. Local action
+outbox: at most 192 commands, one exact in-flight request, no frame/movement events.
+Construction is online/acknowledged only; an uncertain response remains durable
+across reload and must resolve before a different placement. Offline browsing,
+walking and private progress work; shared building requires the API.
 
-Visitors receive a snapshot; later owner edits appear on a later visit. No
-sockets, live-presence loops or polling. Three river jetties sample addresses
-once per session; the neighbour list pages through the rest. Visitors cannot move
-or collect furniture; visitor movement never overwrites their own saved position.
+Conflicting private saves require an explicit local/remote choice and keep three
+bounded local recovery copies. Session changes archive pending commands instead
+of attributing one person's play to another. Account reconciliation cannot mint
+materials from local inventory. Do not start a very long offline resource-gathering
+session after the 192-command synchronization warning: the outbox is bounded.
 
-Progress is bounded but client-authored: **not a cheat-proof competitive economy**.
-The game purse cannot award/spend website reputation, money or ledger entries.
-No movement analytics or events-table writes are introduced.
+Migrations **4230** (authority/community tables) and **4231** (cutover snapshot and
+merge recovery) are additive. 4231 freezes existing active server saves exactly
+once; only this immutable copy may initialize pre-existing balances. Future
+`game-save` requests cannot modify that snapshot or mint materials.
+
+Browser-only pre-cutover games preserve a local recovery snapshot and replay a
+bounded set of existing quest/tool entitlements through normal validated commands.
+Arbitrary client material counts/setines are not imported. Old boat owners retain
+navigation and receive oars; unfinished cooking/tool progress remains recoverable.
+Old private layouts are retained **privately** for recovery, never published as
+communal objects without an explicit construction transaction.
+
+Identity merge archives both authoritative accounts before joining unlocks and
+resource bitsets. Overlapping materials and balances use max, not sum; construction
+authorship transfers. Account deletion removes private data and nulls public author
+references rather than demolishing the shared forest. Anonymous cleanup retains
+identities with game progress or constructions.
+
+## Security boundary and operation
+
+This is server-authoritative crafting, **not server-simulated movement**. The API
+validates finite pickups, recipes, prerequisites, timers and budgets. It does not
+prove a browser really walked past a cat or physically reached a pickup. A modified
+client can automate valid personal actions, but cannot invent counts, build on
+protected ground or bypass ownership/heritage with an arbitrary API call. Paid
+trading or competitive prizes would require additional anti-abuse design.
+
+NPC activities are local atmosphere and never award social trust. Human usage is
+a capped aggregate, not an analytics events feed. No socket or live-presence loop.
+
+Moderator recovery is CLI-only in the private repository:
+`php scripts/restore-community.php HISTORY_ID EXPECTED_OBJECT_REV --apply`.
+Inspect the history and take a backup first. Restore validates current geometry,
+uses CAS and records another immutable history entry; if removal refunded materials,
+restoration reclaims them from the original owner. It is not publicly routed.
 
 ## Verification
 
-```sh
-node scripts/check-cloud-save.cjs
-GAME_TEST_WEB_ROOT=../magikitos node scripts/check-homestead-layout.cjs
-node scripts/check-river-browser.cjs
-```
+Game: `npm test`, `node scripts/check-cats-browser.cjs`,
+`node scripts/check-community-browser.cjs`, `npm run test:mobility`,
+`npm run test:api:local`, `npm run test:boundary`.
 
-Private web: `ddev exec php scripts/check-game-profiles.php` and
-`ddev exec php scripts/check-game-http.php`. They use temporary local fixtures,
-not the owner's account, then remove those exact identities/sessions. The browser
-suite mocks protected writes; PHP HTTP tests exercise actual local routing,
-authorization, validation and persistence.
+Private web/DDEV: `scripts/check-community.php`,
+`scripts/check-community-concurrency.php`, `scripts/check-game-profiles.php`,
+`scripts/check-game-http.php`. Temporary fixtures clean up only their own IDs/zones.
+
+Production examples use `scripts/seed-community-examples.php --apply-labelled-examples`:
+only three dedicated `bosque-ejemplo-*` accounts, visibly labelled as game tests.
+All rewards and placements use the public HTTP API. Sessions are revoked afterward;
+the examples remain. Never borrow a real person's identity for synthetic play.

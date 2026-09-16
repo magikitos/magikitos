@@ -211,7 +211,7 @@ const plant = catalog.scenes.overworld.entities.find(
 );
 let gathered = { ...state };
 for (let i = 0; i < 102; i++)
-  gathered = planReaction(plant, gathered, catalog, {}).state;
+  gathered = planReaction(plant, gathered, catalog, {now:now+i*plant.resource.renewMs}).state;
 assert.equal(
   gathered.inventory.leaf,
   99,

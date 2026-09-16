@@ -100,16 +100,11 @@ for (const fps of [20, 30, 60, 120]) {
   const game = Object.assign(Object.create(Adventure.prototype), {
     ready: true, world: f.world, player: f.actor, journey: f.journey,
     river: { active: false },
-    roll: new RollMotion(), keys: new Set(), blocked: () => false, unlockAudio() {},
+    keys: new Set(), blocked: () => false, unlockAudio() {},
   });
-  game.startRoll();
-  assert(game.roll.current);
-  assert.equal(f.journey.intent.kind, "ground", "Roll keeps click intention");
+  assert.equal(game.startRoll, undefined, "No roll entry point remains in the live game");
+  assert.equal(f.journey.intent.kind, "ground");
   f.world.actors.push({ id: "crossing", x: 160, y: 184, neighbor: true });
-  for (let i = 0; i < 60 && game.roll.current; i++)
-    game.roll.step(f.world, f.actor, 1 / 60, () => {});
-  game.finishRoll();
-  assert.equal(f.journey.pace.rollPending, false, "Detour never adds another automatic roll");
   finish(f);
   assert.deepEqual({ x: f.actor.x, y: f.actor.y }, destination);
 }
@@ -143,4 +138,4 @@ for (const fps of [20, 30, 60, 120]) {
   move(f.world, f.actor, 40, 0, entity => game.contact(entity));
   assert.equal(game.contacted, null, "The same contact latch still prevents repeated bump dialogue");
 }
-console.log("PASS journeys: static/live avoidance, footprint edges, throttled wait/resume, exact target dispatch, deliberate pushing, roll resumption, cancellation and keyboard bumps at 20/30/60/120 Hz.");
+console.log("PASS journeys: static/live avoidance, footprint edges, throttled wait/resume, exact target dispatch, deliberate pushing, no live roll, cancellation and keyboard bumps at 20/30/60/120 Hz.");

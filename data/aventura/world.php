@@ -8,6 +8,7 @@ return (static function (): array {
         file_get_contents($file), true, flags: JSON_THROW_ON_ERROR
     );
     $world = $read(__DIR__ . '/catalog.json');
+    $world['resourceRegions'] = $read(__DIR__ . '/resource-nodes.json');
     // Only lightweight identities ship to browsers, never the production prompts or source masters.
     $world['avatarProfiles'] = $read(__DIR__ . '/residents.json');
     $world['avatarVariants'] = array_column($world['avatarProfiles'], 'id');
@@ -31,6 +32,17 @@ return (static function (): array {
     $behaviors = [];
     $families = $read(__DIR__ . '/elements.json')['families'];
     $world['homesteads'] = $read(__DIR__ . '/homesteads.json');
+    $world['construction'] = $read(__DIR__ . '/construction.json');
+    foreach ($world['construction']['definitions'] as &$construction) {
+        if (isset($construction['family'])) {
+            $family = $families[$construction['family']] ?? throw new RuntimeException('Unknown construction family');
+            $construction['variants'] = array_map(static fn($v) => ['id'=>$v['id'], 'sprite'=>$v['sprite']], $family['variants']);
+        } else {
+            $construction['variants'] ??= [['id'=>'original', 'sprite'=>$construction['sprite']]];
+        }
+        $construction['scale'] ??= 1;
+    }
+    unset($construction);
     foreach ($world['homesteads']['stock'] as $id => &$item) {
         $family = $families[$id] ?? throw new RuntimeException('Unknown homestead family');
         $item['variants'] = array_map(static fn($v) => ['id' => $v['id'], 'sprite' => $v['sprite']], $family['variants']);
@@ -86,6 +98,22 @@ return (static function (): array {
                 $entity = array_replace($behaviors[$id], $entity);
                 unset($entity['behavior']);
             }
+            $resources = $world['resourceRegions'][$name] ?? null;
+            $nodeIndex = $resources ? array_search($entity['id'], $resources['nodes'], true) : false;
+            if ($nodeIndex !== false) {
+                $entity['resource'] = ['region' => $name, 'index' => $nodeIndex, 'renewMs' => $resources['renewMs']];
+            }
+            if (isset($entity['harvest'])) {
+                $region = 'harvest-' . $name . '-' . $entity['harvest']['renewMs'];
+                $world['resourceRegions'][$region] ??= ['renewMs' => $entity['harvest']['renewMs'], 'nodes' => []];
+                $index = count($world['resourceRegions'][$region]['nodes']);
+                $world['resourceRegions'][$region]['nodes'][] = $entity['id'];
+                $entity['resource'] = ['region'=>$region, 'index'=>$index, 'renewMs'=>$entity['harvest']['renewMs'], 'keepVisible'=>true, 'empty'=>$entity['harvest']['empty']];
+                foreach ($entity['rules'] as &$r) if (array_filter($r['effects'], static fn($e) => $e['type']==='item' && $e['amount']>0)) array_unshift($r['effects'], ['type'=>'collect']);
+                unset($r);
+            }
+            foreach ($entity['rules'] as $resourceRule) foreach ($resourceRule['effects'] as $resourceEffect)
+                if ($resourceEffect['type'] === 'collect' && !isset($entity['resource'])) throw new RuntimeException('Pickup missing stable resource index: ' . $entity['id']);
             foreach ($entity['rules'] as &$rule) {
                 foreach ($rule['effects'] as &$effect) {
                     if ($effect['type'] === 'travel' && !isset($effect['scene'])) {

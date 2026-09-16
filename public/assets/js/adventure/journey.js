@@ -58,7 +58,7 @@ class Journey {
     if (intent.kind === "ground")
       this.intent = { kind: "ground", point: { ...path.at(-1) } };
     this.path = path;
-    this.pace.begin(actor, path, intent.kind !== "push");
+    this.pace.begin(actor, path);
     return true;
   }
   replan(world, actor) {
@@ -67,18 +67,6 @@ class Journey {
     this.replans++;
     this.retry = RETRY_SECONDS;
     this.path = this.plan(world, actor) || [];
-  }
-  suspend() {
-    // Rolls retain the very same intention, including explicit door/push
-    // targets. They cannot turn a ground click into a bump interaction.
-    this.path = [];
-    this.pace.rollPending = false;
-  }
-  resume(world, actor) {
-    if (!this.intent) return;
-    this.retry = 0;
-    this.replan(world, actor);
-    this.pace.begin(actor, this.path, false);
   }
   permitsPush(entity) {
     return this.intent?.kind === "push" && this.target === entity;

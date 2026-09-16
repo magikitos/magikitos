@@ -3,6 +3,7 @@
 const { cleanWallet, transact } = require("./economy");
 const { startTimer } = require("./timers");
 const { remember } = require("./keepsakes");
+const { collected, collect } = require("./resources");
 function matches(state, when = {}, context = {}) {
   return (
     (!when.navigation ||
@@ -29,6 +30,7 @@ function matches(state, when = {}, context = {}) {
 }
 function active(entity, state, context = {}) {
   return (
+    (entity.resource?.keepVisible || !collected(state, entity.resource, context.now ?? Date.now())) &&
     (!entity.hiddenWhen || !matches(state, entity.hiddenWhen, context)) &&
     (!entity.visibleWhen || matches(state, entity.visibleWhen, context))
   );
@@ -41,6 +43,7 @@ function actions(entity, state, context = {}) {
 function planReaction(entity, state, catalog, context = {}) {
   context = { ...context, now: context.now ?? Date.now() };
   if (!active(entity, state, context)) return null;
+  if (collected(state, entity.resource, context.now)) return {state, effects:[{type:"dialogue",key:entity.resource.empty}]};
   const action = context.action || "interact";
   if (context.item && !(state.inventory[context.item] > 0)) return null;
   const rule = (entity.rules || []).find(
@@ -59,7 +62,9 @@ function planReaction(entity, state, catalog, context = {}) {
     inventory: { ...state.inventory },
   };
   for (const effect of rule.effects || []) {
-    if (effect.type === "keepsake") {
+    if (effect.type === "collect") {
+      collect(draft, entity.resource, context.now);
+    } else if (effect.type === "keepsake") {
       remember(draft, entity);
     } else if (effect.type === "timer") {
       startTimer(draft, effect.timer, catalog, context.now);
@@ -93,10 +98,11 @@ function planReaction(entity, state, catalog, context = {}) {
       throw new Error("Unknown effect");
   }
   return {
+    rule,
     state: draft,
     effects: (rule.effects || []).filter(
       (e) =>
-        !["flag", "item", "spend", "reward", "timer", "keepsake"].includes(
+        !["flag", "item", "spend", "reward", "timer", "keepsake", "collect"].includes(
           e.type,
         ),
     ),

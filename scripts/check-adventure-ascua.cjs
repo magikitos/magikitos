@@ -41,8 +41,11 @@ for(let bits=0;bits<64;bits++){
 let state=cleanSave(null,catalog);
 assert(active(find("picnic-mushroom"),state));
 state=planReaction(find("picnic-mushroom"),state,catalog).state;
+assert(!state.inventory.mushroom,"Knife required to cut a portion");
+state=planReaction(find("picnic-knife"),state,catalog).state;
+state=planReaction(find("picnic-mushroom"),state,catalog).state;
 assert.equal(state.inventory.mushroom,1);assert(!active(find("picnic-mushroom"),state));
-assert(!state.inventory.knife,"Whole mushroom before knife");
+assert.equal(state.inventory.knife,1,"Knife is reusable");
 for(const amount of [0,1,2,30]){
   let s=cleanSave(null,catalog);s.wallet.balance=amount;
   const action=actions(fountain,s)[0];

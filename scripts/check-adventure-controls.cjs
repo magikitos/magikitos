@@ -11,8 +11,9 @@ const {
   RollMotion,
   DoublePress,
   ROLL_DISTANCE,
-} = require("../public/assets/js/adventure/locomotion");
+} = require("../tools/adventure-studio/experiments/forest-scale/archived-locomotion");
 const { DIRECTIONS } = require("../public/assets/js/adventure/characters");
+assert(!require("../public/assets/js/adventure/locomotion").RollMotion, "Rolling remains archived, not a production ability");
 const { cleanWallet } = require("../public/assets/js/adventure/economy");
 const { dialogueText } = require("../public/assets/js/adventure/dialogue");
 const catalog = JSON.parse(
@@ -219,5 +220,5 @@ assert.equal(
   "home-pot-terracotta",
 );
 console.log(
-  "PASS: eight-direction rolling, 3 frame rates, no repeats, solid/water collisions, substep portals, reachable door thresholds, device-independent double presses, wallet validation without invented money, boat landings.",
+  "PASS: archived roll artwork/experiment preserved; live roll removed; reachable doors, wallet validation, boat landings.",
 );

@@ -8,9 +8,13 @@
     "skewerCooked",
     "picnicFed",
     "knifeFound",
-    "boatBuilt"
+    "boatBuilt",
+    "bowlFound",
+    "seedsFound"
   ],
   "items": {
+    "bowl": {"name":"bowlName","description":"bowlDescription","sprite":"cat-bowl","max":1,"usable":false,"reusable":false},
+    "seeds": {"name":"seedsName","description":"seedsDescription","sprite":"garden-seed-sack","max":1,"usable":false,"reusable":true},
     "mushroom": {
       "name": "mushroomName",
       "description": "mushroomDescription",
@@ -74,6 +78,14 @@
       "max": 1,
       "usable": true,
       "reusable": false
+    },
+    "oars": {
+      "name": "oarsName",
+      "description": "oarsDescription",
+      "sprite": "old-oars",
+      "max": 1,
+      "usable": true,
+      "reusable": true
     },
     "boat": {
       "name": "bottleBoatName",

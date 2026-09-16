@@ -73,14 +73,14 @@ const key = 'magikitos.adventure';
         assert.equal((await inspect()).wallet.balance,2);
         assert(!((await stored()).keepsakes?.overworld?.fountain));
 
-        await seed({ position:{x:33*16,y:70.5*16} });
+        await seed({ position:{x:33*16,y:70.5*16}, inventory:{knife:1} });
         await touchEntity('picnic-mushroom',20); await gesture('discover');
         assert.equal((await inspect()).entities.find(e=>e.id==='picnic-mushroom').presented,false,'Ground source is hidden before the first overhead pose');
         assert.equal((await inspect()).player.direction,'down');
         assert.equal((await inspect()).sequence.data.sprite,'giant-bolete');
         await dialogue();
         assert.equal((await inspect()).inventory.mushroom,1);
-        assert(!(await inspect()).inventory.knife);
+        assert.equal((await inspect()).inventory.knife,1);
 
         await seed({position:{x:25*16,y:74*16},flags:{fireLit:true},inventory:{knife:1,lighter:1,mushroom:1,twig:1}});
         await touchEntity('picnic-barbecue'); await dialogue();

@@ -1,12 +1,1 @@
-{
-  "guest-garden": {
-    "template": "home-garden",
-    "label": "homeVisitor",
-    "destinations": {"home-room": "guest-room"}
-  },
-  "guest-room": {
-    "template": "home-room",
-    "label": "homeVisitor",
-    "destinations": {"home-garden": "guest-garden"}
-  }
-}
+{}

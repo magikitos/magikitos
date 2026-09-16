@@ -33,7 +33,7 @@ function createNeighbors(world, config, ambientCast, choose = Math.random) {
     if (person) seen.add(person.handle);
     const identity = person?.handle || slot.id;
     // Appearance is a local art decision; website identity never selects an obsolete sprite index.
-    const variant = casting.choose(identity, world.region(slot.x, slot.y));
+    const variant = slot.variant ?? casting.choose(identity, world.region(slot.x, slot.y));
     const cursor = cursors[slot.content] || 0;
     cursors[slot.content] = cursor + 1;
     // Visitors can share a published piece; its actual author remains credited in the folio.

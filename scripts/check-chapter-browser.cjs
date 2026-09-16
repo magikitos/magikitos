@@ -55,7 +55,7 @@ const origin = process.env.GAME_ORIGIN || "http://127.0.0.1:47834";
         assert.equal((await inspect()).dialogue, null);
       }
       for (const [name, scene, x, y] of [
-        ["picnic", "overworld", 25, 53],
+        ["picnic", "overworld", 25, 28],
         ["brizno", "overworld", 25, 74],
         ["island", "islet", 34.5, 25.5],
         ["dock", "islet", 18, 25],

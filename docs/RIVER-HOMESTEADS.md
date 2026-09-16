@@ -1,5 +1,9 @@
 # River and kelihouses — implementation log
 
+**Historical release, superseded by [Shared Forest](SHARED-FOREST.md).** Private
+parcel discovery/editing and the twig-paddle recipe described below are no longer
+live features. This document preserves what was actually shipped on 15 September.
+
 Approved scope, 15 September 2026. Subsequently published with explicit owner
 authorization; see [production evidence](RELEASE-RIVER-2026-09-15.md). This log
 describes the implementation and its boundaries, not future feature promises.

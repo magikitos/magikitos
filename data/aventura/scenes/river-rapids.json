@@ -1,35 +1,93 @@
 {
   "id": "river-rapids",
   "label": "riverRapids",
-  "width": 96,
-  "height": 80,
+  "width": 128,
+  "height": 144,
   "seed": 745,
   "spawn": {
     "x": 68,
-    "y": 42
+    "y": 75.60000000000001
   },
   "paths": [
     [
       [
         64,
-        42
+        75.6
       ],
       [
         72,
-        40
+        72
       ],
       [
         80,
-        38
+        68.4
+      ]
+    ],
+    [
+      [
+        20,
+        15
+      ],
+      [
+        26,
+        42
+      ],
+      [
+        21,
+        72
+      ],
+      [
+        25,
+        104
+      ],
+      [
+        22,
+        128
+      ]
+    ],
+    [
+      [
+        78,
+        14
+      ],
+      [
+        86,
+        40
+      ],
+      [
+        78,
+        68
+      ],
+      [
+        90,
+        96
+      ],
+      [
+        79,
+        130
+      ]
+    ],
+    [
+      [
+        57.01,
+        78
+      ],
+      [
+        81,
+        78
+      ],
+      [
+        91,
+        71
       ]
     ]
   ],
   "waters": [
     {
       "x": 37,
-      "y": 48,
+      "y": 86.4,
       "rx": 7,
-      "ry": 10
+      "ry": 13
     }
   ],
   "rivers": [
@@ -38,17 +96,33 @@
         38,
         -4,
         20,
-        88
+        152
       ],
-      "meander": 10
+      "meander": 10,
+      "seamLength": 144
     }
   ],
-  "bridges": [],
+  "bridges": [
+    {
+      "rect": [
+        53.21,
+        77,
+        5,
+        2
+      ],
+      "sprite": "jetty"
+    }
+  ],
   "clearings": [
     [
       68,
-      42,
+      75.60000000000001,
       8
+    ],
+    [
+      83,
+      78,
+      12
     ]
   ],
   "regions": [],
@@ -68,14 +142,83 @@
     "count": 60
   },
   "ambient": "forest",
-  "entities": [],
-  "neighbors": [],
+  "entities": [
+    {
+      "id": "bank-dock",
+      "behavior": "river-dock",
+      "landing": "bank",
+      "x": 57.01,
+      "y": 76.2
+    },
+    {
+      "id": "bank-twig-0",
+      "behavior": "picnic-twig",
+      "x": 75,
+      "y": 83
+    },
+    {
+      "id": "bank-twig-1",
+      "behavior": "picnic-twig",
+      "x": 80,
+      "y": 83
+    },
+    {
+      "id": "bank-twig-2",
+      "behavior": "picnic-twig",
+      "x": 85,
+      "y": 83
+    },
+    {
+      "id": "bank-twig-3",
+      "behavior": "picnic-twig",
+      "x": 90,
+      "y": 83
+    },
+    {
+      "id": "bank-twig-4",
+      "behavior": "picnic-twig",
+      "x": 75,
+      "y": 88
+    },
+    {
+      "id": "bank-twig-5",
+      "behavior": "picnic-twig",
+      "x": 80,
+      "y": 88
+    },
+    {
+      "id": "bank-twig-6",
+      "behavior": "picnic-twig",
+      "x": 85,
+      "y": 88
+    },
+    {
+      "id": "bank-twig-7",
+      "behavior": "picnic-twig",
+      "x": 90,
+      "y": 88
+    },
+    {
+      "id": "bank-leaf-plant",
+      "behavior": "toilet-plant",
+      "x": 91,
+      "y": 82
+    }
+  ],
+  "neighbors": [
+    {
+      "id": "river-rapids-walker",
+      "x": 83,
+      "y": 81,
+      "radius": 7
+    }
+  ],
   "scenery": [
     {
       "id": "bank--1-0",
       "sprite": "forest-birch",
       "x": 25,
-      "y": 8,
+      "y": 14.4,
       "scale": 0.72,
       "solid": [
         -2,
@@ -89,7 +232,7 @@
       "id": "flowers--1-0",
       "sprite": "flowers-daisy-white",
       "x": 28,
-      "y": 10,
+      "y": 18,
       "scale": 0.8,
       "artVariant": "auto"
     },
@@ -97,7 +240,7 @@
       "id": "bank-1-0",
       "sprite": "forest-birch",
       "x": 71,
-      "y": 8,
+      "y": 14.4,
       "scale": 0.72,
       "solid": [
         -2,
@@ -111,7 +254,7 @@
       "id": "flowers-1-0",
       "sprite": "flowers-daisy-white",
       "x": 68,
-      "y": 10,
+      "y": 18,
       "scale": 0.8,
       "artVariant": "auto"
     },
@@ -119,7 +262,7 @@
       "id": "bank--1-1",
       "sprite": "ancient-root",
       "x": 22,
-      "y": 16,
+      "y": 28.8,
       "scale": 0.72,
       "solid": [
         -2,
@@ -133,7 +276,7 @@
       "id": "flowers--1-1",
       "sprite": "flowers-bell-blue",
       "x": 25,
-      "y": 18,
+      "y": 32.4,
       "scale": 0.8,
       "artVariant": "auto"
     },
@@ -141,7 +284,7 @@
       "id": "bank-1-1",
       "sprite": "ancient-root",
       "x": 74,
-      "y": 16,
+      "y": 28.8,
       "scale": 0.72,
       "solid": [
         -2,
@@ -155,7 +298,7 @@
       "id": "flowers-1-1",
       "sprite": "flowers-bell-blue",
       "x": 71,
-      "y": 18,
+      "y": 32.4,
       "scale": 0.8,
       "artVariant": "auto"
     },
@@ -163,7 +306,7 @@
       "id": "bank--1-2",
       "sprite": "crooked-oak",
       "x": 19,
-      "y": 24,
+      "y": 43.2,
       "scale": 0.72,
       "solid": [
         -2,
@@ -177,7 +320,7 @@
       "id": "flowers--1-2",
       "sprite": "fern",
       "x": 22,
-      "y": 26,
+      "y": 46.800000000000004,
       "scale": 0.8,
       "artVariant": "auto"
     },
@@ -185,7 +328,7 @@
       "id": "bank-1-2",
       "sprite": "crooked-oak",
       "x": 77,
-      "y": 24,
+      "y": 43.2,
       "scale": 0.72,
       "solid": [
         -2,
@@ -199,7 +342,7 @@
       "id": "flowers-1-2",
       "sprite": "fern",
       "x": 74,
-      "y": 26,
+      "y": 46.800000000000004,
       "scale": 0.8,
       "artVariant": "auto"
     },
@@ -207,7 +350,7 @@
       "id": "bank--1-3",
       "sprite": "forest-birch",
       "x": 25,
-      "y": 32,
+      "y": 57.6,
       "scale": 0.72,
       "solid": [
         -2,
@@ -221,7 +364,7 @@
       "id": "flowers--1-3",
       "sprite": "flowers-daisy-white",
       "x": 28,
-      "y": 34,
+      "y": 61.2,
       "scale": 0.8,
       "artVariant": "auto"
     },
@@ -229,7 +372,7 @@
       "id": "bank-1-3",
       "sprite": "forest-birch",
       "x": 71,
-      "y": 32,
+      "y": 57.6,
       "scale": 0.72,
       "solid": [
         -2,
@@ -243,7 +386,7 @@
       "id": "flowers-1-3",
       "sprite": "flowers-daisy-white",
       "x": 68,
-      "y": 34,
+      "y": 61.2,
       "scale": 0.8,
       "artVariant": "auto"
     },
@@ -251,7 +394,7 @@
       "id": "bank-1-4",
       "sprite": "ancient-root",
       "x": 74,
-      "y": 40,
+      "y": 72,
       "scale": 0.72,
       "solid": [
         -2,
@@ -265,7 +408,7 @@
       "id": "flowers-1-4",
       "sprite": "flowers-bell-blue",
       "x": 71,
-      "y": 42,
+      "y": 75.60000000000001,
       "scale": 0.8,
       "artVariant": "auto"
     },
@@ -273,7 +416,7 @@
       "id": "bank-1-5",
       "sprite": "crooked-oak",
       "x": 77,
-      "y": 48,
+      "y": 86.4,
       "scale": 0.72,
       "solid": [
         -2,
@@ -287,7 +430,7 @@
       "id": "flowers-1-5",
       "sprite": "fern",
       "x": 74,
-      "y": 50,
+      "y": 90,
       "scale": 0.8,
       "artVariant": "auto"
     },
@@ -295,7 +438,7 @@
       "id": "bank-1-6",
       "sprite": "forest-birch",
       "x": 71,
-      "y": 56,
+      "y": 100.8,
       "scale": 0.72,
       "solid": [
         -2,
@@ -309,7 +452,7 @@
       "id": "flowers-1-6",
       "sprite": "flowers-daisy-white",
       "x": 68,
-      "y": 58,
+      "y": 104.4,
       "scale": 0.8,
       "artVariant": "auto"
     },
@@ -317,7 +460,7 @@
       "id": "bank--1-7",
       "sprite": "ancient-root",
       "x": 22,
-      "y": 64,
+      "y": 115.2,
       "scale": 0.72,
       "solid": [
         -2,
@@ -331,7 +474,7 @@
       "id": "flowers--1-7",
       "sprite": "flowers-bell-blue",
       "x": 25,
-      "y": 66,
+      "y": 118.8,
       "scale": 0.8,
       "artVariant": "auto"
     },
@@ -339,7 +482,7 @@
       "id": "bank-1-7",
       "sprite": "ancient-root",
       "x": 74,
-      "y": 64,
+      "y": 115.2,
       "scale": 0.72,
       "solid": [
         -2,
@@ -353,7 +496,7 @@
       "id": "flowers-1-7",
       "sprite": "flowers-bell-blue",
       "x": 71,
-      "y": 66,
+      "y": 118.8,
       "scale": 0.8,
       "artVariant": "auto"
     },
@@ -361,7 +504,7 @@
       "id": "bank--1-8",
       "sprite": "crooked-oak",
       "x": 19,
-      "y": 72,
+      "y": 129.6,
       "scale": 0.72,
       "solid": [
         -2,
@@ -375,7 +518,7 @@
       "id": "flowers--1-8",
       "sprite": "fern",
       "x": 22,
-      "y": 74,
+      "y": 133.20000000000002,
       "scale": 0.8,
       "artVariant": "auto"
     },
@@ -383,7 +526,7 @@
       "id": "bank-1-8",
       "sprite": "crooked-oak",
       "x": 77,
-      "y": 72,
+      "y": 129.6,
       "scale": 0.72,
       "solid": [
         -2,
@@ -397,49 +540,111 @@
       "id": "flowers-1-8",
       "sprite": "fern",
       "x": 74,
-      "y": 74,
+      "y": 133.20000000000002,
       "scale": 0.8,
       "artVariant": "auto"
+    },
+    {
+      "id": "bank-rest-log",
+      "sprite": "bench",
+      "x": 24,
+      "y": 79,
+      "artVariant": "auto",
+      "solid": [
+        -1,
+        -0.5,
+        2,
+        1
+      ]
+    },
+    {
+      "id": "bank-lantern",
+      "sprite": "lantern",
+      "x": 28,
+      "y": 81,
+      "scale": 0.7
+    },
+    {
+      "id": "bank-flowers-rest",
+      "sprite": "flowers-primrose",
+      "x": 28,
+      "y": 77,
+      "artVariant": "auto",
+      "family": "flowers-meadow"
+    },
+    {
+      "id": "bank-feature",
+      "sprite": "garden-potting-table",
+      "x": 84,
+      "y": 71
+    },
+    {
+      "id": "bank-feature-flower",
+      "sprite": "flowers-coral",
+      "x": 89,
+      "y": 72
+    },
+    {
+      "id": "bank-feature-lamp",
+      "sprite": "lantern",
+      "x": 87,
+      "y": 70,
+      "scale": 0.75
     }
   ],
   "navigation": {
-    "landings": [],
+    "landings": [
+      {
+        "id": "bank",
+        "land": [
+          57.01,
+          78
+        ],
+        "water": [
+          50.01,
+          78
+        ]
+      }
+    ],
     "currents": [
       {
         "area": [
           48,
-          40,
+          72,
           14,
-          38
+          68.4
         ],
         "vector": [
           0,
           -8
-        ]
+        ],
+        "channel": true
       },
       {
         "area": [
           48,
-          28,
+          50.4,
           4,
-          13
+          23.400000000000002
         ],
         "vector": [
           22,
           122
-        ]
+        ],
+        "channel": true
       },
       {
         "area": [
           50,
-          60,
+          108,
           4,
-          12
+          21.6
         ],
         "vector": [
           -16,
           110
-        ]
+        ],
+        "channel": true
       }
     ],
     "exits": [
@@ -447,14 +652,14 @@
         "id": "downstream",
         "area": [
           28,
-          77,
+          141,
           40,
           1.2
         ],
         "scene": "river-reeds",
         "position": [
           48,
-          6
+          10.8
         ],
         "direction": "down"
       },
@@ -469,10 +674,15 @@
         "scene": "river-roots",
         "position": [
           48,
-          74
+          133.20000000000002
         ],
         "direction": "up"
       }
     ]
+  },
+  "requires": {
+    "items": {
+      "boat": 1
+    }
   }
 }

@@ -31,6 +31,13 @@ class CloudSave {
     this.recoveries = [];
     this.meta = {};
     this.hadLocalSave = false;
+    this.archivedLayout = null;
+    // One controlled migration: old private layouts are recoverable data, never a live private world.
+    try {
+      const old = JSON.parse(localStorage.getItem("magikitos.adventure.home"));
+      if (old)
+        this.archivedLayout = validateLayout(old, game.catalog.homesteads);
+    } catch (_) {}
     try {
       this.hadLocalSave = Boolean(localStorage.getItem("magikitos.adventure"));
       const v = JSON.parse(localStorage.getItem(KEY));
@@ -74,8 +81,8 @@ class CloudSave {
   snapshot() {
     return {
       state: JSON.parse(JSON.stringify(this.game.state)),
-      parcel: this.game.state.home
-        ? JSON.parse(JSON.stringify(this.game.homestead.layout))
+      parcel: this.archivedLayout
+        ? JSON.parse(JSON.stringify(this.archivedLayout))
         : null,
     };
   }
@@ -210,9 +217,6 @@ class CloudSave {
       profile.parcel || g.catalog.homesteads.initial,
       g.catalog.homesteads,
     );
-    const previous = g.homestead.layout;
-    // Stage the destination for asset preparation; persist it only after success.
-    g.homestead.layout = layout;
     g.scenes.cache.clear();
     if (g.ready) {
       g.pauseMovement();
@@ -226,13 +230,19 @@ class CloudSave {
         g.state = next;
         g.scenes.enter(prepared);
       } catch (error) {
-        g.homestead.layout = previous;
         throw error;
       } finally {
         g.transitioning = false;
       }
     } else g.state = next;
-    g.homestead.setLayout(layout);
+    this.archivedLayout = profile.parcel ? layout : null;
+    try {
+      if (this.archivedLayout)
+        localStorage.setItem(
+          "magikitos.adventure.home",
+          JSON.stringify(this.archivedLayout),
+        );
+    } catch (_) {}
     g.dirty = true;
     if (g.ready) {
       g.updateUI();
@@ -244,7 +254,7 @@ class CloudSave {
       !this.owner ||
       this.conflict ||
       this.owner !== this.meta.owner ||
-      this.game.homestead.visiting
+      this.game.community?.busy
     )
       return;
     this.status = "cloudOffline";
@@ -261,7 +271,7 @@ class CloudSave {
       !this.owner ||
       this.owner !== this.meta.owner ||
       this.conflict ||
-      this.game.homestead.visiting
+      this.game.community?.busy
     )
       return;
     const current = this.snapshot();

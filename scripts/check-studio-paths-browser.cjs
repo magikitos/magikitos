@@ -46,7 +46,7 @@ async function pathsMode(p) {
   await new Promise((resolve, reject) => {
     const timer = setTimeout(
       () => reject(Error("Studio startup timeout")),
-      25000,
+      120000,
     );
     studio.stdout.on("data", (b) => {
       if (b.toString().includes("Magikitos Studio:")) {

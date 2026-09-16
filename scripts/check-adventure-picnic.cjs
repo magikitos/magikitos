@@ -51,8 +51,8 @@ function react(id, context = {}) {
 }
 react("picnic-mushroom");
 assert(
-  state.inventory.mushroom === 1,
-  "The whole mushroom can be picked without a knife; cutting happens at the barbecue",
+  !state.inventory.mushroom,
+  "Cutting a mushroom portion requires the knife",
 );
 react("picnic-knife");
 react("picnic-lighter");
@@ -104,7 +104,7 @@ assert(
   "Expiration is applied only once",
 );
 react("picnic-mushroom", { now: now + 5 * hour });
-react("picnic-twig", { now: now + 5 * hour });
+react("picnic-twigs", { now: now + 5 * hour });
 react("picnic-barbecue", { action: "cook", now: now + 5 * hour });
 assert(actions(entity("picnic-neighbor"), state).some((a) => a.id === "give"));
 react("picnic-neighbor", { action: "give", now: now + 5 * hour });

@@ -1,0 +1,12 @@
+{
+  "cat-water-bowl": {
+    "sprite":"cat-bowl", "label":"bowlName", "solid":[-2,-1.25,4,2.5],
+    "hiddenWhen":{"flags":{"bowlFound":true}},
+    "rules":[{"effects":[{"type":"item","item":"bowl","amount":1},{"type":"flag","flag":"bowlFound"},{"type":"dialogue","key":"bowlFound"},{"type":"sound","key":"found"}]}]
+  },
+  "garden-seeds": {
+    "sprite":"garden-seed-sack", "label":"seedsName", "solid":[-0.7,-0.5,1.4,0.8],
+    "hiddenWhen":{"flags":{"seedsFound":true}},
+    "rules":[{"effects":[{"type":"item","item":"seeds","amount":1},{"type":"flag","flag":"seedsFound"},{"type":"dialogue","key":"seedsFound"},{"type":"sound","key":"found"}]}]
+  }
+}

@@ -8,6 +8,7 @@ $packs = []; $reports = [];
 foreach ($catalog['sheets'] as $sheet) {
     $id = $sheet['source']; $source = imagecreatefrompng("$dir/sources/$id.png");
     imagepalettetotruecolor($source); imagealphablending($source, false); imagesavealpha($source, true);
+    if (isset($sheet['neutralMatteMinimum'])) adventureNeutralCutout($source, $sheet['neutralMatteMinimum']);
     $w = imagesx($source); $h = imagesy($source); $clear = imagecolorallocatealpha($source, 0, 0, 0, 127);
     // Reviewed masters have pure RGB matte flecks beside existing alpha. Never key interior colours.
     for ($pass = 0; $pass < 3; $pass++) {

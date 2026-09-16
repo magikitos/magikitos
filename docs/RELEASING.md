@@ -2,7 +2,8 @@
 
 Development commands never deploy. A release needs explicit owner authorization,
 reviewed commits in both repositories when the API changes, and an immutable artifact.
-No database import or account-balance migration is needed for Ascua.
+The initial Ascua release needed no migration. The shared-forest release requires
+additive migrations 4230 and 4231 in the private website; no production DB import.
 
 ## Build and verify
 
@@ -51,6 +52,14 @@ the immutable game's lifecycle.
 
 ## Smoke and rollback
 
+For shared forest, stage the artifact and apply reviewed/checksummed 4230/4231
+migrations with the VPS migration runner **before activating the API and pointer**.
+Keep its database backups. The cutover snapshot freezes old import candidates once.
+Check both OpenAPI copies, identity lifecycle, CAS/retry tests and public DTOs.
+Do not roll back a database over new player writes. A code/pointer rollback retains
+additive tables and needs a conscious plan for newer saves; old clients cannot
+spend or mint the new account via game-save.
+
 - Confirm the remote website commit, selected ID and release checksum inventory.
 - Fetch all six routes: exact static HTML, 200, no PHP warnings, correct hashed
   JS/CSS/manifest. Verify resource requests and walking in fresh desktop/mobile
@@ -67,5 +76,6 @@ the immutable game's lifecycle.
   for the first extraction the old commit restores the old PHP-mounted game.
   Never erase an existing game save, database or media volume to roll back code.
 
-The local test wallet is untrusted browser state. Do not connect it to account
-reputation or paid goods without a separate server-authoritative design.
+Game materials/setines now have separate server authority. Local private snapshots
+remain untrusted and cannot mint construction resources. Do not connect game currency
+to website reputation, paid goods or competitive rewards without a separate review.

@@ -24,7 +24,7 @@ const {
 const {
   RollMotion,
   DoublePress,
-} = require("../../../../public/assets/js/adventure/locomotion");
+} = require("./archived-locomotion");
 const {
   frameCamera,
   chunkRange,

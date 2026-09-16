@@ -1,6 +1,6 @@
 "use strict";
 const assert = require("node:assert/strict");
-const { TravelPace, routeDistance, rollRunway, RollMotion, WALK_SPEED, RUN_SPEED, ROLL_DISTANCE, ROLL_DURATION } = require("../public/assets/js/adventure/locomotion");
+const { TravelPace, routeDistance, WALK_SPEED, RUN_SPEED } = require("../public/assets/js/adventure/locomotion");
 const { follow } = require("../public/assets/js/adventure/movement");
 const { runFrame, DIRECTIONS } = require("../public/assets/js/adventure/characters");
 const { seatedClip } = require("../public/assets/js/adventure/seating");
@@ -10,21 +10,17 @@ const start = { x: 200, y: 200 };
 const route = (distance, spacing = 8) => Array.from({ length: Math.ceil(distance / spacing) }, (_, i) => ({ x: start.x + Math.min(distance, (i + 1) * spacing), y: start.y }));
 const world = { width: 160, height: 120, data: {}, canStand: () => true, collisionAt: () => null };
 assert(RUN_SPEED > WALK_SPEED * 1.8);
-assert(ROLL_DISTANCE > 86 && ROLL_DURATION < .48);
-for (const [length, pace] of [[24,"walk"], [150,"run"], [480,"roll"]]) {
+for (const [length, pace] of [[24,"walk"], [150,"run"], [480,"run"]]) {
   const path = route(length), travel = new TravelPace();
   assert.equal(routeDistance(start, path), length);
   travel.begin(start, path);
   assert.equal(travel.speed(start, path), pace === "walk" ? WALK_SPEED : RUN_SPEED);
-  assert.equal(Boolean(travel.rollDistance(start, path)), pace === "roll");
   assert.equal(travel.speed({ x: start.x + length - 24, y: start.y }, [path.at(-1)]), WALK_SPEED);
-  travel.begin(start, path, false);
-  assert.equal(travel.rollDistance(start, path), 0, "A resumed journey cannot roll repeatedly");
+  assert.equal(travel.rollDistance, undefined, "No implicit roll, even on very long journeys");
 }
 const turn = [{x:216,y:200},{x:232,y:200},{x:232,y:500}];
-assert.equal(rollRunway(start, turn),32);
 const travel = new TravelPace(); travel.begin(start,turn);
-assert.equal(travel.rollDistance(start,turn),0,"No roll into a corner");
+assert.equal(travel.speed(start, turn), RUN_SPEED);
 for (const fps of [20,30,60,120]) {
   const actor = {...start}, path = route(600,2);
   for(let i=0;i<fps;i++) follow(world,actor,path,1/fps,RUN_SPEED);
@@ -44,14 +40,12 @@ for (const direction of DIRECTIONS) {
     assert.equal(pose(clip,3).frame,pose(clip,3+clip.duration).frame);
   }
 }
-const roll=new RollMotion();roll.start(1,0);roll.current.elapsed=ROLL_DURATION*.9;
-assert.equal(roll.frame(),"person-0-right-recover-0","Landing cannot return to the low crouch");
 
 // Pointer arbitration without a browser: taps, slop, drag, pinch tails, cancellation.
 const captures=new Set(), classes=new Set();
 const canvas={ addEventListener(){}, setPointerCapture:id=>captures.add(id),hasPointerCapture:id=>captures.has(id),releasePointerCapture:id=>captures.delete(id),
   classList:{add:n=>classes.add(n),remove:n=>classes.delete(n)},getBoundingClientRect:()=>({left:0,top:0,width:800,height:600}) };
-global.document={getElementById:()=>({hidden:true})};
+global.document={getElementById:()=>({hidden:true}),addEventListener(){}};
 let paused=0;
 const game={ready:true,world,hasOverlay:()=>false,cameraFollowing:true,camera:{x:600,y:400},renderer:{width:400,height:300,viewZoom:1,resize(){}},pauseMovement(){paused++;},centerCamera(){}};
 const gestures=new MapGestures(game,canvas);

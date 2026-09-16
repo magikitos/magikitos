@@ -78,28 +78,24 @@
       <button type="button" data-river-key="arrowleft" aria-label="{{moveLeft}}">←</button>
       <button type="button" data-river-key="arrowdown" aria-label="{{moveDown}}">↓</button>
       <button type="button" data-river-key="arrowright" aria-label="{{moveRight}}">→</button>
+      <button type="button" data-river-key=" " class="world-row-fast" aria-label="{{rowFast}}">»</button>
     </div>
     <button type="button" id="river-land" class="world-primary world-river-land" hidden>{{disembark}}</button>
     <div id="home-controls" class="world-home-controls" hidden>
-      <button type="button" class="world-primary" id="home-edit">{{homeDecorate}}</button>
-      <button type="button" class="world-primary" id="home-neighbors">{{homeVisitors}}</button>
-      <button type="button" class="world-primary" id="home-return" hidden>{{homeReturn}}</button>
+      <button type="button" class="world-primary" id="home-edit">{{communityBuild}}</button>
     </div>
     <section id="home-editor" class="world-home-editor" aria-label="{{homeDecorate}}" hidden>
-      <p>{{homePlace}}</p>
+      <p id="community-reason" role="status">{{communityChoose}}</p>
       <div id="home-palette" class="world-home-palette"></div>
       <div class="world-home-actions">
         <button type="button" id="home-variant">{{homeVariant}}</button>
+        <button type="button" id="community-rotate">{{communityRotate}}</button>
         <button type="button" id="home-remove">{{homeRemove}}</button>
         <button type="button" id="home-cancel">{{homeCancel}}</button>
-        <button type="button" id="home-save" class="world-primary">{{homeSave}}</button>
+        <button type="button" id="home-save" class="world-primary">{{communityConfirm}}</button>
       </div>
-      <small>{{homePublic}}</small>
+      <small>{{communityPublic}}</small>
     </section>
-    <dialog id="home-neighbors-dialog" class="world-modal world-neighbors" aria-labelledby="home-neighbors-title">
-      <header><h2 id="home-neighbors-title">{{homeVisitors}}</h2><button type="button" data-dismiss aria-label="{{close}}">×</button></header>
-      <div id="home-neighbors-list"></div>
-    </dialog>
     <div class="world-listening" id="world-listening" hidden>
       <audio id="world-audio" preload="none"></audio>
       <button type="button" id="listening-play" aria-label="{{listen}}">
@@ -185,6 +181,7 @@
         <p id="self-status" role="status"></p>
       </div>
       <p id="self-leaves"></p>
+      <button type="button" id="puzzle-reset" hidden>{{puzzleReset}}</button>
       <div class="world-self-actions">
         <button type="button" class="world-primary" id="self-pee" hidden>
           {{peeAction}}</button
