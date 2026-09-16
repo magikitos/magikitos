@@ -22,7 +22,8 @@ const origin = process.env.GAME_ORIGIN || "http://127.0.0.1:47834";
       });
       page.on("pageerror", (e) => errors.push(e.message));
       await page.route("**/*", (r) =>
-        ["127.0.0.1", "magikitos.ddev.site"].includes(
+        ["GET", "HEAD"].includes(r.request().method()) &&
+        [new URL(origin).hostname, "127.0.0.1", "magikitos.ddev.site"].includes(
           new URL(r.request().url()).hostname,
         )
           ? r.continue()

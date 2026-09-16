@@ -1,6 +1,6 @@
 # Bosque compartido — implementación aprobada
 
-Estado: implementación y batería principal local verificadas; despliegue coordinado pendiente de registrar en [la entrega](RELEASE-SHARED-FOREST-2026-09-16.md). Ese registro distingue los resultados locales de los de producción.
+Estado: implementado, desplegado y verificado en producción. [Registro de entrega](RELEASE-SHARED-FOREST-2026-09-16.md) con commits, artefacto, copias, pruebas públicas y nueve construcciones de ejemplo persistentes. Distingue explícitamente las pruebas locales de las de producción.
 
 ## Alcance implementado
 
