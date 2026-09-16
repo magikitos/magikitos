@@ -18,6 +18,7 @@ const { GuardianChat } = require("./guardian");
 const { WorldExperience } = require("./experience");
 const { WorldMedia } = require("./media");
 const { facing } = require("./characters");
+const { hash } = require("./geometry");
 const { active, planReaction, actions, matches } = require("./rules");
 const { SAVE_KEY, readSave } = require("./save");
 const { move, follow } = require("./movement");
@@ -108,6 +109,14 @@ class Adventure {
   text(key) {
     const value = this.s[key];
     return Array.isArray(value) ? value[0] : (value ?? key);
+  }
+  /** Every resident of a content room invites you in with a different line, and
+   * always the same one for that resident. */
+  inviteLines(entity) {
+    const pool = this.lines("invite_" + entity.content);
+    return pool.length
+      ? [pool[hash(String(entity.id)) % pool.length]]
+      : this.lines(entity.dialogue || "neighborGreeting");
   }
   lines(key) {
     const value = this.s[key];
@@ -420,7 +429,15 @@ class Adventure {
       }
       if (entity.content && this.rooms.contains(entity.content)) {
         if (entity.piece) this.site.showPiece(entity.piece, { play: true });
-        else this.openContent(entity.content);
+        // Walking up to somebody should not start a story at you. They say what
+        // is going on here, in their own words, and you decide.
+        else
+          this.openDialogue(
+            this.inviteLines(entity),
+            this.s.neighbors,
+            entity.variant,
+            entity,
+          );
       } else
         this.openDialogue(
           this.lines(entity.dialogue || "neighborGreeting"),
@@ -563,6 +580,18 @@ class Adventure {
       );
       button.addEventListener("click", () => this.interact(entity, action.id));
       holder.append(button);
+    }
+    // The one button every content-room resident shares, whatever else they say.
+    if (entity.content && this.rooms.contains(entity.content)) {
+      const enter = document.createElement("button");
+      enter.type = "button";
+      enter.className = "world-primary";
+      enter.textContent = this.text("enter_" + entity.content);
+      enter.addEventListener("click", () => {
+        this.closeDialogue();
+        this.openContent(entity.content);
+      });
+      holder.append(enter);
     }
   }
   nextDialogue() {

@@ -48,7 +48,6 @@
   "art": "El claro de los artistas",
   "another": "Cuéntame otro",
   "pause": "Pausar",
-  "auto": "Seguir escuchando automáticamente",
   "catalogue": "Ver todas las piezas",
   "night": "Aquí los cuentos alargan la noche.",
   "neighborGreeting": "He salido a no hacer nada. De momento voy bastante bien.",
@@ -65,8 +64,8 @@
   "expressions": "El libro de las expresiones",
   "shop": "Nacidos a mano",
   "contribute": "Deja un poquito de ti",
-  "recordJoke": "Grabar un chiste",
-  "recordStory": "Estudio de cuentos",
+  "recordJoke": "Contar un chiste",
+  "recordStory": "Contar un cuento",
   "sendExpression": "Aportar una expresión",
   "account": "Mi cuenta",
   "outside": "Salir al pueblo",
@@ -185,7 +184,6 @@
   "sending": "Enviando…",
   "rated": "¡Voto guardado, gracias!",
   "voteError": "No se ha podido guardar. Prueba otra vez.",
-  "openWebsite": "Ver en la web",
   "buyOnWebsite": "Comprar en la web",
   "printOnWebsite": "Imprimir en la web",
   "previous": "Anterior",
@@ -334,5 +332,32 @@
   "authError": "Algo ha fallado. Prueba otra vez.",
   "authTooMany": "Demasiados intentos. Prueba en un ratito.",
   "authGoogleUnavailable": "Ahora mismo no se puede entrar con Google. Prueba con tu correo.",
-  "authNetwork": "No hay manera de conectar. Mira tu conexión."
+  "authNetwork": "No hay manera de conectar. Mira tu conexión.",
+  "index": "Índice",
+  "ratingAverage": ":value de media",
+  "sayItBetter": "Yo lo digo mejor",
+  "enter_stories": "Escuchar cuentos",
+  "enter_jokes": "Escuchar chistes",
+  "enter_expressions": "Ver expresiones",
+  "invite_stories": [
+    "Aquí andamos con los cuentos. ¿Te sientas un rato?",
+    "Shhh, que va a empezar uno. ¿Te quedas?",
+    "Esto es la hoguera de los cuentos. Aquí se viene a escuchar.",
+    "Tenemos cuentos de todas partes, contados por gente de verdad.",
+    "Siéntate donde quieras, que aquí el que cuenta, cuenta."
+  ],
+  "invite_jokes": [
+    "¡Ey! Aquí estamos con los chistes. ¿Te apetece uno?",
+    "Esto es la taberna. Se viene a reír y poco más.",
+    "Los graba la peña. Algunos son muy malos, avisado quedas.",
+    "¿Te cuento uno? Bueno, te lo cuenta otro, que yo no tengo gracia.",
+    "Aquí uno se ríe con lo que trae la gente. ¿Escuchas?"
+  ],
+  "invite_expressions": [
+    "Aquí guardamos cómo habla la gente de cada sitio. ¿Curioseas?",
+    "Esto es el libro de las expresiones. Cada una con su voz.",
+    "Tenemos palabras de medio mundo, dichas por quien las dice de verdad.",
+    "¿Sabes cómo se dice eso en otro sitio? Aquí lo tenemos.",
+    "Mira el libro, que hay cada cosa..."
+  ]
 }

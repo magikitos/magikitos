@@ -57,7 +57,7 @@ class Self {
     // ⛔ And a need never lights the toggle. It is a joke on a timer that the
     // player did not ask for and cannot lose; badging it turns the panel into a
     // chore and trains people to ignore the dot that other things DO need.
-    byId("self-toggle").setAttribute("aria-label", game.text("self"));
+    // The toggle's own label belongs to Account, which is what knows your name.
     for (const kind of ["pee", "poop"])
       byId("self-" + kind).hidden =
         status !== kind ||

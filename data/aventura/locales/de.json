@@ -48,7 +48,6 @@
   "art": "Die Künstlerlichtung",
   "another": "Erzähl mir noch eins",
   "pause": "Pause",
-  "auto": "Automatisch weiterhören",
   "catalogue": "Alle Stücke ansehen",
   "night": "Hier verlängern Geschichten die Nacht.",
   "neighborGreeting": "Ich bin rausgegangen, um nichts zu tun. Läuft bisher ganz gut.",
@@ -65,8 +64,8 @@
   "expressions": "Das Buch der Ausdrücke",
   "shop": "Von Hand geschaffen",
   "contribute": "Ein kleines Stück von dir",
-  "recordJoke": "Einen Witz aufnehmen",
-  "recordStory": "Geschichtenstudio",
+  "recordJoke": "Einen Witz erzählen",
+  "recordStory": "Eine Geschichte erzählen",
   "sendExpression": "Einen Ausdruck beitragen",
   "account": "Mein Konto",
   "outside": "Nach draußen",
@@ -185,7 +184,6 @@
   "sending": "Wird gesendet…",
   "rated": "Stimme gespeichert. Danke dir!",
   "voteError": "Hat nicht geklappt. Versuch’s noch mal.",
-  "openWebsite": "Auf der Website ansehen",
   "buyOnWebsite": "Auf der Website kaufen",
   "printOnWebsite": "Auf der Website drucken",
   "previous": "Zurück",
@@ -334,5 +332,32 @@
   "authError": "Etwas ist schiefgelaufen. Versuch es nochmal.",
   "authTooMany": "Zu viele Versuche. Versuch es gleich noch mal.",
   "authGoogleUnavailable": "Anmelden mit Google geht gerade nicht. Nimm deine E-Mail.",
-  "authNetwork": "Keine Verbindung möglich. Schau mal nach deinem Netz."
+  "authNetwork": "Keine Verbindung möglich. Schau mal nach deinem Netz.",
+  "index": "Verzeichnis",
+  "ratingAverage": ":value im Schnitt",
+  "sayItBetter": "Ich sag das besser",
+  "enter_stories": "Geschichten hören",
+  "enter_jokes": "Witze hören",
+  "enter_expressions": "Ausdrücke ansehen",
+  "invite_stories": [
+    "Hier sind wir bei den Geschichten. Setzt du dich ein Weilchen?",
+    "Pssst, gleich geht eine los. Bleibst du?",
+    "Das ist das Geschichtenfeuer. Hierher kommt man zum Zuhören.",
+    "Wir haben Geschichten von überall, erzählt von echten Leuten.",
+    "Setz dich, wohin du magst. Wer erzählt, erzählt."
+  ],
+  "invite_jokes": [
+    "He! Hier sind wir bei den Witzen. Lust auf einen?",
+    "Das ist die Schenke. Man kommt zum Lachen und sonst wenig.",
+    "Die Leute nehmen sie selber auf. Manche sind furchtbar, gewarnt bist du.",
+    "Soll ich dir einen erzählen? Lieber jemand anders, ich kann das nicht.",
+    "Hier lacht man über das, was die Leute mitbringen. Hörst du rein?"
+  ],
+  "invite_expressions": [
+    "Hier bewahren wir auf, wie man wo redet. Schaust du rein?",
+    "Das ist das Buch der Ausdrücke. Jeder mit seiner eigenen Stimme.",
+    "Wörter aus aller Welt, gesagt von denen, die sie wirklich sagen.",
+    "Weißt du, wie man das woanders sagt? Hier steht es.",
+    "Schau ins Buch, was da alles drinsteht..."
+  ]
 }

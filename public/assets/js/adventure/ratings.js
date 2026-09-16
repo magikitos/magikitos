@@ -1,6 +1,11 @@
 "use strict";
 const { el, button } = require("./dom");
-/** The existing website rating service owns validation, deduplication and reputation accounting. */
+/** The existing website rating service owns validation, deduplication and reputation accounting.
+ *
+ * A voting bar, not a scoreboard: five mushrooms that fill up to wherever the
+ * pointer is, and the average only once you have voted. Printing 1..5 next to
+ * each one turned a gesture into a form, and showing an average before your own
+ * vote is an anchor nobody asked for. */
 function ratingView(game, item) {
   const ratingId = item.kind === "expresion" ? item.voiceId : item.id;
   if (!ratingId) return null;
@@ -26,14 +31,27 @@ function ratingView(game, item) {
   let chosen = 0,
     busy = false;
   chosen = Number(saved()[key]) || 0;
-  const paint = () => {
+  /** Fill up to `upto`, or back to your own vote when the pointer leaves. */
+  const fill = (upto) => {
+    const level = upto || chosen;
     for (const node of choices.children) {
       node.disabled = busy;
-      node.setAttribute(
-        "aria-pressed",
-        String(Number(node.dataset.value) === chosen),
-      );
+      const value = Number(node.dataset.value);
+      node.classList.toggle("is-on", value <= level);
+      node.setAttribute("aria-pressed", String(value === chosen));
     }
+  };
+  const average = (value) => {
+    if (!Number.isFinite(value) || value <= 0) return;
+    note.textContent = game
+      .text("ratingAverage")
+      .replace(
+        ":value",
+        new Intl.NumberFormat(game.config.locale, {
+          minimumFractionDigits: 1,
+          maximumFractionDigits: 1,
+        }).format(value),
+      );
   };
   for (let n = 1; n <= 5; n++) {
     const choice = button("", async () => {
@@ -42,9 +60,8 @@ function ratingView(game, item) {
         (item.kind === "expresion" && !game.media.completed.has(item.audio))
       )
         return;
-      clearTimeout(game.media.advanceTimer);
       busy = true;
-      paint();
+      fill(n);
       note.textContent = game.text("sending");
       try {
         const token = await game.proof.request();
@@ -68,17 +85,14 @@ function ratingView(game, item) {
             JSON.stringify({ ...saved(), [key]: n }),
           );
         } catch (_) {}
+        // The one number worth showing, and only now: what everyone else made of it.
         note.textContent = game.text("rated");
-        if (
-          game.media.item?.audio === item.audio &&
-          (n <= 2 || game.media.audio.ended)
-        )
-          game.media.scheduleNext();
+        average(Number(result.media));
       } catch (_) {
         note.textContent = game.text("voteError");
       } finally {
         busy = false;
-        paint();
+        fill(0);
       }
     });
     choice.dataset.value = String(n);
@@ -86,20 +100,24 @@ function ratingView(game, item) {
       "aria-label",
       game.text("ratingCount").replace(":count", n),
     );
+    // Pointer and keyboard fill the same way; the bar reads identically to both.
+    choice.addEventListener("pointerenter", () => !busy && fill(n));
+    choice.addEventListener("focus", () => !busy && fill(n));
+    choice.addEventListener("blur", () => !busy && fill(0));
     const icon = game.renderer.sprites.icon("mushroom");
     if (icon) {
       icon.setAttribute("aria-hidden", "true");
       choice.append(icon);
     }
-    choice.append(el("span", { text: n }));
     choices.append(choice);
   }
+  choices.addEventListener("pointerleave", () => !busy && fill(0));
   root.append(
     el("p", { class: "world-rating-label", text: game.text("rate") }),
     choices,
     note,
   );
-  paint();
+  fill(0);
   return root;
 }
 module.exports = { ratingView };

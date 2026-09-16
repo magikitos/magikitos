@@ -48,7 +48,6 @@
   "art": "The artists’ clearing",
   "another": "Tell me another",
   "pause": "Pause",
-  "auto": "Keep listening automatically",
   "catalogue": "Browse every piece",
   "night": "Stories make the night last here.",
   "neighborGreeting": "I went out to do nothing. So far, so good.",
@@ -65,8 +64,8 @@
   "expressions": "The book of expressions",
   "shop": "Made by hand",
   "contribute": "Leave a little of yourself",
-  "recordJoke": "Record a joke",
-  "recordStory": "Story studio",
+  "recordJoke": "Tell a joke",
+  "recordStory": "Tell a story",
   "sendExpression": "Share an expression",
   "account": "My account",
   "outside": "Go outside",
@@ -185,7 +184,6 @@
   "sending": "Sending…",
   "rated": "Vote saved. Cheers!",
   "voteError": "Couldn’t save that. Give it another go.",
-  "openWebsite": "View on the website",
   "buyOnWebsite": "Buy on the website",
   "printOnWebsite": "Print on the website",
   "previous": "Previous",
@@ -334,5 +332,32 @@
   "authError": "Something went wrong. Try again.",
   "authTooMany": "Too many attempts. Try again in a bit.",
   "authGoogleUnavailable": "Google sign-in is not available right now. Try your email.",
-  "authNetwork": "No way to connect. Check your connection."
+  "authNetwork": "No way to connect. Check your connection.",
+  "index": "Index",
+  "ratingAverage": ":value on average",
+  "sayItBetter": "I say it better",
+  "enter_stories": "Listen to stories",
+  "enter_jokes": "Listen to jokes",
+  "enter_expressions": "See expressions",
+  "invite_stories": [
+    "We're on the stories here. Fancy sitting down a while?",
+    "Shhh, one's about to start. Staying?",
+    "This is the story fire. You come here to listen.",
+    "We have stories from all over, told by real people.",
+    "Sit wherever you like. Whoever tells, tells."
+  ],
+  "invite_jokes": [
+    "Hey! We're on the jokes here. Fancy one?",
+    "This is the tavern. You come to laugh and not much else.",
+    "The crowd records them. Some are terrible, fair warning.",
+    "Shall I tell you one? Well, someone else will, I have no timing.",
+    "You laugh at whatever people bring. Listening?"
+  ],
+  "invite_expressions": [
+    "We keep how people talk in every place. Having a look?",
+    "This is the book of expressions. Each one in its own voice.",
+    "Words from half the world, said by the people who say them.",
+    "Know how they say that somewhere else? We have it here.",
+    "Have a look at the book, the things in there..."
+  ]
 }

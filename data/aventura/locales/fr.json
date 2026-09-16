@@ -48,7 +48,6 @@
   "art": "La clairière des artistes",
   "another": "Raconte-m’en une autre",
   "pause": "Pause",
-  "auto": "Continuer automatiquement",
   "catalogue": "Voir toutes les créations",
   "night": "Ici, les histoires prolongent la nuit.",
   "neighborGreeting": "Je suis sorti ne rien faire. Pour l’instant, je me débrouille bien.",
@@ -65,8 +64,8 @@
   "expressions": "Le livre des expressions",
   "shop": "Nés à la main",
   "contribute": "Laisse un peu de toi",
-  "recordJoke": "Enregistrer une blague",
-  "recordStory": "Studio de contes",
+  "recordJoke": "Raconter une blague",
+  "recordStory": "Raconter un conte",
   "sendExpression": "Proposer une expression",
   "account": "Mon compte",
   "outside": "Sortir au village",
@@ -185,7 +184,6 @@
   "sending": "Envoi…",
   "rated": "Vote enregistré. Merci !",
   "voteError": "Ça n’a pas marché. Réessaie un coup.",
-  "openWebsite": "Voir sur le site",
   "buyOnWebsite": "Acheter sur le site",
   "printOnWebsite": "Imprimer sur le site",
   "previous": "Précédent",
@@ -334,5 +332,32 @@
   "authError": "Un souci est survenu. Réessaie.",
   "authTooMany": "Trop de tentatives. Réessaie dans un instant.",
   "authGoogleUnavailable": "Google ne marche pas pour l'instant. Passe par ton email.",
-  "authNetwork": "Impossible de se connecter. Vérifie ta connexion."
+  "authNetwork": "Impossible de se connecter. Vérifie ta connexion.",
+  "index": "Index",
+  "ratingAverage": ":value en moyenne",
+  "sayItBetter": "Moi je le dis mieux",
+  "enter_stories": "Écouter des contes",
+  "enter_jokes": "Écouter des blagues",
+  "enter_expressions": "Voir les expressions",
+  "invite_stories": [
+    "Ici on est sur les contes. Tu t’assieds un moment ?",
+    "Chut, il y en a un qui commence. Tu restes ?",
+    "C’est le feu des contes. On vient ici pour écouter.",
+    "On a des contes de partout, racontés par de vraies gens.",
+    "Assieds-toi où tu veux. Celui qui raconte, raconte."
+  ],
+  "invite_jokes": [
+    "Hé ! Ici on est sur les blagues. Ça te dit ?",
+    "C’est la taverne. On vient rire et pas grand-chose d’autre.",
+    "Ce sont les gens qui les enregistrent. Certaines sont nulles, tu es prévenu.",
+    "Je t’en raconte une ? Plutôt un autre, moi je n’ai aucun timing.",
+    "On rit avec ce que les gens apportent. Tu écoutes ?"
+  ],
+  "invite_expressions": [
+    "Ici on garde comment les gens parlent selon l’endroit. Tu regardes ?",
+    "C’est le livre des expressions. Chacune avec sa voix.",
+    "Des mots de la moitié du monde, dits par ceux qui les disent vraiment.",
+    "Tu sais comment on dit ça ailleurs ? Ici on l’a.",
+    "Regarde le livre, il y a de ces choses..."
+  ]
 }

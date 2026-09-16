@@ -213,12 +213,22 @@ class Account {
     if (or) or.hidden = which === "code";
   }
 
-  /** The panel title is the player's name once they have one — anonymous or real. */
+  /** Your name once you have one, anonymous or real — on the panel and on the
+   * button that opens it. "Yo" is only the label for a browser that is nobody
+   * yet. The HUD chip is short on room, so it takes the first word. */
   title() {
-    const el = byId("self-title");
-    if (!el) return;
-    const name = this.user && this.user.name;
-    el.textContent = name || this.game.text("self");
+    const name = (this.user && this.user.name) || "";
+    const panel = byId("self-title");
+    if (panel) panel.textContent = name || this.game.text("self");
+    const chip = byId("self-toggle");
+    if (chip) {
+      chip.setAttribute("aria-label", name || this.game.text("self"));
+      const label = chip.querySelector("small");
+      if (label)
+        label.textContent = name
+          ? name.split(/\s+/)[0]
+          : this.game.text("self");
+    }
   }
 
   paint() {

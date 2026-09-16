@@ -351,10 +351,21 @@
   height: 18px;
   object-fit: contain;
 }
-.world-rating-choices button[aria-pressed="true"] {
+/* A bar that fills, not five separate switches: `is-on` runs from the first
+   mushroom up to wherever the pointer (or the keyboard focus) is, so hovering
+   the fourth lights four. `aria-pressed` still marks YOUR vote alone, which is
+   what a screen reader needs to hear. */
+.world-rating-choices button.is-on {
   background: #e9c280;
   color: #26371f;
   border-color: #efd193;
+}
+.world-rating-choices button.is-on canvas {
+  filter: none;
+}
+.world-rating-choices button:not(.is-on) canvas {
+  filter: grayscale(1);
+  opacity: 0.55;
 }
 .world-native-rating [role="status"] {
   min-height: 18px;

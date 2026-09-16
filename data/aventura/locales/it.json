@@ -48,7 +48,6 @@
   "art": "La radura degli artisti",
   "another": "Raccontamene un’altra",
   "pause": "Pausa",
-  "auto": "Continua automaticamente",
   "catalogue": "Vedi tutte le creazioni",
   "night": "Qui le storie allungano la notte.",
   "neighborGreeting": "Sono uscito per non fare niente. Per ora sta andando bene.",
@@ -65,8 +64,8 @@
   "expressions": "Il libro delle espressioni",
   "shop": "Nati a mano",
   "contribute": "Lascia un pezzetto di te",
-  "recordJoke": "Registra una barzelletta",
-  "recordStory": "Studio delle storie",
+  "recordJoke": "Raccontare una barzelletta",
+  "recordStory": "Raccontare un racconto",
   "sendExpression": "Aggiungi un’espressione",
   "account": "Il mio account",
   "outside": "Esci in paese",
@@ -185,7 +184,6 @@
   "sending": "Invio…",
   "rated": "Voto salvato. Grazie!",
   "voteError": "Non è andata. Riprova un attimo.",
-  "openWebsite": "Vedi sul sito",
   "buyOnWebsite": "Compra sul sito",
   "printOnWebsite": "Stampa sul sito",
   "previous": "Precedente",
@@ -334,5 +332,32 @@
   "authError": "Qualcosa è andato storto. Riprova.",
   "authTooMany": "Troppi tentativi. Riprova tra poco.",
   "authGoogleUnavailable": "Con Google ora non si può. Prova con la tua email.",
-  "authNetwork": "Non si riesce a collegare. Controlla la connessione."
+  "authNetwork": "Non si riesce a collegare. Controlla la connessione.",
+  "index": "Indice",
+  "ratingAverage": ":value di media",
+  "sayItBetter": "Io lo dico meglio",
+  "enter_stories": "Ascoltare racconti",
+  "enter_jokes": "Ascoltare barzellette",
+  "enter_expressions": "Vedere le espressioni",
+  "invite_stories": [
+    "Qui stiamo con i racconti. Ti siedi un po’?",
+    "Shhh, ne sta per partire uno. Rimani?",
+    "Questo è il fuoco dei racconti. Qui si viene ad ascoltare.",
+    "Abbiamo racconti da ogni parte, detti da gente vera.",
+    "Siediti dove vuoi. Qui chi racconta, racconta."
+  ],
+  "invite_jokes": [
+    "Ehi! Qui stiamo con le barzellette. Ne vuoi una?",
+    "Questa è la taverna. Si viene a ridere e poco altro.",
+    "Le registra la gente. Alcune sono bruttissime, sei avvisato.",
+    "Te ne racconto una? Meglio un altro, io non ho tempi comici.",
+    "Qui si ride con quello che porta la gente. Ascolti?"
+  ],
+  "invite_expressions": [
+    "Qui teniamo come parla la gente di ogni posto. Curiosi?",
+    "Questo è il libro delle espressioni. Ognuna con la sua voce.",
+    "Parole di mezzo mondo, dette da chi le dice davvero.",
+    "Sai come si dice da un’altra parte? Qui ce l’abbiamo.",
+    "Guarda il libro, che ci sono certe cose..."
+  ]
 }

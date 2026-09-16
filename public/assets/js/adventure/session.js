@@ -52,5 +52,33 @@ class Heard {
       this.storage.setItem(this.key(kind), JSON.stringify(items.slice(-400)));
     } catch (_) {}
   }
+  /** Pieces heard to the END, which is a different thing from pressing play:
+   * the invitation to record your own only makes sense once you know what the
+   * room sounds like. Survives a reload, because three across two sittings is
+   * still three. */
+  fullKey(kind) {
+    return "mgk_full_" + kind + "_" + this.locale;
+  }
+  completed(kind) {
+    try {
+      const value = JSON.parse(this.storage.getItem(this.fullKey(kind)) || "[]");
+      return Array.isArray(value)
+        ? value.filter((n) => Number.isSafeInteger(n) && n > 0).slice(-400)
+        : [];
+    } catch (_) {
+      return [];
+    }
+  }
+  addCompleted(kind, id) {
+    if (!Number.isSafeInteger(id) || id < 1) return;
+    const items = this.completed(kind);
+    if (!items.includes(id)) items.push(id);
+    try {
+      this.storage.setItem(
+        this.fullKey(kind),
+        JSON.stringify(items.slice(-400)),
+      );
+    } catch (_) {}
+  }
 }
 module.exports = { Session, Heard, SESSION_KEY };

@@ -109,19 +109,7 @@ class WorldSite {
       ["cuento", "chiste", "expresion"].includes(k),
     );
     if (!kind) return;
-    return this.load(
-      group,
-      this.game.text(group),
-      async (_, request) => {
-        const items = await this.game.content.pool(kind);
-        if (request.signal.aborted) return;
-        const item = items[0];
-        if (!item) return this.empty(group, () => this.browse(kind));
-        this.current = { group, item, path: item.url };
-        return pieceView(this.game, item);
-      },
-      () => this.open(group),
-    );
+    return this.browse(kind);
   }
   empty(group, more) {
     const root = activity(this.game, group, this.game.text(group));
@@ -134,13 +122,13 @@ class WorldSite {
       game = this.game;
     return this.load(
       group,
-      game.text("choose"),
+      game.text("index"),
       async (signal) => {
         const [data, index] = await Promise.all([
           game.api.request("browse", { kind, ...filters }, { signal }),
           game.api.request("index", { kind }, { signal }),
         ]);
-        const root = activity(game, group, game.text("choose"));
+        const root = activity(game, group, game.text("index"));
         root.classList.add("world-native-library");
         const input = el("input", {
           type: "search",
@@ -225,11 +213,6 @@ class WorldSite {
           });
           root.append(more);
         }
-        root.append(
-          el("div", { class: "world-experience-links" }, [
-            button(game.text("backToMoment"), () => this.open(group)),
-          ]),
-        );
         return root;
       },
       () => this.browse(kind, filters),

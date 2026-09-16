@@ -48,7 +48,6 @@
   "art": "A clareira dos artistas",
   "another": "Conta-me outra",
   "pause": "Pausar",
-  "auto": "Continuar automaticamente",
   "catalogue": "Ver todas as peças",
   "night": "Aqui os contos prolongam a noite.",
   "neighborGreeting": "Saí para não fazer nada. Até agora, está a correr bem.",
@@ -65,8 +64,8 @@
   "expressions": "O livro das expressões",
   "shop": "Feitos à mão",
   "contribute": "Deixa um bocadinho de ti",
-  "recordJoke": "Gravar uma piada",
-  "recordStory": "Estúdio de contos",
+  "recordJoke": "Contar uma piada",
+  "recordStory": "Contar um conto",
   "sendExpression": "Partilhar uma expressão",
   "account": "A minha conta",
   "outside": "Sair para a aldeia",
@@ -185,7 +184,6 @@
   "sending": "A enviar…",
   "rated": "Voto guardado. Obrigado!",
   "voteError": "Não deu para guardar. Tenta outra vez.",
-  "openWebsite": "Ver no site",
   "buyOnWebsite": "Comprar no site",
   "printOnWebsite": "Imprimir no site",
   "previous": "Anterior",
@@ -334,5 +332,32 @@
   "authError": "Algo correu mal. Tenta outra vez.",
   "authTooMany": "Demasiadas tentativas. Tenta daqui a pouco.",
   "authGoogleUnavailable": "Com Google não dá agora. Usa o teu email.",
-  "authNetwork": "Não há maneira de ligar. Vê a tua ligação."
+  "authNetwork": "Não há maneira de ligar. Vê a tua ligação.",
+  "index": "Índice",
+  "ratingAverage": ":value de média",
+  "sayItBetter": "Eu digo melhor",
+  "enter_stories": "Ouvir contos",
+  "enter_jokes": "Ouvir piadas",
+  "enter_expressions": "Ver expressões",
+  "invite_stories": [
+    "Aqui andamos com os contos. Sentas-te um bocado?",
+    "Shhh, que vai começar um. Ficas?",
+    "Isto é a fogueira dos contos. Vem-se cá para ouvir.",
+    "Temos contos de todo o lado, contados por gente a sério.",
+    "Senta-te onde quiseres. Aqui quem conta, conta."
+  ],
+  "invite_jokes": [
+    "Ei! Aqui andamos com as piadas. Apetece-te uma?",
+    "Isto é a taberna. Vem-se rir e pouco mais.",
+    "É o pessoal que as grava. Algumas são péssimas, ficas avisado.",
+    "Conto-te uma? Melhor outro, que eu não tenho graça nenhuma.",
+    "Aqui ri-se com o que a malta traz. Ouves?"
+  ],
+  "invite_expressions": [
+    "Aqui guardamos como fala a gente de cada sítio. Espreitas?",
+    "Isto é o livro das expressões. Cada uma com a sua voz.",
+    "Palavras de meio mundo, ditas por quem as diz a sério.",
+    "Sabes como se diz isso noutro sítio? Aqui temos.",
+    "Olha o livro, que há cada coisa..."
+  ]
 }

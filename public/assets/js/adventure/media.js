@@ -18,14 +18,10 @@ class WorldMedia {
     this.item = null;
     this.busy = false;
     this.completed = new Set();
-    try {
-      this.auto = localStorage.getItem("magikitos.autoplay") === "1";
-    } catch (_) {}
     const byId = (id) => document.getElementById(id);
     byId("listening-play").onclick = () => this.toggle();
     byId("listening-stop").onclick = () => this.stop();
     byId("listening-next").onclick = () => this.next();
-    byId("listening-auto").onclick = () => this.setAuto(!this.auto);
     byId("listening-sheet").onclick = () => {
       if (this.item) game.site.showPiece(this.item);
     };
@@ -43,9 +39,11 @@ class WorldMedia {
       this.audio.addEventListener(event, () => this.paint());
     this.audio.addEventListener("ended", () => {
       game.duck(false);
-      if (this.item) this.completed.add(this.item.audio);
+      if (this.item) {
+        this.completed.add(this.item.audio);
+        this.heard.addCompleted(this.item.kind, this.item.id);
+      }
       this.paint();
-      if (this.auto) this.scheduleNext();
     });
     this.audio.addEventListener("error", () => {
       game.duck(false);
@@ -61,7 +59,6 @@ class WorldMedia {
   }
   async start(item, toggle = false, remember = true) {
     if (!item?.audio || !this.allowed(item.kind)) return;
-    clearTimeout(this.advanceTimer);
     const same = this.item?.audio === item.audio;
     if (same && toggle && !this.audio.paused) {
       this.audio.pause();
@@ -97,7 +94,6 @@ class WorldMedia {
     else this.start(this.item);
   }
   stop() {
-    clearTimeout(this.advanceTimer);
     this.audio.pause();
     this.audio.removeAttribute("src");
     this.audio.load();
@@ -106,24 +102,10 @@ class WorldMedia {
     this.paint();
   }
   suspend() {
-    clearTimeout(this.advanceTimer);
     this.audio.pause();
     this.game.duck(false);
   }
-  setAuto(value) {
-    this.auto = Boolean(value);
-    try {
-      localStorage.setItem("magikitos.autoplay", this.auto ? "1" : "0");
-    } catch (_) {}
-    if (!this.auto) clearTimeout(this.advanceTimer);
-    this.paint();
-  }
-  scheduleNext() {
-    clearTimeout(this.advanceTimer);
-    this.advanceTimer = setTimeout(() => this.next(this.item?.kind), 3000);
-  }
   async next(kind) {
-    clearTimeout(this.advanceTimer);
     if (this.busy) return;
     const current = document.getElementById("world-content").hidden
       ? this.item
@@ -173,6 +155,11 @@ class WorldMedia {
     this.game.site.showPiece(item);
     await this.start(item, false, false);
   }
+  /** Three is the threshold: enough to know what the room sounds like, few
+   * enough that it still happens in one sitting. */
+  earned(kind) {
+    return this.heard.completed(kind).length >= 3;
+  }
   duration() {
     return this.item?.duration > 0
       ? this.item.duration
@@ -197,10 +184,6 @@ class WorldMedia {
       "aria-label",
       this.game.text(playing ? "pause" : "listen"),
     );
-    for (const node of document.querySelectorAll(
-      "[data-world-auto],#listening-auto",
-    ))
-      node.setAttribute("aria-pressed", String(Boolean(this.auto)));
     byId("listening-next").disabled = this.busy;
     if (this.item) {
       byId("listening-title").textContent = this.item.title;
@@ -230,6 +213,8 @@ class WorldMedia {
       node.value =
         matching && duration ? (this.audio.currentTime / duration) * 1000 : 0;
     }
+    for (const node of document.querySelectorAll("[data-world-contribute]"))
+      node.hidden = !this.earned(node.dataset.worldContribute);
     for (const node of document.querySelectorAll("[data-world-elapsed]"))
       node.textContent = format(matching ? this.audio.currentTime : 0);
     for (const node of document.querySelectorAll("[data-world-duration]"))

@@ -60,32 +60,30 @@ function pieceView(game, item) {
       ratingView(game, item),
     );
   }
-  const auto = button(game.text("auto"), () =>
-    game.media.setAuto(!game.media.auto),
-  );
-  auto.dataset.worldAuto = "";
+  // One way back out (the index) and one invitation, earned. "See it on the
+  // website" sent you out of the game to read the same piece, and the autoplay
+  // toggle asked you to configure listening before you had listened to anything.
   const links = el("div", { class: "world-experience-links" }, [
-    button(game.text("choose"), () => game.site.browse(item.kind)),
-    auto,
-    websiteLink(game, game.text("openWebsite") + " ↗", item.url),
-    websiteLink(
-      game,
-      game.text(
-        item.kind === "cuento"
-          ? "recordStory"
-          : item.kind === "chiste"
-            ? "recordJoke"
-            : "sendExpression",
-      ),
-      game.config.destinations[
-        item.kind === "cuento"
-          ? "recordStory"
-          : item.kind === "chiste"
-            ? "recordJoke"
-            : "sendExpression"
-      ],
-    ),
+    button(game.text("index"), () => game.site.browse(item.kind)),
   ]);
+  const contributeKey =
+    item.kind === "cuento"
+      ? "recordStory"
+      : item.kind === "chiste"
+        ? "recordJoke"
+        : "sendExpression";
+  // Asking for your own story before you have heard three is asking a stranger
+  // to sing. media.paint() reveals it the moment the third one ends.
+  const contribute = websiteLink(
+    game,
+    game.text(item.kind === "expresion" ? "sayItBetter" : contributeKey),
+    game.config.destinations[contributeKey],
+  );
+  if (contribute) {
+    contribute.dataset.worldContribute = item.kind;
+    contribute.hidden = !game.media.earned(item.kind);
+    links.append(contribute);
+  }
   if (item.kind === "expresion")
     links.append(
       button(game.text("helpGuardian"), () => game.guardianChat.summon(item)),
