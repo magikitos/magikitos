@@ -28,7 +28,12 @@ class WorldMedia {
     byId("listening-seek").oninput = (event) => this.seek(event.target.value);
     this.audio.addEventListener("play", () => {
       game.duck(true);
-      if (this.item) this.heard.add(this.item.kind, this.item.id);
+      if (this.item) {
+        this.heard.add(this.item.kind, this.item.id);
+        game.telemetry?.listen("play", this.item.kind, this.item.id);
+        game.telemetry?.milestone("listen:" + this.item.kind);
+        game.telemetry?.act("listen");
+      }
       this.paint();
     });
     this.audio.addEventListener("pause", () => {
@@ -42,6 +47,7 @@ class WorldMedia {
       if (this.item) {
         this.completed.add(this.item.audio);
         this.heard.addCompleted(this.item.kind, this.item.id);
+        game.telemetry?.listen("complete", this.item.kind, this.item.id);
       }
       this.paint();
     });

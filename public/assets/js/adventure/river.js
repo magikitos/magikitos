@@ -64,6 +64,7 @@ class River {
     return false;
   }
   async embark(dock) {
+    this.game.telemetry?.milestone("river");
     const g = this.game;
     if (
       g.transitioning ||

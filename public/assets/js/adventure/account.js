@@ -74,6 +74,7 @@ class Account {
       this.user = data.user || null;
       this.loaded = true;
       this.loadedToken = this.game.session.get();
+      this.game.telemetry?.account("claim");
       this.note("");
     } catch (error) {
       this.note(this.game.text(this.reason(error.code, error.status)));
@@ -88,6 +89,7 @@ class Account {
    * lives in storage, so the round trip does not lose a session. */
   async google() {
     if (this.busy) return;
+    this.game.telemetry?.account("google");
     this.busy = true;
     this.note(this.game.text("authSending"));
     try {
@@ -125,6 +127,7 @@ class Account {
         turnstile_token: token || "",
       });
       this.email = email;
+      this.game.telemetry?.account("code_sent");
       this.step("code");
       this.note(this.game.text("authCodeSent").replace(":email", email));
       byId("self-code")?.focus();
@@ -159,6 +162,8 @@ class Account {
       const field = byId("self-code");
       if (field) field.value = "";
       this.note(this.game.text("authDone"));
+      this.game.telemetry?.account("done");
+      this.game.telemetry?.milestone("account");
       this.paint();
       // A fresh session owns a different cloud profile: reconcile now rather
       // than leaving the panel claiming the previous one.

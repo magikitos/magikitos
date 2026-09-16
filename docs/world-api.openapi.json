@@ -2121,6 +2121,49 @@
           }
         }
       }
+    },
+    "/telemetry": {
+      "post": {
+        "operationId": "worldTelemetry",
+        "summary": "Game telemetry batch (fire-and-forget)",
+        "description": "Same collector as the website's own /api/track: one allow-list of event types, one table, one 400-day sweep. Always answers 204 and never tells the client anything; unknown event types are dropped silently. Bot traffic is discarded server-side by user agent. Sent with navigator.sendBeacon.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TelemetryBatch"
+              }
+            }
+          }
+        },
+        "security": [],
+        "responses": {
+          "204": {
+            "description": "Accepted; nothing is returned, ever"
+          },
+          "403": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -3426,6 +3469,79 @@
           },
           "used": {
             "const": true
+          }
+        }
+      },
+      "TelemetryBatch": {
+        "type": "object",
+        "required": [
+          "device_id",
+          "session_uid",
+          "events"
+        ],
+        "properties": {
+          "device_id": {
+            "type": "string",
+            "description": "UUID from magikito.discovery, shared with the website"
+          },
+          "session_uid": {
+            "type": "string",
+            "description": "UUID minted per play session"
+          },
+          "session_token": {
+            "type": "string",
+            "description": "Optional; resolves the account server-side"
+          },
+          "events": {
+            "type": "array",
+            "maxItems": 50,
+            "items": {
+              "type": "object",
+              "required": [
+                "event_type"
+              ],
+              "properties": {
+                "event_type": {
+                  "type": "string",
+                  "enum": [
+                    "game_start",
+                    "game_first_act",
+                    "game_minute",
+                    "game_milestone",
+                    "game_scene",
+                    "game_stuck",
+                    "game_listen",
+                    "game_contribute",
+                    "game_account",
+                    "game_end",
+                    "game_where"
+                  ]
+                },
+                "path": {
+                  "type": "string"
+                },
+                "locale": {
+                  "$ref": "#/components/schemas/Locale"
+                },
+                "content_type": {
+                  "type": "string"
+                },
+                "content_id": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "duration_ms": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "value": {
+                  "type": "object",
+                  "description": "Event-specific payload; stored as JSON"
+                }
+              }
+            }
           }
         }
       }

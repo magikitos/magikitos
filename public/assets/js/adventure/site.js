@@ -120,6 +120,7 @@ class WorldSite {
   browse(kind, filters = {}) {
     const group = this.game.rooms.forKind(kind),
       game = this.game;
+    game.telemetry?.listen("index", kind);
     return this.load(
       group,
       game.text("index"),

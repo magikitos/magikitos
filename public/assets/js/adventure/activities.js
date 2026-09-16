@@ -82,6 +82,11 @@ function pieceView(game, item) {
   if (contribute) {
     contribute.dataset.worldContribute = item.kind;
     contribute.hidden = !game.media.earned(item.kind);
+    // The one jump out of the game that is worth knowing about: it is the whole
+    // point of the room, and the earned invitation lives or dies by this number.
+    contribute.addEventListener("click", () =>
+      game.telemetry?.contribute(item.kind),
+    );
     links.append(contribute);
   }
   if (item.kind === "expresion")

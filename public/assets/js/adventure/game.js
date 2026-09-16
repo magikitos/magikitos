@@ -9,6 +9,7 @@ const { doorDestination, acceptsEntry } = require("./portals");
 const { WoodlandAudio } = require("./audio");
 const { Entry } = require("./entry");
 const { deviceIdentity } = require("./identity");
+const { Telemetry } = require("./telemetry");
 const { WorldSite } = require("./site");
 const { WorldApi } = require("./api");
 const { Session } = require("./session");
@@ -103,6 +104,7 @@ class Adventure {
     this.community = new Community(this);
     this.cloud = new CloudSave(this);
     this.materials = new MaterialAccount(this);
+    this.telemetry = new Telemetry(this);
     this.entry = new Entry(this);
     this.bind();
   }
@@ -427,6 +429,8 @@ class Adventure {
         this.openDialogue(this.lines("noUse"));
         return;
       }
+      this.telemetry.act("talk");
+      this.telemetry.milestone("talk");
       if (entity.content && this.rooms.contains(entity.content)) {
         if (entity.piece) this.site.showPiece(entity.piece, { play: true });
         // Walking up to somebody should not start a story at you. They say what
@@ -491,6 +495,7 @@ class Adventure {
       // Commit effects together only after all required resources and gestures finish.
       const before = this.state;
       this.state = plan.state;
+      this.telemetry.act(entity.id || "rule");
       this.materials.record(this.world.data.id, entity, context, plan.rule);
       if (prepared) {
         this.scenes.enter(prepared);
@@ -621,7 +626,9 @@ class Adventure {
     this.closeDialogue();
   }
   openContent(key) {
-    if (this.rooms.contains(key)) this.site.open(key);
+    if (!this.rooms.contains(key)) return;
+    this.telemetry.milestone("content:" + key);
+    this.site.open(key);
   }
   contact(entity) {
     entity = this.interactionTarget(entity);
@@ -889,6 +896,7 @@ class Adventure {
       return;
     }
     this.audio.update(this.world, this.player, ms);
+    this.telemetry.tick();
     this.cameraEase = 1 - Math.exp(-dt * 9);
     this.walking = false;
     this.running = false;

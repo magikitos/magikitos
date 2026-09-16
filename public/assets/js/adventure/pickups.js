@@ -12,6 +12,7 @@ class PickupFeedback {
       const delta = amount - (before.inventory[id] || 0);
       if (delta > 0) {
         const item = this.game.catalog.items[id];
+        this.game.telemetry?.milestone("pickup");
         this.fly(
           item.sprite,
           "+" + delta + " " + this.game.text(item.name),

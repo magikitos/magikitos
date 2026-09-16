@@ -124,6 +124,10 @@ class SceneDirector {
   }
   enter(prepared, { keepControls = false } = {}) {
     const game = this.game;
+    // Closes the previous scene's row and its heat map before the world changes
+    // under it; the very first call happens before telemetry has begun and is a
+    // no-op, which is what we want.
+    game.telemetry?.enterScene(prepared.world?.data?.id);
     game.cameraFollowing = true;
     game.world = prepared.world;
     game.renderer.world = game.world;

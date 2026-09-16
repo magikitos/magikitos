@@ -311,6 +311,9 @@ class Community {
     )
       return;
     const g = this.game;
+    // After the guards: a rejected commit is not a milestone.
+    g.telemetry?.milestone("build");
+    g.telemetry?.act("build");
     this.busy = true;
     this.paint();
     try {

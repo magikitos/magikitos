@@ -68,6 +68,9 @@ class Entry {
     } catch (_) {}
     game.dirty = true;
     game.save();
+    // The clock starts when the world is on screen, not when the page loaded:
+    // a first minute measured from boot would be measuring our own loading.
+    game.telemetry.begin(hasSavedJourney() ? "retomada" : "nueva");
     document.getElementById("world-canvas").focus({ preventScroll: true });
     game.updateUI();
   }
