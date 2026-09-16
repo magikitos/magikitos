@@ -126,12 +126,62 @@ class CatEncounters {
   release(cat) {
     const g = this.game;
     if (this.carrier === cat) {
+      // ⛔ THE CAT STEPS ASIDE FIRST, THEN YOUR FEET LAND WHERE IT WAS — in that
+      // order. Doing it the other way round leaves the cat inside you: it cannot
+      // route out (findPath rejects a blocked origin and its neighbours), and
+      // even with a route follow() is stopped on the first step by the body it
+      // is standing in. That, and not distraction, is why a cat used to sit
+      // wherever it dropped you forever. Stepping aside is also what a cat that
+      // puts something down actually does.
+      const drop = { x: cat.x, y: cat.y };
+      for (const [dx, dy] of [
+        [0, 1],
+        [1, 0],
+        [-1, 0],
+        [0, -1],
+        [1, 1],
+        [-1, 1],
+        [1, -1],
+        [-1, -1],
+      ]) {
+        const nx = cat.x + dx * TILE * 1.5,
+          ny = cat.y + dy * TILE * 1.5;
+        if (g.world.canStand(nx, ny, cat)) {
+          cat.x = nx;
+          cat.y = ny;
+          break;
+        }
+      }
       // Feet stay on the same tested path as the carrier. A failed route also releases safely.
-      if (g.world.canStand(cat.x, cat.y, g.player))
-        Object.assign(g.player, { x: cat.x, y: cat.y });
+      if (g.world.canStand(drop.x, drop.y, g.player))
+        Object.assign(g.player, drop);
       else if (this.safePosition) Object.assign(g.player, this.safePosition);
       this.carrier = null;
       this.safePosition = null;
+      // ⛔ And it steps aside. Your feet land on the carrier's exact spot, so
+      // without this the cat is UNDER you: it cannot stand where it is, every
+      // route out of there fails, and even with a route follow() is blocked by
+      // you on the first step. That — not distraction — is why a cat used to sit
+      // wherever it dropped you forever. A cat that puts you down moves over
+      // anyway, so the fix is also what it should have been doing.
+      for (const [dx, dy] of [
+        [0, 1],
+        [1, 0],
+        [-1, 0],
+        [0, -1],
+        [1, 1],
+        [-1, 1],
+        [1, -1],
+        [-1, -1],
+      ]) {
+        const nx = cat.x + dx * TILE,
+          ny = cat.y + dy * TILE;
+        if (g.world.canStand(nx, ny, cat)) {
+          cat.x = nx;
+          cat.y = ny;
+          break;
+        }
+      }
       g.pauseMovement();
       g.dirty = true;
       g.save();
@@ -248,15 +298,34 @@ class CatEncounters {
       } else if (cat.phase === "homeward") {
         if (cat.path.length)
           cat.moving = follow(g.world, cat, cat.path, dt, RETURN_SPEED);
-        else if (distance(cat, cat.home) < TILE / 2) {
+        else if (distance(cat, cat.home) < TILE) {
           // Home again: curious as ever.
           this.change(cat, "idle");
           cat.wait = 1 + cat.rand();
         } else {
-          cat.path = g.world.path(cat, cat.home) || [];
-          // No route back (a door closed, a prop moved): give up the errand
-          // instead of recomputing an impossible path every frame.
+          // ⛔ THE PLAYER IS STANDING ON THE CAT. release() puts your feet at the
+          // carrier's exact position, so for the first frames the cat cannot
+          // stand where it is and EVERY route out of there fails — findPath
+          // rejects an origin that is not standable and its eight neighbours are
+          // measured against you too. That is the real reason a cat never walked
+          // home: not distraction, no route at all. Same trick as the carry
+          // itself: the passenger it just put down is not an obstacle to it.
+          const actors = g.world.actors;
+          g.world.actors = actors.filter((a) => a !== g.player);
+          try {
+            // approach(), not path(): the cat's own spot is routinely taken by a
+            // wandering resident by the time it gets back, and findPath refuses
+            // a destination whose exact cell is occupied.
+            cat.path =
+              g.world.approach(cat, cat.home, 3) ||
+              g.world.path(cat, cat.home) ||
+              [];
+          } finally {
+            g.world.actors = actors;
+          }
           if (!cat.path.length) {
+            // Genuinely unreachable: stop recomputing an impossible route every
+            // frame and just live here now.
             this.change(cat, "idle");
             cat.wait = 1 + cat.rand();
           }
