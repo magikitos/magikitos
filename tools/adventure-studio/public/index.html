@@ -36,6 +36,7 @@
         <div class="editor-modes">
           <button id="objects-mode" aria-pressed="true">Elementos</button
           ><button id="paths-mode" aria-pressed="false">Caminos</button>
+          <button id="fences-mode" aria-pressed="false">Vallas</button>
         </div>
         <div id="path-library" hidden>
           <div class="path-actions">
@@ -93,6 +94,12 @@
             title="Arrastrar mapa (Espacio)"
           >
             ✥ Mano</button
+          ><button
+            id="multi-select"
+            aria-pressed="false"
+            title="Seleccionar varios con clics o arrastrando un marco; también Mayús + clic"
+          >
+            ▧ Selección múltiple</button
           ><button id="undo" title="Deshacer · ⌘/Ctrl Z">↶</button
           ><button id="redo" title="Rehacer · ⌘/Ctrl Shift Z">↷</button
           ><button id="zoom-out" aria-label="Alejar">−</button
@@ -102,7 +109,9 @@
         <div class="map-bottom">
           <label><input id="grid" type="checkbox" /> Cuadrícula</label
           ><label><input id="bodies" type="checkbox" /> Colisiones</label
-          ><label title="Corrientes, llegadas y conexiones; geometría definida en los JSON de escena"><input id="river-topology" type="checkbox" /> Río</label
+          ><label
+            title="Corrientes, llegadas y conexiones; geometría definida en los JSON de escena"
+            ><input id="river-topology" type="checkbox" /> Río</label
           ><span id="map-hint"
             >Arrastrar fondo: mover mapa · rueda / pellizco: zoom</span
           >
@@ -115,6 +124,36 @@
           Selecciona un elemento en el mapa o en la lista. Nada se modifica en
           el juego.
         </p>
+        <div id="multi-properties" hidden>
+          <h2 id="multi-count"></h2>
+          <p class="note">
+            Mayús/⌘/Ctrl + clic añade o quita. Arrastra un seleccionado para
+            mover el grupo; flechas para ajustar. Mayús + arrastrar fondo
+            selecciona un área.
+          </p>
+          <button id="multi-remove">Retirar selección · ⌫</button>
+          <p class="note">
+            Backspace o Supr retira los objetos decorativos. Puertas y objetos
+            de misión se conservan. Puedes deshacer.
+          </p>
+        </div>
+        <div id="fence-properties" hidden>
+          <h2>Valla continua</h2>
+          <p id="fence-count"></p>
+          <p class="note">
+            Marca las esquinas con clics, en cualquier dirección. Los postes se
+            reparten solos. Arrastra los puntos para ajustarlos; pulsa un tramo
+            para insertar una esquina. Los extremos encajan con otras vallas.
+          </p>
+          <button id="fence-finish" class="primary">
+            Guardar trazado · Enter
+          </button>
+          <button id="fence-delete-point">Borrar punto · ⌫</button>
+          <button id="fence-cancel">Cancelar · Esc</button>
+          <p class="note">
+            Solo se guarda en el Studio. Un cambio, un deshacer.
+          </p>
+        </div>
         <div id="path-properties" hidden>
           <h2 id="path-selection">Trazado del camino</h2>
           <label
@@ -144,6 +183,7 @@
           </p>
         </div>
         <div id="properties" hidden>
+          <button id="fence-edit" hidden>Editar trazado de valla</button>
           <div class="selected-art">
             <canvas id="preview" width="160" height="140"></canvas>
           </div>
@@ -161,8 +201,22 @@
             </select></label
           ><label id="variant-field" hidden
             >Variante<select id="variant"></select></label
-          ><label>Escala <input id="scale" type="range" min="0.25" max="3" step="0.01" /></label
-          ><label>Porcentaje <input id="scale-percent" type="number" min="25" max="300" step="1" /></label
+          ><label
+            >Escala
+            <input
+              id="scale"
+              type="range"
+              min="0.25"
+              max="3"
+              step="0.01" /></label
+          ><label
+            >Porcentaje
+            <input
+              id="scale-percent"
+              type="number"
+              min="25"
+              max="300"
+              step="1" /></label
           ><button id="scale-reset" type="button">Escala original</button
           ><label class="check"
             ><input id="flip" type="checkbox" /> Reflejar horizontalmente</label

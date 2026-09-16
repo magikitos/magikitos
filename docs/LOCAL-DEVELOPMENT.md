@@ -56,6 +56,10 @@ Según el cambio:
   palos, persistencia, cuatro tamaños; peticiones de escritura bloqueadas.
 - `npm run test:gallery`: familias/recogibles, variantes, escala, autosave,
   recarga y cinco tamaños en un workspace temporal.
+- `node scripts/check-studio-selection-browser.cjs`: selección individual y por
+  área, movimiento en grupo, Backspace/deshacer, protección de campos/objetos,
+  trazado y edición de vallas, persistencia y tres tamaños. Workspace temporal;
+  comprueba que la versión del propietario no cambia.
 - `npm run test:picnic`: receta completa y hambre repetida en cinco tamaños.
 - `npm run test:browser`: integración con API local, seis idiomas e interiores.
 - `npm run test:journeys`, `test:world-controls`, `test:input-mode`:

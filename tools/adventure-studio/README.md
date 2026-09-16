@@ -107,6 +107,17 @@ rotating a bitmap cannot create another top-down perspective. Existing authored
 orientations still render correctly. Doors, actors and critical animated props have
 protected transforms. Co-located pieces (table, lighter, vase) can move as one group.
 
+Shift/Cmd/Ctrl-click on the map or object list toggles individual selections.
+Shift-drag empty ground selects a rectangle. **Selección múltiple** provides the
+same operation without a keyboard: tap objects to add/remove them, draw a box
+from empty ground, or drag an already-selected object to move the whole group.
+Arrow nudges also move the group; one undo restores the complete operation.
+Translations clamp as a group at map boundaries, preserving relative spacing.
+
+Backspace/Delete removes the selected decorations and gallery additions. Inputs
+keep their normal text editing, and functional objects remain protected. A mixed
+selection removes only its permitted objects and keeps protected ones selected.
+
 Drag the background or hold Space to pan. Wheel or pinch to zoom.
 Arrow keys nudge; Shift multiplies the step by four. Cmd/Ctrl-Z and
 Cmd/Ctrl-Shift-Z undo/redo the last 100 changes, including crops, paths and bodies.
@@ -133,6 +144,27 @@ Planters/crates placed as entities inherit the reusable pushing capability.
 quest objects, entrances, products, actors and other functional entities.
 Additions/removals/variants share undo, redo, autosave and the one reviewed diff.
 No map change is applied live to the game. See [the collection contract](../../docs/WOODLAND-KIT.md).
+
+## Continuous fences
+
+**Vallas** starts a single connected fence: click/tap its corners, then **Guardar
+trazado** or Enter. Horizontal, vertical and diagonal sections share corner posts;
+intermediate posts are spaced automatically. The end of another fence attracts
+the pointer for alignment. Leave a gap where the player needs to pass.
+
+Select a fence and choose **Editar trazado** to drag corners, click a segment to
+insert a point, or click beyond the end to extend it. Backspace removes the
+selected corner (otherwise the last one); Esc cancels the pending edit. The
+entire finished polyline uses normal undo, autosave, diff and source review.
+**Valla continua** is also available in the gallery.
+
+The data is an anchor plus `fence.points` in relative tile coordinates, not
+overlapping rotated sprites. The shared game/Studio renderer keeps wooden posts
+upright and depth-sorts individual spans. Physics follows the thin fence line,
+not its enclosing rectangle. Geometry/render parts are cached. Resize by moving
+vertices, not by stretching a bitmap. Up to 64 vertices and 256 tiles per line;
+all vertices must stay inside the scene. This edits authored scenery, not the
+API-authorized community building system or its costs/permissions.
 
 ## Edit paths
 
@@ -242,7 +274,8 @@ Trazo y vida is now archived: **2× integrated reduction and selective motion** 
 approved; see the [decision](../../docs/art-direction/DEFINITION-MOTION.md).
 Earlier camera, scale and conversation experiments remain in the same shell.
 
-The Studio edits objects, sprite variants/crops, collision bodies and outdoor paths.
+The Studio edits objects (individually or in groups), sprite variants/crops,
+collision bodies, continuous fences and outdoor paths.
 It adds reviewed family templates and safely removes decorations. It does not paint
 water, invent quest behaviors, change destinations or edit rewards.
 Architectural walls remain declarative scene data. The shop preview is the base

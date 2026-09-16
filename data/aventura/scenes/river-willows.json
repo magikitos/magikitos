@@ -216,7 +216,7 @@
     },
     {
       "id": "grove-1-1",
-      "sprite": "forest-birch",
+      "sprite": "forest-willow",
       "x": 73,
       "y": 15,
       "scale": 0.87,
@@ -226,7 +226,8 @@
         3,
         1.8
       ],
-      "visionBlocker": true
+      "visionBlocker": true,
+      "artVariant": "willow"
     },
     {
       "id": "bank-bamboo-1-1",

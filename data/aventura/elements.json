@@ -1041,11 +1041,15 @@
       },
       "aliases": [
         "ancient-root",
-        "forest-birch"
+        "forest-birch",
+        "forest-chestnut",
+        "forest-willow"
       ],
       "defaults": {
         "ancient-root": "roble",
-        "forest-birch": "abedul"
+        "forest-birch": "abedul",
+        "forest-chestnut": "chestnut",
+        "forest-willow": "willow"
       },
       "variants": [
         {
@@ -1057,6 +1061,16 @@
           "id": "abedul",
           "label": "Abedul",
           "sprite": "forest-birch"
+        },
+        {
+          "id": "chestnut",
+          "label": "Castaño",
+          "sprite": "forest-chestnut"
+        },
+        {
+          "id": "willow",
+          "label": "Sauce",
+          "sprite": "forest-willow"
         }
       ]
     },
@@ -1510,6 +1524,37 @@
         "birch": "birch",
         "crooked-oak": "crooked-oak",
         "pine": "pine"
+      }
+    },
+    "fence-line": {
+      "label": "Valla continua",
+      "category": "Jardín",
+      "aliases": [],
+      "template": {
+        "sprite": "garden-fence",
+        "rules": [],
+        "fence": {
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              4,
+              0
+            ]
+          ]
+        }
+      },
+      "variants": [
+        {
+          "id": "ramas",
+          "label": "Ramas enlazadas",
+          "sprite": "garden-fence"
+        }
+      ],
+      "defaults": {
+        "garden-fence": "ramas"
       }
     },
     "bush": {

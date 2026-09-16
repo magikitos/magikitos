@@ -1180,6 +1180,44 @@
       ],
       "subject": "Use case: stylized-concept. Asset type: individual top-down pixel-art game sprite for a warm woodland RPG. Orthographic high three-quarter view, viewed from above at about 55 degrees, front towards bottom of image, warm upper-left light. Crisp deliberate pixel clusters, sharp dark contour, restrained detailed shading, NOT blurry illustration. One complete isolated object, centered with 12% clear padding on every side, no ground, no cast shadow, no scene, no lettering, brands, watermark or labels. Background: genuinely transparent alpha if possible; otherwise perfectly flat solid #ff00ff magenta for our authorized offline cutout pipeline, no gradients or checkerboard. Object contains no magenta. Designed to remain instantly legible at the specified small native resolution. One compact portable picnic Bluetooth speaker, warm charcoal-grey horizontal rounded rectangular box, fine but readable front grille with two subtle round drivers, ochre rubber end caps, short braided loop handle on one side and tiny teal power indicator. Resting on its broad base. Friendly real modern picnic object, not fantasy box, no music notes. Native footprint 35 by 25 pixels.",
       "promptSource": "data/aventura/art/picnic-polish/prompts.json"
+    },
+    {
+      "id": "tree-chestnut-grounded",
+      "family": "canopy-tree",
+      "pack": "tree-chestnut",
+      "variant": "chestnut",
+      "label": "Castaño",
+      "sprite": "forest-chestnut",
+      "size": [
+        336,
+        404
+      ],
+      "anchor": [
+        212,
+        386
+      ],
+      "subject": "Use case: stylized-concept. Asset type: one isolated modular tree sprite for the existing Magikitos top-down pixel-art game. The supplied image is ONLY a style reference, not an edit target. Match its detailed crisp pixel clusters, warm upper-left sunlight, rich greens, brown bark, high three-quarter fixed camera, and believable planted base. Complete silhouette with generous transparent margins. NO ground disc, oval grass carpet, floating roots, exposed underside, buildings, characters, water drops, text or borders. Genuine transparent background with alpha. Original art. Create a mature CHESTNUT tree, distinct from the reference oak: broad asymmetrical umbrella crown, long serrated leaves in olive and fresh green clusters, thick twisted chestnut bark, one low side bough, short rooted mossy base with a few tiny chestnuts. A graceful, substantial woodland tree. Entire tree from crown to ground contact, no clipping.",
+      "generator": "image_gen",
+      "reference": "data/aventura/art/woodland-kit/cutouts/tree-oak-grounded.png"
+    },
+    {
+      "id": "tree-willow-grounded",
+      "family": "canopy-tree",
+      "pack": "tree-willow",
+      "variant": "willow",
+      "label": "Sauce",
+      "sprite": "forest-willow",
+      "size": [
+        336,
+        404
+      ],
+      "anchor": [
+        228,
+        386
+      ],
+      "subject": "Use case: stylized-concept. Asset type: one isolated modular tree sprite for the existing Magikitos top-down pixel-art game. The supplied image is ONLY a style reference, not an edit target. Match its detailed crisp pixel clusters, warm upper-left sunlight, rich greens, brown bark, high three-quarter fixed camera, and believable planted base. Complete silhouette with generous transparent margins. NO ground disc, oval grass carpet, floating roots, exposed underside, buildings, characters, water drops, text or borders. Genuine transparent background with alpha. Original art. Create an elegant WILLOW tree, clearly distinct from the reference oak: swept leaning trunk, softly cascading narrow green leaves in separated hanging sprays, golden sunlit tips, airy gaps showing the warm crooked bark. Roots sit planted flush on the ground, no hanging root tangle. Entire tree and every leaf spray fully within the image; no water or surrounding landscape.",
+      "generator": "image_gen",
+      "reference": "data/aventura/art/woodland-kit/cutouts/tree-oak-grounded.png"
     }
   ]
 }

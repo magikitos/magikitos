@@ -2,6 +2,8 @@
 const { StudioShell } = require("./shell");
 const { PathEditor } = require("./path-editor");
 const { Gallery } = require("./gallery");
+const selectionTools = require("./selection");
+const { thumbnail } = require("./thumbnail");
 const {
   families,
   familyOf,
@@ -96,6 +98,7 @@ const names = {
 let gallery,
   cropEditor,
   pathEditor,
+  fenceEditor,
   context,
   snapshot,
   workspace,
@@ -108,7 +111,7 @@ let gallery,
   savePromise = null,
   saveTimer,
   dragBefore = null,
-  dragLinked = null;
+  dragMembers = null;
 const label = (e) =>
   familyOf(e)?.label || names[e.sprite] || e.sprite.replaceAll("-", " ");
 const count = () =>
@@ -186,13 +189,16 @@ function currentEntity() {
     ).find((e) => e.id === selected.id)
   );
 }
-function rebuild(fit = false, keep = selected) {
+function rebuild(fit = false, keep) {
+  const selections =
+    keep === null
+      ? []
+      : keep
+        ? [keep]
+        : view.selection.map(selectionTools.identifies);
   cropEditor?.apply(snapshot, workspace.sprites);
   view.setScene(renderScene(snapshot, sceneId, workspace.changes), fit);
-  if (keep) view.select(keep.id, keep.layer);
-  else {
-    selected = null;
-  }
+  view.setSelection(selections);
   paintList();
   paintInspector();
   paintStatus();
@@ -255,21 +261,28 @@ function adjust(value) {
       next = { ...placement(current), ...value },
       entries = [{ selection: selected, value: next }];
     if (
-      $("linked").checked &&
+      (view.selection.length > 1 || $("linked").checked) &&
       (value.x !== undefined || value.y !== undefined)
     ) {
-      for (const { e, layer: memberLayer } of view.elements()) {
-        if (
-          e === currentEntity() ||
-          Math.hypot(e.x / TILE - current.x, e.y / TILE - current.y) > 0.001
-        )
-          continue;
+      entries.length = 0;
+      const rows = selectionTools.members(
+        view.elements(),
+        view.selection,
+        $("linked").checked,
+      );
+      const delta = selectionTools.translation(
+        rows.map(({ e }) => ({ x: e.x / TILE, y: e.y / TILE, fence: e.fence })),
+        next.x - current.x,
+        next.y - current.y,
+        view.world,
+      );
+      for (const { e, layer: memberLayer } of rows) {
         entries.push({
           selection: { id: e.id, layer: memberLayer },
           value: {
             ...placement({ ...e, x: e.x / TILE, y: e.y / TILE }),
-            x: e.x / TILE + next.x - current.x,
-            y: e.y / TILE + next.y - current.y,
+            x: e.x / TILE + delta.x,
+            y: e.y / TILE + delta.y,
           },
         });
       }
@@ -289,28 +302,17 @@ function currentEntityInTiles() {
 function drag(info, position, commit, cancel) {
   if (!dragBefore) {
     dragBefore = editsJSON();
-    dragLinked = [];
-    const sources = [
-      ...view.world.entities.map((e) => ({ e, layer: "entities" })),
-      ...view.world.props.map((e) => ({ e, layer: "scenery" })),
-    ];
-    if ($("linked").checked)
-      dragLinked = sources
-        .filter(
-          (p) =>
-            p.e.id !== info.id &&
-            Math.hypot(p.e.x - info.entity.x, p.e.y - info.entity.y) < 1,
-        )
-        .map((p) => ({
-          selection: { id: p.e.id, layer: p.layer },
-          x: p.e.x / TILE,
-          y: p.e.y / TILE,
-        }));
+    dragMembers = selectionTools
+      .members(view.elements(), view.selection, $("linked").checked)
+      .map((p) => ({
+        selection: selectionTools.identifies(p),
+        value: placement({ ...p.e, x: p.e.x / TILE, y: p.e.y / TILE }),
+      }));
   }
   if (cancel) {
     restoreEdits(dragBefore);
     dragBefore = null;
-    dragLinked = null;
+    dragMembers = null;
     rebuild();
     return;
   }
@@ -325,26 +327,16 @@ function drag(info, position, commit, cancel) {
         0,
         Math.min(s.height - 0.0625, Math.round(position.y / step) * step),
       );
-    const entries = [
-      {
-        selection: { id: info.id, layer: info.layer },
-        value: { ...placement(currentEntityInTiles()), x, y },
-      },
-    ];
-    for (const member of dragLinked) {
-      const original = baseEntity(member.selection);
-      entries.push({
-        selection: member.selection,
-        value: {
-          ...placement(original),
-          ...(workspace.changes[sceneId]?.[member.selection.layer]?.[
-            member.selection.id
-          ] || {}),
-          x: member.x + x - info.entity.x / TILE,
-          y: member.y + y - info.entity.y / TILE,
-        },
-      });
-    }
+    const delta = selectionTools.translation(
+      dragMembers.map((p) => p.value),
+      x - info.entity.x / TILE,
+      y - info.entity.y / TILE,
+      s,
+    );
+    const entries = dragMembers.map(({ selection, value }) => ({
+      selection,
+      value: { ...value, x: value.x + delta.x, y: value.y + delta.y },
+    }));
     try {
       setChanges(entries);
       for (const row of entries) {
@@ -368,7 +360,7 @@ function drag(info, position, commit, cancel) {
   if (commit) {
     const before = dragBefore;
     dragBefore = null;
-    dragLinked = null;
+    dragMembers = null;
     rebuild();
     history(before);
   }
@@ -378,7 +370,9 @@ function paintSelection() {
     b.setAttribute(
       "aria-pressed",
       String(
-        b.dataset.id === selected?.id && b.dataset.layer === selected?.layer,
+        view.selection.some(
+          (p) => b.dataset.id === p.e.id && b.dataset.layer === p.layer,
+        ),
       ),
     );
 }
@@ -404,21 +398,14 @@ function paintList() {
       "</strong><small>" +
       escape(e.id) +
       "</small></span>";
-    const c = b.querySelector("canvas").getContext("2d"),
-      f = view.renderer.sprites.frame(frameName(e));
-    c.imageSmoothingEnabled = false;
-    if (f) {
-      const k = Math.min(36 / f.w, 40 / f.h);
-      view.renderer.sprites.draw(
-        c,
-        frameName(e),
-        (40 - f.w * k) / 2,
-        (44 - f.h * k) / 2,
-        f.w * k,
-        f.h * k,
+    thumbnail(b.querySelector("canvas"), view.renderer.sprites, e, 2);
+    b.onclick = (event) =>
+      view.select(
+        e.id,
+        rowLayer,
+        !event.shiftKey && !event.metaKey && !event.ctrlKey && !view.multi,
+        event.shiftKey || event.metaKey || event.ctrlKey || view.multi,
       );
-    }
-    b.onclick = () => view.select(e.id, rowLayer, true);
     $("elements").append(b);
   }
   paintSelection();
@@ -466,20 +453,34 @@ function warnings(entity) {
   return messages;
 }
 function paintInspector() {
-  $("properties").hidden = !selected || pathEditor?.enabled;
+  const multi = view.selection.length > 1;
+  if (fenceEditor?.enabled) {
+    $("properties").hidden = true;
+    $("multi-properties").hidden = true;
+    $("selection-help").hidden = true;
+    return;
+  }
+  $("multi-properties").hidden = !multi || pathEditor?.enabled;
+  $("multi-count").textContent =
+    view.selection.length + " elementos seleccionados";
+  $("properties").hidden = !selected || pathEditor?.enabled || multi;
   $("selection-help").hidden = !!selected || pathEditor?.enabled;
-  if (!selected || pathEditor?.enabled) return;
+  if (!selected || pathEditor?.enabled || multi) return;
   const e = currentEntity();
   if (!e) return;
   const cap = capabilities(baseEntity());
+  $("fence-edit").hidden = !e.fence;
   $("selected-name").textContent = label(e);
   $("selected-id").textContent = sceneId + " / " + e.id;
   $("x").value = e.x / TILE;
   $("y").value = e.y / TILE;
-  for (const [id, multiplier] of [["scale", 1], ["scale-percent", 100]]) {
+  for (const [id, multiplier] of [
+    ["scale", 1],
+    ["scale-percent", 100],
+  ]) {
     $(id).min = cap.scale.min * multiplier;
     $(id).max = cap.scale.max * multiplier;
-    $(id).value = Math.round((e.scale ?? 1) * 100) / 100 * multiplier;
+    $(id).value = (Math.round((e.scale ?? 1) * 100) / 100) * multiplier;
     $(id).disabled = cap.scale.min === cap.scale.max;
   }
   $("scale-reset").disabled = cap.scale.min === cap.scale.max;
@@ -508,11 +509,12 @@ function paintInspector() {
   $("revert").disabled = added;
   $("flip").checked = !!e.flip;
   $("flip").disabled = !cap.mirror;
-  $("transform-help").textContent =
-    "Reflejo y escala solo cuando no rompen su función. No se ofrece giro: no genera otra vista del objeto.";
+  $("transform-help").textContent = e.fence
+    ? "Ajusta longitud y ángulos con Editar trazado de valla. Los postes y la colisión siguen el trazado."
+    : "Reflejo y escala solo cuando no rompen su función. No se ofrece giro: no genera otra vista del objeto.";
   const sprite = frameName(e),
     record = snapshot.sprites?.[sprite];
-  $("crop-section").hidden = !record;
+  $("crop-section").hidden = !record || !!e.fence;
   cropEditor?.select(sprite, record, workspace.sprites[sprite]);
   $("sprite-scope").textContent = record
     ? "Recorte compartido: afecta a todas las piezas “" +
@@ -535,26 +537,7 @@ function paintInspector() {
   $("collision-help").textContent = editableBody
     ? "Cuerpo físico en píxeles, relativo al pie naranja. Independiente del recorte; azul en el mapa."
     : "Umbral protegido: su geometría se calcula desde la puerta o escalera.";
-  const c = $("preview").getContext("2d"),
-    f = view.renderer.sprites.frame(frameName(e));
-  c.clearRect(0, 0, 160, 140);
-  c.imageSmoothingEnabled = false;
-  if (f) {
-    const k = Math.min(130 / f.w, 115 / f.h);
-    c.save();
-    c.translate(80, 70);
-    c.rotate(((e.rotation || 0) * Math.PI) / 180);
-    c.scale(e.flip ? -1 : 1, 1);
-    view.renderer.sprites.draw(
-      c,
-      frameName(e),
-      (-f.w * k) / 2,
-      (-f.h * k) / 2,
-      f.w * k,
-      f.h * k,
-    );
-    c.restore();
-  }
+  thumbnail($("preview"), view.renderer.sprites, e, 15);
   $("warnings").innerHTML = warnings(e)
     .map((m) => "<p>" + escape(m) + "</p>")
     .join("");
@@ -651,9 +634,10 @@ for (const id of ["body-x", "body-y", "body-w", "body-h"])
       ),
     });
 $("scene").onchange = () => {
+  fenceEditor?.stop();
   sceneId = $("scene").value;
   selected = null;
-  rebuild(true);
+  rebuild(true, null);
   pathEditor.sceneChanged();
 };
 $("search").oninput = paintList;
@@ -669,7 +653,8 @@ for (const key of ["x", "y", "scale"])
 $("scale").oninput = () => {
   $("scale-percent").value = Math.round(Number($("scale").value) * 100);
 };
-$("scale-percent").onchange = () => adjust({ scale: Number($("scale-percent").value) / 100 });
+$("scale-percent").onchange = () =>
+  adjust({ scale: Number($("scale-percent").value) / 100 });
 $("scale-reset").onclick = () => adjust({ scale: baseEntity().scale ?? 1 });
 $("variant").onchange = () => adjust({ artVariant: $("variant").value });
 $("flip").onchange = () => adjust({ flip: $("flip").checked });
@@ -685,12 +670,19 @@ $("hand").onclick = () => {
   view.hand = !view.hand;
   $("hand").setAttribute("aria-pressed", String(view.hand));
 };
+$("multi-select").onclick = () => {
+  view.multi = !view.multi;
+  view.hand = false;
+  $("hand").setAttribute("aria-pressed", "false");
+  $("multi-select").setAttribute("aria-pressed", String(view.multi));
+};
 $("zoom-in").onclick = () => view.zoomAt(view.zoom * 1.25);
 $("zoom-out").onclick = () => view.zoomAt(view.zoom / 1.25);
 $("fit").onclick = () => view.fit();
 $("undo").onclick = () => {
   if (!undo.length) return;
   pathEditor.cancel();
+  fenceEditor?.stop();
   redo.push(editsJSON());
   restoreEdits(undo.pop());
   rebuild();
@@ -699,6 +691,7 @@ $("undo").onclick = () => {
 $("redo").onclick = () => {
   if (!redo.length) return;
   pathEditor.cancel();
+  fenceEditor?.stop();
   undo.push(editsJSON());
   restoreEdits(redo.pop());
   rebuild();
@@ -708,22 +701,36 @@ $("revert").onclick = () => {
   if (!selected) return;
   adjust(placement(baseEntity()));
 };
-$("remove").onclick = () => {
-  if (!selected || $("remove").disabled) return;
+function removeSelection() {
+  if (!selected) return;
   const before = editsJSON(),
     next = JSON.parse(JSON.stringify(workspace.changes)),
     group = (next[sceneId] ||= { entities: {}, scenery: {} });
-  if (group.added?.[selected.id]) delete group.added[selected.id];
-  else (group.removed ||= []).push({ ...selected });
+  const protectedRows = [];
+  for (const row of view.selection.map(selectionTools.identifies)) {
+    if (group.added?.[row.id]) delete group.added[row.id];
+    else if (removable(snapshot, sceneId, row.layer, row.id))
+      (group.removed ||= []).push(row);
+    else protectedRows.push(row);
+  }
   try {
     workspace.changes = validateChanges(snapshot, next);
     selected = null;
     rebuild(false, null);
+    view.setSelection(protectedRows);
     history(before);
+    if (protectedRows.length)
+      toast(
+        "Se conservan " +
+          protectedRows.length +
+          " objetos funcionales protegidos.",
+      );
   } catch (error) {
     toast(error.message);
   }
-};
+}
+$("remove").onclick = removeSelection;
+$("multi-remove").onclick = removeSelection;
 function addFromGallery(family, artVariant) {
   const before = editsJSON(),
     id = "studio-" + crypto.randomUUID();
@@ -746,7 +753,7 @@ function addFromGallery(family, artVariant) {
   try {
     workspace.changes = validateChanges(snapshot, next);
     selected = { id, layer: "entities" };
-    rebuild();
+    rebuild(false, selected);
     history(before);
     toast(
       "Colocado en el centro de la vista. Arrástralo a su sitio; solo cambia el estudio.",
@@ -842,14 +849,24 @@ document.addEventListener("keydown", (e) => {
     save().catch((error) => toast(error.message));
     return;
   }
-  if (e.target.closest("input,select,textarea")) return;
+  if (
+    e.target.closest(
+      "input,select,textarea,[contenteditable]:not([contenteditable=false])",
+    )
+  )
+    return;
   if ((e.metaKey || e.ctrlKey) && ["z", "y"].includes(e.key.toLowerCase())) {
     e.preventDefault();
     $(e.shiftKey || e.key.toLowerCase() === "y" ? "redo" : "undo").click();
     return;
   }
-  if (pathEditor.key(e)) {
+  if (fenceEditor?.key(e) || pathEditor.key(e)) {
     e.preventDefault();
+    return;
+  }
+  if (["Backspace", "Delete"].includes(e.key) && !pathEditor.enabled) {
+    e.preventDefault();
+    removeSelection();
     return;
   }
   if (e.code === "Space") {
@@ -904,8 +921,51 @@ pathEditor = new PathEditor(
     snapshot?.world.scenes[sceneId].paths ??
     [],
   setPaths,
-  () => paintInspector(),
+  (enabled) => {
+    if (enabled) fenceEditor?.stop();
+    paintInspector();
+  },
 );
+fenceEditor = new (require("./fence-editor").FenceEditor)(
+  view,
+  (target, points) => {
+    const before = editsJSON(),
+      [x, y] = points[0];
+    const fence = { points: points.map((p) => [p[0] - x, p[1] - y]) };
+    try {
+      const id = target?.id || "studio-" + crypto.randomUUID();
+      if (target) {
+        const e = view
+          .elements()
+          .find((p) => p.e.id === target.id && p.layer === target.layer).e;
+        setChanges([
+          { selection: target, value: { ...placement({ ...e, x, y }), fence } },
+        ]);
+      } else {
+        const changes = structuredClone(workspace.changes),
+          group = (changes[sceneId] ||= { entities: {}, scenery: {} });
+        (group.added ||= {})[id] = {
+          family: "fence-line",
+          ...placement(makeElement("fence-line", id, x, y, "ramas")),
+          fence,
+        };
+        workspace.changes = validateChanges(snapshot, changes);
+      }
+      rebuild(false, target || { id, layer: "entities" });
+      history(before);
+      return true;
+    } catch (e) {
+      toast(e.message);
+      return false;
+    }
+  },
+  () => pathEditor.enable(false),
+  () => {
+    view.editor = pathEditor;
+    paintInspector();
+  },
+);
+$("objects-mode").addEventListener("click", () => fenceEditor.stop());
 const shell = new StudioShell(view);
 $("river-topology").addEventListener("change", () => {
   view.dirty = true;
@@ -950,6 +1010,9 @@ window.MagikitosStudio = Object.freeze({
     shell: shell.inspect(),
     scene: sceneId,
     selected,
+    selection: view.selection.map(selectionTools.identifies),
+    fenceEditing: fenceEditor.enabled,
+    fencePoints: fenceEditor.points,
     pathMode: pathEditor.enabled,
     pathSelection: pathEditor.selected,
     paths: view.world?.data.paths,

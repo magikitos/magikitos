@@ -1,0 +1,24 @@
+{
+  "frames": {
+    "forest-chestnut": {
+      "source": "data/aventura/art/woodland-kit/cutouts/tree-chestnut-grounded.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        336,
+        404
+      ],
+      "fit": true,
+      "anchor": [
+        212,
+        386
+      ]
+    }
+  }
+}

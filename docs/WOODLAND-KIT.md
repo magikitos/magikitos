@@ -56,6 +56,9 @@ into design guides. Only prepared scene/action packs load, never source masters.
 - `art/woodland-kit/prompts.json`: artwork variants, native size/anchor and optional crop.
   An optional `source` selects an explicitly reviewed replacement cutout while
   retaining stable family/variant IDs used by saved constructions.
+  Optional `pack` splits a large variant into its own lazy package without
+  splitting the gallery family. Castaño and sauce use this: four canopy variants
+  share one gallery selector, but the two new species are fetched independently.
 - `build-woodland-kit.cjs`: explicit authoring command producing `elements.json` and
   independent `assets/woodland-*.json`. It retires replaced frame definitions, never
   original art. It does not call an image service.
@@ -65,6 +68,19 @@ into design guides. Only prepared scene/action packs load, never source masters.
 shuffle artwork. An explicit variant is stable too. A sprite without an explicit
 variant uses its declared default. State-dependent `visuals` still take priority.
 Visual variation never changes quest logic, the protagonist or a saved object ID.
+
+The chestnut and willow masters were generated with the built-in image tool,
+using the existing oak as a style reference. Their original alpha is preserved;
+source hashes and silhouette bounds are in `woodland-kit/cutouts/*.json`, and full
+prompts in `woodland-kit/prompts.json`. They use the same 2× integrated bake and
+subtle canopy wind as the existing trees. Both packs together add about 476 KB
+to the complete library, not to every scene; the total PNG budget stays 10.5 MB.
+
+Continuous authored fences are the exception to sprite assembly: `fences.js`
+renders upright textured posts and rails from a tile-relative polyline. Cached
+geometry drives artwork bounds, span depth and narrow collision bodies in both
+game and Studio. A connected line shares its corner posts at every angle. This
+does not introduce a new player construction recipe or bypass API validation.
 
 The normal build does not regenerate authoring metadata. When applying a Studio crop
 on a generated woodland frame, transfer its native crop into the matching manifest

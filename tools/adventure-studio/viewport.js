@@ -22,6 +22,7 @@ class MapViewport {
       zoom: 1,
       camera: { x: 0, y: 0 },
       selected: null,
+      selection: [],
       grid: false,
       bodies: false,
       hand: false,
@@ -85,6 +86,7 @@ class MapViewport {
     this.world = new World(data);
     this.game.world = this.world;
     this.selected = null;
+    this.selection = [];
     if (fit) this.fit();
     this.dirty = true;
   }
@@ -150,6 +152,11 @@ class MapViewport {
     return this.elements()
       .reverse()
       .find(({ e }) => {
+        if (e.fence)
+          return require("../../public/assets/js/adventure/fences").hit(
+            e,
+            point,
+          );
         const f = this.renderer.sprites.frame(
           require("../../public/assets/js/adventure/elements").frameName(e),
         );
@@ -167,15 +174,27 @@ class MapViewport {
         );
       });
   }
-  select(id, layer, center = false) {
-    this.selected =
-      this.elements().find((p) => p.e.id === id && p.layer === layer) || null;
+  setSelection(keys) {
+    const { key } = require("./selection");
+    const elements = new Map(this.elements().map((p) => [key(p), p]));
+    this.selection = keys.map((p) => elements.get(key(p))).filter(Boolean);
+    this.selected = this.selection.at(-1) || null;
+    this.dirty = true;
+    this.onSelect(this.selected);
+  }
+  select(id, layer, center = false, additive = false) {
+    const keys = this.selection.map(require("./selection").identifies);
+    const index = keys.findIndex((p) => p.id === id && p.layer === layer);
+    if (additive) {
+      if (index >= 0) keys.splice(index, 1);
+      else if (id) keys.push({ id, layer });
+    }
+    this.setSelection(additive ? keys : id ? [{ id, layer }] : []);
     if (center && this.selected) {
       this.camera.x = this.selected.e.x - this.renderer.width / 2;
       this.camera.y = this.selected.e.y - this.renderer.height / 2;
     }
     this.dirty = true;
-    this.onSelect(this.selected);
   }
   down(e) {
     if (!this.world || e.button > 1) return;
@@ -203,7 +222,15 @@ class MapViewport {
     const hit =
       !this.hand && !this.space && e.button === 0 ? this.hit(point) : null;
     if (hit) {
-      this.select(hit.e.id, hit.layer);
+      if (e.shiftKey || e.metaKey || e.ctrlKey) {
+        this.select(hit.e.id, hit.layer, false, true);
+        this.drag = null;
+        return;
+      }
+      const alreadySelected = this.selection.some(
+        (p) => p.e.id === hit.e.id && p.layer === hit.layer,
+      );
+      if (!alreadySelected) this.select(hit.e.id, hit.layer, false, this.multi);
       this.drag = {
         type: "move",
         id: hit.e.id,
@@ -212,7 +239,23 @@ class MapViewport {
         entity: { x: hit.e.x, y: hit.e.y },
         origin: { x: e.clientX, y: e.clientY },
         moved: false,
+        toggleOnClick: this.multi && alreadySelected,
       };
+    } else if (
+      !this.hand &&
+      !this.space &&
+      e.button === 0 &&
+      (e.shiftKey || this.multi)
+    ) {
+      this.drag = {
+        type: "box",
+        start: point,
+        end: point,
+        previous: e.shiftKey
+          ? this.selection.map(require("./selection").identifies)
+          : [],
+      };
+      this.dirty = true;
     } else {
       this.drag = {
         type: "pan",
@@ -243,6 +286,8 @@ class MapViewport {
     } else if (d.type === "pan") {
       this.camera.x = d.camera.x - (e.clientX - d.x) / this.zoom;
       this.camera.y = d.camera.y - (e.clientY - d.y) / this.zoom;
+    } else if (d.type === "box") {
+      d.end = this.point(e.clientX, e.clientY);
     } else {
       const p = this.point(e.clientX, e.clientY);
       if (
@@ -276,8 +321,33 @@ class MapViewport {
     if (!this.pointers.has(e.pointerId)) return;
     if (this.drag?.type === "tool") this.editor.up(cancel);
     else if (cancel) this.cancelDrag();
-    else if (this.drag?.type === "move" && this.drag.moved)
+    else if (this.drag?.type === "box") {
+      const { start: a, end: b, previous } = this.drag;
+      const keys = new Map(
+        previous.map((p) => [require("./selection").key(p), p]),
+      );
+      for (const p of this.elements()) {
+        const f = this.renderer.sprites.frame(
+          require("../../public/assets/js/adventure/elements").frameName(p.e),
+        );
+        if (!f) continue;
+        const r = artworkBounds(p.e, f);
+        if (
+          r.x <= Math.max(a.x, b.x) &&
+          r.x + r.w >= Math.min(a.x, b.x) &&
+          r.y <= Math.max(a.y, b.y) &&
+          r.y + r.h >= Math.min(a.y, b.y)
+        )
+          keys.set(
+            require("./selection").key(p),
+            require("./selection").identifies(p),
+          );
+      }
+      this.setSelection([...keys.values()]);
+    } else if (this.drag?.type === "move" && this.drag.moved)
       this.onMove(this.drag, null, true);
+    else if (this.drag?.toggleOnClick)
+      this.select(this.drag.id, this.drag.layer, false, true);
     this.pointers.delete(e.pointerId);
     this.drag = null;
     this.pinch = null;
@@ -335,8 +405,8 @@ class MapViewport {
           c.strokeRect(x * TILE, y * TILE, w * TILE, h * TILE);
         }
       }
-    if (this.selected) {
-      const e = this.selected.e,
+    for (const selected of this.selection) {
+      const e = selected.e,
         f = this.renderer.sprites.frame(
           require("../../public/assets/js/adventure/elements").frameName(e),
         ),
@@ -350,6 +420,13 @@ class MapViewport {
       c.beginPath();
       c.arc(e.x, e.y, 3 / this.zoom, 0, 7);
       c.fill();
+    }
+    if (this.drag?.type === "box") {
+      const { start: a, end: b } = this.drag;
+      c.fillStyle = "#ffdf8922";
+      c.strokeStyle = "#ffdf89";
+      c.fillRect(a.x, a.y, b.x - a.x, b.y - a.y);
+      c.strokeRect(a.x, a.y, b.x - a.x, b.y - a.y);
     }
     this.editor?.draw(c);
     if (document.getElementById("river-topology")?.checked)

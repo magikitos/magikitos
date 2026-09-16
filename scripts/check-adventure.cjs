@@ -65,8 +65,8 @@ assert(
   "Independent expandable asset modules",
 );
 assert(
-  spriteBytes - residentBytes - creatureBytes < 3500000 && spriteBytes < 10500000,
-  "Shared art stays below 3.5 MB; 100 residents and five cats use independent bounded scene-lazy packs",
+  spriteBytes - residentBytes - creatureBytes < 4000000 && spriteBytes < 10500000,
+  "Shared library with four canopy species stays below 4 MB; residents, cats and new trees are separate scene-lazy packs",
 );
 function react(entity, state, catalog, context) {
   const plan = planReaction(entity, state, catalog, context);

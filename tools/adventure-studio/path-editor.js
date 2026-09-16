@@ -56,6 +56,7 @@ class PathEditor {
     if (!this.view.world) return;
     this.cancel();
     this.enabled = value && !this.view.world.data.indoor;
+    if (this.enabled) this.view.editor = this;
     this.view.select(null, null);
     this.onMode(this.enabled);
     this.refresh();

@@ -1,5 +1,6 @@
 "use strict";
 const { families } = require("../../public/assets/js/adventure/elements");
+const { thumbnail } = require("./thumbnail");
 
 /** The palette contains native, already baked sprites; it never loads source masters. */
 class Gallery {
@@ -71,20 +72,11 @@ class Gallery {
       }
       const draw = () => {
         const variant =
-            variants.find((v) => v.id === select.value) || variants[0],
-          frame = this.sprites.frame(variant.sprite),
-          c = canvas.getContext("2d");
-        c.clearRect(0, 0, 100, 90);
-        c.imageSmoothingEnabled = false;
-        const k = Math.min(90 / frame.w, 80 / frame.h);
-        this.sprites.draw(
-          c,
-          variant.sprite,
-          (100 - frame.w * k) / 2,
-          (90 - frame.h * k) / 2,
-          frame.w * k,
-          frame.h * k,
-        );
+          variants.find((v) => v.id === select.value) || variants[0];
+        thumbnail(canvas, this.sprites, {
+          ...family.template,
+          sprite: variant.sprite,
+        });
       };
       select.onchange = draw;
       draw();

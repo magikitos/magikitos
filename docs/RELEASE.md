@@ -4,11 +4,38 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
-## Candidato local: bosque y ribera — 16 septiembre 2026
+## Candidato local: bosque, ribera y Studio — 16 septiembre 2026
 
-Artefacto `507c9904749f586adcdd`, instalado en DDEV. **No desplegado a producción**;
-el puntero local de la web no se incluye en el push. El código parte del juego
-`dfe4497` y la web `b7e66a3c`, conservando la integración de la pestaña Aventura.
+Artefacto `16b0a4d437c50c2ba7d6`, instalado en DDEV. **No desplegado a producción**;
+el puntero local de la web no se incluye en el push. Esta revisión parte del juego
+`4a16ba5` y la web `5eac98ff`, conservando la integración de la pestaña Aventura.
+
+Última revisión del Studio:
+
+- Incorporadas las 39 recolocaciones del bosque, la escala del cuenco, las dos
+  retiradas de árboles y el cercado que propuso el propietario. Ajustados los
+  accesos y patrullas a las nuevas posiciones, conservando IDs y partidas.
+- Las piezas solapadas del picnic pasan a dos vallas continuas, con entrada libre.
+  Herramienta **Vallas**: tramos horizontales, diagonales o verticales, esquinas
+  editables, postes compartidos y colisión estrecha derivada del mismo trazado.
+- Selección múltiple por clic o marco, movimiento y ajustes en grupo, modo táctil,
+  Backspace/Supr protegido, deshacer y guardado de una única versión.
+- Castaño y sauce nuevos, originales/prompts conservados y variantes en la galería;
+  dos packs independientes (unos 476 KB en total), con reducción integrada 2×.
+- Eliminados los campos heredados redundantes que producía la propuesta: las
+  escenas guardan ajustes de instancia, no copias de las definiciones de familia.
+
+Verificación de esta revisión: `npm test`, selección/trazado en navegador con
+workspace aislado (1440×1000, 768×1024 y 390×844), y revisión visual de las 15
+capturas del bosque, picnic, interiores y río. Se conserva la versión del Studio
+del propietario, sin conflictos ni cambios pendientes tras incorporar su diff.
+Receta completa en cinco tamaños, captura/regreso de gatos en tres y recogibles
+con persistencia en cuatro, usando posiciones de prueba derivadas del mapa
+actual en vez de coordenadas antiguas. Sin tocar partidas del propietario.
+Editor de caminos: creación, arrastre, inserción/borrado, deshacer, recarga,
+exportación y cancelación al pellizcar comprobados en escritorio, tablet y móvil.
+
+Base de bosque y ribera conservada:
 
 - Bosque inicial de 144×112 tiles, nueve ramales, casas más separadas y picnic
   delimitado por vegetación. Brizno y su barbacoa están junto a su casa y el muelle.

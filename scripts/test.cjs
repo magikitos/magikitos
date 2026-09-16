@@ -26,6 +26,7 @@ for (const name of [
   "check-adventure-camera",
   "check-adventure-materials-portals",
   "check-adventure-studio",
+  "check-studio-selection",
   "check-adventure-gallery",
   "check-adventure-movables",
   "check-woodland-core",

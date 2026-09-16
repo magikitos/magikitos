@@ -235,6 +235,7 @@ p {
   left: 14px;
   right: 14px;
   display: flex;
+  flex-wrap: wrap;
   gap: 5px;
   align-items: center;
   pointer-events: none;
@@ -247,7 +248,7 @@ p {
   background: #193929e8;
   font-size: 12px;
 }
-.map-tools #hand[aria-pressed="true"] {
+.map-tools button[aria-pressed="true"] {
   background: #d5b777;
   color: #182c20;
 }

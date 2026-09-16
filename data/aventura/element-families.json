@@ -463,6 +463,13 @@
         }
       ]
     },
+    "fence-line": {
+      "label": "Valla continua",
+      "category": "Jardín",
+      "aliases": [],
+      "template": {"sprite":"garden-fence", "rules":[], "fence":{"points":[[0,0],[4,0]]}},
+      "variants": [{"id":"ramas","label":"Ramas enlazadas","sprite":"garden-fence"}]
+    },
     "canopy-tree": {
       "label": "Árboles de copa",
       "category": "Bosque",

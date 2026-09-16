@@ -3,6 +3,9 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const { chromium } = require("playwright");
 const origin = process.env.GAME_ORIGIN || "http://127.0.0.1:47834";
+const scene = JSON.parse(fs.readFileSync(".local/build/world.json")).scenes
+  .overworld;
+const catStart = scene.entities.find((e) => e.id === "picnic-cat");
 
 // Real input and real animation clock. Only the initial saved position is a fixture;
 // no debug setters, direct encounter invocation or production identity is used.
@@ -29,17 +32,17 @@ const origin = process.env.GAME_ORIGIN || "http://127.0.0.1:47834";
           ? r.continue()
           : r.abort(),
       );
-      await page.addInitScript(() => {
+      await page.addInitScript((cat) => {
         if (!localStorage.getItem("magikitos.adventure"))
           localStorage.setItem(
             "magikitos.adventure",
             JSON.stringify({
               scene: "overworld",
-              position: { x: 20 * 16, y: 28.5 * 16 },
+              position: { x: cat.x * 16, y: (cat.y + 1.5) * 16 },
               muted: true,
             }),
           );
-      });
+      }, catStart);
       await page.goto(origin + "/aventura");
       await require("./browser-entry.cjs").enterWorld(page);
       const inspect = () =>

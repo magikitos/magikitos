@@ -1,13 +1,25 @@
 "use strict";
 /** A reviewable map proposal: placements, explicit variants, palette additions and safe removals. */
-const { capabilities, validScale } = require("../../public/assets/js/adventure/entity-art");
+const {
+  capabilities,
+  validScale,
+} = require("../../public/assets/js/adventure/entity-art");
 const {
   familyOf,
   makeElement,
   families,
 } = require("../../public/assets/js/adventure/elements");
 const { validatePaths } = require("./path-edits");
-const FIELDS = ["x", "y", "scale", "rotation", "flip", "solid", "artVariant"];
+const FIELDS = [
+  "x",
+  "y",
+  "scale",
+  "rotation",
+  "flip",
+  "solid",
+  "artVariant",
+  "fence",
+];
 const clone = (value) => JSON.parse(JSON.stringify(value));
 function placement(e) {
   return {
@@ -16,6 +28,7 @@ function placement(e) {
     scale: e.scale ?? 1,
     rotation: e.rotation || 0,
     flip: !!e.flip,
+    ...(e.fence ? { fence: clone(e.fence) } : {}),
     ...(e.solid ? { solid: [...e.solid] } : {}),
     ...(familyOf(e)
       ? {
@@ -97,6 +110,19 @@ function validatePlacement(scene, source, value) {
   }
   next.x = Math.round(next.x * 1000) / 1000;
   next.y = Math.round(next.y * 1000) / 1000;
+  if (source.fence && !next.fence)
+    throw Error("Una valla conectada necesita su trazado");
+  if (next.fence) {
+    if (!source.fence || next.solid)
+      throw Error("El trazado solo pertenece a una valla conectada");
+    next.fence =
+      require("../../public/assets/js/adventure/fences").validateFence(
+        next.fence,
+        scene,
+        next.x,
+        next.y,
+      );
+  }
   return next;
 }
 function validateAdded(snapshot, sceneId, input) {

@@ -5367,6 +5367,20 @@
                 "old-oars"
             ]
         },
+        "woodland-tree-chestnut": {
+            "image": "packs/woodland-tree-chestnut-835e7ec870c8.png",
+            "metadata": "packs/woodland-tree-chestnut-835e7ec870c8.json",
+            "sprites": [
+                "forest-chestnut"
+            ]
+        },
+        "woodland-tree-willow": {
+            "image": "packs/woodland-tree-willow-3425f7f23421.png",
+            "metadata": "packs/woodland-tree-willow-3425f7f23421.json",
+            "sprites": [
+                "forest-willow"
+            ]
+        },
         "woodland-vase": {
             "image": "packs/woodland-vase-e8ff3e3c5bfd.png",
             "metadata": "packs/woodland-vase-e8ff3e3c5bfd.json",

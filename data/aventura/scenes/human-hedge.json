@@ -108,7 +108,8 @@
       "id": "cat-water-bowl",
       "behavior": "cat-water-bowl",
       "x": 62,
-      "y": 32
+      "y": 32,
+      "scale": 0.48
     },
     {
       "id": "garden-seeds",

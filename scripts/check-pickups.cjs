@@ -9,6 +9,7 @@ const { snapshot } = require("../tools/adventure-studio/snapshot.cjs");
 const { makeElement, families } = require("../public/assets/js/adventure/elements");
 const { validateChanges, placement, diff } = require("../tools/adventure-studio/scene-edits");
 const { gameContract } = require("../tools/game-contract.cjs");
+const { collisionBounds, overlaps } = require("../public/assets/js/adventure/geometry");
 const compile = (root) => JSON.parse(execFileSync("php", ["-r",
   "echo json_encode(require $argv[1], JSON_THROW_ON_ERROR);", path.join(root, "data/aventura/world.php")],
   { encoding: "utf8", maxBuffer: 8 * 1024 * 1024, stdio: ["ignore", "pipe", "pipe"] }));
@@ -17,7 +18,8 @@ const entities = world.scenes.overworld.entities, find = (id) => entities.find((
 // Pickup command identity stays stable across the visual move out of the bin.
 const bottle = find("picnic-bin"), bin = find("picnic-trash-bin");
 assert.equal(planReaction(bin, state, world).state.inventory.bottle, undefined, "Bin never grants loot");
-assert(Math.hypot(bottle.x - bin.x, bottle.y - bin.y) > 2, "Bottle sits beside, not inside, bin");
+const body = e => collisionBounds({ ...e, x: e.x * 16, y: e.y * 16 });
+assert(!overlaps(body(bottle), body(bin)), "Bottle sits beside, not inside, the scaled bin");
 assert.equal(planReaction(bottle, state, world), null, "Bottle appears only when the humans leave");
 assert.equal(planReaction(bottle, { ...state, flags: { skewerCooked: true } }, world).state.inventory.bottle, 1);
 for (const inventory of [{ bottle: 1 }, { boat: 1 }]) {

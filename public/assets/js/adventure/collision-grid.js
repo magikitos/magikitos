@@ -2,6 +2,10 @@
 const { TILE, actorBounds, collisionBounds, overlaps } = require("./geometry");
 /** Open arches/fences can have separate feet without making their open centre solid. */
 function collisionBodies(entity) {
+  if (entity.fence)
+    return require("./fences")
+      .geometry(entity.fence)
+      .bodies.map((solid) => ({ ...entity, solid, collisionSource: entity }));
   if (!entity.solids) return [entity];
   if (
     entity.pushable ||

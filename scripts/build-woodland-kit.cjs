@@ -43,7 +43,7 @@ for (const a of kit.assets) {
     ...(a.flip ? { flip: true } : {}),
     ...(a.crop ? { crop: a.crop } : {}),
   };
-  const frames = (packs["woodland-" + a.family] ||= { frames: {} }).frames;
+  const frames = (packs["woodland-" + (a.pack || a.family)] ||= { frames: {} }).frames;
   for (const sprite of [a.sprite, ...(a.aliases || [])]) {
     if (owners.has(sprite)) throw Error("Duplicate asset: " + sprite);
     owners.add(sprite);

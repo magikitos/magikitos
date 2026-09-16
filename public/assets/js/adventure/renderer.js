@@ -9,6 +9,7 @@ const { drawInteriors, drawPartition } = require("./interiors");
 const { drawRipples } = require("./water");
 const { cameraMetrics } = require("./camera");
 const { chunkRange } = require("./scene-frame");
+const fences = require("./fences");
 class Renderer {
   constructor(canvas, viewport) {
     this.canvas = canvas;
@@ -199,9 +200,14 @@ class Renderer {
       ...(game.guardian ? [game.guardian] : []),
       ...(game.hidePlayer || game.cats?.locked ? [] : [player]),
     ]
+      .flatMap((e) => (e.fence ? fences.parts(e) : e))
       .filter(visible)
       .sort((a, b) => (a.depth ?? a.y) - (b.depth ?? b.y));
     for (const e of list) {
+      if (e.fencePart) {
+        fences.drawPart(c, e);
+        continue;
+      }
       if (e.wall) {
         drawPartition(c, e.wall);
         continue;

@@ -81,13 +81,13 @@ const errors = [];
           JSON.parse(localStorage.getItem("magikitos.adventure")),
         );
       }
-      await position(27, 29);
+      await near("picnic-knife");
       await click("picnic-knife");
       await page.waitForFunction(
         () => window.MagikitosAdventure.inspect().inventory.knife === 1,
       );
       await save();
-      await position(18.8, 25.2);
+      await near("picnic-lighter");
       await click("picnic-lighter");
       await page.waitForFunction(
         () => window.MagikitosAdventure.inspect().inventory.lighter === 1,

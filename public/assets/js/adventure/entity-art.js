@@ -3,6 +3,7 @@
 const FLAT = new Set(["toilet-leaf", "poop", "pee-puddle", "shells"]);
 function capabilities(entity) {
   const fixed =
+    entity.fence ||
     entity.portal ||
     entity.threshold ||
     entity.product ||
@@ -58,6 +59,8 @@ function transformedRect(entity, rect) {
   };
 }
 function artworkBounds(entity, frame) {
+  if (entity.fence || entity.fencePart)
+    return require("./fences").bounds(entity);
   const rect = transformedRect(entity, {
     x: -frame.anchor[0],
     y: -frame.anchor[1],
