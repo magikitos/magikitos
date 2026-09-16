@@ -1,5 +1,6 @@
 "use strict";
 const { cleanSave } = require("./save");
+const { SESSION_KEY } = require("./session");
 const { validateLayout } = require("./homestead-layout");
 const KEY = "magikitos.adventure.sync";
 const id = () =>
@@ -68,7 +69,7 @@ class CloudSave {
       this.owner ? this.flush() : this.connect(false),
     );
     window.addEventListener("storage", (e) => {
-      if (e.key === "magikitos_session") {
+      if (e.key === SESSION_KEY) {
         this.epoch++;
         this.owner = null;
         this.conflict = null;

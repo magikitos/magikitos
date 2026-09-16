@@ -168,4 +168,4 @@ function paintGround(c, world, ox, oy) {
   }
   c.putImageData(image, 0, 0);
 }
-module.exports = { paintGround, shoreDistance, shoreRow, noise };
+module.exports = { paintGround, shoreDistance, noise };

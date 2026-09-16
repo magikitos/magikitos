@@ -49,9 +49,7 @@ function makeElement(family, id, x, y, artVariant = "auto") {
 const frameName = (entity) => entity.artSprite || entity.sprite;
 module.exports = {
   families,
-  familyId,
   familyOf,
-  variantOf,
   resolveAppearance,
   makeElement,
   frameName,

@@ -181,4 +181,4 @@ class MapGestures {
         this.canvas.releasePointerCapture(id);
   }
 }
-module.exports = { MapGestures, DRAG_SLOP };
+module.exports = { MapGestures };

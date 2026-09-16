@@ -101,4 +101,4 @@ function validateLayout(layout, catalog) {
   }
   return JSON.parse(JSON.stringify(layout));
 }
-module.exports = { placementBounds, validateLayout };
+module.exports = { validateLayout };

@@ -227,4 +227,4 @@ class WorldApi {
     );
   }
 }
-module.exports = { WorldApi, ApiError, webUrl, piece, METHODS, AUTH_METHODS };
+module.exports = { WorldApi, ApiError, webUrl, piece };

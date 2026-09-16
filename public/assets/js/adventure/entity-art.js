@@ -92,7 +92,6 @@ function drawArtwork(ctx, sprites, entity, name, clip) {
 module.exports = {
   capabilities,
   validScale,
-  transformPoint,
   transformedRect,
   artworkBounds,
   drawArtwork,
