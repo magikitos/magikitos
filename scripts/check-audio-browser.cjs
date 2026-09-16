@@ -207,7 +207,15 @@ const world = JSON.parse(fs.readFileSync(".local/build/world.json"));
     );
     assert(riverScene, "Navigable river fixture");
     const page = await browser.newPage();
-    await page.route("**/api/**", (r) => r.abort());
+    page.on("pageerror", (e) => errors.push(e.message));
+    await page.route("**/*", (r) => {
+      const url = new URL(r.request().url());
+      return url.origin === origin &&
+        !url.pathname.startsWith("/api/") &&
+        ["GET", "HEAD"].includes(r.request().method())
+        ? r.continue()
+        : r.abort();
+    });
     await page.addInitScript(
       (scene) =>
         localStorage.setItem(

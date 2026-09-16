@@ -20,11 +20,11 @@ Current art direction: [Ascua and the approved compact cast](docs/art-direction/
 Current controls, Brizno and the restaurant story notes: [mobility and Brizno](docs/MOBILITY-BRIZNO.md).
 Click intentions, live obstacle avoidance and regression tests: [navigation](docs/NAVIGATION.md).
 For operations and verified delivery, see [releasing](docs/RELEASING.md) and
-[the current release ledger](docs/RELEASE-TOUCH-2026-09-16.md).
-The local [entry and audio implementation](docs/AUDIO-AND-ENTRY.md) covers music,
+[the current release ledger](docs/RELEASE-AUDIO-2026-09-16.md).
+The [entry and audio implementation](docs/AUDIO-AND-ENTRY.md) covers music,
 river ambience and fullscreen. [Mobile packaging and store workflows](docs/MOBILE.md)
 documents the shared Capacitor projects, TestFlight/Play steps and outstanding
-native validation; these local additions are not a production release.
+native validation; no native app has been built or published to stores.
 The [health review and next steps](docs/HEALTH-AND-NEXT-STEPS-2026-09-16.md)
 distinguish verified behavior from remaining maintenance and device testing.
 The [next-chapter proposal](docs/NEXT-CHAPTER-PROPOSAL.md) is a discussion, not

@@ -11,9 +11,10 @@ Use `gh-personal` (`alvarofranz`) for GitHub, and the SSH alias
 `github.com-alvarofranz` for Git transport. Check both independently.
 Git author and committer must use the personal identity documented in `AGENTS.md`;
 SSH/GitHub authentication does not determine the email stored in a commit.
-The 16 development commits previously attributed to the work email are being
+The 16 development commits previously attributed to the work email were
 consolidated with the owner's explicit authorization on 16 September 2026.
 The original lore commit is preserved. Recovery copies stay LOCAL, never pushed.
+Details: [personal-account audio release](RELEASE-AUDIO-2026-09-16.md).
 
 For a **static-game-only** activation, after staging the verified release, a
 guarded `git merge --ff-only` of the exact reviewed website commit is sufficient:

@@ -142,8 +142,9 @@ La configuración externa de este workflow **no está creada ni comprobada**.
 
 El workflow manual **Android — build or internal test** usa Ubuntu, Node 22,
 Java 21, SDK 36, los lockfiles y el Gradle wrapper del repo. No necesita Java en
-este Mac. Primero hay que subir los cambios revisados a GitHub: no se ha hecho
-en esta entrega.
+este Mac. El scaffold y el workflow ya están versionados en GitHub; el workflow
+no se ha ejecutado ni se han configurado sus credenciales. La publicación web
+posterior no incluye entrega nativa a tiendas.
 
 1. Crear en GitHub el environment **mobile-internal**, con revisores requeridos
    antes de guardar credenciales. Ejecutar una compilación sin firma para

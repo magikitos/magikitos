@@ -1,7 +1,8 @@
 # Entrada, fullscreen y paisaje sonoro
 
-Implementación local del 16 de septiembre de 2026. No implica despliegue web ni
-publicación en las tiendas. Guía nativa: [MOBILE.md](MOBILE.md).
+Implementación del 16 de septiembre de 2026, posteriormente publicada en la web
+con autorización expresa: [registro de producción](RELEASE-AUDIO-2026-09-16.md).
+No implica publicación en tiendas. Guía nativa: [MOBILE.md](MOBILE.md).
 
 ## Comportamiento
 
@@ -168,7 +169,9 @@ La repetición completa de las regresiones anteriores terminó correctamente.
 Logs detallados locales: `.local/audio-core-final.log`,
 `.local/audio-adventure-final.log`, `.local/audio-controls-final.log`,
 `.local/audio-modality-final.log`, `.local/audio-browser-final.log` y
-`.local/mobile-package.log`. No se ha hecho push ni despliegue de producción.
+`.local/mobile-package.log`. Este bloque registra la verificación local previa;
+el push personal y las pruebas posteriores en producción se documentan en el
+[registro de publicación](RELEASE-AUDIO-2026-09-16.md).
 
 Referencias técnicas:
 [autoplay de Chrome](https://developer.chrome.com/blog/autoplay),
