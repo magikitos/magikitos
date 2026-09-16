@@ -1,0 +1,12 @@
+{
+    "source": "picnic-lighter-coral.png",
+    "sourceHash": "b3fb1a2be37375b700b3448669c9e9a6207b162cc15200cb7721fc8cec5316d0",
+    "bounds": [
+        252,
+        208,
+        921,
+        720
+    ],
+    "matte": "original-alpha",
+    "fringePixels": 2
+}

@@ -1,0 +1,146 @@
+{
+  "grid": 0.5,
+  "maxObjectsPerZone": 96,
+  "maxObjectsPerAuthor": 24,
+  "foreignEditsEnabled": false,
+  "heritage": { "minimumDays": 28, "minimumVisitors": 10 },
+  "zones": {
+    "tocon-del-mirlo": {
+      "scene": "home-garden",
+      "label": "communityMirlo",
+      "surface": "flat-ground",
+      "requires": { "items": { "boat": 1 } },
+      "editable": [9, 7, 30, 26],
+      "protected": [
+        [20, 13, 8, 9],
+        [23, 22, 2, 18]
+      ],
+      "access": [
+        [24, 32],
+        [24, 22]
+      ]
+    },
+    "remanso-del-musgo": {
+      "scene": "river-gardens",
+      "label": "communityMusgo",
+      "surface": "flat-ground",
+      "requires": { "items": { "boat": 1 } },
+      "editable": [67, 14, 40, 109],
+      "protected": [
+        [67, 18, 4, 105],
+        [67, 70, 40, 4]
+      ],
+      "access": [
+        [69, 36],
+        [69, 72],
+        [69, 108]
+      ]
+    }
+  },
+  "definitions": {
+    "twig-fence": {
+      "label": "buildFence",
+      "sprite": "twig-fence-0-0",
+      "variants": [
+        {
+          "id": "hazel",
+          "sprite": "twig-fence-0-0",
+          "views": { "0": "twig-fence-0-0", "1": "twig-fence-0-1" }
+        },
+        {
+          "id": "moss",
+          "sprite": "twig-fence-1-0",
+          "views": { "0": "twig-fence-1-0", "1": "twig-fence-1-1" }
+        },
+        {
+          "id": "tied",
+          "sprite": "twig-fence-2-0",
+          "views": { "0": "twig-fence-2-0", "1": "twig-fence-2-1" }
+        }
+      ],
+      "footprint": [-1, -0.25, 2, 0.5],
+      "cost": { "twig": 4 },
+      "knowledge": "simple-woodwork",
+      "surfaces": ["flat-ground"],
+      "rotations": [0, 1],
+      "capabilities": [],
+      "maxPerAuthor": 16
+    },
+    "woodland-bench": {
+      "label": "buildBench",
+      "family": "bench",
+      "footprint": [-1, -0.5, 2, 1],
+      "cost": { "twig": 6 },
+      "knowledge": "simple-woodwork",
+      "surfaces": ["flat-ground"],
+      "rotations": [0],
+      "capabilities": ["sit", "socialize"],
+      "slots": [
+        [-0.4, 1, "down"],
+        [0.4, 1, "down"]
+      ]
+    },
+    "stump-table": {
+      "label": "buildTable",
+      "family": "table",
+      "footprint": [-1, -0.75, 2, 1.5],
+      "cost": { "twig": 8 },
+      "knowledge": "simple-woodwork",
+      "surfaces": ["flat-ground"],
+      "rotations": [0],
+      "capabilities": ["socialize"],
+      "slots": [
+        [-1.5, 0, "right"],
+        [1.5, 0, "left"]
+      ]
+    },
+    "forest-flowers": {
+      "label": "buildFlowers",
+      "family": "flowers-meadow",
+      "footprint": [-0.5, -0.5, 1, 1],
+      "cost": { "leaf": 3 },
+      "knowledge": "garden",
+      "surfaces": ["flat-ground"],
+      "rotations": [0],
+      "capabilities": ["garden"],
+      "slots": [[0, 1, "up"]],
+      "solid": false
+    },
+    "leaf-planter": {
+      "label": "buildPlanter",
+      "family": "planter",
+      "footprint": [-0.65, -0.75, 1.3, 0.9],
+      "cost": { "twig": 4, "leaf": 2 },
+      "knowledge": "garden",
+      "surfaces": ["flat-ground"],
+      "rotations": [0],
+      "capabilities": ["garden"],
+      "slots": [[0, 1, "up"]]
+    },
+    "seed-lantern": {
+      "label": "buildLantern",
+      "family": "lamp",
+      "footprint": [-0.5, -0.5, 1, 1],
+      "cost": { "twig": 4, "leaf": 2 },
+      "knowledge": "garden",
+      "surfaces": ["flat-ground"],
+      "rotations": [0],
+      "capabilities": ["light-source"],
+      "lightRadius": 32
+    },
+    "bowl-pool": {
+      "label": "buildPool",
+      "sprite": "cat-bowl-pool",
+      "footprint": [-2, -1.25, 4, 2.5],
+      "cost": { "bowl": 1 },
+      "knowledge": "bowl-pool",
+      "surfaces": ["flat-ground"],
+      "rotations": [0],
+      "capabilities": ["socialize"],
+      "slots": [
+        [-2.5, 0, "right"],
+        [2.5, 0, "left"]
+      ]
+    }
+  }
+}

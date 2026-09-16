@@ -1,0 +1,612 @@
+{
+    "ascua-walk": {
+        "bodyHeight": 211,
+        "cellWidth": 222,
+        "ratio": 0.1895734597156398
+    },
+    "ascua-neighbor-a": {
+        "bodyHeight": 214,
+        "cellWidth": 222,
+        "ratio": 0.18691588785046728
+    },
+    "ascua-neighbor-b": {
+        "bodyHeight": 211,
+        "cellWidth": 222,
+        "ratio": 0.1895734597156398
+    },
+    "zarzal": {
+        "bodyHeight": 214,
+        "cellWidth": 222,
+        "ratio": 0.18691588785046728
+    },
+    "zarzal-neighbor-a-framed": {
+        "bodyHeight": 172,
+        "cellWidth": 222,
+        "ratio": 0.23255813953488372
+    },
+    "zarzal-neighbor-b": {
+        "bodyHeight": 213,
+        "cellWidth": 222,
+        "ratio": 0.18779342723004694
+    },
+    "trasto": {
+        "bodyHeight": 209,
+        "cellWidth": 222,
+        "ratio": 0.19138755980861244
+    },
+    "trasto-neighbor-a-framed": {
+        "bodyHeight": 185,
+        "cellWidth": 222,
+        "ratio": 0.21621621621621623
+    },
+    "trasto-neighbor-b": {
+        "bodyHeight": 201,
+        "cellWidth": 222,
+        "ratio": 0.19900497512437812
+    },
+    "candil": {
+        "bodyHeight": 213,
+        "cellWidth": 222,
+        "ratio": 0.18779342723004694
+    },
+    "candil-neighbor-a": {
+        "bodyHeight": 214,
+        "cellWidth": 222,
+        "ratio": 0.18691588785046728
+    },
+    "candil-neighbor-b": {
+        "bodyHeight": 206,
+        "cellWidth": 222,
+        "ratio": 0.1941747572815534
+    },
+    "ascua-push-corrected": {
+        "bodyHeight": 292,
+        "cellWidth": 314,
+        "ratio": 0.13356164383561644
+    },
+    "ascua-roll-matte": {
+        "bodyHeight": 211,
+        "cellWidth": 222,
+        "ratio": 0.1895734597156398
+    },
+    "ascua-work": {
+        "bodyHeight": 295,
+        "cellWidth": 314,
+        "ratio": 0.13559322033898305
+    },
+    "ascua-discover": {
+        "bodyHeight": 559,
+        "cellWidth": 543,
+        "ratio": 0.07155635062611806
+    },
+    "ascua-needs": {
+        "bodyHeight": 397,
+        "cellWidth": 444,
+        "ratio": 0.10075566750629723
+    },
+    "ascua-bow": {
+        "bodyHeight": 281,
+        "cellWidth": 222,
+        "ratio": 0.1423487544483986
+    },
+    "ascua-run": {
+        "bodyHeight": 211,
+        "cellWidth": 222,
+        "ratio": 0.1895734597156398
+    },
+    "ascua-roll-recover": {
+        "bodyHeight": 354,
+        "cellWidth": 272,
+        "ratio": 0.11299435028248588
+    },
+    "brizno-walk": {
+        "bodyHeight": 209,
+        "cellWidth": 222,
+        "ratio": 0.19138755980861244
+    },
+    "brizno-seated": {
+        "bodyHeight": 209,
+        "cellWidth": 222,
+        "ratio": 0.1722488038277512
+    },
+    "resident-001": {
+        "bodyHeight": 204,
+        "cellWidth": 222,
+        "ratio": 0.19607843137254902
+    },
+    "resident-002": {
+        "bodyHeight": 210,
+        "cellWidth": 222,
+        "ratio": 0.19047619047619047
+    },
+    "resident-003": {
+        "bodyHeight": 213,
+        "cellWidth": 222,
+        "ratio": 0.18779342723004694
+    },
+    "resident-004": {
+        "bodyHeight": 213,
+        "cellWidth": 222,
+        "ratio": 0.18779342723004694
+    },
+    "resident-005": {
+        "bodyHeight": 206,
+        "cellWidth": 222,
+        "ratio": 0.1941747572815534
+    },
+    "resident-006": {
+        "bodyHeight": 213,
+        "cellWidth": 222,
+        "ratio": 0.18779342723004694
+    },
+    "resident-007": {
+        "bodyHeight": 207,
+        "cellWidth": 222,
+        "ratio": 0.1932367149758454
+    },
+    "resident-008": {
+        "bodyHeight": 204,
+        "cellWidth": 222,
+        "ratio": 0.19607843137254902
+    },
+    "resident-009": {
+        "bodyHeight": 201,
+        "cellWidth": 222,
+        "ratio": 0.19900497512437812
+    },
+    "resident-010": {
+        "bodyHeight": 204,
+        "cellWidth": 222,
+        "ratio": 0.19607843137254902
+    },
+    "resident-011": {
+        "bodyHeight": 208,
+        "cellWidth": 222,
+        "ratio": 0.19230769230769232
+    },
+    "resident-012": {
+        "bodyHeight": 208,
+        "cellWidth": 222,
+        "ratio": 0.19230769230769232
+    },
+    "resident-013": {
+        "bodyHeight": 207,
+        "cellWidth": 222,
+        "ratio": 0.1932367149758454
+    },
+    "resident-014": {
+        "bodyHeight": 207,
+        "cellWidth": 222,
+        "ratio": 0.1932367149758454
+    },
+    "resident-015": {
+        "bodyHeight": 203,
+        "cellWidth": 222,
+        "ratio": 0.19704433497536947
+    },
+    "resident-016": {
+        "bodyHeight": 210,
+        "cellWidth": 222,
+        "ratio": 0.19047619047619047
+    },
+    "resident-017": {
+        "bodyHeight": 211,
+        "cellWidth": 222,
+        "ratio": 0.1895734597156398
+    },
+    "resident-018": {
+        "bodyHeight": 213,
+        "cellWidth": 222,
+        "ratio": 0.18779342723004694
+    },
+    "resident-019": {
+        "bodyHeight": 208,
+        "cellWidth": 222,
+        "ratio": 0.19230769230769232
+    },
+    "resident-020": {
+        "bodyHeight": 208,
+        "cellWidth": 222,
+        "ratio": 0.19230769230769232
+    },
+    "resident-021": {
+        "bodyHeight": 207,
+        "cellWidth": 222,
+        "ratio": 0.1932367149758454
+    },
+    "resident-022": {
+        "bodyHeight": 208,
+        "cellWidth": 222,
+        "ratio": 0.19230769230769232
+    },
+    "resident-023": {
+        "bodyHeight": 211,
+        "cellWidth": 222,
+        "ratio": 0.1895734597156398
+    },
+    "resident-024": {
+        "bodyHeight": 209,
+        "cellWidth": 222,
+        "ratio": 0.19138755980861244
+    },
+    "resident-025": {
+        "bodyHeight": 205,
+        "cellWidth": 222,
+        "ratio": 0.1951219512195122
+    },
+    "resident-026": {
+        "bodyHeight": 195,
+        "cellWidth": 222,
+        "ratio": 0.20512820512820512
+    },
+    "resident-027": {
+        "bodyHeight": 190,
+        "cellWidth": 222,
+        "ratio": 0.21052631578947367
+    },
+    "resident-028": {
+        "bodyHeight": 213,
+        "cellWidth": 222,
+        "ratio": 0.18779342723004694
+    },
+    "resident-029": {
+        "bodyHeight": 208,
+        "cellWidth": 222,
+        "ratio": 0.19230769230769232
+    },
+    "resident-030": {
+        "bodyHeight": 210,
+        "cellWidth": 222,
+        "ratio": 0.19047619047619047
+    },
+    "resident-031": {
+        "bodyHeight": 208,
+        "cellWidth": 222,
+        "ratio": 0.19230769230769232
+    },
+    "resident-032": {
+        "bodyHeight": 198,
+        "cellWidth": 222,
+        "ratio": 0.20202020202020202
+    },
+    "resident-033": {
+        "bodyHeight": 206,
+        "cellWidth": 222,
+        "ratio": 0.1941747572815534
+    },
+    "resident-034": {
+        "bodyHeight": 211,
+        "cellWidth": 222,
+        "ratio": 0.1895734597156398
+    },
+    "resident-035": {
+        "bodyHeight": 206,
+        "cellWidth": 222,
+        "ratio": 0.1941747572815534
+    },
+    "resident-036": {
+        "bodyHeight": 210,
+        "cellWidth": 222,
+        "ratio": 0.19047619047619047
+    },
+    "resident-037": {
+        "bodyHeight": 212,
+        "cellWidth": 222,
+        "ratio": 0.18867924528301888
+    },
+    "resident-038": {
+        "bodyHeight": 211,
+        "cellWidth": 222,
+        "ratio": 0.1895734597156398
+    },
+    "resident-039": {
+        "bodyHeight": 205,
+        "cellWidth": 222,
+        "ratio": 0.1951219512195122
+    },
+    "resident-040": {
+        "bodyHeight": 211,
+        "cellWidth": 222,
+        "ratio": 0.1895734597156398
+    },
+    "resident-041": {
+        "bodyHeight": 205,
+        "cellWidth": 222,
+        "ratio": 0.1951219512195122
+    },
+    "resident-042": {
+        "bodyHeight": 206,
+        "cellWidth": 222,
+        "ratio": 0.1941747572815534
+    },
+    "resident-043": {
+        "bodyHeight": 204,
+        "cellWidth": 222,
+        "ratio": 0.19607843137254902
+    },
+    "resident-044": {
+        "bodyHeight": 201,
+        "cellWidth": 222,
+        "ratio": 0.19900497512437812
+    },
+    "resident-045": {
+        "bodyHeight": 195,
+        "cellWidth": 222,
+        "ratio": 0.20512820512820512
+    },
+    "resident-046": {
+        "bodyHeight": 202,
+        "cellWidth": 222,
+        "ratio": 0.19801980198019803
+    },
+    "resident-047": {
+        "bodyHeight": 205,
+        "cellWidth": 222,
+        "ratio": 0.1951219512195122
+    },
+    "resident-048": {
+        "bodyHeight": 211,
+        "cellWidth": 222,
+        "ratio": 0.1895734597156398
+    },
+    "resident-049": {
+        "bodyHeight": 207,
+        "cellWidth": 222,
+        "ratio": 0.1932367149758454
+    },
+    "resident-050": {
+        "bodyHeight": 210,
+        "cellWidth": 222,
+        "ratio": 0.19047619047619047
+    },
+    "resident-051": {
+        "bodyHeight": 193,
+        "cellWidth": 222,
+        "ratio": 0.20725388601036268
+    },
+    "resident-052": {
+        "bodyHeight": 208,
+        "cellWidth": 222,
+        "ratio": 0.19230769230769232
+    },
+    "resident-053": {
+        "bodyHeight": 215,
+        "cellWidth": 222,
+        "ratio": 0.18604651162790697
+    },
+    "resident-054": {
+        "bodyHeight": 197,
+        "cellWidth": 222,
+        "ratio": 0.20304568527918782
+    },
+    "resident-055": {
+        "bodyHeight": 209,
+        "cellWidth": 222,
+        "ratio": 0.19138755980861244
+    },
+    "resident-056": {
+        "bodyHeight": 209,
+        "cellWidth": 222,
+        "ratio": 0.19138755980861244
+    },
+    "resident-057": {
+        "bodyHeight": 205,
+        "cellWidth": 222,
+        "ratio": 0.1951219512195122
+    },
+    "resident-058": {
+        "bodyHeight": 211,
+        "cellWidth": 222,
+        "ratio": 0.1895734597156398
+    },
+    "resident-059": {
+        "bodyHeight": 208,
+        "cellWidth": 222,
+        "ratio": 0.19230769230769232
+    },
+    "resident-060": {
+        "bodyHeight": 203,
+        "cellWidth": 222,
+        "ratio": 0.19704433497536947
+    },
+    "resident-061": {
+        "bodyHeight": 203,
+        "cellWidth": 222,
+        "ratio": 0.19704433497536947
+    },
+    "resident-062": {
+        "bodyHeight": 210,
+        "cellWidth": 222,
+        "ratio": 0.19047619047619047
+    },
+    "resident-063": {
+        "bodyHeight": 211,
+        "cellWidth": 222,
+        "ratio": 0.1895734597156398
+    },
+    "resident-064": {
+        "bodyHeight": 212,
+        "cellWidth": 222,
+        "ratio": 0.18867924528301888
+    },
+    "resident-065": {
+        "bodyHeight": 214,
+        "cellWidth": 222,
+        "ratio": 0.18691588785046728
+    },
+    "resident-066": {
+        "bodyHeight": 209,
+        "cellWidth": 222,
+        "ratio": 0.19138755980861244
+    },
+    "resident-067": {
+        "bodyHeight": 202,
+        "cellWidth": 222,
+        "ratio": 0.19801980198019803
+    },
+    "resident-068": {
+        "bodyHeight": 208,
+        "cellWidth": 222,
+        "ratio": 0.19230769230769232
+    },
+    "resident-069": {
+        "bodyHeight": 214,
+        "cellWidth": 222,
+        "ratio": 0.18691588785046728
+    },
+    "resident-070": {
+        "bodyHeight": 209,
+        "cellWidth": 222,
+        "ratio": 0.19138755980861244
+    },
+    "resident-071": {
+        "bodyHeight": 201,
+        "cellWidth": 222,
+        "ratio": 0.19900497512437812
+    },
+    "resident-072": {
+        "bodyHeight": 211,
+        "cellWidth": 222,
+        "ratio": 0.1895734597156398
+    },
+    "resident-073": {
+        "bodyHeight": 214,
+        "cellWidth": 222,
+        "ratio": 0.18691588785046728
+    },
+    "resident-074": {
+        "bodyHeight": 208,
+        "cellWidth": 222,
+        "ratio": 0.19230769230769232
+    },
+    "resident-075": {
+        "bodyHeight": 211,
+        "cellWidth": 222,
+        "ratio": 0.1895734597156398
+    },
+    "resident-076": {
+        "bodyHeight": 215,
+        "cellWidth": 222,
+        "ratio": 0.18604651162790697
+    },
+    "resident-077": {
+        "bodyHeight": 207,
+        "cellWidth": 222,
+        "ratio": 0.1932367149758454
+    },
+    "resident-078": {
+        "bodyHeight": 205,
+        "cellWidth": 222,
+        "ratio": 0.1951219512195122
+    },
+    "resident-079": {
+        "bodyHeight": 206,
+        "cellWidth": 222,
+        "ratio": 0.1941747572815534
+    },
+    "resident-080": {
+        "bodyHeight": 207,
+        "cellWidth": 222,
+        "ratio": 0.1932367149758454
+    },
+    "resident-081": {
+        "bodyHeight": 201,
+        "cellWidth": 222,
+        "ratio": 0.19900497512437812
+    },
+    "resident-082": {
+        "bodyHeight": 210,
+        "cellWidth": 222,
+        "ratio": 0.19047619047619047
+    },
+    "resident-083": {
+        "bodyHeight": 209,
+        "cellWidth": 222,
+        "ratio": 0.19138755980861244
+    },
+    "resident-084": {
+        "bodyHeight": 213,
+        "cellWidth": 222,
+        "ratio": 0.18779342723004694
+    },
+    "resident-085": {
+        "bodyHeight": 211,
+        "cellWidth": 222,
+        "ratio": 0.1895734597156398
+    },
+    "resident-086": {
+        "bodyHeight": 207,
+        "cellWidth": 222,
+        "ratio": 0.1932367149758454
+    },
+    "resident-087": {
+        "bodyHeight": 210,
+        "cellWidth": 222,
+        "ratio": 0.19047619047619047
+    },
+    "resident-088": {
+        "bodyHeight": 206,
+        "cellWidth": 222,
+        "ratio": 0.1941747572815534
+    },
+    "resident-089": {
+        "bodyHeight": 208,
+        "cellWidth": 222,
+        "ratio": 0.19230769230769232
+    },
+    "resident-090": {
+        "bodyHeight": 218,
+        "cellWidth": 222,
+        "ratio": 0.1834862385321101
+    },
+    "resident-091": {
+        "bodyHeight": 208,
+        "cellWidth": 222,
+        "ratio": 0.19230769230769232
+    },
+    "resident-092": {
+        "bodyHeight": 199,
+        "cellWidth": 222,
+        "ratio": 0.20100502512562815
+    },
+    "resident-093": {
+        "bodyHeight": 205,
+        "cellWidth": 222,
+        "ratio": 0.1951219512195122
+    },
+    "resident-094": {
+        "bodyHeight": 210,
+        "cellWidth": 222,
+        "ratio": 0.19047619047619047
+    },
+    "resident-095": {
+        "bodyHeight": 209,
+        "cellWidth": 222,
+        "ratio": 0.19138755980861244
+    },
+    "resident-096": {
+        "bodyHeight": 207,
+        "cellWidth": 222,
+        "ratio": 0.1932367149758454
+    },
+    "resident-097": {
+        "bodyHeight": 209,
+        "cellWidth": 222,
+        "ratio": 0.19138755980861244
+    },
+    "resident-098": {
+        "bodyHeight": 201,
+        "cellWidth": 222,
+        "ratio": 0.19900497512437812
+    },
+    "resident-099": {
+        "bodyHeight": 200,
+        "cellWidth": 222,
+        "ratio": 0.2
+    },
+    "resident-100": {
+        "bodyHeight": 204,
+        "cellWidth": 222,
+        "ratio": 0.19607843137254902
+    }
+}

@@ -1,0 +1,71 @@
+{
+  "overworld": {
+    "renewMs": 86400000,
+    "nodes": [
+      "picnic-twig",
+      "picnic-twigs",
+      "twig-grove-west",
+      "twig-grove-east",
+      "twig-fern",
+      "twig-stump",
+      "twig-camp",
+      "twig-dock",
+      "twig-fountain",
+      "twig-workshop",
+      "twig-moss",
+      "twig-root"
+    ]
+  },
+  "river-willows": {
+    "renewMs": 86400000,
+    "nodes": [
+      "bank-twig-0",
+      "bank-twig-1",
+      "bank-twig-2",
+      "bank-twig-3",
+      "bank-twig-4",
+      "bank-twig-5",
+      "bank-twig-6",
+      "bank-twig-7"
+    ]
+  },
+  "river-reeds": {
+    "renewMs": 86400000,
+    "nodes": [
+      "bank-twig-0",
+      "bank-twig-1",
+      "bank-twig-2",
+      "bank-twig-3",
+      "bank-twig-4",
+      "bank-twig-5",
+      "bank-twig-6",
+      "bank-twig-7"
+    ]
+  },
+  "river-rapids": {
+    "renewMs": 86400000,
+    "nodes": [
+      "bank-twig-0",
+      "bank-twig-1",
+      "bank-twig-2",
+      "bank-twig-3",
+      "bank-twig-4",
+      "bank-twig-5",
+      "bank-twig-6",
+      "bank-twig-7"
+    ]
+  },
+  "river-roots": {
+    "renewMs": 86400000,
+    "nodes": [
+      "bank-twig-0",
+      "bank-twig-1",
+      "bank-twig-2",
+      "bank-twig-3",
+      "bank-twig-4",
+      "bank-twig-5",
+      "bank-twig-6",
+      "bank-twig-7"
+    ]
+  }
+}

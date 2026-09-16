@@ -1,0 +1,196 @@
+{
+  "start": "overworld",
+  "flags": [
+    "mushroomFound",
+    "lighterFound",
+    "fireLit",
+    "twigFound",
+    "skewerCooked",
+    "picnicFed",
+    "knifeFound",
+    "boatBuilt",
+    "bowlFound",
+    "seedsFound"
+  ],
+  "items": {
+    "bowl": {"name":"bowlName","description":"bowlDescription","sprite":"cat-bowl","max":1,"usable":false,"reusable":false},
+    "seeds": {"name":"seedsName","description":"seedsDescription","sprite":"garden-seed-sack","max":1,"usable":false,"reusable":true},
+    "mushroom": {
+      "name": "mushroomName",
+      "description": "mushroomDescription",
+      "sprite": "giant-bolete",
+      "max": 1,
+      "usable": true,
+      "reusable": false
+    },
+    "lighter": {
+      "name": "lighterName",
+      "description": "lighterDescription",
+      "sprite": "lighter",
+      "max": 1,
+      "usable": true,
+      "reusable": true
+    },
+    "twig": {
+      "name": "twigName",
+      "description": "twigDescription",
+      "sprite": "twig",
+      "max": 99,
+      "usable": true,
+      "reusable": false
+    },
+    "skewer": {
+      "name": "skewerName",
+      "description": "skewerDescription",
+      "sprite": "skewer",
+      "max": 1,
+      "usable": true,
+      "reusable": false
+    },
+    "shell": {
+      "name": "shellName",
+      "description": "shellDescription",
+      "sprite": "shells",
+      "max": 1,
+      "usable": true,
+      "reusable": false
+    },
+    "leaf": {
+      "name": "leafName",
+      "description": "leafDescription",
+      "sprite": "toilet-leaf",
+      "max": 99,
+      "usable": false,
+      "reusable": false
+    },
+    "knife": {
+      "name": "knifeName",
+      "description": "knifeDescription",
+      "sprite": "picnic-knife",
+      "max": 1,
+      "usable": true,
+      "reusable": true
+    },
+    "bottle": {
+      "name": "bottleName",
+      "description": "bottleDescription",
+      "sprite": "plastic-bottle",
+      "max": 1,
+      "usable": true,
+      "reusable": false
+    },
+    "oars": {
+      "name": "oarsName",
+      "description": "oarsDescription",
+      "sprite": "old-oars",
+      "max": 1,
+      "usable": true,
+      "reusable": true
+    },
+    "boat": {
+      "name": "bottleBoatName",
+      "description": "bottleBoatDescription",
+      "sprite": "bottle-boat",
+      "max": 1,
+      "usable": false,
+      "reusable": true
+    }
+  },
+  "contentRooms": {
+    "stories": {
+      "scene": "overworld",
+      "circle": [
+        105.5,
+        81.5,
+        10
+      ],
+      "kinds": [
+        "cuento"
+      ],
+      "focus": "story-fire"
+    },
+    "jokes": {
+      "scene": "tavern",
+      "kinds": [
+        "chiste"
+      ],
+      "focus": "jokes"
+    },
+    "expressions": {
+      "scene": "house",
+      "kinds": [
+        "expresion"
+      ],
+      "focus": "expression-book"
+    },
+    "shop": {
+      "scene": "workshop",
+      "focus": "shop"
+    },
+    "art": {
+      "scene": "overworld",
+      "circle": [
+        37.5,
+        42.5,
+        8
+      ],
+      "focus": "art-table"
+    }
+  },
+  "economy": {
+    "scope": "local-preview",
+    "currency": "setines",
+    "maxBalance": 9999,
+    "fares": {
+      "wish": 1
+    },
+    "rewards": {
+      "picnic": {
+        "once": true,
+        "amount": 10
+      },
+      "shell": {
+        "once": false,
+        "amount": 5
+      }
+    },
+    "sprite": "setin"
+  },
+  "dialogueTokens": {
+    "reward": {
+      "reward": "picnic"
+    }
+  },
+  "needs": {
+    "hours": {
+      "pee": [
+        6,
+        10
+      ],
+      "poop": [
+        8,
+        16
+      ]
+    },
+    "leafItem": "leaf",
+    "durations": {
+      "pee": 3.2,
+      "poop": 4.6
+    },
+    "traces": {
+      "max": 48,
+      "peeSeconds": 300,
+      "poopSeconds": 86400
+    }
+  },
+  "timers": {
+    "picnic": {
+      "hours": 5
+    }
+  },
+  "navigation": {
+    "restoreBoatIn": [
+      "islet"
+    ]
+  }
+}

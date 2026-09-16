@@ -1,0 +1,35 @@
+{
+  "tool": "built-in image_gen",
+  "layout": {
+    "columns": 4,
+    "rows": 1,
+    "direction": "up"
+  },
+  "sources": [
+    {
+      "id": "ginger-rear",
+      "reference": "ginger.png (cropped right-profile identity)",
+      "prompt": "Original game animation sprite sheet. Reference is ONLY cat identity; do NOT copy the reference pose. Exactly FOUR equal SQUARE cells in ONE horizontal row (4:1 wide canvas). The same ginger tabby CAT WALKING DIRECTLY AWAY FROM CAMERA, rear view, elevated orthographic camera. FOUR DISTINCT frames of a real quadruped walking cycle. IMPORTANT each frame must visibly change the rear legs: Frame 1 LEFT rear leg stretched back toward viewer, left paw LOW on screen; RIGHT rear knee flexed and lifted forward, right paw HIGH, sole a little visible. Frame 2 left rear foot passes under hip, right rear leg reaching backward. Frame 3 opposite of frame 1: RIGHT rear leg stretched toward viewer with right paw LOW, LEFT rear leg lifted and paw HIGH. Frame 4 opposite passing pose: right rear foot under hip and left rear leg reaching backward. Left and right rear paws swap vertical positions by about 15 percent of cat height. Front paws can peek on either side beyond torso. Keep body, head, spine and upright gently curved tail REGISTERED identically every frame; only legs articulate. Cat head above body on image, back of head facing away, no face visible, no side view. Warm fine detailed painted pixel-ready art. Cream paws and dark ginger striped coat, not human knees, feline hocks. Four complete silhouettes with equal scale and 8% empty margin in every cell. Truly transparent background no checkerboard, text or ground shadow."
+    },
+    {
+      "id": "tuxedo-rear",
+      "reference": "ginger-rear.png; tuxedo-walk.png (coat only)",
+      "prompt": "Change ONLY coat colors of the FIRST reference to: Black tuxedo fur, WHITE muzzle chest and all four socks, bright GREEN eyes, white tail tip. Use the second reference only for this existing cat identity/coat. Preserve exact pose, registration, four columns by ONE row layout and complete silhouettes from FIRST reference. All four frames are the SAME cat walking AWAY from camera, REAR view. Preserve the very distinct alternating rear footfall: frame1 LEFT leg extended low / RIGHT paw raised sole visible; frame2 passing; frame3 RIGHT leg extended low / LEFT paw raised sole visible; frame4 opposite passing. Do not change or repeat the four poses! Torso/head/tail remain still at the exact same registration in each frame; only legs move. No text, no scenery, no cast shadows, truly transparent alpha background. Exact four equal cells one row, finely detailed warm painted pixel-ready game art."
+    },
+    {
+      "id": "silver-rear",
+      "reference": "ginger-rear.png; silver-walk.png (coat only)",
+      "prompt": "Change ONLY coat colors of the FIRST reference to: Silver-grey tabby, charcoal stripes, pale cream-white muzzle chest and paws, GOLD eyes. Use the second reference only for this existing cat identity/coat. Preserve exact pose, registration, four columns by ONE row layout and complete silhouettes from FIRST reference. All four frames are the SAME cat walking AWAY from camera, REAR view. Preserve the very distinct alternating rear footfall: frame1 LEFT leg extended low / RIGHT paw raised sole visible; frame2 passing; frame3 RIGHT leg extended low / LEFT paw raised sole visible; frame4 opposite passing. Do not change or repeat the four poses! Torso/head/tail remain still at the exact same registration in each frame; only legs move. No text, no scenery, no cast shadows, truly transparent alpha background. Exact four equal cells one row, finely detailed warm painted pixel-ready game art."
+    },
+    {
+      "id": "calico-rear",
+      "reference": "ginger-rear.png; calico-walk.png (coat only)",
+      "prompt": "Change ONLY coat colors of the FIRST reference to: Calico WHITE base, ORANGE and BLACK patches, white paws and chest, GREEN eyes. Use the second reference only for this existing cat identity/coat. Preserve exact pose, registration, four columns by ONE row layout and complete silhouettes from FIRST reference. All four frames are the SAME cat walking AWAY from camera, REAR view. Preserve the very distinct alternating rear footfall: frame1 LEFT leg extended low / RIGHT paw raised sole visible; frame2 passing; frame3 RIGHT leg extended low / LEFT paw raised sole visible; frame4 opposite passing. Do not change or repeat the four poses! Torso/head/tail remain still at the exact same registration in each frame; only legs move. No text, no scenery, no cast shadows, truly transparent alpha background. Exact four equal cells one row, finely detailed warm painted pixel-ready game art."
+    },
+    {
+      "id": "siamese-rear",
+      "reference": "ginger-rear.png; siamese-walk.png (coat only)",
+      "prompt": "Change ONLY coat colors of the FIRST reference to: Siamese warm ivory-cream body, dark chocolate seal point mask ears paws and tail, BLUE eyes. Use the second reference only for this existing cat identity/coat. Preserve exact pose, registration, four columns by ONE row layout and complete silhouettes from FIRST reference. All four frames are the SAME cat walking AWAY from camera, REAR view. Preserve the very distinct alternating rear footfall: frame1 LEFT leg extended low / RIGHT paw raised sole visible; frame2 passing; frame3 RIGHT leg extended low / LEFT paw raised sole visible; frame4 opposite passing. Do not change or repeat the four poses! Torso/head/tail remain still at the exact same registration in each frame; only legs move. No text, no scenery, no cast shadows, truly transparent alpha background. Exact four equal cells one row, finely detailed warm painted pixel-ready game art."
+    }
+  ]
+}

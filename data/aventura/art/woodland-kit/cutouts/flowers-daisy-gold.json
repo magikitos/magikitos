@@ -1,0 +1,12 @@
+{
+    "source": "flowers-daisy-gold.png",
+    "sourceHash": "412a90108e3ec2218211f881693bfa9a2d94131488b182c8cafd9af5ac968cd4",
+    "bounds": [
+        168,
+        187,
+        887,
+        939
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

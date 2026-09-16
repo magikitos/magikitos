@@ -1,0 +1,12 @@
+{
+    "source": "picnic-lemonade.png",
+    "sourceHash": "6835ea7063ac683096c7d7e999f2019ac467f6f78a64593c9bf9d2a4cfbab4cd",
+    "bounds": [
+        263,
+        328,
+        417,
+        1011
+    ],
+    "matte": "original-alpha",
+    "fringePixels": 2
+}

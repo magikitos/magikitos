@@ -1,0 +1,42 @@
+{
+  "music": [
+    {
+      "id": "7792772cf05e93c57968429bb786dce5",
+      "kind": "music",
+      "file": "7792772cf05e93c57968429bb786dce5.mp3",
+      "duration": 167.92,
+      "bytes": 2687939
+    },
+    {
+      "id": "d5a318e23787d1ce716b1d9800490a14",
+      "kind": "music",
+      "file": "d5a318e23787d1ce716b1d9800490a14.mp3",
+      "duration": 174.52,
+      "bytes": 2793265
+    },
+    {
+      "id": "4803c4132a0fd81a75b6bccf7837ab3a",
+      "kind": "music",
+      "file": "4803c4132a0fd81a75b6bccf7837ab3a.mp3",
+      "duration": 196.76,
+      "bytes": 3149366
+    },
+    {
+      "id": "79e4e1ea3fbf68712d052c539e3bfa59",
+      "kind": "music",
+      "file": "79e4e1ea3fbf68712d052c539e3bfa59.mp3",
+      "duration": 188,
+      "bytes": 3008932
+    }
+  ],
+  "ambience": {
+    "river": {
+      "id": "c53df1aaa73493375407096a2939f71b",
+      "kind": "ambience",
+      "key": "river",
+      "file": "c53df1aaa73493375407096a2939f71b.mp3",
+      "duration": 56.422688,
+      "bytes": 565245
+    }
+  }
+}

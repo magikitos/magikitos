@@ -1,0 +1,111 @@
+/* The welcome belongs to the forest; it never becomes a separate loading page. */
+.world-entry {
+  margin: auto;
+  border: 0;
+  padding: 0;
+  width: min(470px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+  color: #fff6dd;
+  background: transparent;
+}
+.world-entry::backdrop {
+  background: #122d29a8;
+  backdrop-filter: blur(3px);
+}
+.world-entry-card {
+  padding: clamp(24px, 5vw, 46px) clamp(20px, 5vw, 40px);
+  text-align: center;
+  border: 1px solid #d5ddaa55;
+  border-radius: 28px 28px 48px 28px;
+  background: radial-gradient(ellipse at top, #526548ee, #213e33f5 80%);
+  box-shadow:
+    0 20px 70px #061c2780,
+    inset 0 1px #e1e7b52b;
+}
+.world-entry-eyebrow {
+  display: block;
+  font:
+    12px WorldRound,
+    sans-serif;
+  letter-spacing: 0.32em;
+  color: #dac58d;
+}
+.world-entry h1 {
+  font:
+    clamp(28px, 6vw, 42px) / 1.12 WorldRound,
+    sans-serif;
+  margin: 18px 0 14px;
+  text-wrap: balance;
+}
+.world-entry p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #e0e4c9;
+  margin: 0 0 26px;
+  text-wrap: balance;
+}
+.world-entry #entry-start {
+  min-height: 52px;
+  width: 100%;
+  border: 1px solid #ffebaf;
+  border-radius: 17px;
+  background: #eed395;
+  color: #233e32;
+  font-weight: 700;
+  box-shadow: 0 4px 0 #ac935c;
+}
+.world-entry #entry-start:disabled {
+  opacity: 0.65;
+  cursor: progress;
+}
+.world-entry-options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px 18px;
+  margin-top: 23px;
+}
+.world-entry-options label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 32px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.world-entry-options input {
+  width: 18px;
+  height: 18px;
+  accent-color: #dec487;
+}
+.world-entry small {
+  display: block;
+  margin-top: 12px;
+  color: #d0d9bd;
+  font-size: 12px;
+}
+.world-fullscreen {
+  position: fixed;
+  top: max(18px, env(safe-area-inset-top));
+  left: max(18px, env(safe-area-inset-left));
+  z-index: 15;
+}
+@media (max-height: 480px) {
+  .world-entry {
+    width: min(500px, calc(100vw - 40px));
+  }
+  .world-entry-card {
+    padding: 18px 28px;
+  }
+  .world-entry h1 {
+    font-size: 27px;
+    margin: 9px 0;
+  }
+  .world-entry p {
+    margin-bottom: 15px;
+  }
+  .world-entry-options {
+    margin-top: 12px;
+  }
+}

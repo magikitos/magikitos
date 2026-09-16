@@ -1,0 +1,12 @@
+{
+    "source": "cupboard-bark.png",
+    "sourceHash": "bf013ea1676e1b09616deb0eeb140460de4d27916969d9241c9d0c4e4f461375",
+    "bounds": [
+        181,
+        123,
+        711,
+        1259
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

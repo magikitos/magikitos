@@ -1,0 +1,16 @@
+{
+  "frames": {
+    "barbecue-lit": {
+      "source": "data/aventura/art/harbor-cutout.png",
+      "rect": [0, 600, 724, 486],
+      "size": [32, 30],
+      "fit": true
+    },
+    "barbecue": {
+      "source": "data/aventura/art/harbor-cutout.png",
+      "rect": [724, 600, 724, 486],
+      "size": [32, 30],
+      "fit": true
+    }
+  }
+}

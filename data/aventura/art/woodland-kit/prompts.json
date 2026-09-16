@@ -1,0 +1,1183 @@
+{
+  "style": "Detailed original top-down pixel art for Magikitos, a tiny-elf forest adventure. Match the reference's warm amber lights, moss greens, richly textured bark and readable sharp pixel clusters; native artwork not a blurry painting or crude low-poly model. Fixed high three-quarter view about 55 degrees looking down, orthographic projection, front at bottom, light from upper left. One complete isolated object centered with at least 12% empty margin on ALL sides. BACKGROUND FOR OFFLINE CUTOUT: perfectly uniform solid saturated MAGENTA (#ff00ff), no checkerboard, no gradients, no color spill, no cast shadow. Every gap between leaves is the same solid magenta. Subject must contain no magenta. No ground tile, no square grass base, no text, no labels, no watermark. The original will be preserved; a deterministic local pipeline makes the background transparent. Make a generous-resolution master with bold readable forms that survive native-pixel reduction.",
+  "references": [
+    "data/aventura/art/forest-near-habitats-open.png"
+  ],
+  "assets": [
+    {
+      "id": "home-log-workshop",
+      "family": "log-home",
+      "variant": "taller",
+      "size": [
+        196,
+        152
+      ],
+      "anchor": [
+        75,
+        136
+      ],
+      "subject": "A complete small DUENDE WORKSHOP built inside a horizontal fallen hollow log. Both rounded ends of the log fully inside the picture, never sliced by image boundary. Thick bark, fern and DRY leaf roof, an open arched doorway slightly left of center at the front, warm acorn lantern, tiny amber round window, a modest twig work counter on the right with clay jars and wood shavings. Base rests naturally on ground plane, moss around shallow contact points, no dangling roots.",
+      "sprite": "workshop"
+    },
+    {
+      "id": "home-log-round",
+      "family": "log-home",
+      "variant": "redondo",
+      "size": [
+        196,
+        160
+      ],
+      "anchor": [
+        105,
+        151
+      ],
+      "subject": "A welcoming circular hollow chestnut STUMP DUENDE HOME, naturally grounded with short moss-softened root shoulders disappearing into ground, no exposed root network. Fully visible rounded bark silhouette. Open small arched front door centered low, round amber window to the left, layered dry leaves above the entrance, three cream flowers near the contact point. Detailed handmade forest materials, asymmetric moss crown.",
+      "sprite": "cottage"
+    },
+    {
+      "id": "home-log-twisted",
+      "family": "log-home",
+      "variant": "torcido",
+      "size": [
+        196,
+        160
+      ],
+      "anchor": [
+        98,
+        148
+      ],
+      "subject": "A crooked hollow birch stump DUENDE HOME with warm mossy cracked white bark, open small arched front doorway centered low, slanted twig canopy with russet leaves, oval amber window high right, an acorn lamp. A charming squat stump shape, fully visible sides, broad shallow base naturally seated on ground, no uprooted roots.",
+      "sprite": "home-log-twisted"
+    },
+    {
+      "id": "home-boot-worn",
+      "family": "boot-home",
+      "variant": "gastada",
+      "size": [
+        188,
+        206
+      ],
+      "anchor": [
+        42,
+        192
+      ],
+      "subject": "A DUENDE TAVERN inside an abandoned old chestnut leather lace-up BOOT. Scuffed worn seams, patched toe, sagging boot cuff with moss, tarnished eyelets and thick flax laces. The toe extends bottom-left with a small OPEN arched entrance at bottom-left, dry leaves as a little porch canopy and an acorn lantern. Amber oval window in the ankle, greenery in seams. Funny lived-in, inviting not dirty trash; entire sole visible without image-edge clipping.",
+      "sprite": "tavern"
+    },
+    {
+      "id": "home-boot-ochre",
+      "family": "boot-home",
+      "variant": "remendada",
+      "size": [
+        188,
+        206
+      ],
+      "anchor": [
+        103,
+        193
+      ],
+      "subject": "A DUENDE HOME inside an old ochre-brown worn ankle BOOT with a folded cuff, reddish leather patches, mismatched flax laces, moss in the stitching. Broad toe extends bottom-left with a small OPEN arched entrance bottom-left and DRY fern porch awning. Acorn lantern, round amber window in the heel. Full solitary boot, rustic delightful hand-crafted forest dwelling.",
+      "sprite": "home-boot-ochre"
+    },
+    {
+      "id": "home-leaf-round",
+      "family": "leaf-home",
+      "variant": "avellano",
+      "size": [
+        180,
+        170
+      ],
+      "anchor": [
+        77,
+        153
+      ],
+      "subject": "An inviting little round DUENDE HUT woven from hazel twigs with a generous overlapping roof of matte DRY chestnut leaves. Rounded asymmetric silhouette, open arch doorway centered low, tiny amber side window and acorn lamp. Roots are planted supports not dangling, base of pebbles and moss, no human brick/plaster.",
+      "sprite": "human-house"
+    },
+    {
+      "id": "home-leaf-autumn",
+      "family": "leaf-home",
+      "variant": "otono",
+      "size": [
+        180,
+        170
+      ],
+      "anchor": [
+        100,
+        157
+      ],
+      "subject": "A little DUENDE REFUGE of bent willow branches and matte russet/golden dry leaves like a cozy rounded tent. Open low front arch centered, small amber window in woven twigs and seedpod lantern. A few violet flowers at the base. Full silhouette visible, detailed forest materials, not a human cabin.",
+      "sprite": "home-leaf-autumn"
+    },
+    {
+      "id": "home-mushroom",
+      "family": "mushroom-home",
+      "variant": "canela",
+      "size": [
+        166,
+        180
+      ],
+      "anchor": [
+        83,
+        168
+      ],
+      "subject": "A special HOUSE-SIZED mushroom DUENDE HOME, squat cinnamon cap and cream stem carved into an enchanting dwelling. This is a BUILDING not a collectible mushroom. Closed little round wooden door, two amber windows, dry leaf entry canopy and an acorn lantern, a few plants hugging its base. Fully visible cap with generous space on both sides.",
+      "sprite": "home-mushroom-canela"
+    },
+    {
+      "id": "home-pot",
+      "family": "pot-home",
+      "variant": "terracota",
+      "size": [
+        176,
+        152
+      ],
+      "anchor": [
+        88,
+        140
+      ],
+      "subject": "A DUENDE HOME inside a weathered terracotta FLOWERPOT lying on its side, irregular chipped rim, patched with braided vines, dry fern roof. Closed round wooden door in the pot mouth, tiny amber porthole on side, a clay seed lantern and small daisies at base. Entire pot silhouette visible, no humans.",
+      "sprite": "home-pot-terracotta"
+    },
+    {
+      "id": "flowers-daisy-white",
+      "family": "flowers-daisy",
+      "variant": "blancas",
+      "size": [
+        38,
+        40
+      ],
+      "anchor": [
+        19,
+        36
+      ],
+      "subject": "One delicate clump of wild white daisies, five asymmetrically placed flower heads of different heights, golden centers and slender green stems with a few small matte serrated leaves. Dense enough to read as one little plant, graceful airy silhouette, NO WATER DROPS, no pot, no soil base.",
+      "sprite": "flowers-daisy-white"
+    },
+    {
+      "id": "flowers-daisy-gold",
+      "family": "flowers-daisy",
+      "variant": "doradas",
+      "size": [
+        38,
+        40
+      ],
+      "anchor": [
+        19,
+        36
+      ],
+      "subject": "One asymmetric clump of warm golden yellow wild daisies with amber centers, four open flowers and two tiny buds, curving stems and small DRY matte green leaves. Detailed crisp pixels, no water drops, no pot or ground patch.",
+      "sprite": "flowers-daisy-gold"
+    },
+    {
+      "id": "flowers-bell-blue",
+      "family": "flowers-bell",
+      "variant": "azules",
+      "size": [
+        40,
+        56
+      ],
+      "anchor": [
+        20,
+        52
+      ],
+      "subject": "One lovely clump of woodland bluebells: three arched delicate green stems, nodding bell-shaped cornflower-blue flowers and long curved matte leaves. Different stem heights, readable silhouette, dry foliage with NO DEW, no pot, no soil base.",
+      "sprite": "flowers-bell-blue"
+    },
+    {
+      "id": "flowers-bell-violet",
+      "family": "flowers-bell",
+      "variant": "violetas",
+      "size": [
+        40,
+        56
+      ],
+      "anchor": [
+        20,
+        52
+      ],
+      "subject": "One graceful clump of purple-violet campanula bells, a tall leaning stem and two short side stems, tiny unopened lilac buds and elongated dark green DRY leaves. Fine distinct bell shapes, no water drops, no pot or base.",
+      "sprite": "flowers-bell-violet"
+    },
+    {
+      "id": "flowers-primrose",
+      "family": "flowers-meadow",
+      "variant": "primulas",
+      "size": [
+        42,
+        40
+      ],
+      "anchor": [
+        21,
+        36
+      ],
+      "subject": "A low lush rosette of dry textured green leaves with clustered pale primrose-yellow flowers, warm orange centers, five petals clearly separated. A natural asymmetric woodland flowering plant, NO DEW, no pot, no ground patch.",
+      "sprite": "flowers-primrose"
+    },
+    {
+      "id": "flowers-coral",
+      "family": "flowers-meadow",
+      "variant": "coral",
+      "size": [
+        42,
+        40
+      ],
+      "anchor": [
+        21,
+        36
+      ],
+      "subject": "A low asymmetric woodland plant with warm coral-pink five-petal blossoms and tiny cream centers among rounded deeply veined green leaves. Some flowers open, one bud, matte DRY foliage, no water drops, no pot or soil base.",
+      "sprite": "flowers-coral"
+    },
+    {
+      "id": "fern-curled",
+      "family": "fern",
+      "variant": "rizada",
+      "size": [
+        188,
+        188
+      ],
+      "anchor": [
+        94,
+        179
+      ],
+      "subject": "A lush asymmetrical woodland fern with five arching finely serrated fronds and a fresh curled fiddlehead at center. Deep forest green with yellow-green tips, crisply structured fronds, matte DRY foliage without any water droplets. Entire plant with short hidden stem contact base, no root network, no soil patch.",
+      "sprite": "giant-fern"
+    },
+    {
+      "id": "fern-wide",
+      "family": "fern",
+      "variant": "abierta",
+      "size": [
+        188,
+        188
+      ],
+      "anchor": [
+        94,
+        179
+      ],
+      "subject": "A broad low woodland fern with seven individually shaped fronds fanning unevenly sideways, muted emerald and olive greens, delicate serrated leaflets, a couple of rusty old leaf tips. Dry and matte NO DEW, natural seated base, no pot, no soil patch.",
+      "sprite": "fern-wide"
+    },
+    {
+      "id": "clover-round",
+      "family": "clover",
+      "variant": "redondo",
+      "size": [
+        136,
+        136
+      ],
+      "anchor": [
+        68,
+        130
+      ],
+      "subject": "A forest clover plant with three large three-lobed clover leaves at different heights, heart-shaped matte moss-green leaflets and delicate cream veins, short curving stems. Leaves are completely DRY: NO droplets, no beads, no shiny dew. A tidy small cluster, no ground patch.",
+      "sprite": "giant-clover"
+    },
+    {
+      "id": "clover-heart",
+      "family": "clover",
+      "variant": "corazon",
+      "size": [
+        136,
+        136
+      ],
+      "anchor": [
+        68,
+        130
+      ],
+      "subject": "An airy woodland wood-sorrel plant with four large heart-shaped triple leaves, sage/olive matte DRY surfaces, one tiny pale pink flower nestled low, curving reddish fine stems. No dew or water droplets anywhere, no pot, no ground or shadow.",
+      "sprite": "clover-heart"
+    },
+    {
+      "id": "mushroom-bolete-round",
+      "family": "bolete",
+      "variant": "redonda",
+      "size": [
+        41,
+        40
+      ],
+      "anchor": [
+        21,
+        36
+      ],
+      "subject": "One chubby edible bolete mushroom with warm cinnamon dome cap and thick cream stem, a tiny leaf tucked at its foot. Beautiful readable cap and stem texture at 46x44 native pixels. Entire mushroom, not a gigantic cluster, no house, no face, no dew, no dirt pedestal.",
+      "sprite": "giant-bolete"
+    },
+    {
+      "id": "mushroom-bolete-leaning",
+      "family": "bolete",
+      "variant": "inclinada",
+      "size": [
+        41,
+        40
+      ],
+      "anchor": [
+        21,
+        36
+      ],
+      "subject": "One gently leaning edible woodland bolete mushroom with tawny irregular flattened cap and stout ivory stem, a small notch on cap edge and ochre underside. Carefully clustered crisp pixels at 46x44 native. No house, face, droplets or ground base.",
+      "sprite": "mushroom-bolete-leaning"
+    },
+    {
+      "id": "mushroom-red-round",
+      "family": "scarlet-mushroom",
+      "variant": "redonda",
+      "size": [
+        36,
+        38
+      ],
+      "anchor": [
+        18,
+        34
+      ],
+      "subject": "One charming woodland scarlet mushroom with rounded red cap, a few uneven small cream spots and a slender ivory stem. Entire mushroom readable at 40x42 native pixels, not a building, no face, no water drops, no ground tile.",
+      "sprite": "scarlet-mushrooms"
+    },
+    {
+      "id": "mushroom-red-pair",
+      "family": "scarlet-mushroom",
+      "variant": "pareja",
+      "size": [
+        41,
+        38
+      ],
+      "anchor": [
+        21,
+        34
+      ],
+      "subject": "A pair of small woodland scarlet mushrooms: one red cap with sparse cream spots, a smaller orange-red cap leaning beside it, elegant white stems. One coherent isolated plant cluster readable at 46x42 native. No houses, faces, droplets or soil mound.",
+      "sprite": "mushroom-red-pair"
+    },
+    {
+      "id": "planter-daisy",
+      "family": "planter",
+      "variant": "margaritas",
+      "size": [
+        40,
+        44
+      ],
+      "anchor": [
+        20,
+        40
+      ],
+      "subject": "A small weathered terracotta flowerpot with three white daisies and matte green leaves, a fine vine tied around the chipped rim. A portable duende-scale puzzle object, pot base flat and clearly visible. Entire object, no ground, no dew.",
+      "sprite": "flower-pot"
+    },
+    {
+      "id": "planter-violet",
+      "family": "planter",
+      "variant": "violetas",
+      "size": [
+        40,
+        44
+      ],
+      "anchor": [
+        20,
+        40
+      ],
+      "subject": "A squat moss-stained old ochre clay flowerpot with tiny violet blossoms and soft rounded DRY leaves, chipped asymmetric rim patched by twine. A portable duende-scale puzzle object, visible flat pot bottom. No ground patch or dew.",
+      "sprite": "planter-violet"
+    },
+    {
+      "id": "crate-willow",
+      "family": "crate",
+      "variant": "sauce",
+      "size": [
+        38,
+        34
+      ],
+      "anchor": [
+        19,
+        30
+      ],
+      "subject": "A small portable square storage crate woven from thin willow twigs, warm bark and flax corner lashings, stout flat base, a few gaps revealing a moss liner. A charming duende puzzle block, clear cube form, no human steel nails, no contents taller than rim, no ground patch.",
+      "sprite": "crates"
+    },
+    {
+      "id": "crate-bark",
+      "family": "crate",
+      "variant": "corteza",
+      "size": [
+        38,
+        34
+      ],
+      "anchor": [
+        19,
+        30
+      ],
+      "subject": "A little duende storage box made from irregular overlapping chestnut bark plates and braided grass ties. Rounded corners, closed removable bark lid, one warm reddish patch. Portable puzzle-block scale, flat base, no metal fittings, no letters, no ground patch.",
+      "sprite": "crate-bark"
+    },
+    {
+      "id": "bed-walnut",
+      "family": "bed",
+      "variant": "nuez",
+      "size": [
+        72,
+        86
+      ],
+      "anchor": [
+        36,
+        77
+      ],
+      "subject": "A DUENDE BED made from half a walnut shell, oriented head at top and foot at bottom. Thick soft moss mattress, folded pale green leaf quilt, fluffy cottonseed pillow, tiny twig legs beneath the shell. Cozy small forest furniture, well-defined shell ridges and veined blanket, no human mattress/metal frame.",
+      "sprite": "bed"
+    },
+    {
+      "id": "bed-leaf",
+      "family": "bed",
+      "variant": "hoja",
+      "size": [
+        72,
+        86
+      ],
+      "anchor": [
+        36,
+        77
+      ],
+      "subject": "A tiny DUENDE BED woven between two curved hazel branches, oriented head at top and foot at bottom. Braided grass frame, a thick russet dry leaf as blanket, soft moss mattress and dandelion fluff pillow, acorn finial. Full grounded low furniture silhouette, no human rectangle mattress.",
+      "sprite": "bed-leaf"
+    },
+    {
+      "id": "bed-bark",
+      "family": "bed",
+      "variant": "corteza",
+      "size": [
+        72,
+        86
+      ],
+      "anchor": [
+        36,
+        77
+      ],
+      "subject": "A DUENDE CRADLE BED in a curved boat-shaped piece of chestnut bark on short twig feet, head at top foot at bottom. Sage-green leaf blanket tucked around a cream fluffy seed pillow, thick moss padding, braided violet grass binding. Natural uneven contours, cozy dry textures, no human frame.",
+      "sprite": "bed-bark"
+    },
+    {
+      "id": "table-stump",
+      "family": "table",
+      "variant": "tocón",
+      "size": [
+        64,
+        54
+      ],
+      "anchor": [
+        32,
+        47
+      ],
+      "subject": "A DUENDE TABLE cut from a short rounded tree stump, irregular golden end-grain tabletop with visible annual rings, thick bark pedestal and three small planted root feet. One tiny acorn cup and folded dry leaf napkin on the tabletop. Natural friendly proportions, no ground patch, not human furniture.",
+      "sprite": "table",
+      "aliases": [
+        "bedside-table"
+      ]
+    },
+    {
+      "id": "table-twig",
+      "family": "table",
+      "variant": "ramitas",
+      "size": [
+        64,
+        54
+      ],
+      "anchor": [
+        32,
+        47
+      ],
+      "subject": "A small DUENDE TABLE with irregular bark-slab oval tabletop and three crooked forked branch legs tied with braided grass, a little nutshell bowl on top. Well-defined twine, bark and grain, small rustic natural furniture, no human manufactured planks, no ground patch.",
+      "sprite": "table-twig",
+      "aliases": [
+        "workbench"
+      ]
+    },
+    {
+      "id": "stool-acorn",
+      "family": "stool",
+      "variant": "bellota",
+      "size": [
+        30,
+        31
+      ],
+      "anchor": [
+        15,
+        27
+      ],
+      "subject": "One charming duende STOOL made from an upturned acorn cup as seat, three tiny hazel branch legs, a small round moss cushion on top. Clear scaly acorn cup texture, sturdy little natural furniture. No face or ground patch.",
+      "sprite": "stool-acorn"
+    },
+    {
+      "id": "stool-shell",
+      "family": "stool",
+      "variant": "cáscara",
+      "size": [
+        30,
+        31
+      ],
+      "anchor": [
+        15,
+        27
+      ],
+      "subject": "A duende STOOL made from a small half hazelnut shell on three braided twig legs, topped by a folded burgundy leaf cushion. Uneven cozy handmade silhouette, dry textures, no human upholstery or floor.",
+      "sprite": "stool-shell"
+    },
+    {
+      "id": "cupboard-bark",
+      "family": "cupboard",
+      "variant": "corteza",
+      "size": [
+        56,
+        82
+      ],
+      "anchor": [
+        28,
+        75
+      ],
+      "subject": "A small tall DUENDE CUPBOARD built from a naturally hollow upright piece of chestnut bark. Two open little shelves holding acorn cups, nutshell bowls and rolled dry leaves; arched twig frame, woven grass lower door with seed handle. Cozy not cluttered, earthy browns and moss, complete silhouette.",
+      "sprite": "cupboard"
+    },
+    {
+      "id": "dresser-twig",
+      "family": "dresser",
+      "variant": "ramitas",
+      "size": [
+        68,
+        50
+      ],
+      "anchor": [
+        34,
+        44
+      ],
+      "subject": "A low DUENDE SIDEBOARD made of bent branches and textured bark, two little woven-willow baskets functioning as drawers, round acorn handles. A dry-flower seedpod vase on top. No human manufactured dresser, no brick, handmade natural furniture, full body visible.",
+      "sprite": "dresser"
+    },
+    {
+      "id": "shelf-branch",
+      "family": "shelf",
+      "variant": "rama",
+      "size": [
+        68,
+        42
+      ],
+      "anchor": [
+        34,
+        37
+      ],
+      "subject": "A small DUENDE WALL SHELF formed by two irregular parallel bark ledges lashed onto curved vertical branches. Three acorn cups, a tiny clay jar and dried herb bundle, clearly spaced and readable. Flat wall-mounted prop front visible from fixed overhead view, no background wall, no brick, no text.",
+      "sprite": "kitchen-rack"
+    },
+    {
+      "id": "stove-clay",
+      "family": "stove",
+      "variant": "barro",
+      "size": [
+        48,
+        64
+      ],
+      "anchor": [
+        24,
+        58
+      ],
+      "subject": "A tiny rounded DUENDE COOKSTOVE hand-built from warm red clay and little pebbles. Small dark fire mouth with modest orange ember, short curved clay chimney, an acorn cooking pot on top. Entire organic cottage object including chimney, no metal industrial cooker, no smoke, no floor.",
+      "sprite": "stove"
+    },
+    {
+      "id": "lamp-acorn",
+      "family": "lamp",
+      "variant": "bellota",
+      "size": [
+        32,
+        62
+      ],
+      "anchor": [
+        16,
+        57
+      ],
+      "subject": "A DUENDE LANTERN made from a glowing amber acorn hanging under its textured cap from a crooked twig stand, twine binding and small three-foot branch base. Restrained warm light entirely INSIDE lantern, no outside glow haze, no ground shadow. Crisp readable natural furniture.",
+      "sprite": "lantern"
+    },
+    {
+      "id": "vase-seed",
+      "family": "vase",
+      "variant": "semilla",
+      "size": [
+        25,
+        40
+      ],
+      "anchor": [
+        12,
+        36
+      ],
+      "subject": "A tiny DUENDE VASE made from a hollow brown poppy seedpod tied with twine, holding two delicate white daisies and a small lilac flower, dry leaves. Full standalone vase with flat base and readable silhouette, no glow, dew or soil.",
+      "sprite": "flower-vase"
+    },
+    {
+      "id": "window-round",
+      "family": "window",
+      "variant": "avellano",
+      "size": [
+        46,
+        54
+      ],
+      "anchor": [
+        23,
+        48
+      ],
+      "subject": "A small round DUENDE WINDOW frame woven of two twisting hazel branches and moss, warm amber panes divided by a natural forked twig, a miniature dry leaf awning. Isolated complete wall ornament without any wall behind it, no stone/brick/plaster, no rectangular background, no external light beams.",
+      "sprite": "window-arched"
+    },
+    {
+      "id": "stairs-twig",
+      "family": "stairs",
+      "variant": "ramitas",
+      "size": [
+        68,
+        86
+      ],
+      "anchor": [
+        34,
+        78
+      ],
+      "subject": "A tiny DUENDE STAIRCASE, seven closely spaced bark-slab treads on two curved branch stringers, one twig handrail bound with grass. Oriented rising toward the TOP of image, lower entrance at bottom. Rustic safe readable steps, slightly irregular rounded outline. No wall or surrounding floor, no humans.",
+      "sprite": "stairs-up"
+    },
+    {
+      "id": "bridge-branches",
+      "family": "bridge",
+      "variant": "ramas",
+      "size": [
+        180,
+        76
+      ],
+      "anchor": [
+        90,
+        38
+      ],
+      "subject": "A complete horizontal EAST-WEST footbridge for tiny duendes, walkway extending left-to-right, visible top surface composed of crisp individually readable warm chestnut bark planks lashed over long branches. Low braided-twig guard rails at top and bottom edges, stout mossy posts at both ends, a little dry leaf tied as decoration. Clearly defined plank gaps and contact supports. View top-down 55 degrees, full bridge with generous transparent margins, no river, no ground, no cast shadow.",
+      "sprite": "bridge-branches"
+    },
+    {
+      "id": "ferry-leaf",
+      "family": "ferry",
+      "variant": "hojarasca",
+      "size": [
+        112,
+        76
+      ],
+      "anchor": [
+        56,
+        64
+      ],
+      "subject": "A clearly recognizable small DUENDE FERRY, bow points RIGHT. A curved chestnut bark nutshell-like hull strengthened with thin twigs and flax lashings, two open moss-lined seats, a modest curved DRY leaf canopy on thin branch ribs at back, a tiny acorn bow lantern. Two passengers will be rendered separately, so leave the center seating area open and visible from above. Funny handcrafted forest boat, not human yacht, entire hull and prow, no people, no water, wake, shadow or scenery.",
+      "sprite": "ferry"
+    },
+    {
+      "id": "home-mushroom-red",
+      "family": "mushroom-home",
+      "variant": "roja",
+      "size": [
+        166,
+        180
+      ],
+      "anchor": [
+        83,
+        176
+      ],
+      "subject": "A HOUSE-SIZED scarlet mushroom home with broad terracotta-red cap, tiny pale flecks, cream stem, CLOSED round wood door, round amber windows and tiny dry leaf porch. It is a magical dwelling, not a wild mushroom collectible.",
+      "sprite": "home-mushroom-red"
+    },
+    {
+      "id": "home-pot-moss",
+      "family": "pot-home",
+      "variant": "musgo",
+      "size": [
+        176,
+        152
+      ],
+      "anchor": [
+        88,
+        148
+      ],
+      "subject": "A weatherworn clay pot tipped slightly sideways, CLOSED oval little wooden door and warm amber window, patches of green moss, dry leaf shingle roof and vine stitching over an old crack. An original elfin pot house.",
+      "sprite": "home-pot-moss"
+    },
+    {
+      "id": "cupboard-hollow",
+      "family": "cupboard",
+      "variant": "hueco",
+      "size": [
+        56,
+        82
+      ],
+      "anchor": [
+        28,
+        78
+      ],
+      "subject": "An elfin tall cupboard hollowed out of a gnarly log, two curved bark doors partly open showing dry leaves folded as linens and acorn cups. Rounded corners, little twig handles, mushroom shelf inside.",
+      "sprite": "cupboard-hollow"
+    },
+    {
+      "id": "dresser-chest",
+      "family": "dresser",
+      "variant": "castana",
+      "size": [
+        68,
+        50
+      ],
+      "anchor": [
+        34,
+        46
+      ],
+      "subject": "A tiny elf's chest of drawers made from a rounded chestnut husk and bark slats, acorn-cap pulls, a folded dry leaf cloth on top and one little seed pot. No human-manufactured furniture.",
+      "sprite": "dresser-chest"
+    },
+    {
+      "id": "shelf-bark",
+      "family": "shelf",
+      "variant": "corcho",
+      "size": [
+        68,
+        42
+      ],
+      "anchor": [
+        34,
+        38
+      ],
+      "subject": "A little wall shelf made of a thick curved cork-bark strip tied to two forked twigs, three acorn cups, a rolled dry leaf scroll and seed jars. A full isolated furniture shelf, no wall background.",
+      "sprite": "shelf-bark"
+    },
+    {
+      "id": "stove-stone",
+      "family": "stove",
+      "variant": "piedrita",
+      "size": [
+        48,
+        64
+      ],
+      "anchor": [
+        24,
+        60
+      ],
+      "subject": "A miniature forest cooking stove built from a smooth hollow gray pebble with a terracotta circular oven mouth, a tiny warm ember visible inside, a curling hollow reed chimney, a little acorn-cap pot on top. Whimsical handmade.",
+      "sprite": "stove-stone"
+    },
+    {
+      "id": "lamp-seed",
+      "family": "lamp",
+      "variant": "semilla",
+      "size": [
+        32,
+        62
+      ],
+      "anchor": [
+        16,
+        58
+      ],
+      "subject": "A little warm glowing amber lantern hanging inside a hollow seed pod from a curved twig stand, dry leaf cap, twine tied at joints. Lamp glow stays INSIDE the pod, no outer glow or shadow on background.",
+      "sprite": "lamp-seed"
+    },
+    {
+      "id": "vase-shell",
+      "family": "vase",
+      "variant": "cascara",
+      "size": [
+        25,
+        40
+      ],
+      "anchor": [
+        12,
+        36
+      ],
+      "subject": "A small dry walnut-shell flower vase containing three tiny cream and gold woodland flowers, slender green stems and one little matte curled leaf. No water drops. No other furniture.",
+      "sprite": "vase-shell"
+    },
+    {
+      "id": "window-leaf",
+      "family": "window",
+      "variant": "hoja",
+      "size": [
+        46,
+        54
+      ],
+      "anchor": [
+        23,
+        50
+      ],
+      "subject": "An isolated oval tiny elf window frame made from braided willow twigs, amber and sage glass panes, a dry leaf curtain rolled at top, a sprig of little blue flowers at sill. No wall or background panel.",
+      "sprite": "window-leaf"
+    },
+    {
+      "id": "stairs-root",
+      "family": "stairs",
+      "variant": "raices",
+      "size": [
+        68,
+        86
+      ],
+      "anchor": [
+        34,
+        82
+      ],
+      "subject": "A short flight of six tiny elf stairs ascending toward the BACK of picture, carved across one curved fallen branch, vine handrails tied to forked twig posts, bark risers with tiny moss clusters at two corners. Entire staircase isolated. No floor panel.",
+      "sprite": "stairs-root"
+    },
+    {
+      "id": "stairs-down-twig",
+      "family": "stairs-down",
+      "variant": "avellano",
+      "size": [
+        68,
+        86
+      ],
+      "anchor": [
+        34,
+        82
+      ],
+      "subject": "A little open DOWNSTAIRS stairwell, its rim an oval bark frame, six hazel twig steps descending into a small dark lower opening, vine handrail, original elfin natural architecture. Isolated stairwell assembly, no surrounding floor.",
+      "sprite": "stairs-down"
+    },
+    {
+      "id": "stairs-down-root",
+      "family": "stairs-down",
+      "variant": "raices",
+      "size": [
+        68,
+        86
+      ],
+      "anchor": [
+        34,
+        82
+      ],
+      "subject": "A small DOWNSTAIRS stairwell with an organic irregular root rim and carved branch steps disappearing into dark lower room opening, stout forked handrail posts linked with flax rope. Original tiny elf craftsmanship. No floor background.",
+      "sprite": "stairs-down-root"
+    },
+    {
+      "id": "ferry-bark",
+      "family": "ferry",
+      "variant": "corteza",
+      "size": [
+        112,
+        76
+      ],
+      "anchor": [
+        56,
+        72
+      ],
+      "subject": "A charming small DUENDE ferry, clearly a BOAT, horizontal long hull carved from curled bark with a dry green leaf sail and twig mast, reed ropes, acorn bow lamp, two empty acorn-cap seats inside. Bow at left, no people, no water, no wave tile. Whimsical handmade twig rudder and leaf details.",
+      "sprite": "ferry-bark",
+      "flip": true
+    },
+    {
+      "id": "bridge-log",
+      "family": "bridge",
+      "variant": "tronco",
+      "size": [
+        128,
+        64
+      ],
+      "anchor": [
+        64,
+        60
+      ],
+      "subject": "A complete little wooden woodland footbridge running horizontally LEFT to RIGHT, a split old branch with short cut twig deck planks and tied vine railings. Detailed visible grain, moss at ends, flat dry walkway, NO water or ground panel, both ends intact. Orthographic top-down 55 degree view.",
+      "sprite": "bridge-log"
+    },
+    {
+      "id": "chair-shell",
+      "family": "chair",
+      "variant": "nuez",
+      "size": [
+        46,
+        54
+      ],
+      "anchor": [
+        23,
+        50
+      ],
+      "subject": "A comfortable miniature ELF ARMCHAIR made from half an open walnut shell with a folded quilt of dry green leaves inside, soft moss cushion, forked twig legs and two curling natural shell armrests. Warm and cozy, no human upholstery.",
+      "sprite": "armchair"
+    },
+    {
+      "id": "chair-bark",
+      "family": "chair",
+      "variant": "corteza",
+      "size": [
+        46,
+        54
+      ],
+      "anchor": [
+        23,
+        50
+      ],
+      "subject": "A cozy elf armchair built from curled dark bark, a tiny yellow dry-leaf cushion with visible veins, rounded acorn-cap arms, short crossed twig legs. Different silhouette than the walnut chair, natural not human furniture.",
+      "sprite": "chair-bark"
+    },
+    {
+      "id": "tree-oak-grounded",
+      "family": "canopy-tree",
+      "variant": "roble",
+      "sprite": "ancient-root",
+      "size": [
+        368,
+        440
+      ],
+      "anchor": [
+        184,
+        417
+      ],
+      "subject": "EDIT the oak reference. Keep the beautiful entire canopy, leaves and main trunk exactly as they are. Change only the lower exposed roots into a rooted tree base: short shallow buttresses meeting a flat ground plane naturally, with modest moss and two tiny mushrooms at contact points. No uprooted hanging root network or long tentacles extending toward viewer. No ground disc, no oval grass mat, no flat floor patch. The base needs to sit seamlessly on game grass. Complete silhouette within margins.",
+      "reference": "data/aventura/art/woodland-kit/references/oak.png",
+      "matte": "foliage"
+    },
+    {
+      "id": "tree-birch-grounded",
+      "family": "canopy-tree",
+      "variant": "abedul",
+      "sprite": "forest-birch",
+      "size": [
+        302,
+        428
+      ],
+      "anchor": [
+        151,
+        408
+      ],
+      "subject": "EDIT the birch reference. Keep the detailed green golden canopy and pale bark trunk exactly as they are. Change only the hanging lower roots to a natural planted tree base: a modest root flare flush with ground, moss hugging the short root shoulders and three tiny cream flowers. No long exposed roots, uprooted network, soil island, grass oval or square patch. Complete isolated tree.",
+      "reference": "data/aventura/art/woodland-kit/references/birch.png",
+      "matte": "foliage"
+    },
+    {
+      "id": "easel-twig",
+      "family": "art-easel",
+      "variant": "ramitas",
+      "size": [
+        42,
+        66
+      ],
+      "anchor": [
+        21,
+        60
+      ],
+      "sprite": "easel",
+      "subject": "An elf painter's easel tied from bent hazel twigs with a little leaf canvas painted a simple yellow flower, an acorn paint cup and natural dye berries. Charming handmade woodland art, no conventional human wooden easel."
+    },
+    {
+      "id": "easel-bark",
+      "family": "art-easel",
+      "variant": "corteza",
+      "size": [
+        42,
+        66
+      ],
+      "anchor": [
+        21,
+        60
+      ],
+      "sprite": "easel-bark",
+      "subject": "A little elf painting stand built from forked bark branches holding a pale birch-bark canvas with a simple blue butterfly painting, tiny shell paint cups."
+    },
+    {
+      "id": "lectern-root",
+      "family": "lectern",
+      "variant": "raiz",
+      "size": [
+        54,
+        60
+      ],
+      "anchor": [
+        27,
+        55
+      ],
+      "sprite": "book-lectern",
+      "subject": "A gnarled root naturally forming a duende reading lectern, an open oversized but tiny-to-human handmade book resting on top, golden pages with tiny abstract unreadable markings, moss cushions the root."
+    },
+    {
+      "id": "lectern-leaf",
+      "family": "lectern",
+      "variant": "hoja",
+      "size": [
+        54,
+        60
+      ],
+      "anchor": [
+        27,
+        55
+      ],
+      "sprite": "lectern-leaf",
+      "subject": "A little elf bookstand from two twigs and a folded autumn leaf, open rustic book on top, very simple blank golden pages, no actual letters."
+    },
+    {
+      "id": "basket-reed",
+      "family": "basket",
+      "variant": "junco",
+      "size": [
+        36,
+        38
+      ],
+      "anchor": [
+        18,
+        34
+      ],
+      "sprite": "yarn-basket",
+      "subject": "A tiny low basket woven from dry reeds, with balls of soft plant fiber in ochre, moss green and cream, a pair of short twig knitting needles, elf craft supplies."
+    },
+    {
+      "id": "basket-acorn",
+      "family": "basket",
+      "variant": "bellota",
+      "size": [
+        36,
+        38
+      ],
+      "anchor": [
+        18,
+        34
+      ],
+      "sprite": "basket-acorn",
+      "subject": "An acorn cap used as an elf sewing basket with moss green and ochre plant-fiber thread balls and tiny twig tools, organic playful nature craft supplies."
+    },
+    {
+      "id": "bench-twig",
+      "family": "bench",
+      "variant": "ramitas",
+      "size": [
+        60,
+        35
+      ],
+      "anchor": [
+        30,
+        31
+      ],
+      "sprite": "bench",
+      "subject": "A tiny forest duende bench made from thin crooked hazel branches lashed with grass, warm bark seat with a little patch of moss at one end, low backrest, full object."
+    },
+    {
+      "id": "bench-log",
+      "family": "bench",
+      "variant": "tronquito",
+      "size": [
+        60,
+        35
+      ],
+      "anchor": [
+        30,
+        31
+      ],
+      "sprite": "bench-log",
+      "subject": "A tiny carved fallen branch used as a duende bench, two acorn feet and a curved sliver of bark as backrest, warm natural dark brown, tuft of moss, full object."
+    },
+    {
+      "id": "knife-taramundi-readable",
+      "family": "knife",
+      "variant": "taramundi",
+      "sprite": "picnic-knife",
+      "size": [
+        43,
+        27
+      ],
+      "anchor": [
+        22,
+        23
+      ],
+      "subject": "Use case: stylized-concept. Asset type: individual top-down pixel-art game sprite for a warm woodland RPG. Orthographic high three-quarter view, viewed from above at about 55 degrees, front towards bottom of image, warm upper-left light. Crisp deliberate pixel clusters, sharp dark contour, restrained detailed shading, NOT blurry illustration. One complete isolated object, centered with 12% clear padding on every side, no ground, no cast shadow, no scene, no lettering, brands, watermark or labels. Background: genuinely transparent alpha if possible; otherwise perfectly flat solid #ff00ff magenta for our authorized offline cutout pipeline, no gradients or checkerboard. Object contains no magenta. Designed to remain instantly legible at the specified small native resolution. Image 1 is the design reference for the knife being improved. Keep this recognizable Taramundi pocketknife design: ochre wooden rounded handle, broad black diagonal burned stripes, TWO red rings, short shiny steel ferrule and one OPEN silver leaf-shaped blade, NO lettering on blade. Improve readability: broader stout handle and broader clear blade, fewer larger contrasting marks, no fine noisy hatching. Blade points to lower-left, handle to upper-right, diagonal about 30 degrees rather than steep45. Intended native footprint 48 by 30 pixels. Entire knife including blade tip and handle must be fully visible.",
+      "promptSource": "data/aventura/art/picnic-polish/prompts.json"
+    },
+    {
+      "id": "picnic-lighter-coral",
+      "family": "lighter",
+      "variant": "coral",
+      "sprite": "lighter",
+      "size": [
+        23,
+        18
+      ],
+      "anchor": [
+        11,
+        14
+      ],
+      "subject": "Use case: stylized-concept. Asset type: individual top-down pixel-art game sprite for a warm woodland RPG. Orthographic high three-quarter view, viewed from above at about 55 degrees, front towards bottom of image, warm upper-left light. Crisp deliberate pixel clusters, sharp dark contour, restrained detailed shading, NOT blurry illustration. One complete isolated object, centered with 12% clear padding on every side, no ground, no cast shadow, no scene, no lettering, brands, watermark or labels. Background: genuinely transparent alpha if possible; otherwise perfectly flat solid #ff00ff magenta for our authorized offline cutout pipeline, no gradients or checkerboard. Object contains no magenta. Designed to remain instantly legible at the specified small native resolution. One small everyday cigarette lighter lying flat on its side on the ground (ground NOT drawn): rounded rectangular bright coral-orange plastic body, silver steel windguard, unmistakable dark ridged spark wheel and black thumb lever. Three-quarter overhead view so both broad orange side and metal top are readable. Long axis diagonal lower-left to upper-right at 30 degrees. No flame, no lid, not a lantern or bottle. Bold silhouette readable at native 25 by 20 pixels.",
+      "promptSource": "data/aventura/art/picnic-polish/prompts.json"
+    },
+    {
+      "id": "picnic-guacamole",
+      "family": "picnic-snacks",
+      "variant": "guacamole",
+      "sprite": "picnic-guacamole",
+      "size": [
+        32,
+        24
+      ],
+      "anchor": [
+        16,
+        20
+      ],
+      "subject": "Use case: stylized-concept. Asset type: individual top-down pixel-art game sprite for a warm woodland RPG. Orthographic high three-quarter view, viewed from above at about 55 degrees, front towards bottom of image, warm upper-left light. Crisp deliberate pixel clusters, sharp dark contour, restrained detailed shading, NOT blurry illustration. One complete isolated object, centered with 12% clear padding on every side, no ground, no cast shadow, no scene, no lettering, brands, watermark or labels. Background: genuinely transparent alpha if possible; otherwise perfectly flat solid #ff00ff magenta for our authorized offline cutout pipeline, no gradients or checkerboard. Object contains no magenta. Designed to remain instantly legible at the specified small native resolution. One low terracotta picnic bowl, filled with creamy bright avocado-green guacamole, a few red tomato chunks and tiny darker green flecks, one triangular golden tortilla chip tucked into the side. Broad visible elliptical top and dark ceramic rim, inviting rich but simple color blocks. Native footprint 32 by 24 pixels.",
+      "promptSource": "data/aventura/art/picnic-polish/prompts.json"
+    },
+    {
+      "id": "picnic-tortilla-chips",
+      "family": "picnic-snacks",
+      "variant": "totopos",
+      "sprite": "picnic-tortilla-chips",
+      "size": [
+        35,
+        27
+      ],
+      "anchor": [
+        17,
+        23
+      ],
+      "subject": "Use case: stylized-concept. Asset type: individual top-down pixel-art game sprite for a warm woodland RPG. Orthographic high three-quarter view, viewed from above at about 55 degrees, front towards bottom of image, warm upper-left light. Crisp deliberate pixel clusters, sharp dark contour, restrained detailed shading, NOT blurry illustration. One complete isolated object, centered with 12% clear padding on every side, no ground, no cast shadow, no scene, no lettering, brands, watermark or labels. Background: genuinely transparent alpha if possible; otherwise perfectly flat solid #ff00ff magenta for our authorized offline cutout pipeline, no gradients or checkerboard. Object contains no magenta. Designed to remain instantly legible at the specified small native resolution. One opened small cream paper snack bag on its side with folded back golden-yellow edges, filled with visibly separate golden ridged potato crisps, a few crisps just at its mouth. Clear potato chip shapes, not french fries. Friendly picnic food with bold silhouette. No writing on bag. Native footprint 35 by 27 pixels.",
+      "promptSource": "data/aventura/art/picnic-polish/prompts.json",
+      "label": "Totopos",
+      "prompt": "Use case: precise-object-edit. Image1 is the edit target, an isolated pixel-art snack bag game sprite. Change ONLY all the potato chips: replace every rounded ridged potato crisp with unmistakable TRIANGULAR CORN TORTILLA CHIPS, golden warm yellow, thin crisp triangular corners, lightly toasted brown flecks, a few clearly separated triangles spilling out of the opened bag. They must match the triangle eaten with guacamole, NOT fries and NOT round potato slices and NO ridges. Keep cream paper bag with yellow folded edges, same open mouth facing lower left, same overall footprint, overhead three-quarter camera, warm upper-left light and crisp detailed pixel-art style. No branding, lettering or labels. Complete isolated sprite with plenty of empty margin, genuinely transparent background, no scenery or cast shadow. Keep the bag design and composition unchanged apart from the triangular chips."
+    },
+    {
+      "id": "picnic-lemonade",
+      "family": "picnic-drinks",
+      "variant": "limonada",
+      "sprite": "picnic-lemonade",
+      "size": [
+        17,
+        30
+      ],
+      "anchor": [
+        8,
+        27
+      ],
+      "subject": "Use case: stylized-concept. Asset type: individual top-down pixel-art game sprite for a warm woodland RPG. Orthographic high three-quarter view, viewed from above at about 55 degrees, front towards bottom of image, warm upper-left light. Crisp deliberate pixel clusters, sharp dark contour, restrained detailed shading, NOT blurry illustration. One complete isolated object, centered with 12% clear padding on every side, no ground, no cast shadow, no scene, no lettering, brands, watermark or labels. Background: genuinely transparent alpha if possible; otherwise perfectly flat solid #ff00ff magenta for our authorized offline cutout pipeline, no gradients or checkerboard. Object contains no magenta. Designed to remain instantly legible at the specified small native resolution. One short sturdy green glass bottle of fresh golden lemonade, uncapped with a pale yellow simple unlettered paper band. Upright on ground, with small readable elliptical bottle mouth and strong pale highlights. Cozy picnic beverage, native footprint 17 by 30 pixels. No straw, no ice crystals, no letters.",
+      "promptSource": "data/aventura/art/picnic-polish/prompts.json"
+    },
+    {
+      "id": "picnic-orange-soda",
+      "family": "picnic-drinks",
+      "variant": "naranja",
+      "sprite": "picnic-orange-soda",
+      "size": [
+        18,
+        25
+      ],
+      "anchor": [
+        9,
+        22
+      ],
+      "subject": "Use case: stylized-concept. Asset type: individual top-down pixel-art game sprite for a warm woodland RPG. Orthographic high three-quarter view, viewed from above at about 55 degrees, front towards bottom of image, warm upper-left light. Crisp deliberate pixel clusters, sharp dark contour, restrained detailed shading, NOT blurry illustration. One complete isolated object, centered with 12% clear padding on every side, no ground, no cast shadow, no scene, no lettering, brands, watermark or labels. Background: genuinely transparent alpha if possible; otherwise perfectly flat solid #ff00ff magenta for our authorized offline cutout pipeline, no gradients or checkerboard. Object contains no magenta. Designed to remain instantly legible at the specified small native resolution. One short round orange soda can with warm orange body and broad ivory diagonal stripe, silver elliptical top and small open pull tab. Upright on ground, cozy casual picnic drink. No text, no brand, no fruit illustration, no straw. Native footprint 18 by 25 pixels.",
+      "promptSource": "data/aventura/art/picnic-polish/prompts.json"
+    },
+    {
+      "id": "picnic-speaker",
+      "family": "picnic-speaker",
+      "variant": "portatil",
+      "sprite": "picnic-speaker",
+      "size": [
+        35,
+        25
+      ],
+      "anchor": [
+        17,
+        22
+      ],
+      "subject": "Use case: stylized-concept. Asset type: individual top-down pixel-art game sprite for a warm woodland RPG. Orthographic high three-quarter view, viewed from above at about 55 degrees, front towards bottom of image, warm upper-left light. Crisp deliberate pixel clusters, sharp dark contour, restrained detailed shading, NOT blurry illustration. One complete isolated object, centered with 12% clear padding on every side, no ground, no cast shadow, no scene, no lettering, brands, watermark or labels. Background: genuinely transparent alpha if possible; otherwise perfectly flat solid #ff00ff magenta for our authorized offline cutout pipeline, no gradients or checkerboard. Object contains no magenta. Designed to remain instantly legible at the specified small native resolution. One compact portable picnic Bluetooth speaker, warm charcoal-grey horizontal rounded rectangular box, fine but readable front grille with two subtle round drivers, ochre rubber end caps, short braided loop handle on one side and tiny teal power indicator. Resting on its broad base. Friendly real modern picnic object, not fantasy box, no music notes. Native footprint 35 by 25 pixels.",
+      "promptSource": "data/aventura/art/picnic-polish/prompts.json"
+    }
+  ]
+}

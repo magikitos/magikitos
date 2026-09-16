@@ -1,0 +1,15 @@
+{
+  "tool": "builtin image_gen",
+  "assets": [
+    {
+      "id": "zarzal-neighbor-a-framed",
+      "source": "zarzal-neighbor-a.png",
+      "prompt": "Use case: identity-preserve. Edit target: supplied NPC sprite sheet, 8 columns x4 rows. Keep exact character identity, clothes, hats, skin, faces and the same32 poses and heading order. Fix ONLY framing and cell gutters: reduce each full figure uniformly to 85% of its current size about its own cell center, so EVERY pose is entirely inside its cell with at least15 source pixels of empty magenta border around it, especially the boots in the bottom row and the hat tips. Reconstruct any tiny clipped boot tip naturally. Same 8x4 grid, same canvas dimensions, no text, no grid lines. Flat uniform #FF00FF magenta everywhere outside characters, NO checkerboard. Preserve left leg/right leg walking differences and all eight headings."
+    },
+    {
+      "id": "trasto-neighbor-a-framed",
+      "source": "trasto-neighbor-a.png",
+      "prompt": "Use case: identity-preserve. Edit target: supplied NPC sprite sheet, 8 columns x4 rows. Keep exact character identity, clothes, hats, skin, faces and the same32 poses and heading order. Fix ONLY framing and cell gutters: reduce each full figure uniformly to 85% of its current size about its own cell center, so EVERY pose is entirely inside its cell with at least15 source pixels of empty magenta border around it, especially the boots in the bottom row and the hat tips. Reconstruct any tiny clipped boot tip naturally. Same 8x4 grid, same canvas dimensions, no text, no grid lines. Flat uniform #FF00FF magenta everywhere outside characters, NO checkerboard. Preserve left leg/right leg walking differences and all eight headings."
+    }
+  ]
+}

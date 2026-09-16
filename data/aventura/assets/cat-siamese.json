@@ -1,0 +1,1300 @@
+{
+    "frames": {
+        "cat-siamese-down-0": {
+            "source": "data/aventura/art/cats/cutouts/siamese.png",
+            "grid": [
+                8,
+                6
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.30939226519337015,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-down-4": {
+            "source": "data/aventura/art/cats/cutouts/siamese.png",
+            "grid": [
+                8,
+                6
+            ],
+            "cell": [
+                0,
+                4
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.30939226519337015,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-down-right-0": {
+            "source": "data/aventura/art/cats/cutouts/siamese.png",
+            "grid": [
+                8,
+                6
+            ],
+            "cell": [
+                1,
+                0
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.30939226519337015,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-down-right-4": {
+            "source": "data/aventura/art/cats/cutouts/siamese.png",
+            "grid": [
+                8,
+                6
+            ],
+            "cell": [
+                1,
+                4
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.30939226519337015,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-right-0": {
+            "source": "data/aventura/art/cats/cutouts/siamese.png",
+            "grid": [
+                8,
+                6
+            ],
+            "cell": [
+                2,
+                0
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.30939226519337015,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-right-4": {
+            "source": "data/aventura/art/cats/cutouts/siamese.png",
+            "grid": [
+                8,
+                6
+            ],
+            "cell": [
+                2,
+                4
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.30939226519337015,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-up-right-0": {
+            "source": "data/aventura/art/cats/cutouts/siamese.png",
+            "grid": [
+                8,
+                6
+            ],
+            "cell": [
+                3,
+                0
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.30939226519337015,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-up-right-4": {
+            "source": "data/aventura/art/cats/cutouts/siamese.png",
+            "grid": [
+                8,
+                6
+            ],
+            "cell": [
+                3,
+                4
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.30939226519337015,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-up-0": {
+            "source": "data/aventura/art/cats/cutouts/siamese.png",
+            "grid": [
+                8,
+                6
+            ],
+            "cell": [
+                4,
+                0
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.30939226519337015,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-up-4": {
+            "source": "data/aventura/art/cats/cutouts/siamese.png",
+            "grid": [
+                8,
+                6
+            ],
+            "cell": [
+                4,
+                4
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.30939226519337015,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-up-left-0": {
+            "source": "data/aventura/art/cats/cutouts/siamese.png",
+            "grid": [
+                8,
+                6
+            ],
+            "cell": [
+                5,
+                0
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.30939226519337015,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-up-left-4": {
+            "source": "data/aventura/art/cats/cutouts/siamese.png",
+            "grid": [
+                8,
+                6
+            ],
+            "cell": [
+                5,
+                4
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.30939226519337015,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-left-0": {
+            "source": "data/aventura/art/cats/cutouts/siamese.png",
+            "grid": [
+                8,
+                6
+            ],
+            "cell": [
+                6,
+                0
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.30939226519337015,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-left-4": {
+            "source": "data/aventura/art/cats/cutouts/siamese.png",
+            "grid": [
+                8,
+                6
+            ],
+            "cell": [
+                6,
+                4
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.30939226519337015,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-down-left-0": {
+            "source": "data/aventura/art/cats/cutouts/siamese.png",
+            "grid": [
+                8,
+                6
+            ],
+            "cell": [
+                7,
+                0
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.30939226519337015,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-down-left-4": {
+            "source": "data/aventura/art/cats/cutouts/siamese.png",
+            "grid": [
+                8,
+                6
+            ],
+            "cell": [
+                7,
+                4
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.30939226519337015,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-down-walk-0": {
+            "source": "data/aventura/art/cats/cutouts/siamese-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2525366403607666,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-down-walk-1": {
+            "source": "data/aventura/art/cats/cutouts/siamese-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                0,
+                1
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2525366403607666,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-down-walk-2": {
+            "source": "data/aventura/art/cats/cutouts/siamese-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                0,
+                2
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2525366403607666,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-down-walk-3": {
+            "source": "data/aventura/art/cats/cutouts/siamese-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                0,
+                3
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2525366403607666,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-down-right-walk-0": {
+            "source": "data/aventura/art/cats/cutouts/siamese-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                1,
+                0
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2525366403607666,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-down-right-walk-1": {
+            "source": "data/aventura/art/cats/cutouts/siamese-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                1,
+                1
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2525366403607666,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-down-right-walk-2": {
+            "source": "data/aventura/art/cats/cutouts/siamese-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                1,
+                2
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2525366403607666,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-down-right-walk-3": {
+            "source": "data/aventura/art/cats/cutouts/siamese-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                1,
+                3
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2525366403607666,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-right-walk-0": {
+            "source": "data/aventura/art/cats/cutouts/siamese-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                2,
+                0
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2525366403607666,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-right-walk-1": {
+            "source": "data/aventura/art/cats/cutouts/siamese-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                2,
+                1
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2525366403607666,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-right-walk-2": {
+            "source": "data/aventura/art/cats/cutouts/siamese-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                2,
+                2
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2525366403607666,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-right-walk-3": {
+            "source": "data/aventura/art/cats/cutouts/siamese-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                2,
+                3
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2525366403607666,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-up-right-walk-0": {
+            "source": "data/aventura/art/cats/cutouts/siamese-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                3,
+                0
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2525366403607666,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-up-right-walk-1": {
+            "source": "data/aventura/art/cats/cutouts/siamese-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                3,
+                1
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2525366403607666,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-up-right-walk-2": {
+            "source": "data/aventura/art/cats/cutouts/siamese-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                3,
+                2
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2525366403607666,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-up-right-walk-3": {
+            "source": "data/aventura/art/cats/cutouts/siamese-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                3,
+                3
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2525366403607666,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-up-walk-0": {
+            "source": "data/aventura/art/cats/cutouts/siamese-rear.png",
+            "grid": [
+                4,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.08544303797468354,
+                "offset": [
+                    8.802215189873419,
+                    0.205696202531648
+                ]
+            }
+        },
+        "cat-siamese-up-walk-1": {
+            "source": "data/aventura/art/cats/cutouts/siamese-rear.png",
+            "grid": [
+                4,
+                1
+            ],
+            "cell": [
+                1,
+                0
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.08544303797468354,
+                "offset": [
+                    8.802215189873419,
+                    0.205696202531648
+                ]
+            }
+        },
+        "cat-siamese-up-walk-2": {
+            "source": "data/aventura/art/cats/cutouts/siamese-rear.png",
+            "grid": [
+                4,
+                1
+            ],
+            "cell": [
+                2,
+                0
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.08544303797468354,
+                "offset": [
+                    8.802215189873419,
+                    0.205696202531648
+                ]
+            }
+        },
+        "cat-siamese-up-walk-3": {
+            "source": "data/aventura/art/cats/cutouts/siamese-rear.png",
+            "grid": [
+                4,
+                1
+            ],
+            "cell": [
+                3,
+                0
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.08544303797468354,
+                "offset": [
+                    8.802215189873419,
+                    0.205696202531648
+                ]
+            }
+        },
+        "cat-siamese-up-left-walk-0": {
+            "source": "data/aventura/art/cats/cutouts/siamese-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                5,
+                0
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2525366403607666,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-up-left-walk-1": {
+            "source": "data/aventura/art/cats/cutouts/siamese-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                5,
+                1
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2525366403607666,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-up-left-walk-2": {
+            "source": "data/aventura/art/cats/cutouts/siamese-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                5,
+                2
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2525366403607666,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-up-left-walk-3": {
+            "source": "data/aventura/art/cats/cutouts/siamese-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                5,
+                3
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2525366403607666,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-left-walk-0": {
+            "source": "data/aventura/art/cats/cutouts/siamese-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                6,
+                0
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2525366403607666,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-left-walk-1": {
+            "source": "data/aventura/art/cats/cutouts/siamese-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                6,
+                1
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2525366403607666,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-left-walk-2": {
+            "source": "data/aventura/art/cats/cutouts/siamese-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                6,
+                2
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2525366403607666,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-left-walk-3": {
+            "source": "data/aventura/art/cats/cutouts/siamese-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                6,
+                3
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2525366403607666,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-down-left-walk-0": {
+            "source": "data/aventura/art/cats/cutouts/siamese-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                7,
+                0
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2525366403607666,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-down-left-walk-1": {
+            "source": "data/aventura/art/cats/cutouts/siamese-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                7,
+                1
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2525366403607666,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-down-left-walk-2": {
+            "source": "data/aventura/art/cats/cutouts/siamese-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                7,
+                2
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2525366403607666,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        },
+        "cat-siamese-down-left-walk-3": {
+            "source": "data/aventura/art/cats/cutouts/siamese-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                7,
+                3
+            ],
+            "size": [
+                64,
+                64
+            ],
+            "anchor": [
+                32,
+                58
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2525366403607666,
+                "offset": [
+                    4,
+                    2
+                ]
+            }
+        }
+    }
+}

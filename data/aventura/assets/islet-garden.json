@@ -1,0 +1,164 @@
+{
+    "frames": {
+        "garden-carrots": {
+            "grid": [
+                4,
+                2
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                64,
+                48
+            ],
+            "anchor": [
+                32,
+                42
+            ],
+            "source": "data/aventura/art/islet/cutouts/garden.png",
+            "fit": true
+        },
+        "garden-cabbages": {
+            "grid": [
+                4,
+                2
+            ],
+            "cell": [
+                1,
+                0
+            ],
+            "size": [
+                64,
+                48
+            ],
+            "anchor": [
+                32,
+                42
+            ],
+            "source": "data/aventura/art/islet/cutouts/garden.png",
+            "fit": true
+        },
+        "garden-beets": {
+            "grid": [
+                4,
+                2
+            ],
+            "cell": [
+                2,
+                0
+            ],
+            "size": [
+                64,
+                48
+            ],
+            "anchor": [
+                32,
+                42
+            ],
+            "source": "data/aventura/art/islet/cutouts/garden.png",
+            "fit": true
+        },
+        "garden-herbs": {
+            "grid": [
+                4,
+                2
+            ],
+            "cell": [
+                3,
+                0
+            ],
+            "size": [
+                64,
+                48
+            ],
+            "anchor": [
+                32,
+                42
+            ],
+            "source": "data/aventura/art/islet/cutouts/garden.png",
+            "fit": true
+        },
+        "garden-potting-table": {
+            "grid": [
+                4,
+                2
+            ],
+            "cell": [
+                0,
+                1
+            ],
+            "size": [
+                64,
+                54
+            ],
+            "anchor": [
+                32,
+                48
+            ],
+            "source": "data/aventura/art/islet/cutouts/garden.png",
+            "fit": true
+        },
+        "garden-fence": {
+            "grid": [
+                4,
+                2
+            ],
+            "cell": [
+                1,
+                1
+            ],
+            "size": [
+                76,
+                40
+            ],
+            "anchor": [
+                38,
+                37
+            ],
+            "source": "data/aventura/art/islet/cutouts/garden.png",
+            "fit": true
+        },
+        "garden-hammock": {
+            "grid": [
+                4,
+                2
+            ],
+            "cell": [
+                2,
+                1
+            ],
+            "size": [
+                96,
+                72
+            ],
+            "anchor": [
+                48,
+                68
+            ],
+            "source": "data/aventura/art/islet/cutouts/garden.png",
+            "fit": true
+        },
+        "garden-trellis": {
+            "grid": [
+                4,
+                2
+            ],
+            "cell": [
+                3,
+                1
+            ],
+            "size": [
+                80,
+                90
+            ],
+            "anchor": [
+                40,
+                86
+            ],
+            "source": "data/aventura/art/islet/cutouts/garden.png",
+            "fit": true
+        }
+    }
+}

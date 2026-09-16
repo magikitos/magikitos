@@ -1,0 +1,12 @@
+{
+    "source": "stool-acorn.png",
+    "sourceHash": "91806fcb3553a84b47a7fd16313f8ee8165ee71d9f6ba166631c13a4e4380b80",
+    "bounds": [
+        321,
+        239,
+        593,
+        847
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

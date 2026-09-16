@@ -1,0 +1,24 @@
+{
+  "frames": {
+    "lighter": {
+      "source": "data/aventura/art/woodland-kit/cutouts/picnic-lighter-coral.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        23,
+        18
+      ],
+      "fit": true,
+      "anchor": [
+        11,
+        14
+      ]
+    }
+  }
+}

@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Magikitos · Cámara libre · Experimento local</title>
+    <link rel="stylesheet" href="/experiments/camera/style.css" />
+    <script defer src="/experiments/camera/runtime.js"></script>
+  </head>
+  <body>
+    <main class="study">
+      <header class="variants">
+        <div class="study-title">
+          <span class="eyebrow">EXPERIMENTO CERRADO</span>
+          <h1>Se conserva la cámara fija.</h1>
+        </div>
+        <nav id="modes" aria-label="Forma de construir el mundo"></nav>
+        <button
+          id="settings-toggle"
+          aria-expanded="false"
+          aria-controls="settings"
+          title="Ajustar cámara"
+        >
+          Ajustes
+        </button>
+      </header>
+      <section class="stage" aria-label="Escenario de prueba">
+        <canvas
+          id="scene"
+          tabindex="0"
+          aria-label="Arrastra para girar la cámara, rueda o pellizca para acercarte. Toca el suelo para caminar. También WASD o flechas."
+        ></canvas>
+        <div class="scene-label">
+          <span class="eyebrow">EL CLARO DE LA BOTA</span
+          ><span>Maqueta independiente · nada se guarda</span>
+        </div>
+        <p id="notice" role="status">Preparando la maqueta local…</p>
+        <div class="scene-tools">
+          <div
+            class="stops"
+            id="stops"
+            aria-label="Visitar puntos de prueba"
+          ></div>
+          <button
+            id="orbit"
+            aria-pressed="false"
+            title="Girar automáticamente alrededor del claro"
+          >
+            ↻ Girar
+          </button>
+        </div>
+        <div class="hint">
+          Toca para andar · Arrastra para girar · Pellizca o usa la rueda para
+          el zoom
+        </div>
+        <div id="failure" hidden role="alert">
+          <h2>Esta prueba necesita WebGL 2.</h2>
+          <p id="failure-text"></p>
+          <button id="retry">Reintentar</button>
+          <p>
+            El juego actual sigue intacto en la pestaña Mapa y fuera del
+            laboratorio.
+          </p>
+        </div>
+      </section>
+      <aside id="settings" aria-label="Controles y presupuesto de cámara">
+        <header>
+          <span class="eyebrow">TU PUNTO DE VISTA</span
+          ><button id="settings-close" aria-label="Cerrar ajustes">
+            Listo
+          </button>
+        </header>
+        <h2>Un mismo claro.<br />Tres posibilidades.</h2>
+        <label for="elevation"
+          >Altura de la mirada <output id="elevation-value">52°</output></label
+        >
+        <input
+          id="elevation"
+          type="range"
+          min="18"
+          max="82"
+          value="52"
+          step="1"
+        />
+        <label for="yaw"
+          >Giro de la cámara <output id="yaw-value">−18°</output></label
+        >
+        <input
+          id="yaw"
+          type="range"
+          min="-180"
+          max="180"
+          value="-18"
+          step="1"
+        />
+        <div class="presets">
+          <button data-angle="62">Clásica</button
+          ><button data-angle="25">Bajita</button
+          ><button data-angle="82">Desde arriba</button>
+        </div>
+        <label for="projection">Proyección</label>
+        <select id="projection">
+          <option value="perspective">Perspectiva · profundidad natural</option>
+          <option value="orthographic">Ortográfica · aspecto de maqueta</option>
+        </select>
+        <div class="zoom-row">
+          <span>Distancia</span
+          ><button id="zoom-out" aria-label="Alejar cámara">−</button
+          ><button id="zoom-in" aria-label="Acercar cámara">+</button
+          ><button id="reset-camera">Reencuadrar</button>
+        </div>
+        <label class="check"
+          ><input id="economy" type="checkbox" /> Modo ligero
+          <span>Sin sombras · resolución contenida</span></label
+        >
+        <section class="budget">
+          <span class="eyebrow">LO QUE CUESTA ESTA PRUEBA</span>
+          <dl>
+            <div>
+              <dt>JavaScript del experimento</dt>
+              <dd id="js-bytes">—</dd>
+            </div>
+            <div>
+              <dt>PNG solicitados hasta ahora</dt>
+              <dd id="image-bytes">—</dd>
+            </div>
+            <div>
+              <dt>Dibujados / triángulos</dt>
+              <dd id="draw-budget">—</dd>
+            </div>
+            <div>
+              <dt>Intervalo / trabajo JS</dt>
+              <dd id="frame-budget">—</dd>
+            </div>
+          </dl>
+          <p>
+            No son cifras garantizadas en un teléfono real. El suelo y los
+            modelos se generan aquí, en tu navegador. El modo A pide sus
+            imágenes solo al abrirlo.
+          </p>
+        </section>
+        <details>
+          <summary>Cómo probarlo bien</summary>
+          <p>
+            Gira 180° alrededor de la bota. Baja la cámara. Cambia A → B → C sin
+            moverla. En A verás la misma cara de una ilustración; en B y C verás
+            lados y traseras de verdad.
+          </p>
+          <p>
+            Toca el suelo para caminar; usa WASD o flechas con el escenario
+            enfocado. Q / E giran. Visita el mirador y baja los escalones. Los
+            botones de lugar solo te recolocan para comparar más rápido.
+          </p>
+          <p>
+            Esta maqueta no contiene misiones, interiores ni datos de tu
+            partida. Los modelos son una propuesta de volumen, no el arte
+            definitivo.
+          </p>
+          <p>
+            Renderizador: Three.js,
+            <a
+              href="/experiments/camera/THREE-LICENSE.txt"
+              target="_blank"
+              rel="noopener"
+              >licencia MIT</a
+            >.
+          </p>
+        </details>
+      </aside>
+      <footer class="verdict">
+        <div>
+          <strong id="mode-title">Volumen + pixel art</strong>
+          <p id="mode-description"></p>
+        </div>
+        <span id="mode-effort"></span>
+      </footer>
+    </main>
+  </body>
+</html>

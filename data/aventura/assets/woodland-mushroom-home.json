@@ -1,0 +1,44 @@
+{
+  "frames": {
+    "home-mushroom-canela": {
+      "source": "data/aventura/art/doorways/cutouts/home-mushroom-canela.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        166,
+        180
+      ],
+      "fit": true,
+      "anchor": [
+        83,
+        168
+      ]
+    },
+    "home-mushroom-red": {
+      "source": "data/aventura/art/doorways/cutouts/home-mushroom-red.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        166,
+        180
+      ],
+      "fit": true,
+      "anchor": [
+        83,
+        176
+      ]
+    }
+  }
+}

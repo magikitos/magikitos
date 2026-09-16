@@ -1,0 +1,24 @@
+{
+    "frames": {
+        "garden-seed-sack": {
+            "source": "data/aventura/art/cats/cutouts/garden-seeds.png",
+            "grid": [
+                1,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                40,
+                32
+            ],
+            "anchor": [
+                20,
+                28
+            ],
+            "fit": true
+        }
+    }
+}

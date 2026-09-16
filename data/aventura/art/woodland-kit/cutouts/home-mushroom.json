@@ -1,0 +1,12 @@
+{
+    "source": "home-mushroom.png",
+    "sourceHash": "3c7eceeec3a358cbef01ea5bc632b5424961aca172bdce6c64f8c298c371457b",
+    "bounds": [
+        103,
+        123,
+        1000,
+        1018
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

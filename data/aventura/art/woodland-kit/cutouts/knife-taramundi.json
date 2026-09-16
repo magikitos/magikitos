@@ -1,0 +1,12 @@
+{
+    "source": "knife-taramundi.png",
+    "sourceHash": "99be5a2c5bd5fd9c84c6740e45640a55044a7fad1625ce0c09bb89e574f1a7a7",
+    "bounds": [
+        185,
+        108,
+        1052,
+        928
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

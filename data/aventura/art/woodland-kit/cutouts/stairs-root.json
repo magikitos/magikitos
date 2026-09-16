@@ -1,0 +1,12 @@
+{
+    "source": "stairs-root.png",
+    "sourceHash": "d2c38d9804ab6df6ce6451829781afc12f8a5ae22627542552502c0e223db9f0",
+    "bounds": [
+        128,
+        100,
+        941,
+        1176
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

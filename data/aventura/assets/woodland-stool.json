@@ -1,0 +1,44 @@
+{
+  "frames": {
+    "stool-acorn": {
+      "source": "data/aventura/art/woodland-kit/cutouts/stool-acorn.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        30,
+        31
+      ],
+      "fit": true,
+      "anchor": [
+        15,
+        27
+      ]
+    },
+    "stool-shell": {
+      "source": "data/aventura/art/woodland-kit/cutouts/stool-shell.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        30,
+        31
+      ],
+      "fit": true,
+      "anchor": [
+        15,
+        27
+      ]
+    }
+  }
+}

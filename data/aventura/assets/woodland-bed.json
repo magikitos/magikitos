@@ -1,0 +1,64 @@
+{
+  "frames": {
+    "bed": {
+      "source": "data/aventura/art/woodland-kit/cutouts/bed-walnut.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        72,
+        86
+      ],
+      "fit": true,
+      "anchor": [
+        36,
+        77
+      ]
+    },
+    "bed-leaf": {
+      "source": "data/aventura/art/woodland-kit/cutouts/bed-leaf.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        72,
+        86
+      ],
+      "fit": true,
+      "anchor": [
+        36,
+        77
+      ]
+    },
+    "bed-bark": {
+      "source": "data/aventura/art/woodland-kit/cutouts/bed-bark.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        72,
+        86
+      ],
+      "fit": true,
+      "anchor": [
+        36,
+        77
+      ]
+    }
+  }
+}

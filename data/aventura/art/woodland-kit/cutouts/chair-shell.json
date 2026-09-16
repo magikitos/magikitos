@@ -1,0 +1,12 @@
+{
+    "source": "chair-shell.png",
+    "sourceHash": "82787a07fa1887abbb65251b10e56cee7f9f167f027ad6df7072c29358e5f3e2",
+    "bounds": [
+        196,
+        181,
+        766,
+        997
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

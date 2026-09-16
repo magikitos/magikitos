@@ -1,0 +1,34 @@
+{
+  "frames": {
+    "willow": {
+      "source": "data/aventura/art/shore-garden-cutout.png",
+      "rect": [0, 0, 580, 615],
+      "size": [58, 62],
+      "fit": true
+    },
+    "fruit-tree": {
+      "source": "data/aventura/art/shore-garden-cutout.png",
+      "rect": [580, 0, 510, 615],
+      "size": [54, 58],
+      "fit": true
+    },
+    "coastal-grass": {
+      "source": "data/aventura/art/shore-garden-cutout.png",
+      "rect": [1090, 0, 446, 615],
+      "size": [24, 28],
+      "fit": true
+    },
+    "sandstone": {
+      "source": "data/aventura/art/shore-garden-cutout.png",
+      "rect": [0, 615, 580, 409],
+      "size": [30, 22],
+      "fit": true
+    },
+    "basket": {
+      "source": "data/aventura/art/shore-garden-cutout.png",
+      "rect": [1090, 615, 446, 409],
+      "size": [24, 22],
+      "fit": true
+    }
+  }
+}

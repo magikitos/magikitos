@@ -1,0 +1,118 @@
+{
+  "shells": {
+    "harvest": {"renewMs": 18000000, "empty": "shellRest"},
+    "sprite": "shells",
+    "label": "shellName",
+    "hiddenWhen": {
+      "items": {
+        "shell": 1
+      }
+    },
+    "rules": [
+      {
+        "effects": [
+          {
+            "type": "item",
+            "item": "shell",
+            "amount": 1
+          },
+          {
+            "type": "dialogue",
+            "key": "shellFound"
+          },
+          {
+            "type": "sound",
+            "key": "found"
+          }
+        ]
+      }
+    ]
+  },
+  "shell-collector": {
+    "sprite": "person-180-down",
+    "label": "shellCollector",
+    "portrait": true,
+    "rules": [
+      {
+        "action": [
+          "give",
+          "use"
+        ],
+        "when": {
+          "items": {
+            "shell": 1
+          },
+          "using": [
+            "shell"
+          ]
+        },
+        "effects": [
+          {
+            "type": "item",
+            "item": "shell",
+            "amount": -1
+          },
+          {
+            "type": "reward",
+            "reward": "shell"
+          },
+          {
+            "type": "dialogue",
+            "key": "shellThanks"
+          },
+          {
+            "type": "sound",
+            "key": "found"
+          }
+        ]
+      },
+      {
+        "when": {
+          "items": {
+            "shell": 1
+          }
+        },
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "shellOffer"
+          }
+        ]
+      },
+      {
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "shellRequest"
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "give",
+        "label": "giveShell",
+        "when": {
+          "items": {
+            "shell": 1
+          }
+        }
+      }
+    ]
+  },
+  "river-neighbor": {
+    "sprite": "person-2-down",
+    "label": "riverNeighbor",
+    "portrait": true,
+    "rules": [
+      {
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "riverMemory"
+          }
+        ]
+      }
+    ]
+  }
+}

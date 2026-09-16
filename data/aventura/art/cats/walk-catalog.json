@@ -1,0 +1,48 @@
+{
+  "tool": "built-in image_gen",
+  "layout": {
+    "columns": [
+      "down",
+      "down-right",
+      "right",
+      "up-right",
+      "up",
+      "up-left",
+      "left",
+      "down-left"
+    ],
+    "rows": [
+      "first-contact",
+      "first-pass",
+      "opposite-contact",
+      "opposite-pass"
+    ]
+  },
+  "sources": [
+    {
+      "id": "ginger-walk",
+      "reference": "ginger.png (cropped right-profile identity)",
+      "prompt": "Use case: stylized-concept. Image 1 is ONLY a CAT IDENTITY and art-style reference, NOT a pose or layout to repeat. Draw a brand-new production WALK-CYCLE sheet for this ginger tabby, fixing its stiff/one-legged gait. EXACTLY EIGHT COLUMNS and FOUR ROWS, 32 evenly sized square cells, landscape image. No idle poses, no lowering heads, ALL 32 ARE DISTINCT WALKING POSES. Eight columns in order: front view SOUTH; front-right SOUTH-EAST; profile RIGHT; back-right NORTH-EAST; rear NORTH; back-left NORTH-WEST; profile LEFT; front-left SOUTH-WEST. Camera fixed elevated three-quarter RPG view; especially draw BACK diagonals as back views, not profiles. FOUR ANATOMICALLY CONNECTED LEGS, slim enough and sufficiently separated to read all paws appropriate to that view. Cat has cream socks that clearly contrast ginger body. All four paws must be accounted for in side and diagonal views. Near/far limbs use shading, gaps and fore-aft offset so they never merge into one stump. Front/rear views must visibly ALTERNATE the left/right weight-bearing paws, with the other paw lifted and shorter. Four animation rows: A left front contact forward, right front backward; B left front pushing back, right front lifting past it; C right front contact forward, left front backward (mirror limb phase of A); D right front pushing back, left front lifting past it (opposite B). Hind legs follow a natural four-beat cat walk with clear opposite extensions, never dragging or dangling. Exaggerate limb articulation just enough to be unmistakable at small sprite scale: extended forward vs backward paw positions must differ by 15-20% of body length. Keep torso, head, tail base, identity, size and ground registration stable in each column across rows. No squashing/bouncing whole body or changing perspective between frames. Same warm rich detailed game art, rounded friendly cat face, ginger stripes, cream muzzle and socks, amber eyes. Complete silhouettes with generous blank margins within every cell, no cropped feet/tails or overlapping cells. Transparent alpha background, no checkerboard, no floor/shadow, no grid/labels/text, no other characters. Make this a useful, genuinely articulated four-phase animation, not a sheet of nearly identical standing cats."
+    },
+    {
+      "id": "tuxedo-walk",
+      "reference": "ginger-walk.png; tuxedo.png (coat only)",
+      "prompt": "Edit the FIRST reference image by changing ONLY the cat coat to Black tuxedo fur, WHITE muzzle chest and all four socks, bright GREEN eyes, white tail tip. The second reference is the established coat identity, NOT a pose or layout reference. Preserve EXACTLY all 32 cells, camera angles, positions, dimensions, four walking gait phases, and silhouettes from the FIRST image. Eight equal-width columns left to right: front/down, down-right, right profile, up-right three-quarter rear, rear/up, up-left three-quarter rear, left profile, down-left. Four equal-height rows are four DISTINCT WALKING phases; preserve alternating forward/rearward legs and readable contrasting paws. Same physical cat in every cell. No missing legs, no standing poses, no added rows. Clear four-paw walk in profiles, clear alternating front/rear pair in front/back. This is a precise game animation atlas, not separate illustrations. Preserve same crisp illustrated pixel-ready detail. Truly transparent background, NO checkerboard drawn into background, no shadows, text or labels. Output same 2:1 aspect ratio as first image, 8 columns by 4 rows, 32 frames, absolutely no cropping."
+    },
+    {
+      "id": "silver-walk",
+      "reference": "ginger-walk.png; silver.png (coat only)",
+      "prompt": "Edit the FIRST reference image by changing ONLY the cat coat to Silver-grey tabby, charcoal stripes, pale cream-white muzzle chest and paws, GOLD eyes. The second reference is the established coat identity, NOT a pose or layout reference. Preserve EXACTLY all 32 cells, camera angles, positions, dimensions, four walking gait phases, and silhouettes from the FIRST image. Eight equal-width columns left to right: front/down, down-right, right profile, up-right three-quarter rear, rear/up, up-left three-quarter rear, left profile, down-left. Four equal-height rows are four DISTINCT WALKING phases; preserve alternating forward/rearward legs and readable contrasting paws. Same physical cat in every cell. No missing legs, no standing poses, no added rows. Clear four-paw walk in profiles, clear alternating front/rear pair in front/back. This is a precise game animation atlas, not separate illustrations. Preserve same crisp illustrated pixel-ready detail. Truly transparent background, NO checkerboard drawn into background, no shadows, text or labels. Output same 2:1 aspect ratio as first image, 8 columns by 4 rows, 32 frames, absolutely no cropping."
+    },
+    {
+      "id": "calico-walk",
+      "reference": "ginger-walk.png; calico.png (coat only)",
+      "prompt": "Edit the FIRST reference image by changing ONLY the cat coat to Calico WHITE base, ORANGE and BLACK patches, white paws and chest, GREEN eyes. The second reference is the established coat identity, NOT a pose or layout reference. Preserve EXACTLY all 32 cells, camera angles, positions, dimensions, four walking gait phases, and silhouettes from the FIRST image. Eight equal-width columns left to right: front/down, down-right, right profile, up-right three-quarter rear, rear/up, up-left three-quarter rear, left profile, down-left. Four equal-height rows are four DISTINCT WALKING phases; preserve alternating forward/rearward legs and readable contrasting paws. Same physical cat in every cell. No missing legs, no standing poses, no added rows. Clear four-paw walk in profiles, clear alternating front/rear pair in front/back. This is a precise game animation atlas, not separate illustrations. Preserve same crisp illustrated pixel-ready detail. Truly transparent background, NO checkerboard drawn into background, no shadows, text or labels. Output same 2:1 aspect ratio as first image, 8 columns by 4 rows, 32 frames, absolutely no cropping."
+    },
+    {
+      "id": "siamese-walk",
+      "reference": "ginger-walk.png; siamese.png (coat only)",
+      "prompt": "Edit the FIRST reference image by changing ONLY the cat coat to Siamese warm ivory-cream body, dark chocolate seal point mask ears paws and tail, BLUE eyes. The second reference is the established coat identity, NOT a pose or layout reference. Preserve EXACTLY all 32 cells, camera angles, positions, dimensions, four walking gait phases, and silhouettes from the FIRST image. Eight equal-width columns left to right: front/down, down-right, right profile, up-right three-quarter rear, rear/up, up-left three-quarter rear, left profile, down-left. Four equal-height rows are four DISTINCT WALKING phases; preserve alternating forward/rearward legs and readable contrasting paws. Same physical cat in every cell. No missing legs, no standing poses, no added rows. Clear four-paw walk in profiles, clear alternating front/rear pair in front/back. This is a precise game animation atlas, not separate illustrations. Preserve same crisp illustrated pixel-ready detail. Truly transparent background, NO checkerboard drawn into background, no shadows, text or labels. Output same 2:1 aspect ratio as first image, 8 columns by 4 rows, 32 frames, absolutely no cropping."
+    }
+  ]
+}

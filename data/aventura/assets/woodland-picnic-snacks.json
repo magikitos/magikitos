@@ -1,0 +1,44 @@
+{
+  "frames": {
+    "picnic-guacamole": {
+      "source": "data/aventura/art/woodland-kit/cutouts/picnic-guacamole.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        32,
+        24
+      ],
+      "fit": true,
+      "anchor": [
+        16,
+        20
+      ]
+    },
+    "picnic-tortilla-chips": {
+      "source": "data/aventura/art/woodland-kit/cutouts/picnic-tortilla-chips.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        35,
+        27
+      ],
+      "fit": true,
+      "anchor": [
+        17,
+        23
+      ]
+    }
+  }
+}

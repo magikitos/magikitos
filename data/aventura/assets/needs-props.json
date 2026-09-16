@@ -1,0 +1,60 @@
+{
+  "frames": {
+    "toilet-plant": {
+      "source": "data/aventura/art/needs-props-cutout.png",
+      "size": [
+        40,
+        40
+      ],
+      "fit": true,
+      "rect": [
+        50,
+        50,
+        515,
+        475
+      ]
+    },
+    "toilet-leaf": {
+      "source": "data/aventura/art/needs-props-cutout.png",
+      "size": [
+        16,
+        18
+      ],
+      "fit": true,
+      "rect": [
+        600,
+        180,
+        340,
+        345
+      ]
+    },
+    "poop": {
+      "source": "data/aventura/art/needs-props-cutout.png",
+      "size": [
+        12,
+        10
+      ],
+      "fit": true,
+      "rect": [
+        620,
+        655,
+        275,
+        275
+      ]
+    },
+    "pee-puddle": {
+      "source": "data/aventura/art/needs-props-cutout.png",
+      "size": [
+        18,
+        7
+      ],
+      "fit": true,
+      "rect": [
+        1080,
+        730,
+        350,
+        190
+      ]
+    }
+  }
+}

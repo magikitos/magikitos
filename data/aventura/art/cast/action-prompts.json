@@ -1,0 +1,54 @@
+{
+  "tool": "builtin image_gen",
+  "assets": [
+    {
+      "id": "ascua-push-corrected",
+      "refs": [
+        "data/aventura/art/cast/sources/ascua-walk.png"
+      ],
+      "prompt": "Use case: identity-preserve. Production sprite sheet for original top-down woodland pixel-art RPG. Input image is identity reference; preserve EXACT Ascua orange crooked stitched pointed hat, tousled brown hair, warm skin, pointed ears, confident cheeky face, blue rolled-sleeve jacket, ochre shirt, orange neckerchief, brown shorts and boots. Crisp detailed pixel-art color clusters readable at 80px tall; same topdown35degree camera, see tops of shoulders and boots. All sprites same anatomical scale; no text, labels, grid lines, ground, shadow or accessories unless specified. Full figures with clean gutters and nothing clipped. Background genuinely transparent alpha OR perfectly solid #FF00FF magenta, absolutely NO checkerboard pattern. Create ONLY 4 COLUMNS by 4 ROWS =16 poses, square sheet. Columns LEFT TO RIGHT: SOUTH facing directly viewer (both palms toward viewer, torso symmetric, elbows foreshortened); EAST pure right profile, both palms pointing screen RIGHT; NORTH fully back facing screen UP, both arms ahead of shoulders; WEST pure left profile both palms pointing screen LEFT. Every row has this exact direction sequence. All poses pushing against an unseen heavy crate, torso leaned 35degrees into push direction, knees bent, arms stretched forward palms flat, teeth clenched and eyebrows effort, not smiling. Four ROWS form a slow push walk: brace, left boot drives, feet pass, right boot drives. Each cell256square, feetbaseline235. Keep neck and torso leaning FORWARD in exact direction; never a sideways pose in the south column. No crate drawn."
+    },
+    {
+      "id": "ascua-roll-matte",
+      "refs": [
+        "data/aventura/art/cast/sources/ascua-roll.png"
+      ],
+      "prompt": "Use case: background-extraction. Edit target is the supplied complete 8 columns x4 rows Ascua rolling sprite sheet. Change ONLY background: remove the painted grey and white checkerboard and replace with perfectly UNIFORM SOLID #FF00FF magenta. Preserve every sprite, all 32 poses, pose directions, arrangement, exact pixel artwork and canvas dimensions. No character repainting, no cropping, no new elements, no shadow. Every background gap including between limbs should be magenta; no checkerboard anywhere."
+    },
+    {
+      "id": "ascua-work",
+      "refs": [
+        "data/aventura/art/cast/sources/ascua-walk.png"
+      ],
+      "prompt": "Use case: identity-preserve. Production sprite sheet for original top-down woodland pixel-art RPG. Input image is identity reference; preserve EXACT Ascua orange crooked stitched pointed hat, tousled brown hair, warm skin, pointed ears, confident cheeky face, blue rolled-sleeve jacket, ochre shirt, orange neckerchief, brown shorts and boots. Crisp detailed pixel-art color clusters readable at 80px tall; same topdown35degree camera, see tops of shoulders and boots. All sprites same anatomical scale; no text, labels, grid lines, ground, shadow or accessories unless specified. Full figures with clean gutters and nothing clipped. Background genuinely transparent alpha OR perfectly solid #FF00FF magenta, absolutely NO checkerboard pattern. Create 4 COLUMNS by4 ROWS =16 poses, square sheet. Columns SOUTH directly viewer, EAST right profile, NORTH fully back, WEST left profile. Rows: 1 reach both hands forward at waist height, torso gently leaned; 2 left hand stays cupped forward and right hand lifts at chest height ready to work; 3 right hand moves down towards left hand as if manipulating small unseen object; 4 arms extend forward to offer or release unseen small object. Hands empty! No tools or food painted, they are separate game objects. Natural focused expression. Same head and boots size as reference. All feetbaseline235 within256cell, margin12 each side, hats fully contained."
+    },
+    {
+      "id": "ascua-discover",
+      "refs": [
+        "data/aventura/art/cast/sources/ascua-walk.png"
+      ],
+      "prompt": "Use case: identity-preserve. Production sprite sheet for original top-down woodland pixel-art RPG. Input image is identity reference; preserve EXACT Ascua orange crooked stitched pointed hat, tousled brown hair, warm skin, pointed ears, confident cheeky face, blue rolled-sleeve jacket, ochre shirt, orange neckerchief, brown shorts and boots. Crisp detailed pixel-art color clusters readable at 80px tall; same topdown35degree camera, see tops of shoulders and boots. All sprites same anatomical scale; no text, labels, grid lines, ground, shadow or accessories unless specified. Full figures with clean gutters and nothing clipped. Background genuinely transparent alpha OR perfectly solid #FF00FF magenta, absolutely NO checkerboard pattern. Create 4 COLUMNS by1 ROW =4 full body frames horizontal sheet. Every pose FRONT SOUTH directly toward viewer, same feet baseline. 1: knees slightly bend and empty hands come together at chest; 2: both empty hands raised above head with palms up, proud wide grin; 3: hold both empty hands above head and proud confident smile; 4: arms descend slightly offering pose and wink. NO object in hands or over head, separate game object will be composited. Leave 15% upper room for high palms and full pointed hat. Not a waving pose. Four equal square cells, full feet and hat visible, empty gutters."
+    },
+    {
+      "id": "ascua-needs",
+      "refs": [
+        "data/aventura/art/cast/sources/ascua-walk.png"
+      ],
+      "prompt": "Use case: identity-preserve. Production sprite sheet for original top-down woodland pixel-art RPG. Input image is identity reference; preserve EXACT Ascua orange crooked stitched pointed hat, tousled brown hair, warm skin, pointed ears, confident cheeky face, blue rolled-sleeve jacket, ochre shirt, orange neckerchief, brown shorts and boots. Crisp detailed pixel-art color clusters readable at 80px tall; same topdown35degree camera, see tops of shoulders and boots. All sprites same anatomical scale; no text, labels, grid lines, ground, shadow or accessories unless specified. Full figures with clean gutters and nothing clipped. Background genuinely transparent alpha OR perfectly solid #FF00FF magenta, absolutely NO checkerboard pattern. Nonsexual humorous fantasy game bodily relief animation, fully discreet and clothed; no visible genitals, no explicit nudity or excrement. 4 COLUMNS x2 ROWS =8 poses landscape. All face northeast (back/right three-quarter). Top ROW four pee-action poses: discreet stand slightly bent and hands in front at waistband, relaxed standing with same placement, shoulders exhale, adjusting belt and standing upright. Bottom ROW four squat-relief poses: begin squat, low squat with long blue jacket covering backside, squat reaching behind with broad green leaf held in one hand, stand up adjusting belt. Keep hat and jacket, brown shorts conceal anatomy. No stream or ground prop because runtime draws those separately. Same anatomical scale, squat naturally shorter than standing (do NOT enlarge). Ground baseline235 per256cell."
+    },
+    {
+      "id": "ascua-bow",
+      "refs": [
+        "data/aventura/art/cast/sources/ascua-walk.png"
+      ],
+      "prompt": "Use case: identity-preserve. Production sprite sheet for original top-down woodland pixel-art RPG. Input image is identity reference; preserve EXACT Ascua orange crooked stitched pointed hat, tousled brown hair, warm skin, pointed ears, confident cheeky face, blue rolled-sleeve jacket, ochre shirt, orange neckerchief, brown shorts and boots. Crisp detailed pixel-art color clusters readable at 80px tall; same topdown35degree camera, see tops of shoulders and boots. All sprites same anatomical scale; no text, labels, grid lines, ground, shadow or accessories unless specified. Full figures with clean gutters and nothing clipped. Background genuinely transparent alpha OR perfectly solid #FF00FF magenta, absolutely NO checkerboard pattern. Create EXACT8 COLUMNS x3 ROWS=24 full body poses landscape. Eight headings in order S,SE,E,NE,N,NW,W,SW. Rows nock, fully draw/aim, release/recoil. Holds a small woodland twig bow with curved brown wood and taut cream string, feathered arrow. Professional correct archery: bow-hand reaches target direction, string hand near cheek at draw, torso turned, stable boots. Every row keeps exact heading order. No arrows flying outside cells. Same identity and anatomical scale, full bow and ears contained with10% margins. This compact sheet is a reserved future bow action pack."
+    },
+    {
+      "id": "neighbor-seated",
+      "refs": [
+        "data/aventura/art/cast/sources/trasto-neighbor-b.png"
+      ],
+      "prompt": "Use case: identity-preserve. Exact approved older duende identity from reference: round brown face, white short beard, olive pointed bent hat with golden berries, cream shirt and brown patch-pocket waistcoat, brown boots. Topdown woodland pixel-art detailed readable at70pixels tall. Four COLUMNS by1 ROW=4 poses horizontal. Same seated-on-invisible-low-stool position facing southeast, knees forward, feet resting down. Poses: neutral hungry hand on belly and pleasant expectant face, speaking hand lifted, comfortable contented smile hands on knees, relaxed eyes blink. No crying, no tears, no angry face; cheeky friendly old neighbor not miserable. Stool NOT drawn, no food or props or text. Same scale and feet baseline, empty gutters, full hat and boots. Real transparency or solid#FF00FF magenta, no checkerboard."
+    }
+  ]
+}

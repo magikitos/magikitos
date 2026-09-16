@@ -1,0 +1,124 @@
+{
+    "frames": {
+        "twig-fence-0-0": {
+            "source": "data/aventura/art/cats/cutouts/twig-fence.png",
+            "grid": [
+                2,
+                3
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                36,
+                28
+            ],
+            "anchor": [
+                18,
+                24
+            ],
+            "fit": true
+        },
+        "twig-fence-0-1": {
+            "source": "data/aventura/art/cats/cutouts/twig-fence.png",
+            "grid": [
+                2,
+                3
+            ],
+            "cell": [
+                1,
+                0
+            ],
+            "size": [
+                24,
+                44
+            ],
+            "anchor": [
+                12,
+                33
+            ],
+            "fit": true
+        },
+        "twig-fence-1-0": {
+            "source": "data/aventura/art/cats/cutouts/twig-fence.png",
+            "grid": [
+                2,
+                3
+            ],
+            "cell": [
+                0,
+                1
+            ],
+            "size": [
+                36,
+                28
+            ],
+            "anchor": [
+                18,
+                24
+            ],
+            "fit": true
+        },
+        "twig-fence-1-1": {
+            "source": "data/aventura/art/cats/cutouts/twig-fence.png",
+            "grid": [
+                2,
+                3
+            ],
+            "cell": [
+                1,
+                1
+            ],
+            "size": [
+                24,
+                44
+            ],
+            "anchor": [
+                12,
+                33
+            ],
+            "fit": true
+        },
+        "twig-fence-2-0": {
+            "source": "data/aventura/art/cats/cutouts/twig-fence.png",
+            "grid": [
+                2,
+                3
+            ],
+            "cell": [
+                0,
+                2
+            ],
+            "size": [
+                36,
+                28
+            ],
+            "anchor": [
+                18,
+                24
+            ],
+            "fit": true
+        },
+        "twig-fence-2-1": {
+            "source": "data/aventura/art/cats/cutouts/twig-fence.png",
+            "grid": [
+                2,
+                3
+            ],
+            "cell": [
+                1,
+                2
+            ],
+            "size": [
+                24,
+                44
+            ],
+            "anchor": [
+                12,
+                33
+            ],
+            "fit": true
+        }
+    }
+}

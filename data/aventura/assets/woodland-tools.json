@@ -1,0 +1,24 @@
+{
+    "frames": {
+        "old-oars": {
+            "source": "data/aventura/art/cats/cutouts/old-oars.png",
+            "grid": [
+                1,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                40,
+                44
+            ],
+            "anchor": [
+                20,
+                39
+            ],
+            "fit": true
+        }
+    }
+}

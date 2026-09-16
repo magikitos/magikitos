@@ -1,0 +1,30 @@
+{
+  "tool": "built-in image_gen",
+  "purpose": "Running, reusable elder identity and tortilla chips; original masters retained.",
+  "jobs": [
+    {
+      "id": "ascua-run",
+      "dest": "data/aventura/art/cast/sources/ascua-run.png",
+      "refs": [
+        "data/aventura/art/cast/sources/ascua-walk.png"
+      ],
+      "prompt": "Use case: identity-preserve. Asset type: production pixel-art RPG animation sprite sheet. Image 1 is Ascua's EXACT existing identity and eight-direction walking reference. Preserve face, warm natural skin, messy brown hair, copper-orange pointed patched cap, blue cropped jacket, orange scarf, boots and all proportions. Create RUNNING, not walking: forward lean toward travel direction, elbows bent and driving opposite knees, longer springy stride and clearly lifted boots. Fixed orthographic RPG camera looking down 35 degrees. EXACT 8 COLUMNS x 4 ROWS, 2048x1024 canvas, equal 256px square cells. Columns left-to-right SOUTH/front, SOUTH-EAST/front-right, EAST/right profile, NORTH-EAST/back-right, NORTH/back, NORTH-WEST/back-left, WEST/left profile, SOUTH-WEST/front-left. Row1 left-foot contact right knee behind, row2 passing flight right knee coming forward, row3 right-foot contact left knee behind, row4 opposite passing flight. Four coherent looping poses, no neutral idle or crouch. Same physical character scale and direction per column. Every full figure remains inside its cell with 10px padding; root foot reference x128 y235, standing character reference height205px. Naturally raised feet in flight, no extra vertical floating. Crisp defined pixel-art clusters suitable for reduction to80px high. Genuinely transparent alpha background if possible, otherwise perfectly flat #FF00FF magenta; no checkerboard, gradients, scenery, shadows, text, labels or speed lines."
+    },
+    {
+      "id": "elder-walk",
+      "dest": "data/aventura/art/cast/sources/elder-walk.png",
+      "refs": [
+        "data/aventura/art/cast/sources/neighbor-seated.png"
+      ],
+      "prompt": "Use case: identity-preserve. Asset type: production pixel-art woodland RPG sprite sheet. Image1 is the existing friendly elderly duende, redesign him to be MUCH MORE DISTINCTIVE AND VERY ROUND AND PORTLY: a large proud round pot belly under a stretched cream linen shirt, open short chestnut-brown vest, short sturdy legs and worn boots, warm naturally tanned rosy skin, round red nose, thick white eyebrows, short fluffy WHITE beard ending above the huge belly so belly silhouette stays clear, mischievous kind smile. Retain olive-green crooked POINTED cap with ochre patch and two acorns, dark moss trousers. No tears or sadness, no blue/green skin. Fixed top-down three-quarter camera35degrees and well-defined warm pixel-art clusters matching the source, clear silhouette at80px height. Exactly EIGHT columns FOUR rows, 2048x1024, 32 equal cells256square. Columns left-to-right SOUTH/front, SOUTH-EAST, EAST/right profile, NORTH-EAST/back-right, NORTH/back, NORTH-WEST/back-left, WEST/left profile, SOUTH-WEST. Row1 relaxed STANDING neutral, arms relaxed beside big belly. Row2 left leg forward opposite arm, row3 passing step, row4 right leg forward opposite arm. Clearly articulated gentle walking, same large belly volume in all orientations. Character ground anchor x128 y235 of each cell, figure height~200px; generous empty margin, no part crosses cell edge. ALL figures standing or walking, NO sitting and NO chair. No floor, cast shadow, furniture, scenery, grids, text or labels. Transparent alpha if possible, otherwise pure solid #FF00FF background, no checkerboard or gradient."
+    },
+    {
+      "id": "picnic-tortilla-chips",
+      "dest": "data/aventura/art/woodland-kit/picnic-tortilla-chips.png",
+      "refs": [
+        "data/aventura/art/woodland-kit/picnic-potato-chips.png"
+      ],
+      "prompt": "Use case: precise-object-edit. Image1 is the edit target, an isolated pixel-art snack bag game sprite. Change ONLY all the potato chips: replace every rounded ridged potato crisp with unmistakable TRIANGULAR CORN TORTILLA CHIPS, golden warm yellow, thin crisp triangular corners, lightly toasted brown flecks, a few clearly separated triangles spilling out of the opened bag. They must match the triangle eaten with guacamole, NOT fries and NOT round potato slices and NO ridges. Keep cream paper bag with yellow folded edges, same open mouth facing lower left, same overall footprint, overhead three-quarter camera, warm upper-left light and crisp detailed pixel-art style. No branding, lettering or labels. Complete isolated sprite with plenty of empty margin, genuinely transparent background, no scenery or cast shadow. Keep the bag design and composition unchanged apart from the triangular chips."
+    }
+  ]
+}

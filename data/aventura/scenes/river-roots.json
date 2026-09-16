@@ -1,0 +1,726 @@
+{
+  "id": "river-roots",
+  "label": "riverRoots",
+  "width": 128,
+  "height": 144,
+  "seed": 762,
+  "spawn": {
+    "x": 68,
+    "y": 104
+  },
+  "paths": [
+    [
+      [
+        64,
+        75.6
+      ],
+      [
+        72,
+        72
+      ],
+      [
+        80,
+        68.4
+      ]
+    ],
+    [
+      [
+        20,
+        15
+      ],
+      [
+        26,
+        42
+      ],
+      [
+        21,
+        72
+      ],
+      [
+        25,
+        104
+      ],
+      [
+        22,
+        128
+      ]
+    ],
+    [
+      [
+        78,
+        14
+      ],
+      [
+        86,
+        40
+      ],
+      [
+        78,
+        68
+      ],
+      [
+        90,
+        96
+      ],
+      [
+        79,
+        130
+      ]
+    ],
+    [
+      [
+        79,
+        104
+      ],
+      [
+        94,
+        108
+      ],
+      [
+        111,
+        103
+      ]
+    ],
+    [
+      [
+        62.14,
+        116
+      ],
+      [
+        81,
+        116
+      ],
+      [
+        91,
+        109
+      ]
+    ]
+  ],
+  "waters": [],
+  "rivers": [
+    {
+      "rect": [
+        38,
+        -4,
+        20,
+        152
+      ],
+      "meander": 10,
+      "seamLength": 144
+    },
+    {
+      "rect": [
+        48,
+        70,
+        84,
+        22
+      ]
+    }
+  ],
+  "bridges": [
+    {
+      "rect": [
+        58.34,
+        115,
+        5,
+        2
+      ],
+      "sprite": "jetty"
+    }
+  ],
+  "clearings": [
+    [
+      68,
+      75.60000000000001,
+      8
+    ],
+    [
+      83,
+      116,
+      12
+    ]
+  ],
+  "regions": [],
+  "decoration": {
+    "trees": [
+      "oak",
+      "hornbeam",
+      "birch",
+      "crooked-oak"
+    ],
+    "forest": [
+      "fern",
+      "berries",
+      "flowers-bell-blue",
+      "mushrooms"
+    ],
+    "count": 60
+  },
+  "ambient": "forest",
+  "entities": [
+    {
+      "id": "bank-dock",
+      "behavior": "river-dock",
+      "landing": "bank",
+      "x": 62.14,
+      "y": 114.2
+    },
+    {
+      "id": "bank-twig-0",
+      "behavior": "picnic-twig",
+      "x": 75,
+      "y": 121
+    },
+    {
+      "id": "bank-twig-1",
+      "behavior": "picnic-twig",
+      "x": 80,
+      "y": 121
+    },
+    {
+      "id": "bank-twig-2",
+      "behavior": "picnic-twig",
+      "x": 85,
+      "y": 121
+    },
+    {
+      "id": "bank-twig-3",
+      "behavior": "picnic-twig",
+      "x": 90,
+      "y": 121
+    },
+    {
+      "id": "bank-twig-4",
+      "behavior": "picnic-twig",
+      "x": 75,
+      "y": 126
+    },
+    {
+      "id": "bank-twig-5",
+      "behavior": "picnic-twig",
+      "x": 80,
+      "y": 126
+    },
+    {
+      "id": "bank-twig-6",
+      "behavior": "picnic-twig",
+      "x": 85,
+      "y": 126
+    },
+    {
+      "id": "bank-twig-7",
+      "behavior": "picnic-twig",
+      "x": 90,
+      "y": 126
+    },
+    {
+      "id": "bank-leaf-plant",
+      "behavior": "toilet-plant",
+      "x": 91,
+      "y": 120
+    }
+  ],
+  "neighbors": [
+    {
+      "id": "river-roots-walker",
+      "x": 83,
+      "y": 119,
+      "radius": 7
+    }
+  ],
+  "scenery": [
+    {
+      "id": "bank--1-0",
+      "sprite": "forest-birch",
+      "x": 25,
+      "y": 14.4,
+      "scale": 0.72,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "flowers--1-0",
+      "sprite": "flowers-daisy-white",
+      "x": 28,
+      "y": 18,
+      "scale": 0.8,
+      "artVariant": "auto"
+    },
+    {
+      "id": "bank-1-0",
+      "sprite": "forest-birch",
+      "x": 71,
+      "y": 14.4,
+      "scale": 0.72,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "flowers-1-0",
+      "sprite": "flowers-daisy-white",
+      "x": 68,
+      "y": 18,
+      "scale": 0.8,
+      "artVariant": "auto"
+    },
+    {
+      "id": "bank--1-1",
+      "sprite": "ancient-root",
+      "x": 22,
+      "y": 28.8,
+      "scale": 0.72,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "flowers--1-1",
+      "sprite": "flowers-bell-blue",
+      "x": 25,
+      "y": 32.4,
+      "scale": 0.8,
+      "artVariant": "auto"
+    },
+    {
+      "id": "bank-1-1",
+      "sprite": "ancient-root",
+      "x": 74,
+      "y": 28.8,
+      "scale": 0.72,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "flowers-1-1",
+      "sprite": "flowers-bell-blue",
+      "x": 71,
+      "y": 32.4,
+      "scale": 0.8,
+      "artVariant": "auto"
+    },
+    {
+      "id": "bank--1-2",
+      "sprite": "crooked-oak",
+      "x": 19,
+      "y": 43.2,
+      "scale": 0.72,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "flowers--1-2",
+      "sprite": "fern",
+      "x": 22,
+      "y": 46.800000000000004,
+      "scale": 0.8,
+      "artVariant": "auto"
+    },
+    {
+      "id": "bank-1-2",
+      "sprite": "crooked-oak",
+      "x": 77,
+      "y": 43.2,
+      "scale": 0.72,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "flowers-1-2",
+      "sprite": "fern",
+      "x": 74,
+      "y": 46.800000000000004,
+      "scale": 0.8,
+      "artVariant": "auto"
+    },
+    {
+      "id": "bank--1-3",
+      "sprite": "forest-birch",
+      "x": 25,
+      "y": 57.6,
+      "scale": 0.72,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "flowers--1-3",
+      "sprite": "flowers-daisy-white",
+      "x": 28,
+      "y": 61.2,
+      "scale": 0.8,
+      "artVariant": "auto"
+    },
+    {
+      "id": "bank-1-3",
+      "sprite": "forest-birch",
+      "x": 71,
+      "y": 57.6,
+      "scale": 0.72,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "flowers-1-3",
+      "sprite": "flowers-daisy-white",
+      "x": 68,
+      "y": 61.2,
+      "scale": 0.8,
+      "artVariant": "auto"
+    },
+    {
+      "id": "bank--1-4",
+      "sprite": "ancient-root",
+      "x": 22,
+      "y": 72,
+      "scale": 0.72,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "flowers--1-4",
+      "sprite": "flowers-bell-blue",
+      "x": 25,
+      "y": 75.60000000000001,
+      "scale": 0.8,
+      "artVariant": "auto"
+    },
+    {
+      "id": "bank--1-5",
+      "sprite": "crooked-oak",
+      "x": 19,
+      "y": 86.4,
+      "scale": 0.72,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "flowers--1-5",
+      "sprite": "fern",
+      "x": 22,
+      "y": 90,
+      "scale": 0.8,
+      "artVariant": "auto"
+    },
+    {
+      "id": "bank--1-6",
+      "sprite": "forest-birch",
+      "x": 25,
+      "y": 100.8,
+      "scale": 0.72,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "flowers--1-6",
+      "sprite": "flowers-daisy-white",
+      "x": 28,
+      "y": 104.4,
+      "scale": 0.8,
+      "artVariant": "auto"
+    },
+    {
+      "id": "bank-1-6",
+      "sprite": "forest-birch",
+      "x": 71,
+      "y": 100.8,
+      "scale": 0.72,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "flowers-1-6",
+      "sprite": "flowers-daisy-white",
+      "x": 68,
+      "y": 104.4,
+      "scale": 0.8,
+      "artVariant": "auto"
+    },
+    {
+      "id": "bank--1-7",
+      "sprite": "ancient-root",
+      "x": 22,
+      "y": 115.2,
+      "scale": 0.72,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "flowers--1-7",
+      "sprite": "flowers-bell-blue",
+      "x": 25,
+      "y": 118.8,
+      "scale": 0.8,
+      "artVariant": "auto"
+    },
+    {
+      "id": "bank-1-7",
+      "sprite": "ancient-root",
+      "x": 74,
+      "y": 115.2,
+      "scale": 0.72,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "flowers-1-7",
+      "sprite": "flowers-bell-blue",
+      "x": 71,
+      "y": 118.8,
+      "scale": 0.8,
+      "artVariant": "auto"
+    },
+    {
+      "id": "bank--1-8",
+      "sprite": "crooked-oak",
+      "x": 19,
+      "y": 129.6,
+      "scale": 0.72,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "flowers--1-8",
+      "sprite": "fern",
+      "x": 22,
+      "y": 133.20000000000002,
+      "scale": 0.8,
+      "artVariant": "auto"
+    },
+    {
+      "id": "bank-1-8",
+      "sprite": "crooked-oak",
+      "x": 77,
+      "y": 129.6,
+      "scale": 0.72,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "artVariant": "auto"
+    },
+    {
+      "id": "flowers-1-8",
+      "sprite": "fern",
+      "x": 74,
+      "y": 133.20000000000002,
+      "scale": 0.8,
+      "artVariant": "auto"
+    },
+    {
+      "id": "bank-rest-log",
+      "sprite": "bench",
+      "x": 24,
+      "y": 79,
+      "artVariant": "auto",
+      "solid": [
+        -1,
+        -0.5,
+        2,
+        1
+      ]
+    },
+    {
+      "id": "bank-lantern",
+      "sprite": "lantern",
+      "x": 28,
+      "y": 81,
+      "scale": 0.7
+    },
+    {
+      "id": "bank-flowers-rest",
+      "sprite": "flowers-primrose",
+      "x": 28,
+      "y": 77,
+      "artVariant": "auto",
+      "family": "flowers-meadow"
+    },
+    {
+      "id": "bank-feature",
+      "sprite": "fallen-log",
+      "x": 84,
+      "y": 109
+    },
+    {
+      "id": "bank-feature-flower",
+      "sprite": "flowers-coral",
+      "x": 89,
+      "y": 110
+    },
+    {
+      "id": "bank-feature-lamp",
+      "sprite": "lantern",
+      "x": 87,
+      "y": 108,
+      "scale": 0.75
+    }
+  ],
+  "navigation": {
+    "landings": [
+      {
+        "id": "bank",
+        "land": [
+          62.14,
+          116
+        ],
+        "water": [
+          55.14,
+          116
+        ]
+      }
+    ],
+    "currents": [
+      {
+        "area": [
+          48,
+          72,
+          14,
+          68.4
+        ],
+        "vector": [
+          -5,
+          -12
+        ],
+        "channel": true
+      },
+      {
+        "area": [
+          99,
+          81,
+          31,
+          9
+        ],
+        "vector": [
+          18,
+          0
+        ]
+      }
+    ],
+    "exits": [
+      {
+        "id": "downstream",
+        "area": [
+          28,
+          141,
+          40,
+          1.2
+        ],
+        "scene": "river-rapids",
+        "position": [
+          48,
+          10.8
+        ],
+        "direction": "down"
+      },
+      {
+        "id": "upstream",
+        "area": [
+          28,
+          1.5,
+          40,
+          1.2
+        ],
+        "scene": "river-gardens",
+        "position": [
+          48,
+          133.20000000000002
+        ],
+        "direction": "up"
+      },
+      {
+        "id": "human-garden",
+        "area": [
+          124,
+          71,
+          2,
+          20
+        ],
+        "scene": "human-hedge",
+        "position": [
+          7,
+          81
+        ],
+        "direction": "right"
+      }
+    ]
+  },
+  "requires": {
+    "items": {
+      "boat": 1
+    }
+  }
+}

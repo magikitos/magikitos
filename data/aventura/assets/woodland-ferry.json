@@ -1,0 +1,45 @@
+{
+  "frames": {
+    "ferry": {
+      "source": "data/aventura/art/woodland-kit/cutouts/ferry-leaf.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        112,
+        76
+      ],
+      "fit": true,
+      "anchor": [
+        56,
+        64
+      ]
+    },
+    "ferry-bark": {
+      "source": "data/aventura/art/woodland-kit/cutouts/ferry-bark.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        112,
+        76
+      ],
+      "fit": true,
+      "anchor": [
+        56,
+        72
+      ],
+      "flip": true
+    }
+  }
+}

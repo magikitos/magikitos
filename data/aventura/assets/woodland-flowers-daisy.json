@@ -1,0 +1,44 @@
+{
+  "frames": {
+    "flowers-daisy-white": {
+      "source": "data/aventura/art/woodland-kit/cutouts/flowers-daisy-white.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        38,
+        40
+      ],
+      "fit": true,
+      "anchor": [
+        19,
+        36
+      ]
+    },
+    "flowers-daisy-gold": {
+      "source": "data/aventura/art/woodland-kit/cutouts/flowers-daisy-gold.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        38,
+        40
+      ],
+      "fit": true,
+      "anchor": [
+        19,
+        36
+      ]
+    }
+  }
+}

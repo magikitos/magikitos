@@ -1,0 +1,44 @@
+{
+  "frames": {
+    "flowers-bell-blue": {
+      "source": "data/aventura/art/woodland-kit/cutouts/flowers-bell-blue.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        40,
+        56
+      ],
+      "fit": true,
+      "anchor": [
+        20,
+        52
+      ]
+    },
+    "flowers-bell-violet": {
+      "source": "data/aventura/art/woodland-kit/cutouts/flowers-bell-violet.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        40,
+        56
+      ],
+      "fit": true,
+      "anchor": [
+        20,
+        52
+      ]
+    }
+  }
+}

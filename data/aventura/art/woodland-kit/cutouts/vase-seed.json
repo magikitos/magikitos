@@ -1,0 +1,12 @@
+{
+    "source": "vase-seed.png",
+    "sourceHash": "f2612fb9d8d2f6fc6ee4de2230d91a0ccd91bcee534dfd1aa896e96483d75265",
+    "bounds": [
+        170,
+        196,
+        657,
+        1178
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

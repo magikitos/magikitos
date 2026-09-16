@@ -1,0 +1,22 @@
+{
+  "tool": "built-in image_gen",
+  "reason": "Reject clipped elder walking boots and painted checkerboard on snack; preserve originals.",
+  "jobs": [
+    {
+      "id": "elder-walk-padded",
+      "dest": "data/aventura/art/cast/sources/elder-walk-padded.png",
+      "refs": [
+        "data/aventura/art/cast/sources/elder-walk.png"
+      ],
+      "prompt": "Precise sprite sheet identity preservation and recanvas. Reference has elderly round potbellied duende in 8 columns 4 rows. Reproduce the EXACT SAME CHARACTER, clothing, face, enormous belly and exactly same 8 headings, 4 poses, but with EXTRA LARGE CLEAR PADDING AROUND EVERY FIGURE. CRITICAL: no boot or pointed cap may touch any cell edge or overall image edge. Make every duende ONLY 70% of his current relative size in his cell. Canvas2048x1024, 8equal columns4equal rows, square256cells. Figures ~170px tall ONLY, footbaseline y215, headtop y45, rootx128. This visibly smaller figure-in-cell is deliberate to prevent cropping. Columns SOUTH, SOUTH-EAST, EAST, NORTH-EAST, NORTH, NORTH-WEST, WEST, SOUTH-WEST; row1standing relaxed, row2leftlegforward, row3passing, row4rightlegforward. Every full boot and cap tip visible and generously separated from cell edge with minimum30pixels MAGENTA around silhouette. Preserve warm tan natural skin, short white beard, huge creamshirt belly, brownvest, mossgreen pointed cap and trousers, acorn decoration. Crisp warm pixel-art same clean clusters and camera as reference. Background pureflat #FF00FF magenta throughout, NO shadow, scenery, labels, checkerboard or lines."
+    },
+    {
+      "id": "picnic-tortilla-chips-keyed",
+      "dest": "data/aventura/art/woodland-kit/picnic-tortilla-chips-keyed.png",
+      "refs": [
+        "data/aventura/art/woodland-kit/picnic-tortilla-chips.png"
+      ],
+      "prompt": "Precise background-only edit of reference. Keep the EXACT snack bag and triangular corn tortilla chips entirely unchanged: same pixels, design, palette, pose, shape, scale and composition. Replace the ENTIRE grey-and-white checkerboard background with perfectly uniform saturated #FF00FF MAGENTA. Flat magenta must also fill empty holes outside the object between chips and around bag. Preserve the cream paper bag and all yellow triangles, their brown outlines and toasted flecks. This will be alpha keyed locally; do NOT simulate transparency. NO checkerboard, no shadows or gradients; ONLY the unchanged isolated object on a perfectly solid bright magenta background. Generous empty margin around complete silhouette."
+    }
+  ]
+}

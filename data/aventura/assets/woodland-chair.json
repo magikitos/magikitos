@@ -1,0 +1,44 @@
+{
+  "frames": {
+    "armchair": {
+      "source": "data/aventura/art/woodland-kit/cutouts/chair-shell.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        46,
+        54
+      ],
+      "fit": true,
+      "anchor": [
+        23,
+        50
+      ]
+    },
+    "chair-bark": {
+      "source": "data/aventura/art/woodland-kit/cutouts/chair-bark.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        46,
+        54
+      ],
+      "fit": true,
+      "anchor": [
+        23,
+        50
+      ]
+    }
+  }
+}

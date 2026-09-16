@@ -1,0 +1,12 @@
+{
+    "source": "planter-daisy.png",
+    "sourceHash": "a27c97f80fb94f35e3d68616f6cb689c2a34839fadc370d94d174e71b27457bd",
+    "bounds": [
+        321,
+        200,
+        550,
+        909
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

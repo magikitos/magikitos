@@ -1,0 +1,18 @@
+{
+  "frames": {
+    "yarn": {
+      "source": "data/aventura/art/woodland-cutout.png",
+      "rect": [
+        1100,
+        721,
+        348,
+        365
+      ],
+      "size": [
+        22,
+        22
+      ],
+      "fit": true
+    }
+  }
+}

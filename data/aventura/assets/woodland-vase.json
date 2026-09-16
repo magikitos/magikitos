@@ -1,0 +1,44 @@
+{
+  "frames": {
+    "flower-vase": {
+      "source": "data/aventura/art/woodland-kit/cutouts/vase-seed.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        25,
+        40
+      ],
+      "fit": true,
+      "anchor": [
+        12,
+        36
+      ]
+    },
+    "vase-shell": {
+      "source": "data/aventura/art/woodland-kit/cutouts/vase-shell.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        25,
+        40
+      ],
+      "fit": true,
+      "anchor": [
+        12,
+        36
+      ]
+    }
+  }
+}

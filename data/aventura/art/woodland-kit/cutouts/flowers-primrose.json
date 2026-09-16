@@ -1,0 +1,12 @@
+{
+    "source": "flowers-primrose.png",
+    "sourceHash": "33e910ab1adfb31abb75c3a15b07ecd61985df7f435c2d95de433074cce251db",
+    "bounds": [
+        155,
+        182,
+        972,
+        871
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

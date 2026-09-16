@@ -1,0 +1,12 @@
+{
+    "source": "bed-leaf.png",
+    "sourceHash": "6bd64a9aa7b34494cb0e37cefc3e015aa3e73aae5824ec054d48e9c89b8f6fe6",
+    "bounds": [
+        252,
+        115,
+        669,
+        1091
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

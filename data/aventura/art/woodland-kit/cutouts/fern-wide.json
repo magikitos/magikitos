@@ -1,0 +1,12 @@
+{
+    "source": "fern-wide.png",
+    "sourceHash": "54e622d2f3d0e9b9cc7b9db8be3fcbbe2b437d5c97a7bf8cc6c802f2fb49de75",
+    "bounds": [
+        69,
+        155,
+        1121,
+        947
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

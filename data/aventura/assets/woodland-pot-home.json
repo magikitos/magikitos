@@ -1,0 +1,44 @@
+{
+  "frames": {
+    "home-pot-terracotta": {
+      "source": "data/aventura/art/doorways/cutouts/home-pot-terracotta.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        176,
+        152
+      ],
+      "fit": true,
+      "anchor": [
+        88,
+        140
+      ]
+    },
+    "home-pot-moss": {
+      "source": "data/aventura/art/doorways/cutouts/home-pot-moss.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        176,
+        152
+      ],
+      "fit": true,
+      "anchor": [
+        88,
+        148
+      ]
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "frames": {
+    "fire": {
+      "source": "data/aventura/art/props.png",
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        28,
+        30
+      ]
+    },
+    "coals": {
+      "source": "data/aventura/art/props.png",
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        1,
+        0
+      ],
+      "size": [
+        28,
+        20
+      ]
+    },
+    "sign": {
+      "source": "data/aventura/art/props.png",
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        2,
+        0
+      ],
+      "size": [
+        26,
+        28
+      ]
+    }
+  }
+}

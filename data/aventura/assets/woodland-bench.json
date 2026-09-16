@@ -1,0 +1,44 @@
+{
+  "frames": {
+    "bench": {
+      "source": "data/aventura/art/woodland-kit/cutouts/bench-twig.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        60,
+        35
+      ],
+      "fit": true,
+      "anchor": [
+        30,
+        31
+      ]
+    },
+    "bench-log": {
+      "source": "data/aventura/art/woodland-kit/cutouts/bench-log.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        60,
+        35
+      ],
+      "fit": true,
+      "anchor": [
+        30,
+        31
+      ]
+    }
+  }
+}

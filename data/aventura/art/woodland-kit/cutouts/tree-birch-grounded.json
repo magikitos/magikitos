@@ -1,0 +1,12 @@
+{
+    "source": "tree-birch-grounded.png",
+    "sourceHash": "51fea517953cecda4ec3aa5be81f501bc20dfdb21dbef59c975fa0ea8d18ab5a",
+    "bounds": [
+        43,
+        54,
+        970,
+        1330
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

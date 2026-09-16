@@ -1,0 +1,12 @@
+{
+    "source": "stove-stone.png",
+    "sourceHash": "b04f0e14c894bde330bae6b274b813cca5d520165da2e8c87be92c1941279dd0",
+    "bounds": [
+        99,
+        148,
+        902,
+        1123
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

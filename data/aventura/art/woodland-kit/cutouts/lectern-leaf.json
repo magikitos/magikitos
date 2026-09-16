@@ -1,0 +1,12 @@
+{
+    "source": "lectern-leaf.png",
+    "sourceHash": "2010e9000e12746541fa8d7df1cdb195b20633cd79126587059c2840cdf0e72e",
+    "bounds": [
+        128,
+        153,
+        958,
+        1018
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

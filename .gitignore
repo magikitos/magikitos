@@ -1,0 +1,10 @@
+node_modules/
+.DS_Store
+.local/
+*.log
+.env
+.env.*
+# Regenerable native-art inspection sheets (source masters stay in Git).
+data/aventura/art/woodland-kit/previews/
+data/audio/*.tmp
+data/audio/*.tmp.mp3

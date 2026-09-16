@@ -1,0 +1,151 @@
+{
+  "picnic-bin": {
+    "sprite": "picnic-bin",
+    "label": "picnicBin",
+    "solid": [
+      -2,
+      -1.8,
+      4,
+      2.4
+    ],
+    "rules": [
+      {
+        "when": {
+          "maxItems": {
+            "bottle": 0,
+            "boat": 0
+          }
+        },
+        "effects": [
+          {
+            "type": "item",
+            "item": "bottle",
+            "amount": 1
+          },
+          {
+            "type": "dialogue",
+            "key": "bottleFound"
+          },
+          {
+            "type": "sound",
+            "key": "found"
+          }
+        ]
+      },
+      {
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "binEmpty"
+          }
+        ]
+      }
+    ]
+  },
+  "river-dock": {
+    "sprite": "sign",
+    "label": "riverDock",
+    "solid": [
+      -0.4,
+      -0.5,
+      0.8,
+      0.7
+    ],
+    "edgeSlide": true,
+    "rules": [
+      {
+        "action": [
+          "craft",
+          "use"
+        ],
+        "when": {
+          "items": {
+            "bottle": 1,
+            "knife": 1,
+            "oars": 1
+          },
+          "maxItems": {
+            "boat": 0
+          },
+          "using": [
+            "bottle",
+            "knife",
+            "oars"
+          ]
+        },
+        "effects": [
+          {
+            "type": "presentation",
+            "sequence": "work",
+            "props": [
+              "bottle",
+              "knife",
+              "oars"
+            ],
+            "result": "boat",
+            "duration": 2.5
+          },
+          {
+            "type": "item",
+            "item": "bottle",
+            "amount": -1
+          },
+          {
+            "type": "item",
+            "item": "boat",
+            "amount": 1
+          },
+          {
+            "type": "flag",
+            "flag": "boatBuilt"
+          },
+          {
+            "type": "dialogue",
+            "key": "boatReady"
+          },
+          {
+            "type": "sound",
+            "key": "found"
+          }
+        ]
+      },
+      {
+        "when": {
+          "items": {
+            "boat": 1
+          }
+        },
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "dockReady"
+          }
+        ]
+      },
+      {
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "boatRecipe"
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "craft",
+        "label": "craftBottle",
+        "when": {
+          "items": {
+            "bottle": 1,
+            "knife": 1,
+            "oars": 1
+          },
+          "maxItems": {
+            "boat": 0
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+# Exterior detrás de los refugios
+Generado mediante la herramienta integrada de imágenes. Fondo opaco deliberado (no es un sprite recortable).
+Use case: stylized-concept.
+Asset type: background illustration for a fixed-camera top-down pixel-art woodland game, seen behind a roof-cut elfin room.
+Primary request: a gorgeous quiet patch of mossy forest floor seen from high above, surrounded at the edges by small ferns, oak leaves, tiny cream flowers, clover, soft moss, natural fallen bark and muted roots flush with the ground. A calm mossy centre. No buildings, no people, no mushrooms bigger than clover, no dew drops. This image will cover the entire backdrop behind various small woodland room interiors; the room itself is rendered separately.
+Style: richly defined warm pixel art, coherent clustered pixels and controlled earthy palette, moss/sage greens, ochre, hazelnut bark, muted cream highlights, small natural organic detail, no harsh black lines, no vector shapes, no plastic 3D, no noisy dither. Fixed 65-degree overhead orthographic perspective matching classic detailed 2D adventure games, original art.
+Composition: seamless-feeling full bleed composition, landscape 4:3, no horizon, no framing, no checkerboard or empty margins, no text. Opaque forest background; the runtime will apply only a very subtle defocus behind the room so keep the original detailed and sharp. No lighting gimmicks.

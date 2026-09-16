@@ -1,0 +1,204 @@
+{
+  "id": "home-garden",
+  "label": "communityMirlo",
+  "width": 48,
+  "height": 48,
+  "seed": 8197,
+  "spawn": {
+    "x": 24,
+    "y": 34
+  },
+  "baseWater": true,
+  "islands": [
+    {
+      "x": 24,
+      "y": 19,
+      "rx": 24,
+      "ry": 20
+    }
+  ],
+  "waters": [],
+  "rivers": [],
+  "bridges": [
+    {
+      "rect": [
+        23,
+        34,
+        2,
+        6
+      ],
+      "sprite": "jetty"
+    }
+  ],
+  "paths": [
+    [
+      [
+        24,
+        35
+      ],
+      [
+        24,
+        30
+      ],
+      [
+        24,
+        22
+      ]
+    ]
+  ],
+  "clearings": [
+    [
+      24,
+      23,
+      20
+    ]
+  ],
+  "regions": [],
+  "ambient": {
+    "kind": "fireflies",
+    "count": 5
+  },
+  "decoration": {
+    "trees": [],
+    "forest": [],
+    "count": 0
+  },
+  "entities": [
+    {
+      "id": "kelihouse",
+      "sprite": "home-log-twisted",
+      "x": 24,
+      "y": 20,
+      "portal": true,
+      "solid": [
+        -3,
+        -1,
+        7,
+        1.2
+      ],
+      "label": "homeRoom",
+      "rules": [
+        {
+          "effects": [
+            {
+              "type": "travel",
+              "scene": "home-room",
+              "spawn": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "home-dock",
+      "behavior": "river-dock",
+      "x": 25.4,
+      "y": 35.8,
+      "landing": "home"
+    },
+    {
+      "id": "home-lantern",
+      "sprite": "lantern",
+      "x": 27,
+      "y": 32,
+      "rules": []
+    }
+  ],
+  "neighbors": [
+    {
+      "id": "mirlo-maker",
+      "x": 19,
+      "y": 27,
+      "radius": 7,
+      "variant": 12
+    },
+    {
+      "id": "mirlo-stroller",
+      "x": 29,
+      "y": 25,
+      "radius": 7
+    }
+  ],
+  "scenery": [
+    {
+      "id": "old-birch",
+      "sprite": "forest-birch",
+      "x": 6,
+      "y": 12,
+      "scale": 0.8,
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ]
+    },
+    {
+      "id": "root-east",
+      "sprite": "ancient-root",
+      "x": 41,
+      "y": 18,
+      "scale": 0.65,
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ]
+    },
+    {
+      "id": "hedge-north",
+      "sprite": "berries",
+      "x": 24,
+      "y": 5,
+      "scale": 1.4
+    },
+    {
+      "id": "shore-flowers",
+      "sprite": "flowers-bell-blue",
+      "x": 15,
+      "y": 36,
+      "artVariant": "auto"
+    },
+    {
+      "id": "shore-fern",
+      "sprite": "fern",
+      "x": 34,
+      "y": 35
+    }
+  ],
+  "navigation": {
+    "landings": [
+      {
+        "id": "home",
+        "land": [
+          24,
+          36.5
+        ],
+        "water": [
+          24,
+          42.5
+        ]
+      }
+    ],
+    "currents": [],
+    "exits": [
+      {
+        "id": "back-to-river",
+        "visitReturn": false,
+        "area": [
+          4,
+          45.3,
+          40,
+          1.1
+        ],
+        "scene": "river-gardens",
+        "position": [
+          48,
+          6
+        ],
+        "direction": "down"
+      }
+    ]
+  }
+}

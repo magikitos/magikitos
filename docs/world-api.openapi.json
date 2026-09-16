@@ -1,0 +1,3434 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Magikitos World JSON API",
+    "version": "2026-09-16",
+    "description": "Public content, shared website identity, private progress and a server-authoritative shared forest. JSON only; backend implementation stays in the private website repository."
+  },
+  "servers": [
+    {
+      "url": "/api/world"
+    }
+  ],
+  "paths": {
+    "/bootstrap": {
+      "get": {
+        "operationId": "worldBootstrap",
+        "summary": "Public website destinations and capabilities",
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Locale"
+            }
+          }
+        ],
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Bootstrap"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/discover": {
+      "get": {
+        "operationId": "worldDiscover",
+        "summary": "Six pulse-ranked pieces with exploration slots",
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Locale"
+            }
+          },
+          {
+            "name": "kind",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Kind"
+            }
+          },
+          {
+            "name": "round",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100000,
+              "default": 1
+            }
+          },
+          {
+            "name": "exclude",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 6000,
+              "pattern": "^$|^[0-9]+(,[0-9]+)*$"
+            },
+            "description": "Last 500 unique positive IDs used"
+          }
+        ],
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Batch"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/item": {
+      "get": {
+        "operationId": "worldItem",
+        "summary": "One published item and optional authorized voice",
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Locale"
+            }
+          },
+          {
+            "name": "kind",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Kind"
+            }
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "voice",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "item"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "const": true
+                    },
+                    "item": {
+                      "$ref": "#/components/schemas/Piece"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/browse": {
+      "get": {
+        "operationId": "worldBrowse",
+        "summary": "Search titles/transcriptions or filter published pieces",
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Locale"
+            }
+          },
+          {
+            "name": "kind",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Kind"
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000,
+              "default": 0
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 160
+            },
+            "description": "Audio only; incompatible with q"
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 160
+            },
+            "description": "Expressions only"
+          }
+        ],
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/index": {
+      "get": {
+        "operationId": "worldIndex",
+        "summary": "Public categories or regions",
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Locale"
+            }
+          },
+          {
+            "name": "kind",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Kind"
+            }
+          }
+        ],
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Index"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/catalog": {
+      "get": {
+        "operationId": "worldCatalog",
+        "summary": "Public product or art catalogue",
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Locale"
+            }
+          },
+          {
+            "name": "kind",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "products",
+                "art"
+              ]
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000,
+              "default": 0
+            }
+          }
+        ],
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Catalog"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/guardian-thread": {
+      "get": {
+        "operationId": "worldGuardianThread",
+        "summary": "Current identity's conversation; never mints",
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Locale"
+            }
+          },
+          {
+            "name": "term_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Thread"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/csrf": {
+      "get": {
+        "operationId": "worldCsrf",
+        "summary": "Existing CSRF token for guardian writes",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {}
+        ],
+        "responses": {
+          "200": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "csrf_token"
+                  ],
+                  "properties": {
+                    "csrf_token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/identity": {
+      "post": {
+        "operationId": "worldIdentity",
+        "summary": "Read identity, or explicitly create through the shared guarded service",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {}
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "JSON object, at most 32768 bytes",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "locale": {
+                    "$ref": "#/components/schemas/Locale"
+                  },
+                  "create": {
+                    "type": "boolean",
+                    "default": false
+                  },
+                  "turnstile_token": {
+                    "type": "string"
+                  }
+                },
+                "required": []
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Identity"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/vote": {
+      "post": {
+        "operationId": "worldVote",
+        "summary": "Vote through existing website rating and reputation accounting",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {}
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "JSON object, at most 32768 bytes",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "tipo": {
+                    "type": "string",
+                    "enum": [
+                      "cuento",
+                      "chiste",
+                      "voz"
+                    ]
+                  },
+                  "id": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "lang": {
+                    "$ref": "#/components/schemas/Locale"
+                  },
+                  "setas": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 5
+                  },
+                  "device_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "turnstile_token": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "tipo",
+                  "id",
+                  "lang",
+                  "setas",
+                  "device_id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "const": true
+                    }
+                  },
+                  "description": "Existing rating response including aggregate fields"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/guardian": {
+      "post": {
+        "operationId": "worldGuardian",
+        "summary": "Save an explicit guardian message; may mint identity and call a paid model",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {}
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "JSON object, at most 32768 bytes",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "lang": {
+                    "$ref": "#/components/schemas/Locale"
+                  },
+                  "term_id": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "texto": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 300
+                  },
+                  "csrf_token": {
+                    "type": "string"
+                  },
+                  "turnstile_token": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "lang",
+                  "term_id",
+                  "texto",
+                  "csrf_token"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "texto"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "const": true
+                    },
+                    "texto": {
+                      "type": "string"
+                    },
+                    "token": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "despedida": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/game-state": {
+      "get": {
+        "operationId": "worldGameState",
+        "summary": "Own active save and recoverable saves from account merges",
+        "description": "No analytics/events writes. Shared game budget: 120 requests/minute/IP. Maximum JSON body 32 KiB. Origin must be allowed. No language parameter needed.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameStateResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid or unknown data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing/expired bearer; device ID is not authorization",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Origin not allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found/not owned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Wrong method",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Revision/profile changed or operation reused; fetch state and choose explicitly",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit; Retry-After: 60",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Temporarily unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/game-save": {
+      "post": {
+        "operationId": "worldGameSave",
+        "summary": "Save private personal progress and an optional archived pre-community layout",
+        "description": "No analytics/events writes. Shared game budget: 120 requests/minute/IP. Maximum JSON body 32 KiB. Origin must be allowed. No language parameter needed. Saved inventory/wallet fields are PRIVATE snapshots, not authority to build or spend. parcel is a private recovery archive, never a public region.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameSaveResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid or unknown data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing/expired bearer; device ID is not authorization",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Origin not allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found/not owned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Wrong method",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Revision/profile changed or operation reused; fetch state and choose explicitly",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit; Retry-After: 60",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Temporarily unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GameSave"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/game-restore": {
+      "post": {
+        "operationId": "worldGameRestore",
+        "summary": "Activate an owned archived save without deleting the current one",
+        "description": "No analytics/events writes. Shared game budget: 120 requests/minute/IP. Maximum JSON body 32 KiB. Origin must be allowed. No language parameter needed.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameStateResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid or unknown data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing/expired bearer; device ID is not authorization",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Origin not allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found/not owned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Wrong method",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Revision/profile changed or operation reused; fetch state and choose explicitly",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit; Retry-After: 60",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Temporarily unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GameRestore"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/game-account": {
+      "get": {
+        "operationId": "worldGameAccount",
+        "summary": "Read own authoritative materials, knowledge, setines and trust",
+        "description": "JSON only. Existing bearer identity for private operations. 120 requests/minute/IP; construction additionally 12 writes/minute/user. No general analytics events. Server catalog, prerequisites, costs, terrain and permissions are authoritative.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameAccountResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/game-action": {
+      "post": {
+        "operationId": "worldGameAction",
+        "summary": "Apply one allowed recipe, pickup or reward atomically",
+        "description": "JSON only. Existing bearer identity for private operations. 120 requests/minute/IP; construction additionally 12 writes/minute/user. No general analytics events. Server catalog, prerequisites, costs, terrain and permissions are authoritative.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GameAction"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameAccountResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/community": {
+      "get": {
+        "operationId": "worldCommunity",
+        "summary": "Read one bounded shared-region snapshot, not online presence",
+        "description": "JSON only. Existing bearer identity for private operations. 120 requests/minute/IP; construction additionally 12 writes/minute/user. No general analytics events. Server catalog, prerequisites, costs, terrain and permissions are authoritative.",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommunitySnapshot"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "zone",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "tocon-del-mirlo",
+                "remanso-del-musgo"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "/community-build": {
+      "post": {
+        "operationId": "worldCommunityBuild",
+        "summary": "Place, move or dismantle an owned non-heritage object",
+        "description": "JSON only. Existing bearer identity for private operations. 120 requests/minute/IP; construction additionally 12 writes/minute/user. No general analytics events. Server catalog, prerequisites, costs, terrain and permissions are authoritative.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommunityBuild"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommunitySnapshot"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/community-use": {
+      "post": {
+        "operationId": "worldCommunityUse",
+        "summary": "Explicit player use; no simulated-NPC reputation",
+        "description": "JSON only. Existing bearer identity for private operations. 120 requests/minute/IP; construction additionally 12 writes/minute/user. No general analytics events. Server catalog, prerequisites, costs, terrain and permissions are authoritative. Reputation signals require a different, contacted account aged at least seven days; once per account/object. No foreign modification rights are enabled.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommunityUse"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommunityUseResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "ok": {
+            "const": false
+          },
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "Piece": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "voiceId",
+          "kind",
+          "lang",
+          "name",
+          "handle",
+          "authorUrl",
+          "title",
+          "summary",
+          "url",
+          "audio",
+          "duration",
+          "region",
+          "regionSlug",
+          "category",
+          "rating"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "voiceId": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1
+          },
+          "kind": {
+            "$ref": "#/components/schemas/Kind"
+          },
+          "lang": {
+            "$ref": "#/components/schemas/Locale"
+          },
+          "name": {
+            "type": "string"
+          },
+          "handle": {
+            "type": "string"
+          },
+          "authorUrl": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 300
+          },
+          "summary": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "url": {
+            "type": "string"
+          },
+          "audio": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "duration": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Seconds"
+          },
+          "region": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "regionSlug": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "category": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "rating": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 1,
+            "maximum": 5
+          }
+        }
+      },
+      "Locale": {
+        "type": "string",
+        "enum": [
+          "es",
+          "en",
+          "de",
+          "fr",
+          "it",
+          "pt"
+        ]
+      },
+      "Kind": {
+        "type": "string",
+        "enum": [
+          "cuento",
+          "chiste",
+          "expresion"
+        ]
+      },
+      "Product": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "price",
+          "currency",
+          "quantity",
+          "image",
+          "url"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "name": {
+            "type": "string"
+          },
+          "price": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "EUR cents, not game currency"
+          },
+          "currency": {
+            "const": "EUR"
+          },
+          "quantity": {
+            "type": "integer"
+          },
+          "image": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "url": {
+            "type": "string"
+          }
+        }
+      },
+      "Sheet": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "image",
+          "thumb"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "title": {
+            "type": "string",
+            "description": "Localized description of the sheet; the artwork itself has no language"
+          },
+          "image": {
+            "type": "string",
+            "description": "Full-size AVIF master, for viewing and printing"
+          },
+          "thumb": {
+            "type": "string",
+            "description": "300px AVIF variant for grids; falls back to the master when absent"
+          }
+        }
+      },
+      "User": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "handle": {
+            "type": "string"
+          },
+          "avatar_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "description": "Public contributor identity; no private fields"
+      },
+      "Identity": {
+        "type": "object",
+        "required": [
+          "ok",
+          "created",
+          "user",
+          "token"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "created": {
+            "type": "boolean"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "token": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "Thread": {
+        "type": "object",
+        "properties": {
+          "mensajes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "de": {
+                  "type": "string"
+                },
+                "texto": {
+                  "type": "string"
+                },
+                "cuando": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "modo": {
+            "type": "string"
+          }
+        },
+        "description": "Existing private guardian-thread DTO; may include reclaim/publication hints owned by the website"
+      },
+      "Bootstrap": {
+        "type": "object",
+        "required": [
+          "ok",
+          "locale",
+          "destinations",
+          "capabilities",
+          "limits"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "locale": {
+            "$ref": "#/components/schemas/Locale"
+          },
+          "destinations": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "capabilities": {
+            "type": "object",
+            "properties": {
+              "identity": {
+                "type": "boolean"
+              },
+              "ratings": {
+                "type": "boolean"
+              },
+              "guardian": {
+                "type": "boolean"
+              },
+              "turnstileSiteKey": {
+                "type": "string"
+              }
+            }
+          },
+          "limits": {
+            "type": "object",
+            "properties": {
+              "pageSize": {
+                "const": 24
+              },
+              "discoverySize": {
+                "const": 6
+              },
+              "guardianText": {
+                "const": 300
+              }
+            }
+          }
+        }
+      },
+      "Batch": {
+        "type": "object",
+        "required": [
+          "ok",
+          "items"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "items": {
+            "type": "array",
+            "maxItems": 6,
+            "items": {
+              "$ref": "#/components/schemas/Piece"
+            }
+          }
+        }
+      },
+      "Page": {
+        "type": "object",
+        "required": [
+          "ok",
+          "items",
+          "nextCursor"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "items": {
+            "type": "array",
+            "maxItems": 24,
+            "items": {
+              "$ref": "#/components/schemas/Piece"
+            }
+          },
+          "nextCursor": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1,
+            "maximum": 10000
+          }
+        }
+      },
+      "Index": {
+        "type": "object",
+        "required": [
+          "ok",
+          "items"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "title",
+                "count",
+                "url"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "count": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "url": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Catalog": {
+        "type": "object",
+        "required": [
+          "ok",
+          "items",
+          "nextCursor"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "items": {
+            "type": "array",
+            "maxItems": 24,
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/Product"
+                },
+                {
+                  "$ref": "#/components/schemas/Sheet"
+                }
+              ]
+            }
+          },
+          "nextCursor": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "maximum": 10000
+          }
+        }
+      },
+      "GameId": {
+        "type": "string",
+        "pattern": "^[a-f0-9]{32}$"
+      },
+      "GamePoint": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "x",
+          "y"
+        ],
+        "properties": {
+          "x": {
+            "type": "number",
+            "minimum": 0
+          },
+          "y": {
+            "type": "number",
+            "minimum": 0
+          }
+        }
+      },
+      "GameParcelObject": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "variant",
+          "space",
+          "x",
+          "y"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,48}$"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "variant": {
+            "type": "string"
+          },
+          "space": {
+            "type": "string",
+            "enum": [
+              "garden",
+              "room"
+            ]
+          },
+          "x": {
+            "type": "number",
+            "minimum": 0,
+            "multipleOf": 0.5
+          },
+          "y": {
+            "type": "number",
+            "minimum": 0,
+            "multipleOf": 0.5
+          }
+        }
+      },
+      "GameParcel": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "objects"
+        ],
+        "properties": {
+          "objects": {
+            "type": "array",
+            "maxItems": 48,
+            "items": {
+              "$ref": "#/components/schemas/GameParcelObject"
+            }
+          }
+        },
+        "description": "Only registered stock/variants and per-kind counts from the installed game-contract.json. Half-tile grid, space bounds, non-overlapping solids, protected dock/path/door and verified access. No HTML, URLs, uploads or arbitrary assets."
+      },
+      "GameNeed": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "last",
+          "due"
+        ],
+        "properties": {
+          "last": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "due": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      },
+      "GameState": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "scene",
+          "position",
+          "wallet",
+          "muted",
+          "needs"
+        ],
+        "properties": {
+          "scene": {
+            "type": "string"
+          },
+          "position": {
+            "$ref": "#/components/schemas/GamePoint"
+          },
+          "flags": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "boolean"
+            }
+          },
+          "inventory": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 99
+            }
+          },
+          "timers": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "wallet": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "balance",
+              "claimed"
+            ],
+            "properties": {
+              "balance": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "claimed": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "muted": {
+            "type": "boolean"
+          },
+          "needs": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "pee",
+              "poop"
+            ],
+            "properties": {
+              "pee": {
+                "$ref": "#/components/schemas/GameNeed"
+              },
+              "poop": {
+                "$ref": "#/components/schemas/GameNeed"
+              }
+            }
+          },
+          "traces": {
+            "type": "array",
+            "maxItems": 48,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "kind",
+                "scene",
+                "x",
+                "y",
+                "expires"
+              ],
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "pee",
+                    "poop"
+                  ]
+                },
+                "scene": {
+                  "type": "string"
+                },
+                "x": {
+                  "type": "number"
+                },
+                "y": {
+                  "type": "number"
+                },
+                "expires": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "objects": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/components/schemas/GamePoint"
+              },
+              "maxProperties": 128
+            }
+          },
+          "keepsakes": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 32
+              },
+              "maxProperties": 128
+            }
+          },
+          "entrance": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "scene",
+                  "portal"
+                ],
+                "properties": {
+                  "scene": {
+                    "type": "string"
+                  },
+                  "portal": {
+                    "type": "string",
+                    "pattern": "^[a-zA-Z0-9_-]{1,96}$"
+                  }
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "navigation": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "mode",
+              "direction"
+            ],
+            "properties": {
+              "mode": {
+                "type": "string",
+                "enum": [
+                  "foot",
+                  "boat"
+                ]
+              },
+              "direction": {
+                "type": "string",
+                "enum": [
+                  "up",
+                  "down",
+                  "left",
+                  "right",
+                  "up-left",
+                  "up-right",
+                  "down-left",
+                  "down-right"
+                ]
+              },
+              "landing": {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9_-]{1,96}$"
+              }
+            }
+          },
+          "home": {
+            "type": "boolean"
+          },
+          "visited": {
+            "type": "array",
+            "maxItems": 32,
+            "items": {
+              "$ref": "#/components/schemas/GameId"
+            }
+          },
+          "resources": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "cycle",
+                "bits"
+              ],
+              "properties": {
+                "cycle": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 2147483646
+                },
+                "bits": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]+$",
+                  "maxLength": 512
+                }
+              }
+            }
+          }
+        },
+        "description": "Private bounded snapshot, not server-attested progression or website money. Allowed keys, item caps, balance cap and scene coordinates are validated against the installed data contract. Timestamps in milliseconds. Never public."
+      },
+      "GameProfile": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "revision",
+          "state",
+          "parcel"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/GameId"
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "state": {
+            "$ref": "#/components/schemas/GameState"
+          },
+          "parcel": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/GameParcel"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "GameRecovery": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "revision",
+          "hasParcel",
+          "updatedAt"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/GameId"
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "hasParcel": {
+            "type": "boolean"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        }
+      },
+      "GameStateResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "ok",
+          "profile",
+          "recoveries"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "profile": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/GameProfile"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "recoveries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GameRecovery"
+            }
+          }
+        }
+      },
+      "GameSave": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "profileId",
+          "baseRevision",
+          "operationId",
+          "state",
+          "parcel"
+        ],
+        "properties": {
+          "profileId": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/GameId"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "baseRevision": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2147483646
+          },
+          "operationId": {
+            "$ref": "#/components/schemas/GameId"
+          },
+          "state": {
+            "$ref": "#/components/schemas/GameState"
+          },
+          "parcel": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/GameParcel"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "description": "New: profileId=null, baseRevision=0. Later: last acknowledged ID/revision. Retry identical payload/operationId until acknowledged. A built parcel cannot become null through autosave."
+      },
+      "GameSaveResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "ok",
+          "profile",
+          "acknowledgedRevision",
+          "replayed"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "profile": {
+            "$ref": "#/components/schemas/GameProfile"
+          },
+          "acknowledgedRevision": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "replayed": {
+            "type": "boolean"
+          }
+        },
+        "description": "Last 16 receipts retained. A late replay returns current profile and original acknowledgedRevision; differing revisions require conflict resolution."
+      },
+      "GameRestore": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "profileId",
+          "currentId",
+          "baseRevision"
+        ],
+        "properties": {
+          "profileId": {
+            "$ref": "#/components/schemas/GameId"
+          },
+          "currentId": {
+            "$ref": "#/components/schemas/GameId"
+          },
+          "baseRevision": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      },
+      "GameError": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "ok",
+          "error"
+        ],
+        "properties": {
+          "ok": {
+            "const": false
+          },
+          "error": {
+            "type": "string"
+          },
+          "profile": {
+            "$ref": "#/components/schemas/GameProfile"
+          }
+        }
+      },
+      "GameAccount": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "revision",
+          "setines",
+          "trust",
+          "inventory",
+          "progress",
+          "knowledge",
+          "resources"
+        ],
+        "properties": {
+          "revision": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "setines": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 999999
+          },
+          "trust": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "inventory": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 99
+            }
+          },
+          "progress": {
+            "type": "object",
+            "description": "Server-owned flags, timers and one-time reward receipts."
+          },
+          "knowledge": {
+            "type": "array",
+            "maxItems": 64,
+            "items": {
+              "type": "string"
+            }
+          },
+          "resources": {
+            "type": "object",
+            "description": "Region renewal cycles and compact collected-node hex bitsets."
+          }
+        }
+      },
+      "GameAccountResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "ok",
+          "account"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "account": {
+            "$ref": "#/components/schemas/GameAccount"
+          },
+          "replayed": {
+            "type": "boolean"
+          }
+        }
+      },
+      "GameAction": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "operationId",
+          "baseRevision",
+          "scene",
+          "entity",
+          "action"
+        ],
+        "properties": {
+          "operationId": {
+            "$ref": "#/components/schemas/GameId"
+          },
+          "baseRevision": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "scene": {
+            "type": "string",
+            "maxLength": 96
+          },
+          "entity": {
+            "type": "string",
+            "maxLength": 96
+          },
+          "action": {
+            "type": "string",
+            "maxLength": 96
+          }
+        }
+      },
+      "CommunityObject": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "variant",
+          "x",
+          "y",
+          "rotation",
+          "revision",
+          "author",
+          "createdAt",
+          "heritage",
+          "mine"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/GameId"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "variant": {
+            "type": "string"
+          },
+          "x": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 2048,
+            "multipleOf": 0.5
+          },
+          "y": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 2048,
+            "multipleOf": 0.5
+          },
+          "rotation": {
+            "type": "integer",
+            "enum": [
+              0,
+              1
+            ]
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "author": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "handle",
+              "name"
+            ],
+            "properties": {
+              "handle": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "name": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "heritage": {
+            "type": "boolean"
+          },
+          "mine": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CommunitySnapshot": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "ok",
+          "zone",
+          "revision",
+          "objects"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "zone": {
+            "type": "string",
+            "enum": [
+              "tocon-del-mirlo",
+              "remanso-del-musgo"
+            ]
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "objects": {
+            "type": "array",
+            "maxItems": 96,
+            "items": {
+              "$ref": "#/components/schemas/CommunityObject"
+            }
+          },
+          "account": {
+            "$ref": "#/components/schemas/GameAccount"
+          },
+          "replayed": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CommunityBuild": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "operationId",
+          "baseRevision",
+          "zone",
+          "zoneRevision",
+          "operation",
+          "object"
+        ],
+        "properties": {
+          "operationId": {
+            "$ref": "#/components/schemas/GameId"
+          },
+          "baseRevision": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "zone": {
+            "type": "string"
+          },
+          "zoneRevision": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "operation": {
+            "type": "string",
+            "enum": [
+              "place",
+              "move",
+              "remove"
+            ]
+          },
+          "object": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "$ref": "#/components/schemas/GameId"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "variant": {
+                "type": "string"
+              },
+              "x": {
+                "type": "number",
+                "multipleOf": 0.5
+              },
+              "y": {
+                "type": "number",
+                "multipleOf": 0.5
+              },
+              "rotation": {
+                "type": "integer",
+                "enum": [
+                  0,
+                  1
+                ]
+              },
+              "revision": {
+                "type": "integer",
+                "minimum": 1
+              }
+            },
+            "description": "place: kind,variant,x,y,rotation. move: id,revision,x,y,rotation. remove: id,revision. Catalog identity is immutable after placement."
+          }
+        }
+      },
+      "CommunityUse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/GameId"
+          }
+        }
+      },
+      "CommunityUseResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "ok",
+          "used"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "used": {
+            "const": true
+          }
+        }
+      }
+    }
+  }
+}

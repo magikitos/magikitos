@@ -1,0 +1,88 @@
+name: Android — build or internal test
+on:
+  workflow_dispatch:
+    inputs:
+      build_number:
+        description: Unique increasing Play versionCode
+        required: true
+        type: string
+      signed:
+        description: Sign AAB with the dedicated Magikitos upload key
+        default: false
+        type: boolean
+      publish_internal:
+        description: Upload signed AAB to Play INTERNAL testing (never production)
+        default: false
+        type: boolean
+permissions:
+  contents: read
+concurrency:
+  group: mobile-android
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    # Configure required reviewers here before storing any signing credentials.
+    environment: mobile-internal
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            apps/mobile/package-lock.json
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Validate request
+        env:
+          BUILD_NUMBER: ${{ inputs.build_number }}
+          SIGNED: ${{ inputs.signed }}
+          PUBLISH: ${{ inputs.publish_internal }}
+        run: |
+          node -e 'const n=Number(process.env.BUILD_NUMBER);if(!Number.isSafeInteger(n)||n<1||n>2100000000)process.exit(1);if(process.env.PUBLISH==="true"&&process.env.SIGNED!=="true")process.exit(1)'
+      - name: PHP and Android SDK
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y php-cli
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" 'platforms;android-36' 'build-tools;36.0.0'
+      - run: npm ci
+      - run: npm --prefix apps/mobile ci
+      - name: Build the bundled game and sync native project
+        run: npm run mobile:sync
+      - name: Check the audio/mobile package
+        run: npm run test:audio:core
+      - name: Restore dedicated upload key
+        if: inputs.signed
+        env:
+          UPLOAD_KEY: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+        run: |
+          test -n "$UPLOAD_KEY"
+          printf '%s' "$UPLOAD_KEY" | base64 --decode > "$RUNNER_TEMP/magikitos-upload.jks"
+          echo "MAGIKITOS_KEYSTORE=$RUNNER_TEMP/magikitos-upload.jks" >> "$GITHUB_ENV"
+      - name: Build AAB
+        working-directory: apps/mobile/android
+        env:
+          BUILD_NUMBER: ${{ inputs.build_number }}
+          MAGIKITOS_STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          MAGIKITOS_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          MAGIKITOS_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: ./gradlew --no-daemon bundleRelease "-PmagikitosBuildNumber=$BUILD_NUMBER"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: magikitos-android-${{ inputs.build_number }}
+          path: apps/mobile/android/app/build/outputs/bundle/release/*.aab
+          if-no-files-found: error
+      - name: Publish only to internal testing
+        if: inputs.publish_internal
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+          packageName: com.magikitos.adventure
+          releaseFiles: apps/mobile/android/app/build/outputs/bundle/release/*.aab
+          track: internal
+          status: draft

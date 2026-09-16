@@ -1,0 +1,12 @@
+{
+    "source": "picnic-guacamole.png",
+    "sourceHash": "b34ddc8c6a8f9696c6033859d3562670812c6ad7681ddbd6e84f6ad6eb8b06d1",
+    "bounds": [
+        320,
+        204,
+        808,
+        653
+    ],
+    "matte": "original-alpha",
+    "fringePixels": 2
+}

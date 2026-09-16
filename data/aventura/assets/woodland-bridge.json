@@ -1,0 +1,44 @@
+{
+  "frames": {
+    "bridge-branches": {
+      "source": "data/aventura/art/woodland-kit/cutouts/bridge-branches.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        180,
+        76
+      ],
+      "fit": true,
+      "anchor": [
+        90,
+        38
+      ]
+    },
+    "bridge-log": {
+      "source": "data/aventura/art/woodland-kit/cutouts/bridge-log.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        128,
+        64
+      ],
+      "fit": true,
+      "anchor": [
+        64,
+        60
+      ]
+    }
+  }
+}

@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="{{locale}}">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#263f31" />
+    <meta name="description" content="{{description}}" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="{{prefix}}/assets/css/aventura.min.css" />
+  </head>
+  <body class="world-page">
+    <dialog id="world-entry" class="world-entry" aria-labelledby="entry-title">
+      <div class="world-entry-card">
+        <span class="world-entry-eyebrow">MAGIKITOS</span>
+        <h1 id="entry-title">{{entryTitle}}</h1>
+        <p>{{entryInvitation}}</p>
+        <button id="entry-start" class="world-primary" type="button" disabled>{{entryExplore}}</button>
+        <div class="world-entry-options">
+          <label><input id="entry-sound" type="checkbox" checked />{{entrySound}}</label>
+          <label id="entry-fullscreen-option" hidden><input id="entry-fullscreen" type="checkbox" />{{fullscreen}}</label>
+        </div>
+        <small id="entry-status" role="status">{{entryPreparing}}</small>
+      </div>
+    </dialog>
+    <button id="world-fullscreen" class="world-tool world-fullscreen" type="button" aria-label="{{fullscreen}}" title="{{fullscreen}}" hidden>
+      <svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5M8 8 3 3m13 5 5-5M8 16l-5 5m13-5 5 5"/></svg>
+    </button>
+    <div class="world-stage" id="world-viewport">
+      <canvas id="world-canvas" tabindex="0" aria-label="{{hint}}"></canvas>
+      <div class="world-loading" id="loading" role="status" hidden></div>
+    </div>
+    <div class="world-controls">
+      <button
+        type="button"
+        class="world-tool"
+        id="sound-toggle"
+        aria-label="{{soundOff}}"
+        aria-pressed="false"
+      >
+        ♫
+      </button>
+      <button
+        type="button"
+        class="world-tool world-self-toggle"
+        id="self-toggle"
+        aria-label="{{self}}"
+      >
+        <span data-sprite="person-0-down" aria-hidden="true"></span
+        ><small>{{self}}</small>
+      </button>
+      <button
+        type="button"
+        class="world-tool"
+        id="bag-toggle"
+        aria-label="{{bag}}"
+      >
+        <span
+          class="world-bag-icon"
+          data-sprite="sack"
+          aria-hidden="true"
+        ></span
+        ><span id="inventory-count">0</span>
+      </button>
+    </div>
+    <div
+      class="world-dialogue"
+      id="dialogue"
+      role="region"
+      aria-label="{{dialogueLabel}}"
+      hidden
+    >
+      <canvas id="portrait" width="56" height="80" aria-hidden="true"></canvas>
+      <div class="world-dialogue__body">
+        <span id="speaker">{{you}}</span>
+        <p id="dialogue-text" aria-live="polite"></p>
+        <span id="page-count"></span>
+      </div>
+      <div id="dialogue-actions"></div>
+      <button type="button" id="dialogue-next">{{done}}</button>
+    </div>
+    <div
+      id="pickup-status"
+      class="world-sr-only"
+      role="status"
+      aria-live="polite"
+    ></div>
+    <div id="world-toast" class="world-toast" role="status" hidden></div>
+    <button id="world-boost" class="world-boost" type="button" aria-label="{{boost}}" aria-pressed="false" hidden>
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 8 8 8-8 8m11-16 8 8-8 8"/></svg>
+    </button>
+    <div class="world-navigation">
+      <div id="world-joystick" class="world-joystick" role="group" aria-label="{{joystick}}" hidden>
+        <svg class="world-stick-compass" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><circle cx="50" cy="50" r="46" stroke-width="1"/><path d="M50 9v7M79 21l-5 5M91 50h-7M79 79l-5-5M50 91v-7M21 79l5-5M9 50h7M21 21l5 5"/></svg>
+        <span class="world-stick-knob" aria-hidden="true"></span>
+      </div>
+      <button id="world-recenter" class="world-recenter" type="button" aria-label="{{recenterMap}}" title="{{recenterMap}}" hidden>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="6.5"/><circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/><path d="M12 2v4m0 12v4M2 12h4m12 0h4" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div id="home-controls" class="world-home-controls" hidden>
+      <button type="button" class="world-primary" id="home-edit">{{communityBuild}}</button>
+    </div>
+    <section id="home-editor" class="world-home-editor" aria-label="{{homeDecorate}}" hidden>
+      <p id="community-reason" role="status">{{communityChoose}}</p>
+      <div id="home-palette" class="world-home-palette"></div>
+      <div class="world-home-actions">
+        <button type="button" id="home-variant">{{homeVariant}}</button>
+        <button type="button" id="community-rotate">{{communityRotate}}</button>
+        <button type="button" id="home-remove">{{homeRemove}}</button>
+        <button type="button" id="home-cancel">{{homeCancel}}</button>
+        <button type="button" id="home-save" class="world-primary">{{communityConfirm}}</button>
+      </div>
+      <small>{{communityPublic}}</small>
+    </section>
+    <div class="world-listening" id="world-listening" hidden>
+      <audio id="world-audio" preload="none"></audio>
+      <button type="button" id="listening-play" aria-label="{{listen}}">
+        ▶
+      </button>
+      <button type="button" id="listening-sheet">
+        <span id="listening-kind"></span><strong id="listening-title"></strong>
+      </button>
+      <button type="button" id="listening-next" aria-label="{{another}}">
+        ↠
+      </button>
+      <button
+        type="button"
+        id="listening-auto"
+        aria-label="{{auto}}"
+        aria-pressed="false"
+      >
+        ↻
+      </button>
+      <button type="button" id="listening-stop" aria-label="{{close}}">
+        ×
+      </button>
+      <div class="world-listening-progress">
+        <time id="listening-time">0:00</time
+        ><input
+          id="listening-seek"
+          type="range"
+          min="0"
+          max="1000"
+          value="0"
+          aria-label="{{playbackPosition}}"
+          disabled
+        /><time id="listening-duration">0:00</time>
+      </div>
+    </div>
+    <div id="held-item" class="world-held-item" hidden>
+      <span id="held-item-label"></span
+      ><button type="button" id="held-item-cancel" aria-label="{{close}}">
+        ×
+      </button>
+    </div>
+    <dialog
+      class="world-modal world-bag"
+      id="bag-dialog"
+      aria-labelledby="bag-title"
+    >
+      <header>
+        <h2 id="bag-title">{{bag}}</h2>
+        <button type="button" data-dismiss aria-label="{{close}}">×</button>
+      </header>
+      <div class="world-wallet">
+        <span data-sprite="setin" aria-hidden="true"></span
+        ><strong id="wallet-balance"></strong><small>{{walletLocal}}</small>
+      </div>
+      <div id="bag-items" class="world-bag-grid"></div>
+      <div id="bag-detail" class="world-bag-detail" hidden>
+        <h3 id="bag-item-title"></h3>
+        <p id="bag-item-description"></p>
+        <small id="bag-item-lifetime"></small
+        ><button type="button" id="bag-use" class="world-primary">
+          {{useItem}}
+        </button>
+      </div>
+      <p id="save-status" role="status">{{saved}}</p>
+    </dialog>
+    <dialog
+      class="world-modal world-self"
+      id="self-dialog"
+      aria-labelledby="self-title"
+    >
+      <header>
+        <h2 id="self-title">{{self}}</h2>
+        <button type="button" data-dismiss aria-label="{{close}}">×</button>
+      </header>
+      <div class="world-self-summary">
+        <span data-sprite="person-0-down" aria-hidden="true"></span>
+        <p id="self-status" role="status"></p>
+      </div>
+      <p id="self-leaves"></p>
+      <button type="button" id="puzzle-reset" hidden>{{puzzleReset}}</button>
+      <div class="world-self-actions">
+        <button type="button" class="world-primary" id="self-pee" hidden>
+          {{peeAction}}</button
+        ><button type="button" class="world-primary" id="self-poop" hidden>
+          {{poopAction}}
+        </button>
+      </div>
+      <div class="world-self-identity" id="self-identity" hidden>
+        <img id="self-identity-avatar" alt="" width="48" height="48" hidden />
+        <p id="self-identity-name"></p>
+        <p id="self-identity-handle" hidden></p>
+        <p id="self-identity-note" role="status"></p>
+        <button type="button" class="world-primary" id="self-claim" hidden>
+          {{identityClaim}}
+        </button>
+        <a id="self-account-link" target="_blank" rel="noopener" hidden
+          >{{account}} ↗</a
+        >
+      </div>
+      <p class="world-self-help">{{needsHelp}}</p>
+      <section class="world-cloud-save" aria-label="{{cloudConnect}}">
+        <p id="cloud-status" role="status"></p>
+        <button type="button" id="cloud-connect" class="world-primary">{{cloudConnect}}</button>
+        <div id="cloud-conflict" hidden>
+          <button type="button" id="cloud-remote">{{cloudUseRemote}}</button>
+          <button type="button" id="cloud-local">{{cloudUseLocal}}</button>
+        </div>
+        <div id="cloud-recoveries"></div>
+      </section>
+      <label class="world-language"
+        >{{language}}<select id="world-language">
+          {{languageOptions}}
+        </select></label
+      >
+    </dialog>
+    <div class="world-experience-wash" aria-hidden="true"></div>
+    <main
+      id="world-content"
+      class="world-content"
+      data-presentation="experience"
+      aria-label="{{contentLabel}}"
+      hidden
+    >
+      <div id="world-content-body" class="world-folio-body"></div>
+      <p class="world-content-dismiss-hint">{{outsideToClose}}</p>
+      <button type="button" id="content-exit" class="world-accessible-exit">
+        {{backToWorld}}
+      </button>
+    </main>
+    <script type="application/json" id="adventure-config">
+      {{configuration}}
+    </script>
+    <script src="{{prefix}}/assets/js/aventura.min.js" defer></script>
+    <noscript><p class="world-no-script">{{noScript}}</p></noscript>
+  </body>
+</html>

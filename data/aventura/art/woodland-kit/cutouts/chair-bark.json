@@ -1,0 +1,12 @@
+{
+    "source": "chair-bark.png",
+    "sourceHash": "d08b8f5286cc030b4192b8cdf314591538fc1841dce34530957e14e92d879112",
+    "bounds": [
+        192,
+        99,
+        773,
+        1155
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

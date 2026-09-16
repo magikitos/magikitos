@@ -1,0 +1,44 @@
+{
+    "frames": {
+        "cat-bowl": {
+            "source": "data/aventura/art/cats/cutouts/cat-bowl.png",
+            "grid": [
+                2,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                88,
+                68
+            ],
+            "anchor": [
+                44,
+                52
+            ],
+            "fit": true
+        },
+        "cat-bowl-pool": {
+            "source": "data/aventura/art/cats/cutouts/cat-bowl.png",
+            "grid": [
+                2,
+                1
+            ],
+            "cell": [
+                1,
+                0
+            ],
+            "size": [
+                88,
+                68
+            ],
+            "anchor": [
+                44,
+                52
+            ],
+            "fit": true
+        }
+    }
+}

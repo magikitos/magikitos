@@ -1,0 +1,29 @@
+{
+    "ascua-rowing-wooden-oars": {
+        "bounds": [
+            17,
+            17,
+            1741,
+            852
+        ],
+        "alpha": 0.593
+    },
+    "picnic-bin": {
+        "bounds": [
+            374,
+            100,
+            506,
+            1054
+        ],
+        "alpha": 0.748
+    },
+    "bottle-craft-wooden-oars": {
+        "bounds": [
+            108,
+            51,
+            1837,
+            653
+        ],
+        "alpha": 0.687
+    }
+}

@@ -1,0 +1,15 @@
+{
+  "appId": "com.magikitos.adventure",
+  "appName": "Magikitos",
+  "webDir": "www",
+  "backgroundColor": "#263f31",
+  "ios": { "path": "ios", "preferredContentMode": "mobile" },
+  "android": { "path": "android" },
+  "plugins": {
+    "SystemBars": {
+      "insetsHandling": "native",
+      "initialViewportFitValueHint": "cover",
+      "hidden": true
+    }
+  }
+}

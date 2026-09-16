@@ -1,0 +1,467 @@
+{
+  "canvas": [
+    48,
+    48
+  ],
+  "anchor": [
+    24,
+    46
+  ],
+  "sheets": [
+    {
+      "id": "ascua-walk",
+      "pack": "actor-0",
+      "grid": [
+        8,
+        4
+      ],
+      "directions": [
+        "down",
+        "down-right",
+        "right",
+        "up-right",
+        "up",
+        "up-left",
+        "left",
+        "down-left"
+      ],
+      "variant": 0,
+      "action": "walk",
+      "height": 40
+    },
+    {
+      "id": "ascua-neighbor-a",
+      "pack": "actor-1",
+      "grid": [
+        8,
+        4
+      ],
+      "directions": [
+        "down",
+        "down-right",
+        "right",
+        "up-right",
+        "up",
+        "up-left",
+        "left",
+        "down-left"
+      ],
+      "variant": 1,
+      "action": "walk",
+      "height": 40
+    },
+    {
+      "id": "ascua-neighbor-b",
+      "pack": "actor-2",
+      "grid": [
+        8,
+        4
+      ],
+      "directions": [
+        "down",
+        "down-right",
+        "right",
+        "up-right",
+        "up",
+        "up-left",
+        "left",
+        "down-left"
+      ],
+      "variant": 2,
+      "action": "walk",
+      "height": 40
+    },
+    {
+      "id": "zarzal",
+      "pack": "actor-3",
+      "grid": [
+        8,
+        4
+      ],
+      "directions": [
+        "down",
+        "down-right",
+        "right",
+        "up-right",
+        "up",
+        "up-left",
+        "left",
+        "down-left"
+      ],
+      "variant": 3,
+      "action": "walk",
+      "height": 40
+    },
+    {
+      "id": "zarzal-neighbor-a-framed",
+      "pack": "actor-4",
+      "grid": [
+        8,
+        4
+      ],
+      "directions": [
+        "down",
+        "down-right",
+        "right",
+        "up-right",
+        "up",
+        "up-left",
+        "left",
+        "down-left"
+      ],
+      "variant": 4,
+      "action": "walk",
+      "height": 40
+    },
+    {
+      "id": "zarzal-neighbor-b",
+      "pack": "actor-5",
+      "grid": [
+        8,
+        4
+      ],
+      "directions": [
+        "down",
+        "down-right",
+        "right",
+        "up-right",
+        "up",
+        "up-left",
+        "left",
+        "down-left"
+      ],
+      "variant": 5,
+      "action": "walk",
+      "height": 40
+    },
+    {
+      "id": "trasto",
+      "pack": "actor-6",
+      "grid": [
+        8,
+        4
+      ],
+      "directions": [
+        "down",
+        "down-right",
+        "right",
+        "up-right",
+        "up",
+        "up-left",
+        "left",
+        "down-left"
+      ],
+      "variant": 6,
+      "action": "walk",
+      "height": 40
+    },
+    {
+      "id": "trasto-neighbor-a-framed",
+      "pack": "actor-7",
+      "grid": [
+        8,
+        4
+      ],
+      "directions": [
+        "down",
+        "down-right",
+        "right",
+        "up-right",
+        "up",
+        "up-left",
+        "left",
+        "down-left"
+      ],
+      "variant": 7,
+      "action": "walk",
+      "height": 40
+    },
+    {
+      "id": "trasto-neighbor-b",
+      "pack": "actor-8",
+      "grid": [
+        8,
+        4
+      ],
+      "directions": [
+        "down",
+        "down-right",
+        "right",
+        "up-right",
+        "up",
+        "up-left",
+        "left",
+        "down-left"
+      ],
+      "variant": 8,
+      "action": "walk",
+      "height": 40
+    },
+    {
+      "id": "candil",
+      "pack": "actor-9",
+      "grid": [
+        8,
+        4
+      ],
+      "directions": [
+        "down",
+        "down-right",
+        "right",
+        "up-right",
+        "up",
+        "up-left",
+        "left",
+        "down-left"
+      ],
+      "variant": 9,
+      "action": "walk",
+      "height": 40
+    },
+    {
+      "id": "candil-neighbor-a",
+      "pack": "actor-10",
+      "grid": [
+        8,
+        4
+      ],
+      "directions": [
+        "down",
+        "down-right",
+        "right",
+        "up-right",
+        "up",
+        "up-left",
+        "left",
+        "down-left"
+      ],
+      "variant": 10,
+      "action": "walk",
+      "height": 40
+    },
+    {
+      "id": "candil-neighbor-b",
+      "pack": "actor-11",
+      "grid": [
+        8,
+        4
+      ],
+      "directions": [
+        "down",
+        "down-right",
+        "right",
+        "up-right",
+        "up",
+        "up-left",
+        "left",
+        "down-left"
+      ],
+      "variant": 11,
+      "action": "walk",
+      "height": 40
+    },
+    {
+      "id": "ascua-push-corrected",
+      "pack": "actor-0-push",
+      "grid": [
+        4,
+        4
+      ],
+      "directions": [
+        "down",
+        "right",
+        "up",
+        "left"
+      ],
+      "variant": 0,
+      "action": "push",
+      "height": 39
+    },
+    {
+      "id": "ascua-roll-matte",
+      "pack": "actor-0-roll",
+      "exportRows": [0, 1, 2],
+      "grid": [
+        8,
+        4
+      ],
+      "directions": [
+        "down",
+        "down-right",
+        "right",
+        "up-right",
+        "up",
+        "up-left",
+        "left",
+        "down-left"
+      ],
+      "variant": 0,
+      "action": "roll",
+      "reference": "ascua-walk",
+      "height": 40
+    },
+    {
+      "id": "ascua-work",
+      "pack": "actor-0-work",
+      "grid": [
+        4,
+        4
+      ],
+      "directions": [
+        "down",
+        "right",
+        "up",
+        "left"
+      ],
+      "variant": 0,
+      "action": "work",
+      "height": 40
+    },
+    {
+      "id": "ascua-discover",
+      "pack": "actor-0-discover",
+      "grid": [
+        4,
+        1
+      ],
+      "names": [
+        "person-0-discover-0",
+        "person-0-discover-1",
+        "person-0-discover-2",
+        "person-0-discover-3"
+      ],
+      "height": 40
+    },
+    {
+      "id": "ascua-needs",
+      "pack": "actor-0-needs",
+      "grid": [
+        4,
+        2
+      ],
+      "names": [
+        "person-0-pee-0",
+        "person-0-pee-1",
+        "person-0-pee-2",
+        "person-0-pee-3",
+        "person-0-poop-0",
+        "person-0-poop-1",
+        "person-0-poop-2",
+        "person-0-poop-3"
+      ],
+      "height": 40
+    },
+    {
+      "id": "ascua-bow",
+      "pack": "actor-0-bow",
+      "grid": [
+        8,
+        3
+      ],
+      "directions": [
+        "down",
+        "down-right",
+        "right",
+        "up-right",
+        "up",
+        "up-left",
+        "left",
+        "down-left"
+      ],
+      "variant": 0,
+      "action": "bow",
+      "height": 40
+    },
+    {
+      "id": "ascua-run",
+      "cleanFragments": 0.03,
+      "pack": "actor-0-run",
+      "grid": [
+        8,
+        4
+      ],
+      "directions": [
+        "down",
+        "down-right",
+        "right",
+        "up-right",
+        "up",
+        "up-left",
+        "left",
+        "down-left"
+      ],
+      "variant": 0,
+      "action": "run",
+      "height": 40,
+      "reference": "ascua-walk"
+    },
+    {
+      "id": "ascua-roll-recover",
+      "cleanFragments": 0.03,
+      "pack": "actor-0-roll",
+      "grid": [
+        8,
+        1
+      ],
+      "directions": [
+        "down",
+        "down-right",
+        "right",
+        "up-right",
+        "up",
+        "up-left",
+        "left",
+        "down-left"
+      ],
+      "variant": 0,
+      "action": "recover",
+      "height": 40
+    },
+    {
+      "id": "brizno-walk",
+      "edgeMatte": "red",
+      "cleanFragments": 0.03,
+      "pack": "actor-12",
+      "grid": [
+        8,
+        4
+      ],
+      "directions": [
+        "down",
+        "down-right",
+        "right",
+        "up-right",
+        "up",
+        "up-left",
+        "left",
+        "down-left"
+      ],
+      "variant": 12,
+      "action": "walk",
+      "height": 40
+    },
+    {
+      "id": "brizno-seated",
+      "edgeMatte": "red",
+      "cleanFragments": 0.03,
+      "pack": "picnic-neighbor",
+      "grid": [
+        8,
+        4
+      ],
+      "directions": [
+        "down",
+        "down-right",
+        "right",
+        "up-right",
+        "up",
+        "up-left",
+        "left",
+        "down-left"
+      ],
+      "variant": 12,
+      "action": "sit",
+      "height": 36
+    }
+  ]
+}

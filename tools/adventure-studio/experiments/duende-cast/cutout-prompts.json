@@ -1,0 +1,22 @@
+{
+  "tool": "built-in image_gen",
+  "prompt": "TECHNICAL BACKGROUND EDIT ONLY. Preserve these exact three character designs, colors, proportions, clothing, pixel texture, faces, poses and layout. Remove ALL the dark glowing gradient background and shadows and replace every background pixel, including spaces between arms and body and legs, with perfectly uniform solid RGB #FF00FF magenta. No gradient, no ground, no glow, no antialias onto matte. Do NOT add or redesign anything. Keep three full figures completely in frame, with at least 24 pixels blank margin on every outer edge and clear separation between figures. This is a flat chromakey sprite cutout preparation. Same landscape 1536x1024 dimensions.",
+  "files": {
+    "ascua": [
+      "exec-c1714db7-7b93-4af8-b7b6-83f3c4de506e.png",
+      "exec-9db6529a-ea25-46e7-a611-b007d4723101.png"
+    ],
+    "zarzal": [
+      "exec-c65a70b6-ebf2-4aac-8d78-a078dfe63c41.png",
+      "exec-69c0913f-4189-4e8d-b672-4479d9675c39.png"
+    ],
+    "trasto": [
+      "exec-e78f32bf-d981-4abc-b480-cca91c4034e2.png",
+      "exec-032658b6-5060-4ce5-a5cb-3dec8ebe8996.png"
+    ],
+    "candil": [
+      "exec-3af1323a-2ebb-47a5-bf48-70ae50169133.png",
+      "exec-127ec332-18b5-4e57-9c46-037f9f7a0003.png"
+    ]
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "frames": {
+    "flowers-primrose": {
+      "source": "data/aventura/art/woodland-kit/cutouts/flowers-primrose.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        42,
+        40
+      ],
+      "fit": true,
+      "anchor": [
+        21,
+        36
+      ]
+    },
+    "flowers-coral": {
+      "source": "data/aventura/art/woodland-kit/cutouts/flowers-coral.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        42,
+        40
+      ],
+      "fit": true,
+      "anchor": [
+        21,
+        36
+      ]
+    }
+  }
+}

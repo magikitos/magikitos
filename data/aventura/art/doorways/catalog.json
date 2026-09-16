@@ -1,0 +1,37 @@
+{
+  "description": "Reviewed open-door edits. Originals retained; local preparation changes alpha only.",
+  "assets": [
+    {
+      "reference": "data/aventura/art/woodland-kit/cutouts/home-mushroom.png",
+      "id": "home-mushroom-canela",
+      "prompt": "Use case: precise image editing for a production game sprite. Edit ONLY the doorway of this referenced woodland duende house: its wooden door is now FULLY OPEN INWARDS, leaving an obviously walkable, dark warm arched entrance with the interior floor visible. The door leaf is tucked just inside against the interior side wall, does NOT cover the entrance and does NOT swing outside the house silhouette. At small game resolution it must unmistakably look OPEN, not a dark closed door. Keep the original doorway's exact centre and sill/step position. Preserve the whole existing house shape, mushroom cap / pot / roof, warm windows, leaves, vines, moss, tiny flowers, all textures, palette, top-down camera, scale and composition. Do not redesign the building. Same crisp detailed pixel-art style as the reference, no smoothing, no blurry edges, no text. Full building stays fully visible with clear padding around the whole silhouette. Keep a real transparent alpha background with no floor, no cast shadow, no checkerboard and no coloured matte fringe. This is an edit of the open entrance only; everything else remains the same.",
+      "source": "data/aventura/art/doorways/sources/home-mushroom-canela.png",
+      "cutout": "data/aventura/art/doorways/cutouts/home-mushroom-canela.png",
+      "asset": "home-mushroom"
+    },
+    {
+      "reference": "data/aventura/art/woodland-kit/cutouts/home-mushroom-red.png",
+      "id": "home-mushroom-red",
+      "prompt": "Use case: precise image editing for a production game sprite. Edit ONLY the doorway of this referenced woodland duende house: its wooden door is now FULLY OPEN INWARDS, leaving an obviously walkable, dark warm arched entrance with the interior floor visible. The door leaf is tucked just inside against the interior side wall, does NOT cover the entrance and does NOT swing outside the house silhouette. At small game resolution it must unmistakably look OPEN, not a dark closed door. Keep the original doorway's exact centre and sill/step position. Preserve the whole existing house shape, mushroom cap / pot / roof, warm windows, leaves, vines, moss, tiny flowers, all textures, palette, top-down camera, scale and composition. Do not redesign the building. Same crisp detailed pixel-art style as the reference, no smoothing, no blurry edges, no text. Full building stays fully visible with clear padding around the whole silhouette. Keep a real transparent alpha background with no floor, no cast shadow, no checkerboard and no coloured matte fringe. This is an edit of the open entrance only; everything else remains the same.",
+      "source": "data/aventura/art/doorways/sources/home-mushroom-red.png",
+      "cutout": "data/aventura/art/doorways/cutouts/home-mushroom-red.png",
+      "asset": "home-mushroom-red"
+    },
+    {
+      "reference": "data/aventura/art/woodland-kit/cutouts/home-pot.png",
+      "id": "home-pot-terracotta",
+      "prompt": "Use case: precise image editing for a production game sprite. Edit ONLY the doorway of this referenced woodland duende house: its wooden door is now FULLY OPEN INWARDS, leaving an obviously walkable, dark warm arched entrance with the interior floor visible. The door leaf is tucked just inside against the interior side wall, does NOT cover the entrance and does NOT swing outside the house silhouette. At small game resolution it must unmistakably look OPEN, not a dark closed door. Keep the original doorway's exact centre and sill/step position. Preserve the whole existing house shape, mushroom cap / pot / roof, warm windows, leaves, vines, moss, tiny flowers, all textures, palette, top-down camera, scale and composition. Do not redesign the building. Same crisp detailed pixel-art style as the reference, no smoothing, no blurry edges, no text. Full building stays fully visible with clear padding around the whole silhouette. Keep a real transparent alpha background with no floor, no cast shadow, no checkerboard and no coloured matte fringe. This is an edit of the open entrance only; everything else remains the same.",
+      "source": "data/aventura/art/doorways/sources/home-pot-terracotta.png",
+      "cutout": "data/aventura/art/doorways/cutouts/home-pot-terracotta.png",
+      "asset": "home-pot"
+    },
+    {
+      "reference": "data/aventura/art/woodland-kit/cutouts/home-pot-moss.png",
+      "id": "home-pot-moss",
+      "prompt": "Use case: precise image editing for a production game sprite. Edit ONLY the doorway of this referenced woodland duende house: its wooden door is now FULLY OPEN INWARDS, leaving an obviously walkable, dark warm arched entrance with the interior floor visible. The door leaf is tucked just inside against the interior side wall, does NOT cover the entrance and does NOT swing outside the house silhouette. At small game resolution it must unmistakably look OPEN, not a dark closed door. Keep the original doorway's exact centre and sill/step position. Preserve the whole existing house shape, mushroom cap / pot / roof, warm windows, leaves, vines, moss, tiny flowers, all textures, palette, top-down camera, scale and composition. Do not redesign the building. Same crisp detailed pixel-art style as the reference, no smoothing, no blurry edges, no text. Full building stays fully visible with clear padding around the whole silhouette. Keep a real transparent alpha background with no floor, no cast shadow, no checkerboard and no coloured matte fringe. This is an edit of the open entrance only; everything else remains the same.",
+      "source": "data/aventura/art/doorways/sources/home-pot-moss.png",
+      "cutout": "data/aventura/art/doorways/cutouts/home-pot-moss.png",
+      "asset": "home-pot-moss"
+    }
+  ]
+}

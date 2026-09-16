@@ -1,0 +1,182 @@
+{
+    "ginger": {
+        "bounds": [
+            51,
+            17,
+            1347,
+            1053
+        ],
+        "alpha": 0.7
+    },
+    "ginger-walk": {
+        "bounds": [
+            66,
+            14,
+            1661,
+            861
+        ],
+        "alpha": 0.691
+    },
+    "ginger-rear": {
+        "bounds": [
+            142,
+            16,
+            1888,
+            633
+        ],
+        "alpha": 0.724
+    },
+    "tuxedo": {
+        "bounds": [
+            47,
+            14,
+            1382,
+            1060
+        ],
+        "alpha": 0.668
+    },
+    "tuxedo-walk": {
+        "bounds": [
+            66,
+            15,
+            1662,
+            860
+        ],
+        "alpha": 0.689
+    },
+    "tuxedo-rear": {
+        "bounds": [
+            137,
+            15,
+            1860,
+            640
+        ],
+        "alpha": 0.715
+    },
+    "silver": {
+        "bounds": [
+            47,
+            16,
+            1363,
+            1058
+        ],
+        "alpha": 0.644
+    },
+    "silver-walk": {
+        "bounds": [
+            66,
+            15,
+            1661,
+            860
+        ],
+        "alpha": 0.687
+    },
+    "silver-rear": {
+        "bounds": [
+            138,
+            14,
+            1895,
+            640
+        ],
+        "alpha": 0.716
+    },
+    "calico": {
+        "bounds": [
+            44,
+            16,
+            1362,
+            1054
+        ],
+        "alpha": 0.655
+    },
+    "calico-walk": {
+        "bounds": [
+            66,
+            14,
+            1661,
+            861
+        ],
+        "alpha": 0.684
+    },
+    "calico-rear": {
+        "bounds": [
+            141,
+            14,
+            1880,
+            628
+        ],
+        "alpha": 0.722
+    },
+    "siamese": {
+        "bounds": [
+            52,
+            15,
+            1346,
+            1053
+        ],
+        "alpha": 0.703
+    },
+    "siamese-walk": {
+        "bounds": [
+            66,
+            13,
+            1662,
+            863
+        ],
+        "alpha": 0.683
+    },
+    "siamese-rear": {
+        "bounds": [
+            142,
+            21,
+            1890,
+            632
+        ],
+        "alpha": 0.733
+    },
+    "ascua-carried-hanging": {
+        "bounds": [
+            47,
+            112,
+            1684,
+            668
+        ],
+        "alpha": 0.74
+    },
+    "old-oars": {
+        "bounds": [
+            173,
+            150,
+            854,
+            1006
+        ],
+        "alpha": 0.842
+    },
+    "cat-bowl": {
+        "bounds": [
+            90,
+            40,
+            1620,
+            769
+        ],
+        "alpha": 0.548
+    },
+    "twig-fence": {
+        "bounds": [
+            279,
+            14,
+            901,
+            989
+        ],
+        "alpha": 0.886
+    },
+    "garden-seeds": {
+        "bounds": [
+            396,
+            265,
+            668,
+            582
+        ],
+        "alpha": 0.867
+    }
+}

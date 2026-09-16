@@ -1,0 +1,12 @@
+{
+    "source": "mushroom-red-pair.png",
+    "sourceHash": "57308903c0753037079ab2f79e2e0133ae057359a0e331442fa8a7eed7b57194",
+    "bounds": [
+        270,
+        231,
+        818,
+        781
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

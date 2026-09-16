@@ -1,0 +1,18 @@
+{
+  "frames": {
+    "jetty": {
+      "source": "data/aventura/art/harbor-cutout.png",
+      "rect": [
+        800,
+        0,
+        648,
+        600
+      ],
+      "size": [
+        72,
+        36
+      ],
+      "fit": true
+    }
+  }
+}

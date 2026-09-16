@@ -1,0 +1,12 @@
+{
+    "source": "bed-bark.png",
+    "sourceHash": "0de753bcf87490e5f16e4b59863f08deffdd4b889f60705b29ac8106ae5355c0",
+    "bounds": [
+        289,
+        76,
+        676,
+        1124
+    ],
+    "matte": "magenta",
+    "fringePixels": 2
+}

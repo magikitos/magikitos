@@ -1,0 +1,17 @@
+{
+  "id": "pot-home", "label": "potHome", "width": 24, "height": 22, "seed": 4022,
+  "indoor": true, "spawn": {"x": 12, "y": 17.5}, "paths": [], "waters": [], "clearings": [], "regions": [],
+  "ambient": {"kind": "dust", "count": 3},
+  "rugs": [{"x": 12, "y": 15, "width": 9, "height": 5, "color": "#798872"}],
+  "interior": {"material": "clay", "background": "woodland-context", "inset": {"left": 2, "right": 2, "top": 3, "bottom": 2}, "outline": [[0.2,0],[0.8,0],[1,0.2],[0.94,0.78],[0.72,1],[0.28,1],[0.06,0.78],[0,0.2]]},
+  "entities": [
+    {"id": "exit", "sprite": "doorway", "x": 12, "y": 19.5, "portal": true, "label": "outside", "rules": [{"effects": [{"type": "travel", "scene": "overworld", "arrivalAt": "fisher-door"}]}]},
+    {"id": "pot-bed", "sprite": "bed", "artVariant": "auto", "x": 6.5, "y": 10, "solid": [-1.65,-3.1,3.3,3.4], "label": "bed", "rules": [{"effects": [{"type": "dialogue", "key": "cottageBed"}]}]},
+    {"id": "pot-table", "sprite": "table", "artVariant": "auto", "x": 16.5, "y": 10.5, "solid": [-1.7,-1.4,3.4,1.8], "rules": []},
+    {"id": "pot-lamp", "sprite": "lantern", "artVariant": "auto", "x": 16.5, "y": 10.5, "offset": [0,-20], "rules": []},
+    {"id": "pot-shelf", "sprite": "kitchen-rack", "artVariant": "auto", "x": 15.5, "y": 4.5, "rules": []},
+    {"id": "pot-window", "sprite": "window-arched", "artVariant": "auto", "x": 8.5, "y": 3.8, "rules": []},
+    {"id": "pot-chair", "sprite": "armchair", "artVariant": "auto", "x": 6.5, "y": 15, "solid": [-0.75,-0.8,1.5,1.1], "rules": []},
+    {"id": "pot-planter", "sprite": "flower-pot", "artVariant": "auto", "x": 18, "y": 16.5, "rules": []}
+  ]
+}

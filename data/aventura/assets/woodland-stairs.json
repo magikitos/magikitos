@@ -1,0 +1,44 @@
+{
+  "frames": {
+    "stairs-up": {
+      "source": "data/aventura/art/woodland-kit/cutouts/stairs-twig.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        68,
+        86
+      ],
+      "fit": true,
+      "anchor": [
+        34,
+        78
+      ]
+    },
+    "stairs-root": {
+      "source": "data/aventura/art/woodland-kit/cutouts/stairs-root.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        68,
+        86
+      ],
+      "fit": true,
+      "anchor": [
+        34,
+        82
+      ]
+    }
+  }
+}
