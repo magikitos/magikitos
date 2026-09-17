@@ -68,7 +68,7 @@ clic fuera cierra y usa ese mismo clic como destino.
 Arte: 2× con reducción integrada; animación selectiva, sutil para vegetación y
 más cuidada en personajes relevantes. Paquetes gráficos por escena/acción, sin
 maestros descargados ni procesamiento alfa en el navegador.
-[Arte y variantes](WOODLAND-KIT.md) · [Reparto](ISLET-AND-RESIDENTS.md).
+[Arte y variantes](WOODLAND-KIT.md) · [Reparto](RESIDENTS.md).
 
 ## Necesidades y persistencia
 

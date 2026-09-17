@@ -159,14 +159,6 @@
     "it": "Regala lo spiedino",
     "pt": "Oferecer a espetada"
   },
-  "house": {
-    "es": "El refugio de hojas",
-    "en": "The leaf shelter",
-    "de": "Die Blätterhütte",
-    "fr": "L’abri de feuilles",
-    "it": "Il rifugio di foglie",
-    "pt": "O abrigo de folhas"
-  },
   "humanPicnicFriend": {
     "es": "Se han traído merienda pa un regimiento. Y yo aquí, que quepo detrás de la cesta.",
     "en": "They've packed enough for an army. Meanwhile, I could hide behind the basket.",
@@ -403,14 +395,6 @@
     "it": "Brace, fungo, bastoncino e coltellino. Fate largo, arriva lo chef del bosco!",
     "pt": "Brasas, cogumelo, pauzinho e navalha. Afastem-se, chegou o chef da floresta!"
   },
-  "tavern": {
-    "es": "La taberna de la bota",
-    "en": "The old boot tavern",
-    "de": "Die Stiefeltaverne",
-    "fr": "La taverne de la botte",
-    "it": "La taverna dello stivale",
-    "pt": "A taberna da bota"
-  },
   "tortillaLook": {
     "es": "¡Una tortilla de patatas como una plaza! Con un trozo de eso como yo un mes.",
     "en": "A potato omelette the size of a town square! One slice of that and I'd eat for a month.",
@@ -418,5 +402,29 @@
     "fr": "Une tortilla de pommes de terre grande comme une place ! Avec un morceau, je mange un mois.",
     "it": "Una frittata di patate grande come una piazza! Con una fetta ci campo un mese.",
     "pt": "Uma tortilha de batata do tamanho de uma praça! Com uma fatia como eu um mês."
+  },
+  "village": {
+    "es": "El pueblo de las pequeñas cosas",
+    "en": "The village of little things",
+    "de": "Das Dorf der kleinen Dinge",
+    "fr": "Le village des petites choses",
+    "it": "Il paese delle piccole cose",
+    "pt": "A aldeia das pequenas coisas"
+  },
+  "lake": {
+    "es": "El lago de las siestas",
+    "en": "The napping lake",
+    "de": "Der See der Nickerchen",
+    "fr": "Le lac des siestes",
+    "it": "Il lago dei pisolini",
+    "pt": "O lago das sestas"
+  },
+  "picnic": {
+    "es": "El merendero de los humanos",
+    "en": "The humans' picnic spot",
+    "de": "Der Picknickplatz der Menschen",
+    "fr": "L'aire de pique-nique des humains",
+    "it": "L'area picnic degli umani",
+    "pt": "O parque de merendas dos humanos"
   }
 }

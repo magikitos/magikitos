@@ -4872,6 +4872,20 @@
                 "garden-seed-sack"
             ]
         },
+        "garden": {
+            "image": "packs/garden-9a5172d0bb86.png",
+            "metadata": "packs/garden-9a5172d0bb86.json",
+            "sprites": [
+                "garden-carrots",
+                "garden-cabbages",
+                "garden-beets",
+                "garden-herbs",
+                "garden-potting-table",
+                "garden-fence",
+                "garden-hammock",
+                "garden-trellis"
+            ]
+        },
         "harbor": {
             "image": "packs/harbor-8bbe91eebfee.png",
             "metadata": "packs/harbor-8bbe91eebfee.json",
@@ -4895,20 +4909,6 @@
                 "twig",
                 "skewer",
                 "shells"
-            ]
-        },
-        "islet-garden": {
-            "image": "packs/islet-garden-9a5172d0bb86.png",
-            "metadata": "packs/islet-garden-9a5172d0bb86.json",
-            "sprites": [
-                "garden-carrots",
-                "garden-cabbages",
-                "garden-beets",
-                "garden-herbs",
-                "garden-potting-table",
-                "garden-fence",
-                "garden-hammock",
-                "garden-trellis"
             ]
         },
         "needs-props": {

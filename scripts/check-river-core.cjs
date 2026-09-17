@@ -18,6 +18,7 @@ const {
 } = require("../public/assets/js/adventure/river-life");
 const { inRect } = require("../public/assets/js/adventure/geometry");
 const {
+  MODES,
   crossingAt,
   crossingArrival,
 } = require("../public/assets/js/adventure/crossings");
@@ -380,6 +381,16 @@ check(starts.length === 0, "No off-screen current rendering");
      mano —el mapa se recorta y se amplía— pero tampoco es una tautología: lo que vigila es que
      el barrido no se salte ninguna por un `continue`, que es como se apagaría sin avisar. Las
      que solo se cruzan a pie tienen su propio barrido y aquí no pintan nada. */
+  // ⛔ UN MODO INVENTADO NO SE CRUZA POR NINGÚN LADO. `crossingAt` filtra por el modo que le
+  // pidan, así que una salida con `mode: "nadando"` no falla: simplemente no existe para nadie,
+  // y ese borde queda mudo sin que nada lo diga. Los modos válidos son los dos de la casa más
+  // «both», y esa lista vive en el módulo, no aquí.
+  for (const [id, data] of Object.entries(catalog.scenes))
+    for (const exit of data.navigation?.exits || [])
+      check(
+        [...MODES, "both"].includes(exit.mode || "boat"),
+        id + "/" + exit.id + ": modo de cruce desconocido (" + exit.mode + ")",
+      );
   const porAgua = Object.values(catalog.scenes).reduce(
     (n, data) =>
       n +

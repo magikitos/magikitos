@@ -48,5 +48,22 @@ foreach (glob($root . '/data/aventura/assets/*.json') as $file) {
     $manifest['packs'][$id] = ['image'=>"packs/$filename.png", 'metadata'=>"packs/$filename.json", 'sprites'=>array_keys($definitions)];
     $bytes += strlen($result['png']);
 }
+/**
+ * ⛔ UN PAQUETE SE NOMBRA POR SU CONTENIDO, ASÍ QUE CADA CAMBIO DE ARTE DEJA EL ANTERIOR DETRÁS.
+ * Nadie los borraba: 26 ficheros y 1,1 MB de dibujos que ningún manifiesto nombraba, vivos en un
+ * repositorio público. No los publica nadie —el artefacto copia solo lo que el manifiesto dice—,
+ * así que el síntoma es cero y la basura crece con cada retoque. Se poda aquí, que es donde se
+ * sabe lo que sigue vivo, y no en un barrido aparte que alguien tenga que acordarse de correr.
+ */
+$vivos = [];
+foreach ($manifest['packs'] as $pack) {
+    $vivos[basename($pack['image'])] = true;
+    $vivos[basename($pack['metadata'])] = true;
+}
+foreach (glob($destination . '/*') as $file) {
+    if (!isset($vivos[basename($file)])) {
+        unlink($file);
+    }
+}
 $write($assetRoot . '/manifest.json', json_encode($manifest, JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT|JSON_THROW_ON_ERROR) . "\n");
 echo count($owners) . ' sprites in ' . count($manifest['packs']) . " independent packages; $bytes PNG bytes.\n";

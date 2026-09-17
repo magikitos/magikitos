@@ -13,6 +13,11 @@ class Self {
       game.closeContent();
       game.closeDialogue();
       game.pauseMovement();
+      const why = byId("self-why");
+      if (why) {
+        why.hidden = true;
+        why.textContent = "";
+      }
       this.paint();
       // Reading here and not in the constructor: the panel is a deliberate
       // act, boot is not, and this request must never ride on a page load.
@@ -41,6 +46,30 @@ class Self {
         game.transitioning = false;
       }
     };
+  }
+  /**
+   * ⛔ UN BOTÓN QUE NO PUEDE HACER SU TRABAJO ABRE LA PUERTA QUE FALTA, y lo dice (17-sep-2026,
+   * lo vio el dueño: «le di a construir juntos y no pasa nada»).
+   *
+   * Construir necesita una partida conectada, porque lo que dejas en el claro lo ve todo el
+   * bosque y lleva tu firma. Cuando no la hay, lo que había era un aviso flotante que se va solo
+   * y que no ofrece NADA: ni dice cómo conectarse ni lleva a ningún sitio, así que desde fuera se
+   * ve exactamente igual que un botón roto. Ahora se abre el panel de «Yo», que es donde está la
+   * puerta, con una línea que dice por qué se ha abierto.
+   */
+  explain(key) {
+    const game = this.game;
+    game.closeContent();
+    game.closeDialogue();
+    game.pauseMovement();
+    this.paint();
+    const why = byId("self-why");
+    if (why) {
+      why.hidden = false;
+      why.textContent = game.text(key);
+    }
+    this.account.read();
+    if (!byId("self-dialog").open) byId("self-dialog").showModal();
   }
   paint() {
     const game = this.game,

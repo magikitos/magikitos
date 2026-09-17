@@ -29,8 +29,8 @@ The [entry and audio implementation](docs/AUDIO-AND-ENTRY.md) covers music,
 river ambience and fullscreen. [Mobile packaging and store workflows](docs/MOBILE.md)
 documents the shared Capacitor projects, TestFlight/Play steps and outstanding
 native validation; no native app has been built or published to stores.
-The [resident and island guide](docs/ISLET-AND-RESIDENTS.md) covers the preserved
-100-NPC library, scene casting, open houses and expanded island.
+The [resident guide](docs/RESIDENTS.md) covers the 100-NPC library, scene
+casting and the open houses.
 
 You play a small duende with a pointed hat. You wander, poke at things, pick
 up objects, solve little puzzles and pull harmless pranks. That's it, and
@@ -42,12 +42,13 @@ that's on purpose.
 - Humour is everyday and cheeky, never at another player's expense.
 - Movement is calm. The magic works slowly.
 
-The world is a 128 × 96 tile exterior — a starting clearing, forest, human
+The world is a 144 × 112 tile exterior — a starting clearing, forest, human
 picnic, a village on grass, the boat lake and a night campfire corner — plus
-separate interiors and a 64 × 48 inhabited islet you reach by boat. Five substantial
-128 × 144 river reaches connect to shared forest clearings, a 128 × 96 human
-garden and a communal refuge. The former
-picnic pond has been removed; the navigable river is its own adventure.
+seven interiors. Three 128 × 144 river reaches run north from it: the willow
+bend, where the forest builds together in a shared clearing, the rapids and the
+old roots, and from the roots a water channel leads into a 128 × 96 human garden.
+The three reaches join each other on foot along both banks; the lake mouth and
+the garden channel are crossed by boat. The navigable river is its own adventure.
 
 ---
 
@@ -166,7 +167,7 @@ See [local development](docs/LOCAL-DEVELOPMENT.md),
 
 Authoring guides: [woodland art](docs/WOODLAND-KIT.md),
 [original art and prompts](data/aventura/ART.md),
-[100 residents and Brizno](docs/ISLET-AND-RESIDENTS.md),
+[100 residents and Brizno](docs/RESIDENTS.md),
 [collectibles and data rules](data/aventura/REFACTOR.md).
 
 ## Contributing

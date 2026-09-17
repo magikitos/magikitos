@@ -73,6 +73,46 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   await require("./browser-entry.cjs").enterWorld(p);
   console.log("PASS no-website static boot, movement and saved state");
   await p.close();
+  /**
+   * ⛔ UN BOTÓN QUE NO PUEDE HACER SU TRABAJO ABRE LA PUERTA QUE FALTA. Sin sitio donde hablar
+   * con el bosque no se puede construir, y lo que había era un aviso flotante que se va solo:
+   * desde fuera, «le doy a construir juntos y no pasa nada». Ahora se abre «Yo» con la razón
+   * escrita y la puerta de la cuenta a la vista.
+   *
+   * En su propia pestaña porque el `addInitScript` de la de arriba resiembra la partida en CADA
+   * navegación, así que sembrarla y recargar allí deshace justo lo que se acaba de sembrar.
+   */
+  const sinCuenta = await browser.newPage();
+  sinCuenta.on("pageerror", (e) => errors.push(e.message));
+  await sinCuenta.route("**/*", (r) =>
+    new URL(r.request().url()).origin === offline ? r.continue() : r.abort(),
+  );
+  await sinCuenta.addInitScript(() =>
+    localStorage.setItem(
+      "magikitos.adventure",
+      JSON.stringify({
+        scene: "river-willows",
+        position: { x: 92 * 16, y: 95 * 16 },
+        flags: {},
+        muted: true,
+      }),
+    ),
+  );
+  await sinCuenta.goto(offline + "/aventura");
+  await require("./browser-entry.cjs").enterWorld(sinCuenta);
+  await sinCuenta.locator("#home-edit").click();
+  await sinCuenta.locator("#self-dialog[open]").waitFor();
+  assert(
+    (await sinCuenta.locator("#self-why").innerText()).length > 20,
+    "Building without an account says why",
+  );
+  assert(
+    !(await sinCuenta.locator("#self-signin").isHidden()),
+    "…and the way to get one is right there",
+  );
+  console.log("PASS the build button opens the account door and says why");
+  await sinCuenta.close();
+
   // Mock the provider and protected writes, exercising real game controls.
   for (const mode of ["silent", "interactive", "error", "cancel"]) {
     const page = await browser.newPage({

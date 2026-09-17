@@ -35,6 +35,28 @@ const byId = (id) => document.getElementById(id);
  *  · **La cámara va al claro** al abrir, con el mismo viaje suave que cuando tocas el mapa.
  *  · **La pieza nueva aparece donde estaba la anterior**, que es donde estás mirando.
  */
+/**
+ * Por qué no se ha podido, en una sola tabla: lo que dice el juicio del cliente y lo que contesta
+ * el servidor no se pisan, y tenerlos separados era garantizar que uno de los dos se quedaba sin
+ * la frase el día que apareciera un motivo nuevo.
+ */
+const RAZONES = {
+  outside_zone: "communityOutside",
+  protected_access: "communityAccess",
+  objects_overlap: "communityOverlap",
+  blocked_terrain: "communityTerrain",
+  blocked_access: "communityAccess",
+  too_long: "communityTooLong",
+  invalid_points: "communityDraw",
+  wrong_surface: "communityTerrain",
+  zone_full: "communityZoneFull",
+  author_limit: "communityAuthorLimit",
+  kind_limit: "communityKindLimit",
+  materials_required: "communityNoMaterials",
+  heritage_protected: "communityHeritage",
+  foreign_edit_protected: "communityForeign",
+  too_many: "communityTooFast",
+};
 class Community {
   constructor(game) {
     this.game = game;
@@ -367,7 +389,15 @@ class Community {
     g.closeContent();
     try {
       if (!(await g.materials.ready())) {
-        g.toast(g.text("communitySyncNeeded"));
+        /**
+         * ⛔ Y AQUÍ NO VALE UN AVISO FLOTANTE. Construir pide una partida conectada; si no la
+         * hay, lo honesto es abrir la puerta que falta y decir por qué, no soltar una frase que
+         * se va sola. Se distinguen los dos motivos porque la salida es distinta: sin sesión, la
+         * puerta es la cuenta; con sesión y sin poder hablar con el bosque, no hay puerta que
+         * abrir y lo único honesto es decir que se ha perdido la conexión.
+         */
+        if (!g.session.get()) g.self.explain("communityNeedsAccount");
+        else g.toast(g.text("communitySyncNeeded"));
         return;
       }
       if (this.pending) {
@@ -400,7 +430,8 @@ class Community {
         this.clearPending();
         if (error.details?.account) g.materials.accept(error.details.account);
       }
-      g.toast(g.text("communityOffline"));
+      if (!g.session.get()) g.self.explain("communityNeedsAccount");
+      else g.toast(g.text("communityOffline"));
     } finally {
       this.busy = false;
       this.paint();
@@ -720,13 +751,14 @@ class Community {
         await this.prepare(g.catalog.scenes[g.state.scene]);
         await this.refreshWorld();
       }
-      g.toast(
-        g.text(
-          error.code === "heritage_protected"
-            ? "communityHeritage"
-            : "communityRetry",
-        ),
-      );
+      /**
+       * ⛔ TODO MOTIVO QUE LA PERSONA VE TIENE SU FRASE. El único que estaba contado era el
+       * patrimonio; el resto —un claro lleno, tu propio tope, algo que puso otra persona, ir
+       * demasiado deprisa— caía en «algo ha cambiado, revisa el lugar», que no es lo que ha
+       * pasado y encima manda a mirar donde no hay nada que mirar. El genérico se queda para lo
+       * que de verdad es fontanería, que es cuando sí conviene reintentar.
+       */
+      g.toast(g.text(RAZONES[error.code] || "communityRetry"));
     } finally {
       this.busy = false;
       this.paint();
@@ -842,15 +874,6 @@ class Community {
     byId("community-rotate").disabled = this.busy || !!this.pending;
     byId("home-cancel").disabled = this.busy;
     this.materials();
-    const reasons = {
-      outside_zone: "communityOutside",
-      protected_access: "communityAccess",
-      objects_overlap: "communityOverlap",
-      blocked_terrain: "communityTerrain",
-      blocked_access: "communityAccess",
-      too_long: "communityTooLong",
-      invalid_points: "communityDraw",
-    };
     const say = byId("community-reason");
     if (!this.ghost) say.textContent = g.text("communityChoose");
     else if (short)
@@ -861,7 +884,7 @@ class Community {
         )
         .join(" · ")}`;
     else if (this.invalid)
-      say.textContent = g.text(reasons[this.invalid] || "communityInvalid");
+      say.textContent = g.text(RAZONES[this.invalid] || "communityInvalid");
     else
       say.textContent = `${g.text("communityValid")}${
         d.shape === "polyline" ? ` · ${this.costLabel(d, this.ghost)}` : ""
@@ -919,4 +942,4 @@ function simplifyPath(points, tolerance) {
     ...simplifyPath(points.slice(index), tolerance),
   ];
 }
-module.exports = { Community };
+module.exports = { Community, RAZONES };

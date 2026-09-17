@@ -91,7 +91,9 @@ for (const [name, unit] of Object.entries(units.packs))
 
 // 6. EN NEGATIVO. Si romper una regla no hace gritar a componer, la regla no existe.
 const dir = "data/aventura/locales";
+let destrozos = 0;
 function rompe(file, mutate, esperado) {
+  destrozos++;
   const original = fs.readFileSync(file, "utf8");
   try {
     fs.writeFileSync(file, JSON.stringify(mutate(JSON.parse(original)), null, 2));
@@ -133,6 +135,16 @@ rompe(
   (u) => ({ ...u, blocked: Object.fromEntries(LANGS.map((l) => [l, "x"])) }),
   "una pantalla redefiniendo una clave del motor",
 );
+// Un sitio sin nombre se anuncia con su slug y no falla nada: es el defecto que esta regla
+// existe para que no vuelva.
+rompe(
+  path.join(dir, "scenes/overworld.json"),
+  (u) => {
+    delete u.lake;
+    return u;
+  },
+  "un trozo de mapa al que no sabe nombrar nadie",
+);
 rompe(
   path.join(dir, "core.json"),
   (u) => {
@@ -142,7 +154,7 @@ rompe(
   },
   "una frase vacía",
 );
-// Y componer sigue funcionando después de los cinco destrozos.
+// Y componer sigue funcionando después de todos los destrozos.
 composeLocales(world);
 
 const pesoCore = Buffer.byteLength(JSON.stringify(core.es));
@@ -162,5 +174,7 @@ console.log(
     frases +
     " resoluciones en seis idiomas, " +
     checked +
-    " literales del motor en core y cinco destrozos que gritan.",
+    " literales del motor en core y " +
+    destrozos +
+    " destrozos que gritan.",
 );

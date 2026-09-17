@@ -40,12 +40,12 @@
     "pt": "A Sebe dos Bigodes"
   },
   "outside": {
-    "es": "Salir al pueblo",
-    "en": "Go outside",
-    "de": "Nach draußen",
-    "fr": "Sortir au village",
-    "it": "Esci in paese",
-    "pt": "Sair para a aldeia"
+    "es": "Salir al bosque",
+    "en": "Out into the forest",
+    "de": "Hinaus in den Wald",
+    "fr": "Sortir dans la forêt",
+    "it": "Esci nel bosco",
+    "pt": "Sair para a floresta"
   },
   "sign": {
     "es": "El letrero",
@@ -62,5 +62,21 @@
     "fr": "La table",
     "it": "Il tavolo",
     "pt": "A mesa"
+  },
+  "house": {
+    "es": "El refugio de hojas",
+    "en": "The leaf shelter",
+    "de": "Die Blätterhütte",
+    "fr": "L’abri de feuilles",
+    "it": "Il rifugio di foglie",
+    "pt": "O abrigo de folhas"
+  },
+  "tavern": {
+    "es": "La taberna de la bota",
+    "en": "The old boot tavern",
+    "de": "Die Stiefeltaverne",
+    "fr": "La taverne de la botte",
+    "it": "La taverna dello stivale",
+    "pt": "A taberna da bota"
   }
 }

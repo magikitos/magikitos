@@ -374,14 +374,6 @@ body.world-page {
   font-size: 12px;
   line-height: 1.6;
 }
-.world-check {
-  display: flex !important;
-  align-items: center;
-  gap: 10px;
-}
-.world-check input {
-  width: auto;
-}
 
 @media (max-width: 799px) {
   .world-controls {
@@ -690,11 +682,6 @@ body:has(.world-dialogue:not([hidden])) .world-held-item {
   flex-wrap: wrap;
   gap: 12px;
   margin: 16px 0;
-}
-.world-self-help {
-  opacity: 0.8;
-  font-size: 13px;
-  line-height: 1.5;
 }
 
 /* La cuenta dentro del panel «Yo»: las dos MISMAS puertas que la web (Google o

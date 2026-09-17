@@ -79,4 +79,4 @@ function drawFishing(ctx, actor, time) {
   ctx.fillRect(tx - 1, ty + Math.sin(time * 1.3), 3, 3);
   ctx.restore();
 }
-module.exports = { riverVisitors, riverBodies, drawFishing, VISITOR_RADIUS, FLOAT_RADIUS };
+module.exports = { riverVisitors, riverBodies, drawFishing };

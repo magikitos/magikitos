@@ -17,7 +17,7 @@
                 32,
                 42
             ],
-            "source": "data/aventura/art/islet/cutouts/garden.png",
+            "source": "data/aventura/art/garden/cutouts/garden.png",
             "fit": true
         },
         "garden-cabbages": {
@@ -37,7 +37,7 @@
                 32,
                 42
             ],
-            "source": "data/aventura/art/islet/cutouts/garden.png",
+            "source": "data/aventura/art/garden/cutouts/garden.png",
             "fit": true
         },
         "garden-beets": {
@@ -57,7 +57,7 @@
                 32,
                 42
             ],
-            "source": "data/aventura/art/islet/cutouts/garden.png",
+            "source": "data/aventura/art/garden/cutouts/garden.png",
             "fit": true
         },
         "garden-herbs": {
@@ -77,7 +77,7 @@
                 32,
                 42
             ],
-            "source": "data/aventura/art/islet/cutouts/garden.png",
+            "source": "data/aventura/art/garden/cutouts/garden.png",
             "fit": true
         },
         "garden-potting-table": {
@@ -97,7 +97,7 @@
                 32,
                 48
             ],
-            "source": "data/aventura/art/islet/cutouts/garden.png",
+            "source": "data/aventura/art/garden/cutouts/garden.png",
             "fit": true
         },
         "garden-fence": {
@@ -117,7 +117,7 @@
                 38,
                 37
             ],
-            "source": "data/aventura/art/islet/cutouts/garden.png",
+            "source": "data/aventura/art/garden/cutouts/garden.png",
             "fit": true
         },
         "garden-hammock": {
@@ -137,7 +137,7 @@
                 48,
                 68
             ],
-            "source": "data/aventura/art/islet/cutouts/garden.png",
+            "source": "data/aventura/art/garden/cutouts/garden.png",
             "fit": true
         },
         "garden-trellis": {
@@ -157,7 +157,7 @@
                 40,
                 86
             ],
-            "source": "data/aventura/art/islet/cutouts/garden.png",
+            "source": "data/aventura/art/garden/cutouts/garden.png",
             "fit": true
         }
     }

@@ -295,9 +295,20 @@ const ZONE = Object.keys(
         await page.locator("#home-save").click();
         // ⛔ COLOCAR NO CIERRA LA CAJA (17-sep-2026): colocar una cosa casi nunca es colocar una
         // sola, así que lo que se va es el fantasma y la caja se queda con la paleta lista.
-        await page.waitForFunction(
-          () => !window.MagikitosAdventure.inspect().community.ghost,
-        );
+        // Y si no se va, la prueba dice POR QUÉ: el claro ya explica cada negativa con su frase,
+        // así que una espera agotada a secas sería tirar la única pista que hay.
+        await page
+          .waitForFunction(() => !window.MagikitosAdventure.inspect().community.ghost)
+          .catch(async (error) => {
+            const dicho = await page.evaluate(() => ({
+              motivo: document.getElementById("community-reason")?.textContent?.trim(),
+              aviso: document.querySelector("#world-toast")?.textContent?.trim(),
+            }));
+            throw Error(
+              "Colocar " + kind + " a " + width + " no se aplicó: " +
+                JSON.stringify(dicho) + " (" + error.message + ")",
+            );
+          });
         assert(
           await page.evaluate(
             () => window.MagikitosAdventure.inspect().community.editing,

@@ -2,7 +2,7 @@
 
 Decisión del propietario, 14 septiembre 2026: **Ascua es el protagonista**.
 Todos llevan gorro de pico; la silueta cobriza/petróleo de Ascua se reserva al jugador.
-El reparto usa los cien perfiles de [la biblioteca de residentes](../ISLET-AND-RESIDENTS.md),
+El reparto usa los cien perfiles de [la biblioteca de residentes](../RESIDENTS.md),
 asignados de forma determinista, con pieles naturales y sin repetir familia en la zona.
 Brizno tiene identidad propia (12), fuera del reparto aleatorio.
 

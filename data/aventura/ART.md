@@ -9,7 +9,7 @@ recorte y cuerpo físico son controles distintos.
 
 - [Kit del bosque](art/woodland-kit/prompts.json): casas, vegetación y muebles.
 - [Pipeline y familias](../../docs/WOODLAND-KIT.md): alfa, anclas y variantes.
-- [Ascua](../../docs/art-direction/DUENDES.md) y [cien NPC](../../docs/ISLET-AND-RESIDENTS.md).
+- [Ascua](../../docs/art-direction/DUENDES.md) y [cien NPC](../../docs/RESIDENTS.md).
 - [Picnic](../../docs/PICNIC-POLISH.md): humanos animados y elementos de la manta.
 - Gatos: `art/cats/`; botella, remos y río: `art/river/catalog.json`.
 - [Prompts anteriores](ART-PROMPTS.md): procedencia, no guía para reintroducir

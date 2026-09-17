@@ -1,4 +1,4 @@
-# Island and resident library
+# Resident library
 
 Current resident and scene-authoring contract. This does not reset existing saves;
 release evidence is in [RELEASE.md](RELEASE.md).
@@ -15,10 +15,10 @@ release evidence is in [RELEASE.md](RELEASE.md).
 - The separate picnic basket, picnic pond and stream are removed. The picnic,
   its animation and utensils remain; existing completion still makes the humans
   leave. The main lake and navigable river remain.
-- The existing island now has three enterable houses, vegetable beds, a seedling
-  table, branch fences, flower arch, hammock and inhabited footpaths. New dialogue
-  is available in all six languages. No new quest mechanics were added; existing
-  sailing and shell-collector rules are documented in [SHARED-FOREST.md](SHARED-FOREST.md).
+- The willow meadow carries the vegetable beds, seedling table, branch fences,
+  flower arch, hammock, inhabited footpaths and their neighbours, with dialogue in
+  all six languages. Sailing and the shell collector are documented in
+  [SHARED-FOREST.md](SHARED-FOREST.md).
 
 ## 100 residents, not 100 simultaneously downloaded actors
 
@@ -72,7 +72,7 @@ Neutral background removal is an offline, reference-assisted alpha operation;
 it does not repaint the house. Original woodland masters remain untouched.
 
 Each entry saves its source scene and portal ID. `doorDestination` resolves the
-current portal coordinates on exit, including an island house using a shared
+current portal coordinates on exit, including buildings that share one
 interior. Deleted entrances fall back to the authored safe destination. Door
 entry still requires a deliberate upward approach, and exit a downward one.
 
@@ -92,7 +92,7 @@ objects is rejected. No object-specific collision branch is needed.
 1. Review/generate a source sheet and record its prompt in the appropriate art
    catalog. Keep originals immutable.
 2. Run the relevant preparation task:
-   `npm run art:cast`, `npm run art:islet`, or `npm run art:doorways`.
+   `npm run art:cast`, `npm run art:garden`, or `npm run art:doorways`.
    Cast registration can reference another sheet, so use the full cast task when
    changing related animation sheets.
 3. Run `npm run art:catalog` to regenerate families, source editions and resident
@@ -112,8 +112,8 @@ the bounded cache pins active packs. Audio is budgeted separately.
 - `npm test`: geography, routes, casting, all open doors, compound collision
   parity, lazy asset budgets, pickup atomicity, recipes, travel, saves and Studio.
 - `npm run test:chapter`: desktop, tablet and mobile screenshots; fresh entry,
-  picnic, Brizno and island; real walk-in/walk-out trips through all three island
-  houses, returning to the same building.
+  picnic, Brizno and the willow meadow; real walk-in/walk-out trips through the
+  open houses, returning to the same building.
 - `npm run test:mobility`, `test:journeys`, `test:ascua`: camera resume,
   walking/running controls, deliberate destination interactions, pickup presentation.
 - `npm run test:browser`: seven viewport sizes, six locales, interior framing,

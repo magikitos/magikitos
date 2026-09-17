@@ -2,7 +2,7 @@
 
 Contrato vigente del kit, compartido por juego y Studio. Decisión visual:
 [2× integrado y animación selectiva](art-direction/DEFINITION-MOTION.md).
-Personajes: [Ascua](art-direction/DUENDES.md), [cien NPC](ISLET-AND-RESIDENTS.md).
+Personajes: [Ascua](art-direction/DUENDES.md), [cien NPC](RESIDENTS.md).
 
 ## Art direction and resolution
 

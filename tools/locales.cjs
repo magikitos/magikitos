@@ -100,7 +100,16 @@ function sceneKeys(scene) {
   const add = (key) => {
     if (typeof key === "string" && key) keys.add(key);
   };
+  // Al llegar se anuncia el rótulo de la pantalla y, si no lo tiene, el nombre del trozo de mapa
+  // donde caes —y dentro de una casa, el de la propia pantalla—. Eso es exactamente lo que
+  // pregunta `game.js` al viajar, así que es lo que hay que poder decir: sin esto la llegada
+  // enseña el slug pelado y no falla nada en ninguna parte. Le pasaba a cuatro sitios el
+  // 17-sep-2026 («house», «tavern», «lake» y «picnic»).
   add(scene.label);
+  if (!scene.label) {
+    add(scene.indoor ? scene.id : "forest");
+    for (const region of scene.regions || []) add(region.id);
+  }
   for (const entity of scene.entities || []) {
     add(entity.label);
     for (const action of entity.actions || []) add(action.label);

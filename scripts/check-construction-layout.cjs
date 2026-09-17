@@ -66,4 +66,26 @@ assert.deepEqual(objectCost(costs[0],catalog.definitions["twig-fence"]),{twig:6}
     {input:JSON.stringify({catalog,zone,runs:[corte("twig-fence"),corte("forest-path")]}),encoding:"utf8"}));
   assert.deepEqual(phpCruce,["blocked_access",null],"and the authority says the same");
 }
+/**
+ * ⛔ TODO MOTIVO QUE LA PERSONA PUEDE VER TIENE QUE TENER SU FRASE, y la lista de motivos la
+ * escribe el SERVIDOR: se saca de su propio código en vez de copiarla aquí, que es como se
+ * quedaría atrás el día que aparezca uno nuevo. Lo que se manda al genérico va declarado con su
+ * razón: son fallos de forma o carreras entre dos personas, donde lo correcto ES reintentar.
+ */
+{
+  const { RAZONES } = require("../public/assets/js/adventure/community");
+  const php = fs.readFileSync(path.join(web, "src/game/community.php"), "utf8");
+  const codigos = new Set(
+    [...php.matchAll(/(?:GameApiFailure\(\d+|InvalidArgumentException\()\s*,?\s*"([a-z_]+)"/g)]
+      .map((m) => m[1]),
+  );
+  // Fontanería a propósito: forma inválida (nadie los provoca tocando la pantalla) y carreras
+  // entre dos personas, que es justo cuando «algo ha cambiado, vuelve a mirar» es la verdad.
+  const genericos = new Set(["object_conflict","zone_conflict","object_missing","zone_unavailable",
+    "unknown_zone","journey_required","object_identity_changed","invalid_kind","invalid_object",
+    "invalid_operation","invalid_position","invalid_revision","invalid_variant"]);
+  const mudos = [...codigos].filter((c) => !RAZONES[c] && !genericos.has(c));
+  assert.deepEqual(mudos, [], "Server refusals with no sentence of their own: " + mudos);
+  assert(codigos.size > 15, "The refusals were actually read from the authority");
+}
 console.log(`PASS ${cases.length} construction JS/PHP parity cases + ${costs.length} priced traces: actual terrain, every kind, every zone, footprints, polylines, rotations and rejected input`);

@@ -200,9 +200,7 @@ module.exports = {
   shapes,
   objectCost,
   polylineLength,
-  polylineReason,
   validateConstruction,
   POLYLINE_MAX_POINTS,
   POLYLINE_MAX_LENGTH,
-  POLYLINE_MIN_SEGMENT,
 };

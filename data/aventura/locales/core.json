@@ -471,6 +471,14 @@
     "it": "Di qui dobbiamo passare tutti. Lascia libero il sentiero.",
     "pt": "Temos de passar por aqui. Deixa o caminho livre."
   },
+  "communityAuthorLimit": {
+    "es": "Ya has dejado un montón de cosas aquí. Quita alguna y hueco tienes.",
+    "en": "You have left a pile of things here already. Take one away and you have room.",
+    "de": "Du hast hier schon eine Menge hingestellt. Nimm eins weg, dann ist Platz.",
+    "fr": "Tu as déjà posé un tas de choses ici. Enlèves-en une et tu auras la place.",
+    "it": "Hai già lasciato un mucchio di cose qui. Togline una e hai posto.",
+    "pt": "Já deixaste aqui um monte de coisas. Tira uma e tens espaço."
+  },
   "communityBuild": {
     "es": "Construir juntos",
     "en": "Build together",
@@ -504,12 +512,12 @@
     "pt": "Colocar"
   },
   "communityDraw": {
-    "es": "Tócalo para ponerlo donde quieras. Deja pulsado y arrastra, y la vallita sigue tu trazo.",
-    "en": "Tap to put it where you like. Press and hold, then drag, and the fence follows your line.",
-    "de": "Tippe, um ihn hinzustellen. Gedrückt halten und ziehen, dann folgt der Zaun deiner Spur.",
-    "fr": "Touche pour le poser où tu veux. Appuie, garde le doigt et fais glisser : la clôture suit ton tracé.",
-    "it": "Tocca per metterlo dove vuoi. Tieni premuto e trascina, e lo steccato segue il tuo tratto.",
-    "pt": "Toca para o pores onde quiseres. Mantém premido e arrasta, e a cerca segue o teu traço."
+    "es": "Tócalo para ponerlo donde quieras. Deja pulsado y arrastra, y el trazo sigue tu dedo.",
+    "en": "Tap to put it where you like. Press and hold, then drag, and the line follows your finger.",
+    "de": "Tippe, um es hinzustellen. Gedrückt halten und ziehen, dann folgt die Linie deinem Finger.",
+    "fr": "Touche pour le poser où tu veux. Appuie, garde le doigt et fais glisser : le tracé suit ton doigt.",
+    "it": "Tocca per metterlo dove vuoi. Tieni premuto e trascina, e il tracciato segue il tuo dito.",
+    "pt": "Toca para o pores onde quiseres. Mantém premido e arrasta, e o traço segue o teu dedo."
   },
   "communityEveryone": {
     "es": "La gente del bosque",
@@ -518,6 +526,14 @@
     "fr": "Les gens du bois",
     "it": "La gente del bosco",
     "pt": "A malta do bosque"
+  },
+  "communityForeign": {
+    "es": "Esto lo puso otra persona. Lo tuyo sí lo puedes mover.",
+    "en": "Somebody else put this here. Your own things you can move.",
+    "de": "Das hat jemand anderes hingestellt. Deine eigenen Sachen kannst du bewegen.",
+    "fr": "C'est quelqu'un d'autre qui a posé ça. Tes affaires à toi, tu peux les bouger.",
+    "it": "Questo l'ha messo un'altra persona. Le tue cose sì che puoi spostarle.",
+    "pt": "Isto foi outra pessoa que pôs. As tuas coisas podes movê-las."
   },
   "communityHeritage": {
     "es": "Esto ya es patrimonio del bosque. Hay que cuidarlo.",
@@ -535,6 +551,14 @@
     "it": "Qui no: lascia liberi il terreno e i passaggi.",
     "pt": "Aqui não: deixa o terreno e os caminhos livres."
   },
+  "communityKindLimit": {
+    "es": "De esto ya has puesto unas cuantas. Prueba con otra cosa.",
+    "en": "You have put down a good few of these. Try something else.",
+    "de": "Davon hast du schon einige hingestellt. Probier mal was anderes.",
+    "fr": "Tu en as déjà posé un bon paquet. Essaie autre chose.",
+    "it": "Di questi ne hai già messi parecchi. Prova con qualcos'altro.",
+    "pt": "Destes já puseste uns quantos. Experimenta outra coisa."
+  },
   "communityMissing": {
     "es": "Te falta material:",
     "en": "You are short of:",
@@ -542,6 +566,22 @@
     "fr": "Il te manque :",
     "it": "Ti manca:",
     "pt": "Falta-te:"
+  },
+  "communityNeedsAccount": {
+    "es": "Para construir en el claro hace falta conectar tu partida: lo que dejes aquí lo ve todo el bosque y lleva tu firma.",
+    "en": "Building in the clearing needs your game connected: whatever you leave here is seen by the whole forest, with your name on it.",
+    "de": "Zum Bauen auf der Lichtung muss dein Spiel verbunden sein: Was du hier hinstellst, sieht der ganze Wald, mit deinem Namen daran.",
+    "fr": "Pour construire dans la clairière il faut connecter ta partie : ce que tu y laisses, toute la forêt le voit, signé de ton nom.",
+    "it": "Per costruire nella radura serve la partita collegata: quello che lasci qui lo vede tutto il bosco, con la tua firma.",
+    "pt": "Para construir na clareira é preciso ligar o teu jogo: o que deixares aqui vê-o a floresta toda, com a tua assinatura."
+  },
+  "communityNoMaterials": {
+    "es": "Se te ha acabado el material justo ahora.",
+    "en": "You have just run out of materials.",
+    "de": "Dir ist gerade das Material ausgegangen.",
+    "fr": "Tu viens de tomber à court de matériel.",
+    "it": "Ti è appena finito il materiale.",
+    "pt": "Acabou-se-te o material agora mesmo."
   },
   "communityOffline": {
     "es": "Sin conexión puedes explorar. Para construir juntos hace falta conectar.",
@@ -623,13 +663,21 @@
     "it": "Serve un terreno solido e libero.",
     "pt": "Precisa de chão firme e livre."
   },
+  "communityTooFast": {
+    "es": "Vas a toda pastilla. Respira un momento y seguimos.",
+    "en": "You are going at full tilt. Take a breath and we carry on.",
+    "de": "Du legst ein Tempo vor. Einmal durchatmen und weiter.",
+    "fr": "Tu y vas à fond. Respire un coup et on continue.",
+    "it": "Stai andando a tutta. Prendi fiato e continuiamo.",
+    "pt": "Vais a mil. Respira um bocadinho e seguimos."
+  },
   "communityTooLong": {
-    "es": "Esa vallita es larguísima. Pártela en dos trozos.",
-    "en": "That fence is enormous. Split it in two.",
-    "de": "Der Zaun ist riesig. Mach lieber zwei daraus.",
-    "fr": "Cette clôture est immense. Coupe-la en deux.",
-    "it": "Quello steccato è lunghissimo. Fallo in due pezzi.",
-    "pt": "Essa cerca é enorme. Fá-la em dois bocados."
+    "es": "Ese trazo es larguísimo. Pártelo en dos trozos.",
+    "en": "That line is enormous. Split it in two.",
+    "de": "Die Linie ist riesig. Mach lieber zwei daraus.",
+    "fr": "Ce tracé est immense. Coupe-le en deux.",
+    "it": "Quel tracciato è lunghissimo. Fallo in due pezzi.",
+    "pt": "Esse traço é enorme. Fá-lo em dois bocados."
   },
   "communityValid": {
     "es": "Cabe aquí. Confirma para construir.",
@@ -638,6 +686,14 @@
     "fr": "Ça passe ici. Confirme pour construire.",
     "it": "Qui ci sta. Conferma per costruire.",
     "pt": "Cabe aqui. Confirma para construir."
+  },
+  "communityZoneFull": {
+    "es": "El claro está llenito. Habrá que quitar algo antes de poner más.",
+    "en": "The clearing is packed. Something has to go before anything else comes in.",
+    "de": "Die Lichtung ist rappelvoll. Erst muss etwas weg, bevor etwas dazukommt.",
+    "fr": "La clairière est pleine à craquer. Il faut enlever quelque chose avant d'en poser une autre.",
+    "it": "La radura è piena zeppa. Prima deve andarsene qualcosa.",
+    "pt": "A clareira está cheíssima. Tem de sair algo antes de entrar mais."
   },
   "consumable": {
     "es": "Consumible · Se gasta al usarlo",
@@ -1432,12 +1488,12 @@
     "pt": "A enviar…"
   },
   "shellDescription": {
-    "es": "Un puñadito de conchas. A alguien del islote le vendrán bien.",
-    "en": "A handful of shells. Someone on the islet could use them.",
-    "de": "Eine Handvoll Muscheln. Jemand auf der Insel kann sie gebrauchen.",
-    "fr": "Une poignée de coquillages. Quelqu’un sur l’îlot en aura besoin.",
-    "it": "Una manciata di conchiglie. Qualcuno sull’isolotto le troverà utili.",
-    "pt": "Um punhado de conchas. Alguém no ilhéu vai gostar delas."
+    "es": "Un puñadito de conchas. A la vecina de los botones le van a encantar.",
+    "en": "A handful of shells. The neighbour who makes buttons will love these.",
+    "de": "Eine Handvoll Muscheln. Die Nachbarin mit den Knöpfen wird sich freuen.",
+    "fr": "Une poignée de coquillages. La voisine aux boutons va les adorer.",
+    "it": "Una manciata di conchiglie. La vicina dei bottoni le adorerà.",
+    "pt": "Um punhado de conchas. A vizinha dos botões vai adorá-las."
   },
   "shellName": {
     "es": "Conchas bonitas",
@@ -1558,14 +1614,6 @@
     "fr": ":item en main · Touche un objet du monde",
     "it": "Usando :item · Tocca un oggetto nel mondo",
     "pt": "A usar :item · Toca num objeto do mundo"
-  },
-  "village": {
-    "es": "El pueblo de las pequeñas cosas",
-    "en": "The village of little things",
-    "de": "Das Dorf der kleinen Dinge",
-    "fr": "Le village des petites choses",
-    "it": "Il paese delle piccole cose",
-    "pt": "A aldeia das pequenas coisas"
   },
   "voteError": {
     "es": "No se ha podido guardar. Prueba otra vez.",
