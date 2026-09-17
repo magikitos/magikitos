@@ -417,44 +417,51 @@ probablemente suficiente.
 **Y un detalle de sensación**: mientras es tierra, la pieza no es sólida
 (`solid: false`, que `forest-flowers` ya tiene). Nadie tropieza con una semilla.
 
-## B.5 Los 100 duendes: dejarlos perfectos
+## B.5 Los 100 duendes: completos, y cargando solo lo que hace falta
 
-> «Los sprites de los 100 duendes hay que dejarlos perfe. En el remo de barca,
-> cuando va a derecha o izquierda, se ve la pala del otro lado del sprite. Ya no
-> hay pose de rolling. Que mire todas las poses necesarias y lo deje optimizado al
-> mínimo necesario pero incluyendo todo lo que hace falta, sin ser lazy pero
-> tampoco tonto. Todos los sprites deben ser intercambiables bien, y el duende es
-> asignado al azar por usuario pero siempre modificable en YO.»
+> «Necesito los 100 en todas las poses. Se asigna al azar y el usuario puede
+> cambiar. Si hay dos iguales NO pasa nada, es cuestión de gustos. Pero esos 100
+> deben estar bien y completos, y sprites independientes, no todo en la misma
+> imagen. Cargar siempre solo lo que hace falta.»
+>
+> «No quiero duendes de colores raros que no sean pieles de verdad, y la
+> predominancia deben ser las pieles clásicas.»
+
+**La decisión está tomada: los 100 avatares, todas las poses.** Esta sección dice
+lo que cuesta, lo que hay que rehacer del motor para que quepa, y la regla de arte.
 
 ### B.5.1 Lo que hay hoy, medido
 
 **113 paquetes base** (`actor-N`, 32 sprites cada uno): trece del elenco fijo
-(ids 0-12) y **cien avatares (ids 100-199)**, que salen de
-`data/aventura/residents.json`.
+(ids 0-12) y **cien avatares (ids 100-199)**, de `data/aventura/residents.json`
+(20 familias × 5, 50 y 50 de cada género).
 
 Y **las poses especiales las tiene UNA sola variante, la 0**:
 
-| Paquete | Sprites | Rejilla | Quién lo pide | Variantes que lo tienen |
+| Paquete | Sprites | Rejilla | Peso | Variantes que lo tienen |
 |---|---|---|---|---|
-| `actor-N` (base) | **32** | 8 direcciones × (1 quieto + 3 de paso) | todo actor en pantalla | **113** |
-| `actor-0-run` | 32 | 8 dir × 4 | siempre, al cargar pantalla | **1** |
-| `actor-0-row` | 32 | 8 dir × 4 (`boat-ascua-*`) | navegando | **1** |
-| `actor-0-push` | 16 | **4 dir** × 4 | si la pantalla tiene empujables | **1** |
-| `actor-0-work` | 16 | **4 dir** × 4 | secuencia «work» (recetas) | **1** |
-| `actor-0-carried` | 16 | 8 dir × 2 | si la pantalla tiene gatos | **1** |
-| `actor-0-needs` | 8 | **sin dirección**: pee 0-3, poop 0-3 | siempre | **1** |
-| `actor-0-discover` | 4 | **sin dirección**, 4 fases | secuencia «discover» | **1** |
-| `actor-0-bow` | 24 | 8 dir × 3 | **NADIE** | 1 |
-| `actor-0-roll` | 32 | 8 dir × 3 + 8 de recuperación | **NADIE** | 1 |
+| `actor-N` **base** | **32** | 8 dir × (1 quieto + 3 de paso) | 55,3 KB | **113** |
+| `actor-0-run` | 32 | 8 dir × 4 | 49,6 KB | **1** |
+| `actor-0-row` | 32 | 8 dir × 4 (`boat-ascua-*`) | 152,2 KB | **1** |
+| `actor-0-push` | 16 | **4 dir** × 4 | 29,9 KB | **1** |
+| `actor-0-work` | 16 | **4 dir** × 4 | 30,3 KB | **1** |
+| `actor-0-carried` | 16 | 8 dir × 2 | 21,5 KB | **1** |
+| `actor-0-needs` | 8 | **sin dirección**: pee 0-3, poop 0-3 | 13,3 KB | **1** |
+| `actor-0-discover` | 4 | **sin dirección**, 4 fases | 8,8 KB | **1** |
+| `actor-0-bow` | 24 | 8 dir × 3 | 32,8 KB | **NADIE lo pide** |
+| `actor-0-roll` | 32 | 8 dir × 3 + 8 de recuperar | 48,7 KB | **NADIE lo pide** |
 
-### B.5.2 ⛔ El hallazgo: el duende por usuario NO EXISTE hoy
+El paso son cuatro fases con tres dibujos: la secuencia es `[1,2,3,2]` y el quieto
+hace de pose 0.
+
+### B.5.2 ⛔ El hallazgo: el duende por usuario NO EXISTE todavía
 
 `renderer.js:187` pinta al jugador con **`characterFrame(0, ...)`**: la variante
-está **cableada a 0**. Los cien avatares (100-199) son los VECINOS, no tú.
+está **cableada a 0**. Los cien avatares son los VECINOS, no tú.
 
-Y aunque se descablee, el motor tiene `person-0-` escrito a mano en cinco sitios
-más, así que el jugador **andaría con su cara y cambiaría a la 0 en cuanto
-corriera, empujara, cocinara, cagara o lo llevara un gato**:
+Y hay `person-0-` escrito a mano en cinco sitios más, así que descablear el
+renderer no basta: andarías con tu cara y cambiarías a la 0 al correr, empujar,
+cocinar, cagar o cuando te llevara un gato.
 
 | Fichero | Línea | Qué cablea |
 |---|---|---|
@@ -463,71 +470,136 @@ corriera, empujara, cocinara, cagara o lo llevara un gato**:
 | `presentation.js` | 51, 54 | `discover`, `work` |
 | `self.js` | 168 | `pee`, `poop` |
 | `cat-encounters.js` | 116, 375 | `carried` |
-| `river-navigation.js` | 171 | **`boat-ascua-*`**, que además lleva el nombre de un duende dentro |
+| `river-navigation.js` | 171 | **`boat-ascua-*`** |
 
-⛔ **Y el remo es el peor de todos**: `boat-ascua-{dirección}-{fase}` es un sprite
-COMPUESTO (barca + remero), así que **todo el mundo rema con la cara de Ascua**.
-Eso no se arregla con arte nueva, se arregla **descomponiéndolo**.
+⛔ **El remo es el peor**: `boat-ascua-{dir}-{fase}` es un sprite **COMPUESTO** de
+barca y remero con el nombre de un duende dentro, así que **todo el mundo rema con
+la cara de Ascua**. Se parte en `boat-{dir}-{n}` (32 sprites, **una vez para
+todos**) y `person-{V}-{dir}-row-{n}` encima. Con eso:
 
-### B.5.3 La factura, para que la decisión sea con números
+- el remo por variante cuesta el remero, no el remero más la barca;
+- y **el fallo de la pala se arregla en UNA capa, no en ocho dibujos**: en
+  `boat-ascua-right-*` y `boat-ascua-left-*` (4 fases × 2 direcciones) se ve la
+  pala del remo del lado contrario asomando por donde no debe.
 
-Para que una variante sea jugable de verdad le faltan **92 sprites** además de sus
-32 de base (run 32 + push 16 + work 16 + carried 16 + needs 8 + discover 4), más
-el remo. El atlas entero de hoy son **4.233 sprites**.
+### B.5.3 La factura, con bytes reales
 
-| Opción | Qué se ve | Sprites nuevos |
+Por variante hay que añadir **124 sprites**, unos **203 KB**:
+
+| | sprites | KB |
 |---|---|---|
-| Todo por variante | perfecto | 124 × 100 = **12.400** ⛔ triplica el atlas |
-| Solo lo que ven los DEMÁS (run, push, carried, row) | cocinar, cagar y descubrir genéricos | 96 × 100 = **9.600** |
-| Solo lo que se ve MUCHO (run) | andar y correr con tu cara, el resto genérico | 32 × 100 = **3.200** |
-| **Menos duendes elegibles** (p. ej. 12 en vez de 100) | perfecto dentro de un elenco corto | 124 × 12 = **1.488** |
-| Por capas (cuerpo + paleta/sombrero) | perfecto y barato de ampliar para siempre | rehacer el pipeline de arte |
+| run | 32 | 49,6 |
+| row (solo el remero, ya descompuesto) | 32 | ~50 |
+| push | 16 | 29,9 |
+| work | 16 | 30,3 |
+| carried | 16 | 21,5 |
+| needs | 8 | 13,3 |
+| discover | 4 | 8,8 |
+| **× 100 variantes** | **12.400** | **~20 MB** |
 
-**Esto es una decisión de producción, no de motor, y la toma el dueño.** Lo que no
-puede pasar es que se empiece a dibujar sin haberla tomado.
+| | Hoy | Después |
+|---|---|---|
+| Sprites del atlas | 4.233 | **~16.600** |
+| Paquetes PNG | 194 | **~894** |
+| Peso de los paquetes | 9,77 MB | **~30 MB** |
+| Artefacto entero | 24 MB | **~44 MB** |
 
-### B.5.4 Lo que se hace SIEMPRE, decida lo que decida
+⛔ **Y eso NO es lo que se descarga nadie.** Ver lo siguiente, que es el punto.
 
-**1. Descomponer el remo.** `boat-ascua-{dir}-{n}` se parte en `boat-{dir}-{n}`
-(32 sprites, **una sola vez para todo el mundo**) y `person-{V}-{dir}-row-{n}`
-encima. Con eso:
-- la barca deja de llevar una cara dentro,
-- el remo por variante cuesta 32 y no 32+barca,
-- y **el fallo de la pala se arregla en una capa y no en ocho frames**.
+### B.5.4 Sprites independientes y solo lo que hace falta
 
-**2. Arreglar la pala.** En `boat-ascua-right-*` y `boat-ascua-left-*` (**8 frames:
-4 fases × 2 direcciones**) se ve la pala del remo del lado contrario asomando por
-donde no debe. Al descomponer, el remo pertenece a una sola capa y el orden de
-pintado lo resuelve.
+El grano correcto es **(variante × pose) = un paquete = un fichero**, que es como
+ya funciona hoy. Dentro de un paquete, sus 32 frames comparten un PNG, **y eso no
+es "todo en la misma imagen": es el atlas haciendo su trabajo** — una petición y
+una decodificación en vez de treinta y dos de los mismos píxeles. Lo que NO puede
+pasar (y no pasa) es que los 100 duendes compartan una imagen.
 
-**3. Tirar lo muerto.** `actor-0-bow` (24) y `actor-0-roll` (32) **no los pide
-nadie**, y rodar salió del juego por decisión (hay una prueba que lo exige:
-*«rolling stays out of the game»*). Son 56 sprites viajando en el artefacto para
-nada. El maestro del arte no se borra nunca; lo que se retira es su declaración.
+**Qué se carga y cuándo:**
 
-**4. Descablear las seis variantes y poner un RESPALDO POR POSE.** El motor pide
-`person-{V}-{dir}-run-{n}` y, **si ese frame no existe, cae a la variante 0**. Eso
-convierte un bloqueo de 12.400 sprites en un atraso de arte que se puede ir
-llenando variante a variante sin romper nada nunca.
+| | Cuándo |
+|---|---|
+| **Tu** base + run + needs + discover (127 KB) | al entrar |
+| La **base** de cada variante que VES | al aparecer alguien en tu viewport |
+| run / push / carried de otro | **bajo demanda**, cuando esa persona lo hace |
+| row | solo navegando |
+| work | solo al cocinar |
 
-⛔ **Pero el respaldo NO puede ser silencioso.** El horneado tiene que emitir un
-informe de cobertura («la variante 137 tiene base y run; le faltan push, carried,
-row») y una comprobación que falle si la variante del JUGADOR POR DEFECTO no está
-completa. Un respaldo que nadie ve es un duende que cambia de cara y nadie sabe
-por qué.
+⛔ **Se sigue el VIEWPORT, no la pantalla.** El demonio ya manda solo los vecinos
+que te caben en pantalla (§E.4); el cargador de sprites tiene que seguir la misma
+regla. Diez personas visibles son **553 KB de bases**, no cien.
 
-**5. El duende se asigna al azar y se cambia en YO.** El sorteo es determinista por
-cuenta (mismo handle → mismo duende, como ya se hace con los retratos), se guarda
-en el progreso de la cuenta y se cambia en el panel `#self-dialog`. Y viaja en la
-presencia (§D), porque es lo que los demás tienen que ver.
+⛔ **Y mientras un paquete bajo demanda no ha llegado, se pinta la pose base.** Un
+hueco es un duende que desaparece; la pose base es un duende que anda en vez de
+correr durante 200 ms y no lo nota nadie.
 
-### B.5.5 Y una pregunta que hay que contestar antes de dibujar
+### B.5.5 Tres cosas del motor que hay que rehacer, o esto no cabe
 
-Hoy el elenco de 100 son los VECINOS del bosque. Si además son los avatares de la
-gente, **te vas a cruzar con tu propio duende paseando como NPC**. Dos salidas:
-que los vecinos activos se elijan entre los que nadie está usando en esa pantalla
-(barato, y encaja con que los NPC cedan sitio, §D.4), o que el elenco de avatares
-y el de vecinos se separen. Hay que decidirlo, no descubrirlo jugando.
+**1. El techo de bytes del build deja de significar nada.**
+`check-adventure.cjs` exige hoy `spriteBytes < 10500000`. Con arte perezosa por
+variante, **el total en disco deja de ser la magnitud interesante**: lo que hay
+que acotar es **lo que UNA carga se descarga**. Ya existe la prueba que lo mide
+(«precarga acotada: peor caso river-willows con sus tres vecinas más caras, 3748
+KB»). Es esa la que hay que extender a los actores, no el total.
+
+**2. ⛔ La caché de sprites tiene que acotarse por BYTES, no por número de
+paquetes.** `sprites.js#prune()` guarda `max(12, keep.size + 2)` paquetes. Un
+atlas de actor mide **1024×400, o sea 1,56 MB descomprimido en memoria**. Con 25
+vecinos a la vista eso son **~42 MB de RGBA**, y con cien en una pantalla, 156 MB.
+En un móvil eso es presión real. El tope tiene que ser un presupuesto de memoria,
+y al pasarse se expulsa lo más lejano.
+
+**3. El móvil empaqueta el artefacto entero** (hoy 23 MB; con esto, ~44 MB). Es
+asumible para una app, pero hay que decidirlo a sabiendas: la alternativa es que
+la app lleve un subconjunto y pida el resto, y eso **rompe el juego sin
+conexión**, que hoy funciona. Yo lo dejaría entero.
+
+### B.5.6 La regla de las pieles
+
+⛔ **Pieles humanas de verdad. Ni una sola piel verde, azul, morada ni de fantasía.**
+
+La buena noticia: **el elenco de hoy ya cumple**. Los 100 prompts de
+`data/aventura/art/residents/catalog.json` dicen literalmente *«natural human skin
+colour»*, y el reparto de tonos es este:
+
+| Tono | Variantes |
+|---|---|
+| pale freckled / freckled light / fair peach / fair rosy | 50 |
+| olive / warm tan / golden tan / copper tan | 50 |
+| warm brown / warm medium brown / deep warm brown / dark brown | 60 |
+
+*(Los tonos se combinan con edad y complexión, de ahí que sumen más de 100.)*
+
+**La regla, escrita para que las 12.400 nuevas no se desvíen:**
+
+1. Solo tonos humanos reales, el rango natural entero.
+2. **Predominan los clásicos.** Nada de que los extremos estén
+   sobrerrepresentados porque quedan más vistosos.
+3. ⛔ **La piel de una variante es IDÉNTICA en sus 124 sprites.** Este es el riesgo
+   de verdad al generar 124 dibujos del mismo personaje: que el mismo duende tenga
+   una piel al andar y otra al remar. El tono, el pelo y la ropa de cada variante
+   se fijan por escrito en su ficha y se generan **desde esa ficha**, no de memoria.
+4. Lo exótico va en el **pelo, el gorro y la ropa**, que es donde la casa ya pone
+   la variedad (20 familias con nombre de planta).
+
+### B.5.7 Lo que se tira
+
+`actor-0-bow` (24 sprites, 32,8 KB) y `actor-0-roll` (32 sprites, 48,7 KB) **no
+los pide nadie**, y rodar salió del juego por decisión (hay una prueba que lo
+exige: *«rolling stays out of the game»*). Se retira su declaración; **el maestro
+del arte no se borra nunca**.
+
+### B.5.8 El sorteo y el cambio
+
+- Se asigna **al azar y determinista por cuenta** (mismo handle → mismo duende),
+  como ya se hace con los retratos de perfil.
+- Se guarda en el progreso de la cuenta y **se cambia en el panel `YO`**
+  (`#self-dialog`).
+- **Dos personas con el mismo duende no es un problema** (decisión del dueño): es
+  cuestión de gustos, y no hace falta reservar ni excluir nada.
+- Viaja en la presencia (§D), porque es lo que los demás tienen que ver.
+- Y como los 100 son a la vez los vecinos del bosque, **te puedes cruzar contigo
+  mismo paseando de NPC**. Con duplicados permitidos eso deja de ser un fallo y
+  pasa a ser el mundo: hay más de un Brezo alba por ahí.
 
 ---
 
@@ -1068,7 +1140,8 @@ anterior.
 | # | Qué | Depende de | Riesgo |
 |---|---|---|---|
 | 1 | **Parte B.1-B.4** (diálogo, setas, rastrillo, flores) | nada | bajo |
-| 1b | **Parte B.5**: descomponer el remo, tirar bow/roll, descablear las variantes con respaldo | decisión del dueño sobre la factura de arte | medio |
+| 1b | **Parte B.5 motor**: descomponer el remo, tirar bow/roll, descablear las seis variantes, caché por bytes, presupuesto de descarga | nada | medio |
+| 1c | **Parte B.5 arte**: 12.400 sprites, 124 por variante | 1b | **alto (producción)** |
 | 2 | **Parte A**: aplicar la migración 4236 y desplegar lo que ya está en el árbol | 1 (por el renombrado) | bajo |
 | 3 | El arte del rastrillo + sus dos recogidas (§A.9, §A.10) | 2 | bajo |
 | 4 | **Parte C**: la caca-mensaje, con su juez | 3 (el palo, el patrón de objetos) | medio |
@@ -1095,7 +1168,9 @@ apagada.** Rompe cada invariante a propósito y exige que grite.
 | Setas | que la seta NO reaparezca tras dar la brocheta (el caso exacto de §B.2), y que el bitset de nodos no se reordene |
 | Flores | que la edad se calcule contra el **`now` del servidor**: adelanta el reloj del navegador y la flor no puede crecer antes |
 | Diálogo | conducir el teclado de verdad, no leer el JS |
-| Duendes | informe de cobertura por variante en el horneado, y que la variante por defecto esté COMPLETA |
+| Duendes | que las 100 variantes tengan sus 124 sprites, y que la piel de cada una sea la MISMA en sus 124 |
+| Carga | lo que se descarga en una pantalla con diez vecinos a la vista, no el total del atlas |
+| Memoria | la caché de sprites acotada por BYTES: 25 vecinos son ~42 MB de RGBA |
 | El remo | mirar las ocho frames de izquierda y derecha: ninguna pala del lado contrario |
 | Presencia | **prueba de carga con conexiones sintéticas antes de abrir**. Las cifras de este documento son estimaciones mías, no medidas |
 | La caja empujada | dos clientes, intenciones contrarias en el mismo tick, la caja quieta. Y uno solo: se mueve |
