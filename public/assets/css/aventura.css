@@ -24,13 +24,15 @@
   --world-control-clearance: 0px;
 }
 :root[data-world-input="touch"] { --world-control-clearance: var(--world-stick-size); }
-/* ⛔ TALKING RETIRES THE STICK. openDialogue() pauses movement, so a stick left on
- * screen steers nobody while costing the conversation its own height twice over:
- * once as reserved clearance and once as the push that clearance gives the panel.
- * One flag on the root and the five rules that keep clear of the corner recompose. */
-:root[data-world-talking] { --world-control-clearance: 0px; }
-:root[data-world-talking] #world-joystick,
-:root[data-world-talking] #world-boost { display: none; }
+/* ⛔ QUIEN OCUPA LA PANTALLA RETIRA EL MANDO. Hablar pausa el movimiento, así que un mando ahí
+ * no mueve a nadie y le cuesta a la conversación su propia altura dos veces: una como hueco
+ * reservado y otra como el empujón que ese hueco le da al panel. Desde el 17-sep-2026 lo mismo
+ * vale mientras suena una voz, un cuento o un chiste. Una bandera en la raíz —la escribe
+ * `game.retireControls()`, que lleva la cuenta de los motivos— y las cinco reglas que se apartan
+ * de la esquina se recomponen solas. */
+:root[data-world-retired] { --world-control-clearance: 0px; }
+:root[data-world-retired] #world-joystick,
+:root[data-world-retired] #world-boost { display: none; }
 body.world-page {
   margin: 0;
   padding: 0 !important;

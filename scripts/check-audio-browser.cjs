@@ -133,8 +133,39 @@ const world = JSON.parse(fs.readFileSync(".local/build/world.json"));
         0,
         "Narration has no game soundtrack or ambient mix",
       );
+      /**
+       * ⛔ Y LA NARRACIÓN SE QUEDA TAMBIÉN CON LA PANTALLA: mientras suena, el mando se retira por
+       * la misma puerta que lo retira una conversación, y el hueco que se le reservaba en la
+       * esquina vuelve a ser sitio. Se comprueba con lo que la página HACE —el `display` calculado
+       * y la variable del hueco—, no con el atributo, que aquí no lo toca nadie.
+       */
+      const mando = () =>
+        page.evaluate(() => ({
+          display: getComputedStyle(document.getElementById("world-joystick"))
+            .display,
+          clearance: getComputedStyle(document.documentElement)
+            .getPropertyValue("--world-control-clearance")
+            .trim(),
+          hidden: document.getElementById("world-joystick").hidden,
+        }));
+      // El mando solo existe en modalidad TÁCTIL, así que primero se toca: sin esto la
+      // comprobación pasaría sola sobre un mando que ya estaba escondido por el puntero.
+      await page.touchscreen.tap(5, 5);
+      await page.waitForFunction(
+        () => document.documentElement.dataset.worldInput === "touch",
+      );
+      const sonando = await mando();
+      assert.equal(sonando.display, "none", "The stick goes while it sounds");
+      assert.equal(sonando.clearance, "0px", "…so nothing reserves its corner");
+      assert.equal(sonando.hidden, false, "…and the modality never touched it");
       await page.evaluate(() => document.getElementById("world-audio").pause());
       await page.waitForFunction(() => window.__energy() > 0.0001);
+      const callado = await mando();
+      assert.notEqual(
+        callado.display,
+        "none",
+        "…and it comes back when the sound stops",
+      );
       await page.evaluate(() =>
         window.dispatchEvent(
           new CustomEvent("magikitos:app-state", { detail: { active: false } }),

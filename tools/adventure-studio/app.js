@@ -1,5 +1,4 @@
 "use strict";
-const { StudioShell } = require("./shell");
 const { PathEditor } = require("./path-editor");
 const { Gallery } = require("./gallery");
 const selectionTools = require("./selection");
@@ -842,7 +841,9 @@ $("modal").onclick = (e) => {
   }
 };
 document.addEventListener("keydown", (e) => {
-  if ($("modal").open || $("map-panel").hidden) return;
+  // El mapa es lo único que hay: la pestaña del laboratorio se fue con los experimentos
+  // archivados, así que ya no puede estar escondido detrás de nada.
+  if ($("modal").open) return;
   if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "s") {
     e.preventDefault();
     save().catch((error) => toast(error.message));
@@ -965,7 +966,6 @@ fenceEditor = new (require("./fence-editor").FenceEditor)(
   },
 );
 $("objects-mode").addEventListener("click", () => fenceEditor.stop());
-const shell = new StudioShell(view);
 $("river-topology").addEventListener("change", () => {
   view.dirty = true;
 });
@@ -1006,7 +1006,6 @@ $("river-topology").addEventListener("change", () => {
 window.MagikitosStudio = Object.freeze({
   inspect: () => ({
     ready: !!view.world,
-    shell: shell.inspect(),
     scene: sceneId,
     selected,
     selection: view.selection.map(selectionTools.identifies),

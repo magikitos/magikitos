@@ -354,7 +354,10 @@ class MapViewport {
     this.dirty = true;
   }
   tick() {
-    if (this.active !== false && this.world && this.dirty) {
+    // `active` existía para apagar el dibujado mientras se miraba el laboratorio de
+    // experimentos. El laboratorio se borró con ellos, así que aquí solo queda tener mundo y
+    // algo que repintar.
+    if (this.world && this.dirty) {
       this.renderer.render(this.game, 0);
       this.overlay();
       this.dirty = false;

@@ -331,8 +331,18 @@ class Adventure {
       this.updateUI();
     }
   }
-  duck(on) {
+  /**
+   * ⛔ UNA NARRACIÓN SE QUEDA CON EL SONIDO Y CON LA PANTALLA, y las dos cosas empiezan y acaban
+   * en el mismo instante: por eso son UNA llamada y no dos enganches a los mismos cuatro sucesos
+   * del `<audio>`. Antes solo bajaba la música; desde el 17-sep-2026 también retira el mando
+   * (decisión del dueño), por la misma puerta que lo retira una conversación.
+   *
+   * Se llama `narrating` y no `duck` porque lo que ocurre no es un efecto de audio: es que otra
+   * cosa está ocupando el sitio.
+   */
+  narrating(on) {
     this.audio.setVoice(on);
+    this.retireControls("listening", on);
   }
   tap(point) {
     if (this.cats.locked) return;
@@ -573,7 +583,7 @@ class Adventure {
     // pushes it up by the same amount — for a control that does nothing. One
     // flag on the root: --world-control-clearance drops to zero and the five
     // things that reserve room for the stick recompose themselves.
-    document.documentElement.dataset.worldTalking = "1";
+    this.retireControls("dialogue", true);
     byId("dialogue").hidden = false;
     this.paintPortrait(
       typeof entity?.portrait === "string"
@@ -641,10 +651,33 @@ class Adventure {
     if (this.dialogue.index >= this.dialogue.lines.length) this.closeDialogue();
     else this.paintDialogue();
   }
+  /**
+   * ⛔ QUIEN OCUPA LA PANTALLA RETIRA EL MANDO, Y HOY SON DOS (17-sep-2026, decisión del dueño:
+   * al reproducir una voz, un cuento o un chiste el joystick también se va).
+   *
+   * El mando no mueve a nadie durante una conversación —`pauseMovement` acaba de correr— y
+   * mientras suena algo tampoco es lo que la persona está haciendo: en los dos casos cuesta su
+   * propia altura DOS veces, una como hueco reservado y otra como el empujón que ese hueco le da
+   * al panel. Una sola bandera en la raíz y las cinco reglas que se apartan de la esquina se
+   * recomponen solas.
+   *
+   * Es un CONJUNTO de motivos y no un booleano porque los dos pueden solaparse: abrir un diálogo
+   * mientras suena un cuento y cerrarlo NO puede devolver el mando con el cuento todavía sonando.
+   * Con un booleano, el último en cerrar manda; con motivos, el mando vuelve cuando no queda
+   * ninguno.
+   */
+  retireControls(reason, on) {
+    this.retired ||= new Set();
+    if (on) this.retired.add(reason);
+    else this.retired.delete(reason);
+    const root = document.documentElement;
+    if (this.retired.size) root.dataset.worldRetired = "1";
+    else delete root.dataset.worldRetired;
+  }
   closeDialogue() {
     if (this.dialogue?.entity) this.contactLatch = this.dialogue.entity.id;
     this.dialogue = null;
-    delete document.documentElement.dataset.worldTalking;
+    this.retireControls("dialogue", false);
     byId("dialogue").hidden = true;
     byId("world-canvas").focus({ preventScroll: true });
   }

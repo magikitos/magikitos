@@ -8,5 +8,5 @@ See [the complete implementation and review](../../../../docs/WOODLAND-KIT.md).
 `prompts.json` is the exact style/subject/native-size/anchor manifest.
 `cutouts/` holds prepared alpha and provenance; `previews/` holds native QA sheets.
 
-The fixed camera is retained. UI experiments are archived, not deleted.
+The fixed camera is retained. The archived UI labs that argued it were deleted on 17-sep-2026; the decision is the part that mattered.
 No production writes, deployments or database imports.

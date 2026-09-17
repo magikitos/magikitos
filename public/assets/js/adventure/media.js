@@ -27,7 +27,7 @@ class WorldMedia {
     };
     byId("listening-seek").oninput = (event) => this.seek(event.target.value);
     this.audio.addEventListener("play", () => {
-      game.duck(true);
+      game.narrating(true);
       if (this.item) {
         this.heard.add(this.item.kind, this.item.id);
         game.telemetry?.listen("play", this.item.kind, this.item.id);
@@ -37,13 +37,13 @@ class WorldMedia {
       this.paint();
     });
     this.audio.addEventListener("pause", () => {
-      game.duck(false);
+      game.narrating(false);
       this.paint();
     });
     for (const event of ["timeupdate", "loadedmetadata"])
       this.audio.addEventListener(event, () => this.paint());
     this.audio.addEventListener("ended", () => {
-      game.duck(false);
+      game.narrating(false);
       if (this.item) {
         this.completed.add(this.item.audio);
         this.heard.addCompleted(this.item.kind, this.item.id);
@@ -52,7 +52,7 @@ class WorldMedia {
       this.paint();
     });
     this.audio.addEventListener("error", () => {
-      game.duck(false);
+      game.narrating(false);
       game.toast(game.text("missingMedia"));
       this.paint();
     });
@@ -109,7 +109,7 @@ class WorldMedia {
   }
   suspend() {
     this.audio.pause();
-    this.game.duck(false);
+    this.game.narrating(false);
   }
   async next(kind) {
     if (this.busy) return;

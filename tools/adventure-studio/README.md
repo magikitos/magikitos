@@ -28,75 +28,18 @@ and moored boats are not exposed as independently editable duplicate source.
 Shared construction is a different, API-authorized in-game tool. It changes
 permitted community clearings, never the protected adventure or Studio workspace.
 
-## One interface, two tools
+## One tool
 
-**Mapa** and **Archivo de pruebas** share the Studio shell and navigation. Switching tools
-does not reload the document or discard unsaved map edits. Map shortcuts and
-rendering pause while experiments are visible.
+El Studio es el **Mapa** y nada más. Los cinco laboratorios archivados —cámara libre, escala del
+bosque, conversar/acercarse, trazo y vida, y el reparto de duendes— se borraron enteros el
+17-sep-2026 por decisión del dueño: eran evidencia conservada de decisiones ya tomadas, y esas
+decisiones viven donde tienen que vivir, en el arte y en la documentación de dirección. Con ellos
+se fueron su pestaña, su registro, sus rutas, sus 27 MB de material de comparación y sus cuatro
+comprobaciones de navegador.
 
-- `/#map`: the one autosaved map workspace.
-- `/#experiments/camera`: closed free-camera comparison (illustrated / hybrid / full 3D).
-- `/#experiments/forest-scale`: preserved miniature-forest scale experiment.
-- `/#experiments/conversation`: closed Conversar / Acercarse comparison, archived.
-- `/ui/` now opens that archive inside Studio, never a second interface.
-
-Experiments are registered in `experiments/registry.js`, each with its own
-directory and active/archived status. The forest study composes the game's shared
-physics, navigation, character animation, terrain and sprite loader; it does not
-boot the game, load accounts, contact the website, send events or use a game save.
-Its temporary position/proportion stays in memory while switching Studio tabs.
-It cannot enter the map diff or overwrite the user's working scene.
-
-The archived sample is read-only. Its private media remain in
-`.local/adventure-studio/ui-lab` and are not bundled into a public clone. It is
-sandboxed within the shared shell, with all assets scoped below
-`/experiments/conversation/`; leaving the archive destroys its frame to stop
-audio/animation. If that historical local sample is absent, Studio explains it
-without downloading anything. The original archived files are never rewritten.
-
-### Archived experiment: Cámara libre
-
-The owner chose the existing fixed camera. This is preserved evidence, not ongoing
-work or a dependency of the playable game. All three experiments are archived.
-
-Three independently rendered variants of one small walkable clearing: current
-billboard art, volumetric surroundings with pixel characters, and an entirely
-geometric maquette. Orbit, inclination, perspective/orthographic projection,
-mouse wheel/pinch zoom, camera-relative walking and a reachable raised lookout.
-
-Its WebGL renderer is a separate, lazy bundle, never part of the game or main
-Studio JS. The trusted local iframe only isolates DOM/lifecycle; it makes no game
-API or persistence calls. Leaving releases it instead of running a hidden 3D scene.
-The original map workspace and older experiments remain independent.
-
-Run `npm run test:camera` for isolated browser/physics/budget checks. Read the
-[comparison and feasibility report](experiments/camera/README.md) for measurements,
-module boundaries and the substantial work still required before adopting 3D.
-
-### Preserved experiment: Un bosque enorme
-
-Three relative proportions (Cercana, Diminuta, Minúscula), five jump-to viewpoints,
-walking/click-to-walk/rolling, camera pan and wheel/pinch zoom. Character pixels
-and camera zoom remain unchanged when selecting relative proportions.
-Trees are represented by monumental roots/trunk bases; a coast continuing beyond
-the scene suggests a river too large to circumnavigate. There are no human cottages.
-Doors are visual concepts here, not implemented interiors or new missions.
-
-**Arte y escala** lazily opens a separate art-direction illustration and twelve
-modular sprites: six found-material homes and six forest elements. The illustration
-is explicitly labeled as concept art, not a screenshot of the playable prototype.
-Source images and complete built-in image-generation prompts are in
-`experiments/forest-scale/art/` and `prompts.json`.
-
-Startup mechanically packages the two sprite sheets into
-`.local/adventure-studio/experiments/forest-scale/`, preserving the generated alpha
-and immutable originals. Those preview packs only load when opening the experiment;
-the larger concept image only loads in its art view. No experiment assets are
-included in game releases.
-
-Run `npm run test:experiments` for isolated browser checks of the shared shell,
-all three scale presets, routes, lifecycle, archive, lazy art, five viewport sizes
-and unchanged game source/user workspace.
+Lo aprobado que SIGUE mandando: **2× con reducción integrada y movimiento selectivo**, en
+[la decisión de trazo y vida](../../docs/art-direction/DEFINITION-MOTION.md); la cámara del juego
+es FIJA; y Ascua es el protagonista con los otros once duendes como vecinos.
 
 ## Arrange objects
 
@@ -263,25 +206,16 @@ Always validate reachability and entry/exit after placing a building.
 - `history/`: recovery copies, not a user-facing draft system.
 - `imported-drafts/`: one-time backup of the previous Studio data on this Mac.
 - `art/`, `build/`: generated editor previews and bundle.
-- `experiments/`: generated isolated experiment preview packs.
-- `ui-lab/`: the preserved comparison laboratory and local media.
 
 All live below `.local/adventure-studio/`, ignored by Git.
 **Never delete the whole directory as build cleanup.** Scene builds do not touch
-`workspace.json`, snapshots, history or the Lab.
+`workspace.json`, snapshots or history.
 
 The server validates Host, Origin, a per-process write token, payload size,
 scene/entity identifiers, supported transforms, sprite crops and collision
 dimensions. Writes are atomic. Two tabs cannot silently overwrite each other.
 
 ## Scope
-
-The active **Laboratorio → Duendes** experiment presents four character families,
-an equal-scale forest comparison and the planned action catalogue. See its
-[guide](experiments/duende-cast/README.md). It never edits this workspace or the game.
-Trazo y vida is now archived: **2× integrated reduction and selective motion** were
-approved; see the [decision](../../docs/art-direction/DEFINITION-MOTION.md).
-Earlier camera, scale and conversation experiments remain in the same shell.
 
 The Studio edits objects (individually or in groups), sprite variants/crops,
 collision bodies, continuous fences and outdoor paths.

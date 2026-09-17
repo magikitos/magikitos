@@ -4,7 +4,6 @@ const http = require("node:http"),
   fs = require("node:fs"),
   path = require("node:path"),
   crypto = require("node:crypto");
-const { experimentRoutes } = require("./experiments/routes.cjs");
 const { snapshot } = require("./snapshot.cjs"),
   { WorkspaceStore } = require("./workspace.cjs"),
   { build } = require("./build.cjs");
@@ -22,26 +21,6 @@ require("node:child_process").execFileSync(
   { stdio: "inherit" },
 );
 build(ROOT, path.join(LOCAL, "build"));
-require("node:child_process").execFileSync(
-  process.env.STUDIO_PHP || "php",
-  [
-    path.join(__dirname, "experiments/forest-scale/bake.php"),
-    path.join(LOCAL, "experiments/forest-scale"),
-  ],
-  { stdio: "inherit" },
-);
-require("./experiments/camera/build.cjs").buildCamera(
-  ROOT,
-  path.join(LOCAL, "experiments/camera"),
-);
-require("./experiments/definition-motion/build.cjs").buildDefinition(
-  ROOT,
-  path.join(LOCAL, "experiments/definition-motion"),
-);
-require("./experiments/duende-cast/build.cjs").buildDuendes(
-  ROOT,
-  path.join(LOCAL, "experiments/duende-cast"),
-);
 let current;
 function refresh() {
   current = snapshot(ROOT);
@@ -190,24 +169,6 @@ const server = http.createServer(async (req, res) => {
       file(res, req, path.join(ROOT, "public/assets/aventura"), p.slice("/assets/aventura/".length));
       return;
     }
-    if (p === "/ui/" || p === "/ui") {
-      res.writeHead(302, {
-        ...headers,
-        Location: "/#experiments/conversation",
-      });
-      res.end();
-      return;
-    }
-    if (
-      experimentRoutes(req, res, p, {
-        local: LOCAL,
-        root: ROOT,
-        file,
-        headers,
-        send,
-      })
-    )
-      return;
     file(res, req, path.join(__dirname, "public"), p.slice(1));
   } catch (error) {
     if (!res.headersSent)

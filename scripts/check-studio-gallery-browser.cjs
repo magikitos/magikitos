@@ -64,10 +64,9 @@ async function openGallery(p) {
   );
   await page.goto(origin);
   await ready(page);
-  assert.equal(
-    await page.locator('[data-studio-tab="experiments"]').innerText(),
-    "Laboratorio",
-  );
+  // El Estudio es UNA sola herramienta desde que se borraron los laboratorios archivados: ya no
+  // hay pestañas que comprobar, y que no exista ninguna es justo lo que se quiere.
+  assert.equal(await page.locator("[data-studio-tab]").count(), 0);
   await page.locator("#gallery summary").click();
   const card = page.locator('[data-family="forest-tree"]');
   await page.locator("[data-gallery-category]").selectOption("Vegetación");

@@ -36,7 +36,6 @@ Sus propuestas se comparan con la nueva fuente y los conflictos se conservan.
 
 `WEB_ORIGIN` solo admite una web local; `GAME_ORIGIN` selecciona el host de las
 pruebas que lo soportan. No dirigir pruebas de escritura contra producción.
-Los experimentos cerrados permanecen en la pestaña Laboratorio, aislados del mapa.
 
 ## Verificación
 
