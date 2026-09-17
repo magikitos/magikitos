@@ -4,6 +4,68 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: la tienda sale del bosque — 17 septiembre 2026
+
+Artefacto `50f00dde6041c46a1a7d`, fuente del juego `0b942dd6aefe807356b57b30d91c32a835845aa2`,
+web `1613ba6a`. Anterior conservada: `a09ac5145af32f81a0f9`. Rutas: /aventura y
+cinco traducciones.
+
+SHA-256 de `release.json`:
+`a2352c0adfdca6423083ca1b28b87f6255b8036391a4812bf92999af774a7e7b`.
+480 archivos verificados y ESTACIONADOS antes de mover el puntero. Sin migración:
+esta entrega no toca ni una tabla.
+
+### Alcance publicado
+
+- **La tienda ya no está en el bosque** (decisión del dueño: «quita todo lo de
+  la api de exponer los productos»). El taller de Carmen se queda como SITIO y
+  sus dos bancos pasan a ser mobiliario. Se fueron enteros `workshop.js` —que
+  estiraba la habitación y plantaba un expositor por figura a la venta—, la sala
+  `shop` del catálogo, `products()`, `furnish()`, la vista de producto con su
+  precio, el dibujado del expositor, las dos reglas de CSS y las cuatro claves
+  de texto. En la web, `worldApiCatalogue()` solo acepta `kind=art`: `products`
+  es un `invalid_kind` 400 como cualquier otro valor que no existe, y el esquema
+  `Product` sale del contrato en los dos repos. La tienda sigue viva en la web,
+  en el menú, el pie, la home y cada ficha de figura.
+- **Y las comprobaciones que probaban la tienda prueban lo contrario**: un lote
+  de productos se RECHAZA en el cliente (`invalid_sheet`), `kind=products` entra
+  en la lista de peticiones inválidas del API local, y los barridos de navegador
+  dejan de pasear por una sala que no existe.
+- **El Studio nombra las doce pantallas.** Su lista de nombres estaba escrita a
+  mano y había caducado: nombraba tres escenas que ya no existen y le faltaban
+  las seis que nacieron después, así que el río, el seto, la casita de seta y la
+  maceta salían con su SLUG en el selector. El nombre ya existe y es el que el
+  juego ANUNCIA al llegar: se resuelve igual que en `sceneKeys()` y se lee en
+  castellano de los mismos ficheros de texto, así que una pantalla nueva llega
+  al Studio con su nombre puesto sin tocar una línea. Y viaja del snapshot VIVO
+  y no del archivado, que se guarda por un hash del mundo y del arte: un nombre
+  corregido hoy seguiría enseñándose viejo hasta que cambiara el mapa.
+- **La sesión de mapa del dueño**, aplicada tal cual: overworld, taberna,
+  refugio de hojas, casita de seta y el taller, que estrena cómoda y estufa
+  donde estaban los bancos de la tienda.
+
+### Lo que salió al aplicar la sesión
+
+- **La barbacoa del merendero tapaba el felpudo de la maceta del pescador.** Lo
+  cazó el guardián de rutas («exit: arrival»): salir de esa casa dejaba al
+  jugador dentro de un sólido. Se mueve la barbacoa un cuarto de casilla, que es
+  lo mínimo que deja pasar. El Studio NO avisa de esto: valida cada pieza por
+  separado y la caminabilidad es una pregunta de la escena entera.
+- **⛔ Una comprobación fijaba el TAMAÑO de una seta.**
+  `assert.equal(find("picnic-mushroom").scale, 0.85)` no medía ninguna regla:
+  medía una tarde. El Studio existe justamente para que el dueño redimensione lo
+  que hay en el mapa, así que eso convierte una decisión de arte en un build
+  roto (la casa ya publica recogibles a 0,48 y a 0,65). Lo que se sostiene es el
+  CONTRATO de la seta —sin cuchillo no se corta, con cuchillo cae una—, intacto.
+
+### Comprobado antes y después de mover el puntero
+
+`node scripts/test.cjs` entero (37 PASS), los barridos de navegador del bosque,
+del Studio (caminos y selección), de las láminas, de la actividad nativa, del
+API local contra DDEV y el de frontera —que exige que los dos repos consuman el
+MISMO contrato—. En producción, `check-release-live.cjs`: las seis rutas con su
+HTML byte a byte, cero escrituras de jugador y el API protegido.
+
 ## Producción: un sitio sin nombre dice su slug — 17 septiembre 2026
 
 Artefacto `a09ac5145af32f81a0f9`, fuente del juego `89817ad0b9ef67c0bd113ebcfddecba024e3cde6`.
