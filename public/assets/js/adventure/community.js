@@ -88,40 +88,102 @@ class Community {
       this.position(ground(e));
     });
     /**
-     * ⛔ UNA VALLITA SE DIBUJA ARRASTRANDO EL DEDO, y por eso estos tres van en CAPTURA.
+     * ⛔ UNA VALLITA SE DIBUJA DEJANDO PULSADO Y ARRASTRANDO, y ese medio segundo de más no es
+     * ceremonia: es lo único que salva el gesto de mover el mapa.
      *
-     * El módulo de entrada escucha en el canvas en burbuja para andar y para mover el mapa, así
-     * que un trazo se leería como un paseo o como un arrastre de cámara. Capturando primero y
-     * parando la propagación, mientras se dibuja el mundo no se entera de nada, y en cuanto se
-     * suelta todo vuelve a ser de quien era.
+     * El primer intento tomaba cualquier arrastre, y con la vallita elegida el mapa dejaba de
+     * poder moverse — se vio a la primera en la prueba de teléfono, que aparta la cámara para
+     * traer un hueco a la vista y se encontró trazando una valla de veintitrés celdas. Mantener
+     * pulsado es además el gesto que la casa ya usa para grabar, así que no hay vocabulario
+     * nuevo: un arrastre rápido mueve el mapa, un toque coloca la valla donde tocas, y quien
+     * aguanta medio segundo se pone a dibujar.
+     *
+     * Van en CAPTURA porque el módulo de entrada escucha en burbuja: al arrancar el trazo se le
+     * cancela el paneo que había empezado y se le esconde todo lo demás.
      */
+    const HOLD_MS = 350,
+      SLOP = 10;
+    const soltarPresion = () => {
+      if (this.press) clearTimeout(this.press.timer);
+      this.press = null;
+    };
+    const empezarTrazo = () => {
+      const p = this.press;
+      soltarPresion();
+      this.game.input?.map?.clear();
+      canvas.setPointerCapture?.(p.id);
+      this.stroke = [p.ground];
+    };
     for (const [type, handle] of [
       [
         "pointerdown",
         (e) => {
-          this.stroke = [ground(e)];
-          canvas.setPointerCapture?.(e.pointerId);
+          soltarPresion();
+          this.press = {
+            id: e.pointerId,
+            x: e.clientX,
+            y: e.clientY,
+            ground: ground(e),
+            timer: setTimeout(empezarTrazo, HOLD_MS),
+          };
+          // ⛔ EL `pointerdown` SE DEJA PASAR SIEMPRE. Todavía no se sabe si esto va a ser un
+          // trazo, un paseo o un arrastre del mapa, y quedárselo aquí es quitarle al mundo el
+          // suceso con el que empieza a panear: la cámara se quedaba clavada con la vallita en
+          // la mano. Solo se le esconde lo que viene DESPUÉS, y solo si el trazo arranca.
+          return false;
         },
       ],
-      ["pointermove", (e) => this.stroke && this.stroke.push(ground(e))],
+      [
+        "pointermove",
+        (e) => {
+          if (this.stroke) {
+            this.stroke.push(ground(e));
+            return true;
+          }
+          if (
+            this.press &&
+            Math.hypot(e.clientX - this.press.x, e.clientY - this.press.y) >
+              SLOP
+          )
+            soltarPresion();
+          return false;
+        },
+      ],
       [
         "pointerup",
         (e) => {
+          soltarPresion();
           const raw = this.stroke;
           this.stroke = null;
-          if (raw) this.trace(raw, ground(e));
+          if (!raw) return false;
+          this.trace(raw, ground(e));
+          return true;
         },
       ],
-      ["pointercancel", () => (this.stroke = null)],
+      [
+        "pointercancel",
+        () => {
+          soltarPresion();
+          const drawing = Boolean(this.stroke);
+          this.stroke = null;
+          return drawing;
+        },
+      ],
     ])
       canvas.addEventListener(
         type,
         (e) => {
-          if (!this.drawing || this.busy) return;
-          if (type !== "pointerdown" && !this.stroke) return;
-          e.preventDefault();
-          e.stopPropagation();
-          handle(e);
+          if (!this.drawing || this.busy) {
+            soltarPresion();
+            this.stroke = null;
+            return;
+          }
+          // Solo se le esconde el suceso al mundo cuando de verdad estamos trazando: lo demás
+          // (mover el mapa, tocar para colocar) sigue siendo suyo.
+          if (handle(e) !== false) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
         },
         true,
       );
@@ -451,9 +513,10 @@ class Community {
       rotation: d.rotations[0],
       x: where.x,
       y: where.y,
-      ...(d.shape === "polyline"
-        ? { points: [[0, 0], [3, 0]] }
-        : {}),
+      // Dos celdas: es el trazo más corto que la casa permite y cuesta exactamente lo que
+      // costaba la vallita de antes, así que estrenar el trazado no encarece la primera valla
+      // de nadie. Desde ahí se arrastra para hacerla tan larga como se quiera pagar.
+      ...(d.shape === "polyline" ? { points: [[0, 0], [2, 0]] } : {}),
     };
     this.revalidate();
     this.palette();

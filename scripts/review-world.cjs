@@ -37,7 +37,7 @@ const points = [
   ["picnic-mobile", "overworld", "picnic-trash-bin", 390, 844],
   ["tavern-mobile", "tavern", null, 390, 844],
   ["tavern-tablet", "tavern", null, 768, 1024],
-  ["community", "home-garden", null, 768, 1024],
+  ["community", "river-willows", "meadow-clearing-sign", 768, 1024],
 ];
 (async () => {
   fs.mkdirSync(output, { recursive: true });

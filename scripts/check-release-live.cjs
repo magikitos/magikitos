@@ -135,17 +135,19 @@ function assertShell(actual, expected, headers, route) {
       assert(accelerated.player.y<riverAfter.player.y-45,'Two-thumb joystick and left turbo work on the live artifact');
       assert.equal(await page.locator('#world-boost').getAttribute('aria-pressed'),'false');
       await page.screenshot({path:'.local/production-controls/river-'+width+'.png'});
-      await seed({scene:'home-garden',position:{x:384,y:680},inventory:{boat:1},navigation:{mode:'boat',direction:'up'}});
+      // El claro compartido vive en la pradera de los sauces y su embarcadero mira al oeste, así
+      // que se desembarca hacia la derecha. Se llega remando desde el agua del amarre.
+      await seed({scene:'river-willows',position:{x:56*16,y:58*16},inventory:{boat:1,oars:1},navigation:{mode:'boat',direction:'right'}});
       await page.locator('#world-canvas').focus();
-      await page.keyboard.down('ArrowUp');
+      await page.keyboard.down('ArrowRight');
       await page.waitForFunction(()=>window.MagikitosAdventure.inspect().navigation.mode==='foot');
-      await page.keyboard.up('ArrowUp');
+      await page.keyboard.up('ArrowRight');
       assert(await page.locator('#home-edit').isVisible());
       assert(await page.locator('#world-joystick').isHidden());
       assert(await page.locator('#world-boost').isHidden());
       // Do not open the editor in a read-only smoke: it explicitly creates an
       // anonymous identity. Real builds use the separate labelled example run.
-      assert.equal((await page.evaluate(()=>window.MagikitosAdventure.inspect())).community.zone,'tocon-del-mirlo');
+      assert.equal((await page.evaluate(()=>window.MagikitosAdventure.inspect())).community.zone,'claro-de-los-sauces');
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
       await page.close();
       console.log('PASS live forest, rowing, shared landing, lazy assets and no overflow '+width+'×'+height);

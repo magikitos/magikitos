@@ -7,14 +7,32 @@ const { chromium, request } = require("playwright");
 const {
   validateConstruction,
 } = require("../public/assets/js/adventure/construction-layout");
+/**
+ * ⛔ CONTRA DONDE DE VERDAD SE PRUEBA. Nació atado a DDEV; hoy el desarrollo vive en el clon del
+ * VPS, así que el origen y la forma de sembrar la identidad de prueba se declaran por entorno y
+ * DDEV sigue siendo el valor por defecto. `GAME_WEB_FIXTURE` es la orden que llama al sembrador
+ * (por ejemplo, un `ssh … php scripts/community-browser-fixture.php`), y el guardián de ese
+ * fichero sigue negándose a sembrar fuera de una base `*_dev`.
+ */
 const web = process.env.GAME_WEB_REPO || path.resolve("..", "magikitos"),
-  origin = "https://magikitos.ddev.site";
+  origin = process.env.GAME_WEB_ORIGIN || "https://magikitos.ddev.site";
 const fixture = (...args) =>
-  execFileSync(
-    "ddev",
-    ["exec", "php", "scripts/community-browser-fixture.php", ...args],
-    { cwd: web, encoding: "utf8" },
-  );
+  process.env.GAME_WEB_FIXTURE
+    ? execFileSync(
+        "/bin/sh",
+        ["-c", process.env.GAME_WEB_FIXTURE + " " + args.join(" ")],
+        { encoding: "utf8" },
+      )
+    : execFileSync(
+        "ddev",
+        ["exec", "php", "scripts/community-browser-fixture.php", ...args],
+        { cwd: web, encoding: "utf8" },
+      );
+// La zona sale del catálogo, no de un nombre escrito a mano: el claro se puede mudar de pantalla
+// y esta prueba no tiene por qué enterarse.
+const ZONE = Object.keys(
+  JSON.parse(fs.readFileSync(".local/build/world.json")).construction.zones,
+)[0];
 (async () => {
   const users = [],
     browser = await chromium.launch({ channel: "chrome", headless: true }),
@@ -58,11 +76,18 @@ const fixture = (...args) =>
     await action("overworld", "picnic-bin");
     await action("overworld", "picnic-neighbor", "give");
     await action("overworld", "river-dock", "craft");
-    await action("river-willows", "bank-twig-0");
+    // Los palitos del prado: una vallita se cobra por celda, así que hace falta más de uno.
+    for (const id of ["bank-twig-0", "bank-twig-6"])
+      await action("river-willows", id);
     const account = await action("human-hedge", "cat-water-bowl");
     assert.equal(account.inventory.oars, 1);
-    assert.equal(account.setines, 10);
-    assert(account.knowledge.includes("bowl-pool"));
+    // Los setines son reputación y se ganan en la web: el bosque no acuña ni uno, así que un
+    // recorrido entero de recogida y cocina deja el monedero exactamente donde estaba.
+    assert.equal(account.setines, 0);
+    assert(
+      account.inventory.twig >= 4,
+      "Enough twigs for the shortest fence the house allows: " + account.inventory.twig,
+    );
     for (const [width, height] of [
       [1440, 900],
       [768, 1024],
@@ -76,10 +101,10 @@ const fixture = (...args) =>
           ignoreHTTPSErrors: true,
         });
         page.on("pageerror", (e) => errors.push(e.message));
+        // Nada sale de la máquina: solo el sitio que se está probando, sea DDEV o el clon.
+        const allowed = new URL(origin).host;
         await page.route("**/*", (r) =>
-          new URL(r.request().url()).hostname === "magikitos.ddev.site"
-            ? r.continue()
-            : r.abort(),
+          new URL(r.request().url()).host === allowed ? r.continue() : r.abort(),
         );
         await page.addInitScript(
           ({ token, account }) => {
@@ -88,8 +113,8 @@ const fixture = (...args) =>
               localStorage.setItem(
                 "magikitos.adventure",
                 JSON.stringify({
-                  scene: "home-garden",
-                  position: { x: 24 * 16, y: 30 * 16 },
+                  scene: "river-willows",
+                  position: { x: 92 * 16, y: 95 * 16 },
                   flags: account.progress.flags,
                   inventory: account.inventory,
                   muted: true,
@@ -117,17 +142,20 @@ const fixture = (...args) =>
           })
           .click();
         const snapshot = await (
-          await http.get("/api/world/community?zone=tocon-del-mirlo")
+          await http.get("/api/world/community?zone=" + ZONE)
         ).json();
         let point;
-        for (let y = 24; y <= 31 && !point; y += 0.5)
-          for (let x = 12; x < 37 && !point; x += 0.5) {
+        const [zx, zy, zw, zh] = world.construction.zones[ZONE].editable;
+        const shape = world.construction.definitions[kind].shape;
+        for (let y = zy + 2; y <= zy + zh - 2 && !point; y += 0.5)
+          for (let x = zx + 2; x < zx + zw - 2 && !point; x += 0.5) {
             const ghost = {
               kind,
               variant: world.construction.definitions[kind].variants[0].id,
               rotation: 0,
               x,
               y,
+              ...(shape === "polyline" ? { points: [[0, 0], [2, 0]] } : {}),
             };
             if (
               !validateConstruction(
@@ -197,15 +225,73 @@ const fixture = (...args) =>
           const s = window.MagikitosAdventure.inspect();
           return s.community.ghost && !s.community.invalid;
         });
+        /**
+         * ⛔ CON LA VALLITA ELEGIDA, EL MAPA SE SIGUE PUDIENDO MOVER. Es lo que rompió el primer
+         * intento de dibujar arrastrando: cualquier arrastre pasaba a ser un trazo, así que con
+         * la vallita en la mano la cámara se quedaba clavada y salía una valla de veintitrés
+         * celdas. Un arrastre rápido mueve el mapa; quien deja pulsado medio segundo, dibuja.
+         */
+        if (kind === "twig-fence") {
+          const vertices = () =>
+            page.evaluate(
+              () => window.MagikitosAdventure.inspect().community.ghost.points.length,
+            );
+          assert.equal(await vertices(), 2, "A tapped fence is the shortest one");
+          const before = (await inspect()).camera;
+          await page.mouse.move(width * 0.5, height * 0.3);
+          await page.mouse.down();
+          await page.mouse.move(width * 0.5 - 60, height * 0.3, { steps: 6 });
+          await page.mouse.up();
+          const panned = (await inspect()).camera;
+          assert(
+            Math.abs(panned.x - before.x) > 20,
+            "A quick drag still moves the map while a fence is in hand",
+          );
+          assert.equal(await vertices(), 2, "…and draws nothing");
+          // Y dejando pulsado, el mismo arrastre dibuja.
+          await page.mouse.move(width * 0.5, height * 0.3);
+          await page.mouse.down();
+          await page.waitForTimeout(500);
+          await page.mouse.move(width * 0.5 + 90, height * 0.3, { steps: 8 });
+          await page.mouse.move(width * 0.5 + 90, height * 0.3 + 70, { steps: 8 });
+          await page.mouse.up();
+          assert(
+            (await vertices()) >= 3,
+            "Press, hold and drag draws a trace with corners",
+          );
+          // Se vuelve a elegir la vallita —que es lo que hace una persona que se ha pasado de
+          // largo— y con ella el trazo más corto otra vez, y se coloca en el hueco legal.
+          await page
+            .locator("#home-palette button")
+            .filter({ hasText: "Vallita de ramitas" })
+            .click();
+          assert.equal(await vertices(), 2, "Choosing the fence again starts short");
+          s = await inspect();
+          sx = box.x + ((point.x * 16 - s.camera.x) * box.width) / s.view.width;
+          sy = box.y + ((point.y * 16 - s.camera.y) * box.height) / s.view.height;
+          await page.touchscreen.tap(sx, sy);
+          await page.waitForFunction(() => {
+            const s = window.MagikitosAdventure.inspect();
+            return s.community.ghost && !s.community.invalid;
+          });
+        }
         await page.screenshot({
           path: `.local/community-review/placement-${kind}-${width}.png`,
         });
         await page.locator("#home-save").click();
+        // ⛔ COLOCAR NO CIERRA LA CAJA (17-sep-2026): colocar una cosa casi nunca es colocar una
+        // sola, así que lo que se va es el fantasma y la caja se queda con la paleta lista.
         await page.waitForFunction(
-          () => !window.MagikitosAdventure.inspect().community.editing,
+          () => !window.MagikitosAdventure.inspect().community.ghost,
+        );
+        assert(
+          await page.evaluate(
+            () => window.MagikitosAdventure.inspect().community.editing,
+          ),
+          "Placing one piece leaves the box open for the next",
         );
         const after = await (
-          await http.get("/api/world/community?zone=tocon-del-mirlo")
+          await http.get("/api/world/community?zone=" + ZONE)
         ).json();
         assert.equal(after.objects.length, snapshot.objects.length + 1);
         assert.equal(
@@ -230,9 +316,9 @@ const fixture = (...args) =>
             zoneRevision: after.revision,
             operation: "remove",
             object: Object.fromEntries(
-              ["id", "kind", "variant", "x", "y", "rotation", "revision"].map(
-                (k) => [k, placed[k]],
-              ),
+              ["id", "kind", "variant", "x", "y", "rotation", "points", "revision"]
+                .filter((k) => placed[k] !== undefined)
+                .map((k) => [k, placed[k]]),
             ),
           },
         });

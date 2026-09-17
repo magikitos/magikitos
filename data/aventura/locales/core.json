@@ -496,12 +496,12 @@
     "pt": "Colocar"
   },
   "communityDraw": {
-    "es": "Arrastra el dedo por el suelo y la vallita sigue tu trazo.",
-    "en": "Drag your finger along the ground and the fence follows it.",
-    "de": "Zieh den Finger über den Boden, der Zaun folgt deiner Spur.",
-    "fr": "Fais glisser ton doigt sur le sol et la clôture suit ton tracé.",
-    "it": "Trascina il dito sul prato e lo steccato segue il tuo tratto.",
-    "pt": "Arrasta o dedo pelo chão e a cerca segue o teu traço."
+    "es": "Tócalo para ponerlo donde quieras. Deja pulsado y arrastra, y la vallita sigue tu trazo.",
+    "en": "Tap to put it where you like. Press and hold, then drag, and the fence follows your line.",
+    "de": "Tippe, um ihn hinzustellen. Gedrückt halten und ziehen, dann folgt der Zaun deiner Spur.",
+    "fr": "Touche pour le poser où tu veux. Appuie, garde le doigt et fais glisser : la clôture suit ton tracé.",
+    "it": "Tocca per metterlo dove vuoi. Tieni premuto e trascina, e lo steccato segue il tuo tratto.",
+    "pt": "Toca para o pores onde quiseres. Mantém premido e arrasta, e a cerca segue o teu traço."
   },
   "communityEveryone": {
     "es": "La gente del bosque",
