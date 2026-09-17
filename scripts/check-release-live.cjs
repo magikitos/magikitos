@@ -45,7 +45,11 @@ function assertShell(actual, expected, headers, route) {
   const art=await (await response('/api/world/catalog?lang=es&kind=art')).json();
   assert(art.ok && Array.isArray(art.items) && !('collection' in art));
   assert(art.items.every(sheet=>sheet.image && sheet.thumb && !('slug' in sheet)));
-  for(const zone of ['tocon-del-mirlo','remanso-del-musgo']) {
+  // Las zonas salen del CONTRATO de la release que se está comprobando, no de una lista a mano:
+  // un claro se puede mudar de pantalla y esta comprobación no tiene por qué enterarse.
+  const zones=Object.keys(JSON.parse(fs.readFileSync(path.join(directory,'game-contract.json'))).construction.zones);
+  assert(zones.length,'The release declares at least one shared plot');
+  for(const zone of zones) {
     const shared=await (await response('/api/world/community?zone='+zone)).json();
     assert(shared.ok && shared.zone===zone && Array.isArray(shared.objects) && shared.objects.length<=96);
     for(const object of shared.objects) {

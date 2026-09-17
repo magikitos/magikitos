@@ -4,6 +4,58 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: un bosque más pequeño que se cruza andando — 17 septiembre 2026
+
+Artefacto `9f3fce5a666ca9861191`, fuente del juego `3dbacd14917de41a3ad74d3d74bd9c4d497df4e4`.
+Anterior conservada: `a876f38ab81cc7889473`. Rutas: /aventura y cinco traducciones.
+
+SHA-256 de `release.json`:
+`089f4b0546250e890234fbc13b396c4712ccccbd453844974f0044ed9eb00886`.
+479 archivos verificados antes de activar el puntero. Esta entrega SÍ lleva
+esquema: migraciones **4232** (fuera el hogar privado y el saber) y **4233** (el
+claro nuevo y los vértices de las vallas), aplicadas ANTES de mover el puntero
+porque el código que se publica ya no escribe la columna del saber y sí escribe
+la de los vértices.
+
+### Alcance publicado
+
+- **Cuatro pantallas menos.** Se van el laberinto de los juncos, el islote de las
+  conchas, la ribera de las kelihouses y el tocón de Mirlo. El mapa era grande y
+  estaba vacío, y media mitad existía para sostener las dos cosas que esta ola ya
+  había retirado: las praderas privadas y la isla a la que solo se llegaba en
+  barca.
+- **La vida del islote se mudó a la pradera de los sauces** conservando las
+  distancias entre sus treinta y tres piezas. Dos excepciones, las dos del dueño:
+  las tres casas se borran en vez de mudarse, porque la misma casa en dos
+  pantallas no es consistente; y la playa de las conchas se ESPEJA antes de
+  viajar, porque en el islote el agua quedaba al este y aquí queda al oeste.
+- **La pradera se cruza andando de punta a punta.** Ocho costuras a pie unen las
+  tres pantallas del río por las dos orillas, declaradas en los mismos bordes que
+  cruza la barca y con la misma pieza detrás. El río muere en su nacimiento, así
+  que a un borde sin salida se le pide que CIERRE el cauce en vez de encajar.
+- **Construir vuelve a tener sitio, y es público**: el claro de los sauces,
+  cuarenta y ocho por treinta tiles de hierba abierta con tres entradas. Los dos
+  claros anteriores vivían en pantallas que ya no existen, así que el recorte del
+  mapa se había llevado la construcción sin que se viera.
+- **La vallita es un TRAZADO**, la misma polilínea que dibuja el Estudio, así que
+  una valla del bosque y una valla de la casa son la misma cosa. Se dibuja
+  dejando pulsado y arrastrando; un arrastre rápido sigue moviendo el mapa. Se
+  cobra por celda y el servidor mide los vértices que recibe en vez de fiarse del
+  precio que le manden.
+- **La caja de construir dice lo que quiere**: lo que llevas encima siempre a la
+  vista, ninguna baldosa apagada (el renglón dice qué falta), variantes como
+  fotos, Girar y Colocar, el claro pintado en el suelo y la cámara viajando a él
+  al abrir.
+- **La sala de las láminas para colorear podía no abrirse nunca**: su círculo
+  estaba a treinta tiles de su mesa desde que el mapa se redibujó en el Estudio.
+
+### Comprobado en producción
+
+Las seis rutas byte a byte contra el artefacto instalado, el API protegido, cero
+escrituras de jugador, y en navegador: remar, desembarcar en el claro, y subir y
+bajar la pradera a pie cruzando las dos costuras (sauces → rápidos → raíces y de
+vuelta), conservando el desvío al cruzar.
+
 ## Producción: el texto por pantalla y el río de todos — 17 septiembre 2026
 
 Artefacto `a876f38ab81cc7889473`, fuente del juego `de1505394c8f0c2197150012fca26c0d2a62fb5d`.
