@@ -68,7 +68,7 @@ function assertShell(actual, expected, headers, route) {
   }
   const browser=await chromium.launch({channel:'chrome',headless:true});
   fs.mkdirSync('.local/production-controls',{recursive:true});
-  const errors=[],writes=[],blockedSecurityRequests=[];
+  const errors=[],writes=[],blockedSecurityRequests=[],measurements=[];
   try {
     for(const [width,height] of [[1440,900],[768,1024],[390,844]]) {
       const page=await browser.newPage({viewport:{width,height},hasTouch:true});
@@ -79,7 +79,15 @@ function assertShell(actual, expected, headers, route) {
         if(!['GET','HEAD'].includes(r.request().method())) {
           // Observe but never send Cloudflare's injected challenge POST either.
           // It is infrastructure, not an application identity/vote/chat write.
-          const target=url.origin===origin && url.pathname.startsWith('/cdn-cgi/challenge-platform/') ? blockedSecurityRequests : writes;
+          // ⛔ Y el medidor de la casa tampoco es una escritura del jugador:
+          // `/api/world/telemetry` es anónimo, sale solo y no toca ninguna partida, así que
+          // cuenta aparte. Lo que esta prueba vigila es que mirar el bosque no mande NADA que
+          // cambie a nadie; sin la separación, encender el medidor tumbaba el smoke entero.
+          const target=url.origin===origin && url.pathname.startsWith('/cdn-cgi/challenge-platform/')
+            ? blockedSecurityRequests
+            : url.origin===origin && url.pathname==='/api/world/telemetry'
+              ? measurements
+              : writes;
           target.push(url.href); return r.abort();
         }
         return url.origin===origin ? r.continue() : r.abort();
@@ -142,7 +150,8 @@ function assertShell(actual, expected, headers, route) {
       await page.close();
       console.log('PASS live forest, rowing, shared landing, lazy assets and no overflow '+width+'×'+height);
     }
-    assert.deepEqual(errors,[]); assert.deepEqual(writes,[]);
+    assert.deepEqual(errors,[]);
+    assert.deepEqual(writes,[],'Mirar el bosque no escribe nada del jugador');
   } finally {await browser.close();}
-  console.log('PASS live release '+id+': application bytes, six locales/API, website intact, zero writes sent; '+blockedSecurityRequests.length+' injected security POSTs blocked.');
+  console.log('PASS live release '+id+': application bytes, six locales/API, website intact, zero player writes sent; '+measurements.length+' anonymous telemetry and '+blockedSecurityRequests.length+' injected security POSTs blocked.');
 })().catch(e=>{console.error(e);process.exitCode=1;});
