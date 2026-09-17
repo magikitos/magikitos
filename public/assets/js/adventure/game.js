@@ -816,7 +816,10 @@ class Adventure {
      * llegará. Al terminar el viaje el destino y el duende son casi el mismo punto, así que
      * volver a seguirle no se nota.
      */
-    const goal = reading ? null : this.journey.goal;
+    // `focusPoint` es un destino que pide otra parte del juego —hoy, el claro compartido al
+    // abrir la caja de construir—: se viaja a él con el mismo suavizado que a un destino tocado,
+    // que es lo que hace que empezar a construir sea VER dónde se puede.
+    const goal = reading ? null : this.focusPoint || this.journey.goal;
     const subject = (reading ? this.site.focus() : null) || goal || this.player;
     const target = clampCamera(
       {
@@ -1050,7 +1053,10 @@ class Adventure {
     // Panning is a stationary inspection mode. Any actual player movement resumes follow — y
     // señalar un destino también, desde el toque y no desde el primer paso: la cámara ya está
     // haciendo algo que tú le has pedido.
-    if (this.walking || this.journey.intent) this.cameraFollowing = true;
+    if (this.walking || this.journey.intent) {
+      this.cameraFollowing = true;
+      this.focusPoint = null;
+    }
     this.centerCamera();
     // Suspend expensive animation behind reading/dialogs; render only 12fps there.
     const calm =

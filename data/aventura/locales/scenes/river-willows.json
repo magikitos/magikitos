@@ -1,4 +1,12 @@
 {
+  "clearingSign": {
+    "es": "El claro de los sauces. Aquí puede dejar algo cualquiera, y todo el mundo lo va a ver.",
+    "en": "The willow clearing. Anyone can leave something here, and everyone gets to see it.",
+    "de": "Die Weidenlichtung. Hier darf jeder etwas hinstellen, und alle sehen es.",
+    "fr": "La clairière des saules. Tout le monde peut y poser quelque chose, et tout le monde le verra.",
+    "it": "La radura dei salici. Qui può lasciare qualcosa chiunque, e lo vede tutto il mondo.",
+    "pt": "A clareira dos salgueiros. Aqui qualquer um pode deixar algo, e toda a gente o vai ver."
+  },
   "giveShell": {
     "es": "Entregar las conchas",
     "en": "Give the shells",

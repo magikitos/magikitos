@@ -38,51 +38,20 @@
   "definitions": {
     "twig-fence": {
       "label": "buildFence",
-      "sprite": "twig-fence-0-0",
-      "variants": [
-        {
-          "id": "hazel",
-          "sprite": "twig-fence-0-0",
-          "views": {
-            "0": "twig-fence-0-0",
-            "1": "twig-fence-0-1"
-          }
-        },
-        {
-          "id": "moss",
-          "sprite": "twig-fence-1-0",
-          "views": {
-            "0": "twig-fence-1-0",
-            "1": "twig-fence-1-1"
-          }
-        },
-        {
-          "id": "tied",
-          "sprite": "twig-fence-2-0",
-          "views": {
-            "0": "twig-fence-2-0",
-            "1": "twig-fence-2-1"
-          }
-        }
-      ],
-      "footprint": [
-        -1,
-        -0.25,
-        2,
-        0.5
-      ],
-      "cost": {
-        "twig": 4
+      "shape": "polyline",
+      "sprite": "garden-fence",
+      "family": "fence-line",
+      "costPerTile": {
+        "twig": 2
       },
       "surfaces": [
         "flat-ground"
       ],
       "rotations": [
-        0,
-        1
+        0
       ],
       "capabilities": [],
-      "maxPerAuthor": 16
+      "maxPerAuthor": 8
     },
     "woodland-bench": {
       "label": "buildBench",

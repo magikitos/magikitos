@@ -47,6 +47,14 @@
     "it": "Esci in paese",
     "pt": "Sair para a aldeia"
   },
+  "sign": {
+    "es": "El letrero",
+    "en": "The sign",
+    "de": "Das Schild",
+    "fr": "Le panneau",
+    "it": "Il cartello",
+    "pt": "O letreiro"
+  },
   "table": {
     "es": "La mesa",
     "en": "The table",

@@ -495,6 +495,14 @@
     "it": "Posiziona",
     "pt": "Colocar"
   },
+  "communityDraw": {
+    "es": "Arrastra el dedo por el suelo y la vallita sigue tu trazo.",
+    "en": "Drag your finger along the ground and the fence follows it.",
+    "de": "Zieh den Finger über den Boden, der Zaun folgt deiner Spur.",
+    "fr": "Fais glisser ton doigt sur le sol et la clôture suit ton tracé.",
+    "it": "Trascina il dito sul prato e lo steccato segue il tuo tratto.",
+    "pt": "Arrasta o dedo pelo chão e a cerca segue o teu traço."
+  },
   "communityEveryone": {
     "es": "La gente del bosque",
     "en": "The woodland folk",
@@ -518,6 +526,14 @@
     "fr": "Pas ici : laisse libres le terrain et les passages.",
     "it": "Qui no: lascia liberi il terreno e i passaggi.",
     "pt": "Aqui não: deixa o terreno e os caminhos livres."
+  },
+  "communityMissing": {
+    "es": "Te falta material:",
+    "en": "You are short of:",
+    "de": "Dir fehlt noch:",
+    "fr": "Il te manque :",
+    "it": "Ti manca:",
+    "pt": "Falta-te:"
   },
   "communityOffline": {
     "es": "Sin conexión puedes explorar. Para construir juntos hace falta conectar.",
@@ -543,6 +559,14 @@
     "it": "Qui c’è già qualcosa. Cerca un posticino libero.",
     "pt": "Já está aqui qualquer coisa. Procura um espacinho."
   },
+  "communityPerTile": {
+    "es": "por celda",
+    "en": "per tile",
+    "de": "pro Feld",
+    "fr": "par case",
+    "it": "per casella",
+    "pt": "por casa"
+  },
   "communityPublic": {
     "es": "El bosque es de todos. Lo que coloques queda a la vista con tu firma.",
     "en": "The forest belongs to everyone. Your creations keep your signature.",
@@ -550,6 +574,14 @@
     "fr": "La forêt est à tout le monde. Tes créations gardent ta signature.",
     "it": "Il bosco è di tutti. Le tue creazioni conservano la tua firma.",
     "pt": "O bosque é de todos. As tuas criações mantêm a tua assinatura."
+  },
+  "communityRemove": {
+    "es": "Quitar",
+    "en": "Take away",
+    "de": "Wegnehmen",
+    "fr": "Retirer",
+    "it": "Togliere",
+    "pt": "Retirar"
   },
   "communityRetry": {
     "es": "Algo ha cambiado. Revisa el lugar antes de intentarlo otra vez.",
@@ -582,6 +614,14 @@
     "fr": "Il faut un sol ferme et dégagé.",
     "it": "Serve un terreno solido e libero.",
     "pt": "Precisa de chão firme e livre."
+  },
+  "communityTooLong": {
+    "es": "Esa vallita es larguísima. Pártela en dos trozos.",
+    "en": "That fence is enormous. Split it in two.",
+    "de": "Der Zaun ist riesig. Mach lieber zwei daraus.",
+    "fr": "Cette clôture est immense. Coupe-la en deux.",
+    "it": "Quello steccato è lunghissimo. Fallo in due pezzi.",
+    "pt": "Essa cerca é enorme. Fá-la em dois bocados."
   },
   "communityValid": {
     "es": "Cabe aquí. Confirma para construir.",
@@ -806,38 +846,6 @@
     "fr": "Touche pour avancer, glisse pour regarder, pince pour zoomer. Flèches/WASD pour bouger ; maintiens espace pour courir ou ramer plus vite.",
     "it": "Tocca per andare, trascina per guardarti attorno, pizzica per zoomare. Frecce/WASD per muoverti; tieni spazio per correre o remare più forte.",
     "pt": "Toca para ir, arrasta para olhar e usa dois dedos para ampliar. Setas/WASD para andar; mantém espaço para correr ou remar mais depressa."
-  },
-  "homeCancel": {
-    "es": "Cancelar",
-    "en": "Cancel",
-    "de": "Abbrechen",
-    "fr": "Annuler",
-    "it": "Annulla",
-    "pt": "Cancelar"
-  },
-  "homeDecorate": {
-    "es": "Decorar",
-    "en": "Decorate",
-    "de": "Einrichten",
-    "fr": "Décorer",
-    "it": "Decora",
-    "pt": "Decorar"
-  },
-  "homeRemove": {
-    "es": "Al saco",
-    "en": "Put away",
-    "de": "Einpacken",
-    "fr": "Ranger",
-    "it": "Metti via",
-    "pt": "Guardar no saco"
-  },
-  "homeVariant": {
-    "es": "Variante",
-    "en": "Variant",
-    "de": "Variante",
-    "fr": "Variante",
-    "it": "Variante",
-    "pt": "Variante"
   },
   "humanProof": {
     "es": "Comprobación humana",

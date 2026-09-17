@@ -109,14 +109,19 @@
     <div id="home-controls" class="world-home-controls" hidden>
       <button type="button" class="world-primary" id="home-edit">{{communityBuild}}</button>
     </div>
-    <section id="home-editor" class="world-home-editor" aria-label="{{homeDecorate}}" hidden>
-      <p id="community-reason" role="status">{{communityChoose}}</p>
+    <section id="home-editor" class="world-home-editor" aria-label="{{communityBuild}}" hidden>
+      <header class="world-home-head">
+        <strong id="community-zone"></strong>
+        <div id="community-materials" class="world-home-materials" aria-label="{{bag}}"></div>
+        <button type="button" id="home-cancel" class="world-home-close" aria-label="{{close}}">×</button>
+      </header>
       <div id="home-palette" class="world-home-palette"></div>
+      <div id="home-variants" class="world-home-variants" hidden></div>
+      <p id="community-reason" role="status">{{communityChoose}}</p>
+      <small id="community-hint" hidden>{{communityDraw}}</small>
       <div class="world-home-actions">
-        <button type="button" id="home-variant">{{homeVariant}}</button>
         <button type="button" id="community-rotate">{{communityRotate}}</button>
-        <button type="button" id="home-remove">{{homeRemove}}</button>
-        <button type="button" id="home-cancel">{{homeCancel}}</button>
+        <button type="button" id="home-remove">{{communityRemove}}</button>
         <button type="button" id="home-save" class="world-primary">{{communityConfirm}}</button>
       </div>
       <small>{{communityPublic}}</small>

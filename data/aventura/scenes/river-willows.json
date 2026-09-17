@@ -475,6 +475,24 @@
       "behavior": "toilet-plant",
       "x": 72,
       "y": 74.0
+    },
+    {
+      "id": "meadow-clearing-sign",
+      "sprite": "sign",
+      "x": 92,
+      "y": 80.5,
+      "rules": [
+        {
+          "effects": [
+            {
+              "type": "dialogue",
+              "key": "clearingSign"
+            }
+          ]
+        }
+      ],
+      "label": "sign",
+      "edgeSlide": true
     }
   ],
   "neighbors": [

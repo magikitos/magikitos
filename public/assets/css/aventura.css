@@ -895,14 +895,27 @@ body:has(.world-dialogue:not([hidden])) .world-held-item {
   width: min(440px, calc(100vw - 32px)); border: 1px solid #c8c19b; border-radius: 20px;
   padding: 12px; color: #fcf4db; background: #263f31f2; box-shadow: 0 8px 32px #17261c45;
 }
-.world-home-editor p { margin: 0 0 6px; font-size: 13px; }
+.world-home-editor p { margin: 6px 0; font-size: 13px; }
 .world-home-editor small { display: block; margin-top: 5px; font-size: 11px; opacity: .8; }
-.world-home-palette { display: flex; gap: 6px; overflow-x: auto; padding: 4px 0 9px; overscroll-behavior: contain; }
+.world-home-head { display: flex; align-items: center; gap: 8px; }
+.world-home-head strong { font-size: 13px; }
+/* Lo que llevas, siempre a la vista: no se deduce de qué botones están apagados. */
+.world-home-materials { display: flex; gap: 8px; margin-left: auto; align-items: center; }
+.world-home-materials span { display: inline-flex; align-items: center; gap: 3px; font-size: 12px; }
+.world-home-materials canvas { width: 18px; height: 18px; object-fit: contain; }
+.world-home-close { width: 34px; min-height: 34px; border-radius: 9px; border: 1px solid #a0ab88; background: none; color: inherit; font-size: 17px; line-height: 1; }
+.world-home-palette { display: flex; gap: 6px; overflow-x: auto; padding: 8px 0 9px; overscroll-behavior: contain; }
 .world-home-palette button { flex: 0 0 96px; padding: 7px; border: 1px solid #91a078; border-radius: 10px; background: #e8e8c7; color: #263f31; }
-.world-home-palette canvas { width: 44px; height: 42px; object-fit: contain; }
+.world-home-palette canvas, .world-home-variants canvas { width: 44px; height: 42px; object-fit: contain; }
+/* Las variantes son fotos, no un botón que hay que pulsar tres veces para ver qué hay dentro. */
+.world-home-variants { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; }
+.world-home-variants[hidden] { display: none; }
+.world-home-variants button { flex: 0 0 58px; padding: 4px; border: 1px solid #91a078; border-radius: 10px; background: #e8e8c7; }
+.world-home-palette button.is-chosen, .world-home-variants button.is-chosen { border-color: #f4d58d; box-shadow: 0 0 0 2px #f4d58d99; }
 .world-home-actions { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
 .world-home-actions button, .world-cloud-save button { min-height: 42px; padding: 6px 10px; border-radius: 9px; border: 1px solid #a0ab88; }
-.world-home-actions button:disabled, .world-home-palette button:disabled { opacity: .4; }
+.world-home-actions button[hidden] { display: none; }
+.world-home-actions button:disabled { opacity: .4; }
 .world-cloud-save { border-top: 1px solid #a0ab8866; margin-top: 16px; padding-top: 8px; }
 #cloud-conflict:not([hidden]), #cloud-recoveries { display: grid; gap: 8px; }
 @media (max-width: 600px) {
