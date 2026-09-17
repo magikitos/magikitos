@@ -4,7 +4,56 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
-## Candidato local: bosque, ribera y Studio — 16 septiembre 2026
+## Producción: el texto por pantalla y el río de todos — 17 septiembre 2026
+
+Artefacto `a876f38ab81cc7889473`, fuente del juego `de1505394c8f0c2197150012fca26c0d2a62fb5d`.
+Anterior conservada: `b2b1297497393ca2b985`. Rutas: /aventura y cinco traducciones.
+
+SHA-256 de `release.json`:
+`f0ab339c17914056b303d9430ed998d49978fa228a8632c6872d91c7bae200dc`.
+509 archivos verificados antes de activar el puntero. Despliegue limitado al
+puntero y la documentación: sin cambios de backend, migraciones ni escrituras.
+
+### Alcance publicado
+
+- **El texto deja de ser un fichero por idioma.** El motor lleva sus 213 frases
+  incrustadas y cada pantalla trae las suyas junto a sus sprites: entre 0 y 63
+  por escena, la mayor de 4,9 KB. La página incrusta ~4,8 KB menos por idioma
+  hoy, y una pantalla nueva ya no engorda la primera carga. Cada clave se
+  escribe con sus seis idiomas juntos, así que la paridad no se puede romper.
+- **Ni un setín se acuña en el bosque.** Brizno entrega sus remos, la vecina de
+  las conchas recibe un regalo y la fuente no cobra por un deseo. La maquinaria
+  (peajes, premios, recuerdos, tokens de precio) sigue intacta en el motor y en
+  el contrato del servidor, y `economy.rewards` se conserva porque es el
+  vocabulario de las partidas ya guardadas.
+- **Pasada de diálogos y carteles**: ningún texto dice dónde está algo ni lo que
+  pasó fuera de plano. El cartel del picnic señalaba al oeste diciendo «pa
+  arriba» desde que se movió el mapa; el del muelle dice ahora que con un par de
+  remos y cualquier cosa que flote se hace una barquita.
+- **El río es de todos**: el vecino que rema y el corcho de quien pesca son
+  cuerpos de colisión con su propia queja, y una barca parada se aparta en vez
+  de que le pasen por encima.
+- **Las costuras coinciden con el agua**: el casco llega 0,175 tiles más allá de
+  donde acababan las bandas, así que pegarse al final del río no hacía nada en
+  diez salidas. Y cruzar pegado a una orilla llega pegado a esa orilla.
+- **Las pantallas vecinas se precargan** (las tres más próximas, con techo
+  medido: peor caso 3.417 KB).
+
+### Verificación
+
+`npm test` (39 comprobaciones) y los nueve barridos de navegador: aventura, río,
+picnic, Ascua, capítulo, movilidad, trayectos, gatos, seto, controles, empotrado,
+encuadre y modalidad de entrada. Barrido nuevo de textos por pantalla, que además
+rompe cinco invariantes a propósito para verlo gritar. Las dieciséis salidas del
+río barridas punto por punto sobre el borde flotable.
+
+Tres fallos que ya estaban desplegados se arreglan de paso: los barridos de la
+fuente y de movilidad llevaban coordenadas del mapa escritas a mano y el dueño
+redibujó el bosque, y el del río contaba la telemetría anónima como una escritura
+del jugador. `check-community-browser` sigue necesitando la web local y no se
+ejecuta aquí.
+
+## Anterior: bosque, ribera y Studio — 16 septiembre 2026
 
 Artefacto `16b0a4d437c50c2ba7d6`, instalado en DDEV. **No desplegado a producción**;
 el puntero local de la web no se incluye en el push. Esta revisión parte del juego
