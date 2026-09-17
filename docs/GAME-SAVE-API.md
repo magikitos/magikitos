@@ -49,9 +49,14 @@ older replays still fail stale revision checks rather than charging twice.
 
 Server lock order is users → accounts → zone → objects. Identity merging uses the
 same user-lock order. Definition, knowledge, journey prerequisites, costs, inventory
-bounds, real terrain mask, footprint, surface type, overlaps, protected paths,
-connected access, quotas, author and heritage are checked **on the server**.
-The browser's green preview is guidance, never permission.
+bounds, real terrain mask, footprint, surface type, overlaps, forbidden spots,
+trace neighbourhood, connected access, quotas, author and heritage are checked
+**on the server**. The browser's green preview is guidance, never permission.
+
+A piece may also **require a tool** it never spends (a rake opens paths and lasts
+for ever): that is `gameAuthorityMatches`, the same question that already guarded a
+corner, asked about the piece. And a piece may declare `removeCost` instead of a
+refund, because taking a path away is sowing grass over it rather than picking it up.
 
 The initial release forbids all foreign modifications, regardless of claimed trust.
 Heritage blocks even owner removal. Age alone does not confer heritage: minimum

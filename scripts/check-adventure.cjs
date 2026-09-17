@@ -98,6 +98,18 @@ function checkConditions(when = {}) {
   for (const key of when.using || [])
     assert(catalog.items[key], "Declared held item: " + key);
 }
+/**
+ * ⛔ UN OBJETO DEL SACO PUEDE NO TENER ESTAMPA, PERO NO PUEDE TENER UNA QUE NO EXISTA. `SceneDirector`
+ * pide los sprites de TODOS los objetos al entrar a cualquier sitio, así que un nombre inventado no
+ * deja sin icono a un objeto: deja el juego entero sin poder abrir una pantalla. Sin sprite, el saco
+ * lo enseña por su nombre y no falla nada, que es donde vive la pala hasta que alguien la dibuje.
+ */
+for (const [id, item] of Object.entries(catalog.items))
+  if (item.sprite !== undefined)
+    assert(
+      atlas.frames[item.sprite],
+      "Item sprite: " + id + " → " + item.sprite,
+    );
 for (const scene of Object.values(catalog.scenes))
   for (const entity of scene.entities) {
     for (const when of [

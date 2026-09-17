@@ -20,16 +20,18 @@ Sin vidas, combate, Libro del Bosque, fiambreras ni parcelas privadas.
 3. Al marcharse los humanos aparece una botella tirada junto a la papelera;
    antes no existe ni se puede obtener mediante la API. En el embarcadero: botella + navaja +
    remos del viejo. Solo se consume la botella. La navegación queda desbloqueada.
-4. Cinco regiones de río de 128 × 144 tiles, con orillas explorables, desembarcos,
+4. Tres regiones de río de 128 × 144 tiles, con orillas explorables, desembarcos,
    vegetación, recursos y corrientes. Las rápidas empujan de verdad: busca remansos.
    La dirección de las estelas usa el mismo campo que la física; no es una flecha
    decorativa que promete una corriente inexistente.
 5. Desde las raíces sale un brazo hacia el seto humano. Cuatro gatos, macetas
    movibles que tapan la visión, cuenco y semillas. El cuenco permite una piscinita;
    las semillas abren jardinería. «Recolocar las macetas» reinicia solo ese puzle.
-6. Tocón del Mirlo y Remanso del Musgo son rincones comunitarios. Hay vallitas,
-   bancos, mesas, flores, macetas, farolitas y piscina. Todos ven la misma versión
-   confirmada del rincón al visitarlo. No son visitantes conectados en tiempo real.
+6. **Todo el bosque se construye** (17-sep-2026). La zona ya no es una parcela: es la
+   pantalla entera, y lo que se enumera es lo PROHIBIDO. Cuatro pantallas abiertas
+   (el bosque y los tres tramos de río) con vallitas, caminos, bancos, mesas, flores,
+   macetas, farolitas y piscina. Todos ven la misma versión confirmada al visitarla.
+   No son visitantes conectados en tiempo real. Detalle en [CONSTRUCCION.md](../CONSTRUCCION.md).
 
 ## Controles y construcción
 
@@ -79,11 +81,17 @@ Sin vidas, combate, Libro del Bosque, fiambreras ni parcelas privadas.
 - Con barca en el saco, caminar hasta la punta de un muelle embarca automáticamente.
   Remar hacia la punta desembarca. Clic/toque en las tablas traza la aproximación;
   no hay botones de embarcar/desembarcar ni activación por pasar de lado o descansar.
-- En un rincón construible, abrir el botón de construcción. Elegir pieza, variante
-  y vista disponible, tocar el suelo y confirmar. Se ve coste, huella y motivo si
-  no cabe. Las vallas tienen dos vistas dibujadas; no giramos un PNG como una pegatina.
+- En cualquiera de las cuatro pantallas construibles, abrir el botón de construcción.
+  Elegir pieza, variante y vista disponible, tocar el suelo y confirmar. Se ve coste,
+  huella y motivo si no cabe. Las vallas tienen dos vistas dibujadas; no giramos un PNG
+  como una pegatina. Vallitas y caminos se trazan dejando pulsado y arrastrando, con la
+  misma polilínea que dibuja el Studio.
 - Un objeto propio no patrimonial permite mover/retirar. Retirar devuelve materiales
-  una vez y conserva historial. El bosque de aventura y sus accesos son intocables.
+  una vez y conserva historial. **Quitar un camino es sembrar hierba** y cuesta semillas:
+  un camino no se recoge, se tapa.
+- Lo prohibido se compila de la propia pantalla: puertas, muelles, vecinos y cosas con
+  las que se hace algo, con su margen, más los rincones de ambiente que declara el
+  catálogo. Nadie puede cerrarle el paso a lo que ya se alcanzaba.
 
 ## Datos pequeños y responsabilidades claras
 
@@ -115,7 +123,8 @@ dispositivo ni una garantía infalible de hardware.
 | community.js | Snapshot compartido, colocación y confirmaciones de API |
 | ambient-activities.js | Reservar puntos de actividad y escogerlos por capacidades, no por mueble |
 | cloud-save.js | Posición/progreso privado, conflictos y archivos de recuperación |
-| tools/community-terrain.cjs | Máscara de suelo compilada desde colisión real para ambos validadores |
+| construction-ground.js | Dónde se puede estar de pie: una sola definición para el compilador y el navegador |
+| tools/community-terrain.cjs | Límites, máscara de suelo, rincones prohibidos y anclajes de paso, compilados desde la pantalla real |
 
 Ramitas/hojas son contadores, no millones de instancias con ID en inventario.
 La ramita del suelo sí tiene un nodo estable: desaparece al recogerla y renueva en
@@ -128,9 +137,11 @@ el diff se registran sus IDs sin reordenar bits de partidas existentes.
 [Contrato de autoría](../data/aventura/REFACTOR.md#recogibles-en-el-studio).
 
 Definiciones estáticas se comparten; un objeto persistido guarda únicamente tipo,
-variante, media-tile x/y, orientación, autor, revisiones y agregados sociales. No se
-duplica su imagen, coste o árbol de comportamiento. Historial aparte, nunca enviado
-en los snapshots normales. Máximos actuales: 96 objetos/rincón y 24/autor/rincón.
+variante, media-tile x/y, orientación, vértices si es un trazado, autor, revisiones y
+agregados sociales. No se duplica su imagen, coste o árbol de comportamiento. Historial
+aparte, nunca enviado en los snapshots normales. Máximos actuales: 24 objetos por autor
+y por pantalla, más un techo por pantalla que sube con su tamaño (320 el bosque, 240
+cada río; 96 por defecto para una zona que no lo declare).
 
 IA ambiental: máximo tres vecinos activos en tareas, un cálculo de ruta cada medio
 segundo y reserva de plazas. Solo quien ya tiene poses de sentarse las utiliza;

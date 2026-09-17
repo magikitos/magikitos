@@ -5,8 +5,9 @@ const assert = require("node:assert/strict"),
   { execFileSync } = require("node:child_process");
 const { chromium, request } = require("playwright");
 const {
-  validateConstruction,
-} = require("../public/assets/js/adventure/construction-layout");
+  catalogGround,
+} = require("../public/assets/js/adventure/construction-ground");
+const { freeSpot } = require("./community-spot.cjs");
 /**
  * ⛔ CONTRA DONDE DE VERDAD SE PRUEBA. Nació atado a DDEV; hoy el desarrollo vive en el clon del
  * VPS, así que el origen y la forma de sembrar la identidad de prueba se declaran por entorno y
@@ -28,11 +29,13 @@ const fixture = (...args) =>
         ["exec", "php", "scripts/community-browser-fixture.php", ...args],
         { cwd: web, encoding: "utf8" },
       );
-// La zona sale del catálogo, no de un nombre escrito a mano: el claro se puede mudar de pantalla
-// y esta prueba no tiene por qué enterarse.
-const ZONE = Object.keys(
+// La zona sale de la PANTALLA en la que entra esta prueba, no de un nombre escrito a mano ni del
+// primero del catálogo: desde que el bosque entero se construye hay una zona por pantalla, así que
+// «la primera» dejó de significar «donde estoy».
+const SCENE = "river-willows";
+const ZONE = Object.entries(
   JSON.parse(fs.readFileSync(".local/build/world.json")).construction.zones,
-)[0];
+).find(([, z]) => z.scene === SCENE)[0];
 (async () => {
   const users = [],
     browser = await chromium.launch({ channel: "chrome", headless: true }),
@@ -158,29 +161,28 @@ const ZONE = Object.keys(
         const snapshot = await (
           await http.get("/api/world/community?zone=" + ZONE)
         ).json();
-        let point;
-        const [zx, zy, zw, zh] = world.construction.zones[ZONE].editable;
+        // El hueco se busca contra el bosque que hay AHORA mismo (lo que acaba de contestar el
+        // servidor) y con la misma máscara de suelo que calcula el navegador, que es de donde
+        // sale el fantasma. Y el fantasma se llama igual que allí: la pieza candidata es a la
+        // única que miran las reglas de permiso.
         const shape = world.construction.definitions[kind].shape;
-        for (let y = zy + 2; y <= zy + zh - 2 && !point; y += 0.5)
-          for (let x = zx + 2; x < zx + zw - 2 && !point; x += 0.5) {
-            const ghost = {
-              kind,
-              variant: world.construction.definitions[kind].variants[0].id,
-              rotation: 0,
-              x,
-              y,
-              ...(shape === "polyline" ? { points: [[0, 0], [2, 0]] } : {}),
-            };
-            if (
-              !validateConstruction(
-                [...snapshot.objects, ghost],
-                snapshot.zone,
-                world.construction,
-              )
-            )
-              point = { x, y };
-          }
-        assert(point, "At least one legal plot position");
+        const ghost = freeSpot({
+          catalog: world.construction,
+          zone: ZONE,
+          ground: catalogGround(world, SCENE),
+          others: snapshot.objects,
+          make: (x, y) => ({
+            id: "nueva",
+            kind,
+            variant: world.construction.definitions[kind].variants[0].id,
+            rotation: 0,
+            x,
+            y,
+            ...(shape === "polyline" ? { points: [[0, 0], [2, 0]] } : {}),
+          }),
+        });
+        assert(ghost, "At least one legal plot position");
+        const point = { x: ghost.x, y: ghost.y };
         const inspect = () =>
           page.evaluate(() => window.MagikitosAdventure.inspect());
         let s = await inspect();

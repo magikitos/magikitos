@@ -10,29 +10,40 @@
   "zones": {
     "claro-de-los-sauces": {
       "scene": "river-willows",
-      "label": "communityClaro",
       "surface": "flat-ground",
-      "protected": [],
-      "editable": [
-        68,
-        82,
-        48,
-        30
-      ],
-      "access": [
+      "maxObjects": 240,
+      "protected": []
+    },
+    "overworld": {
+      "scene": "overworld",
+      "surface": "flat-ground",
+      "maxObjects": 320,
+      "protected": [
         [
-          92,
-          83
+          0,
+          4,
+          34,
+          18
         ],
         [
-          92,
-          111
-        ],
-        [
-          69,
-          97
+          78,
+          38,
+          14,
+          11
         ]
       ]
+    },
+    "river-rapids": {
+      "scene": "river-rapids",
+      "surface": "flat-ground",
+      "maxObjects": 240,
+      "protected": []
+    },
+    "river-roots": {
+      "scene": "river-roots",
+      "surface": "flat-ground",
+      "maxObjects": 240,
+      "protected": []
     }
   },
   "definitions": {
@@ -46,9 +57,7 @@
           "id": "tierra"
         }
       ],
-      "costPerTile": {
-        "twig": 1
-      },
+      "costPerTile": {},
       "surfaces": [
         "flat-ground"
       ],
@@ -56,7 +65,17 @@
         0
       ],
       "capabilities": [],
-      "maxPerAuthor": 8
+      "maxPerAuthor": 12,
+      "requires": {
+        "items": {
+          "rake": 1
+        }
+      },
+      "removeCost": {
+        "grassSeed": 1
+      },
+      "removeLabel": "buildSowGrass",
+      "separation": 3
     },
     "twig-fence": {
       "label": "buildFence",
@@ -73,7 +92,8 @@
         0
       ],
       "capabilities": [],
-      "maxPerAuthor": 8
+      "maxPerAuthor": 8,
+      "separation": 3
     },
     "woodland-bench": {
       "label": "buildBench",

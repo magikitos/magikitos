@@ -10,6 +10,7 @@ const {
 } = require("./construction-layout");
 const { drawArtwork } = require("./entity-art");
 const { operationId } = require("./material-account");
+const { catalogGround } = require("./construction-ground");
 const fences = require("./fences");
 const byId = (id) => document.getElementById(id);
 
@@ -42,7 +43,7 @@ const byId = (id) => document.getElementById(id);
  */
 const RAZONES = {
   outside_zone: "communityOutside",
-  protected_access: "communityAccess",
+  protected_access: "communityProtected",
   objects_overlap: "communityOverlap",
   blocked_terrain: "communityTerrain",
   blocked_access: "communityAccess",
@@ -56,6 +57,8 @@ const RAZONES = {
   heritage_protected: "communityHeritage",
   foreign_edit_protected: "communityForeign",
   too_many: "communityTooFast",
+  too_close: "communityTooClose",
+  tool_required: "communityToolRequired",
 };
 class Community {
   constructor(game) {
@@ -228,6 +231,22 @@ class Community {
         this.catalog.definitions[this.ghost.kind].shape === "polyline",
     );
   }
+  /**
+   * ⛔ EL SUELO NO VIAJA DOS VECES. La máscara de dónde se puede estar de pie la hornea el mismo
+   * paso que se la manda al servidor, y el navegador podría recibirla hecha… pero ya tiene la
+   * pantalla cargada, que es de donde salió. Medido: son 73 KB de unos y ceros contra un mundo de
+   * 105 KB, y el mundo va INCRUSTADO en la página y en los seis idiomas, o sea un 70% más de HTML
+   * en cada carga para decir algo que el cliente sabe calcular. Se calcula una vez por pantalla y
+   * se guarda; que las dos coincidan lo comprueba una prueba, no la buena fe.
+   */
+  ground() {
+    const scene = this.catalog.zones[this.zone]?.scene;
+    if (!scene) return null;
+    this.grounds ||= new Map();
+    if (!this.grounds.has(scene))
+      this.grounds.set(scene, catalogGround(this.game.catalog, scene));
+    return this.grounds.get(scene);
+  }
   async prepare(data) {
     const zone = Object.keys(this.catalog.zones).find(
       (id) => this.catalog.zones[id].scene === data?.id,
@@ -250,7 +269,9 @@ class Community {
       !this.catalog.zones[value.zone] ||
       !Number.isInteger(value.revision) ||
       !Array.isArray(value.objects) ||
-      value.objects.length > this.catalog.maxObjectsPerZone
+      value.objects.length >
+        (this.catalog.zones[value.zone].maxObjects ??
+          this.catalog.maxObjectsPerZone)
     )
       throw Error("invalid_community");
     for (const o of value.objects)
@@ -355,10 +376,12 @@ class Community {
     this.cancel();
     this.paint();
   }
-  arrive() {
-    if (this.zone)
-      this.game.toast(this.game.text(this.catalog.zones[this.zone].label));
-  }
+  /**
+   * ⛔ AQUÍ SE ANUNCIABA EL RINCÓN AL LLEGAR, y con el bosque entero construible ese aviso pasó a
+   * ser el nombre de la pantalla dicho dos veces: el motor ya lo canta al viajar. Una zona ya no
+   * es un sitio al que se llega, es el suelo que pisas.
+   */
+  arrive() {}
   async inspect(item) {
     if (
       this.catalog.definitions[item.kind].capabilities?.length &&
@@ -371,7 +394,10 @@ class Community {
       await this.begin();
       if (!this.editing) return;
       this.original = item;
-      this.ghost = { ...item, points: item.points && item.points.map((p) => [...p]) };
+      this.ghost = {
+        ...item,
+        points: item.points && item.points.map((p) => [...p]),
+      };
       this.palette();
       this.revalidate();
       this.paint();
@@ -419,11 +445,8 @@ class Community {
       this.editing = true;
       this.ghost = null;
       this.original = null;
-      // La cámara se va al claro con el mismo viaje suave que cuando tocas el mapa: construir
-      // empieza por VER dónde se puede.
-      const [zx, zy, zw, zh] = this.catalog.zones[this.zone].editable;
-      g.focusPoint = { x: (zx + zw / 2) * TILE, y: (zy + zh / 2) * TILE };
-      g.cameraFollowing = true;
+      // ⛔ AQUÍ LA CÁMARA VIAJABA AL CLARO, y ahora el claro es el bosque entero: llevarte a
+      // ninguna parte sería quitarte de donde has decidido construir.
       this.palette();
     } catch (error) {
       if (error.status >= 400 && error.status < 500) {
@@ -451,7 +474,15 @@ class Community {
       const c = canvas.getContext("2d");
       c.fillStyle = "#6a8a4f";
       c.fillRect(0, 0, 96, 84);
-      drawPathTrace(c, [[6, 74], [40, 44], [90, 26]], 1);
+      drawPathTrace(
+        c,
+        [
+          [6, 74],
+          [40, 44],
+          [90, 26],
+        ],
+        1,
+      );
       return canvas;
     }
     if (definition.shape === "polyline") {
@@ -467,7 +498,12 @@ class Community {
       for (const part of fences.parts({
         x: 0,
         y: 0,
-        fence: { points: [[0, 0], [2.3, 0]] },
+        fence: {
+          points: [
+            [0, 0],
+            [2.3, 0],
+          ],
+        },
       }))
         fences.drawPart(c, part);
       return canvas;
@@ -481,7 +517,14 @@ class Community {
     root.replaceChildren();
     const used = new Set();
     for (const d of Object.values(this.catalog.definitions))
-      for (const id of Object.keys(d.cost || d.costPerTile || {}))
+      for (const id of Object.keys({
+        ...(d.cost || {}),
+        ...(d.costPerTile || {}),
+        // Las semillas se gastan al sembrar hierba sobre un camino, así que cuentan como
+        // material aunque su pieza no se ponga: si no, lo único que se gasta aquí sería lo
+        // único que no se ve.
+        ...(d.removeCost || {}),
+      }))
         used.add(id);
     for (const id of used) {
       const item = document.createElement("span");
@@ -506,8 +549,11 @@ class Community {
       root = byId("home-palette");
     root.replaceChildren();
     this.materials();
+    // El sitio lo dice la pantalla, no la zona: es el mismo nombre que el mundo anuncia al
+    // llegar, así que construyes en un sitio con nombre y no en «la zona editable».
     byId("community-zone").textContent = g.text(
-      this.catalog.zones[this.zone].label,
+      g.world.data.label ||
+        g.world.region(g.player.x / TILE, g.player.y / TILE),
     );
     for (const [kind, d] of Object.entries(this.catalog.definitions)) {
       const button = document.createElement("button");
@@ -544,9 +590,18 @@ class Community {
       Object.entries(cost)
         .map(([id, n]) => `${g.text(g.catalog.items[id]?.name || id)} ×${n}`)
         .join(" · ");
-    if (definition.shape !== "polyline") return say(definition.cost);
-    if (object) return say(objectCost(object, definition));
-    return `${say(definition.costPerTile)} ${g.text("communityPerTile")}`;
+    const tool = Object.keys(definition.requires?.items || {})
+      .map((id) => g.text(g.catalog.items[id]?.name || id))
+      .join(" · ");
+    if (definition.shape !== "polyline") return say(definition.cost) || tool;
+    const price = object
+      ? say(objectCost(object, definition))
+      : Object.keys(definition.costPerTile).length
+        ? `${say(definition.costPerTile)} ${g.text("communityPerTile")}`
+        : "";
+    // Cavar cuesta trabajo y no material: lo que hay que tener es la herramienta, y eso es lo
+    // que dice la baldosa en vez de un precio de cero que no significa nada.
+    return price || tool;
   }
   /** Las variantes, como fotos. Solo aparecen cuando de verdad hay entre qué elegir. */
   variants() {
@@ -573,14 +628,20 @@ class Community {
   }
   /** La pieza nueva nace donde estaba la anterior, que es donde estás mirando. */
   select(kind) {
-    const d = this.catalog.definitions[kind];
-    const [zx, zy, zw, zh] = this.catalog.zones[this.zone].editable;
+    const g = this.game,
+      d = this.catalog.definitions[kind];
+    // Donde estabas poniendo cosas, y si es la primera, a tus pies: con la pantalla entera
+    // construible, el centro del mapa casi nunca es donde estás mirando.
     const where = this.lastPlace || {
-      x: Math.round(zx + zw / 2),
-      y: Math.round(zy + zh / 2),
+      x: Math.round((g.player.x / TILE) * 2) / 2,
+      y: Math.round((g.player.y / TILE) * 2) / 2,
     };
     this.original = null;
     this.ghost = {
+      // La pieza que estás colocando es la CANDIDATA, y las reglas que juzgan un permiso —lo
+      // prohibido, no calcar un trazo— solo la miran a ella. Sin un nombre no habría a quién
+      // mirar, y el id de verdad lo pone el servidor al guardarla.
+      id: "nueva",
       kind,
       variant: d.variants[0].id,
       rotation: d.rotations[0],
@@ -589,7 +650,14 @@ class Community {
       // Dos celdas: es el trazo más corto que la casa permite y cuesta exactamente lo que
       // costaba la vallita de antes, así que estrenar el trazado no encarece la primera valla
       // de nadie. Desde ahí se arrastra para hacerla tan larga como se quiera pagar.
-      ...(d.shape === "polyline" ? { points: [[0, 0], [2, 0]] } : {}),
+      ...(d.shape === "polyline"
+        ? {
+            points: [
+              [0, 0],
+              [2, 0],
+            ],
+          }
+        : {}),
     };
     this.revalidate();
     this.palette();
@@ -659,6 +727,8 @@ class Community {
       [...items, this.ghost],
       this.zone,
       this.catalog,
+      this.ground(),
+      this.ghost.id,
     );
     this.cost = this.invalid
       ? null
@@ -670,6 +740,28 @@ class Community {
     const inventory = this.game.materials.account.inventory,
       cost = objectCost(this.ghost, this.catalog.definitions[this.ghost.kind]);
     const short = Object.entries(cost)
+      .map(([id, n]) => [id, n - (inventory[id] || 0)])
+      .filter(([, n]) => n > 0);
+    return short.length ? short : null;
+  }
+  /**
+   * La herramienta que te falta, o null. Una pala no se gasta y por eso no es un coste: es un
+   * requisito, y se dice aparte para que el renglón no mienta diciendo que te faltan palas.
+   */
+  tool() {
+    const d = this.ghost && this.catalog.definitions[this.ghost.kind];
+    if (!d || this.original) return null;
+    const inventory = this.game.materials.account.inventory;
+    for (const [id, n] of Object.entries(d.requires?.items || {}))
+      if ((inventory[id] || 0) < n) return id;
+    return null;
+  }
+  /** Lo que cuesta quitar esto: sembrar hierba sobre un camino. Lo demás se recoge y no cuesta. */
+  removeShort() {
+    const d = this.original && this.catalog.definitions[this.original.kind];
+    if (!d?.removeCost) return null;
+    const inventory = this.game.materials.account.inventory;
+    const short = Object.entries(d.removeCost)
       .map(([id, n]) => [id, n - (inventory[id] || 0)])
       .filter(([, n]) => n > 0);
     return short.length ? short : null;
@@ -710,6 +802,7 @@ class Community {
       const object = Object.fromEntries(
         ["id", "kind", "variant", "x", "y", "rotation", "points", "revision"]
           .filter((k) => this.ghost[k] !== undefined)
+          .filter((k) => k !== "id" || this.original)
           .map((k) => [k, this.ghost[k]]),
       );
       const request = {
@@ -795,20 +888,21 @@ class Community {
   draw(ctx) {
     if (!this.editing) return;
     const g = this.game;
-    // ⛔ EL CLARO SE VE. Dónde se puede construir era algo que se descubría a base de intentos
-    // rechazados; ahora es una alfombra en el suelo con su borde.
-    const [zx, zy, zw, zh] = this.catalog.zones[this.zone].editable;
+    /**
+     * ⛔ SE PINTA LO PROHIBIDO, NO LO PERMITIDO. Antes el claro era una alfombra con su borde
+     * porque construir fuera de él era imposible; ahora se construye en todo el bosque y pintar
+     * lo permitido sería pintar la pantalla entera de verde. Lo que hace falta ver son los cuatro
+     * sitios donde no se puede dejar nada: el merendero de los humanos, la barbacoa, los felpudos
+     * de las casas y lo que cada vecino tiene alrededor.
+     */
     ctx.save();
-    ctx.fillStyle = "rgba(224,236,195,.16)";
-    ctx.strokeStyle = "rgba(224,236,195,.55)";
+    ctx.fillStyle = "rgba(131,57,40,.16)";
+    ctx.strokeStyle = "rgba(180,96,70,.45)";
     ctx.lineWidth = 1;
-    ctx.setLineDash([4, 3]);
-    ctx.fillRect(zx * TILE, zy * TILE, zw * TILE, zh * TILE);
-    ctx.strokeRect(zx * TILE, zy * TILE, zw * TILE, zh * TILE);
-    ctx.setLineDash([]);
+    ctx.setLineDash([3, 3]);
     for (const r of this.catalog.zones[this.zone].protected) {
-      ctx.fillStyle = "rgba(131,57,40,.18)";
       ctx.fillRect(r[0] * TILE, r[1] * TILE, r[2] * TILE, r[3] * TILE);
+      ctx.strokeRect(r[0] * TILE, r[1] * TILE, r[2] * TILE, r[3] * TILE);
     }
     ctx.restore();
     if (!this.ghost) return;
@@ -865,23 +959,37 @@ class Community {
     byId("home-editor").hidden = !this.editing;
     if (!this.editing) return;
     const d = this.ghost && this.catalog.definitions[this.ghost.kind];
-    const short = this.missing();
+    const short = this.missing(),
+      tool = this.tool(),
+      removeShort = this.removeShort();
     byId("home-save").disabled =
-      this.busy || !this.ghost || !!this.invalid || !!short;
+      this.busy || !this.ghost || !!this.invalid || !!short || !!tool;
     byId("home-remove").hidden = !this.original;
-    byId("home-remove").disabled = this.busy;
+    byId("home-remove").disabled = this.busy || !!removeShort;
+    // Quitar un camino es SEMBRAR HIERBA, así que el botón lo dice: una pieza que se recoge y un
+    // camino que se tapa no son el mismo gesto aunque compartan el mismo botón.
+    if (this.original)
+      byId("home-remove").textContent = g.text(
+        this.catalog.definitions[this.original.kind].removeLabel ||
+          "communityRemove",
+      );
     byId("community-rotate").hidden = !d || d.rotations.length < 2;
     byId("community-rotate").disabled = this.busy || !!this.pending;
     byId("home-cancel").disabled = this.busy;
     this.materials();
     const say = byId("community-reason");
     if (!this.ghost) say.textContent = g.text("communityChoose");
+    else if (tool)
+      say.textContent = `${g.text("communityToolRequired")} ${g.text(
+        g.catalog.items[tool]?.name || tool,
+      )}`;
+    else if (removeShort)
+      say.textContent = `${g.text("communityMissing")} ${removeShort
+        .map(([id, n]) => `${g.text(g.catalog.items[id]?.name || id)} ×${n}`)
+        .join(" · ")}`;
     else if (short)
       say.textContent = `${g.text("communityMissing")} ${short
-        .map(
-          ([id, n]) =>
-            `${g.text(g.catalog.items[id]?.name || id)} ×${n}`,
-        )
+        .map(([id, n]) => `${g.text(g.catalog.items[id]?.name || id)} ×${n}`)
         .join(" · ")}`;
     else if (this.invalid)
       say.textContent = g.text(RAZONES[this.invalid] || "communityInvalid");

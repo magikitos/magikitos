@@ -335,6 +335,14 @@
     "it": "Piscinetta deluxe",
     "pt": "Piscininha de luxo"
   },
+  "buildSowGrass": {
+    "es": "Sembrar hierba",
+    "en": "Sow grass",
+    "de": "Gras säen",
+    "fr": "Semer de l’herbe",
+    "it": "Seminare erba",
+    "pt": "Semear erva"
+  },
   "buildTable": {
     "es": "Mesa de tocón",
     "en": "Stump table",
@@ -479,14 +487,6 @@
     "it": "Scegli qualcosa di bello per questo angolo.",
     "pt": "Escolhe algo bonito para este cantinho."
   },
-  "communityClaro": {
-    "es": "El claro de los sauces",
-    "en": "The willow clearing",
-    "de": "Die Weidenlichtung",
-    "fr": "La clairière des saules",
-    "it": "La radura dei salici",
-    "pt": "A clareira dos salgueiros"
-  },
   "communityConfirm": {
     "es": "Colocar",
     "en": "Place",
@@ -552,12 +552,12 @@
     "pt": "Falta-te:"
   },
   "communityNeedsAccount": {
-    "es": "Para construir en el claro hace falta conectar tu partida: lo que dejes aquí lo ve todo el bosque y lleva tu firma.",
-    "en": "Building in the clearing needs your game connected: whatever you leave here is seen by the whole forest, with your name on it.",
-    "de": "Zum Bauen auf der Lichtung muss dein Spiel verbunden sein: Was du hier hinstellst, sieht der ganze Wald, mit deinem Namen daran.",
-    "fr": "Pour construire dans la clairière il faut connecter ta partie : ce que tu y laisses, toute la forêt le voit, signé de ton nom.",
-    "it": "Per costruire nella radura serve la partita collegata: quello che lasci qui lo vede tutto il bosco, con la tua firma.",
-    "pt": "Para construir na clareira é preciso ligar o teu jogo: o que deixares aqui vê-o a floresta toda, com a tua assinatura."
+    "es": "Para construir aquí hace falta conectar tu partida: lo que dejes lo ve todo el bosque y lleva tu firma.",
+    "en": "Building here needs your game connected: whatever you leave is seen by the whole forest, with your name on it.",
+    "de": "Zum Bauen muss dein Spiel verbunden sein: Was du hier lässt, sieht der ganze Wald, mit deinem Namen daran.",
+    "fr": "Pour construire ici il faut connecter ta partie : ce que tu laisses, toute la forêt le voit, signé de ton nom.",
+    "it": "Per costruire qui serve la partita collegata: quello che lasci lo vede tutto il bosco, con la tua firma.",
+    "pt": "Para construir aqui é preciso ligar o teu jogo: o que deixares vê-o a floresta toda, com a tua assinatura."
   },
   "communityNoMaterials": {
     "es": "Se te ha acabado el material justo ahora.",
@@ -576,12 +576,12 @@
     "pt": "Podes explorar offline; construir em conjunto precisa de ligação."
   },
   "communityOutside": {
-    "es": "Colócalo dentro del claro compartido.",
-    "en": "Place it inside the shared clearing.",
-    "de": "Stell es innerhalb der gemeinsamen Lichtung auf.",
-    "fr": "Place-le dans la clairière commune.",
-    "it": "Mettilo nella radura condivisa.",
-    "pt": "Coloca dentro da clareira partilhada."
+    "es": "Eso se sale del mapa. Un pasito para adentro.",
+    "en": "That falls off the map. One step further in.",
+    "de": "Das ragt aus der Karte. Ein Schrittchen weiter rein.",
+    "fr": "Ça sort de la carte. Un petit pas vers l’intérieur.",
+    "it": "Quello esce dalla mappa. Un passettino più in dentro.",
+    "pt": "Isso sai do mapa. Um passinho para dentro."
   },
   "communityOverlap": {
     "es": "Ahí ya hay algo. Busca un huequito.",
@@ -598,6 +598,14 @@
     "fr": "par case",
     "it": "per casella",
     "pt": "por casa"
+  },
+  "communityProtected": {
+    "es": "Este rincón lo dejamos como está. Prueba un poquito más allá.",
+    "en": "We leave this corner just as it is. Try a little further along.",
+    "de": "Diese Ecke lassen wir, wie sie ist. Versuch es ein Stück weiter.",
+    "fr": "Ce coin-là, on le laisse comme il est. Essaie un peu plus loin.",
+    "it": "Questo angolo lo lasciamo com’è. Prova un po’ più in là.",
+    "pt": "Este cantinho deixamo-lo como está. Experimenta um bocadinho mais além."
   },
   "communityPublic": {
     "es": "El bosque es de todos. Lo que coloques queda a la vista con tu firma.",
@@ -647,6 +655,14 @@
     "it": "Serve un terreno solido e libero.",
     "pt": "Precisa de chão firme e livre."
   },
+  "communityTooClose": {
+    "es": "Ese trazo va pegado a otro igual. Empálmalo, o apártalo un poquito más.",
+    "en": "That line runs right alongside another one. Join it up, or move it a bit further off.",
+    "de": "Die Linie läuft direkt neben einer anderen. Schließ sie an oder rück ein Stück weiter weg.",
+    "fr": "Ce tracé colle à un autre pareil. Raccorde-le, ou écarte-le un peu plus.",
+    "it": "Quel tracciato va appiccicato a un altro uguale. Attaccalo, oppure spostalo un po’ più in là.",
+    "pt": "Esse traço vai colado a outro igual. Liga-o, ou afasta-o mais um bocadinho."
+  },
   "communityTooFast": {
     "es": "Vas a toda pastilla. Respira un momento y seguimos.",
     "en": "You are going at full tilt. Take a breath and we carry on.",
@@ -663,6 +679,14 @@
     "it": "Quel tracciato è lunghissimo. Fallo in due pezzi.",
     "pt": "Esse traço é enorme. Fá-lo em dois bocados."
   },
+  "communityToolRequired": {
+    "es": "Para esto te hace falta:",
+    "en": "For this you need:",
+    "de": "Dafür brauchst du:",
+    "fr": "Pour ça, il te faut :",
+    "it": "Per questo ti serve:",
+    "pt": "Para isto precisas de:"
+  },
   "communityValid": {
     "es": "Cabe aquí. Confirma para construir.",
     "en": "Fits here. Confirm to build.",
@@ -672,12 +696,12 @@
     "pt": "Cabe aqui. Confirma para construir."
   },
   "communityZoneFull": {
-    "es": "El claro está llenito. Habrá que quitar algo antes de poner más.",
-    "en": "The clearing is packed. Something has to go before anything else comes in.",
-    "de": "Die Lichtung ist rappelvoll. Erst muss etwas weg, bevor etwas dazukommt.",
-    "fr": "La clairière est pleine à craquer. Il faut enlever quelque chose avant d'en poser une autre.",
-    "it": "La radura è piena zeppa. Prima deve andarsene qualcosa.",
-    "pt": "A clareira está cheíssima. Tem de sair algo antes de entrar mais."
+    "es": "Este sitio está a reventar. Habrá que quitar algo antes de poner más.",
+    "en": "This place is packed. Something has to go before anything else comes in.",
+    "de": "Hier ist es rappelvoll. Erst muss etwas weg, bevor etwas dazukommt.",
+    "fr": "L’endroit est plein à craquer. Il faut enlever quelque chose avant d’en poser une autre.",
+    "it": "Qui è pieno zeppo. Prima deve andarsene qualcosa.",
+    "pt": "Este sítio está cheíssimo. Tem de sair algo antes de entrar mais."
   },
   "consumable": {
     "es": "Consumible · Se gasta al usarlo",
@@ -838,6 +862,22 @@
     "fr": "Le plein écran est indisponible ici. On continue quand même !",
     "it": "Lo schermo intero non è disponibile qui. Si esplora lo stesso!",
     "pt": "O ecrã inteiro não está disponível aqui. Continuamos na mesma!"
+  },
+  "grassSeedDescription": {
+    "es": "Un puñado para devolverle la hierba a un camino. Cada saquito da para diez siembras.",
+    "en": "A handful to give a path its grass back. Each little sack is good for ten sowings.",
+    "de": "Eine Handvoll, um einem Weg das Gras zurückzugeben. Ein Säckchen reicht für zehn Aussaaten.",
+    "fr": "Une poignée pour rendre son herbe à un sentier. Chaque petit sac fait dix semis.",
+    "it": "Una manciata per ridare l’erba a un sentiero. Ogni sacchetto basta per dieci semine.",
+    "pt": "Um punhado para devolver a erva a um carreiro. Cada saquinho dá para dez sementeiras."
+  },
+  "grassSeedName": {
+    "es": "Semillas de hierba",
+    "en": "Grass seeds",
+    "de": "Grassamen",
+    "fr": "Graines d’herbe",
+    "it": "Semi d’erba",
+    "pt": "Sementes de erva"
   },
   "guardianError": {
     "es": "El guardián se ha quedado pensando. Prueba otra vez.",
@@ -1286,6 +1326,22 @@
     "fr": "Replacer les pots",
     "it": "Rimetti a posto i vasi",
     "pt": "Repor os vasos"
+  },
+  "rakeDescription": {
+    "es": "Viejo, con las púas gastadas de tanto allanar. Con esto se abre un camino, y dura para siempre.",
+    "en": "Old, its tines worn down from levelling. This opens a path, and it lasts for ever.",
+    "de": "Alt, mit Zinken, die vom Ebnen stumpf geworden sind. Damit entsteht ein Weg, und er hält ewig.",
+    "fr": "Vieux, les dents usées à force d’aplanir. Avec ça on ouvre un chemin, et il dure toujours.",
+    "it": "Vecchio, con i denti consumati a forza di spianare. Con questo si apre un sentiero, e dura per sempre.",
+    "pt": "Velho, com os dentes gastos de tanto aplanar. Com isto abre-se um carreiro, e dura para sempre."
+  },
+  "rakeName": {
+    "es": "Rastrillito",
+    "en": "Little rake",
+    "de": "Kleiner Rechen",
+    "fr": "Petit râteau",
+    "it": "Rastrellino",
+    "pt": "Ancinho pequeno"
   },
   "rate": {
     "es": "¿Qué te ha parecido?",

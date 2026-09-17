@@ -1,10 +1,23 @@
 "use strict";
 /** Reviewed data, not backend code. The website validates writes against its installed artifact. */
 function gameContract(world) {
-  require("./community-terrain.cjs").compileCommunityTerrain(world);
+  // El horneado escribe en el mundo lo que los dos lados necesitan (la pantalla entera, lo
+  // prohibido, los anclajes de paso) y devuelve LAS FILAS DE SUELO, que solo necesita esta
+  // autoridad: el navegador las saca de la pantalla que ya tiene cargada. Ver community-terrain.
+  const terrain =
+    require("./community-terrain.cjs").compileCommunityTerrain(world);
+  const construction = {
+    ...world.construction,
+    zones: Object.fromEntries(
+      Object.entries(world.construction.zones).map(([id, zone]) => [
+        id,
+        { ...zone, terrain: terrain[id] },
+      ]),
+    ),
+  };
   return {
     protocol: "river-commons",
-    construction: world.construction,
+    construction,
     adventure: {
       flags: world.flags,
       items: world.items,

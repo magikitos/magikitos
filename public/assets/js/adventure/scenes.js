@@ -70,8 +70,11 @@ class SceneDirector {
     for (const bridge of data.bridges || []) sprites.add(bridge.sprite);
     for (const visitor of data.riverLife || [])
       for (const frame of visitor.frames) sprites.add(frame);
+    // Un objeto puede existir sin estampa: la pala se encuentra, se usa y se lee en el saco por su
+    // nombre mientras nadie la haya dibujado. Lo que no puede es meter un hueco en la lista de
+    // sprites que se piden, que es pedirle al almacén un nombre que no existe.
     for (const item of Object.values(game.catalog.items))
-      sprites.add(item.sprite);
+      if (item.sprite) sprites.add(item.sprite);
     // Lo que se puede construir necesita su arte antes de abrir la caja. Lo que se PINTA en el
     // suelo —los caminitos— no tiene sprite ninguno: se dibuja con el mismo pincel que el resto
     // del terreno, así que aquí no pide nada.
