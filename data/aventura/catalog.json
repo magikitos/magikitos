@@ -195,10 +195,5 @@
     "picnic": {
       "hours": 5
     }
-  },
-  "navigation": {
-    "restoreBoatIn": [
-      "islet"
-    ]
   }
 }

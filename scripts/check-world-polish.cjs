@@ -9,6 +9,7 @@ const {
   CatEncounters,
 } = require("../public/assets/js/adventure/cat-encounters");
 const { riverSection } = require("../public/assets/js/adventure/river-course");
+const { HULL_RADIUS } = require("../public/assets/js/adventure/river-navigation");
 const { riverVisitors } = require("../public/assets/js/adventure/river-life");
 const { createNeighbors } = require("../public/assets/js/adventure/neighbors");
 const catalog = JSON.parse(
@@ -154,18 +155,57 @@ for (const s of Object.values(catalog.scenes).filter((s) =>
   s.id.startsWith("river-"),
 )) {
   const river = s.rivers[0];
-  for (const y of [0, 4, 10, 134, 140, 144]) {
+  /* ⛔ UNA COSTURA SOLO TIENE QUE ENCAJAR DONDE HAY OTRA PANTALLA AL OTRO LADO. Las raíces
+     viejas cierran el río en su nacimiento desde el recorte del mapa (17-sep-2026), así que
+     exigirle 32/64 arriba sería exigirle una costura contra la nada. Lo que se le pide a un
+     borde sin salida es lo contrario: que el cauce se CIERRE, para que se lea como un
+     nacimiento y no como un muro invisible a mitad del agua. */
+  const cruza = (dir) =>
+    (s.navigation?.exits || []).some(
+      (e) => e.direction === dir && (e.mode || "boat") !== "foot",
+    );
+  const arriba = cruza("up"),
+    abajo = cruza("down");
+  for (const [y, hay] of [
+    [0, arriba],
+    [4, arriba],
+    [10, arriba],
+    [134, abajo],
+    [140, abajo],
+    [144, abajo],
+  ]) {
+    if (!hay) continue;
     const section = riverSection(river, y);
     assert(
       Math.abs(section.left - 32) < 1e-8 && Math.abs(section.right - 64) < 1e-8,
       "Shared river seams: " + s.id,
     );
   }
+  for (const [y, hay] of [
+    [0, arriba],
+    [144, abajo],
+  ]) {
+    if (hay) continue;
+    const section = riverSection(river, y);
+    assert(
+      section.right - section.left < (2 * HULL_RADIUS) / TILE,
+      s.id + ": un borde sin salida tiene que cerrar el cauce, no cortarlo",
+    );
+  }
+  // Y el tramo navegable es UNO: el cauce puede nacer cerrado, pero en cuanto se abre no puede
+  // volver a estrecharse por el camino — eso sería un tapón en mitad del río.
+  let abierto = false;
   for (let y = 0; y <= 144; y += 0.25) {
     const bank = riverSection(river, y);
-    assert(bank.right - bank.left >= 31.9, "Wide continuous navigable channel");
     assert(Number.isFinite(bank.tangent));
+    if (bank.right - bank.left >= 31.9) abierto = true;
+    else
+      assert(
+        !abierto,
+        s.id + ": el cauce se estrecha a mitad de camino (y=" + y + ")",
+      );
   }
+  assert(abierto, s.id + ": hay un tramo navegable de verdad");
   const boat = riverVisitors(s, 30)[0];
   const section = riverSection(river, boat.y / TILE);
   assert(boat.x / TILE > section.left + 2 && boat.x / TILE < section.right - 2);

@@ -8,87 +8,29 @@
     "minimumVisitors": 10
   },
   "zones": {
-    "tocon-del-mirlo": {
-      "scene": "home-garden",
-      "label": "communityMirlo",
+    "claro-de-los-sauces": {
+      "scene": "river-willows",
+      "label": "communityClaro",
       "surface": "flat-ground",
-      "requires": {
-        "items": {
-          "boat": 1
-        }
-      },
+      "protected": [],
       "editable": [
-        9,
-        7,
-        30,
-        26
-      ],
-      "protected": [
-        [
-          20,
-          13,
-          8,
-          9
-        ],
-        [
-          23,
-          22,
-          2,
-          18
-        ]
+        68,
+        82,
+        48,
+        30
       ],
       "access": [
         [
-          24,
-          32
+          92,
+          83
         ],
         [
-          24,
-          22
-        ]
-      ]
-    },
-    "remanso-del-musgo": {
-      "scene": "river-gardens",
-      "label": "communityMusgo",
-      "surface": "flat-ground",
-      "requires": {
-        "items": {
-          "boat": 1
-        }
-      },
-      "editable": [
-        67,
-        14,
-        40,
-        109
-      ],
-      "protected": [
-        [
-          67,
-          18,
-          4,
-          105
-        ],
-        [
-          67,
-          70,
-          40,
-          4
-        ]
-      ],
-      "access": [
-        [
-          69,
-          36
+          92,
+          111
         ],
         [
           69,
-          72
-        ],
-        [
-          69,
-          108
+          97
         ]
       ]
     }

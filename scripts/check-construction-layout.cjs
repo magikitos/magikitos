@@ -19,4 +19,4 @@ const web=process.env.GAME_WEB_REPO||path.resolve("..","magikitos");
 const php=`require $argv[1]; $d=json_decode(stream_get_contents(STDIN),true); $out=[]; foreach($d['cases'] as $c){try{communityValidate($c['items'],$c['zone'],$d['catalog']);$out[]=null;}catch(Throwable $e){$out[]=$e->getMessage();}} echo json_encode($out);`;
 const result=JSON.parse(execFileSync("php",["-r",php,path.join(web,"src/game/community.php")],{input:JSON.stringify({catalog,cases}),encoding:"utf8"}));
 cases.forEach((c,i)=>assert.equal(validateConstruction(c.items,c.zone,catalog),result[i],JSON.stringify(c)));
-console.log(`PASS ${cases.length} construction JS/PHP parity cases: actual terrain, every kind, both zones, footprints, rotations and rejected input`);
+console.log(`PASS ${cases.length} construction JS/PHP parity cases: actual terrain, every kind, every zone, footprints, rotations and rejected input`);

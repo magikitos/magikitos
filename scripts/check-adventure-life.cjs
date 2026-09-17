@@ -259,7 +259,7 @@ assert.equal(renderWater(0, false, false).length, 0);
     const seq = new Sequence();
     let commits = 0;
     const done = seq
-      .play("test-gesture", 4.6, { destination: "islet" })
+      .play("test-gesture", 4.6, { destination: "river-willows" })
       .then(() => commits++);
     await assert.rejects(seq.play("relief", 1), /already active/);
     seq.advance(0);

@@ -657,7 +657,7 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
       await touch("touchStart", [[cx, cy, 1]]);
       await touch("touchMove", [[cx, cy - travel, 1]]);
       await page.waitForFunction(
-        () => window.MagikitosAdventure.inspect().scene === "river-reeds",
+        () => window.MagikitosAdventure.inspect().scene === "river-rapids",
       );
       before = (await inspect()).player;
       await page.waitForTimeout(350);

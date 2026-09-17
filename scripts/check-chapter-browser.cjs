@@ -57,8 +57,8 @@ const origin = process.env.GAME_ORIGIN || "http://127.0.0.1:47834";
       for (const [name, scene, x, y] of [
         ["picnic", "overworld", 25, 28],
         ["brizno", "overworld", 25, 74],
-        ["island", "islet", 34.5, 25.5],
-        ["dock", "islet", 18, 25],
+        ["pradera", "river-willows", 82, 65],
+        ["conchas", "river-willows", 60, 74],
       ]) {
         await seed(scene, x, y);
         await page.waitForTimeout(180);
@@ -76,16 +76,14 @@ const origin = process.env.GAME_ORIGIN || "http://127.0.0.1:47834";
           s.assets.loaded.filter((id) => /^actor-1\d\d$/.test(id)).length < 25,
         );
       }
-      for (const id of [
-        "islet-mushroom-home",
-        "islet-leaf-home",
-        "islet-pot-home",
-      ]) {
-        const door = world.scenes.islet.entities.find((e) => e.id === id),
+      // Las puertas del bosque: se entra andando y se sale por donde se entró. Vivían en el
+      // islote y el islote se fue con el recorte del mapa; la regla no ha cambiado de sitio.
+      for (const id of ["home-one", "home-two", "fisher-door"]) {
+        const door = world.scenes.overworld.entities.find((e) => e.id === id),
           dest = door.rules
             .flatMap((r) => r.effects)
             .find((e) => e.type === "travel").scene;
-        await seed("islet", ...door.arrival);
+        await seed("overworld", ...door.arrival);
         await page.locator("#world-canvas").focus();
         await page.keyboard.down("ArrowUp");
         await page.waitForFunction(
@@ -101,7 +99,7 @@ const origin = process.env.GAME_ORIGIN || "http://127.0.0.1:47834";
         await page.waitForTimeout(700);
         await page.keyboard.down("ArrowDown");
         await page.waitForFunction(
-          () => window.MagikitosAdventure.inspect().scene === "islet",
+          () => window.MagikitosAdventure.inspect().scene === "overworld",
         );
         await page.keyboard.up("ArrowDown");
         const s = await inspect();

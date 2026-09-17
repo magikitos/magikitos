@@ -48,7 +48,6 @@ const names = {
   "home-pot-terracotta": "Refugio de la maceta",
   tavern: "Taberna de la bota",
   workshop: "Taller del tronco",
-  islet: "Islote",
   attic: "Desván",
   cupboard: "Armario",
   stove: "Estufa",

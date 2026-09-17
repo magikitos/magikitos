@@ -93,7 +93,11 @@ for (const data of Object.values(catalog.scenes)) {
       "Boat cannot go onto the jetty",
     );
   }
-  for (const exit of data.navigation.exits)
+  // Solo a las salidas por AGUA se les pide que el otro lado flote; las de tierra tienen su
+  // propio barrido más abajo, donde lo que se les pide es suelo firme.
+  for (const exit of data.navigation.exits.filter(
+    (e) => (e.mode || "boat") !== "foot",
+  ))
     check(
       canFloat(
         new World(catalog.scenes[exit.scene]),
@@ -104,18 +108,27 @@ for (const data of Object.values(catalog.scenes)) {
 }
 const world = new World(catalog.scenes.overworld),
   state = cleanSave(null, catalog);
-const jetties = new World(catalog.scenes["river-gardens"]);
-const parked = {
-  ...state,
-  inventory: { boat: 1 },
-  navigation: { mode: "foot", landing: "neighbor-1" },
-};
-check(
-  jetties.entities.filter(
+// Quien tiene barca la ve amarrada en el embarcadero donde la dejó, y en uno solo. Desde el
+// recorte del mapa cada escena tiene UN amarre, así que el filtro por amarre solo se escribe
+// donde hay más de uno: comprobamos las dos mitades de esa regla, porque el día que vuelva a
+// haber dos muelles en una pantalla es cuando una barca podría duplicarse.
+const parked = { ...state, inventory: { boat: 1 } };
+for (const data of Object.values(catalog.scenes).filter(
+  (s) => s.navigation?.landings?.length,
+)) {
+  const moored = new World(data).entities.filter(
     (e) => e.generated === "landing-vessel" && active(e, parked),
-  ).length === 1,
-  "One owned boat appears at its actual landing, never duplicated across jetties",
-);
+  );
+  check(
+    moored.length === data.navigation.landings.length &&
+      moored.length === 1,
+    `${data.id}: one owned boat, moored at its own jetty`,
+  );
+  check(
+    data.navigation.landings.length === 1,
+    `${data.id}: a second jetty would need the landing filter back`,
+  );
+}
 for (const data of Object.values(catalog.scenes).filter((s) =>
   s.id.startsWith("river-"),
 )) {
@@ -127,12 +140,17 @@ for (const data of Object.values(catalog.scenes).filter((s) =>
     y: (data.height - 6) * TILE,
     direction: "up",
   };
+  /* La ruta sube por el remanso de la orilla oeste MIENTRAS haya agua donde quepa el casco.
+     Las raíces viejas cierran el río en su nacimiento (17-sep-2026): allí arriba las dos
+     orillas se juntan, así que pedir que la barca llegue a y=3 sería pedirle que reme por la
+     hierba. Se rema hasta donde el río llega, que es lo que de verdad se comprueba aquí. */
   const route = [];
-  for (let y = data.height - 8; y >= 3; y -= 2)
-    route.push({
-      x: (riverSection(river, y).left + 3) * TILE,
-      y: y * TILE,
-    });
+  for (let y = data.height - 8; y >= 3; y -= 2) {
+    const point = { x: (riverSection(river, y).left + 3) * TILE, y: y * TILE };
+    if (!canFloat(model, point.x, point.y)) break;
+    route.push(point);
+  }
+  check(route.length > 4, `${data.id}: the river is long enough to row up`);
   let index = 0;
   for (let frame = 0; frame < 60 * 60 && index < route.length; frame++) {
     const point = route[index];
@@ -217,6 +235,9 @@ check(
   ).state.inventory.bottle === 1,
   "Bottle remains obtainable after humans leave",
 );
+// Una partida guardada en una pantalla que ya no existe (el islote, los juncos, las kelihouses)
+// no se pierde: cae al arranque con lo suyo intacto. Es lo único que hace seguro recortar el
+// mapa, y por eso se comprueba con lo que la persona lleva encima y con su monedero.
 const recovery = cleanSave(
   {
     scene: "islet",
@@ -227,10 +248,10 @@ const recovery = cleanSave(
   catalog,
 );
 check(
-  recovery.inventory.boat === 1 &&
+  recovery.scene === catalog.start &&
     recovery.inventory.knife === 1 &&
     recovery.wallet.balance === 17,
-  "Existing island saves remain playable, funds untouched",
+  "A save left on a retired screen wakes up at the start, carrying everything",
 );
 const ocean = new World({
   id: "water-test",
@@ -355,9 +376,22 @@ check(starts.length === 0, "No off-screen current rendering");
     wallet: { balance: 0, claimed: {} },
     navigation: { mode: "boat" },
   };
+  /* Cuántas salidas por AGUA hay en el mundo, contadas aparte del barrido. No es una cifra a
+     mano —el mapa se recorta y se amplía— pero tampoco es una tautología: lo que vigila es que
+     el barrido no se salte ninguna por un `continue`, que es como se apagaría sin avisar. Las
+     que solo se cruzan a pie tienen su propio barrido y aquí no pintan nada. */
+  const porAgua = Object.values(catalog.scenes).reduce(
+    (n, data) =>
+      n +
+      (data.navigation?.exits || []).filter((e) => (e.mode || "boat") !== "foot")
+        .length,
+    0,
+  );
   let bordes = 0;
   for (const [id, data] of Object.entries(catalog.scenes)) {
-    const exits = data.navigation?.exits || [];
+    const exits = (data.navigation?.exits || []).filter(
+      (e) => (e.mode || "boat") !== "foot",
+    );
     if (!exits.length) continue;
     const world = new World(data);
     world.actors = [];
@@ -417,7 +451,76 @@ check(starts.length === 0, "No off-screen current rendering");
       }
     }
   }
-  check(bordes === 16, "Las dieciséis salidas barridas, no " + bordes);
+/**
+ * ⛔ Y LO MISMO A PIE, QUE ES LA OTRA MITAD DE LA COSTURA (17-sep-2026).
+ *
+ * Por el río se sube remando y por la pradera se sube andando, y las dos tienen que llegar a la
+ * misma pantalla sin un solo punto muerto. Aquí no vale el truco de «pegado al borde»: entre lo
+ * andable y el borde del mapa hay dos tiles de margen, así que lo que manda es la BANDA, y la
+ * banda tiene que cubrir toda la franja por la que de verdad se puede llegar.
+ *
+ * Se barre columna a columna: donde se pueda plantar el pie lo más cerca del borde, la salida
+ * tiene que dispararse, y el sitio donde aparece al otro lado tiene que ser suelo firme para
+ * CUALQUIER desvío, porque el desvío se conserva al cruzar.
+ */
+{
+  const state = cleanSave(null, catalog);
+  let aPie = 0;
+  for (const [id, data] of Object.entries(catalog.scenes)) {
+    const world = new World(data);
+    world.refresh(state);
+    for (const exit of (data.navigation?.exits || []).filter(
+      (e) => e.mode === "foot" || e.mode === "both",
+    )) {
+      const vertical = exit.direction === "up" || exit.direction === "down";
+      check(vertical, id + "/" + exit.id + ": las costuras a pie son de arriba o de abajo");
+      const arriba = exit.direction === "up";
+      const [ax, ay, aw, ah] = exit.area;
+      const destino = new World(catalog.scenes[exit.scene]);
+      destino.refresh(state);
+      let pisadas = 0;
+      for (let along = ax; along <= ax + aw; along += 0.25) {
+        // El pie más adelantado de esa columna: se entra desde el borde hacia dentro.
+        let borde = null;
+        for (let d = 0; d <= 8; d += 0.05) {
+          const y = arriba ? d : data.height - d;
+          if (world.canStand(along * TILE, y * TILE)) {
+            borde = y;
+            break;
+          }
+        }
+        if (borde === null) continue;
+        pisadas++;
+        const point = { x: along * TILE, y: borde * TILE };
+        check(
+          crossingAt(data, point, "foot")?.id === exit.id,
+          id + "/" + exit.id + ": se llega al borde en " + along.toFixed(2) + " y no pasa nada",
+        );
+        // Y donde aparece, se aguanta de pie.
+        const arrival = crossingArrival(exit, point);
+        check(
+          destino.canStand(arrival.x, arrival.y),
+          id + "/" + exit.id + ": la llegada en " + (arrival.x / TILE).toFixed(2) + " no es suelo",
+        );
+        // Sin rebotar: la banda de vuelta no puede alcanzar el sitio donde acabas de aparecer.
+        check(
+          crossingAt(catalog.scenes[exit.scene], arrival, "foot")?.direction !==
+            (arriba ? "down" : "up"),
+          id + "/" + exit.id + ": la llegada cae dentro de la costura de vuelta",
+        );
+      }
+      check(pisadas > 0, id + "/" + exit.id + ": ni un punto pisable en su banda");
+      aPie++;
+    }
+  }
+  check(aPie === 8, "Ocho costuras a pie entre las tres pantallas del río, no " + aPie);
+}
+
+  check(porAgua > 0, "Hay salidas por agua que barrer");
+  check(
+    bordes === porAgua,
+    "Barridas todas las salidas por agua (" + bordes + " de " + porAgua + ")",
+  );
 }
 
 /**

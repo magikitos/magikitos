@@ -479,6 +479,14 @@
     "it": "Scegli qualcosa di bello per questo angolo.",
     "pt": "Escolhe algo bonito para este cantinho."
   },
+  "communityClaro": {
+    "es": "El claro de los sauces",
+    "en": "The willow clearing",
+    "de": "Die Weidenlichtung",
+    "fr": "La clairière des saules",
+    "it": "La radura dei salici",
+    "pt": "A clareira dos salgueiros"
+  },
   "communityConfirm": {
     "es": "Colocar",
     "en": "Place",
@@ -510,22 +518,6 @@
     "fr": "Pas ici : laisse libres le terrain et les passages.",
     "it": "Qui no: lascia liberi il terreno e i passaggi.",
     "pt": "Aqui não: deixa o terreno e os caminhos livres."
-  },
-  "communityMirlo": {
-    "es": "El Tocón del Mirlo",
-    "en": "Blackbird Stump",
-    "de": "Die Amselwurzel",
-    "fr": "La Souche du Merle",
-    "it": "Il Ceppo del Merlo",
-    "pt": "O Toco do Melro"
-  },
-  "communityMusgo": {
-    "es": "El Remanso del Musgo",
-    "en": "Mosswater Rest",
-    "de": "Die Moosbucht",
-    "fr": "Le Repos de la Mousse",
-    "it": "La Sosta del Muschio",
-    "pt": "O Remanso do Musgo"
   },
   "communityOffline": {
     "es": "Sin conexión puedes explorar. Para construir juntos hace falta conectar.",

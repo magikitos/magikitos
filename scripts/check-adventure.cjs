@@ -303,17 +303,19 @@ for (const objects of permutations([mushroom, twig, lighter, knife])) {
     react(hungry, state, catalog, { action: "give" });
     assert.deepEqual(state.wallet, purse, "Sharing a meal never touches the purse");
     assert(!ferry, "Brizno is the one cooking and sharing his oars near the dock");
-    const island = new World(catalog.scenes.islet);
-    const back = island.entities.find((e) => e.id === "islet-ferryman");
+    // La vida del islote se mudó a la pradera de los sauces (17-sep-2026): las tres casas se
+    // borraron y sus vecinos viven ahora en el prado, con las conchas al filo del río.
+    const meadow = new World(catalog.scenes["river-willows"]);
+    const back = meadow.entities.find((e) => e.id === "meadow-ferryman");
     assert.equal(react(back, state, catalog)[0].key, "riverMemory");
     for (let visit = 0; visit < 3; visit++) {
       react(
-        island.entities.find((e) => e.id === "shore-shells"),
+        meadow.entities.find((e) => e.id === "meadow-shore-shells"),
         state,
         catalog,
       );
       react(
-        island.entities.find((e) => e.id === "shell-collector"),
+        meadow.entities.find((e) => e.id === "meadow-shell-collector"),
         state,
         catalog,
         { action: "give" },

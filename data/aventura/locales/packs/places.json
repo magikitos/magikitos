@@ -31,22 +31,6 @@
     "it": "Un letto nel ceppo. Niente affitto, sveglia con gli uccellini.",
     "pt": "Uma cama num cepo. Sem renda e com passarinhos de despertador."
   },
-  "homeRoom": {
-    "es": "Refugio del Mirlo",
-    "en": "Blackbird Shelter",
-    "de": "Amselunterschlupf",
-    "fr": "L’Abri du Merle",
-    "it": "Rifugio del Merlo",
-    "pt": "Abrigo do Melro"
-  },
-  "house": {
-    "es": "El refugio de hojas",
-    "en": "The leaf shelter",
-    "de": "Die Blätterhütte",
-    "fr": "L’abri de feuilles",
-    "it": "Il rifugio di foglie",
-    "pt": "O abrigo de folhas"
-  },
   "humanHedge": {
     "es": "El Seto de los Bigotes",
     "en": "Whisker Hedge",
@@ -55,14 +39,6 @@
     "it": "La Siepe dei Baffi",
     "pt": "A Sebe dos Bigodes"
   },
-  "mushroomHome": {
-    "es": "La casita de seta",
-    "en": "The mushroom cottage",
-    "de": "Das Pilzhäuschen",
-    "fr": "La maison-champignon",
-    "it": "La casetta-fungo",
-    "pt": "A casinha-cogumelo"
-  },
   "outside": {
     "es": "Salir al pueblo",
     "en": "Go outside",
@@ -70,14 +46,6 @@
     "fr": "Sortir au village",
     "it": "Esci in paese",
     "pt": "Sair para a aldeia"
-  },
-  "potHome": {
-    "es": "La maceta del lago",
-    "en": "The lakeside flowerpot",
-    "de": "Der Blumentopf am See",
-    "fr": "Le pot au bord du lac",
-    "it": "Il vaso sul lago",
-    "pt": "O vaso à beira do lago"
   },
   "table": {
     "es": "La mesa",

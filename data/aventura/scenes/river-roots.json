@@ -42,20 +42,30 @@
     {
       "rect": [
         14,
-        -4,
+        0,
         56,
-        152
+        148
       ],
       "banks": [
         [
           -4,
-          32,
-          64
+          44,
+          44
         ],
         [
-          12,
-          32,
-          64
+          4,
+          43,
+          45
+        ],
+        [
+          14,
+          36,
+          54
+        ],
+        [
+          24,
+          26,
+          56
         ],
         [
           38,
@@ -800,22 +810,6 @@
         "direction": "down"
       },
       {
-        "id": "upstream",
-        "area": [
-          28,
-          1.5,
-          40,
-          1.2
-        ],
-        "scene": "river-gardens",
-        "mode": "boat",
-        "position": [
-          48,
-          133.20000000000002
-        ],
-        "direction": "up"
-      },
-      {
         "id": "human-garden",
         "area": [
           124,
@@ -830,6 +824,38 @@
           81
         ],
         "direction": "right"
+      },
+      {
+        "id": "meadow-down",
+        "area": [
+          64,
+          140.6,
+          62,
+          3.4
+        ],
+        "scene": "river-rapids",
+        "mode": "foot",
+        "position": [
+          95,
+          7
+        ],
+        "direction": "down"
+      },
+      {
+        "id": "west-down",
+        "area": [
+          2,
+          140.6,
+          30,
+          3.4
+        ],
+        "scene": "river-rapids",
+        "mode": "foot",
+        "position": [
+          17,
+          7
+        ],
+        "direction": "down"
       }
     ]
   },

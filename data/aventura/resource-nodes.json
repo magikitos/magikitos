@@ -29,19 +29,6 @@
       "bank-twig-7"
     ]
   },
-  "river-reeds": {
-    "renewMs": 86400000,
-    "nodes": [
-      "bank-twig-0",
-      "bank-twig-1",
-      "bank-twig-2",
-      "bank-twig-3",
-      "bank-twig-4",
-      "bank-twig-5",
-      "bank-twig-6",
-      "bank-twig-7"
-    ]
-  },
   "river-rapids": {
     "renewMs": 86400000,
     "nodes": [
@@ -68,18 +55,6 @@
       "bank-twig-7"
     ]
   },
-  "harvest-islet-18000000": {
-    "renewMs": 18000000,
-    "nodes": [
-      "shore-shells"
-    ]
-  },
-  "harvest-islet-120000": {
-    "renewMs": 120000,
-    "nodes": [
-      "islet-leaves"
-    ]
-  },
   "harvest-overworld-120000": {
     "renewMs": 120000,
     "nodes": [
@@ -95,12 +70,6 @@
       "bank-leaf-plant"
     ]
   },
-  "harvest-river-reeds-120000": {
-    "renewMs": 120000,
-    "nodes": [
-      "bank-leaf-plant"
-    ]
-  },
   "harvest-river-roots-120000": {
     "renewMs": 120000,
     "nodes": [
@@ -110,7 +79,14 @@
   "harvest-river-willows-120000": {
     "renewMs": 120000,
     "nodes": [
-      "bank-leaf-plant"
+      "bank-leaf-plant",
+      "meadow-leaves"
+    ]
+  },
+  "harvest-river-willows-18000000": {
+    "renewMs": 18000000,
+    "nodes": [
+      "meadow-shore-shells"
     ]
   }
 }

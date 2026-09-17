@@ -801,7 +801,7 @@
           40,
           1.2
         ],
-        "scene": "river-reeds",
+        "scene": "river-willows",
         "mode": "boat",
         "position": [
           48,
@@ -824,6 +824,70 @@
           133.20000000000002
         ],
         "direction": "up"
+      },
+      {
+        "id": "meadow-up",
+        "area": [
+          64,
+          0,
+          62,
+          3.4
+        ],
+        "scene": "river-roots",
+        "mode": "foot",
+        "position": [
+          95,
+          137
+        ],
+        "direction": "up"
+      },
+      {
+        "id": "west-up",
+        "area": [
+          2,
+          0,
+          30,
+          3.4
+        ],
+        "scene": "river-roots",
+        "mode": "foot",
+        "position": [
+          17,
+          137
+        ],
+        "direction": "up"
+      },
+      {
+        "id": "meadow-down",
+        "area": [
+          64,
+          140.6,
+          62,
+          3.4
+        ],
+        "scene": "river-willows",
+        "mode": "foot",
+        "position": [
+          95,
+          7
+        ],
+        "direction": "down"
+      },
+      {
+        "id": "west-down",
+        "area": [
+          2,
+          140.6,
+          30,
+          3.4
+        ],
+        "scene": "river-willows",
+        "mode": "foot",
+        "position": [
+          17,
+          7
+        ],
+        "direction": "down"
       }
     ]
   },

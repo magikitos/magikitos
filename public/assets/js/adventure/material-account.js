@@ -104,8 +104,7 @@ class MaterialAccount {
       !value ||
       !Number.isSafeInteger(value.revision) ||
       value.revision < 0 ||
-      !value.inventory ||
-      !Array.isArray(value.knowledge)
+      !value.inventory
     )
       throw Error("invalid_account");
     this.account = value;

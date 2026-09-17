@@ -130,7 +130,10 @@ for (const data of Object.values(catalog.scenes)) {
     }
 }
 assert(!catalog.flags.includes("introSeen"));
-for (const portal of catalog.scenes.islet.entities.filter((e) => e.portal)) {
+// Un interior devuelve a la puerta por la que se entró, y una puerta que ya no existe cae al
+// destino escrito a mano. Se barre el EMBARCADERO, que es donde viven hoy todas las puertas del
+// bosque: las del islote se fueron con él, y la regla es la misma para cualquier pantalla.
+for (const portal of catalog.scenes.overworld.entities.filter((e) => e.portal)) {
   const entry = portal.rules
       .flatMap((r) => r.effects)
       .find((e) => e.type === "travel"),
@@ -141,15 +144,18 @@ for (const portal of catalog.scenes.islet.entities.filter((e) => e.portal)) {
       .find((e) => e.type === "travel");
   assert.deepEqual(
     doorDestination(catalog, room, exit, travel, {
-      scene: "islet",
+      scene: "overworld",
       portal: portal.id,
     }),
-    { scene: "islet", position: portalArrival(catalog, "islet", portal.id) },
-    "Shared interiors return to their actual island doorway",
+    {
+      scene: "overworld",
+      position: portalArrival(catalog, "overworld", portal.id),
+    },
+    "Interiors return to the doorway you actually walked through",
   );
   assert.equal(
     doorDestination(catalog, room, exit, travel, {
-      scene: "islet",
+      scene: "overworld",
       portal: "missing",
     }).scene,
     travel.scene,
@@ -163,11 +169,12 @@ assert(
     (e) => e.id === "human-picnic-basket",
   ),
 );
-const islet = new World(catalog.scenes.islet),
-  arch = islet.entities.find((e) => e.id === "garden-trellis");
-assert(islet.canStand(arch.x, arch.y), "Walk underneath the arch");
+// El arco del huerto se mudó con la vida del islote a la pradera de los sauces.
+const meadow = new World(catalog.scenes["river-willows"]),
+  arch = meadow.entities.find((e) => e.id === "meadow-garden-trellis");
+assert(meadow.canStand(arch.x, arch.y), "Walk underneath the arch");
 for (const x of [-1.8, 1.7])
-  assert(!islet.canStand(arch.x + x * TILE, arch.y), "Arch posts are solid");
+  assert(!meadow.canStand(arch.x + x * TILE, arch.y), "Arch posts are solid");
 (async () => {
   for (const data of Object.values(catalog.scenes)) {
     const requests = new Set(),

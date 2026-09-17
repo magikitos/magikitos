@@ -33,7 +33,7 @@ assert.equal(planReaction(find("picnic-mushroom"), state, world).state.inventory
 assert.equal(planReaction(find("picnic-mushroom"), { ...state, inventory: { knife: 1 } }, world).state.inventory.mushroom, 1);
 const twigCounts = Object.fromEntries(Object.entries(world.scenes).map(([id, s]) =>
   [id, s.entities.filter((e) => e.sprite === "twig").length]).filter(([, n]) => n));
-assert.deepEqual(twigCounts, { overworld: 4, "river-rapids": 2, "river-reeds": 2, "river-roots": 2, "river-willows": 2 });
+assert.deepEqual(twigCounts, { overworld: 4, "river-rapids": 2, "river-roots": 2, "river-willows": 2 });
 assert.deepEqual(entities.filter((e) => e.resource?.region === "overworld").map((e) => e.resource.index),
   [0, 1, 8, 11], "Removed placements never reassign another pickup's saved bit");
 const source = require("../data/aventura/element-families.json").families;

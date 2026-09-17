@@ -84,14 +84,12 @@ function cleanSave(value, catalog) {
       )
     )
       state.navigation.landing = value.navigation.landing;
-    // Existing ferry passengers on the island must not be stranded by the new transport rules.
-    if (
-      !value.navigation &&
-      catalog.navigation?.restoreBoatIn.includes(value.scene)
-    ) {
-      state.inventory.boat = 1;
-      state.flags.boatBuilt = true;
-    }
+    /* ⛔ AQUÍ VIVÍA EL RESCATE DE LOS PASAJEROS DEL ISLOTE, y se erradicó el 17-sep-2026 con el
+       islote: a quien tuviera una partida guardada allí le devolvía la barca para que no se
+       quedara tirado en una isla sin salida. Hoy esa escena no existe, así que una partida que la
+       nombre cae al arranque por la guarda de arriba (`Object.hasOwn`), que es tierra firme; y la
+       barca dejó de ser obligatoria para moverse, así que tampoco hay nada de lo que rescatar.
+       Con él se va `catalog.navigation`, que era su único dato. */
     state.position =
       state.navigation.mode === "boat" ||
       world.canStand(value.position?.x, value.position?.y)

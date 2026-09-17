@@ -12,7 +12,6 @@ global.localStorage = {
 const empty = () => ({
   revision: 0,
   inventory: {},
-  knowledge: ["simple-woodwork"],
   progress: { flags: {}, timers: {}, rewards: {} },
   resources: {},
   setines: 0,

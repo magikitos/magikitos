@@ -129,7 +129,7 @@ const boat = (scene, x, y) =>
       await page.locator("#world-canvas").focus();
       await page.keyboard.down("ArrowUp");
       await page.waitForFunction(
-        () => window.MagikitosAdventure.inspect().scene === "river-reeds",
+        () => window.MagikitosAdventure.inspect().scene === "river-rapids",
       );
       await page.keyboard.up("ArrowUp");
       assert.equal((await inspect()).navigation.mode, "boat");
@@ -183,10 +183,6 @@ const boat = (scene, x, y) =>
             Math.hypot(s.player.x - landing.dry.x, s.player.y - landing.dry.y) <
               1,
           );
-          if (scene === "home-garden") {
-            assert.equal(s.community.zone, "tocon-del-mirlo");
-            assert(await page.locator("#home-edit").isVisible());
-          }
           await page.waitForTimeout(100);
           assert.equal(
             (await inspect()).navigation.mode,

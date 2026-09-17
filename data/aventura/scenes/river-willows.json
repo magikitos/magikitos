@@ -137,6 +137,344 @@
       "behavior": "toilet-plant",
       "x": 97,
       "y": 62
+    },
+    {
+      "id": "meadow-ferryman",
+      "behavior": "river-neighbor",
+      "x": 62,
+      "y": 62.5
+    },
+    {
+      "id": "meadow-shell-collector",
+      "behavior": "shell-collector",
+      "x": 72,
+      "y": 69.5
+    },
+    {
+      "id": "meadow-shore-shells",
+      "behavior": "shells",
+      "x": 57.0,
+      "y": 75.0
+    },
+    {
+      "id": "meadow-collector-basket",
+      "sprite": "basket",
+      "x": 70.5,
+      "y": 71.0,
+      "rules": []
+    },
+    {
+      "id": "meadow-potting-table",
+      "sprite": "garden-potting-table",
+      "x": 66.5,
+      "y": 61.5,
+      "rules": [],
+      "solid": [
+        -1.5,
+        -0.6,
+        3,
+        0.9
+      ]
+    },
+    {
+      "id": "meadow-harbor-crate",
+      "sprite": "crates",
+      "x": 64,
+      "y": 66.5,
+      "rules": [],
+      "artVariant": "auto"
+    },
+    {
+      "id": "meadow-harbor-planter",
+      "sprite": "flower-pot",
+      "x": 64.5,
+      "y": 61.5,
+      "rules": [],
+      "artVariant": "auto"
+    },
+    {
+      "id": "meadow-harbor-daisies",
+      "sprite": "flowers-daisy-white",
+      "x": 68,
+      "y": 59.5,
+      "rules": [],
+      "artVariant": "auto"
+    },
+    {
+      "id": "meadow-garden-carrots",
+      "sprite": "garden-carrots",
+      "x": 79.5,
+      "y": 55.5,
+      "rules": [],
+      "solid": [
+        -1.8,
+        -1.25,
+        3.6,
+        1.6
+      ]
+    },
+    {
+      "id": "meadow-garden-cabbages",
+      "sprite": "garden-cabbages",
+      "x": 86,
+      "y": 55.5,
+      "rules": [],
+      "solid": [
+        -1.8,
+        -1.25,
+        3.6,
+        1.6
+      ]
+    },
+    {
+      "id": "meadow-garden-beets",
+      "sprite": "garden-beets",
+      "x": 79.5,
+      "y": 59.5,
+      "rules": [],
+      "solid": [
+        -1.8,
+        -1.25,
+        3.6,
+        1.6
+      ]
+    },
+    {
+      "id": "meadow-garden-herbs",
+      "sprite": "garden-herbs",
+      "x": 86,
+      "y": 59.5,
+      "rules": [],
+      "solid": [
+        -1.8,
+        -1.25,
+        3.6,
+        1.6
+      ]
+    },
+    {
+      "id": "meadow-garden-fence-west",
+      "sprite": "garden-fence",
+      "x": 79,
+      "y": 52.0,
+      "rules": [],
+      "solid": [
+        -2,
+        -0.3,
+        4,
+        0.5
+      ]
+    },
+    {
+      "id": "meadow-garden-fence-east",
+      "sprite": "garden-fence",
+      "x": 85,
+      "y": 52.0,
+      "rules": [],
+      "solid": [
+        -2,
+        -0.3,
+        4,
+        0.5
+      ]
+    },
+    {
+      "id": "meadow-garden-trellis",
+      "sprite": "garden-trellis",
+      "x": 82.5,
+      "y": 62.5,
+      "rules": [],
+      "solids": [
+        [
+          -2,
+          -0.5,
+          0.55,
+          0.9
+        ],
+        [
+          1.45,
+          -0.5,
+          0.55,
+          0.9
+        ]
+      ]
+    },
+    {
+      "id": "meadow-hammock",
+      "sprite": "garden-hammock",
+      "x": 77,
+      "y": 70.5,
+      "rules": [],
+      "solid": [
+        -2.2,
+        -0.4,
+        4.4,
+        0.8
+      ]
+    },
+    {
+      "id": "meadow-bench",
+      "sprite": "bench",
+      "x": 84,
+      "y": 69.0,
+      "rules": [
+        {
+          "effects": [
+            {
+              "type": "dialogue",
+              "key": "meadowBench"
+            }
+          ]
+        }
+      ],
+      "solid": [
+        -1,
+        -0.5,
+        2,
+        0.6
+      ],
+      "label": "bench"
+    },
+    {
+      "id": "meadow-rest-stool",
+      "sprite": "stool-acorn",
+      "x": 86,
+      "y": 69.5,
+      "rules": [],
+      "artVariant": "auto"
+    },
+    {
+      "id": "meadow-rest-flowers",
+      "sprite": "flowers-bell-blue",
+      "x": 81,
+      "y": 69.0,
+      "rules": [],
+      "artVariant": "auto"
+    },
+    {
+      "id": "meadow-canopy",
+      "sprite": "ancient-root",
+      "x": 68,
+      "y": 55,
+      "scale": 0.65,
+      "rules": [],
+      "solid": [
+        -2.5,
+        -2.8,
+        5,
+        3.4
+      ]
+    },
+    {
+      "id": "meadow-fruit",
+      "sprite": "fruit-tree",
+      "x": 90,
+      "y": 52.0,
+      "rules": [],
+      "solid": [
+        -0.4,
+        -0.5,
+        0.8,
+        0.7
+      ]
+    },
+    {
+      "id": "meadow-fruit-west",
+      "sprite": "bush",
+      "x": 75,
+      "y": 51.5,
+      "rules": [],
+      "solid": [
+        -0.4,
+        -0.5,
+        0.8,
+        0.7
+      ],
+      "flip": true
+    },
+    {
+      "id": "meadow-fern-north",
+      "sprite": "giant-fern",
+      "x": 81,
+      "y": 50.0,
+      "rules": [],
+      "artVariant": "auto"
+    },
+    {
+      "id": "meadow-fern-east",
+      "sprite": "giant-fern",
+      "x": 103,
+      "y": 63.5,
+      "rules": [],
+      "artVariant": "auto",
+      "scale": 0.75
+    },
+    {
+      "id": "meadow-south-clover",
+      "sprite": "giant-clover",
+      "x": 65,
+      "y": 71.5,
+      "rules": [],
+      "artVariant": "auto",
+      "scale": 0.75
+    },
+    {
+      "id": "meadow-north-bells",
+      "sprite": "flowers-bell-blue",
+      "x": 84,
+      "y": 50.0,
+      "rules": [],
+      "artVariant": "auto"
+    },
+    {
+      "id": "meadow-house-daisies",
+      "sprite": "flowers-daisy-white",
+      "x": 75.5,
+      "y": 59.5,
+      "rules": [],
+      "artVariant": "auto"
+    },
+    {
+      "id": "meadow-pot-flowers",
+      "sprite": "flowers-primrose",
+      "x": 97,
+      "y": 71.5,
+      "rules": [],
+      "artVariant": "auto"
+    },
+    {
+      "id": "meadow-leaf-flowers",
+      "sprite": "flowers-daisy-gold",
+      "x": 93,
+      "y": 60.5,
+      "rules": []
+    },
+    {
+      "id": "meadow-rock",
+      "sprite": "sandstone",
+      "x": 58.5,
+      "y": 76.5,
+      "rules": []
+    },
+    {
+      "id": "meadow-reeds",
+      "sprite": "coastal-grass",
+      "x": 97,
+      "y": 73.0,
+      "rules": []
+    },
+    {
+      "id": "meadow-beach-wood",
+      "sprite": "fallen-log",
+      "x": 62.5,
+      "y": 76.5,
+      "rules": []
+    },
+    {
+      "id": "meadow-leaves",
+      "behavior": "toilet-plant",
+      "x": 72,
+      "y": 74.0
     }
   ],
   "neighbors": [
@@ -167,6 +505,55 @@
         ]
       },
       "bump": "riverBump"
+    },
+    {
+      "id": "meadow-wanderer",
+      "x": 77,
+      "y": 65.5,
+      "radius": 1,
+      "dialogue": "meadowGreeting"
+    },
+    {
+      "id": "meadow-gardener",
+      "x": 82.5,
+      "y": 57.5,
+      "radius": 0.7,
+      "dialogue": "meadowGardener"
+    },
+    {
+      "id": "meadow-harbor-neighbor",
+      "x": 67,
+      "y": 64.5,
+      "radius": 0.8,
+      "dialogue": "meadowHarbor"
+    },
+    {
+      "id": "meadow-home-neighbor",
+      "x": 88,
+      "y": 62.5,
+      "radius": 0.8,
+      "dialogue": "meadowHome"
+    },
+    {
+      "id": "meadow-rest-neighbor",
+      "x": 82,
+      "y": 71.5,
+      "radius": 0.8,
+      "dialogue": "meadowHammock"
+    },
+    {
+      "id": "meadow-beach-neighbor",
+      "x": 60.5,
+      "y": 72.5,
+      "radius": 0.8,
+      "dialogue": "meadowGreeting"
+    },
+    {
+      "id": "meadow-flower-neighbor",
+      "x": 74,
+      "y": 63.5,
+      "radius": 0.8,
+      "dialogue": "meadowFlowers"
     }
   ],
   "scenery": [
@@ -770,11 +1157,43 @@
           40,
           1.2
         ],
-        "scene": "river-reeds",
+        "scene": "river-rapids",
         "mode": "boat",
         "position": [
           48,
           133.20000000000002
+        ],
+        "direction": "up"
+      },
+      {
+        "id": "meadow-up",
+        "area": [
+          64,
+          0,
+          62,
+          3.4
+        ],
+        "scene": "river-rapids",
+        "mode": "foot",
+        "position": [
+          95,
+          137
+        ],
+        "direction": "up"
+      },
+      {
+        "id": "west-up",
+        "area": [
+          2,
+          0,
+          30,
+          3.4
+        ],
+        "scene": "river-rapids",
+        "mode": "foot",
+        "position": [
+          17,
+          137
         ],
         "direction": "up"
       }
