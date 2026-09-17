@@ -59,6 +59,16 @@ class Renderer {
     );
   }
   hit(entity, point, state) {
+    // ⛔ UNA VALLA ES SU TRAZADO, NO LA CAJA QUE LO ENVUELVE. Con la caja, una valla en L se lleva
+    // todos los clics del hueco que rodea —que es justo por donde se quiere andar—, y eso se nota
+    // en cuanto alguien construye una de verdad en el claro. `fences.hit` mide la distancia a los
+    // travesaños, que es lo que la persona ve.
+    if (entity.fence)
+      return require("./fences").hit(
+        entity,
+        point,
+        Math.max(2, 12 / this.scale),
+      );
     // Authored interaction areas also support invisible barriers across visible passageways.
     if (entity.hitArea) {
       const [dx, dy, w, h] = entity.hitArea;

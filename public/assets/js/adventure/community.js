@@ -351,7 +351,14 @@ class Community {
     for (const id of used) {
       const item = document.createElement("span");
       const icon = g.renderer.sprites.icon(g.catalog.items[id]?.sprite);
-      if (icon) item.append(icon);
+      // ⛔ `icon()` escribe el tamaño del sprite EN LÍNEA, y un estilo en línea le gana a
+      // cualquier clase: el cuenco de los gatos entraba aquí a su tamaño real y se comía la
+      // cabecera. Se le quita la medida y manda la hoja, que es la que sabe que esta fila son
+      // dieciocho píxeles y todos iguales.
+      if (icon) {
+        icon.style.width = icon.style.height = "";
+        item.append(icon);
+      }
       const n = document.createElement("strong");
       n.textContent = String(g.materials.account.inventory[id] || 0);
       item.append(n);
