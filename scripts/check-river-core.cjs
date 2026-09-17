@@ -9,8 +9,6 @@ const {
   currentAt,
   VesselMotion,
   HULL_RADIUS,
-  riverExit,
-  riverArrival,
   riverBodyAt,
   yieldToRiverBodies,
 } = require("../public/assets/js/adventure/river-navigation");
@@ -19,6 +17,10 @@ const {
   riverVisitors,
 } = require("../public/assets/js/adventure/river-life");
 const { inRect } = require("../public/assets/js/adventure/geometry");
+const {
+  crossingAt,
+  crossingArrival,
+} = require("../public/assets/js/adventure/crossings");
 const { riverSection } = require("../public/assets/js/adventure/river-course");
 const {
   docks,
@@ -380,7 +382,7 @@ check(starts.length === 0, "No off-screen current rendering");
         if (along / TILE < from - hull || along / TILE > to + hull) continue;
         tocados++;
         check(
-          riverExit(data, point)?.id === exit.id,
+          crossingAt(data, point, "boat")?.id === exit.id,
           id + "/" + exit.id + ": pegado al borde en " + (along / TILE).toFixed(2) + " y sin salida",
         );
       }
@@ -395,7 +397,7 @@ check(starts.length === 0, "No off-screen current rendering");
         const player = vertical
           ? { x: (ax + half + drift) * TILE, y: fixed }
           : { x: fixed, y: (ay + half + drift) * TILE };
-        const arrival = riverArrival(exit, player);
+        const arrival = crossingArrival(exit, player);
         const moved = vertical
           ? arrival.x / TILE - exit.position[0]
           : arrival.y / TILE - exit.position[1];

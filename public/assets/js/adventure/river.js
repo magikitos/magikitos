@@ -8,8 +8,6 @@ const { riverBodies } = require("./river-life");
 const {
   canFloat,
   VesselMotion,
-  riverExit,
-  riverArrival,
   yieldToRiverBodies,
 } = require("./river-navigation");
 
@@ -202,44 +200,8 @@ class River {
       const lines = g.lines(bump.bump);
       g.toast(lines[Math.floor(Math.random() * lines.length)]);
     }
-    const exit = riverExit(g.world.data, g.player);
-    if (!exit) this.failedExit = null;
-    if (exit && exit.id !== this.failedExit) this.travel(exit);
-  }
-  async travel(exit) {
-    const g = this.game;
-    if (g.transitioning) return;
-    g.transitioning = true;
-    g.pauseMovement({ keepControls: true });
-    try {
-      const state = {
-        ...g.state,
-        navigation: {
-          ...g.state.navigation,
-          mode: "boat",
-          direction: exit.direction,
-        },
-      };
-      const prepared = await g.scenes.prepare(
-        exit.scene,
-        [
-          riverArrival(exit, g.player),
-          { x: exit.position[0] * TILE, y: exit.position[1] * TILE },
-        ],
-        state,
-      );
-      g.state = state;
-      g.scenes.enter(prepared, { keepControls: true });
-      g.toast(g.text(g.world.data.label || "riverDock"));
-      g.save();
-    } catch (error) {
-      console.error("River arrival:", error);
-      // Keep the vessel and belongings in the original reach; retry after moving away.
-      this.failedExit = exit.id;
-      g.toast(g.text("travelError"));
-    } finally {
-      g.transitioning = false;
-    }
+    // Cruzar un borde es lo mismo remando que andando: una sola pieza (crossings.js).
+    g.crossings.check("boat");
   }
   disembark(landing) {
     const g = this.game;

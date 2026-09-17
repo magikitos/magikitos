@@ -792,6 +792,7 @@
           1.2
         ],
         "scene": "river-rapids",
+        "mode": "boat",
         "position": [
           48,
           10.8
@@ -807,6 +808,7 @@
           1.2
         ],
         "scene": "river-gardens",
+        "mode": "boat",
         "position": [
           48,
           133.20000000000002
@@ -822,6 +824,7 @@
           20
         ],
         "scene": "human-hedge",
+        "mode": "boat",
         "position": [
           7,
           81

@@ -172,73 +172,6 @@ class VesselMotion {
   }
 }
 
-/**
- * ⛔ LA BANDA DE SALIDA NO LLEGABA HASTA DONDE LLEGA LA BARCA (17-sep-2026).
- *
- * Las bandas están dibujadas en tiles y el casco se planta a `HULL_RADIUS` del borde del mapa,
- * así que pegándose al borde de abajo la barca acaba en la fila 142,375 y la banda termina en la
- * 142,2: agua, borde, y nada que pase. Medido, le ocurría a las DIEZ salidas «downstream», a las
- * de la izquierda y a la del islote, que su banda ni siquiera alcanza la columna donde el casco
- * se detiene. El síntoma es el peor posible: el río sigue estando ahí delante y el juego no
- * responde, así que parece roto sin que falle nada.
- *
- * No se arregla ensanchando dieciséis rectángulos a mano —que habría que rehacer el día que el
- * casco cambie de tamaño— sino preguntando lo que de verdad importa: si la barca está PEGADA al
- * borde por un lado que tiene salida. La banda sigue mandando en el tramo del borde por el que
- * se pasa (la boca del río del bosque son sus veinticinco columnas y no el lago entero); lo único
- * que se le suma es el hueco que el propio casco se deja.
- */
-function riverExit(data, player) {
-  const tx = player.x / TILE,
-    ty = player.y / TILE;
-  const exits = data.navigation?.exits || [];
-  const inside = exits.find((e) => inRect(tx, ty, e.area));
-  if (inside) return inside;
-  const hull = HULL_RADIUS / TILE;
-  const pressed = {
-    up: ty <= hull,
-    down: ty >= data.height - hull,
-    left: tx <= hull,
-    right: tx >= data.width - hull,
-  };
-  return (
-    exits.find((e) => {
-      if (!pressed[e.direction]) return false;
-      const [ax, ay, aw, ah] = e.area;
-      const vertical = e.direction === "up" || e.direction === "down";
-      const [from, to] = vertical ? [ax, ax + aw] : [ay, ay + ah];
-      const along = vertical ? tx : ty;
-      return along >= from - hull && along <= to + hull;
-    }) || null
-  );
-}
-
-/**
- * Por dónde se entra en la pantalla de al lado. El punto escrito en los datos dice a qué ALTURA
- * del río se aparece —adentro, para no volver a cruzar el borde sin querer— y el jugador pone el
- * resto: se conserva su desvío respecto al centro del paso, así que quien cruzaba pegado a la
- * orilla izquierda sigue pegado a la orilla izquierda. Sin esto, cada costura te devolvía al
- * centro del canal de un tirón, que es lo que se siente como que las pantallas no encajan.
- *
- * El desvío se acota a la propia banda: una salida no puede escupirte más lejos de lo ancha que
- * es. Y quien llama prueba este punto ANTES que el escrito, que es el respaldo cuando el canal de
- * enfrente hace otra curva.
- */
-function riverArrival(exit, player) {
-  const [ax, ay, aw, ah] = exit.area;
-  const vertical = exit.direction === "up" || exit.direction === "down";
-  const half = (vertical ? aw : ah) / 2;
-  const drift = clamp(
-    (vertical ? player.x : player.y) / TILE - ((vertical ? ax : ay) + half),
-    -half,
-    half,
-  );
-  return {
-    x: (exit.position[0] + (vertical ? drift : 0)) * TILE,
-    y: (exit.position[1] + (vertical ? 0 : drift)) * TILE,
-  };
-}
-
 module.exports = {
   HULL_RADIUS,
   ROW_SPEED,
@@ -248,6 +181,4 @@ module.exports = {
   yieldToRiverBodies,
   currentAt,
   VesselMotion,
-  riverExit,
-  riverArrival,
 };

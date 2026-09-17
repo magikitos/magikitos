@@ -759,6 +759,7 @@
           1.2
         ],
         "scene": "river-willows",
+        "mode": "boat",
         "position": [
           48,
           10.8
@@ -774,6 +775,7 @@
           1.2
         ],
         "scene": "river-rapids",
+        "mode": "boat",
         "position": [
           48,
           133.20000000000002
@@ -789,6 +791,7 @@
           10
         ],
         "scene": "islet",
+        "mode": "boat",
         "position": [
           58,
           23

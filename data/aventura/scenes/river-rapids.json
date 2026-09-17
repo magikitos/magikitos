@@ -802,6 +802,7 @@
           1.2
         ],
         "scene": "river-reeds",
+        "mode": "boat",
         "position": [
           48,
           10.8
@@ -817,6 +818,7 @@
           1.2
         ],
         "scene": "river-roots",
+        "mode": "boat",
         "position": [
           48,
           133.20000000000002

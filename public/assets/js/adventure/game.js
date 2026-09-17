@@ -49,6 +49,7 @@ const { Self } = require("./self");
 const { expireTimers } = require("./timers");
 const { needStatus } = require("./needs");
 const { River } = require("./river");
+const { Crossings } = require("./crossings");
 const { Community } = require("./community");
 const { CloudSave } = require("./cloud-save");
 const { Sequence } = require("./sequence");
@@ -119,6 +120,7 @@ class Adventure {
     this.pickups = new PickupFeedback(this);
     this.self = new Self(this);
     this.river = new River(this);
+    this.crossings = new Crossings(this);
     this.cats = new CatEncounters(this);
     this.community = new Community(this);
     this.cloud = new CloudSave(this);
@@ -1016,6 +1018,9 @@ class Adventure {
           );
           this.running =
             this.walking && speed === RUN_SPEED && !this.player.pushing;
+          // Se anda hasta el borde de la pradera y se pasa a la pantalla de al lado, igual que
+          // remando: la misma pieza, el mismo viaje y el mismo aviso.
+          if (this.walking) this.crossings.check("foot");
         } else {
           const speed = this.boosted()
             ? RUN_SPEED
@@ -1027,6 +1032,7 @@ class Adventure {
           this.walking = travel.moved;
           this.running =
             this.walking && speed === RUN_SPEED && !this.player.pushing;
+          if (this.walking) this.crossings.check("foot");
           if (travel.arrived) this.interact(travel.arrived);
         }
       }

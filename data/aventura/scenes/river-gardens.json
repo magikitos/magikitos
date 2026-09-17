@@ -768,6 +768,7 @@
           1.2
         ],
         "scene": "river-roots",
+        "mode": "boat",
         "position": [
           48,
           10.8
@@ -783,6 +784,7 @@
           1.2
         ],
         "scene": "home-garden",
+        "mode": "boat",
         "position": [
           24,
           43
