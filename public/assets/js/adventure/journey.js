@@ -27,6 +27,17 @@ class Journey {
   get target() {
     return this.intent?.entity || null;
   }
+  /**
+   * Dónde acaba este viaje, para que la cámara pueda mirar AL SITIO que acabas de señalar en vez
+   * de al duende (ver `centerCamera`). El último nudo del camino es el destino exacto y no se
+   * mueve según se anda, porque los que se van gastando son los de delante; mientras se replanea
+   * el camino está vacío un instante y entonces vale la intención, que es lo mismo con menos
+   * precisión.
+   */
+  get goal() {
+    if (!this.intent) return null;
+    return this.path.at(-1) || this.intent.point || this.intent.entity || null;
+  }
   plan(world, actor) {
     const intent = this.intent;
     if (!intent || (intent.entity && !active(intent.entity, world.state)))

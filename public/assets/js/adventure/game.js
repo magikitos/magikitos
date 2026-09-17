@@ -32,6 +32,14 @@ const { WALK_SPEED, RUN_SPEED, routeDistance } = require("./locomotion");
  * Running is ~1.8px of target movement per frame at 60Hz, so this never
  * disengages while walking; a panned map is hundreds of pixels away. */
 const CAMERA_LOCK = 24;
+/**
+ * Lo deprisa que la cámara se pega a quien sigue, y lo despacio que VIAJA a un sitio que acabas
+ * de señalar. Son dos ritmos porque son dos cosas: seguir al duende que anda es no despegarse, y
+ * llevar la mirada a otro sitio es un movimiento que se ve, y que mareaba yendo al ritmo del
+ * primero. A 1,8 el viaje entero dura poco más de un segundo y medio.
+ */
+const CAMERA_FOLLOW_RATE = 9;
+const CAMERA_TRAVEL_RATE = 1.8;
 const { Embed } = require("./embed");
 const { Journey } = require("./journey");
 const { PickupFeedback } = require("./pickups");
@@ -786,7 +794,18 @@ class Adventure {
       this.camera = clampCamera(this.camera, this.world, this.renderer);
       return;
     }
-    const subject = (reading ? this.site.focus() : null) || this.player;
+    /**
+     * ⛔ AL TOCAR UN SITIO, LA CÁMARA VA AL SITIO, NO AL DUENDE (17-sep-2026, decisión del dueño).
+     *
+     * Tocar el mapa para andar devolvía la cámara al duende, y con el mapa desplazado eso es un
+     * barrido de cientos de píxeles: aunque vaya suavizado, marea. Lo que de verdad te interesa
+     * mirar es el sitio que acabas de señalar —que además estaba en pantalla, porque lo has
+     * tocado—, así que la cámara se lleva allí despacio y el duende entra en cuadro andando. Ya
+     * llegará. Al terminar el viaje el destino y el duende son casi el mismo punto, así que
+     * volver a seguirle no se nota.
+     */
+    const goal = reading ? null : this.journey.goal;
+    const subject = (reading ? this.site.focus() : null) || goal || this.player;
     const target = clampCamera(
       {
         x: subject.x - this.renderer.width / 2,
@@ -809,11 +828,14 @@ class Adventure {
     // the threshold, so it stays glued exactly as before; the only moment this
     // eases is right after you moved the map, which is the jolt it exists for.
     const gap = Math.hypot(target.x - this.camera.x, target.y - this.camera.y);
-    if (snap || (tracking && !reading && gap <= CAMERA_LOCK))
+    // Un destino no se persigue: se va a él. Por eso el enganche instantáneo es solo para quien
+    // camina, que es lo que hace que seguirle no tiemble.
+    if (snap || (!goal && tracking && !reading && gap <= CAMERA_LOCK))
       this.camera = target;
     else {
-      this.camera.x += (target.x - this.camera.x) * this.cameraEase;
-      this.camera.y += (target.y - this.camera.y) * this.cameraEase;
+      const ease = goal ? this.cameraTravelEase : this.cameraEase;
+      this.camera.x += (target.x - this.camera.x) * ease;
+      this.camera.y += (target.y - this.camera.y) * ease;
     }
     this.camera = clampCamera(this.camera, this.world, this.renderer);
   }
@@ -944,7 +966,8 @@ class Adventure {
     }
     this.audio.update(this.world, this.player, ms);
     this.telemetry.tick();
-    this.cameraEase = 1 - Math.exp(-dt * 9);
+    this.cameraEase = 1 - Math.exp(-dt * CAMERA_FOLLOW_RATE);
+    this.cameraTravelEase = 1 - Math.exp(-dt * CAMERA_TRAVEL_RATE);
     this.walking = false;
     this.running = false;
     this.player.pushing = null;
@@ -1008,8 +1031,10 @@ class Adventure {
     this.scenes.prewarm(ms);
     this.rooms.enforce();
     this.community.paint();
-    // Panning is a stationary inspection mode. Any actual player movement resumes follow.
-    if (this.walking) this.cameraFollowing = true;
+    // Panning is a stationary inspection mode. Any actual player movement resumes follow — y
+    // señalar un destino también, desde el toque y no desde el primer paso: la cámara ya está
+    // haciendo algo que tú le has pedido.
+    if (this.walking || this.journey.intent) this.cameraFollowing = true;
     this.centerCamera();
     // Suspend expensive animation behind reading/dialogs; render only 12fps there.
     const calm =
@@ -1036,6 +1061,10 @@ class Adventure {
       player: { ...this.player },
       camera: { ...this.camera },
       cameraFollowing: this.cameraFollowing,
+      // Solo el punto: el destino puede ser una entidad entera y esto se serializa en cada sonda.
+      cameraGoal: this.journey.goal
+        ? { x: this.journey.goal.x, y: this.journey.goal.y }
+        : null,
       pace: this.running ? "run" : this.walking ? "walk" : "idle",
       flags: { ...this.state.flags },
       timers: { ...this.state.timers },

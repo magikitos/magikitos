@@ -418,6 +418,121 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
         { timeout: 4000 },
       );
 
+      /**
+       * ⛔ Y LA CÁMARA VA AL SITIO QUE HAS TOCADO, NO AL DUENDE (17-sep-2026, decisión del
+       * dueño): «habría en realidad que llevar lentamente la cámara poniendo en el centro el
+       * destino final seleccionado. Da igual que el duende esté en otro lado, ya llegará».
+       *
+       * Suavizar el regreso no bastaba: con el mapa desplazado, volver al duende sigue siendo un
+       * barrido de cientos de píxeles en la dirección CONTRARIA a la que acabas de señalar, y eso
+       * es lo que marea. Aquí se comprueba lo único que lo distingue de verdad: que el centro de
+       * la cámara acaba en el destino y que en NINGÚN momento del viaje se acerca a donde estaba
+       * el duende cuando tocaste.
+       */
+      await page.waitForFunction(
+        () => {
+          const s = window.MagikitosAdventure.inspect();
+          return !s.travel.intent && s.pace === "idle";
+        },
+        null,
+        { timeout: 10000 },
+      );
+      const partida = (await inspect()).player;
+      await page.mouse.move(
+        lienzo.x + lienzo.width * 0.5,
+        lienzo.y + lienzo.height * 0.5,
+      );
+      await page.mouse.down();
+      for (let i = 1; i <= 8; i++)
+        await page.mouse.move(
+          lienzo.x + lienzo.width * 0.5 - i * 20,
+          lienzo.y + lienzo.height * 0.5 - i * 14,
+        );
+      await page.mouse.up();
+      assert(!(await inspect()).cameraFollowing, "el mapa queda desplazado a mano");
+      // El sitio no se escribe a mano: se prueban unos cuantos y vale el primero que de verdad
+      // arranca un viaje, que es lo que sobrevive a que el dueño redibuje el bosque.
+      let meta = null;
+      for (const [dx, dy] of [[170, 100], [-170, 100], [170, -100], [-170, -100], [0, 190]]) {
+        await clickWorld({ x: partida.x + dx, y: partida.y + dy });
+        await page.waitForTimeout(60);
+        const s = await inspect();
+        if (s.cameraGoal) {
+          meta = s.cameraGoal;
+          break;
+        }
+      }
+      assert(meta, "ningún destino de prueba arrancó un viaje");
+      const viaje = await page.evaluate(
+        ([partida, meta]) =>
+          new Promise((listo) => {
+            const muestras = [];
+            const paso = () => {
+              const s = window.MagikitosAdventure.inspect();
+              const c = {
+                x: s.camera.x + s.view.width / 2,
+                y: s.camera.y + s.view.height / 2,
+              };
+              muestras.push({
+                x: c.x,
+                y: c.y,
+                alDuende: Math.hypot(c.x - partida.x, c.y - partida.y),
+                aLaMeta: Math.hypot(c.x - meta.x, c.y - meta.y),
+                viajando: Boolean(s.cameraGoal),
+              });
+              if (muestras.length < 300 && (s.cameraGoal || muestras.length < 5))
+                requestAnimationFrame(paso);
+              else listo(muestras);
+            };
+            requestAnimationFrame(paso);
+          }),
+        [partida, meta],
+      );
+      const primera = viaje[0],
+        ultima = viaje.at(-1);
+      assert(
+        ultima.aLaMeta < primera.aLaMeta * 0.35,
+        "la cámara acaba mirando el destino: " + JSON.stringify({ primera, ultima }),
+      );
+      assert(
+        Math.min(...viaje.map((m) => m.alDuende)) >= primera.alDuende - 30,
+        "y no se va corriendo a por el duende por el camino: " +
+          JSON.stringify({ inicio: primera.alDuende, minimo: Math.min(...viaje.map((m) => m.alDuende)) }),
+      );
+      let mayor = 0;
+      for (let i = 1; i < viaje.length; i++)
+        mayor = Math.max(mayor, Math.hypot(viaje[i].x - viaje[i - 1].x, viaje[i].y - viaje[i - 1].y));
+      assert(
+        mayor < primera.aLaMeta * 0.25,
+        "y llega despacio, sin tirones: " + JSON.stringify({ mayor, recorrido: primera.aLaMeta }),
+      );
+      await page
+        .waitForFunction(
+          () => window.MagikitosAdventure.inspect().cameraGoal === null,
+          null,
+          { timeout: 12000 },
+        )
+        .catch(async (error) => {
+          const s = await inspect();
+          console.error(
+            "  el viaje no termina:",
+            JSON.stringify({ meta, player: s.player, travel: s.travel, pace: s.pace }),
+          );
+          throw error;
+        });
+      console.log(
+        "  PASS cámara al destino: " +
+          Math.round(primera.aLaMeta) +
+          "px de viaje, mayor paso " +
+          Math.round(mayor) +
+          "px, sin acercarse al duende (mínimo " +
+          Math.round(Math.min(...viaje.map((m) => m.alDuende))) +
+          "px de donde estaba)",
+      );
+      // Y se vuelve al mundo con el que trabaja el resto del barrido: lo que sigue toca puntos
+      // del mapa en coordenadas fijas y solo se puede tocar lo que se ve.
+      await seed({ scene: "overworld", position: { x: 900, y: 900 } });
+
       await clickWorld({ x: 1000, y: 906 });
       await page.waitForFunction(() =>
         Boolean(window.MagikitosAdventure.inspect().dialogue),
