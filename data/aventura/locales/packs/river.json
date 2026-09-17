@@ -1,0 +1,74 @@
+{
+  "boatReady": {
+    "es": "¡Vaya barcazo, miarma! Ahí se queda, amarrada a la punta del muelle, esperando.",
+    "en": "Would you look at that beauty! There she stays, tied at the end of the jetty, waiting.",
+    "de": "Was für ein Prachtkahn! Da liegt er nun, am Ende des Stegs, und wartet.",
+    "fr": "Quelle merveille ! La voilà amarrée au bout du ponton, qui attend.",
+    "it": "Che barcone, bellezza! Eccola lì, ormeggiata in fondo al pontile, che aspetta.",
+    "pt": "Que barcaça, meu! Ali fica ela, amarrada à ponta do cais, à espera."
+  },
+  "boatRecipe": {
+    "es": "«Con un par de remos y cualquier cosa que flote, aquí se hace una barquita». Lo firma alguien que sabe.",
+    "en": "«A pair of oars and anything that floats, and you've got yourself a little boat.» Signed by somebody who knows.",
+    "de": "«Zwei Ruder und irgendwas, das schwimmt, und fertig ist das Bötchen.» Unterschrieben von jemandem, der's weiß.",
+    "fr": "« Deux rames et n'importe quoi qui flotte, et voilà un petit bateau. » Signé par quelqu'un qui s'y connaît.",
+    "it": "«Un paio di remi e qualsiasi cosa che galleggi, ed ecco una barchetta». Firmato da chi se ne intende.",
+    "pt": "«Um par de remos e qualquer coisa que flutue, e já tens um barquinho». Assinado por quem sabe."
+  },
+  "craftBottle": {
+    "es": "Montar mi barca",
+    "en": "Build my boat",
+    "de": "Boot bauen",
+    "fr": "Construire mon bateau",
+    "it": "Costruisci la barca",
+    "pt": "Montar o meu barco"
+  },
+  "dockReady": {
+    "es": "La barca ya está. El río hace el resto.",
+    "en": "The boat is ready. The river does the rest.",
+    "de": "Das Boot steht. Den Rest macht der Fluss.",
+    "fr": "Le bateau est prêt. La rivière fait le reste.",
+    "it": "La barca è pronta. Al resto ci pensa il fiume.",
+    "pt": "O barco está pronto. O resto fá-lo o rio."
+  },
+  "riverAngler": {
+    "es": "En el centro tira más. Por eso pesco aquí, que el remanso no discute.",
+    "en": "It pulls harder out in the middle. That's why I fish here: still water doesn't argue.",
+    "de": "In der Mitte zieht es stärker. Darum angle ich hier, stilles Wasser widerspricht nicht.",
+    "fr": "Ça tire plus fort au milieu. C'est pour ça que je pêche ici, l'eau calme ne discute pas.",
+    "it": "In mezzo tira di più. Per questo pesco qui, che l'acqua ferma non discute.",
+    "pt": "No meio puxa mais. É por isso que pesco aqui, que a água parada não discute."
+  },
+  "riverBump": {
+    "es": [
+      "¡Quillo, mira por dónde vas, que hay río pa todos!",
+      "¡Ojo, criatura, que casi me llevas por delante!",
+      "¡Ea! Que el río es ancho y tú vienes derecho a mí."
+    ],
+    "en": [
+      "Oi, watch where you're going, there's river enough for everyone!",
+      "Careful, creature, you nearly took me with you!",
+      "Easy there! The river is wide and you're heading straight for me."
+    ],
+    "de": [
+      "He, pass auf, wo du hinfährst, der Fluss reicht für alle!",
+      "Vorsicht, Kleines, fast hättest du mich mitgenommen!",
+      "Sachte! Der Fluss ist breit und du hältst genau auf mich zu."
+    ],
+    "fr": [
+      "Hé, regarde où tu vas, il y a de la rivière pour tout le monde !",
+      "Doucement, créature, tu as failli m'emporter !",
+      "Oh là ! La rivière est large et tu fonces droit sur moi."
+    ],
+    "it": [
+      "Ehi, guarda dove vai, che di fiume ce n'è per tutti!",
+      "Piano, creatura, per poco non mi porti via!",
+      "Ohé! Il fiume è largo e tu punti dritto a me."
+    ],
+    "pt": [
+      "Ó pá, olha por onde vais, que há rio para todos!",
+      "Calma, criatura, quase que me levas à frente!",
+      "Eh lá! O rio é largo e tu vens direitinho a mim."
+    ]
+  }
+}

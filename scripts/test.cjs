@@ -3,6 +3,7 @@ const { execFileSync } = require("node:child_process");
 execFileSync(process.execPath, ["tools/build.cjs"], { stdio: "inherit" });
 for (const name of [
   "check-adventure",
+  "check-adventure-locales",
   "check-river-core",
   "check-world-polish",
   "check-community-foundations",

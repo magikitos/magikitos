@@ -172,7 +172,8 @@
           52.73,
           71
         ]
-      }
+      },
+      "bump": "riverBump"
     }
   ],
   "scenery": [
@@ -839,7 +840,8 @@
       ],
       "speed": 5,
       "phase": 65,
-      "offset": -7
+      "offset": -7,
+      "bump": "riverBump"
     }
   ]
 }

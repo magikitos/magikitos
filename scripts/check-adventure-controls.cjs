@@ -201,7 +201,17 @@ assert.deepEqual(
 );
 assert.deepEqual(cleanWallet(cleanWallet(wallet, catalog), catalog), wallet);
 assert.equal(cleanWallet({ balance: 5, claimed: {} }, catalog).balance, 5);
-assert.equal(dialogueText(":reward", catalog), "10");
+// El mundo ya no escribe precios dentro de una frase, así que lo que se comprueba es que la
+// máquina sigue sabiendo ponerlos —vuelven el día que el dueño quiera— y que un token que nadie
+// declara se queda tal cual en vez de desaparecer, que es lo que delataría una frase a medias.
+assert.equal(dialogueText(":reward", catalog), ":reward");
+assert.equal(
+  dialogueText("por :reward setines y :price monedas", {
+    economy: { fares: { wish: 3 }, rewards: { picnic: { amount: 10 } } },
+    dialogueTokens: { reward: { reward: "picnic" }, price: { fare: "wish" } },
+  }),
+  "por 10 setines y 3 monedas",
+);
 for (const scene of Object.values(catalog.scenes))
   for (const boat of scene.entities.filter(
     (e) => e.interactAs && e.sprite === "bottle-boat",

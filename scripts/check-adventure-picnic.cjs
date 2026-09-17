@@ -23,20 +23,31 @@ const catalog = JSON.parse(
 const scene = catalog.scenes.overworld,
   world = new World(scene);
 const entity = (id) => world.entities.find((e) => e.id === id);
-for (const lang of ["es", "en", "de", "fr", "it", "pt"]) {
-  const strings = require("../data/aventura/locales/" + lang + ".json");
-  for (const scene of Object.values(catalog.scenes))
-    for (const e of scene.entities) {
-      for (const a of e.actions || [])
-        assert(strings[a.label], lang + ": action label " + a.label);
-      for (const r of e.rules)
-        for (const effect of r.effects)
-          if (effect.type === "dialogue")
-            assert(strings[effect.key], lang + ": dialogue " + effect.key);
+/**
+ * Cada pantalla tiene que poder decir todo lo suyo con lo que trae ella más el motor, y en los
+ * seis idiomas. Componer ya aborta ante una clave que falte; esto comprueba lo que de verdad ve
+ * el jugador: que ninguna frase de una pantalla se resuelva a su propia clave.
+ */
+{
+  const { composeLocales } = require("../tools/locales.cjs");
+  const { core, scenes } = composeLocales(catalog);
+  for (const lang of ["es", "en", "de", "fr", "it", "pt"]) {
+    for (const [id, scene] of Object.entries(catalog.scenes)) {
+      const say = (key) => scenes[id][lang][key] ?? core[lang][key];
+      for (const e of scene.entities) {
+        for (const a of e.actions || [])
+          assert(say(a.label), lang + "/" + id + ": action label " + a.label);
+        for (const r of e.rules)
+          for (const effect of r.effects)
+            if (effect.type === "dialogue")
+              assert(say(effect.key), lang + "/" + id + ": dialogue " + effect.key);
+      }
     }
-  for (const item of Object.values(catalog.items)) {
-    assert(strings[item.name], lang + ": item name");
-    assert(strings[item.description], lang + ": item description");
+    // El saco se abre en cualquier pantalla, así que los objetos los nombra el motor.
+    for (const item of Object.values(catalog.items)) {
+      assert(core[lang][item.name], lang + ": item name " + item.name);
+      assert(core[lang][item.description], lang + ": item description");
+    }
   }
 }
 const hour = 3600000,
@@ -67,7 +78,8 @@ assert.equal(state.inventory.lighter, 1);
 assert(!state.inventory.mushroom && !state.inventory.twig);
 react("picnic-neighbor", { action: "give" });
 assert.equal(state.timers.picnic, now + 5 * hour);
-assert.equal(state.wallet.balance, 10);
+assert.equal(state.inventory.oars, 1, "The old man hands over his oars");
+assert.equal(state.wallet.balance, 0, "and not a single setín: those are earned on the website");
 assert(state.flags.picnicFed);
 for (const e of world.entities.filter(
   (e) => e.id.startsWith("human-picnic") || e.id === "human-smoker",
@@ -113,11 +125,7 @@ assert.equal(
   now + 10 * hour,
   "Every meal starts a fresh five hours",
 );
-assert.equal(
-  state.wallet.balance,
-  10,
-  "The initial round-trip reward is not farmed",
-);
+assert.equal(state.wallet.balance, 0, "and a second meal still mints nothing");
 assert.equal(state.inventory.knife, 1);
 assert.equal(state.inventory.lighter, 1);
 assert(

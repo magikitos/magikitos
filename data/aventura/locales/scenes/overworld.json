@@ -1,0 +1,422 @@
+{
+  "ambientGarden": {
+    "es": "Estoy vigilando cómo crece la hierba. Por ahora, va ganando ella.",
+    "en": "I’m watching the grass grow. So far, it’s winning.",
+    "de": "Ich passe auf, wie das Gras wächst. Bisher gewinnt es.",
+    "fr": "Je surveille la pousse de l’herbe. Pour l’instant, elle gagne.",
+    "it": "Sto guardando crescere l’erba. Per ora vince lei.",
+    "pt": "Estou a vigiar o crescimento da erva. Por enquanto, ela vai a ganhar."
+  },
+  "ambientHat": {
+    "es": "Mi gorro no está torcido. Está pensando de lado.",
+    "en": "My hat isn’t crooked. It’s thinking sideways.",
+    "de": "Mein Hut ist nicht schief. Er denkt seitwärts.",
+    "fr": "Mon bonnet n’est pas tordu. Il réfléchit de travers.",
+    "it": "Il mio cappello non è storto. Pensa di lato.",
+    "pt": "O meu gorro não está torto. Está a pensar de lado."
+  },
+  "ambientHunger": {
+    "es": "Me ha sonao la barriga y ha contestao el eco. Me siento un rato a ver si se calman los dos.",
+    "en": "My belly rumbled and the echo answered. I'll sit a while and let the two of them settle.",
+    "de": "Mein Bauch hat geknurrt und das Echo hat geantwortet. Ich setz mich hin, bis sich die beiden beruhigen.",
+    "fr": "Mon ventre a gargouillé et l'écho a répondu. Je m'assois le temps qu'ils se calment tous les deux.",
+    "it": "Mi ha brontolato la pancia e l'eco ha risposto. Mi siedo un po', finché non si calmano tutti e due.",
+    "pt": "Deu-me um ronco na barriga e o eco respondeu. Sento-me um bocado até os dois se acalmarem."
+  },
+  "ambientLake": {
+    "es": "He venido a escuchar el agua. De momento no me ha pedido ningún favor.",
+    "en": "I came to listen to the water. It hasn’t asked me for any favors yet.",
+    "de": "Ich höre dem Wasser zu. Es hat mich noch um keinen Gefallen gebeten.",
+    "fr": "Je suis venu écouter l’eau. Elle ne m’a encore demandé aucun service.",
+    "it": "Sono venuto ad ascoltare l’acqua. Non mi ha ancora chiesto favori.",
+    "pt": "Vim ouvir a água. Ainda não me pediu nenhum favor."
+  },
+  "barbecueAfter": {
+    "es": "Ya llevamos un pinchito en el saco. Vamos a repartir alegría antes de montar otro.",
+    "en": "Already got a skewer in the sack. Let's share it before grilling another.",
+    "de": "Ein Spieß ist schon im Sack. Erst verschenken, dann weitergrillen.",
+    "fr": "On a déjà une brochette. Allons la partager avant d’en refaire une.",
+    "it": "Abbiamo già uno spiedino nel sacco. Regaliamolo prima di prepararne un altro.",
+    "pt": "Já temos uma espetada no saco. Vamos partilhá-la antes de fazer outra."
+  },
+  "barbecueHint": {
+    "es": "Esta barbacoa está más muerta que un peo, esto hay que encenderlo. A ver dónde encuentro fuego.",
+    "en": "This barbecue's dead as a fart. Needs lighting. Where can I nick a spark?",
+    "de": "Der Grill ist tot wie ein alter Pups. Hier muss Feuer her. Wo krieg ich 'nen Funken?",
+    "fr": "Ce barbecue est aussi mort qu'un vieux pet. Faut rallumer ça. Où je peux trouver du feu ?",
+    "it": "Questo barbecue è più morto di una puzzetta. Va acceso. Dove rimedio un po' di fuoco?",
+    "pt": "Este grelhador está mais morto que um peido. É preciso acender isto. Onde arranjo lume?"
+  },
+  "barbecueLightReady": {
+    "es": "Mechero tenemos. ¡Dale candela a esto, que no se va a encender con mirarlo!",
+    "en": "Got a lighter. Go on, give it some fire! Staring at it won't cook dinner.",
+    "de": "Feuerzeug ist da. Na los, Feuer frei! Vom Anstarren wird das Essen nicht warm.",
+    "fr": "J'ai le briquet. Allez, on allume ! C'est pas en le fixant qu'on va manger.",
+    "it": "L'accendino c'è. Dai, accendiamo! A fissarlo mica si cucina.",
+    "pt": "Isqueiro já tenho. Bora lá acender! Só a olhar para isto não se faz o jantar."
+  },
+  "barbecueName": {
+    "es": "La barbacoa del claro",
+    "en": "The clearing barbecue",
+    "de": "Der Lichtungsgrill",
+    "fr": "Le barbecue de la clairière",
+    "it": "La griglia della radura",
+    "pt": "O churrasco da clareira"
+  },
+  "binReminder": {
+    "es": "La basura va aquí dentro, quillo. No por el suelo.",
+    "en": "Rubbish belongs in here, mate. Not on the ground.",
+    "de": "Müll gehört hier rein, nicht auf den Boden.",
+    "fr": "Les déchets, ça va là-dedans, pas par terre !",
+    "it": "La spazzatura va qui dentro, mica per terra!",
+    "pt": "O lixo é aqui dentro, pá. Não é no chão."
+  },
+  "bottleFound": {
+    "es": "¡Una botella! Con un cortecito y un par de remos, esto tiene pinta de barcazo.",
+    "en": "A bottle! One careful cut and a couple of oars… that's a boat in the making.",
+    "de": "Eine Flasche! Ein sauberer Schnitt, zwei Ruder … das wird ein Boot!",
+    "fr": "Une bouteille ! Une petite découpe, deux rames… ça sent le bateau !",
+    "it": "Una bottiglia! Un bel taglio, un paio di remi… e abbiamo una barca!",
+    "pt": "Uma garrafa! Um corte certinho, dois remos… isto vai dar um barquinho!"
+  },
+  "campBench": {
+    "es": "Un banco mirando al fuego. Aquí se viene a escuchar cuentos y a dejar el reloj tranquilo.",
+    "en": "A bench by the fire. Lovely. Even my to-do list can take the night off.",
+    "de": "Eine Bank am Feuer. Schön. Sogar meine To-do-Liste darf heute Pause machen.",
+    "fr": "Un banc près du feu. Nickel. Même ma liste de corvées peut prendre sa soirée.",
+    "it": "Una panchina davanti al fuoco. Perfetto. Stasera va in vacanza anche la lista delle cose da fare.",
+    "pt": "Um banco junto à fogueira. Boa. Até a lista de tarefas pode tirar a noite de folga."
+  },
+  "campfire": {
+    "es": "La fogata de los cuentos",
+    "en": "The storytelling campfire",
+    "de": "Das Geschichtenfeuer",
+    "fr": "Le feu des histoires",
+    "it": "Il falò delle storie",
+    "pt": "A fogueira dos contos"
+  },
+  "cookSkewer": {
+    "es": "Asar la brocheta",
+    "en": "Grill the skewer",
+    "de": "Spieß grillen",
+    "fr": "Griller la brochette",
+    "it": "Griglia lo spiedino",
+    "pt": "Grelhar a espetada"
+  },
+  "enter_stories": {
+    "es": "Escuchar cuentos",
+    "en": "Listen to stories",
+    "de": "Geschichten hören",
+    "fr": "Écouter des contes",
+    "it": "Ascoltare racconti",
+    "pt": "Ouvir contos"
+  },
+  "fireLit": {
+    "es": "¡Ea, encendida! Y con las cejas en su sitio. Ya tenemos brasa pa ese pinchito.",
+    "en": "It's lit! And all my eyebrows are intact. The coals are ready for a skewer.",
+    "de": "Es brennt! Und meine Augenbrauen sind noch da. Die Glut ist bereit für den Spieß.",
+    "fr": "C’est allumé ! Et j’ai encore tous mes sourcils. La braise est prête pour la brochette.",
+    "it": "Accesa! E ho ancora tutte le sopracciglia. La brace è pronta per lo spiedino.",
+    "pt": "Aceso! E ainda tenho as sobrancelhas todas. A brasa está pronta para a espetada."
+  },
+  "fisher": {
+    "es": "El refugio de la maceta",
+    "en": "The flowerpot shelter",
+    "de": "Das Blumentopfhaus",
+    "fr": "L’abri du pot de fleurs",
+    "it": "Il rifugio nel vaso",
+    "pt": "O abrigo no vaso"
+  },
+  "forestSign": {
+    "es": "«Bienvenido al bosque». Y debajo, en letra más chica: «no hace falta llegar a ningún sitio».",
+    "en": "«Welcome to the woods.» And underneath, in smaller letters: «there is nowhere you need to get to.»",
+    "de": "«Willkommen im Wald.» Und darunter, kleiner: «Du musst nirgendwo ankommen.»",
+    "fr": "« Bienvenue dans le bois. » Et dessous, en plus petit : « tu n'as nulle part où arriver. »",
+    "it": "«Benvenuto nel bosco». E sotto, in lettere più piccole: «non devi arrivare da nessuna parte».",
+    "pt": "«Bem-vindo ao bosque». E por baixo, em letra mais pequena: «não tens de chegar a lado nenhum»."
+  },
+  "fountain": {
+    "es": "La fuente de los deseos",
+    "en": "The wishing fountain",
+    "de": "Der Wunschbrunnen",
+    "fr": "La fontaine aux souhaits",
+    "it": "La fontana dei desideri",
+    "pt": "A fonte dos desejos"
+  },
+  "fountainWish": {
+    "es": "Pido un deseo. No digo cuál, que si se dice no sale. Y a este le tengo cariño.",
+    "en": "Making a wish. Not saying what, mind you, saying it breaks it. And I'm rather fond of this one.",
+    "de": "Ich wünsche mir was. Sage aber nicht was, sonst wird's nichts. Und an diesem hier hänge ich.",
+    "fr": "Je fais un vœu. Je ne dis pas lequel, ça le casserait. Et celui-là, j'y tiens.",
+    "it": "Esprimo un desiderio. Non dico quale, che se lo dici non si avvera. E a questo ci tengo.",
+    "pt": "Peço um desejo. Não digo qual, que assim não se realiza. E a este tenho-lhe carinho."
+  },
+  "giveSkewer": {
+    "es": "Regalar la brocheta",
+    "en": "Give the skewer",
+    "de": "Pilzspieß schenken",
+    "fr": "Offrir la brochette",
+    "it": "Regala lo spiedino",
+    "pt": "Oferecer a espetada"
+  },
+  "humanPicnicFriend": {
+    "es": "Se han traído merienda pa un regimiento. Y yo aquí, que quepo detrás de la cesta.",
+    "en": "They've packed enough for an army. Meanwhile, I could hide behind the basket.",
+    "de": "Die haben Essen für eine ganze Truppe dabei. Ich passe hinter den Korb.",
+    "fr": "Ils ont prévu à manger pour un régiment. Moi, je tiens derrière le panier.",
+    "it": "Hanno portato da mangiare per un esercito. Io potrei nascondermi dietro al cestino.",
+    "pt": "Trouxeram comida para um batalhão. Eu cá cabia atrás do cesto."
+  },
+  "humanSmoker": {
+    "es": "Este está a su cigarrito, tan pancho. Ni se huele lo que tiene alrededor.",
+    "en": "This one's away with his cigarette, not a care. Hasn't the faintest idea what's around him.",
+    "de": "Der ist ganz bei seiner Zigarette, seelenruhig. Hat keinen Schimmer, was um ihn herum liegt.",
+    "fr": "Celui-là est à sa cigarette, tranquille. Il n'a pas la moindre idée de ce qu'il a autour.",
+    "it": "Questo è tutto preso dalla sua sigaretta, beato lui. Non si accorge di niente di quel che ha intorno.",
+    "pt": "Este está entretido com o cigarro, todo descansado. Nem dá pela que tem à volta."
+  },
+  "invite_stories": {
+    "es": [
+      "Aquí andamos con los cuentos. ¿Te sientas un rato?",
+      "Shhh, que va a empezar uno. ¿Te quedas?",
+      "Esto es la hoguera de los cuentos. Aquí se viene a escuchar.",
+      "Tenemos cuentos de todas partes, contados por gente de verdad.",
+      "Siéntate donde quieras, que aquí el que cuenta, cuenta."
+    ],
+    "en": [
+      "We're on the stories here. Fancy sitting down a while?",
+      "Shhh, one's about to start. Staying?",
+      "This is the story fire. You come here to listen.",
+      "We have stories from all over, told by real people.",
+      "Sit wherever you like. Whoever tells, tells."
+    ],
+    "de": [
+      "Hier sind wir bei den Geschichten. Setzt du dich ein Weilchen?",
+      "Pssst, gleich geht eine los. Bleibst du?",
+      "Das ist das Geschichtenfeuer. Hierher kommt man zum Zuhören.",
+      "Wir haben Geschichten von überall, erzählt von echten Leuten.",
+      "Setz dich, wohin du magst. Wer erzählt, erzählt."
+    ],
+    "fr": [
+      "Ici on est sur les contes. Tu t’assieds un moment ?",
+      "Chut, il y en a un qui commence. Tu restes ?",
+      "C’est le feu des contes. On vient ici pour écouter.",
+      "On a des contes de partout, racontés par de vraies gens.",
+      "Assieds-toi où tu veux. Celui qui raconte, raconte."
+    ],
+    "it": [
+      "Qui stiamo con i racconti. Ti siedi un po’?",
+      "Shhh, ne sta per partire uno. Rimani?",
+      "Questo è il fuoco dei racconti. Qui si viene ad ascoltare.",
+      "Abbiamo racconti da ogni parte, detti da gente vera.",
+      "Siediti dove vuoi. Qui chi racconta, racconta."
+    ],
+    "pt": [
+      "Aqui andamos com os contos. Sentas-te um bocado?",
+      "Shhh, que vai começar um. Ficas?",
+      "Isto é a fogueira dos contos. Vem-se cá para ouvir.",
+      "Temos contos de todo o lado, contados por gente a sério.",
+      "Senta-te onde quiseres. Aqui quem conta, conta."
+    ]
+  },
+  "lakeBench": {
+    "es": "Agüita, sombra y un banco. Quillo, aquí no hace falta mucho más.",
+    "en": "Water, shade and a bench. Someone's got the right idea.",
+    "de": "Wasser, Schatten und eine Bank. Hier weiß jemand, wie's geht.",
+    "fr": "De l'eau, de l'ombre et un banc. Quelqu'un a tout compris.",
+    "it": "Acqua, ombra e una panchina. Qui qualcuno ha capito tutto.",
+    "pt": "Água, sombra e um banco. Alguém aqui sabe viver."
+  },
+  "mushroomPlant": {
+    "es": "La seta grandota",
+    "en": "The big mushroom",
+    "de": "Der große Pilz",
+    "fr": "Le gros champignon",
+    "it": "Il fungone",
+    "pt": "O cogumelão"
+  },
+  "noPooping": {
+    "es": "«Prohibido cagar aquí»... ¡anda ya! Pues cuando me entren ganas de plantar un pino ya sé dónde voy a venir.",
+    "en": "“No pooping here”... yeah, right! When nature calls, I know exactly where I'm heading.",
+    "de": "„Hier nicht kacken“... ja nee, ist klar! Wenn's drückt, weiß ich jetzt, wohin.",
+    "fr": "« Interdit de faire caca ici »... mais bien sûr ! Quand l'envie viendra, je saurai où aller.",
+    "it": "«Vietato fare la cacca qui»... sì, come no! Quando mi scappa, so già dove venire.",
+    "pt": "«Proibido fazer cocó aqui»... está bem, está! Quando me der a vontade, já sei onde venho."
+  },
+  "picnicAfter": {
+    "es": "Qué gloria de pinchito. Dame cinco horitas pa la digestión, que ahora no me cabe ni una mijita.",
+    "en": "Lovely stuff. Give me five hours to digest. Not even a crumb would fit right now.",
+    "de": "War das lecker! Gib mir fünf Stunden zum Verdauen. Nicht mal ein Krümel passt noch rein.",
+    "fr": "Quel régal ! Laisse-moi cinq heures pour digérer. Même une miette ne passerait plus.",
+    "it": "Che bontà! Dammi cinque ore per digerire. Non ci sta più neanche una briciola.",
+    "pt": "Que maravilha! Dá-me cinco horas para digerir. Não cabe nem mais uma migalha."
+  },
+  "picnicBin": {
+    "es": "Papelera del merendero",
+    "en": "Picnic bin",
+    "de": "Picknick-Mülleimer",
+    "fr": "Poubelle du pique-nique",
+    "it": "Cestino del picnic",
+    "pt": "Caixote do piquenique"
+  },
+  "picnicDirections": {
+    "es": "«Cuidado con los humanos». Que no muerden, pero chillan más que nosotros.",
+    "en": "«Mind the humans.» They don't bite, but they squeal louder than we do.",
+    "de": "«Vorsicht, Menschen.» Beißen tun sie nicht, aber sie quieken lauter als wir.",
+    "fr": "« Attention aux humains. » Ils ne mordent pas, mais ils crient plus fort que nous.",
+    "it": "«Attenzione agli umani». Non mordono, però strillano più di noi.",
+    "pt": "«Atenção aos humanos». Não mordem, mas guincham mais do que nós."
+  },
+  "picnicHumans": {
+    "es": "Humanos de merienda",
+    "en": "The picnickers",
+    "de": "Die Picknicker",
+    "fr": "Les humains du pique-nique",
+    "it": "Gli umani del picnic",
+    "pt": "Os humanos do piquenique"
+  },
+  "picnicHungry": {
+    "es": "Estoy ya mu viejo pa remar y más viejo aún pa andar con barbacoas, pero pa compartir siempre me queda cuerda. ¿Nos zampamos una brocheta juntos?",
+    "en": "I'm too old for rowing and older still for barbecues, but I've always got rope left for sharing. Shall we split a skewer, you and me?",
+    "de": "Zum Rudern bin ich zu alt und zum Grillen erst recht, aber zum Teilen reicht's immer noch. Wie wär's mit einem Spieß zu zweit?",
+    "fr": "Je suis trop vieux pour ramer et encore plus pour le barbecue, mais pour partager il m'en reste toujours. On s'enfile une brochette à deux ?",
+    "it": "Sono troppo vecchio per remare e ancora di più per le grigliate, ma per condividere me ne resta sempre. Ci spartiamo uno spiedino?",
+    "pt": "Já estou velho de mais para remar e mais ainda para churrascos, mas para partilhar sobra-me sempre. Vamos a um espetinho a meias?"
+  },
+  "picnicHungryAgain": {
+    "es": "¡Ea, ya está la barriga dando palmas otra vez! ¿Me apañas otra brocheta, figura?",
+    "en": "There goes my belly again, kicking up a right fuss. Another skewer, legend?",
+    "de": "Na toll, mein Bauch macht wieder Randale! Noch einen Spieß, du Held?",
+    "fr": "Et voilà, mon ventre remet le bazar ! Tu me refais une brochette, champion ?",
+    "it": "Ecco, la pancia ricomincia a fare casino! Un altro spiedino, campione?",
+    "pt": "Pronto, a barriga já está a armar confusão outra vez! Fazes outra espetada, campeão?"
+  },
+  "picnicKnife": {
+    "es": "Vaya navajita que tienen los colegas, esta me la llevo yo que me viene canela pa cortar las setas.",
+    "en": "That's a tidy little knife those two have. I'll borrow it. Just the job for chopping mushrooms.",
+    "de": "Schickes Messer haben die Kollegen da. Das nehm ich mit, perfekt zum Pilzeschnippeln.",
+    "fr": "Sympa, le petit couteau des copains. J'embarque ça, nickel pour couper les champignons.",
+    "it": "Bel coltellino, quello degli amici. Me lo porto via, è perfetto per tagliare i funghi.",
+    "pt": "Bela navalhinha que os amigos têm. Vai comigo, dá um jeitaço para cortar cogumelos."
+  },
+  "picnicLighter": {
+    "es": "¡Mecherito pa la saca! Jaja, el del cigarrito ni se ha enterao. A ver si así aprende a dejar de fumar.",
+    "en": "Lighter in the bag! Ha, Mr Cigarette hasn't noticed a thing. Might help him quit.",
+    "de": "Feuerzeug im Beutel! Haha, der Raucher hat nichts gemerkt. Vielleicht hilft's ihm beim Aufhören.",
+    "fr": "Briquet dans le sac ! Haha, le fumeur a rien capté. Ça l'aidera peut-être à arrêter.",
+    "it": "Accendino nel sacco! Ahah, il fumatore non s'è accorto di nulla. Magari impara a smettere.",
+    "pt": "Isqueiro para o saco! Haha, o fumador nem deu por nada. Pode ser que aprenda a largar o cigarro."
+  },
+  "picnicMushroom": {
+    "es": "¡Ea, un trocito bien apañao pa la brocheta!",
+    "en": "Lovely chunk for a skewer. That’ll do nicely!",
+    "de": "Ein schönes Stück für den Spieß. Das wird lecker!",
+    "fr": "Un beau morceau pour la brochette. Ça va être bon !",
+    "it": "Un bel pezzetto per lo spiedino. Ci sta proprio bene!",
+    "pt": "Um belo pedaço para a espetada. Vai ficar uma maravilha!"
+  },
+  "picnicNeighbor": {
+    "es": "Brizno, barriga de trueno",
+    "en": "Bramble, the rumbling tummy",
+    "de": "Brummel, der Donnerbauch",
+    "fr": "Brindille, ventre de tonnerre",
+    "it": "Rametto, pancia di tuono",
+    "pt": "Raminho, barriga de trovão"
+  },
+  "picnicSmellsGood": {
+    "es": "¡Ese olorcito! ¿Es para mí? Prometo masticar. Al menos las dos primeras veces.",
+    "en": "That smell… Is it for me? I promise to chew. At least the first two times.",
+    "de": "Dieser Duft… Ist das für mich? Ich verspreche zu kauen. Zumindest die ersten zwei Mal.",
+    "fr": "Cette odeur… C’est pour moi ? Promis, je mâcherai. Au moins les deux premières fois.",
+    "it": "Quel profumino… È per me? Prometto di masticare. Almeno le prime due volte.",
+    "pt": "Esse cheirinho… É para mim? Prometo mastigar. Pelo menos as primeiras duas vezes."
+  },
+  "picnicThanks": {
+    "es": "¡Ole esa brocheta! Toma, quédate mis remos, figura. A mí ya solo me llevan hasta la siesta.",
+    "en": "Now that's a skewer! Here, keep my oars, friend. These days they only row me as far as my nap.",
+    "de": "Was für ein Spieß! Hier, nimm meine Ruder, Freundchen. Mich bringen sie sowieso nur noch bis zum Mittagsschlaf.",
+    "fr": "Quelle brochette ! Tiens, garde mes rames, mon vieux. Moi, elles ne me mènent plus qu'à la sieste.",
+    "it": "Che spiedino! Tieni, prenditi i miei remi, bello. A me ormai mi portano solo fino al pisolino.",
+    "pt": "Que espetada! Toma, fica com os meus remos, ó pá. A mim já só me levam até à sesta."
+  },
+  "picnicThanksAgain": {
+    "es": "¡Ole tú, otra brocheta! Me has arreglao la tarde. Ahora toca siestecita, que cocinar cansa… de mirarlo.",
+    "en": "Another lovely skewer! You've made my day. Time for a nap. Watching you cook was exhausting.",
+    "de": "Noch ein Spieß, du bist klasse! Jetzt wird gedöst. Dir beim Kochen zuzusehen macht müde.",
+    "fr": "Encore une brochette, t’assures ! Maintenant, sieste. Te regarder cuisiner, ça fatigue.",
+    "it": "Un altro spiedino, sei un grande! Ora pennichella. Guardarti cucinare è faticoso.",
+    "pt": "Outra espetada, és o maior! Agora vou dormir a sesta. Ver-te cozinhar cansa."
+  },
+  "picnicTortilla": {
+    "es": "Tortilla de patatas",
+    "en": "Spanish potato tortilla",
+    "de": "Spanische Kartoffeltortilla",
+    "fr": "Tortilla de pommes de terre",
+    "it": "Tortilla di patate",
+    "pt": "Tortilla de batata"
+  },
+  "sign": {
+    "es": "El letrero",
+    "en": "The sign",
+    "de": "Das Schild",
+    "fr": "Le panneau",
+    "it": "Il cartello",
+    "pt": "O letreiro"
+  },
+  "skewerCooked": {
+    "es": "¡Ole, brocheta al saco! Doradita y con más arte que un domingo de feria. Ahora a buscar una barriga que lo agradezca.",
+    "en": "Skewer in the sack! Golden and prettier than a fairground Sunday. Now to find a belly that'll thank me for it.",
+    "de": "Spieß im Sack! Goldbraun und schöner als ein Sonntag auf dem Jahrmarkt. Jetzt nur noch ein Bauch, der sich bedankt.",
+    "fr": "Brochette dans le sac ! Bien dorée et plus belle qu'un dimanche de fête. Reste à trouver un ventre qui dise merci.",
+    "it": "Spiedino nel sacco! Dorato e più bello di una domenica di sagra. Ora manca una pancia che ringrazi.",
+    "pt": "Espetada no saco! Douradinha e com mais arte que um domingo de feira. Agora só falta uma barriga que agradeça."
+  },
+  "skewerNeedKnife": {
+    "es": "Pa trocear la seta hace falta una navajita. A ver quién presta una.",
+    "en": "Slicing that mushroom takes a knife. Let's see who's lending one.",
+    "de": "Zum Zerteilen des Pilzes braucht's ein Messer. Mal sehen, wer eins verleiht.",
+    "fr": "Pour découper le champignon il faut un couteau. Voyons qui en prête un.",
+    "it": "Per tagliare il fungo ci vuole un coltellino. Vediamo chi ne presta uno.",
+    "pt": "Para cortar o cogumelo é precisa uma navalha. Vamos lá ver quem empresta uma."
+  },
+  "skewerNeedMushroom": {
+    "es": "Vaya candelorro, voy a pillar una seta pa la brocheta.",
+    "en": "What a fire. Let's go get a mushroom for the skewer.",
+    "de": "Was für ein Feuer. Jetzt einen Pilz für den Spieß.",
+    "fr": "Quel beau feu. Allons chercher un champignon pour la brochette.",
+    "it": "Che bel fuocherello, vado a prendere un fungo per lo spiedino.",
+    "pt": "Que belo lume. Vou apanhar um cogumelo para a espetada."
+  },
+  "skewerNeedTwig": {
+    "es": "Qué buen candelorro, a ver si encuentro un palillo por ahí pa hacer una buena brocheta.",
+    "en": "Now that's a proper fire. Time to find a stick for a cracking skewer.",
+    "de": "Das nenn ich ein Feuer! Jetzt such ich 'nen Stock für einen ordentlichen Spieß.",
+    "fr": "Ça, c'est du beau feu ! Je vais chercher un bâton pour une brochette de compet'.",
+    "it": "Questo sì che è un bel fuoco! Cerco un bastoncino per uno spiedino da urlo.",
+    "pt": "Isto é que é uma bela fogueira! Vou buscar um pauzinho para uma espetada à maneira."
+  },
+  "skewerReady": {
+    "es": "Brasa, seta, palillo y navajita. ¡Apartarse, que viene el chef del bosque!",
+    "en": "Fire, mushroom, stick and knife. Step aside, woodland chef coming through!",
+    "de": "Glut, Pilz, Stock und Messer. Platz da, der Waldchef kocht persönlich!",
+    "fr": "Braises, champignon, bâton et couteau. Poussez-vous, le chef du bois débarque !",
+    "it": "Brace, fungo, bastoncino e coltellino. Fate largo, arriva lo chef del bosco!",
+    "pt": "Brasas, cogumelo, pauzinho e navalha. Afastem-se, chegou o chef da floresta!"
+  },
+  "tavern": {
+    "es": "La taberna de la bota",
+    "en": "The old boot tavern",
+    "de": "Die Stiefeltaverne",
+    "fr": "La taverne de la botte",
+    "it": "La taverna dello stivale",
+    "pt": "A taberna da bota"
+  },
+  "tortillaLook": {
+    "es": "¡Una tortilla de patatas como una plaza! Con un trozo de eso como yo un mes.",
+    "en": "A potato omelette the size of a town square! One slice of that and I'd eat for a month.",
+    "de": "Eine Kartoffeltortilla so groß wie ein Marktplatz! Von einem Stück davon lebe ich einen Monat.",
+    "fr": "Une tortilla de pommes de terre grande comme une place ! Avec un morceau, je mange un mois.",
+    "it": "Una frittata di patate grande come una piazza! Con una fetta ci campo un mese.",
+    "pt": "Uma tortilha de batata do tamanho de uma praça! Com uma fatia como eu um mês."
+  }
+}

@@ -7,6 +7,7 @@ const { World, TILE } = require("../public/assets/js/adventure/model");
 const { createNeighbors } = require("../public/assets/js/adventure/neighbors");
 const { ZoneCasting } = require("../public/assets/js/adventure/casting");
 const { SceneDirector } = require("../public/assets/js/adventure/scenes");
+const { composeLocales } = require("../tools/locales.cjs");
 const { Presentation } = require("../public/assets/js/adventure/presentation");
 const { cleanSave } = require("../public/assets/js/adventure/save");
 const { planReaction } = require("../public/assets/js/adventure/rules");
@@ -22,6 +23,7 @@ const catalog = JSON.parse(
     { encoding: "utf8" },
   ),
 );
+const copy = composeLocales(catalog);
 const profiles = catalog.avatarProfiles,
   source = require("../data/aventura/art/residents/catalog.json");
 const manifest = require("../public/assets/aventura/manifest.json"),
@@ -169,10 +171,19 @@ for (const x of [-1.8, 1.7])
 (async () => {
   for (const data of Object.values(catalog.scenes)) {
     const requests = new Set(),
+      asked = [],
       game = {
         catalog,
         config: { world: catalog, cast: {} },
         cast: [],
+        // Lo que dice la pantalla se pide junto a sus sprites, así que el doble de prueba lo
+        // sirve igual que el de verdad: de ahí sale el aviso si algún día deja de pedirse.
+        sceneText: {
+          load: async (id) => {
+            asked.push(id);
+            return copy.scenes[id].es;
+          },
+        },
         renderer: {
           sprites: {
             prepare: async (names, packs) => {
@@ -190,10 +201,16 @@ for (const x of [-1.8, 1.7])
         },
       };
     const director = new SceneDirector(game);
-    await director.prepare(
+    const prepared = await director.prepare(
       data.id,
       { x: data.spawn.x * TILE, y: data.spawn.y * TILE },
       cleanSave(null, catalog),
+    );
+    assert.deepEqual(asked, [data.id], data.id + ": pide su copia una vez y solo la suya");
+    assert.deepEqual(
+      prepared.strings,
+      copy.scenes[data.id].es,
+      data.id + ": llega con lo que esa pantalla dice",
     );
     const residents = [...requests].filter((id) => /^actor-1\d\d$/.test(id));
     assert(
@@ -239,8 +256,73 @@ for (const x of [-1.8, 1.7])
   await assert.rejects(pending, /cancellation/);
   presentation.finish();
   assert(!presentation.hides(item), "Cancelled pickup restores its source");
+  /**
+   * ⛔ PRECARGAR LAS VECINAS ES UN FAVOR, NO UNA EXCUSA PARA RESERVAR EL BOSQUE ENTERO.
+   *
+   * Desde el 17-sep-2026 el juego calienta las pantallas que tocan a la que estás, así que lo que
+   * hay en memoria ya no es UNA escena: es la tuya más sus vecinas más próximas. Eso tiene que
+   * seguir cabiendo en un teléfono, y sin un techo no cabe — el bosque tiene ocho puertas. Aquí
+   * se mide el caso PEOR de verdad: cada escena con las tres vecinas más caras que podría tener.
+   */
+  {
+    const { SceneDirector } = require("../public/assets/js/adventure/scenes");
+    const director = new SceneDirector({ catalog });
+    const bytes = (id) =>
+      fs.statSync("public/assets/aventura/" + manifest.packs[id].image).size;
+    const weigh = (id) => sceneWeights[id] || 0;
+    const sceneWeights = {};
+    for (const [id, data] of Object.entries(catalog.scenes)) {
+      const packs = new Set();
+      for (const sprite of [...data.entities, ...(data.scenery || [])])
+        if (sprite.sprite && owners.has(sprite.sprite)) packs.add(owners.get(sprite.sprite));
+      sceneWeights[id] = [...packs].reduce((sum, pack) => sum + bytes(pack), 0);
+    }
+    let peor = 0,
+      culpable = null;
+    for (const [id, data] of Object.entries(catalog.scenes)) {
+      const ways = director.neighbours(data);
+      // Lo que declaran los datos y nada más: ni una lista escrita a mano que caduque.
+      const declared = new Set();
+      for (const entity of data.entities)
+        for (const rule of entity.rules || [])
+          for (const effect of rule.effects || [])
+            if (effect.type === "travel") declared.add(effect.scene);
+      for (const exit of data.navigation?.exits || []) declared.add(exit.scene);
+      assert.deepEqual(
+        new Set(ways.map((w) => w.id)),
+        declared,
+        id + ": las vecinas salen de los datos",
+      );
+      for (const way of ways)
+        assert(
+          Number.isFinite(way.x) && Number.isFinite(way.y),
+          id + "/" + way.id + ": sin saber por dónde se va no se puede ordenar la precarga",
+        );
+      const peores = [...declared]
+        .map(weigh)
+        .sort((a, b) => b - a)
+        .slice(0, 3)
+        .reduce((sum, n) => sum + n, 0);
+      const total = weigh(id) + peores;
+      if (total > peor) {
+        peor = total;
+        culpable = id;
+      }
+    }
+    assert(
+      peor < 12000000,
+      "Precarga desbocada en " + culpable + ": " + Math.round(peor / 1024) + " KB",
+    );
+    console.log(
+      "  precarga acotada: peor caso " +
+        culpable +
+        " con sus tres vecinas más caras, " +
+        Math.round(peor / 1024) +
+        " KB",
+    );
+  }
   console.log(
-    "PASS: 100 complete identities, natural balanced cast, no repeated zone silhouettes, all open doors enterable, bounded lazy scenes, compound arch and atomic pickup visibility.",
+    "PASS: 100 complete identities, natural balanced cast, no repeated zone silhouettes, all open doors enterable, bounded lazy scenes, bounded preloading, compound arch and atomic pickup visibility.",
   );
 })().catch((e) => {
   console.error(e);

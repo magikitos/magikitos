@@ -1,7 +1,11 @@
 "use strict";
 const { TILE } = require("./model");
 const { riverSection } = require("./river-course");
-/** Decorative residents have no physics, network state or per-frame path searches. */
+/**
+ * Quien vive el río además de ti. Sin estado en red ni búsquedas de camino por fotograma: su
+ * sitio es una función del reloj, así que dibujarlos y chocar con ellos leen exactamente lo
+ * mismo y no pueden discrepar.
+ */
 function riverVisitors(data, time) {
   const river = data.rivers?.[0];
   if (!river) return [];
@@ -18,6 +22,39 @@ function riverVisitors(data, time) {
       flip: bank.tangent < -0.05,
     };
   });
+}
+/**
+ * ⛔ EL RÍO ES DE TODOS (17-sep-2026, decisión del dueño): los otros duendes y la gente pescando
+ * son COSAS DE COLISIÓN, no decorado que se atraviesa.
+ *
+ * Son dos cuerpos distintos porque están en dos sitios distintos: la cáscara de nuez del vecino
+ * que rema va por el medio del canal, y de quien pesca lo que hay en el agua no es él —está en
+ * la orilla, donde tu casco no llega nunca— sino su CORCHO. Pasarle a alguien la barca por encima
+ * del corcho es justo lo que el cartel del río diría que no se hace.
+ *
+ * Se recalculan por fotograma porque el rowero se mueve, y por eso no viven en `world.colliders`,
+ * que se arma al refrescar la escena y no volvería a mirar.
+ */
+const VISITOR_RADIUS = 20;
+const FLOAT_RADIUS = 12;
+function riverBodies(data, time) {
+  const bodies = riverVisitors(data, time).map((visitor) => ({
+    id: visitor.id,
+    x: visitor.x,
+    y: visitor.y,
+    radius: VISITOR_RADIUS,
+    bump: visitor.bump,
+  }));
+  for (const neighbor of data.neighbors || [])
+    if (neighbor.fishing?.target)
+      bodies.push({
+        id: neighbor.id,
+        x: neighbor.fishing.target[0] * TILE,
+        y: neighbor.fishing.target[1] * TILE,
+        radius: FLOAT_RADIUS,
+        bump: neighbor.bump,
+      });
+  return bodies;
 }
 function drawFishing(ctx, actor, time) {
   if (!actor.fishing) return;
@@ -42,4 +79,4 @@ function drawFishing(ctx, actor, time) {
   ctx.fillRect(tx - 1, ty + Math.sin(time * 1.3), 3, 3);
   ctx.restore();
 }
-module.exports = { riverVisitors, drawFishing };
+module.exports = { riverVisitors, riverBodies, drawFishing, VISITOR_RADIUS, FLOAT_RADIUS };

@@ -2,25 +2,25 @@
   "wishing-fountain": {
     "sprite": "fountain",
     "label": "fountain",
-    "solid": [-1.9, -1.6, 3.8, 2.1],
-    "keepsakes": {"sprite":"setin-flat","limit":12,"area":[0,-31,23,10]},
-    "actions": [
-      {"id":"wish","label":"tossSetin","fare":"wish","enabledWhen":{"funds":"wish"}}
+    "solid": [
+      -1.9,
+      -1.6,
+      3.8,
+      2.1
     ],
     "rules": [
       {
-        "action":"wish","when":{"funds":"wish"},
-        "effects":[
-          {"type":"spend","fare":"wish"},
-          {"type":"keepsake"},
-          {"type":"presentation","sequence":"toss","sprite":"setin","duration":1.1},
-          {"type":"dialogue","key":"fountainThanks"},
-          {"type":"sound","key":"found"}
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "fountainWish"
+          },
+          {
+            "type": "sound",
+            "key": "found"
+          }
         ]
-      },
-      {"action":"wish","effects":[{"type":"dialogue","key":"fountainPoor"}]},
-      {"when":{"funds":"wish"},"effects":[{"type":"dialogue","key":"fountainWish"}]},
-      {"effects":[{"type":"dialogue","key":"fountainPoor"}]}
+      }
     ]
   }
 }

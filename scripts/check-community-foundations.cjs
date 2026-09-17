@@ -94,8 +94,8 @@ const fed = planReaction(
   { action: "give", now },
 ).state;
 check(
-  fed.inventory.oars === 1 && fed.wallet.balance === 10,
-  "First meal gives permanent oars and setines",
+  fed.inventory.oars === 1 && fed.wallet.balance === 0,
+  "First meal gives the permanent oars and nothing else",
 );
 check(
   !planReaction(brizno, fed, catalog, { action: "give", now }),

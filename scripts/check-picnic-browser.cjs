@@ -125,7 +125,9 @@ const errors = [];
         () => window.MagikitosAdventure.inspect().flags.picnicFed,
       );
       await save();
-      assert.equal(state.wallet.balance, 10);
+      // Brizno suelta sus remos y nada más: el bosque no acuña setines (17-sep-2026).
+      assert.equal(state.inventory.oars, 1);
+      assert.equal(state.wallet.balance, 0);
       assert(state.timers.picnic > Date.now() + 4.99 * 3600000);
       assert.equal(state.inventory.knife, 1);
       assert.equal(state.inventory.lighter, 1);
@@ -171,13 +173,13 @@ const errors = [];
       const repeat = await page.evaluate(() =>
         window.MagikitosAdventure.inspect(),
       );
-      assert.equal(repeat.wallet.balance, 10);
+      assert.equal(repeat.wallet.balance, 0, "Ni la segunda brocheta acuña nada");
       assert.equal(repeat.inventory.knife, 1);
       assert.equal(repeat.inventory.lighter, 1);
       assert(!repeat.inventory.skewer);
       await page.close();
       console.log(
-        "PASS picnic pointer recipe, reward, departure, reload and live hunger expiry " +
+        "PASS picnic pointer recipe, oars, departure, reload and live hunger expiry " +
           width +
           "×" +
           height,

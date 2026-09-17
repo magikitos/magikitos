@@ -47,7 +47,12 @@ const boat = (scene, x, y) =>
       page.on("pageerror", (e) => errors.push(e.message));
       await page.route("**/*", (r) => {
         if (!["GET", "HEAD"].includes(r.request().method())) {
-          writes.push(r.request().url());
+          // ⛔ La medida NO es una escritura del jugador. `/api/world/telemetry` es el medidor
+          // anónimo de la casa y sale solo, sin cuenta y sin tocar nada de la partida; lo que
+          // esta prueba vigila es que navegar el río no mande NADA que cambie lo que tienes.
+          // Sin la excepción, el medidor tumbaba la prueba desde que se encendió.
+          if (!/\/api\/world\/telemetry$/.test(r.request().url()))
+            writes.push(r.request().url());
           return r.abort();
         }
         return ["127.0.0.1", "magikitos.ddev.site"].includes(
@@ -244,7 +249,7 @@ const boat = (scene, x, y) =>
       );
     }
     assert.deepEqual(errors, []);
-    assert.deepEqual(writes, []);
+    assert.deepEqual(writes, [], "Navegar no escribe nada del jugador");
   } finally {
     await browser.close();
   }

@@ -1,0 +1,42 @@
+{
+  "leafFound": {
+    "es": "Esta hoja es perfecta para limpiarme el culete después de plantar un pino... ¡pa la saca!",
+    "en": "Perfect leaf for wiping my bum after dropping a log... in the bag you go!",
+    "de": "Das Blatt ist perfekt zum Hinternabwischen nach dem großen Geschäft... ab in den Beutel!",
+    "fr": "Cette feuille est parfaite pour m'essuyer le popotin après la grosse commission... hop, dans le sac !",
+    "it": "Questa foglia è perfetta per pulirmi il culetto dopo averla fatta grossa... via nel sacco!",
+    "pt": "Esta folha é perfeita para limpar o rabiosque depois de largar o presente... toca para o saco!"
+  },
+  "leafFull": {
+    "es": "¡99 hojas! Llevas medio bosque en el saco, criatura.",
+    "en": "99 leaves! You're carrying a paper shop, mate.",
+    "de": "99 Blätter! Du trägst einen Papierladen spazieren.",
+    "fr": "99 feuilles ! Tu transportes une papeterie, l'ami.",
+    "it": "99 foglie! Ti porti dietro una cartoleria, amico.",
+    "pt": "99 folhas! Trazes uma papelaria no saco, amigo."
+  },
+  "leafPlant": {
+    "es": "La culilimpia",
+    "en": "The bumleaf plant",
+    "de": "Die Popoblattpflanze",
+    "fr": "La plante à popotin",
+    "it": "La pianta pulisederino",
+    "pt": "A planta limpa-rabinhos"
+  },
+  "leavesRest": {
+    "es": "Ea, deja que salgan hojas nuevas.",
+    "en": "There, let it grow some new leaves.",
+    "de": "So, lass erst mal neue Blätter wachsen.",
+    "fr": "Voilà, laisse-lui le temps de faire de nouvelles feuilles.",
+    "it": "Ecco, lascia che spuntino foglie nuove.",
+    "pt": "Pronto, deixa nascer folhas novas."
+  },
+  "picnicTwig": {
+    "es": "¡Ufff qué palo más pro, con esto hago yo una brocheta de setas que lo flipa hasta el alcalde!",
+    "en": "What a top-tier stick! I'll make a skewer so good even the mayor will lose it.",
+    "de": "Was für ein Premiumstock! Damit wird der Spieß so gut, da flippt sogar der Bürgermeister aus!",
+    "fr": "Ce bâton est une pépite ! Avec ça, je fais une brochette qui va scotcher même le maire !",
+    "it": "Che bastoncino da paura! Ci faccio uno spiedino che manda fuori di testa pure il sindaco!",
+    "pt": "Que pauzinho de luxo! Faço uma espetada que até o presidente da câmara fica maluco!"
+  }
+}

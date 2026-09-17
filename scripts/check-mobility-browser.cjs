@@ -7,7 +7,43 @@ const { nearbyPosition } = require("./browser-world.cjs");
 const scene = JSON.parse(fs.readFileSync(".local/build/world.json")).scenes
   .overworld;
 const elderApproach = nearbyPosition(scene, {}, "picnic-neighbor");
-const start = { x: 264, y: 200 };
+/**
+ * ⛔ EL PUNTO DE PARTIDA SE BUSCA EN EL MAPA, NO SE ESCRIBE. El dueño redibuja el bosque en el
+ * Studio y dos números cableados dejan de ser suelo firme: el juego cae al sitio de aparición y
+ * la prueba se cae comparando una coordenada con otra sin decir por qué (pasó con el retoque del
+ * 16-sep-2026). Aquí hace falta algo muy concreto —un claro con un pasillo recto de 320px hacia
+ * abajo, que es el paseo más largo que esta prueba pide— así que se busca alrededor del sitio de
+ * aparición y se exige encontrarlo: si el bosque dejara de tener un claro así, eso también es
+ * algo que hay que saber.
+ */
+const start = (() => {
+  const world = JSON.parse(require("node:fs").readFileSync(".local/build/world.json"));
+  const { World } = require("../public/assets/js/adventure/model");
+  const scene = new World(world.scenes.overworld);
+  scene.actors = [];
+  scene.refresh({ inventory: {}, flags: {}, timers: {}, wallet: { balance: 0, claimed: {} } });
+  const spawn = world.scenes.overworld.spawn;
+  // Suelo firme todo el trayecto Y ninguna puerta cerca: el sitio de aparición cae justo encima
+  // del refugio de hojas, así que el paseo de 320px acababa DENTRO de la casa y la prueba medía
+  // el ritmo de un viaje que ya no existía.
+  const doors = scene.entities.filter((e) => e.threshold);
+  // Suelo firme los 320px del paseo más largo, y ninguna puerta en la columna hasta bastante más
+  // abajo: el sitio de aparición cae justo encima del refugio de hojas y el paseo acababa DENTRO
+  // de la casa, midiendo el ritmo de un viaje que ya no existía. El margen es generoso a
+  // propósito, porque el toque se sitúa tras arrastrar la cámara y puede caer un poco más allá.
+  const clear = (x, y) => {
+    for (let step = 0; step <= 320; step += 8) if (!scene.canStand(x, y + step)) return false;
+    return !doors.some((d) => Math.abs(d.x - x) < 160 && d.y > y && d.y < y + 640);
+  };
+  for (let ring = 0; ring < 60; ring++)
+    for (const dx of [0, ring, -ring])
+      for (const dy of [0, ring, -ring]) {
+        const x = spawn.x * 16 + dx * 16,
+          y = spawn.y * 16 + dy * 16;
+        if (clear(x, y)) return { x, y };
+      }
+  throw Error("El bosque ya no tiene un claro con 320px rectos hacia abajo");
+})();
 (async () => {
   const browser = await chromium.launch({ channel: "chrome", headless: true });
   const errors = [];

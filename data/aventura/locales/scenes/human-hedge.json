@@ -1,0 +1,26 @@
+{
+  "bowlFound": {
+    "es": "¡Un cuenco de gatos vacío! Esto en el bosque no es un cuenco: es una piscina esperando su sitio.",
+    "en": "An empty cat bowl! Out in the woods this isn't a bowl, it's a swimming pool waiting for its spot.",
+    "de": "Ein leerer Katzennapf! Im Wald ist das kein Napf, das ist ein Schwimmbad, das noch seinen Platz sucht.",
+    "fr": "Une gamelle à chats vide ! Dans le bois, ce n'est pas une gamelle, c'est une piscine qui cherche sa place.",
+    "it": "Una ciotola per gatti vuota! Nel bosco questa non è una ciotola: è una piscina che aspetta il suo posto.",
+    "pt": "Uma tigela de gatos vazia! No bosque isto não é uma tigela: é uma piscina à espera do seu sítio."
+  },
+  "hedgeHint": {
+    "es": "«Jardín privado». Privado de los humanos, digo yo, porque los gatos entran como Pedro por su casa.",
+    "en": "«Private garden.» Private from the humans, I reckon, because the cats walk in like they own the place.",
+    "de": "«Privatgarten.» Privat vor den Menschen, nehme ich an, denn die Katzen spazieren hier rein wie zu Hause.",
+    "fr": "« Jardin privé. » Privé des humains, j'imagine, parce que les chats entrent comme chez eux.",
+    "it": "«Giardino privato». Privato agli umani, dico io, ché i gatti entrano come fosse casa loro.",
+    "pt": "«Jardim privado». Privado dos humanos, digo eu, que os gatos entram como se fosse deles."
+  },
+  "seedsFound": {
+    "es": "¡Semillitas! Que un rincón sin flores es un rincón a medias.",
+    "en": "Seeds! A corner with no flowers is only half a corner.",
+    "de": "Samen! Eine Ecke ohne Blumen ist nur eine halbe Ecke.",
+    "fr": "Des graines ! Un coin sans fleurs, c'est un coin à moitié fini.",
+    "it": "Semini! Un angolo senza fiori è un angolo a metà.",
+    "pt": "Sementinhas! Um cantinho sem flores é um cantinho a meio."
+  }
+}

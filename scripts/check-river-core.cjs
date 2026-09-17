@@ -9,7 +9,16 @@ const {
   currentAt,
   VesselMotion,
   HULL_RADIUS,
+  riverExit,
+  riverArrival,
+  riverBodyAt,
+  yieldToRiverBodies,
 } = require("../public/assets/js/adventure/river-navigation");
+const {
+  riverBodies,
+  riverVisitors,
+} = require("../public/assets/js/adventure/river-life");
+const { inRect } = require("../public/assets/js/adventure/geometry");
 const { riverSection } = require("../public/assets/js/adventure/river-course");
 const {
   docks,
@@ -177,8 +186,8 @@ check(
   "Boat only consumes the bottle; oars and knife are reusable",
 );
 check(
-  state.flags.picnicFed && state.wallet.balance === 10,
-  "Brizno unlocks navigation but sailing spends no money",
+  state.flags.picnicFed && state.wallet.balance === 0,
+  "Brizno hands over his oars and nothing else: the game mints no setines",
 );
 check(!apply("river-dock", "board"), "Boarding has no dialogue/button action");
 check(
@@ -326,4 +335,168 @@ drawCurrentTraces(
   2.3,
 );
 check(starts.length === 0, "No off-screen current rendering");
+
+/**
+ * ⛔ EL BORDE DEL MAPA Y LA BANDA DE SALIDA TIENEN QUE LLEGAR AL MISMO SITIO.
+ *
+ * Las bandas van dibujadas en tiles y el casco se planta a HULL_RADIUS del borde, así que había
+ * un carril de 0,175 tiles donde la barca estaba pegada al final del río y no pasaba nada: agua
+ * delante, borde detrás y el juego mudo. Le ocurría a todas las salidas de aguas abajo, a las de
+ * la izquierda y a la del islote. Esto barre CADA salida punto por punto: donde la barca flote
+ * pegada a ese borde, la salida tiene que dispararse.
+ */
+{
+  const afloat = {
+    inventory: { boat: 1 },
+    flags: {},
+    timers: {},
+    wallet: { balance: 0, claimed: {} },
+    navigation: { mode: "boat" },
+  };
+  let bordes = 0;
+  for (const [id, data] of Object.entries(catalog.scenes)) {
+    const exits = data.navigation?.exits || [];
+    if (!exits.length) continue;
+    const world = new World(data);
+    world.actors = [];
+    world.refresh(afloat);
+    for (const exit of exits) {
+      const vertical = exit.direction === "up" || exit.direction === "down";
+      const fixed =
+        exit.direction === "up" || exit.direction === "left"
+          ? HULL_RADIUS
+          : (vertical ? data.height : data.width) * TILE - HULL_RADIUS;
+      const span = (vertical ? data.width : data.height) * 4;
+      let tocados = 0;
+      for (let step = 0; step <= span; step++) {
+        const along = (step / 4) * TILE;
+        const point = vertical ? { x: along, y: fixed } : { x: fixed, y: along };
+        if (!canFloat(world, point.x, point.y)) continue;
+        // Solo se exige la salida donde su propia banda alcanza: la boca del río del bosque son
+        // sus columnas y no el lago entero, que también moja el borde de arriba.
+        const [ax, ay, aw, ah] = exit.area;
+        const [from, to] = vertical ? [ax, ax + aw] : [ay, ay + ah];
+        const hull = HULL_RADIUS / TILE;
+        if (along / TILE < from - hull || along / TILE > to + hull) continue;
+        tocados++;
+        check(
+          riverExit(data, point)?.id === exit.id,
+          id + "/" + exit.id + ": pegado al borde en " + (along / TILE).toFixed(2) + " y sin salida",
+        );
+      }
+      check(tocados > 0, id + "/" + exit.id + ": ni un punto flotable en su borde");
+      bordes++;
+      // Y el punto de llegada conserva por dónde ibas, sin salirse nunca de lo ancha que es la
+      // banda: cruzar pegado a una orilla y aparecer en el centro es lo que se siente como que
+      // las dos pantallas no encajan.
+      const [ax, ay, aw, ah] = exit.area;
+      const half = (vertical ? aw : ah) / 2;
+      for (const drift of [-99, -half / 2, 0, half / 2, 99]) {
+        const player = vertical
+          ? { x: (ax + half + drift) * TILE, y: fixed }
+          : { x: fixed, y: (ay + half + drift) * TILE };
+        const arrival = riverArrival(exit, player);
+        const moved = vertical
+          ? arrival.x / TILE - exit.position[0]
+          : arrival.y / TILE - exit.position[1];
+        check(
+          Math.abs(moved) <= half + 1e-9,
+          id + "/" + exit.id + ": la llegada se sale de la banda (" + moved + ")",
+        );
+        check(
+          Math.abs(moved - Math.max(-half, Math.min(half, drift))) < 1e-9,
+          id + "/" + exit.id + ": la llegada no conserva el rumbo",
+        );
+        const fija = vertical ? arrival.y / TILE : arrival.x / TILE;
+        check(
+          fija === exit.position[vertical ? 1 : 0],
+          id + "/" + exit.id + ": la llegada se ha movido a lo largo del río",
+        );
+      }
+    }
+  }
+  check(bordes === 16, "Las dieciséis salidas barridas, no " + bordes);
+}
+
+/**
+ * ⛔ EL RÍO ES DE TODOS: los otros duendes y el corcho de quien pesca son cuerpos, no decorado.
+ *
+ * Se comprueba con el MISMO reloj con el que se dibujan, que es lo único que garantiza que el
+ * choque cae donde se ve a alguien. Y se comprueba que un cuerpo que ya te envuelve NO te
+ * encierra: sin eso, llegar a una pantalla justo donde pasa una cáscara de nuez te dejaba sin
+ * poder remar hasta que se fuera.
+ */
+{
+  const data = catalog.scenes["river-willows"];
+  const world = new World(data);
+  world.actors = [];
+  world.refresh({
+    inventory: { boat: 1 },
+    flags: {},
+    timers: {},
+    wallet: { balance: 0, claimed: {} },
+    navigation: { mode: "boat" },
+  });
+  const time = 7.5;
+  const bodies = riverBodies(data, time);
+  check(bodies.length >= 2, "El tramo tiene vecino que rema y alguien pescando");
+  for (const body of bodies)
+    check(body.bump === "riverBump", "Cada cuerpo trae su propia queja: " + body.id);
+  const rower = bodies.find((b) => b.id.endsWith("-rower"));
+  const float = bodies.find((b) => b.id.endsWith("-angler"));
+  check(!!rower && !!float, "Los dos cuerpos del tramo");
+  // El vecino que rema está donde el renderizador lo pinta, al mismo tiempo.
+  const drawn = riverVisitors(data, time).find((v) => v.id === rower.id);
+  check(drawn.x === rower.x && drawn.y === rower.y, "Chocar y dibujar leen el mismo reloj");
+  world.riverBodies = bodies;
+  check(!canFloat(world, rower.x, rower.y), "No se rema por encima de un vecino");
+  check(
+    !canFloat(world, rower.x + rower.radius + HULL_RADIUS - 2, rower.y),
+    "Ni rozándolo",
+  );
+  check(
+    canFloat(world, rower.x + rower.radius + HULL_RADIUS + 2, rower.y) ||
+      !canFloat({ ...world, riverBodies: [] }, rower.x + rower.radius + HULL_RADIUS + 2, rower.y),
+    "Un palmo más allá el agua vuelve a ser agua",
+  );
+  check(riverBodyAt(world, rower.x, rower.y)?.id === rower.id, "Y se sabe con quién chocas");
+  check(
+    riverBodyAt(world, rower.x, rower.y, { x: rower.x, y: rower.y }) === null,
+    "Quien ya te envuelve no te encierra",
+  );
+  check(
+    canFloat(world, rower.x, rower.y, { x: rower.x, y: rower.y }),
+    "Y se puede salir de dentro de un cuerpo remando",
+  );
+  // Sin cuerpos, el mismo sitio flota: lo que bloquea es el vecino, no la orilla.
+  check(canFloat({ ...world, riverBodies: [] }, rower.x, rower.y), "El canal está libre sin él");
+  // Y remar contra él apunta a quién fue, una sola vez.
+  const motion = new VesselMotion();
+  const player = { x: rower.x - rower.radius - HULL_RADIUS - 6, y: rower.y, direction: "right" };
+  for (let i = 0; i < 40; i++)
+    motion.step(world, player, { x: 1, y: 0 }, 1 / 60, false);
+  const bump = motion.takeBump();
+  check(bump?.id === rower.id, "Remando contra el vecino, el vecino contesta");
+  check(motion.takeBump() === null, "Y la queja se consume al leerla");
+  check(
+    player.x < rower.x - rower.radius,
+    "La barca se queda fuera de su casco por mucho que se empuje",
+  );
+  // Y al revés: quien te alcanza con la barca parada tampoco te pasa por encima.
+  const parked = { x: rower.x + 2, y: rower.y + 1, direction: "down" };
+  const quien = yieldToRiverBodies(world, parked, 1 / 60);
+  check(quien?.id === rower.id, "Un vecino encima aparta la barca y dice quién fue");
+  let apartado = parked;
+  for (let i = 0; i < 400; i++) yieldToRiverBodies(world, apartado, 1 / 60);
+  check(
+    Math.hypot(apartado.x - rower.x, apartado.y - rower.y) >= rower.radius + HULL_RADIUS - 0.5,
+    "Apartarse termina fuera de su casco, no a mitad de camino",
+  );
+  check(canFloat(world, apartado.x, apartado.y), "Y siempre sobre agua");
+  check(
+    yieldToRiverBodies(world, { x: apartado.x, y: apartado.y }, 1 / 60) === null,
+    "Fuera de todo cuerpo no hay nada que apartar",
+  );
+}
+
 console.log(`${checks} river, recipe, geometry, current and save checks PASS`);

@@ -1,0 +1,42 @@
+{
+  "expressionBook": {
+    "es": "El libro de las palabras sueltas",
+    "en": "The book of wandering words",
+    "de": "Das Buch der losen Worte",
+    "fr": "Le livre des mots en liberté",
+    "it": "Il libro delle parole libere",
+    "pt": "O livro das palavras à solta"
+  },
+  "humanBed": {
+    "es": "Cama de duende: manta suave y sitio pa esconder las migas. Cinco estrellas, vaya.",
+    "en": "An elf bed. Soft blankets and room to hide crumbs. Five stars.",
+    "de": "Ein Koboldbett. Kuscheldecke und Krümelversteck. Fünf Sterne.",
+    "fr": "Un lit de lutin. Couette douce et cachette à miettes. Cinq étoiles.",
+    "it": "Un letto da folletto. Coperta morbida e nascondiglio per le briciole. Cinque stelle.",
+    "pt": "Cama de duende. Manta fofinha e esconderijo de migalhas. Cinco estrelas."
+  },
+  "humanDrawers": {
+    "es": "Cajones con hilo, semillas y trastos prestados. Aquí no se tira ná.",
+    "en": "Thread, seeds and borrowed odds and ends. Nothing goes to waste.",
+    "de": "Garn, Samen und geliehener Kleinkram. Hier wird nichts verschwendet.",
+    "fr": "Du fil, des graines, des bricoles empruntées. Rien ne se perd.",
+    "it": "Filo, semi e cianfrusaglie prese in prestito. Non si butta niente.",
+    "pt": "Fio, sementes e tralha emprestada. Aqui nada se deita fora."
+  },
+  "humanTable": {
+    "es": "Mesa de ramitas, vajilla de bellota. Aquí se come chico, pero se charla a lo grande.",
+    "en": "Twig furniture, acorn crockery. Small plates, big conversations.",
+    "de": "Zweigmöbel, Eichelgeschirr. Kleine Teller, große Gespräche.",
+    "fr": "Meubles en brindilles, vaisselle de glands. Petites assiettes, grandes discussions.",
+    "it": "Mobili di rametti, piatti di ghiande. Porzioni piccole, chiacchiere enormi.",
+    "pt": "Móveis de raminhos, loiça de bolota. Pratos pequenos, conversas grandes."
+  },
+  "upstairs": {
+    "es": "Arriba",
+    "en": "Upstairs",
+    "de": "Nach oben",
+    "fr": "À l’étage",
+    "it": "Al piano di sopra",
+    "pt": "Lá em cima"
+  }
+}

@@ -13,8 +13,22 @@
     "seedsFound"
   ],
   "items": {
-    "bowl": {"name":"bowlName","description":"bowlDescription","sprite":"cat-bowl","max":1,"usable":false,"reusable":false},
-    "seeds": {"name":"seedsName","description":"seedsDescription","sprite":"garden-seed-sack","max":1,"usable":false,"reusable":true},
+    "bowl": {
+      "name": "bowlName",
+      "description": "bowlDescription",
+      "sprite": "cat-bowl",
+      "max": 1,
+      "usable": false,
+      "reusable": false
+    },
+    "seeds": {
+      "name": "seedsName",
+      "description": "seedsDescription",
+      "sprite": "garden-seed-sack",
+      "max": 1,
+      "usable": false,
+      "reusable": true
+    },
     "mushroom": {
       "name": "mushroomName",
       "description": "mushroomDescription",
@@ -141,9 +155,7 @@
     "scope": "local-preview",
     "currency": "setines",
     "maxBalance": 9999,
-    "fares": {
-      "wish": 1
-    },
+    "fares": {},
     "rewards": {
       "picnic": {
         "once": true,
@@ -156,11 +168,7 @@
     },
     "sprite": "setin"
   },
-  "dialogueTokens": {
-    "reward": {
-      "reward": "picnic"
-    }
-  },
+  "dialogueTokens": {},
   "needs": {
     "hours": {
       "pee": [

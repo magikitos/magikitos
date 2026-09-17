@@ -1,0 +1,18 @@
+{
+  "attic": {
+    "es": "Desván de la casa",
+    "en": "The cosy attic",
+    "de": "Der gemütliche Dachboden",
+    "fr": "Le grenier douillet",
+    "it": "La soffitta accogliente",
+    "pt": "O sótão acolhedor"
+  },
+  "downstairs": {
+    "es": "Abajo",
+    "en": "Downstairs",
+    "de": "Nach unten",
+    "fr": "En bas",
+    "it": "Al piano di sotto",
+    "pt": "Lá em baixo"
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "giveShell": {
+    "es": "Entregar las conchas",
+    "en": "Give the shells",
+    "de": "Muscheln abgeben",
+    "fr": "Donner les coquillages",
+    "it": "Consegna le conchiglie",
+    "pt": "Entregar as conchas"
+  },
+  "islet": {
+    "es": "El islote de las conchas",
+    "en": "The seashell islet",
+    "de": "Die Muschelinsel",
+    "fr": "L’îlot des coquillages",
+    "it": "L’isolotto delle conchiglie",
+    "pt": "O ilhéu das conchas"
+  },
+  "isletBench": {
+    "es": "Agua por todas partes y ninguna reunión a la vista. Este banco tiene futuro.",
+    "en": "Water everywhere and not a meeting in sight. This bench has potential.",
+    "de": "Überall Wasser und kein einziges Meeting in Sicht. Diese Bank hat Zukunft.",
+    "fr": "De l’eau partout et aucune réunion en vue. Ce banc a de l’avenir.",
+    "it": "Acqua ovunque e nessuna riunione in vista. Questa panchina ha un futuro.",
+    "pt": "Água por todo o lado e nenhuma reunião à vista. Este banco tem futuro."
+  },
+  "isletFlowers": {
+    "es": "Las flores no se comen, ¿eh? Te lo digo por la cara que has puesto.",
+    "en": "The flowers aren't snacks, mate. Just saying, with that look on your face.",
+    "de": "Die Blumen sind keine Snacks, hör mal. Sag ich nur wegen deinem Blick.",
+    "fr": "Les fleurs, ça se grignote pas, hein. Je dis ça vu ta tête.",
+    "it": "I fiori non sono uno spuntino, eh. Lo dico per quella faccia lì.",
+    "pt": "As flores não são para petiscar, pá. Digo isto pela cara que fizeste."
+  },
+  "isletGardener": {
+    "es": "Estas lechugas están más frescas que yo. Y mira que hoy no he pegao ni sello.",
+    "en": "These lettuces are fresher than I am. And I've done absolutely nothing all day.",
+    "de": "Der Salat ist frischer als ich. Dabei hab ich heute echt keinen Finger gerührt.",
+    "fr": "Ces laitues sont plus fraîches que moi. Pourtant, j'ai pas fichu grand-chose aujourd'hui.",
+    "it": "Queste lattughe sono più fresche di me. E pensa che oggi non ho mosso un dito.",
+    "pt": "Estas alfaces estão mais frescas do que eu. E olha que hoje não mexi uma palha."
+  },
+  "isletGreeting": {
+    "es": "He venido a mirar las olas. Todavía no las he visto todas.",
+    "en": "I came to watch the waves. Haven't seen them all yet.",
+    "de": "Ich bin zum Wellenanschauen gekommen. Habe noch nicht alle gesehen.",
+    "fr": "Je suis venu regarder les vagues. Je ne les ai pas encore toutes vues.",
+    "it": "Sono venuto a guardare le onde. Non le ho ancora viste tutte.",
+    "pt": "Vim ver as ondas. Ainda não as vi todas."
+  },
+  "isletHammock": {
+    "es": "Estoy probando la hamaca por seguridad. Llevo tres siestas y todavía no doy el visto bueno.",
+    "en": "I'm safety-testing the hammock. Three naps in, still not ready to sign it off.",
+    "de": "Ich prüfe die Hängematte auf Sicherheit. Drei Nickerchen später bin ich noch nicht ganz überzeugt.",
+    "fr": "Je teste la sécurité du hamac. Trois siestes et j'ai pas encore fini l'inspection.",
+    "it": "Sto collaudando l'amaca. Tre pisolini e ancora non me la sento di approvarla.",
+    "pt": "Estou a testar a segurança da rede. Já vou em três sestas e ainda não dou o aval."
+  },
+  "isletHarbor": {
+    "es": "Aquí se llega mojado o no se llega. Y mira tú qué bien se está una vez dentro.",
+    "en": "You get here wet or you don't get here at all. And look how well one sits once you're in.",
+    "de": "Hierher kommt man nass oder gar nicht. Und schau nur, wie gut man es hat, wenn man da ist.",
+    "fr": "Ici on arrive mouillé ou on n'arrive pas. Et regarde comme on y est bien une fois dedans.",
+    "it": "Qui ci si arriva bagnati o non ci si arriva. E guarda un po' come si sta bene una volta dentro.",
+    "pt": "Aqui chega-se molhado ou não se chega. E olha lá como se está bem depois de cá dentro."
+  },
+  "isletHome": {
+    "es": "Mi casa era una maceta. El alquiler me salió tirao: dos semillas y una promesa de regarla.",
+    "en": "My house used to be a flowerpot. Cheap rent: two seeds and a promise to water it.",
+    "de": "Mein Haus war mal ein Blumentopf. Günstige Miete: zwei Samen und das Versprechen, ihn zu gießen.",
+    "fr": "Ma maison était un pot de fleurs. Loyer imbattable : deux graines et la promesse de l'arroser.",
+    "it": "Casa mia era un vaso da fiori. Affitto stracciato: due semi e la promessa di annaffiarlo.",
+    "pt": "A minha casa era um vaso. Renda baratinha: duas sementes e a promessa de o regar."
+  },
+  "riverMemory": {
+    "es": "Yo navego en una cáscara. Lo importante es que flote… y no sentarse en el agujero.",
+    "en": "I sail in a shell. The trick is keeping it afloat… and not sitting in the hole.",
+    "de": "Ich fahre in einer Schale. Hauptsache, sie schwimmt… und man sitzt nicht im Loch.",
+    "fr": "Je navigue dans une coquille. Le secret : que ça flotte… et ne pas s'asseoir dans le trou.",
+    "it": "Navigo in un guscio. Basta che galleggi… e non sedersi nel buco.",
+    "pt": "Navego numa casca. O segredo é flutuar… e não sentar no buraco."
+  },
+  "riverNeighbor": {
+    "es": "El vecino del río",
+    "en": "The riverside neighbour",
+    "de": "Der Nachbar am Fluss",
+    "fr": "Le voisin de la rivière",
+    "it": "Il vicino del fiume",
+    "pt": "O vizinho do rio"
+  },
+  "shellCollector": {
+    "es": "La vecina de las conchas",
+    "en": "The shell collector",
+    "de": "Die Muschelsammlerin",
+    "fr": "La voisine aux coquillages",
+    "it": "La vicina delle conchiglie",
+    "pt": "A vizinha das conchas"
+  },
+  "shellFound": {
+    "es": "Conchas bonitas pa la saca. Y ni una se ha quejado del viaje.",
+    "en": "Pretty shells for the sack. And not one of them complained about the trip.",
+    "de": "Hübsche Muscheln für den Sack. Und keine hat sich über die Reise beschwert.",
+    "fr": "De jolis coquillages pour le sac. Et pas un ne s'est plaint du voyage.",
+    "it": "Belle conchiglie per il sacco. E nessuna si è lamentata del viaggio.",
+    "pt": "Conchas bonitas para o saco. E nem uma se queixou da viagem."
+  },
+  "shellOffer": {
+    "es": "¡Qué bonitas! ¿Me las das para mis botones?",
+    "en": "How lovely! May I have them for my buttons?",
+    "de": "Wie hübsch! Gibst du sie mir für meine Knöpfe?",
+    "fr": "Oh, les beaux coquillages ! Tu me les donnes pour mes boutons ?",
+    "it": "Che belle! Me le dai per i miei bottoni?",
+    "pt": "Que bonitas! Dás-mas para os meus botões?"
+  },
+  "shellRequest": {
+    "es": "Hago botones con conchas. Si te encuentras un puñadito por la orilla y te acuerdas de mí, me alegras el día.",
+    "en": "I make buttons out of shells. If you find a handful along the shore and think of me, you'll make my day.",
+    "de": "Ich mache Knöpfe aus Muscheln. Wenn du am Ufer eine Handvoll findest und an mich denkst, machst du mir den Tag.",
+    "fr": "Je fais des boutons avec des coquillages. Si tu en trouves une poignée sur la rive et que tu penses à moi, tu me fais la journée.",
+    "it": "Faccio bottoni con le conchiglie. Se ne trovi una manciata sulla riva e ti ricordi di me, mi fai felice.",
+    "pt": "Faço botões com conchas. Se encontrares um punhado na margem e te lembrares de mim, fazes-me o dia."
+  },
+  "shellRest": {
+    "es": "Ahora no quedan conchitas. La orilla es lenta pero cumple.",
+    "en": "No shells left just now. The shore is slow, but it delivers.",
+    "de": "Gerade keine Muscheln mehr. Das Ufer ist langsam, aber es liefert.",
+    "fr": "Plus de coquillages pour l'instant. La rive est lente, mais elle tient parole.",
+    "it": "Adesso non ci sono più conchiglie. La riva è lenta, ma mantiene.",
+    "pt": "Agora já não há conchinhas. A margem é lenta, mas cumpre."
+  },
+  "shellThanks": {
+    "es": "¡Qué arte de conchas! De estas salen botones pa todo el invierno. Gracias, criatura.",
+    "en": "What beauties! These will keep me in buttons all winter. Thank you, creature.",
+    "de": "Was für Prachtstücke! Daraus werden Knöpfe für den ganzen Winter. Danke, Kleines.",
+    "fr": "Quelles merveilles ! De quoi faire des boutons tout l'hiver. Merci, créature.",
+    "it": "Che meraviglia di conchiglie! Ci escono bottoni per tutto l'inverno. Grazie, creatura.",
+    "pt": "Que conchas tão bonitas! Dá para botões o inverno inteiro. Obrigada, criatura."
+  }
+}

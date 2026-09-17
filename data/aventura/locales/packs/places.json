@@ -1,0 +1,90 @@
+{
+  "bed": {
+    "es": "La cama",
+    "en": "The bed",
+    "de": "Das Bett",
+    "fr": "Le lit",
+    "it": "Il letto",
+    "pt": "A cama"
+  },
+  "bench": {
+    "es": "El banco",
+    "en": "The bench",
+    "de": "Die Bank",
+    "fr": "Le banc",
+    "it": "La panchina",
+    "pt": "O banco"
+  },
+  "cottage": {
+    "es": "El hogar del tocón",
+    "en": "The stump home",
+    "de": "Das Baumstumpfhaus",
+    "fr": "La maison-souche",
+    "it": "La casa nel ceppo",
+    "pt": "A casa no cepo"
+  },
+  "cottageBed": {
+    "es": "Una cama en un tocón. Sin hipoteca y con pájaros de despertador.",
+    "en": "A bed inside a stump. No rent, birds included.",
+    "de": "Ein Bett im Baumstumpf. Keine Miete, Vogelwecker inklusive.",
+    "fr": "Un lit dans une souche. Pas de loyer, réveil par les oiseaux.",
+    "it": "Un letto nel ceppo. Niente affitto, sveglia con gli uccellini.",
+    "pt": "Uma cama num cepo. Sem renda e com passarinhos de despertador."
+  },
+  "homeRoom": {
+    "es": "Refugio del Mirlo",
+    "en": "Blackbird Shelter",
+    "de": "Amselunterschlupf",
+    "fr": "L’Abri du Merle",
+    "it": "Rifugio del Merlo",
+    "pt": "Abrigo do Melro"
+  },
+  "house": {
+    "es": "El refugio de hojas",
+    "en": "The leaf shelter",
+    "de": "Die Blätterhütte",
+    "fr": "L’abri de feuilles",
+    "it": "Il rifugio di foglie",
+    "pt": "O abrigo de folhas"
+  },
+  "humanHedge": {
+    "es": "El Seto de los Bigotes",
+    "en": "Whisker Hedge",
+    "de": "Die Schnurrhaarhecke",
+    "fr": "La Haie des Moustaches",
+    "it": "La Siepe dei Baffi",
+    "pt": "A Sebe dos Bigodes"
+  },
+  "mushroomHome": {
+    "es": "La casita de seta",
+    "en": "The mushroom cottage",
+    "de": "Das Pilzhäuschen",
+    "fr": "La maison-champignon",
+    "it": "La casetta-fungo",
+    "pt": "A casinha-cogumelo"
+  },
+  "outside": {
+    "es": "Salir al pueblo",
+    "en": "Go outside",
+    "de": "Nach draußen",
+    "fr": "Sortir au village",
+    "it": "Esci in paese",
+    "pt": "Sair para a aldeia"
+  },
+  "potHome": {
+    "es": "La maceta del lago",
+    "en": "The lakeside flowerpot",
+    "de": "Der Blumentopf am See",
+    "fr": "Le pot au bord du lac",
+    "it": "Il vaso sul lago",
+    "pt": "O vaso à beira do lago"
+  },
+  "table": {
+    "es": "La mesa",
+    "en": "The table",
+    "de": "Der Tisch",
+    "fr": "La table",
+    "it": "Il tavolo",
+    "pt": "A mesa"
+  }
+}

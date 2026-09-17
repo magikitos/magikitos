@@ -47,12 +47,18 @@ const { Sequence } = require("./sequence");
 const { Presentation } = require("./presentation");
 const { CatEncounters } = require("./cat-encounters");
 const { MaterialAccount } = require("./material-account");
+const { SceneText } = require("./scene-text");
 const byId = (id) => document.getElementById(id);
 
 class Adventure {
   constructor(config) {
     this.config = config;
+    // El motor y la pantalla: `s` son las frases que el juego dice en cualquier sitio, y
+    // `sceneStrings` las de la pantalla en la que estás. La pantalla manda sobre el motor, así
+    // que un rincón puede llamar a las cosas por su nombre sin pedirle permiso al catálogo.
     this.s = config.strings;
+    this.sceneStrings = {};
+    this.sceneText = new SceneText(config);
     this.catalog = furnishWorkshop(config.world, config.products);
     this.renderer = new Renderer(byId("world-canvas"), byId("world-viewport"));
     this.audio = new WoodlandAudio(
@@ -117,7 +123,7 @@ class Adventure {
     this.bind();
   }
   text(key) {
-    const value = this.s[key];
+    const value = this.sceneStrings[key] ?? this.s[key];
     return Array.isArray(value) ? value[0] : (value ?? key);
   }
   /** Every resident of a content room invites you in with a different line, and
@@ -129,7 +135,7 @@ class Adventure {
       : this.lines(entity.dialogue || "neighborGreeting");
   }
   lines(key) {
-    const value = this.s[key];
+    const value = this.sceneStrings[key] ?? this.s[key];
     return Array.isArray(value)
       ? value
       : typeof value === "string"
@@ -958,7 +964,7 @@ class Adventure {
     }
     if (!this.dialogue && !this.blocked()) {
       if (this.river.active) {
-        this.river.update(dt);
+        this.river.update(dt, this.reducedMotion ? 0 : ms / 1000);
       } else {
         const intent = this.directionIntent();
         if (intent) {

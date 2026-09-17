@@ -80,3 +80,37 @@ idiomas, siete tamaños, interiores, puertas/escaleras, barco, Studio, zoom,
 arrastre y cambios de ritmo. No sustituyen una prueba manual del gusto de juego.
 
 Resultados de publicación: [RELEASE.md](RELEASE.md).
+
+## El río: cuerpos, costuras y precarga (17-sep-2026)
+
+**El río es de todos.** El vecino que rema en su cáscara y el corcho de quien
+pesca son cuerpos de colisión, no decorado (`riverBodies` en `river-life.js`).
+Se recalculan por fotograma con el MISMO reloj con el que se dibujan, así que el
+choque cae donde se ve a alguien. Un cuerpo que ya te envuelve NO te encierra
+—si no, llegar justo donde pasa una barca te dejaría sin poder remar— y quien te
+alcanza con la barca parada te aparta lo justo (`yieldToRiverBodies`) en vez de
+pasarte por encima. Lo que dice quien se lleva el golpe lo declara la escena en
+ese cuerpo (`bump`), no el motor.
+
+**Las costuras coinciden con el agua.** Las bandas de salida van dibujadas en
+tiles y el casco se planta a `HULL_RADIUS` del borde del mapa, así que quedaba un
+carril donde la barca estaba pegada al final del río y no pasaba nada: le
+ocurría a las diez salidas de aguas abajo, a las de la izquierda y a la del
+islote. `riverExit` pregunta ahora si la barca está PEGADA al borde por un lado
+que tiene salida, derivándolo del casco en vez de ensanchar dieciséis
+rectángulos a mano. Y `riverArrival` conserva el desvío respecto al centro del
+paso: quien cruza pegado a una orilla sigue pegado a esa orilla.
+
+**Las vecinas se calientan solas.** `SceneDirector.prewarm` prepara las
+pantallas que tocan a la que estás —puertas y bordes, sacados de los datos—, de
+una en una, con el mundo quieto, ordenadas por lo cerca que está la salida hacia
+ellas y con un techo (`WARM_SCENES`). El techo no es prudencia abstracta: el
+bosque tiene ocho puertas y cada pantalla cuesta megas de textura.
+`check-adventure-residents.cjs` mide el peor caso real (cada escena con sus tres
+vecinas más caras) y `check-river-core.cjs` barre las dieciséis salidas punto por
+punto sobre el borde flotable.
+
+⛔ Y en `SceneDirector.enter` se FIJA antes de retener: `activate()` vacía el
+conjunto de calentadas y poda, así que reteniendo antes la poda se lleva lo
+recién cargado de la pantalla a la que entras y te quedas sin dibujos. Se veía
+como que los clics no hacían nada, porque sin sprite no hay a quién acertarle.

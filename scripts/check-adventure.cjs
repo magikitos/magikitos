@@ -295,15 +295,13 @@ for (const objects of permutations([mushroom, twig, lighter, knife])) {
     assert.deepEqual(state.inventory, { lighter: 1, knife: 1, skewer: 1 });
     react(hungry, state, catalog, { action: "use", item: "skewer" });
     assert(state.flags.picnicFed);
-    assert.equal(state.wallet.balance, catalog.economy.rewards.picnic.amount);
     assert.deepEqual(state.inventory, { lighter: 1, knife: 1, oars: 1 });
-    const earned = structuredClone(state.wallet);
+    // ⛔ Lo que se lleva quien comparte la brocheta son LOS REMOS (17-sep-2026, decisión del
+    // dueño). Los setines son reputación y se ganan en la web; el bosque no acuña ni uno.
+    const purse = structuredClone(state.wallet);
+    assert.equal(purse.balance, 0);
     react(hungry, state, catalog, { action: "give" });
-    assert.deepEqual(
-      state.wallet,
-      earned,
-      "Meal reward cannot be collected twice",
-    );
+    assert.deepEqual(state.wallet, purse, "Sharing a meal never touches the purse");
     assert(!ferry, "Brizno is the one cooking and sharing his oars near the dock");
     const island = new World(catalog.scenes.islet);
     const back = island.entities.find((e) => e.id === "islet-ferryman");
@@ -320,10 +318,10 @@ for (const objects of permutations([mushroom, twig, lighter, knife])) {
         catalog,
         { action: "give" },
       );
-      assert.equal(
-        state.wallet.balance,
-        catalog.economy.rewards.picnic.amount + catalog.economy.rewards.shell.amount,
-        "Shells renew after five hours, not by repeating the same API action",
+      assert.deepEqual(
+        state.wallet,
+        purse,
+        "Shells are a gift to the button maker, not a sale",
       );
     }
   }
@@ -488,5 +486,5 @@ assert.deepEqual(
 console.log(
   "PASS: " +
     paths +
-    " collision-safe routes; modular sprites; " + (catalog.avatarVariants.length+2) + " duendes × 8 directions × 4 poses; all ingredient orders; atomic game rewards and wishing coins; river clues; content rooms; saves.",
+    " collision-safe routes; modular sprites; " + (catalog.avatarVariants.length+2) + " duendes × 8 directions × 4 poses; all ingredient orders; a purse the world never fills; river clues; content rooms; saves.",
 );

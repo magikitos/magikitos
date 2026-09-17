@@ -143,16 +143,25 @@ global.Audio = class {
     ),
     "Delivery excludes masters and native build sources",
   );
-  for (const lang of ["es", "en", "de", "fr", "it", "pt"]) {
-    const strings = require("../data/aventura/locales/" + lang + ".json");
+  // La entrada y el aviso del sonido los dice el MOTOR, así que tienen que estar en el core: si
+  // cayeran en el paquete de una pantalla, la tarjeta de bienvenida saldría muda.
+  const core = require("../tools/locales.cjs").composeLocales(
+    JSON.parse(
+      require("node:child_process").execFileSync(
+        "php",
+        ["-r", 'echo json_encode(require "data/aventura/world.php");'],
+        { encoding: "utf8", maxBuffer: 8 * 1024 * 1024 },
+      ),
+    ),
+  ).core;
+  for (const lang of ["es", "en", "de", "fr", "it", "pt"])
     for (const key of [
       "entryExplore",
       "continueExploring",
       "fullscreen",
       "soundRetry",
     ])
-      assert.equal(typeof strings[key], "string");
-  }
+      assert.equal(typeof core[lang][key], "string", lang + ": " + key);
   console.log(
     "PASS audio sources, finite asset budgets, spatial river, playlist/deck reuse, voice priority, safe saved-entry selection and delivery allowlist",
   );

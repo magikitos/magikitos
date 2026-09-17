@@ -1,0 +1,1706 @@
+{
+  "account": {
+    "es": "Mi cuenta",
+    "en": "My account",
+    "de": "Mein Konto",
+    "fr": "Mon compte",
+    "it": "Il mio account",
+    "pt": "A minha conta"
+  },
+  "accountSave": {
+    "es": "Guarda tu cuenta o accede",
+    "en": "Save your account or sign in",
+    "de": "Sichere dein Konto oder melde dich an",
+    "fr": "Sauvegarde ton compte ou connecte-toi",
+    "it": "Salva il tuo account o accedi",
+    "pt": "Guarda a tua conta ou entra"
+  },
+  "all": {
+    "es": "Todo",
+    "en": "All",
+    "de": "Alle",
+    "fr": "Tout",
+    "it": "Tutto",
+    "pt": "Tudo"
+  },
+  "another": {
+    "es": "Cuéntame otro",
+    "en": "Tell me another",
+    "de": "Erzähl mir noch eins",
+    "fr": "Raconte-m’en une autre",
+    "it": "Raccontamene un’altra",
+    "pt": "Conta-me outra"
+  },
+  "art": {
+    "es": "El claro de los artistas",
+    "en": "The artists’ clearing",
+    "de": "Die Künstlerlichtung",
+    "fr": "La clairière des artistes",
+    "it": "La radura degli artisti",
+    "pt": "A clareira dos artistas"
+  },
+  "artSheets": {
+    "es": "Láminas de los Magikitos",
+    "en": "Magikitos colouring sheets",
+    "de": "Magikitos-Ausmalbilder",
+    "fr": "Coloriages des Magikitos",
+    "it": "Disegni dei Magikitos da colorare",
+    "pt": "Desenhos dos Magikitos para colorir"
+  },
+  "authChangeEmail": {
+    "es": "Cambiar el correo",
+    "en": "Change the email",
+    "de": "E-Mail ändern",
+    "fr": "Changer l'adresse",
+    "it": "Cambia email",
+    "pt": "Mudar o email"
+  },
+  "authCodeExpired": {
+    "es": "Ese código ya no vale. Pide otro.",
+    "en": "That code no longer works. Request another.",
+    "de": "Der Code gilt nicht mehr. Fordere einen neuen an.",
+    "fr": "Ce code ne marche plus. Demande-en un autre.",
+    "it": "Quel codice non vale più. Chiedine un altro.",
+    "pt": "Esse código já não vale. Pede outro."
+  },
+  "authCodeInvalid": {
+    "es": "Ese código no es. Míralo otra vez.",
+    "en": "That is not the code. Have another look.",
+    "de": "Der Code stimmt nicht. Schau noch mal nach.",
+    "fr": "Ce n'est pas le bon code. Regarde encore.",
+    "it": "Quel codice non è giusto. Ricontrollalo.",
+    "pt": "Esse código não é. Vê outra vez."
+  },
+  "authCodePlaceholder": {
+    "es": "Código de 6 cifras",
+    "en": "6-digit code",
+    "de": "6-stelliger Code",
+    "fr": "Code à 6 chiffres",
+    "it": "Codice di 6 cifre",
+    "pt": "Código de 6 dígitos"
+  },
+  "authCodeSent": {
+    "es": "Te hemos mandado un código de 6 cifras a :email.",
+    "en": "We sent a 6-digit code to :email.",
+    "de": "Wir haben einen 6-stelligen Code an :email geschickt.",
+    "fr": "On t'a envoyé un code à 6 chiffres à :email.",
+    "it": "Ti abbiamo mandato un codice di 6 cifre a :email.",
+    "pt": "Mandámos um código de 6 dígitos para :email."
+  },
+  "authConfirm": {
+    "es": "Confirmar",
+    "en": "Confirm",
+    "de": "Bestätigen",
+    "fr": "Confirmer",
+    "it": "Conferma",
+    "pt": "Confirmar"
+  },
+  "authDone": {
+    "es": "Ya estás dentro.",
+    "en": "You are in.",
+    "de": "Du bist drin.",
+    "fr": "Tu es dedans.",
+    "it": "Sei dentro.",
+    "pt": "Já estás dentro."
+  },
+  "authEmailPlaceholder": {
+    "es": "tu@email.com",
+    "en": "you@email.com",
+    "de": "du@email.com",
+    "fr": "toi@email.com",
+    "it": "tu@email.com",
+    "pt": "tu@email.com"
+  },
+  "authError": {
+    "es": "Algo ha fallado. Prueba otra vez.",
+    "en": "Something went wrong. Try again.",
+    "de": "Etwas ist schiefgelaufen. Versuch es nochmal.",
+    "fr": "Un souci est survenu. Réessaie.",
+    "it": "Qualcosa è andato storto. Riprova.",
+    "pt": "Algo correu mal. Tenta outra vez."
+  },
+  "authGoogle": {
+    "es": "Continuar con Google",
+    "en": "Continue with Google",
+    "de": "Mit Google fortfahren",
+    "fr": "Continuer avec Google",
+    "it": "Continua con Google",
+    "pt": "Continuar com Google"
+  },
+  "authGoogleUnavailable": {
+    "es": "Ahora mismo no se puede entrar con Google. Prueba con tu correo.",
+    "en": "Google sign-in is not available right now. Try your email.",
+    "de": "Anmelden mit Google geht gerade nicht. Nimm deine E-Mail.",
+    "fr": "Google ne marche pas pour l'instant. Passe par ton email.",
+    "it": "Con Google ora non si può. Prova con la tua email.",
+    "pt": "Com Google não dá agora. Usa o teu email."
+  },
+  "authInvalidEmail": {
+    "es": "Ese email no parece válido.",
+    "en": "That email doesn't look valid.",
+    "de": "Diese E-Mail sieht nicht gültig aus.",
+    "fr": "Cet email ne semble pas valide.",
+    "it": "Questa email non sembra valida.",
+    "pt": "Esse email não parece válido."
+  },
+  "authNetwork": {
+    "es": "No hay manera de conectar. Mira tu conexión.",
+    "en": "No way to connect. Check your connection.",
+    "de": "Keine Verbindung möglich. Schau mal nach deinem Netz.",
+    "fr": "Impossible de se connecter. Vérifie ta connexion.",
+    "it": "Non si riesce a collegare. Controlla la connessione.",
+    "pt": "Não há maneira de ligar. Vê a tua ligação."
+  },
+  "authOr": {
+    "es": "o",
+    "en": "or",
+    "de": "oder",
+    "fr": "ou",
+    "it": "o",
+    "pt": "ou"
+  },
+  "authSendCode": {
+    "es": "Mandarme un código",
+    "en": "Send me a code",
+    "de": "Code schicken",
+    "fr": "M'envoyer un code",
+    "it": "Mandami un codice",
+    "pt": "Mandar-me um código"
+  },
+  "authSending": {
+    "es": "Enviando…",
+    "en": "Sending…",
+    "de": "Senden…",
+    "fr": "Envoi…",
+    "it": "Invio…",
+    "pt": "A enviar…"
+  },
+  "authTooMany": {
+    "es": "Demasiados intentos. Prueba en un ratito.",
+    "en": "Too many attempts. Try again in a bit.",
+    "de": "Zu viele Versuche. Versuch es gleich noch mal.",
+    "fr": "Trop de tentatives. Réessaie dans un instant.",
+    "it": "Troppi tentativi. Riprova tra poco.",
+    "pt": "Demasiadas tentativas. Tenta daqui a pouco."
+  },
+  "backToMoment": {
+    "es": "Volver al momento",
+    "en": "Back to the moment",
+    "de": "Zurück zum Moment",
+    "fr": "Revenir au moment",
+    "it": "Torna al momento",
+    "pt": "Voltar ao momento"
+  },
+  "backToWorld": {
+    "es": "Volver al mundo",
+    "en": "Return to the world",
+    "de": "Zurück in die Welt",
+    "fr": "Retrouver le monde",
+    "it": "Torna nel mondo",
+    "pt": "Voltar ao mundo"
+  },
+  "bag": {
+    "es": "Mi saco",
+    "en": "My sack",
+    "de": "Mein Beutel",
+    "fr": "Mon sac",
+    "it": "Il mio sacco",
+    "pt": "O meu saco"
+  },
+  "bagEmpty": {
+    "es": "Una pelusa y muchísimo potencial. Vamos a buscar algo.",
+    "en": "One bit of fluff. So much potential. Let’s find something.",
+    "de": "Ein Fussel, viele Möglichkeiten. Suchen wir etwas.",
+    "fr": "Une bouloche et plein de place. Allons dénicher quelque chose.",
+    "it": "Un pelucchio e tanto potenziale. Cerchiamo qualcosa.",
+    "pt": "Um cotão e muito potencial. Vamos procurar alguma coisa."
+  },
+  "blocked": {
+    "es": "Por ahí no quepo. Voy a probar por otro lado.",
+    "en": "Can’t squeeze through there. I’ll try another way.",
+    "de": "Da passe ich nicht durch. Ich versuche einen anderen Weg.",
+    "fr": "Je ne passe pas par là. Essayons ailleurs.",
+    "it": "Di qui non passo. Proviamo dall’altra parte.",
+    "pt": "Por aí não passo. Vou tentar outro caminho."
+  },
+  "boost": {
+    "es": "Mantén pulsado para correr o remar más rápido",
+    "en": "Hold to run or paddle faster",
+    "de": "Gedrückt halten zum schnelleren Laufen oder Rudern",
+    "fr": "Maintiens pour courir ou ramer plus vite",
+    "it": "Tieni premuto per correre o remare più veloce",
+    "pt": "Mantém premido para correr ou remar mais depressa"
+  },
+  "bottleBoatDescription": {
+    "es": "Media botella y los remos del abuelo. Sin billete ni ná: el río es de todos.",
+    "en": "Half a bottle and the old chap’s oars. No tickets: the river belongs to everyone.",
+    "de": "Eine halbe Flasche und Opas Ruder. Kein Ticket: Der Fluss gehört allen.",
+    "fr": "Une demi-bouteille et les rames du vieux. Pas de billet : la rivière est à tout le monde.",
+    "it": "Mezza bottiglia e i remi del nonno. Niente biglietti: il fiume è di tutti.",
+    "pt": "Meia garrafa e os remos do velhote. Sem bilhetes: o rio é de todos."
+  },
+  "bottleBoatName": {
+    "es": "Barca de botella",
+    "en": "Bottle boat",
+    "de": "Flaschenboot",
+    "fr": "Bateau-bouteille",
+    "it": "Barca-bottiglia",
+    "pt": "Barco-garrafa"
+  },
+  "bottleDescription": {
+    "es": "Vacía, ligera… aquí cabe un duende con arte.",
+    "en": "Empty and light… just enough room for a resourceful duende.",
+    "de": "Leer und leicht … Platz genug für einen pfiffigen Duende.",
+    "fr": "Vide et légère… pile la place pour un duende débrouillard.",
+    "it": "Vuota e leggera… ci sta un duende ingegnoso.",
+    "pt": "Vazia e leve… cabe aqui um duende desenrascado."
+  },
+  "bottleName": {
+    "es": "Botella de plástico",
+    "en": "Plastic bottle",
+    "de": "Plastikflasche",
+    "fr": "Bouteille en plastique",
+    "it": "Bottiglia di plastica",
+    "pt": "Garrafa de plástico"
+  },
+  "bowlDescription": {
+    "es": "Con un par de apañitos, aquí caben unos chapuzones de lujo.",
+    "en": "A few clever touches and this will make a cracking pool.",
+    "de": "Ein paar pfiffige Handgriffe und das wird ein prima Pool.",
+    "fr": "Deux ou trois astuces et ça fait une sacrée piscine.",
+    "it": "Con due piccoli ritocchi viene fuori una piscina coi fiocchi.",
+    "pt": "Com uns jeitinhos, isto dá uma piscina à maneira."
+  },
+  "bowlName": {
+    "es": "Cuenco de los gatos",
+    "en": "The cats’ bowl",
+    "de": "Der Katzennapf",
+    "fr": "Le bol des chats",
+    "it": "La ciotola dei gatti",
+    "pt": "A tigela dos gatos"
+  },
+  "buildBench": {
+    "es": "Banco del bosque",
+    "en": "Woodland bench",
+    "de": "Waldbank",
+    "fr": "Banc du bois",
+    "it": "Panchina del bosco",
+    "pt": "Banco do bosque"
+  },
+  "buildFence": {
+    "es": "Vallita de ramitas",
+    "en": "Twig fence",
+    "de": "Zweigzaun",
+    "fr": "Clôture de brindilles",
+    "it": "Staccionata di rametti",
+    "pt": "Vedação de raminhos"
+  },
+  "buildFlowers": {
+    "es": "Flores silvestres",
+    "en": "Wildflowers",
+    "de": "Wildblumen",
+    "fr": "Fleurs sauvages",
+    "it": "Fiori di campo",
+    "pt": "Flores silvestres"
+  },
+  "buildLantern": {
+    "es": "Farolita de semilla",
+    "en": "Seed lantern",
+    "de": "Samenlaterne",
+    "fr": "Lanterne-graine",
+    "it": "Lanterna di semi",
+    "pt": "Lanterna de semente"
+  },
+  "buildPlanter": {
+    "es": "Maceta de hojas",
+    "en": "Leaf planter",
+    "de": "Blättertopf",
+    "fr": "Jardinière de feuilles",
+    "it": "Vaso di foglie",
+    "pt": "Vaso de folhas"
+  },
+  "buildPool": {
+    "es": "Piscinita deluxe",
+    "en": "Deluxe little pool",
+    "de": "Kleiner Luxuspool",
+    "fr": "Petite piscine de luxe",
+    "it": "Piscinetta deluxe",
+    "pt": "Piscininha de luxo"
+  },
+  "buildTable": {
+    "es": "Mesa de tocón",
+    "en": "Stump table",
+    "de": "Baumstumpftisch",
+    "fr": "Table-souche",
+    "it": "Tavolo di ceppo",
+    "pt": "Mesa de tronco"
+  },
+  "buyOnWebsite": {
+    "es": "Comprar en la web",
+    "en": "Buy on the website",
+    "de": "Auf der Website kaufen",
+    "fr": "Acheter sur le site",
+    "it": "Compra sul sito",
+    "pt": "Comprar no site"
+  },
+  "cancel": {
+    "es": "Mejor seguimos",
+    "en": "Keep my wander",
+    "de": "Weiterspazieren",
+    "fr": "On continue",
+    "it": "Continuiamo",
+    "pt": "Continuar o passeio"
+  },
+  "catCaught": {
+    "es": "¡Ea, me ha pillao por el culete! ¡Que voy, que voy!",
+    "en": "Oi! Not by the trousers! All right, I’m going!",
+    "de": "He! Nicht am Hosenboden! Ich geh ja schon!",
+    "fr": "Hé ! Pas par le fond du pantalon ! J’y vais, j’y vais !",
+    "it": "Ehi! Non per il sedere! Vado, vado!",
+    "pt": "Ei! Não pelo traseiro! Já vou, já vou!"
+  },
+  "catReleased": {
+    "es": "¡Suéltame ya, bigotes! Tendré que pasar por donde no me vea.",
+    "en": "Put me down, whiskers! Better find a way past without being spotted.",
+    "de": "Lass los, Schnurrbart! Ich muss wohl ungesehen vorbeikommen.",
+    "fr": "Lâche-moi, moustaches ! Faut que je passe sans me faire repérer.",
+    "it": "Mollami, baffone! Devo passare senza farmi vedere.",
+    "pt": "Larga-me, bigodes! Tenho de passar sem que me vejas."
+  },
+  "catalogue": {
+    "es": "Ver todas las piezas",
+    "en": "Browse every piece",
+    "de": "Alle Stücke ansehen",
+    "fr": "Voir toutes les créations",
+    "it": "Vedi tutte le creazioni",
+    "pt": "Ver todas as peças"
+  },
+  "categories": {
+    "es": "Categorías",
+    "en": "Categories",
+    "de": "Kategorien",
+    "fr": "Catégories",
+    "it": "Categorie",
+    "pt": "Categorias"
+  },
+  "choose": {
+    "es": "Elegir",
+    "en": "Choose",
+    "de": "Auswählen",
+    "fr": "Choisir",
+    "it": "Scegli",
+    "pt": "Escolher"
+  },
+  "close": {
+    "es": "Cerrar",
+    "en": "Close",
+    "de": "Schließen",
+    "fr": "Fermer",
+    "it": "Chiudi",
+    "pt": "Fechar"
+  },
+  "cloudConflict": {
+    "es": "Hay otra partida guardada. No he sobrescrito ninguna.",
+    "en": "Another save exists. Neither has been overwritten.",
+    "de": "Es gibt einen anderen Spielstand. Keiner wurde überschrieben.",
+    "fr": "Une autre sauvegarde existe. Aucune n’a été écrasée.",
+    "it": "C’è un altro salvataggio. Nessuno è stato sovrascritto.",
+    "pt": "Existe outra partida guardada. Nenhuma foi substituída."
+  },
+  "cloudConnect": {
+    "es": "Guardar con mi usuario",
+    "en": "Save with my identity",
+    "de": "Mit meinem Benutzer speichern",
+    "fr": "Enregistrer avec mon identité",
+    "it": "Salva con il mio utente",
+    "pt": "Guardar com o meu utilizador"
+  },
+  "cloudError": {
+    "es": "No se ha podido sincronizar. Tu partida sigue guardada aquí.",
+    "en": "Couldn't sync. Your game is still saved here.",
+    "de": "Synchronisierung fehlgeschlagen. Dein Spiel ist weiterhin hier gespeichert.",
+    "fr": "Synchronisation impossible. Ta partie reste enregistrée ici.",
+    "it": "Sincronizzazione non riuscita. La partita resta salvata qui.",
+    "pt": "Não foi possível sincronizar. A partida continua guardada aqui."
+  },
+  "cloudOffline": {
+    "es": "Guardado aquí; pendiente de sincronizar",
+    "en": "Saved here; sync pending",
+    "de": "Hier gespeichert; Synchronisierung ausstehend",
+    "fr": "Enregistré ici ; synchronisation en attente",
+    "it": "Salvato qui; sincronizzazione in attesa",
+    "pt": "Guardado aqui; à espera de sincronização"
+  },
+  "cloudRecovery": {
+    "es": "Partidas conservadas al unir cuentas",
+    "en": "Saves kept after joining accounts",
+    "de": "Spielstände nach Kontozusammenführung",
+    "fr": "Sauvegardes conservées après fusion",
+    "it": "Salvataggi conservati unendo gli account",
+    "pt": "Partidas guardadas ao juntar contas"
+  },
+  "cloudSaved": {
+    "es": "Guardado en tu usuario",
+    "en": "Saved to your identity",
+    "de": "Bei deinem Benutzer gespeichert",
+    "fr": "Enregistré avec ton identité",
+    "it": "Salvato sul tuo utente",
+    "pt": "Guardado no teu utilizador"
+  },
+  "cloudUseLocal": {
+    "es": "Conservar esta sesión",
+    "en": "Keep this session",
+    "de": "Diese Sitzung behalten",
+    "fr": "Garder cette session",
+    "it": "Mantieni questa sessione",
+    "pt": "Manter esta sessão"
+  },
+  "cloudUseRemote": {
+    "es": "Continuar la guardada",
+    "en": "Continue saved game",
+    "de": "Gespeichertes Spiel fortsetzen",
+    "fr": "Continuer la sauvegarde",
+    "it": "Continua il salvataggio",
+    "pt": "Continuar a partida guardada"
+  },
+  "communityAccess": {
+    "es": "Por aquí tenemos que pasar. Deja el camino libre.",
+    "en": "Keep the route clear so everyone can get through.",
+    "de": "Hier müssen alle durch. Lass den Weg frei.",
+    "fr": "Il faut pouvoir passer. Garde le chemin libre.",
+    "it": "Di qui dobbiamo passare tutti. Lascia libero il sentiero.",
+    "pt": "Temos de passar por aqui. Deixa o caminho livre."
+  },
+  "communityBuild": {
+    "es": "Construir juntos",
+    "en": "Build together",
+    "de": "Gemeinsam bauen",
+    "fr": "Construire ensemble",
+    "it": "Costruire insieme",
+    "pt": "Construir em conjunto"
+  },
+  "communityChoose": {
+    "es": "Elige algo bonito para este rincón.",
+    "en": "Choose something lovely for this corner.",
+    "de": "Such etwas Schönes für diesen Ort aus.",
+    "fr": "Choisis quelque chose de joli pour ce coin.",
+    "it": "Scegli qualcosa di bello per questo angolo.",
+    "pt": "Escolhe algo bonito para este cantinho."
+  },
+  "communityConfirm": {
+    "es": "Colocar",
+    "en": "Place",
+    "de": "Platzieren",
+    "fr": "Placer",
+    "it": "Posiziona",
+    "pt": "Colocar"
+  },
+  "communityEveryone": {
+    "es": "La gente del bosque",
+    "en": "The woodland folk",
+    "de": "Die Waldleute",
+    "fr": "Les gens du bois",
+    "it": "La gente del bosco",
+    "pt": "A malta do bosque"
+  },
+  "communityHeritage": {
+    "es": "Esto ya es patrimonio del bosque. Hay que cuidarlo.",
+    "en": "This is woodland heritage now. Handle with care.",
+    "de": "Das gehört schon zur Geschichte des Waldes. Gut drauf aufpassen.",
+    "fr": "C’est du patrimoine du bois maintenant. On en prend soin.",
+    "it": "È patrimonio del bosco ormai. Va trattato con cura.",
+    "pt": "Isto já é património do bosque. É para cuidar."
+  },
+  "communityInvalid": {
+    "es": "Aquí no encaja: deja libres el terreno y los pasos.",
+    "en": "Not here: keep the ground and access routes clear.",
+    "de": "Hier nicht: Boden und Zugänge müssen frei bleiben.",
+    "fr": "Pas ici : laisse libres le terrain et les passages.",
+    "it": "Qui no: lascia liberi il terreno e i passaggi.",
+    "pt": "Aqui não: deixa o terreno e os caminhos livres."
+  },
+  "communityLearn": {
+    "es": "Esto se aprende explorando.",
+    "en": "Learn this through exploration.",
+    "de": "Das lernst du beim Erkunden.",
+    "fr": "Ça s’apprend en explorant.",
+    "it": "Si impara esplorando.",
+    "pt": "Aprende-se a explorar."
+  },
+  "communityMirlo": {
+    "es": "El Tocón del Mirlo",
+    "en": "Blackbird Stump",
+    "de": "Die Amselwurzel",
+    "fr": "La Souche du Merle",
+    "it": "Il Ceppo del Merlo",
+    "pt": "O Toco do Melro"
+  },
+  "communityMusgo": {
+    "es": "El Remanso del Musgo",
+    "en": "Mosswater Rest",
+    "de": "Die Moosbucht",
+    "fr": "Le Repos de la Mousse",
+    "it": "La Sosta del Muschio",
+    "pt": "O Remanso do Musgo"
+  },
+  "communityOffline": {
+    "es": "Sin conexión puedes explorar. Para construir juntos hace falta conectar.",
+    "en": "Explore offline; shared building needs a connection.",
+    "de": "Offline kannst du erkunden; gemeinsam bauen braucht eine Verbindung.",
+    "fr": "Tu peux explorer hors ligne ; construire ensemble demande une connexion.",
+    "it": "Puoi esplorare offline; per costruire insieme serve la connessione.",
+    "pt": "Podes explorar offline; construir em conjunto precisa de ligação."
+  },
+  "communityOutside": {
+    "es": "Colócalo dentro del claro compartido.",
+    "en": "Place it inside the shared clearing.",
+    "de": "Stell es innerhalb der gemeinsamen Lichtung auf.",
+    "fr": "Place-le dans la clairière commune.",
+    "it": "Mettilo nella radura condivisa.",
+    "pt": "Coloca dentro da clareira partilhada."
+  },
+  "communityOverlap": {
+    "es": "Ahí ya hay algo. Busca un huequito.",
+    "en": "Something is already there. Find a little space.",
+    "de": "Da steht schon etwas. Such eine freie Stelle.",
+    "fr": "Il y a déjà quelque chose ici. Trouve une petite place.",
+    "it": "Qui c’è già qualcosa. Cerca un posticino libero.",
+    "pt": "Já está aqui qualquer coisa. Procura um espacinho."
+  },
+  "communityPublic": {
+    "es": "El bosque es de todos. Lo que coloques queda a la vista con tu firma.",
+    "en": "The forest belongs to everyone. Your creations keep your signature.",
+    "de": "Der Wald gehört allen. Deine Werke tragen deine Handschrift.",
+    "fr": "La forêt est à tout le monde. Tes créations gardent ta signature.",
+    "it": "Il bosco è di tutti. Le tue creazioni conservano la tua firma.",
+    "pt": "O bosque é de todos. As tuas criações mantêm a tua assinatura."
+  },
+  "communityRetry": {
+    "es": "Algo ha cambiado. Revisa el lugar antes de intentarlo otra vez.",
+    "en": "Something changed. Check the spot before trying again.",
+    "de": "Etwas hat sich geändert. Prüfe den Platz noch einmal.",
+    "fr": "Quelque chose a changé. Vérifie le coin avant de réessayer.",
+    "it": "Qualcosa è cambiato. Controlla il posto prima di riprovare.",
+    "pt": "Algo mudou. Confere o sítio antes de tentares outra vez."
+  },
+  "communityRotate": {
+    "es": "Girar",
+    "en": "Rotate",
+    "de": "Drehen",
+    "fr": "Tourner",
+    "it": "Ruota",
+    "pt": "Rodar"
+  },
+  "communitySyncNeeded": {
+    "es": "Conecta tu partida y sincroniza los materiales antes de construir.",
+    "en": "Connect your save and sync your materials before building.",
+    "de": "Verbinde deinen Spielstand und synchronisiere die Materialien.",
+    "fr": "Connecte ta partie et synchronise tes matériaux avant de construire.",
+    "it": "Collega la partita e sincronizza i materiali prima di costruire.",
+    "pt": "Liga a tua partida e sincroniza os materiais antes de construir."
+  },
+  "communityTerrain": {
+    "es": "Necesita suelo firme y espacio libre.",
+    "en": "This needs firm, clear ground.",
+    "de": "Das braucht festen, freien Boden.",
+    "fr": "Il faut un sol ferme et dégagé.",
+    "it": "Serve un terreno solido e libero.",
+    "pt": "Precisa de chão firme e livre."
+  },
+  "communityValid": {
+    "es": "Cabe aquí. Confirma para construir.",
+    "en": "Fits here. Confirm to build.",
+    "de": "Passt hier. Bestätige zum Bauen.",
+    "fr": "Ça passe ici. Confirme pour construire.",
+    "it": "Qui ci sta. Conferma per costruire.",
+    "pt": "Cabe aqui. Confirma para construir."
+  },
+  "consumable": {
+    "es": "Consumible · Se gasta al usarlo",
+    "en": "Consumable · Used up when used",
+    "de": "Verbrauchbar · Wird aufgebraucht",
+    "fr": "Consommable · Disparaît après usage",
+    "it": "Consumabile · Si esaurisce con l’uso",
+    "pt": "Consumível · Gasta-se ao usar"
+  },
+  "contentInItsPlace": {
+    "es": "Esto se descubre en su rincón del mundo.",
+    "en": "Discover this in its own corner of the world.",
+    "de": "Das findest du an seinem Ort in der Welt.",
+    "fr": "À découvrir dans son coin du monde.",
+    "it": "Si scopre nel suo angolo di mondo.",
+    "pt": "Descobre isto no seu cantinho do mundo."
+  },
+  "contentLabel": {
+    "es": "Lo que se cuenta por aquí",
+    "en": "Tales from around here",
+    "de": "Geschichten von hier",
+    "fr": "Ce qu'on raconte par ici",
+    "it": "Quel che si racconta qui",
+    "pt": "O que se conta por aqui"
+  },
+  "contentUnavailable": {
+    "es": "Ahora mismo no llegan noticias del pueblo. Puedes seguir explorando.",
+    "en": "No news from the village just now. Keep exploring!",
+    "de": "Gerade kommt nichts aus dem Dorf durch. Erkunde ruhig weiter!",
+    "fr": "Pas de nouvelles du village pour l’instant. Continue ta balade !",
+    "it": "Per ora non arrivano notizie dal paese. Continua a esplorare!",
+    "pt": "De momento não chegam novidades da aldeia. Continua a explorar!"
+  },
+  "continueExploring": {
+    "es": "Continuar explorando",
+    "en": "Keep exploring",
+    "de": "Weiter erkunden",
+    "fr": "Continuer à explorer",
+    "it": "Continua a esplorare",
+    "pt": "Continuar a explorar"
+  },
+  "description": {
+    "es": "Un bosque, un duende y todo el tiempo del mundo.",
+    "en": "A forest, a little elf, and all the time in the world.",
+    "de": "Ein Wald, ein kleiner Wichtel und alle Zeit der Welt.",
+    "fr": "Une forêt, un petit lutin et tout le temps du monde.",
+    "it": "Un bosco, un folletto e tutto il tempo del mondo.",
+    "pt": "Um bosque, um duende e todo o tempo do mundo."
+  },
+  "dialogueLabel": {
+    "es": "Conversación",
+    "en": "Conversation",
+    "de": "Gespräch",
+    "fr": "Conversation",
+    "it": "Conversazione",
+    "pt": "Conversa"
+  },
+  "done": {
+    "es": "Ok",
+    "en": "Ok",
+    "de": "Ok",
+    "fr": "Ok",
+    "it": "Ok",
+    "pt": "Ok"
+  },
+  "empty": {
+    "es": "Por aquí aún caben muchas historias.",
+    "en": "There’s room for plenty more stories here.",
+    "de": "Hier ist noch Platz für viele Geschichten.",
+    "fr": "Il reste de la place pour bien des histoires.",
+    "it": "Qui c’è spazio per tante altre storie.",
+    "pt": "Ainda cabem muitas histórias por aqui."
+  },
+  "entryExplore": {
+    "es": "Explorar",
+    "en": "Explore",
+    "de": "Erkunden",
+    "fr": "Explorer",
+    "it": "Esplora",
+    "pt": "Explorar"
+  },
+  "entryInvitation": {
+    "es": "A tu ritmo. Aquí siempre hay algo por descubrir.",
+    "en": "Take your time. There is always something to discover.",
+    "de": "Ganz in deinem Tempo. Es gibt immer etwas zu entdecken.",
+    "fr": "À ton rythme. Il y a toujours quelque chose à découvrir.",
+    "it": "Con calma. C’è sempre qualcosa da scoprire.",
+    "pt": "Ao teu ritmo. Há sempre algo para descobrir."
+  },
+  "entryPreparing": {
+    "es": "Preparando tu rincón del bosque…",
+    "en": "Preparing your corner of the forest…",
+    "de": "Dein Waldwinkel wird vorbereitet…",
+    "fr": "Ton coin de forêt se prépare…",
+    "it": "Prepariamo il tuo angolo di bosco…",
+    "pt": "A preparar o teu cantinho da floresta…"
+  },
+  "entrySound": {
+    "es": "Con sonido",
+    "en": "Sound on",
+    "de": "Mit Ton",
+    "fr": "Avec le son",
+    "it": "Con audio",
+    "pt": "Com som"
+  },
+  "entryTitle": {
+    "es": "El bosque te espera",
+    "en": "The forest is waiting",
+    "de": "Der Wald wartet auf dich",
+    "fr": "La forêt t’attend",
+    "it": "Il bosco ti aspetta",
+    "pt": "A floresta está à tua espera"
+  },
+  "expressions": {
+    "es": "El libro de las expresiones",
+    "en": "The book of expressions",
+    "de": "Das Buch der Ausdrücke",
+    "fr": "Le livre des expressions",
+    "it": "Il libro delle espressioni",
+    "pt": "O livro das expressões"
+  },
+  "findingContent": {
+    "es": "Buscando por el pueblo…",
+    "en": "Asking around the village…",
+    "de": "Wir fragen uns im Dorf um…",
+    "fr": "On demande aux voisins…",
+    "it": "Chiediamo in giro per il paese…",
+    "pt": "A perguntar pela aldeia…"
+  },
+  "forest": {
+    "es": "El bosque sin prisa",
+    "en": "The unhurried woods",
+    "de": "Der Wald ohne Eile",
+    "fr": "La forêt sans hâte",
+    "it": "Il bosco senza fretta",
+    "pt": "O bosque sem pressa"
+  },
+  "found": {
+    "es": "Una seta en tu bolsillo",
+    "en": "A mushroom in your pocket",
+    "de": "Ein Pilz in deiner Tasche",
+    "fr": "Un champignon dans ta poche",
+    "it": "Un fungo nella tua tasca",
+    "pt": "Um cogumelo no teu bolso"
+  },
+  "fullscreen": {
+    "es": "Pantalla completa",
+    "en": "Full screen",
+    "de": "Vollbild",
+    "fr": "Plein écran",
+    "it": "Schermo intero",
+    "pt": "Ecrã inteiro"
+  },
+  "fullscreenUnavailable": {
+    "es": "Aquí no se puede abrir a pantalla completa. ¡Seguimos igual!",
+    "en": "Full screen is unavailable here. You can still explore!",
+    "de": "Vollbild ist hier nicht verfügbar. Erkunde einfach weiter!",
+    "fr": "Le plein écran est indisponible ici. On continue quand même !",
+    "it": "Lo schermo intero non è disponibile qui. Si esplora lo stesso!",
+    "pt": "O ecrã inteiro não está disponível aqui. Continuamos na mesma!"
+  },
+  "guardianError": {
+    "es": "El guardián se ha quedado pensando. Prueba otra vez.",
+    "en": "The keeper’s lost in thought. Try again.",
+    "de": "Der Hüter ist in Gedanken versunken. Versuch’s noch mal.",
+    "fr": "Le gardien est dans la lune. Réessaie.",
+    "it": "Il custode si è perso nei pensieri. Riprova.",
+    "pt": "O guardião ficou a pensar na vida. Tenta outra vez."
+  },
+  "guardianIntro": {
+    "es": "¡Ea! ¿Qué me cuentas de «:term»?",
+    "en": "Hey! What can you tell me about “:term”?",
+    "de": "Na! Was kannst du mir über „:term“ erzählen?",
+    "fr": "Hé ! Qu’est-ce que tu me racontes sur « :term » ?",
+    "it": "Ehi! Cosa mi racconti di «:term»?",
+    "pt": "Ora! O que me contas sobre «:term»?"
+  },
+  "guardianName": {
+    "es": "El guardián del libro",
+    "en": "The book keeper",
+    "de": "Der Buchhüter",
+    "fr": "Le gardien du livre",
+    "it": "Il custode del libro",
+    "pt": "O guardião do livro"
+  },
+  "guardianPrivacy": {
+    "es": "Al enviar, guardamos esta charla y, si aún no tienes uno, te hacemos un rincón de Magikitos.",
+    "en": "Sending saves this chat and creates your Magikitos corner if you don’t have one yet.",
+    "de": "Beim Senden speichern wir den Chat und richten dir eine Magikitos-Ecke ein, falls du noch keine hast.",
+    "fr": "L’envoi enregistre cette conversation et crée ton coin Magikitos si tu n’en as pas encore.",
+    "it": "Inviando salviamo questa chiacchierata e, se non ce l’hai ancora, creiamo il tuo angolino Magikitos.",
+    "pt": "Ao enviar, guardamos esta conversa e criamos o teu cantinho Magikitos se ainda não tiveres um."
+  },
+  "guardianPrompt": {
+    "es": "Cuéntale algo al guardián…",
+    "en": "Tell the keeper something…",
+    "de": "Erzähl dem Hüter etwas…",
+    "fr": "Raconte un truc au gardien…",
+    "it": "Racconta qualcosa al custode…",
+    "pt": "Conta uma coisa ao guardião…"
+  },
+  "helpGuardian": {
+    "es": "Llamar al guardián",
+    "en": "Call the keeper",
+    "de": "Den Hüter rufen",
+    "fr": "Appeler le gardien",
+    "it": "Chiama il custode",
+    "pt": "Chamar o guardião"
+  },
+  "hint": {
+    "es": "Toca para ir, arrastra para mirar y pellizca para acercar. Flechas/WASD para moverte; mantén espacio para correr o remar más fuerte.",
+    "en": "Tap to go, drag to look around, pinch to zoom. Arrows/WASD to move; hold space to run or row faster.",
+    "de": "Tippen zum Gehen, ziehen zum Umschauen, zwei Finger zum Zoomen. Pfeile/WASD bewegen; Leertaste halten zum Rennen oder schneller Rudern.",
+    "fr": "Touche pour avancer, glisse pour regarder, pince pour zoomer. Flèches/WASD pour bouger ; maintiens espace pour courir ou ramer plus vite.",
+    "it": "Tocca per andare, trascina per guardarti attorno, pizzica per zoomare. Frecce/WASD per muoverti; tieni spazio per correre o remare più forte.",
+    "pt": "Toca para ir, arrasta para olhar e usa dois dedos para ampliar. Setas/WASD para andar; mantém espaço para correr ou remar mais depressa."
+  },
+  "homeBed": {
+    "es": "Cama",
+    "en": "Bed",
+    "de": "Bett",
+    "fr": "Lit",
+    "it": "Letto",
+    "pt": "Cama"
+  },
+  "homeBeds": {
+    "es": "Bancales",
+    "en": "Garden beds",
+    "de": "Beete",
+    "fr": "Carrés potagers",
+    "it": "Aiuole",
+    "pt": "Canteiros"
+  },
+  "homeBells": {
+    "es": "Campanillas",
+    "en": "Bluebells",
+    "de": "Glockenblumen",
+    "fr": "Campanules",
+    "it": "Campanule",
+    "pt": "Campânulas"
+  },
+  "homeCancel": {
+    "es": "Cancelar",
+    "en": "Cancel",
+    "de": "Abbrechen",
+    "fr": "Annuler",
+    "it": "Annulla",
+    "pt": "Cancelar"
+  },
+  "homeChairs": {
+    "es": "Asientos",
+    "en": "Seats",
+    "de": "Sitze",
+    "fr": "Sièges",
+    "it": "Sedute",
+    "pt": "Assentos"
+  },
+  "homeCrates": {
+    "es": "Cajitas",
+    "en": "Crates",
+    "de": "Kisten",
+    "fr": "Caisses",
+    "it": "Cassette",
+    "pt": "Caixotes"
+  },
+  "homeDaisies": {
+    "es": "Margaritas",
+    "en": "Daisies",
+    "de": "Gänseblümchen",
+    "fr": "Marguerites",
+    "it": "Margherite",
+    "pt": "Margaridas"
+  },
+  "homeDecorate": {
+    "es": "Decorar",
+    "en": "Decorate",
+    "de": "Einrichten",
+    "fr": "Décorer",
+    "it": "Decora",
+    "pt": "Decorar"
+  },
+  "homeFerns": {
+    "es": "Helechos",
+    "en": "Ferns",
+    "de": "Farne",
+    "fr": "Fougères",
+    "it": "Felci",
+    "pt": "Fetos"
+  },
+  "homeFlowers": {
+    "es": "Flores del prado",
+    "en": "Meadow flowers",
+    "de": "Wiesenblumen",
+    "fr": "Fleurs des prés",
+    "it": "Fiori di prato",
+    "pt": "Flores do prado"
+  },
+  "homeHammock": {
+    "es": "Hamaca",
+    "en": "Hammock",
+    "de": "Hängematte",
+    "fr": "Hamac",
+    "it": "Amaca",
+    "pt": "Rede"
+  },
+  "homeRemove": {
+    "es": "Al saco",
+    "en": "Put away",
+    "de": "Einpacken",
+    "fr": "Ranger",
+    "it": "Metti via",
+    "pt": "Guardar no saco"
+  },
+  "homeTables": {
+    "es": "Mesitas",
+    "en": "Tables",
+    "de": "Tische",
+    "fr": "Tables",
+    "it": "Tavolini",
+    "pt": "Mesinhas"
+  },
+  "homeVariant": {
+    "es": "Variante",
+    "en": "Variant",
+    "de": "Variante",
+    "fr": "Variante",
+    "it": "Variante",
+    "pt": "Variante"
+  },
+  "humanProof": {
+    "es": "Comprobación humana",
+    "en": "Human check",
+    "de": "Menschliche Bestätigung",
+    "fr": "Vérification humaine",
+    "it": "Verifica umana",
+    "pt": "Verificação humana"
+  },
+  "identityBusy": {
+    "es": "Apuntándote…",
+    "en": "Signing you up…",
+    "de": "Wird angelegt…",
+    "fr": "Inscription…",
+    "it": "Ti stiamo iscrivendo…",
+    "pt": "A inscrever-te…"
+  },
+  "identityHandle": {
+    "es": "Te encuentran en :handle",
+    "en": "Find you at :handle",
+    "de": "Man findet dich unter :handle",
+    "fr": "On te trouve sur :handle",
+    "it": "Ti trovano su :handle",
+    "pt": "Encontram-te em :handle"
+  },
+  "identityTooMany": {
+    "es": "Demasiados por aquí ahora mismo. Prueba dentro de un rato.",
+    "en": "Too many around here right now. Try again in a while.",
+    "de": "Gerade zu viele hier. Versuch es später noch mal.",
+    "fr": "Trop de monde par ici. Réessaie plus tard.",
+    "it": "Troppa gente adesso. Riprova più tardi.",
+    "pt": "Demasiada gente por aqui agora. Tenta mais tarde."
+  },
+  "index": {
+    "es": "Índice",
+    "en": "Index",
+    "de": "Verzeichnis",
+    "fr": "Index",
+    "it": "Indice",
+    "pt": "Índice"
+  },
+  "interact": {
+    "es": "mirar",
+    "en": "look",
+    "de": "ansehen",
+    "fr": "regarder",
+    "it": "guarda",
+    "pt": "olhar"
+  },
+  "jokes": {
+    "es": "La taberna de los chistes",
+    "en": "The joke tavern",
+    "de": "Die Witze-Taverne",
+    "fr": "La taverne des blagues",
+    "it": "La taverna delle barzellette",
+    "pt": "A taberna das piadas"
+  },
+  "joystick": {
+    "es": "Joystick de ocho direcciones: arrastra sin levantar el dedo; también puedes usar las flechas o WASD",
+    "en": "Eight-way joystick: drag without lifting; arrow keys or WASD also work",
+    "de": "Acht-Wege-Joystick: ohne Loslassen ziehen; auch Pfeiltasten oder WASD",
+    "fr": "Joystick à huit directions : glisse sans lever le doigt ; flèches ou ZQSD également",
+    "it": "Joystick a otto direzioni: trascina senza sollevare il dito; anche frecce o WASD",
+    "pt": "Joystick de oito direções: arrasta sem levantar o dedo; setas ou WASD também funcionam"
+  },
+  "knifeDescription": {
+    "es": "El del picnic, junto a la tortilla. Corta porciones de seta y no se gasta.",
+    "en": "Borrowed beside the picnic tortilla. Slices mushrooms and never gets used up.",
+    "de": "Neben der Kartoffeltortilla stibitzt. Schneidet Pilze und bleibt im Sack.",
+    "fr": "Emprunté près de la tortilla. Coupe les champignons et reste dans le sac.",
+    "it": "Preso accanto alla tortilla del picnic. Taglia funghi e non si consuma.",
+    "pt": "Emprestada do piquenique, junto à tortilla. Corta cogumelos e não se gasta."
+  },
+  "knifeName": {
+    "es": "Cuchillo",
+    "en": "Kitchen knife",
+    "de": "Küchenmesser",
+    "fr": "Couteau",
+    "it": "Coltello",
+    "pt": "Faca"
+  },
+  "language": {
+    "es": "Idioma",
+    "en": "Language",
+    "de": "Sprache",
+    "fr": "Langue",
+    "it": "Lingua",
+    "pt": "Idioma"
+  },
+  "leafDescription": {
+    "es": "Grande, suave y sin pinchos. Se gasta una al limpiarte después de cagar.",
+    "en": "Big, soft and never prickly. One leaf is used to wipe after each poo.",
+    "de": "Groß, weich und ohne Stacheln. Nach jedem Häufchen brauchst du ein Blatt zum Abwischen.",
+    "fr": "Grande, douce et sans épines. Une feuille utilisée après chaque caca.",
+    "it": "Grande, morbida e senza spine. Se ne usa una dopo ogni cacca.",
+    "pt": "Grande, macia e sem picos. Gasta-se uma depois de cada cocó."
+  },
+  "leafName": {
+    "es": "Hoja de culilimpia",
+    "en": "Bumleaf",
+    "de": "Popoblatt",
+    "fr": "Feuille à popotin",
+    "it": "Foglia pulisederino",
+    "pt": "Folha limpa-rabinhos"
+  },
+  "leaveGame": {
+    "es": "Volver a la web",
+    "en": "Back to the website",
+    "de": "Zurück zur Website",
+    "fr": "Retour au site",
+    "it": "Torna al sito",
+    "pt": "Voltar ao site"
+  },
+  "light": {
+    "es": "Encender la barbacoa",
+    "en": "Light the barbecue",
+    "de": "Grill anzünden",
+    "fr": "Allumer le barbecue",
+    "it": "Accendi la griglia",
+    "pt": "Acender o churrasco"
+  },
+  "lighterDescription": {
+    "es": "Pillado junto al humano del picnic. Da chispa y se queda contigo.",
+    "en": "Borrowed beside the smoking picnicker. Makes sparks and stays with you.",
+    "de": "Beim rauchenden Picknicker stibitzt. Macht Feuer und bleibt bei dir.",
+    "fr": "Emprunté près du fumeur au pique-nique. Il fait des étincelles et reste avec toi.",
+    "it": "Preso vicino al fumatore del picnic. Accende il fuoco e resta con te.",
+    "pt": "Apanhado perto do fumador do piquenique. Acende fogueiras e fica contigo."
+  },
+  "lighterName": {
+    "es": "Mechero",
+    "en": "Lighter",
+    "de": "Feuerzeug",
+    "fr": "Briquet",
+    "it": "Accendino",
+    "pt": "Isqueiro"
+  },
+  "listen": {
+    "es": "Escuchar",
+    "en": "Listen",
+    "de": "Anhören",
+    "fr": "Écouter",
+    "it": "Ascolta",
+    "pt": "Ouvir"
+  },
+  "loadError": {
+    "es": "El bosque no ha podido abrirse. Recarga la página para volver a intentarlo.",
+    "en": "The woods could not open. Reload the page to try again.",
+    "de": "Der Wald konnte nicht geladen werden. Lade die Seite bitte neu.",
+    "fr": "Le bois n’a pas pu s’ouvrir. Recharge la page pour réessayer.",
+    "it": "Il bosco non si è aperto. Ricarica la pagina per riprovare.",
+    "pt": "Não foi possível abrir o bosque. Atualiza a página para tentar de novo."
+  },
+  "loading": {
+    "es": "El bosque se está despertando…",
+    "en": "The woods are waking up…",
+    "de": "Der Wald wird wach…",
+    "fr": "Le bois se réveille…",
+    "it": "Il bosco si sta svegliando…",
+    "pt": "O bosque está a acordar…"
+  },
+  "missingMedia": {
+    "es": "Este audio no está disponible ahora. Prueba con otro.",
+    "en": "This audio isn’t available right now. Try another.",
+    "de": "Dieses Audio ist gerade nicht verfügbar. Versuch ein anderes.",
+    "fr": "Cet audio n’est pas disponible pour le moment. Essaie un autre.",
+    "it": "Questo audio non è disponibile al momento. Provane un altro.",
+    "pt": "Este áudio não está disponível agora. Experimenta outro."
+  },
+  "more": {
+    "es": "Ver más",
+    "en": "Show more",
+    "de": "Mehr anzeigen",
+    "fr": "Voir plus",
+    "it": "Mostra altro",
+    "pt": "Ver mais"
+  },
+  "mushroomDescription": {
+    "es": "Un buen trocito cortado con la navajita. Listo pa pasarlo por la brasa.",
+    "en": "A tidy piece cut with the pocketknife. Ready for the barbecue.",
+    "de": "Ein mit dem Taschenmesser geschnittenes Stück Pilz. Ab damit auf den Grill.",
+    "fr": "Un morceau découpé au petit couteau. Prêt à passer sur les braises.",
+    "it": "Un pezzetto tagliato col coltellino. Pronto per la brace.",
+    "pt": "Um pedaço cortado com a navalhinha. Prontinho para ir à brasa."
+  },
+  "mushroomName": {
+    "es": "Seta",
+    "en": "Mushroom",
+    "de": "Pilz",
+    "fr": "Champignon",
+    "it": "Fungo",
+    "pt": "Cogumelo"
+  },
+  "musicUnavailable": {
+    "es": "Esta melodía no ha podido cargar. Puedes seguir explorando.",
+    "en": "This track could not load. You can keep exploring.",
+    "de": "Dieses Musikstück konnte nicht geladen werden. Du kannst weiter erkunden.",
+    "fr": "Ce morceau n’a pas pu être chargé. Tu peux continuer à explorer.",
+    "it": "Questo brano non è stato caricato. Puoi continuare a esplorare.",
+    "pt": "Esta música não carregou. Podes continuar a explorar."
+  },
+  "needLeaf": {
+    "es": "Hmm… primero tengo que buscar una hoja pa limpiarme el culete.",
+    "en": "Hmm… first I need a leaf to wipe my little bum.",
+    "de": "Hmm… erst brauche ich ein Blatt zum Popoabwischen.",
+    "fr": "Hmm… il me faut d'abord une feuille pour m'essuyer le popotin.",
+    "it": "Hmm… prima mi serve una foglia per pulirmi il sederino.",
+    "pt": "Hmm… primeiro preciso de uma folha para limpar o rabinho."
+  },
+  "needPee": {
+    "es": "Ganas de mear. La vejiga está llamando a la puerta.",
+    "en": "Need a wee. Bladder's knocking.",
+    "de": "Pipipause nötig. Die Blase klopft an.",
+    "fr": "Envie de pipi. La vessie frappe à la porte.",
+    "it": "Scappa la pipì. La vescica bussa.",
+    "pt": "Vontade de fazer xixi. A bexiga bate à porta."
+  },
+  "needPoop": {
+    "es": "Ganas de cagar. Hay reunión urgente en el culete.",
+    "en": "Need a poo. Urgent bottom business.",
+    "de": "Zeit für Kacka. Dringende Po-Angelegenheiten.",
+    "fr": "Envie de caca. Réunion urgente du popotin.",
+    "it": "Scappa la cacca. Riunione urgente del sederino.",
+    "pt": "Vontade de fazer cocó. Reunião urgente do rabinho."
+  },
+  "neighborGreeting": {
+    "es": "He salido a no hacer nada. De momento voy bastante bien.",
+    "en": "I went out to do nothing. So far, so good.",
+    "de": "Ich bin rausgegangen, um nichts zu tun. Läuft bisher ganz gut.",
+    "fr": "Je suis sorti ne rien faire. Pour l’instant, je me débrouille bien.",
+    "it": "Sono uscito per non fare niente. Per ora sta andando bene.",
+    "pt": "Saí para não fazer nada. Até agora, está a correr bem."
+  },
+  "neighbors": {
+    "es": "Vecinos de paseo",
+    "en": "Neighbors out for a stroll",
+    "de": "Nachbarn unterwegs",
+    "fr": "Voisins en balade",
+    "it": "Vicini a passeggio",
+    "pt": "Vizinhos a passear"
+  },
+  "next": {
+    "es": "Siguiente",
+    "en": "Next",
+    "de": "Weiter",
+    "fr": "Suite",
+    "it": "Avanti",
+    "pt": "Seguinte"
+  },
+  "noNeed": {
+    "es": "Ahora mismo no hay ganas. Ea, a seguir curioseando.",
+    "en": "Nothing brewing right now. Back to exploring!",
+    "de": "Gerade kommt nichts. Weiter auf Entdeckungstour!",
+    "fr": "Rien ne vient pour l'instant. On continue la balade !",
+    "it": "Adesso non viene niente. Continuiamo il giretto!",
+    "pt": "Agora não sai nada. Vamos continuar o passeio!"
+  },
+  "noResults": {
+    "es": "Por aquí no ha salido nada todavía.",
+    "en": "Nothing turned up here yet.",
+    "de": "Hier ist noch nichts aufgetaucht.",
+    "fr": "On n’a encore rien déniché ici.",
+    "it": "Qui non è saltato fuori ancora niente.",
+    "pt": "Ainda não apareceu nada por aqui."
+  },
+  "noScript": {
+    "es": "Activa JavaScript para entrar en el bosque.",
+    "en": "Enable JavaScript to step into the woods.",
+    "de": "Aktiviere JavaScript, um den Wald zu betreten.",
+    "fr": "Active JavaScript pour entrer dans le bois.",
+    "it": "Attiva JavaScript per entrare nel bosco.",
+    "pt": "Ativa o JavaScript para entrar no bosque."
+  },
+  "noUse": {
+    "es": "Eso no pega ni con cola. Vamos a probar otra cosa, que algo saldrá.",
+    "en": "That doesn’t look like a great combination. My insurance doesn’t cover experiments.",
+    "de": "Das passt wohl nicht zusammen. Experimente zahlt meine Versicherung nicht.",
+    "fr": "Ça ne semble pas très compatible. Mon assurance ne couvre pas les expériences.",
+    "it": "Non sembra una grande combinazione. La mia assicurazione non copre gli esperimenti.",
+    "pt": "Isso não parece uma boa combinação. O meu seguro não cobre experiências."
+  },
+  "oarsDescription": {
+    "es": "Gastaditos, pero con más río que tú y yo juntos. Pa toda la vida.",
+    "en": "Well worn, well loved. These have seen a lot of river.",
+    "de": "Abgenutzt, aber voller Flussgeschichten. Die halten noch ewig.",
+    "fr": "Un peu usées, mais elles en ont vu, des rivières !",
+    "it": "Consumati, ma ne hanno visto di fiume! Questi durano una vita.",
+    "pt": "Gastos, mas cheios de histórias do rio. Estes duram uma vida."
+  },
+  "oarsName": {
+    "es": "Los remos de Brizno",
+    "en": "Brizno’s old oars",
+    "de": "Briznos alte Ruder",
+    "fr": "Les rames de Brizno",
+    "it": "I vecchi remi di Brizno",
+    "pt": "Os remos do Brizno"
+  },
+  "outsideToClose": {
+    "es": "Toca fuera para volver al mundo · Esc",
+    "en": "Tap outside to return to the world · Esc",
+    "de": "Außerhalb tippen: zurück in die Welt · Esc",
+    "fr": "Touchez en dehors pour retrouver le monde · Échap",
+    "it": "Tocca fuori per tornare nel mondo · Esc",
+    "pt": "Toca fora para voltar ao mundo · Esc"
+  },
+  "paperArt": {
+    "es": "Lámina gratuita · para colorear en papel",
+    "en": "Free sheet · colour on paper",
+    "de": "Kostenlose Vorlage · auf Papier ausmalen",
+    "fr": "Dessin gratuit · à colorier sur papier",
+    "it": "Disegno gratuito · da colorare su carta",
+    "pt": "Desenho grátis · para colorir em papel"
+  },
+  "pause": {
+    "es": "Pausar",
+    "en": "Pause",
+    "de": "Pause",
+    "fr": "Pause",
+    "it": "Pausa",
+    "pt": "Pausar"
+  },
+  "peeAction": {
+    "es": "Echar una meadita",
+    "en": "Have a wee",
+    "de": "Pinkeln",
+    "fr": "Faire pipi",
+    "it": "Fare pipì",
+    "pt": "Fazer xixi"
+  },
+  "peeDone": {
+    "es": "Aaah… Me he quedao en la gloria. Ahora sí que paseo a gusto.",
+    "en": "Aaah… that's better. Back to my very busy day of wandering.",
+    "de": "Aaah… viel besser. Jetzt kann ich in Ruhe weiterbummeln.",
+    "fr": "Aaah… ça va mieux. Je peux reprendre ma grande journée de glandouille.",
+    "it": "Aaah… molto meglio. Torniamo a girellare senza combinare niente.",
+    "pt": "Aaah… muito melhor. Agora sim, de volta ao passeio sem pressas."
+  },
+  "physicalPiece": {
+    "es": "Pieza artesanal · precio en euros",
+    "en": "Handmade piece · price in euros",
+    "de": "Handgefertigtes Stück · Preis in Euro",
+    "fr": "Pièce artisanale · prix en euros",
+    "it": "Pezzo artigianale · prezzo in euro",
+    "pt": "Peça artesanal · preço em euros"
+  },
+  "playbackPosition": {
+    "es": "Posición de reproducción",
+    "en": "Playback position",
+    "de": "Wiedergabeposition",
+    "fr": "Position de lecture",
+    "it": "Posizione di riproduzione",
+    "pt": "Posição de reprodução"
+  },
+  "poopAction": {
+    "es": "Cagar",
+    "en": "Have a poo",
+    "de": "Kacken",
+    "fr": "Faire caca",
+    "it": "Fare cacca",
+    "pt": "Fazer cocó"
+  },
+  "poopDone": {
+    "es": "¡Ea, qué alivio! Hoja gastada y culete como nuevo.",
+    "en": "What a relief! One leaf used, bum all tidy.",
+    "de": "Was für eine Erleichterung! Ein Blatt weg, Popo sauber.",
+    "fr": "Quel soulagement ! Une feuille utilisée, popotin tout propre.",
+    "it": "Che sollievo! Una foglia usata, sederino pulito.",
+    "pt": "Que alívio! Uma folha usada, rabinho limpinho."
+  },
+  "poopIncludesPee": {
+    "es": "Esto pide una sentada, colega. Cagando hacemos el dos por uno.",
+    "en": "This calls for a squat, mate. Two jobs in one!",
+    "de": "Hier hilft nur noch Hinhocken. Dann ist gleich beides erledigt!",
+    "fr": "Il faut s'accroupir, l'ami. Deux affaires d'un coup !",
+    "it": "Qui serve accovacciarsi, amico. Due cose in una!",
+    "pt": "Isto pede uma agachadela, amigo. Dois serviços de uma vez!"
+  },
+  "previous": {
+    "es": "Anterior",
+    "en": "Previous",
+    "de": "Zurück",
+    "fr": "Précédent",
+    "it": "Precedente",
+    "pt": "Anterior"
+  },
+  "printOnWebsite": {
+    "es": "Imprimir en la web",
+    "en": "Print on the website",
+    "de": "Auf der Website drucken",
+    "fr": "Imprimer sur le site",
+    "it": "Stampa sul sito",
+    "pt": "Imprimir no site"
+  },
+  "puzzleReset": {
+    "es": "Recolocar las macetas",
+    "en": "Reset the flowerpots",
+    "de": "Blumentöpfe zurückstellen",
+    "fr": "Replacer les pots",
+    "it": "Rimetti a posto i vasi",
+    "pt": "Repor os vasos"
+  },
+  "rate": {
+    "es": "¿Qué te ha parecido?",
+    "en": "How was it?",
+    "de": "Wie fandest du’s?",
+    "fr": "Alors, ça t’a plu ?",
+    "it": "Ti è piaciuto?",
+    "pt": "Curtiste?"
+  },
+  "rated": {
+    "es": "¡Voto guardado, gracias!",
+    "en": "Vote saved. Cheers!",
+    "de": "Stimme gespeichert. Danke dir!",
+    "fr": "Vote enregistré. Merci !",
+    "it": "Voto salvato. Grazie!",
+    "pt": "Voto guardado. Obrigado!"
+  },
+  "ratingAverage": {
+    "es": ":value de media",
+    "en": ":value on average",
+    "de": ":value im Schnitt",
+    "fr": ":value en moyenne",
+    "it": ":value di media",
+    "pt": ":value de média"
+  },
+  "ratingCount": {
+    "es": ":count setas",
+    "en": ":count mushrooms",
+    "de": ":count Pilze",
+    "fr": ":count champignons",
+    "it": ":count funghi",
+    "pt": ":count cogumelos"
+  },
+  "recenterMap": {
+    "es": "Centrar el mapa en mí",
+    "en": "Center map on me",
+    "de": "Karte auf mich zentrieren",
+    "fr": "Centrer la carte sur moi",
+    "it": "Centra la mappa su di me",
+    "pt": "Centrar o mapa em mim"
+  },
+  "recordJoke": {
+    "es": "Contar un chiste",
+    "en": "Tell a joke",
+    "de": "Einen Witz erzählen",
+    "fr": "Raconter une blague",
+    "it": "Raccontare una barzelletta",
+    "pt": "Contar uma piada"
+  },
+  "recordStory": {
+    "es": "Contar un cuento",
+    "en": "Tell a story",
+    "de": "Eine Geschichte erzählen",
+    "fr": "Raconter un conte",
+    "it": "Raccontare un racconto",
+    "pt": "Contar um conto"
+  },
+  "regions": {
+    "es": "Regiones",
+    "en": "Regions",
+    "de": "Regionen",
+    "fr": "Régions",
+    "it": "Regioni",
+    "pt": "Regiões"
+  },
+  "retry": {
+    "es": "Reintentar",
+    "en": "Try again",
+    "de": "Noch mal versuchen",
+    "fr": "Réessayer",
+    "it": "Riprova",
+    "pt": "Tentar outra vez"
+  },
+  "reusable": {
+    "es": "Herramienta reutilizable · Se queda en tu saco",
+    "en": "Reusable tool · Stays in your sack",
+    "de": "Wiederverwendbar · Bleibt im Beutel",
+    "fr": "Réutilisable · Reste dans ton sac",
+    "it": "Riutilizzabile · Resta nel sacco",
+    "pt": "Reutilizável · Fica no saco"
+  },
+  "riverDock": {
+    "es": "Embarcadero",
+    "en": "Landing",
+    "de": "Anleger",
+    "fr": "Embarcadère",
+    "it": "Approdo",
+    "pt": "Ancoradouro"
+  },
+  "riverNoRoute": {
+    "es": "Por ahí no cabe la barca. Prueba por el agua abierta.",
+    "en": "The boat won't fit there. Try open water.",
+    "de": "Da passt das Boot nicht durch. Versuch es im offenen Wasser.",
+    "fr": "Le bateau ne passe pas là. Essaie en eau libre.",
+    "it": "La barca lì non passa. Prova in acqua aperta.",
+    "pt": "O barco não cabe aí. Tenta em água aberta."
+  },
+  "saved": {
+    "es": "Guardado aquí",
+    "en": "Saved here",
+    "de": "Hier gespeichert",
+    "fr": "Enregistré ici",
+    "it": "Salvato qui",
+    "pt": "Guardado aqui"
+  },
+  "sayItBetter": {
+    "es": "Yo lo digo mejor",
+    "en": "I say it better",
+    "de": "Ich sag das besser",
+    "fr": "Moi je le dis mieux",
+    "it": "Io lo dico meglio",
+    "pt": "Eu digo melhor"
+  },
+  "search": {
+    "es": "Buscar",
+    "en": "Search",
+    "de": "Suchen",
+    "fr": "Rechercher",
+    "it": "Cerca",
+    "pt": "Pesquisar"
+  },
+  "searchHint": {
+    "es": "¿Qué te apetece encontrar?",
+    "en": "What would you like to find?",
+    "de": "Was möchtest du entdecken?",
+    "fr": "Qu’est-ce que tu veux dénicher ?",
+    "it": "Cosa ti va di scoprire?",
+    "pt": "O que te apetece descobrir?"
+  },
+  "seedsDescription": {
+    "es": "Un puñadito de semillas humanas. Ya sé cómo alegrar un rincón.",
+    "en": "A handful of human seeds. Just the thing to brighten a corner.",
+    "de": "Eine Handvoll Menschensamen für schöne Waldwinkel.",
+    "fr": "Une poignée de graines humaines pour égayer un coin.",
+    "it": "Una manciata di semi umani per ravvivare il bosco.",
+    "pt": "Um punhado de sementes humanas para alegrar o bosque."
+  },
+  "seedsName": {
+    "es": "Semillitas",
+    "en": "Little seeds",
+    "de": "Kleine Samen",
+    "fr": "Petites graines",
+    "it": "Semini",
+    "pt": "Sementinhas"
+  },
+  "self": {
+    "es": "Yo",
+    "en": "Me",
+    "de": "Ich",
+    "fr": "Moi",
+    "it": "Io",
+    "pt": "Eu"
+  },
+  "send": {
+    "es": "Enviar",
+    "en": "Send",
+    "de": "Senden",
+    "fr": "Envoyer",
+    "it": "Invia",
+    "pt": "Enviar"
+  },
+  "sendExpression": {
+    "es": "Aportar una expresión",
+    "en": "Share an expression",
+    "de": "Einen Ausdruck beitragen",
+    "fr": "Proposer une expression",
+    "it": "Aggiungi un’espressione",
+    "pt": "Partilhar uma expressão"
+  },
+  "sending": {
+    "es": "Enviando…",
+    "en": "Sending…",
+    "de": "Wird gesendet…",
+    "fr": "Envoi…",
+    "it": "Invio…",
+    "pt": "A enviar…"
+  },
+  "shellDescription": {
+    "es": "Un puñadito de conchas. A alguien del islote le vendrán bien.",
+    "en": "A handful of shells. Someone on the islet could use them.",
+    "de": "Eine Handvoll Muscheln. Jemand auf der Insel kann sie gebrauchen.",
+    "fr": "Une poignée de coquillages. Quelqu’un sur l’îlot en aura besoin.",
+    "it": "Una manciata di conchiglie. Qualcuno sull’isolotto le troverà utili.",
+    "pt": "Um punhado de conchas. Alguém no ilhéu vai gostar delas."
+  },
+  "shellName": {
+    "es": "Conchas bonitas",
+    "en": "Pretty shells",
+    "de": "Hübsche Muscheln",
+    "fr": "Jolis coquillages",
+    "it": "Belle conchiglie",
+    "pt": "Conchas bonitas"
+  },
+  "shop": {
+    "es": "Nacidos a mano",
+    "en": "Made by hand",
+    "de": "Von Hand geschaffen",
+    "fr": "Nés à la main",
+    "it": "Nati a mano",
+    "pt": "Feitos à mão"
+  },
+  "skewerDescription": {
+    "es": "Seta doradita al fuego. El vecino de la barbacoa lleva rato mirando de reojo.",
+    "en": "Golden grilled mushroom. The barbecue neighbour keeps glancing over.",
+    "de": "Goldbraun gegrillter Pilz. Der Nachbar am Grill schaut schon dauernd herüber.",
+    "fr": "Champignon bien doré. Le voisin du barbecue n’arrête pas de lorgner dessus.",
+    "it": "Fungo ben dorato. Il vicino della griglia continua a lanciare occhiate.",
+    "pt": "Cogumelo bem douradinho. O vizinho do churrasco não para de olhar de soslaio."
+  },
+  "skewerName": {
+    "es": "Brocheta de seta",
+    "en": "Mushroom skewer",
+    "de": "Pilzspieß",
+    "fr": "Brochette de champignon",
+    "it": "Spiedino di fungo",
+    "pt": "Espetada de cogumelo"
+  },
+  "soundOff": {
+    "es": "Activar música y sonidos",
+    "en": "Turn on music and sounds",
+    "de": "Musik und Geräusche einschalten",
+    "fr": "Activer la musique et les sons",
+    "it": "Attiva musica e suoni",
+    "pt": "Ativar música e sons"
+  },
+  "soundOn": {
+    "es": "Silenciar música y sonidos",
+    "en": "Mute music and sounds",
+    "de": "Musik und Geräusche ausschalten",
+    "fr": "Couper la musique et les sons",
+    "it": "Disattiva musica e suoni",
+    "pt": "Silenciar música e sons"
+  },
+  "soundRetry": {
+    "es": "Toca la nota musical para recuperar el sonido.",
+    "en": "Tap the music note to restore sound.",
+    "de": "Tippe auf die Musiknote, um den Ton wieder einzuschalten.",
+    "fr": "Touche la note de musique pour réactiver le son.",
+    "it": "Tocca la nota musicale per riattivare l’audio.",
+    "pt": "Toca na nota musical para recuperar o som."
+  },
+  "stories": {
+    "es": "Cuentos junto al fuego",
+    "en": "Stories by the fire",
+    "de": "Geschichten am Feuer",
+    "fr": "Histoires au coin du feu",
+    "it": "Storie intorno al fuoco",
+    "pt": "Contos à volta da fogueira"
+  },
+  "title": {
+    "es": "La aventura de los Magikitos",
+    "en": "The Magikitos Adventure",
+    "de": "Das Magikitos-Abenteuer",
+    "fr": "L’aventure des Magikitos",
+    "it": "L’avventura dei Magikitos",
+    "pt": "A aventura dos Magikitos"
+  },
+  "travelError": {
+    "es": "No hemos podido preparar el viaje. Conservas tus objetos y setines. Prueba otra vez.",
+    "en": "Couldn't prepare the trip. Your items and setines are safe. Please try again.",
+    "de": "Die Reise konnte nicht vorbereitet werden. Deine Gegenstände und Setines bleiben erhalten. Versuch es erneut.",
+    "fr": "Le voyage n’a pas pu être préparé. Tes objets et setines sont conservés. Réessaie.",
+    "it": "Non è stato possibile preparare il viaggio. Oggetti e setines sono al sicuro. Riprova.",
+    "pt": "Não foi possível preparar a viagem. Manténs os objetos e setines. Tenta outra vez."
+  },
+  "twigDescription": {
+    "es": "Una ramita recia. Sirve pa una brocheta, una vallita o un banco.",
+    "en": "A sturdy twig. Handy for a skewer, a fence or a bench.",
+    "de": "Ein kräftiger Zweig, für einen Spieß, einen Zaun oder eine Bank.",
+    "fr": "Une brindille solide, pour une brochette, une clôture ou un banc.",
+    "it": "Un rametto robusto, per uno spiedino, una staccionata o una panca.",
+    "pt": "Um ramo resistente, para uma espetada, uma vedação ou um banco."
+  },
+  "twigName": {
+    "es": "Palito",
+    "en": "Twig",
+    "de": "Stöckchen",
+    "fr": "Petit bâton",
+    "it": "Bastoncino",
+    "pt": "Pauzinho"
+  },
+  "unsaved": {
+    "es": "Sin guardado",
+    "en": "Not saving",
+    "de": "Nicht gespeichert",
+    "fr": "Sans sauvegarde",
+    "it": "Non salvato",
+    "pt": "Sem guardar"
+  },
+  "useItem": {
+    "es": "Usar objeto",
+    "en": "Use item",
+    "de": "Gegenstand benutzen",
+    "fr": "Utiliser l’objet",
+    "it": "Usa oggetto",
+    "pt": "Usar objeto"
+  },
+  "usePrompt": {
+    "es": "Usando :item · Toca un objeto del mundo",
+    "en": "Using :item · Tap an object in the world",
+    "de": ":item benutzen · Tippe auf ein Objekt",
+    "fr": ":item en main · Touche un objet du monde",
+    "it": "Usando :item · Tocca un oggetto nel mondo",
+    "pt": "A usar :item · Toca num objeto do mundo"
+  },
+  "village": {
+    "es": "El pueblo de las pequeñas cosas",
+    "en": "The village of little things",
+    "de": "Das Dorf der kleinen Dinge",
+    "fr": "Le village des petites choses",
+    "it": "Il paese delle piccole cose",
+    "pt": "A aldeia das pequenas coisas"
+  },
+  "voteError": {
+    "es": "No se ha podido guardar. Prueba otra vez.",
+    "en": "Couldn’t save that. Give it another go.",
+    "de": "Hat nicht geklappt. Versuch’s noch mal.",
+    "fr": "Ça n’a pas marché. Réessaie un coup.",
+    "it": "Non è andata. Riprova un attimo.",
+    "pt": "Não deu para guardar. Tenta outra vez."
+  },
+  "walk": {
+    "es": "caminar",
+    "en": "walk",
+    "de": "gehen",
+    "fr": "marcher",
+    "it": "cammina",
+    "pt": "andar"
+  },
+  "walletBalance": {
+    "es": ":count setines",
+    "en": ":count setines",
+    "de": ":count Setines",
+    "fr": ":count setines",
+    "it": ":count setines",
+    "pt": ":count setines"
+  },
+  "walletLocal": {
+    "es": "Saldo de prueba de esta aventura. No modifica los setines de tu cuenta.",
+    "en": "Adventure test balance. Does not change your account's setines.",
+    "de": "Testguthaben dieses Abenteuers. Ändert die Setines deines Kontos nicht.",
+    "fr": "Solde de test de l’aventure. Ne modifie pas les setines de ton compte.",
+    "it": "Saldo di prova dell’avventura. Non modifica i setines del tuo account.",
+    "pt": "Saldo de teste da aventura. Não altera os setines da tua conta."
+  },
+  "workshop": {
+    "es": "El taller de Carmen",
+    "en": "Carmen’s workshop",
+    "de": "Carmens Werkstatt",
+    "fr": "L’atelier de Carmen",
+    "it": "Il laboratorio di Carmen",
+    "pt": "O atelier da Carmen"
+  },
+  "you": {
+    "es": "Tú",
+    "en": "You",
+    "de": "Du",
+    "fr": "Toi",
+    "it": "Tu",
+    "pt": "Tu"
+  }
+}

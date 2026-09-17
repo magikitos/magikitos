@@ -5,6 +5,7 @@ const fs = require("node:fs"),
   crypto = require("node:crypto");
 const { esbuild } = require("./adventure-studio/build.cjs");
 const { page, ROUTES } = require("./page.cjs");
+const { composeLocales } = require("./locales.cjs");
 const { verify } = require("./artifact.cjs");
 const root = path.resolve(__dirname, ".."),
   out = path.join(root, ".local/build");
@@ -75,16 +76,15 @@ function build({ reuseArt = false } = {}) {
       { encoding: "utf8", maxBuffer: 8 * 1024 * 1024 },
     ),
   );
-  const locales = Object.fromEntries(
-    Object.keys(ROUTES).map((locale) => [
-      locale,
-      JSON.parse(
-        fs.readFileSync(
-          path.join(root, "data/aventura/locales", locale + ".json"),
-        ),
-      ),
-    ]),
-  );
+  // El motor va incrustado en la página; lo que dice cada pantalla viaja con la pantalla.
+  // Ver tools/locales.cjs: componer aborta si una clave falta, se repite o ya no la dice nadie.
+  const locales = composeLocales(world);
+  for (const [scene, bundle] of Object.entries(locales.scenes))
+    for (const [locale, strings] of Object.entries(bundle)) {
+      const target = path.join(assets, "locales", locale, scene + ".json");
+      fs.mkdirSync(path.dirname(target), { recursive: true });
+      fs.writeFileSync(target, JSON.stringify(strings));
+    }
   const contract = require("./game-contract.cjs").gameContract(world);
   fs.writeFileSync(
     path.join(scratch, "game-contract.json"),
@@ -119,11 +119,15 @@ function build({ reuseArt = false } = {}) {
     prefix = "/game/releases/" + id;
   const release = path.join(out, "releases", id);
   fs.mkdirSync(path.join(scratch, "pages"), { recursive: true });
-  for (const [locale, strings] of Object.entries(locales)) {
+  for (const [locale, strings] of Object.entries(locales.core)) {
     const config = {
       ...settings,
       locale,
       strings,
+      // La pantalla de arranque viaja dentro de la página: quien llega nuevo no espera una
+      // petición más para leer el primer cartel. Las demás se piden con sus sprites.
+      sceneStrings: { [world.start]: locales.scenes[world.start][locale] },
+      localeBase: prefix + "/assets/locales/" + locale + "/",
       world,
       baseUrl: ROUTES[locale],
       assetManifest: prefix + "/assets/aventura/manifest.json",

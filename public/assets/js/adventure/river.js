@@ -4,7 +4,14 @@ const { findPath } = require("./navigation");
 const { drawCurrentTraces } = require("./current-traces");
 const { docks, dockAt, atDock, enteringDock } = require("./docks");
 const { facing } = require("./characters");
-const { canFloat, VesselMotion, riverExit } = require("./river-navigation");
+const { riverBodies } = require("./river-life");
+const {
+  canFloat,
+  VesselMotion,
+  riverExit,
+  riverArrival,
+  yieldToRiverBodies,
+} = require("./river-navigation");
 
 /** Vessel physics and directional jetty crossings; input is shared with walking. */
 class River {
@@ -12,6 +19,7 @@ class River {
     this.game = game;
     this.motion = new VesselMotion();
     this.path = [];
+    this.nextBump = 0;
   }
   get active() {
     return this.game.state.navigation?.mode === "boat";
@@ -143,8 +151,14 @@ class River {
     )
       g.toast(g.text("riverNoRoute"));
   }
-  update(dt) {
+  /**
+   * `time` es el MISMO reloj con el que el renderizador coloca a los vecinos del río, y por eso
+   * viaja hasta aquí en vez de leerse de otro sitio: si el choque y el dibujo usaran dos relojes,
+   * la barca rebotaría contra un sitio donde no hay nadie.
+   */
+  update(dt, time = 0) {
     const g = this.game;
+    g.world.riverBodies = riverBodies(g.world.data, time);
     let intent = g.directionIntent();
     if (intent) {
       this.path = [];
@@ -175,6 +189,19 @@ class River {
     if (landing && this.disembark(landing)) return;
     g.walking = this.motion.step(g.world, g.player, intent, dt, g.boosted());
     g.state.navigation.direction = g.player.direction;
+    // Chocar con un vecino se dice; chocar con una orilla no. Y se dice de vez en cuando: una
+    // frase por cada roce sería un vecino gritando mientras remas pegado a él.
+    // Lo que dice quien se lleva el golpe lo declara la PANTALLA en ese cuerpo, no el motor: así
+    // un rincón del río puede tener a alguien con otra forma de quejarse sin tocar una línea de
+    // código, que es lo mismo que vale para cualquier frase del bosque.
+    // Quien te alcanza cuenta igual que aquel contra el que remas: el río es de todos en los dos
+    // sentidos, y una barca parada tampoco se deja pisar.
+    const bump = this.motion.takeBump() || yieldToRiverBodies(g.world, g.player, dt);
+    if (bump?.bump && time >= this.nextBump) {
+      this.nextBump = time + 6;
+      const lines = g.lines(bump.bump);
+      g.toast(lines[Math.floor(Math.random() * lines.length)]);
+    }
     const exit = riverExit(g.world.data, g.player);
     if (!exit) this.failedExit = null;
     if (exit && exit.id !== this.failedExit) this.travel(exit);
@@ -195,7 +222,10 @@ class River {
       };
       const prepared = await g.scenes.prepare(
         exit.scene,
-        { x: exit.position[0] * TILE, y: exit.position[1] * TILE },
+        [
+          riverArrival(exit, g.player),
+          { x: exit.position[0] * TILE, y: exit.position[1] * TILE },
+        ],
         state,
       );
       g.state = state;

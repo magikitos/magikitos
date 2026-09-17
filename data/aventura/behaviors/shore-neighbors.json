@@ -1,6 +1,9 @@
 {
   "shells": {
-    "harvest": {"renewMs": 18000000, "empty": "shellRest"},
+    "harvest": {
+      "renewMs": 18000000,
+      "empty": "shellRest"
+    },
     "sprite": "shells",
     "label": "shellName",
     "hiddenWhen": {
@@ -51,10 +54,6 @@
             "type": "item",
             "item": "shell",
             "amount": -1
-          },
-          {
-            "type": "reward",
-            "reward": "shell"
           },
           {
             "type": "dialogue",

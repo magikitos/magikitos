@@ -219,7 +219,7 @@
           "effects": [
             {
               "type": "dialogue",
-              "key": "communityWelcome"
+              "key": "musgoPlotA"
             }
           ]
         }
@@ -250,7 +250,7 @@
           "effects": [
             {
               "type": "dialogue",
-              "key": "communityWelcome"
+              "key": "musgoPlotB"
             }
           ]
         }
@@ -281,7 +281,7 @@
           "effects": [
             {
               "type": "dialogue",
-              "key": "communityWelcome"
+              "key": "musgoPlotC"
             }
           ]
         }
@@ -322,7 +322,8 @@
           57.49,
           29
         ]
-      }
+      },
+      "bump": "riverBump"
     }
   ],
   "scenery": [
@@ -805,7 +806,8 @@
       ],
       "speed": 5,
       "phase": 107,
-      "offset": -7
+      "offset": -7,
+      "bump": "riverBump"
     }
   ]
 }

@@ -1,0 +1,62 @@
+{
+  "enter_jokes": {
+    "es": "Escuchar chistes",
+    "en": "Listen to jokes",
+    "de": "Witze hören",
+    "fr": "Écouter des blagues",
+    "it": "Ascoltare barzellette",
+    "pt": "Ouvir piadas"
+  },
+  "invite_jokes": {
+    "es": [
+      "¡Ey! Aquí estamos con los chistes. ¿Te apetece uno?",
+      "Esto es la taberna. Se viene a reír y poco más.",
+      "Los graba la peña. Algunos son muy malos, avisado quedas.",
+      "¿Te cuento uno? Bueno, te lo cuenta otro, que yo no tengo gracia.",
+      "Aquí uno se ríe con lo que trae la gente. ¿Escuchas?"
+    ],
+    "en": [
+      "Hey! We're on the jokes here. Fancy one?",
+      "This is the tavern. You come to laugh and not much else.",
+      "The crowd records them. Some are terrible, fair warning.",
+      "Shall I tell you one? Well, someone else will, I have no timing.",
+      "You laugh at whatever people bring. Listening?"
+    ],
+    "de": [
+      "He! Hier sind wir bei den Witzen. Lust auf einen?",
+      "Das ist die Schenke. Man kommt zum Lachen und sonst wenig.",
+      "Die Leute nehmen sie selber auf. Manche sind furchtbar, gewarnt bist du.",
+      "Soll ich dir einen erzählen? Lieber jemand anders, ich kann das nicht.",
+      "Hier lacht man über das, was die Leute mitbringen. Hörst du rein?"
+    ],
+    "fr": [
+      "Hé ! Ici on est sur les blagues. Ça te dit ?",
+      "C’est la taverne. On vient rire et pas grand-chose d’autre.",
+      "Ce sont les gens qui les enregistrent. Certaines sont nulles, tu es prévenu.",
+      "Je t’en raconte une ? Plutôt un autre, moi je n’ai aucun timing.",
+      "On rit avec ce que les gens apportent. Tu écoutes ?"
+    ],
+    "it": [
+      "Ehi! Qui stiamo con le barzellette. Ne vuoi una?",
+      "Questa è la taverna. Si viene a ridere e poco altro.",
+      "Le registra la gente. Alcune sono bruttissime, sei avvisato.",
+      "Te ne racconto una? Meglio un altro, io non ho tempi comici.",
+      "Qui si ride con quello che porta la gente. Ascolti?"
+    ],
+    "pt": [
+      "Ei! Aqui andamos com as piadas. Apetece-te uma?",
+      "Isto é a taberna. Vem-se rir e pouco mais.",
+      "É o pessoal que as grava. Algumas são péssimas, ficas avisado.",
+      "Conto-te uma? Melhor outro, que eu não tenho graça nenhuma.",
+      "Aqui ri-se com o que a malta traz. Ouves?"
+    ]
+  },
+  "tavernTable": {
+    "es": "Este es el sitio donde los chistes malos se cuentan dos veces. Por si la primera no te habías dado cuenta.",
+    "en": "This is where bad jokes get told twice. In case you missed how bad they were.",
+    "de": "Hier erzählt man schlechte Witze zweimal. Falls es beim ersten Mal nicht aufgefallen ist.",
+    "fr": "Ici, on raconte les mauvaises blagues deux fois. Au cas où tu n’aurais pas compris la première.",
+    "it": "Qui le barzellette brutte si raccontano due volte. Nel caso non te ne fossi accorto la prima.",
+    "pt": "Aqui as piadas más contam-se duas vezes. Caso não tenhas reparado à primeira."
+  }
+}

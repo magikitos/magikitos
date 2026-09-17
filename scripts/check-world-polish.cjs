@@ -170,17 +170,18 @@ for (const s of Object.values(catalog.scenes).filter((s) =>
   const section = riverSection(river, boat.y / TILE);
   assert(boat.x / TILE > section.left + 2 && boat.x / TILE < section.right - 2);
 }
-for (const lang of ["es", "en", "fr", "it", "de", "pt"]) {
-  const strings = JSON.parse(
-    fs.readFileSync(`data/aventura/locales/${lang}.json`),
-  );
-  for (const key of [
-    "riverHedgeHint",
-    "hedgeHint",
-    "forestSign",
-    "riverAngler",
-  ])
-    assert(strings[key]);
+// Estas frases son de PANTALLA, así que se comprueban donde viven: en el paquete que viaja con
+// la pantalla que las dice, y en los seis idiomas.
+{
+  const { scenes } = require("../tools/locales.cjs").composeLocales(catalog);
+  for (const lang of ["es", "en", "fr", "it", "de", "pt"])
+    for (const [scene, key] of [
+      ["river-roots", "riverHedgeHint"],
+      ["human-hedge", "hedgeHint"],
+      ["overworld", "forestSign"],
+      ["river-willows", "riverAngler"],
+    ])
+      assert(scenes[scene][lang][key], lang + ": " + scene + "/" + key);
 }
 assert.equal(
   catalog.scenes["river-roots"].navigation.exits.find(

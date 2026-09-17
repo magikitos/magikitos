@@ -46,25 +46,69 @@ state=planReaction(find("picnic-knife"),state,catalog).state;
 state=planReaction(find("picnic-mushroom"),state,catalog).state;
 assert.equal(state.inventory.mushroom,1);assert(!active(find("picnic-mushroom"),state));
 assert.equal(state.inventory.knife,1,"Knife is reusable");
-for(const amount of [0,1,2,30]){
-  let s=cleanSave(null,catalog);s.wallet.balance=amount;
-  const action=actions(fountain,s)[0];
-  assert.equal(matches(s,action.enabledWhen),amount>=1);
-  const before=JSON.stringify(s),p=planReaction(fountain,s,catalog,{action:"wish"});
-  assert.equal(JSON.stringify(s),before,"Fountain planning cannot mutate source");
-  assert.equal(p.state.wallet.balance,Math.max(0,amount-1));
-  assert.equal(p.state.keepsakes?.overworld?.fountain||0,amount?1:0);
-  if(amount) assert.equal(p.effects.find(e=>e.type==="presentation").sequence,"toss");
+/**
+ * ⛔ LA FUENTE NO COBRA: SE PIDE UN DESEO Y YA (17-sep-2026, decisión del dueño). Se toca y se
+ * pide, sin botón y sin peaje, porque en este bosque no hay nada que comprar.
+ *
+ * Lo que la casa NO ha tirado es la maquinaria: el peaje, el premio y los recuerdos que se dejan
+ * en un sitio siguen en el motor y en el contrato del servidor, porque los setines vuelven el día
+ * que el dueño quiera. Así que aquí se comprueban las dos cosas por separado y con la misma
+ * dureza: que el MUNDO no cobra, y que la MÁQUINA sigue sabiendo cobrar.
+ */
+assert(!fountain.actions, "La fuente no tiene botón: se toca y se pide");
+assert(!fountain.keepsakes, "Y no se le echa nada dentro");
+{
+  const s=cleanSave(null,catalog);
+  const p=planReaction(fountain,s,catalog,{});
+  assert.equal(p.state.wallet.balance,0,"Pedir un deseo no cuesta");
+  assert.deepEqual(p.state,s,"Ni cambia nada de la partida");
+  assert.equal(p.effects.find(e=>e.type==="dialogue").key,"fountainWish");
 }
-state=cleanSave(null,catalog);state.wallet.balance=30;
-for(let i=0;i<25;i++)state=planReaction(fountain,state,catalog,{action:"wish"}).state;
-assert.equal(state.wallet.balance,5);assert.equal(state.keepsakes.overworld.fountain,12);
-assert.deepEqual(cleanSave(JSON.parse(JSON.stringify(state)),catalog).keepsakes,state.keepsakes);
-assert.deepEqual(cleanKeepsakes({overworld:{fountain:999999,absent:5},unknown:{x:1}},catalog),{overworld:{fountain:12}});
-assert.deepEqual(cleanKeepsakes({overworld:{fountain:NaN}},catalog),{});
-for(let i=0;i<12;i++){
- const e={...fountain,x:0,y:0}, p=keepsakePoint(e,i),[x,y,rx,ry]=e.keepsakes.area;
- assert(((p.x-x)/rx)**2+((p.y-y)/ry)**2<1,"Coin remains inside the bowl");
+// Ni una regla del bosque acuña, gasta o deja un recuerdo. Es la comprobación que de verdad
+// sostiene la decisión: mirar la fuente sola dejaría la puerta abierta en cualquier otra escena.
+for(const [id,sc] of Object.entries(catalog.scenes))
+  for(const e of sc.entities){
+    for(const a of e.actions||[]) assert(!a.fare,id+"/"+e.id+": una acción con peaje");
+    for(const r of e.rules) for(const f of r.effects)
+      assert(!["reward","spend","keepsake"].includes(f.type),id+"/"+e.id+": efecto "+f.type);
+  }
+// Vacío y no ausente: el motor y el contrato del servidor siguen esperando los dos huecos, y un
+// `[]` es lo que devuelve PHP para un mapa sin claves — mirar el número no depende de eso.
+assert.equal(Object.keys(catalog.economy.fares).length,0,"Sin peajes escritos");
+assert.equal(Object.keys(catalog.dialogueTokens).length,0,"Y ninguna frase con un precio dentro");
+// La máquina, con una fuente de mentira: mismo motor, mismos números, sin tocar el bosque.
+{
+  const well={id:"fountain",sprite:"fountain",label:"fountain",solid:fountain.solid,
+    keepsakes:{sprite:"setin-flat",limit:12,area:[0,-31,23,10]},
+    actions:[{id:"wish",label:"tossSetin",fare:"wish",enabledWhen:{funds:1}}],
+    rules:[{action:"wish",when:{funds:1},effects:[
+      {type:"spend",fare:"wish"},{type:"keepsake"},
+      {type:"presentation",sequence:"toss",sprite:"setin",duration:1.1}]},
+      {action:"wish",effects:[{type:"dialogue",key:"fountainWish"}]}]};
+  const coin={...catalog,economy:{...catalog.economy,fares:{wish:1}},
+    scenes:{...catalog.scenes,overworld:{...scene,
+      entities:[...scene.entities.filter(e=>e.id!=="fountain"),well]}}};
+  for(const amount of [0,1,2,30]){
+    let s=cleanSave(null,coin);s.wallet.balance=amount;
+    assert.equal(matches(s,actions(well,s)[0].enabledWhen),amount>=1);
+    const before=JSON.stringify(s),p=planReaction(well,s,coin,{action:"wish"});
+    assert.equal(JSON.stringify(s),before,"Planning cannot mutate source");
+    assert.equal(p.state.wallet.balance,Math.max(0,amount-1));
+    assert.equal(p.state.keepsakes?.overworld?.fountain||0,amount?1:0);
+    if(amount) assert.equal(p.effects.find(e=>e.type==="presentation").sequence,"toss");
+  }
+  let st=cleanSave(null,coin);st.wallet.balance=30;
+  for(let i=0;i<25;i++)st=planReaction(well,st,coin,{action:"wish"}).state;
+  assert.equal(st.wallet.balance,5);assert.equal(st.keepsakes.overworld.fountain,12);
+  assert.deepEqual(cleanSave(JSON.parse(JSON.stringify(st)),coin).keepsakes,st.keepsakes);
+  assert.deepEqual(cleanKeepsakes({overworld:{fountain:999999,absent:5},unknown:{x:1}},coin),{overworld:{fountain:12}});
+  assert.deepEqual(cleanKeepsakes({overworld:{fountain:NaN}},coin),{});
+  for(let i=0;i<12;i++){
+    const e={...well,x:0,y:0}, pt=keepsakePoint(e,i),[x,y,rx,ry]=e.keepsakes.area;
+    assert(((pt.x-x)/rx)**2+((pt.y-y)/ry)**2<1,"Coin remains inside the bowl");
+  }
+  // Y las monedas de una partida vieja se van solas cuando la fuente deja de admitirlas.
+  assert.deepEqual(cleanKeepsakes({overworld:{fountain:7}},catalog),{});
 }
 assert.deepEqual(gains({inventory:{leaf:1}},{inventory:{leaf:2,twig:1}}),["leaf","twig"]);
 assert.equal(cardinal(-2,3),"down");assert.equal(cardinal(-3,2),"left");
@@ -101,4 +145,4 @@ for(const dt of [1/30,1/60,1/120]){
  assert.match(pushFrame(actor),/^person-0-right-push-/);
  assert.equal(w.collisionAt(actor.x,actor.y,actor),null);
 }
-console.log("PASS Ascua: 64 barbecue states, whole pickup, atomic local fountain, bounded reload memories, gesture poses, exact density/crops, restrained wind and 30/60/120 Hz pushing.");
+console.log("PASS Ascua: 64 barbecue states, whole pickup, free fountain with its machinery intact, bounded reload memories, gesture poses, exact density/crops, restrained wind and 30/60/120 Hz pushing.");

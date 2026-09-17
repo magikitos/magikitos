@@ -259,7 +259,11 @@
     ],
     "rules": [
       {
-        "when": { "items": { "knife": 1 } },
+        "when": {
+          "items": {
+            "knife": 1
+          }
+        },
         "effects": [
           {
             "type": "item",
@@ -281,7 +285,12 @@
         ]
       },
       {
-        "effects": [{ "type": "dialogue", "key": "skewerNeedKnife" }]
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "skewerNeedKnife"
+          }
+        ]
       }
     ],
     "visibleWhen": {
@@ -379,10 +388,6 @@
           {
             "type": "timer",
             "timer": "picnic"
-          },
-          {
-            "type": "reward",
-            "reward": "picnic"
           },
           {
             "type": "item",
