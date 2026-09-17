@@ -427,8 +427,10 @@ probablemente suficiente.
 > «No quiero duendes de colores raros que no sean pieles de verdad, y la
 > predominancia deben ser las pieles clásicas.»
 
-**La decisión está tomada: los 100 avatares, todas las poses.** Esta sección dice
-lo que cuesta, lo que hay que rehacer del motor para que quepa, y la regla de arte.
+**La decisión: TODAS las poses, pero el elenco elegible arranca en 20 y crece.**
+Los 100 residentes siguen siendo los vecinos del bosque con su arte base: lo que
+se acota es la lista de «puedes SER este», no el mundo. El porqué del número está
+en §B.5.7.
 
 ### B.5.1 Lo que hay hoy, medido
 
@@ -495,14 +497,15 @@ Por variante hay que añadir **124 sprites**, unos **203 KB**:
 | carried | 16 | 21,5 |
 | needs | 8 | 13,3 |
 | discover | 4 | 8,8 |
-| **× 100 variantes** | **12.400** | **~20 MB** |
+| **por variante** | **124** | **~203 KB** |
 
-| | Hoy | Después |
-|---|---|---|
-| Sprites del atlas | 4.233 | **~16.600** |
-| Paquetes PNG | 194 | **~894** |
-| Peso de los paquetes | 9,77 MB | **~30 MB** |
-| Artefacto entero | 24 MB | **~44 MB** |
+Y lo que eso suma según el tamaño del elenco elegible:
+
+| Elenco | Sprites nuevos | Peso | Paquetes PNG | Artefacto |
+|---|---|---|---|---|
+| **20** ← recomendado | **2.480** | **4,1 MB** | 194 → 334 | 24 → **28 MB** |
+| 40 | 4.960 | 8,1 MB | 194 → 474 | 24 → **32 MB** |
+| 100 | 12.400 | 20,3 MB | 194 → 894 | 24 → **44 MB** |
 
 ⛔ **Y eso NO es lo que se descarga nadie.** Ver lo siguiente, que es el punto.
 
@@ -581,14 +584,77 @@ colour»*, y el reparto de tonos es este:
 4. Lo exótico va en el **pelo, el gorro y la ropa**, que es donde la casa ya pone
    la variedad (20 familias con nombre de planta).
 
-### B.5.7 Lo que se tira
+### B.5.7 Cuántos duendes elegibles: **20 para empezar**
 
-`actor-0-bow` (24 sprites, 32,8 KB) y `actor-0-roll` (32 sprites, 48,7 KB) **no
-los pide nadie**, y rodar salió del juego por decisión (hay una prueba que lo
-exige: *«rolling stays out of the game»*). Se retira su declaración; **el maestro
-del arte no se borra nunca**.
+⛔ **El argumento que decide es la asimetría: CRECER es gratis, ENCOGER no.** Con
+el respaldo por pose y el informe de cobertura (§B.5.4), una variante sin su arte
+completa simplemente no se ofrece todavía. Añadir la número 21 mañana cuesta solo
+su arte. Quitar una le quita el duende a alguien que ya lo eligió. **Así que se
+empieza bajo y se sube.**
 
-### B.5.8 El sorteo y el cambio
+**20 = uno por familia, y eso encaja con los datos que ya hay.** Las 20 familias
+de `residents.json` son **de un solo género cada una** (10 masculinas y 10
+femeninas), así que uno por familia da **10 y 10**: equilibrio perfecto, las
+veinte familias vivas y sus nombres de planta intactos.
+
+Los otros tres argumentos, por orden de peso:
+
+1. ⛔ **El riesgo de verdad es la CONSISTENCIA, y se descubre antes con 20.** Son
+   124 dibujos del mismo personaje que tienen que compartir piel, pelo y ropa
+   (§B.5.6). Descubrir que el pipeline se desvía en la variante 3 de 20 es barato;
+   descubrirlo en la 60 de 100 es tirar meses.
+2. **A 24×32 píxeles lo que se lee es el gorro, el pelo y la ropa.** Con diez
+   personas a la vista, veinte duendes distintos significa que casi nunca ves un
+   repetido. Por encima de eso produces variedad que solo existe en el selector.
+3. **20 es una rejilla de 4×5**: se ojea de una pantalla. 100 es un scroll.
+
+**El siguiente escalón natural es 40** (dos por familia, mismo equilibrio). Y el
+camino a 100 queda abierto: es exactamente el mismo trabajo, repetido.
+
+⛔ **Y que quede claro lo que NO se toca: los 100 residentes siguen siendo los
+vecinos del bosque**, con sus 32 sprites de base que ya existen. El mundo no
+pierde ni un personaje. Lo único que empieza en 20 es de cuáles puedes ser tú.
+
+### B.5.8 Lo que se tira: `bow` y `roll`
+
+Decisión del dueño: **fuera del sprite, y no se generan tampoco para las variantes
+nuevas.**
+
+⛔ **Antes de tirarlo, que quede escrito qué es `bow`: es un ARCO Y FLECHA**, no
+una reverencia. Comprobado mirando `art/cast/cutouts/ascua-bow.png`: ocho
+direcciones × tres fases de tensar, apuntar y bajar el arco. La prueba que lo
+guardaba lo dice con todas las letras (*«Future weapon stays lazy»*), o sea que
+estaba reservado para un combate futuro **en un juego que declara no tener
+combate** (`docs/SHARED-FOREST.md`: «Sin vidas, combate, Libro del Bosque…»).
+Tirarlo es coherente con la dirección; solo había que saber qué se tiraba.
+
+`roll` son 32 sprites de rodar y recuperarse, y rodar **salió del juego por
+decisión**: hay una prueba que lo exige (*«rolling stays out of the game»*).
+
+**Qué se borra, exactamente:**
+
+| Fichero | Qué |
+|---|---|
+| `data/aventura/assets/actor-0-bow.json` | borrar: es lo que declara el paquete |
+| `data/aventura/assets/actor-0-roll.json` | borrar |
+| `data/aventura/art/cast/catalog.json` | quitar las entradas `ascua-bow` y `ascua-roll` para que no se vuelvan a generar |
+| `scripts/review-mobility-art.php` | línea 8 y 16: quitar `actor-0-roll` y las fases `-roll-*` / `-recover-0`, o el script revienta |
+| `scripts/check-ascua-browser.cjs` | línea 88 |
+| `scripts/check-release-live.cjs` | línea 110 |
+
+⛔ Las dos aserciones de los checks son negativas (*«no está cargado»*) y
+**seguirían pasando con el paquete borrado sin comprobar nada**. Hay que
+cambiarlas por la fuerte: **que el paquete NO EXISTA en el manifiesto**. Una
+comprobación que pasa porque su sujeto desapareció es una comprobación apagada.
+
+⛔ **Y los maestros del arte NO se borran** (`ascua-bow.png`,
+`ascua-roll-matte.png` en `art/cast/cutouts/`). Es regla de la casa: se retira la
+declaración, no la procedencia. Sin declaración no se hornean y no viajan.
+
+**Y en la especificación de generación de las variantes nuevas van SIETE poses**
+(run, row-remero, push, work, carried, needs, discover). Ni `bow` ni `roll`.
+
+### B.5.9 El sorteo y el cambio
 
 - Se asigna **al azar y determinista por cuenta** (mismo handle → mismo duende),
   como ya se hace con los retratos de perfil.
@@ -1141,7 +1207,7 @@ anterior.
 |---|---|---|---|
 | 1 | **Parte B.1-B.4** (diálogo, setas, rastrillo, flores) | nada | bajo |
 | 1b | **Parte B.5 motor**: descomponer el remo, tirar bow/roll, descablear las seis variantes, caché por bytes, presupuesto de descarga | nada | medio |
-| 1c | **Parte B.5 arte**: 12.400 sprites, 124 por variante | 1b | **alto (producción)** |
+| 1c | **Parte B.5 arte**: 20 variantes × 124 sprites = 2.480 | 1b | **alto (producción)** |
 | 2 | **Parte A**: aplicar la migración 4236 y desplegar lo que ya está en el árbol | 1 (por el renombrado) | bajo |
 | 3 | El arte del rastrillo + sus dos recogidas (§A.9, §A.10) | 2 | bajo |
 | 4 | **Parte C**: la caca-mensaje, con su juez | 3 (el palo, el patrón de objetos) | medio |
