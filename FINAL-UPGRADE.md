@@ -427,10 +427,12 @@ probablemente suficiente.
 > «No quiero duendes de colores raros que no sean pieles de verdad, y la
 > predominancia deben ser las pieles clásicas.»
 
-**La decisión: TODAS las poses, pero el elenco elegible arranca en 20 y crece.**
-Los 100 residentes siguen siendo los vecinos del bosque con su arte base: lo que
-se acota es la lista de «puedes SER este», no el mundo. El porqué del número está
-en §B.5.7.
+**La decisión: 30 duendes elegibles, con las SIETE poses completas.**
+
+⛔ **Y los 100 duendes que ya existen NO SE BORRAN.** Siguen siendo los vecinos del
+bosque con sus 32 sprites de base, exactamente como hoy. Lo que se acota es la
+lista de «puedes SER este», no el mundo: el bosque sigue teniendo sus cien
+habitantes. El reparto del número está en §B.5.7.
 
 ### B.5.1 Lo que hay hoy, medido
 
@@ -503,8 +505,8 @@ Y lo que eso suma según el tamaño del elenco elegible:
 
 | Elenco | Sprites nuevos | Peso | Paquetes PNG | Artefacto |
 |---|---|---|---|---|
-| **20** ← recomendado | **2.480** | **4,1 MB** | 194 → 334 | 24 → **28 MB** |
-| 40 | 4.960 | 8,1 MB | 194 → 474 | 24 → **32 MB** |
+| **30** ← **el acordado** | **3.720** | **6,1 MB** | 194 → 404 | 24 → **30 MB** |
+| 60 | 7.440 | 12,2 MB | 194 → 614 | 24 → **36 MB** |
 | 100 | 12.400 | 20,3 MB | 194 → 894 | 24 → **44 MB** |
 
 ⛔ **Y eso NO es lo que se descarga nadie.** Ver lo siguiente, que es el punto.
@@ -584,88 +586,156 @@ colour»*, y el reparto de tonos es este:
 4. Lo exótico va en el **pelo, el gorro y la ropa**, que es donde la casa ya pone
    la variedad (20 familias con nombre de planta).
 
-### B.5.7 Cuántos duendes elegibles: **20 para empezar**
+### B.5.7 Los 30 elegibles, y los 100 que se quedan de vecinos
 
-⛔ **El argumento que decide es la asimetría: CRECER es gratis, ENCOGER no.** Con
-el respaldo por pose y el informe de cobertura (§B.5.4), una variante sin su arte
-completa simplemente no se ofrece todavía. Añadir la número 21 mañana cuesta solo
-su arte. Quitar una le quita el duende a alguien que ya lo eligió. **Así que se
-empieza bajo y se sube.**
+**Elenco elegible: 30.** Reparto sobre las 20 familias de `residents.json`, que son
+**de un solo género cada una** (10 masculinas y 10 femeninas):
 
-**20 = uno por familia, y eso encaja con los datos que ya hay.** Las 20 familias
-de `residents.json` son **de un solo género cada una** (10 masculinas y 10
-femeninas), así que uno por familia da **10 y 10**: equilibrio perfecto, las
-veinte familias vivas y sus nombres de planta intactos.
+| | |
+|---|---|
+| Una de **cada una de las 20 familias** | 10 + 10 |
+| Una **segunda** en 5 familias masculinas y 5 femeninas | 5 + 5 |
+| **Total** | **15 masculinos y 15 femeninos** |
 
-Los otros tres argumentos, por orden de peso:
+Con eso las veinte familias siguen vivas con su nombre de planta y el equilibrio
+queda exacto.
 
-1. ⛔ **El riesgo de verdad es la CONSISTENCIA, y se descubre antes con 20.** Son
-   124 dibujos del mismo personaje que tienen que compartir piel, pelo y ropa
-   (§B.5.6). Descubrir que el pipeline se desvía en la variante 3 de 20 es barato;
-   descubrirlo en la 60 de 100 es tirar meses.
-2. **A 24×32 píxeles lo que se lee es el gorro, el pelo y la ropa.** Con diez
-   personas a la vista, veinte duendes distintos significa que casi nunca ves un
-   repetido. Por encima de eso produces variedad que solo existe en el selector.
-3. **20 es una rejilla de 4×5**: se ojea de una pantalla. 100 es un scroll.
+⛔ **LOS 100 QUE YA ESTÁN GENERADOS NO SE TOCAN.** Se quedan tal cual como vecinos
+del bosque, con sus 32 sprites de base. No se borra ni un fichero, ni un maestro,
+ni una entrada del catálogo. Los 30 elegibles son un SUBCONJUNTO de esos 100 al
+que además se le dibujan las siete poses.
 
-**El siguiente escalón natural es 40** (dos por familia, mismo equilibrio). Y el
-camino a 100 queda abierto: es exactamente el mismo trabajo, repetido.
+**Crecer después es gratis y encoger no**: con el respaldo por pose y el informe
+de cobertura (§B.5.4), una variante sin su arte completa simplemente no aparece
+todavía en el selector. Añadir la 31 mañana cuesta solo su arte; quitar una le
+quita el duende a alguien que ya lo eligió.
 
-⛔ **Y que quede claro lo que NO se toca: los 100 residentes siguen siendo los
-vecinos del bosque**, con sus 32 sprites de base que ya existen. El mundo no
-pierde ni un personaje. Lo único que empieza en 20 es de cuáles puedes ser tú.
+**Y 30 mantiene acotado el riesgo que importa**, que no son los bytes sino la
+consistencia de 124 dibujos del mismo personaje (§B.5.6 y §B.5.9): con 30
+variantes son 210 hojas de pose, un número que una persona puede revisar.
 
-### B.5.8 Lo que se tira: `bow` y `roll`
+### B.5.8 Los dos paquetes de acción que se retiran
 
-Decisión del dueño: **fuera del sprite, y no se generan tampoco para las variantes
-nuevas.**
-
-⛔ **Antes de tirarlo, que quede escrito qué es `bow`: es un ARCO Y FLECHA**, no
-una reverencia. Comprobado mirando `art/cast/cutouts/ascua-bow.png`: ocho
-direcciones × tres fases de tensar, apuntar y bajar el arco. La prueba que lo
-guardaba lo dice con todas las letras (*«Future weapon stays lazy»*), o sea que
-estaba reservado para un combate futuro **en un juego que declara no tener
-combate** (`docs/SHARED-FOREST.md`: «Sin vidas, combate, Libro del Bosque…»).
-Tirarlo es coherente con la dirección; solo había que saber qué se tiraba.
-
-`roll` son 32 sprites de rodar y recuperarse, y rodar **salió del juego por
-decisión**: hay una prueba que lo exige (*«rolling stays out of the game»*).
-
-**Qué se borra, exactamente:**
+Hay dos paquetes de acción de la variante 0 que **no los pide nadie** y que se
+retiran. Se borra su declaración; **los maestros del arte no se borran nunca**
+(regla de la casa: se retira la declaración, no la procedencia). Sin declaración
+no se hornean y no viajan en el artefacto.
 
 | Fichero | Qué |
 |---|---|
-| `data/aventura/assets/actor-0-bow.json` | borrar: es lo que declara el paquete |
 | `data/aventura/assets/actor-0-roll.json` | borrar |
-| `data/aventura/art/cast/catalog.json` | quitar las entradas `ascua-bow` y `ascua-roll` para que no se vuelvan a generar |
-| `scripts/review-mobility-art.php` | línea 8 y 16: quitar `actor-0-roll` y las fases `-roll-*` / `-recover-0`, o el script revienta |
+| `data/aventura/assets/actor-0-bow.json` | borrar |
+| `data/aventura/art/cast/catalog.json` | quitar sus dos entradas de `sheets` |
+| `scripts/review-mobility-art.php` | líneas 8 y 16: quitar sus ids y sus fases, o el script revienta |
 | `scripts/check-ascua-browser.cjs` | línea 88 |
 | `scripts/check-release-live.cjs` | línea 110 |
 
-⛔ Las dos aserciones de los checks son negativas (*«no está cargado»*) y
-**seguirían pasando con el paquete borrado sin comprobar nada**. Hay que
-cambiarlas por la fuerte: **que el paquete NO EXISTA en el manifiesto**. Una
-comprobación que pasa porque su sujeto desapareció es una comprobación apagada.
+⛔ Las dos aserciones de los checks son NEGATIVAS (*«no está cargado»*) y
+**seguirían pasando con el paquete borrado sin comprobar nada**. Se cambian por la
+fuerte: **que el paquete no exista en el manifiesto**. Una comprobación que pasa
+porque su sujeto desapareció es una comprobación apagada.
 
-⛔ **Y los maestros del arte NO se borran** (`ascua-bow.png`,
-`ascua-roll-matte.png` en `art/cast/cutouts/`). Es regla de la casa: se retira la
-declaración, no la procedencia. Sin declaración no se hornean y no viajan.
+⛔ **Y la especificación de generación de las 30 variantes lista SIETE poses y no
+nombra ninguna otra**: `run`, `row` (solo el remero), `push`, `work`, `carried`,
+`needs`, `discover`. Nombrar una pose en un encargo de arte es como se dibuja.
 
-**Y en la especificación de generación de las variantes nuevas van SIETE poses**
-(run, row-remero, push, work, carried, needs, discover). Ni `bow` ni `roll`.
+### B.5.9 ⛔ Los grids: que salgan consistentes
 
-### B.5.9 El sorteo y el cambio
+Es el riesgo de producción número uno con 210 hojas. **Buena noticia: el pipeline
+ya resuelve la mitad solo**, y hay que saber cuál mitad.
 
-- Se asigna **al azar y determinista por cuenta** (mismo handle → mismo duende),
-  como ya se hace con los retratos de perfil.
-- Se guarda en el progreso de la cuenta y **se cambia en el panel `YO`**
-  (`#self-dialog`).
-- **Dos personas con el mismo duende no es un problema** (decisión del dueño): es
-  cuestión de gustos, y no hace falta reservar ni excluir nada.
-- Viaja en la presencia (§D), porque es lo que los demás tienen que ver.
-- Y como los 100 son a la vez los vecinos del bosque, **te puedes cruzar contigo
-  mismo paseando de NPC**. Con duplicados permitidos eso deja de ser un fallo y
-  pasa a ser el mundo: hay más de un Brezo alba por ahí.
+**Lo que `scripts/prepare-adventure-cast.php` YA hace por ti**, midiendo los
+píxeles de verdad de cada celda:
+
+| | Cómo |
+|---|---|
+| **Centra** el personaje en su celda | `dx = anchor.x − anchoCelda·ratio/2` |
+| **Le pone los pies en la línea de apoyo** | `dy = anchor.y − (fondo del dibujo)·ratio` |
+| **Una sola escala por HOJA, nunca por celda** | `ratio = height / bodyHeight` — está comentado ahí: *«Never fit each arm/leg pose independently»* |
+| **Revienta si una pose se sale del lienzo** | `throw "Registered pose clipped: $name"` |
+| Canvas y ancla comunes del elenco | `canvas [48,48]`, `anchor [24,46]` |
+
+O sea: **no hace falta que el generador clave la rejilla al píxel.** El horneado
+registra cada celda. Lo que el generador SÍ tiene que respetar es lo siguiente, y
+aquí es donde se rompe:
+
+**1. ⛔ La escala de la hoja sale de la CELDA [0,0], y eso es una trampa.**
+`bodyHeight` se mide en la primera celda. Si en la hoja de correr esa celda pilla
+al duende a media zancada con una pierna estirada, su alto dibujado es mayor que
+de pie → **la hoja entera se escala hacia abajo** → ese duende es más pequeño
+corriendo que andando. **El arreglo ya existe en el pipeline: `reference`.** Toda
+hoja de pose debe declarar `reference` apuntando a la hoja de ANDAR de su misma
+variante, y así las siete poses toman prestada la escala del cuerpo de pie. Ya se
+usaba para eso mismo en su día.
+
+**2. ⛔ Los pies se registran por el FONDO del dibujo.** Correcto para estar de
+pie, andar, correr, empujar, cocinar y agacharse. **Falso en cuanto algo cuelga
+por debajo de los pies**: la barca, o al ir en la boca de un gato. Esas hojas
+llevan su propio `canvas` y su propio `anchor`, como ya hacen hoy las dos que
+tienen ese problema. Si una pose nueva mete una herramienta que toca el suelo,
+mismo caso.
+
+**3. ⛔ EL ORDEN DE LAS COLUMNAS ES EL ORDEN DE LAS DIRECCIONES**, y equivocarlo no
+da ningún error: simplemente todo el mundo mira hacia donde no es. El orden es
+fijo y no se negocia:
+
+```
+down · down-right · right · up-right · up · up-left · left · down-left
+```
+
+**4. Celdas iguales y margen generoso dentro de cada una.** El horneado recorta por
+el contenido visible, así que un dibujo que toca el borde de su celda se
+contamina con el de al lado. Los prompts de la casa ya lo piden («equal cells with
+generous blank margins»); no se relaja.
+
+**5. La basurilla se declara.** Un generador que deje motas sueltas necesita
+`cleanFragments` en su hoja, como ya lo lleva la de correr.
+
+**La comprobación que falta, y hay que escribirla.** Hoy
+`scripts/check-adventure-crops.php` demuestra sobre una prueba sintética que el
+horneado conserva el pie entre dos poses. Con 210 hojas reales hace falta un
+**informe de consistencia sobre el elenco de verdad**: por cada variante, que el
+alto del cuerpo y la línea del pie coincidan entre sus siete hojas dentro de una
+tolerancia, y que griten las que no. Sin eso, un duende que mide dos píxeles menos
+al remar no lo ve nadie hasta que alguien rema.
+
+### B.5.10 El sorteo, el selector y lo que se aprende de él
+
+**Al empezar se te asigna uno al azar.** Determinista por cuenta (mismo handle →
+mismo duende), como ya se hace con los retratos de perfil. Se guarda en el
+progreso de la cuenta y se cambia cuando quieras en el panel `YO`
+(`#self-dialog`). Viaja en la presencia (§D), porque es lo que los demás ven.
+
+**Dos personas con el mismo duende no es un problema** (decisión del dueño): es
+cuestión de gustos, y no hace falta reservar ni excluir nada. Y como los 30 salen
+de los 100 vecinos, puedes cruzarte contigo mismo paseando de NPC: con duplicados
+permitidos eso deja de ser un fallo y pasa a ser el mundo.
+
+⛔ **EL SELECTOR NO CATEGORIZA NADA** (decisión del dueño). Ni hombre ni mujer, ni
+tono de piel, ni familia, ni ninguna otra etiqueta. **Se enseñan los 30 en
+desorden y eliges el que te guste.** Punto. Sin pestañas, sin filtros, sin
+secciones. Una rejilla y ya.
+
+**Al crear la cuenta se le recuerda que puede elegir**, una vez y sin insistir.
+Antes de eso ya está jugando con el que le tocó.
+
+**Y por dentro sí están etiquetados `H`/`M`**, que es otra cosa y no se enseña
+nunca. Sirve para una sola cosa:
+
+⛔ **Si la persona elige un duende y NO ha declarado su sexo, se rellena
+`users.gender` con el del duende** (la etiqueta interna `H`/`M` se mapea a la
+`M`/`F` de esa columna). Esa columna la lee el cron de retratos para elegir el
+subgénero del avatar, y hoy, vacía, cae a un hash del handle. Con esto, elegir tu
+duende te mejora el retrato sin haberte preguntado nada.
+
+Tres reglas para que eso no se convierta en una suposición fea:
+
+1. **Solo si está VACÍA.** Nunca se pisa lo que la persona haya declarado.
+2. **Nunca se enseña como si lo hubiera dicho ella.** Es una inferencia nuestra, no
+   una declaración suya, y sigue siendo corregible en su cuenta como siempre.
+3. **Elegir un duende no es declarar nada.** Cualquiera puede querer ser un duende
+   cualquiera; por eso el selector no lo etiqueta y por eso el dato se toma como
+   una pista y no como una respuesta.
 
 ---
 
@@ -1207,7 +1277,7 @@ anterior.
 |---|---|---|---|
 | 1 | **Parte B.1-B.4** (diálogo, setas, rastrillo, flores) | nada | bajo |
 | 1b | **Parte B.5 motor**: descomponer el remo, tirar bow/roll, descablear las seis variantes, caché por bytes, presupuesto de descarga | nada | medio |
-| 1c | **Parte B.5 arte**: 20 variantes × 124 sprites = 2.480 | 1b | **alto (producción)** |
+| 1c | **Parte B.5 arte**: 30 variantes × 124 sprites = 3.720 (210 hojas) | 1b | **alto (producción)** |
 | 2 | **Parte A**: aplicar la migración 4236 y desplegar lo que ya está en el árbol | 1 (por el renombrado) | bajo |
 | 3 | El arte del rastrillo + sus dos recogidas (§A.9, §A.10) | 2 | bajo |
 | 4 | **Parte C**: la caca-mensaje, con su juez | 3 (el palo, el patrón de objetos) | medio |
@@ -1234,7 +1304,8 @@ apagada.** Rompe cada invariante a propósito y exige que grite.
 | Setas | que la seta NO reaparezca tras dar la brocheta (el caso exacto de §B.2), y que el bitset de nodos no se reordene |
 | Flores | que la edad se calcule contra el **`now` del servidor**: adelanta el reloj del navegador y la flor no puede crecer antes |
 | Diálogo | conducir el teclado de verdad, no leer el JS |
-| Duendes | que las 100 variantes tengan sus 124 sprites, y que la piel de cada una sea la MISMA en sus 124 |
+| Duendes | que las 30 elegibles tengan sus 124 sprites, con la MISMA piel y el MISMO alto de cuerpo en las siete hojas |
+| Grids | informe de consistencia sobre el elenco real: alto del cuerpo y línea del pie iguales entre las siete hojas de cada variante |
 | Carga | lo que se descarga en una pantalla con diez vecinos a la vista, no el total del atlas |
 | Memoria | la caché de sprites acotada por BYTES: 25 vecinos son ~42 MB de RGBA |
 | El remo | mirar las ocho frames de izquierda y derecha: ninguna pala del lado contrario |
