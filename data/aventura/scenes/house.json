@@ -88,8 +88,8 @@
     {
       "id": "human-table",
       "sprite": "table",
-      "x": 21.5,
-      "y": 13.2,
+      "x": 18.5,
+      "y": 9,
       "rules": [
         {
           "when": {},
@@ -113,8 +113,8 @@
     {
       "id": "human-sideboard",
       "sprite": "dresser",
-      "x": 12.3,
-      "y": 6.5,
+      "x": 12.25,
+      "y": 9.5,
       "rules": [
         {
           "when": {},
@@ -138,8 +138,8 @@
     {
       "id": "expression-book",
       "sprite": "book-lectern",
-      "x": 18.5,
-      "y": 5.75,
+      "x": 18,
+      "y": 4.5,
       "rules": [
         {
           "effects": [
@@ -185,31 +185,17 @@
     {
       "id": "house-window",
       "sprite": "window-arched",
-      "x": 5.8,
-      "y": 3.1,
+      "x": 7.25,
+      "y": 1.5,
       "rules": [],
       "artVariant": "auto"
     },
     {
       "id": "house-kitchen-rack",
       "sprite": "kitchen-rack",
-      "x": 12.3,
-      "y": 3.5,
+      "x": 12.25,
+      "y": 4.25,
       "rules": [],
-      "artVariant": "auto"
-    },
-    {
-      "id": "house-cupboard",
-      "sprite": "cupboard",
-      "x": 3.8,
-      "y": 13.5,
-      "rules": [],
-      "solid": [
-        -1.2,
-        -1.4,
-        2.4,
-        1.7
-      ],
       "artVariant": "auto"
     },
     {
@@ -253,32 +239,10 @@
       ]
     },
     {
-      "id": "house-reading-chair",
-      "sprite": "armchair",
-      "x": 18.5,
-      "y": 9.7,
-      "rules": [],
-      "solid": [
-        -0.75,
-        -0.8,
-        1.5,
-        1.1
-      ],
-      "artVariant": "auto"
-    },
-    {
-      "id": "house-book-window",
-      "sprite": "window-arched",
-      "x": 20.5,
-      "y": 3.1,
-      "rules": [],
-      "artVariant": "auto"
-    },
-    {
       "id": "house-table-vase",
       "sprite": "flower-vase",
-      "x": 21.5,
-      "y": 13.2,
+      "x": 18.5,
+      "y": 9,
       "offset": [
         9,
         -20
@@ -353,5 +317,6 @@
       "top": 2.5,
       "bottom": 2
     }
-  }
+  },
+  "scenery": []
 }

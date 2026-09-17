@@ -113,41 +113,37 @@ function get(endpoint, params = {}, options = {}) {
               );
       }
     }
-    for (const kind of ["products", "art"]) {
-      const catalog = await get("catalog", { lang, kind });
+    // El catálogo sirve UNA cosa: láminas. La tienda salió de aquí el 17-sep-2026 y
+    // `kind=products` se rechaza abajo, con el resto de lo que no existe.
+    {
+      const catalog = await get("catalog", { lang, kind: "art" });
       assert.equal(catalog.status, 200);
       for (const item of catalog.data.items) {
-        if (kind === "products") {
-          assert(item.url);
-          assert(Number.isInteger(item.price));
-          assert.equal(item.currency, "EUR");
-        } else {
-          assert(Number.isSafeInteger(item.id) && item.id > 0);
-          assert.equal(typeof item.title, "string");
-          assert(item.image && item.thumb);
-          assert(!("url" in item));
-        }
+        assert(Number.isSafeInteger(item.id) && item.id > 0);
+        assert.equal(typeof item.title, "string");
+        assert(item.image && item.thumb);
+        assert(!("url" in item));
+        assert(!("price" in item), "Nothing here has a price");
       }
-      if (kind === "art") {
-        assert(!("collection" in catalog.data));
-        const ignored = await get("catalog", {
-          lang,
-          kind,
-          collection: 999999999,
-        });
-        assert.equal(ignored.status, 200);
-        assert.deepEqual(
-          ignored.data,
-          catalog.data,
-          "Retired collection selector is ignored",
-        );
-      }
+      assert(!("collection" in catalog.data));
+      const ignored = await get("catalog", {
+        lang,
+        kind: "art",
+        collection: 999999999,
+      });
+      assert.equal(ignored.status, 200);
+      assert.deepEqual(
+        ignored.data,
+        catalog.data,
+        "Retired collection selector is ignored",
+      );
     }
     console.log("PASS local public API", lang);
   }
   const invalid = [
     ["bootstrap", { lang: "xx" }, 400],
     ["discover", { lang: "es", kind: "invalid" }, 400],
+    ["catalog", { lang: "es", kind: "products" }, 400],
     ["browse", { lang: "es", kind: "cuento", cursor: -1 }, 400],
     ["browse", { lang: "es", kind: "cuento", cursor: 10001 }, 400],
     ["browse", { lang: "es", kind: "cuento", q: "x", category: "x" }, 400],

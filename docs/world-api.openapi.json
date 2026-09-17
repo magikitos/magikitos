@@ -583,7 +583,7 @@
     "/catalog": {
       "get": {
         "operationId": "worldCatalog",
-        "summary": "Public product or art catalogue",
+        "summary": "Public colouring-sheet catalogue",
         "parameters": [
           {
             "name": "lang",
@@ -600,7 +600,6 @@
             "schema": {
               "type": "string",
               "enum": [
-                "products",
                 "art"
               ]
             }
@@ -2308,47 +2307,6 @@
           "expresion"
         ]
       },
-      "Product": {
-        "type": "object",
-        "required": [
-          "id",
-          "name",
-          "price",
-          "currency",
-          "quantity",
-          "image",
-          "url"
-        ],
-        "properties": {
-          "id": {
-            "type": "integer",
-            "minimum": 1
-          },
-          "name": {
-            "type": "string"
-          },
-          "price": {
-            "type": "integer",
-            "minimum": 0,
-            "description": "EUR cents, not game currency"
-          },
-          "currency": {
-            "const": "EUR"
-          },
-          "quantity": {
-            "type": "integer"
-          },
-          "image": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "url": {
-            "type": "string"
-          }
-        }
-      },
       "Sheet": {
         "type": "object",
         "required": [
@@ -2605,14 +2563,7 @@
             "type": "array",
             "maxItems": 24,
             "items": {
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/Product"
-                },
-                {
-                  "$ref": "#/components/schemas/Sheet"
-                }
-              ]
+              "$ref": "#/components/schemas/Sheet"
             }
           },
           "nextCursor": {

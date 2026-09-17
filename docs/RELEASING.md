@@ -82,7 +82,7 @@ spend or mint the new account via game-save.
 - Fetch all six routes: exact static HTML, 200, no PHP warnings, correct hashed
   JS/CSS/manifest. Verify resource requests and walking in fresh desktop/mobile
   browser profiles without writing real identity, vote, chat or purchase data.
-- Check normal home, stories, jokes, shop and public API DTOs remain available.
+- Check normal home, stories, jokes and public API DTOs remain available.
 - Record both commits, ID and checks in the release ledger.
 - Use `node scripts/check-release-live.cjs ORIGIN RELEASE_DIRECTORY` for the
   read-only public smoke. With Cloudflare JavaScript Detections, verify the

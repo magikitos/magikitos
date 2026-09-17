@@ -137,10 +137,6 @@
       ],
       "focus": "expression-book"
     },
-    "shop": {
-      "scene": "workshop",
-      "focus": "shop"
-    },
     "art": {
       "scene": "overworld",
       "circle": [

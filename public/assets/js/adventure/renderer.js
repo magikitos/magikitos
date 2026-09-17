@@ -17,7 +17,6 @@ class Renderer {
     this.ctx = canvas.getContext("2d", { alpha: false });
     this.sprites = new SpriteLibrary();
     this.terrain = new Terrain();
-    this.productImages = new Map();
     this.scale = 3;
     this.viewZoom = 1;
     this.requestedZoom = null; // Automatic framing until the first wheel/pinch gesture.
@@ -83,12 +82,6 @@ class Renderer {
       return (
         Math.abs(point.x - entity.x) <= TILE &&
         Math.abs(point.y - entity.y) <= TILE
-      );
-    if (entity.product)
-      return (
-        Math.abs(point.x - entity.x) <= 24 &&
-        point.y >= entity.y - 57 &&
-        point.y <= entity.y + 8
       );
     const frame = this.sprites.frame(this.frame(entity, state));
     if (!frame) return false;
@@ -265,7 +258,6 @@ class Renderer {
         c.fillRect(e.x - radius, e.y - 12 - radius, radius * 2, radius * 2);
       }
       require("./keepsakes").drawKeepsakes(c, this.sprites, e, game.state);
-      if (e.product) this.drawProduct(e);
       if (
         (e.rules?.length || e.neighbor || e.interactAs) &&
         (!e.interactWhen || matches(game.state, e.interactWhen)) &&
@@ -325,41 +317,6 @@ class Renderer {
     gradient.addColorStop(1, "rgba(19,38,27,.17)");
     c.fillStyle = gradient;
     c.fillRect(0, 0, this.width, this.height);
-  }
-  drawProduct(entity) {
-    const c = this.ctx;
-    const product = entity.product;
-    let picture = this.productImages.get(product.id);
-    if (!picture) {
-      picture = new Image();
-      picture.src = product.image;
-      this.productImages.set(product.id, picture);
-    }
-    c.fillStyle = "#69452e";
-    c.fillRect(entity.x - 19, entity.y - 55, 38, 39);
-    c.fillStyle = "#dfc89b";
-    c.fillRect(entity.x - 17, entity.y - 53, 34, 35);
-    if (picture.complete && picture.naturalWidth) {
-      const side = Math.min(picture.naturalWidth, picture.naturalHeight);
-      c.drawImage(
-        picture,
-        (picture.naturalWidth - side) / 2,
-        (picture.naturalHeight - side) / 2,
-        side,
-        side,
-        entity.x - 16,
-        entity.y - 52,
-        32,
-        32,
-      );
-    }
-    c.fillStyle = "#f2dfb7";
-    c.fillRect(entity.x - 20, entity.y - 14, 40, 10);
-    c.fillStyle = "#513c29";
-    c.font = "bold 7px monospace";
-    c.textAlign = "center";
-    c.fillText((product.price / 100).toFixed(2) + " €", entity.x, entity.y - 6);
-    c.textAlign = "left";
   }
   night(zone, time, camera) {
     // A small reusable light mask keeps the fire's surroundings readable, without a personal light.

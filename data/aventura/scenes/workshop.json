@@ -43,33 +43,9 @@
       "portal": true
     },
     {
-      "id": "shop",
-      "sprite": "workbench",
-      "x": 16.5,
-      "y": 10.5,
-      "rules": [
-        {
-          "effects": [
-            {
-              "type": "content",
-              "key": "shop"
-            }
-          ]
-        }
-      ],
-      "solid": [
-        -1.7,
-        -1.7,
-        3.4,
-        2.2
-      ],
-      "label": "shop",
-      "artVariant": "auto"
-    },
-    {
       "id": "work-table",
       "sprite": "table",
-      "x": 8.5,
+      "x": 18,
       "y": 15.5,
       "rules": [
         {
@@ -92,36 +68,48 @@
       "artVariant": "auto"
     },
     {
-      "id": "shop-shelf",
-      "sprite": "workbench",
-      "x": 24.5,
-      "y": 12.5,
-      "rules": [
-        {
-          "effects": [
-            {
-              "type": "content",
-              "key": "shop"
-            }
-          ]
-        }
-      ],
-      "solid": [
-        -1.7,
-        -1.7,
-        3.4,
-        2.2
-      ],
-      "label": "shop",
-      "artVariant": "auto"
-    },
-    {
       "id": "workshop-fiber-basket",
       "sprite": "yarn-basket",
-      "x": 6.2,
-      "y": 15,
+      "x": 14,
+      "y": 13.5,
       "artVariant": "auto",
       "rules": []
+    },
+    {
+      "sprite": "dresser",
+      "rules": [],
+      "solid": [
+        -1.9,
+        -1.2,
+        3.8,
+        1.5
+      ],
+      "family": "dresser",
+      "id": "studio-3578ec50-8a2c-412f-83bf-6d29348de5dc",
+      "x": 25.25,
+      "y": 4.25,
+      "artVariant": "castana",
+      "scale": 1,
+      "rotation": 0,
+      "flip": false
+    },
+    {
+      "sprite": "stove",
+      "rules": [],
+      "solid": [
+        -1,
+        -1.3,
+        2,
+        1.6
+      ],
+      "family": "stove",
+      "id": "studio-a24391ea-b257-4750-bfdc-00e7c4ef8f50",
+      "x": 6.5,
+      "y": 6.25,
+      "artVariant": "barro",
+      "scale": 1.62,
+      "rotation": 0,
+      "flip": false
     }
   ],
   "ambient": {
@@ -171,5 +159,6 @@
       "top": 2.5,
       "bottom": 2
     }
-  }
+  },
+  "scenery": []
 }

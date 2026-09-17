@@ -28,7 +28,16 @@ for (const inventory of [{ bottle: 1 }, { boat: 1 }]) {
   assert.equal(planReaction(bottle, saved, world), null);
 }
 assert(active(bottle, { ...state, flags: { skewerCooked: true } }), "Litter remains after picnic departs");
-assert.equal(find("picnic-mushroom").scale, 0.85);
+/**
+ * ⛔ AQUÍ SE CLAVABA `scale === 0.85`, Y ESO NO MEDÍA NINGUNA REGLA: MEDÍA UNA TARDE.
+ *
+ * El Studio existe justamente para que el dueño mueva y redimensione lo que hay en el mapa, así
+ * que una comprobación que fija el tamaño de una seta convierte una decisión de arte en un build
+ * roto — pasó el 17-sep-2026 al aplicar una sesión suya (0,85 → 0,67, y el juego no se inmuta:
+ * la casa ya publica recogibles a 0,48 y a 0,65). Lo que este fichero tiene que sostener es el
+ * CONTRATO de la seta —sin cuchillo no se corta, con cuchillo cae una— y eso son las dos líneas
+ * de debajo, que siguen intactas.
+ */
 assert.equal(planReaction(find("picnic-mushroom"), state, world).state.inventory.mushroom, undefined);
 assert.equal(planReaction(find("picnic-mushroom"), { ...state, inventory: { knife: 1 } }, world).state.inventory.mushroom, 1);
 const twigCounts = Object.fromEntries(Object.entries(world.scenes).map(([id, s]) =>

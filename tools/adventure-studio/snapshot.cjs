@@ -7,7 +7,33 @@ const { World, TILE } = require("../../public/assets/js/adventure/model");
 const {
   resolveAppearance,
 } = require("../../public/assets/js/adventure/elements");
+const { readUnits } = require("../locales.cjs");
 const hash = (value) => crypto.createHash("sha256").update(value).digest("hex");
+
+/**
+ * ⛔ EL STUDIO NO TIENE SU PROPIA LISTA DE NOMBRES DE PANTALLA, PORQUE UNA LISTA A MANO CADUCA.
+ *
+ * La tuvo, dentro de `app.js`, y caducó como caduca todo lo que se escribe dos veces: nombraba
+ * tres escenas que ya no existen (`human-house`, `home-mushroom-canela`, `home-pot-terracotta`) y
+ * le faltaban las seis que nacieron después, así que el río, el seto, la seta y la maceta salían
+ * con su SLUG en el selector. El nombre de una pantalla ya existe y es el que el juego ANUNCIA al
+ * llegar: se resuelve igual que en `sceneKeys()` —el rótulo de la escena y, si no lo tiene, el
+ * nombre del trozo de mapa— y se lee en castellano de los mismos ficheros de texto. Así una
+ * pantalla nueva llega al Studio con su nombre puesto sin tocar una línea de aquí.
+ */
+function sceneNames(world) {
+  const { core, packs, scenes } = readUnits();
+  const shared = { ...core };
+  for (const pack of Object.values(packs)) Object.assign(shared, pack);
+  const out = {};
+  for (const [id, scene] of Object.entries(world.scenes)) {
+    const key = scene.label || (scene.indoor ? id : "forest");
+    const entry = scenes[id]?.[key] || shared[key];
+    const text = entry?.es;
+    out[id] = typeof text === "string" && text ? text : id;
+  }
+  return out;
+}
 function snapshot(root) {
   const dir = path.join(root, "data/aventura"),
     sources = {};
@@ -72,6 +98,9 @@ function snapshot(root) {
     baseHash,
     createdAt: new Date().toISOString(),
     world,
+    // Fuera del mundo a propósito: `proposedScene` clona la escena para escribirla, y un nombre
+    // de interfaz no tiene nada que hacer dentro de un fichero del juego.
+    nombres: sceneNames(world),
     sources,
     scenery,
     sprites,

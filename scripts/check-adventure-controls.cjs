@@ -50,16 +50,18 @@ const flat = () =>
    solo consumidor de la doble pulsación en el motor. Probar el prototipo de un experimento
    borrado es probar código que ya no existe. */
 
-const { furnishWorkshop } = require("../public/assets/js/adventure/workshop");
-const workshop = furnishWorkshop(
-  catalog,
-  Array.from({ length: 40 }, (_, i) => ({ id: i + 1 })),
-).scenes.workshop;
+/* ⛔ EL TALLER YA NO CRECE, Y POR ESO SU PUERTA SE COMPRUEBA CONTRA LA ESCENA Y NADA MÁS
+   (17-sep-2026). Aquí se llamaba a `furnishWorkshop()`, que estiraba la habitación para que
+   cupiera un banco por figura del catálogo de la tienda y recolocaba la salida; sin tienda no hay
+   nada que estirar y el fichero de escena es la única verdad. Lo que se comprueba sigue siendo lo
+   mismo: que el umbral de la puerta cuadra con la geometría direccional compartida, o sea que
+   salir de un interior no depende de a mano. */
+const workshop = catalog.scenes.workshop;
 const workshopExit = workshop.entities.find((e) => e.id === "exit");
 assert.equal(
   workshopExit.threshold[1] + workshopExit.threshold[3],
   workshop.height - 2 - FOOTPRINT.halfHeight / TILE,
-  "Resized workshop uses shared directional door geometry",
+  "The workshop door uses shared directional door geometry",
 );
 const wallet = { balance: 0, claimed: { picnic: true } };
 assert.deepEqual(
@@ -85,9 +87,7 @@ for (const scene of Object.values(catalog.scenes))
     (e) => e.interactAs && e.sprite === "bottle-boat",
   )) {
     const dock = scene.entities.find((e) => e.id === boat.interactAs);
-    assert(
-      dock.landing && !dock.actions.some(a => a.id === "board"),
-    );
+    assert(dock.landing && !dock.actions.some((a) => a.id === "board"));
   }
 assert.equal(
   catalog.scenes.overworld.entities.find((e) => e.id === "home-two").sprite,

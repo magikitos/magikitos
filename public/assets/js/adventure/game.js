@@ -2,7 +2,6 @@
 const { tryPush } = require("./movables");
 const { releaseContact } = require("./obstacles");
 const { World, TILE, clamp, insideThreshold } = require("./model");
-const { furnishWorkshop } = require("./workshop");
 const { Renderer } = require("./renderer");
 const { clampCamera } = require("./camera");
 const { doorDestination, acceptsEntry } = require("./portals");
@@ -68,7 +67,7 @@ class Adventure {
     this.s = config.strings;
     this.sceneStrings = {};
     this.sceneText = new SceneText(config);
-    this.catalog = furnishWorkshop(config.world, config.products);
+    this.catalog = config.world;
     this.renderer = new Renderer(byId("world-canvas"), byId("world-viewport"));
     this.audio = new WoodlandAudio(
       config.audio,
@@ -365,11 +364,7 @@ class Adventure {
       ...this.world.entities.filter(
         (e) =>
           active(e, this.state) &&
-          (e.rules.length ||
-            e.product ||
-            e.interactAs ||
-            e.pushable ||
-            e.onInteract),
+          (e.rules.length || e.interactAs || e.pushable || e.onInteract),
       ),
       ...this.neighbors,
       ...(this.guardian ? [this.guardian] : []),
@@ -452,14 +447,6 @@ class Adventure {
     );
     if (typeof entity.onInteract === "function" && !held) {
       entity.onInteract();
-      return;
-    }
-    if (entity.product) {
-      if (held) {
-        this.openDialogue(this.lines("noUse"));
-        return;
-      }
-      this.site.showProduct(entity.product);
       return;
     }
     if (entity.neighbor) {
@@ -717,7 +704,7 @@ class Adventure {
       entity.threshold ||
       entity.pushable ||
       this.contactLatch === entity.id ||
-      !(entity.neighbor || entity.rules?.length || entity.product)
+      !(entity.neighbor || entity.rules?.length)
     )
       return;
     this.contactLatch = entity.id;

@@ -51,6 +51,16 @@ global.location = { href: "https://local.invalid/aventura" };
   }
   response = { items: [sheet], nextCursor: 24 };
   await assert.rejects(content.catalogue("art", null, 24), /invalid_catalogue/);
+  // ⛔ LA TIENDA NO VUELVE POR AQUÍ (17-sep-2026). El catálogo servía también
+  // productos, y el cliente los validaba con su propio contrato: nombre, precio,
+  // existencias y URL de compra. Hoy la única cosa que este endpoint sabe leer son
+  // láminas, así que un lote de productos —aunque el servidor lo mandara— se cae en
+  // la puerta en vez de amueblar nada.
+  assert.equal(
+    typeof content.products,
+    "undefined",
+    "The client cannot ask for products",
+  );
   response = {
     items: [
       {
@@ -65,13 +75,13 @@ global.location = { href: "https://local.invalid/aventura" };
     ],
     nextCursor: null,
   };
-  assert.equal(
-    (await content.products())[0].price,
-    100,
-    "Product contract is unchanged",
+  await assert.rejects(
+    content.catalogue("products"),
+    /invalid_sheet/,
+    "A product payload is refused",
   );
   console.log(
-    "PASS flat art DTOs, no collection requests, pagination, master fallback, hostile/malformed URLs rejected and products unchanged.",
+    "PASS flat art DTOs, no collection requests, pagination, master fallback, hostile/malformed URLs rejected and the shop refused.",
   );
 })().catch((e) => {
   console.error(e);

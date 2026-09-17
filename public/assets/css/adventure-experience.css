@@ -224,11 +224,6 @@
   object-fit: contain;
   filter: drop-shadow(0 10px 10px #10251eaa);
 }
-.world-experience--product .world-experience-image img {
-  border: 7px solid #d8c09a;
-  border-radius: 48% 48% 7px 7px;
-  box-shadow: 0 6px 0 #674b30;
-}
 .world-experience--art .world-experience-image img {
   border: 8px solid #f5ebd4;
   transform: rotate(-2deg);
@@ -244,11 +239,6 @@
   color: #fff1cf;
   padding: 4px 8px;
   border-radius: 15px;
-}
-.world-experience-price {
-  font-size: 23px;
-  color: #f3e6c6;
-  margin: 8px 0 14px;
 }
 .world-listening--compact {
   display: none !important;

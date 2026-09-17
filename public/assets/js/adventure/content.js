@@ -1,7 +1,5 @@
 "use strict";
-const { World, TILE } = require("./model");
 const { createNeighbors } = require("./neighbors");
-const { furnishWorkshop } = require("./workshop");
 const { ApiError } = require("./api");
 /** Content is optional enrichment. The world boots and remains playable when the API is offline. */
 class WorldContent {
@@ -9,7 +7,6 @@ class WorldContent {
     this.game = game;
     this.pools = new Map();
     this.jobs = new Map();
-    this.catalogues = new Map();
   }
   bootstrap() {
     if (!this.boot)
@@ -87,10 +84,6 @@ class WorldContent {
           .then((items) => this.assignCast(id, group, items))
           .catch(() => {});
     }
-    if (id === "workshop")
-      this.products()
-        .then((products) => this.furnish(products))
-        .catch(() => {});
   }
   async assignCast(scene, group, items) {
     const g = this.game;
@@ -132,28 +125,6 @@ class WorldContent {
     const items = data.items.map((raw) => {
       if (!Number.isSafeInteger(raw.id) || raw.id < 1)
         throw new ApiError("invalid_catalogue");
-      if (kind === "products") {
-        if (
-          typeof raw.name !== "string" ||
-          !Number.isSafeInteger(raw.price) ||
-          raw.price < 0 ||
-          raw.currency !== "EUR" ||
-          !Number.isSafeInteger(raw.quantity)
-        )
-          throw new ApiError("invalid_product");
-        const image = this.game.api.url(raw.image),
-          url = this.game.api.url(raw.url);
-        if (!url) throw new ApiError("invalid_url");
-        return {
-          id: raw.id,
-          name: raw.name.slice(0, 300),
-          price: raw.price,
-          currency: "EUR",
-          quantity: raw.quantity,
-          image,
-          url,
-        };
-      }
       const image = this.game.api.url(raw.image),
         thumb = this.game.api.url(raw.thumb);
       if (kind !== "art" || typeof raw.title !== "string" || !image || !thumb)
@@ -161,54 +132,6 @@ class WorldContent {
       return { id: raw.id, title: raw.title.slice(0, 300), image, thumb };
     });
     return { items, nextCursor };
-  }
-  products() {
-    if (this.catalogues.has("products"))
-      return Promise.resolve(this.catalogues.get("products"));
-    if (!this.jobs.has("products"))
-      this.jobs.set(
-        "products",
-        (async () => {
-          const items = [];
-          let cursor = 0;
-          do {
-            const data = await this.catalogue("products", null, cursor);
-            items.push(...data.items);
-            cursor = data.nextCursor;
-            if (items.length > 2400) throw new ApiError("catalogue_too_large");
-          } while (cursor !== null);
-          this.catalogues.set("products", items);
-          return items;
-        })().finally(() => this.jobs.delete("products")),
-      );
-    return this.jobs.get("products");
-  }
-  furnish(products) {
-    const g = this.game;
-    if (g.config.products === products) return;
-    const old = g.catalog.scenes.workshop;
-    g.config.products = products;
-    g.catalog = furnishWorkshop(g.config.world, products);
-    g.scenes.cache.delete("workshop");
-    if (g.state.scene !== "workshop") return;
-    const world = new World(g.catalog.scenes.workshop),
-      nearExit = g.player.y > (old.height - 7) * TILE;
-    if (nearExit || !world.canStand(g.player.x, g.player.y)) {
-      g.player.x = world.data.spawn.x * TILE;
-      g.player.y = world.data.spawn.y * TILE;
-    }
-    g.pauseMovement();
-    g.world = world;
-    world.actors = [g.player, ...g.neighbors];
-    world.refresh(g.state);
-    g.renderer.world = world;
-    g.renderer.terrain.chunks.clear();
-    g.renderer.resize();
-    g.centerCamera(true);
-    g.portalLatch = new Set();
-    g.contactLatch = null;
-    g.dirty = true;
-    g.save();
   }
 }
 module.exports = { WorldContent };

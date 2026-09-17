@@ -25,9 +25,11 @@ en el claro, sin diálogo obligatorio. “Explorar / Continuar explorando” act
 audio y solicita fullscreen; siempre se puede jugar si el navegador lo rechaza.
 
 Cuentos junto a la hoguera nocturna; chistes en la taberna; láminas en el rincón
-artístico, como un catálogo plano; productos en el taller. Expresiones y concurso
-no forman parte del juego. Las actividades son UI propia sobre el mundo y JSON
-de la API, conservando la selección de content pulse. Leer/imprimir/comprar/grabar
+artístico, como un catálogo plano. La TIENDA no está en el bosque (decisión del
+dueño, 17-sep-2026): el taller de Carmen se queda como sitio y sus bancos como
+mobiliario, pero no enseña productos ni el API los sirve. Expresiones y concurso
+tampoco forman parte del juego. Las actividades son UI propia sobre el mundo y
+JSON de la API, conservando la selección de content pulse. Leer/imprimir/grabar
 y gestionar cuenta siguen siendo acciones explícitas hacia la web.
 Durante una voz se silencia todo el audio del juego.
 [Audio y entrada](AUDIO-AND-ENTRY.md) · [Frontera y API](REPOSITORY-BOUNDARY.md).

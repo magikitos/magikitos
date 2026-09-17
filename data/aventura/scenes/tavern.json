@@ -186,16 +186,16 @@
     {
       "id": "tavern-plant",
       "sprite": "flower-pot",
-      "x": 5,
-      "y": 6,
+      "x": 9.25,
+      "y": 4.5,
       "rules": [],
       "artVariant": "margaritas"
     },
     {
       "id": "tavern-crates",
       "sprite": "crates",
-      "x": 35,
-      "y": 7,
+      "x": 33.25,
+      "y": 7.5,
       "rules": [],
       "artVariant": "auto"
     },
@@ -381,5 +381,6 @@
       "max": 5,
       "wander": 0
     }
-  ]
+  ],
+  "scenery": []
 }

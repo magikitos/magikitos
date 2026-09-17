@@ -130,7 +130,15 @@ const server = http.createServer(async (req, res) => {
     }
     if (p === "/api/context") {
       refresh();
-      send(res, 200, { ...store.load(current), token: TOKEN });
+      // Los nombres van del snapshot VIVO y no del archivado: el archivo se guarda por su
+      // `baseHash`, que resume el mundo y el arte, no los textos, así que un nombre corregido
+      // hoy seguiría enseñándose viejo hasta que cambiara el mapa. Y no forman parte de ninguna
+      // propuesta: son cómo se llama cada pantalla en la pantalla.
+      send(res, 200, {
+        ...store.load(current),
+        nombres: current.nombres,
+        token: TOKEN,
+      });
       return;
     }
     if (p === "/api/workspace") {
@@ -166,7 +174,12 @@ const server = http.createServer(async (req, res) => {
       return;
     }
     if (p.startsWith("/assets/aventura/")) {
-      file(res, req, path.join(ROOT, "public/assets/aventura"), p.slice("/assets/aventura/".length));
+      file(
+        res,
+        req,
+        path.join(ROOT, "public/assets/aventura"),
+        p.slice("/assets/aventura/".length),
+      );
       return;
     }
     file(res, req, path.join(__dirname, "public"), p.slice(1));

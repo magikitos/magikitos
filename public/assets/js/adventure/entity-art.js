@@ -6,7 +6,6 @@ function capabilities(entity) {
     entity.fence ||
     entity.portal ||
     entity.threshold ||
-    entity.product ||
     entity.neighbor ||
     entity.sprite === "doorway" ||
     /^(person-|ferry|picnic-humans|barbecue|fire|coals)/.test(

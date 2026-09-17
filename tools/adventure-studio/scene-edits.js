@@ -49,7 +49,6 @@ function removable(snapshot, scene, layer, id) {
     !!e &&
     !e.portal &&
     !e.threshold &&
-    !e.product &&
     !e.actor &&
     !e.neighbor &&
     !e.interactAs &&

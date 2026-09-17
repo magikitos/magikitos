@@ -135,7 +135,6 @@ function build({ reuseArt = false } = {}) {
       audioBase: prefix + "/assets/audio/",
       neighbors: [],
       cast: {},
-      products: [],
       destinations: {},
       capabilities: {},
     };

@@ -38,16 +38,19 @@ const $ = (id) => document.getElementById(id),
           "'": "&#39;",
         })[c],
     );
+/**
+ * Nombres de SPRITE, para que el inspector y la galería no enseñen un slug. Los de las PANTALLAS
+ * ya no viven aquí: los resuelve el snapshot desde los textos del juego (`snapshot.nombres`), que
+ * es lo que el bosque anuncia al llegar. Las casas aparecen igualmente porque desde fuera son un
+ * sprite, y ese sí es un nombre de esta lista.
+ */
 const names = {
-  overworld: "Bosque y pueblo",
-  house: "Refugio de hojas",
   "human-house": "Refugio de hojas",
   cottage: "Hogar del tocón",
   "home-mushroom-canela": "Casita de seta",
   "home-pot-terracotta": "Refugio de la maceta",
   tavern: "Taberna de la bota",
   workshop: "Taller del tronco",
-  attic: "Desván",
   cupboard: "Armario",
   stove: "Estufa",
   dresser: "Cómoda",
@@ -444,10 +447,6 @@ function warnings(entity) {
     messages.push(
       "La luz nocturna y la zona de cuentos tienen anclas propias: habrá que recolocarlas junto al fuego al aplicar.",
     );
-  if (entity.product)
-    messages.push(
-      "Expositor dinámico del catálogo; el juego lo distribuye al entrar.",
-    );
   return messages;
 }
 function paintInspector() {
@@ -795,7 +794,7 @@ $("review").onclick = () => {
             .map(
               (s) =>
                 "<h3>" +
-                escape(names[s.scene] || s.scene) +
+                escape(context.nombres[s.scene] || s.scene) +
                 "</h3><pre>" +
                 escape(
                   s.placements
@@ -983,7 +982,7 @@ $("river-topology").addEventListener("change", () => {
       ...Object.keys(snapshot.world.scenes).map((id) => {
         const option = document.createElement("option");
         option.value = id;
-        option.textContent = names[id] || id;
+        option.textContent = context.nombres[id] || id;
         return option;
       }),
     );

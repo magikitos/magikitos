@@ -100,59 +100,6 @@ function pieceView(game, item) {
   root.append(links);
   return root;
 }
-function productView(game, item) {
-  const root = activity(game, "shop", item.name);
-  root.prepend(
-    el("figure", { class: "world-experience-object" }, [
-      el(
-        "div",
-        { class: "world-experience-image" },
-        item.image
-          ? [
-              el("img", {
-                src: item.image,
-                alt: item.name,
-                width: 300,
-                height: 300,
-              }),
-            ]
-          : [],
-      ),
-    ]),
-  );
-  root.classList.add("world-experience--product");
-  root.append(
-    el("p", {
-      class: "world-experience-price",
-      text: new Intl.NumberFormat(game.config.locale, {
-        style: "currency",
-        currency: "EUR",
-      }).format(item.price / 100),
-    }),
-  );
-  root.append(
-    el("p", {
-      class: "world-experience-byline",
-      text: game.text("physicalPiece"),
-    }),
-  );
-  root.append(
-    el("div", { class: "world-experience-actions" }, [
-      websiteLink(
-        game,
-        game.text("buyOnWebsite") + " ↗",
-        item.url,
-        "world-primary",
-      ),
-    ]),
-  );
-  root.append(
-    el("div", { class: "world-experience-links" }, [
-      button(game.text("catalogue"), () => game.site.open("shop")),
-    ]),
-  );
-  return root;
-}
 /** One flat catalogue. Thumbnails are the grid; a master is requested only for a chosen sheet. */
 function galleryView(game, data, onNextPage, signal) {
   const root = activity(game, "art", game.text("artSheets"));
@@ -282,4 +229,4 @@ function galleryView(game, data, onNextPage, signal) {
   if (!items.length) root.append(el("p", { text: game.text("empty") }));
   return root;
 }
-module.exports = { activity, pieceView, productView, galleryView };
+module.exports = { activity, pieceView, galleryView };

@@ -138,7 +138,7 @@ grounded bowl, preserving existing player objects. Original art remains availabl
 for recovery; source files are never delivered to browsers.
 
 `interior.outline` is a normalised polygon shared by the floor, walls, light clipping
-and physical navigation. Inset bounds keep exits consistent when the shop grows.
+and physical navigation. Inset bounds keep exits consistent whatever a room holds.
 Boot and stump rooms have their own silhouettes; other rooms use softened cutaways.
 Furniture uses natural materials, windows are branch-framed and mats are woven leaves.
 The exterior illustration is blurred once and baked into cached ground chunks.

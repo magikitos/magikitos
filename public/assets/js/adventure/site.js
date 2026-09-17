@@ -1,11 +1,6 @@
 "use strict";
 const { el, button } = require("./dom");
-const {
-  activity,
-  pieceView,
-  productView,
-  galleryView,
-} = require("./activities");
+const { activity, pieceView, galleryView } = require("./activities");
 /** Native activity surface. API data never becomes HTML, CSS, scripts or URL-driven gameplay. */
 class WorldSite {
   constructor(game) {
@@ -17,11 +12,7 @@ class WorldSite {
       history.replaceState(null, "", game.config.baseUrl);
   }
   focus() {
-    return this.current?.product
-      ? this.game.world.entities.find(
-          (e) => e.product?.id === this.current.product.id,
-        ) || this.game.player
-      : this.game.rooms.focus(this.current?.group);
+    return this.game.rooms.focus(this.current?.group);
   }
   cancel() {
     this.pending?.abort();
@@ -96,15 +87,8 @@ class WorldSite {
     this.mount(pieceView(this.game, item), request);
     if (play) this.game.media.start(item);
   }
-  showProduct(product) {
-    const request = this.begin("shop");
-    if (!request) return;
-    this.current = { group: "shop", product, path: product.url };
-    this.mount(productView(this.game, product), request);
-  }
   open(group) {
     if (group === "art") return this.art();
-    if (group === "shop") return this.shop();
     const kind = this.game.catalog.contentRooms[group]?.kinds?.find((k) =>
       ["cuento", "chiste", "expresion"].includes(k),
     );
@@ -217,41 +201,6 @@ class WorldSite {
         return root;
       },
       () => this.browse(kind, filters),
-    );
-  }
-  shop() {
-    return this.load(
-      "shop",
-      this.game.text("shop"),
-      async () => {
-        const items = await this.game.content.products();
-        this.game.content.furnish(items);
-        const root = activity(this.game, "shop", this.game.text("catalogue")),
-          list = el("div", { class: "world-native-catalogue" });
-        for (const item of items)
-          list.append(
-            button("", () => this.showProduct(item), "world-native-card"),
-          );
-        [...list.children].forEach((node, i) => {
-          const item = items[i];
-          if (item.image)
-            node.append(
-              el("img", {
-                src: item.image,
-                alt: "",
-                loading: "lazy",
-                width: 120,
-                height: 120,
-              }),
-            );
-          node.append(el("strong", { text: item.name }));
-        });
-        root.append(list);
-        if (!items.length)
-          root.append(el("p", { text: this.game.text("empty") }));
-        return root;
-      },
-      () => this.shop(),
     );
   }
   art() {

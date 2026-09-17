@@ -58,16 +58,7 @@ async function scene(group, viewport = { width: 1440, height: 900 }) {
   await require("./browser-entry.cjs").enterWorld(page);
   await page.waitForTimeout(400);
   const s = await page.evaluate(() => window.MagikitosAdventure.inspect());
-  const e =
-    group === "shop"
-      ? s.entities
-          .filter((e) => e.id.startsWith("product-"))
-          .sort(
-            (a, b) =>
-              Math.hypot(a.x - s.player.x, a.y - s.player.y) -
-              Math.hypot(b.x - s.player.x, b.y - s.player.y),
-          )[0]
-      : s.entities.find((e) => e.id === room.focus);
+  const e = s.entities.find((e) => e.id === room.focus);
   const r = await page.locator("#world-canvas").boundingBox();
   await page.mouse.click(
     r.x + ((e.x - s.camera.x) / s.view.width) * r.width,
@@ -93,12 +84,6 @@ async function scene(group, viewport = { width: 1440, height: 900 }) {
       document.getElementById("world-content").getAttribute("aria-busy") !==
       "true",
   );
-  if (group === "shop") {
-    await page
-      .getByRole("button", { name: "Ver todas las piezas", exact: true })
-      .click();
-    await page.locator(".world-native-catalogue").waitFor();
-  }
   return page;
 }
 (async () => {
@@ -110,7 +95,7 @@ async function scene(group, viewport = { width: 1440, height: 900 }) {
     { width: 320, height: 568 },
     { width: 844, height: 390 },
   ]) {
-    for (const group of ["stories", "jokes", "expressions", "art", "shop"]) {
+    for (const group of ["stories", "jokes", "expressions", "art"]) {
       const p = await scene(group, viewport);
       let text = await p.locator("#world-content").innerText();
       assert(
@@ -155,9 +140,6 @@ async function scene(group, viewport = { width: 1440, height: 900 }) {
           "/colorear",
         );
         assert.equal(await p.locator("[data-world-detail]").count(), 0);
-      } else if (group === "shop") {
-        await p.locator(".world-native-catalogue button").first().click();
-        await p.getByRole("link", { name: /Comprar en la web/ }).waitFor();
       } else {
         /**
          * ⛔ ESTA PRUEBA LLEVABA UNA DEPENDENCIA DEL ENTORNO ESCONDIDA DENTRO DE UN `getByRole`.

@@ -206,13 +206,6 @@ async function pinch(page) {
       [1440, 900],
     ]) {
       const page = await pageFor(scene, { width, height });
-      if (scene === "workshop")
-        await wait(page, () =>
-          window.MagikitosAdventure.inspect().entities.some((e) =>
-            e.id.startsWith("product-"),
-          ),
-        );
-      // Catalogue enrichment can grow the workshop; measure zoom after that independent transaction.
       const initial = await inspect(page);
       coverage(initial);
       assert(

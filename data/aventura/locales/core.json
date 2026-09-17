@@ -343,14 +343,6 @@
     "it": "Tavolo di ceppo",
     "pt": "Mesa de tronco"
   },
-  "buyOnWebsite": {
-    "es": "Comprar en la web",
-    "en": "Buy on the website",
-    "de": "Auf der Website kaufen",
-    "fr": "Acheter sur le site",
-    "it": "Compra sul sito",
-    "pt": "Comprar no site"
-  },
   "cancel": {
     "es": "Mejor seguimos",
     "en": "Keep my wander",
@@ -374,14 +366,6 @@
     "fr": "Lâche-moi, moustaches ! Faut que je passe sans me faire repérer.",
     "it": "Mollami, baffone! Devo passare senza farmi vedere.",
     "pt": "Larga-me, bigodes! Tenho de passar sem que me vejas."
-  },
-  "catalogue": {
-    "es": "Ver todas las piezas",
-    "en": "Browse every piece",
-    "de": "Alle Stücke ansehen",
-    "fr": "Voir toutes les créations",
-    "it": "Vedi tutte le creazioni",
-    "pt": "Ver todas as peças"
   },
   "categories": {
     "es": "Categorías",
@@ -1247,14 +1231,6 @@
     "it": "Aaah… molto meglio. Torniamo a girellare senza combinare niente.",
     "pt": "Aaah… muito melhor. Agora sim, de volta ao passeio sem pressas."
   },
-  "physicalPiece": {
-    "es": "Pieza artesanal · precio en euros",
-    "en": "Handmade piece · price in euros",
-    "de": "Handgefertigtes Stück · Preis in Euro",
-    "fr": "Pièce artisanale · prix en euros",
-    "it": "Pezzo artigianale · prezzo in euro",
-    "pt": "Peça artesanal · preço em euros"
-  },
   "playbackPosition": {
     "es": "Posición de reproducción",
     "en": "Playback position",
@@ -1502,14 +1478,6 @@
     "fr": "Jolis coquillages",
     "it": "Belle conchiglie",
     "pt": "Conchas bonitas"
-  },
-  "shop": {
-    "es": "Nacidos a mano",
-    "en": "Made by hand",
-    "de": "Von Hand geschaffen",
-    "fr": "Nés à la main",
-    "it": "Nati a mano",
-    "pt": "Feitos à mão"
   },
   "skewerDescription": {
     "es": "Seta doradita al fuego. El vecino de la barbacoa lleva rato mirando de reojo.",

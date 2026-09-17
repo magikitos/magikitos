@@ -1,6 +1,6 @@
 "use strict";
 /** One scene-authored footprint shared by navigation, floor, wall and light clipping.
- * Normalised vertices let a catalogue-driven workshop grow without divergent wall coordinates. */
+ * Normalised vertices let a room grow without divergent wall coordinates. */
 const cache = new WeakMap();
 function outline(data) {
   if (cache.has(data)) return cache.get(data);
