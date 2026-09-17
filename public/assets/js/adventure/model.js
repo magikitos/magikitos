@@ -191,11 +191,25 @@ class World {
       !this.terrain[y * this.width + x]
     );
   }
+  /**
+   * Quién te para aquí: lo que está clavado en el suelo (la rejilla) y quien está VIVO en la
+   * escena (`actors`: tú, los vecinos y los animales).
+   *
+   * ⛔ DOS EXCEPCIONES, Y LAS DOS TIENEN NOMBRE. `passable` es de quien no debe estorbarte
+   * ahora mismo aunque tenga cuerpo — el gato que acaba de soltarte y está a tu lado, que si no
+   * te dejaría encajado. Y los ANIMALES se cruzan entre ellos: dos gatos que patrullan rutas que
+   * se tocan acabarían empujándose contra la valla, y un gato atascado se ve peor que dos gatos
+   * que se cruzan. Contra ti no se cruza ninguno, que es lo que importa.
+   */
   collisionAt(x, y, ignore = null) {
     return (
       this.collisionGrid.at(x, y, ignore) ||
       (this.actors || []).find(
-        (e) => e !== ignore && overlaps(actorBounds(x, y), collisionBounds(e)),
+        (e) =>
+          e !== ignore &&
+          !e.passable &&
+          !(e.animal && ignore?.animal) &&
+          overlaps(actorBounds(x, y), collisionBounds(e)),
       ) ||
       null
     );

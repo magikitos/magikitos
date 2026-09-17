@@ -112,7 +112,9 @@ const read = (page) => page.evaluate(() => window.MagikitosAdventure.inspect());
       assert.equal(done.inventory.bowl, 1);
       assert.equal(done.inventory.seeds, 1);
       assert(done.flags.bowlFound && done.flags.seedsFound);
-      assert.equal(done.cats.length, 0);
+      // ⛔ LOS GATOS SE QUEDAN (17-sep-2026, decisión del dueño). Desaparecían al llevarte el
+      // cuenco y las semillas, y ellos siguen viviendo ahí: el jardín se quedaba vacío de golpe.
+      assert.equal(done.cats.length, 4, "Los cuatro gatos siguen en su jardín");
       assert(
         !done.entities.some((e) =>
           ["cat-water-bowl", "garden-seeds"].includes(e.id),
@@ -123,7 +125,7 @@ const read = (page) => page.evaluate(() => window.MagikitosAdventure.inspect());
       });
       await page.close();
       console.log(
-        `PASS hedge ${width}×${height}: four cats, push/save/reset, bowl/seeds pickup and persistent completion`,
+        `PASS hedge ${width}×${height}: four cats that stay, push/save/reset, bowl/seeds pickup and persistent completion`,
       );
     }
     assert.deepEqual(errors, []);

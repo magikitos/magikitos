@@ -666,6 +666,16 @@ class Adventure {
     this.site.open(key);
   }
   contact(entity) {
+    /**
+     * ⛔ CHOCAR CON UN GATO ES QUE TE COJA, Y AHÍ MISMO (17-sep-2026, decisión del dueño).
+     * Hasta hoy el gato tenía que VERTE —y las macetas cortan la visión—, fijarse durante 0,85 s
+     * y luego perseguirte; darle un topetazo no hacía nada porque ni siquiera tenía cuerpo. Con
+     * cuerpo, el topetazo llega aquí, y aquí no se mira nada más: se gira y te lleva.
+     */
+    if (entity?.animal?.species === "cat") {
+      this.cats?.bump(entity);
+      return;
+    }
     entity = this.interactionTarget(entity);
     if (
       !entity ||

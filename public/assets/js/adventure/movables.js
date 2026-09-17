@@ -40,9 +40,11 @@ function canPlace(
     )
   )
     return false;
+  // La caja de CADA cuerpo, no la del duende para todos: un gato ocupa más que un duende y con
+  // `actorBounds` para todo el mundo el cuenco se le podía empujar por encima del lomo.
   if (
     (world.actors || []).some(
-      (e) => e !== ignoreActor && overlaps(rect, actorBounds(e.x, e.y)),
+      (e) => e !== ignoreActor && !e.passable && overlaps(rect, collisionBounds(e)),
     )
   )
     return false;

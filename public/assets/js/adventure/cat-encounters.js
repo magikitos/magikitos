@@ -115,6 +115,14 @@ class CatEncounters {
           g.renderer.sprites.frame(`cat-${cat.variant}-down-0`) &&
           g.renderer.sprites.frame("person-0-down-carried-0"),
       );
+    /**
+     * ⛔ UN GATO ES UN CUERPO, NO UN DIBUJO (17-sep-2026, decisión del dueño). Vivían en esta
+     * lista y solo en esta, fuera de todo lo que colisiona, así que se les atravesaba andando y
+     * —lo que lo destapó— se les podía empujar el cuenco por encima del lomo. Entran en los
+     * cuerpos VIVOS de la escena y no en los fijos, porque los fijos se calculan al refrescar y
+     * un gato se mueve: ahí quedarían clavados en su casa mientras patrullan por otro lado.
+     */
+    g.world.actors = [...g.world.actors, ...this.actors];
   }
   get locked() {
     return Boolean(this.carrier);
@@ -177,6 +185,15 @@ class CatEncounters {
       cat.direction,
     );
   }
+  /** Le has dado un topetazo: se gira hacia ti y te lleva, sin mirar si te veía. */
+  bump(cat) {
+    if (this.carrier || this.grace || this.game.river?.active) return;
+    const g = this.game;
+    cat.direction = facing(g.player.x - cat.x, g.player.y - cat.y);
+    cat.path = [];
+    this.change(cat, "chase");
+    this.capture(cat);
+  }
   capture(cat) {
     if (this.carrier || this.grace) return;
     const g = this.game;
@@ -191,6 +208,9 @@ class CatEncounters {
     g.closeDialogue();
     g.pauseMovement();
     this.carrier = cat;
+    // Mientras te lleva y hasta que se acabe la gracia, ese gato no tiene cuerpo PARA TI: te
+    // suelta pegado a él y con cuerpo te dejaría encajado sin poder salir.
+    cat.passable = true;
     this.change(cat, "pickup");
     cat.carryPath = path;
     cat.carryTarget = { ...path.at(-1) };
@@ -215,7 +235,11 @@ class CatEncounters {
     }
     if (g.transitioning || g.dialogue || g.hasOverlay() || g.community?.editing)
       return;
+    const antes = this.grace;
     this.grace = Math.max(0, this.grace - dt);
+    // Se acabó la gracia: el que te llevaba vuelve a tener cuerpo, ya estás lejos.
+    if (antes > 0 && this.grace === 0)
+      for (const cat of this.actors) if (cat !== this.carrier) cat.passable = false;
     for (const cat of this.actors) {
       if (!active(cat, g.state)) {
         if (this.carrier === cat) this.release(cat);

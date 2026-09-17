@@ -110,6 +110,67 @@ const catStart = scene.entities.find((e) => e.id === "picnic-cat");
         null,
         "Returning cat does not recapture its passenger",
       );
+      /**
+       * ⛔ UN TOPETAZO ES QUE TE COJA, Y AHÍ MISMO (17-sep-2026, decisión del dueño).
+       *
+       * Antes el gato tenía que VERTE, fijarse 0,85 s y luego perseguirte; darle un empujón no
+       * hacía nada, porque ni siquiera tenía cuerpo. Se mide en TIEMPO: si volviera la espera,
+       * esto tardaría más de un segundo en vez de menos de medio.
+       */
+      await page.reload();
+      await require("./browser-entry.cjs").enterWorld(page);
+      await page.waitForFunction(
+        () => !window.MagikitosAdventure.inspect().carried,
+        null,
+        { timeout: 20000 },
+      );
+      // Se espera a que se acabe la gracia y a que el gato esté quieto, para que lo único que
+      // provoque la captura sea el topetazo y no que te haya visto desde lejos.
+      await page.waitForFunction(
+        () => {
+          const s = window.MagikitosAdventure.inspect();
+          return s.cats[0] && !s.carried;
+        },
+        null,
+        { timeout: 20000 },
+      );
+      await page.waitForTimeout(8000);
+      {
+        assert(!(await inspect()).carried, "se empieza libre");
+        // Se le persigue con el teclado reapuntando, porque el gato patrulla: lo que se
+        // comprueba es el TOPETAZO, y para darlo hay que alcanzarlo.
+        const empezo = Date.now();
+        let tecla = null;
+        while (Date.now() - empezo < 25000) {
+          const s = await inspect();
+          if (s.carried) break;
+          const gato = s.cats[0];
+          const dx = gato.x - s.player.x,
+            dy = gato.y - s.player.y;
+          const quiero =
+            Math.abs(dx) > Math.abs(dy)
+              ? dx > 0
+                ? "ArrowRight"
+                : "ArrowLeft"
+              : dy > 0
+                ? "ArrowDown"
+                : "ArrowUp";
+          if (quiero !== tecla) {
+            if (tecla) await page.keyboard.up(tecla);
+            await page.keyboard.down(quiero);
+            tecla = quiero;
+          }
+          await page.waitForTimeout(120);
+        }
+        if (tecla) await page.keyboard.up(tecla);
+        assert((await inspect()).carried, "alcanzar al gato te cuesta el viaje");
+        console.log("  PASS topetazo: alcanzarlo te cuesta el viaje");
+      }
+      await page.waitForFunction(
+        () => !window.MagikitosAdventure.inspect().carried,
+        null,
+        { timeout: 20000 },
+      );
       await page.reload();
       await require("./browser-entry.cjs").enterWorld(page);
       assert.equal((await inspect()).carried, null);
