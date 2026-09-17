@@ -4,6 +4,61 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: un sitio sin nombre dice su slug — 17 septiembre 2026
+
+Artefacto `a09ac5145af32f81a0f9`, fuente del juego `89817ad0b9ef67c0bd113ebcfddecba024e3cde6`.
+Anterior conservada: `9f3fce5a666ca9861191`. Rutas: /aventura y cinco traducciones.
+
+SHA-256 de `release.json`:
+`435ceffb459654fa52ce2c4c89c751d325d59526c6b5b35c1da57ef1318ae355`.
+479 archivos verificados antes de mover el puntero. Esta entrega lleva la
+migración **4234** (fuera los dos claros retirados), aplicada antes del puntero
+porque solo borra filas de zonas que el código publicado ya no conoce.
+
+### Alcance publicado
+
+- **Cuatro sitios del bosque anunciaban su slug.** Entrar al refugio de hojas
+  decía «house» y a la taberna «tavern»; salir de la maceta del pescador al lago
+  decía «lake» y llegar al merendero «picnic». Al viajar, el mundo anuncia el
+  rótulo de la pantalla y, si no lo tiene, el trozo de mapa donde caes —y dentro
+  de una casa, la pantalla misma—. Eso es lo que pregunta el motor, así que ahora
+  es lo que EXIGE el compositor de textos: las tres casas estrenan rótulo como
+  todas las demás pantallas y los tres trozos del mapa se nombran junto a la
+  pantalla que los dibuja. Romper uno de esos nombres es el sexto destrozo que la
+  comprobación de textos hace a propósito.
+- **Lo que dice el bosque, leído línea a línea.** Las conchas ya no le sirven a
+  «alguien del islote» sino a la vecina que hace botones con ellas; el letrero del
+  claro se lee entrecomillado y luego opina el duende, como los otros cuatro del
+  bosque; el trazo dejó de llamarse vallita cuando lo mismo dibuja un camino; y
+  salir de una casa lleva al bosque, que es donde caen cinco de las seis puertas.
+- **El islote sale también de los nombres.** El paquete de arte que dejó guarda el
+  huerto que hoy vive en la pradera de los sauces, así que se llama `garden`, su
+  tarea es `art:garden` y la guía es `RESIDENTS.md`. El README describía un
+  exterior de 128×96 y un islote habitado de 64×48 al que se llegaba en barca.
+- **Un paquete de sprites se nombra por su contenido**, así que cada retoque
+  dejaba el anterior detrás: 26 ficheros y 1,1 MB de dibujos en un repositorio
+  público que ningún manifiesto nombraba. Se podan al hornear, que es donde se
+  sabe lo que sigue vivo.
+- **Seis barridos de navegador no tenían forma de correrse** (gatos, seto,
+  recogidas, río, selección del Estudio y el bosque compartido): existían y nadie
+  los llamaba. Los seis pasan y los seis tienen su tarea.
+- **La firma de lo que se construye en el claro viaja con la persona.** Al bosque
+  se entra con una identidad anónima, así que reclamar la cuenta pasa siempre por
+  la fusión — y la fusión no movía `game_community_objects.creator_id`: al borrar
+  el anónimo, la vallita y el banco que esa persona acababa de dejar se quedaban
+  SIN AUTOR, en público y para siempre. Ninguna de las dos columnas del bosque se
+  llama `*_user_id`, así que las tres guardias de la casa eran ciegas a ellas.
+
+### Comprobado en producción
+
+Las seis rutas byte a byte contra el artefacto instalado, el API protegido, el
+bosque en tres tamaños de pantalla y cero escrituras de jugador
+(`check-release-live`). Y en el sitio de verdad, entrando a la taberna y al
+refugio con el teclado: anuncian «La taberna de la bota» y «El refugio de hojas»,
+sin un error de JS. La firma, reproducida en el clon en las dos direcciones: sin
+el arreglo el dueño de la pieza queda en NULL al reclamar la cuenta; con él, en la
+cuenta nueva.
+
 ## Producción: un bosque más pequeño que se cruza andando — 17 septiembre 2026
 
 Artefacto `9f3fce5a666ca9861191`, fuente del juego `3dbacd14917de41a3ad74d3d74bd9c4d497df4e4`.
