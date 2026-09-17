@@ -107,7 +107,12 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
           json: { ok: true, created: false, user: null, token: null },
         });
       }
-      if (route.request().method() === "POST") throw Error("Unexpected write");
+      // ⛔ LA MEDICIÓN NO ES UNA ESCRITURA DEL JUGADOR, y un guardián que no dice QUÉ vio no
+      // sirve para nada: la primera vez que saltó costó una tarde averiguar de qué ruta hablaba.
+      if (url.pathname === "/api/world/telemetry")
+        return route.fulfill({ status: 204, body: "" });
+      if (route.request().method() === "POST")
+        throw Error("Unexpected write: " + url.pathname);
       return route.continue();
     });
     await page.addInitScript((mode) => {
@@ -129,19 +134,29 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
           window.__proof.removed++;
         },
       };
+      // En la pradera, que es donde vive el claro compartido: construir es lo que hoy pide una
+      // identidad, y por ahí pasa la prueba de humanidad.
       localStorage.setItem(
         "magikitos.adventure",
-        JSON.stringify({ flags: {  }, muted: true }),
+        JSON.stringify({
+          scene: "river-willows",
+          position: { x: 92 * 16, y: 95 * 16 },
+          flags: {},
+          muted: true,
+        }),
       );
     }, mode);
     await page.goto(origin + "/aventura");
     await require("./browser-entry.cjs").enterWorld(page);
-    await page.locator("#self-toggle").click();
-    await page.locator("#self-claim").waitFor();
-    await page.locator("#self-claim").click();
+    /**
+     * ⛔ EL BOTÓN QUE PEDÍA IDENTIDAD YA NO EXISTE, y esta prueba se quedó apuntándole: «Yo» dejó
+     * de tener un «reclama tu cuenta» cuando el panel pasó a ofrecer Google y el código por
+     * correo (16-sep-2026). Lo que de verdad se comprueba aquí es la prueba de humanidad en sus
+     * cuatro caras, y quien la dispara hoy es CONSTRUIR: abrir el claro necesita una identidad.
+     */
+    await page.locator("#home-edit").click();
     if (mode === "interactive" || mode === "cancel") {
       await page.locator(".world-proof[open]").waitFor();
-      assert(!(await page.locator("#self-dialog").isVisible()));
       const host = await page.locator(".world-proof-host").boundingBox();
       assert(host.width > 0, "Challenge has usable space");
       if (mode === "cancel") await page.keyboard.press("Escape");
@@ -152,7 +167,6 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     }
     await page.waitForFunction(() => window.__proof.removed === 1);
     await page.waitForTimeout(100);
-    assert(await page.locator("#self-dialog").isVisible(), "Account restored");
     assert.equal(await page.locator(".world-proof").count(), 0);
     assert.equal(posts, ["silent", "interactive"].includes(mode) ? 1 : 0);
     assert.equal(
@@ -198,8 +212,22 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
       assert.equal(body.setas, 4);
       return route.fulfill({ json: { ok: true, media: 4 } });
     }
-    if (route.request().method() === "POST") throw Error("Unexpected write");
+    // La medición no es una escritura del jugador; misma regla que arriba.
+    if (url.pathname === "/api/world/telemetry")
+      return route.fulfill({ status: 204, body: "" });
+    if (route.request().method() === "POST")
+      throw Error("Unexpected write: " + url.pathname);
     return route.continue();
+  });
+  // ⛔ EL GUARDIÁN TAMBIÉN PIDE PRUEBA DE HUMANIDAD antes de mandar nada, así que sin el widget
+  // de pinta el envío se queda esperando para siempre y la prueba muere por tiempo sin decir por
+  // qué. Es el mismo doble que el bloque de arriba, en su modo silencioso.
+  await chat.addInitScript(() => {
+    window.turnstile = {
+      render: (host, opts) => ((window.__opts = opts), "fixture-widget"),
+      execute: () => setTimeout(() => window.__opts.callback("fixture-proof"), 0),
+      remove() {},
+    };
   });
   await chat.addInitScript(() =>
     localStorage.setItem(
@@ -221,6 +249,9 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     ((e.x - s.camera.x) / s.view.width) * r.width,
     ((e.y - 8 - s.camera.y) / s.view.height) * r.height,
   );
+  // El libro abre la LISTA; el guardián lo cuida cada expresión, así que primero se entra en una.
+  await chat.locator("#world-content").waitFor();
+  await chat.locator(".world-native-list button").first().click();
   await chat.getByRole("button", { name: "Llamar al guardián" }).click();
   await chat.locator(".world-native-chat-form").waitFor();
   assert(
@@ -251,7 +282,10 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     document.getElementById("world-audio").dispatchEvent(new Event("ended")),
   );
   await chat.getByRole("button", { name: "4 setas", exact: true }).click();
-  await chat.getByText("¡Voto guardado, gracias!", { exact: true }).waitFor();
+  // ⛔ LO QUE SE QUEDA EN PANTALLA ES LA MEDIA, no el «gracias»: el agradecimiento es el respaldo
+  // para cuando el servidor todavía no tiene media que dar, y en cuanto la da la escribe encima.
+  // La prueba esperaba el destello.
+  await chat.getByText("4,0 de media", { exact: true }).waitFor();
   assert.equal(writes.length, 2);
   assert(
     Object.values(
@@ -267,28 +301,45 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   await chat.close();
   // Host mount pages are static byte-for-byte, and regular website remains separate.
   const ctx = await browser.newContext({ ignoreHTTPSErrors: true });
+  /**
+   * ⛔ ESTA COMPARACIÓN SOLO VALE DONDE EL SITIO Y SU INSTALACIÓN SON EL MISMO ÁRBOL. Las
+   * releases se instalan FUERA de git, así que un clon de trabajo no las tiene: aquí el sitio que
+   * se está probando puede estar en otra máquina. Se dice y se sigue —los bytes servidos contra
+   * los instalados se comprueban donde de verdad importa, en `check-release-live.cjs` contra el
+   * anfitrión real—, porque un salto que se calla es peor que no comprobar nada.
+   */
+  const installed = fs.existsSync("../magikitos/public/game/current.json")
+    ? JSON.parse(fs.readFileSync("../magikitos/public/game/current.json"))
+    : null;
+  const local =
+    installed &&
+    fs.existsSync("../magikitos/public/game/releases/" + installed.id);
   for (const [lang, route] of Object.entries(ROUTES)) {
     const res = await ctx.request.get(website + route);
     assert.equal(res.status(), 200);
-    const installed = JSON.parse(
-      fs.readFileSync("../magikitos/public/game/current.json"),
-    );
-    assert.equal(
-      await res.text(),
-      fs.readFileSync(
-        "../magikitos/public/game/releases/" +
-          installed.id +
-          "/pages/" +
-          lang +
-          ".html",
-        "utf8",
-      ),
-    );
+    if (local)
+      assert.equal(
+        await res.text(),
+        fs.readFileSync(
+          "../magikitos/public/game/releases/" +
+            installed.id +
+            "/pages/" +
+            lang +
+            ".html",
+          "utf8",
+        ),
+      );
     assert(
       !res.headers()["set-cookie"],
       "Static game shell creates no PHP session",
     );
   }
+  if (!local)
+    console.log(
+      "SIN COMPROBAR: los bytes servidos contra los instalados — la release " +
+        (installed?.id || "?") +
+        " no está instalada en este árbol (se comprueba en check-release-live)",
+    );
   for (const route of [
     "/",
     "/cuentos",

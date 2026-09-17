@@ -159,8 +159,27 @@ async function scene(group, viewport = { width: 1440, height: 900 }) {
         await p.locator(".world-native-catalogue button").first().click();
         await p.getByRole("link", { name: /Comprar en la web/ }).waitFor();
       } else {
-        await p.locator("[data-world-next]").waitFor();
-        await p.getByRole("button", { name: "Elegir", exact: true }).click();
+        /**
+         * ⛔ ESTA PRUEBA LLEVABA UNA DEPENDENCIA DEL ENTORNO ESCONDIDA DENTRO DE UN `getByRole`.
+         *
+         * Una sala puede recibirte de tres formas y las tres son correctas: con una pieza puesta
+         * (los audios), con el índice abierto (el diccionario, que no reproduce nada solo) o
+         * vacía, y solo en la última existe el botón «Elegir». Así que pasaba contra una base sin
+         * contenido y moría por tiempo contra una copia de producción. Ahora se va al índice por
+         * la puerta que HAYA —o ya se está en él— y el resto del recorrido es el mismo.
+         */
+        if (!(await p.locator(".world-native-search").count())) {
+          await p.locator("[data-world-next]").waitFor();
+          const vacia = await p
+            .getByRole("button", { name: "Elegir", exact: true })
+            .count();
+          await p
+            .getByRole("button", {
+              name: vacia ? "Elegir" : "Índice",
+              exact: true,
+            })
+            .click();
+        }
         await p.locator(".world-native-search").waitFor();
         await p.getByRole("searchbox").fill("a");
         await p.locator(".world-native-search button").click();

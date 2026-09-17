@@ -428,6 +428,32 @@ const game = {
     closed++;
   },
 };
+/**
+ * ⛔ UNA SALA TIENE QUE CONTENER LO QUE LA HACE SALA. El taller de las láminas llevaba su círculo
+ * en (37,5 42,5) y su mesa treinta tiles más allá, así que no se abría NUNCA: acercarse a la mesa
+ * no hacía nada y quedarse en el círculo enseñaba una sala cuyo mueble no se veía. Pasó al
+ * redibujar el mapa en el Estudio —el mueble se mudó y el círculo se quedó—, y no fallaba nada:
+ * la sala simplemente no ocurría. Ahora el sitio de la sala sale de dónde está su mueble.
+ */
+for (const [id, room] of Object.entries(catalog.contentRooms)) {
+  const focus = catalog.scenes[room.scene].entities.find(
+    (e) => e.id === room.focus,
+  );
+  assert(focus, id + ": its focus lives in its scene");
+  if (room.circle)
+    assert(
+      Math.hypot(focus.x - room.circle[0], focus.y - room.circle[1]) <=
+        room.circle[2],
+      id + ": the room contains its own focus",
+    );
+  if (room.rect) {
+    const [x, y, w, h] = room.rect;
+    assert(
+      focus.x >= x && focus.y >= y && focus.x < x + w && focus.y < y + h,
+      id + ": the room contains its own focus",
+    );
+  }
+}
 const rooms = new ContentRooms(game);
 assert(rooms.contains("expressions"));
 assert(!rooms.contains("jokes"));

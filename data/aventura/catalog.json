@@ -144,8 +144,8 @@
     "art": {
       "scene": "overworld",
       "circle": [
-        37.5,
-        42.5,
+        67,
+        65.75,
         8
       ],
       "focus": "art-table"
