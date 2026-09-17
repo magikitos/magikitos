@@ -311,6 +311,14 @@
     "it": "Lanterna di semi",
     "pt": "Lanterna de semente"
   },
+  "buildPath": {
+    "es": "Caminito de tierra",
+    "en": "Little dirt path",
+    "de": "Trampelpfad",
+    "fr": "Petit sentier",
+    "it": "Sentierino",
+    "pt": "Carreirinho"
+  },
   "buildPlanter": {
     "es": "Maceta de hojas",
     "en": "Leaf planter",

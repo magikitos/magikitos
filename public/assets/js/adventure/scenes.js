@@ -72,10 +72,13 @@ class SceneDirector {
       for (const frame of visitor.frames) sprites.add(frame);
     for (const item of Object.values(game.catalog.items))
       sprites.add(item.sprite);
+    // Lo que se puede construir necesita su arte antes de abrir la caja. Lo que se PINTA en el
+    // suelo —los caminitos— no tiene sprite ninguno: se dibuja con el mismo pincel que el resto
+    // del terreno, así que aquí no pide nada.
     if (shared)
       for (const kind of Object.values(game.catalog.construction.definitions))
         for (const variant of kind.variants) {
-          sprites.add(variant.sprite);
+          if (variant.sprite) sprites.add(variant.sprite);
           for (const name of Object.values(variant.views || {}))
             sprites.add(name);
         }

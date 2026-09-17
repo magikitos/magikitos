@@ -40,4 +40,30 @@ const phpCosts=JSON.parse(execFileSync("php",["-r",
   path.join(web,"src/game/community.php")],{input:JSON.stringify({catalog,objects:costs}),encoding:"utf8"}));
 costs.forEach((o,i)=>assert.deepEqual(objectCost(o,catalog.definitions["twig-fence"]),phpCosts[i],JSON.stringify(o.points)));
 assert.deepEqual(objectCost(costs[0],catalog.definitions["twig-fence"]),{twig:6},"Three tiles of fence cost three tiles of twigs");
+/**
+ * ⛔ UN CAMINO SE ANDA, ASÍ QUE NO PUEDE CERRAR EL CLARO. Ocupa sitio como todo lo demás —nadie
+ * entierra un banco debajo— pero queda FUERA del relleno por inundación: una valla que cruce el
+ * claro de lado a lado se rechaza, y un camino idéntico en el mismo sitio se acepta. Es la única
+ * diferencia entre las dos polilíneas, y es la que las define.
+ */
+{
+  const zone=Object.keys(catalog.zones)[0],[zx,zy,zw,zh]=catalog.zones[zone].editable;
+  // Ningún trazado llega solo de lado a lado (el largo está acotado), así que el corte se hace
+  // con dos, que es exactamente lo que haría alguien decidido a cerrar el paso.
+  const corte=(kind)=>{const d=catalog.definitions[kind],x=zx+Math.round(zw/3);
+    // Media celda de aire entre las dos: dos trazados que se tocan se PISAN, porque cada tramo
+    // ocupa un cuarto de celda a cada lado. Al relleno le da igual —cierra huecos de hasta 0,8—
+    // y a la vista también, que un poste mide doce píxeles.
+    return [[0.5,zh-6],[zh-5.5,zh-0.5]].map(([a,b])=>({kind,variant:d.variants[0].id,rotation:0,
+      x,y:zy+a,points:[[0,0],[0,b-a]]}));};
+  assert.equal(validateConstruction(corte("twig-fence"),zone,catalog),"blocked_access",
+    "Two fences end to end cut the way through the clearing");
+  assert.equal(validateConstruction(corte("forest-path"),zone,catalog),null,
+    "…and the same two lines as a path are exactly what a path is for");
+  const phpCruce=JSON.parse(execFileSync("php",["-r",
+    `require $argv[1]; $d=json_decode(stream_get_contents(STDIN),true); $out=[]; foreach($d['runs'] as $items){try{communityValidate($items,$d['zone'],$d['catalog']);$out[]=null;}catch(Throwable $e){$out[]=$e->getMessage();}} echo json_encode($out);`,
+    path.join(web,"src/game/community.php")],
+    {input:JSON.stringify({catalog,zone,runs:[corte("twig-fence"),corte("forest-path")]}),encoding:"utf8"}));
+  assert.deepEqual(phpCruce,["blocked_access",null],"and the authority says the same");
+}
 console.log(`PASS ${cases.length} construction JS/PHP parity cases + ${costs.length} priced traces: actual terrain, every kind, every zone, footprints, polylines, rotations and rejected input`);

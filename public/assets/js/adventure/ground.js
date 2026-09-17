@@ -22,9 +22,19 @@ function noise(x, y, seed = 0) {
 function shoreDistance(data, x, y) {
   return shoreRow(data, y * TILE)(x * TILE);
 }
+/**
+ * ⛔ LOS CAMINOS DE LA COMUNIDAD SE PINTAN, PERO NO ENTRAN EN `data.paths` (17-sep-2026).
+ *
+ * Son la MISMA polilínea que escribe el Estudio y se pintan con el mismo pincel, así que un
+ * camino del bosque y uno de la casa se ven igual. Lo que no pueden hacer es entrar en la lista
+ * del escenario, porque de ahí sale `pathDistance()`, y de ahí salen la vegetación colocada por
+ * procedimiento y el detalle del terreno: un camino trazado por alguien movería los árboles de
+ * sitio y, peor, cambiaría la colisión que el servidor tiene BAKEADA en la máscara del claro.
+ * Dos listas, un solo pincel.
+ */
 function nearbyPaths(data, ox, oy) {
   const segments = [];
-  for (const path of data.paths || [])
+  for (const path of [...(data.paths || []), ...(data.communityPaths || [])])
     for (let i = 1; i < path.length; i++) {
       const a = path[i - 1].map((v) => v * TILE),
         b = path[i].map((v) => v * TILE);

@@ -36,6 +36,28 @@
     }
   },
   "definitions": {
+    "forest-path": {
+      "label": "buildPath",
+      "shape": "polyline",
+      "paint": "path",
+      "walkable": true,
+      "variants": [
+        {
+          "id": "tierra"
+        }
+      ],
+      "costPerTile": {
+        "twig": 1
+      },
+      "surfaces": [
+        "flat-ground"
+      ],
+      "rotations": [
+        0
+      ],
+      "capabilities": [],
+      "maxPerAuthor": 8
+    },
     "twig-fence": {
       "label": "buildFence",
       "shape": "polyline",

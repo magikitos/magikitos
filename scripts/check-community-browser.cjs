@@ -88,12 +88,23 @@ const ZONE = Object.keys(
       account.inventory.twig >= 4,
       "Enough twigs for the shortest fence the house allows: " + account.inventory.twig,
     );
+    let paso = 0;
     for (const [width, height] of [
       [1440, 900],
       [768, 1024],
       [390, 844],
     ])
-      for (const kind of ["twig-fence", "bowl-pool"]) {
+      // Un trazado que se levanta, un trazado que se pinta y una pieza suelta: las tres formas
+      // de dejar algo en el claro pasan por la misma caja.
+      for (const kind of ["twig-fence", "forest-path", "bowl-pool"]) {
+        /**
+         * ⛔ EL SERVIDOR ADMITE DOCE ESCRITURAS POR MINUTO Y PERSONA, y este recorrido hace DOS
+         * por vuelta (colocar y quitar). Con dos piezas cabía justo; con tres se pasaba y el
+         * 429 llegaba disfrazado de «el botón no hace nada». El límite es correcto y la prueba
+         * lo respeta en vez de pelearse con él: once segundos entre vueltas dejan el ritmo en
+         * menos de doce por minuto.
+         */
+        if (paso++) await new Promise((r) => setTimeout(r, 11000));
         const page = await browser.newPage({
           viewport: { width, height },
           hasTouch: true,
@@ -137,8 +148,11 @@ const ZONE = Object.keys(
         await page
           .locator("#home-palette button")
           .filter({
-            hasText:
-              kind === "twig-fence" ? "Vallita de ramitas" : "Piscinita deluxe",
+            hasText: {
+              "twig-fence": "Vallita de ramitas",
+              "forest-path": "Caminito de tierra",
+              "bowl-pool": "Piscinita deluxe",
+            }[kind],
           })
           .click();
         const snapshot = await (

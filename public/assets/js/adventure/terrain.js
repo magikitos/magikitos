@@ -21,6 +21,11 @@ class Terrain {
     this.budget = Math.max(this.limit || 24, this.pinned.size + 4);
     this.prune();
   }
+  /** Un claro con caminos nuevos hay que repintarlo: las baldosas se cachean por escena. */
+  invalidate(sceneId) {
+    for (const key of [...this.chunks.keys()])
+      if (key.startsWith(sceneId + ":")) this.chunks.delete(key);
+  }
   prune() {
     for (const key of this.chunks.keys()) {
       if (this.chunks.size <= (this.budget || this.limit || 24)) break;

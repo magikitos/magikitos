@@ -102,7 +102,8 @@ function validateConstruction(items, zoneId, catalog) {
   const zone = catalog.zones[zoneId];
   if (!zone) return "unknown_zone";
   if (items.length > catalog.maxObjectsPerZone) return "zone_full";
-  const occupied = [];
+  const occupied = [],
+    blocking = [];
   for (const object of items) {
     const def = catalog.definitions[object.kind];
     if (!def) return "invalid_kind";
@@ -124,6 +125,11 @@ function validateConstruction(items, zoneId, catalog) {
       if (reason) return reason;
     } else if (object.points !== undefined) return "invalid_points";
     const a = rect(zone.editable);
+    // ⛔ UN CAMINO NO ES UN OBSTÁCULO. Ocupa sitio —no se entierra un banco debajo— pero se
+    // ANDA por encima, así que no puede contar en el relleno por inundación: si contara, tres
+    // caminos cruzando el claro lo dejarían incomunicado, que es exactamente lo contrario de lo
+    // que hace un camino.
+    const pisable = def.walkable === true;
     // ⛔ UN TRAZADO SE PISA A SÍ MISMO EN CADA ESQUINA, y eso no es chocar con nada: los tramos
     // comparten vértice por definición. Así que sus rectángulos se juzgan contra lo que YA había
     // y entran todos juntos al final, no de uno en uno contra los suyos.
@@ -146,8 +152,9 @@ function validateConstruction(items, zoneId, catalog) {
               return "blocked_terrain";
     }
     occupied.push(...own);
+    if (!pisable) blocking.push(...own);
   }
-  return accessConnected(zone, occupied) ? null : "blocked_access";
+  return accessConnected(zone, blocking) ? null : "blocked_access";
 }
 const terrainCache = new WeakMap();
 /** Dense half-tile occupancy: O(cells + stamped footprints), not a hash/string

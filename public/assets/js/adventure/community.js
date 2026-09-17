@@ -238,6 +238,20 @@ class Community {
         ![o.x, o.y, o.rotation, o.revision].every(Number.isFinite)
       )
         throw Error("invalid_community_object");
+    // Si lo pintado cambia, las baldosas de esa pantalla ya no valen. Se compara la firma en vez
+    // de tirarlas siempre: repintar un claro entero en cada entrada se nota.
+    const firma = JSON.stringify(
+      value.objects
+        .filter((o) => this.catalog.definitions[o.kind].paint === "path")
+        .map((o) => this.absolutePoints(o)),
+    );
+    this.painted ||= new Map();
+    if (this.painted.get(value.zone) !== firma) {
+      this.painted.set(value.zone, firma);
+      this.game.renderer?.terrain?.invalidate(
+        this.catalog.zones[value.zone].scene,
+      );
+    }
     this.snapshots.set(value.zone, value);
     this.unavailable = false;
   }
@@ -251,8 +265,15 @@ class Community {
    * el Estudio (`fence: { points }`), así que el motor la pinta, la parte en postes y travesaños
    * y la hace sólida sin una sola línea nueva: es el mismo dato en los dos sitios.
    */
+  /** Los puntos de un trazado en coordenadas del escenario, que es como los escribe el Estudio. */
+  absolutePoints(item) {
+    return item.points.map((p) => [item.x + p[0], item.y + p[1]]);
+  }
   entity(item) {
     const d = this.catalog.definitions[item.kind];
+    // Un caminito no se levanta: se pinta en el suelo con el mismo pincel que los del Estudio,
+    // así que no tiene entidad ninguna. Lo recoge `sceneData` en su propia lista.
+    if (d.paint === "path") return null;
     const base = {
       id: `community-${item.id}`,
       community: item.id,
@@ -291,12 +312,20 @@ class Community {
       (id) => this.catalog.zones[id].scene === data?.id,
     );
     if (!zone) return data;
+    const objects = this.snapshots.get(zone)?.objects || [];
     return {
       ...data,
       entities: [
         ...data.entities,
-        ...(this.snapshots.get(zone)?.objects || []).map((o) => this.entity(o)),
+        ...objects.map((o) => this.entity(o)).filter(Boolean),
       ],
+      // ⛔ EN SU PROPIA LISTA, NO EN `paths`. La del escenario alimenta `pathDistance()`, y de ahí
+      // salen la vegetación colocada por procedimiento y la máscara de terreno que el servidor
+      // tiene bakeada: un caminito de alguien movería árboles y desharía esa máscara. Aquí solo
+      // se pinta.
+      communityPaths: objects
+        .filter((o) => this.catalog.definitions[o.kind].paint === "path")
+        .map((o) => this.absolutePoints(o)),
     };
   }
   sceneChanged() {
@@ -381,6 +410,19 @@ class Community {
    *  baldosa la pinta el mismo código que pinta la valla: lo que ves es lo que sale. */
   tile(definition, variant) {
     const g = this.game;
+    if (definition.paint === "path") {
+      const canvas = document.createElement("canvas");
+      canvas.width = 96;
+      canvas.height = 84;
+      canvas.style.width = "48px";
+      canvas.style.height = "42px";
+      canvas.setAttribute("aria-hidden", "true");
+      const c = canvas.getContext("2d");
+      c.fillStyle = "#6a8a4f";
+      c.fillRect(0, 0, 96, 84);
+      drawPathTrace(c, [[6, 74], [40, 44], [90, 26]], 1);
+      return canvas;
+    }
     if (definition.shape === "polyline") {
       const canvas = document.createElement("canvas");
       canvas.width = 96;
@@ -697,6 +739,9 @@ class Community {
   async refreshWorld() {
     const g = this.game,
       { World } = require("./model");
+    // Un caminito nuevo es PINTURA, y el suelo se cachea por baldosas de escena: sin tirar las de
+    // esta pantalla, el camino recién puesto no aparece hasta que la caché rota por su cuenta.
+    g.renderer?.terrain?.invalidate(g.state.scene);
     g.world = new World(this.sceneData(g.catalog.scenes[g.state.scene]));
     g.world.actors = [g.player, ...g.neighbors];
     g.world.refresh(g.state);
@@ -738,7 +783,13 @@ class Community {
     const d = this.catalog.definitions[this.ghost.kind];
     ctx.save();
     ctx.globalAlpha = 0.6;
-    if (d.shape === "polyline")
+    if (d.paint === "path")
+      drawPathTrace(
+        ctx,
+        this.absolutePoints(this.ghost).map((p) => [p[0] * TILE, p[1] * TILE]),
+        0.9,
+      );
+    else if (d.shape === "polyline")
       for (const part of fences.parts({
         x: this.ghost.x * TILE,
         y: this.ghost.y * TILE,
@@ -817,6 +868,30 @@ class Community {
       }`;
     byId("community-hint").hidden = !d || d.shape !== "polyline";
   }
+}
+/**
+ * El trazo de tierra del fantasma, con los mismos tres ocres que el pincel del suelo
+ * (`ground.js`): lo que se ve al colocarlo es lo que va a quedar pintado.
+ */
+function drawPathTrace(c, points, alpha) {
+  if (points.length < 2) return;
+  c.save();
+  c.globalAlpha = alpha;
+  c.lineCap = "round";
+  c.lineJoin = "round";
+  for (const [width, color] of [
+    [20, "#b2a16b"],
+    [14, "#c3af7b"],
+    [7, "#cebb88"],
+  ]) {
+    c.strokeStyle = color;
+    c.lineWidth = width;
+    c.beginPath();
+    c.moveTo(points[0][0], points[0][1]);
+    for (const p of points.slice(1)) c.lineTo(p[0], p[1]);
+    c.stroke();
+  }
+  c.restore();
 }
 /** Simplificación por distancia perpendicular (Douglas-Peucker). */
 function simplifyPath(points, tolerance) {
