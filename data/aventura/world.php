@@ -31,7 +31,6 @@ return (static function (): array {
     };
     $behaviors = [];
     $families = $read(__DIR__ . '/elements.json')['families'];
-    $world['homesteads'] = $read(__DIR__ . '/homesteads.json');
     $world['construction'] = $read(__DIR__ . '/construction.json');
     foreach ($world['construction']['definitions'] as &$construction) {
         if (isset($construction['family'])) {
@@ -43,13 +42,6 @@ return (static function (): array {
         $construction['scale'] ??= 1;
     }
     unset($construction);
-    foreach ($world['homesteads']['stock'] as $id => &$item) {
-        $family = $families[$id] ?? throw new RuntimeException('Unknown homestead family');
-        $item['variants'] = array_map(static fn($v) => ['id' => $v['id'], 'sprite' => $v['sprite']], $family['variants']);
-        $item['solid'] = $family['template']['solid'] ?? null;
-        $item['scale'] ??= 1;
-    }
-    unset($item);
     foreach (glob(__DIR__ . '/behaviors/*.json') as $file) {
         foreach ($read($file) as $id => $behavior) {
             if (isset($behaviors[$id])) {

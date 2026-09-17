@@ -1,7 +1,6 @@
 "use strict";
 const { cleanSave } = require("./save");
 const { SESSION_KEY } = require("./session");
-const { validateLayout } = require("./homestead-layout");
 const KEY = "magikitos.adventure.sync";
 const id = () =>
   [...crypto.getRandomValues(new Uint8Array(16))]
@@ -32,13 +31,6 @@ class CloudSave {
     this.recoveries = [];
     this.meta = {};
     this.hadLocalSave = false;
-    this.archivedLayout = null;
-    // One controlled migration: old private layouts are recoverable data, never a live private world.
-    try {
-      const old = JSON.parse(localStorage.getItem("magikitos.adventure.home"));
-      if (old)
-        this.archivedLayout = validateLayout(old, game.catalog.homesteads);
-    } catch (_) {}
     try {
       this.hadLocalSave = Boolean(localStorage.getItem("magikitos.adventure"));
       const v = JSON.parse(localStorage.getItem(KEY));
@@ -80,12 +72,7 @@ class CloudSave {
     });
   }
   snapshot() {
-    return {
-      state: JSON.parse(JSON.stringify(this.game.state)),
-      parcel: this.archivedLayout
-        ? JSON.parse(JSON.stringify(this.archivedLayout))
-        : null,
-    };
+    return { state: JSON.parse(JSON.stringify(this.game.state)) };
   }
   validProfile(value) {
     if (
@@ -99,9 +86,6 @@ class CloudSave {
       id: value.id,
       revision: value.revision,
       state: cleanSave(value.state, this.game.catalog),
-      parcel: value.parcel
-        ? validateLayout(value.parcel, this.game.catalog.homesteads)
-        : null,
     };
   }
   persist() {
@@ -165,7 +149,7 @@ class CloudSave {
         (profile &&
           changed &&
           !remoteUnchanged &&
-          !same(local, { state: profile.state, parcel: profile.parcel }))
+          !same(local, { state: profile.state }))
       ) {
         this.conflict = { profile, local };
         this.status = "cloudConflict";
@@ -201,7 +185,7 @@ class CloudSave {
     }
     this.paint();
   }
-  accept(profile, base = { state: profile.state, parcel: profile.parcel }) {
+  accept(profile, base = { state: profile.state }) {
     this.meta = {
       ...this.meta,
       owner: this.owner,
@@ -214,10 +198,6 @@ class CloudSave {
   async apply(profile) {
     const g = this.game;
     const next = cleanSave(profile.state, g.catalog);
-    const layout = validateLayout(
-      profile.parcel || g.catalog.homesteads.initial,
-      g.catalog.homesteads,
-    );
     g.scenes.cache.clear();
     if (g.ready) {
       g.pauseMovement();
@@ -236,14 +216,6 @@ class CloudSave {
         g.transitioning = false;
       }
     } else g.state = next;
-    this.archivedLayout = profile.parcel ? layout : null;
-    try {
-      if (this.archivedLayout)
-        localStorage.setItem(
-          "magikitos.adventure.home",
-          JSON.stringify(this.archivedLayout),
-        );
-    } catch (_) {}
     g.dirty = true;
     if (g.ready) {
       g.updateUI();
@@ -301,7 +273,7 @@ class CloudSave {
         this.conflict = { profile, local: this.snapshot() };
         this.status = "cloudConflict";
       } else {
-        this.accept(profile, { state: sent.state, parcel: sent.parcel });
+        this.accept(profile, { state: sent.state });
         this.status = "cloudSaved";
         this.persist();
         if (!same(this.snapshot(), this.meta.base)) this.mark();
@@ -352,7 +324,7 @@ class CloudSave {
     const kept =
       choice === "remote"
         ? local
-        : profile && { state: profile.state, parcel: profile.parcel };
+        : profile && { state: profile.state };
     this.meta.backups = [
       ...(Array.isArray(this.meta.backups) ? this.meta.backups : []),
       ...(kept ? [{ at: Date.now(), ...kept }] : []),

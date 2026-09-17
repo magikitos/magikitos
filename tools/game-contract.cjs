@@ -3,8 +3,7 @@
 function gameContract(world) {
   require("./community-terrain.cjs").compileCommunityTerrain(world);
   return {
-    protocol: "river-homesteads",
-    homesteads: world.homesteads,
+    protocol: "river-commons",
     construction: world.construction,
     adventure: {
       flags: world.flags,

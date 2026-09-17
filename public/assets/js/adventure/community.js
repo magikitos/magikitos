@@ -219,21 +219,25 @@ class Community {
       const cost = Object.entries(d.cost)
         .map(([id, n]) => `${g.text(g.catalog.items[id]?.name || id)} ×${n}`)
         .join(" · ");
-      const known = a.knowledge.includes(d.knowledge),
-        affordable = Object.entries(d.cost).every(
-          ([id, n]) => (a.inventory[id] || 0) >= n,
-        );
+      // ⛔ LO QUE PUEDES CONSTRUIR LO DICE LO QUE LLEVAS (17-sep-2026, decisión del dueño). El
+      // saber tenía exactamente tres valores: uno regalado al crear la cuenta y dos que se
+      // encendían al encontrar el cuenco y las semillas. O sea, dos objetos disfrazados de
+      // habilidad, con su error propio en el servidor y su estado propio en la interfaz. El coste
+      // ES la puerta: tienes el cuenco, puedes hacer la piscina.
+      const affordable = Object.entries(d.cost).every(
+        ([id, n]) => (a.inventory[id] || 0) >= n,
+      );
       const icon = g.renderer.sprites.icon(d.variants[0].sprite);
       if (icon) button.append(icon);
       const label = document.createElement("small");
       label.textContent = g.text(d.label);
       button.append(label);
       const detail = document.createElement("small");
-      detail.textContent = known ? cost : g.text("communityLearn");
+      detail.textContent = cost;
       button.append(detail);
-      button.title = `${g.text(d.label)} — ${known ? cost : g.text("communityLearn")}`;
+      button.title = `${g.text(d.label)} — ${cost}`;
       button.setAttribute("aria-label", button.title);
-      button.disabled = !known || !affordable;
+      button.disabled = !affordable;
       button.onclick = () => {
         this.original = null;
         this.ghost = {

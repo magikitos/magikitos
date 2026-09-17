@@ -39,13 +39,6 @@ const game = {
   state: cleanSave(null, catalog),
   ready: false,
   text: (s) => s,
-  homestead: {
-    layout: clone(catalog.homesteads.initial),
-    visiting: null,
-    setLayout(v) {
-      this.layout = clone(v);
-    },
-  },
   scenes: { cache: new Map() },
   session: { get: () => "test-token" },
   self: { account: { async read() {}, async claim() {}, user: { id: 1 } } },
@@ -66,7 +59,6 @@ const game = {
           id: "a".repeat(32),
           revision: (remote?.revision || 0) + 1,
           state: clone(body.state),
-          parcel: clone(body.parcel),
           operationId: body.operationId,
         };
         writes++;
@@ -149,7 +141,6 @@ const game = {
   );
   await cloud.flush();
   assert.equal(writes, beforeSwitch);
-  game.homestead.visiting = { id: "b".repeat(32) };
   cloud.conflict = null;
   cloud.meta.owner = 2;
   cloud.owner = 2;
@@ -164,12 +155,10 @@ const game = {
     "Sync metadata never stores authentication tokens",
   );
   storage.clear();
-  game.homestead.visiting = null;
   remote = {
     id: "c".repeat(32),
     revision: 1,
     state: cleanSave(null, catalog),
-    parcel: null,
   };
   remote.state.wallet.balance = 33;
   game.state = cleanSave(null, catalog);
@@ -186,17 +175,13 @@ const game = {
   game.scenes.prepare = async () => {
     throw Error("offline asset");
   };
-  const layoutBefore = clone(game.homestead.layout),
-    stateBefore = clone(game.state);
-  await assert.rejects(() =>
-    freshDevice.apply({ ...remote, parcel: { objects: [] } }),
-  );
+  const stateBefore = clone(game.state);
+  await assert.rejects(() => freshDevice.apply(remote));
   assert.deepEqual(
-    game.homestead.layout,
-    layoutBefore,
-    "Failed arrival does not persist a partial layout",
+    game.state,
+    stateBefore,
+    "Una llegada que falla no deja la partida a medias",
   );
-  assert.deepEqual(game.state, stateBefore);
   console.log(
     "PASS cloud read/write bounds, lost-response retry, remote conflict, local recovery, identity switch, visit isolation and credential separation",
   );

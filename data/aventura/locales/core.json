@@ -431,14 +431,6 @@
     "it": "Salvato qui; sincronizzazione in attesa",
     "pt": "Guardado aqui; à espera de sincronização"
   },
-  "cloudRecovery": {
-    "es": "Partidas conservadas al unir cuentas",
-    "en": "Saves kept after joining accounts",
-    "de": "Spielstände nach Kontozusammenführung",
-    "fr": "Sauvegardes conservées après fusion",
-    "it": "Salvataggi conservati unendo gli account",
-    "pt": "Partidas guardadas ao juntar contas"
-  },
   "cloudSaved": {
     "es": "Guardado en tu usuario",
     "en": "Saved to your identity",
@@ -518,14 +510,6 @@
     "fr": "Pas ici : laisse libres le terrain et les passages.",
     "it": "Qui no: lascia liberi il terreno e i passaggi.",
     "pt": "Aqui não: deixa o terreno e os caminhos livres."
-  },
-  "communityLearn": {
-    "es": "Esto se aprende explorando.",
-    "en": "Learn this through exploration.",
-    "de": "Das lernst du beim Erkunden.",
-    "fr": "Ça s’apprend en explorant.",
-    "it": "Si impara esplorando.",
-    "pt": "Aprende-se a explorar."
   },
   "communityMirlo": {
     "es": "El Tocón del Mirlo",
@@ -831,30 +815,6 @@
     "it": "Tocca per andare, trascina per guardarti attorno, pizzica per zoomare. Frecce/WASD per muoverti; tieni spazio per correre o remare più forte.",
     "pt": "Toca para ir, arrasta para olhar e usa dois dedos para ampliar. Setas/WASD para andar; mantém espaço para correr ou remar mais depressa."
   },
-  "homeBed": {
-    "es": "Cama",
-    "en": "Bed",
-    "de": "Bett",
-    "fr": "Lit",
-    "it": "Letto",
-    "pt": "Cama"
-  },
-  "homeBeds": {
-    "es": "Bancales",
-    "en": "Garden beds",
-    "de": "Beete",
-    "fr": "Carrés potagers",
-    "it": "Aiuole",
-    "pt": "Canteiros"
-  },
-  "homeBells": {
-    "es": "Campanillas",
-    "en": "Bluebells",
-    "de": "Glockenblumen",
-    "fr": "Campanules",
-    "it": "Campanule",
-    "pt": "Campânulas"
-  },
   "homeCancel": {
     "es": "Cancelar",
     "en": "Cancel",
@@ -862,30 +822,6 @@
     "fr": "Annuler",
     "it": "Annulla",
     "pt": "Cancelar"
-  },
-  "homeChairs": {
-    "es": "Asientos",
-    "en": "Seats",
-    "de": "Sitze",
-    "fr": "Sièges",
-    "it": "Sedute",
-    "pt": "Assentos"
-  },
-  "homeCrates": {
-    "es": "Cajitas",
-    "en": "Crates",
-    "de": "Kisten",
-    "fr": "Caisses",
-    "it": "Cassette",
-    "pt": "Caixotes"
-  },
-  "homeDaisies": {
-    "es": "Margaritas",
-    "en": "Daisies",
-    "de": "Gänseblümchen",
-    "fr": "Marguerites",
-    "it": "Margherite",
-    "pt": "Margaridas"
   },
   "homeDecorate": {
     "es": "Decorar",
@@ -895,30 +831,6 @@
     "it": "Decora",
     "pt": "Decorar"
   },
-  "homeFerns": {
-    "es": "Helechos",
-    "en": "Ferns",
-    "de": "Farne",
-    "fr": "Fougères",
-    "it": "Felci",
-    "pt": "Fetos"
-  },
-  "homeFlowers": {
-    "es": "Flores del prado",
-    "en": "Meadow flowers",
-    "de": "Wiesenblumen",
-    "fr": "Fleurs des prés",
-    "it": "Fiori di prato",
-    "pt": "Flores do prado"
-  },
-  "homeHammock": {
-    "es": "Hamaca",
-    "en": "Hammock",
-    "de": "Hängematte",
-    "fr": "Hamac",
-    "it": "Amaca",
-    "pt": "Rede"
-  },
   "homeRemove": {
     "es": "Al saco",
     "en": "Put away",
@@ -926,14 +838,6 @@
     "fr": "Ranger",
     "it": "Metti via",
     "pt": "Guardar no saco"
-  },
-  "homeTables": {
-    "es": "Mesitas",
-    "en": "Tables",
-    "de": "Tische",
-    "fr": "Tables",
-    "it": "Tavolini",
-    "pt": "Mesinhas"
   },
   "homeVariant": {
     "es": "Variante",

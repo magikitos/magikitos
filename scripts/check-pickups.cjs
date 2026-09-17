@@ -63,7 +63,7 @@ const temp = fs.mkdtempSync(path.join(os.tmpdir(), "magikitos-pickups-"));
 try {
   fs.mkdirSync(path.join(temp, "data/aventura"), { recursive: true });
   fs.mkdirSync(path.join(temp, "src"));
-  for (const file of ["world.php", "catalog.json", "residents.json", "elements.json", "homesteads.json", "construction.json", "resource-nodes.json", "scene-instances.json", "scenes", "behaviors"])
+  for (const file of ["world.php", "catalog.json", "residents.json", "elements.json", "construction.json", "resource-nodes.json", "scene-instances.json", "scenes", "behaviors"])
     fs.cpSync("data/aventura/" + file, path.join(temp, "data/aventura", file), { recursive: true });
   fs.copyFileSync("src/adventure-geometry.php", path.join(temp, "src/adventure-geometry.php"));
   fs.writeFileSync(path.join(temp, "data/aventura/scenes/overworld.json"), JSON.stringify(proposed));

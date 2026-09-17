@@ -10,7 +10,6 @@ for (const name of [
   "check-pickups",
   "check-material-account",
   "check-construction-layout",
-  "check-homestead-layout",
   "check-cloud-save",
   "check-adventure-geography",
   "check-adventure-residents",
