@@ -1,0 +1,1923 @@
+{
+  "variants": [
+    100,
+    101,
+    105,
+    110,
+    111,
+    115,
+    120,
+    125,
+    130,
+    131,
+    135,
+    136,
+    140,
+    145,
+    146,
+    150,
+    155,
+    160,
+    161,
+    165,
+    166,
+    170,
+    171,
+    175,
+    180,
+    181,
+    185,
+    190,
+    195,
+    196
+  ],
+  "actions": {
+    "run": {
+      "grid": [
+        8,
+        4
+      ],
+      "directions": "eight"
+    },
+    "row": {
+      "grid": [
+        8,
+        4
+      ],
+      "directions": "eight",
+      "canvas": [
+        64,
+        56
+      ],
+      "anchor": [
+        32,
+        40
+      ],
+      "registrationPoint": "seat"
+    },
+    "push": {
+      "grid": [
+        4,
+        4
+      ],
+      "directions": [
+        "down",
+        "right",
+        "up",
+        "left"
+      ]
+    },
+    "work": {
+      "grid": [
+        4,
+        4
+      ],
+      "directions": [
+        "down",
+        "right",
+        "up",
+        "left"
+      ]
+    },
+    "carried": {
+      "grid": [
+        8,
+        2
+      ],
+      "directions": "eight",
+      "canvas": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        4
+      ],
+      "registrationPoint": "top"
+    },
+    "needs": {
+      "grid": [
+        4,
+        2
+      ],
+      "names": [
+        "pee-0",
+        "pee-1",
+        "pee-2",
+        "pee-3",
+        "poop-0",
+        "poop-1",
+        "poop-2",
+        "poop-3"
+      ]
+    },
+    "discover": {
+      "grid": [
+        4,
+        1
+      ],
+      "names": [
+        "discover-0",
+        "discover-1",
+        "discover-2",
+        "discover-3"
+      ]
+    }
+  },
+  "sheets": [
+    {
+      "id": "brezo-bruma-push-scale",
+      "variant": 101,
+      "action": "push",
+      "sourceSha256": "b7f38a13308467a11defdd2cc4eabf49e9ffec78e3469968d761797ae2aea978",
+      "referenceSha256": "0df0ca5f2e785d841e5ed106e87b6f9bef0606dfcfd4eadabdb5cd71dcde395d",
+      "promptSha256": "a4ba988212b576387ff7bc32e44341b08f712ab99c768af801a35dfb7e70d853",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "editSource": "brezo-bruma-push",
+      "editSourceSha256": "50bfccb08cd46d2331dd11f0a9ff34fbe76250b042e567b873eec9e703f7b5bb"
+    },
+    {
+      "id": "brezo-bruma-row-long-cuffs",
+      "variant": 101,
+      "action": "row",
+      "sourceSha256": "4ad27cf55c61ec8896fbd82d56330cca4c181041c1115f3bc76efa4f67eab19e",
+      "referenceSha256": "0df0ca5f2e785d841e5ed106e87b6f9bef0606dfcfd4eadabdb5cd71dcde395d",
+      "promptSha256": "5c93d094c71ac3915a2d6b5c97ef06cb0d2e20a8d41db025088d8a4adce8a963",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "editSource": "brezo-bruma-row-long",
+      "editSourceSha256": "9fd4ed758580c45c7cc3830c31dc3bdf6ce9ef0a21c42ba77039bebcbee77cf1",
+      "sourceCellWidth": 221.75,
+      "sourceColumnBounds": [
+        0,
+        248,
+        467,
+        680,
+        894,
+        1110,
+        1324,
+        1536,
+        1774
+      ],
+      "sourceRowBounds": [
+        0,
+        264,
+        464,
+        666,
+        887
+      ],
+      "sourceSeatAnchors": [
+        [
+          [
+            123,
+            217
+          ],
+          [
+            100,
+            217
+          ],
+          [
+            108,
+            217
+          ],
+          [
+            111,
+            217
+          ],
+          [
+            109,
+            217
+          ],
+          [
+            119,
+            217
+          ],
+          [
+            119,
+            217
+          ],
+          [
+            125,
+            217
+          ]
+        ],
+        [
+          [
+            123,
+            156
+          ],
+          [
+            100,
+            156
+          ],
+          [
+            108,
+            156
+          ],
+          [
+            111,
+            156
+          ],
+          [
+            109,
+            156
+          ],
+          [
+            119,
+            156
+          ],
+          [
+            119,
+            156
+          ],
+          [
+            125,
+            156
+          ]
+        ],
+        [
+          [
+            123,
+            142
+          ],
+          [
+            100,
+            140
+          ],
+          [
+            108,
+            138
+          ],
+          [
+            111,
+            137
+          ],
+          [
+            109,
+            143
+          ],
+          [
+            119,
+            137
+          ],
+          [
+            119,
+            140
+          ],
+          [
+            125,
+            141
+          ]
+        ],
+        [
+          [
+            123,
+            142
+          ],
+          [
+            100,
+            138
+          ],
+          [
+            108,
+            137
+          ],
+          [
+            111,
+            137
+          ],
+          [
+            109,
+            141
+          ],
+          [
+            121,
+            136
+          ],
+          [
+            119,
+            138
+          ],
+          [
+            126,
+            141
+          ]
+        ]
+      ],
+      "sourceRects": [
+        [
+          [
+            0,
+            0,
+            243,
+            268
+          ],
+          [
+            235,
+            0,
+            228,
+            268
+          ],
+          [
+            455,
+            0,
+            224,
+            268
+          ],
+          [
+            671,
+            0,
+            224,
+            268
+          ],
+          [
+            887,
+            0,
+            223,
+            268
+          ],
+          [
+            1102,
+            0,
+            219,
+            268
+          ],
+          [
+            1313,
+            0,
+            228,
+            268
+          ],
+          [
+            1533,
+            0,
+            241,
+            268
+          ]
+        ],
+        [
+          [
+            0,
+            260,
+            243,
+            216
+          ],
+          [
+            235,
+            260,
+            228,
+            219
+          ],
+          [
+            455,
+            260,
+            224,
+            219
+          ],
+          [
+            671,
+            260,
+            224,
+            217
+          ],
+          [
+            887,
+            260,
+            223,
+            217
+          ],
+          [
+            1102,
+            260,
+            219,
+            218
+          ],
+          [
+            1313,
+            260,
+            228,
+            218
+          ],
+          [
+            1533,
+            260,
+            241,
+            215
+          ]
+        ],
+        [
+          [
+            0,
+            468,
+            243,
+            196
+          ],
+          [
+            235,
+            470,
+            228,
+            198
+          ],
+          [
+            455,
+            472,
+            224,
+            196
+          ],
+          [
+            671,
+            473,
+            224,
+            194
+          ],
+          [
+            887,
+            467,
+            223,
+            198
+          ],
+          [
+            1102,
+            473,
+            219,
+            197
+          ],
+          [
+            1313,
+            470,
+            228,
+            198
+          ],
+          [
+            1533,
+            469,
+            241,
+            195
+          ]
+        ],
+        [
+          [
+            0,
+            656,
+            243,
+            231
+          ],
+          [
+            235,
+            660,
+            228,
+            227
+          ],
+          [
+            455,
+            661,
+            224,
+            226
+          ],
+          [
+            671,
+            661,
+            224,
+            226
+          ],
+          [
+            887,
+            657,
+            223,
+            230
+          ],
+          [
+            1100,
+            662,
+            221,
+            225
+          ],
+          [
+            1313,
+            660,
+            228,
+            227
+          ],
+          [
+            1532,
+            657,
+            242,
+            230
+          ]
+        ]
+      ],
+      "overrides": [
+        {
+          "id": "brezo-bruma-row-perspective",
+          "sourceSha256": "982aed4b2ae229dfe76b3ae6bd5230c493c24843567971e184329d29f7b8c0ce",
+          "promptSha256": "a2bb87120794b470e9145b22414fad7650ed995a13d3fd02ee5cd2c739e830ff",
+          "referenceSha256": "0df0ca5f2e785d841e5ed106e87b6f9bef0606dfcfd4eadabdb5cd71dcde395d",
+          "generator": "built-in image_gen",
+          "editSource": "brezo-alba-row-perspective-clean",
+          "editSourceSha256": "fe3e140d068ae245f4a7288b0c54cd8c223e042ea0b984ecb650399e6272a68e",
+          "edgeMatte": "red",
+          "cleanFragments": 0.015,
+          "grid": [
+            4,
+            4
+          ],
+          "directions": [
+            "right",
+            "up-right",
+            "up-left",
+            "left"
+          ],
+          "sourceSeatAnchors": [
+            [
+              [
+                160,
+                235
+              ],
+              [
+                156,
+                235
+              ],
+              [
+                160,
+                235
+              ],
+              [
+                139,
+                235
+              ]
+            ],
+            [
+              [
+                160,
+                197
+              ],
+              [
+                156,
+                195
+              ],
+              [
+                160,
+                195
+              ],
+              [
+                139,
+                200
+              ]
+            ],
+            [
+              [
+                164,
+                189
+              ],
+              [
+                156,
+                175
+              ],
+              [
+                160,
+                175
+              ],
+              [
+                139,
+                189
+              ]
+            ],
+            [
+              [
+                164,
+                210
+              ],
+              [
+                156,
+                195
+              ],
+              [
+                160,
+                195
+              ],
+              [
+                139,
+                210
+              ]
+            ]
+          ],
+          "sourceCellWidth": 280,
+          "sourceColumnBounds": [
+            0,
+            314,
+            627,
+            941,
+            1254
+          ],
+          "sourceRowBounds": [
+            0,
+            330,
+            625,
+            900,
+            1254
+          ]
+        }
+      ]
+    },
+    {
+      "id": "brezo-bruma-run-scale",
+      "variant": 101,
+      "action": "run",
+      "sourceSha256": "b6b6f04b337b91188d0fe23c400813cc57bc4f2be86207de71a630c75251390d",
+      "referenceSha256": "0df0ca5f2e785d841e5ed106e87b6f9bef0606dfcfd4eadabdb5cd71dcde395d",
+      "promptSha256": "bf3f3ff152b739cdfdd872e4d0ecb84684e81d048f1247126dff5e4f7311be52",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "editSource": "brezo-bruma-run",
+      "editSourceSha256": "494ab3b2b8fcbec9fd1b9122f0d45c36b3dd88bb76b370c3e1b1b1c055885820"
+    },
+    {
+      "id": "brezo-bruma-discover",
+      "variant": 101,
+      "action": "discover",
+      "sourceSha256": "1e1287ee5d72a0919ced5113d8499676b9387f5155d5b17c3d7e045181c4872c",
+      "referenceSha256": "0df0ca5f2e785d841e5ed106e87b6f9bef0606dfcfd4eadabdb5cd71dcde395d",
+      "promptSha256": "cb7ac6aa4b0b713e66ed4c7057906d5d62c02d3ce09de58a7666ae2976252613",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "editSource": "brezo-alba-discover",
+      "editSourceSha256": "c40b09b746c00633d1b7a1eab5b04c29f952770cb07a0137fde4464640c318be"
+    },
+    {
+      "id": "brezo-bruma-work-scale",
+      "variant": 101,
+      "action": "work",
+      "sourceSha256": "d5906ada41c05b98aac75c4d421a8021c5ae0acbdbeb43bd56ee7a9fc084166e",
+      "referenceSha256": "0df0ca5f2e785d841e5ed106e87b6f9bef0606dfcfd4eadabdb5cd71dcde395d",
+      "promptSha256": "4c5bdbdbf9d902b81874bf35c4e81564353dff37e88e9308a26891590f3f79c3",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "editSource": "brezo-bruma-work",
+      "editSourceSha256": "3b8b0938a9bf3dcb7a5628be7f786e5e615e4748b889cb6c59d92daf2eb56265"
+    },
+    {
+      "id": "brezo-bruma-needs-scale",
+      "variant": 101,
+      "action": "needs",
+      "sourceSha256": "f835fd2c5e9192d13513efb3f36744d891bc29e8cec0e1b15b4705fc065916fb",
+      "referenceSha256": "0df0ca5f2e785d841e5ed106e87b6f9bef0606dfcfd4eadabdb5cd71dcde395d",
+      "promptSha256": "c0459898e9d72561fbd205b00d1707204c23e35dd7edec0641530448f1fcad35",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "editSource": "brezo-bruma-needs",
+      "editSourceSha256": "2623e55b4600b483a994fc2f9995d041dbc98d2a63b241aa95b2de3760b6c4ac"
+    },
+    {
+      "id": "brezo-bruma-carried-scale",
+      "variant": 101,
+      "action": "carried",
+      "sourceSha256": "d8eec3e8c6fe17a486523069c18d016496860e82c97337e7aa7f285a44bca1d7",
+      "referenceSha256": "0df0ca5f2e785d841e5ed106e87b6f9bef0606dfcfd4eadabdb5cd71dcde395d",
+      "promptSha256": "c589275697e6af887e795519ec46284c3af32d924418e1580c9ad2658bd85770",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "editSource": "brezo-bruma-carried",
+      "editSourceSha256": "1119e8d04b58f2a58bb21bfa0a30921f2f761a4989b3f174d09ead4807b643cd"
+    },
+    {
+      "id": "brezo-alba-row-long-clean",
+      "variant": 100,
+      "action": "row",
+      "sourceSha256": "b0002ff110628aacddf4b8b84c8ef8fbea42736df67a34900da203b61020ce96",
+      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
+      "promptSha256": "a374ab270086da3b9b50128d4bd097787c4eede76f5857492a18a3935d9a07b6",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "editSource": "brezo-alba-row-long-oars",
+      "editSourceSha256": "92e263a58962d3d09f8b74ccbd3e7d5243fc9b720b69cdd69e10f7874282c846",
+      "sourceCellWidth": 221.75,
+      "sourceRects": [
+        [
+          [
+            0,
+            0,
+            239,
+            264
+          ],
+          [
+            239,
+            0,
+            220,
+            264
+          ],
+          [
+            459,
+            0,
+            216,
+            264
+          ],
+          [
+            675,
+            0,
+            216,
+            264
+          ],
+          [
+            891,
+            0,
+            215,
+            264
+          ],
+          [
+            1106,
+            0,
+            211,
+            264
+          ],
+          [
+            1317,
+            0,
+            220,
+            264
+          ],
+          [
+            1537,
+            0,
+            237,
+            264
+          ]
+        ],
+        [
+          [
+            0,
+            264,
+            239,
+            208
+          ],
+          [
+            239,
+            264,
+            220,
+            211
+          ],
+          [
+            459,
+            264,
+            216,
+            211
+          ],
+          [
+            675,
+            264,
+            216,
+            209
+          ],
+          [
+            891,
+            264,
+            215,
+            209
+          ],
+          [
+            1106,
+            264,
+            211,
+            210
+          ],
+          [
+            1317,
+            264,
+            220,
+            210
+          ],
+          [
+            1537,
+            264,
+            237,
+            207
+          ]
+        ],
+        [
+          [
+            0,
+            472,
+            239,
+            188
+          ],
+          [
+            239,
+            474,
+            220,
+            190
+          ],
+          [
+            459,
+            476,
+            216,
+            188
+          ],
+          [
+            675,
+            477,
+            216,
+            186
+          ],
+          [
+            891,
+            471,
+            215,
+            190
+          ],
+          [
+            1106,
+            477,
+            211,
+            189
+          ],
+          [
+            1317,
+            474,
+            220,
+            190
+          ],
+          [
+            1537,
+            473,
+            237,
+            187
+          ]
+        ],
+        [
+          [
+            0,
+            660,
+            239,
+            227
+          ],
+          [
+            239,
+            664,
+            220,
+            223
+          ],
+          [
+            459,
+            665,
+            216,
+            222
+          ],
+          [
+            675,
+            665,
+            216,
+            222
+          ],
+          [
+            891,
+            661,
+            215,
+            226
+          ],
+          [
+            1104,
+            666,
+            213,
+            221
+          ],
+          [
+            1317,
+            664,
+            220,
+            223
+          ],
+          [
+            1536,
+            661,
+            238,
+            226
+          ]
+        ]
+      ],
+      "sourceSeatAnchors": [
+        [
+          [
+            123,
+            214
+          ],
+          [
+            96,
+            214
+          ],
+          [
+            104,
+            214
+          ],
+          [
+            107,
+            214
+          ],
+          [
+            105,
+            214
+          ],
+          [
+            115,
+            214
+          ],
+          [
+            115,
+            214
+          ],
+          [
+            121,
+            214
+          ]
+        ],
+        [
+          [
+            123,
+            149
+          ],
+          [
+            96,
+            149
+          ],
+          [
+            104,
+            149
+          ],
+          [
+            107,
+            149
+          ],
+          [
+            105,
+            149
+          ],
+          [
+            115,
+            149
+          ],
+          [
+            115,
+            149
+          ],
+          [
+            121,
+            149
+          ]
+        ],
+        [
+          [
+            123,
+            135
+          ],
+          [
+            96,
+            133
+          ],
+          [
+            104,
+            131
+          ],
+          [
+            107,
+            130
+          ],
+          [
+            105,
+            136
+          ],
+          [
+            115,
+            130
+          ],
+          [
+            115,
+            133
+          ],
+          [
+            121,
+            134
+          ]
+        ],
+        [
+          [
+            123,
+            135
+          ],
+          [
+            96,
+            131
+          ],
+          [
+            104,
+            130
+          ],
+          [
+            107,
+            130
+          ],
+          [
+            105,
+            134
+          ],
+          [
+            117,
+            129
+          ],
+          [
+            115,
+            131
+          ],
+          [
+            122,
+            134
+          ]
+        ]
+      ],
+      "overrides": [
+        {
+          "id": "brezo-alba-row-perspective-clean",
+          "sourceSha256": "fe3e140d068ae245f4a7288b0c54cd8c223e042ea0b984ecb650399e6272a68e",
+          "promptSha256": "a3c7f193a71aa2519dc536a16567d27416f9b6b2e58792912f2357bee96995cd",
+          "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
+          "generator": "built-in image_gen",
+          "editSource": "brezo-alba-row-perspective-two",
+          "editSourceSha256": "d1ec9b8bfd54977b7477dc6271688883b99c44eedc42e12218adf6c9646ac523",
+          "edgeMatte": "red",
+          "cleanFragments": 0.015,
+          "grid": [
+            4,
+            4
+          ],
+          "directions": [
+            "right",
+            "up-right",
+            "up-left",
+            "left"
+          ],
+          "sourceCellWidth": 280,
+          "sourceColumnBounds": [
+            0,
+            314,
+            627,
+            941,
+            1254
+          ],
+          "sourceRowBounds": [
+            0,
+            322,
+            615,
+            890,
+            1254
+          ],
+          "sourceSeatAnchors": [
+            [
+              [
+                160,
+                235
+              ],
+              [
+                156,
+                235
+              ],
+              [
+                160,
+                235
+              ],
+              [
+                139,
+                235
+              ]
+            ],
+            [
+              [
+                160,
+                205
+              ],
+              [
+                156,
+                203
+              ],
+              [
+                160,
+                203
+              ],
+              [
+                139,
+                208
+              ]
+            ],
+            [
+              [
+                164,
+                199
+              ],
+              [
+                156,
+                185
+              ],
+              [
+                160,
+                185
+              ],
+              [
+                139,
+                199
+              ]
+            ],
+            [
+              [
+                164,
+                220
+              ],
+              [
+                156,
+                205
+              ],
+              [
+                160,
+                205
+              ],
+              [
+                139,
+                220
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "brezo-alba-run-stride",
+      "variant": 100,
+      "action": "run",
+      "sourceSha256": "dca605fefc44c2d8e04a0d779da5fa1256b12b81bfb9d052741cc56f85deb76c",
+      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
+      "promptSha256": "610295369f326d2930131d87120e2b6bc0602ae54e8807529eeecd725cd361b7",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "editSource": "brezo-alba-run-opposite",
+      "editSourceSha256": "b48c83bac24f5a51db78ad75b5fee2779d51fe3123641a37caabf00480c6fc98"
+    },
+    {
+      "id": "brezo-alba-needs-scale",
+      "variant": 100,
+      "action": "needs",
+      "sourceSha256": "e34135a4ff168184b53f90bc4e994e7d04d1541349df6354dd48bd5eb6cdf8b8",
+      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
+      "promptSha256": "6d42bbfede03450bcc3709cd5845f4493a02a8faf6f012995b3f73a2f5da2c5b",
+      "guideSha256": "426a08d7942072b0859a4f51c5dec79a68b53317e4a7dd9ceb919096c4d5c628",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "editSource": "brezo-alba-needs",
+      "editSourceSha256": "038432152228d529e49cbd56f7363861afbd727594307ce566ff0001183545ce"
+    },
+    {
+      "id": "brezo-alba-carried-padded",
+      "variant": 100,
+      "action": "carried",
+      "sourceSha256": "2c42252eff0a7bc998db4d3827cde04ee9a1e1ecdcd0877e0053a004943fd90b",
+      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
+      "promptSha256": "581e0eea39dacf4d0694979d5eb28768f53208bf13ad38a675d3a54cec653c2d",
+      "guideSha256": "e2054466125e356568de6a96b76217ffb2f6bc305ad24816c098bf39f3876238",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "editSource": "brezo-alba-carried",
+      "editSourceSha256": "7d47c321acff4f34eeb15b9bea426e387d68aa2af1c03a50c38de23fdb99bee1"
+    },
+    {
+      "id": "brezo-alba-work-scale",
+      "variant": 100,
+      "action": "work",
+      "sourceSha256": "3054f45320a069b88c4c33ff70f75f55202e963c00ab1e8395f8eefbd9f66481",
+      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
+      "promptSha256": "20614483ade2670131234abdbb80416339c9e56cf7303892352b6c4cbaca0fbc",
+      "guideSha256": "34c77a0fbb703b146c443efb2c2ee4964b67b22953b9773fde277b3ceae3fb0c",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "editSource": "brezo-alba-work",
+      "editSourceSha256": "d8b469c51157b8d027f6391923ec4882bd8f06b553e1c43f60ac50640ca91008"
+    },
+    {
+      "id": "brezo-alba-push-scale",
+      "variant": 100,
+      "action": "push",
+      "sourceSha256": "e2d625f8dd1540d7f627001fcb486378eb2b0ba38b46127cbc49afd554282485",
+      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
+      "promptSha256": "b70d3202d61106b60ee7f5083e09dfe8c6da04c1b7aff614d01fdcaecbfb8ff1",
+      "guideSha256": "34c77a0fbb703b146c443efb2c2ee4964b67b22953b9773fde277b3ceae3fb0c",
+      "editSource": "brezo-alba-push",
+      "editSourceSha256": "a2f077c4640ad27492c3b0e4e514b6a67593631aec85acfd92796d996be9e094",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015
+    },
+    {
+      "id": "brezo-alba-discover",
+      "variant": 100,
+      "action": "discover",
+      "sourceSha256": "c40b09b746c00633d1b7a1eab5b04c29f952770cb07a0137fde4464640c318be",
+      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
+      "promptSha256": "edfad4496bd88b4de4c253d4e9e53a0147dedeb0ee039c64824fdbfee3ef65fd",
+      "guideSha256": "bcbfb44b6e33e282f1b229389cbf1bee7cecccbd3e2c6aa4ab3e7e3228de5457",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015
+    }
+  ],
+  "rejectedSheets": [
+    {
+      "id": "brezo-alba-row-oars",
+      "variant": 100,
+      "action": "row",
+      "sourceSha256": "670b7f8115b8cd78aa050f963ff0d6796b4ca39397eadece08a92ee1784d0daa",
+      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
+      "promptSha256": "5019019d3c84bd17833417a427377c9cc26a322f604cc835213beb6380773ed3",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "editSource": "brezo-alba-row-scale",
+      "editSourceSha256": "2652a8cbd6aa3ca1858b742d56fbcf6b3d4d236b71c8492cffafa8e9b07ccce3",
+      "sourceSeatAnchors": [
+        [
+          [
+            123,
+            221
+          ],
+          [
+            97,
+            225
+          ],
+          [
+            104,
+            226
+          ],
+          [
+            105,
+            228
+          ],
+          [
+            105,
+            228
+          ],
+          [
+            113,
+            228
+          ],
+          [
+            112,
+            225
+          ],
+          [
+            119,
+            223
+          ]
+        ],
+        [
+          [
+            123,
+            158
+          ],
+          [
+            97,
+            160
+          ],
+          [
+            104,
+            163
+          ],
+          [
+            105,
+            163
+          ],
+          [
+            105,
+            164
+          ],
+          [
+            113,
+            165
+          ],
+          [
+            112,
+            163
+          ],
+          [
+            119,
+            160
+          ]
+        ],
+        [
+          [
+            123,
+            162
+          ],
+          [
+            97,
+            165
+          ],
+          [
+            104,
+            166
+          ],
+          [
+            105,
+            165
+          ],
+          [
+            105,
+            165
+          ],
+          [
+            113,
+            166
+          ],
+          [
+            112,
+            166
+          ],
+          [
+            119,
+            164
+          ]
+        ],
+        [
+          [
+            123,
+            151
+          ],
+          [
+            97,
+            155
+          ],
+          [
+            104,
+            155
+          ],
+          [
+            105,
+            155
+          ],
+          [
+            105,
+            156
+          ],
+          [
+            113,
+            155
+          ],
+          [
+            112,
+            155
+          ],
+          [
+            119,
+            154
+          ]
+        ]
+      ],
+      "sourceCellWidth": 221.75,
+      "sourceColumnBounds": [
+        0,
+        248,
+        467,
+        680,
+        894,
+        1110,
+        1324,
+        1536,
+        1774
+      ],
+      "sourceRowBounds": [
+        0,
+        264,
+        464,
+        666,
+        887
+      ],
+      "rejectedReason": "Superseded by a new complete-oar sheet: side-view blades did not reach water outside the bottle. Original preserved."
+    },
+    {
+      "id": "brezo-bruma-push",
+      "variant": 101,
+      "action": "push",
+      "sourceSha256": "50bfccb08cd46d2331dd11f0a9ff34fbe76250b042e567b873eec9e703f7b5bb",
+      "referenceSha256": "0df0ca5f2e785d841e5ed106e87b6f9bef0606dfcfd4eadabdb5cd71dcde395d",
+      "promptSha256": "686bb98b09b345911b2c423f74d2d4f5da695ed205d62fdad439fb2fbfd309d2",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "rejectedReason": "Oversized first candidate; registered pose clipped. Replaced by separately generated scale correction."
+    },
+    {
+      "id": "brezo-bruma-run",
+      "variant": 101,
+      "action": "run",
+      "sourceSha256": "494ab3b2b8fcbec9fd1b9122f0d45c36b3dd88bb76b370c3e1b1b1c055885820",
+      "referenceSha256": "0df0ca5f2e785d841e5ed106e87b6f9bef0606dfcfd4eadabdb5cd71dcde395d",
+      "promptSha256": "705124e090a490fabc745b4d8f49243bc696839c8c97b7476abb9bd6802dabe0",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "rejectedReason": "42.06–43.89 logical pixels against 40-pixel standing body; corrected source measures 37.69–40.45."
+    },
+    {
+      "id": "brezo-bruma-work",
+      "variant": 101,
+      "action": "work",
+      "sourceSha256": "3b8b0938a9bf3dcb7a5628be7f786e5e615e4748b889cb6c59d92daf2eb56265",
+      "referenceSha256": "0df0ca5f2e785d841e5ed106e87b6f9bef0606dfcfd4eadabdb5cd71dcde395d",
+      "promptSha256": "8deb5c4b1bb85b7c2f6c9423fdd616e9b6f6e794d59bc78e2f15cad144aaf44e",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "rejectedReason": "Standing work poses 41.96–44.55 logical pixels. Corrected source matches the reference head scale with a bent hat and working stance."
+    },
+    {
+      "id": "brezo-bruma-needs",
+      "variant": 101,
+      "action": "needs",
+      "sourceSha256": "2623e55b4600b483a994fc2f9995d041dbc98d2a63b241aa95b2de3760b6c4ac",
+      "referenceSha256": "0df0ca5f2e785d841e5ed106e87b6f9bef0606dfcfd4eadabdb5cd71dcde395d",
+      "promptSha256": "4ae2504f482ecba031df193c0bb0194d9aca1986f5d75d117b62de9f5b2a783a",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "rejectedReason": "Standing bathroom poses 44.35–45.04 logical pixels. Corrected source keeps reference head scale and short-trouser proportions."
+    },
+    {
+      "id": "brezo-bruma-carried",
+      "variant": 101,
+      "action": "carried",
+      "sourceSha256": "1119e8d04b58f2a58bb21bfa0a30921f2f761a4989b3f174d09ead4807b643cd",
+      "referenceSha256": "0df0ca5f2e785d841e5ed106e87b6f9bef0606dfcfd4eadabdb5cd71dcde395d",
+      "promptSha256": "5e8aeea6f8f3a7e4fd4a51f1c144c5ee5a68637641211f86bd21c02fc182b201",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "rejectedReason": "Dangling body 31.75–36.45 logical pixels was bulky beside the standing identity. Corrected source measures 27.06–31.11 with fixed top attachment."
+    },
+    {
+      "id": "brezo-alba-row-profile",
+      "variant": 100,
+      "action": "row",
+      "sourceSha256": "b6ee51f2c8563a96b6e8bd1fc250868d1d07cfbb50579d739bce48710f7f82c0",
+      "promptSha256": "7528ca9d646527ac14f4d56f2d887ecc24791a11d7448e93e8512c3cf72b9319",
+      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
+      "generator": "built-in image_gen",
+      "editSource": "brezo-alba-row-oars",
+      "editSourceSha256": "670b7f8115b8cd78aa050f963ff0d6796b4ca39397eadece08a92ee1784d0daa",
+      "rejectedReason": "Owner reverted this edit: missing far oars were painted away. Original full-oar sheet remains authoritative; per-vessel runtime masks own occlusion and immersion."
+    },
+    {
+      "id": "brezo-alba-row-scale",
+      "variant": 100,
+      "action": "row",
+      "sourceSha256": "2652a8cbd6aa3ca1858b742d56fbcf6b3d4d236b71c8492cffafa8e9b07ccce3",
+      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
+      "promptSha256": "9499f018683dc356a659166ed66823a512f9c6bc9d1bf0358b1f125d6916a560",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "editSource": "brezo-alba-row",
+      "editSourceSha256": "6eff98be2d174347bb3bdc3a623a332782b86710c2feddbcfa1acaab361b8d3d",
+      "sourceSeatAnchors": [
+        [
+          [
+            112,
+            221
+          ],
+          [
+            95,
+            230
+          ],
+          [
+            90,
+            233
+          ],
+          [
+            78,
+            233
+          ],
+          [
+            88,
+            238
+          ],
+          [
+            94,
+            233
+          ],
+          [
+            99,
+            233
+          ],
+          [
+            76,
+            230
+          ]
+        ],
+        [
+          [
+            112,
+            207
+          ],
+          [
+            95,
+            214
+          ],
+          [
+            90,
+            217
+          ],
+          [
+            78,
+            217
+          ],
+          [
+            88,
+            223
+          ],
+          [
+            94,
+            217
+          ],
+          [
+            99,
+            217
+          ],
+          [
+            76,
+            214
+          ]
+        ],
+        [
+          [
+            112,
+            188
+          ],
+          [
+            95,
+            196
+          ],
+          [
+            90,
+            200
+          ],
+          [
+            78,
+            201
+          ],
+          [
+            88,
+            207
+          ],
+          [
+            94,
+            201
+          ],
+          [
+            99,
+            201
+          ],
+          [
+            76,
+            197
+          ]
+        ],
+        [
+          [
+            112,
+            162
+          ],
+          [
+            95,
+            170
+          ],
+          [
+            90,
+            173
+          ],
+          [
+            78,
+            174
+          ],
+          [
+            88,
+            179
+          ],
+          [
+            94,
+            174
+          ],
+          [
+            99,
+            174
+          ],
+          [
+            76,
+            169
+          ]
+        ]
+      ],
+      "rejectedReason": "Superseded by owner instruction: wooden oars must belong to the seated character; empty hands are not a valid rowing sheet."
+    },
+    {
+      "id": "brezo-alba-needs",
+      "variant": 100,
+      "action": "needs",
+      "sourceSha256": "038432152228d529e49cbd56f7363861afbd727594307ce566ff0001183545ce",
+      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
+      "promptSha256": "439c2c1e8256a7c75a59ec128adac6469133c901b76b8fe9d0fe4ad0ad6908ef",
+      "guideSha256": "426a08d7942072b0859a4f51c5dec79a68b53317e4a7dd9ceb919096c4d5c628",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "rejectedReason": "First candidate oversized: standing needs frames 41.4–41.99 logical pixels; corrected source measures 38.8–39.03, with crouch 29.1–33.59."
+    },
+    {
+      "id": "brezo-alba-carried",
+      "variant": 100,
+      "action": "carried",
+      "sourceSha256": "7d47c321acff4f34eeb15b9bea426e387d68aa2af1c03a50c38de23fdb99bee1",
+      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
+      "promptSha256": "b9721e8c2254a8e9a70ac6a98b1e6d21f4009162a325551e594a5d5f723f7fb5",
+      "guideSha256": "e2054466125e356568de6a96b76217ffb2f6bc305ad24816c098bf39f3876238",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "rejectedReason": "Right profile touched its adjacent cell. Corrected candidate has complete margins and measures 26.68–32.36 logical pixels with the attachment fixed above the dangling body."
+    },
+    {
+      "id": "brezo-alba-work",
+      "variant": 100,
+      "action": "work",
+      "sourceSha256": "d8b469c51157b8d027f6391923ec4882bd8f06b553e1c43f60ac50640ca91008",
+      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
+      "promptSha256": "9bbe20a21350a23f01d86880b05f8294dd9aac2c91c58eb537fc67dfa70c6c2f",
+      "guideSha256": "34c77a0fbb703b146c443efb2c2ee4964b67b22953b9773fde277b3ceae3fb0c",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "rejectedReason": "Standing-reference review measures 42.52–43.70 logical pixels versus the 40-pixel standing body. Replaced by a generated whole-figure scale correction, preserving the original and all working poses."
+    },
+    {
+      "id": "brezo-alba-push",
+      "variant": 100,
+      "action": "push",
+      "sourceSha256": "a2f077c4640ad27492c3b0e4e514b6a67593631aec85acfd92796d996be9e094",
+      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
+      "promptSha256": "0b11147feef81314a725399e6ca2faf18ae894c4ad097585bf2d41795ad2756e",
+      "guideSha256": "34c77a0fbb703b146c443efb2c2ee4964b67b22953b9773fde277b3ceae3fb0c",
+      "generator": "built-in image_gen",
+      "rejectedReason": "Standing-reference review shows a crouched figure up to 45.54 logical pixels high against the 40-pixel standing body. Replaced by a separately generated scale correction; original kept immutable."
+    },
+    {
+      "id": "brezo-alba-run-guided",
+      "variant": 100,
+      "action": "run",
+      "sourceSha256": "1187667acabc18b3d1f4730634df70bcf356b1c2de9afa99a56c920bd3b09dd9",
+      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
+      "promptSha256": "6e947fd829e8d675e2bae71a97af057dcdd8c07a18b957d2de3998e3c7b039ae",
+      "guideSha256": "75c32db3e7c505845912c60fd70a96717beee46a8362dc5c48459616ca564be8",
+      "generator": "built-in image_gen",
+      "rejectedReason": "Identity and spacing improved, but leading leg does not consistently alternate between opposite stride rows in profile directions. Not a complete running cycle."
+    },
+    {
+      "id": "brezo-alba-run-padded",
+      "variant": 100,
+      "action": "run",
+      "sourceSha256": "a7cb7235923db8a4f7666547ab92672f2f6b19b71941e7c527519eb0fed578f1",
+      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
+      "promptSha256": "bb0c96cd72cb703d6ce0948d9c90a22f0834a206832e7529fe577de149216202",
+      "generator": "built-in image_gen",
+      "rejectedReason": "Painted opaque brown background instead of alpha; figure-to-cell scale also differs from the standing reference. Not a production sheet."
+    },
+    {
+      "id": "brezo-alba-run",
+      "variant": 100,
+      "action": "run",
+      "sourceSha256": "60f05a4c1d68cfcb6c9b8a4661d4f71bcb4adb001650b8e1454d414b5d557de3",
+      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
+      "promptSha256": "b4959c0dd1ccfbfd88b0817f195d1827256111e1fe9dd8303fac9fe3fd19459a",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "rejectedReason": "Generated feet touch grid boundaries; strict per-cell margin test rejected this source."
+    },
+    {
+      "id": "brezo-alba-row-perspective",
+      "editSource": "brezo-alba-row-long-clean",
+      "sourceSha256": "772c9b0e08af788134756b396bedf005ec001f72256abb9e3da01cdb5915a0a6",
+      "promptSha256": "73f3412a4cd0d630a72fdedd69983b6f3d8764fde49c41bbe9da7d2579d7f91b",
+      "editSourceSha256": "b0002ff110628aacddf4b8b84c8ef8fbea42736df67a34900da203b61020ce96",
+      "variant": 100,
+      "action": "row",
+      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
+      "generator": "built-in image_gen",
+      "rejectedReason": "Perspective candidate retained for provenance only: duplicate third paddles in some profile poses. Corrected by brezo-alba-row-perspective-clean."
+    },
+    {
+      "id": "brezo-alba-row-perspective-two",
+      "editSource": "brezo-alba-row-perspective",
+      "sourceSha256": "d1ec9b8bfd54977b7477dc6271688883b99c44eedc42e12218adf6c9646ac523",
+      "promptSha256": "0598dfdb4aa4e11e13fe031791e8e68337f8803dd03be88a09d5cedd64375000",
+      "editSourceSha256": "772c9b0e08af788134756b396bedf005ec001f72256abb9e3da01cdb5915a0a6",
+      "variant": 100,
+      "action": "row",
+      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
+      "generator": "built-in image_gen",
+      "rejectedReason": "Perspective candidate retained for provenance only: duplicate third paddles in some profile poses. Corrected by brezo-alba-row-perspective-clean."
+    },
+    {
+      "id": "brezo-bruma-row",
+      "variant": 101,
+      "action": "row",
+      "sourceSha256": "e03d22dce198bdbc62166f32d2d3fafc7435d586177df5a0b416db46a1b5faa0",
+      "referenceSha256": "0df0ca5f2e785d841e5ed106e87b6f9bef0606dfcfd4eadabdb5cd71dcde395d",
+      "promptSha256": "bf2a262c37697affc807bf7a41f2dc7c4396ef89990cd0e9638a3eb67e1f2cc1",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "editSource": "brezo-alba-row-oars",
+      "editSourceSha256": "670b7f8115b8cd78aa050f963ff0d6796b4ca39397eadece08a92ee1784d0daa",
+      "sourceCellWidth": 221.75,
+      "sourceColumnBounds": [
+        0,
+        248,
+        467,
+        680,
+        894,
+        1110,
+        1324,
+        1536,
+        1774
+      ],
+      "sourceRowBounds": [
+        0,
+        264,
+        464,
+        666,
+        887
+      ],
+      "sourceSeatAnchors": [
+        [
+          [
+            125,
+            223
+          ],
+          [
+            96,
+            228
+          ],
+          [
+            98,
+            230
+          ],
+          [
+            105,
+            230
+          ],
+          [
+            108,
+            229
+          ],
+          [
+            116,
+            230
+          ],
+          [
+            116,
+            228
+          ],
+          [
+            124,
+            227
+          ]
+        ],
+        [
+          [
+            125,
+            163
+          ],
+          [
+            96,
+            166
+          ],
+          [
+            98,
+            169
+          ],
+          [
+            105,
+            169
+          ],
+          [
+            108,
+            168
+          ],
+          [
+            116,
+            168
+          ],
+          [
+            116,
+            165
+          ],
+          [
+            124,
+            165
+          ]
+        ],
+        [
+          [
+            125,
+            164
+          ],
+          [
+            96,
+            169
+          ],
+          [
+            98,
+            170
+          ],
+          [
+            105,
+            170
+          ],
+          [
+            108,
+            170
+          ],
+          [
+            116,
+            170
+          ],
+          [
+            116,
+            167
+          ],
+          [
+            124,
+            167
+          ]
+        ],
+        [
+          [
+            125,
+            155
+          ],
+          [
+            96,
+            158
+          ],
+          [
+            98,
+            160
+          ],
+          [
+            105,
+            160
+          ],
+          [
+            108,
+            160
+          ],
+          [
+            116,
+            160
+          ],
+          [
+            116,
+            157
+          ],
+          [
+            124,
+            157
+          ]
+        ]
+      ],
+      "rejectedReason": "Replaced after the approved first-character review: short oars do not reliably enter water outside the hull; profiles/rear diagonals need corrected rowing perspective."
+    },
+    {
+      "id": "brezo-bruma-row-long",
+      "variant": 101,
+      "action": "row",
+      "generator": "built-in image_gen",
+      "sourceSha256": "9fd4ed758580c45c7cc3830c31dc3bdf6ce9ef0a21c42ba77039bebcbee77cf1",
+      "promptSha256": "8f434db256c785ca207dd32a6474124c64d5f3137dc8c16ec3ea0e1722112411",
+      "referenceSha256": "0df0ca5f2e785d841e5ed106e87b6f9bef0606dfcfd4eadabdb5cd71dcde395d",
+      "rejectedReason": "Intermediate long-oar identity transfer; blue cuffs and leaf pocket needed correction. Replaced by row-long-cuffs; source preserved."
+    }
+  ]
+}

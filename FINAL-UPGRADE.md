@@ -11,6 +11,26 @@
 Fecha del encargo: **17-sep-2026**. Todas las cifras de este documento están
 medidas ese día contra la caja y el árbol de verdad, no estimadas.
 
+**Decisiones actualizadas por el dueño el 18-sep-2026:** los mensajes son texto
+libre del usuario: puede escribir lo que quiera, en cualquier idioma, sin
+verificación de contenido ni revisión previa, automática o humana. El dueño los
+lee y modera manualmente después de publicarse; caducan a las 24 horas.
+Reiniciar el servidor vacía las plazas y la cola: todos vuelven a entrar por una
+cola nueva, por orden de llegada, sin recuperar turnos ni reservas. La entrega
+abarca TODO este documento funcionando en producción, sin una espera obligatoria
+de semanas entre fases.
+
+**Orden vigente del dueño (18-sep-2026): terminar Brezo bruma (101) y parar.**
+Cerrar su revisión, actualizar `ART-DUENDES.md` y entregar el estado de lo hecho
+y lo pendiente. No iniciar otro personaje, otro bloque del plan ni un despliegue.
+Esta orden sustituye la continuación automática anterior. El encargo global
+sigue incompleto: detener el trabajo no equivale a declararlo terminado.
+
+**La entrega debe ser íntegra:** TODO este documento
+implementado, probado y funcionando en producción, incluidos ambos repositorios,
+API, arte, cliente y servicio de tiempo real, sin romper los demás sitios del
+VPS. No basta una entrega parcial ni dejar bloques pendientes para otra ocasión.
+
 ---
 
 ## 0. La visión, en una página
@@ -29,7 +49,8 @@ Cinco piezas, en este orden de importancia:
    caja en sentidos contrarios, la caja no se mueve. Eso exige un servidor con
    autoridad y un tick, no un sondeo.
 4. **Se dejan mensajes**, clavando un pergamino en una caca con un palo. Duran 24
-   horas, que es exactamente lo que ya dura una caca.
+   horas, que es exactamente lo que ya dura una caca. Texto libre en cualquier
+   idioma, publicado al momento y con moderación manual posterior del dueño.
 5. **Las aventuras siguen siendo personales.** El progreso, los objetos y los
    retos son de cada uno. Lo compartido es el SITIO, no la partida.
 
@@ -41,11 +62,15 @@ cosas buenas valen más que mil pasando por ahí. La escasez es la propuesta.
 
 ## 1. Estado de partida
 
-**Hay trabajo ya hecho y SIN COMMITEAR en el árbol.** Antes de tocar nada, léelo:
-es la mitad de la Parte A y está probado.
+**La base de la Parte A enumerada debajo ya está COMMITTEADA en ambos
+repositorios.** No es trabajo que haya que volver a escribir. En la revisión
+actual también hay cambios locales preexistentes: conservarlos y revisar el
+estado y los diffs antes de retomar la implementación; no asumir árboles limpios
+ni descartar trabajo para sincronizar los repositorios. Esta actualización del
+documento no modifica esos cambios ni autoriza continuarlos.
 
 ```
-magikitos-game/   (modificados)
+magikitos-game/   (cambios ya en Git)
   data/aventura/catalog.json            objetos rake y grassSeed
   data/aventura/construction.json       4 zonas, requires, removeCost, separation
   data/aventura/locales/core.json       8 claves nuevas ×6 idiomas
@@ -58,17 +83,201 @@ magikitos-game/   (modificados)
   tools/community-terrain.cjs
   tools/game-contract.cjs
   docs/SHARED-FOREST.md · docs/GAME-SAVE-API.md
-                                        (nuevos)
+                                        (ficheros añadidos, ya en Git)
   public/assets/js/adventure/construction-ground.js
   scripts/community-spot.cjs
 
-magikitos/        (modificados)
+magikitos/        (cambios ya en Git)
   src/game/community.php
-                                        (nuevo)
+                                        (fichero añadido, ya en Git)
   migrations/4236_todo_el_bosque_se_construye.sql
 ```
 
-`npm test` pasa entero (37 PASS) con todo eso puesto. **No está desplegado.**
+La comprobación documentada del 17-sep fue `npm test` entero (37 PASS), con esta
+base todavía sin desplegar. Antes de implementar o publicar, comprobar de nuevo
+las pruebas, la release activa y las migraciones aplicadas; la revisión del
+documento del 18-sep no ha ejecutado pruebas ni tocado producción.
+
+### Seguimiento de implementación — trabajo local, entrega todavía abierta
+
+Este seguimiento registra avances verificados en local; no sustituye el cierre
+completo del encargo ni demuestra por sí solo que estén desplegados.
+
+- A/B.1–B.4 y H.2 tienen cambios locales y pruebas: recogidas, rastrillo,
+  semillas/crecimiento con reloj del servidor, movimiento que cierra el diálogo
+  y un único reintento de conflicto de zona. La conversión de fechas respeta la
+  hora de Madrid que usa la web. No equivale a un despliegue de estas partes.
+- B.5: carga de vecinos por viewport, admisión de sprites por bytes (también
+  pendientes), leases de preparación, `M`/`F` en origen y retirada de los
+  paquetes de arco/rodar. Los cien maestros siguen intactos. La selección por
+  usuario y las siete acciones para todos los treinta elegibles siguen pendientes.
+  Brezo alba (100) y Brezo bruma (101) tienen las siete hojas aceptadas y horneadas,
+  con escala/anclas medidas. Alba sustituye al protagonista anterior en el motor
+  local; Bruma está habilitado y probado mediante la selección de apariencia de
+  las herramientas de revisión, todavía sin selector público. Casco y remero
+  ya se componen por separado con máscaras por vista y fase; el compuesto antiguo
+  se retira del manifest. Cobertura actual: **14 de 210 hojas**. Seguimiento por personaje:
+  [ART-DUENDES.md](ART-DUENDES.md).
+  `npm run test:playable-art` impide dar por completa una cobertura parcial.
+- Corrección de arte de navegación (18-sep): la botella será **solo el casco
+  vacío, sin asiento ni remos**; el protagonista va sentado, pies hacia delante,
+  con ambos remos en las manos. La propuesta `bottle-boat-layer-padded` y el
+  remero sin remos quedan descartados antes de integrarse. El casco ya está
+  corregido; no falta otro tipo de arte del mundo. La edición que borraba palas
+  también está descartada: el recorte es mediante máscaras, con el original
+  íntegro. Brezo alba está aprobado; Brezo bruma ha cerrado su revisión con
+  remos largos, perspectivas corregidas y rig propio. La ampliación posterior
+  de ocho cascos está generada y verificada con ambos; sigue inactiva en la
+  partida. La botella es el casco por defecto. Se detiene el trabajo aquí por
+  la última orden del dueño. Contrato, evidencias y pendientes individuales en
+  [ART-DUENDES.md](ART-DUENDES.md); ninguna de estas correcciones está desplegada.
+- Las pruebas de navegador incluyen escenas pobladas en escritorio, tablet y
+  móvil, además de la galería del Studio. Su resultado no prueba por sí solo la
+  futura carga de cien jugadores: falta integrarla con presencia y probarla.
+- C: API de necesidades/mensajes, consumibles y reintentos atómicos, caducidad,
+  moderación manual y fusión de identidad implementados y probados en DDEV.
+  La comprobación concurrente fuerza dos autores a esperar el mismo cerrojo;
+  una mutación en memoria demuestra que quitar la lectura actual de proximidad
+  rompe la separación. La implementación corregida supera las 47 comprobaciones.
+  Pergamino/boli se recogen en las cuatro resoluciones de navegador probadas.
+  Publicación y lectura ya integradas: texto literal, seis idiomas de interfaz,
+  reloj del servidor, diario de una operación pendiente sin credenciales y
+  reintento exacto tras recargar, sin duplicar consumibles ni rastros locales.
+  Cuatro mutaciones en memoria prueban que las comprobaciones detectan doble
+  cobro, recibos olvidados, texto reescrito y lecturas antiguas de necesidades.
+  Probado en Chrome de escritorio/tablet/móvil y con juego/API/WebSocket/MariaDB
+  reales en DDEV, incluida moderación manual. La migración 4237 está aplicada
+  solo en local; no se llama a ningún juez de contenido.
+- D/E: el servicio privado `bosque-vivo/` ya valida tickets PHP, mantiene plazas
+  y cola solo en memoria, limita movimiento y filtra presencia por viewport.
+  La API de mensajes utiliza su observación firmada, no coordenadas del cliente.
+  Pruebas: 18 del transporte/autoridad, 6 mutaciones negativas, 58 cruces del mapa
+  real y 31 del recorrido HTTP/WebSocket/DB, con reinicio, baneo y rechazo de
+  escrituras directas desde un espectador. El cliente ya
+  conecta, renueva tickets, interpola vecinos y cruza puertas/muelles/bordes con
+  autorización; probado con el juego real en tres navegadores independientes de
+  escritorio/tablet/móvil, incluida la promoción de espectador. PHP exige plaza
+  y zona observadas para construir/usar mobiliario. Las tareas ambientales ceden
+  actividad según la presencia visible. Carga local: 100 jugadores y 1.000
+  espectadores reales de prueba. La autoridad de empuje ya tiene núcleo a 20 Hz
+  y transporte probado con dos clientes reales: fuerzas opuestas, caducidad de
+  intenciones, contactos observados, propuestas simultáneas y difusión por
+  viewport. Ocho mutaciones negativas comprueban sus garantías. El terreno se
+  compila al píxel desde el motor: 10.272 casos de colocación y 181.170 puntos
+  del bosque/río contrastados. Las macetas del puzle personal siguen privadas;
+  ningún objeto comunitario se escribe en el guardado personal. La persistencia
+  ya usa un worker PHP privado: volcado sucio cada 10 s, exclusión de un segundo
+  escritor, carga coherente de posiciones/muebles y apagado real con `SIGTERM`
+  probado contra MariaDB. La migración 4238 está aplicada solo en DDEV.
+  Construir/restaurar adquiere una barrera de empuje y confirma posiciones y
+  muebles en la misma transacción. Ocho comprobaciones reales cubren solapes,
+  reintentos, respuesta perdida, cerrojo SQL retenido más que la concesión,
+  reinicio y restauración administrativa. Las pruebas negativas detectan quitar
+  el cerrojo SQL, la persistencia atómica, la comprobación de solapes y cuatro
+  garantías de la barrera. El terreno construible ya excluye la posición inicial
+  de los objetos móviles comunitarios: moverlos no deja un hueco permanente.
+  El cliente ya integra colisiones autoritativas e interpolación visual, sin
+  predecir posiciones ni guardarlas en la partida. Empuje con teclado/clic probado
+  a 20/30/60/120 fps y seis mutaciones negativas. Navegadores reales de
+  escritorio/tablet/móvil prueban
+  fuerzas opuestas, llegada y empuje por clic, promoción del espectador móvil,
+  joystick y conservación de colisiones al desplazar la cámara. La admisión
+  comprueba que un objeto desplazado no atrape a quien vuelve a entrar; incluye
+  cinco mutaciones negativas, reconexión con gracia y llegada real en navegador
+  desde un guardado ocupado por un objeto. Las pruebas de navegador
+  usan una escena e identidades sintéticas, no activan el mapa compartido real.
+  Las revisiones de construcción ya se notifican en las cuatro zonas, incluso
+  sin objetos empujables: solo cambios confirmados en SQL y avisos agrupados.
+  El cliente solicita una instantánea autenticada por vez, descarta respuestas
+  antiguas y sustituye solo las entidades comunitarias y sus colisiones; no
+  reconstruye el mundo ni reinicia gatos, rutas o actividades sin cambios.
+  Probado con escritorios/tablet/móvil reales (colocar, mover y retirar), además
+  de transacciones MariaDB y recuperación de un aviso perdido. Se renueva la
+  autoría al cambiar de cuenta aunque no cambie la revisión del mundo; una
+  respuesta de construcción tampoco puede contaminar la cuenta nueva. Seis mutaciones
+  negativas del cliente y cuatro del servidor verifican estas garantías.
+  En DDEV también pasa el recorrido sin mocks de construcción: valla, camino y
+  piscina, cada uno en escritorio/tablet/móvil, con retirada recibida por socket,
+  devolución exacta de materiales y limpieza de las identidades sintéticas.
+  El baneo manual ya revoca la conexión abierta, cancela el empuje y libera la
+  plaza sin gracia. Cada admisión/renovación consulta SQL en lotes acotados, y una
+  auditoría periódica cubre avisos perdidos, cuentas fusionadas o borradas. Una
+  respuesta anterior al baneo no puede readmitir al usuario. Probado con sockets
+  reales, 15 comprobaciones SQL, cuatro mutaciones negativas y el navegador real
+  de DDEV sin recargar; también ticket antiguo tras reiniciar y desbaneo.
+  Tres objetos del mapa original ya están activados como compartidos en local:
+  la caja del claro, la maceta de artistas y la caja del embarcadero de los
+  sauces. Conservan las posiciones del Studio y heredan sus cuerpos de las
+  familias. El recorrido real en DDEV, sin sustituir mapa/API, comprueba empuje
+  opuesto en escritorio/tablet, toque móvil, guardados privados sin posiciones
+  compartidas y persistencia tras reiniciar el supervisor. Las cinco macetas
+  del seto siguen privadas; su empuje/recarga pasa en cuatro tamaños de pantalla.
+  PHP también rechaza esos IDs compartidos en `game-save`: 24 comprobaciones de
+  persistencia/contrato y 21 HTTP pasan con identidades sintéticas eliminadas.
+  Esa prueba encontró y corrigió un cierre de DDEV que mataba PHP antes del
+  volcado final: aislamiento del grupo de procesos, `exec` del supervisor,
+  prueba negativa que detecta perder el volcado y prueba de muerte del padre
+  sin dejar un escritor huérfano. La posición/revisión se conserva; la cola no.
+  Sigue pendiente completar el recorrido con todos los avatares. DDEV ya arranca
+  el servicio local permanente con clave privada ignorada por Git y proxy
+  HTTPS/WebSocket del mismo origen; la operación de producción sigue pendiente.
+  Detalle y comandos:
+  `../magikitos/bosque-vivo/README.md`. No equivale a multiplayer terminado.
+- F/G y la verificación completa en producción **siguen pendientes**. No se ha
+  activado una release de este encargo en producción. Se conserva el alcance íntegro.
+
+### Handoff al detener el objetivo — 18-sep-2026
+
+La orden vigente es **cerrar Brezo bruma y detenerse**, no reducir el alcance ni
+dar la entrega por completa. El inventario detallado de arte está únicamente en
+`ART-DUENDES.md`; no duplicar aquí sus tablas ni empezar otro protagonista.
+**Cierre realizado:** Bruma y las nueve barcas pasan la revisión; `npm test`
+pasa. Artefacto local instalado: `d3315d78a03d225044b2`, sin cambiar el contrato
+de API/presencia ni las partidas del dueño. Trabajo detenido; ninguna
+publicación remota en esta ronda.
+
+**Implementación que todavía falta:**
+
+1. **B.5, elenco:** completar y revisar los 28 protagonistas restantes. Hay
+   14/210 hojas aceptadas: 248/3.720 poses adicionales. Las siete propuestas de
+   Menta alba todavía no son arte aceptado. Los cien vecinos siguen conservados.
+2. **B.5.10, identidad jugable:** asignación determinista inicial por cuenta,
+   selector sin categorías en `YO`, guardado/recuperación de la elección,
+   recordatorio al crear cuenta y tratamiento de `users.gender` descrito en ese
+   apartado, sin sobrescribir una declaración existente. Hoy el ticket PHP
+   utiliza `live.defaultAvatar`, no la elección del usuario; la selección de
+   Brezo bruma pertenece a las herramientas de revisión, no a la UI pública.
+3. **B.5/D/E, integración final del elenco:** conectar esa elección a los
+   tickets/presencia y comprobar todas las acciones de todos los protagonistas
+   observadas por otros jugadores. El transporte ya lleva variante/pose; eso
+   no demuestra que estén resueltos selector, persistencia o los 28 artes ausentes.
+4. **F/G, operación de producción:** preparar/instalar el servicio systemd y
+   su worker PHP, límites, clave privada y proxy WebSocket exclusivo de Magikitos;
+   integrar el reinicio posterior al despliegue y verificar versiones/reconexión.
+   La parada ordenada con volcado existe y está probada en local; falta su
+   operación real bajo systemd/Apache/Cloudflare, sin afectar a los demás sitios.
+
+**Entrega/verificación todavía pendientes, no confundir con código ausente:**
+
+- Revisar y comittear los cambios de ambos árboles, incluidos archivos nuevos;
+  publicar mediante la identidad personal. Los avances de esta ronda permanecen
+  locales, sin commit/push/despliegue. No resetear ninguno de los repositorios.
+- Migraciones y activación coordinada de PHP, contrato, artefacto y servicio,
+  conservando el rollback y los datos nuevos. Ver §H.3 para el estado local.
+- Recorrido final en producción: construir, empujar, publicar/moderar mensajes,
+  ver a otros jugadores con su apariencia, espectador/promoción, baneo,
+  reconexión/reinicio, persistencia y juego individual con servicio caído.
+- Medir la carga gráfica/red/memoria con el elenco definitivo y presencia real
+  integrada. Los 100 jugadores + 1.000 espectadores sintéticos locales prueban
+  el transporte, no equivalen a cien avatares completos dibujados en un móvil.
+  Las comprobaciones actuales de pantallas no son pruebas en hardware físico.
+
+**No hay que reimplementar** A/B.1–B.4/H.2, C ni el núcleo D/E: su estado y
+pruebas locales están detallados arriba. Tampoco falta otra familia de arte del
+mundo para este encargo. Los ocho cascos extra son reserva preparada, sin
+recetas/desbloqueos: dejarlos inactivos es la decisión del dueño, no un fallo.
+`npm test` valida el trabajo existente; la puerta completa
+`npm run test:playable-art` debe seguir rechazando 14/210, sin rebajarla.
 
 ---
 
@@ -296,7 +505,8 @@ piscinita.
 # PARTE B — Arreglos y afinados del mundo
 
 Cuatro cosas pequeñas que el dueño pidió el 17-sep. Son independientes entre sí y
-de todo lo demás: se pueden hacer y desplegar antes que nada.
+se pueden implementar y comprobar primero, una vez autorizado el inicio. Forman
+parte de la entrega completa: cerrarlas no sustituye el resto del encargo.
 
 ## B.1 El diálogo se cierra también con las flechas
 
@@ -478,13 +688,21 @@ cocinar, cagar o cuando te llevara un gato.
 
 ⛔ **El remo es el peor**: `boat-ascua-{dir}-{fase}` es un sprite **COMPUESTO** de
 barca y remero con el nombre de un duende dentro, así que **todo el mundo rema con
-la cara de Ascua**. Se parte en `boat-{dir}-{n}` (32 sprites, **una vez para
-todos**) y `person-{V}-{dir}-row-{n}` encima. Con eso:
+la cara de Ascua**. **Contrato corregido por el dueño (18-sep):** se separan
+el casco vacío por dirección (**sin asiento ni remos**) y
+`person-{V}-{dir}-row-{n}`: el duende sentado, pies hacia delante y **remos
+incluidos en sus manos**. Las cuatro fases pertenecen al personaje; un casco
+estático no necesita cuatro copias iguales.
 
-- el remo por variante cuesta el remero, no el remero más la barca;
-- y **el fallo de la pala se arregla en UNA capa, no en ocho dibujos**: en
-  `boat-ascua-right-*` y `boat-ascua-left-*` (4 fases × 2 direcciones) se ve la
-  pala del remo del lado contrario asomando por donde no debe.
+- Cada variante añade solo remero + remos, nunca otra copia del barco.
+- Cada barquita declara un anclaje invisible por dirección dentro de su hueco;
+  es compatible con los remeros existentes sin generar combinaciones duende×barca.
+- El borde frontal puede ser otra capa del mismo casco para ocultar piernas
+  cuando corresponda, nunca un asiento inventado ni partes del personaje.
+- En las ocho direcciones y cuatro fases se comprueban manos unidas a los remos,
+  pies hacia delante, pelvis estable y pala lejana correctamente oculta.
+- Primero se termina e integra Brezo alba, utilizable en el juego; después los
+  demás **uno por uno**. No se espera a completar todo el elenco para integrarlo.
 
 ### B.5.3 La factura, con bytes reales
 
@@ -493,7 +711,7 @@ Por variante hay que añadir **124 sprites**, unos **203 KB**:
 | | sprites | KB |
 |---|---|---|
 | run | 32 | 49,6 |
-| row (solo el remero, ya descompuesto) | 32 | ~50 |
+| row (remero y sus remos, sin casco) | 32 | ~50 |
 | push | 16 | 29,9 |
 | work | 16 | 30,3 |
 | carried | 16 | 21,5 |
@@ -636,7 +854,7 @@ fuerte: **que el paquete no exista en el manifiesto**. Una comprobación que pas
 porque su sujeto desapareció es una comprobación apagada.
 
 ⛔ **Y la especificación de generación de las 30 variantes lista SIETE poses y no
-nombra ninguna otra**: `run`, `row` (solo el remero), `push`, `work`, `carried`,
+nombra ninguna otra**: `run`, `row` (remero con remos, sin casco), `push`, `work`, `carried`,
 `needs`, `discover`. Nombrar una pose en un encargo de arte es como se dibuja.
 
 ### B.5.9 ⛔ Los grids: que salgan consistentes
@@ -765,10 +983,11 @@ Del catálogo de hoy:
   suelo (`self.js#drawGround`), ya se desvanece en los últimos 30 segundos, ya
   hay tope de 48. Lo único que le falta es **ser compartida** (hoy vive en la
   partida local, `game.state.traces`) y **llevar texto**.
-- ⛔ **El antispam ya existe y es la vejiga.** La necesidad salta cada **8-16
-  horas reales**. Nadie puede dejar más de dos o tres mensajes al día aunque
-  quiera. Ese límite es mejor que cualquier radio porque es diegético y no hay
-  que explicarlo.
+- **El ritmo de publicación lo marca la necesidad**, cada **8-16 horas
+  reales**. Ese límite es diegético y no hay que inventar otro gesto. Para los
+  mensajes compartidos, el servidor debe hacer cumplir el intervalo y una sola
+  publicación por deposición: un temporizador enviado por el navegador no es
+  una protección antispam. Esto valida la acción, no lo que dice el texto.
 - **El palo ya se gasta.** `twig` ya es contador, ya hay doce nodos estables y ya
   se consume en recetas y en vallas.
 - **Pergamino y bolígrafo son exactamente el rastrillo**: objetos permanentes que
@@ -782,11 +1001,11 @@ Del catálogo de hoy:
 ```
 tienes ganas  →  cagas (gasta 1 hoja, como siempre)
               →  si llevas pergamino + bolígrafo + palo:  «dejar un mensaje»
-              →  escribes  →  gasta 1 palo  →  el mensaje vive 24 h
+              →  escribes  →  gasta 1 palo  →  se publica al momento, dura 24 h
 ```
 
 ⛔ **El pergamino se clava en TU caca recién hecha, no en la de otro.** Con eso la
-cosa se cierra sola: un mensaje por deposición, sin hilos, sin responder a nadie.
+cosa se cierra sola: un mensaje por deposición, sin hilos ni función de respuesta.
 Es **«sin chat» por construcción y no por norma**. Si se pudiera clavar en la
 caca de otro nacen las conversaciones y has vuelto al chat por la puerta de
 atrás.
@@ -823,28 +1042,36 @@ sea el caso fácil.
   miles de filas**, con índice por caducidad. No es nada.
 
 Columnas mínimas: `id`, `zone`, `x`, `y`, `author_id`, `text`, `created_at`,
-`expires_at`, `verdict_json`. Barrido con `dbSweepOld()`, que ya existe.
+`expires_at`. Barrido con `dbSweepOld()`, que ya existe. **No hay `verdict_json`
+ni estados de aprobación, cola de revisión o veredicto automático.**
 
-## C.5 La moderación, que es la parte seria
+## C.5 Publicación directa y moderación manual
 
-Esto **es texto de desconocidos que leen críos**. La diferencia buena con un chat:
-es asíncrono y no va dirigido a nadie, así que **se puede juzgar ANTES de que lo
-vea nadie**.
+**Decisión del dueño: es texto del usuario y puede escribir lo que quiera, en
+el idioma que quiera. El mensaje se publica al momento, sin verificar su
+contenido ni exigir que sea verdadero, correcto o apropiado.** No hay
+juez LLM, filtro de palabras, traducción obligatoria ni aprobación previa, tampoco
+manual. No se reutiliza la cola del diccionario ni se llama a ningún servicio de
+moderación. No existe el pergamino pendiente de aprobación.
 
-⛔ **No inventes un moderador: la casa ya paga uno.** El juez LLM de los aportes
-del diccionario (`prompts/expressionario/aportadora.md`,
-`expressionario_contributions` con su cola, veredicto, motivo, intentos y rechazo
-pegajoso) es exactamente esta máquina con otra forma. Un mensaje es un aporte.
+El texto se conserva tal como lo escribe el usuario: no se corrige, reescribe,
+traduce ni se somete a análisis de significado para decidir si se publica. El
+idioma del mensaje es independiente del idioma de la interfaz del juego.
+No hay una llamada de verificación de contenido en el envío ni un trabajo
+automático posterior que lo puntúe, lo apruebe o lo retire. Tampoco hay una lista
+de idiomas permitidos ni una comprobación de veracidad: el texto es del usuario,
+no una aportación que deba verificar el juego.
 
-Tres cosas que lo hacen aceptable:
+**El dueño los leerá y moderará después de publicarse.** El panel debe permitir
+ver los mensajes con su autor, retirar un mensaje y banear al responsable. Los
+baneos se hacen cumplir en servidor, no solo ocultando botones en el cliente.
+Todos los mensajes caducan a las 24 horas aunque nadie los haya revisado; la
+caducidad no convierte el contenido en revisado ni garantiza que sea adecuado.
 
-1. **No se publica hasta que el juez pasa.** Mientras, la caca está ahí con el
-   pergamino enrollado y un «todavía no se puede leer».
-2. **Caduca en 24 h**, así que cualquier error se muere solo.
-3. **Lleva firma**, como todo lo que se deja en el bosque.
-
-Coste: la factura entera de OpenAI de la casa son ~43 $/mes con 23.491 llamadas.
-Esto es ruido.
+**Texto libre no significa código ejecutable.** Se guarda y representa como
+texto plano, nunca como HTML. Se mantienen los controles técnicos de identidad,
+tamaño de petición, frecuencia, distancia, autoría y consumibles. Ninguno de
+ellos juzga el idioma, las palabras o el significado del mensaje.
 
 ## C.6 La fricción honesta
 
@@ -912,7 +1139,7 @@ el enlace por delante. Ver §F.4.
 | Reloj | Valor | Qué significa |
 |---|---|---|
 | **Visto** | 10-15 s sin latido | se te ha ido la conexión |
-| **Gracia** | ~60 s | te guarda la plaza: un túnel o bloquear el móvil no te cuesta el sitio |
+| **Gracia** | ~60 s | te guarda la plaza ante un corte de conexión, solo mientras el mismo proceso servidor siga vivo |
 | **Inactividad** | 10-15 min sin hacer NADA | te baja a espectador, con aviso antes |
 
 ⛔ **El tercero es el que casi nadie pone y el que de verdad importa.** Con 100
@@ -926,6 +1153,18 @@ instante *cuando llega*, pero la verdad la dicen los relojes.
 
 Al liberarse una plaza, se materializa el espectador que más lleva esperando (o
 el de más setines, cuando entre la reputación).
+
+**Un reinicio del servidor es distinto de un corte de conexión.** Se vacían las
+plazas y la cola; al reconectar, todos entran por una cola nueva. No se conserva
+prioridad por haber estado dentro ni se restaura la gracia anterior. No se
+persisten reservas ni se crean tickets especiales para recuperar una plaza.
+Los reinicios son ocasionales: no se añade un mecanismo de recuperación de
+turnos ni de continuidad de presencia entre procesos. Esto no borra las partidas,
+las construcciones ni los mensajes que todavía no hayan caducado.
+El comportamiento esperado es simplemente reiniciar, reconectar y admitir por
+orden de llegada a la cola nueva. No hay que hacer invisible el reinicio ni
+añadir colas duraderas, reconstrucción de turnos o traspaso de plazas entre
+procesos: empezar de nuevo es lo esperado.
 
 ## D.4 Los NPC ceden el sitio
 
@@ -1031,10 +1270,11 @@ coste se dispara al cuadrado y el tope de 100 deja de salvarte.
 - **Lo que importa se persiste**: posiciones de objetos compartidos → MariaDB cada
   10 s si están sucias y **siempre en el apagado ordenado** (`SIGTERM` → volcar →
   salir). Al arrancar se cargan de MariaDB.
-- **La presencia NO se persiste**: tras un reinicio no hay nadie conectado. Es el
-  mismo razonamiento por el que no va a la base nunca.
-- El cliente **reconecta solo**, con espera creciente y tope, y **conserva su
-  plaza durante la gracia de 60 s** (§D.3).
+- **La presencia, las plazas y la cola NO se persisten**: tras un reinicio no hay
+  nadie conectado y se empieza una cola nueva.
+- El cliente **reconecta solo**, con espera creciente y tope. Si el proceso sigue
+  vivo, se aplica la gracia de 60 s ante un corte de conexión (§D.3). **Si hubo
+  reinicio, vuelve a entrar por la cola nueva, sin reserva de su plaza anterior.**
 
 ⛔ **Y si el demonio está caído, el juego SIGUE FUNCIONANDO.** El artefacto es
 estático, la aventura es de un jugador y la construcción va por PHP. Sin socket
@@ -1112,7 +1352,9 @@ propósito.
 **En la memoria del demonio, y en ningún sitio más.** Es el mismo razonamiento que
 las posiciones: tras un reinicio no hay nadie conectado, así que no hay nada que
 recordar. Al levantarse, todo el mundo reconecta y las plazas se reparten de nuevo
-— con la gracia de 60 s (§D.3), quien estaba dentro sigue dentro.
+**por una cola nueva**, en orden de admisión. Quien estaba dentro no tiene una
+reserva ni prioridad anterior: la gracia de 60 s solo sirve dentro de la misma
+ejecución del demonio. Nada de persistir o reconstruir la cola tras reiniciar.
 
 ---
 
@@ -1277,8 +1519,10 @@ despliegue como se despliegue) pero hasta 60 s de desfase.
 3. manda a los clientes un cierre con motivo «vuelvo en un segundo»,
 4. sale; systemd lo levanta.
 
-El cliente reconecta solo y **conserva su plaza durante la gracia de 60 s**
-(§D.3), así que un despliegue no echa a nadie del bosque.
+El cliente reconecta solo y **entra en la cola nueva** (§D.3, §E.9). Reiniciar
+vacía las plazas y la cola; no se promete conservar el puesto anterior. Lo que
+sí se conserva es el progreso personal y el mundo persistente. Un reinicio
+ocasional es aceptable y no necesita un sistema de recuperación de reservas.
 
 ## G.4 El desfase de versiones
 
@@ -1337,7 +1581,7 @@ una base por encima de escrituras nuevas de la gente.**
 | Posiciones de gente | ~1000/s | **memoria del demonio** | **no debe sobrevivir**: tras un reinicio no hay nadie conectado |
 | Objetos compartidos | ráfagas al empujar | memoria + volcado cada 10 s | tiene que sobrevivir, pero no a 20 Hz |
 | Construcciones | unas pocas/s | **MariaDB** | firma, historial, moderación, patrimonio |
-| Cacas-mensaje | ~2-3 por persona **al día** | **MariaDB** | ídem, y el panel las tiene que ver |
+| Cacas-mensaje | ~2-3 por persona **al día** | **MariaDB** | firma, caducidad y moderación manual posterior desde el panel |
 
 ⛔ **Las posiciones no van a la base no porque MariaDB sea lenta, sino porque ese
 dato no debe ser durable.** Escribir a disco algo que quieres perder es pagar dos
@@ -1370,8 +1614,9 @@ estado actual, que `communityValidate()` ya hace de todas formas.
 
 | | |
 |---|---|
-| `4236_todo_el_bosque_se_construye.sql` | **escrita, sin aplicar.** Tres `INSERT IGNORE` en `game_community_zones` para `overworld`, `river-rapids` y `river-roots`. Sin ella esas pantallas contestan 503 y la caja de construir no abre. **Se aplica ANTES de activar el puntero**: runbook completo en §G.5 |
-| *(siguiente)* | la tabla de las cacas-mensaje (§C.4) |
+| `4236_todo_el_bosque_se_construye.sql` | Filas de las cuatro zonas comprobadas en DDEV el 18-sep. Publicación de esta entrega pendiente; verificar el registro de migraciones del destino antes de aplicar. **Debe preceder a la activación del puntero**: §G.5 |
+| `4237_forest_messages.sql` | Escrita; tablas de necesidades, mensajes y moderación verificadas en DDEV. Pendiente en producción |
+| `4238_forest_objects.sql` | Escrita; posiciones/revisiones de objetos compartidos verificadas en DDEV. Pendiente en producción |
 
 Toda migración empieza con `SET NAMES utf8mb4;`. Se prueba primero en el clon
 (`dev-migrate magikitos_dev migrations/<f>.sql`) y solo entonces se promueve.
@@ -1385,8 +1630,18 @@ el contrato instalado. Abrir otra pantalla mañana es una línea en
 
 # Orden de implementación
 
-Cada bloque es desplegable por su cuenta. No empieces el siguiente sin cerrar el
-anterior.
+**La entrega es completa: todo el alcance de este documento implementado,
+probado, desplegado y funcionando en producción, sin romper los demás sitios
+del VPS.** No se considera terminada con solo presencia, con el arte pendiente
+o dejando el empuje compartido para otra entrega.
+
+Los bloques siguientes ordenan el trabajo y sus comprobaciones internas; no son
+entregas parciales que requieran nuevas decisiones del dueño. Se valida cada
+base antes de integrar la siguiente y se respeta el orden seguro de migraciones,
+artefactos y servicios. **No hay una espera obligatoria de semanas entre fases.**
+La orden posterior de continuar autoriza ejecutar el alcance completo, incluido
+el despliegue y su verificación, respetando las comprobaciones y dependencias
+anteriores; no una entrega parcial.
 
 | # | Qué | Depende de | Riesgo |
 |---|---|---|---|
@@ -1395,14 +1650,23 @@ anterior.
 | 1c | **Parte B.5 arte**: 30 variantes × 124 sprites = 3.720 (210 hojas) | 1b | **alto (producción)** |
 | 2 | **Parte A**: publicar lo que ya está en el árbol — **runbook paso a paso en §G.5** (estacionar → migrar 4236 → puntero y PHP en el MISMO despliegue) | 1 (por el renombrado) | bajo |
 | 3 | El arte del rastrillo + sus dos recogidas (§A.9, §A.10) | 2 | bajo |
-| 4 | **Parte C**: la caca-mensaje, con su juez | 3 (el palo, el patrón de objetos) | medio |
+| 4 | **Parte C**: la caca-mensaje, publicación directa y panel de moderación manual | 3 (el palo, el patrón de objetos) | medio |
 | 5 | **Parte E**: el demonio, primero SOLO presencia y espectadores | 2 | **alto** |
 | 6 | El tope de 100, los tres relojes, los NPC que ceden | 5 | medio |
 | 7 | Autoridad sobre objetos compartidos (la caja empujada) | 5 | **alto** |
 
 ⛔ **El 5 antes que el 7 no es negociable**: monta el transporte, el saludo, la
-reconexión y el desfase de versiones con algo que no puede hacer daño (mirar), y
-solo cuando eso lleve semanas en pie le das autoridad sobre objetos.
+reconexión y el desfase de versiones primero, y compruébalos con clientes reales
+y sintéticos. Después integra y prueba la autoridad sobre objetos **dentro de
+esta misma entrega**. La puerta son las pruebas de integración, concurrencia,
+carga, reinicio y recuperación, no dejar pasar semanas en producción.
+
+**Cierre de la entrega:** verificar en producción el recorrido completo, los
+contratos de ambos repositorios, las API y el servicio de tiempo real; comprobar
+los demás sitios antes y después del despliegue, y conservar un rollback
+coordinado del código y el artefacto sin revertir datos nuevos de usuarios. Las
+pruebas no deben atribuir acciones a usuarios reales ajenos ni modificar otros
+proyectos. No dar por completado nada que solo se haya probado en local.
 
 ---
 
@@ -1426,15 +1690,27 @@ apagada.** Rompe cada invariante a propósito y exige que grite.
 | El remo | mirar las ocho frames de izquierda y derecha: ninguna pala del lado contrario |
 | Presencia | **prueba de carga con conexiones sintéticas antes de abrir**. Las cifras de este documento son estimaciones mías, no medidas |
 | La caja empujada | dos clientes, intenciones contrarias en el mismo tick, la caja quieta. Y uno solo: se mueve |
-| Reinicios | `systemctl restart` con gente dentro: nadie pierde su plaza, los objetos siguen donde estaban |
+| Cacas-mensaje | texto en distintos idiomas publicado al momento, sin juez ni aprobación; HTML mostrado como texto, caducidad a las 24 h y controles de acción en servidor |
+| Moderación manual | retirar un mensaje desde el panel y banear a su autor; el servidor impide nuevas publicaciones del usuario baneado |
+| Reinicios | `systemctl restart` con gente dentro: reconexión automática, plazas y cola nuevas sin reservas anteriores; progreso y objetos persistentes conservados |
+| Corte sin reinicio | desconectar y reconectar dentro de los 60 s: la gracia conserva la plaza mientras el mismo proceso siga vivo |
 | El demonio caído | párralo y comprueba que **el juego de un jugador sigue entero** |
+| Entrega completa | recorrido integrado en producción, web/API/juego operativos y los demás sitios del VPS sin regresiones; no quedan bloques de este encargo aplazados |
 
 ---
 
 # Lo que NO se hace, y por qué
 
-- **Chat.** Ni en vivo ni por texto libre dirigido a nadie. La caca-mensaje es
-  asíncrona, no va dirigida y se juzga antes de publicarse: por eso se puede.
+- **Chat.** No hay interfaz de conversación, destinatarios ni hilos. La
+  caca-mensaje es una nota pública asíncrona y efímera de texto libre, sin
+  revisión previa; el dueño modera manualmente después de publicarse.
+- **Moderación automática o previa de mensajes.** No hay juez, filtro de
+  contenido ni cola de aprobación; sí seguridad técnica y moderación manual.
+- **Reservas de plaza tras reiniciar.** Un reinicio abre una cola nueva; no se
+  persisten plazas ni turnos para reconstruirlos después.
+- **Aplazar parte de la entrega durante semanas.** Se integra, prueba y publica
+  todo el alcance cuando se autorice comenzar, respetando las dependencias y
+  protegiendo los demás sitios del VPS.
 - **Clavar el pergamino en la caca de otro.** Nacen los hilos y vuelve el chat por
   la puerta de atrás.
 - **Editar lo ajeno** (`foreignEditsEnabled: false`). Dirección de diseño; se abre

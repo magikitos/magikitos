@@ -1,0 +1,836 @@
+{
+    "frames": {
+        "person-101-down-row-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-row-long-cuffs.png",
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1906909325173136,
+                "offset": [
+                    8.54501530037043,
+                    -1.3799323562570507
+                ]
+            },
+            "rect": [
+                0,
+                0,
+                243,
+                268
+            ],
+            "cleanFragments": 0.015
+        },
+        "person-101-down-right-row-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-row-long-cuffs.png",
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1906909325173136,
+                "offset": [
+                    12.93090674826864,
+                    -1.3799323562570507
+                ]
+            },
+            "rect": [
+                235,
+                0,
+                228,
+                268
+            ],
+            "cleanFragments": 0.015
+        },
+        "person-101-right-row-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-row-perspective.png",
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1510204081632653,
+                "offset": [
+                    7.836734693877549,
+                    4.510204081632651
+                ]
+            },
+            "rect": [
+                0,
+                0,
+                314,
+                330
+            ],
+            "cleanFragments": 0.015
+        },
+        "person-101-up-right-row-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-row-perspective.png",
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1510204081632653,
+                "offset": [
+                    8.440816326530612,
+                    4.510204081632651
+                ]
+            },
+            "rect": [
+                314,
+                0,
+                313,
+                330
+            ],
+            "cleanFragments": 0.015
+        },
+        "person-101-up-row-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-row-long-cuffs.png",
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1906909325173136,
+                "offset": [
+                    11.214688355612818,
+                    -1.3799323562570507
+                ]
+            },
+            "rect": [
+                887,
+                0,
+                223,
+                268
+            ],
+            "cleanFragments": 0.015
+        },
+        "person-101-up-left-row-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-row-perspective.png",
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1510204081632653,
+                "offset": [
+                    7.836734693877549,
+                    4.510204081632651
+                ]
+            },
+            "rect": [
+                627,
+                0,
+                314,
+                330
+            ],
+            "cleanFragments": 0.015
+        },
+        "person-101-left-row-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-row-perspective.png",
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1510204081632653,
+                "offset": [
+                    11.00816326530612,
+                    4.510204081632651
+                ]
+            },
+            "rect": [
+                941,
+                0,
+                313,
+                330
+            ],
+            "cleanFragments": 0.015
+        },
+        "person-101-down-left-row-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-row-long-cuffs.png",
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1906909325173136,
+                "offset": [
+                    8.1636334353358,
+                    -1.3799323562570507
+                ]
+            },
+            "rect": [
+                1533,
+                0,
+                241,
+                268
+            ],
+            "cleanFragments": 0.015
+        },
+        "person-101-down-row-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-row-long-cuffs.png",
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1906909325173136,
+                "offset": [
+                    8.54501530037043,
+                    10.252214527299081
+                ]
+            },
+            "rect": [
+                0,
+                260,
+                243,
+                216
+            ],
+            "cleanFragments": 0.015
+        },
+        "person-101-down-right-row-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-row-long-cuffs.png",
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1906909325173136,
+                "offset": [
+                    12.93090674826864,
+                    10.252214527299081
+                ]
+            },
+            "rect": [
+                235,
+                260,
+                228,
+                219
+            ],
+            "cleanFragments": 0.015
+        },
+        "person-101-right-row-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-row-perspective.png",
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1510204081632653,
+                "offset": [
+                    7.836734693877549,
+                    10.248979591836733
+                ]
+            },
+            "rect": [
+                0,
+                330,
+                314,
+                295
+            ],
+            "cleanFragments": 0.015
+        },
+        "person-101-up-right-row-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-row-perspective.png",
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1510204081632653,
+                "offset": [
+                    8.440816326530612,
+                    10.551020408163264
+                ]
+            },
+            "rect": [
+                314,
+                330,
+                313,
+                295
+            ],
+            "cleanFragments": 0.015
+        },
+        "person-101-up-row-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-row-long-cuffs.png",
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1906909325173136,
+                "offset": [
+                    11.214688355612818,
+                    10.252214527299081
+                ]
+            },
+            "rect": [
+                887,
+                260,
+                223,
+                217
+            ],
+            "cleanFragments": 0.015
+        },
+        "person-101-up-left-row-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-row-perspective.png",
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1510204081632653,
+                "offset": [
+                    7.836734693877549,
+                    10.551020408163264
+                ]
+            },
+            "rect": [
+                627,
+                330,
+                314,
+                295
+            ],
+            "cleanFragments": 0.015
+        },
+        "person-101-left-row-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-row-perspective.png",
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1510204081632653,
+                "offset": [
+                    11.00816326530612,
+                    9.795918367346939
+                ]
+            },
+            "rect": [
+                941,
+                330,
+                313,
+                295
+            ],
+            "cleanFragments": 0.015
+        },
+        "person-101-down-left-row-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-row-long-cuffs.png",
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1906909325173136,
+                "offset": [
+                    8.1636334353358,
+                    10.252214527299081
+                ]
+            },
+            "rect": [
+                1533,
+                260,
+                241,
+                215
+            ],
+            "cleanFragments": 0.015
+        },
+        "person-101-down-row-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-row-long-cuffs.png",
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1906909325173136,
+                "offset": [
+                    8.54501530037043,
+                    12.92188758254147
+                ]
+            },
+            "rect": [
+                0,
+                468,
+                243,
+                196
+            ],
+            "cleanFragments": 0.015
+        },
+        "person-101-down-right-row-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-row-long-cuffs.png",
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1906909325173136,
+                "offset": [
+                    12.93090674826864,
+                    13.303269447576099
+                ]
+            },
+            "rect": [
+                235,
+                470,
+                228,
+                198
+            ],
+            "cleanFragments": 0.015
+        },
+        "person-101-right-row-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-row-perspective.png",
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1510204081632653,
+                "offset": [
+                    7.2326530612244895,
+                    11.457142857142856
+                ]
+            },
+            "rect": [
+                0,
+                625,
+                314,
+                275
+            ],
+            "cleanFragments": 0.015
+        },
+        "person-101-up-right-row-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-row-perspective.png",
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1510204081632653,
+                "offset": [
+                    8.440816326530612,
+                    13.57142857142857
+                ]
+            },
+            "rect": [
+                314,
+                625,
+                313,
+                275
+            ],
+            "cleanFragments": 0.015
+        },
+        "person-101-up-row-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-row-long-cuffs.png",
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1906909325173136,
+                "offset": [
+                    11.214688355612818,
+                    12.731196650024156
+                ]
+            },
+            "rect": [
+                887,
+                467,
+                223,
+                198
+            ],
+            "cleanFragments": 0.015
+        },
+        "person-101-up-left-row-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-row-perspective.png",
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1510204081632653,
+                "offset": [
+                    7.836734693877549,
+                    13.57142857142857
+                ]
+            },
+            "rect": [
+                627,
+                625,
+                314,
+                275
+            ],
+            "cleanFragments": 0.015
+        },
+        "person-101-left-row-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-row-perspective.png",
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1510204081632653,
+                "offset": [
+                    11.00816326530612,
+                    11.457142857142856
+                ]
+            },
+            "rect": [
+                941,
+                625,
+                313,
+                275
+            ],
+            "cleanFragments": 0.015
+        },
+        "person-101-down-left-row-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-row-long-cuffs.png",
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1906909325173136,
+                "offset": [
+                    8.1636334353358,
+                    13.112578515058782
+                ]
+            },
+            "rect": [
+                1533,
+                469,
+                241,
+                195
+            ],
+            "cleanFragments": 0.015
+        },
+        "person-101-down-row-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-row-long-cuffs.png",
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1906909325173136,
+                "offset": [
+                    8.54501530037043,
+                    12.92188758254147
+                ]
+            },
+            "rect": [
+                0,
+                656,
+                243,
+                231
+            ],
+            "cleanFragments": 0.015
+        },
+        "person-101-down-right-row-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-row-long-cuffs.png",
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1906909325173136,
+                "offset": [
+                    12.93090674826864,
+                    13.684651312610725
+                ]
+            },
+            "rect": [
+                235,
+                660,
+                228,
+                227
+            ],
+            "cleanFragments": 0.015
+        },
+        "person-101-right-row-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-row-perspective.png",
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1510204081632653,
+                "offset": [
+                    7.2326530612244895,
+                    8.285714285714285
+                ]
+            },
+            "rect": [
+                0,
+                900,
+                314,
+                354
+            ],
+            "cleanFragments": 0.015
+        },
+        "person-101-up-right-row-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-row-perspective.png",
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1510204081632653,
+                "offset": [
+                    8.440816326530612,
+                    10.551020408163264
+                ]
+            },
+            "rect": [
+                314,
+                900,
+                313,
+                354
+            ],
+            "cleanFragments": 0.015
+        },
+        "person-101-up-row-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-row-long-cuffs.png",
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1906909325173136,
+                "offset": [
+                    11.214688355612818,
+                    13.112578515058782
+                ]
+            },
+            "rect": [
+                887,
+                657,
+                223,
+                230
+            ],
+            "cleanFragments": 0.015
+        },
+        "person-101-up-left-row-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-row-perspective.png",
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1510204081632653,
+                "offset": [
+                    7.836734693877549,
+                    10.551020408163264
+                ]
+            },
+            "rect": [
+                627,
+                900,
+                314,
+                354
+            ],
+            "cleanFragments": 0.015
+        },
+        "person-101-left-row-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-row-perspective.png",
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1510204081632653,
+                "offset": [
+                    11.00816326530612,
+                    8.285714285714285
+                ]
+            },
+            "rect": [
+                941,
+                900,
+                313,
+                354
+            ],
+            "cleanFragments": 0.015
+        },
+        "person-101-down-left-row-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-row-long-cuffs.png",
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1906909325173136,
+                "offset": [
+                    7.972942502818487,
+                    13.112578515058782
+                ]
+            },
+            "rect": [
+                1532,
+                657,
+                242,
+                230
+            ],
+            "cleanFragments": 0.015
+        }
+    }
+}

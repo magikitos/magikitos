@@ -1,0 +1,7 @@
+Use case: stylized-concept
+Asset type: production item sprite sheet for the original Magikitos woodland top-down pixel-art RPG.
+Create exactly THREE separate objects in one horizontal row of three equal square cells, wide 3:1 canvas. Each isolated object is fully inside its own cell with very generous transparent padding. Readable detailed warm 16-bit pixel-art, 2x integrated reduction style, dark clean contour, soft upper-left illumination, slightly overhead three-quarter view.
+Left cell: a little roll of warm ivory parchment with softly curled edges, a simple twine tie and a visible blank sheet edge, no writing.
+Middle cell: a scavenged short blue ballpoint pen, recognizable blue cap and silver writing tip, lying diagonally. A real ballpoint pen, not a feather, paintbrush or magic wand. Cute human object repurposed by tiny woodland elves.
+Right cell: a small comical tidy dark-brown poop coil on the ground, with a thin crooked twig stuck vertically into it and one little rectangle of blank ivory parchment tied near the top, like a tiny handmade sign. Friendly absurd game humor, not gross or photorealistic. The note is blank, no words or symbols.
+Match one consistent organic game art language across the sheet, crisp object shapes legible at small size, no extreme blockiness. Genuine transparent alpha, no scenery, no ground tile, no colored background, no checkerboard, no cast shadow, no borders or grid lines, no lettering, no watermark. Do not include characters. Exactly those three objects, no extra objects.

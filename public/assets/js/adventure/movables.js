@@ -1,5 +1,6 @@
 "use strict";
-const { TILE, collisionBounds, overlaps, actorBounds } = require("./geometry");
+const { TILE, collisionBounds, overlaps } = require("./geometry");
+const { placementClear, entranceBounds } = require("./movable-geometry");
 const { facing } = require("./characters");
 const PUSH_SPEED_RATIO = 0.42;
 /** Movable props use the same world-space body as rendering/navigation. No rigid-body engine. */
@@ -25,15 +26,7 @@ function canPlace(
     return false;
   const rect = collisionBounds({ ...entity, x, y });
   // Check the whole body, including its perimeter; a wider box cannot hang over water.
-  for (let py = rect.y; py <= rect.y + rect.h; py += Math.min(4, rect.h))
-    for (let px = rect.x; px <= rect.x + rect.w; px += Math.min(4, rect.w))
-      if (!world.terrainCanStand(px, py)) return false;
-  for (const [px, py] of [
-    [rect.x + rect.w, rect.y],
-    [rect.x, rect.y + rect.h],
-    [rect.x + rect.w, rect.y + rect.h],
-  ])
-    if (!world.terrainCanStand(px, py)) return false;
+  if (!placementClear(rect, (x, y) => world.terrainCanStand(x, y))) return false;
   if (
     world.colliders.some(
       (e) => e !== entity && overlaps(rect, collisionBounds(e)),
@@ -48,34 +41,12 @@ function canPlace(
     )
   )
     return false;
-  if (protectEntrances) {
-    for (const e of world.entities) {
-      if (!e.threshold) continue;
-      const [tx, ty, w, h] = e.threshold;
-      const door = {
-        x: (tx - 0.7) * TILE,
-        y: (ty - 1) * TILE,
-        w: (w + 1.4) * TILE,
-        h: (h + 2) * TILE,
-      };
-      if (overlaps(rect, door)) return false;
-    }
-    const spawn = world.data.spawn;
-    if (
-      spawn &&
-      overlaps(rect, {
-        x: (spawn.x - 0.8) * TILE,
-        y: (spawn.y - 0.8) * TILE,
-        w: 1.6 * TILE,
-        h: 1.6 * TILE,
-      })
-    )
-      return false;
-  }
+  if (protectEntrances && entranceBounds({ entities: world.entities, spawn: world.data.spawn }).some(r => overlaps(rect, r))) return false;
   return true;
 }
 function tryPush(world, actor, entity, dx, dy, state) {
-  if (!entity.pushable || !entity.solid || (!dx && !dy)) return false;
+  // Communal positions belong to the live authority, never to a private save/offline fallback.
+  if (entity.shared || !entity.pushable || !entity.solid || (!dx && !dy)) return false;
   // Dominant-axis movement keeps puzzle blocks aligned; no sideways dragging or chain pushes.
   const horizontal = Math.abs(dx) > Math.abs(dy),
     step = Math.hypot(dx, dy) * PUSH_SPEED_RATIO;
@@ -102,7 +73,7 @@ function tryPush(world, actor, entity, dx, dy, state) {
 }
 function restorePositions(world, state) {
   for (const entity of world.entities) {
-    if (!entity.pushable) continue;
+    if (!entity.pushable || entity.shared) continue;
     const saved = state.objects?.[world.data.id]?.[entity.id];
     const p =
       saved && Number.isFinite(saved.x) && Number.isFinite(saved.y)
@@ -129,7 +100,7 @@ function cleanPositions(value, catalog, state) {
     for (const entity of world.entities) {
       const p = input[entity.id];
       if (
-        !entity.pushable ||
+        !entity.pushable || entity.shared ||
         !p ||
         !Number.isFinite(p.x) ||
         !Number.isFinite(p.y) ||

@@ -201,18 +201,13 @@
     ]
   },
   "entities": [
+    {"id": "forest-parchment", "family": "forest-parchment", "behavior": "forest-parchment", "x": 65.25, "y": 67.25, "artVariant": "original"},
+    {"id": "forest-pen", "family": "forest-pen", "behavior": "forest-pen", "x": 68.25, "y": 67.75, "artVariant": "original"},
     {
       "id": "picnic-barbecue",
       "behavior": "picnic-barbecue",
       "x": 82.75,
       "y": 43.5
-    },
-    {
-      "id": "picnic-mushroom",
-      "behavior": "picnic-mushroom",
-      "x": 43.5,
-      "y": 15.75,
-      "scale": 0.67
     },
     {
       "id": "picnic-twig",
@@ -854,6 +849,7 @@
     },
     {
       "id": "clearing-willow-crate",
+      "shared": true,
       "family": "crate",
       "sprite": "crates",
       "x": 75.5,
@@ -863,6 +859,7 @@
     },
     {
       "id": "art-moveable-planter",
+      "shared": true,
       "family": "planter",
       "sprite": "flower-pot",
       "x": 32.75,
@@ -1044,6 +1041,67 @@
       "x": 2,
       "y": 88.5,
       "artVariant": "abedul"
+    },
+    {
+      "id": "forest-mushrooms-fern",
+      "behavior": "forest-mushrooms",
+      "family": "ground-mushrooms",
+      "x": 43.5,
+      "y": 15.75,
+      "artVariant": "ochre",
+      "scale": 0.72
+    },
+    {
+      "id": "forest-mushrooms-root",
+      "behavior": "forest-mushrooms",
+      "family": "ground-mushrooms",
+      "x": 52,
+      "y": 61,
+      "artVariant": "bolete",
+      "scale": 0.72
+    },
+    {
+      "id": "forest-mushrooms-camp",
+      "behavior": "forest-mushrooms",
+      "family": "ground-mushrooms",
+      "x": 96,
+      "y": 86,
+      "artVariant": "red",
+      "scale": 0.72
+    },
+    {
+      "id": "woodland-rake",
+      "behavior": "woodland-rake",
+      "x": 50,
+      "y": 57
+    },
+    {
+      "id": "woodland-grass-seeds",
+      "behavior": "woodland-grass-seeds",
+      "x": 57,
+      "y": 56,
+      "scale": 0.6
+    },
+    {
+      "id": "woodland-primroseSeed",
+      "behavior": "woodland-primroseSeed",
+      "x": 62,
+      "y": 68,
+      "scale": 0.45
+    },
+    {
+      "id": "woodland-daisySeed",
+      "behavior": "woodland-daisySeed",
+      "x": 67,
+      "y": 68,
+      "scale": 0.45
+    },
+    {
+      "id": "woodland-bellSeed",
+      "behavior": "woodland-bellSeed",
+      "x": 72,
+      "y": 68,
+      "scale": 0.45
     }
   ],
   "neighbors": [

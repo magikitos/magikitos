@@ -1,0 +1,8 @@
+{
+  "defaultVariant": 100,
+  "enabledVariants": [100, 101],
+  "rowingRigs": {
+    "100": "brezo",
+    "101": "brezo-bruma"
+  }
+}

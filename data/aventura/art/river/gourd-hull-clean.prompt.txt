@@ -1,0 +1,3 @@
+Use case: precise-object-edit
+Input image 1: edit target, the eight-view gourd boat sheet.
+One local correction only: in the SECOND boat on the TOP ROW (facing down-right), remove the extra dark brown stalk sticking out of the UPPER LEFT rounded stern. Restore the rounded orange gourd rim beneath that little stalk, leaving its fibre tie intact. Keep the legitimate stalk at that same boat's LOWER RIGHT pointed prow. A gourd has ONE stem, not two. All other seven boats, all eight central floors, all positions, view angles, artwork, colours, texture, scale and outlines remain unchanged. Preserve a genuinely transparent exterior background. No oars, character, seat, text, added decorations, water or shadow.

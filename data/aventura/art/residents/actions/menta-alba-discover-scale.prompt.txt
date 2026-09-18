@@ -1,0 +1,3 @@
+Use case: precise-object-edit
+Edit target: Menta alba four-frame front-facing discovery sheet.
+Change only figure size: enlarge each entire figure uniformly to 110 percent of its current width and height around the bottom center of the boots, within the unchanged four-column one-row grid and identical canvas dimensions. Preserve exact face, natural brown skin, plump body, pointed cream hat with leaf tip, braids, cream blouse, moss apron, teal skirt, boots, expressions and all four hand poses. Do not move the boot baseline or change head/body proportions. Keep generous transparent padding around each figure and clear empty space above the head. Sharp defined pixel art, no new objects, no labels, no shadows. Genuine transparent alpha background.

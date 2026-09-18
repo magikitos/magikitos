@@ -1,0 +1,12 @@
+Use case: identity-preserve.
+Asset type: a production pushing animation sprite sheet for the existing Magikitos pixel-art adventure.
+Input image 1: EDIT TARGET and approved identity, camera, scale and layout guide. It contains 16 standing copies of Brezo Alba, four directions. Replace only the standing poses with a four-frame pushing loop. This is the same character in every cell: natural warm fair skin, black curls, pointed ears, narrow olive pointed cap with bent tip, ochre rolled-sleeve shirt, cream cuffs, patched dark green trousers, belt and worn brown boots. Preserve his exact head size, face, clothing, colors and upper-left lighting. No new character design.
+Layout: EXACTLY FOUR columns and FOUR rows (16 isolated full-body sprites), equal cells with generous empty padding on every side. Preserve the guide's portrait aspect ratio (about 0.69:1) and relative body-to-cell scale. No grid lines, labels, floor, shadows or text. Genuine transparent alpha background, not painted black or checkerboard.
+Column directions stay EXACTLY as the guide: FRONT facing DOWN toward viewer; RIGHT profile; BACK facing UP away; LEFT profile.
+Action in EVERY frame: squat slightly with bent knees, torso leaning FORWARD in the direction faced, BOTH ARMS extending forward with open palms pushing an invisible crate. Palms face the direction of motion, hands stay separate, no crate or tools drawn. Rear views must show the back of his hat/hair, no face. Profile poses visibly lean into the push; no straight standing characters.
+Animation rows, same order for all directions:
+Row 1: left foot pressing forward, right heel raised behind, hands braced ahead.
+Row 2: both knees compress slightly; feet pass under hips; hands stay braced ahead.
+Row 3: right foot pressing forward, left heel raised behind; this is the OPPOSITE leg phase from row 1.
+Row 4: return through the opposite passing step ready to repeat row 1.
+Keep the boots on a consistent support baseline in each row. Keep the upper body quiet: no jumping or growing, only a small natural two-step shuffle. Retain crisp readable pixel-art edges and fabric shading from the guide. No blur, no large artificial pixel blocks, no extra limbs, no accessories, no watermark. Every pose fully inside its own cell, never touching its edge.

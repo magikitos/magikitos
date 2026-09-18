@@ -38,5 +38,21 @@
     "fr": "Ce bâton est une pépite ! Avec ça, je fais une brochette qui va scotcher même le maire !",
     "it": "Che bastoncino da paura! Ci faccio uno spiedino che manda fuori di testa pure il sindaco!",
     "pt": "Que pauzinho de luxo! Faço uma espetada que até o presidente da câmara fica maluco!"
+  },
+  "mushroomsFound": {
+    "es": "¡Ea, otra setita pa la saca! Esto a la brasa tiene que estar de lujo.",
+    "en": "Another mushroom for the bag! This'll be lovely on the grill.",
+    "de": "Noch ein Pilz für den Beutel! Der wird auf dem Grill richtig lecker.",
+    "fr": "Un champi de plus dans le sac ! Sur la braise, ça va être un régal.",
+    "it": "Un altro funghetto nel sacco! Alla brace sarà una bomba.",
+    "pt": "Mais um cogumelo para o saco! Na brasa vai ficar uma maravilha."
+  },
+  "mushroomsNeedKnife": {
+    "es": "Con una navajita corto el pie y dejo el bosque bien apañao.",
+    "en": "A little knife will cut the stem and leave the forest tidy.",
+    "de": "Mit einem kleinen Messer schneide ich den Stiel ab und schone den Waldboden.",
+    "fr": "Avec un petit couteau, je coupe le pied sans abîmer le coin.",
+    "it": "Con un coltellino taglio il gambo senza rovinare il bosco.",
+    "pt": "Com uma navalhinha corto o pé sem estragar o bosque."
   }
 }

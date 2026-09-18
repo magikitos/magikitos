@@ -1,0 +1,900 @@
+{
+    "frames": {
+        "person-101-down-run-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-run-scale.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2298136645962733,
+                "offset": [
+                    2.857142857142854,
+                    -11.683229813664603
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-101-down-right-run-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-run-scale.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                1,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2298136645962733,
+                "offset": [
+                    2.857142857142854,
+                    -11.683229813664603
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-101-right-run-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-run-scale.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                2,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2298136645962733,
+                "offset": [
+                    2.857142857142854,
+                    -11.683229813664603
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-101-up-right-run-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-run-scale.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                3,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2298136645962733,
+                "offset": [
+                    2.7422360248447184,
+                    -11.913043478260875
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-101-up-run-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-run-scale.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                4,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2298136645962733,
+                "offset": [
+                    2.857142857142854,
+                    -11.913043478260875
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-101-up-left-run-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-run-scale.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                5,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2298136645962733,
+                "offset": [
+                    2.857142857142854,
+                    -11.683229813664603
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-101-left-run-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-run-scale.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                6,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2298136645962733,
+                "offset": [
+                    2.857142857142854,
+                    -11.453416149068325
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-101-down-left-run-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-run-scale.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                7,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2298136645962733,
+                "offset": [
+                    2.857142857142854,
+                    -11.913043478260875
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-101-down-run-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-run-scale.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                0,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2298136645962733,
+                "offset": [
+                    2.857142857142854,
+                    -10.07453416149069
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-101-down-right-run-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-run-scale.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                1,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2298136645962733,
+                "offset": [
+                    2.857142857142854,
+                    -9.84472049689441
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-101-right-run-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-run-scale.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                2,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2298136645962733,
+                "offset": [
+                    2.857142857142854,
+                    -10.07453416149069
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-101-up-right-run-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-run-scale.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                3,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2298136645962733,
+                "offset": [
+                    2.7422360248447184,
+                    -10.534161490683232
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-101-up-run-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-run-scale.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                4,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2298136645962733,
+                "offset": [
+                    2.857142857142854,
+                    -10.07453416149069
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-101-up-left-run-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-run-scale.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                5,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2298136645962733,
+                "offset": [
+                    2.857142857142854,
+                    -10.534161490683232
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-101-left-run-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-run-scale.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                6,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2298136645962733,
+                "offset": [
+                    2.857142857142854,
+                    -10.07453416149069
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-101-down-left-run-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-run-scale.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                7,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2298136645962733,
+                "offset": [
+                    2.857142857142854,
+                    -10.30434782608696
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-101-down-run-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-run-scale.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                0,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2298136645962733,
+                "offset": [
+                    2.857142857142854,
+                    -7.086956521739133
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-101-down-right-run-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-run-scale.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                1,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2298136645962733,
+                "offset": [
+                    2.857142857142854,
+                    -7.5465838509316825
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-101-right-run-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-run-scale.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                2,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2298136645962733,
+                "offset": [
+                    2.857142857142854,
+                    -7.5465838509316825
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-101-up-right-run-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-run-scale.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                3,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2298136645962733,
+                "offset": [
+                    2.7422360248447184,
+                    -5.9378881987577685
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-101-up-run-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-run-scale.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                4,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2298136645962733,
+                "offset": [
+                    2.857142857142854,
+                    -7.776397515527954
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-101-up-left-run-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-run-scale.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                5,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2298136645962733,
+                "offset": [
+                    2.857142857142854,
+                    -6.16770186335404
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-101-left-run-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-run-scale.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                6,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2298136645962733,
+                "offset": [
+                    2.857142857142854,
+                    -7.5465838509316825
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-101-down-left-run-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-run-scale.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                7,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2298136645962733,
+                "offset": [
+                    2.857142857142854,
+                    -7.086956521739133
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-101-down-run-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-run-scale.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                0,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2298136645962733,
+                "offset": [
+                    2.857142857142854,
+                    -2.260869565217398
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-101-down-right-run-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-run-scale.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                1,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2298136645962733,
+                "offset": [
+                    2.857142857142854,
+                    -2.490683229813669
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-101-right-run-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-run-scale.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                2,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2298136645962733,
+                "offset": [
+                    2.857142857142854,
+                    -2.260869565217398
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-101-up-right-run-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-run-scale.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                3,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2298136645962733,
+                "offset": [
+                    2.7422360248447184,
+                    -2.490683229813669
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-101-up-run-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-run-scale.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                4,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2298136645962733,
+                "offset": [
+                    2.857142857142854,
+                    -2.490683229813669
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-101-up-left-run-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-run-scale.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                5,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2298136645962733,
+                "offset": [
+                    2.857142857142854,
+                    -2.490683229813669
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-101-left-run-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-run-scale.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                6,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2298136645962733,
+                "offset": [
+                    2.857142857142854,
+                    -2.260869565217398
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-101-down-left-run-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-bruma-run-scale.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                7,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2298136645962733,
+                "offset": [
+                    2.857142857142854,
+                    -2.260869565217398
+                ]
+            },
+            "cleanFragments": 0.015
+        }
+    }
+}

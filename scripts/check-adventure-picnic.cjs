@@ -60,7 +60,7 @@ function react(id, context = {}) {
   if (plan) state = plan.state;
   return plan;
 }
-react("picnic-mushroom");
+react("forest-mushrooms-fern");
 assert(
   !state.inventory.mushroom,
   "Cutting a mushroom portion requires the knife",
@@ -68,7 +68,7 @@ assert(
 react("picnic-knife");
 react("picnic-lighter");
 const beforeTools = structuredClone(state);
-react("picnic-mushroom");
+react("forest-mushrooms-fern");
 react("picnic-twig");
 react("picnic-barbecue", { action: "light" });
 react("picnic-barbecue", { action: "cook" });
@@ -115,7 +115,7 @@ assert(
   !expireTimers(state, now + 5 * hour + 1),
   "Expiration is applied only once",
 );
-react("picnic-mushroom", { now: now + 5 * hour });
+react("forest-mushrooms-fern", { now: now + 5 * hour });
 react("picnic-twigs", { now: now + 5 * hour });
 react("picnic-barbecue", { action: "cook", now: now + 5 * hour });
 assert(actions(entity("picnic-neighbor"), state).some((a) => a.id === "give"));

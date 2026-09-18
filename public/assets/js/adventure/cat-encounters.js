@@ -112,8 +112,7 @@ class CatEncounters {
       .filter(
         (cat) =>
           g.world.canStand(cat.x, cat.y) &&
-          g.renderer.sprites.frame(`cat-${cat.variant}-down-0`) &&
-          g.renderer.sprites.frame("person-0-down-carried-0"),
+          g.renderer.sprites.frame(`cat-${cat.variant}-down-0`),
       );
     /**
      * ⛔ UN GATO ES UN CUERPO, NO UN DIBUJO (17-sep-2026, decisión del dueño). Vivían en esta
@@ -372,7 +371,7 @@ class CatEncounters {
       x: cat.x + x * (cat.scale || 1),
       y: cat.y + y * (cat.scale || 1),
       depth: cat.y + (cat.direction.startsWith("up") ? -0.1 : 0.1),
-      sprite: `person-0-${cat.direction}-carried-${Math.floor(cat.elapsed * 3) % 2}`,
+      sprite: `person-${require("./player-art").playerVariant(this.game.player)}-${cat.direction}-carried-${Math.floor(cat.elapsed * 3) % 2}`,
       rules: [],
     };
   }

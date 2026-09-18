@@ -36,28 +36,26 @@ const crosses = (exit, mode) => (exit.mode || "boat") === mode || exit.mode === 
  */
 function crossingAt(data, point, mode = "boat") {
   const exits = (data.navigation?.exits || []).filter((e) => crosses(e, mode));
-  if (!exits.length) return null;
   const tx = point.x / TILE,
     ty = point.y / TILE;
-  const inside = exits.find((e) => inRect(tx, ty, e.area));
-  if (inside) return inside;
+  // Preserve authored-area priority when the extended edge bands overlap.
+  return exits.find((e) => inRect(tx, ty, e.area)) ||
+    exits.find((e) => crossingAreas(data, e, mode).slice(1).some(([x, y, w, h]) =>
+      tx >= x && tx <= x + w && ty >= y && ty <= y + h)) || null;
+}
+
+/** The same arrival trigger geometry is compiled into the private live contract. */
+function crossingAreas(data, exit, mode) {
+  if (!crosses(exit, mode)) return [];
   const margin = (mode === "boat" ? HULL_RADIUS : TILE / 2) / TILE;
-  const pressed = {
-    up: ty <= margin,
-    down: ty >= data.height - margin,
-    left: tx <= margin,
-    right: tx >= data.width - margin,
+  const [x, y, w, h] = exit.area;
+  const edge = {
+    up: [x - margin, 0, w + margin * 2, margin],
+    down: [x - margin, data.height - margin, w + margin * 2, margin],
+    left: [0, y - margin, margin, h + margin * 2],
+    right: [data.width - margin, y - margin, margin, h + margin * 2],
   };
-  return (
-    exits.find((e) => {
-      if (!pressed[e.direction]) return false;
-      const [ax, ay, aw, ah] = e.area;
-      const vertical = e.direction === "up" || e.direction === "down";
-      const [from, to] = vertical ? [ax, ax + aw] : [ay, ay + ah];
-      const along = vertical ? tx : ty;
-      return along >= from - margin && along <= to + margin;
-    }) || null
-  );
+  return [exit.area, edge[exit.direction]];
 }
 
 /**
@@ -112,12 +110,13 @@ class Crossings {
     if (g.transitioning) return;
     g.transitioning = true;
     g.pauseMovement({ keepControls: true });
+    let prepared;
     try {
       const state = {
         ...g.state,
         navigation: { ...g.state.navigation, mode, direction: exit.direction },
       };
-      const prepared = await g.scenes.prepare(
+      prepared = await g.scenes.prepare(
         exit.scene,
         [
           crossingArrival(exit, g.player),
@@ -125,6 +124,7 @@ class Crossings {
         ],
         state,
       );
+      await g.live?.cross("edge", exit.id, prepared.id, prepared.position, mode);
       g.state = state;
       g.scenes.enter(prepared, { keepControls: true });
       g.toast(g.text(g.world.data.label || "riverDock"));
@@ -135,8 +135,9 @@ class Crossings {
       this.failed = exit.id;
       g.toast(g.text("travelError"));
     } finally {
+      prepared?.packs.release?.();
       g.transitioning = false;
     }
   }
 }
-module.exports = { MODES, crossingAt, crossingArrival, Crossings };
+module.exports = { MODES, crossingAt, crossingAreas, crossingArrival, Crossings };

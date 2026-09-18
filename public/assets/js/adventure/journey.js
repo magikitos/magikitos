@@ -137,6 +137,7 @@ class Journey {
     );
     // A portal callback may have cancelled this journey mid-substep.
     if (!this.intent) return { moved };
+    if (pushing && actor.pushing?.waiting) return { moved, waiting: true };
     if (
       hit ||
       (!moved && this.path.length) ||

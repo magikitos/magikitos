@@ -2,22 +2,26 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const { chromium } = require('playwright');
+const { entityScreenPoint } = require('./browser-world.cjs');
 const origin = process.env.GAME_ORIGIN || 'http://127.0.0.1:47834';
 const key = 'magikitos.adventure';
 (async () => {
-  const browser = await chromium.launch({ channel:'chrome', headless:true });
+  const browser = await chromium.launch({ channel:'chrome', headless:true, timeout:20000 });
   const errors = [];
   fs.mkdirSync('.local/ascua-review', { recursive:true });
   try {
     for (const [width,height] of [[1440,900],[768,1024],[390,844]]) {
       for (const reducedMotion of ['no-preference','reduce']) {
         const page = await browser.newPage({ viewport:{width,height}, hasTouch:true, reducedMotion });
+        page.setDefaultTimeout(15000);
+        page.setDefaultNavigationTimeout(15000);
         await page.addInitScript(() => {
           const seed=sessionStorage.getItem('ascua-seed');
           if(seed) {localStorage.setItem('magikitos.adventure',seed);sessionStorage.removeItem('ascua-seed');}
         });
         page.on('pageerror', e => errors.push(e.message));
         await page.route('**/*', r => ['127.0.0.1','magikitos.ddev.site'].includes(new URL(r.request().url()).hostname) ? r.continue() : r.abort());
+        await require('./browser-art.cjs').useReviewVariant(page);
         await page.goto(origin+'/aventura');
         const inspect = () => page.evaluate(() => window.MagikitosAdventure.inspect());
         const stored = () => page.evaluate(k => JSON.parse(localStorage.getItem(k)), key);
@@ -41,12 +45,8 @@ const key = 'magikitos.adventure';
           await page.reload();
           await require("./browser-entry.cjs").enterWorld(page);
         }
-        async function touchEntity(id, dy = 4) {
-          const s = await inspect(), entity = s.entities.find(e => e.id===id);
-          assert(entity,id);
-          const r = await page.locator('#world-canvas').boundingBox();
-          const x = r.x+(entity.x-s.camera.x)*r.width/s.view.width;
-          const y = r.y+(entity.y-dy-s.camera.y)*r.height/s.view.height;
+        async function touchEntity(id) {
+          const { x, y } = await entityScreenPoint(page, world.scenes.overworld, id);
           await page.touchscreen.tap(x,y);
         }
         const dialogue = () => page.waitForFunction(() => !!window.MagikitosAdventure.inspect().dialogue);
@@ -55,7 +55,7 @@ const key = 'magikitos.adventure';
         // entera (17-sep-2026, decisión del dueño). Lo que se comprueba aquí es lo que ve quien
         // juega: una frase, ningún control y el monedero clavado.
         await seed({wallet:{balance:7}});
-        await touchEntity('fountain',28); await dialogue();
+        await touchEntity('fountain'); await dialogue();
         assert.equal(await page.locator('[data-action="wish"]').count(),0,'Sin botón de deseo');
         assert.equal((await inspect()).wallet.balance,7,'Pedir un deseo no cuesta');
         await page.keyboard.press('Enter');
@@ -63,11 +63,11 @@ const key = 'magikitos.adventure';
         assert.equal((await inspect()).wallet.balance,7);
         assert(!((await stored()).keepsakes?.overworld?.fountain),'Y no cae nada al agua');
 
-        await seed({ position: junto('picnic-mushroom'), inventory:{knife:1} });
-        await touchEntity('picnic-mushroom',20); await gesture('discover');
-        assert.equal((await inspect()).entities.find(e=>e.id==='picnic-mushroom').presented,false,'Ground source is hidden before the first overhead pose');
+        await seed({ position: junto('forest-mushrooms-fern'), inventory:{knife:1} });
+        await touchEntity('forest-mushrooms-fern'); await gesture('discover');
+        assert.equal((await inspect()).entities.find(e=>e.id==='forest-mushrooms-fern').presented,false,'Ground source is hidden before the first overhead pose');
         assert.equal((await inspect()).player.direction,'down');
-        assert.equal((await inspect()).sequence.data.sprite,'giant-bolete');
+        assert.equal((await inspect()).sequence.data.sprite,world.items.mushroom.sprite);
         await dialogue();
         assert.equal((await inspect()).inventory.mushroom,1);
         assert.equal((await inspect()).inventory.knife,1);
@@ -85,7 +85,7 @@ const key = 'magikitos.adventure';
         const cooked=await inspect();
         assert.equal(cooked.inventory.skewer,1); assert.equal(cooked.inventory.knife,1); assert.equal(cooked.inventory.lighter,1);
         assert(!cooked.inventory.mushroom && !cooked.inventory.twig);
-        assert(!cooked.assets.loaded.includes('actor-0-bow'),'Future weapon stays lazy');
+        await require('./browser-art.cjs').assertRetiredActionsAbsent(page);
         assert.equal(await page.evaluate(() => document.documentElement.scrollWidth>innerWidth),false);
         await page.close();
         console.log('PASS Ascua touch/keyboard, discovery, cooking, local fountain/reload/interruption '+width+'×'+height+' '+reducedMotion);

@@ -12,6 +12,7 @@ return (static function (): array {
     // Only lightweight identities ship to browsers, never the production prompts or source masters.
     $world['avatarProfiles'] = $read(__DIR__ . '/residents.json');
     $world['avatarVariants'] = array_column($world['avatarProfiles'], 'id');
+    $world['playerArt'] = $read(__DIR__ . '/player-art.json');
     // Resolve fare references once; condition consumers do not need a global catalogue.
     $resolve = static function (array $node) use (&$resolve, $world): array {
         foreach ($node as &$value) {
@@ -60,7 +61,7 @@ return (static function (): array {
             $dock = array_values(array_filter($scene['entities'], static fn($e) => ($e['landing'] ?? null) === $landing['id']))[0] ?? null;
             if (!$dock) throw new RuntimeException('Landing without dock: ' . $landing['id']);
             $scene['entities'][] = [
-                'id' => 'moored-' . $landing['id'], 'sprite' => 'bottle-boat',
+                'id' => 'moored-' . $landing['id'], 'sprite' => 'boat-bottle-down-right-0',
                 'x' => $landing['water'][0], 'y' => $landing['water'][1],
                 'rules' => [], 'interactAs' => $dock['id'], 'generated' => 'landing-vessel',
                 'visibleWhen' => ['items' => ['boat' => 1]] + (count($scene['navigation']['landings']) > 1 ? ['landing' => $landing['id']] : []),
@@ -102,7 +103,15 @@ return (static function (): array {
                 if ($index === false) {
                     throw new RuntimeException("Register harvest node $name/{$entity['id']} in resource-nodes.json ($region); append, never reorder IDs");
                 }
-                $entity['resource'] = ['region'=>$region, 'index'=>$index, 'renewMs'=>$entity['harvest']['renewMs'], 'keepVisible'=>true, 'empty'=>$entity['harvest']['empty']];
+                $entity['resource'] = [
+                    'region' => $region, 'index' => $index,
+                    'renewMs' => $entity['harvest']['renewMs'],
+                    'keepVisible' => $entity['harvest']['keepVisible'] ?? true,
+                ];
+                if ($entity['resource']['keepVisible']) {
+                    $entity['resource']['empty'] = $entity['harvest']['empty']
+                        ?? throw new RuntimeException('Visible resting harvest needs a dialogue: ' . $entity['id']);
+                }
                 foreach ($entity['rules'] as &$r) if (array_filter($r['effects'], static fn($e) => $e['type']==='item' && $e['amount']>0)) array_unshift($r['effects'], ['type'=>'collect']);
                 unset($r);
             }

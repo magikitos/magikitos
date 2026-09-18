@@ -153,14 +153,14 @@
     {
       "id": "meadow-shore-shells",
       "behavior": "shells",
-      "x": 57.0,
-      "y": 75.0
+      "x": 57,
+      "y": 75
     },
     {
       "id": "meadow-collector-basket",
       "sprite": "basket",
       "x": 70.5,
-      "y": 71.0,
+      "y": 71,
       "rules": []
     },
     {
@@ -178,6 +178,7 @@
     },
     {
       "id": "meadow-harbor-crate",
+      "shared": true,
       "sprite": "crates",
       "x": 64,
       "y": 66.5,
@@ -256,7 +257,7 @@
       "id": "meadow-garden-fence-west",
       "sprite": "garden-fence",
       "x": 79,
-      "y": 52.0,
+      "y": 52,
       "rules": [],
       "solid": [
         -2,
@@ -269,7 +270,7 @@
       "id": "meadow-garden-fence-east",
       "sprite": "garden-fence",
       "x": 85,
-      "y": 52.0,
+      "y": 52,
       "rules": [],
       "solid": [
         -2,
@@ -316,7 +317,7 @@
       "id": "meadow-bench",
       "sprite": "bench",
       "x": 84,
-      "y": 69.0,
+      "y": 69,
       "rules": [
         {
           "effects": [
@@ -347,7 +348,7 @@
       "id": "meadow-rest-flowers",
       "sprite": "flowers-bell-blue",
       "x": 81,
-      "y": 69.0,
+      "y": 69,
       "rules": [],
       "artVariant": "auto"
     },
@@ -369,7 +370,7 @@
       "id": "meadow-fruit",
       "sprite": "fruit-tree",
       "x": 90,
-      "y": 52.0,
+      "y": 52,
       "rules": [],
       "solid": [
         -0.4,
@@ -396,7 +397,7 @@
       "id": "meadow-fern-north",
       "sprite": "giant-fern",
       "x": 81,
-      "y": 50.0,
+      "y": 50,
       "rules": [],
       "artVariant": "auto"
     },
@@ -422,7 +423,7 @@
       "id": "meadow-north-bells",
       "sprite": "flowers-bell-blue",
       "x": 84,
-      "y": 50.0,
+      "y": 50,
       "rules": [],
       "artVariant": "auto"
     },
@@ -460,7 +461,7 @@
       "id": "meadow-reeds",
       "sprite": "coastal-grass",
       "x": 97,
-      "y": 73.0,
+      "y": 73,
       "rules": []
     },
     {
@@ -474,7 +475,7 @@
       "id": "meadow-leaves",
       "behavior": "toilet-plant",
       "x": 72,
-      "y": 74.0
+      "y": 74
     },
     {
       "id": "meadow-clearing-sign",
@@ -493,6 +494,24 @@
       ],
       "label": "sign",
       "edgeSlide": true
+    },
+    {
+      "id": "bank-mushrooms-fern",
+      "behavior": "forest-mushrooms",
+      "family": "ground-mushrooms",
+      "x": 83,
+      "y": 76,
+      "artVariant": "scarlet",
+      "scale": 0.72
+    },
+    {
+      "id": "bank-mushrooms-root",
+      "behavior": "forest-mushrooms",
+      "family": "ground-mushrooms",
+      "x": 104,
+      "y": 92,
+      "artVariant": "ochre",
+      "scale": 0.72
     }
   ],
   "neighbors": [

@@ -253,13 +253,13 @@ const standing = (ground, x, y) =>
   y < ground.height &&
   ground.cells[y * ground.width + x] === 1;
 
-function validateConstruction(items, zoneId, catalog, ground, candidateId) {
+function validateConstruction(items, zoneId, catalog, ground, candidateId, sharedBounds = []) {
   const zone = catalog.zones[zoneId];
   if (!zone) return "unknown_zone";
   if (items.length > (zone.maxObjects ?? catalog.maxObjectsPerZone))
     return "zone_full";
   const occupied = [],
-    blocking = [];
+    blocking = [...sharedBounds];
   for (const object of items) {
     const def = catalog.definitions[object.kind];
     if (!def) return "invalid_kind";
@@ -307,6 +307,7 @@ function validateConstruction(items, zoneId, catalog, ground, candidateId) {
     // dirían cosas distintas sobre el mismo mapa.
     const candidate = object.id != null && object.id === candidateId;
     for (const b of own) {
+      if (!pisable && sharedBounds.some(r => overlaps(b, r))) return "objects_overlap";
       if (
         b.x < a.x ||
         b.y < a.y ||
@@ -448,6 +449,7 @@ module.exports = {
   absolutePoints,
   objectCost,
   polylineLength,
+  polylineReason,
   validateConstruction,
   groundMask,
   maskFromRows,

@@ -3,7 +3,7 @@ const assert = require("node:assert/strict"),
   fs = require("node:fs");
 const { chromium } = require("playwright");
 const origin = process.env.GAME_ORIGIN || "http://127.0.0.1:47834";
-const { nearbyPosition } = require("./browser-world.cjs");
+const { nearbyPosition, entityScreenPoint } = require("./browser-world.cjs");
 const scene = JSON.parse(fs.readFileSync(".local/build/world.json")).scenes
   .overworld;
 const read = (page) => page.evaluate(() => window.MagikitosAdventure.inspect());
@@ -53,15 +53,10 @@ const read = (page) => page.evaluate(() => window.MagikitosAdventure.inspect());
         await page.reload();
         await require("./browser-entry.cjs").enterWorld(page);
       }
-      async function click(id, dy) {
-        const s = await read(page),
-          e = s.entities.find((e) => e.id === id);
-        assert(e, id + " visible");
-        const r = await page.locator("#world-canvas").boundingBox();
-        await page.touchscreen.tap(
-          r.x + ((e.x - s.camera.x) * r.width) / s.view.width,
-          r.y + ((e.y - dy - s.camera.y) * r.height) / s.view.height,
-        );
+      async function click(id) {
+        assert((await read(page)).entities.some((e) => e.id === id), id + " visible");
+        const { x, y } = await entityScreenPoint(page, scene, id);
+        await page.touchscreen.tap(x, y);
         await page.waitForFunction(
           () => !!window.MagikitosAdventure.inspect().dialogue,
         );
@@ -70,13 +65,13 @@ const read = (page) => page.evaluate(() => window.MagikitosAdventure.inspect());
       await page.screenshot({
         path: ".local/pickup-review/bottle-" + width + ".png",
       });
-      await click("picnic-trash-bin", 36);
+      await click("picnic-trash-bin");
       assert(
         !(await read(page)).inventory.bottle,
         "Bin is not the pickup target",
       );
       await page.keyboard.press("Enter");
-      await click("picnic-bin", 14);
+      await click("picnic-bin");
       await page.waitForFunction(
         () => window.MagikitosAdventure.inspect().inventory.bottle === 1,
       );
@@ -94,16 +89,16 @@ const read = (page) => page.evaluate(() => window.MagikitosAdventure.inspect());
         !(await read(page)).entities.some((e) => e.id === "picnic-bin"),
         "Old boat save hides litter",
       );
-      await seed({ inventory: { knife: 1 } }, "picnic-mushroom");
+      await seed({ inventory: { knife: 1 } }, "forest-mushrooms-fern");
       await page.screenshot({
         path: ".local/pickup-review/mushroom-" + width + ".png",
       });
-      await click("picnic-mushroom", 17);
+      await click("forest-mushrooms-fern");
       await page.waitForFunction(
         () => window.MagikitosAdventure.inspect().inventory.mushroom === 1,
       );
       await seed({}, "picnic-twig");
-      await click("picnic-twig", 4);
+      await click("picnic-twig");
       await page.waitForFunction(
         () => window.MagikitosAdventure.inspect().inventory.twig === 1,
       );
@@ -112,6 +107,18 @@ const read = (page) => page.evaluate(() => window.MagikitosAdventure.inspect());
       await page.reload();
       await require("./browser-entry.cjs").enterWorld(page);
       assert(!(await read(page)).entities.some((e) => e.id === "picnic-twig"));
+      for (const [id, item] of [["forest-parchment", "parchment"], ["forest-pen", "pen"]]) {
+        await seed({}, id);
+        await page.screenshot({ path: `.local/pickup-review/${item}-${width}.png` });
+        await click(id);
+        await page.waitForFunction(key => window.MagikitosAdventure.inspect().inventory[key] === 1, item);
+        assert(!(await read(page)).entities.some(e => e.id === id), "Collected writing tool disappears");
+        await page.keyboard.press("Enter");
+        await page.reload();
+        await require("./browser-entry.cjs").enterWorld(page);
+        assert.equal((await read(page)).inventory[item], 1);
+        assert(!(await read(page)).entities.some(e => e.id === id), "Reload cannot duplicate the tool");
+      }
       assert.equal(
         await page.evaluate(
           () => document.documentElement.scrollWidth > innerWidth,

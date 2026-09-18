@@ -102,7 +102,7 @@ const temp = fs.mkdtempSync(
 try {
   fs.mkdirSync(path.join(temp, "data/aventura"), { recursive: true });
   fs.mkdirSync(path.join(temp, "src"));
-  for (const item of ["world.php", "catalog.json", "residents.json", "elements.json", "construction.json", "resource-nodes.json", "scene-instances.json", "scenes", "behaviors"])
+  for (const item of ["world.php", "catalog.json", "player-art.json", "residents.json", "elements.json", "construction.json", "resource-nodes.json", "scene-instances.json", "scenes", "behaviors"])
     fs.cpSync("data/aventura/" + item, path.join(temp, "data/aventura", item), {
       recursive: true,
     });

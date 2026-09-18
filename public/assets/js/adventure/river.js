@@ -5,6 +5,8 @@ const { drawCurrentTraces } = require("./current-traces");
 const { docks, dockAt, atDock, enteringDock } = require("./docks");
 const { facing } = require("./characters");
 const { riverBodies } = require("./river-life");
+const { vesselLayers, definition: vesselDefinition } = require("./vessel-art");
+const { playerPack } = require("./player-art");
 const {
   canFloat,
   VesselMotion,
@@ -28,9 +30,10 @@ class River {
     this.motion.stop();
   }
   frame() {
-    return this.active
-      ? this.motion.frame(this.game.player.direction, this.game.reducedMotion)
-      : null;
+    return this.layers()?.rower || null;
+  }
+  layers() {
+    return this.active ? vesselLayers(this.game.player, this.motion.phase(this.game.reducedMotion)) : null;
   }
   tapFoot(point) {
     const g = this.game,
@@ -78,14 +81,25 @@ class River {
       !canFloat(g.world, dock.wet.x, dock.wet.y)
     )
       return;
+    return this.changeMode(dock, "boat", dock.wet, dock.outward);
+  }
+  async changeMode(dock, mode, position, direction) {
+    const g = this.game;
+    this.lastFailure = null;
     g.transitioning = true;
     g.pauseMovement({ keepControls: true });
     try {
-      const sprites = g.renderer.sprites;
-      const packs = await sprites.prepare([], ["actor-0-row"]);
-      sprites.activate(new Set([...sprites.pinned, ...packs]));
-      this.setMode(dock, "boat", dock.wet, dock.outward);
+      if (mode === "boat") {
+        const sprites = g.renderer.sprites;
+        const packs = await sprites.prepare([], [playerPack("row", g.player),
+          vesselDefinition.vessels[vesselDefinition.defaultVessel].pack]);
+        sprites.activate(new Set([...sprites.pinned, ...packs]));
+        packs.release?.();
+      }
+      if (g.live) await g.live.cross("dock", dock.id, g.state.scene, position, mode);
+      this.setMode(dock, mode, position, direction);
     } catch (error) {
+      this.lastFailure = error.code || error.message || "travel_failed";
       this.failedDock = dock.id;
       g.toast(g.text("travelError"));
     } finally {
@@ -218,7 +232,7 @@ class River {
       g.toast(g.text("blocked"));
       return false;
     }
-    this.setMode(
+    this.changeMode(
       landing,
       "foot",
       { x, y },

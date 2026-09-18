@@ -68,6 +68,7 @@ const boat = (scene, x, y) =>
           sessionStorage.removeItem("river-next");
         }
       });
+      await require("./browser-art.cjs").useReviewVariant(page);
       await page.goto(origin + "/aventura");
       const inspect = () =>
         page.evaluate(() => window.MagikitosAdventure.inspect());
@@ -238,7 +239,7 @@ const boat = (scene, x, y) =>
         }
       await page.close();
       console.log(
-        "PASS river rowing/boost/pad, seam, current, reload and all eleven automatic docks " +
+        "PASS river rowing/boost/pad, seam, current, reload and all automatic docks " +
           width +
           "x" +
           height,

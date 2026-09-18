@@ -73,6 +73,7 @@ const start = (() => {
           ? r.continue()
           : r.abort(),
       );
+      await require("./browser-art.cjs").useReviewVariant(page);
       await page.goto(origin + "/aventura");
       const inspect = () =>
         page.evaluate(() => window.MagikitosAdventure.inspect());

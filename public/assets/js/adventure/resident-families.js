@@ -7,7 +7,7 @@ for (const p of profiles) {
     sprite = `person-${p.id}-down`;
   const family = (residentFamilies[id] ||= {
     label: p.label.split(" ")[0],
-    category: p.gender === "female" ? "Duendes · vecinas" : "Duendes · vecinos",
+    category: p.gender === "F" ? "Duendes · vecinas" : "Duendes · vecinos",
     template: {
       sprite,
       portrait: true,

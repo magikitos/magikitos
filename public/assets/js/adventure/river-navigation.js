@@ -2,6 +2,7 @@
 const { TILE, waterAt, inRect, collisionBounds, clamp } = require("./geometry");
 const { riverSection } = require("./river-course");
 const { facing } = require("./characters");
+const { playerVariant } = require("./player-art");
 
 // The hull, not Ascua's walking footprint. Oars skim the water and are not a solid body.
 const HULL_RADIUS = 26;
@@ -163,12 +164,14 @@ class VesselMotion {
     else this.stroke = 0;
     return moved;
   }
-  frame(direction, reduced = false) {
-    const row =
+  phase(reduced = false) {
+    return (
       this.rowing && !reduced
-        ? [1, 2, 3, 2][Math.floor(this.stroke * 5) % 4]
-        : 0;
-    return `boat-ascua-${direction || "down"}-${row}`;
+        ? Math.floor(this.stroke * 5) % 4
+        : 0);
+  }
+  frame(direction, reduced = false, variant = playerVariant()) {
+    return `person-${variant}-${direction || "down"}-row-${this.phase(reduced)}`;
   }
 }
 

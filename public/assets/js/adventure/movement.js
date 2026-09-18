@@ -97,6 +97,7 @@ function follow(
     budget -= step;
     moved ||= moving;
     if (!moving) {
+      if (actor.pushing?.waiting) break; // Shared push awaits authority; keep its final leg.
       path.splice(0);
       break;
     }

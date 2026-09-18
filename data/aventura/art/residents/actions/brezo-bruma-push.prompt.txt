@@ -1,0 +1,12 @@
+Use case: identity-preserve.
+Asset type: production 16-frame pushing animation sheet for Magikitos.
+Input image 1 is the exact identity and scale guide, Brezo Bruma. Change only the pose. Preserve his natural warm fair skin, short black curls, cheeky face, tall stitched reed-green pointed cap, ochre shirt with leaf-shaped pocket, INDIGO blue rolled cuffs, green-brown shorts with blue mends, brown boots and little seed pouch. Preserve his original slim body and head proportions and fine pixel-art style, camera and upper-left light. Do not copy another character's costume.
+
+Exactly FOUR equal columns by FOUR equal rows, keeping the guide's full canvas size/aspect and empty padding. Columns are DOWN/front, RIGHT/profile, UP/back, LEFT/profile, one fixed direction throughout each column. Full standing body height is about 0.92 of the cell WIDTH, not of its height. The pushing posture is SHORTER due to bent knees, around 0.80 of the cell width. Do not enlarge the figure to fill its cell. All caps, hands and boots remain well inside each cell.
+
+All sixteen poses show actively PUSHING an invisible heavy crate: knees bent, back angled toward travel, two empty hands extended FORWARD in the direction faced, palms flat and vertical against the imaginary crate. Shoulders lean into the effort; no hands beside hips, no standing straight, no waving. No crate or other object is drawn.
+Row 1: left foot forward, right boot braced behind, both palms forward.
+Row 2: feet draw closer, knees lower a little, palms maintain the same imaginary contact plane.
+Row 3: right foot forward, left boot braced behind, opposite weight transfer.
+Row 4: passing step returning toward row 1; hips move slightly back, arms remain extended.
+Clear alternate small shuffling foot movements, not running or floating. Near/far limbs properly overlap in profile and rear views. Same body size, head and support baseline across the sheet. Hands must be in front of the torso in every direction, never through the face. Genuinely transparent alpha background, no floor, shadow, particles, grid, captions, text, logos or watermark.

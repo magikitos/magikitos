@@ -1,4 +1,20 @@
 {
+  "parchmentFound": {
+    "es": "¡Ea, papelito pa dejar recados! Con un boli y un palo planto el cartelito en mi próxima caca. Arte moderno, vaya.",
+    "en": "Paper for leaving notes! With a pen and a stick I can plant a sign in my next poop. Modern art, mate.",
+    "de": "Papier für Nachrichten! Mit Kuli und Stock wird mein nächster Haufen zum Hinweisschild. Moderne Kunst, oder?",
+    "fr": "Du papier pour les petits mots ! Un stylo, un bâton, et mon prochain caca devient un panneau. De l'art moderne !",
+    "it": "Carta per i messaggini! Una penna, un bastoncino e la prossima cacca diventa un cartello. Arte moderna, eh!",
+    "pt": "Papel para recados! Uma caneta, um pauzinho e o próximo cocó vira um cartaz. Arte moderna, pá!"
+  },
+  "penFound": {
+    "es": "¡Un boli! Con pergamino y un palito puedo dejar una nota en mi caca recién hecha. El que pase, que lea… y que mire dónde pisa.",
+    "en": "A pen! With parchment and a stick I can leave a note in a fresh poop. Read away… and watch your step.",
+    "de": "Ein Kuli! Mit Pergament und Stock kann ich einen Zettel in meinen frischen Haufen stecken. Lesen erlaubt… und aufpassen, wohin man tritt!",
+    "fr": "Un stylo ! Avec du parchemin et un bâton, je peux planter un mot dans mon caca tout frais. Bonne lecture… et attention où tu marches !",
+    "it": "Una penna! Con pergamena e bastoncino posso lasciare un biglietto nella cacca fresca. Buona lettura… e occhio a dove metti i piedi!",
+    "pt": "Uma caneta! Com pergaminho e um pauzinho deixo um recado no cocó acabadinho de fazer. Boa leitura… e cuidado onde pisas!"
+  },
   "ambientGarden": {
     "es": "Estoy vigilando cómo crece la hierba. Por ahora, va ganando ella.",
     "en": "I’m watching the grass grow. So far, it’s winning.",
@@ -227,14 +243,6 @@
     "it": "Acqua, ombra e una panchina. Qui qualcuno ha capito tutto.",
     "pt": "Água, sombra e um banco. Alguém aqui sabe viver."
   },
-  "mushroomPlant": {
-    "es": "La seta grandota",
-    "en": "The big mushroom",
-    "de": "Der große Pilz",
-    "fr": "Le gros champignon",
-    "it": "Il fungone",
-    "pt": "O cogumelão"
-  },
   "noPooping": {
     "es": "«Prohibido cagar aquí»... ¡anda ya! Pues cuando me entren ganas de plantar un pino ya sé dónde voy a venir.",
     "en": "“No pooping here”... yeah, right! When nature calls, I know exactly where I'm heading.",
@@ -306,14 +314,6 @@
     "fr": "Briquet dans le sac ! Haha, le fumeur a rien capté. Ça l'aidera peut-être à arrêter.",
     "it": "Accendino nel sacco! Ahah, il fumatore non s'è accorto di nulla. Magari impara a smettere.",
     "pt": "Isqueiro para o saco! Haha, o fumador nem deu por nada. Pode ser que aprenda a largar o cigarro."
-  },
-  "picnicMushroom": {
-    "es": "¡Ea, un trocito bien apañao pa la brocheta!",
-    "en": "Lovely chunk for a skewer. That’ll do nicely!",
-    "de": "Ein schönes Stück für den Spieß. Das wird lecker!",
-    "fr": "Un beau morceau pour la brochette. Ça va être bon !",
-    "it": "Un bel pezzetto per lo spiedino. Ci sta proprio bene!",
-    "pt": "Um belo pedaço para a espetada. Vai ficar uma maravilha!"
   },
   "picnicNeighbor": {
     "es": "Brizno, barriga de trueno",
@@ -426,5 +426,29 @@
     "fr": "L'aire de pique-nique des humains",
     "it": "L'area picnic degli umani",
     "pt": "O parque de merendas dos humanos"
+  },
+  "rakeFound": {
+    "es": "¡Un rastrillito! Con esto dejo un camino más fino que el bigote del alcalde.",
+    "en": "A little rake! I'll make a path smoother than the mayor's moustache.",
+    "de": "Ein kleiner Rechen! Damit wird der Weg glatter als der Schnurrbart vom Bürgermeister.",
+    "fr": "Un petit râteau ! Mes chemins seront plus soignés que la moustache du maire.",
+    "it": "Un rastrellino! Ci faccio un sentiero più curato dei baffi del sindaco.",
+    "pt": "Um ancinho! Vou fazer um caminho mais fino que o bigode do presidente."
+  },
+  "grassSeedsFound": {
+    "es": "Semillitas de hierba pa tapar los caminos que sobren. Aquí se deja to bonito.",
+    "en": "Grass seeds to cover paths we no longer need. Keep the forest lovely!",
+    "de": "Grassamen für Wege, die keiner mehr braucht. Der Wald soll schön bleiben!",
+    "fr": "Des graines de gazon pour effacer les chemins en trop. On laisse ça joli !",
+    "it": "Semi d'erba per coprire i sentieri di troppo. Qui si lascia tutto bello!",
+    "pt": "Sementes de relva para tapar os caminhos a mais. Fica tudo bonito!"
+  },
+  "flowerSeedsFound": {
+    "es": "¡Semillitas de flores! Las siembro y en una horita está esto de postal.",
+    "en": "Flower seeds! Plant them and in an hour this'll be postcard material.",
+    "de": "Blumensamen! Aussäen, eine Stunde warten – und der Wald ist wie auf einer Postkarte.",
+    "fr": "Des graines de fleurs ! Je sème et dans une heure, c'est une carte postale.",
+    "it": "Semi di fiori! Li semino e tra un'ora qui sembra una cartolina.",
+    "pt": "Sementes de flores! Semeio e daqui a uma hora isto parece um postal."
   }
 }

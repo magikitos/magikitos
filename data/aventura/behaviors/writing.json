@@ -1,0 +1,22 @@
+{
+  "forest-parchment": {
+    "sprite": "parchment", "label": "parchmentName", "solid": [-0.35, -0.2, 0.7, 0.4],
+    "hiddenWhen": {"flags": {"parchmentFound": true}},
+    "rules": [{"effects": [
+      {"type": "item", "item": "parchment", "amount": 1},
+      {"type": "flag", "flag": "parchmentFound"},
+      {"type": "dialogue", "key": "parchmentFound"},
+      {"type": "sound", "key": "found"}
+    ]}]
+  },
+  "forest-pen": {
+    "sprite": "pen", "label": "penName", "solid": [-0.35, -0.2, 0.7, 0.4],
+    "hiddenWhen": {"flags": {"penFound": true}},
+    "rules": [{"effects": [
+      {"type": "item", "item": "pen", "amount": 1},
+      {"type": "flag", "flag": "penFound"},
+      {"type": "dialogue", "key": "penFound"},
+      {"type": "sound", "key": "found"}
+    ]}]
+  }
+}

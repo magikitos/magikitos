@@ -90,14 +90,7 @@ class WorldContent {
     g.config.cast[group] = items;
     if (g.state.scene !== scene) return;
     const candidates = createNeighbors(g.world, g.config, g.cast);
-    const packs = await g.renderer.sprites.prepare(
-      [],
-      [...new Set(candidates.map((n) => "actor-" + n.variant))],
-    );
-    if (g.state.scene !== scene) return;
-    g.renderer.sprites.activate(
-      new Set([...g.renderer.sprites.pinned, ...packs]),
-    );
+    // Appearance streaming follows the viewport; an API cast refresh is not an art preload.
     for (const actor of g.neighbors) {
       const replacement = candidates.find((n) => n.id === actor.id);
       if (replacement)
@@ -107,6 +100,7 @@ class WorldContent {
           variant: replacement.variant,
         });
     }
+    g.dirty = true;
   }
   async catalogue(kind, signal, cursor = 0) {
     const data = await this.game.api.request(

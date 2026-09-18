@@ -1,0 +1,11 @@
+Use case: precise-object-edit.
+Asset type: transparent 8-column by 4-row game character running-cycle sheet.
+Input image: existing Brezo alba run sheet, edit target. Preserve ALL cell locations, margins, body dimensions, pointed olive cap, face, black hair, ochre vest, cream cuffs, green patched trousers and brown boots. Preserve rows 1 and 2 and front/back columns.
+
+Correct the running legs in rows 3 and 4 of the SIX angled and side views. These currently repeat the first stride. Draw a genuinely opposite stride, not another version of the same pose. Every torso, head and hat stays exactly where it is; edit only the arms and legs in these cells.
+
+RIGHT-facing column 3 row 3: the NEAREST entire leg (the one in front of the other leg) must point BACKWARDS to screen LEFT, bent knee, sole of near boot raised BEHIND the hip. The distant leg emerges from BEHIND that near thigh and extends forward to screen RIGHT. Do NOT show the nearest leg extending screen right again. Show the near arm pointing forward to screen right, far arm backwards left.
+RIGHT-facing column 3 row 4: nearest thigh points forwards to screen RIGHT, knee bent high, and nearest boot hanging below the raised knee; the FAR foot is the straight supporting leg under the pelvis. Thus near leg row 1 forward, row 2 supporting, row 3 BACK, row 4 raised.
+LEFT-facing column 7 rows 3 and 4: corresponding opposite physical footfall, nearest boot BACK toward screen RIGHT in row 3 and nearest knee raised forward screen LEFT in row 4.
+Apply these opposing strides to the matching 3/4 views in columns 2,4,6,8. Preserve exact direction, no rotation of body. Keep trouser patches attached to the correct leg. BOTH legs must be readable, not fused, no additional limbs.
+Uniform transparent alpha background with no shadows. Do not paint a background. No extra objects, captions, lines, grids or watermark. Keep exact layout and scale.

@@ -107,7 +107,7 @@ function assertShell(actual, expected, headers, route) {
       const after=await page.evaluate(()=>window.MagikitosAdventure.inspect());
       assert(Math.hypot(after.player.x-before.player.x,after.player.y-before.player.y)>5);
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
-      assert(!after.assets.loaded.includes('actor-0-bow'));
+      await require('./browser-art.cjs').assertRetiredActionsAbsent(page);
       const seed=async(state)=>{
         await page.evaluate(s=>sessionStorage.setItem('smoke-next',JSON.stringify(s)),{muted:true,...state});
         await page.reload();
@@ -121,7 +121,8 @@ function assertShell(actual, expected, headers, route) {
       const riverAfter=await page.evaluate(()=>window.MagikitosAdventure.inspect());
       assert.equal(riverAfter.navigation.mode,'boat');
       assert(riverAfter.player.y<riverBefore.player.y-30);
-      assert(riverAfter.assets.loaded.includes('actor-0-row'));
+      assert(riverAfter.assets.loaded.includes('actor-100-row'));
+      assert(riverAfter.assets.loaded.includes('vessel-bottle'));
       assert(await page.locator('#world-joystick').isHidden());
       assert(await page.locator('#world-boost').isHidden());
       await page.touchscreen.tap(width/2,100);

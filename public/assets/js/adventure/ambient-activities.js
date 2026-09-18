@@ -18,13 +18,31 @@ class AmbientActivities {
     this.cursor = 0;
     this.reserved = new Map();
   }
+  reconcile(changedIds) {
+    for (const n of this.game.neighbors || []) {
+      const activity = n.activity;
+      if (!activity || !changedIds.has(activity.key.slice(0, activity.key.lastIndexOf(":")))) continue;
+      this.reserved.delete(activity.key);
+      n.path = [];
+      delete n.activity;
+      delete n.activitySprite;
+    }
+  }
   update(dt) {
     const g = this.game;
     if (!g.community.zone || g.community.editing) return;
     this.clock -= dt;
     if (this.clock > 0) return;
     this.clock = 0.5;
-    const residents = g.neighbors.slice(0, 3);
+    const count = Math.max(0, 3 - Math.floor((g.live?.people.list.length || 0) / 3));
+    const residents = g.neighbors.slice(0, count);
+    for (const n of g.neighbors.slice(count)) {
+      if (!n.activity) continue;
+      this.reserved.delete(n.activity.key);
+      n.path = [];
+      delete n.activity;
+      delete n.activitySprite;
+    }
     if (!residents.length) return;
     const n = residents[this.cursor++ % residents.length];
     if (n === g.journey.target) return;

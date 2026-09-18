@@ -81,13 +81,20 @@ class WorldInput {
           return;
         const key = event.key.toLowerCase();
         if (game.dialogue) {
-          if (["enter", "escape", " "].includes(key)) {
+          if (MOVE_KEYS.has(key)) {
+            if (event.repeat) return;
+            // Closing a conversation uses this same press to walk, just like an
+            // outside click. Do not stop propagation or require a second press.
+            game.closeDialogue();
+          } else if (["enter", "escape", " "].includes(key)) {
             event.preventDefault();
             event.stopImmediatePropagation();
             if (!event.repeat)
               key === " " ? game.nextDialogue() : game.closeDialogue();
+            return;
+          } else {
+            return;
           }
-          return;
         }
         if (key === "escape") {
           event.preventDefault();

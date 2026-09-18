@@ -56,6 +56,10 @@ const { Presentation } = require("./presentation");
 const { CatEncounters } = require("./cat-encounters");
 const { MaterialAccount } = require("./material-account");
 const { SceneText } = require("./scene-text");
+const { ServerClock } = require("./server-clock");
+const { ForestLive } = require("./forest-live");
+const { ForestBody } = require("./forest-body");
+const { ForestNotes } = require("./forest-notes");
 const byId = (id) => document.getElementById(id);
 
 class Adventure {
@@ -68,6 +72,7 @@ class Adventure {
     this.sceneStrings = {};
     this.sceneText = new SceneText(config);
     this.catalog = config.world;
+    this.serverClock = new ServerClock();
     this.renderer = new Renderer(byId("world-canvas"), byId("world-viewport"));
     this.audio = new WoodlandAudio(
       config.audio,
@@ -124,6 +129,9 @@ class Adventure {
     this.community = new Community(this);
     this.cloud = new CloudSave(this);
     this.materials = new MaterialAccount(this);
+    this.live = new ForestLive(this);
+    this.body = new ForestBody(this);
+    this.notes = new ForestNotes(this);
     this.telemetry = new Telemetry(this);
     // Before the entry card, which asks the bridge whether there is a page that
     // already did the asking.
@@ -156,6 +164,7 @@ class Adventure {
       const cloud = this.cloud.connect(false);
       // Show the actual terrain immediately; no modal loading screen or artificial progress.
       this.world = new World(this.catalog.scenes[this.state.scene]);
+      this.live.objects.bind(this.world);
       this.player = { ...this.state.position, direction: "down" };
       this.renderer.world = this.world;
       this.renderer.resize();
@@ -299,6 +308,7 @@ class Adventure {
     this.journey.clear();
   }
   pauseMovement({ keepPointerGesture = false, keepControls = false } = {}) {
+    this.live?.objects.stop();
     this.river?.pause();
     if (!keepControls) {
       this.input?.controls.clear();
@@ -367,12 +377,16 @@ class Adventure {
           (e.rules.length || e.interactAs || e.pushable || e.onInteract),
       ),
       ...this.neighbors,
+      ...(this.notes?.entities || []),
       ...(this.guardian ? [this.guardian] : []),
     ].sort((a, b) => b.y - a.y);
     const hit = candidates.find((e) => this.renderer.hit(e, point, this.state));
     const entity = this.interactionTarget(hit);
     if (entity) {
       if (entity.pushable) {
+        if (entity.shared && !this.live.objects.canPush(entity)) {
+          this.toast(this.text(this.live.spectator ? "forestSpectator" : "communitySyncNeeded")); return;
+        }
         if (this.inventory.held) {
           this.openDialogue(this.lines("noUse"));
           return;
@@ -446,7 +460,7 @@ class Adventure {
       this.player.direction,
     );
     if (typeof entity.onInteract === "function" && !held) {
-      entity.onInteract();
+      entity.onInteract(action);
       return;
     }
     if (entity.neighbor) {
@@ -481,6 +495,7 @@ class Adventure {
     this.transitioning = true;
     this.closeDialogue();
     this.contactLatch = entity.id;
+    let prepared = null;
     try {
       const plan = planReaction(entity, this.state, this.catalog, context);
       if (!plan) {
@@ -492,7 +507,6 @@ class Adventure {
         return;
       }
       const travel = plan.effects.find((e) => e.type === "travel");
-      let prepared = null;
       if (travel) {
         const destination = doorDestination(
           this.catalog,
@@ -514,6 +528,7 @@ class Adventure {
           destination.position,
           plan.state,
         );
+        await this.live.cross("door", entity.id, prepared.id, prepared.position);
       }
       for (const effect of plan.effects)
         if (effect.type === "presentation")
@@ -557,12 +572,13 @@ class Adventure {
       console.error("Adventure interaction:", error);
       this.toast(this.text("travelError"));
     } finally {
+      prepared?.packs.release?.();
       this.presentation.finish();
       byId("loading").hidden = true;
       this.transitioning = false;
     }
   }
-  openDialogue(lines, speaker = this.s.you, variant = 0, entity = null) {
+  openDialogue(lines, speaker = this.s.you, variant = require("./player-art").playerVariant(this.player), entity = null) {
     this.pauseMovement();
     this.dialogue = { lines, index: 0, speaker, entity };
     // The stick cannot move anybody during a conversation (pauseMovement just
@@ -584,10 +600,9 @@ class Adventure {
   paintDialogue() {
     if (!this.dialogue) return;
     byId("speaker").textContent = this.dialogue.speaker;
-    byId("dialogue-text").textContent = dialogueText(
-      this.dialogue.lines[this.dialogue.index],
-      this.catalog,
-    );
+    const text = this.dialogue.lines[this.dialogue.index];
+    byId("dialogue-text").textContent = this.dialogue.entity?.literal ? text : dialogueText(text, this.catalog);
+    byId("dialogue-text").classList.toggle("world-literal", Boolean(this.dialogue.entity?.literal));
     byId("page-count").textContent =
       `${this.dialogue.index + 1} / ${this.dialogue.lines.length}`;
     byId("page-count").hidden = this.dialogue.lines.length < 2;
@@ -774,7 +789,7 @@ class Adventure {
     );
     byId("sound-toggle").classList.toggle("is-muted", !this.audio.on);
   }
-  paintPortrait(variant = 0) {
+  paintPortrait(variant = require("./player-art").playerVariant(this.player)) {
     const c = byId("portrait").getContext("2d");
     c.imageSmoothingEnabled = false;
     c.clearRect(0, 0, c.canvas.width, c.canvas.height);
@@ -783,8 +798,10 @@ class Adventure {
     this.renderer.sprites.portrait(c, sprite, c.canvas.width, c.canvas.height);
   }
   paintCards() {
-    document.querySelectorAll("[data-sprite]").forEach((el) => {
-      const icon = this.renderer.sprites.icon(el.dataset.sprite);
+    document.querySelectorAll("[data-sprite], [data-player-sprite]").forEach((el) => {
+      const name = el.hasAttribute("data-player-sprite")
+        ? `person-${require("./player-art").playerVariant(this.player)}-down` : el.dataset.sprite;
+      const icon = this.renderer.sprites.icon(name);
       if (icon) el.replaceChildren(icon);
     });
   }
@@ -883,6 +900,8 @@ class Adventure {
   obstacleOptions() {
     return {
       resolveCollision: (entity, dx, dy) => {
+        if (entity.shared) return this.live?.objects.push(entity, dx, dy) || false;
+        if (entity.community && this.live?.spectator) return false;
         const moved = tryPush(
           this.world,
           this.player,
@@ -1006,12 +1025,15 @@ class Adventure {
     this.walking = false;
     this.running = false;
     this.player.pushing = null;
+    this.live.objects.begin(this.world);
     this.contactLatch = releaseContact(
       this.world,
       this.player,
       this.contactLatch,
     );
     this.sequence.advance(dt);
+    this.body.update(ms);
+    this.notes.update(ms);
     this.self.update();
     this.cats.update(dt);
     if (expireTimers(this.state)) {
@@ -1078,6 +1100,7 @@ class Adventure {
       this.focusPoint = null;
     }
     this.centerCamera();
+    this.live.update(ms);
     // Suspend expensive animation behind reading/dialogs; render only 12fps there.
     const calm =
       !this.sequence.current &&
@@ -1098,9 +1121,14 @@ class Adventure {
       ready: this.ready,
       entered: this.entry.entered,
       audio: this.audio.inspect(),
+      live: this.live.inspect(),
+      notes: this.notes.inspect(),
       locale: this.config.locale,
       scene: this.state.scene,
-      player: { ...this.player },
+      player: { ...this.player, variant: require("./player-art").playerVariant(this.player) },
+      vessel: this.river.layers(),
+      travelFailure: this.river.lastFailure || null,
+      materialSync: { pending: this.materials.queue.length, error: this.materials.error || null },
       camera: { ...this.camera },
       cameraFollowing: this.cameraFollowing,
       // Solo el punto: el destino puede ser una entidad entera y esto se serializa en cada sonda.
@@ -1184,7 +1212,7 @@ class Adventure {
         pee: { ...this.state.needs.pee },
         poop: { ...this.state.needs.poop },
       },
-      needStatus: needStatus(this.state.needs),
+      needStatus: needStatus(this.state.needs, this.body.now()),
       traces: this.state.traces.map((t) => ({ ...t })),
       sound: this.audio.on,
       content: this.site.current

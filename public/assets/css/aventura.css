@@ -341,6 +341,44 @@ body.world-page {
   background: #152c2666;
   backdrop-filter: blur(3px);
 }
+.world-note h2 { margin: 0 0 12px; }
+.world-note textarea {
+  display: block;
+  width: 100%;
+  min-height: 120px;
+  max-height: 35dvh;
+  resize: vertical;
+  border: 1px solid #a19069;
+  border-radius: 12px;
+  padding: 12px;
+  color: inherit;
+  background: #fffbef;
+  font: inherit;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.world-note output { display: block; text-align: end; font-size: 12px; margin-top: 6px; }
+.world-note-actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 10px; }
+.world-note-actions button {
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid #b5a37b;
+  border-radius: 12px;
+  background: #fffbec;
+  color: inherit;
+  font: inherit;
+  font-size: 14px;
+}
+#forest-note-error { color: #794229; font-size: 14px; }
+#forest-note-error:empty { display: none; }
+#dialogue-text.world-literal {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  unicode-bidi: plaintext;
+  max-height: min(35dvh, 300px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
 .world-modal header {
   display: flex;
   justify-content: space-between;
@@ -354,7 +392,7 @@ body.world-page {
     serif;
   margin: 0;
 }
-.world-modal [data-dismiss] {
+.world-modal header [data-dismiss] {
   width: 40px;
   height: 40px;
   border: 1px solid var(--world-line);

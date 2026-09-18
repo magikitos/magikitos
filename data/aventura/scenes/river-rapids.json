@@ -144,6 +144,15 @@
       "behavior": "toilet-plant",
       "x": 97,
       "y": 82
+    },
+    {
+      "id": "bank-mushrooms-fern",
+      "behavior": "forest-mushrooms",
+      "family": "ground-mushrooms",
+      "x": 90,
+      "y": 80,
+      "artVariant": "red",
+      "scale": 0.72
     }
   ],
   "neighbors": [

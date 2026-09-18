@@ -85,6 +85,7 @@ function drawArtwork(ctx, sprites, entity, name, clip) {
   const f = sprites.frame(name);
   if (!f) return;
   ctx.save();
+  ctx.globalAlpha *= entity.opacity ?? 1;
   applyArtworkTransform(ctx, entity);
   if (clip) {
     ctx.beginPath();

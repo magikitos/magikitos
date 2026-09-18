@@ -16,8 +16,9 @@ visible. Todo recorte del Studio transforma las coordenadas una sola vez.
 
 A igualdad de área y RGBA, 2× ocupa cuatro veces la memoria de textura de 1×.
 La compresión PNG y el peso transferido no siguen ese factor exacto.
-Los paquetes se cargan por escena/acción, con caché acotada; arco y acciones
-ocasionales no tienen que descargarse para empezar a caminar.
+Los paquetes de entorno se cargan por escena y los duendes por viewport/acción.
+La caché cuenta bytes RGBA, incluidas cargas pendientes; arco y rodar ya no
+tienen declaración de producción. Política y pruebas en [RESIDENTS.md](../RESIDENTS.md).
 
 ## Movimiento
 
@@ -35,14 +36,10 @@ ocasionales no tienen que descargarse para empezar a caminar.
 
 ## Experimento archivado
 
-Studio → Laboratorio → Trazo y vida conserva la comparación original entre
-1×/2×/3×, integrada/nítida y diferentes intensidades de movimiento.
-Su baseline es un archivo inmutable con hashes: no vuelve a hornearse desde el
-arte actual, porque dejaría de representar la prueba que eligió el propietario.
+La comparación original entre 1×/2×/3×, integrada/nítida y diferentes intensidades
+de movimiento queda en el historial Git; no es una pestaña del Studio vigente.
+La elección de producción es la descrita arriba, no una opción por dispositivo.
 
-La galería activa usa el manifiesto actual 2× y los cambios del único workspace
-local. Visitar experimentos no cambia posiciones, crops ni guardados.
+La galería activa usa el manifiesto actual 2× y los cambios del único workspace local.
 
-Ver [Ascua y poses](DUENDES.md), la
-[guía del experimento](../../tools/adventure-studio/experiments/definition-motion/README.md)
-y el [registro de verificación](../RELEASE.md).
+Ver [Ascua y poses](DUENDES.md) y el [registro de verificación](../RELEASE.md).

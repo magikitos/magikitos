@@ -32,8 +32,8 @@ for (const [id, p] of Object.entries(manifest.packs))
   for (const sprite of p.sprites) owners.set(sprite, id);
 assert.equal(profiles.length, 100);
 assert.equal(new Set(profiles.map((p) => p.id)).size, 100);
-assert.equal(profiles.filter((p) => p.gender === "female").length, 50);
-assert.equal(profiles.filter((p) => p.gender === "male").length, 50);
+assert.equal(profiles.filter((p) => p.gender === "F").length, 50);
+assert.equal(profiles.filter((p) => p.gender === "M").length, 50);
 assert.equal(new Set(profiles.map((p) => p.family)).size, 20);
 assert.deepEqual(
   profiles.map(({ id, key, family, gender }) => ({ id, key, family, gender })),
@@ -52,7 +52,7 @@ for (const edition of require("../data/aventura/art/doorways/catalog.json")
   const frames = JSON.parse(
     fs.readFileSync("data/aventura/assets/" + owner + ".json"),
   ).frames;
-  assert.equal(
+      assert.equal(
     frames[edition.id].source,
     edition.cutout,
     "Open art cannot revert to a closed original",
@@ -176,6 +176,7 @@ assert(meadow.canStand(arch.x, arch.y), "Walk underneath the arch");
 for (const x of [-1.8, 1.7])
   assert(!meadow.canStand(arch.x + x * TILE, arch.y), "Arch posts are solid");
 (async () => {
+  const scenePacks = {};
   for (const data of Object.values(catalog.scenes)) {
     const requests = new Set(),
       asked = [],
@@ -219,11 +220,11 @@ for (const x of [-1.8, 1.7])
       copy.scenes[data.id].es,
       data.id + ": llega con lo que esa pantalla dice",
     );
-    const residents = [...requests].filter((id) => /^actor-1\d\d$/.test(id));
-    assert(
-      residents.length < 25,
-      "No scene downloads the whole resident library",
-    );
+    const playerPack = require("../public/assets/js/adventure/player-art").playerPack(null, game.player);
+    assert(requests.has(playerPack), "The protagonist is ready before scene entry");
+    const residents = [...requests].filter((id) => /^actor-1\d\d$/.test(id) && id !== playerPack);
+    assert.equal(residents.length, 0, "Scene setup never downloads offscreen residents");
+    scenePacks[data.id] = new Set(requests);
     const bytes = [...requests].reduce(
       (sum, id) =>
         sum +
@@ -242,7 +243,7 @@ for (const x of [-1.8, 1.7])
   }
   const w = new World(catalog.scenes.overworld),
     before = cleanSave({inventory:{knife:1}}, catalog),
-    item = w.entities.find((e) => e.id === "picnic-mushroom"),
+    item = w.entities.find((e) => e.id === "forest-mushrooms-fern"),
     after = planReaction(item, before, catalog).state;
   const presentation = new Presentation({ catalog });
   let reject;
@@ -276,14 +277,13 @@ for (const x of [-1.8, 1.7])
     const director = new SceneDirector({ catalog });
     const bytes = (id) =>
       fs.statSync("public/assets/aventura/" + manifest.packs[id].image).size;
-    const weigh = (id) => sceneWeights[id] || 0;
-    const sceneWeights = {};
-    for (const [id, data] of Object.entries(catalog.scenes)) {
-      const packs = new Set();
-      for (const sprite of [...data.entities, ...(data.scenery || [])])
-        if (sprite.sprite && owners.has(sprite.sprite)) packs.add(owners.get(sprite.sprite));
-      sceneWeights[id] = [...packs].reduce((sum, pack) => sum + bytes(pack), 0);
-    }
+    const weigh = (id) => [...scenePacks[id]].reduce((sum, pack) => sum + bytes(pack), 0);
+    const visible = profiles.map((profile) => {
+      const base = "actor-" + profile.id;
+      const actions = Object.keys(manifest.packs).filter((id) => id.startsWith(base + "-"));
+      const largestAction = actions.sort((a, b) => bytes(b) - bytes(a))[0];
+      return [base, ...(largestAction ? [largestAction] : [])];
+    }).sort((a, b) => b.reduce((n, id) => n + bytes(id), 0) - a.reduce((n, id) => n + bytes(id), 0)).slice(0, 25).flat();
     let peor = 0,
       culpable = null;
     for (const [id, data] of Object.entries(catalog.scenes)) {
@@ -305,25 +305,22 @@ for (const x of [-1.8, 1.7])
           Number.isFinite(way.x) && Number.isFinite(way.y),
           id + "/" + way.id + ": sin saber por dónde se va no se puede ordenar la precarga",
         );
-      const peores = [...declared]
-        .map(weigh)
-        .sort((a, b) => b - a)
-        .slice(0, 3)
-        .reduce((sum, n) => sum + n, 0);
-      const total = weigh(id) + peores;
+      const neighbours = [...declared].sort((a, b) => weigh(b) - weigh(a)).slice(0, 3);
+      const workingSet = new Set([...scenePacks[id], ...neighbours.flatMap((next) => [...scenePacks[next]]), ...visible]);
+      const total = [...workingSet].reduce((sum, pack) => sum + bytes(pack), 0);
       if (total > peor) {
         peor = total;
         culpable = id;
       }
     }
     assert(
-      peor < 12000000,
+      peor < 8 * 1024 * 1024,
       "Precarga desbocada en " + culpable + ": " + Math.round(peor / 1024) + " KB",
     );
     console.log(
       "  precarga acotada: peor caso " +
         culpable +
-        " con sus tres vecinas más caras, " +
+        " con sus tres vecinas y 25 apariencias visibles (base + acción más cara), " +
         Math.round(peor / 1024) +
         " KB",
     );

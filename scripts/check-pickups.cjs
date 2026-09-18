@@ -38,8 +38,8 @@ assert(active(bottle, { ...state, flags: { skewerCooked: true } }), "Litter rema
  * CONTRATO de la seta —sin cuchillo no se corta, con cuchillo cae una— y eso son las dos líneas
  * de debajo, que siguen intactas.
  */
-assert.equal(planReaction(find("picnic-mushroom"), state, world).state.inventory.mushroom, undefined);
-assert.equal(planReaction(find("picnic-mushroom"), { ...state, inventory: { knife: 1 } }, world).state.inventory.mushroom, 1);
+assert.equal(planReaction(find("forest-mushrooms-fern"), state, world).state.inventory.mushroom, undefined);
+assert.equal(planReaction(find("forest-mushrooms-fern"), { ...state, inventory: { knife: 1 } }, world).state.inventory.mushroom, 1);
 const twigCounts = Object.fromEntries(Object.entries(world.scenes).map(([id, s]) =>
   [id, s.entities.filter((e) => e.sprite === "twig").length]).filter(([, n]) => n));
 assert.deepEqual(twigCounts, { overworld: 4, "river-rapids": 2, "river-roots": 2, "river-willows": 2 });
@@ -72,7 +72,7 @@ const temp = fs.mkdtempSync(path.join(os.tmpdir(), "magikitos-pickups-"));
 try {
   fs.mkdirSync(path.join(temp, "data/aventura"), { recursive: true });
   fs.mkdirSync(path.join(temp, "src"));
-  for (const file of ["world.php", "catalog.json", "residents.json", "elements.json", "construction.json", "resource-nodes.json", "scene-instances.json", "scenes", "behaviors"])
+  for (const file of ["world.php", "catalog.json", "player-art.json", "residents.json", "elements.json", "construction.json", "resource-nodes.json", "scene-instances.json", "scenes", "behaviors"])
     fs.cpSync("data/aventura/" + file, path.join(temp, "data/aventura", file), { recursive: true });
   fs.copyFileSync("src/adventure-geometry.php", path.join(temp, "src/adventure-geometry.php"));
   fs.writeFileSync(path.join(temp, "data/aventura/scenes/overworld.json"), JSON.stringify(proposed));

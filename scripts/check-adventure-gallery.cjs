@@ -142,7 +142,7 @@ assert.throws(
 assert.throws(
   () =>
     validateChanges(base, {
-      overworld: { removed: [{ id: "picnic-mushroom", layer: "entities" }] },
+      overworld: { removed: [{ id: "forest-mushrooms-fern", layer: "entities" }] },
     }),
   /funcional/,
 );

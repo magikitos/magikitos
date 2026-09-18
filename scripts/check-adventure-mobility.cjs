@@ -44,7 +44,7 @@ for (const fps of [20,30,60,120]) {
   assert(actor.x<=start.x+2,"Threshold callback stops this frame immediately");
 }
 for (const direction of DIRECTIONS) {
-  for (let i=0;i<4;i++) assert.equal(runFrame({direction,walkDistance:i*9},true),`person-0-${direction}-run-${i}`);
+  for (let i=0;i<4;i++) assert.equal(runFrame({direction,walkDistance:i*9},true),`person-100-${direction}-run-${i}`);
   assert.equal(runFrame({direction},false),null);
   for (const mood of [0,2]) {
     const clip=seatedClip(`person-12-${direction}-sit-${mood}`);

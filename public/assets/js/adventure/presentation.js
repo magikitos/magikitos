@@ -1,6 +1,7 @@
 "use strict";
 const { keepsakePoint } = require("./keepsakes");
 const { facing } = require("./characters");
+const { playerVariant, playerPack } = require("./player-art");
 const { active } = require("./rules");
 function cardinal(dx, dy) {
   return Math.abs(dx) > Math.abs(dy) ? facing(dx,0) : facing(0,dy);
@@ -23,8 +24,9 @@ class Presentation {
     });
     const names = [...props, effect.sprite, effect.result && game.catalog.items[effect.result]?.sprite].filter(Boolean);
     const old = new Set(sprites.pinned);
-    const packs = await sprites.prepare(names, [kind === "discover" ? "actor-0-discover" : "actor-0-work"]);
+    const packs = await sprites.prepare(names, [playerPack(kind === "discover" ? "discover" : "work", game.player)]);
     sprites.activate(new Set([...old, ...packs]));
+    packs.release?.();
     game.player.direction = kind === "discover" ? "down" : cardinal(entity.x-game.player.x, entity.y-game.player.y);
     const target = kind === "toss"
       ? keepsakePoint(entity, Math.min(entity.keepsakes.limit-1, game.state.keepsakes?.[game.state.scene]?.[entity.id] || 0))
@@ -48,10 +50,11 @@ class Presentation {
     const seq = this.game.sequence.current;
     if (seq?.type !== "gesture") return null;
     const p = this.game.sequence.progress(), {kind,direction} = seq.data;
-    if (kind === "discover") return "person-0-discover-" + (p < .9 ? 2 : 3);
+    const variant = playerVariant(this.game.player);
+    if (kind === "discover") return `person-${variant}-discover-` + (p < .9 ? 2 : 3);
     const pose = kind === "toss" ? (p < .23 ? 1 : 3)
       : p < .2 ? 0 : p < .72 ? 1 + Math.floor(seq.elapsed*5)%2 : 3;
-    return `person-0-${direction}-work-${pose}`;
+    return `person-${variant}-${direction}-work-${pose}`;
   }
   draw(ctx) {
     const game=this.game, seq=game.sequence.current;

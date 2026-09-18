@@ -52,7 +52,7 @@
         id="self-toggle"
         aria-label="{{self}}"
       >
-        <span data-sprite="person-0-down" aria-hidden="true"></span
+        <span data-player-sprite aria-hidden="true"></span
         ><small>{{self}}</small>
       </button>
       <button
@@ -193,7 +193,7 @@
         <button type="button" data-dismiss aria-label="{{close}}">×</button>
       </header>
       <div class="world-self-summary">
-        <span data-sprite="person-0-down" aria-hidden="true"></span>
+        <span data-player-sprite aria-hidden="true"></span>
         <img id="self-identity-avatar" alt="" width="44" height="44" hidden />
         <p id="self-identity-handle" hidden></p>
       </div>
@@ -202,6 +202,8 @@
            button, and only while there is actually something to do. -->
       <p id="self-status" class="world-self-need" role="status" hidden></p>
       <div class="world-self-actions">
+        <button type="button" class="world-primary" id="self-forest-retry" hidden>{{forestRetry}}</button>
+        <button type="button" class="world-primary" id="self-note-write" hidden>{{noteWrite}}</button>
         <button type="button" class="world-primary" id="self-pee" hidden>
           {{peeAction}}</button
         ><button type="button" class="world-primary" id="self-poop" hidden>
@@ -274,6 +276,20 @@
           {{languageOptions}}
         </select></label
       >
+    </dialog>
+    <dialog id="forest-note-dialog" class="world-modal world-note" aria-labelledby="forest-note-title">
+      <h2 id="forest-note-title">{{noteWrite}}</h2>
+      <p id="forest-note-hint">{{noteHint}}</p>
+      <form id="forest-note-form">
+        <textarea id="forest-note-text" rows="5" maxlength="1000" dir="auto"
+          aria-label="{{noteTitle}}" aria-describedby="forest-note-hint forest-note-count forest-note-error"></textarea>
+        <output id="forest-note-count" for="forest-note-text"></output>
+        <p id="forest-note-error" role="status"></p>
+        <div class="world-note-actions">
+          <button type="button" data-dismiss>{{close}}</button>
+          <button type="submit" id="forest-note-publish" class="world-primary">{{notePublish}}</button>
+        </div>
+      </form>
     </dialog>
     <div class="world-experience-wash" aria-hidden="true"></div>
     <main

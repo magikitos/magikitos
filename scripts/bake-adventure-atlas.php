@@ -45,7 +45,11 @@ foreach (glob($root . '/data/aventura/assets/*.json') as $file) {
     $filename = "$id-$hash";
     $write("$destination/$filename.png", $result['png']);
     $write("$destination/$filename.json", $json);
-    $manifest['packs'][$id] = ['image'=>"packs/$filename.png", 'metadata'=>"packs/$filename.json", 'sprites'=>array_keys($definitions)];
+    $manifest['packs'][$id] = [
+        'image'=>"packs/$filename.png", 'metadata'=>"packs/$filename.json", 'sprites'=>array_keys($definitions),
+        'width'=>$result['metadata']['width'], 'height'=>$result['metadata']['height'],
+        'bytes'=>strlen($result['png']),
+    ];
     $bytes += strlen($result['png']);
 }
 /**

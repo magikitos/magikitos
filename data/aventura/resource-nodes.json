@@ -86,7 +86,32 @@
   "harvest-river-willows-18000000": {
     "renewMs": 18000000,
     "nodes": [
-      "meadow-shore-shells"
+      "meadow-shore-shells",
+      "bank-mushrooms-fern",
+      "bank-mushrooms-root"
+    ]
+  },
+  "harvest-overworld-18000000": {
+    "renewMs": 18000000,
+    "nodes": [
+      "forest-mushrooms-fern",
+      "forest-mushrooms-root",
+      "forest-mushrooms-camp",
+      "woodland-primroseSeed",
+      "woodland-daisySeed",
+      "woodland-bellSeed"
+    ]
+  },
+  "harvest-river-rapids-18000000": {
+    "renewMs": 18000000,
+    "nodes": [
+      "bank-mushrooms-fern"
+    ]
+  },
+  "harvest-river-roots-18000000": {
+    "renewMs": 18000000,
+    "nodes": [
+      "bank-mushrooms-fern"
     ]
   }
 }

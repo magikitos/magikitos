@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Magikitos World JSON API",
-    "version": "2026-09-16",
+    "version": "2026-09-18",
     "description": "Public content, shared website identity, private progress and a server-authoritative shared forest. JSON only; backend implementation stays in the private website repository."
   },
   "servers": [
@@ -11,6 +11,546 @@
     }
   ],
   "paths": {
+    "/forest-ticket": {
+      "post": {
+        "operationId": "worldForestTicket",
+        "summary": "Mint a short-lived, signed live-world ticket",
+        "description": "No user id, role, position or avatar accepted in the request. Identity and spawn come from the authenticated website account; cannot mint a ticket for a banned account.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [],
+                "properties": {}
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForestTicketResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/forest-relief": {
+      "post": {
+        "operationId": "worldForestRelief",
+        "summary": "Perform a server-timed body action",
+        "description": "Requires a current on-foot player observation from the signed loopback authority, not browser position. One leaf and one deadline change per operation. Poop creates a bare shared trace lasting 24 hours in a shared zone.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForestReliefRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForestReliefResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/forest-message": {
+      "post": {
+        "operationId": "worldForestMessage",
+        "summary": "Publish verbatim text on the author's fresh dropping",
+        "description": "Immediate plaintext publication in any language; no content judge or review. Server requires a live on-foot player, own trace made within the last 5 minutes, within 2 tiles, writing tools, one twig and 50 tiles between notes. Existing 24-hour expiry is unchanged. Idempotent by operationId.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForestMessageRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForestMessageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/game-body": {
+      "get": {
+        "operationId": "worldGameBody",
+        "summary": "Read server-owned body deadlines",
+        "description": "Existing bearer identity. Samples initial pee/poop deadlines once per account; never imports deadlines from a client save.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameBodyResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/forest-messages": {
+      "get": {
+        "operationId": "worldForestMessages",
+        "summary": "Read live droppings and notes in one shared zone",
+        "description": "No content verification. Notes are plain user text in any language and must be rendered as text, never HTML. A null text is a bare dropping. Expired and manually removed rows are excluded immediately. Coordinates and timestamps are world pixels and epoch milliseconds.",
+        "security": [],
+        "parameters": [
+          {
+            "name": "zone",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 64
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForestMessagesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/bootstrap": {
       "get": {
         "operationId": "worldBootstrap",
@@ -1384,8 +1924,8 @@
     "/game-save": {
       "post": {
         "operationId": "worldGameSave",
-        "summary": "Save private personal progress and an optional archived pre-community layout",
-        "description": "No analytics/events writes. Shared game budget: 120 requests/minute/IP. Maximum JSON body 32 KiB. Origin must be allowed. No language parameter needed. Saved inventory/wallet fields are PRIVATE snapshots, not authority to build or spend. parcel is a private recovery archive, never a public region.",
+        "summary": "Save private personal progress",
+        "description": "No analytics/events writes. Shared game budget: 120 requests/minute/IP. Maximum JSON body 32 KiB. Origin must be allowed. No language parameter needed. Saved inventory/wallet fields are PRIVATE snapshots, not authority to build or spend. Shared-object positions are rejected; only personal puzzle positions belong in state.objects.",
         "security": [
           {
             "bearerAuth": []
@@ -1614,7 +2154,7 @@
     "/game-account": {
       "get": {
         "operationId": "worldGameAccount",
-        "summary": "Read own authoritative materials, knowledge, setines and trust",
+        "summary": "Read own authoritative materials, setines and trust",
         "description": "JSON only. Existing bearer identity for private operations. 120 requests/minute/IP; construction additionally 12 writes/minute/user. No general analytics events. Server catalog, prerequisites, costs, terrain and permissions are authoritative.",
         "security": [
           {
@@ -1905,8 +2445,10 @@
             "schema": {
               "type": "string",
               "enum": [
-                "tocon-del-mirlo",
-                "remanso-del-musgo"
+                "overworld",
+                "claro-de-los-sauces",
+                "river-rapids",
+                "river-roots"
               ]
             }
           }
@@ -1917,7 +2459,7 @@
       "post": {
         "operationId": "worldCommunityBuild",
         "summary": "Place, move or dismantle an owned non-heritage object",
-        "description": "JSON only. Existing bearer identity for private operations. 120 requests/minute/IP; construction additionally 12 writes/minute/user. No general analytics events. Server catalog, prerequisites, costs, terrain and permissions are authoritative.",
+        "description": "JSON only. Existing bearer identity and a live player seat observed on foot in the requested zone are required. Spectators or clients without a live observation receive live_player_required (403); a different scene receives live_zone_required (403); an unavailable authority returns live_unavailable (503), without spending resources. 120 requests/minute/IP; construction additionally 12 writes/minute/user. No general analytics events. Server catalog, prerequisites, costs, terrain and permissions are authoritative.",
         "security": [
           {
             "bearerAuth": []
@@ -2021,7 +2563,7 @@
       "post": {
         "operationId": "worldCommunityUse",
         "summary": "Explicit player use; no simulated-NPC reputation",
-        "description": "JSON only. Existing bearer identity for private operations. 120 requests/minute/IP; construction additionally 12 writes/minute/user. No general analytics events. Server catalog, prerequisites, costs, terrain and permissions are authoritative. Reputation signals require a different, contacted account aged at least seven days; once per account/object. No foreign modification rights are enabled.",
+        "description": "JSON only. Existing bearer identity and a live player seat observed on foot in the object's zone are required; the client cannot supply role or position. No live player: live_player_required (403). Different scene: live_zone_required (403). Authority unavailable: live_unavailable (503). 120 requests/minute/IP. No general analytics events. Reputation signals require a different, contacted account aged at least seven days; once per account/object. No foreign modification rights are enabled.",
         "security": [
           {
             "bearerAuth": []
@@ -2173,6 +2715,320 @@
       }
     },
     "schemas": {
+      "ForestTicketResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "ok",
+          "ticket",
+          "expiresAt",
+          "protocol",
+          "socketPath",
+          "now"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "ticket": {
+            "type": "string",
+            "maxLength": 3000
+          },
+          "expiresAt": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "protocol": {
+            "const": 1
+          },
+          "socketPath": {
+            "const": "/bosque"
+          },
+          "now": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      },
+      "ForestReliefRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "operationId",
+          "baseRevision",
+          "kind"
+        ],
+        "properties": {
+          "operationId": {
+            "$ref": "#/components/schemas/GameId"
+          },
+          "baseRevision": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2147483646
+          },
+          "kind": {
+            "enum": [
+              "pee",
+              "poop"
+            ]
+          }
+        }
+      },
+      "ForestMessageRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "operationId",
+          "baseRevision",
+          "traceId",
+          "text"
+        ],
+        "properties": {
+          "operationId": {
+            "$ref": "#/components/schemas/GameId"
+          },
+          "baseRevision": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2147483646
+          },
+          "traceId": {
+            "$ref": "#/components/schemas/GameId"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        }
+      },
+      "ForestReliefResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "ok",
+          "account",
+          "needs",
+          "now",
+          "trace",
+          "replayed"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "account": {
+            "$ref": "#/components/schemas/GameAccount"
+          },
+          "needs": {
+            "$ref": "#/components/schemas/GameBodyResponse/properties/needs"
+          },
+          "now": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "trace": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ForestMessage"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "replayed": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ForestMessageResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "ok",
+          "account",
+          "now",
+          "replayed"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "account": {
+            "$ref": "#/components/schemas/GameAccount"
+          },
+          "now": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "replayed": {
+            "type": "boolean"
+          }
+        }
+      },
+      "GameBodyResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "ok",
+          "now",
+          "needs"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "now": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "needs": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "pee",
+              "poop"
+            ],
+            "properties": {
+              "pee": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "last",
+                  "due"
+                ],
+                "properties": {
+                  "last": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "due": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                }
+              },
+              "poop": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "last",
+                  "due"
+                ],
+                "properties": {
+                  "last": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "due": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "ForestMessage": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "zone",
+          "x",
+          "y",
+          "text",
+          "createdAt",
+          "expiresAt",
+          "author"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{32}$"
+          },
+          "zone": {
+            "type": "string"
+          },
+          "x": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "y": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "text": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 500,
+            "description": "Verbatim, untranslated user text; no approval status. Render with textContent."
+          },
+          "createdAt": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "expiresAt": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "author": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "handle",
+              "name"
+            ],
+            "properties": {
+              "handle": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "name": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "ForestMessagesResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "ok",
+          "zone",
+          "now",
+          "messages"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "zone": {
+            "type": "string"
+          },
+          "now": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ForestMessage"
+            }
+          }
+        }
+      },
       "Error": {
         "type": "object",
         "required": [
@@ -2597,64 +3453,6 @@
           }
         }
       },
-      "GameParcelObject": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "id",
-          "kind",
-          "variant",
-          "space",
-          "x",
-          "y"
-        ],
-        "properties": {
-          "id": {
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9_-]{1,48}$"
-          },
-          "kind": {
-            "type": "string"
-          },
-          "variant": {
-            "type": "string"
-          },
-          "space": {
-            "type": "string",
-            "enum": [
-              "garden",
-              "room"
-            ]
-          },
-          "x": {
-            "type": "number",
-            "minimum": 0,
-            "multipleOf": 0.5
-          },
-          "y": {
-            "type": "number",
-            "minimum": 0,
-            "multipleOf": 0.5
-          }
-        }
-      },
-      "GameParcel": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "objects"
-        ],
-        "properties": {
-          "objects": {
-            "type": "array",
-            "maxItems": 48,
-            "items": {
-              "$ref": "#/components/schemas/GameParcelObject"
-            }
-          }
-        },
-        "description": "Only registered stock/variants and per-kind counts from the installed game-contract.json. Half-tile grid, space bounds, non-overlapping solids, protected dock/path/door and verified access. No HTML, URLs, uploads or arbitrary assets."
-      },
       "GameNeed": {
         "type": "object",
         "additionalProperties": false,
@@ -2908,8 +3706,7 @@
         "required": [
           "id",
           "revision",
-          "state",
-          "parcel"
+          "state"
         ],
         "properties": {
           "id": {
@@ -2921,16 +3718,6 @@
           },
           "state": {
             "$ref": "#/components/schemas/GameState"
-          },
-          "parcel": {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/GameParcel"
-              },
-              {
-                "type": "null"
-              }
-            ]
           }
         }
       },
@@ -2940,7 +3727,6 @@
         "required": [
           "id",
           "revision",
-          "hasParcel",
           "updatedAt"
         ],
         "properties": {
@@ -2950,9 +3736,6 @@
           "revision": {
             "type": "integer",
             "minimum": 1
-          },
-          "hasParcel": {
-            "type": "boolean"
           },
           "updatedAt": {
             "type": "string"
@@ -2996,8 +3779,7 @@
           "profileId",
           "baseRevision",
           "operationId",
-          "state",
-          "parcel"
+          "state"
         ],
         "properties": {
           "profileId": {
@@ -3020,19 +3802,9 @@
           },
           "state": {
             "$ref": "#/components/schemas/GameState"
-          },
-          "parcel": {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/GameParcel"
-              },
-              {
-                "type": "null"
-              }
-            ]
           }
         },
-        "description": "New: profileId=null, baseRevision=0. Later: last acknowledged ID/revision. Retry identical payload/operationId until acknowledged. A built parcel cannot become null through autosave."
+        "description": "New: profileId=null, baseRevision=0. Later: last acknowledged ID/revision. Retry identical payload/operationId until acknowledged. Personal puzzle positions only: state.objects must not contain authored shared props."
       },
       "GameSaveResponse": {
         "type": "object",
@@ -3109,7 +3881,6 @@
           "trust",
           "inventory",
           "progress",
-          "knowledge",
           "resources"
         ],
         "properties": {
@@ -3138,13 +3909,6 @@
           "progress": {
             "type": "object",
             "description": "Server-owned flags, timers and one-time reward receipts."
-          },
-          "knowledge": {
-            "type": "array",
-            "maxItems": 64,
-            "items": {
-              "type": "string"
-            }
           },
           "resources": {
             "type": "object",
@@ -3275,7 +4039,9 @@
             }
           },
           "createdAt": {
-            "type": "string"
+            "type": "string",
+            "format": "date-time",
+            "description": "Original UTC placement time, preserved when moving. Flowers mature after their definition's growAfterMs."
           },
           "heritage": {
             "type": "boolean"
@@ -3292,7 +4058,8 @@
           "ok",
           "zone",
           "revision",
-          "objects"
+          "objects",
+          "now"
         ],
         "properties": {
           "ok": {
@@ -3301,8 +4068,10 @@
           "zone": {
             "type": "string",
             "enum": [
-              "tocon-del-mirlo",
-              "remanso-del-musgo"
+              "overworld",
+              "claro-de-los-sauces",
+              "river-rapids",
+              "river-roots"
             ]
           },
           "revision": {
@@ -3311,7 +4080,7 @@
           },
           "objects": {
             "type": "array",
-            "maxItems": 96,
+            "maxItems": 320,
             "items": {
               "$ref": "#/components/schemas/CommunityObject"
             }
@@ -3321,6 +4090,11 @@
           },
           "replayed": {
             "type": "boolean"
+          },
+          "now": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Authoritative server Unix time in milliseconds. Plant growth uses this clock, never the device calendar."
           }
         }
       },

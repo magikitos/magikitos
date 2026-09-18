@@ -1,35 +1,5 @@
 {
     "packs": {
-        "actor-0-bow": {
-            "image": "packs/actor-0-bow-f80917b6f667.png",
-            "metadata": "packs/actor-0-bow-f80917b6f667.json",
-            "sprites": [
-                "person-0-down-bow-0",
-                "person-0-down-right-bow-0",
-                "person-0-right-bow-0",
-                "person-0-up-right-bow-0",
-                "person-0-up-bow-0",
-                "person-0-up-left-bow-0",
-                "person-0-left-bow-0",
-                "person-0-down-left-bow-0",
-                "person-0-down-bow-1",
-                "person-0-down-right-bow-1",
-                "person-0-right-bow-1",
-                "person-0-up-right-bow-1",
-                "person-0-up-bow-1",
-                "person-0-up-left-bow-1",
-                "person-0-left-bow-1",
-                "person-0-down-left-bow-1",
-                "person-0-down-bow-2",
-                "person-0-down-right-bow-2",
-                "person-0-right-bow-2",
-                "person-0-up-right-bow-2",
-                "person-0-up-bow-2",
-                "person-0-up-left-bow-2",
-                "person-0-left-bow-2",
-                "person-0-down-left-bow-2"
-            ]
-        },
         "actor-0-carried": {
             "image": "packs/actor-0-carried-006c9f3895ed.png",
             "metadata": "packs/actor-0-carried-006c9f3895ed.json",
@@ -50,7 +20,10 @@
                 "person-0-left-carried-1",
                 "person-0-down-left-carried-0",
                 "person-0-down-left-carried-1"
-            ]
+            ],
+            "width": 512,
+            "height": 336,
+            "bytes": 22055
         },
         "actor-0-discover": {
             "image": "packs/actor-0-discover-2dcbf710f0f3.png",
@@ -60,7 +33,10 @@
                 "person-0-discover-1",
                 "person-0-discover-2",
                 "person-0-discover-3"
-            ]
+            ],
+            "width": 256,
+            "height": 200,
+            "bytes": 8979
         },
         "actor-0-needs": {
             "image": "packs/actor-0-needs-0109e0ca4864.png",
@@ -74,7 +50,10 @@
                 "person-0-poop-1",
                 "person-0-poop-2",
                 "person-0-poop-3"
-            ]
+            ],
+            "width": 512,
+            "height": 200,
+            "bytes": 13627
         },
         "actor-0-push": {
             "image": "packs/actor-0-push-1f1138720f2a.png",
@@ -96,83 +75,10 @@
                 "person-0-right-push-3",
                 "person-0-up-push-3",
                 "person-0-left-push-3"
-            ]
-        },
-        "actor-0-roll": {
-            "image": "packs/actor-0-roll-3074c89c3562.png",
-            "metadata": "packs/actor-0-roll-3074c89c3562.json",
-            "sprites": [
-                "person-0-down-roll-0",
-                "person-0-down-right-roll-0",
-                "person-0-right-roll-0",
-                "person-0-up-right-roll-0",
-                "person-0-up-roll-0",
-                "person-0-up-left-roll-0",
-                "person-0-left-roll-0",
-                "person-0-down-left-roll-0",
-                "person-0-down-roll-1",
-                "person-0-down-right-roll-1",
-                "person-0-right-roll-1",
-                "person-0-up-right-roll-1",
-                "person-0-up-roll-1",
-                "person-0-up-left-roll-1",
-                "person-0-left-roll-1",
-                "person-0-down-left-roll-1",
-                "person-0-down-roll-2",
-                "person-0-down-right-roll-2",
-                "person-0-right-roll-2",
-                "person-0-up-right-roll-2",
-                "person-0-up-roll-2",
-                "person-0-up-left-roll-2",
-                "person-0-left-roll-2",
-                "person-0-down-left-roll-2",
-                "person-0-down-recover-0",
-                "person-0-down-right-recover-0",
-                "person-0-right-recover-0",
-                "person-0-up-right-recover-0",
-                "person-0-up-recover-0",
-                "person-0-up-left-recover-0",
-                "person-0-left-recover-0",
-                "person-0-down-left-recover-0"
-            ]
-        },
-        "actor-0-row": {
-            "image": "packs/actor-0-row-5109454798ff.png",
-            "metadata": "packs/actor-0-row-5109454798ff.json",
-            "sprites": [
-                "boat-ascua-down-0",
-                "boat-ascua-down-right-0",
-                "boat-ascua-right-0",
-                "boat-ascua-up-right-0",
-                "boat-ascua-up-0",
-                "boat-ascua-up-left-0",
-                "boat-ascua-left-0",
-                "boat-ascua-down-left-0",
-                "boat-ascua-down-1",
-                "boat-ascua-down-right-1",
-                "boat-ascua-right-1",
-                "boat-ascua-up-right-1",
-                "boat-ascua-up-1",
-                "boat-ascua-up-left-1",
-                "boat-ascua-left-1",
-                "boat-ascua-down-left-1",
-                "boat-ascua-down-2",
-                "boat-ascua-down-right-2",
-                "boat-ascua-right-2",
-                "boat-ascua-up-right-2",
-                "boat-ascua-up-2",
-                "boat-ascua-up-left-2",
-                "boat-ascua-left-2",
-                "boat-ascua-down-left-2",
-                "boat-ascua-down-3",
-                "boat-ascua-down-right-3",
-                "boat-ascua-right-3",
-                "boat-ascua-up-right-3",
-                "boat-ascua-up-3",
-                "boat-ascua-up-left-3",
-                "boat-ascua-left-3",
-                "boat-ascua-down-left-3"
-            ]
+            ],
+            "width": 512,
+            "height": 400,
+            "bytes": 30622
         },
         "actor-0-run": {
             "image": "packs/actor-0-run-cfd60a3b936d.png",
@@ -210,7 +116,10 @@
                 "person-0-up-left-run-3",
                 "person-0-left-run-3",
                 "person-0-down-left-run-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 50766
         },
         "actor-0-work": {
             "image": "packs/actor-0-work-174517ce1310.png",
@@ -232,7 +141,10 @@
                 "person-0-right-work-3",
                 "person-0-up-work-3",
                 "person-0-left-work-3"
-            ]
+            ],
+            "width": 512,
+            "height": 400,
+            "bytes": 31021
         },
         "actor-0": {
             "image": "packs/actor-0-69b743614b34.png",
@@ -270,7 +182,10 @@
                 "person-0-up-left-walk-3",
                 "person-0-left-walk-3",
                 "person-0-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 54514
         },
         "actor-1": {
             "image": "packs/actor-1-970522306d7f.png",
@@ -308,7 +223,10 @@
                 "person-1-up-left-walk-3",
                 "person-1-left-walk-3",
                 "person-1-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 55086
         },
         "actor-10": {
             "image": "packs/actor-10-74dd109036ef.png",
@@ -346,7 +264,197 @@
                 "person-10-up-left-walk-3",
                 "person-10-left-walk-3",
                 "person-10-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 56332
+        },
+        "actor-100-carried": {
+            "image": "packs/actor-100-carried-b9f2f2227a8b.png",
+            "metadata": "packs/actor-100-carried-b9f2f2227a8b.json",
+            "sprites": [
+                "person-100-down-carried-0",
+                "person-100-down-right-carried-0",
+                "person-100-right-carried-0",
+                "person-100-up-right-carried-0",
+                "person-100-up-carried-0",
+                "person-100-up-left-carried-0",
+                "person-100-left-carried-0",
+                "person-100-down-left-carried-0",
+                "person-100-down-carried-1",
+                "person-100-down-right-carried-1",
+                "person-100-right-carried-1",
+                "person-100-up-right-carried-1",
+                "person-100-up-carried-1",
+                "person-100-up-left-carried-1",
+                "person-100-left-carried-1",
+                "person-100-down-left-carried-1"
+            ],
+            "width": 512,
+            "height": 400,
+            "bytes": 25326
+        },
+        "actor-100-discover": {
+            "image": "packs/actor-100-discover-e59e7231c271.png",
+            "metadata": "packs/actor-100-discover-e59e7231c271.json",
+            "sprites": [
+                "person-100-discover-0",
+                "person-100-discover-1",
+                "person-100-discover-2",
+                "person-100-discover-3"
+            ],
+            "width": 256,
+            "height": 200,
+            "bytes": 7918
+        },
+        "actor-100-needs": {
+            "image": "packs/actor-100-needs-1eee6b5ee95b.png",
+            "metadata": "packs/actor-100-needs-1eee6b5ee95b.json",
+            "sprites": [
+                "person-100-pee-0",
+                "person-100-pee-1",
+                "person-100-pee-2",
+                "person-100-pee-3",
+                "person-100-poop-0",
+                "person-100-poop-1",
+                "person-100-poop-2",
+                "person-100-poop-3"
+            ],
+            "width": 512,
+            "height": 200,
+            "bytes": 11982
+        },
+        "actor-100-push": {
+            "image": "packs/actor-100-push-2bf4b0587c59.png",
+            "metadata": "packs/actor-100-push-2bf4b0587c59.json",
+            "sprites": [
+                "person-100-down-push-0",
+                "person-100-right-push-0",
+                "person-100-up-push-0",
+                "person-100-left-push-0",
+                "person-100-down-push-1",
+                "person-100-right-push-1",
+                "person-100-up-push-1",
+                "person-100-left-push-1",
+                "person-100-down-push-2",
+                "person-100-right-push-2",
+                "person-100-up-push-2",
+                "person-100-left-push-2",
+                "person-100-down-push-3",
+                "person-100-right-push-3",
+                "person-100-up-push-3",
+                "person-100-left-push-3"
+            ],
+            "width": 512,
+            "height": 400,
+            "bytes": 24283
+        },
+        "actor-100-row": {
+            "image": "packs/actor-100-row-0e5e30946c94.png",
+            "metadata": "packs/actor-100-row-0e5e30946c94.json",
+            "sprites": [
+                "person-100-down-row-0",
+                "person-100-down-right-row-0",
+                "person-100-right-row-0",
+                "person-100-up-right-row-0",
+                "person-100-up-row-0",
+                "person-100-up-left-row-0",
+                "person-100-left-row-0",
+                "person-100-down-left-row-0",
+                "person-100-down-row-1",
+                "person-100-down-right-row-1",
+                "person-100-right-row-1",
+                "person-100-up-right-row-1",
+                "person-100-up-row-1",
+                "person-100-up-left-row-1",
+                "person-100-left-row-1",
+                "person-100-down-left-row-1",
+                "person-100-down-row-2",
+                "person-100-down-right-row-2",
+                "person-100-right-row-2",
+                "person-100-up-right-row-2",
+                "person-100-up-row-2",
+                "person-100-up-left-row-2",
+                "person-100-left-row-2",
+                "person-100-down-left-row-2",
+                "person-100-down-row-3",
+                "person-100-down-right-row-3",
+                "person-100-right-row-3",
+                "person-100-up-right-row-3",
+                "person-100-up-row-3",
+                "person-100-up-left-row-3",
+                "person-100-left-row-3",
+                "person-100-down-left-row-3"
+            ],
+            "width": 1024,
+            "height": 580,
+            "bytes": 56093
+        },
+        "actor-100-run": {
+            "image": "packs/actor-100-run-faf26422baaa.png",
+            "metadata": "packs/actor-100-run-faf26422baaa.json",
+            "sprites": [
+                "person-100-down-run-0",
+                "person-100-down-right-run-0",
+                "person-100-right-run-0",
+                "person-100-up-right-run-0",
+                "person-100-up-run-0",
+                "person-100-up-left-run-0",
+                "person-100-left-run-0",
+                "person-100-down-left-run-0",
+                "person-100-down-run-1",
+                "person-100-down-right-run-1",
+                "person-100-right-run-1",
+                "person-100-up-right-run-1",
+                "person-100-up-run-1",
+                "person-100-up-left-run-1",
+                "person-100-left-run-1",
+                "person-100-down-left-run-1",
+                "person-100-down-run-2",
+                "person-100-down-right-run-2",
+                "person-100-right-run-2",
+                "person-100-up-right-run-2",
+                "person-100-up-run-2",
+                "person-100-up-left-run-2",
+                "person-100-left-run-2",
+                "person-100-down-left-run-2",
+                "person-100-down-run-3",
+                "person-100-down-right-run-3",
+                "person-100-right-run-3",
+                "person-100-up-right-run-3",
+                "person-100-up-run-3",
+                "person-100-up-left-run-3",
+                "person-100-left-run-3",
+                "person-100-down-left-run-3"
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 54021
+        },
+        "actor-100-work": {
+            "image": "packs/actor-100-work-242fa942aca1.png",
+            "metadata": "packs/actor-100-work-242fa942aca1.json",
+            "sprites": [
+                "person-100-down-work-0",
+                "person-100-right-work-0",
+                "person-100-up-work-0",
+                "person-100-left-work-0",
+                "person-100-down-work-1",
+                "person-100-right-work-1",
+                "person-100-up-work-1",
+                "person-100-left-work-1",
+                "person-100-down-work-2",
+                "person-100-right-work-2",
+                "person-100-up-work-2",
+                "person-100-left-work-2",
+                "person-100-down-work-3",
+                "person-100-right-work-3",
+                "person-100-up-work-3",
+                "person-100-left-work-3"
+            ],
+            "width": 512,
+            "height": 400,
+            "bytes": 24313
         },
         "actor-100": {
             "image": "packs/actor-100-1fbbfa6f73bd.png",
@@ -384,7 +492,197 @@
                 "person-100-up-left-walk-3",
                 "person-100-left-walk-3",
                 "person-100-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 44308
+        },
+        "actor-101-carried": {
+            "image": "packs/actor-101-carried-180efe385edb.png",
+            "metadata": "packs/actor-101-carried-180efe385edb.json",
+            "sprites": [
+                "person-101-down-carried-0",
+                "person-101-down-right-carried-0",
+                "person-101-right-carried-0",
+                "person-101-up-right-carried-0",
+                "person-101-up-carried-0",
+                "person-101-up-left-carried-0",
+                "person-101-left-carried-0",
+                "person-101-down-left-carried-0",
+                "person-101-down-carried-1",
+                "person-101-down-right-carried-1",
+                "person-101-right-carried-1",
+                "person-101-up-right-carried-1",
+                "person-101-up-carried-1",
+                "person-101-up-left-carried-1",
+                "person-101-left-carried-1",
+                "person-101-down-left-carried-1"
+            ],
+            "width": 512,
+            "height": 400,
+            "bytes": 24521
+        },
+        "actor-101-discover": {
+            "image": "packs/actor-101-discover-372d0dd79c67.png",
+            "metadata": "packs/actor-101-discover-372d0dd79c67.json",
+            "sprites": [
+                "person-101-discover-0",
+                "person-101-discover-1",
+                "person-101-discover-2",
+                "person-101-discover-3"
+            ],
+            "width": 256,
+            "height": 200,
+            "bytes": 8046
+        },
+        "actor-101-needs": {
+            "image": "packs/actor-101-needs-8a77e0e82f0b.png",
+            "metadata": "packs/actor-101-needs-8a77e0e82f0b.json",
+            "sprites": [
+                "person-101-pee-0",
+                "person-101-pee-1",
+                "person-101-pee-2",
+                "person-101-pee-3",
+                "person-101-poop-0",
+                "person-101-poop-1",
+                "person-101-poop-2",
+                "person-101-poop-3"
+            ],
+            "width": 512,
+            "height": 200,
+            "bytes": 11025
+        },
+        "actor-101-push": {
+            "image": "packs/actor-101-push-54c08ce489be.png",
+            "metadata": "packs/actor-101-push-54c08ce489be.json",
+            "sprites": [
+                "person-101-down-push-0",
+                "person-101-right-push-0",
+                "person-101-up-push-0",
+                "person-101-left-push-0",
+                "person-101-down-push-1",
+                "person-101-right-push-1",
+                "person-101-up-push-1",
+                "person-101-left-push-1",
+                "person-101-down-push-2",
+                "person-101-right-push-2",
+                "person-101-up-push-2",
+                "person-101-left-push-2",
+                "person-101-down-push-3",
+                "person-101-right-push-3",
+                "person-101-up-push-3",
+                "person-101-left-push-3"
+            ],
+            "width": 512,
+            "height": 400,
+            "bytes": 19161
+        },
+        "actor-101-row": {
+            "image": "packs/actor-101-row-40f655100967.png",
+            "metadata": "packs/actor-101-row-40f655100967.json",
+            "sprites": [
+                "person-101-down-row-0",
+                "person-101-down-right-row-0",
+                "person-101-right-row-0",
+                "person-101-up-right-row-0",
+                "person-101-up-row-0",
+                "person-101-up-left-row-0",
+                "person-101-left-row-0",
+                "person-101-down-left-row-0",
+                "person-101-down-row-1",
+                "person-101-down-right-row-1",
+                "person-101-right-row-1",
+                "person-101-up-right-row-1",
+                "person-101-up-row-1",
+                "person-101-up-left-row-1",
+                "person-101-left-row-1",
+                "person-101-down-left-row-1",
+                "person-101-down-row-2",
+                "person-101-down-right-row-2",
+                "person-101-right-row-2",
+                "person-101-up-right-row-2",
+                "person-101-up-row-2",
+                "person-101-up-left-row-2",
+                "person-101-left-row-2",
+                "person-101-down-left-row-2",
+                "person-101-down-row-3",
+                "person-101-down-right-row-3",
+                "person-101-right-row-3",
+                "person-101-up-right-row-3",
+                "person-101-up-row-3",
+                "person-101-up-left-row-3",
+                "person-101-left-row-3",
+                "person-101-down-left-row-3"
+            ],
+            "width": 1024,
+            "height": 580,
+            "bytes": 58588
+        },
+        "actor-101-run": {
+            "image": "packs/actor-101-run-51abe3968a34.png",
+            "metadata": "packs/actor-101-run-51abe3968a34.json",
+            "sprites": [
+                "person-101-down-run-0",
+                "person-101-down-right-run-0",
+                "person-101-right-run-0",
+                "person-101-up-right-run-0",
+                "person-101-up-run-0",
+                "person-101-up-left-run-0",
+                "person-101-left-run-0",
+                "person-101-down-left-run-0",
+                "person-101-down-run-1",
+                "person-101-down-right-run-1",
+                "person-101-right-run-1",
+                "person-101-up-right-run-1",
+                "person-101-up-run-1",
+                "person-101-up-left-run-1",
+                "person-101-left-run-1",
+                "person-101-down-left-run-1",
+                "person-101-down-run-2",
+                "person-101-down-right-run-2",
+                "person-101-right-run-2",
+                "person-101-up-right-run-2",
+                "person-101-up-run-2",
+                "person-101-up-left-run-2",
+                "person-101-left-run-2",
+                "person-101-down-left-run-2",
+                "person-101-down-run-3",
+                "person-101-down-right-run-3",
+                "person-101-right-run-3",
+                "person-101-up-right-run-3",
+                "person-101-up-run-3",
+                "person-101-up-left-run-3",
+                "person-101-left-run-3",
+                "person-101-down-left-run-3"
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 51890
+        },
+        "actor-101-work": {
+            "image": "packs/actor-101-work-691c83756cc4.png",
+            "metadata": "packs/actor-101-work-691c83756cc4.json",
+            "sprites": [
+                "person-101-down-work-0",
+                "person-101-right-work-0",
+                "person-101-up-work-0",
+                "person-101-left-work-0",
+                "person-101-down-work-1",
+                "person-101-right-work-1",
+                "person-101-up-work-1",
+                "person-101-left-work-1",
+                "person-101-down-work-2",
+                "person-101-right-work-2",
+                "person-101-up-work-2",
+                "person-101-left-work-2",
+                "person-101-down-work-3",
+                "person-101-right-work-3",
+                "person-101-up-work-3",
+                "person-101-left-work-3"
+            ],
+            "width": 512,
+            "height": 400,
+            "bytes": 21659
         },
         "actor-101": {
             "image": "packs/actor-101-dcec9ba77f59.png",
@@ -422,7 +720,10 @@
                 "person-101-up-left-walk-3",
                 "person-101-left-walk-3",
                 "person-101-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 43923
         },
         "actor-102": {
             "image": "packs/actor-102-4e0ea8c7c4a8.png",
@@ -460,7 +761,10 @@
                 "person-102-up-left-walk-3",
                 "person-102-left-walk-3",
                 "person-102-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 45370
         },
         "actor-103": {
             "image": "packs/actor-103-20a5d480cbee.png",
@@ -498,7 +802,10 @@
                 "person-103-up-left-walk-3",
                 "person-103-left-walk-3",
                 "person-103-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 42984
         },
         "actor-104": {
             "image": "packs/actor-104-48971c846aa2.png",
@@ -536,7 +843,10 @@
                 "person-104-up-left-walk-3",
                 "person-104-left-walk-3",
                 "person-104-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 45506
         },
         "actor-105": {
             "image": "packs/actor-105-1fc2f803e7f7.png",
@@ -574,7 +884,10 @@
                 "person-105-up-left-walk-3",
                 "person-105-left-walk-3",
                 "person-105-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 63612
         },
         "actor-106": {
             "image": "packs/actor-106-4be0934ccb44.png",
@@ -612,7 +925,10 @@
                 "person-106-up-left-walk-3",
                 "person-106-left-walk-3",
                 "person-106-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 64917
         },
         "actor-107": {
             "image": "packs/actor-107-4210486ece22.png",
@@ -650,7 +966,10 @@
                 "person-107-up-left-walk-3",
                 "person-107-left-walk-3",
                 "person-107-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 65163
         },
         "actor-108": {
             "image": "packs/actor-108-1d2a8dce767e.png",
@@ -688,7 +1007,10 @@
                 "person-108-up-left-walk-3",
                 "person-108-left-walk-3",
                 "person-108-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 65210
         },
         "actor-109": {
             "image": "packs/actor-109-15f638db3c45.png",
@@ -726,7 +1048,10 @@
                 "person-109-up-left-walk-3",
                 "person-109-left-walk-3",
                 "person-109-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 57936
         },
         "actor-11": {
             "image": "packs/actor-11-16ff023a6212.png",
@@ -764,7 +1089,10 @@
                 "person-11-up-left-walk-3",
                 "person-11-left-walk-3",
                 "person-11-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 61570
         },
         "actor-110": {
             "image": "packs/actor-110-c304f01e18a3.png",
@@ -802,7 +1130,10 @@
                 "person-110-up-left-walk-3",
                 "person-110-left-walk-3",
                 "person-110-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 62325
         },
         "actor-111": {
             "image": "packs/actor-111-1347f22b9f96.png",
@@ -840,7 +1171,10 @@
                 "person-111-up-left-walk-3",
                 "person-111-left-walk-3",
                 "person-111-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 65834
         },
         "actor-112": {
             "image": "packs/actor-112-4cf9cd2d26ce.png",
@@ -878,7 +1212,10 @@
                 "person-112-up-left-walk-3",
                 "person-112-left-walk-3",
                 "person-112-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 67732
         },
         "actor-113": {
             "image": "packs/actor-113-6a84eb569ddb.png",
@@ -916,7 +1253,10 @@
                 "person-113-up-left-walk-3",
                 "person-113-left-walk-3",
                 "person-113-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 66788
         },
         "actor-114": {
             "image": "packs/actor-114-47932ebaa11f.png",
@@ -954,7 +1294,10 @@
                 "person-114-up-left-walk-3",
                 "person-114-left-walk-3",
                 "person-114-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 66073
         },
         "actor-115": {
             "image": "packs/actor-115-82e6f73aba3f.png",
@@ -992,7 +1335,10 @@
                 "person-115-up-left-walk-3",
                 "person-115-left-walk-3",
                 "person-115-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 50118
         },
         "actor-116": {
             "image": "packs/actor-116-ce2afe60c2cd.png",
@@ -1030,7 +1376,10 @@
                 "person-116-up-left-walk-3",
                 "person-116-left-walk-3",
                 "person-116-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 52453
         },
         "actor-117": {
             "image": "packs/actor-117-31f1cba24df1.png",
@@ -1068,7 +1417,10 @@
                 "person-117-up-left-walk-3",
                 "person-117-left-walk-3",
                 "person-117-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 51526
         },
         "actor-118": {
             "image": "packs/actor-118-70e2e4b10b61.png",
@@ -1106,7 +1458,10 @@
                 "person-118-up-left-walk-3",
                 "person-118-left-walk-3",
                 "person-118-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 50741
         },
         "actor-119": {
             "image": "packs/actor-119-aa26b588886f.png",
@@ -1144,7 +1499,10 @@
                 "person-119-up-left-walk-3",
                 "person-119-left-walk-3",
                 "person-119-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 52173
         },
         "actor-12": {
             "image": "packs/actor-12-afe2e232062d.png",
@@ -1182,7 +1540,10 @@
                 "person-12-up-left-walk-3",
                 "person-12-left-walk-3",
                 "person-12-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 74446
         },
         "actor-120": {
             "image": "packs/actor-120-2aa00b9a109b.png",
@@ -1220,7 +1581,10 @@
                 "person-120-up-left-walk-3",
                 "person-120-left-walk-3",
                 "person-120-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 53322
         },
         "actor-121": {
             "image": "packs/actor-121-0c5b2ab72b4d.png",
@@ -1258,7 +1622,10 @@
                 "person-121-up-left-walk-3",
                 "person-121-left-walk-3",
                 "person-121-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 49053
         },
         "actor-122": {
             "image": "packs/actor-122-d5c93229750c.png",
@@ -1296,7 +1663,10 @@
                 "person-122-up-left-walk-3",
                 "person-122-left-walk-3",
                 "person-122-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 51021
         },
         "actor-123": {
             "image": "packs/actor-123-5ceb2697dbbf.png",
@@ -1334,7 +1704,10 @@
                 "person-123-up-left-walk-3",
                 "person-123-left-walk-3",
                 "person-123-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 48220
         },
         "actor-124": {
             "image": "packs/actor-124-90b78e19c5a8.png",
@@ -1372,7 +1745,10 @@
                 "person-124-up-left-walk-3",
                 "person-124-left-walk-3",
                 "person-124-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 52892
         },
         "actor-125": {
             "image": "packs/actor-125-05fe9b28f0c6.png",
@@ -1410,7 +1786,10 @@
                 "person-125-up-left-walk-3",
                 "person-125-left-walk-3",
                 "person-125-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 62031
         },
         "actor-126": {
             "image": "packs/actor-126-88ee0168a5f2.png",
@@ -1448,7 +1827,10 @@
                 "person-126-up-left-walk-3",
                 "person-126-left-walk-3",
                 "person-126-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 66599
         },
         "actor-127": {
             "image": "packs/actor-127-7e3d968aafe7.png",
@@ -1486,7 +1868,10 @@
                 "person-127-up-left-walk-3",
                 "person-127-left-walk-3",
                 "person-127-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 66408
         },
         "actor-128": {
             "image": "packs/actor-128-fa17f8789f50.png",
@@ -1524,7 +1909,10 @@
                 "person-128-up-left-walk-3",
                 "person-128-left-walk-3",
                 "person-128-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 62049
         },
         "actor-129": {
             "image": "packs/actor-129-c03b4eae916e.png",
@@ -1562,7 +1950,10 @@
                 "person-129-up-left-walk-3",
                 "person-129-left-walk-3",
                 "person-129-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 64928
         },
         "actor-130": {
             "image": "packs/actor-130-0b5f478b5602.png",
@@ -1600,7 +1991,10 @@
                 "person-130-up-left-walk-3",
                 "person-130-left-walk-3",
                 "person-130-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 56520
         },
         "actor-131": {
             "image": "packs/actor-131-bbd4c1308afe.png",
@@ -1638,7 +2032,10 @@
                 "person-131-up-left-walk-3",
                 "person-131-left-walk-3",
                 "person-131-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 58943
         },
         "actor-132": {
             "image": "packs/actor-132-2742785548f7.png",
@@ -1676,7 +2073,10 @@
                 "person-132-up-left-walk-3",
                 "person-132-left-walk-3",
                 "person-132-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 61439
         },
         "actor-133": {
             "image": "packs/actor-133-79a9ebfc00a0.png",
@@ -1714,7 +2114,10 @@
                 "person-133-up-left-walk-3",
                 "person-133-left-walk-3",
                 "person-133-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 53901
         },
         "actor-134": {
             "image": "packs/actor-134-cab282e26786.png",
@@ -1752,7 +2155,10 @@
                 "person-134-up-left-walk-3",
                 "person-134-left-walk-3",
                 "person-134-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 58522
         },
         "actor-135": {
             "image": "packs/actor-135-107b364801c2.png",
@@ -1790,7 +2196,10 @@
                 "person-135-up-left-walk-3",
                 "person-135-left-walk-3",
                 "person-135-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 52902
         },
         "actor-136": {
             "image": "packs/actor-136-076de41f6b32.png",
@@ -1828,7 +2237,10 @@
                 "person-136-up-left-walk-3",
                 "person-136-left-walk-3",
                 "person-136-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 52547
         },
         "actor-137": {
             "image": "packs/actor-137-08b8c39d6a46.png",
@@ -1866,7 +2278,10 @@
                 "person-137-up-left-walk-3",
                 "person-137-left-walk-3",
                 "person-137-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 56614
         },
         "actor-138": {
             "image": "packs/actor-138-d94eb62a6e2c.png",
@@ -1904,7 +2319,10 @@
                 "person-138-up-left-walk-3",
                 "person-138-left-walk-3",
                 "person-138-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 50292
         },
         "actor-139": {
             "image": "packs/actor-139-74589880b841.png",
@@ -1942,7 +2360,10 @@
                 "person-139-up-left-walk-3",
                 "person-139-left-walk-3",
                 "person-139-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 51912
         },
         "actor-140": {
             "image": "packs/actor-140-8a3012ba8e70.png",
@@ -1980,7 +2401,10 @@
                 "person-140-up-left-walk-3",
                 "person-140-left-walk-3",
                 "person-140-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 65112
         },
         "actor-141": {
             "image": "packs/actor-141-0015a1b68bd3.png",
@@ -2018,7 +2442,10 @@
                 "person-141-up-left-walk-3",
                 "person-141-left-walk-3",
                 "person-141-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 60953
         },
         "actor-142": {
             "image": "packs/actor-142-bf343413f3fa.png",
@@ -2056,7 +2483,10 @@
                 "person-142-up-left-walk-3",
                 "person-142-left-walk-3",
                 "person-142-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 66728
         },
         "actor-143": {
             "image": "packs/actor-143-e1265fb4e1cf.png",
@@ -2094,7 +2524,10 @@
                 "person-143-up-left-walk-3",
                 "person-143-left-walk-3",
                 "person-143-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 60470
         },
         "actor-144": {
             "image": "packs/actor-144-c10817082fbd.png",
@@ -2132,7 +2565,10 @@
                 "person-144-up-left-walk-3",
                 "person-144-left-walk-3",
                 "person-144-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 59483
         },
         "actor-145": {
             "image": "packs/actor-145-d95067c969eb.png",
@@ -2170,7 +2606,10 @@
                 "person-145-up-left-walk-3",
                 "person-145-left-walk-3",
                 "person-145-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 60968
         },
         "actor-146": {
             "image": "packs/actor-146-f39db161b897.png",
@@ -2208,7 +2647,10 @@
                 "person-146-up-left-walk-3",
                 "person-146-left-walk-3",
                 "person-146-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 58398
         },
         "actor-147": {
             "image": "packs/actor-147-fc603f7e3fc4.png",
@@ -2246,7 +2688,10 @@
                 "person-147-up-left-walk-3",
                 "person-147-left-walk-3",
                 "person-147-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 59889
         },
         "actor-148": {
             "image": "packs/actor-148-1af4b7963b6f.png",
@@ -2284,7 +2729,10 @@
                 "person-148-up-left-walk-3",
                 "person-148-left-walk-3",
                 "person-148-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 56881
         },
         "actor-149": {
             "image": "packs/actor-149-aa281d8e4aae.png",
@@ -2322,7 +2770,10 @@
                 "person-149-up-left-walk-3",
                 "person-149-left-walk-3",
                 "person-149-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 53116
         },
         "actor-150": {
             "image": "packs/actor-150-c51e1e782ae2.png",
@@ -2360,7 +2811,10 @@
                 "person-150-up-left-walk-3",
                 "person-150-left-walk-3",
                 "person-150-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 55854
         },
         "actor-151": {
             "image": "packs/actor-151-315dcd811054.png",
@@ -2398,7 +2852,10 @@
                 "person-151-up-left-walk-3",
                 "person-151-left-walk-3",
                 "person-151-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 54948
         },
         "actor-152": {
             "image": "packs/actor-152-272fc4aca495.png",
@@ -2436,7 +2893,10 @@
                 "person-152-up-left-walk-3",
                 "person-152-left-walk-3",
                 "person-152-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 57738
         },
         "actor-153": {
             "image": "packs/actor-153-b24ea97ba016.png",
@@ -2474,7 +2934,10 @@
                 "person-153-up-left-walk-3",
                 "person-153-left-walk-3",
                 "person-153-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 59648
         },
         "actor-154": {
             "image": "packs/actor-154-3a47670f8552.png",
@@ -2512,7 +2975,10 @@
                 "person-154-up-left-walk-3",
                 "person-154-left-walk-3",
                 "person-154-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 53946
         },
         "actor-155": {
             "image": "packs/actor-155-bbe91ebe44e1.png",
@@ -2550,7 +3016,10 @@
                 "person-155-up-left-walk-3",
                 "person-155-left-walk-3",
                 "person-155-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 69059
         },
         "actor-156": {
             "image": "packs/actor-156-9869798acd2a.png",
@@ -2588,7 +3057,10 @@
                 "person-156-up-left-walk-3",
                 "person-156-left-walk-3",
                 "person-156-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 62724
         },
         "actor-157": {
             "image": "packs/actor-157-fdcd11e18f30.png",
@@ -2626,7 +3098,10 @@
                 "person-157-up-left-walk-3",
                 "person-157-left-walk-3",
                 "person-157-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 60666
         },
         "actor-158": {
             "image": "packs/actor-158-ac1cc15c244b.png",
@@ -2664,7 +3139,10 @@
                 "person-158-up-left-walk-3",
                 "person-158-left-walk-3",
                 "person-158-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 58095
         },
         "actor-159": {
             "image": "packs/actor-159-9ee4a2a339ae.png",
@@ -2702,7 +3180,10 @@
                 "person-159-up-left-walk-3",
                 "person-159-left-walk-3",
                 "person-159-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 59223
         },
         "actor-160": {
             "image": "packs/actor-160-541c4ce8ba99.png",
@@ -2740,7 +3221,10 @@
                 "person-160-up-left-walk-3",
                 "person-160-left-walk-3",
                 "person-160-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 65996
         },
         "actor-161": {
             "image": "packs/actor-161-7f8355a2dcdf.png",
@@ -2778,7 +3262,10 @@
                 "person-161-up-left-walk-3",
                 "person-161-left-walk-3",
                 "person-161-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 64660
         },
         "actor-162": {
             "image": "packs/actor-162-0c2860b9a6ba.png",
@@ -2816,7 +3303,10 @@
                 "person-162-up-left-walk-3",
                 "person-162-left-walk-3",
                 "person-162-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 66302
         },
         "actor-163": {
             "image": "packs/actor-163-807a9996f64e.png",
@@ -2854,7 +3344,10 @@
                 "person-163-up-left-walk-3",
                 "person-163-left-walk-3",
                 "person-163-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 58476
         },
         "actor-164": {
             "image": "packs/actor-164-80eac65e5c5f.png",
@@ -2892,7 +3385,10 @@
                 "person-164-up-left-walk-3",
                 "person-164-left-walk-3",
                 "person-164-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 59284
         },
         "actor-165": {
             "image": "packs/actor-165-9699befc8366.png",
@@ -2930,7 +3426,10 @@
                 "person-165-up-left-walk-3",
                 "person-165-left-walk-3",
                 "person-165-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 52445
         },
         "actor-166": {
             "image": "packs/actor-166-897d1b9ff6a6.png",
@@ -2968,7 +3467,10 @@
                 "person-166-up-left-walk-3",
                 "person-166-left-walk-3",
                 "person-166-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 50891
         },
         "actor-167": {
             "image": "packs/actor-167-9efb2fde032f.png",
@@ -3006,7 +3508,10 @@
                 "person-167-up-left-walk-3",
                 "person-167-left-walk-3",
                 "person-167-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 47212
         },
         "actor-168": {
             "image": "packs/actor-168-47ca4966a35b.png",
@@ -3044,7 +3549,10 @@
                 "person-168-up-left-walk-3",
                 "person-168-left-walk-3",
                 "person-168-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 48600
         },
         "actor-169": {
             "image": "packs/actor-169-f892e1d6e022.png",
@@ -3082,7 +3590,10 @@
                 "person-169-up-left-walk-3",
                 "person-169-left-walk-3",
                 "person-169-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 46738
         },
         "actor-170": {
             "image": "packs/actor-170-54ea303b1a75.png",
@@ -3120,7 +3631,10 @@
                 "person-170-up-left-walk-3",
                 "person-170-left-walk-3",
                 "person-170-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 53076
         },
         "actor-171": {
             "image": "packs/actor-171-e5d478f6a980.png",
@@ -3158,7 +3672,10 @@
                 "person-171-up-left-walk-3",
                 "person-171-left-walk-3",
                 "person-171-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 51474
         },
         "actor-172": {
             "image": "packs/actor-172-da2d24c16621.png",
@@ -3196,7 +3713,10 @@
                 "person-172-up-left-walk-3",
                 "person-172-left-walk-3",
                 "person-172-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 54096
         },
         "actor-173": {
             "image": "packs/actor-173-e6e2d5fa1199.png",
@@ -3234,7 +3754,10 @@
                 "person-173-up-left-walk-3",
                 "person-173-left-walk-3",
                 "person-173-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 48480
         },
         "actor-174": {
             "image": "packs/actor-174-5811b9a3982c.png",
@@ -3272,7 +3795,10 @@
                 "person-174-up-left-walk-3",
                 "person-174-left-walk-3",
                 "person-174-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 52982
         },
         "actor-175": {
             "image": "packs/actor-175-6d19e6798948.png",
@@ -3310,7 +3836,10 @@
                 "person-175-up-left-walk-3",
                 "person-175-left-walk-3",
                 "person-175-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 51391
         },
         "actor-176": {
             "image": "packs/actor-176-44049fbbe9d2.png",
@@ -3348,7 +3877,10 @@
                 "person-176-up-left-walk-3",
                 "person-176-left-walk-3",
                 "person-176-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 55269
         },
         "actor-177": {
             "image": "packs/actor-177-bc2ba848db76.png",
@@ -3386,7 +3918,10 @@
                 "person-177-up-left-walk-3",
                 "person-177-left-walk-3",
                 "person-177-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 55062
         },
         "actor-178": {
             "image": "packs/actor-178-8136c428a84e.png",
@@ -3424,7 +3959,10 @@
                 "person-178-up-left-walk-3",
                 "person-178-left-walk-3",
                 "person-178-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 49834
         },
         "actor-179": {
             "image": "packs/actor-179-f2e6f78ffd63.png",
@@ -3462,7 +4000,10 @@
                 "person-179-up-left-walk-3",
                 "person-179-left-walk-3",
                 "person-179-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 49004
         },
         "actor-180": {
             "image": "packs/actor-180-2ffd45b57637.png",
@@ -3500,7 +4041,10 @@
                 "person-180-up-left-walk-3",
                 "person-180-left-walk-3",
                 "person-180-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 52715
         },
         "actor-181": {
             "image": "packs/actor-181-cc0ffca8c88c.png",
@@ -3538,7 +4082,10 @@
                 "person-181-up-left-walk-3",
                 "person-181-left-walk-3",
                 "person-181-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 56358
         },
         "actor-182": {
             "image": "packs/actor-182-7e52ea62ab0b.png",
@@ -3576,7 +4123,10 @@
                 "person-182-up-left-walk-3",
                 "person-182-left-walk-3",
                 "person-182-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 58047
         },
         "actor-183": {
             "image": "packs/actor-183-d75597c0ad57.png",
@@ -3614,7 +4164,10 @@
                 "person-183-up-left-walk-3",
                 "person-183-left-walk-3",
                 "person-183-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 57304
         },
         "actor-184": {
             "image": "packs/actor-184-c595adae7248.png",
@@ -3652,7 +4205,10 @@
                 "person-184-up-left-walk-3",
                 "person-184-left-walk-3",
                 "person-184-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 57623
         },
         "actor-185": {
             "image": "packs/actor-185-4c863636c77b.png",
@@ -3690,7 +4246,10 @@
                 "person-185-up-left-walk-3",
                 "person-185-left-walk-3",
                 "person-185-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 59755
         },
         "actor-186": {
             "image": "packs/actor-186-73e736b3ecab.png",
@@ -3728,7 +4287,10 @@
                 "person-186-up-left-walk-3",
                 "person-186-left-walk-3",
                 "person-186-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 62609
         },
         "actor-187": {
             "image": "packs/actor-187-10f369f22b40.png",
@@ -3766,7 +4328,10 @@
                 "person-187-up-left-walk-3",
                 "person-187-left-walk-3",
                 "person-187-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 64251
         },
         "actor-188": {
             "image": "packs/actor-188-98dc50e1de5a.png",
@@ -3804,7 +4369,10 @@
                 "person-188-up-left-walk-3",
                 "person-188-left-walk-3",
                 "person-188-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 62267
         },
         "actor-189": {
             "image": "packs/actor-189-a3a6947b7f9e.png",
@@ -3842,7 +4410,10 @@
                 "person-189-up-left-walk-3",
                 "person-189-left-walk-3",
                 "person-189-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 59109
         },
         "actor-190": {
             "image": "packs/actor-190-b32df62d9fb9.png",
@@ -3880,7 +4451,10 @@
                 "person-190-up-left-walk-3",
                 "person-190-left-walk-3",
                 "person-190-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 48495
         },
         "actor-191": {
             "image": "packs/actor-191-dadb9020efb2.png",
@@ -3918,7 +4492,10 @@
                 "person-191-up-left-walk-3",
                 "person-191-left-walk-3",
                 "person-191-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 48842
         },
         "actor-192": {
             "image": "packs/actor-192-f186bfba49c3.png",
@@ -3956,7 +4533,10 @@
                 "person-192-up-left-walk-3",
                 "person-192-left-walk-3",
                 "person-192-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 48994
         },
         "actor-193": {
             "image": "packs/actor-193-f1a6f1f9dbdd.png",
@@ -3994,7 +4574,10 @@
                 "person-193-up-left-walk-3",
                 "person-193-left-walk-3",
                 "person-193-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 50714
         },
         "actor-194": {
             "image": "packs/actor-194-4a7f4e115b4a.png",
@@ -4032,7 +4615,10 @@
                 "person-194-up-left-walk-3",
                 "person-194-left-walk-3",
                 "person-194-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 49150
         },
         "actor-195": {
             "image": "packs/actor-195-b8194f603918.png",
@@ -4070,7 +4656,10 @@
                 "person-195-up-left-walk-3",
                 "person-195-left-walk-3",
                 "person-195-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 55952
         },
         "actor-196": {
             "image": "packs/actor-196-9c4f25391c8b.png",
@@ -4108,7 +4697,10 @@
                 "person-196-up-left-walk-3",
                 "person-196-left-walk-3",
                 "person-196-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 54372
         },
         "actor-197": {
             "image": "packs/actor-197-ba6c3d9f1cb4.png",
@@ -4146,7 +4738,10 @@
                 "person-197-up-left-walk-3",
                 "person-197-left-walk-3",
                 "person-197-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 58306
         },
         "actor-198": {
             "image": "packs/actor-198-7e2cde4f344e.png",
@@ -4184,7 +4779,10 @@
                 "person-198-up-left-walk-3",
                 "person-198-left-walk-3",
                 "person-198-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 56116
         },
         "actor-199": {
             "image": "packs/actor-199-5746ea4738cb.png",
@@ -4222,7 +4820,10 @@
                 "person-199-up-left-walk-3",
                 "person-199-left-walk-3",
                 "person-199-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 58155
         },
         "actor-2": {
             "image": "packs/actor-2-2cc41cdde476.png",
@@ -4260,7 +4861,10 @@
                 "person-2-up-left-walk-3",
                 "person-2-left-walk-3",
                 "person-2-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 63397
         },
         "actor-3": {
             "image": "packs/actor-3-6e60b72be8da.png",
@@ -4298,7 +4902,10 @@
                 "person-3-up-left-walk-3",
                 "person-3-left-walk-3",
                 "person-3-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 45987
         },
         "actor-4": {
             "image": "packs/actor-4-4d380f700048.png",
@@ -4336,7 +4943,10 @@
                 "person-4-up-left-walk-3",
                 "person-4-left-walk-3",
                 "person-4-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 54943
         },
         "actor-5": {
             "image": "packs/actor-5-2465718e98b6.png",
@@ -4374,7 +4984,10 @@
                 "person-5-up-left-walk-3",
                 "person-5-left-walk-3",
                 "person-5-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 55464
         },
         "actor-6": {
             "image": "packs/actor-6-5230a98951bd.png",
@@ -4412,7 +5025,10 @@
                 "person-6-up-left-walk-3",
                 "person-6-left-walk-3",
                 "person-6-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 56218
         },
         "actor-7": {
             "image": "packs/actor-7-d1bf6ebdd7fd.png",
@@ -4450,7 +5066,10 @@
                 "person-7-up-left-walk-3",
                 "person-7-left-walk-3",
                 "person-7-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 50631
         },
         "actor-8": {
             "image": "packs/actor-8-6d9e0c2c7e49.png",
@@ -4488,7 +5107,10 @@
                 "person-8-up-left-walk-3",
                 "person-8-left-walk-3",
                 "person-8-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 62938
         },
         "actor-9": {
             "image": "packs/actor-9-3031f7b4de97.png",
@@ -4526,7 +5148,10 @@
                 "person-9-up-left-walk-3",
                 "person-9-left-walk-3",
                 "person-9-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 57543
         },
         "barbecue": {
             "image": "packs/barbecue-82d3032b4c27.png",
@@ -4534,14 +5159,20 @@
             "sprites": [
                 "barbecue-lit",
                 "barbecue"
-            ]
+            ],
+            "width": 128,
+            "height": 108,
+            "bytes": 5170
         },
         "building-fountain": {
             "image": "packs/building-fountain-5cf1667587b7.png",
             "metadata": "packs/building-fountain-5cf1667587b7.json",
             "sprites": [
                 "fountain"
-            ]
+            ],
+            "width": 256,
+            "height": 144,
+            "bytes": 12779
         },
         "camping": {
             "image": "packs/camping-484158d9ce1f.png",
@@ -4550,7 +5181,10 @@
                 "fire",
                 "coals",
                 "sign"
-            ]
+            ],
+            "width": 128,
+            "height": 124,
+            "bytes": 5237
         },
         "cat-bowl": {
             "image": "packs/cat-bowl-2996829e4959.png",
@@ -4558,7 +5192,10 @@
             "sprites": [
                 "cat-bowl",
                 "cat-bowl-pool"
-            ]
+            ],
+            "width": 256,
+            "height": 272,
+            "bytes": 20115
         },
         "cat-calico": {
             "image": "packs/cat-calico-f50a7ac1b33f.png",
@@ -4612,7 +5249,10 @@
                 "cat-calico-down-left-walk-1",
                 "cat-calico-down-left-walk-2",
                 "cat-calico-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 448,
+            "bytes": 136416
         },
         "cat-ginger": {
             "image": "packs/cat-ginger-139bf6bcbe0e.png",
@@ -4666,7 +5306,10 @@
                 "cat-ginger-down-left-walk-1",
                 "cat-ginger-down-left-walk-2",
                 "cat-ginger-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 442,
+            "bytes": 140025
         },
         "cat-siamese": {
             "image": "packs/cat-siamese-ae2289e72f48.png",
@@ -4720,7 +5363,10 @@
                 "cat-siamese-down-left-walk-1",
                 "cat-siamese-down-left-walk-2",
                 "cat-siamese-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 448,
+            "bytes": 109430
         },
         "cat-silver": {
             "image": "packs/cat-silver-72e6a2ef78b0.png",
@@ -4774,7 +5420,10 @@
                 "cat-silver-down-left-walk-1",
                 "cat-silver-down-left-walk-2",
                 "cat-silver-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 456,
+            "bytes": 134120
         },
         "cat-tuxedo": {
             "image": "packs/cat-tuxedo-c9754f8c4575.png",
@@ -4828,7 +5477,10 @@
                 "cat-tuxedo-down-left-walk-1",
                 "cat-tuxedo-down-left-walk-2",
                 "cat-tuxedo-down-left-walk-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 444,
+            "bytes": 103446
         },
         "currency": {
             "image": "packs/currency-5b780e272d09.png",
@@ -4838,14 +5490,30 @@
                 "setin-angle",
                 "setin-edge",
                 "setin-flat"
-            ]
+            ],
+            "width": 128,
+            "height": 78,
+            "bytes": 4547
         },
         "forest-roots": {
             "image": "packs/forest-roots-decb625d9bdd.png",
             "metadata": "packs/forest-roots-decb625d9bdd.json",
             "sprites": [
                 "root-arch"
-            ]
+            ],
+            "width": 512,
+            "height": 320,
+            "bytes": 42226
+        },
+        "forest-tools": {
+            "image": "packs/forest-tools-21d88392b0e8.png",
+            "metadata": "packs/forest-tools-21d88392b0e8.json",
+            "sprites": [
+                "rake"
+            ],
+            "width": 128,
+            "height": 66,
+            "bytes": 1219
         },
         "forest-trees": {
             "image": "packs/forest-trees-bc2218785934.png",
@@ -4856,21 +5524,42 @@
                 "birch",
                 "crooked-oak",
                 "pine"
-            ]
+            ],
+            "width": 256,
+            "height": 364,
+            "bytes": 26843
+        },
+        "forest-writing": {
+            "image": "packs/forest-writing-103fecd3f97a.png",
+            "metadata": "packs/forest-writing-103fecd3f97a.json",
+            "sprites": [
+                "parchment",
+                "pen",
+                "poop-message"
+            ],
+            "width": 128,
+            "height": 52,
+            "bytes": 2860
         },
         "furniture": {
             "image": "packs/furniture-f8dce3155c56.png",
             "metadata": "packs/furniture-f8dce3155c56.json",
             "sprites": [
                 "yarn"
-            ]
+            ],
+            "width": 128,
+            "height": 46,
+            "bytes": 2157
         },
         "garden-seeds": {
             "image": "packs/garden-seeds-21b90f9a873c.png",
             "metadata": "packs/garden-seeds-21b90f9a873c.json",
             "sprites": [
                 "garden-seed-sack"
-            ]
+            ],
+            "width": 128,
+            "height": 68,
+            "bytes": 3234
         },
         "garden": {
             "image": "packs/garden-9a5172d0bb86.png",
@@ -4884,21 +5573,30 @@
                 "garden-fence",
                 "garden-hammock",
                 "garden-trellis"
-            ]
+            ],
+            "width": 512,
+            "height": 346,
+            "bytes": 51853
         },
         "harbor": {
             "image": "packs/harbor-8bbe91eebfee.png",
             "metadata": "packs/harbor-8bbe91eebfee.json",
             "sprites": [
                 "jetty"
-            ]
+            ],
+            "width": 256,
+            "height": 76,
+            "bytes": 5031
         },
         "interior-context": {
             "image": "packs/interior-context-d77fe9875f55.png",
             "metadata": "packs/interior-context-d77fe9875f55.json",
             "sprites": [
                 "woodland-context"
-            ]
+            ],
+            "width": 1024,
+            "height": 580,
+            "bytes": 323806
         },
         "inventory": {
             "image": "packs/inventory-5504a8da7c73.png",
@@ -4909,7 +5607,10 @@
                 "twig",
                 "skewer",
                 "shells"
-            ]
+            ],
+            "width": 128,
+            "height": 110,
+            "bytes": 5043
         },
         "needs-props": {
             "image": "packs/needs-props-ca1359bedc82.png",
@@ -4919,7 +5620,10 @@
                 "toilet-leaf",
                 "poop",
                 "pee-puddle"
-            ]
+            ],
+            "width": 128,
+            "height": 104,
+            "bytes": 5656
         },
         "picnic-humans": {
             "image": "packs/picnic-humans-f41652b23f24.png",
@@ -4933,7 +5637,10 @@
                 "picnic-friend-talk",
                 "picnic-friend-sip",
                 "picnic-friend-smile"
-            ]
+            ],
+            "width": 1024,
+            "height": 430,
+            "bytes": 87873
         },
         "picnic-neighbor": {
             "image": "packs/picnic-neighbor-05899610cf42.png",
@@ -4971,7 +5678,10 @@
                 "person-12-up-left-sit-3",
                 "person-12-left-sit-3",
                 "person-12-down-left-sit-3"
-            ]
+            ],
+            "width": 1024,
+            "height": 400,
+            "bytes": 65934
         },
         "picnic-provisions": {
             "image": "packs/picnic-provisions-32882ba9f76b.png",
@@ -4980,29 +5690,40 @@
                 "picnic-blanket",
                 "picnic-tortilla",
                 "picnic-basket"
-            ]
+            ],
+            "width": 512,
+            "height": 448,
+            "bytes": 61236
         },
         "river-craft": {
-            "image": "packs/river-craft-45a2a25ee9fa.png",
-            "metadata": "packs/river-craft-45a2a25ee9fa.json",
+            "image": "packs/river-craft-4db0728ff806.png",
+            "metadata": "packs/river-craft-4db0728ff806.json",
             "sprites": [
-                "plastic-bottle",
-                "bottle-boat"
-            ]
+                "plastic-bottle"
+            ],
+            "width": 128,
+            "height": 80,
+            "bytes": 3879
         },
         "river-picnic": {
             "image": "packs/river-picnic-151c708beda7.png",
             "metadata": "packs/river-picnic-151c708beda7.json",
             "sprites": [
                 "picnic-bin"
-            ]
+            ],
+            "width": 256,
+            "height": 320,
+            "bytes": 27329
         },
         "riverbank-bamboo": {
             "image": "packs/riverbank-bamboo-90bb6c3ab278.png",
             "metadata": "packs/riverbank-bamboo-90bb6c3ab278.json",
             "sprites": [
                 "riverbank-bamboo"
-            ]
+            ],
+            "width": 256,
+            "height": 226,
+            "bytes": 11461
         },
         "shore-garden": {
             "image": "packs/shore-garden-1046f00a13ae.png",
@@ -5013,7 +5734,10 @@
                 "coastal-grass",
                 "sandstone",
                 "basket"
-            ]
+            ],
+            "width": 256,
+            "height": 170,
+            "bytes": 19352
         },
         "tavern-feast": {
             "image": "packs/tavern-feast-e6c2462b08bf.png",
@@ -5027,7 +5751,10 @@
                 "feast-bottles",
                 "feast-stew",
                 "feast-tray"
-            ]
+            ],
+            "width": 256,
+            "height": 120,
+            "bytes": 14535
         },
         "twig-fence": {
             "image": "packs/twig-fence-6054066962ec.png",
@@ -5039,7 +5766,10 @@
                 "twig-fence-1-1",
                 "twig-fence-2-0",
                 "twig-fence-2-1"
-            ]
+            ],
+            "width": 256,
+            "height": 184,
+            "bytes": 8970
         },
         "undergrowth": {
             "image": "packs/undergrowth-0945790b38ca.png",
@@ -5053,7 +5783,163 @@
                 "fern",
                 "fallen-log",
                 "reeds"
-            ]
+            ],
+            "width": 256,
+            "height": 106,
+            "bytes": 11234
+        },
+        "vessel-birch": {
+            "image": "packs/vessel-birch-873db93937ea.png",
+            "metadata": "packs/vessel-birch-873db93937ea.json",
+            "sprites": [
+                "boat-birch-down-0",
+                "boat-birch-down-right-0",
+                "boat-birch-right-0",
+                "boat-birch-up-right-0",
+                "boat-birch-up-0",
+                "boat-birch-up-left-0",
+                "boat-birch-left-0",
+                "boat-birch-down-left-0"
+            ],
+            "width": 512,
+            "height": 168,
+            "bytes": 24918
+        },
+        "vessel-bottle": {
+            "image": "packs/vessel-bottle-fc0b2f2e209d.png",
+            "metadata": "packs/vessel-bottle-fc0b2f2e209d.json",
+            "sprites": [
+                "boat-bottle-down-0",
+                "boat-bottle-down-right-0",
+                "boat-bottle-right-0",
+                "boat-bottle-up-right-0",
+                "boat-bottle-up-0",
+                "boat-bottle-up-left-0",
+                "boat-bottle-left-0",
+                "boat-bottle-down-left-0"
+            ],
+            "width": 512,
+            "height": 170,
+            "bytes": 22166
+        },
+        "vessel-cork": {
+            "image": "packs/vessel-cork-b7921f8dec82.png",
+            "metadata": "packs/vessel-cork-b7921f8dec82.json",
+            "sprites": [
+                "boat-cork-down-0",
+                "boat-cork-down-right-0",
+                "boat-cork-right-0",
+                "boat-cork-up-right-0",
+                "boat-cork-up-0",
+                "boat-cork-up-left-0",
+                "boat-cork-left-0",
+                "boat-cork-down-left-0"
+            ],
+            "width": 512,
+            "height": 178,
+            "bytes": 30273
+        },
+        "vessel-gourd": {
+            "image": "packs/vessel-gourd-f01955de8ca3.png",
+            "metadata": "packs/vessel-gourd-f01955de8ca3.json",
+            "sprites": [
+                "boat-gourd-down-0",
+                "boat-gourd-down-right-0",
+                "boat-gourd-right-0",
+                "boat-gourd-up-right-0",
+                "boat-gourd-up-0",
+                "boat-gourd-up-left-0",
+                "boat-gourd-left-0",
+                "boat-gourd-down-left-0"
+            ],
+            "width": 512,
+            "height": 176,
+            "bytes": 22630
+        },
+        "vessel-leaf": {
+            "image": "packs/vessel-leaf-7b7e563c705a.png",
+            "metadata": "packs/vessel-leaf-7b7e563c705a.json",
+            "sprites": [
+                "boat-leaf-down-0",
+                "boat-leaf-down-right-0",
+                "boat-leaf-right-0",
+                "boat-leaf-up-right-0",
+                "boat-leaf-up-0",
+                "boat-leaf-up-left-0",
+                "boat-leaf-left-0",
+                "boat-leaf-down-left-0"
+            ],
+            "width": 512,
+            "height": 174,
+            "bytes": 22534
+        },
+        "vessel-painted": {
+            "image": "packs/vessel-painted-53b8bd42d9cf.png",
+            "metadata": "packs/vessel-painted-53b8bd42d9cf.json",
+            "sprites": [
+                "boat-painted-down-0",
+                "boat-painted-down-right-0",
+                "boat-painted-right-0",
+                "boat-painted-up-right-0",
+                "boat-painted-up-0",
+                "boat-painted-up-left-0",
+                "boat-painted-left-0",
+                "boat-painted-down-left-0"
+            ],
+            "width": 512,
+            "height": 174,
+            "bytes": 23596
+        },
+        "vessel-tin": {
+            "image": "packs/vessel-tin-a8017f0822c0.png",
+            "metadata": "packs/vessel-tin-a8017f0822c0.json",
+            "sprites": [
+                "boat-tin-down-0",
+                "boat-tin-down-right-0",
+                "boat-tin-right-0",
+                "boat-tin-up-right-0",
+                "boat-tin-up-0",
+                "boat-tin-up-left-0",
+                "boat-tin-left-0",
+                "boat-tin-down-left-0"
+            ],
+            "width": 512,
+            "height": 174,
+            "bytes": 24513
+        },
+        "vessel-walnut": {
+            "image": "packs/vessel-walnut-29b4f247d7ea.png",
+            "metadata": "packs/vessel-walnut-29b4f247d7ea.json",
+            "sprites": [
+                "boat-walnut-down-0",
+                "boat-walnut-down-right-0",
+                "boat-walnut-right-0",
+                "boat-walnut-up-right-0",
+                "boat-walnut-up-0",
+                "boat-walnut-up-left-0",
+                "boat-walnut-left-0",
+                "boat-walnut-down-left-0"
+            ],
+            "width": 512,
+            "height": 172,
+            "bytes": 24061
+        },
+        "vessel-willow": {
+            "image": "packs/vessel-willow-f3ad523a38ba.png",
+            "metadata": "packs/vessel-willow-f3ad523a38ba.json",
+            "sprites": [
+                "boat-willow-down-0",
+                "boat-willow-down-right-0",
+                "boat-willow-right-0",
+                "boat-willow-up-right-0",
+                "boat-willow-up-0",
+                "boat-willow-up-left-0",
+                "boat-willow-left-0",
+                "boat-willow-down-left-0"
+            ],
+            "width": 512,
+            "height": 174,
+            "bytes": 23706
         },
         "walnut-boat": {
             "image": "packs/walnut-boat-ccc6814648fd.png",
@@ -5061,7 +5947,10 @@
             "sprites": [
                 "walnut-boat-0",
                 "walnut-boat-1"
-            ]
+            ],
+            "width": 256,
+            "height": 296,
+            "bytes": 18315
         },
         "woodland-art-easel": {
             "image": "packs/woodland-art-easel-e183d72f00bd.png",
@@ -5069,7 +5958,10 @@
             "sprites": [
                 "easel",
                 "easel-bark"
-            ]
+            ],
+            "width": 256,
+            "height": 136,
+            "bytes": 9538
         },
         "woodland-basket": {
             "image": "packs/woodland-basket-883528307f01.png",
@@ -5077,7 +5969,10 @@
             "sprites": [
                 "yarn-basket",
                 "basket-acorn"
-            ]
+            ],
+            "width": 128,
+            "height": 156,
+            "bytes": 7109
         },
         "woodland-bed": {
             "image": "packs/woodland-bed-e6a448c4e5dd.png",
@@ -5086,7 +5981,10 @@
                 "bed",
                 "bed-leaf",
                 "bed-bark"
-            ]
+            ],
+            "width": 512,
+            "height": 176,
+            "bytes": 32045
         },
         "woodland-bench": {
             "image": "packs/woodland-bench-9ffd44b8642c.png",
@@ -5094,15 +5992,20 @@
             "sprites": [
                 "bench",
                 "bench-log"
-            ]
+            ],
+            "width": 256,
+            "height": 74,
+            "bytes": 7314
         },
         "woodland-bolete": {
-            "image": "packs/woodland-bolete-a5eb16f27102.png",
-            "metadata": "packs/woodland-bolete-a5eb16f27102.json",
+            "image": "packs/woodland-bolete-1de13f58394a.png",
+            "metadata": "packs/woodland-bolete-1de13f58394a.json",
             "sprites": [
-                "giant-bolete",
                 "mushroom-bolete-leaning"
-            ]
+            ],
+            "width": 128,
+            "height": 84,
+            "bytes": 4279
         },
         "woodland-boot-home": {
             "image": "packs/woodland-boot-home-140404166349.png",
@@ -5110,7 +6013,10 @@
             "sprites": [
                 "tavern",
                 "home-boot-ochre"
-            ]
+            ],
+            "width": 1024,
+            "height": 416,
+            "bytes": 133757
         },
         "woodland-bridge": {
             "image": "packs/woodland-bridge-3dda225a1851.png",
@@ -5118,7 +6024,10 @@
             "sprites": [
                 "bridge-branches",
                 "bridge-log"
-            ]
+            ],
+            "width": 512,
+            "height": 230,
+            "bytes": 34812
         },
         "woodland-canopy-tree": {
             "image": "packs/woodland-canopy-tree-983fdf3e2622.png",
@@ -5126,7 +6035,10 @@
             "sprites": [
                 "ancient-root",
                 "forest-birch"
-            ]
+            ],
+            "width": 1024,
+            "height": 1662,
+            "bytes": 435749
         },
         "woodland-chair": {
             "image": "packs/woodland-chair-2ba93676213b.png",
@@ -5134,7 +6046,10 @@
             "sprites": [
                 "armchair",
                 "chair-bark"
-            ]
+            ],
+            "width": 256,
+            "height": 112,
+            "bytes": 10320
         },
         "woodland-clover": {
             "image": "packs/woodland-clover-c8038798767b.png",
@@ -5142,7 +6057,10 @@
             "sprites": [
                 "giant-clover",
                 "clover-heart"
-            ]
+            ],
+            "width": 512,
+            "height": 276,
+            "bytes": 39419
         },
         "woodland-crate": {
             "image": "packs/woodland-crate-46b832adb7b6.png",
@@ -5150,7 +6068,10 @@
             "sprites": [
                 "crates",
                 "crate-bark"
-            ]
+            ],
+            "width": 128,
+            "height": 144,
+            "bytes": 7454
         },
         "woodland-cupboard": {
             "image": "packs/woodland-cupboard-7ea8b54acc2e.png",
@@ -5158,7 +6079,10 @@
             "sprites": [
                 "cupboard",
                 "cupboard-hollow"
-            ]
+            ],
+            "width": 256,
+            "height": 168,
+            "bytes": 19956
         },
         "woodland-dresser": {
             "image": "packs/woodland-dresser-2e9ceda18249.png",
@@ -5166,7 +6090,10 @@
             "sprites": [
                 "dresser",
                 "dresser-chest"
-            ]
+            ],
+            "width": 256,
+            "height": 104,
+            "bytes": 13215
         },
         "woodland-fern": {
             "image": "packs/woodland-fern-a5db353aa348.png",
@@ -5174,7 +6101,10 @@
             "sprites": [
                 "giant-fern",
                 "fern-wide"
-            ]
+            ],
+            "width": 1024,
+            "height": 362,
+            "bytes": 85957
         },
         "woodland-ferry": {
             "image": "packs/woodland-ferry-121ff752249b.png",
@@ -5182,7 +6112,10 @@
             "sprites": [
                 "ferry",
                 "ferry-bark"
-            ]
+            ],
+            "width": 512,
+            "height": 144,
+            "bytes": 22796
         },
         "woodland-flowers-bell": {
             "image": "packs/woodland-flowers-bell-a92f18bb22ee.png",
@@ -5190,7 +6123,10 @@
             "sprites": [
                 "flowers-bell-blue",
                 "flowers-bell-violet"
-            ]
+            ],
+            "width": 256,
+            "height": 116,
+            "bytes": 7475
         },
         "woodland-flowers-daisy": {
             "image": "packs/woodland-flowers-daisy-830ec73259ad.png",
@@ -5198,7 +6134,10 @@
             "sprites": [
                 "flowers-daisy-white",
                 "flowers-daisy-gold"
-            ]
+            ],
+            "width": 128,
+            "height": 168,
+            "bytes": 7042
         },
         "woodland-flowers-meadow": {
             "image": "packs/woodland-flowers-meadow-4c29b96c8224.png",
@@ -5206,14 +6145,20 @@
             "sprites": [
                 "flowers-primrose",
                 "flowers-coral"
-            ]
+            ],
+            "width": 128,
+            "height": 146,
+            "bytes": 7045
         },
         "woodland-knife": {
             "image": "packs/woodland-knife-3eb1f10e2456.png",
             "metadata": "packs/woodland-knife-3eb1f10e2456.json",
             "sprites": [
                 "picnic-knife"
-            ]
+            ],
+            "width": 128,
+            "height": 54,
+            "bytes": 2167
         },
         "woodland-lamp": {
             "image": "packs/woodland-lamp-ec461b3c7af5.png",
@@ -5221,7 +6166,10 @@
             "sprites": [
                 "lantern",
                 "lamp-seed"
-            ]
+            ],
+            "width": 256,
+            "height": 128,
+            "bytes": 7010
         },
         "woodland-leaf-home": {
             "image": "packs/woodland-leaf-home-f0002f5951a8.png",
@@ -5229,7 +6177,10 @@
             "sprites": [
                 "human-house",
                 "home-leaf-autumn"
-            ]
+            ],
+            "width": 512,
+            "height": 668,
+            "bytes": 103475
         },
         "woodland-lectern": {
             "image": "packs/woodland-lectern-16d44cd6a989.png",
@@ -5237,14 +6188,20 @@
             "sprites": [
                 "book-lectern",
                 "lectern-leaf"
-            ]
+            ],
+            "width": 256,
+            "height": 124,
+            "bytes": 12051
         },
         "woodland-lighter": {
             "image": "packs/woodland-lighter-2aba3bd11743.png",
             "metadata": "packs/woodland-lighter-2aba3bd11743.json",
             "sprites": [
                 "lighter"
-            ]
+            ],
+            "width": 128,
+            "height": 40,
+            "bytes": 1408
         },
         "woodland-log-home": {
             "image": "packs/woodland-log-home-0a8e17d552c6.png",
@@ -5253,7 +6210,10 @@
                 "workshop",
                 "cottage",
                 "home-log-twisted"
-            ]
+            ],
+            "width": 1024,
+            "height": 648,
+            "bytes": 167389
         },
         "woodland-mushroom-home": {
             "image": "packs/woodland-mushroom-home-623c6a7927c4.png",
@@ -5261,7 +6221,10 @@
             "sprites": [
                 "home-mushroom-canela",
                 "home-mushroom-red"
-            ]
+            ],
+            "width": 512,
+            "height": 700,
+            "bytes": 92839
         },
         "woodland-picnic-drinks": {
             "image": "packs/woodland-picnic-drinks-0a7775f5f592.png",
@@ -5269,7 +6232,10 @@
             "sprites": [
                 "picnic-lemonade",
                 "picnic-orange-soda"
-            ]
+            ],
+            "width": 128,
+            "height": 64,
+            "bytes": 2876
         },
         "woodland-picnic-snacks": {
             "image": "packs/woodland-picnic-snacks-31b2905358b6.png",
@@ -5277,14 +6243,20 @@
             "sprites": [
                 "picnic-guacamole",
                 "picnic-tortilla-chips"
-            ]
+            ],
+            "width": 128,
+            "height": 110,
+            "bytes": 4763
         },
         "woodland-picnic-speaker": {
             "image": "packs/woodland-picnic-speaker-f975f1bcb6a8.png",
             "metadata": "packs/woodland-picnic-speaker-f975f1bcb6a8.json",
             "sprites": [
                 "picnic-speaker"
-            ]
+            ],
+            "width": 128,
+            "height": 30,
+            "bytes": 1693
         },
         "woodland-planter": {
             "image": "packs/woodland-planter-379b7978b21d.png",
@@ -5292,7 +6264,10 @@
             "sprites": [
                 "flower-pot",
                 "planter-violet"
-            ]
+            ],
+            "width": 128,
+            "height": 162,
+            "bytes": 7401
         },
         "woodland-pot-home": {
             "image": "packs/woodland-pot-home-a2f801a88ae3.png",
@@ -5300,7 +6275,10 @@
             "sprites": [
                 "home-pot-terracotta",
                 "home-pot-moss"
-            ]
+            ],
+            "width": 512,
+            "height": 590,
+            "bytes": 99078
         },
         "woodland-scarlet-mushroom": {
             "image": "packs/woodland-scarlet-mushroom-42655322a29b.png",
@@ -5308,7 +6286,10 @@
             "sprites": [
                 "scarlet-mushrooms",
                 "mushroom-red-pair"
-            ]
+            ],
+            "width": 128,
+            "height": 160,
+            "bytes": 6171
         },
         "woodland-shelf": {
             "image": "packs/woodland-shelf-7b9f5898c1de.png",
@@ -5316,7 +6297,10 @@
             "sprites": [
                 "kitchen-rack",
                 "shelf-bark"
-            ]
+            ],
+            "width": 256,
+            "height": 172,
+            "bytes": 10337
         },
         "woodland-stairs-down": {
             "image": "packs/woodland-stairs-down-587ccc9543cf.png",
@@ -5324,7 +6308,10 @@
             "sprites": [
                 "stairs-down",
                 "stairs-down-root"
-            ]
+            ],
+            "width": 256,
+            "height": 346,
+            "bytes": 22919
         },
         "woodland-stairs": {
             "image": "packs/woodland-stairs-be6e5cf879fc.png",
@@ -5332,7 +6319,10 @@
             "sprites": [
                 "stairs-up",
                 "stairs-root"
-            ]
+            ],
+            "width": 256,
+            "height": 176,
+            "bytes": 21382
         },
         "woodland-stool": {
             "image": "packs/woodland-stool-727bd602942d.png",
@@ -5340,7 +6330,10 @@
             "sprites": [
                 "stool-acorn",
                 "stool-shell"
-            ]
+            ],
+            "width": 128,
+            "height": 66,
+            "bytes": 4436
         },
         "woodland-stove": {
             "image": "packs/woodland-stove-7c879e966ec6.png",
@@ -5348,7 +6341,10 @@
             "sprites": [
                 "stove",
                 "stove-stone"
-            ]
+            ],
+            "width": 256,
+            "height": 132,
+            "bytes": 12805
         },
         "woodland-table": {
             "image": "packs/woodland-table-c55d9c5b0e3a.png",
@@ -5358,28 +6354,40 @@
                 "bedside-table",
                 "table-twig",
                 "workbench"
-            ]
+            ],
+            "width": 256,
+            "height": 224,
+            "bytes": 14210
         },
         "woodland-tools": {
             "image": "packs/woodland-tools-98fc1ecc5d7d.png",
             "metadata": "packs/woodland-tools-98fc1ecc5d7d.json",
             "sprites": [
                 "old-oars"
-            ]
+            ],
+            "width": 128,
+            "height": 92,
+            "bytes": 3016
         },
         "woodland-tree-chestnut": {
             "image": "packs/woodland-tree-chestnut-835e7ec870c8.png",
             "metadata": "packs/woodland-tree-chestnut-835e7ec870c8.json",
             "sprites": [
                 "forest-chestnut"
-            ]
+            ],
+            "width": 1024,
+            "height": 792,
+            "bytes": 232750
         },
         "woodland-tree-willow": {
             "image": "packs/woodland-tree-willow-3425f7f23421.png",
             "metadata": "packs/woodland-tree-willow-3425f7f23421.json",
             "sprites": [
                 "forest-willow"
-            ]
+            ],
+            "width": 1024,
+            "height": 804,
+            "bytes": 242824
         },
         "woodland-vase": {
             "image": "packs/woodland-vase-e8ff3e3c5bfd.png",
@@ -5387,7 +6395,10 @@
             "sprites": [
                 "flower-vase",
                 "vase-shell"
-            ]
+            ],
+            "width": 128,
+            "height": 84,
+            "bytes": 4978
         },
         "woodland-window": {
             "image": "packs/woodland-window-5237746cc40e.png",
@@ -5395,7 +6406,10 @@
             "sprites": [
                 "window-arched",
                 "window-leaf"
-            ]
+            ],
+            "width": 256,
+            "height": 112,
+            "bytes": 12481
         }
     }
 }

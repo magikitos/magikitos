@@ -41,6 +41,8 @@ function sceneGround(model) {
 function catalogGround(catalog, scene) {
   const data = catalog.scenes[scene];
   if (!data) throw Error("Pantalla desconocida: " + scene);
-  return sceneGround(new World(data));
+  // A communal movable's authored home is not permanent terrain. Its current footprint
+  // comes from the live authority; otherwise moving it would leave an invisible hole.
+  return sceneGround(new World({ ...data, entities: data.entities.filter(e => e.shared !== true) }));
 }
 module.exports = { catalogGround, STAND_SAMPLES };

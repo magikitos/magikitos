@@ -1,7 +1,19 @@
 "use strict";
 const assert = require("node:assert/strict"),
+  fs = require("node:fs"),
   { chromium } = require("playwright");
+const { World, collisionBounds } = require("../public/assets/js/adventure/model");
+const { entityScreenPoint } = require("./browser-world.cjs");
 const origin = process.env.GAME_ORIGIN || "http://127.0.0.1:47834";
+if (!["127.0.0.1", "localhost"].includes(new URL(origin).hostname)) throw Error("Loopback preview only");
+const world = JSON.parse(fs.readFileSync(".local/build/world.json"));
+function approach(scene, id) {
+  const model = new World(world.scenes[scene]); model.refresh({ flags: {}, inventory: {} });
+  const target = model.entities.find(e => e.id === id), box = collisionBounds(target);
+  const position = { x: box.x + box.w / 2, y: box.y + box.h + 6 };
+  assert(model.canStand(position.x, position.y), "Clear authored approach: " + id);
+  return position;
+}
 const read = (p) => p.evaluate(() => window.MagikitosAdventure.inspect());
 (async () => {
   const browser = await chromium.launch({ channel: "chrome", headless: true }),
@@ -15,49 +27,42 @@ const read = (p) => p.evaluate(() => window.MagikitosAdventure.inspect());
     ]) {
       const p = await browser.newPage({
         viewport: { width, height },
-        hasTouch: true,
+        hasTouch: touch,
       });
       p.on("pageerror", (e) => errors.push(e.message));
       await p.route("**/*", (r) =>
-        ["127.0.0.1", "magikitos.ddev.site"].includes(
-          new URL(r.request().url()).hostname,
-        )
+        new URL(r.request().url()).origin === origin
           ? r.continue()
           : r.abort(),
       );
-      await p.addInitScript(() => {
+      const scene = "human-hedge", id = "cover-pot-1";
+      await p.addInitScript(({ scene, position }) => {
         if (!localStorage.getItem("magikitos.adventure"))
           localStorage.setItem(
             "magikitos.adventure",
             JSON.stringify({
-              scene: "overworld",
-              position: { x: 29 * 16, y: 78.5 * 16 },
+              scene,
+              position,
               flags: {  },
               muted: true,
             }),
           );
-      });
+      }, { scene, position: approach(scene, id) });
       await p.goto(origin + "/aventura");
       await require("./browser-entry.cjs").enterWorld(p);
       const initial = await read(p),
-        id = "clearing-willow-crate",
         before = initial.entities.find((e) => e.id === id);
       if (touch) {
-        const r = await p.locator("#world-canvas").boundingBox();
-        await p.touchscreen.tap(
-          r.x + ((before.x - initial.camera.x) * r.width) / initial.view.width,
-          r.y +
-            ((before.y - 13 - initial.camera.y) * r.height) /
-              initial.view.height,
-        );
+        const point = await entityScreenPoint(p, world.scenes[scene], id);
+        await p.touchscreen.tap(point.x, point.y);
       } else await p.keyboard.down("ArrowUp");
       await p.waitForFunction(
-        (id) => !!window.MagikitosAdventure.inspect().objects.overworld?.[id],
-        id,
+        ({ scene, id }) => !!window.MagikitosAdventure.inspect().objects[scene]?.[id],
+        { scene, id },
         { timeout: 6000 },
       );
       await p.keyboard.up("ArrowUp");
-      await p.waitForTimeout(touch ? 600 : 0);
+      if (touch) await p.waitForFunction(() => !window.MagikitosAdventure.inspect().travel.intent);
       const moved = (await read(p)).entities.find((e) => e.id === id);
       assert(moved.y < before.y, "Push forward, not teleport or pull");
       assert.equal(moved.x, before.x, "Stay on one axis");
@@ -69,11 +74,11 @@ const read = (p) => p.evaluate(() => window.MagikitosAdventure.inspect());
         ) < 0.001,
         "Pushed position survives reload at saved precision",
       );
-      await p.evaluate(() => {
+      await p.evaluate((position) => {
         const s = JSON.parse(localStorage.getItem("magikitos.adventure"));
-        s.position = { x: 27.25 * 16, y: 68 * 16 };
+        s.scene = "overworld"; s.position = position;
         localStorage.setItem("magikitos.adventure", JSON.stringify(s));
-      });
+      }, approach("overworld", "no-pooping"));
       await p.reload();
       await require("./browser-entry.cjs").enterWorld(p);
       await p.keyboard.down("ArrowUp");
@@ -92,7 +97,7 @@ const read = (p) => p.evaluate(() => window.MagikitosAdventure.inspect());
       );
       await p.close();
       console.log(
-        "PASS push " +
+        "PASS private puzzle push " +
           (touch ? "touch" : "keyboard") +
           ", save/reload and contact latch " +
           width +

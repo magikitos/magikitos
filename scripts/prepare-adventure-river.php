@@ -26,18 +26,7 @@ foreach ($catalog['sheets'] as $sheet) {
     $temporary = tempnam("$dir/cutouts", '.river-');
     try { if (!imagepng($source, $temporary, 9) || !rename($temporary, "$dir/cutouts/$id.png")) throw new RuntimeException('Cannot save river cutout'); }
     finally { if (is_file($temporary)) unlink($temporary); }
-    if (isset($sheet['directions'])) {
-        [$columns, $rows] = $sheet['grid'];
-        // Stable full-cell registration: changing an oar pose never changes the hull's scale/anchor.
-        $scale = 64 / ($h / $rows);
-        for ($row = 0; $row < $rows; $row++) for ($col = 0; $col < $columns; $col++) {
-            $packs[$sheet['pack']]["boat-ascua-{$sheet['directions'][$col]}-$row"] = [
-                'source' => "data/aventura/art/river/cutouts/$id.png", 'grid' => $sheet['grid'], 'cell' => [$col, $row],
-                'size' => [80, 72], 'anchor' => [40, 49], 'preserveCanvas' => true,
-                'registration' => ['scale' => $scale, 'offset' => [8, 2]],
-            ];
-        }
-    } else foreach ($sheet['frames'] as $name => $frame) {
+    foreach ($sheet['frames'] as $name => $frame) {
         $packs[$sheet['pack']][$name] = $frame + ['source' => "data/aventura/art/river/cutouts/$id.png", 'fit' => true, 'grid' => [1, 1], 'cell' => [0, 0]];
     }
 }

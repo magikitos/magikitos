@@ -93,8 +93,8 @@ const errors = [];
         () => window.MagikitosAdventure.inspect().inventory.lighter === 1,
       );
       await save();
-      await near("picnic-mushroom");
-      await click("picnic-mushroom", 20); // Elf-height mushroom: tap the cap, not the old oversized canopy.
+      await near("forest-mushrooms-fern");
+      await click("forest-mushrooms-fern", 20); // Elf-height mushroom: tap the cap, not the old oversized canopy.
       await page.waitForFunction(
         () => window.MagikitosAdventure.inspect().inventory.mushroom === 1,
       );

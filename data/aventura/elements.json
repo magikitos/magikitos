@@ -409,23 +409,16 @@
       "label": "Setas comestibles",
       "category": "Setas",
       "template": {
-        "sprite": "giant-bolete",
+        "sprite": "mushroom-bolete-leaning",
         "rules": []
       },
       "aliases": [
-        "giant-bolete",
         "mushroom-bolete-leaning"
       ],
       "defaults": {
-        "giant-bolete": "redonda",
         "mushroom-bolete-leaning": "inclinada"
       },
       "variants": [
-        {
-          "id": "redonda",
-          "label": "Redonda",
-          "sprite": "giant-bolete"
-        },
         {
           "id": "inclinada",
           "label": "Inclinada",
@@ -1908,20 +1901,20 @@
       "label": "Barquita de botella",
       "category": "Río",
       "aliases": [
-        "bottle-boat"
+        "boat-bottle-down-right-0"
       ],
       "defaults": {
-        "bottle-boat": "barquita"
+        "boat-bottle-down-right-0": "barquita"
       },
       "template": {
-        "sprite": "bottle-boat",
+        "sprite": "boat-bottle-down-right-0",
         "rules": []
       },
       "variants": [
         {
           "id": "barquita",
-          "label": "Botella con remos",
-          "sprite": "bottle-boat"
+          "label": "Botella vacía",
+          "sprite": "boat-bottle-down-right-0"
         }
       ]
     },
@@ -2115,6 +2108,184 @@
       ],
       "defaults": {
         "toilet-plant": "original"
+      }
+    },
+    "ground-mushrooms": {
+      "label": "Setas recogibles",
+      "category": "Recogibles",
+      "aliases": [],
+      "template": {
+        "sprite": "mushrooms",
+        "behavior": "forest-mushrooms",
+        "scale": 0.72
+      },
+      "variants": [
+        {
+          "id": "ochre",
+          "label": "Ocre",
+          "sprite": "mushrooms"
+        },
+        {
+          "id": "red",
+          "label": "Rojas",
+          "sprite": "mushroom-red-pair"
+        },
+        {
+          "id": "scarlet",
+          "label": "Escarlata",
+          "sprite": "scarlet-mushrooms"
+        },
+        {
+          "id": "bolete",
+          "label": "Boleto",
+          "sprite": "mushroom-bolete-leaning"
+        }
+      ],
+      "defaults": {
+        "mushrooms": "ochre",
+        "mushroom-red-pair": "red",
+        "scarlet-mushrooms": "scarlet",
+        "mushroom-bolete-leaning": "bolete"
+      }
+    },
+    "forest-parchment": {
+      "label": "Pergamino",
+      "category": "Recogibles",
+      "aliases": [],
+      "template": {
+        "sprite": "parchment",
+        "behavior": "forest-parchment",
+        "scale": 1
+      },
+      "variants": [
+        {
+          "id": "original",
+          "label": "Pergamino",
+          "sprite": "parchment"
+        }
+      ],
+      "defaults": {
+        "parchment": "original"
+      }
+    },
+    "forest-pen": {
+      "label": "Bolígrafo",
+      "category": "Recogibles",
+      "aliases": [],
+      "template": {
+        "sprite": "pen",
+        "behavior": "forest-pen",
+        "scale": 1
+      },
+      "variants": [
+        {
+          "id": "original",
+          "label": "Bolígrafo",
+          "sprite": "pen"
+        }
+      ],
+      "defaults": {
+        "pen": "original"
+      }
+    },
+    "woodland-rake": {
+      "label": "Rastrillo",
+      "category": "Recogibles",
+      "aliases": [],
+      "template": {
+        "sprite": "rake",
+        "behavior": "woodland-rake",
+        "scale": 1
+      },
+      "variants": [
+        {
+          "id": "original",
+          "label": "Rastrillo",
+          "sprite": "rake"
+        }
+      ],
+      "defaults": {
+        "rake": "original"
+      }
+    },
+    "woodland-grass-seeds": {
+      "label": "Semillas de hierba",
+      "category": "Recogibles",
+      "aliases": [],
+      "template": {
+        "sprite": "garden-seed-sack",
+        "behavior": "woodland-grass-seeds",
+        "scale": 0.6
+      },
+      "variants": [
+        {
+          "id": "original",
+          "label": "Semillas de hierba",
+          "sprite": "garden-seed-sack"
+        }
+      ],
+      "defaults": {
+        "garden-seed-sack": "original"
+      }
+    },
+    "woodland-primroseSeed": {
+      "label": "Semillas de prímulas",
+      "category": "Recogibles",
+      "aliases": [],
+      "template": {
+        "sprite": "garden-seed-sack",
+        "behavior": "woodland-primroseSeed",
+        "scale": 0.45
+      },
+      "variants": [
+        {
+          "id": "original",
+          "label": "Semillas de prímulas",
+          "sprite": "garden-seed-sack"
+        }
+      ],
+      "defaults": {
+        "garden-seed-sack": "original"
+      }
+    },
+    "woodland-daisySeed": {
+      "label": "Semillas de margaritas",
+      "category": "Recogibles",
+      "aliases": [],
+      "template": {
+        "sprite": "garden-seed-sack",
+        "behavior": "woodland-daisySeed",
+        "scale": 0.45
+      },
+      "variants": [
+        {
+          "id": "original",
+          "label": "Semillas de margaritas",
+          "sprite": "garden-seed-sack"
+        }
+      ],
+      "defaults": {
+        "garden-seed-sack": "original"
+      }
+    },
+    "woodland-bellSeed": {
+      "label": "Semillas de campanillas",
+      "category": "Recogibles",
+      "aliases": [],
+      "template": {
+        "sprite": "garden-seed-sack",
+        "behavior": "woodland-bellSeed",
+        "scale": 0.45
+      },
+      "variants": [
+        {
+          "id": "original",
+          "label": "Semillas de campanillas",
+          "sprite": "garden-seed-sack"
+        }
+      ],
+      "defaults": {
+        "garden-seed-sack": "original"
       }
     }
   }

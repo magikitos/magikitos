@@ -1,0 +1,19 @@
+Use case: identity-preserve.
+Asset type: eight-frame nonsexual comic bodily-needs animation sheet for the Magikitos top-down pixel-art game.
+Input image 1 is the edit target, exact identity and scale guide. Change only the poses. Preserve the reference's character-to-cell scale, body proportions, natural warm fair skin, black curls, pointed olive cloth cap, ochre buttoned waistcoat, cream rolled sleeves, green patched trousers, brown boots, original pixel-art detailing and soft upper-left light. This is a grown woodland elf with a playful expressive face, not a realistic person. Do not redesign or enlarge the figure.
+
+LAYOUT: exactly FOUR equal-width columns by TWO equal-height rows, eight separate full-body figures. Keep the guide's exact aspect ratio and generous empty padding. Columns are consecutive phases, not different directions. Both rows face diagonally RIGHT/down-right, as in the guide, with the minor turn described below. Same boot baseline and body size throughout. Invisible cell boundaries; no grid, labels or extra objects. No part of the cap, hands or boots touches a cell edge.
+
+TOP ROW, four phases of a discreet comic pee animation:
+1. Standing, shoulders slightly hunched, both hands held in front at the trouser waistband; concentrating expression.
+2. Feet planted slightly wider, pelvis forward a little, shoulders relax, head looks diagonally right; both hands remain at the waistband. No visible anatomy.
+3. Same planted stance and body proportions, head tilts a little, relieved expression with eyes gently closed; slight change in elbows only. This must alternate smoothly with phase 2.
+4. Finish: hands pull the waistband back into place, torso returns upright, relieved smile.
+
+BOTTOM ROW, four phases of a squat animation:
+1. Half-squat facing down-right, knees bent, both hands at the waistband, head lower than in the standing reference.
+2. Full low squat, rear quarter turned slightly toward camera, looking right over the shoulder with a comically concentrated face. Both feet planted and arms forward for balance. Trousers and long waistcoat obscure all private anatomy; no nudity or explicit detail.
+3. Maintain the exact same low squat and proportions; one hand reaches behind with ONE broad green wiping leaf. Other hand stays on the near knee. Relief rather than strain in the face. Leaf held near the covered rear, no exposed anatomy.
+4. Return fully upright, hands adjusting waistband, relaxed satisfied grin.
+
+The game adds the stream, puddle and poop separately: DO NOT paint urine, feces, ground, shadows, particles, steam, symbols or any scenery into this sheet. Only phase 3 of the bottom row includes the one leaf; all other hands are empty. Natural nonsexual slapstick, no fetish framing. Genuine transparent alpha background, no opaque matte or checkerboard. Crisp detailed game pixel art, no blur, no text, logos or watermark. Keep every figure the reference size: crouching shortens its height, never scales up the head or torso.

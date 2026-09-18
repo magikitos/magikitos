@@ -17,12 +17,15 @@ function gameContract(world) {
   };
   return {
     protocol: "river-commons",
+    live: require("./live-contract.cjs").liveContract(world),
     construction,
     adventure: {
       flags: world.flags,
       items: world.items,
       timers: world.timers,
       economy: world.economy,
+      needs: world.needs,
+      messages: world.messages,
       entities: {
         player: {
           needs: {

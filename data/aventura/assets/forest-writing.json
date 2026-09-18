@@ -1,0 +1,64 @@
+{
+    "frames": {
+        "parchment": {
+            "source": "data/aventura/art/forest-writing/cutout.png",
+            "grid": [
+                3,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                20,
+                16
+            ],
+            "anchor": [
+                10,
+                14
+            ],
+            "fit": true
+        },
+        "pen": {
+            "source": "data/aventura/art/forest-writing/cutout.png",
+            "grid": [
+                3,
+                1
+            ],
+            "cell": [
+                1,
+                0
+            ],
+            "size": [
+                24,
+                18
+            ],
+            "anchor": [
+                12,
+                16
+            ],
+            "fit": true
+        },
+        "poop-message": {
+            "source": "data/aventura/art/forest-writing/cutout.png",
+            "grid": [
+                3,
+                1
+            ],
+            "cell": [
+                2,
+                0
+            ],
+            "size": [
+                18,
+                28
+            ],
+            "anchor": [
+                9,
+                26
+            ],
+            "fit": true
+        }
+    }
+}

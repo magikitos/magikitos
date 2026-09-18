@@ -30,6 +30,7 @@ function matches(state, when = {}, context = {}) {
 }
 function active(entity, state, context = {}) {
   return (
+    entity.liveHidden !== true &&
     (entity.resource?.keepVisible || !collected(state, entity.resource, context.now ?? Date.now())) &&
     (!entity.hiddenWhen || !matches(state, entity.hiddenWhen, context)) &&
     (!entity.visibleWhen || matches(state, entity.visibleWhen, context))

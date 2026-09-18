@@ -1,0 +1,13 @@
+Use case: identity-preserve.
+Asset type: production discover-item sprite animation for the existing Magikitos woodland game.
+Input image 1 is the EDIT TARGET and the exact approved character/scale/layout reference. It contains four identical copies of Brezo Alba. Change ONLY their arm poses and tiny expressions to create four consecutive frames of one pickup celebration. Preserve this exact face, warm fair freckled skin, curly black hair, tilted olive pointed cap, ochre vest, cream rolled cuffs, green patched trousers, boots, body proportions, pixel-art detail, upper-left illumination, camera and color palette. Do not redesign him.
+
+OUTPUT LAYOUT: exactly FOUR equal-width columns, ONE row, no borders. Keep the input's approximately 2.75:1 wide aspect ratio. Full bodies with generous transparent padding on ALL sides and above the raised hands. Keep all four characters exactly the same size, horizontally centered within their equal cells, with both boot soles on a shared horizontal baseline. Preserve the guide's body size relative to cell width, do not enlarge characters to fill blank space.
+All four face directly toward the viewer, the same modest top-down RPG camera as the guide.
+Column 1: standing upright, elbows bent, hands just in front of chest, pleasantly surprised.
+Column 2: same standing legs and torso, arms lifting upward beside the head, palms facing up.
+Column 3: both hands held high, up and outward beside the pointed cap, palms up, a delighted proud grin. Hands must NOT intersect hat or ears.
+Column 4: holds the same clear triumphant hands-raised pose with a tiny relaxed settling motion; boots never jump or slide.
+These are four animation FRAMES of one character, not four different characters or viewpoints.
+EMPTY HANDS: the engine separately paints the found object above him. Do not draw any item, particles, sparkles, speech, captions or pedestal.
+Genuine transparent alpha background; no checkerboard, opaque background, floor or cast shadow. Crisp well-defined pixel-art shading matching the target, no artificial chunky enlargement, no blur. No text or watermarks.

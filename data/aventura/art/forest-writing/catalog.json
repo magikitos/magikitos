@@ -1,0 +1,10 @@
+{
+  "generator": "built-in image_gen",
+  "sourceSha256": "f5af4eb07effb4c5532108c411343b3d7c61d0dc06250d1181a57f1208f91759",
+  "promptSha256": "43681adf2394ca0ff4ee363463fed93f3b7a5bd747ad6955543d430a43f440d8",
+  "sprites": [
+    {"id": "parchment", "size": [20, 16], "anchor": [10, 14]},
+    {"id": "pen", "size": [24, 18], "anchor": [12, 16]},
+    {"id": "poop-message", "size": [18, 28], "anchor": [9, 26]}
+  ]
+}

@@ -179,7 +179,7 @@ background was removed in the local build pipeline. No runtime alpha processing.
 
 ### Roll — final prompt
 Reference: `art/player-cutout.png`, identity/style only (not an edit target).
-Native package: `assets/actor-0-roll.json`.
+Archived action: no runtime package. The original and prompt are kept for provenance.
 
 ```text
 Use case: stylized-concept. Asset type: production pixel-art forward somersault animation sheet for an original top-down adventure game.

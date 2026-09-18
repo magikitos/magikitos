@@ -4,12 +4,23 @@ execFileSync(process.execPath, ["tools/build.cjs"], { stdio: "inherit" });
 for (const name of [
   "check-adventure",
   "check-adventure-locales",
+  "check-forest-upgrade",
+  "check-forest-client",
+  "check-forest-objects",
+  "check-forest-objects-negative",
+  "check-forest-notes",
+  "check-forest-notes-negative",
+  "check-shared-object-contract",
+  "check-shared-map",
   "check-river-core",
   "check-world-polish",
   "check-community-foundations",
   "check-pickups",
   "check-material-account",
   "check-construction-layout",
+  "check-construction-retry",
+  "check-community-sync",
+  "check-community-sync-negative",
   "check-cloud-save",
   "check-adventure-geography",
   "check-adventure-residents",
@@ -22,6 +33,9 @@ for (const name of [
   "check-adventure-journeys",
   "check-adventure-interactions",
   "check-adventure-assets",
+  "check-actor-art",
+  "check-vessel-art",
+  "check-rowing-contract",
   "check-adventure-life",
   "check-adventure-camera",
   "check-adventure-materials-portals",
@@ -40,6 +54,12 @@ for (const name of [
     stdio: "inherit",
   });
 execFileSync("php", ["scripts/check-adventure-crops.php"], {
+  stdio: "inherit",
+});
+execFileSync("php", ["scripts/check-actor-registration.php"], {
+  stdio: "inherit",
+});
+execFileSync(process.execPath, ["scripts/check-playable-art.cjs", "--sources-only"], {
   stdio: "inherit",
 });
 execFileSync("php", ["scripts/check-woodland-cutouts.php"], {

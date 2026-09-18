@@ -1,0 +1,4 @@
+Use case: precise-object-edit
+Input image: exact edit target, Brezo bruma carried animation sheet.
+Change ONLY the size of each entire figure inside its existing cell: uniformly reduce each figure to 90 percent of its present width and height. Keep the image dimensions, aspect ratio, exact column and row count and empty grid structure unchanged. The cloth pinch at the very top over the bottom is the attachment: keep its location fixed and shrink the whole dangling figure around that point. Do NOT crop the canvas, do not zoom to compensate, and do not rearrange figures.
+Preserve identity, all poses, facial expressions, full limbs, hat, short trousers, blue cuffs and all accessories, including the small side pouch. No redesign or extra detail. Same crisp detailed pixel-art finish; genuine alpha transparency. Keep generous empty margins, no cell borders or words. Output a complete isolated production sprite sheet.

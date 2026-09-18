@@ -24,16 +24,7 @@ class World {
     this.data = data;
     this.width = data.width;
     this.height = data.height;
-    this.entities = data.entities
-      .map((e) => resolveAppearance(e, data.id))
-      .map((e) => ({
-        ...e,
-        x: e.x * TILE,
-        y: e.y * TILE,
-        ...(e.pushable
-          ? { homePosition: { x: e.x * TILE, y: e.y * TILE } }
-          : {}),
-      }));
+    this.entities = data.entities.map(e => this.createEntity(e));
     this.architecture = (data.walls || []).map((wall, i) => ({
       id: "wall-" + i,
       x: wall.rect[0] * TILE,
@@ -68,6 +59,23 @@ class World {
           this.setBlocked(x, y);
     this.navigationTerrain = this.blocked.slice();
     this.refresh({ flags: {}, inventory: {} });
+  }
+  createEntity(definition) {
+    const e = resolveAppearance(definition, this.data.id);
+    return { ...e, x: e.x * TILE, y: e.y * TILE,
+      ...(e.pushable ? { homePosition: { x: e.x * TILE, y: e.y * TILE } } : {}) };
+  }
+  /** Replace only a changed entity layer. Terrain, actors and all other references stay live.
+   * Compound bodies (including fence segments) belong to their source entity. */
+  replaceEntities(removed, added) {
+    if (!removed.size && !added.length) return;
+    for (const body of [...this.colliders])
+      if (removed.has(body.collisionSource || body)) this.setBody(body, false);
+    this.entities = this.entities.filter(e => !removed.has(e)).concat(added);
+    for (const entity of added) for (const body of collisionBodies(entity))
+      if (body.solid && active(body, this.state) && (!body.solidWhen || matches(this.state, body.solidWhen)))
+        this.setBody(body, true);
+    this.colliders = [...this.colliders]; // Invalidate consumers caching static vision blockers.
   }
   region(x, y) {
     return (
@@ -181,6 +189,17 @@ class World {
     entity.y = y;
     this.markBody(entity, 1);
     this.collisionGrid.add(entity);
+  }
+  /** Incremental activation of a single movable body, without rebuilding static scenery. */
+  setBody(entity, enabled) {
+    const present = this.collisionGrid.bounds.has(entity);
+    if (present === enabled) return;
+    if (enabled) {
+      this.colliders.push(entity); this.collisionGrid.add(entity); this.markBody(entity, 1);
+    } else {
+      this.markBody(entity, -1); this.collisionGrid.remove(entity);
+      const i = this.colliders.indexOf(entity); if (i !== -1) this.colliders.splice(i, 1);
+    }
   }
   terrainWalkable(x, y) {
     return (

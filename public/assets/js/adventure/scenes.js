@@ -3,6 +3,9 @@ const { World, TILE, insideThreshold } = require("./model");
 const { frameName } = require("./elements");
 const { createNeighbors } = require("./neighbors");
 const { canFloat } = require("./river-navigation");
+const { SpriteBudgetError } = require("./sprite-residency");
+const { playerPack } = require("./player-art");
+const { definition: vesselDefinition } = require("./vessel-art");
 /** Cuántas vecinas se tienen calientes a la vez. Ver `prewarm`: precargar es un favor, no una
  * excusa para reservar el bosque entero en memoria. */
 const WARM_SCENES = 3;
@@ -64,8 +67,12 @@ class SceneDirector {
     const world = cached && cached !== game.world ? cached : new World(data);
     world.actors = [];
     world.refresh(state);
+    game.live?.objects.prepare(world);
     const neighbors = createNeighbors(world, game.config, game.cast);
     const sprites = new Set(["sack", "setin"]);
+    const addStatic = (name) => {
+      if (name && !name.startsWith("person-")) sprites.add(name);
+    };
     if (data.interior?.background) sprites.add(data.interior.background);
     for (const bridge of data.bridges || []) sprites.add(bridge.sprite);
     for (const visitor of data.riverLife || [])
@@ -78,6 +85,7 @@ class SceneDirector {
     // Lo que se puede construir necesita su arte antes de abrir la caja. Lo que se PINTA en el
     // suelo —los caminitos— no tiene sprite ninguno: se dibuja con el mismo pincel que el resto
     // del terreno, así que aquí no pide nada.
+    if (shared) sprites.add("poop-message");
     if (shared)
       for (const kind of Object.values(game.catalog.construction.definitions))
         for (const variant of kind.variants) {
@@ -91,34 +99,34 @@ class SceneDirector {
       if (entity.seat?.sprite) sprites.add(entity.seat.sprite);
       if (entity.keepsakes?.sprite) sprites.add(entity.keepsakes.sprite);
       if (entity.sprite && entity.sprite !== "doorway")
-        sprites.add(frameName(entity));
-      for (const visual of entity.visuals || []) sprites.add(visual.sprite);
-      if (typeof entity.portrait === "string") sprites.add(entity.portrait);
+        addStatic(frameName(entity));
+      for (const visual of entity.visuals || []) addStatic(visual.sprite);
+      if (typeof entity.portrait === "string") addStatic(entity.portrait);
     }
-    const actors = new Set([
-      0,
-      ...neighbors.map((n) => n.variant),
-      ...(data.actors || []),
-    ]);
     // Las frases de la pantalla van con sus sprites, no con el motor: se piden a la vez y la
     // llegada falla entera si falta cualquiera de las dos, que es lo que impide entrar a un
     // sitio donde los carteles dirían el nombre de su clave.
-    const [packs, strings] = await Promise.all([
+    const resources = await Promise.allSettled([
       game.renderer.sprites.prepare(sprites, [
-        "actor-0-run",
-        "actor-0-discover",
-        "actor-0-needs",
-        ...(state.navigation?.mode === "boat" ? ["actor-0-row"] : []),
-        ...(world.entities.some((e) => e.pushable) ? ["actor-0-push"] : []),
+        playerPack("run", game.player),
+        playerPack("discover", game.player),
+        playerPack("needs", game.player),
+        // Involuntary actions must be ready before a cat or a movable is touched.
+        ...(world.entities.some(e => e.animal?.species === "cat") ? [playerPack("carried", game.player)] : []),
+        ...(world.entities.some(e => e.pushable) ? [playerPack("push", game.player)] : []),
+        ...(state.navigation?.mode === "boat" ? [playerPack("row", game.player),
+          vesselDefinition.vessels[vesselDefinition.defaultVessel].pack] : []),
         ...(data.assetPacks || []),
-        ...(neighbors.some((n) => n.variant === 12) ? ["picnic-neighbor"] : []),
-        ...(world.entities.some((e) => e.animal?.species === "cat")
-          ? ["actor-0-carried"]
-          : []),
-        ...[...actors].map((v) => "actor-" + v),
+        playerPack(null, game.player),
       ]),
       game.sceneText.load(id),
     ]);
+    const failure = resources.find((result) => result.status === "rejected");
+    if (failure) {
+      if (resources[0].status === "fulfilled") resources[0].value.release?.();
+      throw failure.reason;
+    }
+    const [packs, strings] = resources.map((result) => result.value);
     const valid =
       state.navigation?.mode === "boat"
         ? (x, y) => canFloat(world, x, y)
@@ -131,7 +139,10 @@ class SceneDirector {
       ...offered,
       { x: data.spawn.x * TILE, y: data.spawn.y * TILE },
     ].find((point) => valid(point?.x, point?.y));
-    if (!destination) throw new Error("Blocked scene arrival: " + id);
+    if (!destination) {
+      packs.release?.();
+      throw new Error("Blocked scene arrival: " + id);
+    }
     this.cache.delete(id);
     this.cache.set(id, world);
     // Sitio para la pantalla en la que estás y las que se calientan: con el techo de cuatro que
@@ -199,12 +210,15 @@ class SceneDirector {
     if (!next) return;
     const task = this.prepare(next, null, g.state)
       .then((prepared) => {
-        if (g.state.scene === next) return;
-        this.warm.set(next, prepared.packs);
-        this.retainWarm();
+        try {
+          if (g.state.scene === next) return;
+          this.warm.set(next, prepared.packs);
+          this.retainWarm();
+        } finally { prepared.packs.release?.(); }
       })
-      .catch(() => {
-        this.unreachable.add(next);
+      .catch((error) => {
+        if (error instanceof SpriteBudgetError) this.nextWarm = time + 3000;
+        else this.unreachable.add(next);
       })
       .finally(() => {
         this.warming.delete(next);
@@ -214,6 +228,8 @@ class SceneDirector {
   }
   enter(prepared, { keepControls = false } = {}) {
     const game = this.game;
+    // A prepared set is leased until entry, so concurrent prewarming cannot evict it.
+    game.renderer.sprites.activate(prepared.packs);
     // Closes the previous scene's row and its heat map before the world changes
     // under it; the very first call happens before telemetry has begun and is a
     // no-op, which is what we want.
@@ -236,6 +252,7 @@ class SceneDirector {
     game.guardian = null;
     game.world.actors = [game.player, ...game.neighbors];
     game.world.refresh(game.state);
+    game.live?.objects.bind(game.world);
     game.pauseMovement({ keepControls });
     game.contactLatch = null;
     // Only suppress a threshold occupied on arrival, until the player steps out.
@@ -245,14 +262,6 @@ class SceneDirector {
         .filter((e) => !e.entryDirection && insideThreshold(e, game.player))
         .map((e) => e.id),
     );
-    /**
-     * ⛔ PRIMERO SE FIJA Y DESPUÉS SE RETIENE, Y EL ORDEN NO ES UN DETALLE. `activate()` vacía el
-     * conjunto de calentadas de la biblioteca y poda; si se retiene ANTES, lo recién cargado de
-     * esta pantalla no está ni fijado ni caliente y la poda se lo lleva — y entonces `activate`
-     * apunta a paquetes que ya no existen y la pantalla se queda sin dibujos. Se veía como que
-     * los clics no hacían nada: sin sprite no hay a quién acertarle.
-     */
-    game.renderer.sprites.activate(prepared.packs);
     // Entrar fija el arte de esta pantalla, así que sale de las calentadas; y lo que ayer no se
     // pudo preparar vuelve a tener una oportunidad desde aquí.
     this.warm.delete(prepared.id);

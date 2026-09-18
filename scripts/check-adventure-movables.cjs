@@ -42,6 +42,16 @@ const box = (id, x, y) => ({
   rules: [],
 });
 const state = () => ({ flags: {}, inventory: {}, objects: {} });
+{
+  const authored = { ...box("communal-pot", 12, 12), shared: true }, world = new World(data([authored])), s = state();
+  const object = world.entities[0], player = { x: 177, y: 192, actor: true };
+  assert.equal(tryPush(world, player, object, 2, 0, s), false, "Local pushing cannot mutate a communal prop");
+  assert.deepEqual(s.objects, {});
+  s.objects.test = { "communal-pot": { x: 300, y: 300 } };
+  world.relocate(object, 200, 192); world.refresh(s);
+  assert.equal(object.x, 200, "Private save cannot override server-owned position on refresh");
+  assert.deepEqual(cleanPositions(s.objects, { scenes: { test: world.data } }, s), {}, "Shared positions never survive in private saves");
+}
 function consistent(world) {
   const fresh = new World(world.data);
   fresh.refresh(world.state);

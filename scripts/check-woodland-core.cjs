@@ -12,7 +12,7 @@ const { seatedClip } = require("../public/assets/js/adventure/seating");
 const { DIRECTIONS } = require("../public/assets/js/adventure/characters");
 const kit = require("../data/aventura/art/woodland-kit/prompts.json");
 const { families } = require("../data/aventura/elements.json");
-for (const a of kit.assets) {
+for (const a of [...kit.assets, ...(kit.archivedAssets || [])]) {
   const dir = "data/aventura/art/woodland-kit/",
     metadata = JSON.parse(fs.readFileSync(dir + "cutouts/" + a.id + ".json"));
   assert.equal(
@@ -23,11 +23,15 @@ for (const a of kit.assets) {
     metadata.sourceHash,
     "Original remains unchanged: " + a.id,
   );
-  assert(
-    families[a.family].variants.some(
-      (v) => v.id === a.variant && v.sprite === a.sprite,
-    ),
-  );
+  if (!a.retiredReason)
+    assert(
+      families[a.family].variants.some(
+        (v) => v.id === a.variant && v.sprite === a.sprite,
+      ),
+    );
+  else
+    assert(!families[a.family].variants.some(v => v.sprite === a.sprite),
+      "Retired art is preserved as a master, never offered as an active variant");
   assert(metadata.bounds.every(Number.isFinite));
 }
 const actorPack = require("../data/aventura/assets/picnic-humans.json");
@@ -100,7 +104,7 @@ const sprites = {
       : { w: 24, h: 32, anchor: [12, 29] },
   draw: (_, name, ...args) => calls.push(["sprite", name, ...args]),
 };
-const rower = new VesselMotion(), rowing = require("../data/aventura/assets/actor-0-row.json").frames;
+const rower = new VesselMotion(), rowing = require("../data/aventura/assets/actor-100-row.json").frames;
 for (const direction of DIRECTIONS) {
   assert(rowing[rower.frame(direction)], "Every boat direction has a still pose");
   rower.rowing = true;

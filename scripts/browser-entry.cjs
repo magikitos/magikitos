@@ -13,5 +13,10 @@ async function enterWorld(page) {
     else await button.click();
   }
   await page.waitForFunction(() => window.MagikitosAdventure.inspect().entered);
+  if (process.env.GAME_PLAYER_VARIANT)
+    require("node:assert/strict").equal(
+      await page.evaluate(() => window.MagikitosAdventure.inspect().player.variant),
+      Number(process.env.GAME_PLAYER_VARIANT), "The real game is using the requested review character",
+    );
 }
 module.exports = { enterWorld };

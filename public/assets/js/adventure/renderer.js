@@ -1,9 +1,13 @@
 "use strict";
 const { TILE, random, hash } = require("./model");
 const { artworkBounds, drawArtwork, drawAttachments } = require("./entity-art");
+const { drawGrowing } = require("./construction-growth");
 const { matches, active } = require("./rules");
 const { characterFrame, pushFrame, runFrame } = require("./characters");
 const { SpriteLibrary } = require("./sprites");
+const { ActorArt } = require("./actor-art");
+const { VesselArt } = require("./vessel-art");
+const { playerVariant } = require("./player-art");
 const { Terrain, drawBridges } = require("./terrain");
 const { drawInteriors, drawPartition } = require("./interiors");
 const { drawRipples } = require("./water");
@@ -16,6 +20,8 @@ class Renderer {
     this.viewport = viewport;
     this.ctx = canvas.getContext("2d", { alpha: false });
     this.sprites = new SpriteLibrary();
+    this.actorArt = new ActorArt(this.sprites);
+    this.vesselArt = new VesselArt(this.sprites);
     this.terrain = new Terrain();
     this.scale = 3;
     this.viewZoom = 1;
@@ -52,6 +58,8 @@ class Renderer {
     );
   }
   frame(entity, state) {
+    if (entity.neighbor)
+      return entity.activitySprite || characterFrame(entity.variant, entity, entity.moving);
     return (
       (entity.visuals || []).find((v) => matches(state, v.when))?.sprite ||
       require("./elements").frameName(entity)
@@ -83,7 +91,7 @@ class Renderer {
         Math.abs(point.x - entity.x) <= TILE &&
         Math.abs(point.y - entity.y) <= TILE
       );
-    const frame = this.sprites.frame(this.frame(entity, state));
+    const frame = this.sprites.frame(this.actorArt.frame(this.frame(entity, state)));
     if (!frame) return false;
     const b = artworkBounds(entity, frame);
     const pad = Math.max(2, 12 / this.scale);
@@ -166,7 +174,8 @@ class Renderer {
     const visible = (e) => {
       if (e.wall) return true;
       const frame = this.sprites.frame(this.frame(e, game.state));
-      const b = frame
+      const vessel = e.vesselArt && this.vesselArt.bounds(e.vesselArt);
+      const b = vessel ? { x: e.x + vessel.x, y: e.y + vessel.y, w: vessel.w, h: vessel.h } : frame
         ? artworkBounds(e, frame)
         : { x: e.x - 32, y: e.y - 64, w: 64, h: 72 };
       return (
@@ -178,16 +187,19 @@ class Renderer {
     };
     const player = {
       ...game.player,
+      vesselArt: game.river?.layers(),
       sprite:
         game.river?.frame() ||
         game.self.frame() ||
         game.presentation?.frame() ||
         pushFrame(game.player) ||
         runFrame(game.player, game.running) ||
-        characterFrame(0, game.player, game.walking),
+        characterFrame(playerVariant(game.player), game.player, game.walking),
       player: true,
+      opacity: game.live?.spectator ? 0.45 : 1,
     };
-    const list = [
+    const frameFor = (e) => this.frame(e, game.state);
+    const renderables = [
       ...world.props,
       ...world.architecture,
       ...world.entities.filter(
@@ -197,16 +209,25 @@ class Renderer {
             (active(e, game.state) && !game.presentation?.hides(e))),
       ),
       ...game.neighbors,
+      ...(game.notes?.entities || []),
+      ...(game.live?.people.list || []),
       ...require("./river-life").riverVisitors(world.data, time),
       ...(game.cats?.renderables() || []),
       ...(game.cats?.carried() ? [game.cats.carried()] : []),
       ...(game.guardian ? [game.guardian] : []),
       ...(game.hidePlayer || game.cats?.locked ? [] : [player]),
-    ]
-      .flatMap((e) => (e.fence ? fences.parts(e) : e))
+    ].flatMap((e) => (e.fence ? fences.parts(e) : e))
+      .map(e => game.live?.objects.visual(e) || e);
+    this.actorArt.update(renderables, { ...cam, width: this.width, height: this.height }, frameFor);
+    const list = renderables
       .filter(visible)
       .sort((a, b) => (a.depth ?? a.y) - (b.depth ?? b.y));
     for (const e of list) {
+      if (e.vesselArt) {
+        this.vesselArt.draw(c, e, e.vesselArt);
+        continue;
+      }
+      if (drawGrowing(c, e, game.serverClock?.now())) continue;
       if (e.fencePart) {
         fences.drawPart(c, e);
         continue;
@@ -215,9 +236,7 @@ class Renderer {
         drawPartition(c, e.wall);
         continue;
       }
-      const name = e.neighbor
-          ? e.activitySprite || characterFrame(e.variant, e, e.moving)
-          : this.frame(e, game.state),
+      const name = this.actorArt.frame(frameFor(e)),
         f = this.sprites.frame(name);
       if (!f) continue;
       require("./seating").drawSeat(c, this.sprites, e);

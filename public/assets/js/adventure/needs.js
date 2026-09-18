@@ -58,6 +58,14 @@ function completeRelief(
     const item = catalog.needs.leafItem;
     if (--inventory[item] === 0) delete inventory[item];
   }
+  return {
+    ...state,
+    needs,
+    inventory,
+    traces: appendTrace(state, kind, catalog, position, now),
+  };
+}
+function appendTrace(state, kind, catalog, position, now = Date.now()) {
   const traces = cleanTraces(state.traces, catalog, now);
   traces.push({
     kind,
@@ -66,12 +74,7 @@ function completeRelief(
     y: position.y + 3,
     expires: now + catalog.needs.traces[kind + "Seconds"] * 1000,
   });
-  return {
-    ...state,
-    needs,
-    inventory,
-    traces: traces.slice(-catalog.needs.traces.max),
-  };
+  return traces.slice(-catalog.needs.traces.max);
 }
 function cleanTraces(value, catalog, now = Date.now()) {
   return (Array.isArray(value) ? value : [])
@@ -106,5 +109,6 @@ module.exports = {
   needStatus,
   reliefError,
   completeRelief,
+  appendTrace,
   cleanTraces,
 };

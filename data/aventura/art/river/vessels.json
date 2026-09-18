@@ -1,0 +1,1189 @@
+{
+  "generator": "built-in image_gen",
+  "policy": "Unoccupied hulls with a closed solid concave floor, never a through-hole. No character, oars, seat, bench or plank. Source seat anchors are invisible pelvis attachments; characters sit directly on the hull floor. One scale per hull. Each seated character owns both hands and oars. New hulls never require new character art.",
+  "directions": [
+    "down",
+    "down-right",
+    "right",
+    "up-right",
+    "up",
+    "up-left",
+    "left",
+    "down-left"
+  ],
+  "sheets": [
+    {
+      "id": "bottle",
+      "source": "bottle-hull-floor",
+      "sourceSha256": "4a82f32857e10233df9250943eb53668e4ab7738ba1ebceb782411a32c66dcc2",
+      "promptSha256": "ed440c1fcb5a944cc0b554fc0fedb417bfdfd29abdaaae2f5213976a41cfefb2",
+      "editSource": "bottle-hull",
+      "editSourceSha256": "579a86d992ded26aaf3e33c6c8ff7382ebee4947245edfa3c953e35c6cb47a66",
+      "pack": "vessel-bottle",
+      "spritePrefix": "boat-bottle",
+      "grid": [
+        4,
+        2
+      ],
+      "phases": 1,
+      "sourceColumnBounds": [
+        0,
+        443,
+        887,
+        1330,
+        1774
+      ],
+      "sourceRowBounds": [
+        0,
+        444,
+        887
+      ],
+      "logicalCellWidth": 64,
+      "canvas": [
+        80,
+        72
+      ],
+      "anchor": [
+        40,
+        32
+      ],
+      "sourceSeatAnchors": [
+        [
+          [
+            224,
+            218
+          ],
+          [
+            219,
+            234
+          ],
+          [
+            226,
+            244
+          ],
+          [
+            212,
+            236
+          ]
+        ],
+        [
+          [
+            226,
+            234
+          ],
+          [
+            224,
+            237
+          ],
+          [
+            215,
+            222
+          ],
+          [
+            227,
+            239
+          ]
+        ]
+      ],
+      "floorProbes": [
+        [
+          0,
+          0
+        ],
+        [
+          -3,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          -3,
+          4
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    },
+    {
+      "id": "willow",
+      "source": "willow-skiff",
+      "sourceSha256": "c8b7f898212d489a765efd8e0177c84487f28187ed31ab8ea05d640ecfe19926",
+      "promptSha256": "2dcfd66efcdc8301d47ec620f7cab5181b704c2e8aa791798493aa4e256a0630",
+      "editSource": "bottle-hull-floor",
+      "editSourceSha256": "4a82f32857e10233df9250943eb53668e4ab7738ba1ebceb782411a32c66dcc2",
+      "pack": "vessel-willow",
+      "spritePrefix": "boat-willow",
+      "grid": [
+        4,
+        2
+      ],
+      "phases": 1,
+      "sourceColumnBounds": [
+        0,
+        443,
+        887,
+        1330,
+        1774
+      ],
+      "sourceRowBounds": [
+        0,
+        444,
+        887
+      ],
+      "logicalCellWidth": 64,
+      "canvas": [
+        80,
+        72
+      ],
+      "anchor": [
+        40,
+        32
+      ],
+      "sourceSeatAnchors": [
+        [
+          [
+            224,
+            218
+          ],
+          [
+            219,
+            234
+          ],
+          [
+            226,
+            244
+          ],
+          [
+            212,
+            236
+          ]
+        ],
+        [
+          [
+            226,
+            234
+          ],
+          [
+            224,
+            237
+          ],
+          [
+            215,
+            222
+          ],
+          [
+            227,
+            239
+          ]
+        ]
+      ],
+      "floorProbes": [
+        [
+          0,
+          0
+        ],
+        [
+          -3,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          -3,
+          4
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    },
+    {
+      "id": "painted",
+      "source": "painted-canoe",
+      "sourceSha256": "6f2b5aa467f77b45a6f42f137640f99b9dbce765f41be3514073f4d137c30473",
+      "promptSha256": "cb1aa059118512e3963512d04fe96458d54daa383906b4e69ef450f77988d674",
+      "editSource": "willow-skiff",
+      "editSourceSha256": "c8b7f898212d489a765efd8e0177c84487f28187ed31ab8ea05d640ecfe19926",
+      "pack": "vessel-painted",
+      "spritePrefix": "boat-painted",
+      "grid": [
+        4,
+        2
+      ],
+      "phases": 1,
+      "sourceColumnBounds": [
+        0,
+        443,
+        887,
+        1330,
+        1774
+      ],
+      "sourceRowBounds": [
+        0,
+        444,
+        887
+      ],
+      "logicalCellWidth": 64,
+      "canvas": [
+        80,
+        72
+      ],
+      "anchor": [
+        40,
+        32
+      ],
+      "sourceSeatAnchors": [
+        [
+          [
+            224,
+            218
+          ],
+          [
+            219,
+            234
+          ],
+          [
+            226,
+            244
+          ],
+          [
+            212,
+            236
+          ]
+        ],
+        [
+          [
+            226,
+            234
+          ],
+          [
+            224,
+            237
+          ],
+          [
+            215,
+            222
+          ],
+          [
+            227,
+            239
+          ]
+        ]
+      ],
+      "floorProbes": [
+        [
+          0,
+          0
+        ],
+        [
+          -3,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          -3,
+          4
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    },
+    {
+      "id": "walnut",
+      "source": "walnut-hull",
+      "sourceSha256": "dec7fb111839c568019ab05e2a3455d1fcde9f4b89febebfd40883f53a42ac08",
+      "promptSha256": "dd14c5771230815d3d4cbf7bda25e6b7ebbfbf48bfd6692dbc59a947b32052de",
+      "editSource": "willow-skiff",
+      "editSourceSha256": "c8b7f898212d489a765efd8e0177c84487f28187ed31ab8ea05d640ecfe19926",
+      "pack": "vessel-walnut",
+      "spritePrefix": "boat-walnut",
+      "grid": [
+        4,
+        2
+      ],
+      "phases": 1,
+      "sourceColumnBounds": [
+        0,
+        443,
+        887,
+        1330,
+        1774
+      ],
+      "sourceRowBounds": [
+        0,
+        444,
+        887
+      ],
+      "logicalCellWidth": 64,
+      "canvas": [
+        80,
+        72
+      ],
+      "anchor": [
+        40,
+        32
+      ],
+      "sourceSeatAnchors": [
+        [
+          [
+            224,
+            218
+          ],
+          [
+            219,
+            234
+          ],
+          [
+            226,
+            244
+          ],
+          [
+            212,
+            236
+          ]
+        ],
+        [
+          [
+            226,
+            234
+          ],
+          [
+            224,
+            237
+          ],
+          [
+            215,
+            222
+          ],
+          [
+            227,
+            239
+          ]
+        ]
+      ],
+      "floorProbes": [
+        [
+          0,
+          0
+        ],
+        [
+          -3,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          -3,
+          4
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    },
+    {
+      "id": "leaf",
+      "source": "leaf-hull",
+      "sourceSha256": "311bdfcec282aa014eb2570798976bee6dcf7ddbd78a2b5e0417220dcbe4121d",
+      "promptSha256": "6610365ef713e860de9e6e048642c60577484d523c0d757c38e15306788b6d0e",
+      "editSource": "willow-skiff",
+      "editSourceSha256": "c8b7f898212d489a765efd8e0177c84487f28187ed31ab8ea05d640ecfe19926",
+      "pack": "vessel-leaf",
+      "spritePrefix": "boat-leaf",
+      "grid": [
+        4,
+        2
+      ],
+      "phases": 1,
+      "sourceColumnBounds": [
+        0,
+        443,
+        887,
+        1330,
+        1774
+      ],
+      "sourceRowBounds": [
+        0,
+        444,
+        887
+      ],
+      "logicalCellWidth": 64,
+      "canvas": [
+        80,
+        72
+      ],
+      "anchor": [
+        40,
+        32
+      ],
+      "sourceSeatAnchors": [
+        [
+          [
+            224,
+            218
+          ],
+          [
+            219,
+            234
+          ],
+          [
+            226,
+            244
+          ],
+          [
+            212,
+            236
+          ]
+        ],
+        [
+          [
+            226,
+            234
+          ],
+          [
+            224,
+            237
+          ],
+          [
+            215,
+            222
+          ],
+          [
+            227,
+            239
+          ]
+        ]
+      ],
+      "floorProbes": [
+        [
+          0,
+          0
+        ],
+        [
+          -3,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          -3,
+          4
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    },
+    {
+      "id": "birch",
+      "source": "birch-hull",
+      "sourceSha256": "eb7b2f1e5cd168f1414cb15615060a7eb5c48e75b82df4805175d3a69c67f82f",
+      "promptSha256": "21691dc81920ebc515482d0f53ced352ac32c11e798f15f6b901cbc5dece8cb8",
+      "editSource": "willow-skiff",
+      "editSourceSha256": "c8b7f898212d489a765efd8e0177c84487f28187ed31ab8ea05d640ecfe19926",
+      "pack": "vessel-birch",
+      "spritePrefix": "boat-birch",
+      "grid": [
+        4,
+        2
+      ],
+      "phases": 1,
+      "sourceColumnBounds": [
+        0,
+        443,
+        887,
+        1330,
+        1774
+      ],
+      "sourceRowBounds": [
+        0,
+        444,
+        887
+      ],
+      "logicalCellWidth": 64,
+      "canvas": [
+        80,
+        72
+      ],
+      "anchor": [
+        40,
+        32
+      ],
+      "sourceSeatAnchors": [
+        [
+          [
+            224,
+            218
+          ],
+          [
+            219,
+            234
+          ],
+          [
+            226,
+            244
+          ],
+          [
+            212,
+            236
+          ]
+        ],
+        [
+          [
+            226,
+            234
+          ],
+          [
+            224,
+            237
+          ],
+          [
+            215,
+            222
+          ],
+          [
+            227,
+            239
+          ]
+        ]
+      ],
+      "floorProbes": [
+        [
+          0,
+          0
+        ],
+        [
+          -3,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          -3,
+          4
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    },
+    {
+      "id": "cork",
+      "source": "cork-hull",
+      "sourceSha256": "3056c0c054925971e5dd4237182a4c87b6d2ca4b4382b1d6e5635df79ba7194e",
+      "promptSha256": "759f4c10d152858ef01cb8cf83b56d4012eab45456f3aa54c3972208be910456",
+      "editSource": "willow-skiff",
+      "editSourceSha256": "c8b7f898212d489a765efd8e0177c84487f28187ed31ab8ea05d640ecfe19926",
+      "pack": "vessel-cork",
+      "spritePrefix": "boat-cork",
+      "grid": [
+        4,
+        2
+      ],
+      "phases": 1,
+      "sourceColumnBounds": [
+        0,
+        443,
+        887,
+        1330,
+        1774
+      ],
+      "sourceRowBounds": [
+        0,
+        444,
+        887
+      ],
+      "logicalCellWidth": 64,
+      "canvas": [
+        80,
+        72
+      ],
+      "anchor": [
+        40,
+        32
+      ],
+      "sourceSeatAnchors": [
+        [
+          [
+            224,
+            218
+          ],
+          [
+            219,
+            234
+          ],
+          [
+            226,
+            244
+          ],
+          [
+            212,
+            236
+          ]
+        ],
+        [
+          [
+            226,
+            234
+          ],
+          [
+            224,
+            237
+          ],
+          [
+            215,
+            222
+          ],
+          [
+            227,
+            239
+          ]
+        ]
+      ],
+      "floorProbes": [
+        [
+          0,
+          0
+        ],
+        [
+          -3,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          -3,
+          4
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    },
+    {
+      "id": "tin",
+      "source": "tin-hull",
+      "sourceSha256": "c9b78fd49e4f908323295c238226912742a8ed982bc9af85a50d83a210a638d3",
+      "promptSha256": "fa87d67c6562f35ec3a6a622d0044198b9a50909b1ac2de80783f33f931bea70",
+      "editSource": "willow-skiff",
+      "editSourceSha256": "c8b7f898212d489a765efd8e0177c84487f28187ed31ab8ea05d640ecfe19926",
+      "pack": "vessel-tin",
+      "spritePrefix": "boat-tin",
+      "grid": [
+        4,
+        2
+      ],
+      "phases": 1,
+      "sourceColumnBounds": [
+        0,
+        443,
+        887,
+        1330,
+        1774
+      ],
+      "sourceRowBounds": [
+        0,
+        444,
+        887
+      ],
+      "logicalCellWidth": 64,
+      "canvas": [
+        80,
+        72
+      ],
+      "anchor": [
+        40,
+        32
+      ],
+      "sourceSeatAnchors": [
+        [
+          [
+            224,
+            218
+          ],
+          [
+            219,
+            234
+          ],
+          [
+            226,
+            244
+          ],
+          [
+            212,
+            236
+          ]
+        ],
+        [
+          [
+            226,
+            234
+          ],
+          [
+            224,
+            237
+          ],
+          [
+            215,
+            222
+          ],
+          [
+            227,
+            239
+          ]
+        ]
+      ],
+      "floorProbes": [
+        [
+          0,
+          0
+        ],
+        [
+          -3,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          -3,
+          4
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    },
+    {
+      "id": "gourd",
+      "source": "gourd-hull-clean",
+      "sourceSha256": "c79fe1a5a11d845aeb9f738baa1ec4fc5ae11c37c51afab31092204b9edae55f",
+      "promptSha256": "68cf4db3bd284aaece73d62160dc7f91a6a3d4662e00e52fae3e673c66685304",
+      "editSource": "gourd-hull",
+      "editSourceSha256": "c501f361cd34e9f066634e5db549f50c4184acc0ed11a09164069a4524cbe4a4",
+      "pack": "vessel-gourd",
+      "spritePrefix": "boat-gourd",
+      "grid": [
+        4,
+        2
+      ],
+      "phases": 1,
+      "sourceColumnBounds": [
+        0,
+        443,
+        887,
+        1330,
+        1774
+      ],
+      "sourceRowBounds": [
+        0,
+        444,
+        887
+      ],
+      "logicalCellWidth": 64,
+      "canvas": [
+        80,
+        72
+      ],
+      "anchor": [
+        40,
+        32
+      ],
+      "sourceSeatAnchors": [
+        [
+          [
+            224,
+            218
+          ],
+          [
+            219,
+            234
+          ],
+          [
+            226,
+            244
+          ],
+          [
+            212,
+            236
+          ]
+        ],
+        [
+          [
+            226,
+            234
+          ],
+          [
+            224,
+            237
+          ],
+          [
+            215,
+            222
+          ],
+          [
+            227,
+            239
+          ]
+        ]
+      ],
+      "floorProbes": [
+        [
+          0,
+          0
+        ],
+        [
+          -3,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          -3,
+          4
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    }
+  ],
+  "sourceHistory": [
+    {
+      "id": "bottle",
+      "source": "bottle-hull",
+      "sourceSha256": "579a86d992ded26aaf3e33c6c8ff7382ebee4947245edfa3c953e35c6cb47a66",
+      "promptSha256": "afd02effd0795356cea4d61c09a3e42d7a517d8357ec733f5e6f6df9bde39f22",
+      "editSource": "bottle-boat-layer-padded",
+      "editSourceSha256": "1fa2c150bd4bbdd161c0885d0742de3eb96fefe11836d55464f809b77c7b7520",
+      "pack": "vessel-bottle",
+      "spritePrefix": "boat-bottle",
+      "grid": [
+        4,
+        2
+      ],
+      "phases": 1,
+      "sourceColumnBounds": [
+        0,
+        443,
+        887,
+        1330,
+        1774
+      ],
+      "sourceRowBounds": [
+        0,
+        444,
+        887
+      ],
+      "logicalCellWidth": 64,
+      "canvas": [
+        80,
+        72
+      ],
+      "anchor": [
+        40,
+        32
+      ],
+      "sourceSeatAnchors": [
+        [
+          [
+            224,
+            218
+          ],
+          [
+            219,
+            234
+          ],
+          [
+            226,
+            244
+          ],
+          [
+            212,
+            236
+          ]
+        ],
+        [
+          [
+            226,
+            234
+          ],
+          [
+            224,
+            237
+          ],
+          [
+            215,
+            222
+          ],
+          [
+            227,
+            239
+          ]
+        ]
+      ],
+      "outcome": "Superseded after in-game review: missing solid plastic bottom in several views. Original retained; replacement has a closed concave bottle floor, no seat."
+    },
+    {
+      "id": "bottle",
+      "source": "bottle-boat-layer-padded",
+      "sourceSha256": "1fa2c150bd4bbdd161c0885d0742de3eb96fefe11836d55464f809b77c7b7520",
+      "promptSha256": "83213bd28584d34a7c1ac3f9cffa4708336d9f89d4b0bcaa572d179e443f61ad",
+      "editSource": "bottle-boat-layer",
+      "editSourceSha256": "b7402750b8e82b7f5e54cb27b32b22dc496cb4338b0100806651b01cba8d9311",
+      "pack": "vessel-bottle",
+      "spritePrefix": "boat",
+      "grid": [
+        8,
+        4
+      ],
+      "sourceColumnBounds": [
+        0,
+        222,
+        466,
+        665,
+        887,
+        1109,
+        1331,
+        1552,
+        1774
+      ],
+      "sourceRowBounds": [
+        0,
+        247,
+        473,
+        685,
+        887
+      ],
+      "logicalCellWidth": 64,
+      "canvas": [
+        80,
+        72
+      ],
+      "anchor": [
+        40,
+        32
+      ],
+      "sourceSeatAnchors": [
+        [
+          [
+            113.8,
+            151.6
+          ],
+          [
+            118,
+            156.5
+          ],
+          [
+            96.9,
+            157.3
+          ],
+          [
+            121.8,
+            152.7
+          ],
+          [
+            112.2,
+            149.7
+          ],
+          [
+            106.6,
+            153.2
+          ],
+          [
+            109.9,
+            152.9
+          ],
+          [
+            107.9,
+            152.8
+          ]
+        ],
+        [
+          [
+            117.2,
+            135
+          ],
+          [
+            120.4,
+            135.3
+          ],
+          [
+            95.4,
+            139.6
+          ],
+          [
+            123.1,
+            136.1
+          ],
+          [
+            112.8,
+            131
+          ],
+          [
+            107.2,
+            135.7
+          ],
+          [
+            108.3,
+            137
+          ],
+          [
+            107.3,
+            134
+          ]
+        ],
+        [
+          [
+            116.8,
+            129.3
+          ],
+          [
+            120.5,
+            130
+          ],
+          [
+            96.1,
+            133.1
+          ],
+          [
+            114.1,
+            130.7
+          ],
+          [
+            112.2,
+            124.1
+          ],
+          [
+            110.7,
+            130.8
+          ],
+          [
+            108,
+            131.3
+          ],
+          [
+            108.7,
+            128.3
+          ]
+        ],
+        [
+          [
+            113.7,
+            98.7
+          ],
+          [
+            114.4,
+            100.6
+          ],
+          [
+            93.7,
+            102.1
+          ],
+          [
+            119.3,
+            99
+          ],
+          [
+            112.5,
+            103.5
+          ],
+          [
+            108.5,
+            99.2
+          ],
+          [
+            113.4,
+            102.9
+          ],
+          [
+            111.6,
+            95.3
+          ]
+        ]
+      ],
+      "outcome": "Rejected by owner before integration: oars and a visible seat were attached to the hull. Superseded by the empty bottle-hull; original preserved."
+    },
+    {
+      "source": "bottle-boat-layer",
+      "sourceSha256": "b7402750b8e82b7f5e54cb27b32b22dc496cb4338b0100806651b01cba8d9311",
+      "promptSha256": "5cab0173aca400c88de241f82e7cf95ed99a33204831ebcbd1e23ebf00078415",
+      "reference": "cutouts/ascua-rowing-wooden-oars.png",
+      "referenceSha256": "182ce01637ad2219f8625b75b44da2763a203904125f8a56715dcf93f5909884",
+      "outcome": "Superseded: insufficient per-cell padding and far profile paddle visible in the return phase. Original preserved."
+    },
+    {
+      "source": "gourd-hull",
+      "sourceSha256": "c501f361cd34e9f066634e5db549f50c4184acc0ed11a09164069a4524cbe4a4",
+      "promptSha256": "ed9b145fd8efe26e3bccbaedb5822afc5e953d307b1f0a14993f840f3a993f69",
+      "reference": "sources/willow-skiff.png",
+      "referenceSha256": "c8b7f898212d489a765efd8e0177c84487f28187ed31ab8ea05d640ecfe19926",
+      "outcome": "Rejected: down-right view has a duplicate stem at the stern. Localized imagegen correction removes it without changing the floor or other seven views."
+    }
+  ]
+}

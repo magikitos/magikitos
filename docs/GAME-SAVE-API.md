@@ -1,6 +1,6 @@
 # Private adventures, shared forest
 
-Current contract: **2026-09-16**, mirrored in both repositories as
+Current contract: **2026-09-18**, mirrored in both repositories as
 `docs/world-api.openapi.json`. PHP, identity, database and authorization belong
 only to the private website. The public game consumes JSON and ships no backend.
 
@@ -26,7 +26,7 @@ have a 12/minute author limit. Rejected requests do not debit materials.
 | Endpoint | Authority and result |
 | --- | --- |
 | GET game-state | Bearer: own active profile and private recovery metadata |
-| POST game-save | Bearer: private snapshot CAS; `parcel` is an old private archive only |
+| POST game-save | Bearer: private snapshot CAS; shared object positions are rejected |
 | POST game-restore | Bearer: activate owned archived profile, preserving displaced one |
 | GET game-account | Bearer: own account; lazily initializes an empty/frozen-legacy account |
 | POST game-action | Bearer: reviewed scene/entity/action command, never a supplied balance |
@@ -37,6 +37,12 @@ have a 12/minute author limit. Rejected requests do not debit materials.
 `parcels` and `parcel` public discovery endpoints are removed. Public object DTOs
 contain kind, variant, position, rotation, revisions, age, heritage and public
 author name/handle; never email, internal user ID, inventory or private progress.
+
+Private profiles contain only `id`, `revision` and `state`; recoveries contain
+`id`, `revision` and `updatedAt`. `game-save` accepts `profileId`, `baseRevision`,
+`operationId` and `state`, never a parcel. Local puzzle-object positions belong in
+`state.objects`; authored shared props are controlled only by the live service,
+excluded from client saves and rejected by PHP if a caller supplies them anyway.
 
 ## Transactions and retry
 
@@ -78,6 +84,18 @@ bounded local recovery copies. Session changes archive pending commands instead
 of attributing one person's play to another. Account reconciliation cannot mint
 materials from local inventory. Do not start a very long offline resource-gathering
 session after the 192-command synchronization warning: the outbox is bounded.
+
+If a queued object has since been removed, the API's explicit
+`404 unknown_action` is terminal. The same applies to `409 requirements_not_met`
+when an offline recipe no longer applies to the authoritative state (for example,
+an already-lit fire). Its exact command and owner are first saved in
+`magikitos.adventure.actions.rejected`, then the queue continues. This local
+recovery archive holds at most 192 records; a full/unwritable archive keeps the
+command pending. Ordinary HTTP 404s, network failures and authorization failures
+are not discarded. Reconciliation uses the authoritative account, never a reset
+or a replacement balance. `scripts/check-river-ddev-browser.cjs` exercises the
+removed-mushroom queue, conserved tools/money, reload and actual online dock
+crossings with disposable identities against local PHP/WebSocket services.
 
 Migrations **4230** (authority/community tables) and **4231** (cutover snapshot and
 merge recovery) are additive. 4231 freezes existing active server saves exactly

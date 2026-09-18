@@ -1,0 +1,15 @@
+Use case: identity-preserve.
+Asset type: production 32-frame running animation sheet for the existing Magikitos top-down pixel-art game.
+Input image 1 is the edit target and exact identity/scale/layout guide. Change ONLY the poses, creating four DISTINCT phases of a natural running cycle. Keep the original natural warm fair skin, black curls, pointed olive cloth cap, ochre buttoned waistcoat, cream rolled sleeves, green patched trousers, brown boots, body proportions and head size. Match the guide's original pixel-art details, camera and lighting. Do not make the character larger. Same 8-column by 4-row layout, same overall aspect ratio and generous padding. Each figure must remain fully inside its cell with at least 12 percent empty space on each side. No crop, bleed or overlapping figures.
+
+Exactly EIGHT columns, each ONE fixed facing direction for all four rows: DOWN/front, DOWN-RIGHT/front three-quarter, RIGHT/profile, UP-RIGHT/rear three-quarter, UP/back, UP-LEFT/rear three-quarter, LEFT/profile, DOWN-LEFT/front three-quarter. Torso leans moderately toward the direction of travel. Keep head, torso and hip proportions identical in every cell. Animate the knees, elbows and boot positions, not the scale. This is running, never rolling or jumping. The lowest boot remains on the same support baseline in every phase.
+
+Exactly FOUR rows, the four chronological phases of one complete loop:
+ROW 1: LEFT leg extended forward and RIGHT leg stretched back, with knees bent naturally. RIGHT fist forward, LEFT elbow back. A clear long stride.
+ROW 2: LEFT foot supporting under the hips; RIGHT knee drives forward and up, right heel tucked underneath that knee. Elbows pass beside torso. Feet come closer together: this silhouette must differ clearly from row 1.
+ROW 3: RIGHT leg extended forward and LEFT leg stretched back. LEFT fist forward, RIGHT elbow back. This is the OPPOSITE FOOTFALL to row 1, not the same leading leg with a different face.
+ROW 4: RIGHT foot supporting under the hips; LEFT knee drives forward and up, left heel tucked underneath that knee. Arms pass in opposite positions from row 2. Compact passing silhouette, returning naturally to row 1.
+
+Critical profile check: in column 3 (facing right), the leg NEAREST THE VIEWER is the anatomical right leg: it is BEHIND the torso in row 1 and AHEAD of the torso in row 3. In column 7 (facing left), the near leg is the anatomical left leg: it is AHEAD in row 1 and BEHIND in row 3. Make this visibly readable using the near trouser knee patch, overlap and boot sole. Do not draw the same visible leading leg in all four rows. Front/back views likewise alternate left and right foot placement. Only the head orientation stays fixed; arm and leg movement is clearly visible at small game size. Preserve natural anatomy, exactly two arms and two legs, no fused or missing boots.
+
+Genuine transparent alpha background, no matte, checkerboard, floor, cast shadows, speed lines or particles. No grid lines, headings, direction arrows, labels, text or watermark. Detailed clean pixel art, no blur. Full caps, ears, fists and boots visible and separated from every cell boundary.

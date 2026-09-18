@@ -1,0 +1,57 @@
+{
+  "forest-mushrooms": {
+    "sprite": "mushrooms",
+    "label": "mushroomName",
+    "harvest": {
+      "renewMs": 18000000,
+      "keepVisible": false
+    },
+    "solid": [
+      -0.45,
+      -0.3,
+      0.9,
+      0.45
+    ],
+    "hiddenWhen": {
+      "items": {
+        "mushroom": 99
+      }
+    },
+    "rules": [
+      {
+        "when": {
+          "items": {
+            "knife": 1
+          }
+        },
+        "effects": [
+          {
+            "type": "item",
+            "item": "mushroom",
+            "amount": 1
+          },
+          {
+            "type": "flag",
+            "flag": "mushroomFound"
+          },
+          {
+            "type": "dialogue",
+            "key": "mushroomsFound"
+          },
+          {
+            "type": "sound",
+            "key": "found"
+          }
+        ]
+      },
+      {
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "mushroomsNeedKnife"
+          }
+        ]
+      }
+    ]
+  }
+}

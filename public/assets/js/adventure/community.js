@@ -4,6 +4,7 @@ const {
   shapes,
   objectCost,
   polylineLength,
+  polylineReason,
   validateConstruction,
   POLYLINE_MAX_POINTS,
   POLYLINE_MAX_LENGTH,
@@ -11,6 +12,10 @@ const {
 const { drawArtwork } = require("./entity-art");
 const { operationId } = require("./material-account");
 const { catalogGround } = require("./construction-ground");
+const { growthDeadline } = require("./construction-growth");
+const { sendConstruction } = require("./construction-request");
+const { CommunitySync } = require("./community-sync");
+const { applyCommunityLayer } = require("./community-layer");
 const fences = require("./fences");
 const byId = (id) => document.getElementById(id);
 
@@ -65,6 +70,7 @@ class Community {
     this.game = game;
     this.catalog = game.catalog.construction;
     this.snapshots = new Map();
+    this.sync = new CommunitySync(this);
     this.editing = false;
     this.busy = false;
     this.activities = new (require("./ambient-activities").AmbientActivities)(
@@ -252,35 +258,55 @@ class Community {
       (id) => this.catalog.zones[id].scene === data?.id,
     );
     if (!zone) return;
+    const identity = this.game.session.get();
     try {
       const snapshot = await this.game.api.request(
         "community",
         { zone },
         { auth: true, timeout: 3000 },
       );
-      this.accept(snapshot);
+      if (identity === this.game.session.get()) this.accept(snapshot);
     } catch (_) {
-      this.unavailable = true;
+      if (identity === this.game.session.get()) this.unavailable = true;
     }
   }
-  accept(value) {
+  validate(value) {
     if (
       !value ||
-      !this.catalog.zones[value.zone] ||
-      !Number.isInteger(value.revision) ||
+      typeof value.zone !== "string" ||
+      !Object.hasOwn(this.catalog.zones, value.zone) ||
+      !Number.isSafeInteger(value.now) || value.now <= 0 ||
+      !Number.isSafeInteger(value.revision) || value.revision < 0 ||
       !Array.isArray(value.objects) ||
       value.objects.length >
         (this.catalog.zones[value.zone].maxObjects ??
           this.catalog.maxObjectsPerZone)
     )
       throw Error("invalid_community");
-    for (const o of value.objects)
+    const ids = new Set();
+    for (const o of value.objects) {
       if (
-        !/^[a-f0-9]{32}$/.test(o.id) ||
-        !this.catalog.definitions[o.kind] ||
-        ![o.x, o.y, o.rotation, o.revision].every(Number.isFinite)
+        !o || typeof o !== "object" || Array.isArray(o) ||
+        typeof o.id !== "string" || !/^[a-f0-9]{32}$/.test(o.id) ||
+        ids.has(o.id) || typeof o.kind !== "string" || !Object.hasOwn(this.catalog.definitions, o.kind) ||
+        ![o.x, o.y].every(Number.isFinite) ||
+        !Number.isSafeInteger(o.revision) || o.revision < 1
       )
         throw Error("invalid_community_object");
+      ids.add(o.id);
+      const definition = this.catalog.definitions[o.kind];
+      if (!definition.rotations.includes(o.rotation) || !definition.variants.some(v => v.id === o.variant) ||
+          (definition.shape === "polyline" && polylineReason(o.points)))
+        throw Error("invalid_community_object");
+      growthDeadline(o, definition);
+    }
+  }
+  accept(value) {
+    this.validate(value);
+    // HTTP responses can arrive out of order (own mutation, scene prewarm, live notice).
+    // Never let an older snapshot resurrect a dismantled object or rewind a moved fence.
+    if (value.revision < (this.snapshots.get(value.zone)?.revision ?? -1)) return false;
+    this.game.serverClock.sync(value.now);
     // Si lo pintado cambia, las baldosas de esa pantalla ya no valen. Se compara la firma en vez
     // de tirarlas siempre: repintar un claro entero en cada entrada se nota.
     const firma = JSON.stringify(
@@ -297,6 +323,7 @@ class Community {
     }
     this.snapshots.set(value.zone, value);
     this.unavailable = false;
+    return true;
   }
   sprite(item) {
     const d = this.catalog.definitions[item.kind],
@@ -320,14 +347,19 @@ class Community {
     const base = {
       id: `community-${item.id}`,
       community: item.id,
+      communityVersion: JSON.stringify([item.kind, item.variant, item.x, item.y, item.rotation, item.points, item.createdAt]),
       x: item.x,
       y: item.y,
       rules: [],
       pushable: false,
-      onInteract: () => this.inspect(item),
+      onInteract: () => {
+        const current = this.snapshot?.objects.find(o => o.id === item.id);
+        if (current) this.inspect(current);
+      },
       capabilities: d.capabilities,
       lightRadius: d.lightRadius,
       slots: d.slots,
+      growsAt: growthDeadline(item, d),
     };
     if (d.shape === "polyline")
       return {
@@ -408,6 +440,7 @@ class Community {
   }
   async begin() {
     const g = this.game;
+    if (g.live && !g.live.canWrite()) return;
     if (!this.zone || g.river.active || this.busy) return;
     this.busy = true;
     g.pauseMovement();
@@ -429,11 +462,7 @@ class Community {
       if (this.pending) {
         if (this.pending.owner !== g.materials.owner)
           throw Error("pending_identity");
-        const result = await g.api.request(
-          "community-build",
-          this.pending.request,
-          { auth: true },
-        );
+        const result = await this.sendPending();
         this.accept(result);
         g.materials.accept(result.account);
         g.materials.reconcile();
@@ -729,6 +758,7 @@ class Community {
       this.catalog,
       this.ground(),
       this.ghost.id,
+      this.game.live?.objects.bounds() || [],
     );
     this.cost = this.invalid
       ? null
@@ -784,6 +814,7 @@ class Community {
     this.paint();
   }
   async commit(operation) {
+    if (this.game.live && !this.game.live.canWrite()) return;
     if (
       this.busy ||
       !this.ghost ||
@@ -815,15 +846,7 @@ class Community {
       };
       // Retain an exact request across transport failures, avoiding a second debit on retry.
       this.pending ||= { owner: g.materials.owner, request };
-      localStorage.setItem(
-        "magikitos.adventure.build-pending",
-        JSON.stringify(this.pending),
-      );
-      const result = await g.api.request(
-        "community-build",
-        this.pending.request,
-        { auth: true },
-      );
+      const result = await this.sendPending();
       this.clearPending();
       this.accept(result);
       g.materials.accept(result.account);
@@ -857,33 +880,40 @@ class Community {
       this.paint();
     }
   }
+  sendPending() {
+    const g = this.game, owner = this.pending.owner;
+    const guard = () => {
+      if (owner !== g.materials.owner) throw Error("pending_identity");
+    };
+    return sendConstruction(this.pending.request, {
+      send: async (request) => {
+        guard();
+        const result = await g.api.request("community-build", request, { auth: true });
+        guard();
+        return result;
+      },
+      latest: async (zone) => {
+        guard();
+        const snapshot = await g.api.request("community", { zone }, { auth: true });
+        guard();
+        this.accept(snapshot);
+        return snapshot;
+      },
+      remember: (request) => {
+        guard();
+        this.pending = { owner, request };
+        localStorage.setItem("magikitos.adventure.build-pending", JSON.stringify(this.pending));
+      },
+    });
+  }
   clearPending() {
     this.pending = null;
     localStorage.removeItem("magikitos.adventure.build-pending");
   }
-  async refreshWorld() {
-    const g = this.game,
-      { World } = require("./model");
-    // Un caminito nuevo es PINTURA, y el suelo se cachea por baldosas de escena: sin tirar las de
-    // esta pantalla, el camino recién puesto no aparece hasta que la caché rota por su cuenta.
-    g.renderer?.terrain?.invalidate(g.state.scene);
-    g.world = new World(this.sceneData(g.catalog.scenes[g.state.scene]));
-    g.world.actors = [g.player, ...g.neighbors];
-    g.world.refresh(g.state);
-    g.renderer.world = g.world;
-    for (const actor of [g.player, ...g.neighbors])
-      if (!g.world.canStand(actor.x, actor.y, actor)) {
-        let p;
-        for (let r = 8; r <= 192 && !p; r += 8)
-          for (let i = 0; i < 16 && !p; i++) {
-            const x = actor.x + Math.cos((i * Math.PI) / 8) * r,
-              y = actor.y + Math.sin((i * Math.PI) / 8) * r;
-            if (g.world.canStand(x, y, actor)) p = { x, y };
-          }
-        if (p) Object.assign(actor, p);
-      }
-    g.cats.enter();
-    this.activities.reset();
+  refreshWorld() {
+    const g = this.game;
+    applyCommunityLayer(g, this.sceneData(g.catalog.scenes[g.state.scene]));
+    this.applied = { world: g.world, snapshot: this.snapshot };
   }
   draw(ctx) {
     if (!this.editing) return;
@@ -951,6 +981,7 @@ class Community {
     if (!g.state) return;
     byId("home-controls").hidden =
       !this.zone ||
+      g.live?.spectator ||
       this.editing ||
       g.river?.active ||
       g.dialogue ||

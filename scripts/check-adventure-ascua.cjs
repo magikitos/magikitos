@@ -39,12 +39,12 @@ for(let bits=0;bits<64;bits++){
   }
 }
 let state=cleanSave(null,catalog);
-assert(active(find("picnic-mushroom"),state));
-state=planReaction(find("picnic-mushroom"),state,catalog).state;
+assert(active(find("forest-mushrooms-fern"),state));
+state=planReaction(find("forest-mushrooms-fern"),state,catalog).state;
 assert(!state.inventory.mushroom,"Knife required to cut a portion");
 state=planReaction(find("picnic-knife"),state,catalog).state;
-state=planReaction(find("picnic-mushroom"),state,catalog).state;
-assert.equal(state.inventory.mushroom,1);assert(!active(find("picnic-mushroom"),state));
+state=planReaction(find("forest-mushrooms-fern"),state,catalog).state;
+assert.equal(state.inventory.mushroom,1);assert(!active(find("forest-mushrooms-fern"),state));
 assert.equal(state.inventory.knife,1,"Knife is reusable");
 /**
  * ⛔ LA FUENTE NO COBRA: SE PIDE UN DESEO Y YA (17-sep-2026, decisión del dueño). Se toca y se
@@ -115,7 +115,7 @@ assert.equal(cardinal(-2,3),"down");assert.equal(cardinal(-3,2),"left");
 const sequence=new Sequence(), game={sequence,player:{}};
 const presentation=new Presentation(game);
 sequence.play("gesture",1,{kind:"discover"});sequence.advance(.5);
-assert.equal(presentation.frame(),"person-0-discover-2");
+assert.equal(presentation.frame(),"person-100-discover-2");
 sequence.advance(.5);assert.equal(presentation.frame(),null);
 let animated=0,resting=0;
 for(let i=0;i<100;i++)for(let t=0;t<30;t++){
@@ -142,7 +142,7 @@ for(const dt of [1/30,1/60,1/120]){
  for(let t=0;t<Math.round(1/dt);t++)move(w,actor,60*dt,0,()=>{},{
    resolveCollision:(e,dx,dy)=>tryPush(w,actor,e,dx,dy,s)});
  assert(Math.abs(actor.x-x-60*PUSH_SPEED_RATIO)<.001,"Effort speed is frame-rate independent");
- assert.match(pushFrame(actor),/^person-0-right-push-/);
+ assert.match(pushFrame(actor),/^person-100-right-push-/);
  assert.equal(w.collisionAt(actor.x,actor.y,actor),null);
 }
 console.log("PASS Ascua: 64 barbecue states, whole pickup, free fountain with its machinery intact, bounded reload memories, gesture poses, exact density/crops, restrained wind and 30/60/120 Hz pushing.");

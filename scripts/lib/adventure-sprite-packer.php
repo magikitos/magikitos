@@ -106,6 +106,19 @@ function adventureCleanFragments(GdImage $sprite, float $ratio): void
     }
 }
 
+/** Isolate before reducing: neighbouring sheet fragments must not bleed into native pixels.
+ * Used by production, registration measurements and candidate review alike. */
+function adventurePreparedSpriteCell(GdImage $source, array $cell, array $definition): GdImage
+{
+    [$sx, $sy, $sw, $sh] = $cell;
+    $image = adventureClearCanvas($sw, $sh);
+    imagecopy($image, $source, 0, 0, $sx, $sy, $sw, $sh);
+    if (!empty($definition['cleanFragments'])) {
+        adventureCleanFragments($image, $definition['cleanFragments']);
+    }
+    return $image;
+}
+
 function adventureNativeSprite(GdImage $source, array $definition, array $cell, array $groups, array $profile = ADVENTURE_ART_PROFILE): GdImage
 {
     [$sx, $sy, $sw, $sh] = $cell;
@@ -184,12 +197,8 @@ function bakeAdventureSprites(array $definitions, string $root, array $profile =
             throw new RuntimeException('Source needs a real alpha channel: ' . $definition['source']);
         }
         [$sx, $sy, $sw, $sh] = adventureSourceCell($source, $definition);
-        $cellImage = adventureClearCanvas($sw, $sh);
-        imagecopy($cellImage, $source, 0, 0, $sx, $sy, $sw, $sh);
         // Reject isolated sheet debris before fitting, so it cannot shrink or offset the actual object.
-        if (!empty($definition['cleanFragments'])) {
-            adventureCleanFragments($cellImage, $definition['cleanFragments']);
-        }
+        $cellImage = adventurePreparedSpriteCell($source, [$sx, $sy, $sw, $sh], $definition);
         $prepared[$name] = $cellImage;
         $visible = adventureVisibleBounds($cellImage, [0, 0, $sw, $sh], $name);
         // Authored animation cells share a registration canvas. Fitting each pose's

@@ -1,0 +1,14 @@
+Use case: identity-preserve.
+Asset type: production 16-frame working/crafting animation sheet for the existing Magikitos top-down pixel-art game.
+Input image 1 is the edit target and exact character, scale and registration guide. Change ONLY the arm positions and a tiny upper-body lean to create a complete work animation. Do not redesign or enlarge the character. Preserve the exact warm fair freckled face, black curls, olive pointed cloth cap, ochre buttoned vest, cream rolled cuffs, green patched trousers, brown boots, head size, torso width, color palette, crisp pixel-art details, overhead three-quarter camera and upper-left light.
+
+LAYOUT: exactly FOUR equal-width columns by FOUR equal-height rows, 16 separate complete figures. Preserve the guide's portrait aspect ratio and character-to-cell scale, including all its empty padding. Invisible cell boundaries; no grid lines, captions, arrows or numbers. Each column is ONE fixed direction: DOWN/front, RIGHT/profile, UP/back, LEFT/profile. Do not rotate or drift a column between rows. Both boot soles use exactly the same baseline within every row. Feet stay planted; no walking, no jumping.
+
+The FOUR rows are consecutive motion phases, identical phase across all four views:
+Row 1: preparation. Elbows bent; both empty hands reach slightly forward at waist level, palms angled inward. Look toward the small imaginary task in front of the body.
+Row 2: the right forearm lifts, elbow bent, right empty hand at chest height ready for a small downward working stroke. Left empty hand remains forward and low as if supporting the work. Very restrained forward lean.
+Row 3: the right hand completes its downward-forward working stroke, beside the left hand at waist height. A clear change from row 2 in silhouette, but the head and torso remain the same size and feet do not shift.
+Row 4: finish. Both forearms extend a little farther forward, open hands as if offering the finished result; torso relaxes upright. This same pose can end a gentle underhand toss.
+
+Draw the anatomical right hand consistently in the front, profile and back views; back view shows only the visible portion, not arms pasted through the body. In both profile views keep the hands clearly in front of the torso in the direction faced.
+EMPTY HANDS. The game draws the input/tool/result separately: do not draw a hammer, knife, food, bench, worktable, particles, sparks or any other prop. Hands never intersect the cap, face or ears. All pointed caps, hands and boots remain within their own cell with generous padding. Keep natural human skin and the original slim proportions. Genuine transparent alpha background, no solid backdrop, no checkerboard, no ground or cast shadows. No text, logos, watermark, blur or chunky enlarged pixels.

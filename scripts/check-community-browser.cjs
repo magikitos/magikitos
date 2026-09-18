@@ -72,7 +72,7 @@ const ZONE = Object.entries(
       (e) => e.resource?.region === "overworld",
     ))
       await action("overworld", node.id);
-    for (const id of ["picnic-knife", "picnic-lighter", "picnic-mushroom"])
+    for (const id of ["picnic-knife", "picnic-lighter", "forest-mushrooms-fern", "woodland-rake", "woodland-grass-seeds"])
       await action("overworld", id);
     await action("overworld", "picnic-barbecue", "light");
     await action("overworld", "picnic-barbecue", "cook");
@@ -114,6 +114,7 @@ const ZONE = Object.entries(
           isMobile: width < 800,
           ignoreHTTPSErrors: true,
         });
+        page.setDefaultTimeout(15000);
         page.on("pageerror", (e) => errors.push(e.message));
         // Nada sale de la máquina: solo el sitio que se está probando, sea DDEV o el clon.
         const allowed = new URL(origin).host;
@@ -121,9 +122,11 @@ const ZONE = Object.entries(
           new URL(r.request().url()).host === allowed ? r.continue() : r.abort(),
         );
         await page.addInitScript(
-          ({ token, account }) => {
+          ({ token, account, seed }) => {
             localStorage.setItem("magikitos_session", token);
-            if (!localStorage.getItem("magikitos.adventure"))
+            // Only the first browser establishes this fixture's new cloud save. Subsequent
+            // fresh contexts must load that save, not fabricate a competing unowned local one.
+            if (seed && !localStorage.getItem("magikitos.adventure"))
               localStorage.setItem(
                 "magikitos.adventure",
                 JSON.stringify({
@@ -140,10 +143,11 @@ const ZONE = Object.entries(
                 }),
               );
           },
-          { token: identity.token, account },
+          { token: identity.token, account, seed: paso === 1 },
         );
         await page.goto(origin + "/aventura");
         await require("./browser-entry.cjs").enterWorld(page);
+        await page.waitForFunction(() => window.MagikitosAdventure.inspect().live.role === "player");
         await page.locator("#home-edit").click();
         await page.waitForFunction(
           () => window.MagikitosAdventure.inspect().community.editing,
@@ -327,7 +331,6 @@ const ZONE = Object.entries(
           ),
           false,
         );
-        await page.close();
         const placed = after.objects.find(
           (o) => !snapshot.objects.some((before) => before.id === o.id),
         );
@@ -361,6 +364,8 @@ const ZONE = Object.entries(
           account.inventory.bowl,
           "Pool can also be recovered without duplicating its bowl",
         );
+        await page.waitForFunction(id => !window.MagikitosAdventure.inspect().community.objects.some(o => o.id === id), placed.id);
+        await page.close();
         console.log(
           `PASS shared ${kind} placement/removal/refund, real API, fixed UI pinch ${width}x${height}`,
         );

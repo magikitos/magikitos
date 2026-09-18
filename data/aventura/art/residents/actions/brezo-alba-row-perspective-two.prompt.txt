@@ -1,0 +1,10 @@
+Use case: precise-object-edit
+Asset type: correction to the provided 4-column x 4-row transparent elf rowing sprite sheet.
+Input image 1 is the ONLY edit target. Keep its 16 characters, positions, sizes, identity, clothes, camera views and blank alpha layout EXACTLY fixed. Correct ONLY the paddles.
+There must be exactly TWO wooden oars in EVERY cell, not three. Each has one shaft and one blade.
+CRITICAL FIX 1: in columns 1 and 4 of rows 1, 2 and 4 there are THREE blades. Remove the EXTRA sideways/front-facing blade and its shaft:
+- Column 1 (elf looking right): KEEP the oar whose blade extends down toward the foreground, and KEEP the small far blade protruding BEHIND the hat towards the upper-left. REMOVE the extra oar sticking to the RIGHT horizontally from the far hand. The far hand must hold only the one shaft leading behind the body to the upper-left blade.
+- Column 4 (looking left): exact counterpart: KEEP the downwards foreground oar and the small far blade behind the hat towards upper-right. REMOVE the extra oar sticking to the LEFT horizontally. Connect that hand to the far rear shaft, not a third oar.
+CRITICAL FIX 2: ROW 3 is the finish of the stroke, but currently the far paddle wrongly flips forwards. In row 3, ALL FOUR columns, move ONLY the FAR oar back behind the character, visibly ending above / behind the shoulder exactly like rows 1 and 2. Column1 far blade upper-left, column2 far blade upper-left, column3 far blade upper-right, column4 far blade upper-right. Keep the near hand/oar performing its existing low foreground power stroke. The far oar must always stay on the opposite, BACKGROUND side of the imaginary boat throughout the loop; it cannot jump to the front.
+Keep columns2/3 in rows1/2/4 unchanged; those have the correct two paddles already. Long complete oars, one held in each hand; no disconnected floating fragments. Far shaft may be naturally hidden behind the torso but its visible segments must align.
+No boat, no seat, no water, no labels, no added objects, no third blade. Preserve real transparency and all 16 cell margins.

@@ -1,0 +1,212 @@
+{
+    "frames": {
+        "boat-leaf-down-0": {
+            "source": "data/aventura/art/river/cutouts/leaf-hull.png",
+            "rect": [
+                0,
+                0,
+                443,
+                444
+            ],
+            "size": [
+                80,
+                72
+            ],
+            "anchor": [
+                40,
+                32
+            ],
+            "preserveCanvas": true,
+            "cleanFragments": 0.005,
+            "registration": {
+                "scale": 0.14430665163472378,
+                "offset": [
+                    7.675310033821873,
+                    0.5411499436302165
+                ]
+            }
+        },
+        "boat-leaf-down-right-0": {
+            "source": "data/aventura/art/river/cutouts/leaf-hull.png",
+            "rect": [
+                443,
+                0,
+                444,
+                444
+            ],
+            "size": [
+                80,
+                72
+            ],
+            "anchor": [
+                40,
+                32
+            ],
+            "preserveCanvas": true,
+            "cleanFragments": 0.005,
+            "registration": {
+                "scale": 0.14430665163472378,
+                "offset": [
+                    8.396843291995491,
+                    -1.767756482525364
+                ]
+            }
+        },
+        "boat-leaf-right-0": {
+            "source": "data/aventura/art/river/cutouts/leaf-hull.png",
+            "rect": [
+                887,
+                0,
+                443,
+                444
+            ],
+            "size": [
+                80,
+                72
+            ],
+            "anchor": [
+                40,
+                32
+            ],
+            "preserveCanvas": true,
+            "cleanFragments": 0.005,
+            "registration": {
+                "scale": 0.14430665163472378,
+                "offset": [
+                    7.386696730552423,
+                    -3.210822998872601
+                ]
+            }
+        },
+        "boat-leaf-up-right-0": {
+            "source": "data/aventura/art/river/cutouts/leaf-hull.png",
+            "rect": [
+                1330,
+                0,
+                444,
+                444
+            ],
+            "size": [
+                80,
+                72
+            ],
+            "anchor": [
+                40,
+                32
+            ],
+            "preserveCanvas": true,
+            "cleanFragments": 0.005,
+            "registration": {
+                "scale": 0.14430665163472378,
+                "offset": [
+                    9.40698985343856,
+                    -2.056369785794814
+                ]
+            }
+        },
+        "boat-leaf-up-0": {
+            "source": "data/aventura/art/river/cutouts/leaf-hull.png",
+            "rect": [
+                0,
+                444,
+                443,
+                443
+            ],
+            "size": [
+                80,
+                72
+            ],
+            "anchor": [
+                40,
+                32
+            ],
+            "preserveCanvas": true,
+            "cleanFragments": 0.005,
+            "registration": {
+                "scale": 0.14430665163472378,
+                "offset": [
+                    7.386696730552423,
+                    -1.767756482525364
+                ]
+            }
+        },
+        "boat-leaf-up-left-0": {
+            "source": "data/aventura/art/river/cutouts/leaf-hull.png",
+            "rect": [
+                443,
+                444,
+                444,
+                443
+            ],
+            "size": [
+                80,
+                72
+            ],
+            "anchor": [
+                40,
+                32
+            ],
+            "preserveCanvas": true,
+            "cleanFragments": 0.005,
+            "registration": {
+                "scale": 0.14430665163472378,
+                "offset": [
+                    7.675310033821873,
+                    -2.200676437429536
+                ]
+            }
+        },
+        "boat-leaf-left-0": {
+            "source": "data/aventura/art/river/cutouts/leaf-hull.png",
+            "rect": [
+                887,
+                444,
+                443,
+                443
+            ],
+            "size": [
+                80,
+                72
+            ],
+            "anchor": [
+                40,
+                32
+            ],
+            "preserveCanvas": true,
+            "cleanFragments": 0.005,
+            "registration": {
+                "scale": 0.14430665163472378,
+                "offset": [
+                    8.974069898534388,
+                    -0.03607666290867684
+                ]
+            }
+        },
+        "boat-leaf-down-left-0": {
+            "source": "data/aventura/art/river/cutouts/leaf-hull.png",
+            "rect": [
+                1330,
+                444,
+                444,
+                443
+            ],
+            "size": [
+                80,
+                72
+            ],
+            "anchor": [
+                40,
+                32
+            ],
+            "preserveCanvas": true,
+            "cleanFragments": 0.005,
+            "registration": {
+                "scale": 0.14430665163472378,
+                "offset": [
+                    7.242390078917701,
+                    -2.489289740698986
+                ]
+            }
+        }
+    }
+}

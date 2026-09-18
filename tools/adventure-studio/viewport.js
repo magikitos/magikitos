@@ -72,8 +72,12 @@ class MapViewport {
   async initialize() {
     await this.renderer.sprites.initialize("/studio-art/manifest.json");
     const packs = Object.keys(this.renderer.sprites.manifest.packs);
-    await this.renderer.sprites.prepare([], packs);
-    this.renderer.sprites.activate(new Set(packs));
+    // The local crop editor intentionally opens every source, unlike the game's viewport cache.
+    // Its explicit budget is the measured authored library, not an unbounded cache exemption.
+    this.renderer.sprites.residency.limit = Object.values(this.renderer.sprites.manifest.packs)
+      .reduce((bytes, pack) => bytes + pack.width * pack.height * 4, 0);
+    const prepared = await this.renderer.sprites.prepare([], packs);
+    this.renderer.sprites.activate(prepared);
   }
   setScene(data, fit = false) {
     const groundKey = JSON.stringify({

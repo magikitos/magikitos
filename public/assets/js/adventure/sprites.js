@@ -1,12 +1,14 @@
 "use strict";
-/** Independent native sprite packages. Scene loading is staged; active art is never evicted. */
+const { SpriteResidency } = require("./sprite-residency");
+/** Independent native sprite packages. Prepared sets are leases: activate or release them. */
 class SpriteLibrary {
-  constructor() {
+  constructor({ budget } = {}) {
     this.packs = new Map();
     this.pending = new Map();
     this.owners = new Map();
     this.pinned = new Set();
     this.warm = new Set();
+    this.residency = new SpriteResidency(budget);
   }
   async initialize(url) {
     this.base = new URL(url, location.href);
@@ -18,12 +20,18 @@ class SpriteLibrary {
     )
       throw new Error("Invalid sprite manifest");
     this.manifest = manifest;
-    for (const [id, pack] of Object.entries(manifest.packs))
+    for (const [id, pack] of Object.entries(manifest.packs)) {
+      if (!Number.isSafeInteger(pack.width) || pack.width < 1 ||
+          !Number.isSafeInteger(pack.height) || pack.height < 1 ||
+          !Number.isSafeInteger(pack.width * pack.height * 4) ||
+          !Number.isSafeInteger(pack.bytes) || pack.bytes < 1 || !Array.isArray(pack.sprites))
+        throw new Error("Invalid sprite package dimensions: " + id);
       for (const sprite of pack.sprites) {
         if (this.owners.has(sprite))
           throw new Error("Duplicate sprite: " + sprite);
         this.owners.set(sprite, id);
       }
+    }
   }
   async json(url) {
     const response = await fetch(url, { signal: AbortSignal.timeout(20000) });
@@ -41,52 +49,75 @@ class SpriteLibrary {
       [...names].filter(Boolean).map((name) => this.packageFor(name)),
     );
     for (const id of extraPacks) ids.add(id);
+    const release = this.residency.hold(ids);
+    Object.defineProperty(ids, "release", { value: release });
     const results = await Promise.allSettled(
       [...ids].map((id) => this.load(id)),
     );
     const failed = results.find((result) => result.status === "rejected");
     if (failed) {
-      this.activate(this.pinned);
+      release();
+      this.prune();
       throw failed.reason;
     }
     return ids;
   }
   async load(id) {
-    if (this.packs.has(id)) return;
+    if (this.packs.has(id)) {
+      const pack = this.packs.get(id);
+      this.packs.delete(id);
+      this.packs.set(id, pack);
+      return;
+    }
     if (this.pending.has(id)) return this.pending.get(id);
     const definition = this.manifest.packs[id];
     if (!definition) throw new Error("Unknown sprite package: " + id);
     const task = (async () => {
-      const [metadata, image] = await Promise.all([
+      const bytes = definition.width * definition.height * 4;
+      this.residency.reserve(id, bytes, this);
+      // Wait for both sides even on failure: a late-decoding image must not outlive its reservation.
+      const results = await Promise.allSettled([
         this.json(new URL(definition.metadata, this.base)),
         this.loadImage(new URL(definition.image, this.base)),
       ]);
-      if (
-        metadata.width !== image.naturalWidth ||
-        metadata.height !== image.naturalHeight
-      )
-        throw new Error("Sprite dimensions mismatch: " + id);
-      for (const name of definition.sprites) {
-        const f = metadata.frames[name];
-        if (
-          !f ||
-          f.x < 0 ||
-          f.y < 0 ||
-          f.w < 1 ||
-          f.h < 1 ||
-          !Number.isInteger(f.pixelRatio) || f.pixelRatio < 1 || f.pixelRatio > 3 ||
-          f.x + f.w * f.pixelRatio > metadata.width ||
-          f.y + f.h * f.pixelRatio > metadata.height
-        )
-          throw new Error("Invalid sprite frame: " + name);
+      const failure = results.find((result) => result.status === "rejected");
+      if (failure) {
+        if (results[1].status === "fulfilled") results[1].value.src = "";
+        throw failure.reason;
       }
-      this.packs.set(id, { image, frames: metadata.frames });
+      const [metadata, image] = results.map((result) => result.value);
+      try {
+        if (
+          metadata.width !== image.naturalWidth || metadata.width !== definition.width ||
+          metadata.height !== image.naturalHeight || metadata.height !== definition.height
+        )
+          throw new Error("Sprite dimensions mismatch: " + id);
+        for (const name of definition.sprites) {
+          const f = metadata.frames[name];
+          if (
+            !f ||
+            ![f.x, f.y, f.w, f.h, f.pixelRatio].every(Number.isInteger) ||
+            f.x < 0 || f.y < 0 || f.w < 1 || f.h < 1 ||
+            f.pixelRatio < 1 || f.pixelRatio > 3 ||
+            f.x + f.w * f.pixelRatio > metadata.width ||
+            f.y + f.h * f.pixelRatio > metadata.height
+          )
+            throw new Error("Invalid sprite frame: " + name);
+        }
+        this.packs.set(id, { image, frames: metadata.frames, bytes });
+        this.residency.reservations.delete(id);
+        this.residency.bytes += bytes;
+      } catch (error) {
+        image.src = "";
+        throw error;
+      }
     })();
     this.pending.set(id, task);
     try {
       await task;
     } finally {
       this.pending.delete(id);
+      this.residency.reservations.delete(id);
     }
   }
   loadImage(url) {
@@ -110,6 +141,8 @@ class SpriteLibrary {
     });
   }
   activate(ids) {
+    for (const id of ids)
+      if (!this.packs.has(id)) throw new Error("Sprite package was not prepared: " + id);
     this.pinned = new Set(ids);
     this.warm.clear();
     for (const id of ids) {
@@ -117,6 +150,7 @@ class SpriteLibrary {
       this.packs.delete(id);
       this.packs.set(id, pack);
     }
+    ids.release?.();
     this.prune();
   }
   retainWarm(ids) {
@@ -124,11 +158,7 @@ class SpriteLibrary {
     this.prune();
   }
   prune() {
-    const keep = new Set([...this.pinned, ...this.warm]);
-    for (const id of this.packs.keys()) {
-      if (this.packs.size <= Math.max(12, keep.size + 2)) break;
-      if (!keep.has(id)) this.packs.delete(id);
-    }
+    this.residency.evict(this.residency.bytes + this.residency.reservedBytes - this.residency.limit, this);
   }
   frame(name) {
     return this.packs.get(this.owners.get(name))?.frames[name];
@@ -180,6 +210,9 @@ class SpriteLibrary {
       loaded: [...this.packs.keys()],
       active: [...this.pinned],
       warm: [...this.warm],
+      bytes: this.residency.bytes,
+      reservedBytes: this.residency.reservedBytes,
+      budget: this.residency.limit,
     };
   }
 }

@@ -34,9 +34,6 @@ const manifest = JSON.parse(
   fs.readFileSync("public/assets/aventura/manifest.json"),
 );
 const atlas = { frames: {} };
-let spriteBytes = 0;
-let residentBytes = 0;
-let creatureBytes = 0;
 for (const [id, pack] of Object.entries(manifest.packs)) {
   const meta = JSON.parse(
     fs.readFileSync("public/assets/aventura/" + pack.metadata),
@@ -50,24 +47,19 @@ for (const [id, pack] of Object.entries(manifest.packs)) {
     atlas.frames[name] = meta.frames[name];
   }
   const bytes = fs.statSync("public/assets/aventura/" + pack.image).size;
-  spriteBytes += bytes;
   if (/^cat-(ginger|tuxedo|silver|calico|siamese)$/.test(id)) {
     assert(bytes < 160000, id + ": eight-direction creature pack stays scene-lazy and bounded");
-    creatureBytes += bytes;
   }
   if (/^actor-1\d\d$/.test(id)) {
     assert(bytes < 70000, id + ": 32 integrated-2x poses stay below 70 KB");
-    residentBytes += bytes;
   }
 }
 assert(
   Object.keys(manifest.packs).length >= 15,
   "Independent expandable asset modules",
 );
-assert(
-  spriteBytes - residentBytes - creatureBytes < 4000000 && spriteBytes < 10500000,
-  "Shared library with four canopy species stays below 4 MB; residents, cats and new trees are separate scene-lazy packs",
-);
+// Transfer budgets measure real scene + viewport requests in check-adventure-residents,
+// not the unused catalogue on disk. Decoded bytes are checked by check-adventure-assets.
 function react(entity, state, catalog, context) {
   const plan = planReaction(entity, state, catalog, context);
   if (!plan) return [];
@@ -271,7 +263,7 @@ const e = (id) => world.entities.find((e) => e.id === id),
 assert(lighter, "Picnic lighter exists");
 const knife = e("picnic-knife");
 const fire = e("picnic-barbecue"),
-  mushroom = e("picnic-mushroom"),
+  mushroom = e("forest-mushrooms-fern"),
   twig = e("picnic-twig"),
   hungry = e("picnic-neighbor"),
   ferry = e("lake-ferryman");

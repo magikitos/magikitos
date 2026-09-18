@@ -197,6 +197,15 @@
           ]
         }
       ]
+    },
+    {
+      "id": "bank-mushrooms-fern",
+      "behavior": "forest-mushrooms",
+      "family": "ground-mushrooms",
+      "x": 104,
+      "y": 119,
+      "artVariant": "bolete",
+      "scale": 0.72
     }
   ],
   "neighbors": [

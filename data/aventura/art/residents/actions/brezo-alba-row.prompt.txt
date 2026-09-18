@@ -1,0 +1,15 @@
+Use case: identity-preserve.
+Asset type: separate rower layer, 32-frame sprite sheet, for the Magikitos top-down pixel-art game.
+Input image 1 is the exact identity/scale/grid guide. Input image 2 is ONLY the seated rowing pose reference, not the character design, scale or canvas layout. Transform the green-capped elf from image 1 into seated rowing poses. Render ONLY THE ELF, without any boat, paddle, oar, water or seat. Those will be separate game layers. Do not copy the orange cap or blue jacket from image 2.
+
+Preserve exactly the natural warm fair skin, black curls, pointed olive cloth cap, ochre waistcoat, cream rolled sleeves, green patched trousers and brown boots of image 1. Same head diameter, torso width, limb length and pixel-art detailing relative to cell width. The seated silhouette is about three quarters of the standing silhouette height: knees bend up, torso stays upright, head is NOT enlarged. Keep the original elevated three-quarter camera and upper-left light. No character redesign, no oversized hands.
+
+Exactly EIGHT equal-width columns by FOUR equal-height rows. Keep input image 1's full canvas proportions and empty padding, not image 2's crowded framing. Each column is one fixed direction: DOWN/front, DOWN-RIGHT, RIGHT/profile, UP-RIGHT, UP/back, UP-LEFT, LEFT/profile, DOWN-LEFT. All four phases in a column face the SAME direction. Front views show the two bent knees and boots; rear views show the seated back and cap, not a front face. The hips stay at the exact same vertical support point in every row; only arms and restrained torso lean move.
+
+Four rows:
+1. REST. Sitting with knees bent up and both boots resting in front, hands loosely closed as if holding two invisible oar handles to either side, elbows naturally bent beside the waist.
+2. REACH. Seated in exactly the same position, both hands reach a little forward toward the direction the character faces; torso leans forward slightly from the hips. This starts the stroke.
+3. PULL. Hands pull the invisible oar handles back close to the waist and elbows travel backward. Torso leans a little back, hips do not move, knees stay bent. Clearly different arm silhouettes from row 2.
+4. RETURN. Hands move outward and forward again with elbows gently raised, torso upright; a smooth recovery toward the next reach. No standing or walking.
+
+EMPTY HANDS with natural closed grips: no handles, oars, paddle blades, boat hull, bottle, bench, shadows, particles or scenery. Keep anatomy coherent where far limbs are occluded. Transparent alpha background, never a painted checkerboard or solid matte. Generous margins around all complete figures. No labels, captions, direction arrows, grid, logos or watermark. Fine crisp game pixel art.

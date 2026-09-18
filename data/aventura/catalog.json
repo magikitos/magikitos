@@ -10,9 +10,21 @@
     "knifeFound",
     "boatBuilt",
     "bowlFound",
-    "seedsFound"
+    "seedsFound",
+    "rakeFound",
+    "grassSeedsFound",
+    "parchmentFound",
+    "penFound"
   ],
   "items": {
+    "parchment": {
+      "name": "parchmentName", "description": "parchmentDescription", "sprite": "parchment",
+      "max": 1, "usable": false, "reusable": true
+    },
+    "pen": {
+      "name": "penName", "description": "penDescription", "sprite": "pen",
+      "max": 1, "usable": false, "reusable": true
+    },
     "bowl": {
       "name": "bowlName",
       "description": "bowlDescription",
@@ -32,8 +44,8 @@
     "mushroom": {
       "name": "mushroomName",
       "description": "mushroomDescription",
-      "sprite": "giant-bolete",
-      "max": 1,
+      "sprite": "mushroom",
+      "max": 99,
       "usable": true,
       "reusable": false
     },
@@ -104,7 +116,7 @@
     "boat": {
       "name": "bottleBoatName",
       "description": "bottleBoatDescription",
-      "sprite": "bottle-boat",
+      "sprite": "boat-bottle-down-right-0",
       "max": 1,
       "usable": false,
       "reusable": true
@@ -114,11 +126,36 @@
       "description": "rakeDescription",
       "max": 1,
       "usable": false,
-      "reusable": true
+      "reusable": true,
+      "sprite": "rake"
     },
     "grassSeed": {
       "name": "grassSeedName",
       "description": "grassSeedDescription",
+      "sprite": "garden-seed-sack",
+      "max": 99,
+      "usable": false,
+      "reusable": false
+    },
+    "primroseSeed": {
+      "name": "primroseSeedName",
+      "description": "primroseSeedDescription",
+      "sprite": "garden-seed-sack",
+      "max": 99,
+      "usable": false,
+      "reusable": false
+    },
+    "daisySeed": {
+      "name": "daisySeedName",
+      "description": "daisySeedDescription",
+      "sprite": "garden-seed-sack",
+      "max": 99,
+      "usable": false,
+      "reusable": false
+    },
+    "bellSeed": {
+      "name": "bellSeedName",
+      "description": "bellSeedDescription",
       "sprite": "garden-seed-sack",
       "max": 99,
       "usable": false,
@@ -201,6 +238,14 @@
       "peeSeconds": 300,
       "poopSeconds": 86400
     }
+  },
+  "messages": {
+    "maxCharacters": 500,
+    "writeWithinMs": 300000,
+    "separationTiles": 50,
+    "reachTiles": 2,
+    "tools": ["parchment", "pen"],
+    "stickItem": "twig"
   },
   "timers": {
     "picnic": {

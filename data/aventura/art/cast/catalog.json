@@ -278,29 +278,6 @@
       "height": 39
     },
     {
-      "id": "ascua-roll-matte",
-      "pack": "actor-0-roll",
-      "exportRows": [0, 1, 2],
-      "grid": [
-        8,
-        4
-      ],
-      "directions": [
-        "down",
-        "down-right",
-        "right",
-        "up-right",
-        "up",
-        "up-left",
-        "left",
-        "down-left"
-      ],
-      "variant": 0,
-      "action": "roll",
-      "reference": "ascua-walk",
-      "height": 40
-    },
-    {
       "id": "ascua-work",
       "pack": "actor-0-work",
       "grid": [
@@ -352,27 +329,6 @@
       "height": 40
     },
     {
-      "id": "ascua-bow",
-      "pack": "actor-0-bow",
-      "grid": [
-        8,
-        3
-      ],
-      "directions": [
-        "down",
-        "down-right",
-        "right",
-        "up-right",
-        "up",
-        "up-left",
-        "left",
-        "down-left"
-      ],
-      "variant": 0,
-      "action": "bow",
-      "height": 40
-    },
-    {
       "id": "ascua-run",
       "cleanFragments": 0.03,
       "pack": "actor-0-run",
@@ -394,28 +350,6 @@
       "action": "run",
       "height": 40,
       "reference": "ascua-walk"
-    },
-    {
-      "id": "ascua-roll-recover",
-      "cleanFragments": 0.03,
-      "pack": "actor-0-roll",
-      "grid": [
-        8,
-        1
-      ],
-      "directions": [
-        "down",
-        "down-right",
-        "right",
-        "up-right",
-        "up",
-        "up-left",
-        "left",
-        "down-left"
-      ],
-      "variant": 0,
-      "action": "recover",
-      "height": 40
     },
     {
       "id": "brizno-walk",
@@ -462,6 +396,81 @@
       "variant": 12,
       "action": "sit",
       "height": 36
+    }
+  ],
+  "archivedSheets": [
+    {
+      "id": "ascua-roll-matte",
+      "pack": "actor-0-roll",
+      "exportRows": [
+        0,
+        1,
+        2
+      ],
+      "grid": [
+        8,
+        4
+      ],
+      "directions": [
+        "down",
+        "down-right",
+        "right",
+        "up-right",
+        "up",
+        "up-left",
+        "left",
+        "down-left"
+      ],
+      "variant": 0,
+      "action": "roll",
+      "reference": "ascua-walk",
+      "height": 40,
+      "retiredReason": "Action removed from gameplay; original master preserved, excluded from baked releases."
+    },
+    {
+      "id": "ascua-bow",
+      "pack": "actor-0-bow",
+      "grid": [
+        8,
+        3
+      ],
+      "directions": [
+        "down",
+        "down-right",
+        "right",
+        "up-right",
+        "up",
+        "up-left",
+        "left",
+        "down-left"
+      ],
+      "variant": 0,
+      "action": "bow",
+      "height": 40,
+      "retiredReason": "Action removed from gameplay; original master preserved, excluded from baked releases."
+    },
+    {
+      "id": "ascua-roll-recover",
+      "cleanFragments": 0.03,
+      "pack": "actor-0-roll",
+      "grid": [
+        8,
+        1
+      ],
+      "directions": [
+        "down",
+        "down-right",
+        "right",
+        "up-right",
+        "up",
+        "up-left",
+        "left",
+        "down-left"
+      ],
+      "variant": 0,
+      "action": "recover",
+      "height": 40,
+      "retiredReason": "Action removed from gameplay; original master preserved, excluded from baked releases."
     }
   ]
 }

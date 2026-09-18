@@ -3,28 +3,6 @@
   "alphaPreparation": "Authorized local extraction; original sources retained",
   "sheets": [
     {
-      "source": "ascua-rowing-wooden-oars",
-      "pack": "actor-0-row",
-      "reference": "data/aventura/art/river/sources/ascua-bottle-rowing.png",
-      "prompt": "Use case: precise-object-edit. Asset type: production game animation sheet. Image1 is the EDIT TARGET: exactly EIGHT columns FOUR rows of Ascua rowing a clear recycled plastic-bottle boat. Image2 is only the wood-paddle design reference. Replace ONLY every green leaf paddle in ALL 32 cells with a worn honey-brown carved WOODEN oar blade, rounded spoon-shaped, small leather binding as in Image2. Preserve Ascua's exact face, orange pointed hat, teal jacket, proportions, every pose, boat clear-plastic geometry and blue cap, direction order, stroke positions, cell registration, and 8x4 grid exactly. Do not redraw the whole character or rearrange columns. Genuinely transparent background, clean alpha, no coloured fringes, no scene, no grid, no labels. Detailed crisp pixel-art consistent with target. Complete silhouettes with padding within each cell, no clipping.",
-      "grid": [
-        8,
-        4
-      ],
-      "directions": [
-        "down",
-        "down-right",
-        "right",
-        "up-right",
-        "up",
-        "up-left",
-        "left",
-        "down-left"
-      ],
-      "additionalReference": "data/aventura/art/cats/sources/old-oars.png",
-      "neutralMatteMinimum": 80
-    },
-    {
       "source": "picnic-bin",
       "pack": "river-picnic",
       "prompt": "Use case: stylized-concept. Production transparent sprite for an original top-down woodland duende adventure. A complete old cylindrical HUMAN picnic rubbish bin made of weathered vertical wooden slats over a dark green metal basket, single sturdy post bolted to a small flat grey foot, open round top, a couple of plain crushed plastic bottles visibly peeking over the rim. No logo or writing, no overflowing rubbish scattered on ground. Fixed top-down three-quarter RPG view, seeing top and front, warm soft upper-left light, charming natural wear, tiny bits of moss around the foot. Crisp richly defined pixel-art-friendly illustration, not chunky blocks or blurry painterly art. Human-sized compared to a tiny elf, but isolated object only, no people. Entire silhouette INCLUDING base fully inside square canvas with generous empty padding on all sides, centered. Genuinely transparent background and clean alpha, NO saturated colour fringe, no magenta, no checkerboard, no cast ground shadow. No background or grass slab.",
@@ -63,27 +41,33 @@
             22,
             42
           ]
-        },
-        "bottle-boat": {
-          "grid": [
-            2,
-            1
-          ],
-          "cell": [
-            1,
-            0
-          ],
-          "size": [
-            76,
-            58
-          ],
-          "anchor": [
-            38,
-            40
-          ]
         }
       },
       "reference": "data/aventura/art/river/sources/bottle-craft.png",
+      "additionalReference": "data/aventura/art/cats/sources/old-oars.png",
+      "neutralMatteMinimum": 80
+    }
+  ],
+  "archivedSheets": [
+    {
+      "source": "ascua-rowing-wooden-oars",
+      "pack": "actor-0-row",
+      "reference": "data/aventura/art/river/sources/ascua-bottle-rowing.png",
+      "prompt": "Use case: precise-object-edit. Asset type: production game animation sheet. Image1 is the EDIT TARGET: exactly EIGHT columns FOUR rows of Ascua rowing a clear recycled plastic-bottle boat. Image2 is only the wood-paddle design reference. Replace ONLY every green leaf paddle in ALL 32 cells with a worn honey-brown carved WOODEN oar blade, rounded spoon-shaped, small leather binding as in Image2. Preserve Ascua's exact face, orange pointed hat, teal jacket, proportions, every pose, boat clear-plastic geometry and blue cap, direction order, stroke positions, cell registration, and 8x4 grid exactly. Do not redraw the whole character or rearrange columns. Genuinely transparent background, clean alpha, no coloured fringes, no scene, no grid, no labels. Detailed crisp pixel-art consistent with target. Complete silhouettes with padding within each cell, no clipping.",
+      "grid": [
+        8,
+        4
+      ],
+      "directions": [
+        "down",
+        "down-right",
+        "right",
+        "up-right",
+        "up",
+        "up-left",
+        "left",
+        "down-left"
+      ],
       "additionalReference": "data/aventura/art/cats/sources/old-oars.png",
       "neutralMatteMinimum": 80
     }

@@ -26,6 +26,7 @@ The cast contains **20 design families × 5 independently drawn variants**:
 100 unique source sheets, evenly split between male and female profiles, with
 different ages, builds, natural skin tones, faces, clothes and pointed hats.
 Families group related designs for the Studio; variants are not runtime recolours.
+The canonical and generated gender values are `M`/`F`, matching the website column.
 
 - Canonical identities, descriptions and prompts:
   `data/aventura/art/residents/catalog.json`.
@@ -93,8 +94,8 @@ objects is rejected. No object-specific collision branch is needed.
    catalog. Keep originals immutable.
 2. Run the relevant preparation task:
    `npm run art:cast`, `npm run art:garden`, or `npm run art:doorways`.
-   Cast registration can reference another sheet, so use the full cast task when
-   changing related animation sheets.
+   `php scripts/prepare-adventure-cast.php --sheet=<id>` also measures its standing
+   reference first. It does not rewrite another character's package.
 3. Run `npm run art:catalog` to regenerate families, source editions and resident
    metadata. Edit family templates in `element-families.json`, not generated
    `elements.json`. Garden definitions use the same family blueprint.
@@ -103,9 +104,69 @@ objects is rejected. No object-specific collision branch is needed.
 5. Review `npm run studio:diff` before applying any Studio scene proposal.
    There remains one workspace, with its edit history preserved.
 
-Asset budgets and counts are verified by `check-adventure-residents.cjs` and
-build output, not frozen byte counts in this guide. Packs load per scene/action;
-the bounded cache pins active packs. Audio is budgeted separately.
+### Sprite residency
+
+Scene preparation loads its environment and the protagonist's base, running,
+needs and discovery packs. Resident appearances follow the camera viewport,
+including a 96-world-pixel approach margin, with at most two concurrent loads.
+An actor's pending action uses that same actor's base pose, not somebody else's.
+Refreshing the content cast does not preload its offscreen members. Rowing and
+cooking load on use. Scenes with cats or movable objects prepare the protagonist's
+carried/pushing sheet before entry. Seated, carried and rowing actors never fall
+back to a standing pose. HUD and dialogues use the selected protagonist too.
+
+The manifest declares PNG bytes and physical dimensions. `SpriteResidency`
+admits each image **before decoding**, including in-flight reservations, within
+96 MiB of RGBA sprite storage. Pins protect the current scene; preparation leases
+protect an in-progress transition. Other art is evicted cold-first, then warm,
+then farthest from the viewport centre. A failed load releases its reservation,
+and a prepared set must be activated or have its `release()` called.
+
+This is a **sprite** budget, not total browser/GPU memory: terrain, backing
+canvases, browser copies and audio remain separate. The local Studio intentionally
+opens the authored library for crop inspection and budgets its measured full
+size; it is not the game's streaming policy.
+
+Transfer checks measure the actual scene preparation plus its three neighbours
+and 25 visible identities with their largest existing action. Adding an unused
+character cannot fail a fictional whole-catalogue download budget.
+
+### Playable-action work in progress
+
+`art/residents/actions/catalog.json` declares the 30 target IDs (15 M / 15 F,
+all 20 families) and the seven action layouts. It records accepted sheets with
+source, reference and prompt SHA-256 hashes; rejected attempts stay outside
+`sheets` and cannot enter the atlas. The 100 existing masters remain unchanged.
+The selector and complete 210-sheet coverage are **not delivered yet**; the
+target list alone must never be treated as completed playable art.
+`npm run test:playable-art` is the full coverage/provenance gate and deliberately
+fails until all 210 sheets are accepted and baked. The ordinary source-integrity
+check reports the incomplete count; it does not waive this release requirement
+or the visual review of direction, anatomy and skin consistency.
+
+Current accepted characters and evidence live only in
+[ART-DUENDES.md](../ART-DUENDES.md). `player-art.json` declares which complete
+characters are enabled and the default. `check-rowing-contract.cjs` rejects an
+enabled character missing any of its seven sheets or its measured rowing rig.
+The independent hull/mask contract is in [ART.md](../data/aventura/ART.md#composición-de-navegación).
+
+Before accepting any candidate, run:
+
+```sh
+php scripts/review-resident-action.php --variant=100 --action=push --source=data/aventura/art/residents/actions/sources/brezo-alba-push-scale.png
+```
+
+This produces a standing/action contact sheet under ignored
+`.local/actor-action-reviews/` using the actual production alpha, cell measurement,
+registration and 2× reduction routines. It does not declare or bake an unreviewed
+candidate into the runtime manifest. `prepare-action-guide.php` makes a padded
+reference from the immutable standing pixels for the generator.
+
+Action registration borrows standing scale, uses one scale for the whole sheet,
+honours a sheet-specific canvas/anchor and checks every cell margin and all four
+canvas edges. Carried characters register at the top attachment, not their feet.
+`check-actor-registration.php` rejects deliberately broken references, margins
+and anchors. Bow/roll declarations were retired; their original masters remain.
 
 ## Verification and local preview
 
@@ -120,6 +181,8 @@ the bounded cache pins active packs. Audio is budgeted separately.
   directional doors, rowing, Studio and browser errors.
 - `npm run test:gallery`: family/variant placement, all 100 residents exposed in
   the gallery, save/reload, undo and five Studio viewport sizes.
+- `npm run test:actor-stream`: actual Chrome textures, viewport loading, decoded
+  budget including in-flight loads, and screenshots at desktop/tablet/mobile sizes.
 
 Game preview: <http://127.0.0.1:47834/aventura>. Studio:
 <http://127.0.0.1:47832>. `npm run install:local` installs only in the local DDEV

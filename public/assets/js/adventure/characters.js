@@ -1,4 +1,5 @@
 "use strict";
+const { playerVariant } = require("./player-art");
 
 // Every walking heading is authored, including left diagonals. No flat-image rotation.
 const DIRECTIONS = [
@@ -32,10 +33,10 @@ function characterFrame(variant, actor, moving) {
 function pushFrame(actor) {
   if (!actor.pushing) return null;
   const pose = actor.pushing.moved ? [1, 2, 3, 2][Math.floor((actor.walkDistance || 0) / 4) % 4] : 0;
-  return `person-0-${actor.pushing.direction}-push-${pose}`;
+  return `person-${playerVariant(actor)}-${actor.pushing.direction}-push-${pose}`;
 }
 function runFrame(actor, running) {
   if (!running) return null;
-  return `person-0-${actor.direction || "down"}-run-${Math.floor((actor.walkDistance || 0) / 9) % 4}`;
+  return `person-${playerVariant(actor)}-${actor.direction || "down"}-run-${Math.floor((actor.walkDistance || 0) / 9) % 4}`;
 }
 module.exports = { DIRECTIONS, facing, recordStep, characterFrame, pushFrame, runFrame };

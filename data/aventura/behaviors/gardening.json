@@ -1,0 +1,192 @@
+{
+  "woodland-rake": {
+    "sprite": "rake",
+    "label": "rakeName",
+    "solid": [
+      -0.5,
+      -0.4,
+      1,
+      0.7
+    ],
+    "hiddenWhen": {
+      "flags": {
+        "rakeFound": true
+      }
+    },
+    "rules": [
+      {
+        "effects": [
+          {
+            "type": "item",
+            "item": "rake",
+            "amount": 1
+          },
+          {
+            "type": "flag",
+            "flag": "rakeFound"
+          },
+          {
+            "type": "dialogue",
+            "key": "rakeFound"
+          },
+          {
+            "type": "sound",
+            "key": "found"
+          }
+        ]
+      }
+    ]
+  },
+  "woodland-grass-seeds": {
+    "sprite": "garden-seed-sack",
+    "label": "grassSeedName",
+    "solid": [
+      -0.5,
+      -0.4,
+      1,
+      0.7
+    ],
+    "hiddenWhen": {
+      "flags": {
+        "grassSeedsFound": true
+      }
+    },
+    "rules": [
+      {
+        "effects": [
+          {
+            "type": "item",
+            "item": "grassSeed",
+            "amount": 10
+          },
+          {
+            "type": "flag",
+            "flag": "grassSeedsFound"
+          },
+          {
+            "type": "dialogue",
+            "key": "grassSeedsFound"
+          },
+          {
+            "type": "sound",
+            "key": "found"
+          }
+        ]
+      }
+    ]
+  },
+  "woodland-primroseSeed": {
+    "sprite": "garden-seed-sack",
+    "label": "primroseSeedName",
+    "solid": [
+      -0.4,
+      -0.3,
+      0.8,
+      0.6
+    ],
+    "harvest": {
+      "renewMs": 18000000,
+      "keepVisible": false
+    },
+    "hiddenWhen": {
+      "items": {
+        "primroseSeed": 99
+      }
+    },
+    "rules": [
+      {
+        "effects": [
+          {
+            "type": "item",
+            "item": "primroseSeed",
+            "amount": 1
+          },
+          {
+            "type": "dialogue",
+            "key": "flowerSeedsFound"
+          },
+          {
+            "type": "sound",
+            "key": "found"
+          }
+        ]
+      }
+    ]
+  },
+  "woodland-daisySeed": {
+    "sprite": "garden-seed-sack",
+    "label": "daisySeedName",
+    "solid": [
+      -0.4,
+      -0.3,
+      0.8,
+      0.6
+    ],
+    "harvest": {
+      "renewMs": 18000000,
+      "keepVisible": false
+    },
+    "hiddenWhen": {
+      "items": {
+        "daisySeed": 99
+      }
+    },
+    "rules": [
+      {
+        "effects": [
+          {
+            "type": "item",
+            "item": "daisySeed",
+            "amount": 1
+          },
+          {
+            "type": "dialogue",
+            "key": "flowerSeedsFound"
+          },
+          {
+            "type": "sound",
+            "key": "found"
+          }
+        ]
+      }
+    ]
+  },
+  "woodland-bellSeed": {
+    "sprite": "garden-seed-sack",
+    "label": "bellSeedName",
+    "solid": [
+      -0.4,
+      -0.3,
+      0.8,
+      0.6
+    ],
+    "harvest": {
+      "renewMs": 18000000,
+      "keepVisible": false
+    },
+    "hiddenWhen": {
+      "items": {
+        "bellSeed": 99
+      }
+    },
+    "rules": [
+      {
+        "effects": [
+          {
+            "type": "item",
+            "item": "bellSeed",
+            "amount": 1
+          },
+          {
+            "type": "dialogue",
+            "key": "flowerSeedsFound"
+          },
+          {
+            "type": "sound",
+            "key": "found"
+          }
+        ]
+      }
+    ]
+  }
+}

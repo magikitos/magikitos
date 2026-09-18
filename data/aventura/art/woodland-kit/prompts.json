@@ -290,21 +290,6 @@
       "sprite": "clover-heart"
     },
     {
-      "id": "mushroom-bolete-round",
-      "family": "bolete",
-      "variant": "redonda",
-      "size": [
-        41,
-        40
-      ],
-      "anchor": [
-        21,
-        36
-      ],
-      "subject": "One chubby edible bolete mushroom with warm cinnamon dome cap and thick cream stem, a tiny leaf tucked at its foot. Beautiful readable cap and stem texture at 46x44 native pixels. Entire mushroom, not a gigantic cluster, no house, no face, no dew, no dirt pedestal.",
-      "sprite": "giant-bolete"
-    },
-    {
       "id": "mushroom-bolete-leaning",
       "family": "bolete",
       "variant": "inclinada",
@@ -1218,6 +1203,24 @@
       "subject": "Use case: stylized-concept. Asset type: one isolated modular tree sprite for the existing Magikitos top-down pixel-art game. The supplied image is ONLY a style reference, not an edit target. Match its detailed crisp pixel clusters, warm upper-left sunlight, rich greens, brown bark, high three-quarter fixed camera, and believable planted base. Complete silhouette with generous transparent margins. NO ground disc, oval grass carpet, floating roots, exposed underside, buildings, characters, water drops, text or borders. Genuine transparent background with alpha. Original art. Create an elegant WILLOW tree, clearly distinct from the reference oak: swept leaning trunk, softly cascading narrow green leaves in separated hanging sprays, golden sunlit tips, airy gaps showing the warm crooked bark. Roots sit planted flush on the ground, no hanging root tangle. Entire tree and every leaf spray fully within the image; no water or surrounding landscape.",
       "generator": "image_gen",
       "reference": "data/aventura/art/woodland-kit/cutouts/tree-oak-grounded.png"
+    }
+  ],
+  "archivedAssets": [
+    {
+      "id": "mushroom-bolete-round",
+      "family": "bolete",
+      "variant": "redonda",
+      "size": [
+        41,
+        40
+      ],
+      "anchor": [
+        21,
+        36
+      ],
+      "subject": "One chubby edible bolete mushroom with warm cinnamon dome cap and thick cream stem, a tiny leaf tucked at its foot. Beautiful readable cap and stem texture at 46x44 native pixels. Entire mushroom, not a gigantic cluster, no house, no face, no dew, no dirt pedestal.",
+      "sprite": "giant-bolete",
+      "retiredReason": "La seta gigante fue sustituida por pequeños grupos recolectables; se conserva el maestro y su procedencia."
     }
   ]
 }

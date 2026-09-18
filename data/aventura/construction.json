@@ -165,7 +165,7 @@
       ]
     },
     "forest-flowers": {
-      "label": "buildFlowers",
+      "label": "buildPrimroses",
       "family": "flowers-meadow",
       "footprint": [
         -0.5,
@@ -174,7 +174,7 @@
         1
       ],
       "cost": {
-        "leaf": 3
+        "primroseSeed": 1
       },
       "surfaces": [
         "flat-ground"
@@ -192,7 +192,8 @@
           "up"
         ]
       ],
-      "solid": false
+      "solid": false,
+      "growAfterMs": 3600000
     },
     "leaf-planter": {
       "label": "buildPlanter",
@@ -281,6 +282,68 @@
           "left"
         ]
       ]
+    },
+    "daisy-flowers": {
+      "label": "buildDaisies",
+      "family": "flowers-daisy",
+      "footprint": [
+        -0.5,
+        -0.5,
+        1,
+        1
+      ],
+      "cost": {
+        "daisySeed": 1
+      },
+      "surfaces": [
+        "flat-ground"
+      ],
+      "rotations": [
+        0
+      ],
+      "capabilities": [
+        "garden"
+      ],
+      "slots": [
+        [
+          0,
+          1,
+          "up"
+        ]
+      ],
+      "solid": false,
+      "growAfterMs": 3600000
+    },
+    "bell-flowers": {
+      "label": "buildBells",
+      "family": "flowers-bell",
+      "footprint": [
+        -0.5,
+        -0.5,
+        1,
+        1
+      ],
+      "cost": {
+        "bellSeed": 1
+      },
+      "surfaces": [
+        "flat-ground"
+      ],
+      "rotations": [
+        0
+      ],
+      "capabilities": [
+        "garden"
+      ],
+      "slots": [
+        [
+          0,
+          1,
+          "up"
+        ]
+      ],
+      "solid": false,
+      "growAfterMs": 3600000
     }
   }
 }

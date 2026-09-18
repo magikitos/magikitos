@@ -1,0 +1,6 @@
+Use case: identity-preserve
+Asset type: four-frame item-discovery celebration game sprite sheet.
+Input images: Image 1 is the edit target, exact four-pose template. Image 2 is the authoritative character identity, Brezo bruma (resident-002).
+Change ONLY character identity to the duende in image 2. Preserve the four front-facing poses, exact scale relative to cell width, alignment, camera, foot baseline and spacing. Four equal columns, one row: hands close to chest with pleased surprise; hands rising beside face; arms raised triumphantly with eyes closed in a grin; arms raised with eyes open and excited grin. Hands empty, held to either side, leave clear space above head for a separately drawn found item. No drawn item.
+Same slim mischievous natural-skinned pointy-eared black-curly-haired duende throughout. Tall olive hat with conspicuous stitched seam and tied tip, mustard shirt with leaf chest pocket, BLUE/INDIGO rolled cuffs, dark patched short trousers and exposed lower calves, brown ankle boots and small side pouch. Preserve his face from image 2, not the template's face. Crisp detailed pixel-art with readable little face.
+Real transparent background. No words, borders, ground, props or shadows. Keep the template's canvas aspect ratio, empty margins and body scale exactly. No cropping or additional figures.

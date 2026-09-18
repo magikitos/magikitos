@@ -5,7 +5,7 @@ $root=dirname(__DIR__);
 $manifest=json_decode(file_get_contents("$root/public/assets/aventura/manifest.json"),true,512,JSON_THROW_ON_ERROR);
 $frames=$images=[];
 foreach ($manifest['packs'] as $id=>$pack) {
-    if (!in_array($id,['actor-0','actor-0-run','actor-0-roll','actor-12','picnic-neighbor'],true)) continue;
+    if (!in_array($id,['actor-0','actor-0-run','actor-12','picnic-neighbor'],true)) continue;
     $images[$id]=imagecreatefrompng("$root/public/assets/aventura/{$pack['image']}");
     foreach (json_decode(file_get_contents("$root/public/assets/aventura/{$pack['metadata']}"),true)['frames'] as $name=>$frame)
         $frames[$name]=[$id,$frame];
@@ -13,7 +13,7 @@ foreach ($manifest['packs'] as $id=>$pack) {
 $directions=['down','down-right','right','up-right','up','up-left','left','down-left'];
 $out="$root/.local/mobility-review";
 if (!is_dir($out)) mkdir($out,0755,true);
-foreach (['ascua'=>['','-run-0','-run-1','-run-2','-run-3','-roll-0','-roll-1','-roll-2','-recover-0'],
+foreach (['ascua'=>['','-run-0','-run-1','-run-2','-run-3'],
     'brizno'=>['','-walk-1','-walk-2','-walk-3','-sit-0','-sit-1','-sit-2','-sit-3']] as $id=>$poses) {
     $image=imagecreatetruecolor(1280,count($poses)*130);
     imagefill($image,0,0,imagecolorallocate($image,112,140,83));

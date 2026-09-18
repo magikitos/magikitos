@@ -43,6 +43,7 @@ const catStart = scene.entities.find((e) => e.id === "picnic-cat");
             }),
           );
       }, catStart);
+      await require("./browser-art.cjs").useReviewVariant(page);
       await page.goto(origin + "/aventura");
       await require("./browser-entry.cjs").enterWorld(page);
       const inspect = () =>

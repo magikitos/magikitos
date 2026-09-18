@@ -65,7 +65,7 @@ const names = {
   "forest-birch": "Abedul del bosque",
   "giant-fern": "Helecho grande",
   "giant-clover": "Trébol del bosque",
-  "giant-bolete": "Seta para cortar",
+  "mushroom-bolete-leaning": "Seta del bosque",
   "scarlet-mushrooms": "Setas rojas",
   mushrooms: "Setitas silvestres",
   "picnic-blanket": "Manta del picnic",

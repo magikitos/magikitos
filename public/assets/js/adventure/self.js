@@ -22,10 +22,17 @@ class Self {
       // Reading here and not in the constructor: the panel is a deliberate
       // act, boot is not, and this request must never ride on a page load.
       this.account.read();
+      game.body.read();
       byId("self-dialog").showModal();
     });
     for (const kind of ["pee", "poop"])
       byId("self-" + kind).addEventListener("click", () => this.relieve(kind));
+    byId("self-forest-retry").addEventListener("click", () => this.retry());
+    byId("self-note-write").addEventListener("click", () => {
+      if (!game.notes.fresh) return;
+      byId("self-dialog").close();
+      game.notes.compose(game.notes.fresh.id);
+    });
     byId("puzzle-reset").onclick = async () => {
       if (!game.world.data.puzzleReset || game.cats.locked) return;
       byId("self-dialog").close();
@@ -73,7 +80,7 @@ class Self {
   }
   paint() {
     const game = this.game,
-      status = needStatus(game.state.needs);
+      status = needStatus(game.state.needs, game.body?.now() ?? Date.now());
     byId("puzzle-reset").hidden =
       !game.world?.data.puzzleReset || game.river?.active || game.cats?.locked;
     // Nothing to say when there is nothing to do: a line reporting that your
@@ -90,13 +97,23 @@ class Self {
     for (const kind of ["pee", "poop"])
       byId("self-" + kind).hidden =
         status !== kind ||
-        Boolean(game.river?.active || game.community?.editing);
-    this.lastStatus = status;
+        Boolean(game.river?.active || game.community?.editing || game.live?.spectator ||
+          game.body?.actions.ownPending || (game.body?.connected && !game.body.known));
+    byId("self-forest-retry").hidden = !game.body?.actions.ownPending;
+    byId("self-forest-retry").disabled = Boolean(game.body?.actions.busy || !game.body?.connected || game.live?.spectator);
+    byId("self-note-write").hidden = !game.notes?.writable(game.notes.fresh?.id);
+    this.lastStatus = this.signature();
+  }
+  signature() {
+    const g = this.game;
+    return [needStatus(g.state.needs, g.body?.now() ?? Date.now()), g.live?.role, g.body?.known,
+      g.body?.actions.ownPending?.request.operationId, g.body?.actions.busy, g.body?.connected,
+      g.notes?.writable(g.notes.fresh?.id), g.river?.active, g.community?.editing].join(":");
   }
   update() {
     if (
       this.game.ready &&
-      needStatus(this.game.state.needs) !== this.lastStatus
+      this.signature() !== this.lastStatus
     )
       this.paint();
   }
@@ -107,11 +124,13 @@ class Self {
       game.transitioning ||
       game.cats?.locked ||
       game.river?.active ||
-      game.community?.editing
+      game.community?.editing ||
+      game.live?.spectator ||
+      game.body?.actions.ownPending
     )
       return;
     byId("self-dialog").close();
-    const error = reliefError(game.state, kind, game.catalog);
+    const error = reliefError(game.state, kind, game.catalog, game.body?.now() ?? Date.now());
     if (error) {
       game.openDialogue(game.lines(error));
       return;
@@ -128,34 +147,49 @@ class Self {
     game.closeDialogue();
     game.transitioning = true;
     game.player.direction = "up-right";
-    const startedAt = Date.now();
+    const startedAt = game.body?.now() ?? Date.now(), remote = game.body?.connected;
+    let completed = false;
     try {
       await game.sequence.play("relief", game.catalog.needs.durations[kind], {
         kind,
       });
       // Commit at completion. Reloading mid-animation neither consumes a leaf nor resets clocks.
-      game.state = completeRelief(game.state, kind, game.catalog, game.player, {
-        startedAt,
-      });
-      if (kind === "poop")
-        game.materials.record(
-          "player",
-          { id: "needs" },
-          { action: "poop" },
-          { effects: [{ type: "item", item: "leaf", amount: -1 }] },
-        );
+      if (remote) await game.body.relieve(kind);
+      else {
+        game.state = completeRelief(game.state, kind, game.catalog, game.player, {
+          startedAt, now: game.body?.now() ?? Date.now(),
+        });
+        if (kind === "poop")
+          game.materials.record("player", { id: "needs" }, { action: "poop" },
+            { effects: [{ type: "item", item: "leaf", amount: -1 }] });
+      }
       game.world.refresh(game.state);
       game.dirty = true;
       game.updateUI();
       game.save();
       game.toast(game.text(kind === "poop" ? "poopDone" : "peeDone"));
+      completed = true;
     } catch (error) {
-      console.error("Adventure relief:", error);
-      game.toast(game.text("loadError"));
+      game.toast(game.text(game.body?.errorKey(error) || "loadError"));
+      game.body?.read();
     } finally {
       game.transitioning = false;
       game.keys.clear();
+      this.paint();
     }
+    if (completed && remote && kind === "poop") game.notes.offer();
+  }
+  async retry() {
+    const g = this.game;
+    if (g.transitioning || !g.body.actions.ownPending || !g.body.connected || g.live.spectator) return;
+    byId("self-dialog").close(); g.pauseMovement(); g.transitioning = true;
+    try {
+      const result = await g.body.retry();
+      g.toast(g.text(result.endpoint === "forest-message" ? "notePublished" :
+        result.request.kind === "poop" ? "poopDone" : "peeDone"));
+    } catch (error) { g.toast(g.text(g.body.errorKey(error))); g.body.read(); }
+    finally { g.transitioning = false; this.paint(); }
+    g.notes.offer();
   }
   frame() {
     const seq = this.game.sequence.current;
@@ -165,7 +199,7 @@ class Self {
     let pose = p < 0.14 ? 0 : p < 0.68 ? 1 : p < 0.88 ? 2 : 3;
     if (kind === "pee" && p > 0.3 && p < 0.7)
       pose = (Math.floor(seq.elapsed * 3) % 2) + 1;
-    return "person-0-" + kind + "-" + pose;
+    return `person-${require("./player-art").playerVariant(this.game.player)}-${kind}-${pose}`;
   }
   drawGround(c) {
     const game = this.game,

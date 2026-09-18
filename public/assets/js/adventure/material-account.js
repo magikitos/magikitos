@@ -1,6 +1,9 @@
 "use strict";
 const KEY = "magikitos.adventure.actions";
 const operationId = () => crypto.randomUUID().replaceAll("-", "");
+const rejectedAction = (error) =>
+  (error.status === 404 && error.code === "unknown_action") ||
+  (error.status === 409 && error.code === "requirements_not_met");
 const MUTATIONS = new Set([
   "item",
   "flag",
@@ -35,6 +38,26 @@ class MaterialAccount {
       );
     } catch (_) {
       this.game.toast(this.game.text("unsaved"));
+    }
+  }
+  archiveRejected(entry, error) {
+    // A removed map entity can leave an offline command behind. Keep the
+    // original receipt for inspection, but never let a definite API rejection
+    // block unrelated pickups or travel forever. A generic HTTP 404 is NOT
+    // sufficient. Recipe preconditions can also be definitively obsolete (for
+    // example, lighting an already-lit fire after offline quest recovery).
+    const key = KEY + ".rejected";
+    try {
+      const records = JSON.parse(localStorage.getItem(key) || "[]");
+      if (!Array.isArray(records)) throw Error("invalid_recovery_archive");
+      if (!records.some(r => r.owner === this.owner && r.entry?.operationId === entry.operationId)) {
+        if (records.length >= 192) throw Error("recovery_archive_full");
+        records.push({ owner: this.owner, entry: { ...entry }, error: error.code, at: Date.now() });
+        localStorage.setItem(key, JSON.stringify(records));
+      }
+    } catch (cause) {
+      // Do not discard the command if its recovery copy could not be saved.
+      throw Object.assign(Error("recovery_archive_failed"), { code: "recovery_archive_failed", cause });
     }
   }
   record(scene, entity, context, rule) {
@@ -90,7 +113,6 @@ class MaterialAccount {
     // validated commands, never upload an arbitrary balance/material count.
     if (
       this.account.revision === 0 &&
-      !this.queue.length &&
       !Object.keys(this.account.inventory).length &&
       !this.account.setines &&
       !Object.keys(this.account.progress.flags || {}).length
@@ -121,7 +143,7 @@ class MaterialAccount {
     if (s.inventory.lighter || lit) add("picnic-lighter");
     if (s.inventory.knife || cooked || s.inventory.mushroom)
       add("picnic-knife");
-    if (s.inventory.mushroom || cooked) add("picnic-mushroom");
+    if (s.inventory.mushroom || cooked) add("forest-mushrooms-fern");
     if (lit) add("picnic-barbecue", "light");
     if (cooked) add("picnic-barbecue", "cook");
     if (fed) add("picnic-neighbor", "give");
@@ -131,7 +153,18 @@ class MaterialAccount {
       add("cat-water-bowl", "interact", "human-hedge");
     if (s.inventory.boat && s.flags.seedsFound)
       add("garden-seeds", "interact", "human-hedge");
-    if (commands.length) this.queue.push(...commands);
+    if (!commands.length) return;
+    // An older offline queue may start with a late-zone action requiring the
+    // boat. Restore finite prerequisites FIRST; otherwise journey_required
+    // at its head prevents this empty account from ever gaining its tools.
+    // Reuse queued operation IDs and payloads, preserving lost-ack receipts.
+    const tail = [...this.queue], prefix = commands.map(command => {
+      const index = tail.findIndex(entry => entry.scene === command.scene &&
+        entry.entity === command.entity && entry.action === command.action);
+      return index < 0 ? command : tail.splice(index, 1)[0];
+    });
+    if (prefix.length + tail.length > 192) throw Object.assign(Error("recovery_queue_full"), { code: "recovery_queue_full" });
+    this.queue = [...prefix, ...tail];
   }
   async flush() {
     if (this.busy) return this.busy;
@@ -173,6 +206,16 @@ class MaterialAccount {
             this.queue.shift();
             this.persist();
           } catch (error) {
+            if (this.owner !== this.game.cloud.owner || this.token !== this.game.session.get()) {
+              this.account = null;
+              return;
+            }
+            if (rejectedAction(error)) {
+              this.archiveRejected(entry, error);
+              this.queue.shift();
+              this.persist();
+              continue;
+            }
             if (error.code === "account_conflict" && error.details?.account) {
               this.accept(error.details.account);
               delete entry.baseRevision;

@@ -1,0 +1,452 @@
+{
+    "frames": {
+        "person-100-down-push-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-alba-push-scale.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.167420814479638,
+                "offset": [
+                    2.2352941176470615,
+                    -8.579185520361989
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-100-right-push-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-alba-push-scale.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                1,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.167420814479638,
+                "offset": [
+                    2.151583710407241,
+                    -7.407239819004523
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-100-up-push-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-alba-push-scale.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                2,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.167420814479638,
+                "offset": [
+                    2.2352941176470615,
+                    -8.579185520361989
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-100-left-push-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-alba-push-scale.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                3,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.167420814479638,
+                "offset": [
+                    2.2352941176470615,
+                    -7.909502262443432
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-100-down-push-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-alba-push-scale.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                0,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.167420814479638,
+                "offset": [
+                    2.2352941176470615,
+                    -1.0452488687782804
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-100-right-push-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-alba-push-scale.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                1,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.167420814479638,
+                "offset": [
+                    2.151583710407241,
+                    -1.547511312217189
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-100-up-push-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-alba-push-scale.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                2,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.167420814479638,
+                "offset": [
+                    2.2352941176470615,
+                    -1.2126696832579142
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-100-left-push-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-alba-push-scale.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                3,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.167420814479638,
+                "offset": [
+                    2.2352941176470615,
+                    -1.882352941176464
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-100-down-push-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-alba-push-scale.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                0,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.167420814479638,
+                "offset": [
+                    2.2352941176470615,
+                    2.638009049773757
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-100-right-push-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-alba-push-scale.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                1,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.167420814479638,
+                "offset": [
+                    2.151583710407241,
+                    2.9728506787330318
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-100-up-push-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-alba-push-scale.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                2,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.167420814479638,
+                "offset": [
+                    2.2352941176470615,
+                    2.470588235294123
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-100-left-push-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-alba-push-scale.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                3,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.167420814479638,
+                "offset": [
+                    2.2352941176470615,
+                    2.805429864253398
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-100-down-push-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-alba-push-scale.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                0,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.167420814479638,
+                "offset": [
+                    2.2352941176470615,
+                    8.665158371040725
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-100-right-push-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-alba-push-scale.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                1,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.167420814479638,
+                "offset": [
+                    2.151583710407241,
+                    8.832579185520366
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-100-up-push-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-alba-push-scale.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                2,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.167420814479638,
+                "offset": [
+                    2.2352941176470615,
+                    9.167420814479641
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-100-left-push-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/brezo-alba-push-scale.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                3,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.167420814479638,
+                "offset": [
+                    2.2352941176470615,
+                    8.832579185520366
+                ]
+            },
+            "cleanFragments": 0.015
+        }
+    }
+}

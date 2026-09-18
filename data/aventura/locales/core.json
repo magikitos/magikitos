@@ -1,4 +1,168 @@
 {
+  "noteTitle": {
+    "es": "Nota del bosque", "en": "Forest note", "de": "Waldnotiz",
+    "fr": "Un mot dans la forêt", "it": "Messaggio nel bosco", "pt": "Bilhete do bosque"
+  },
+  "noteWrite": {
+    "es": "Dejar una notita", "en": "Leave a note", "de": "Eine Notiz hinterlassen",
+    "fr": "Laisser un petit mot", "it": "Lascia un messaggio", "pt": "Deixar um bilhete"
+  },
+  "noteOffer": {
+    "es": "Ea, aquí cabe un pergamino. ¿Dejamos una notita pa quien pase?",
+    "en": "A parchment would fit right here. Leave a note for whoever wanders by?",
+    "de": "Hier passt doch ein Pergament hin. Eine Notiz für alle, die vorbeikommen?",
+    "fr": "Un parchemin tiendrait bien ici. On laisse un mot aux passants ?",
+    "it": "Qui ci sta una pergamena. Lasciamo un messaggio a chi passa?",
+    "pt": "Cabe aqui um pergaminho. Deixamos um bilhete para quem passar?"
+  },
+  "noteBare": {
+    "es": "Alguien se ha quedao bien a gusto aquí, vaya.",
+    "en": "Someone's feeling a lot lighter now.", "de": "Da fühlt sich wohl jemand gleich viel leichter.",
+    "fr": "Il y en a un qui se sent plus léger !", "it": "Qualcuno si sente molto più leggero, eh!",
+    "pt": "Alguém ficou bem mais leve, pelos vistos!"
+  },
+  "noteHint": {
+    "es": "Escribe lo que quieras, en tu idioma. Gastas una ramita. La nota desaparece con la caca, a las 24 horas.",
+    "en": "Write whatever you like, in your own language. Costs one twig. The note disappears with the dropping after 24 hours.",
+    "de": "Schreib, was du willst, in deiner Sprache. Kostet einen Zweig. Die Notiz verschwindet mit dem Häufchen nach 24 Stunden.",
+    "fr": "Écris ce que tu veux, dans ta langue. Ça coûte une brindille. Le mot disparaît avec la crotte après 24 heures.",
+    "it": "Scrivi quello che vuoi, nella tua lingua. Costa un rametto. Il messaggio sparisce con la cacca dopo 24 ore.",
+    "pt": "Escreve o que quiseres, na tua língua. Gasta um raminho. O bilhete desaparece com o cocó ao fim de 24 horas."
+  },
+  "notePublish": {
+    "es": "Clavar el pergamino", "en": "Plant the parchment", "de": "Pergament aufstellen",
+    "fr": "Planter le parchemin", "it": "Pianta la pergamena", "pt": "Espetar o pergaminho"
+  },
+  "notePublished": {
+    "es": "¡Ea, notita puesta! Ya la puede leer quien pase.",
+    "en": "There we go! Anyone passing can read it now.", "de": "Steht! Wer vorbeikommt, kann sie jetzt lesen.",
+    "fr": "Voilà ! Les passants peuvent déjà la lire.", "it": "Ecco fatto! Chi passa può già leggerlo.",
+    "pt": "Prontinho! Quem passar já pode ler."
+  },
+  "noteExpired": {
+    "es": "Aquí ya no cabe otra nota. Toca esperar a las próximas ganas, figura.",
+    "en": "Can't leave another note here. You'll need to wait for nature's next call.",
+    "de": "Hier geht keine weitere Notiz. Warte, bis die Natur wieder ruft.",
+    "fr": "Plus de nouveau mot ici. Il faut attendre le prochain appel de la nature.",
+    "it": "Qui non ci sta un altro messaggio. Aspetta il prossimo richiamo della natura.",
+    "pt": "Aqui já não dá para outro bilhete. Espera pela próxima vontade."
+  },
+  "noteTooFar": {
+    "es": "Acércate un poquito a tu caca pa clavar el pergamino.",
+    "en": "Get a little closer to your dropping to plant the parchment.",
+    "de": "Geh näher an dein Häufchen, um das Pergament aufzustellen.",
+    "fr": "Approche un peu de ta crotte pour planter le parchemin.",
+    "it": "Avvicinati alla tua cacca per piantare la pergamena.",
+    "pt": "Chega mais perto do teu cocó para espetar o pergaminho."
+  },
+  "noteWritingTools": {
+    "es": "Me faltan el pergamino o el boli. Sin eso no hay notita.",
+    "en": "I'm missing a parchment or a pen. Need those for a note!",
+    "de": "Mir fehlt das Pergament oder der Stift. Ohne die gibt's keine Notiz!",
+    "fr": "Il me manque le parchemin ou le stylo. Pas de petit mot sans ça !",
+    "it": "Mi manca la pergamena o la penna. Senza quelle niente messaggio!",
+    "pt": "Falta-me o pergaminho ou a caneta. Sem isso não há bilhete!"
+  },
+  "forestRetry": {
+    "es": "Confirmar la acción pendiente", "en": "Confirm pending action", "de": "Offene Aktion bestätigen",
+    "fr": "Confirmer l'action en attente", "it": "Conferma l'azione in sospeso", "pt": "Confirmar a ação pendente"
+  },
+  "forestActionPending": {
+    "es": "Falta confirmar la acción. Reinténtala desde «Yo»; no se cobrará dos veces.",
+    "en": "The action still needs confirmation. Retry from Me; you won't be charged twice.",
+    "de": "Die Bestätigung fehlt noch. Versuche es unter Ich erneut; du zahlst nicht doppelt.",
+    "fr": "Il manque la confirmation. Réessaie depuis Moi ; rien ne sera débité deux fois.",
+    "it": "Manca la conferma. Riprova da Io; non pagherai due volte.",
+    "pt": "Falta confirmar a ação. Tenta de novo em Eu; não pagas duas vezes."
+  },
+  "forestUnavailable": {
+    "es": "El bosque compartido no responde ahora. Puedes seguir curioseando y probar luego.",
+    "en": "The shared forest isn't answering right now. Keep exploring and try again later.",
+    "de": "Der gemeinsame Wald antwortet gerade nicht. Erkunde weiter und versuch es später.",
+    "fr": "La forêt partagée ne répond pas pour le moment. Continue à explorer et réessaie plus tard.",
+    "it": "Il bosco condiviso non risponde adesso. Continua a esplorare e riprova dopo.",
+    "pt": "O bosque partilhado não responde agora. Continua a explorar e tenta mais tarde."
+  },
+  "forestBanned": {
+    "es": "Tu acceso al bosque compartido está suspendido. Puedes seguir tu aventura a solas.",
+    "en": "Your access to the shared forest is suspended. You can continue your solo adventure.",
+    "de": "Dein Zugang zum gemeinsamen Wald ist gesperrt. Dein Solo-Abenteuer geht weiter.",
+    "fr": "Ton accès à la forêt partagée est suspendu. Tu peux continuer l'aventure en solo.",
+    "it": "Il tuo accesso al bosco condiviso è sospeso. Puoi continuare l'avventura in solitaria.",
+    "pt": "O teu acesso ao bosque partilhado está suspenso. Podes continuar a aventura a solo."
+  },
+  "forestSpectator": {
+    "es": "Ahora estás de visita. Cuando haya hueco, podrás dejar tu huella.",
+    "en": "You're visiting for now. When a place opens up, you can leave your mark.",
+    "de": "Du bist gerade zu Besuch. Sobald ein Platz frei wird, kannst du mitgestalten.",
+    "fr": "Pour l'instant, tu es en visite. Dès qu'une place se libère, tu pourras laisser ta trace.",
+    "it": "Per ora sei in visita. Appena si libera un posto, potrai lasciare il tuo segno.",
+    "pt": "Por agora estás de visita. Quando houver lugar, podes deixar a tua marca."
+  },
+  "forestAdmitted": {
+    "es": "¡Ea, ya tienes sitio en el bosque!",
+    "en": "You're in! The forest has a place for you.",
+    "de": "Du bist dabei! Im Wald ist jetzt Platz für dich.",
+    "fr": "Ça y est, la forêt te fait une place !",
+    "it": "Ci sei! Il bosco ti ha fatto spazio!",
+    "pt": "Já estás dentro! O bosque tem lugar para ti!"
+  },
+  "forestIdle": {
+    "es": "¿Sigues por ahí, figura? Si descansas, dejamos tu sitio a quien está esperando.",
+    "en": "Still there? If you're taking a break, we'll let someone waiting have your place.",
+    "de": "Bist du noch da? Wenn du Pause machst, lassen wir jemanden von der Warteliste rein.",
+    "fr": "Toujours là ? Si tu fais une pause, on laisse ta place à quelqu'un qui attend.",
+    "it": "Sei ancora lì? Se fai una pausa, lasciamo il posto a chi sta aspettando.",
+    "pt": "Ainda estás aí? Se estás a descansar, damos lugar a quem está à espera."
+  },
+  "forestOtherWindow": {
+    "es": "Has entrado al bosque desde otra ventana. Aquí puedes seguir a tu aire.",
+    "en": "You entered the forest in another window. You can keep exploring on your own here.",
+    "de": "Du bist in einem anderen Fenster in den Wald gegangen. Hier kannst du allein weiterziehen.",
+    "fr": "Tu as rejoint la forêt dans une autre fenêtre. Ici, tu peux continuer en solo.",
+    "it": "Sei entrato nel bosco da un'altra finestra. Qui puoi continuare a esplorare da solo.",
+    "pt": "Entraste no bosque noutra janela. Aqui podes continuar a explorar sozinho."
+  },
+  "forestReload": {
+    "es": "Recarga para volver a encontrarte con la peña del bosque.",
+    "en": "Reload to meet the forest crowd again.",
+    "de": "Lade neu, um die anderen im Wald wiederzutreffen.",
+    "fr": "Recharge pour retrouver les copains de la forêt.",
+    "it": "Ricarica per ritrovare la compagnia del bosco.",
+    "pt": "Recarrega para voltares a encontrar a malta do bosque."
+  },
+  "parchmentName": {
+    "es": "Pergamino",
+    "en": "Parchment",
+    "de": "Pergament",
+    "fr": "Parchemin",
+    "it": "Pergamena",
+    "pt": "Pergaminho"
+  },
+  "penName": {
+    "es": "Bolígrafo",
+    "en": "Ballpoint pen",
+    "de": "Kugelschreiber",
+    "fr": "Stylo",
+    "it": "Penna",
+    "pt": "Esferográfica"
+  },
+  "parchmentDescription": {
+    "es": "Pa dejar notitas por el bosque. No se gasta.",
+    "en": "For leaving little notes in the forest. Never runs out.",
+    "de": "Für kleine Nachrichten im Wald. Geht nicht aus.",
+    "fr": "Pour laisser des petits mots dans la forêt. Inépuisable.",
+    "it": "Per lasciare messaggini nel bosco. Non finisce mai.",
+    "pt": "Para deixar recadinhos na floresta. Não se gasta."
+  },
+  "penDescription": {
+    "es": "Un boli de los humanos. Aquí hay tinta pa rato.",
+    "en": "A human pen. Enough ink to last ages.",
+    "de": "Ein Menschenkuli. Die Tinte reicht ewig.",
+    "fr": "Un stylo d'humain. De quoi écrire un bon moment.",
+    "it": "Una penna degli umani. Qui c'è inchiostro per un bel po'.",
+    "pt": "Uma caneta dos humanos. Há tinta para dar e vender."
+  },
   "account": {
     "es": "Mi cuenta",
     "en": "My account",
@@ -1686,5 +1850,77 @@
     "fr": "Toi",
     "it": "Tu",
     "pt": "Tu"
+  },
+  "buildPrimroses": {
+    "es": "Prímulas",
+    "en": "Primroses",
+    "de": "Primeln",
+    "fr": "Primevères",
+    "it": "Primule",
+    "pt": "Prímulas"
+  },
+  "primroseSeedName": {
+    "es": "Semillas de prímulas",
+    "en": "Primroses seeds",
+    "de": "Primelsamen",
+    "fr": "Graines de primevères",
+    "it": "Semi di primule",
+    "pt": "Sementes de prímulas"
+  },
+  "primroseSeedDescription": {
+    "es": "Siémbralas en el bosque. En una horita salen flores, ¡qué arte!",
+    "en": "Plant them in the forest. Flowers will bloom in an hour!",
+    "de": "Im Wald aussäen. Nach einer Stunde blühen die Blumen!",
+    "fr": "Sème-les dans la forêt. Dans une heure, ça fleurit !",
+    "it": "Seminali nel bosco. Tra un'ora spuntano i fiori!",
+    "pt": "Semeia-as no bosque. Numa horinha já há flores!"
+  },
+  "buildDaisies": {
+    "es": "Margaritas",
+    "en": "Daisies",
+    "de": "Gänseblümchen",
+    "fr": "Marguerites",
+    "it": "Margherite",
+    "pt": "Margaridas"
+  },
+  "daisySeedName": {
+    "es": "Semillas de margaritas",
+    "en": "Daisies seeds",
+    "de": "Gänseblümchensamen",
+    "fr": "Graines de marguerites",
+    "it": "Semi di margherite",
+    "pt": "Sementes de margaridas"
+  },
+  "daisySeedDescription": {
+    "es": "Siémbralas en el bosque. En una horita salen flores, ¡qué arte!",
+    "en": "Plant them in the forest. Flowers will bloom in an hour!",
+    "de": "Im Wald aussäen. Nach einer Stunde blühen die Blumen!",
+    "fr": "Sème-les dans la forêt. Dans une heure, ça fleurit !",
+    "it": "Seminali nel bosco. Tra un'ora spuntano i fiori!",
+    "pt": "Semeia-as no bosque. Numa horinha já há flores!"
+  },
+  "buildBells": {
+    "es": "Campanillas",
+    "en": "Bluebells",
+    "de": "Glockenblumen",
+    "fr": "Campanules",
+    "it": "Campanule",
+    "pt": "Campânulas"
+  },
+  "bellSeedName": {
+    "es": "Semillas de campanillas",
+    "en": "Bluebells seeds",
+    "de": "Glockenblumensamen",
+    "fr": "Graines de campanules",
+    "it": "Semi di campanule",
+    "pt": "Sementes de campânulas"
+  },
+  "bellSeedDescription": {
+    "es": "Siémbralas en el bosque. En una horita salen flores, ¡qué arte!",
+    "en": "Plant them in the forest. Flowers will bloom in an hour!",
+    "de": "Im Wald aussäen. Nach einer Stunde blühen die Blumen!",
+    "fr": "Sème-les dans la forêt. Dans une heure, ça fleurit !",
+    "it": "Seminali nel bosco. Tra un'ora spuntano i fiori!",
+    "pt": "Semeia-as no bosque. Numa horinha já há flores!"
   }
 }

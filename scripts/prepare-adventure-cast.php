@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 /** Offline alpha extraction and actor registration. Original masters are never overwritten. */
-require_once __DIR__ . '/lib/adventure-cutout.php';
+require_once __DIR__ . '/lib/adventure-actor-registration.php';
 $root = dirname(__DIR__);
 $dir = $root . '/data/aventura/art/cast';
 $catalog = json_decode(file_get_contents($dir . '/catalog.json'), true, 512, JSON_THROW_ON_ERROR);
@@ -13,7 +13,47 @@ foreach ($residents['profiles'] as $profile) {
         'height'=>$residents['height'], 'variant'=>$profile['id'], 'action'=>'walk', 'pack'=>'actor-'.$profile['id'],
     ];
 }
+$actionsDir = $root . '/data/aventura/art/residents/actions';
+$actions = json_decode(file_get_contents("$actionsDir/catalog.json"), true, 512, JSON_THROW_ON_ERROR);
+$profiles = array_column($residents['profiles'], null, 'id');
+foreach ($actions['sheets'] as $parent) {
+  $parts = [$parent];
+  $directions = [];
+  foreach ($parent['overrides'] ?? [] as $patch) {
+    if (isset($patch['variant']) || isset($patch['action']) || isset($patch['overrides'])
+        || !isset($patch['grid'], $patch['directions']) || !is_array($patch['directions'])
+        || count($patch['directions']) !== $patch['grid'][0]
+        || count(array_unique($patch['directions'])) !== count($patch['directions'])
+        || array_intersect($directions, $patch['directions'])
+        || array_diff($patch['directions'], $residents['directions']))
+        throw new RuntimeException('Invalid directional actor override');
+    $directions = array_merge($directions, $patch['directions']);
+    $parts[] = $patch + ['variant' => $parent['variant'], 'action' => $parent['action'], 'overrideOf' => $parent['id']];
+  }
+  foreach ($parts as $action) {
+    $profile = $profiles[$action['variant']] ?? throw new RuntimeException('Unknown resident');
+    $definition = $actions['actions'][$action['action']] ?? throw new RuntimeException('Unknown action');
+    foreach ([
+        'sourceSha256' => "$actionsDir/sources/{$action['id']}.png",
+        'promptSha256' => "$actionsDir/{$action['id']}.prompt.txt",
+        'referenceSha256' => $root . "/data/aventura/art/residents/sources/{$profile['source']}.png",
+    ] as $field => $file) {
+        if (!is_file($file) || hash_file('sha256', $file) !== $action[$field])
+            throw new RuntimeException("Actor provenance mismatch: {$action['id']}/$field");
+    }
+    $sheet = $action + $definition + [
+        'directory' => 'residents/actions', 'reference' => $profile['source'],
+        'height' => $residents['height'], 'strictMargins' => true,
+        'pack' => "actor-{$action['variant']}-{$action['action']}",
+    ];
+    if (($sheet['directions'] ?? null) === 'eight') $sheet['directions'] = $residents['directions'];
+    if (isset($sheet['names']))
+        $sheet['names'] = array_map(fn($name) => "person-{$action['variant']}-$name", $sheet['names']);
+    $catalog['sheets'][] = $sheet;
+  }
+}
 $only = getopt('', ['sheet:'])['sheet'] ?? null;
+foreach ($catalog['sheets'] as $sheet) if ($sheet['id'] === $only && isset($sheet['overrideOf'])) $only = $sheet['overrideOf'];
 if (!is_dir("$dir/cutouts")) mkdir("$dir/cutouts", 0775, true);
 // Studio may read art while this offline task runs: never expose half-written PNGs.
 $writePng = static function (GdImage $image, string $file): void {
@@ -23,65 +63,41 @@ $writePng = static function (GdImage $image, string $file): void {
             throw new RuntimeException("Could not write cutout: $file");
     } finally { if (is_file($temporary)) unlink($temporary); }
 };
-$definitions = $measurements = [];
-foreach ($catalog['sheets'] as $sheet) {
+$definitions = $measurements = $reports = [];
+foreach (adventureActorDependencies($catalog['sheets'], $only) as $sheet) {
     $id = $sheet['id'];
-    if ($only && $id !== $only) continue;
     $artDir = $root . '/data/aventura/art/' . ($sheet['directory'] ?? 'cast');
     if (!is_dir("$artDir/cutouts")) mkdir("$artDir/cutouts", 0775, true);
     $source = imagecreatefrompng("$artDir/sources/$id.png");
     $report = adventureKeyedCutout($source, $id, false, $sheet['edgeMatte'] ?? null);
     $writePng($source, "$artDir/cutouts/$id.png");
-    [$columns,$rows] = $sheet['grid'];
-    $cells = $bounds = [];
-    for ($row=0; $row<$rows; $row++) for ($col=0; $col<$columns; $col++) {
-        $rect = adventureSourceCell($source, ['grid'=>[$columns,$rows],'cell'=>[$col,$row]]);
-        $cells[] = $rect;
-        if (!empty($sheet['cleanFragments'])) {
-            [$sx,$sy,$sw,$sh]=$rect;
-            $cell=adventureClearCanvas($sw,$sh);
-            imagecopy($cell,$source,0,0,$sx,$sy,$sw,$sh);
-            adventureCleanFragments($cell,$sheet['cleanFragments']);
-            [$x,$y,$w,$h]=adventureVisibleBounds($cell,[0,0,$sw,$sh],"$id/$col/$row");
-            $bounds[]=[$sx+$x,$sy+$y,$w,$h];
-        } else $bounds[] = adventureVisibleBounds($source, $rect, "$id/$col/$row");
-    }
-    // One scale for the entire sheet. Never fit each arm/leg pose independently.
-    // Rolling borrows the standing body's scale rather than inflating a curled body.
-    $bodyHeight = $bounds[0][3];
-    if (isset($sheet['reference'])) {
-        $ref = $measurements[$sheet['reference']];
-        $bodyHeight = $ref['bodyHeight'] * ($cells[0][2] / $ref['cellWidth']);
-    }
-    $ratio = $sheet['height'] / $bodyHeight;
-    $measurements[$id] = ['bodyHeight'=>$bodyHeight,'cellWidth'=>$cells[0][2],'ratio'=>$ratio];
-    $frames = [];
-    foreach ($cells as $index=>$rect) {
-        [$sx,$sy,$sw,$sh] = $rect;
-        $row = intdiv($index,$columns); $col = $index%$columns;
-        if (isset($sheet['exportRows']) && !in_array($row, $sheet['exportRows'], true)) continue;
-        $name = $sheet['names'][$index] ?? (
-            "person-{$sheet['variant']}-{$sheet['directions'][$col]}" .
-            ($sheet['action']==='walk' ? ($row ? "-walk-$row" : '') : "-{$sheet['action']}-$row")
-        );
-        // Registration is metadata: the original pixels are reduced exactly once by the baker.
-        [$cw,$ch] = $catalog['canvas']; [$ax,$ay] = $catalog['anchor'];
-        [$bx,$by,$bw,$bh]=$bounds[$index];
-        $dx=$ax-$sw*$ratio/2; $dy=$ay-($by-$sy+$bh)*$ratio;
-        if ($dx+($bx-$sx)*$ratio<0 || $dx+($bx-$sx+$bw)*$ratio>$cw
-            || $dy+($by-$sy)*$ratio<0) throw new RuntimeException("Registered pose clipped: $name");
-        $frames[$name]=[
-            'source'=>'data/aventura/art/'.($sheet['directory'] ?? 'cast')."/cutouts/$id.png",
-            'grid'=>[$columns,$rows],'cell'=>[$col,$row],'size'=>$catalog['canvas'],
-            'anchor'=>$catalog['anchor'],'preserveCanvas'=>true,
-            'registration'=>['scale'=>$ratio,'offset'=>[$dx,$dy]]
-        ];
-        if (!empty($sheet['cleanFragments'])) $frames[$name]['cleanFragments']=$sheet['cleanFragments'];
-    }
-    $definitions[$sheet['pack']] = array_merge($definitions[$sheet['pack']] ?? [], $frames);
+    [$cells, $bounds] = adventureActorCells($source, $sheet);
+    $registered = adventureRegisterActor($sheet, $catalog, $cells, $bounds,
+        isset($sheet['reference']) ? ($measurements[$sheet['reference']] ?? null) : null);
+    $measurements[$id] = $registered['measurement'];
+    // Dependency measurements are necessary, but --sheet does not rewrite other packages.
+    if ($only && $id !== $only && ($sheet['overrideOf'] ?? null) !== $only) continue;
+    $frames = $registered['frames'];
+    $definitions[$sheet['pack']] = isset($sheet['overrideOf'])
+        ? adventureActorOverride($definitions[$sheet['pack']] ?? [], $frames)
+        : array_merge($definitions[$sheet['pack']] ?? [], $frames);
     echo "$id: ".count($frames)." registered poses; alpha ".$report['alpha']."\n";
+    if (($sheet['directory'] ?? null) === 'residents/actions') {
+        $qa = ['sheet' => $id, 'reference' => $sheet['reference'],
+            'sourceSha256' => $sheet['sourceSha256'], 'referenceSha256' => $sheet['referenceSha256'],
+            'measurement' => $registered['measurement'], 'poses' => $registered['poses']];
+        $reports[$id] = $qa;
+        if (isset($sheet['overrideOf'])) {
+            $parent = &$reports[$sheet['overrideOf']];
+            $parent['poses'] = adventureActorOverride($parent['poses'], $qa['poses']);
+            $parent['overrides'][$id] = $sheet['sourceSha256'];
+            unset($parent);
+        }
+    }
     unset($source);
 }
+foreach ($reports as $id => $qa)
+    file_put_contents("$actionsDir/cutouts/$id.json", json_encode($qa, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n");
 foreach ($definitions as $pack=>$frames) {
     $file=$root.'/data/aventura/assets/'.$pack.'.json';
     file_put_contents($file,json_encode(['frames'=>$frames],JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES)."\n");
