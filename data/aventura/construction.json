@@ -46,6 +46,20 @@
       "protected": []
     }
   },
+  "variantLabels": {
+    "ramitas": "buildVariantTwigs",
+    "tronquito": "buildVariantLog",
+    "tocón": "buildVariantStump",
+    "primulas": "buildVariantPrimrose",
+    "coral": "buildVariantCoral",
+    "margaritas": "buildVariantDaisy",
+    "violetas": "buildVariantViolet",
+    "bellota": "buildVariantAcorn",
+    "semilla": "buildVariantSeed",
+    "blancas": "buildVariantWhite",
+    "doradas": "buildVariantGold",
+    "azules": "buildVariantBlue"
+  },
   "definitions": {
     "forest-path": {
       "label": "buildPath",
@@ -165,7 +179,7 @@
       ]
     },
     "forest-flowers": {
-      "label": "buildPrimroses",
+      "label": "buildFlowers",
       "family": "flowers-meadow",
       "footprint": [
         -0.5,

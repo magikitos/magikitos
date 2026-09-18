@@ -2,7 +2,7 @@
 const { ForestConnection, protocol } = require("./forest-connection");
 const { ForestPeople } = require("./forest-people");
 const { ForestObjects } = require("./forest-objects");
-const { TILE } = require("./geometry");
+const { TILE, actorBounds, overlaps } = require("./geometry");
 
 /** Adapter between optional network presence and the existing local game. Transport and
  * interpolation remain independently testable; neither knows the DOM or private PHP. */
@@ -22,6 +22,7 @@ class ForestLive {
       receive: packet => this.receive(packet), disconnected: () => {
         this.role = "offline";
         this.people.clear();
+        this.bodies();
         this.objects.reconnect();
       } });
     window.addEventListener("pagehide", () => this.connection.stop());
@@ -78,9 +79,44 @@ class ForestLive {
     Object.assign(g.player, { x: position.x, y: position.y });
     g.dirty = true;
   }
+  /**
+   * ⛔ DOS DUENDES NO SE ATRAVIESAN (18-sep-2026, decisión del dueño). Los desconocidos eran solo
+   * un dibujo y se cruzaban como fantasmas, que es lo que quita la sensación de que hay alguien
+   * ahí. Aquí se les da cuerpo, y SOLO contra ti: nadie empuja a nadie, cada navegador se frena a
+   * sí mismo. La autoridad del bosque no cambia — lo suyo es el presupuesto de distancia, no las
+   * cajas —, así que esto no puede desincronizar a nadie ni inventar una posición.
+   *
+   * ⛔ Y QUIEN YA TE ESTÁ ENCIMA NO TE ENCIERRA. Los cuerpos ajenos llegan interpolados y con un
+   * décimo de segundo de retraso, y el servidor puede corregirte a un sitio donde ya hay alguien:
+   * si el solape fuera un muro, te quedarías clavado sin nada que pulsar. Un cuerpo que ya se
+   * superpone al tuyo es atravesable hasta que sales de él, que es la misma salida que la casa ya
+   * le dio al gato que acaba de soltarte.
+   */
+  bodies() {
+    const g = this.game,
+      actors = g.world?.actors;
+    if (!actors) return;
+    // La lista de vecinos se rehace en cada instantánea, así que primero salen los de la vuelta
+    // anterior. Si la pantalla ha cambiado, el array es otro y no hay nada que quitar.
+    if (this.bound === actors)
+      for (const peer of this.peerBodies || []) {
+        const i = actors.indexOf(peer);
+        if (i >= 0) actors.splice(i, 1);
+      }
+    const live = this.connection.ready && !this.spectator ? this.people.list : [];
+    const mine = actorBounds(g.player.x, g.player.y);
+    for (const peer of live) {
+      peer.actor = true;
+      peer.passable = overlaps(mine, actorBounds(peer.x, peer.y));
+      actors.push(peer);
+    }
+    this.bound = actors;
+    this.peerBodies = live;
+  }
   update(ms) {
     const g = this.game;
     this.people.update(g.reducedMotion);
+    this.bodies();
     this.objects.update();
     if (ms < this.next) return;
     this.next = ms + protocol.limits.playerSnapshotMs;

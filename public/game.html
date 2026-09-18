@@ -68,6 +68,19 @@
         ></span
         ><span id="inventory-count">0</span>
       </button>
+      <!-- ⛔ Construir es una herramienta más de la esquina, junto al saco, y no un botón suelto
+           abajo a la izquierda: el bosque se construye igual desde un teléfono que desde un
+           escritorio, así que su puerta está donde están las demás. -->
+      <button
+        type="button"
+        class="world-tool"
+        id="build-toggle"
+        aria-label="{{communityBuild}}"
+        title="{{communityBuild}}"
+        hidden
+      >
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v8M6 11h12M7.5 11v5M10.5 11v5.5M13.5 11v5.5M16.5 11v5"/></svg>
+      </button>
     </div>
     <div
       class="world-dialogue"
@@ -106,26 +119,35 @@
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="6.5"/><circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/><path d="M12 2v4m0 12v4M2 12h4m12 0h4" stroke-linecap="round"/></svg>
       </button>
     </div>
-    <div id="home-controls" class="world-home-controls" hidden>
-      <button type="button" class="world-primary" id="home-edit">{{communityBuild}}</button>
-    </div>
-    <section id="home-editor" class="world-home-editor" aria-label="{{communityBuild}}" hidden>
-      <header class="world-home-head">
-        <strong id="community-zone"></strong>
-        <div id="community-materials" class="world-home-materials" aria-label="{{bag}}"></div>
-        <button type="button" id="home-cancel" class="world-home-close" aria-label="{{close}}">×</button>
+    <!-- ⛔ EL CATÁLOGO ES UNA MODAL COMO EL SACO Y COMO «YO», y no un panel propio pegado a una
+         esquina: son la misma clase de cosa —una rejilla de cosas entre las que eliges— así que
+         comparten caparazón, rejilla y pantalla completa en el teléfono. Elegir una baldosa la
+         CIERRA: a partir de ahí el mapa es tuyo y lo único que queda en pantalla es la barra de
+         abajo, que ocupa lo mínimo para que veas dónde estás poniendo la cosa. -->
+    <dialog class="world-modal world-build" id="build-dialog" aria-labelledby="build-title">
+      <header>
+        <h2 id="build-title">{{communityBuild}}</h2>
+        <button type="button" data-dismiss aria-label="{{close}}">×</button>
       </header>
-      <div id="home-palette" class="world-home-palette"></div>
-      <div id="home-variants" class="world-home-variants" hidden></div>
-      <p id="community-reason" role="status">{{communityChoose}}</p>
-      <small id="community-hint" hidden>{{communityDraw}}</small>
-      <div class="world-home-actions">
+      <div class="world-build-head">
+        <strong id="community-zone"></strong>
+        <div id="community-materials" class="world-build-materials" aria-label="{{bag}}"></div>
+      </div>
+      <div id="home-palette" class="world-pick-grid"></div>
+      <p class="world-build-note">{{communityPublic}}</p>
+    </dialog>
+    <div id="build-bar" class="world-build-bar" role="group" aria-label="{{communityBuild}}" hidden>
+      <div class="world-build-bar__what">
+        <span id="build-piece" aria-hidden="true"></span>
+        <p id="community-reason" role="status">{{communityChoose}}</p>
+      </div>
+      <div class="world-build-bar__actions">
+        <button type="button" id="home-cancel" aria-label="{{close}}">×</button>
         <button type="button" id="community-rotate">{{communityRotate}}</button>
-        <button type="button" id="home-remove">{{communityRemove}}</button>
         <button type="button" id="home-save" class="world-primary">{{communityConfirm}}</button>
       </div>
-      <small>{{communityPublic}}</small>
-    </section>
+      <small id="community-hint" hidden>{{communityDraw}}</small>
+    </div>
     <div class="world-listening" id="world-listening" hidden>
       <audio id="world-audio" preload="none"></audio>
       <button type="button" id="listening-play" aria-label="{{listen}}">
@@ -172,7 +194,7 @@
         <span data-sprite="setin" aria-hidden="true"></span
         ><strong id="wallet-balance"></strong><small>{{walletLocal}}</small>
       </div>
-      <div id="bag-items" class="world-bag-grid"></div>
+      <div id="bag-items" class="world-pick-grid"></div>
       <div id="bag-detail" class="world-bag-detail" hidden>
         <h3 id="bag-item-title"></h3>
         <p id="bag-item-description"></p>

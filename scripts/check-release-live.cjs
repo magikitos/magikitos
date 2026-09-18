@@ -147,7 +147,7 @@ function assertShell(actual, expected, headers, route) {
       await page.keyboard.down('ArrowRight');
       await page.waitForFunction(()=>window.MagikitosAdventure.inspect().navigation.mode==='foot');
       await page.keyboard.up('ArrowRight');
-      assert(await page.locator('#home-edit').isVisible());
+      assert(await page.locator('#build-toggle').isVisible());
       assert(await page.locator('#world-joystick').isHidden());
       assert(await page.locator('#world-boost').isHidden());
       // Do not open the editor in a read-only smoke: it explicitly creates an

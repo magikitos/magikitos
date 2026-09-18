@@ -500,18 +500,22 @@ body.world-page {
 .world-bag {
   box-sizing: border-box;
 }
-.world-bag-grid {
+/* ⛔ UNA SOLA REJILLA PARA ELEGIR COSAS. El saco y el catálogo de construir son la misma clase de
+   pantalla —una cuadrícula de cosas entre las que se elige una— y tenerlas con dos diseños hacía
+   que el juego pareciera dos juegos. Se llama `pick` y no `bag` justamente porque no es del saco:
+   la siguiente que necesite una cuadrícula así no tiene que inventarse otra. */
+.world-pick-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
   gap: 12px;
   min-height: 110px;
 }
-.world-bag-grid > p {
+.world-pick-grid > p {
   grid-column: 1/-1;
   color: #777356;
   line-height: 1.6;
 }
-.world-modal .world-bag-item {
+.world-modal .world-pick {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -521,12 +525,12 @@ body.world-page {
   background: #fff9e8;
   border: 2px solid #d5c5a1;
 }
-.world-bag-item canvas {
+.world-pick canvas {
   height: 44px;
   width: auto;
   image-rendering: pixelated;
 }
-.world-modal .world-bag-item[aria-pressed="true"] {
+.world-modal .world-pick[aria-pressed="true"] {
   border-color: #5e8050;
   background: #e9ebd3;
   box-shadow: 0 0 0 2px #5e805020;
@@ -888,8 +892,6 @@ body:has(.world-dialogue:not([hidden])) .world-held-item {
 }
 .world-page .world-primary:hover { background: #405d3e; }
 .world-page .world-primary:focus-visible { outline: 2px solid #ffe4a1; outline-offset: 3px; }
-.world-home-actions button { background: #e8e8c7; color: #263f31; font: 13px/1.25 system-ui; cursor: pointer; }
-.world-home-actions #home-save { background: #d8bc75; color: #263f31; }
 .world-page {
   /* The map owns pinch; panels retain ordinary one-finger scrolling and text sizing. */
   touch-action: pan-x pan-y;
@@ -961,58 +963,68 @@ body:has(.world-dialogue:not([hidden])) .world-held-item {
   .world-dialogue canvas { width: 42px; height: 60px; }
   #dialogue-text { font-size: 14px; line-height: 1.4; margin: 4px 0; }
 }
-.world-home-controls {
-  position: fixed; left: max(18px, env(safe-area-inset-left)); bottom: calc(18px + var(--world-control-clearance) + var(--world-safe));
-  z-index: 12; display: flex; gap: 8px; flex-wrap: wrap; max-width: calc(100vw - 100px);
-}
+/* ⛔ El listening tiene su sitio propio en escritorio; aquí no hay nada de construir porque
+   construir ya no vive en una esquina: su puerta es un icono de la barra de arriba. */
 :root:not([data-world-input="touch"]) .world-listening {
   left: auto; right: 80px; width: min(420px, calc(100vw - 100px));
 }
-.world-home-controls[hidden], .world-home-editor[hidden] { display: none; }
-.world-home-editor {
-  position: fixed; z-index: 14; left: 16px; bottom: calc(var(--world-control-clearance) + 34px + var(--world-safe));
-  max-height: calc(100dvh - var(--world-control-clearance) - 54px - var(--world-safe)); overflow-y: auto;
-  width: min(440px, calc(100vw - 32px)); border: 1px solid #c8c19b; border-radius: 20px;
-  padding: 12px; color: #fcf4db; background: #263f31f2; box-shadow: 0 8px 32px #17261c45;
+
+/* EL CATÁLOGO DE CONSTRUIR — es una modal de la casa (ver `.world-modal`), así que de aquí solo
+   salen las tres cosas que son suyas: el rótulo del sitio, lo que llevas encima y la nota del pie. */
+.world-build-head { display: flex; align-items: center; gap: 12px; margin: 0 0 14px; flex-wrap: wrap; }
+.world-build-head strong { font-size: 15px; }
+/* Lo que llevas, siempre a la vista: no se deduce de qué baldosas están apagadas. */
+.world-build-materials { display: flex; gap: 10px; margin-left: auto; align-items: center; flex-wrap: wrap; }
+.world-build-materials span { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; }
+.world-build-materials canvas { width: 20px; height: 20px; object-fit: contain; image-rendering: pixelated; }
+.world-build-note { margin: 16px 0 0; }
+.world-pick small { display: block; text-align: center; line-height: 1.3; }
+.world-pick small + small { font-size: 11px; color: #7c724e; margin-top: -4px; }
+/* El nombre de la variante es lo que separa dos baldosas que se llaman igual, así que se
+   lee antes que el precio: mismo tamaño pequeño, pero con el verde de la casa. */
+.world-pick .world-pick-variant { color: #5e8050; font-weight: 600; }
+
+/* LA BARRA DE COLOCAR — lo único que queda en pantalla mientras eliges el sitio, así que ocupa lo
+   mínimo: qué estás poniendo, por qué no cabe si no cabe, y las tres cosas que puedes hacer.
+   Centrada abajo y por encima del mando, nunca tapando el centro del mapa. */
+.world-build-bar {
+  position: fixed; z-index: 14; left: 50%; transform: translateX(-50%);
+  bottom: calc(14px + var(--world-control-clearance) + var(--world-safe));
+  width: min(520px, calc(100vw - 24px));
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  padding: 10px 12px; border: 1px solid #c8c19b; border-radius: 18px;
+  color: #fcf4db; background: #263f31f2; box-shadow: 0 8px 32px #17261c45;
 }
-.world-home-editor p { margin: 6px 0; font-size: 13px; }
-.world-home-editor small { display: block; margin-top: 5px; font-size: 11px; opacity: .8; }
-.world-home-head { display: flex; align-items: center; gap: 8px; }
-.world-home-head strong { font-size: 13px; }
-/* Lo que llevas, siempre a la vista: no se deduce de qué botones están apagados. */
-.world-home-materials { display: flex; gap: 8px; margin-left: auto; align-items: center; }
-.world-home-materials span { display: inline-flex; align-items: center; gap: 3px; font-size: 12px; }
-.world-home-materials canvas { width: 18px; height: 18px; object-fit: contain; }
-.world-home-close { width: 34px; min-height: 34px; border-radius: 9px; border: 1px solid #a0ab88; background: none; color: inherit; font-size: 17px; line-height: 1; }
-.world-home-palette { display: flex; gap: 6px; overflow-x: auto; padding: 8px 0 9px; overscroll-behavior: contain; }
-.world-home-palette button { flex: 0 0 96px; padding: 7px; border: 1px solid #91a078; border-radius: 10px; background: #e8e8c7; color: #263f31; }
-.world-home-palette canvas, .world-home-variants canvas { width: 44px; height: 42px; object-fit: contain; }
-/* Las variantes son fotos, no un botón que hay que pulsar tres veces para ver qué hay dentro. */
-.world-home-variants { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; }
-.world-home-variants[hidden] { display: none; }
-.world-home-variants button { flex: 0 0 58px; padding: 4px; border: 1px solid #91a078; border-radius: 10px; background: #e8e8c7; }
-.world-home-palette button.is-chosen, .world-home-variants button.is-chosen { border-color: #f4d58d; box-shadow: 0 0 0 2px #f4d58d99; }
-.world-home-actions { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
-.world-home-actions button, .world-cloud-save button { min-height: 42px; padding: 6px 10px; border-radius: 9px; border: 1px solid #a0ab88; }
-.world-home-actions button[hidden] { display: none; }
-.world-home-actions button:disabled { opacity: .4; }
+.world-build-bar[hidden] { display: none; }
+.world-build-bar__what { display: flex; align-items: center; gap: 10px; flex: 1 1 200px; min-width: 0; }
+.world-build-bar__what canvas { width: 38px; height: 36px; object-fit: contain; image-rendering: pixelated; flex: 0 0 auto; }
+.world-build-bar p { margin: 0; font-size: 13px; line-height: 1.35; min-width: 0; }
+.world-build-bar small { flex: 1 0 100%; font-size: 11px; opacity: .8; }
+.world-build-bar small[hidden] { display: none; }
+.world-build-bar__actions { display: flex; gap: 8px; align-items: center; }
+.world-build-bar__actions button {
+  min-height: 44px; min-width: 44px; padding: 8px 14px; border-radius: 12px;
+  border: 1px solid #a0ab88; background: #e8e8c7; color: #263f31; font: 14px/1.2 system-ui; cursor: pointer;
+}
+.world-build-bar__actions #home-save { background: #d8bc75; }
+.world-build-bar__actions button:disabled { opacity: .45; }
+.world-build-bar__actions button[hidden] { display: none; }
+.world-build-bar__actions #home-cancel { font-size: 20px; padding: 4px; }
+
 .world-cloud-save { border-top: 1px solid #a0ab8866; margin-top: 16px; padding-top: 8px; }
 #cloud-conflict:not([hidden]), #cloud-recoveries { display: grid; gap: 8px; }
-@media (max-width: 600px) {
-  .world-home-editor p { font-size: 12px; }
-  .world-home-editor small { font-size: 10px; }
-}
 
-/* ⛔ Al FINAL del fichero a propósito. El saco y «Yo» son los dos paneles con
-   contenido de verdad dentro (un inventario que crece, y la cuenta con su
-   login): a 85dvh y 490px se quedan cortos y lo de abajo queda fuera de
+/* ⛔ Al FINAL del fichero a propósito. El saco, «Yo» y el catálogo de construir son los tres
+   paneles con contenido de verdad dentro (un inventario que crece, la cuenta con su login y
+   diecisiete cosas que poner): a 85dvh y 490px se quedan cortos y lo de abajo queda fuera de
    alcance, así que en el teléfono ocupan la pantalla entera y scrollean. El
    resto de modales son avisos de dos líneas y siguen siendo tarjetas centradas.
    Va aquí porque `.world-bag` y `.world-self` declaran su propia anchura más
    arriba y, a igual especificidad, gana la regla que va después. */
 @media (max-width: 799px) {
   .world-modal.world-bag,
-  .world-modal.world-self {
+  .world-modal.world-self,
+  .world-modal.world-build {
     width: 100vw;
     max-width: none;
     height: 100dvh;
@@ -1027,7 +1039,8 @@ body:has(.world-dialogue:not([hidden])) .world-held-item {
   }
   /* La cruz tiene que seguir alcanzable con el panel scrolleado hasta abajo. */
   .world-modal.world-bag header,
-  .world-modal.world-self header {
+  .world-modal.world-self header,
+  .world-modal.world-build header {
     position: sticky;
     top: 0;
     z-index: 1;

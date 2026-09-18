@@ -515,6 +515,102 @@
     "it": "Tavolo di ceppo",
     "pt": "Mesa de tronco"
   },
+  "buildVariantAcorn": {
+    "es": "Bellota",
+    "en": "Acorn",
+    "de": "Eichel",
+    "fr": "Gland",
+    "it": "Ghianda",
+    "pt": "Bolota"
+  },
+  "buildVariantBlue": {
+    "es": "Azules",
+    "en": "Blue",
+    "de": "Blau",
+    "fr": "Bleues",
+    "it": "Azzurre",
+    "pt": "Azuis"
+  },
+  "buildVariantCoral": {
+    "es": "Coral",
+    "en": "Coral",
+    "de": "Korallenrot",
+    "fr": "Corail",
+    "it": "Corallo",
+    "pt": "Coral"
+  },
+  "buildVariantDaisy": {
+    "es": "Margaritas",
+    "en": "Daisies",
+    "de": "Gänseblümchen",
+    "fr": "Marguerites",
+    "it": "Margherite",
+    "pt": "Margaridas"
+  },
+  "buildVariantGold": {
+    "es": "Doradas",
+    "en": "Golden",
+    "de": "Goldgelb",
+    "fr": "Dorées",
+    "it": "Dorate",
+    "pt": "Douradas"
+  },
+  "buildVariantLog": {
+    "es": "Tronquito",
+    "en": "Log",
+    "de": "Holz",
+    "fr": "Rondin",
+    "it": "Tronchetto",
+    "pt": "Tronco"
+  },
+  "buildVariantPrimrose": {
+    "es": "Prímulas",
+    "en": "Primroses",
+    "de": "Schlüsselblumen",
+    "fr": "Primevères",
+    "it": "Primule",
+    "pt": "Primaveras"
+  },
+  "buildVariantSeed": {
+    "es": "Semilla",
+    "en": "Seed",
+    "de": "Samen",
+    "fr": "Graine",
+    "it": "Seme",
+    "pt": "Semente"
+  },
+  "buildVariantStump": {
+    "es": "Tocón",
+    "en": "Stump",
+    "de": "Baumstumpf",
+    "fr": "Souche",
+    "it": "Ceppo",
+    "pt": "Cepo"
+  },
+  "buildVariantTwigs": {
+    "es": "Ramitas",
+    "en": "Twigs",
+    "de": "Zweige",
+    "fr": "Brindilles",
+    "it": "Rametti",
+    "pt": "Raminhos"
+  },
+  "buildVariantViolet": {
+    "es": "Violetas",
+    "en": "Violets",
+    "de": "Veilchen",
+    "fr": "Violettes",
+    "it": "Viole",
+    "pt": "Violetas"
+  },
+  "buildVariantWhite": {
+    "es": "Blancas",
+    "en": "White",
+    "de": "Weiß",
+    "fr": "Blanches",
+    "it": "Bianche",
+    "pt": "Brancas"
+  },
   "cancel": {
     "es": "Mejor seguimos",
     "en": "Keep my wander",
@@ -628,20 +724,20 @@
     "pt": "Temos de passar por aqui. Deixa o caminho livre."
   },
   "communityAuthorLimit": {
-    "es": "Ya has dejado un montón de cosas aquí. Quita alguna y hueco tienes.",
-    "en": "You have left a pile of things here already. Take one away and you have room.",
-    "de": "Du hast hier schon eine Menge hingestellt. Nimm eins weg, dann ist Platz.",
-    "fr": "Tu as déjà posé un tas de choses ici. Enlèves-en une et tu auras la place.",
-    "it": "Hai già lasciato un mucchio di cose qui. Togline una e hai posto.",
-    "pt": "Já deixaste aqui um monte de coisas. Tira uma e tens espaço."
+    "es": "Ya has dejado un montón de cosas por aquí. Deja sitio a los demás y prueba en otro rincón.",
+    "en": "You have left plenty of things around here. Leave room for the others and try another corner.",
+    "de": "Du hast hier schon eine Menge hingestellt. Lass den anderen Platz und versuch es an einer anderen Ecke.",
+    "fr": "Tu as déjà posé un tas de choses par ici. Laisse de la place aux autres et essaie un autre coin.",
+    "it": "Hai già lasciato un mucchio di cose da queste parti. Lascia spazio agli altri e prova in un altro angolo.",
+    "pt": "Já deixaste por aqui um monte de coisas. Deixa espaço aos outros e experimenta noutro cantinho."
   },
   "communityBuild": {
-    "es": "Construir juntos",
-    "en": "Build together",
-    "de": "Gemeinsam bauen",
-    "fr": "Construire ensemble",
-    "it": "Costruire insieme",
-    "pt": "Construir em conjunto"
+    "es": "Construir",
+    "en": "Build",
+    "de": "Bauen",
+    "fr": "Construire",
+    "it": "Costruire",
+    "pt": "Construir"
   },
   "communityChoose": {
     "es": "Elige algo bonito para este rincón.",
@@ -676,12 +772,12 @@
     "pt": "A malta do bosque"
   },
   "communityForeign": {
-    "es": "Esto lo puso otra persona. Lo tuyo sí lo puedes mover.",
-    "en": "Somebody else put this here. Your own things you can move.",
-    "de": "Das hat jemand anderes hingestellt. Deine eigenen Sachen kannst du bewegen.",
-    "fr": "C'est quelqu'un d'autre qui a posé ça. Tes affaires à toi, tu peux les bouger.",
-    "it": "Questo l'ha messo un'altra persona. Le tue cose sì che puoi spostarle.",
-    "pt": "Isto foi outra pessoa que pôs. As tuas coisas podes movê-las."
+    "es": "Esto lo puso otra persona, y aquí se queda. Pon lo tuyo al lado.",
+    "en": "Somebody else put this here, and here it stays. Put yours next to it.",
+    "de": "Das hat jemand anderes hingestellt, und da bleibt es. Stell deins daneben.",
+    "fr": "Quelqu’un d’autre a posé ça, et ça reste là. Pose la tienne à côté.",
+    "it": "Questo l’ha messo un’altra persona e qui resta. Metti la tua accanto.",
+    "pt": "Isto foi outra pessoa que pôs, e aqui fica. Põe a tua ao lado."
   },
   "communityHeritage": {
     "es": "Esto ya es patrimonio del bosque. Hay que cuidarlo.",
@@ -772,20 +868,12 @@
     "pt": "Este cantinho deixamo-lo como está. Experimenta um bocadinho mais além."
   },
   "communityPublic": {
-    "es": "El bosque es de todos. Lo que coloques queda a la vista con tu firma.",
-    "en": "The forest belongs to everyone. Your creations keep your signature.",
-    "de": "Der Wald gehört allen. Deine Werke tragen deine Handschrift.",
-    "fr": "La forêt est à tout le monde. Tes créations gardent ta signature.",
-    "it": "Il bosco è di tutti. Le tue creazioni conservano la tua firma.",
-    "pt": "O bosque é de todos. As tuas criações mantêm a tua assinatura."
-  },
-  "communityRemove": {
-    "es": "Quitar",
-    "en": "Take away",
-    "de": "Wegnehmen",
-    "fr": "Retirer",
-    "it": "Togliere",
-    "pt": "Retirar"
+    "es": "El bosque es de todos. Lo que coloques se queda a la vista con tu firma.",
+    "en": "The forest belongs to everyone. What you place stays in plain sight with your signature.",
+    "de": "Der Wald gehört allen. Was du hinstellst, bleibt sichtbar stehen, mit deiner Handschrift.",
+    "fr": "La forêt est à tout le monde. Ce que tu poses reste bien en vue, avec ta signature.",
+    "it": "Il bosco è di tutti. Quello che metti resta lì in bella vista, con la tua firma.",
+    "pt": "O bosque é de todos. O que colocares fica à vista com a tua assinatura."
   },
   "communityRetry": {
     "es": "Algo ha cambiado. Revisa el lugar antes de intentarlo otra vez.",
@@ -852,20 +940,20 @@
     "pt": "Para isto precisas de:"
   },
   "communityValid": {
-    "es": "Cabe aquí. Confirma para construir.",
-    "en": "Fits here. Confirm to build.",
-    "de": "Passt hier. Bestätige zum Bauen.",
-    "fr": "Ça passe ici. Confirme pour construire.",
-    "it": "Qui ci sta. Conferma per costruire.",
-    "pt": "Cabe aqui. Confirma para construir."
+    "es": "Aquí cabe. Dale a Colocar y se queda.",
+    "en": "It fits here. Hit Place and there it stays.",
+    "de": "Hier passt es. Tipp auf Platzieren, und da bleibt es.",
+    "fr": "Ça passe ici. Appuie sur Placer et ça reste.",
+    "it": "Qui ci sta. Tocca Posiziona e resta lì.",
+    "pt": "Aqui cabe. Carrega em Colocar e fica."
   },
   "communityZoneFull": {
-    "es": "Este sitio está a reventar. Habrá que quitar algo antes de poner más.",
-    "en": "This place is packed. Something has to go before anything else comes in.",
-    "de": "Hier ist es rappelvoll. Erst muss etwas weg, bevor etwas dazukommt.",
-    "fr": "L’endroit est plein à craquer. Il faut enlever quelque chose avant d’en poser une autre.",
-    "it": "Qui è pieno zeppo. Prima deve andarsene qualcosa.",
-    "pt": "Este sítio está cheíssimo. Tem de sair algo antes de entrar mais."
+    "es": "Este sitio está a reventar. Busca otro rincón del bosque.",
+    "en": "This place is packed. Find another corner of the forest.",
+    "de": "Hier ist es rappelvoll. Such dir eine andere Ecke des Waldes.",
+    "fr": "L’endroit est plein à craquer. Cherche un autre coin de la forêt.",
+    "it": "Qui è pieno zeppo. Cerca un altro angolo del bosco.",
+    "pt": "Este sítio está cheíssimo. Procura outro cantinho do bosque."
   },
   "consumable": {
     "es": "Consumible · Se gasta al usarlo",
@@ -1850,14 +1938,6 @@
     "fr": "Toi",
     "it": "Tu",
     "pt": "Tu"
-  },
-  "buildPrimroses": {
-    "es": "Prímulas",
-    "en": "Primroses",
-    "de": "Primeln",
-    "fr": "Primevères",
-    "it": "Primule",
-    "pt": "Prímulas"
   },
   "primroseSeedName": {
     "es": "Semillas de prímulas",

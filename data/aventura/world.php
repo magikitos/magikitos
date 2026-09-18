@@ -61,12 +61,31 @@ return (static function (): array {
     $behaviors = [];
     $families = $read(__DIR__ . '/elements.json')['families'];
     $world['construction'] = $read(__DIR__ . '/construction.json');
+    // ⛔ EL NOMBRE DE UNA VARIANTE VIENE DE AQUÍ Y NO DE LA FAMILIA. `elements.json` ya trae un
+    // `label` por variante, pero es del Estudio: está en castellano y solo en castellano. El
+    // catálogo de construir lo leen seis idiomas y enseña las variantes una al lado de otra, así
+    // que sin esto salían dos baldosas llamadas igual —el mismo banco dos veces— y parecía un
+    // fallo. El mapa va por ID de variante porque dentro de construir un id significa siempre lo
+    // mismo («ramitas» son ramitas en el banco y en la mesa), así que doce palabras cubren las
+    // siete cosas con variante y la octava que nazca las hereda.
+    $variantLabels = $world['construction']['variantLabels'] ?? [];
+    unset($world['construction']['variantLabels']);
+    $variant = static function (array $v) use ($variantLabels): array {
+        // El `label` de la familia se queda fuera A PROPÓSITO: es castellano del Estudio. El que
+        // viaja al juego es una clave de textos, y solo si el mapa la tiene.
+        if (isset($variantLabels[$v['id']])) $v['label'] = $variantLabels[$v['id']];
+        else unset($v['label']);
+        return $v;
+    };
     foreach ($world['construction']['definitions'] as &$construction) {
         if (isset($construction['family'])) {
             $family = $families[$construction['family']] ?? throw new RuntimeException('Unknown construction family');
-            $construction['variants'] = array_map(static fn($v) => ['id'=>$v['id'], 'sprite'=>$v['sprite']], $family['variants']);
+            $construction['variants'] = array_map($variant, array_map(
+                static fn($v) => ['id' => $v['id'], 'sprite' => $v['sprite']],
+                $family['variants'],
+            ));
         } else {
-            $construction['variants'] ??= [['id'=>'original', 'sprite'=>$construction['sprite']]];
+            $construction['variants'] = array_map($variant, $construction['variants'] ?? [['id'=>'original', 'sprite'=>$construction['sprite']]]);
         }
         $construction['scale'] ??= 1;
     }

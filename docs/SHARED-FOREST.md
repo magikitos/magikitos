@@ -81,14 +81,26 @@ Sin vidas, combate, Libro del Bosque, fiambreras ni parcelas privadas.
 - Con barca en el saco, caminar hasta la punta de un muelle embarca automáticamente.
   Remar hacia la punta desembarca. Clic/toque en las tablas traza la aproximación;
   no hay botones de embarcar/desembarcar ni activación por pasar de lado o descansar.
-- En cualquiera de las cuatro pantallas construibles, abrir el botón de construcción.
-  Elegir pieza, variante y vista disponible, tocar el suelo y confirmar. Se ve coste,
-  huella y motivo si no cabe. Las vallas tienen dos vistas dibujadas; no giramos un PNG
-  como una pegatina. Vallitas y caminos se trazan dejando pulsado y arrastrando, con la
-  misma polilínea que dibuja el Studio.
-- Un objeto propio no patrimonial permite mover/retirar. Retirar devuelve materiales
-  una vez y conserva historial. **Quitar un camino es sembrar hierba** y cuesta semillas:
-  un camino no se recoge, se tapa.
+- **Construir se abre desde el rastrillo de la esquina de arriba, junto al saco**, igual en
+  teléfono que en escritorio (18-sep-2026, decisión del dueño: «nada de botón abajo a la
+  izquierda»). El catálogo es una modal de la casa —el mismo caparazón y la misma rejilla que el
+  saco y que «Yo», a pantalla completa en el teléfono— con una baldosa por COSA, variantes
+  incluidas: su dibujo, su nombre, el de la variante cuando hay más de una y lo que cuesta. Y
+  **elegir la CIERRA**: era el fallo de fondo, porque con el panel ocupando media pantalla
+  «tócalo donde quieras» significaba tocar el panel, y la pieza elegida no se quedaba en ningún
+  sitio.
+- Elegida la pieza, el mapa vuelve a ser tuyo entero y abajo queda una barra fina: qué llevas en
+  la mano, por qué no cabe cuando no cabe, girar, dejarlo y **Colocar**. Se pone donde se quiera
+  y se confirma; **lo colocado se queda**. Vallitas y caminos se trazan dejando pulsado y
+  arrastrando, con la misma polilínea que dibuja el Studio, y las vallas tienen dos vistas
+  dibujadas: no giramos un PNG como una pegatina. La pieza SIGUE en la mano tras colocar, que
+  poner una flor casi nunca es poner una sola.
+- **Lo que se pone se queda: no hay mover ni quitar** (18-sep-2026, decisión del dueño). Ni lo
+  de otra persona ni lo tuyo — un bosque que cualquiera puede deshacer no es un sitio al que
+  volver. Tocar algo puesto cuenta qué es y quién lo dejó, y nada más. ⛔ El servidor SIGUE
+  sabiendo mover y retirar (con su devolución de materiales y su historial) y los datos conservan
+  el `removeCost`/`removeLabel` de sembrar hierba sobre un caminito: el día que vuelva la
+  retirada comunitaria es una pantalla, no una migración.
 - Lo prohibido se compila de la propia pantalla: puertas, muelles, vecinos y cosas con
   las que se hace algo, con su margen, más los rincones de ambiente que declara el
   catálogo. Nadie puede cerrarle el paso a lo que ya se alcanzaba.

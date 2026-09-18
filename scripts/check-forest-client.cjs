@@ -67,5 +67,65 @@ peers.clear(); assert.equal(peers.list.length, 0);
     assert.equal(await interrupted, false, "Disconnect releases callers waiting for an acknowledgement");
     await new Promise(setImmediate);
   }
-  console.log("PASS forest client: bounded validated snapshots, interpolation, stale-scene isolation, lifecycle cancellation and offline crossings.");
+  /**
+   * ⛔ DOS DUENDES NO SE ATRAVIESAN, Y NADIE SE QUEDA ENCERRADO.
+   *
+   * El cuerpo de un desconocido solo frena a QUIEN LO MIRA: nadie empuja a nadie y la autoridad
+   * no cambia. Lo que de verdad hay que probar aquí son las dos mitades que se estropean solas:
+   * que el cuerpo se AÑADE y se QUITA de la lista de actores de la pantalla (si no, cada
+   * instantánea dejaría un fantasma sólido más), y que alguien que ya te está encima es
+   * atravesable — llegan interpolados y el servidor puede corregirte dentro de otro, así que un
+   * solape convertido en muro te dejaría clavado sin nada que pulsar.
+   */
+  {
+    const { ForestLive } = require("../public/assets/js/adventure/forest-live");
+    const { actorBounds, overlaps } = require("../public/assets/js/adventure/geometry");
+    const live = Object.create(ForestLive.prototype);
+    const actors = [];
+    live.people = new ForestPeople((v) => v, () => clock);
+    live.connection = { ready: true };
+    live.role = "player";
+    live.game = { player: { x: 500, y: 500 }, world: { actors }, reducedMotion: true };
+    const push = (rows) => {
+      live.people.snapshot({ scene: "forest", people: rows }, "forest", bounds);
+      live.people.update(true);
+      live.bodies();
+    };
+    const far = "b".repeat(24), near = "c".repeat(24);
+    push([[far, 200, 200, 2, 0, 0, 0]]);
+    assert.equal(actors.length, 1, "A stranger gets a body");
+    assert.equal(actors[0].actor, true, "and it is an actor-sized one");
+    assert.equal(actors[0].passable, false, "which stops you");
+    // Otra instantánea NO acumula cuerpos.
+    push([[far, 210, 200, 2, 0, 0, 0]]);
+    assert.equal(actors.length, 1, "Every snapshot replaces the bodies, never stacks them");
+    // Quien te está encima es atravesable, y solo ese.
+    push([[far, 200, 200, 2, 0, 0, 0], [near, 500, 500, 2, 0, 0, 0]]);
+    assert.equal(actors.length, 2);
+    assert.deepEqual(
+      actors.map((p) => p.passable),
+      [false, true],
+      "Somebody already standing on you never walls you in",
+    );
+    assert(overlaps(actorBounds(500, 500), actorBounds(actors[1].x, actors[1].y)));
+    // Sin conexión no hay cuerpos, y un espectador tampoco los reparte.
+    live.connection.ready = false;
+    live.bodies();
+    assert.deepEqual(actors, [], "A dropped connection takes the bodies with it");
+    live.connection.ready = true;
+    push([[far, 200, 200, 2, 0, 0, 0]]);
+    assert.equal(actors.length, 1);
+    live.role = "spectator";
+    live.bodies();
+    assert.deepEqual(actors, [], "A spectator walks through the world, not into it");
+    // Y al cambiar de pantalla la lista de actores es OTRA: no se toca la que ya no existe.
+    live.role = "player";
+    push([[far, 200, 200, 2, 0, 0, 0]]);
+    const fresh = [];
+    live.game.world = { actors: fresh };
+    live.bodies();
+    assert.equal(actors.length, 1, "The old screen's list is left alone");
+    assert.equal(fresh.length, 1, "and the new one gets its bodies");
+  }
+  console.log("PASS forest client: bounded validated snapshots, interpolation, stale-scene isolation, lifecycle cancellation, offline crossings and peer bodies.");
 })().catch(error => { console.error(error); process.exitCode = 1; });

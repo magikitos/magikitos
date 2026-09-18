@@ -90,6 +90,9 @@ function build({ reuseArt = false } = {}) {
       fs.mkdirSync(path.dirname(target), { recursive: true });
       fs.writeFileSync(target, JSON.stringify(strings));
     }
+  // La barca amarrada se pega a los tablones de su muelle. Va antes del contrato porque el mundo
+  // que se serializa para el navegador es este mismo objeto.
+  require("./moor-vessels.cjs").moorVessels(world);
   const contract = require("./game-contract.cjs").gameContract(world);
   fs.writeFileSync(
     path.join(scratch, "game-contract.json"),

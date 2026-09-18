@@ -30,6 +30,7 @@ const {
   enteringDock,
   dockPath,
 } = require("../public/assets/js/adventure/docks");
+const { moorVessels, MOOR_GAP } = require("../tools/moor-vessels.cjs");
 const catalog = JSON.parse(
   cp.execFileSync("php", [
     "-r",
@@ -130,6 +131,42 @@ for (const data of Object.values(catalog.scenes).filter(
     data.navigation.landings.length === 1,
     `${data.id}: a second jetty would need the landing filter back`,
   );
+}
+/**
+ * ⛔ LA BARCA AMARRADA SE VE EN EL MUELLE, Y EL SITIO DONDE TE SUBES NO SE MUEVE.
+ *
+ * Son dos cosas y estaban en el mismo punto: el ancla de subir es FÍSICA (el casco tiene radio y
+ * no puede acercarse más sin que las sondas toquen la madera) y la barca aparcada es un DIBUJO.
+ * Con las dos juntas, la barca de uno quedaba a entre 3 y 4,6 tiles de los tablones, que desde
+ * fuera no se lee como amarrada sino como a la deriva. Aquí se comprueban las dos mitades: que el
+ * dibujo se pega a la punta y que el ancla de `water` sigue donde estaba.
+ */
+{
+  const anchors = Object.fromEntries(
+    Object.values(catalog.scenes)
+      .filter((s) => s.navigation?.landings?.length)
+      .map((s) => [s.id, s.navigation.landings.map((l) => [...l.water])]),
+  );
+  check(moorVessels(catalog) === Object.keys(anchors).length, "every jetty moors its vessel");
+  for (const data of Object.values(catalog.scenes).filter((s) => anchors[s.id])) {
+    check(
+      JSON.stringify(data.navigation.landings.map((l) => l.water)) === JSON.stringify(anchors[data.id]),
+      `${data.id}: mooring the drawing never moves the boarding anchor`,
+    );
+    for (const dock of docks(data)) {
+      const vessel = data.entities.find((e) => e.id === "moored-" + dock.id);
+      const tip = { x: dock.dry.x + dock.outward.x * 10, y: dock.dry.y + dock.outward.y * 10 };
+      const gap = Math.hypot(vessel.x * TILE - tip.x, vessel.y * TILE - tip.y) / TILE;
+      check(
+        Math.abs(gap - MOOR_GAP) < 0.001,
+        `${data.id}: the parked boat sits ${MOOR_GAP} tiles off the planks, not ${gap.toFixed(2)}`,
+      );
+      // Y del lado del agua, no encima de la orilla ni detrás del muelle.
+      const along =
+        (vessel.x * TILE - tip.x) * dock.outward.x + (vessel.y * TILE - tip.y) * dock.outward.y;
+      check(along > 0, `${data.id}: moored on the water side of the jetty`);
+    }
+  }
 }
 for (const data of Object.values(catalog.scenes).filter((s) =>
   s.id.startsWith("river-"),

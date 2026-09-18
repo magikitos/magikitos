@@ -100,7 +100,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   );
   await sinCuenta.goto(offline + "/aventura");
   await require("./browser-entry.cjs").enterWorld(sinCuenta);
-  await sinCuenta.locator("#home-edit").click();
+  await sinCuenta.locator("#build-toggle").click();
   await sinCuenta.locator("#self-dialog[open]").waitFor();
   assert(
     (await sinCuenta.locator("#self-why").innerText()).length > 20,
@@ -194,7 +194,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
      * correo (16-sep-2026). Lo que de verdad se comprueba aquí es la prueba de humanidad en sus
      * cuatro caras, y quien la dispara hoy es CONSTRUIR: abrir el claro necesita una identidad.
      */
-    await page.locator("#home-edit").click();
+    await page.locator("#build-toggle").click();
     if (mode === "interactive" || mode === "cancel") {
       await page.locator(".world-proof[open]").waitFor();
       const host = await page.locator(".world-proof-host").boundingBox();

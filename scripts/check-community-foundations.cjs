@@ -185,6 +185,34 @@ check(
   FAST_ROW_SPEED > ROW_SPEED * 2 && FAST_ROW_SPEED < 240,
   "Strong currents remain stronger than boosted rowing",
 );
+/**
+ * ⛔ DOS BALDOSAS NO SE PUEDEN LLAMAR IGUAL. Desde que el catálogo enseña las variantes una al
+ * lado de otra, una cosa con dos variantes y sin nombre para cada una sale dos veces con el
+ * mismo rótulo y el mismo precio: parece un fallo. El `label` de `elements.json` no sirve —es
+ * del Estudio y está solo en castellano—, así que el mapa `variantLabels` de construction.json
+ * lo traduce a una clave de textos y esto comprueba que no se queda ninguna fuera, ni apunta a
+ * una frase que nadie dice en los seis idiomas.
+ */
+const textos = JSON.parse(
+  require("node:fs").readFileSync("data/aventura/locales/core.json", "utf8"),
+);
+for (const [kind, d] of Object.entries(catalog.construction.definitions)) {
+  if (d.variants.length < 2) continue;
+  for (const variant of d.variants) {
+    check(
+      Boolean(variant.label),
+      kind + "/" + variant.id + ": una variante entre varias necesita su nombre",
+    );
+    check(
+      Boolean(textos[variant.label]),
+      kind + "/" + variant.id + ": «" + variant.label + "» no lo dice nadie en core.json",
+    );
+  }
+  check(
+    new Set(d.variants.map((v) => v.label)).size === d.variants.length,
+    kind + ": dos variantes con el mismo nombre no se distinguen",
+  );
+}
 console.log(
-  `PASS community foundations: ${count} resource, quest, sight, scale and current assertions.`,
+  `PASS community foundations: ${count} resource, quest, sight, scale, variant-name and current assertions.`,
 );

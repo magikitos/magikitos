@@ -148,20 +148,27 @@ const ZONE = Object.entries(
         await page.goto(origin + "/aventura");
         await require("./browser-entry.cjs").enterWorld(page);
         await page.waitForFunction(() => window.MagikitosAdventure.inspect().live.role === "player");
-        await page.locator("#home-edit").click();
-        await page.waitForFunction(
-          () => window.MagikitosAdventure.inspect().community.editing,
-        );
-        await page
-          .locator("#home-palette button")
-          .filter({
-            hasText: {
-              "twig-fence": "Vallita de ramitas",
-              "forest-path": "Caminito de tierra",
-              "bowl-pool": "Piscinita deluxe",
-            }[kind],
-          })
-          .click();
+        // ⛔ EL CATÁLOGO SE ABRE DESDE EL ICONO DE ARRIBA, junto al saco, y elegir una cosa lo
+        // CIERRA: mientras el panel está delante no hay mapa que tocar, así que la prueba espera
+        // a que se cierre antes de buscar ningún hueco.
+        const elegir = async (nombre) => {
+          await page.locator("#build-toggle").click();
+          await page.waitForFunction(() => document.getElementById("build-dialog").open);
+          await page
+            .locator("#home-palette button")
+            .filter({ hasText: nombre })
+            .first()
+            .click();
+          await page.waitForFunction(
+            () => window.MagikitosAdventure.inspect().community.editing
+              && !document.getElementById("build-dialog").open,
+          );
+        };
+        await elegir({
+          "twig-fence": "Vallita de ramitas",
+          "forest-path": "Caminito de tierra",
+          "bowl-pool": "Piscinita deluxe",
+        }[kind]);
         const snapshot = await (
           await http.get("/api/world/community?zone=" + ZONE)
         ).json();
@@ -281,10 +288,7 @@ const ZONE = Object.entries(
           );
           // Se vuelve a elegir la vallita —que es lo que hace una persona que se ha pasado de
           // largo— y con ella el trazo más corto otra vez, y se coloca en el hueco legal.
-          await page
-            .locator("#home-palette button")
-            .filter({ hasText: "Vallita de ramitas" })
-            .click();
+          await elegir("Vallita de ramitas");
           assert.equal(await vertices(), 2, "Choosing the fence again starts short");
           s = await inspect();
           sx = box.x + ((point.x * 16 - s.camera.x) * box.width) / s.view.width;
@@ -298,13 +302,20 @@ const ZONE = Object.entries(
         await page.screenshot({
           path: `.local/community-review/placement-${kind}-${width}.png`,
         });
+        const puestas = (
+          await page.evaluate(() => window.MagikitosAdventure.inspect().community.objects)
+        ).length;
         await page.locator("#home-save").click();
-        // ⛔ COLOCAR NO CIERRA LA CAJA (17-sep-2026): colocar una cosa casi nunca es colocar una
-        // sola, así que lo que se va es el fantasma y la caja se queda con la paleta lista.
-        // Y si no se va, la prueba dice POR QUÉ: el claro ya explica cada negativa con su frase,
-        // así que una espera agotada a secas sería tirar la única pista que hay.
+        // ⛔ COLOCAR NO SUELTA LA PIEZA (18-sep-2026): poner una flor casi nunca es poner una
+        // sola, así que lo que cambia es el BOSQUE y no la mano. Por eso se espera a que el claro
+        // tenga una cosa más y no a que el fantasma desaparezca, que ya no desaparece nunca.
+        // Y si no llega, la prueba dice POR QUÉ: la barra explica cada negativa con su frase, así
+        // que una espera agotada a secas sería tirar la única pista que hay.
         await page
-          .waitForFunction(() => !window.MagikitosAdventure.inspect().community.ghost)
+          .waitForFunction(
+            (n) => window.MagikitosAdventure.inspect().community.objects.length > n,
+            puestas,
+          )
           .catch(async (error) => {
             const dicho = await page.evaluate(() => ({
               motivo: document.getElementById("community-reason")?.textContent?.trim(),
@@ -317,9 +328,15 @@ const ZONE = Object.entries(
           });
         assert(
           await page.evaluate(
-            () => window.MagikitosAdventure.inspect().community.editing,
+            () =>
+              window.MagikitosAdventure.inspect().community.editing &&
+              Boolean(window.MagikitosAdventure.inspect().community.ghost),
           ),
-          "Placing one piece leaves the box open for the next",
+          "La pieza se queda en la mano: poner una no es dejar de construir",
+        );
+        assert(
+          await page.locator("#build-bar").isVisible(),
+          "…y la barra de colocar sigue delante, sin volver al catálogo",
         );
         const after = await (
           await http.get("/api/world/community?zone=" + ZONE)

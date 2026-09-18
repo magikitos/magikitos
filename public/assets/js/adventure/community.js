@@ -20,26 +20,37 @@ const fences = require("./fences");
 const byId = (id) => document.getElementById(id);
 
 /**
- * CONSTRUIR JUNTOS: una sola zona compartida, un solo sitio donde dejar algo.
+ * CONSTRUIR: el bosque entero es de todos, y esto es la puerta para dejar algo en él.
  *
  * Solo el fantasma es especulativo; los cuerpos colocados vienen siempre de instantáneas que el
  * servidor ha confirmado. Ni descuentos optimistas ni sucesos inventados.
  *
- * ⛔ LA PANTALLA SE REHIZO EL 17-sep-2026 («la UI para esto debe ser potente y fácil de entender,
- * y en ningún orden en especial», dueño). Lo que cambia y por qué:
+ * ⛔ LA PANTALLA SE REHIZO EL 18-sep-2026 (decisión del dueño: «pincho un objeto y todo es un
+ * poco confuso… necesito que sea mucho más fluida, intuitiva y cómoda»). Lo que cambia y por qué:
  *
- *  · **Lo que llevas se ve SIEMPRE**, arriba del todo. Antes había que deducirlo de qué botones
- *    estaban apagados, que es hacer un acertijo de un inventario.
- *  · **Ningún botón muerto.** Una pieza que todavía no te puedes permitir se elige igual, y el
- *    renglón dice QUÉ te falta. Un botón apagado no explica nada: solo se resiste.
- *  · **Las variantes son fotos**, una fila de baldosas, no un botón «Variante» que hay que pulsar
- *    tres veces para ver qué hay dentro.
- *  · **Dos acciones y punto**: Girar y Colocar (más Quitar cuando estás tocando algo tuyo). «Al
- *    saco» decía a dónde iba la pieza, no lo que hacía el botón.
- *  · **El claro se pinta** mientras construyes, así que dónde SE PUEDE es algo que se ve, no algo
- *    que se descubre a base de intentos.
- *  · **La cámara va al claro** al abrir, con el mismo viaje suave que cuando tocas el mapa.
- *  · **La pieza nueva aparece donde estaba la anterior**, que es donde estás mirando.
+ *  · **Se entra por un icono de la barra de arriba**, junto al saco, igual en teléfono que en
+ *    escritorio. Un botón suelto abajo a la izquierda era la única puerta del juego que no estaba
+ *    donde están las demás, y en un teléfono caía justo donde vive el pulgar que mueve el mapa.
+ *  · **El catálogo es una modal de la casa**, la misma que el saco y que «Yo»: mismo caparazón,
+ *    misma rejilla (`.world-pick-grid`) y pantalla completa en el teléfono. Son la misma clase de
+ *    pantalla —una cuadrícula de cosas entre las que eliges— y tenerlas con dos diseños distintos
+ *    hacía que el juego pareciera dos juegos.
+ *  · **Una baldosa por COSA, variantes incluidas.** Antes había que elegir la familia y luego el
+ *    color en una segunda fila; ahora las diecisiete están a la vista y se elige de un toque, que
+ *    es lo que ya se hacía con el elenco de duendes.
+ *  · **Elegir CIERRA el catálogo.** Era el fallo de fondo: con el panel abierto ocupando media
+ *    pantalla, «tócalo donde quieras» significaba tocar el panel. Ahora la pieza se te queda en la
+ *    mano, el mapa entero es tuyo y abajo solo queda una barra fina.
+ *  · **Se pone y se CONFIRMA.** Mueves la pieza hasta que te gusta y entonces pulsas Colocar; el
+ *    renglón de la barra dice por qué no cabe cuando no cabe, así que no hay intentos a ciegas.
+ *  · **Lo colocado se queda.** No se puede mover ni quitar lo que ya está — ni lo tuyo (decisión
+ *    del dueño, 18-sep-2026: «lo que se pone se queda»). Tocar algo puesto cuenta quién lo dejó.
+ *    ⛔ El servidor SIGUE sabiendo mover y quitar, y los datos conservan su `removeCost`/
+ *    `removeLabel` (sembrar hierba sobre un caminito): el día que vuelva la retirada comunitaria
+ *    es una pantalla, no una migración.
+ *  · **Se pinta lo prohibido** mientras tienes algo en la mano, así que dónde NO se puede es algo
+ *    que se ve, no algo que se descubre a base de intentos.
+ *  · **La pieza se queda en la mano al colocar**, que poner una flor casi nunca es poner una sola.
  */
 /**
  * Por qué no se ha podido, en una sola tabla: lo que dice el juicio del cliente y lo que contesta
@@ -81,11 +92,14 @@ class Community {
         localStorage.getItem("magikitos.adventure.build-pending"),
       );
     } catch (_) {}
-    byId("home-edit").onclick = () => this.begin();
+    byId("build-toggle").onclick = () => this.begin();
     byId("home-save").onclick = () => this.commit();
     byId("home-cancel").onclick = () => this.cancel();
-    byId("home-remove").onclick = () => this.commit("remove");
     byId("community-rotate").onclick = () => this.rotate();
+    // Cerrar el catálogo sin elegir nada no deja a nadie con una barra vacía en la mano.
+    byId("build-dialog").addEventListener("close", () => {
+      if (!this.ghost) this.cancel();
+    });
     document.addEventListener(
       "keydown",
       (e) => {
@@ -422,21 +436,13 @@ class Community {
       this.game.api
         .request("community-use", { id: item.id }, { auth: true })
         .catch(() => {});
-    if (item.mine && !item.heritage) {
-      await this.begin();
-      if (!this.editing) return;
-      this.original = item;
-      this.ghost = {
-        ...item,
-        points: item.points && item.points.map((p) => [...p]),
-      };
-      this.palette();
-      this.revalidate();
-      this.paint();
-    } else
-      this.game.openDialogue([
-        `${this.game.text(this.catalog.definitions[item.kind].label)} · ${item.author?.name || item.author?.handle || this.game.text("communityEveryone")}`,
-      ]);
+    // ⛔ LO QUE SE PONE SE QUEDA (18-sep-2026, decisión del dueño). Tocar algo puesto —tuyo o de
+    // otra persona— cuenta qué es y quién lo dejó, y nada más: no abre el editor ni lo levanta del
+    // suelo. Que lo tuyo se pudiera coger otra vez convertía el bosque en un borrador, y una cosa
+    // que cualquiera puede deshacer no es un sitio al que volver.
+    this.game.openDialogue([
+      `${this.game.text(this.catalog.definitions[item.kind].label)} · ${item.author?.name || item.author?.handle || this.game.text("communityEveryone")}`,
+    ]);
   }
   async begin() {
     const g = this.game;
@@ -471,12 +477,11 @@ class Community {
       }
       await this.prepare(g.catalog.scenes[g.state.scene]);
       if (this.unavailable || !this.snapshot) throw Error("offline");
-      this.editing = true;
-      this.ghost = null;
-      this.original = null;
       // ⛔ AQUÍ LA CÁMARA VIAJABA AL CLARO, y ahora el claro es el bosque entero: llevarte a
       // ninguna parte sería quitarte de donde has decidido construir.
       this.palette();
+      const dialog = byId("build-dialog");
+      if (!dialog.open) dialog.showModal();
     } catch (error) {
       if (error.status >= 400 && error.status < 500) {
         this.clearPending();
@@ -584,33 +589,39 @@ class Community {
       g.world.data.label ||
         g.world.region(g.player.x / TILE, g.player.y / TILE),
     );
-    for (const [kind, d] of Object.entries(this.catalog.definitions)) {
-      const button = document.createElement("button");
-      button.type = "button";
-      const icon = this.tile(d, d.variants[0]);
-      if (icon) button.append(icon);
-      const label = document.createElement("small");
-      label.textContent = g.text(d.label);
-      button.append(label);
-      const detail = document.createElement("small");
-      detail.textContent = this.costLabel(d);
-      button.append(detail);
-      button.title = `${g.text(d.label)} — ${detail.textContent}`;
-      button.setAttribute("aria-label", button.title);
-      // ⛔ NUNCA APAGADO. El coste es la puerta, pero una baldosa apagada no dice cuál es la
-      // llave: se elige igual y el renglón de abajo dice qué falta.
-      button.setAttribute(
-        "aria-pressed",
-        String(this.ghost?.kind === kind && !this.original),
-      );
-      button.classList.toggle(
-        "is-chosen",
-        this.ghost?.kind === kind && !this.original,
-      );
-      button.onclick = () => this.select(kind);
-      root.append(button);
-    }
-    this.variants();
+    for (const [kind, d] of Object.entries(this.catalog.definitions))
+      for (const variant of d.variants) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "world-pick";
+        const icon = this.tile(d, variant);
+        if (icon) button.append(icon);
+        const label = document.createElement("small");
+        label.textContent = g.text(d.label);
+        button.append(label);
+        // ⛔ Y EL NOMBRE DE LA VARIANTE CUANDO HAY MÁS DE UNA. Con las diecisiete a la vista, dos
+        // baldosas que se llaman igual y cuestan lo mismo —el mismo banco dos veces— se leen como
+        // un fallo: lo que las distingue es el dibujo, y el dibujo no se puede decir en voz alta.
+        // El castellano del Estudio no vale aquí, que esto lo leen seis idiomas.
+        if (d.variants.length > 1 && variant.label) {
+          const which = document.createElement("small");
+          which.className = "world-pick-variant";
+          which.textContent = g.text(variant.label);
+          button.append(which);
+        }
+        const detail = document.createElement("small");
+        detail.textContent = this.costLabel(d);
+        button.append(detail);
+        button.title =
+          `${g.text(d.label)}${d.variants.length > 1 && variant.label ? " · " + g.text(variant.label) : ""} — ${detail.textContent}`;
+        button.setAttribute("aria-label", button.title);
+        // ⛔ NUNCA APAGADA. El coste es la puerta, pero una baldosa apagada no dice cuál es la
+        // llave: se elige igual y la barra de abajo dice qué falta.
+        const chosen = this.ghost?.kind === kind && this.ghost?.variant === variant.id;
+        button.setAttribute("aria-pressed", String(chosen));
+        button.onclick = () => this.select(kind, variant.id);
+        root.append(button);
+      }
   }
   /** «Palito ×4», o «Palito ×2 por celda» cuando se cobra por lo que mide. */
   costLabel(definition, object) {
@@ -632,31 +643,15 @@ class Community {
     // que dice la baldosa en vez de un precio de cero que no significa nada.
     return price || tool;
   }
-  /** Las variantes, como fotos. Solo aparecen cuando de verdad hay entre qué elegir. */
-  variants() {
-    const root = byId("home-variants");
-    root.replaceChildren();
-    const d = this.ghost && this.catalog.definitions[this.ghost.kind];
-    const options = d?.variants || [];
-    root.hidden = !this.ghost || this.original || options.length < 2;
-    if (root.hidden) return;
-    for (const v of options) {
-      const button = document.createElement("button");
-      button.type = "button";
-      const icon = this.tile(d, v);
-      if (icon) button.append(icon);
-      button.setAttribute("aria-pressed", String(this.ghost.variant === v.id));
-      button.classList.toggle("is-chosen", this.ghost.variant === v.id);
-      button.onclick = () => {
-        this.ghost.variant = v.id;
-        this.variants();
-        this.paint();
-      };
-      root.append(button);
-    }
-  }
-  /** La pieza nueva nace donde estaba la anterior, que es donde estás mirando. */
-  select(kind) {
+  /**
+   * Elegir una cosa: se CIERRA el catálogo y la pieza se te queda en la mano.
+   *
+   * ⛔ Cerrar no es cosmética, es el arreglo. Con el panel abierto ocupando media pantalla,
+   * «tócalo donde quieras» significaba tocar el panel: se elegía la piscina, aparecía su
+   * rectángulo y al pinchar no se movía a ninguna parte. Aquí el mapa vuelve a ser tuyo entero y
+   * lo único que queda delante es la barra de confirmar.
+   */
+  select(kind, variant) {
     const g = this.game,
       d = this.catalog.definitions[kind];
     // Donde estabas poniendo cosas, y si es la primera, a tus pies: con la pantalla entera
@@ -665,14 +660,14 @@ class Community {
       x: Math.round((g.player.x / TILE) * 2) / 2,
       y: Math.round((g.player.y / TILE) * 2) / 2,
     };
-    this.original = null;
+    this.editing = true;
     this.ghost = {
       // La pieza que estás colocando es la CANDIDATA, y las reglas que juzgan un permiso —lo
       // prohibido, no calcar un trazo— solo la miran a ella. Sin un nombre no habría a quién
       // mirar, y el id de verdad lo pone el servidor al guardarla.
       id: "nueva",
       kind,
-      variant: d.variants[0].id,
+      variant: d.variants.some((v) => v.id === variant) ? variant : d.variants[0].id,
       rotation: d.rotations[0],
       x: where.x,
       y: where.y,
@@ -689,7 +684,7 @@ class Community {
         : {}),
     };
     this.revalidate();
-    this.palette();
+    byId("build-dialog").close();
     this.paint();
   }
   tap(point) {
@@ -749,11 +744,8 @@ class Community {
   }
   revalidate() {
     if (!this.ghost || !this.snapshot) return;
-    const items = this.snapshot.objects.filter(
-      (o) => o.id !== this.original?.id,
-    );
     this.invalid = validateConstruction(
-      [...items, this.ghost],
+      [...this.snapshot.objects, this.ghost],
       this.zone,
       this.catalog,
       this.ground(),
@@ -764,9 +756,9 @@ class Community {
       ? null
       : objectCost(this.ghost, this.catalog.definitions[this.ghost.kind]);
   }
-  /** Lo que te falta para esta pieza, o null si te llega. Mover lo tuyo no cuesta nada. */
+  /** Lo que te falta para esta pieza, o null si te llega. */
   missing() {
-    if (!this.ghost || this.original) return null;
+    if (!this.ghost) return null;
     const inventory = this.game.materials.account.inventory,
       cost = objectCost(this.ghost, this.catalog.definitions[this.ghost.kind]);
     const short = Object.entries(cost)
@@ -780,21 +772,11 @@ class Community {
    */
   tool() {
     const d = this.ghost && this.catalog.definitions[this.ghost.kind];
-    if (!d || this.original) return null;
+    if (!d) return null;
     const inventory = this.game.materials.account.inventory;
     for (const [id, n] of Object.entries(d.requires?.items || {}))
       if ((inventory[id] || 0) < n) return id;
     return null;
-  }
-  /** Lo que cuesta quitar esto: sembrar hierba sobre un camino. Lo demás se recoge y no cuesta. */
-  removeShort() {
-    const d = this.original && this.catalog.definitions[this.original.kind];
-    if (!d?.removeCost) return null;
-    const inventory = this.game.materials.account.inventory;
-    const short = Object.entries(d.removeCost)
-      .map(([id, n]) => [id, n - (inventory[id] || 0)])
-      .filter(([, n]) => n > 0);
-    return short.length ? short : null;
   }
   rotate() {
     if (!this.ghost || this.pending || this.busy) return;
@@ -807,22 +789,19 @@ class Community {
   cancel() {
     if (this.busy) return;
     this.editing = false;
-    this.ghost = this.original = null;
+    this.ghost = null;
     this.invalid = null;
     this.stroke = null;
     this.game.focusPoint = null;
+    const dialog = byId("build-dialog");
+    if (dialog.open) dialog.close();
     this.paint();
   }
-  async commit(operation) {
+  /** ⛔ Solo COLOCAR. Mover y quitar siguen existiendo en el servidor y en los datos, pero no
+   *  tienen puerta: lo que se pone se queda (18-sep-2026, decisión del dueño). */
+  async commit() {
     if (this.game.live && !this.game.live.canWrite()) return;
-    if (
-      this.busy ||
-      !this.ghost ||
-      !this.snapshot ||
-      (this.invalid && operation !== "remove") ||
-      (operation !== "remove" && this.missing())
-    )
-      return;
+    if (this.busy || !this.ghost || !this.snapshot || this.invalid || this.missing()) return;
     const g = this.game;
     // After the guards: a rejected commit is not a milestone.
     g.telemetry?.milestone("build");
@@ -831,9 +810,8 @@ class Community {
     this.paint();
     try {
       const object = Object.fromEntries(
-        ["id", "kind", "variant", "x", "y", "rotation", "points", "revision"]
+        ["kind", "variant", "x", "y", "rotation", "points"]
           .filter((k) => this.ghost[k] !== undefined)
-          .filter((k) => k !== "id" || this.original)
           .map((k) => [k, this.ghost[k]]),
       );
       const request = {
@@ -841,7 +819,7 @@ class Community {
         baseRevision: g.materials.account.revision,
         zone: this.zone,
         zoneRevision: this.snapshot.revision,
-        operation: operation || (this.original ? "move" : "place"),
+        operation: "place",
         object,
       };
       // Retain an exact request across transport failures, avoiding a second debit on retry.
@@ -851,15 +829,15 @@ class Community {
       this.accept(result);
       g.materials.accept(result.account);
       g.materials.reconcile();
-      this.ghost = this.original = null;
-      this.invalid = null;
       await this.refreshWorld();
       g.dirty = true;
       g.updateUI();
       g.save();
       g.audio.effect("found");
-      // Se sigue dentro: colocar una cosa casi nunca es colocar una sola.
-      if (this.editing) this.palette();
+      // ⛔ LA PIEZA SE QUEDA EN LA MANO: poner una flor casi nunca es poner una sola, y volver al
+      // catálogo entre flor y flor son dos toques de más. Se queda donde estaba, así que la barra
+      // dirá «ahí ya hay algo» hasta que la muevas — que es exactamente lo que hay que hacer.
+      this.revalidate();
     } catch (error) {
       if (error.status >= 400 && error.status < 500) {
         this.clearPending();
@@ -979,45 +957,37 @@ class Community {
   paint() {
     const g = this.game;
     if (!g.state) return;
-    byId("home-controls").hidden =
+    // El icono de construir vive con el saco y se retira por lo mismo que el resto del mando.
+    byId("build-toggle").hidden =
       !this.zone ||
       g.live?.spectator ||
-      this.editing ||
       g.river?.active ||
       g.dialogue ||
       g.hasOverlay() ||
       g.transitioning;
-    byId("home-editor").hidden = !this.editing;
+    byId("build-bar").hidden = !this.editing;
     if (!this.editing) return;
     const d = this.ghost && this.catalog.definitions[this.ghost.kind];
     const short = this.missing(),
-      tool = this.tool(),
-      removeShort = this.removeShort();
+      tool = this.tool();
     byId("home-save").disabled =
       this.busy || !this.ghost || !!this.invalid || !!short || !!tool;
-    byId("home-remove").hidden = !this.original;
-    byId("home-remove").disabled = this.busy || !!removeShort;
-    // Quitar un camino es SEMBRAR HIERBA, así que el botón lo dice: una pieza que se recoge y un
-    // camino que se tapa no son el mismo gesto aunque compartan el mismo botón.
-    if (this.original)
-      byId("home-remove").textContent = g.text(
-        this.catalog.definitions[this.original.kind].removeLabel ||
-          "communityRemove",
-      );
     byId("community-rotate").hidden = !d || d.rotations.length < 2;
     byId("community-rotate").disabled = this.busy || !!this.pending;
     byId("home-cancel").disabled = this.busy;
-    this.materials();
+    // Qué llevas en la mano, con su foto: la barra no dice «una pieza», dice CUÁL.
+    const piece = byId("build-piece");
+    piece.replaceChildren();
+    if (d) {
+      const icon = this.tile(d, d.variants.find((v) => v.id === this.ghost.variant));
+      if (icon) piece.append(icon);
+    }
     const say = byId("community-reason");
     if (!this.ghost) say.textContent = g.text("communityChoose");
     else if (tool)
       say.textContent = `${g.text("communityToolRequired")} ${g.text(
         g.catalog.items[tool]?.name || tool,
       )}`;
-    else if (removeShort)
-      say.textContent = `${g.text("communityMissing")} ${removeShort
-        .map(([id, n]) => `${g.text(g.catalog.items[id]?.name || id)} ×${n}`)
-        .join(" · ")}`;
     else if (short)
       say.textContent = `${g.text("communityMissing")} ${short
         .map(([id, n]) => `${g.text(g.catalog.items[id]?.name || id)} ×${n}`)

@@ -62,7 +62,7 @@ class Inventory {
       const definition = game.catalog.items[id],
         button = document.createElement("button");
       button.type = "button";
-      button.className = "world-bag-item";
+      button.className = "world-pick";
       button.dataset.item = id;
       const icon = game.renderer.sprites.icon(definition.sprite);
       if (icon) button.append(icon);
