@@ -32,6 +32,7 @@
     "test:residents": "node scripts/check-adventure-residents.cjs",
     "test:actor-stream": "node scripts/check-actor-stream-browser.cjs",
     "test:playable-art": "node scripts/check-playable-art.cjs",
+    "test:cast": "node scripts/check-cast-browser.cjs",
     "test:vessels": "node scripts/check-vessel-fleet.cjs",
     "test:art": "node scripts/check-flat-art.cjs && node scripts/check-flat-art-browser.cjs",
     "test:zoom": "node scripts/check-initial-zoom-browser.cjs",

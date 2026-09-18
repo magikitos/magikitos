@@ -19,11 +19,16 @@ function build({ reuseArt = false } = {}) {
   fs.mkdirSync(path.join(assets, "js"), { recursive: true });
   fs.mkdirSync(path.join(assets, "css"), { recursive: true });
   if (!reuseArt)
-    cp.execFileSync(
-      process.env.STUDIO_PHP || "php",
-      ["scripts/bake-adventure-atlas.php"],
-      { cwd: root, stdio: "inherit" },
-    );
+    // El retrato del elenco se DERIVA de las hojas ya registradas, así que se rehace justo antes
+    // de hornear: nunca puede quedarse describiendo un duende que ya no se dibuja así.
+    for (const script of [
+      "scripts/prepare-cast-portraits.php",
+      "scripts/bake-adventure-atlas.php",
+    ])
+      cp.execFileSync(process.env.STUDIO_PHP || "php", [script], {
+        cwd: root,
+        stdio: "inherit",
+      });
   cp.execFileSync(
     esbuild(root),
     [

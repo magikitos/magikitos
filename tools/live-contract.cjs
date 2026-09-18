@@ -34,6 +34,27 @@ function liveContract(world) {
   return {
     start: world.start,
     defaultAvatar: world.playerArt.defaultVariant,
+    /**
+     * ⛔ EL ELENCO QUE SE PUEDE SER VIAJA AL SERVIDOR, Y CON SU SEXO DENTRO.
+     *
+     * La cuenta guarda un número, y un número no se puede validar contra nada: el día que una
+     * hoja se retire, el duende elegido dejaría de existir y la presencia pediría un sprite que
+     * la release ya no dibuja. Aquí va la lista que la release OFRECE de verdad, así que la web
+     * valida contra el artefacto instalado y no contra su memoria.
+     *
+     * Y va el sexo porque es el único dato que la web necesita del arte: al elegir duende se
+     * rellena `users.gender` SI está vacío (nunca se pisa lo que la persona dijo de sí misma), y
+     * ese dato vive en el elenco (`residents.json`), no en la base de la web.
+     */
+    avatars: Object.fromEntries(
+      world.playerArt.enabledVariants.map((id) => {
+        const profile = world.avatarProfiles.find((p) => p.id === id);
+        if (!profile) throw Error("Playable duende outside the cast: " + id);
+        if (!["M", "F"].includes(profile.gender))
+          throw Error("Playable duende without M/F: " + id);
+        return [id, profile.gender];
+      }),
+    ),
     scenes: Object.fromEntries(Object.entries(world.scenes).map(([id, scene]) => {
       let flow = 0;
       if (scene.navigation?.currents?.length)

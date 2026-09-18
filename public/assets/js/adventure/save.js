@@ -5,6 +5,7 @@ const { cleanWallet } = require("./economy");
 const { cleanNeeds, cleanTraces } = require("./needs");
 const { cleanTimers } = require("./timers");
 const { canFloat } = require("./river-navigation");
+const { castOffered } = require("./player-art");
 // One storage namespace. Validate untrusted storage, preserving installed-release saves.
 const SAVE_KEY = "magikitos.adventure";
 function cleanSave(value, catalog) {
@@ -112,4 +113,30 @@ function readSave(catalog, storage) {
     return cleanSave(null, catalog);
   }
 }
-module.exports = { SAVE_KEY, cleanSave, readSave };
+/**
+ * ⛔ QUÉ DUENDE ERES NO ES PARTE DEL VIAJE, ASÍ QUE NO VIAJA CON ÉL.
+ *
+ * La partida privada se sube a la nube y se puede RESTAURAR desde una copia anterior: metiendo el
+ * duende dentro, recuperar el viaje de anteayer te cambiaría la cara sin haberlo pedido, y subirlo
+ * obligaría además a que el contrato del servidor lo validara como si fuera progreso. Aquí es lo
+ * que es: una preferencia de este navegador que espeja lo que la cuenta ya guarda, del mismo
+ * tipo que recordar si entraste a pantalla completa.
+ *
+ * Se limpia contra el elenco de ESTA release, así que un número de otra versión —o de un duende
+ * cuya hoja se retiró— deja a la persona con el duende de la casa y nunca sin cuerpo.
+ */
+const CAST_KEY = "magikitos.adventure.cast";
+function readCast(catalog, storage) {
+  try {
+    const value = Number((storage || localStorage).getItem(CAST_KEY));
+    return castOffered(catalog).includes(value) ? value : null;
+  } catch (_) {
+    return null;
+  }
+}
+function writeCast(variant, storage) {
+  try {
+    (storage || localStorage).setItem(CAST_KEY, String(variant));
+  } catch (_) {}
+}
+module.exports = { SAVE_KEY, CAST_KEY, cleanSave, readSave, readCast, writeCast };

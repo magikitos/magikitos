@@ -2245,6 +2245,110 @@
         }
       }
     },
+    "/game-avatar": {
+      "post": {
+        "operationId": "worldGameAvatar",
+        "summary": "Choose which playable duende this account is",
+        "description": "JSON only. Existing bearer identity for private operations. 120 requests/minute/IP; construction additionally 12 writes/minute/user. No general analytics events. Server catalog, prerequisites, costs, terrain and permissions are authoritative.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GameAvatarChoice"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameAvatarResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/game-action": {
       "post": {
         "operationId": "worldGameAction",
@@ -2721,6 +2825,7 @@
         "required": [
           "ok",
           "ticket",
+          "variant",
           "expiresAt",
           "protocol",
           "socketPath",
@@ -2733,6 +2838,11 @@
           "ticket": {
             "type": "string",
             "maxLength": 3000
+          },
+          "variant": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "The playable duende this session enters with, the same one the ticket signs and the forest shows to everyone else."
           },
           "expiresAt": {
             "type": "integer",
@@ -3881,7 +3991,8 @@
           "trust",
           "inventory",
           "progress",
-          "resources"
+          "resources",
+          "avatar"
         ],
         "properties": {
           "revision": {
@@ -3913,6 +4024,14 @@
           "resources": {
             "type": "object",
             "description": "Region renewal cycles and compact collected-node hex bitsets."
+          },
+          "avatar": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "description": "Chosen playable duende, or null while nobody has said. Validated against the installed release's live.avatars, never against a stored list."
           }
         }
       },
@@ -4267,6 +4386,37 @@
                 }
               }
             }
+          }
+        }
+      },
+      "GameAvatarChoice": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "variant"
+        ],
+        "properties": {
+          "variant": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "One of the playable duendes the installed release offers."
+          }
+        }
+      },
+      "GameAvatarResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "ok",
+          "avatar"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "avatar": {
+            "type": "integer",
+            "minimum": 0
           }
         }
       }

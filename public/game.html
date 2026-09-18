@@ -211,6 +211,21 @@
         </button>
       </div>
 
+      <!-- ⛔ SIN CATEGORÍAS: TODOS A LA VEZ Y SE ELIGE POR LA CARA. Partir el elenco en hombres y
+           mujeres, o en tonos de piel, obliga a la persona a declarar algo para poder mirar. Aquí
+           están todos, y lo único que hace falta saber es cuál te gusta. La sección no se pinta si
+           no hay entre qué elegir. -->
+      <section class="world-self-cast" id="self-cast" hidden>
+        <h3 id="self-cast-title">{{castTitle}}</h3>
+        <p class="world-self-cast-lead">{{castLead}}</p>
+        <div
+          class="world-self-cast-grid"
+          id="self-cast-grid"
+          role="group"
+          aria-labelledby="self-cast-title"
+        ></div>
+      </section>
+
       <button type="button" id="puzzle-reset" hidden>{{puzzleReset}}</button>
 
       <!-- Por qué se ha abierto este panel solo: quien lo abre lo explica aquí. -->

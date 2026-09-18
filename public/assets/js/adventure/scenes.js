@@ -9,6 +9,27 @@ const { definition: vesselDefinition } = require("./vessel-art");
 /** Cuántas vecinas se tienen calientes a la vez. Ver `prewarm`: precargar es un favor, no una
  * excusa para reservar el bosque entero en memoria. */
 const WARM_SCENES = 3;
+/**
+ * ⛔ QUÉ HOJAS DEL PROTAGONISTA HACEN FALTA AQUÍ SE DECIDE UNA VEZ.
+ *
+ * Lo pregunta quien entra a una pantalla y quien se cambia de duende sin salir de ella, y las dos
+ * respuestas tienen que ser la misma lista: con dos copias, cambiarse de cara dejaría fijado un
+ * juego de hojas y sin fijar otro, y el duende nuevo se sentaría a hacer sus cosas con la pose de
+ * andar. El actor se pasa aparte para poder preguntar también por el duende ANTERIOR, que es lo
+ * que permite soltar sus hojas en vez de acumularlas.
+ */
+function playerPacks(game, world, state, actor = game.player) {
+  return [
+    playerPack("run", actor),
+    playerPack("discover", actor),
+    playerPack("needs", actor),
+    // Involuntary actions must be ready before a cat or a movable is touched.
+    ...(world.entities.some((e) => e.animal?.species === "cat") ? [playerPack("carried", actor)] : []),
+    ...(world.entities.some((e) => e.pushable) ? [playerPack("push", actor)] : []),
+    ...(state.navigation?.mode === "boat" ? [playerPack("row", actor)] : []),
+    playerPack(null, actor),
+  ];
+}
 /** Prepares destinations and their art before any state is committed. */
 class SceneDirector {
   constructor(game) {
@@ -108,16 +129,11 @@ class SceneDirector {
     // sitio donde los carteles dirían el nombre de su clave.
     const resources = await Promise.allSettled([
       game.renderer.sprites.prepare(sprites, [
-        playerPack("run", game.player),
-        playerPack("discover", game.player),
-        playerPack("needs", game.player),
-        // Involuntary actions must be ready before a cat or a movable is touched.
-        ...(world.entities.some(e => e.animal?.species === "cat") ? [playerPack("carried", game.player)] : []),
-        ...(world.entities.some(e => e.pushable) ? [playerPack("push", game.player)] : []),
-        ...(state.navigation?.mode === "boat" ? [playerPack("row", game.player),
-          vesselDefinition.vessels[vesselDefinition.defaultVessel].pack] : []),
+        ...playerPacks(game, world, state),
+        ...(state.navigation?.mode === "boat"
+          ? [vesselDefinition.vessels[vesselDefinition.defaultVessel].pack]
+          : []),
         ...(data.assetPacks || []),
-        playerPack(null, game.player),
       ]),
       game.sceneText.load(id),
     ]);
@@ -150,6 +166,29 @@ class SceneDirector {
     while (this.cache.size > WARM_SCENES + 2)
       this.cache.delete(this.cache.keys().next().value);
     return { id, world, neighbors, position: { ...destination }, packs, strings };
+  }
+  /**
+   * ⛔ CAMBIAR DE DUENDE NO ES CAMBIAR DE PANTALLA: SE FIJAN SUS HOJAS Y YA.
+   *
+   * Volver a entrar a la pantalla para repintar un cuerpo sería pagar la llegada entera —mundo,
+   * vecinos, cámara, gatos— por un cambio de ropa. Aquí solo se sustituyen las hojas del
+   * protagonista dentro del juego fijado: entran las del duende nuevo y SALEN las del anterior,
+   * que si no, probar cinco caras seguidas dejaría cinco elencos clavados en memoria sin que
+   * nada los pudiera expulsar.
+   */
+  async rewear(previous) {
+    const game = this.game,
+      sprites = game.renderer.sprites;
+    // `previous` puede ser null —nadie había elegido— y entonces se estaba llevando el duende de
+    // la casa: `playerPack` lo resuelve igual, así que sus hojas se sueltan como cualquier otra.
+    const stale = new Set(
+      playerPacks(game, game.world, game.state, { variant: previous }),
+    );
+    const packs = await sprites.prepare([], playerPacks(game, game.world, game.state));
+    sprites.activate(
+      new Set([...[...sprites.pinned].filter((id) => !stale.has(id)), ...packs]),
+    );
+    packs.release?.();
   }
   /**
    * ⛔ TODAS LAS PANTALLAS QUE TOCAN ESTA, SIEMPRE (17-sep-2026, decisión del dueño).
@@ -244,6 +283,9 @@ class SceneDirector {
     game.player = {
       ...prepared.position,
       direction: game.state.navigation?.direction || "down",
+      // ⛔ El cuerpo se rehace en cada llegada, así que el duende tiene que venir con él: sin esta
+      // línea, cruzar una puerta te devolvía al duende de la casa y elegir no servía de nada.
+      variant: game.avatar,
       actor: true,
       walkDistance: 0,
     };
@@ -274,4 +316,4 @@ class SceneDirector {
     game.community?.sceneChanged();
   }
 }
-module.exports = { SceneDirector };
+module.exports = { SceneDirector, playerPacks };

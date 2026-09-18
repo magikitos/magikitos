@@ -722,6 +722,59 @@ body:has(.world-dialogue:not([hidden])) .world-held-item {
   margin: 16px 0;
 }
 
+/* Elegir duende: una rejilla de caras y nada más. Las columnas las decide lo que CABE
+   (`auto-fill`) y no un número escrito a mano, porque el elenco crece solo cuando entra arte
+   nuevo: con dos duendes salen dos y con treinta salen las que quepan, sin tocar esta hoja. El
+   alto se acota para que treinta caras no empujen la cuenta fuera del panel. */
+.world-self-cast {
+  margin: 16px 0;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+.world-self-cast h3 {
+  font-size: 16px;
+  margin: 0;
+}
+.world-self-cast-lead {
+  font-size: 14px;
+  opacity: 0.8;
+  margin: 4px 0 12px;
+}
+.world-self-cast-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+  gap: 8px;
+  /* Tres filas a la vista y el resto se desliza: con treinta duendes, una rejilla sin techo
+     empujaría la cuenta —que vive justo debajo— fuera del panel. */
+  max-height: 268px;
+  overflow-y: auto;
+}
+.world-self-cast-option {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  /* 64x84 es zona tocable de sobra y deja caber el retrato entero sin recortarle los pies. */
+  min-width: 64px;
+  min-height: 84px;
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.55);
+  border: 2px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.world-self-cast-option canvas {
+  /* El retrato se dibuja a su tamaño nativo (unos 30px de alto) y aquí se agranda para que se le
+     vean la ropa y el pelo, que es lo único por lo que se elige. Nunca suavizado: es pixel art. */
+  image-rendering: pixelated;
+  height: 64px;
+  width: auto;
+  max-width: 100%;
+}
+.world-self-cast-option.is-chosen {
+  border-color: #6d8c4a;
+  background: rgba(109, 140, 74, 0.18);
+}
+
 /* La cuenta dentro del panel «Yo»: las dos MISMAS puertas que la web (Google o
    un código por correo). El retrato puede no existir todavía (lo pinta el cron
    de avatares), así que la fila se compone sin contar con él. */

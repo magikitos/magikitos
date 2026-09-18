@@ -1922,5 +1922,21 @@
     "fr": "Sème-les dans la forêt. Dans une heure, ça fleurit !",
     "it": "Seminali nel bosco. Tra un'ora spuntano i fiori!",
     "pt": "Semeia-as no bosque. Numa horinha já há flores!"
+  },
+  "castTitle": {
+    "es": "Tu duende", "en": "Your brownie", "de": "Dein Wichtel",
+    "fr": "Ton lutin", "it": "Il tuo folletto", "pt": "O teu duende"
+  },
+  "castLead": {
+    "es": "Elige con quién quieres andar por el bosque. Se te queda puesto.",
+    "en": "Pick who you want to wander the forest as. It stays with you.",
+    "de": "Such dir aus, als wer du durch den Wald ziehst. Das bleibt so.",
+    "fr": "Choisis avec qui tu veux parcourir la forêt. Ça te reste.",
+    "it": "Scegli con chi vuoi girare per il bosco. Ti resta addosso.",
+    "pt": "Escolhe com quem queres andar pelo bosque. Fica contigo."
+  },
+  "castChoose": {
+    "es": "Duende :n", "en": "Brownie :n", "de": "Wichtel :n",
+    "fr": "Lutin :n", "it": "Folletto :n", "pt": "Duende :n"
   }
 }

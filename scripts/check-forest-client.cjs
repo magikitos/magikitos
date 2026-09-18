@@ -4,7 +4,7 @@ const { ForestConnection } = require("../public/assets/js/adventure/forest-conne
 const { ForestPeople } = require("../public/assets/js/adventure/forest-people");
 
 let clock = 0;
-const peers = new ForestPeople(() => clock), id = "a".repeat(24), bounds = { width: 1000, height: 1000 };
+const peers = new ForestPeople((variant) => variant, () => clock), id = "a".repeat(24), bounds = { width: 1000, height: 1000 };
 const snapshot = (rows, scene = "forest") => peers.snapshot({ scene, people: rows }, "forest", bounds);
 assert(snapshot([[id, 100, 100, 2, 1, 0, 0]]));
 peers.update();

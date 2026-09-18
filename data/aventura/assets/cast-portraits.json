@@ -1,0 +1,60 @@
+{
+    "frames": {
+        "cast-100": {
+            "source": "data/aventura/art/residents/cutouts/resident-001.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19607843137254902,
+                "offset": [
+                    2.235294117647058,
+                    4.235294117647058
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "cast-101": {
+            "source": "data/aventura/art/residents/cutouts/resident-002.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.19047619047619047,
+                "offset": [
+                    2.8571428571428577,
+                    3.7142857142857153
+                ]
+            },
+            "cleanFragments": 0.015
+        }
+    }
+}

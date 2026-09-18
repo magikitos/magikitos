@@ -4,7 +4,8 @@
 const assert = require("node:assert/strict"), fs = require("node:fs");
 const { spawn } = require("node:child_process");
 const { vessels } = require("../data/aventura/rowing.json");
-const { enabledVariants, defaultVariant } = require("../data/aventura/player-art.json");
+const { enabledVariants, defaultVariant } =
+  JSON.parse(fs.readFileSync(".local/build/world.json")).playerArt;
 const variant = Number(process.argv.find(a => a.startsWith("--variant="))?.split("=")[1] || defaultVariant);
 const motion = process.argv.includes("--motion");
 assert(enabledVariants.includes(variant), "Review a complete, enabled character");

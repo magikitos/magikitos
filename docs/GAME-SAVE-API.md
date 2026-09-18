@@ -29,6 +29,7 @@ have a 12/minute author limit. Rejected requests do not debit materials.
 | POST game-save | Bearer: private snapshot CAS; shared object positions are rejected |
 | POST game-restore | Bearer: activate owned archived profile, preserving displaced one |
 | GET game-account | Bearer: own account; lazily initializes an empty/frozen-legacy account |
+| POST game-avatar | Bearer: which playable duende this account is; the id is validated against the installed release's `live.avatars` |
 | POST game-action | Bearer: reviewed scene/entity/action command, never a supplied balance |
 | GET community?zone=… | Public bounded snapshot; optional bearer adds `mine` |
 | POST community-build | Bearer: place/move/remove transaction and updated account/snapshot |
@@ -37,6 +38,13 @@ have a 12/minute author limit. Rejected requests do not debit materials.
 `parcels` and `parcel` public discovery endpoints are removed. Public object DTOs
 contain kind, variant, position, rotation, revisions, age, heritage and public
 author name/handle; never email, internal user ID, inventory or private progress.
+
+The chosen duende lives on the account (`game_accounts.avatar`), never inside a
+private profile: profiles are restorable from older copies, and a restore must not
+change a player's body. It is NULL until somebody says; the forest ticket draws
+once, deterministically per account, and signs whatever is stored, so everyone sees
+the same body. Choosing also fills `users.gender` when it is still `U`; the draw
+never does, because being dealt a face is not a statement about yourself.
 
 Private profiles contain only `id`, `revision` and `state`; recoveries contain
 `id`, `revision` and `updatedAt`. `game-save` accepts `profileId`, `baseRevision`,

@@ -11,10 +11,14 @@ class ForestLive {
     this.game = game;
     this.role = "offline";
     this.identity = null;
-    this.people = new ForestPeople();
+    this.people = new ForestPeople((variant) =>
+      require("./player-art").castVariant(game.catalog, variant),
+    );
     this.objects = new ForestObjects(game);
     this.next = 0;
     this.connection = new ForestConnection({ api: game.api, viewport: () => this.viewport(),
+      // Lo que el bosque va a enseñar de ti manda sobre lo que este navegador creía ser.
+      granted: grant => { if (Number.isInteger(grant.variant)) game.wear(grant.variant, { push: false }); },
       receive: packet => this.receive(packet), disconnected: () => {
         this.role = "offline";
         this.people.clear();
@@ -99,8 +103,15 @@ class ForestLive {
     const pose = g.cats.locked ? "carried" : g.sequence.current?.type === "relief" ? g.sequence.current.data.kind :
       g.presentation.frame() ? (g.sequence.current?.data.kind === "discover" ? "discover" : "work") :
       g.player.pushing ? "push" : g.walking ? (g.river.active ? "row" : g.running ? "run" : "walk") : "idle";
+    // ⛔ EMPUJANDO SE MANDA LA DIRECCIÓN DEL EMPUJE, NO LA DE ANDAR, y no es un matiz: la hoja de
+    // empujar tiene CUATRO direcciones (se empuja por un eje, no en diagonal) mientras que la de
+    // andar tiene ocho. Mandando la de andar, quien empuja en diagonal se veía empujando y todos
+    // los demás lo veían quieto — el motor cae al plano de reposo cuando el nombre no existe, así
+    // que no fallaba nada: simplemente el gesto no se veía. Es la misma dirección que se dibuja a
+    // sí mismo (`pushFrame`), que es lo que hace que los dos lados enseñen lo mismo.
     this.connection.send({ type: "estoy", scene: g.state.scene, x: g.player.x, y: g.player.y,
-      direction: g.player.direction, pose, mode: g.river.active ? "boat" : "foot" });
+      direction: g.player.pushing?.direction || g.player.direction, pose,
+      mode: g.river.active ? "boat" : "foot" });
     this.objects.transmit(); // Observation precedes intent on the same ordered socket.
     const view = this.viewport(), encoded = JSON.stringify(view);
     if (encoded !== this.lastView) {

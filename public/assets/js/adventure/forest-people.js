@@ -5,9 +5,23 @@ const { VesselMotion } = require("./river-navigation");
 const { vesselLayers } = require("./vessel-art");
 const INTERPOLATION_MS = protocol.limits.playerSnapshotMs;
 
-/** Render-only peers. Never inserted into personal NPCs, save data, inventory or collision. */
+/**
+ * Render-only peers. Never inserted into personal NPCs, save data, inventory or collision.
+ *
+ * ⛔ EL DUENDE DE UN EXTRAÑO SE PASA POR EL ELENCO DE ESTA RELEASE ANTES DE DIBUJARLO.
+ *
+ * Durante un despliegue conviven dos versiones: tu navegador tiene el arte de la de ayer y por el
+ * socket puede llegar alguien con un duende que solo existe en la de hoy. Pedirle ese paquete al
+ * almacén revienta —es un sprite que este manifiesto no registra— y lo hace dentro del bucle de
+ * pintado, o sea que un desconocido tumbaría el bosque entero de quien no ha recargado. Se le
+ * pone el duende de la casa: sigue estando, en su sitio y con su nombre, y solo cambia la cara.
+ */
 class ForestPeople {
-  constructor(now = () => performance.now()) { this.now = now; this.clear(); }
+  constructor(cast = (variant) => variant, now = () => performance.now()) {
+    this.cast = cast;
+    this.now = now;
+    this.clear();
+  }
   clear() { this.scene = null; this.people = new Map(); this.list = []; }
   snapshot(packet, scene, bounds) {
     if (packet.scene !== scene || !Array.isArray(packet.people) || packet.people.length > protocol.limits.players) return false;
@@ -29,7 +43,8 @@ class ForestPeople {
       }
       if (peer.pose !== protocol.poses[pose]) peer.poseAt = now;
       Object.assign(peer, { fromX: peer.x, fromY: peer.y, toX: x, toY: y, at: now,
-        direction: protocol.directions[direction], pose: protocol.poses[pose], variant, mode });
+        direction: protocol.directions[direction], pose: protocol.poses[pose],
+        variant: this.cast(variant), mode });
     }
     for (const id of this.people.keys()) if (!keep.has(id)) this.people.delete(id);
     this.list = [...this.people.values()];

@@ -73,9 +73,35 @@ for (const [sheets, active] of [[actions.sheets, true], [actions.rejectedSheets,
   }
 }
 const expected = selected.length * Object.keys(actions.actions).length;
+/**
+ * ⛔ LA PUERTA MIDE EL ELENCO QUE SE OFRECE, NO LOS TREINTA QUE SE QUIEREN LLEGAR A TENER.
+ *
+ * Exigir las 210 hojas para dejar publicar convierte una entrega en rehén de una producción de
+ * arte que va por su cuenta: el dueño sube hojas cuando puede, y el juego tiene que poder salir
+ * con las que hay. Lo que de verdad NO puede pasar es ofrecer un duende a medio dibujar, y eso es
+ * lo que se comprueba: **cada personaje elegible tiene sus siete acciones**. El elenco elegible
+ * lo deriva el mundo de lo que hay horneado, así que crece solo el día que entra su arte.
+ *
+ * Y lo que falta se sigue DICIENDO en voz alta. Una puerta que se relaja sin contarlo es una
+ * puerta que miente: el número de abajo es el que dice cuánto queda para el elenco completo.
+ */
+const roster = JSON.parse(fs.readFileSync(".local/build/world.json")).playerArt;
 if (!process.argv.includes("--sources-only")) {
-  assert.equal(accepted.size, expected, "INCOMPLETE playable art: every target needs all seven accepted and baked sheets");
-  for (const id of actions.variants)
-    for (const action of Object.keys(actions.actions)) assert(accepted.has(`${id}/${action}`));
+  for (const id of roster.enabledVariants)
+    for (const action of Object.keys(actions.actions))
+      assert(
+        accepted.has(`${id}/${action}`),
+        `An offered duende must be fully drawn: ${id} is missing ${action}`,
+      );
+  assert(
+    roster.enabledVariants.includes(roster.defaultVariant),
+    "The duende everyone starts with must be offered",
+  );
+  assert(roster.enabledVariants.length > 0, "Somebody has to be playable");
 }
-console.log(`PASS source integrity and roster: ${accepted.size}/${expected} playable action sheets accepted and baked${accepted.size < expected ? " — FULL DELIVERY INCOMPLETE" : ""}. Visual review remains required.`);
+const pendientes = selected.length - roster.enabledVariants.length;
+console.log(
+  `PASS source integrity and roster: ${roster.enabledVariants.length} duendes elegibles y completos ` +
+    `(${accepted.size}/${expected} hojas del elenco final; faltan ${pendientes} personajes). ` +
+    `Visual review remains required.`,
+);

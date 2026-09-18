@@ -1,12 +1,22 @@
 "use strict";
 const { needStatus, reliefError, completeRelief } = require("./needs");
 const { Account } = require("./account");
+const {
+  castOffered,
+  castPortrait,
+  playerVariant,
+  CAST_PORTRAITS,
+} = require("./player-art");
 const byId = (id) => document.getElementById(id);
 /** Body status UI and presentation; deadlines/inventory accounting stay in needs.js. */
 class Self {
   constructor(game) {
     this.game = game;
     this.lastStatus = null;
+    // El turno del elenco: `++undefined` es NaN y NaN nunca se parece a sí mismo, así que sin
+    // este cero la primera apertura del panel se descartaba a sí misma por «llegas tarde».
+    this.castToken = 0;
+    this.castLease = null;
     this.account = new Account(game);
     byId("self-toggle").addEventListener("click", () => {
       if (!game.ready || game.transitioning) return;
@@ -23,8 +33,12 @@ class Self {
       // act, boot is not, and this request must never ride on a page load.
       this.account.read();
       game.body.read();
+      this.openCast();
       byId("self-dialog").showModal();
     });
+    // Los retratos se sueltan al cerrar, cierre como cierre: el aspa, Escape o cualquier sitio
+    // del juego que cierre el panel. Con un `hidden` por su cuenta se quedarían clavados.
+    byId("self-dialog").addEventListener("close", () => this.closeCast());
     for (const kind of ["pee", "poop"])
       byId("self-" + kind).addEventListener("click", () => this.relieve(kind));
     byId("self-forest-retry").addEventListener("click", () => this.retry());
@@ -78,6 +92,96 @@ class Self {
     this.account.read();
     if (!byId("self-dialog").open) byId("self-dialog").showModal();
   }
+  /**
+   * ⛔ EL ELENCO SE PIDE AL ABRIR EL PANEL Y SE SUELTA AL CERRARLO.
+   *
+   * La hoja de andar de un duende son 1024x400 ya decodificados: enseñar treinta caras con ellas
+   * serían casi 50 MB y el presupuesto de sprites se llevaría por delante la pantalla que se está
+   * jugando. Los retratos viven en su propio paquete pequeño (ver `prepare-cast-portraits.php`) y
+   * aquí se toman en préstamo mientras el panel está abierto: ni se fijan, ni sobreviven al cierre.
+   *
+   * Si el paquete no llega, la sección no se pinta. Un selector con huecos donde van las caras es
+   * peor que no ofrecerlo: parece roto y no se puede elegir igual.
+   */
+  async openCast() {
+    const game = this.game,
+      section = byId("self-cast");
+    // Con un solo duende dibujado no hay nada que elegir, y una rejilla de uno es una pregunta
+    // sin respuestas. El elenco crece solo el día que entra su arte.
+    if (castOffered(game.catalog).length < 2) {
+      section.hidden = true;
+      return;
+    }
+    const token = ++this.castToken;
+    let lease;
+    try {
+      lease = await game.renderer.sprites.prepare([], [CAST_PORTRAITS]);
+    } catch (_) {
+      section.hidden = true;
+      return;
+    }
+    if (token !== this.castToken) {
+      lease.release?.();
+      return;
+    }
+    this.castLease?.();
+    this.castLease = () => lease.release?.();
+    section.hidden = false;
+    this.paintCast();
+  }
+  closeCast() {
+    this.castToken++;
+    this.castLease?.();
+    this.castLease = null;
+    byId("self-cast-grid").replaceChildren();
+  }
+  /** Todos a la vez, sin categorías y sin nombres que nadie ha traducido: se elige por la cara. */
+  paintCast() {
+    const game = this.game,
+      current = playerVariant(game.player);
+    byId("self-cast-grid").replaceChildren(
+      ...castOffered(game.catalog).map((variant, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "world-self-cast-option";
+        button.setAttribute(
+          "aria-label",
+          game.text("castChoose").replace(":n", String(index + 1)),
+        );
+        button.setAttribute("aria-pressed", String(variant === current));
+        button.classList.toggle("is-chosen", variant === current);
+        const portrait = game.renderer.sprites.icon(castPortrait(variant));
+        if (portrait) button.append(portrait);
+        button.addEventListener("click", () => this.choose(variant));
+        return button;
+      }),
+    );
+  }
+  /** Cambiarse de cara mientras te llevan en brazos o mientras colocas algo no es un capricho
+   * inocente: son secuencias que ya están dibujando este cuerpo. Se espera a que terminen. */
+  async choose(variant) {
+    const game = this.game;
+    if (
+      this.castBusy ||
+      game.transitioning ||
+      game.cats?.locked ||
+      game.community?.editing ||
+      variant === playerVariant(game.player)
+    )
+      return;
+    this.castBusy = true;
+    try {
+      // Un hito y no un evento propio: elegir duende pasa como mucho una vez por partida, así
+      // que cabe en el vocabulario que ya existe y no pide otra fila que barrer durante un año.
+      game.telemetry?.milestone("duende");
+      await game.wear(variant);
+    } catch (error) {
+      game.toast(game.text("loadError"));
+    } finally {
+      this.castBusy = false;
+      if (byId("self-dialog").open) this.paintCast();
+    }
+  }
   paint() {
     const game = this.game,
       status = needStatus(game.state.needs, game.body?.now() ?? Date.now());
@@ -99,6 +203,11 @@ class Self {
         status !== kind ||
         Boolean(game.river?.active || game.community?.editing || game.live?.spectator ||
           game.body?.actions.ownPending || (game.body?.connected && !game.body.known));
+    // El elenco se repinta por el MISMO camino que el resto del panel: la firma de abajo lleva
+    // el duende, así que cambiar de cara desde cualquier sitio mueve la marca de la rejilla. La
+    // condición es tener los retratos EN PRÉSTAMO, que es lo único que significa «hay rejilla»:
+    // preguntarle a la sección si está oculta daría por abierta una que nunca llegó a abrirse.
+    if (this.castLease) this.paintCast();
     byId("self-forest-retry").hidden = !game.body?.actions.ownPending;
     byId("self-forest-retry").disabled = Boolean(game.body?.actions.busy || !game.body?.connected || game.live?.spectator);
     byId("self-note-write").hidden = !game.notes?.writable(game.notes.fresh?.id);
@@ -106,7 +215,7 @@ class Self {
   }
   signature() {
     const g = this.game;
-    return [needStatus(g.state.needs, g.body?.now() ?? Date.now()), g.live?.role, g.body?.known,
+    return [playerVariant(g.player), needStatus(g.state.needs, g.body?.now() ?? Date.now()), g.live?.role, g.body?.known,
       g.body?.actions.ownPending?.request.operationId, g.body?.actions.busy, g.body?.connected,
       g.notes?.writable(g.notes.fresh?.id), g.river?.active, g.community?.editing].join(":");
   }

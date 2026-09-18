@@ -5186,6 +5186,17 @@
             "height": 124,
             "bytes": 5237
         },
+        "cast-portraits": {
+            "image": "packs/cast-portraits-e7483208daf3.png",
+            "metadata": "packs/cast-portraits-e7483208daf3.json",
+            "sprites": [
+                "cast-100",
+                "cast-101"
+            ],
+            "width": 256,
+            "height": 86,
+            "bytes": 4237
+        },
         "cat-bowl": {
             "image": "packs/cat-bowl-2996829e4959.png",
             "metadata": "packs/cat-bowl-2996829e4959.json",

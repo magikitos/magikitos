@@ -36,6 +36,7 @@ for (const name of [
   "check-actor-art",
   "check-vessel-art",
   "check-rowing-contract",
+  "check-playable-cast",
   "check-adventure-life",
   "check-adventure-camera",
   "check-adventure-materials-portals",

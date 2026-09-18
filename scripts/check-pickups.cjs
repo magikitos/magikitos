@@ -10,9 +10,7 @@ const { makeElement, families } = require("../public/assets/js/adventure/element
 const { validateChanges, placement, diff } = require("../tools/adventure-studio/scene-edits");
 const { gameContract } = require("../tools/game-contract.cjs");
 const { collisionBounds, overlaps } = require("../public/assets/js/adventure/geometry");
-const compile = (root) => JSON.parse(execFileSync("php", ["-r",
-  "echo json_encode(require $argv[1], JSON_THROW_ON_ERROR);", path.join(root, "data/aventura/world.php")],
-  { encoding: "utf8", maxBuffer: 8 * 1024 * 1024, stdio: ["ignore", "pipe", "pipe"] }));
+const { isolateWorld, compileWorld: compile } = require("./lib/world-fixture.cjs");
 const world = compile(process.cwd()), state = cleanSave(null, world);
 const entities = world.scenes.overworld.entities, find = (id) => entities.find((e) => e.id === id);
 // Pickup command identity stays stable across the visual move out of the bin.
@@ -68,13 +66,8 @@ for (const e of proposed.entities.filter((e) => added[e.id])) {
   assert(e.behavior, "Studio exports reusable behavior, not a decorative copy");
   assert(!e.rules, "No empty rule override suppresses the pickup");
 }
-const temp = fs.mkdtempSync(path.join(os.tmpdir(), "magikitos-pickups-"));
+const temp = isolateWorld("magikitos-pickups-");
 try {
-  fs.mkdirSync(path.join(temp, "data/aventura"), { recursive: true });
-  fs.mkdirSync(path.join(temp, "src"));
-  for (const file of ["world.php", "catalog.json", "player-art.json", "residents.json", "elements.json", "construction.json", "resource-nodes.json", "scene-instances.json", "scenes", "behaviors"])
-    fs.cpSync("data/aventura/" + file, path.join(temp, "data/aventura", file), { recursive: true });
-  fs.copyFileSync("src/adventure-geometry.php", path.join(temp, "src/adventure-geometry.php"));
   fs.writeFileSync(path.join(temp, "data/aventura/scenes/overworld.json"), JSON.stringify(proposed));
   assert.throws(() => compile(temp), /Register pickup/, "Unregistered Studio pickups cannot silently ship");
   const registryFile = path.join(temp, "data/aventura/resource-nodes.json"), registry = JSON.parse(fs.readFileSync(registryFile));

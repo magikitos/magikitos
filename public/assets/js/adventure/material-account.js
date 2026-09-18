@@ -130,6 +130,37 @@ class MaterialAccount {
     )
       throw Error("invalid_account");
     this.account = value;
+    this.reconcileAvatar();
+  }
+  /**
+   * ⛔ LA CUENTA ES QUIÉN ERES, Y EL NAVEGADOR SOLO LA ESPEJA.
+   *
+   * Si la cuenta ya sabe qué duende eres, gana: es lo que ve el resto del bosque y lo que te
+   * sigue de un aparato a otro. Si no lo sabe todavía —acabas de crearla y venías jugando sin
+   * ella— se le cuenta lo que este navegador ya había elegido, en vez de dejar que el servidor
+   * sortee y le cambie la cara a alguien que ya tenía una.
+   */
+  reconcileAvatar() {
+    const mine = this.game.avatar,
+      theirs = this.account.avatar;
+    if (Number.isInteger(theirs)) this.game.wear(theirs, { push: false });
+    else if (Number.isInteger(mine)) this.chooseAvatar(mine);
+  }
+  /** Elegir duende no es una acción de juego: no mueve materiales, así que no entra en la cola
+   * durable ni gasta un recibo. Sin cuenta no hay nada que contarle a nadie y la partida local
+   * ya lo guarda. Devuelve si la elección llegó de verdad a la cuenta. */
+  async chooseAvatar(variant) {
+    const g = this.game;
+    if (!g.cloud.owner || !g.session.get() || g.cloud.conflict) return false;
+    try {
+      const result = await g.api.request("game-avatar", { variant }, { auth: true });
+      if (this.account) this.account.avatar = result.avatar;
+      return result.avatar === variant;
+    } catch (_) {
+      // Un duende no es un material: si la red falla, el navegador ya lo tiene guardado y la
+      // próxima lectura de la cuenta lo vuelve a intentar. Nada que reintentar en bucle.
+      return false;
+    }
   }
   recoverLocalTools() {
     const s = this.game.state,

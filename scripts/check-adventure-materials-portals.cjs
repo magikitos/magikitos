@@ -96,20 +96,10 @@ assert.equal(
 );
 
 // Move a building in an isolated source copy: both a compiled exit and a resumed save follow it.
-const temp = fs.mkdtempSync(
-  path.join(os.tmpdir(), "magikitos-portal-fixture-"),
+const temp = require("./lib/world-fixture.cjs").isolateWorld(
+  "magikitos-portal-fixture-",
 );
 try {
-  fs.mkdirSync(path.join(temp, "data/aventura"), { recursive: true });
-  fs.mkdirSync(path.join(temp, "src"));
-  for (const item of ["world.php", "catalog.json", "player-art.json", "residents.json", "elements.json", "construction.json", "resource-nodes.json", "scene-instances.json", "scenes", "behaviors"])
-    fs.cpSync("data/aventura/" + item, path.join(temp, "data/aventura", item), {
-      recursive: true,
-    });
-  fs.copyFileSync(
-    "src/adventure-geometry.php",
-    path.join(temp, "src/adventure-geometry.php"),
-  );
   const file = path.join(temp, "data/aventura/scenes/overworld.json"),
     scene = JSON.parse(fs.readFileSync(file));
   const house = scene.entities.find((e) => e.id === "human-door");

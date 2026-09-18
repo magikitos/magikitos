@@ -12,7 +12,35 @@ return (static function (): array {
     // Only lightweight identities ship to browsers, never the production prompts or source masters.
     $world['avatarProfiles'] = $read(__DIR__ . '/residents.json');
     $world['avatarVariants'] = array_column($world['avatarProfiles'], 'id');
+    /**
+     * ⛔ EL ELENCO QUE SE PUEDE ELEGIR SE DERIVA, NO SE ESCRIBE.
+     *
+     * Era una lista a mano en `player-art.json` y una lista a mano caduca: el dueño va subiendo
+     * hojas de arte de una en una, y cada vez habría que acordarse de tocar el JSON —o peor, se
+     * ofrecería un duende a medio dibujar—. Un personaje se puede ELEGIR cuando tiene sus siete
+     * acciones horneadas y su remo medido, y eso se puede preguntar. Así el elenco crece solo el
+     * día que su arte entra, y nunca antes.
+     *
+     * Las dos condiciones son las mismas que ya exige `check-rowing-contract.cjs`; aquí se
+     * calculan en vez de repetirse, que es lo que impide que las dos versiones se separen.
+     */
     $world['playerArt'] = $read(__DIR__ . '/player-art.json');
+    $acciones = array_keys($read(__DIR__ . '/art/residents/actions/catalog.json')['actions']);
+    $paquetes = $read(__DIR__ . '/../../public/assets/aventura/manifest.json')['packs'];
+    $ofrecidos = [];
+    foreach (array_keys($world['playerArt']['rowingRigs']) as $id) {
+        foreach ($acciones as $accion) {
+            if (!isset($paquetes["actor-$id-$accion"])) {
+                continue 2;
+            }
+        }
+        $ofrecidos[] = (int) $id;
+    }
+    sort($ofrecidos);
+    $world['playerArt']['enabledVariants'] = $ofrecidos;
+    if (!in_array($world['playerArt']['defaultVariant'], $ofrecidos, true)) {
+        throw new RuntimeException('The default duende is not fully drawn');
+    }
     // Resolve fare references once; condition consumers do not need a global catalogue.
     $resolve = static function (array $node) use (&$resolve, $world): array {
         foreach ($node as &$value) {

@@ -1,7 +1,10 @@
 "use strict";
 const assert = require("node:assert/strict");
 const { definition, compositionBounds, vesselLayers } = require("../public/assets/js/adventure/vessel-art");
-const player = require("../data/aventura/player-art.json");
+// El elenco ofrecido lo DERIVA el mundo de lo que hay horneado (ver world.php), así que se lee
+// de ahí y no del fichero de autoría: preguntándoselo al JSON se comprobaría una lista que ya no
+// existe, y una comprobación sobre un dato muerto es una comprobación apagada.
+const player = JSON.parse(require("node:fs").readFileSync(".local/build/world.json")).playerArt;
 const actions = require("../data/aventura/art/residents/actions/catalog.json");
 const manifest = require("../public/assets/aventura/manifest.json");
 const directions = ["down", "down-right", "right", "up-right", "up", "up-left", "left", "down-left"];

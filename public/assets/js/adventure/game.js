@@ -20,7 +20,7 @@ const { WorldMedia } = require("./media");
 const { facing } = require("./characters");
 const { hash } = require("./geometry");
 const { active, planReaction, actions, matches } = require("./rules");
-const { SAVE_KEY, readSave } = require("./save");
+const { SAVE_KEY, readSave, readCast, writeCast } = require("./save");
 const { move, follow } = require("./movement");
 const { SceneDirector } = require("./scenes");
 const { fare } = require("./economy");
@@ -106,6 +106,8 @@ class Adventure {
       [this.cast[i], this.cast[j]] = [this.cast[j], this.cast[i]];
     }
     this.state = readSave(this.catalog);
+    // Qué duende eres: null mientras nadie lo haya dicho, y entonces manda el de la casa.
+    this.avatar = readCast(this.catalog);
     this.deviceId = deviceIdentity();
     this.session = new Session();
     this.api = new WorldApi(config, this.session);
@@ -161,7 +163,7 @@ class Adventure {
       // Show the actual terrain immediately; no modal loading screen or artificial progress.
       this.world = new World(this.catalog.scenes[this.state.scene]);
       this.live.objects.bind(this.world);
-      this.player = { ...this.state.position, direction: "down" };
+      this.player = { ...this.state.position, direction: "down", variant: this.avatar };
       this.renderer.world = this.world;
       this.renderer.resize();
       this.centerCamera(true);
@@ -785,6 +787,33 @@ class Adventure {
     );
     byId("sound-toggle").classList.toggle("is-muted", !this.audio.on);
   }
+  /**
+   * ⛔ QUIÉN ERES SE ESCRIBE EN UN SITIO, Y LA CUENTA MANDA.
+   *
+   * Cambiar de duende toca cuatro cosas —la partida, el cuerpo que se dibuja, la cuenta y lo que
+   * ve el resto del bosque— y con eso repartido por el panel acabarían desincronizadas: te verías
+   * de un color y los demás de otro, sin que fallara nada. Aquí van juntas y en orden.
+   *
+   * Y NO se suelta la conexión para que los demás lo vean: el ticket ya lleva el duende dentro y
+   * el bosque lo aplica al RENOVARLO, así que cambiarte de cara no te cuesta el asiento. Soltar y
+   * volver a entrar te devolvería al final de la cola por haberte cambiado de ropa.
+   */
+  async wear(variant, { push = true } = {}) {
+    const chosen = require("./player-art").castVariant(this.catalog, variant);
+    if (chosen === this.avatar) return chosen;
+    const previous = this.avatar;
+    this.avatar = chosen;
+    if (this.player) this.player.variant = chosen;
+    writeCast(chosen);
+    // Las hojas del cuerpo nuevo, antes de repintar nada con ellas.
+    if (this.ready && this.world) await this.scenes.rewear(previous);
+    this.paintCards();
+    if (this.ready) this.paintPortrait();
+    this.dirty = true;
+    if (push && (await this.materials.chooseAvatar(chosen)))
+      await this.live.connection.renew();
+    return chosen;
+  }
   paintPortrait(variant = require("./player-art").playerVariant(this.player)) {
     const c = byId("portrait").getContext("2d");
     c.imageSmoothingEnabled = false;
@@ -1118,6 +1147,9 @@ class Adventure {
       locale: this.config.locale,
       scene: this.state.scene,
       player: { ...this.player, variant: require("./player-art").playerVariant(this.player) },
+      // `chosen` es null mientras nadie haya dicho nada: distinguirlo del duende de la casa es lo
+      // único que permite comprobar que elegir GUARDA algo y no que coincide con el de serie.
+      cast: { chosen: this.avatar, offered: require("./player-art").castOffered(this.catalog) },
       vessel: this.river.layers(),
       travelFailure: this.river.lastFailure || null,
       materialSync: { pending: this.materials.queue.length, error: this.materials.error || null },

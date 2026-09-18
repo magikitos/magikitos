@@ -4,9 +4,9 @@ const protocol = require("../../../../docs/forest-protocol.json");
 /** One optional presence connection. No bearer goes into a URL or WebSocket. Every
  * async result belongs to one lifecycle; an old login can never replace a new one. */
 class ForestConnection {
-  constructor({ api, viewport, receive, disconnected = () => {}, Socket = globalThis.WebSocket,
-    now = () => performance.now(), random = Math.random }) {
-    Object.assign(this, { api, viewport, receive, disconnected, Socket, now, random });
+  constructor({ api, viewport, receive, disconnected = () => {}, granted = () => {},
+    Socket = globalThis.WebSocket, now = () => performance.now(), random = Math.random }) {
+    Object.assign(this, { api, viewport, receive, disconnected, granted, Socket, now, random });
     this.generation = 0;
     this.running = false;
     this.ready = false;
@@ -55,6 +55,9 @@ class ForestConnection {
       if (!current()) return;
       if (grant.protocol !== protocol.version || grant.socketPath !== "/bosque" || typeof grant.ticket !== "string")
         throw Error("protocol_mismatch");
+      // El ticket dice con qué cuerpo entras, y es el que va a ver todo el mundo. Sin esto, quien
+      // llega al bosque sin haber leído su cuenta se vería de un duende y los demás de otro.
+      this.granted(grant);
       const url = new URL(grant.socketPath, this.api.web);
       url.protocol = url.protocol === "https:" ? "wss:" : "ws:";
       const socket = this.socket = new this.Socket(url.href);
@@ -133,6 +136,7 @@ class ForestConnection {
       try {
         const grant = await this.api.request("forest-ticket", {}, { auth: true, signal: this.abort.signal, timeout: 5000 });
         if (generation !== this.generation) return;
+        this.granted(grant);
         if (!this.send({ type: "renovar", ticket: grant.ticket })) this.settleRenewal(false);
         // Wait for renovado, not just the HTTP ticket. Server access checks are
         // asynchronous: a following dock request could otherwise overtake it.

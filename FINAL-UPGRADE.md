@@ -241,16 +241,19 @@ publicación remota en esta ronda.
 1. **B.5, elenco:** completar y revisar los 28 protagonistas restantes. Hay
    14/210 hojas aceptadas: 248/3.720 poses adicionales. Las siete propuestas de
    Menta alba todavía no son arte aceptado. Los cien vecinos siguen conservados.
-2. **B.5.10, identidad jugable:** asignación determinista inicial por cuenta,
-   selector sin categorías en `YO`, guardado/recuperación de la elección,
-   recordatorio al crear cuenta y tratamiento de `users.gender` descrito en ese
-   apartado, sin sobrescribir una declaración existente. Hoy el ticket PHP
-   utiliza `live.defaultAvatar`, no la elección del usuario; la selección de
-   Brezo bruma pertenece a las herramientas de revisión, no a la UI pública.
-3. **B.5/D/E, integración final del elenco:** conectar esa elección a los
-   tickets/presencia y comprobar todas las acciones de todos los protagonistas
-   observadas por otros jugadores. El transporte ya lleva variante/pose; eso
-   no demuestra que estén resueltos selector, persistencia o los 28 artes ausentes.
+2. **B.5.10, identidad jugable — HECHO el 18-sep-2026.** Ver §B.5.11: sorteo por
+   cuenta, selector sin categorías en `YO`, persistencia en la cuenta, ticket con
+   la elección dentro y `users.gender` solo si está vacía. Lo único del apartado
+   que NO se hizo es el recordatorio de una sola vez al crear la cuenta, y está
+   razonado ahí: el selector vive en el mismo panel que la puerta de la cuenta y
+   lleva su propia línea permanente, que explica lo mismo a todo el mundo y no
+   solo a quien entra por correo.
+3. **B.5/D/E, integración final del elenco:** falta comprobar todas las acciones
+   de todos los protagonistas observadas por OTROS jugadores. La elección ya
+   viaja: el ticket la firma, `renovar` la aplica sin soltar el asiento y un
+   duende que esta release no dibuja se pinta con el de la casa en vez de tumbar
+   el bucle de pintado (§B.5.11). Lo que queda es el recorrido real y los 28
+   artes ausentes.
 4. **F/G, operación de producción:** preparar/instalar el servicio systemd y
    su worker PHP, límites, clave privada y proxy WebSocket exclusivo de Magikitos;
    integrar el reinicio posterior al despliegue y verificar versiones/reconexión.
@@ -276,8 +279,12 @@ publicación remota en esta ronda.
 pruebas locales están detallados arriba. Tampoco falta otra familia de arte del
 mundo para este encargo. Los ocho cascos extra son reserva preparada, sin
 recetas/desbloqueos: dejarlos inactivos es la decisión del dueño, no un fallo.
-`npm test` valida el trabajo existente; la puerta completa
-`npm run test:playable-art` debe seguir rechazando 14/210, sin rebajarla.
+`npm test` valida el trabajo existente. **La puerta de arte ya NO exige 210**
+(decisión del dueño, 18-sep-2026: «se lanza con los dos que hay y crece solo
+cuando subas hojas»): `npm run test:playable-art` exige que cada duende OFRECIDO
+esté completo —que es lo que de verdad no puede fallar— y DICE en voz alta
+cuántos personajes faltan para el elenco final. Lo que se rebajó es la fecha de
+publicación, no la vara: un duende a medio dibujar sigue sin poder ofrecerse.
 
 ---
 
@@ -960,6 +967,72 @@ Tres reglas para que eso no se convierta en una suposición fea:
    cualquiera; por eso el selector no lo etiqueta y por eso el dato se toma como
    una pista y no como una respuesta.
 
+### B.5.11 Cómo quedó, y las cinco decisiones que costaron (18-sep-2026)
+
+Lo de arriba es el encargo; esto es lo que hay construido y por qué, porque tres
+de las decisiones no son obvias y una contradice lo que el apartado anterior daba
+por hecho.
+
+**1. El elenco ofrecido se DERIVA, no se escribe.** `data/aventura/world.php`
+cruza las dos únicas cosas que definen a un protagonista —su remo MEDIDO a mano
+(`player-art.json: rowingRigs`, lo único de autoría) y sus siete acciones
+HORNEADAS (el manifiesto)— y de ahí sale `playerArt.enabledVariants`. Una lista
+escrita a mano caduca: el dueño sube hojas de una en una y habría que acordarse
+de tocar el JSON, o peor, se ofrecería un duende a medio dibujar. Si el duende de
+la casa no está completo, **el mundo no compila**. Probado en negativo en
+`scripts/check-playable-cast.cjs`: se le quita una hoja al manifiesto y el duende
+sale del elenco sin editar un solo dato.
+
+**2. La elección vive en la CUENTA, no en el viaje** (`game_accounts.avatar`,
+migración 4239). La partida privada se sube a la nube y se puede restaurar desde
+una copia de anteayer: con el duende dentro, recuperar un viaje te cambiaría la
+cara sin haberlo pedido, y obligaría al contrato del servidor a validar como
+progreso algo que no lo es. En el navegador hay un espejo (`magikitos.adventure.cast`),
+del mismo tipo que recordar si entraste a pantalla completa.
+
+**3. El sorteo ocurre al ENTRAR AL BOSQUE, no al leer la cuenta.** Parece un
+detalle y es el caso normal: quien viene jugando sin cuenta y elige duende, al
+crearla, lo primero que hace el navegador es leer la cuenta — y si esa lectura
+sorteara, se encontraría una cara sorteada donde ya tenía una elegida. Leer
+devuelve `null` mientras nadie haya dicho nada, y entonces es el navegador quien
+cuenta lo que ya usaba. El sorteo es la red que garantiza que la presencia
+siempre tiene un cuerpo, y solo hace falta ahí. Un sorteo **no** toca
+`users.gender`: que te toque una cara no dice nada de ti. Solo lo rellena una
+elección deliberada, y solo si estaba en `U`.
+
+**4. Cambiarse de cara NO cuesta el asiento.** El ticket ya lleva el duende
+dentro y el bosque lo aplica al **renovarlo** (`presence.cjs`, caso `renovar`),
+así que elegir escribe en la cuenta y pide una renovación: soltar y volver a
+entrar te devolvería al final de la cola de 100 por haberte cambiado de ropa. Y
+las hojas del cuerpo nuevo se fijan sin volver a entrar a la pantalla
+(`SceneDirector.rewear`), soltando las del anterior — probar cinco caras seguidas
+no puede dejar cinco elencos clavados en memoria.
+
+**5. El selector no pide treinta hojas de andar.** La hoja base de un duende son
+1024x400 ya decodificados: treinta caras serían casi 50 MB y el presupuesto de
+sprites se llevaría por delante la pantalla que se está jugando. Hay un paquete
+propio de retratos (`scripts/prepare-cast-portraits.php`, derivado de las hojas ya
+registradas, hoy 256x86) que el panel toma **en préstamo** mientras está abierto y
+suelta al cerrarse. La rejilla no tiene categorías, ni pestañas, ni nombres: todos
+a la vez y se elige por la cara.
+
+**Lo que se hizo distinto del encargo, y por qué.** El apartado anterior pedía un
+recordatorio de una sola vez al crear la cuenta. No está: el selector vive en el
+MISMO panel que la puerta de la cuenta, dos dedos por debajo del formulario, y
+lleva su propia línea permanente («Elige con quién quieres andar por el bosque»).
+Un aviso de una sola vez solo se podría disparar bien por el camino del correo
+—Google recarga la página y vuelve con el panel cerrado—, y un recordatorio que
+existe para la mitad de la gente es peor que una línea que lee todo el mundo.
+
+**Y una cosa que se arregló de paso, que era un fallo de verdad.** Durante un
+despliegue conviven dos versiones: tu navegador tiene el arte de ayer y por el
+socket puede llegar alguien con un duende que solo existe en el de hoy. Pedirle
+ese paquete al almacén revienta —es un sprite que ese manifiesto no registra— y
+lo hace DENTRO del bucle de pintado, así que un desconocido tumbaba el bosque
+entero de quien no hubiera recargado. Ahora el duende de un extraño se pasa por el
+elenco de la release antes de dibujarlo (`ForestPeople`): sigue estando, en su
+sitio y con su nombre, y solo cambia la cara.
+
 ---
 
 # PARTE C — La caca-mensaje
@@ -1552,17 +1625,29 @@ en el mismo despliegue.
    `COPYFILE_DISABLE=1 tar --no-xattrs --no-mac-metadata`**: los ficheros de
    Finder no son arte del juego y el instalador rechaza el archivo entero si los
    encuentra.
-4. **Aplicar la migración 4236**, primero en el clon
-   (`dev-migrate magikitos_dev migrations/4236_todo_el_bosque_se_construye.sql`) y
-   luego en producción por el panel. **Antes de activar el puntero**, que es lo que
-   la casa ya manda para el bosque compartido.
+4. **Aplicar las migraciones**, primero en el clon
+   (`dev-migrate magikitos_dev migrations/<f>.sql`) y luego en producción por el
+   panel: **4236**, **4237**, **4238** y **4239**, en ese orden y **antes de activar
+   el puntero**, que es lo que la casa ya manda para el bosque compartido.
+   ⛔ **La 4239 tiene que ir ANTES que el PHP nuevo**: `gameAccountDto` lee
+   `game_accounts.avatar` en cada lectura de cuenta, así que con el código puesto y
+   la columna sin crear se cae la lectura de materiales de todo el mundo. Al revés
+   —columna primero, código después— no pasa nada: una columna que nadie lee es una
+   columna que no molesta, y por eso es aditiva y se puede dejar puesta en un
+   rollback.
 5. **Un solo commit en el repo de la web** con las DOS cosas:
-   `src/game/community.php` y `public/game/current.json` apuntando al ID nuevo.
+   el PHP de la autoridad (`src/game/community.php`, `src/game/cast.php`,
+   `src/game/live.php`, `src/game/adventure-authority.php`, `src/game/controller.php`,
+   `src/controllers-world.php`, `src/router.php`) y `public/game/current.json`
+   apuntando al ID nuevo.
 6. **Desplegar la web** por el panel. El puntero y la autoridad entran juntos:
    ventana cero.
 7. **Humo**: que las cuatro pantallas abran la caja de construir, que se pueda
    colocar y quitar algo, que los dos `world-api.openapi.json` sigan idénticos, y
-   que nada de la web haya cambiado de estado.
+   que nada de la web haya cambiado de estado. Y del elenco: abrir `YO`, que la
+   rejilla de duendes salga con sus caras, elegir otro, **comprobar que el cuerpo
+   cambia sin soltar la conexión** (el asiento no se pierde) y que al recargar
+   sigue puesto. Con una segunda sesión, que el otro te vea con el duende nuevo.
 
 **Rollback**: se devuelve el puntero (la release anterior se conserva, no se poda).
 ⛔ **Y la migración se puede dejar puesta**: `communitySnapshot` mira PRIMERO el
@@ -1617,6 +1702,7 @@ estado actual, que `communityValidate()` ya hace de todas formas.
 | `4236_todo_el_bosque_se_construye.sql` | Filas de las cuatro zonas comprobadas en DDEV el 18-sep. Publicación de esta entrega pendiente; verificar el registro de migraciones del destino antes de aplicar. **Debe preceder a la activación del puntero**: §G.5 |
 | `4237_forest_messages.sql` | Escrita; tablas de necesidades, mensajes y moderación verificadas en DDEV. Pendiente en producción |
 | `4238_forest_objects.sql` | Escrita; posiciones/revisiones de objetos compartidos verificadas en DDEV. Pendiente en producción |
+| `4239_el_duende_que_eres.sql` | Escrita el 18-sep; `game_accounts.avatar`, aditiva y sin valor por defecto (NULL = nadie lo ha dicho). **Debe preceder al PHP nuevo**: ver §G.5 paso 4. Pendiente en producción |
 
 Toda migración empieza con `SET NAMES utf8mb4;`. Se prueba primero en el clon
 (`dev-migrate magikitos_dev migrations/<f>.sql`) y solo entonces se promueve.

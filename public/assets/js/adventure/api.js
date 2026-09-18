@@ -16,6 +16,7 @@ const METHODS = Object.freeze({
   "game-save": "POST",
   "game-restore": "POST",
   "game-account": "GET",
+  "game-avatar": "POST",
   "game-body": "GET",
   "forest-messages": "GET",
   "forest-ticket": "POST",
