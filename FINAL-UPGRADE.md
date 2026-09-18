@@ -246,7 +246,7 @@ como el saco de semillas del seto humano. **Cuatro sitios, mismo commit:**
 `"rakeFound"`, `"grassSeedsFound"`.
 *(Las banderas se guardan POR NOMBRE, no como bits posicionales
 (`save.js`: `for (const key of catalog.flags)`), así que el orden aquí no es
-crítico. El que SÍ lo es son los nodos de recurso: ver §4.2.)*
+crítico. El que SÍ lo es son los nodos de recurso: ver §B.2.)*
 
 **b) El comportamiento**, en `data/aventura/behaviors/`:
 
@@ -273,7 +273,7 @@ crítico. El que SÍ lo es son los nodos de recurso: ver §4.2.)*
 
 ⛔ **`hiddenWhen` por BANDERA, nunca por inventario.** Una condición de inventario
 es de ESTADO y vuelve a cero cuando gastas la cosa; una bandera es de HISTORIA.
-Esto ya ha mordido una vez, ver §4.2.
+Esto ya ha mordido una vez, ver §B.2.
 
 **c) La entidad** en `data/aventura/scenes/{pantalla}.json`:
 `{ "id": "woodland-rake", "behavior": "woodland-rake", "x": 00, "y": 00 }`
@@ -719,14 +719,19 @@ secciones. Una rejilla y ya.
 **Al crear la cuenta se le recuerda que puede elegir**, una vez y sin insistir.
 Antes de eso ya está jugando con el que le tocó.
 
-**Y por dentro sí están etiquetados `H`/`M`**, que es otra cosa y no se enseña
-nunca. Sirve para una sola cosa:
+**Y por dentro sí llevan su sexo**, que es otra cosa y no se enseña nunca. Sirve
+para una sola cosa:
 
 ⛔ **Si la persona elige un duende y NO ha declarado su sexo, se rellena
-`users.gender` con el del duende** (la etiqueta interna `H`/`M` se mapea a la
-`M`/`F` de esa columna). Esa columna la lee el cron de retratos para elegir el
-subgénero del avatar, y hoy, vacía, cae a un hash del handle. Con esto, elegir tu
-duende te mejora el retrato sin haberte preguntado nada.
+`users.gender` con el del duende.** Esa columna la lee el cron de retratos para
+elegir el subgénero del avatar, y hoy, vacía, cae a un hash del handle. Con esto,
+elegir tu duende te mejora el retrato sin haberte preguntado nada.
+
+⛔ **Y el duende guarda `M`/`F` DIRECTAMENTE, el mismo alfabeto que la columna, para
+que rellenar sea COPIAR y no traducir.** Hoy `data/aventura/residents.json` dice
+`male`/`female`: se normaliza ahí, en el origen, una vez y para los 100. Un mapa
+de equivalencias en cada uso es una cosa más que se puede desincronizar, y no
+compra nada.
 
 Tres reglas para que eso no se convierta en una suposición fea:
 
@@ -1058,6 +1063,57 @@ caso real, no teórico.
 - El saludo valida contra la sesión de la web, que ya existe (Bearer).
 - Rechazo de cargas grandes, y cierre de conexiones que no laten.
 
+## E.8 El saludo: cómo entra alguien, y el protocolo
+
+⛔ **El demonio NO habla con MariaDB para saber quién eres, y eso no es pereza: es
+que un proceso alcanzable desde internet con credenciales de base de datos es un
+radio de daño mucho mayor.** Además obligaría a meterle un driver, y la decisión
+de §E.2 es que su única dependencia sea `ws`, commiteada y sin dependencias
+propias.
+
+**Cómo se resuelve: PHP acuña un TICKET FIRMADO y el demonio solo lo verifica.**
+
+1. El cliente, que ya tiene su sesión de la web (Bearer), pide un ticket a un
+   endpoint normal de PHP.
+2. PHP valida la sesión como siempre y devuelve un ticket **firmado con HMAC** y de
+   **vida corta** (minutos), que lleva dentro lo que el demonio necesita: id de
+   la persona, handle, nombre, **su duende** y sus setines (para la puerta de
+   reputación de §D.1).
+3. El demonio lo verifica con el secreto compartido — cuatro líneas con el
+   `crypto` que Node ya trae — y **no consulta nada a nadie**.
+
+Así **el ticket ES la identidad**: el demonio arranca sin lecturas, sin
+credenciales de base y sin poder ser un camino hacia ella. El precio es que el
+ticket caduca y hay que renovarlo, y que cerrar sesión no expulsa al instante:
+expira. Con minutos de vida, eso es aceptable.
+
+**Los mensajes, en forma mínima** (el contrato exacto se espeja en los dos repos,
+§E.2):
+
+| Sentido | Mensaje | Lleva |
+|---|---|---|
+| → | `hola` | ticket, versión de protocolo, pantalla |
+| ← | `bienvenido` | si eres **jugador o espectador**, tu id, y **`ahora`** (el reloj del servidor) |
+| → | `estoy` | x, y, dirección, pose · **10 Hz** |
+| ← | `vecinos` | los que te caben en pantalla, con su duende · **10 Hz** |
+| → | `empujo` | objeto y dirección — **una INTENCIÓN, nunca una posición** (§E.3) |
+| ← | `objetos` | posiciones de los compartidos · **20 Hz cuando cambian** |
+| ← | `zona` | la revisión de construcción, para refrescar la instantánea |
+| ← | `plaza` | te has materializado: pasas de espectador a jugador |
+| → | `latido` | cada 5 s (los tres relojes de §D.3 y el corte de Cloudflare de §F.2) |
+| ← | `adios` | con motivo: lleno, versión vieja, reinicio, inactividad |
+
+⛔ **El `ahora` del `bienvenido` no es decorativo**: es el reloj contra el que se
+mide la edad de una flor sembrada (§B.4). El del navegador puede ir adelantado a
+propósito.
+
+## E.9 Dónde vive la cuenta de las 100 plazas
+
+**En la memoria del demonio, y en ningún sitio más.** Es el mismo razonamiento que
+las posiciones: tras un reinicio no hay nadie conectado, así que no hay nada que
+recordar. Al levantarse, todo el mundo reconecta y las plazas se reparten de nuevo
+— con la gracia de 60 s (§D.3), quien estaba dentro sigue dentro.
+
 ---
 
 # PARTE F — El VPS: qué tocar y qué NO
@@ -1163,6 +1219,26 @@ tres páginas reales servidas por PHP→MariaDB.
 ---
 
 # PARTE G — El despliegue
+
+## G.0 La instalación inicial, que se hace UNA vez
+
+Antes de que ningún despliegue tenga sentido, esto hay que montarlo a mano en la
+caja. No lo hace el panel y no está en ningún script todavía.
+
+1. **El unit de systemd** de §F.2 en `/etc/systemd/system/bosque-vivo.service`,
+   con su `User=magikitos`, su `LimitNOFILE=65535` y su `MemoryMax=`.
+   `systemctl daemon-reload && systemctl enable --now bosque-vivo`.
+2. **El `ProxyPass` con `upgrade=websocket`** de §F.2 en el vhost de magikitos.
+   ⛔ **Por Virtualmin o por el `.htaccess` del proyecto, NUNCA editando
+   `/etc/httpd/conf/httpd.conf`**, que Virtualmin lo regenera y se lleva el cambio.
+3. **El secreto compartido del ticket** (§E.8) en el `.env` del proyecto, que es de
+   donde lo leen las dos partes.
+4. **Comprobar la cadena entera, no solo que el proceso vive**: que un
+   `Upgrade: websocket` llega desde fuera, **a través de Cloudflare**, hasta el
+   demonio. Es donde puede fallar en silencio, y donde el latido de 30 s de §F.2
+   deja de ser opcional.
+5. **No se abre ni un puerto en firewalld.** Si hace falta abrirlo, algo está mal
+   montado: el demonio escucha en `127.0.0.1`.
 
 ## G.1 Cómo es hoy
 
