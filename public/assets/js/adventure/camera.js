@@ -36,4 +36,47 @@ function cameraMetrics(view, world, requested = null, presentation = 1) {
 function clampCamera(camera, world, view) {
   return frameCamera(camera, world, view);
 }
-module.exports = { cameraMetrics, clampCamera };
+
+/** Lo cerca que hay que estar para dejar de suavizar y sencillamente seguir. Correr mueve el
+ *  objetivo ~1,8 px por frame a 60 Hz, así que esto no se suelta andando; un mapa que acabas de
+ *  arrastrar está a cientos de píxeles. */
+const CAMERA_LOCK = 24;
+
+/**
+ * ⛔ QUÉ CUENTA COMO VIAJE CONTINUO, Y POR QUÉ ESTO NO ES UN DETALLE DEL BUCLE.
+ *
+ * Andar, ir en brazos de un gato y remar son lo mismo para la cámara: te mueves sin parar y hay
+ * que seguirte pegado. Lo que NO vale es preguntar «¿se ha movido este frame?», porque el paso
+ * devuelve false justo al pisar un waypoint y la cámara alternaba entre pegada y suavizada frame
+ * a frame: ese es el bote del gato. Y remar no ponía `walking` en absoluto, así que la barca no
+ * se enganchaba nunca: ese es el temblor del río.
+ */
+function continuousTravel({ walking, carried, rowing } = {}) {
+  return Boolean(walking || carried || rowing);
+}
+
+/**
+ * ⛔ SEGUIR A ALGUIEN Y VIAJAR A UN SITIO SON DOS COSAS, Y LA DIFERENCIA SE DECIDE AQUÍ.
+ *
+ * Quien se mueve de forma CONTINUA (andas, te lleva un gato, vas en barca) se sigue pegado: la
+ * cámara se pone donde toca y punto. Todo lo demás se suaviza. Y el enganche solo ocurre si ya
+ * estás cerca, porque tocar el mapa para andar enciende el seguimiento y empieza a caminar en el
+ * mismo gesto: con enganche incondicional, la cámara TELETRANSPORTABA cientos de píxeles sobre lo
+ * que acababas de arrastrar.
+ *
+ * Es una función pura a propósito. Vivía suelta dentro del bucle del juego, que es donde no se
+ * puede probar: el temblor de la barca estuvo ahí meses porque `walking` se quedaba en false
+ * remando y nadie podía preguntárselo a nada.
+ */
+function cameraFollow(camera, target, { tracking, goal, reading, snap, ease, travelEase }) {
+  if (snap || (!goal && tracking && !reading && distance(camera, target) <= CAMERA_LOCK))
+    return { x: target.x, y: target.y };
+  const rate = goal ? travelEase : ease;
+  return {
+    x: camera.x + (target.x - camera.x) * rate,
+    y: camera.y + (target.y - camera.y) * rate,
+  };
+}
+const distance = (a, b) => Math.hypot(b.x - a.x, b.y - a.y);
+
+module.exports = { cameraMetrics, clampCamera, cameraFollow, continuousTravel, CAMERA_LOCK };

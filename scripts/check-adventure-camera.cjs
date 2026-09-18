@@ -4,6 +4,9 @@ const assert = require("node:assert/strict"),
 const {
   cameraMetrics,
   clampCamera,
+  cameraFollow,
+  continuousTravel,
+  CAMERA_LOCK,
 } = require("../public/assets/js/adventure/camera");
 const {
   cameraLimits,
@@ -215,6 +218,57 @@ assert.equal(
   null,
   "Ignored actor/body cannot self-collide",
 );
+/**
+ * ⛔ SEGUIR A QUIEN SE MUEVE DE FORMA CONTINUA NO PUEDE TEMBLAR.
+ *
+ * El temblor de la barca vivió meses en el juego porque la política estaba suelta dentro del
+ * bucle, donde no se le puede preguntar nada: `walking` se queda en false remando, así que la
+ * cámara suavizaba en vez de engancharse y la barca nadaba dentro del encuadre. Aquí se prueba
+ * la REGLA, no el síntoma, y se prueba en las dos direcciones.
+ */
+{
+  // Los TRES viajes continuos cuentan, y remar es el que faltaba.
+  assert.equal(continuousTravel({ walking: true }), true, "Walking is continuous travel");
+  assert.equal(continuousTravel({ carried: true }), true, "A cat ride is continuous travel");
+  assert.equal(continuousTravel({ rowing: true }), true, "⛔ Rowing is continuous travel too");
+  assert.equal(continuousTravel({}), false, "Standing still is not");
+  assert.equal(continuousTravel(), false, "Nor is an absent state");
+
+  const aquí = { x: 100, y: 100 };
+  const cerca = { x: 100 + CAMERA_LOCK - 1, y: 100 };
+  const lejos = { x: 600, y: 100 };
+  const ritmos = { ease: 0.25, travelEase: 0.08 };
+  const sigue = (extra) =>
+    cameraFollow(aquí, cerca, { tracking: true, goal: null, reading: false, snap: false, ...ritmos, ...extra });
+
+  // Quien viaja de forma continua y ya está cerca se sigue PEGADO: cero retraso, cero temblor.
+  assert.deepEqual(sigue({}), cerca, "Continuous travel locks the camera");
+  // Y eso es exactamente lo que NO pasaba remando: sin `tracking` se suaviza y la barca nada.
+  const suave = sigue({ tracking: false });
+  assert.notDeepEqual(suave, cerca, "Without continuous travel it eases");
+  assert(
+    Math.abs(suave.x - (aquí.x + (cerca.x - aquí.x) * ritmos.ease)) < 1e-9,
+    "Easing uses the follow rate",
+  );
+  // Un mapa recién arrastrado no se persigue de un salto aunque estés andando.
+  assert.notDeepEqual(
+    cameraFollow(aquí, lejos, { tracking: true, goal: null, reading: false, snap: false, ...ritmos }),
+    lejos,
+    "A panned map is never snapped across",
+  );
+  // Ir a un sitio señalado es VIAJAR, y viajar tiene su propio ritmo aunque vayas en barca.
+  const viaje = cameraFollow(aquí, cerca, { tracking: true, goal: {}, reading: false, snap: false, ...ritmos });
+  assert(
+    Math.abs(viaje.x - (aquí.x + (cerca.x - aquí.x) * ritmos.travelEase)) < 1e-9,
+    "A chosen destination travels at its own rate",
+  );
+  // Y `snap` manda siempre: es llegar, no seguir.
+  assert.deepEqual(
+    cameraFollow(aquí, lejos, { tracking: false, goal: {}, reading: true, snap: true, ...ritmos }),
+    lejos,
+    "Snap wins over everything",
+  );
+}
 console.log(
-  "PASS: exact collision index matches brute-force geometry, including subpixel offsets and transforms.",
+  "PASS: exact collision index matches brute-force geometry, subpixel offsets, transforms and a camera that locks onto continuous travel.",
 );

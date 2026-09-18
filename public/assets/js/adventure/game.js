@@ -3,7 +3,7 @@ const { tryPush } = require("./movables");
 const { releaseContact } = require("./obstacles");
 const { World, TILE, clamp, insideThreshold } = require("./model");
 const { Renderer } = require("./renderer");
-const { clampCamera } = require("./camera");
+const { clampCamera, cameraFollow, continuousTravel } = require("./camera");
 const { doorDestination, acceptsEntry } = require("./portals");
 const { WoodlandAudio } = require("./audio");
 const { Entry } = require("./entry");
@@ -27,10 +27,6 @@ const { fare } = require("./economy");
 const { dialogueText } = require("./dialogue");
 const { WorldInput } = require("./input");
 const { WALK_SPEED, RUN_SPEED, routeDistance } = require("./locomotion");
-/** How close the camera has to be before it stops easing and simply follows.
- * Running is ~1.8px of target movement per frame at 60Hz, so this never
- * disengages while walking; a panned map is hundreds of pixels away. */
-const CAMERA_LOCK = 24;
 /**
  * Lo deprisa que la cámara se pega a quien sigue, y lo despacio que VIAJA a un sitio que acabas
  * de señalar. Son dos ritmos porque son dos cosas: seguir al duende que anda es no despegarse, y
@@ -867,29 +863,25 @@ class Adventure {
       this.renderer,
     );
 
-    // Being carried is continuous travel even on the frames where follow()
-    // reports no progress (it returns false when it lands exactly on a
-    // waypoint). Reading `walking` alone made the camera alternate between
-    // locked and eased frame by frame, which is the bounce you see on a cat
-    // ride but never on your own legs, where `walking` stays steady.
-    const tracking = this.walking || Boolean(this.cats?.locked);
-    // ⛔ THE CAMERA ONLY LOCKS ONCE IT IS ALREADY THERE. Tapping the map to walk
-    // sets cameraFollowing and starts the legs in the same gesture, so a locked
-    // camera TELEPORTED across whatever you had panned — hundreds of pixels in
-    // one frame. Walking normally the target moves ~2px per frame, well inside
-    // the threshold, so it stays glued exactly as before; the only moment this
-    // eases is right after you moved the map, which is the jolt it exists for.
-    const gap = Math.hypot(target.x - this.camera.x, target.y - this.camera.y);
-    // Un destino no se persigue: se va a él. Por eso el enganche instantáneo es solo para quien
-    // camina, que es lo que hace que seguirle no tiemble.
-    if (snap || (!goal && tracking && !reading && gap <= CAMERA_LOCK))
-      this.camera = target;
-    else {
-      const ease = goal ? this.cameraTravelEase : this.cameraEase;
-      this.camera.x += (target.x - this.camera.x) * ease;
-      this.camera.y += (target.y - this.camera.y) * ease;
-    }
-    this.camera = clampCamera(this.camera, this.world, this.renderer);
+    // Qué cuenta como viaje continuo y cómo se sigue viven en `camera.js`, que es donde se
+    // pueden probar. Aquí solo se dice en cuál de los tres estás.
+    const tracking = continuousTravel({
+      walking: this.walking,
+      carried: this.cats?.locked,
+      rowing: this.river?.active,
+    });
+    this.camera = clampCamera(
+      cameraFollow(this.camera, target, {
+        tracking,
+        goal,
+        reading,
+        snap,
+        ease: this.cameraEase,
+        travelEase: this.cameraTravelEase,
+      }),
+      this.world,
+      this.renderer,
+    );
   }
   recenterCamera(snap = false) {
     this.input?.map.clear();

@@ -97,6 +97,39 @@ assert.equal(
   catalog.scenes.overworld.entities.find((e) => e.id === "fisher-door").sprite,
   "home-pot-terracotta",
 );
+/**
+ * ⛔ UN BOTÓN DE PANTALLA COMPLETA QUE NO APARECE SE PARECE MUCHO A UN PERMISO DENEGADO.
+ *
+ * Mirando solo `document.fullscreenEnabled`, el botón se esconde en cualquier navegador que traiga
+ * únicamente la API con prefijo, donde funciona perfectamente. No hay forma de tener aquí ese
+ * aparato, así que se le pregunta a un documento de mentira: es lo único que prueba de verdad un
+ * navegador que no tienes delante.
+ */
+{
+  const { screenApi } = require("../public/assets/js/adventure/fullscreen");
+  const conPrefijo = { webkitFullscreenEnabled: true, webkitFullscreenElement: null };
+  const moderno = { fullscreenEnabled: true, fullscreenElement: null };
+  const sinNada = {};
+
+  assert.equal(screenApi(moderno).enabled(), true, "Standard API counts");
+  assert.equal(screenApi(conPrefijo).enabled(), true, "⛔ A prefixed-only browser counts too");
+  assert.equal(screenApi(sinNada).enabled(), false, "No API is no button");
+  assert.equal(screenApi(null).enabled(), false, "Nor is an absent document");
+
+  // Y se pide con el nombre que exista, sin ramas por dispositivo.
+  let usado = null;
+  screenApi(moderno).request({ requestFullscreen: () => { usado = "estándar"; return Promise.resolve(); } }, {});
+  assert.equal(usado, "estándar");
+  screenApi(conPrefijo).request({ webkitRequestFullscreen: () => { usado = "prefijado"; } }, {});
+  assert.equal(usado, "prefijado", "The prefixed request is used when it is the only one");
+  assert.equal(
+    screenApi(sinNada).request({}, {}),
+    null,
+    "Nothing to ask with is a refusal, not a crash",
+  );
+  // Un documento ya en pantalla completa se reconoce con los dos nombres.
+  assert(screenApi({ webkitFullscreenElement: {} }).element(), "Prefixed element is recognised");
+}
 console.log(
-  "PASS: rolling stays out of the game, reachable doors, wallet validation and boat landings.",
+  "PASS: rolling stays out of the game, reachable doors, wallet validation, boat landings and fullscreen across both APIs.",
 );
