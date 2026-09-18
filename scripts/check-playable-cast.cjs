@@ -221,7 +221,55 @@ try {
   fs.rmSync(temp, { recursive: true });
 }
 
-console.log(
-  `PASS playable cast: ${offered.length} derived duendes with their seven sheets, oar rig, ` +
-    `portrait and M/F; withdrawal proven in negative; the journey never carries the body.`,
-);
+/**
+ * ⛔ CAMBIARSE DE CARA PIDE UNA RENOVACIÓN DEL TICKET, Y NO SUELTA LA CONEXIÓN.
+ *
+ * Es lo que hace que el resto del bosque te vea con el duende nuevo sin que pierdas tu sitio en
+ * las cien plazas: el ticket lleva el duende dentro y el bosque lo aplica al RENOVARLO. Soltar y
+ * volver a entrar te devolvería al final de la cola por haberte cambiado de ropa, así que aquí se
+ * comprueba que nadie toca la conexión y que la renovación solo se pide cuando la cuenta aceptó el
+ * cambio de verdad — pedirla tras un fallo firmaría el duende viejo.
+ */
+async function renewalOnChange() {
+  const { Adventure } = require("../public/assets/js/adventure/game");
+  const target = offered.find((v) => v !== world.playerArt.defaultVariant) ?? offered[0];
+  for (const accepted of [true, false]) {
+    const calls = [];
+    const game = {
+      catalog: world,
+      avatar: null,
+      player: { variant: null },
+      ready: false,
+      paintCards: () => calls.push("paint"),
+      materials: { chooseAvatar: async (v) => { calls.push("account:" + v); return accepted; } },
+      live: { connection: {
+        renew: async () => { calls.push("renew"); return true; },
+        start: () => calls.push("start"),
+        stop: () => calls.push("stop"),
+      } },
+    };
+    const promise = Adventure.prototype.wear.call(game, target);
+    // El cuerpo cambia ANTES de esperar a nadie: la partida local no depende de la red.
+    assert.equal(game.avatar, target, "The body changes before anything is awaited");
+    assert.equal(game.player.variant, target);
+    assert.equal(await promise, target);
+    assert.deepEqual(
+      calls.filter((c) => c === "renew"),
+      accepted ? ["renew"] : [],
+      "The ticket is renewed only when the account took the change: " + JSON.stringify(calls),
+    );
+    assert(!calls.includes("stop") && !calls.includes("start"), "Changing clothes never costs the seat");
+    assert(calls.includes("account:" + target), "The account is told");
+    // Elegir el mismo duende no vuelve a molestar ni a la cuenta ni al bosque.
+    const again = calls.length;
+    assert.equal(await Adventure.prototype.wear.call(game, target), target);
+    assert.equal(calls.length, again, "Choosing what you already are does nothing");
+  }
+}
+renewalOnChange().then(() => {
+  console.log(
+    `PASS playable cast: ${offered.length} derived duendes with their seven sheets, oar rig, ` +
+      `portrait and M/F; withdrawal proven in negative; changing clothes renews the ticket ` +
+      `instead of dropping the seat; the journey never carries the body.`,
+  );
+});
