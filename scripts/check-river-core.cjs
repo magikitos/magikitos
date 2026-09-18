@@ -8,6 +8,7 @@ const {
   canFloat,
   currentAt,
   VesselMotion,
+  ROW_SPEED,
   HULL_RADIUS,
   riverBodyAt,
   yieldToRiverBodies,
@@ -615,4 +616,50 @@ check(starts.length === 0, "No off-screen current rendering");
   );
 }
 
+/**
+ * ⛔ EL RÍO TIENE LÍNEA Y LA BARCA TIENE MASA, Y LAS DOS COSAS SE PUEDEN PERDER SIN QUE FALLE NADA.
+ *
+ * Son las dos propiedades que hacen que remar sea pilotar y no apuntar, y las dos son un número
+ * que cualquiera puede devolver a su valor viejo sin que ninguna prueba se entere. Aquí se
+ * comprueban por lo que SE SIENTE —que el cauce se degrada hacia la orilla y que la barca sigue
+ * andando cuando sueltas— y no por el valor de la constante.
+ */
+{
+  const willows = new World(catalog.scenes["river-willows"]);
+  // 1. HAY LÍNEA: del centro del cauce hacia la orilla la corriente solo puede bajar, nunca
+  //    quedarse plana. Con la meseta de antes esto fallaba: cuatro tiles seguidos valían igual.
+  const corte = [];
+  for (let x = 44; x <= 56; x++) {
+    const f = currentAt(willows.data, x * TILE, 72 * TILE);
+    corte.push(Math.hypot(f.x, f.y));
+  }
+  const pico = corte.indexOf(Math.max(...corte));
+  let mesetas = 0;
+  for (let i = pico + 1; i < corte.length; i++)
+    if (corte[i] > 0.01 && Math.abs(corte[i] - corte[i - 1]) < 0.01) mesetas++;
+  check(mesetas === 0, "The channel grades away from its fast line, with no plateau");
+  check(
+    corte[pico] > corte[corte.length - 1],
+    "The bank is calmer than the middle: there is somewhere to rest",
+  );
+
+  // 2. HAY MASA: se rema hasta coger velocidad, se suelta y la barca SIGUE. Sin inercia esto
+  //    recorre prácticamente cero.
+  const barca = { x: 46 * TILE, y: 72 * TILE, direction: "down" };
+  const motor = new VesselMotion();
+  for (let i = 0; i < 180; i++) motor.step(willows, barca, { x: 0, y: 1 }, 1 / 60);
+  const dePunta = Math.hypot(motor.vx, motor.vy);
+  check(dePunta > ROW_SPEED * 0.85, "Rowing still reaches its speed");
+  // ⛔ SE MIDE RESPECTO AL AGUA, NO RESPECTO AL MAPA. Midiendo el desplazamiento total, la
+  //    corriente te arrastra aunque la barca frene en seco: la primera versión de esta prueba
+  //    daba por bueno el frenazo de antes porque contaba metros que ponía el río.
+  let segundos = 0;
+  for (let i = 0; i < 180; i++) {
+    motor.step(willows, barca, null, 1 / 60);
+    const agua = currentAt(willows.data, barca.x, barca.y);
+    if (Math.hypot(motor.vx - agua.x, motor.vy - agua.y) > ROW_SPEED * 0.25)
+      segundos += 1 / 60;
+  }
+  check(segundos > 0.8, "Letting go glides instead of stopping dead");
+}
 console.log(`${checks} river, recipe, geometry, current and save checks PASS`);

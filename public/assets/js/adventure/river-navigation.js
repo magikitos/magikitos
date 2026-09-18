@@ -8,6 +8,24 @@ const { playerVariant } = require("./player-art");
 const HULL_RADIUS = 26;
 const ROW_SPEED = 82;
 const FAST_ROW_SPEED = 205;
+/**
+ * ⛔ UNA BARCA TIENE MASA, Y SIN ELLA NO HAY NADA QUE PILOTAR.
+ *
+ * Estos dos números eran 8 y 4, o sea: la barca alcanzaba su velocidad objetivo en **0,12
+ * segundos** y perdía toda su inercia en 0,25 al soltar. Eso no se conduce, se apunta: girar
+ * redirigía toda la velocidad de golpe y soltar el remo era frenar. Por eso el río «no tiene
+ * flow» aunque la física estuviera bien escrita.
+ *
+ * Con estos, la barca TARDA en coger velocidad (así que arrancar bien vale algo), gira trazando
+ * en vez de pivotar (así que la línea importa) y se DESLIZA cuando sueltas (así que hay algo que
+ * administrar). Es lo que convierte remar en pilotar, y lo que hace que echar una carrera tenga
+ * sentido.
+ *
+ * La forma sigue siendo `1 - exp(-dt·k)`, que es independiente de los fotogramas: eso lo exige
+ * una prueba y no se toca.
+ */
+const ROW_RESPONSE = 2.6;
+const GLIDE_DRAG = 0.9;
 const probes = [[0, 0]];
 for (let y = -HULL_RADIUS; y <= HULL_RADIUS; y += 4)
   for (let x = -HULL_RADIUS; x <= HULL_RADIUS; x += 4)
@@ -84,6 +102,23 @@ function canFloat(world, x, y, from = null) {
   });
 }
 
+/**
+ * ⛔ UN RÍO ES MÁS RÁPIDO POR EL MEDIO, Y ESO ES LO QUE LO HACE DIVERTIDO.
+ *
+ * El perfil era `clamp((1-d)*4, 0, 1)`: fuerza MÁXIMA en todo el tramo hasta el 75% del radio y
+ * una rampa corta al final. O sea una meseta, y una meseta no tiene línea: da igual por dónde
+ * vayas. Medido en el claro de los sauces, la corriente valía lo mismo (17) en cuatro tiles
+ * seguidos y se caía a cero en cuatro más.
+ *
+ * Ahora es parabólico, que es como se reparte de verdad el caudal en un cauce: el máximo sigue
+ * siendo el vector que el mapa declara —nada se acelera— pero cae de forma continua hacia las
+ * orillas. Con eso aparecen dos cosas que el juego ya prometía y no daba: una LÍNEA RÁPIDA que
+ * encontrar y sostener, y REMANSOS de verdad pegados a la orilla para remontar. Está escrito en
+ * la doctrina desde el principio («las rápidas empujan de verdad: busca remansos») y hasta hoy
+ * era mentira, porque el remanso empezaba donde la corriente ya se había acabado.
+ */
+const channelProfile = (d) => (d < 1 ? 1 - d * d : 0);
+
 /** Currents are authored vector fields. Soft edges avoid invisible discontinuities. */
 function currentAt(data, x, y) {
   const result = { x: 0, y: 0 };
@@ -95,7 +130,7 @@ function currentAt(data, x, y) {
         : null;
     const bend = banks ? (banks.left + banks.right) / 2 - cx : 0;
     const d = Math.hypot((x / TILE - cx - bend) / rx, (y / TILE - cy) / ry);
-    const strength = clamp((1 - d) * 4, 0, 1);
+    const strength = channelProfile(d);
     result.x +=
       (current.vector[0] + (banks?.tangent || 0) * current.vector[1]) *
       strength;
@@ -128,7 +163,7 @@ class VesselMotion {
     const speed = fast ? FAST_ROW_SPEED : ROW_SPEED;
     const tx = (length ? (intent.x / length) * speed : 0) + flow.x;
     const ty = (length ? (intent.y / length) * speed : 0) + flow.y;
-    const blend = 1 - Math.exp(-dt * (length ? 8 : 4));
+    const blend = 1 - Math.exp(-dt * (length ? ROW_RESPONSE : GLIDE_DRAG));
     this.vx += (tx - this.vx) * blend;
     this.vy += (ty - this.vy) * blend;
     if (length) player.direction = facing(intent.x, intent.y, player.direction);
