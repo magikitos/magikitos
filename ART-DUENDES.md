@@ -47,8 +47,13 @@ cascos; las seis acciones restantes conservan sus maestros aceptados.
 
 **Arte completo, revisado y horneado: 2 de 30 — Brezo alba y Brezo bruma.**
 Son 14/210 hojas y 248/3.720 poses adicionales; faltan 28 personajes, 196 hojas y
-3.472 poses aceptadas. Las verificaciones de integración se
-anotan debajo: esta lista no equivale a despliegue ni al selector de personajes.
+3.472 poses aceptadas.
+
+⛔ **Y esos dos YA SE PUEDEN ELEGIR en el juego publicado** (18-sep-2026): el
+selector del panel «Yo» ofrece el elenco que la release dibuja de verdad, y esa
+lista se DERIVA de esta tabla. Subir las siete hojas de un personaje y hornear lo
+mete en el selector de todo el mundo sin tocar código ni listas; hasta entonces
+no aparece, que es lo que impide ofrecer un duende a medias.
 Los cien vecinos originales se conservan intactos; treinta de ellos recibirán
 las siete acciones jugables.
 
@@ -235,8 +240,16 @@ pendiente de tener y revisar su arte. Los maestros históricos no se borran.
 
 La fuente de verdad de hojas aceptadas es
 `data/aventura/art/residents/actions/catalog.json`, contrastada con el atlas por
-`node scripts/check-playable-art.cjs --sources-only`. El modo sin esa opción es
-la puerta de entrega completa: exige las 210 hojas.
+`node scripts/check-playable-art.cjs --sources-only`.
+
+⛔ **El modo sin esa opción ya NO exige las 210** (decisión del dueño, 18-sep-2026:
+«se lanza con los dos que hay y crece solo cuando subas hojas»). Exige que cada
+duende **OFRECIDO** esté completo —eso es lo que de verdad no puede fallar: un
+personaje a medio dibujar en el selector— y DICE cuántos faltan para el elenco
+final. La lista de ofrecidos no se escribe en ninguna parte: la deriva
+`data/aventura/world.php` cruzando los remos medidos con las siete acciones
+horneadas, así que **subir las siete hojas de un personaje lo mete en el juego
+sin tocar una línea de código** (ver FINAL-UPGRADE §B.5.11).
 
 | ID | Personaje | Hojas aceptadas y horneadas | Pendiente |
 |---|---|---|---|

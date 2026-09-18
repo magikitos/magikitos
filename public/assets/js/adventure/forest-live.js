@@ -145,7 +145,12 @@ class ForestLive {
     this.game.toast(this.game.text("forestSpectator"));
     return false;
   }
+  /** Los desconocidos que hay en pantalla, con el duende y la pose que se les está dibujando.
+   * Es lo único que hace COMPROBABLE que el elenco viaja en la presencia: sin esto, «los demás te
+   * ven como te ves tú» es una afirmación que solo se puede mirar a ojo. Acotado por el propio
+   * tope de 100 y sin nada de identidad: ni id público, ni nombre, ni posición. */
   inspect() { return { connected: this.connection.ready, role: this.role, visible: this.people.list.length,
+    peers: this.people.list.map(p => ({ variant: p.variant, pose: p.pose })),
     failure: this.connection.lastFailure || null }; }
 }
 module.exports = { ForestLive };

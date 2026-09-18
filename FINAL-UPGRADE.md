@@ -113,12 +113,13 @@ completo del encargo ni demuestra por sí solo que estén desplegados.
   usuario y las siete acciones para todos los treinta elegibles siguen pendientes.
   Brezo alba (100) y Brezo bruma (101) tienen las siete hojas aceptadas y horneadas,
   con escala/anclas medidas. Alba sustituye al protagonista anterior en el motor
-  local; Bruma está habilitado y probado mediante la selección de apariencia de
-  las herramientas de revisión, todavía sin selector público. Casco y remero
-  ya se componen por separado con máscaras por vista y fase; el compuesto antiguo
-  se retira del manifest. Cobertura actual: **14 de 210 hojas**. Seguimiento por personaje:
-  [ART-DUENDES.md](ART-DUENDES.md).
-  `npm run test:playable-art` impide dar por completa una cobertura parcial.
+  local; **los dos se pueden elegir en el juego publicado desde el 18-sep-2026**
+  (§B.5.11), y las herramientas de revisión siguen pudiendo fijar cualquiera con
+  `GAME_PLAYER_VARIANT`. Casco y remero ya se componen por separado con máscaras
+  por vista y fase; el compuesto antiguo se retira del manifest. Cobertura actual:
+  **14 de 210 hojas**. Seguimiento por personaje: [ART-DUENDES.md](ART-DUENDES.md).
+  `npm run test:playable-art` exige que cada duende OFRECIDO esté completo y DICE
+  cuántos personajes faltan; ya no bloquea la publicación por no tener los treinta.
 - Corrección de arte de navegación (18-sep): la botella será **solo el casco
   vacío, sin asiento ni remos**; el protagonista va sentado, pies hacia delante,
   con ambos remos en las manos. La propuesta `bottle-boat-layer-padded` y el
@@ -225,6 +226,26 @@ completo del encargo ni demuestra por sí solo que estén desplegados.
   `../magikitos/bosque-vivo/README.md`. No equivale a multiplayer terminado.
 - F/G y la verificación completa en producción **siguen pendientes**. No se ha
   activado una release de este encargo en producción. Se conserva el alcance íntegro.
+
+### PUBLICADO — 18-sep-2026
+
+El bosque compartido está **vivo en producción** con la release
+`9282be30865415a44257`. Lo que sigue (el handoff de la parada anterior y las
+partes A-H) se conserva porque explica POR QUÉ está hecho como está; lo que ya no
+describe el presente es lo que se marca aquí.
+
+| | |
+|---|---|
+| Migraciones | 4236, 4237, 4238 y **4239** aplicadas, cada una con su copia previa |
+| Artefacto | estacionado y luego activado con el PHP en el MISMO despliegue (§G.5) |
+| Servicio | `bosque-vivo.service`, `enabled`, 38 MB de 512, 0 reinicios, `ulimit` 65535 |
+| Proxy | `ProxyPass /bosque … upgrade=websocket` SOLO en el vhost de magikitos |
+| Reinicio | paso 7 de `vps-deploy.sh` y paso 8 de `vps-rollback.sh`, lista declarativa |
+| Comprobado | `101` a través de Cloudflare, plaza de jugador, cambio de duende sin soltar el asiento, elección que sobrevive a una recarga desde la CUENTA, `overworld → tavern → overworld` con presencia viva a 1440 y a 390, y 35 s quieto contra el corte de Cloudflare |
+
+Las identidades de prueba se retiraron todas: cero cuentas y cero filas huérfanas.
+**Lo que sigue abierto es el ARTE**: dos de los treinta protagonistas están
+completos, y el elenco crece solo el día que entren sus hojas (§B.5.11).
 
 ### Handoff al detener el objetivo — 18-sep-2026
 
@@ -1699,13 +1720,21 @@ estado actual, que `communityValidate()` ya hace de todas formas.
 
 | | |
 |---|---|
-| `4236_todo_el_bosque_se_construye.sql` | Filas de las cuatro zonas comprobadas en DDEV el 18-sep. Publicación de esta entrega pendiente; verificar el registro de migraciones del destino antes de aplicar. **Debe preceder a la activación del puntero**: §G.5 |
-| `4237_forest_messages.sql` | Escrita; tablas de necesidades, mensajes y moderación verificadas en DDEV. Pendiente en producción |
-| `4238_forest_objects.sql` | Escrita; posiciones/revisiones de objetos compartidos verificadas en DDEV. Pendiente en producción |
-| `4239_el_duende_que_eres.sql` | Escrita el 18-sep; `game_accounts.avatar`, aditiva y sin valor por defecto (NULL = nadie lo ha dicho). **Debe preceder al PHP nuevo**: ver §G.5 paso 4. Pendiente en producción |
+| `4236_todo_el_bosque_se_construye.sql` | **Aplicada en producción el 18-sep-2026.** Las cuatro zonas existen |
+| `4237_forest_messages.sql` | **Aplicada el 18-sep-2026.** Necesidades, mensajes, baneos y auditoría de moderación |
+| `4238_forest_objects.sql` | **Aplicada el 18-sep-2026.** Posiciones y revisiones de los objetos compartidos |
+| `4239_el_duende_que_eres.sql` | **Aplicada el 18-sep-2026.** `game_accounts.avatar`, aditiva y sin valor por defecto (NULL = nadie lo ha dicho). Fue ANTES que el PHP nuevo: §G.5 paso 4 |
 
 Toda migración empieza con `SET NAMES utf8mb4;`. Se prueba primero en el clon
 (`dev-migrate magikitos_dev migrations/<f>.sql`) y solo entonces se promueve.
+
+⛔ **Y el panel lista lo pendiente leyendo el ÁRBOL DE PRODUCCIÓN, no el repo.**
+Con producción dos commits por detrás, `migrations-pending` contesta «0
+pendientes» teniendo cuatro ficheros delante — y eso es exactamente lo que
+parece: que no hay nada que aplicar. Para migrar ANTES de desplegar (que es el
+orden que §G.5 exige) hay que poner los ficheros en el árbol a mano, con el
+contenido EXACTO de git: el `git reset --hard` posterior los deja igual y el
+checksum que el panel apunta sigue cuadrando.
 
 ⛔ **Y lo demás del bosque construible NO necesita SQL**: los límites, el suelo,
 lo prohibido y los anclajes los hornea el artefacto y la autoridad valida contra
