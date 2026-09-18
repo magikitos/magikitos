@@ -739,14 +739,6 @@
     "it": "Costruire",
     "pt": "Construir"
   },
-  "communityChoose": {
-    "es": "Elige algo bonito para este rincón.",
-    "en": "Choose something lovely for this corner.",
-    "de": "Such etwas Schönes für diesen Ort aus.",
-    "fr": "Choisis quelque chose de joli pour ce coin.",
-    "it": "Scegli qualcosa di bello per questo angolo.",
-    "pt": "Escolhe algo bonito para este cantinho."
-  },
   "communityConfirm": {
     "es": "Colocar",
     "en": "Place",
@@ -756,12 +748,28 @@
     "pt": "Colocar"
   },
   "communityDraw": {
-    "es": "Tócalo para ponerlo donde quieras. Deja pulsado y arrastra, y el trazo sigue tu dedo.",
-    "en": "Tap to put it where you like. Press and hold, then drag, and the line follows your finger.",
-    "de": "Tippe, um es hinzustellen. Gedrückt halten und ziehen, dann folgt die Linie deinem Finger.",
-    "fr": "Touche pour le poser où tu veux. Appuie, garde le doigt et fais glisser : le tracé suit ton doigt.",
-    "it": "Tocca per metterlo dove vuoi. Tieni premuto e trascina, e il tracciato segue il tuo dito.",
-    "pt": "Toca para o pores onde quiseres. Mantém premido e arrasta, e o traço segue o teu dedo."
+    "es": "Ese trazo no se puede dibujar así. Quita el último poste y prueba por otro lado.",
+    "en": "That line cannot be drawn like that. Take the last post out and try another way.",
+    "de": "So lässt sich das nicht ziehen. Nimm den letzten Pfosten weg und versuch es anders.",
+    "fr": "Ce tracé ne peut pas se faire comme ça. Enlève le dernier piquet et essaie autrement.",
+    "it": "Quel tracciato non si può fare così. Togli l’ultimo paletto e prova da un’altra parte.",
+    "pt": "Esse traço não se pode fazer assim. Tira a última estaca e tenta por outro lado."
+  },
+  "communityPosts": {
+    "es": "Toca para ir clavando postes.",
+    "en": "Tap to plant one post after another.",
+    "de": "Tipp, um Pfosten für Pfosten zu setzen.",
+    "fr": "Touche pour planter les piquets un à un.",
+    "it": "Tocca per piantare un paletto dopo l’altro.",
+    "pt": "Toca para ires espetando estacas."
+  },
+  "communityUndoPost": {
+    "es": "Quitar el último poste",
+    "en": "Take out the last post",
+    "de": "Letzten Pfosten wegnehmen",
+    "fr": "Enlever le dernier piquet",
+    "it": "Togliere l’ultimo paletto",
+    "pt": "Tirar a última estaca"
   },
   "communityEveryone": {
     "es": "La gente del bosque",
@@ -787,14 +795,6 @@
     "it": "È patrimonio del bosco ormai. Va trattato con cura.",
     "pt": "Isto já é património do bosque. É para cuidar."
   },
-  "communityInvalid": {
-    "es": "Aquí no encaja: deja libres el terreno y los pasos.",
-    "en": "Not here: keep the ground and access routes clear.",
-    "de": "Hier nicht: Boden und Zugänge müssen frei bleiben.",
-    "fr": "Pas ici : laisse libres le terrain et les passages.",
-    "it": "Qui no: lascia liberi il terreno e i passaggi.",
-    "pt": "Aqui não: deixa o terreno e os caminhos livres."
-  },
   "communityKindLimit": {
     "es": "De esto ya has puesto unas cuantas. Prueba con otra cosa.",
     "en": "You have put down a good few of these. Try something else.",
@@ -802,14 +802,6 @@
     "fr": "Tu en as déjà posé un bon paquet. Essaie autre chose.",
     "it": "Di questi ne hai già messi parecchi. Prova con qualcos'altro.",
     "pt": "Destes já puseste uns quantos. Experimenta outra coisa."
-  },
-  "communityMissing": {
-    "es": "Te falta material:",
-    "en": "You are short of:",
-    "de": "Dir fehlt noch:",
-    "fr": "Il te manque :",
-    "it": "Ti manca:",
-    "pt": "Falta-te:"
   },
   "communityNeedsAccount": {
     "es": "Para construir aquí hace falta conectar tu partida: lo que dejes lo ve todo el bosque y lleva tu firma.",
@@ -938,14 +930,6 @@
     "fr": "Pour ça, il te faut :",
     "it": "Per questo ti serve:",
     "pt": "Para isto precisas de:"
-  },
-  "communityValid": {
-    "es": "Aquí cabe. Dale a Colocar y se queda.",
-    "en": "It fits here. Hit Place and there it stays.",
-    "de": "Hier passt es. Tipp auf Platzieren, und da bleibt es.",
-    "fr": "Ça passe ici. Appuie sur Placer et ça reste.",
-    "it": "Qui ci sta. Tocca Posiziona e resta lì.",
-    "pt": "Aqui cabe. Carrega em Colocar e fica."
   },
   "communityZoneFull": {
     "es": "Este sitio está a reventar. Busca otro rincón del bosque.",

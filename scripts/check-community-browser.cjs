@@ -108,6 +108,7 @@ const ZONE = Object.entries(
          * menos de doce por minuto.
          */
         if (paso++) await new Promise((r) => setTimeout(r, 11000));
+        const respuestas = [];
         const page = await browser.newPage({
           viewport: { width, height },
           hasTouch: true,
@@ -145,6 +146,12 @@ const ZONE = Object.entries(
           },
           { token: identity.token, account, seed: paso === 1 },
         );
+        // Lo que contesta la autoridad, guardado por si algo no se aplica: el motivo real de un
+        // rechazo vive en su respuesta, no en el aviso que la persona acaba viendo.
+        page.on("response", async (r) => {
+          if (!r.url().includes("/api/world/community-build")) return;
+          respuestas.push({ status: r.status(), cuerpo: await r.text().catch(() => "") });
+        });
         await page.goto(origin + "/aventura");
         await require("./browser-entry.cjs").enterWorld(page);
         await page.waitForFunction(() => window.MagikitosAdventure.inspect().live.role === "player");
@@ -247,64 +254,106 @@ const ZONE = Object.entries(
           sy =
             box.y + ((point.y * 16 - s.camera.y) * box.height) / s.view.height;
         }
-        await page.touchscreen.tap(sx, sy);
-        await page.waitForFunction(() => {
-          const s = window.MagikitosAdventure.inspect();
-          return s.community.ghost && !s.community.invalid;
-        });
+        // Las coordenadas de pantalla de un punto del mundo, con la cámara de AHORA.
+        const enPantalla = async (p) => {
+          const v = await inspect();
+          return {
+            x: box.x + ((p.x * 16 - v.camera.x) * box.width) / v.view.width,
+            y: box.y + ((p.y * 16 - v.camera.y) * box.height) / v.view.height,
+          };
+        };
+        const fantasma = () =>
+          page.evaluate(() => window.MagikitosAdventure.inspect().community.ghost);
         /**
-         * ⛔ CON LA VALLITA ELEGIDA, EL MAPA SE SIGUE PUDIENDO MOVER. Es lo que rompió el primer
-         * intento de dibujar arrastrando: cualquier arrastre pasaba a ser un trazo, así que con
-         * la vallita en la mano la cámara se quedaba clavada y salía una valla de veintitrés
-         * celdas. Un arrastre rápido mueve el mapa; quien deja pulsado medio segundo, dibuja.
+         * ⛔ LA PIEZA NACE SIN APUNTAR (18-sep-2026): elegirla no la clava en ninguna parte y no
+         * hay nada que confirmar hasta que tocas el mapa. Se comprueba por `parked` y no por sus
+         * coordenadas, y la diferencia es real: con el ratón ya encima del mapa el previo aparece
+         * bajo el cursor en cuanto la caja se cierra —eso es apuntar, no colocar—, mientras que
+         * con el dedo no hay «encima» y no aparece hasta el primer toque.
          */
-        if (kind === "twig-fence") {
-          const vertices = () =>
-            page.evaluate(
-              () => window.MagikitosAdventure.inspect().community.ghost.points.length,
+        const recien = await page.evaluate(
+          () => window.MagikitosAdventure.inspect().community,
+        );
+        assert(!recien.parked, "Choosing a piece does not park it anywhere");
+        assert(await page.locator("#home-save").isDisabled(), "…so there is nothing to confirm yet");
+        await page.touchscreen.tap(sx, sy);
+        if (world.construction.definitions[kind].shape === "polyline") {
+          /**
+           * ⛔ UN TRAZADO SE CLAVA A TOQUES, Y ARRASTRAR SIGUE MOVIENDO EL MAPA. Aquí vivió una
+           * máquina de dejar-pulsado-y-arrastrar, y el cartel que la explicaba era mentira: con
+           * la valla en la mano, la mitad de los arrastres acababan siendo un trazo que nadie
+           * había pedido. Ahora los dos gestos no se pueden pisar, porque no comparten nada.
+           */
+          const postes = async () => (await fantasma()).points.length;
+          assert.equal(await postes(), 1, "The first tap plants one post, not a trace");
+          assert(
+            await page.locator("#home-save").isDisabled(),
+            "…and one post is not something you can place yet",
+          );
+          if (kind === "twig-fence") {
+            const antes = (await inspect()).camera;
+            await page.mouse.move(width * 0.5, height * 0.3);
+            await page.mouse.down();
+            await page.mouse.move(width * 0.5 - 60, height * 0.3, { steps: 6 });
+            await page.mouse.up();
+            const movido = (await inspect()).camera;
+            assert(
+              Math.abs(movido.x - antes.x) > 20,
+              "A drag still moves the map while a trace is in hand",
             );
-          assert.equal(await vertices(), 2, "A tapped fence is the shortest one");
-          const before = (await inspect()).camera;
-          await page.mouse.move(width * 0.5, height * 0.3);
-          await page.mouse.down();
-          await page.mouse.move(width * 0.5 - 60, height * 0.3, { steps: 6 });
-          await page.mouse.up();
-          const panned = (await inspect()).camera;
-          assert(
-            Math.abs(panned.x - before.x) > 20,
-            "A quick drag still moves the map while a fence is in hand",
+            assert.equal(await postes(), 1, "…and plants nothing");
+          }
+          // Segundo poste, donde acaba el trazo que el buscador de huecos dio por legal.
+          const uno = await fantasma();
+          const dos = await enPantalla({ x: uno.x + 2, y: uno.y });
+          await page.touchscreen.tap(dos.x, dos.y);
+          assert.equal(await postes(), 2, "The second tap is the trace");
+          if (kind === "twig-fence") {
+            // Y se quita y se vuelve a poner, que para eso está el botón.
+            await page.locator("#build-undo").click();
+            assert.equal(await postes(), 1, "Taking the last post out leaves the first");
+            await page.touchscreen.tap(dos.x, dos.y);
+            assert.equal(await postes(), 2, "…and it can be planted again");
+          }
+          // Mide lo que el buscador de huecos bendijo, ni media celda más: un trazado se cobra
+          // POR CELDA y esta cuenta lleva los palitos justos.
+          assert.deepEqual(
+            (await fantasma()).points,
+            [[0, 0], [2, 0]],
+            "The two posts are exactly the trace the free-spot search blessed",
           );
-          assert.equal(await vertices(), 2, "…and draws nothing");
-          // Y dejando pulsado, el mismo arrastre dibuja.
-          await page.mouse.move(width * 0.5, height * 0.3);
-          await page.mouse.down();
-          await page.waitForTimeout(500);
-          await page.mouse.move(width * 0.5 + 90, height * 0.3, { steps: 8 });
-          await page.mouse.move(width * 0.5 + 90, height * 0.3 + 70, { steps: 8 });
-          await page.mouse.up();
-          assert(
-            (await vertices()) >= 3,
-            "Press, hold and drag draws a trace with corners",
-          );
-          // Se vuelve a elegir la vallita —que es lo que hace una persona que se ha pasado de
-          // largo— y con ella el trazo más corto otra vez, y se coloca en el hueco legal.
-          await elegir("Vallita de ramitas");
-          assert.equal(await vertices(), 2, "Choosing the fence again starts short");
-          s = await inspect();
-          sx = box.x + ((point.x * 16 - s.camera.x) * box.width) / s.view.width;
-          sy = box.y + ((point.y * 16 - s.camera.y) * box.height) / s.view.height;
-          await page.touchscreen.tap(sx, sy);
-          await page.waitForFunction(() => {
-            const s = window.MagikitosAdventure.inspect();
-            return s.community.ghost && !s.community.invalid;
-          });
         }
+        // Puesta en un sitio legal y sin que nada se queje. Si no llega, la prueba dice QUÉ tenía
+        // en la mano: una espera agotada a secas no distingue «no se ha colocado» de «se ha
+        // colocado donde no cabe».
+        await page
+          .waitForFunction(() => {
+            const s = window.MagikitosAdventure.inspect();
+            return s.community.ghost && s.community.ghost.x !== null && !s.community.invalid;
+          })
+          .catch(async (error) => {
+            const dicho = await page.evaluate(() => window.MagikitosAdventure.inspect().community);
+            throw Error(
+              "Apuntar " + kind + " a " + width + ": " + JSON.stringify(dicho) +
+                " (esperado " + JSON.stringify(point) + ") " + error.message,
+            );
+          });
         await page.screenshot({
           path: `.local/community-review/placement-${kind}-${width}.png`,
         });
         const puestas = (
           await page.evaluate(() => window.MagikitosAdventure.inspect().community.objects)
         ).length;
+        // Y Colocar tiene que estar ENCENDIDO. Si no, la prueba dice por qué en vez de agotar un
+        // reloj: apagado puede ser que no quepa, que no llegue el material o que falte herramienta,
+        // y desde fuera los tres se ven igual.
+        const listo = await page.evaluate(() => ({
+          apagado: document.getElementById("home-save").disabled,
+          precio: document.getElementById("build-price").textContent.trim(),
+          fantasma: window.MagikitosAdventure.inspect().community.ghost,
+          saco: window.MagikitosAdventure.inspect().inventory,
+        }));
+        assert(!listo.apagado, "Colocar apagado: " + JSON.stringify(listo));
         await page.locator("#home-save").click();
         // ⛔ COLOCAR NO SUELTA LA PIEZA (18-sep-2026): poner una flor casi nunca es poner una
         // sola, así que lo que cambia es el BOSQUE y no la mano. Por eso se espera a que el claro
@@ -318,9 +367,11 @@ const ZONE = Object.entries(
           )
           .catch(async (error) => {
             const dicho = await page.evaluate(() => ({
-              motivo: document.getElementById("community-reason")?.textContent?.trim(),
+              precio: document.getElementById("build-price")?.textContent?.trim(),
               aviso: document.querySelector("#world-toast")?.textContent?.trim(),
+              fantasma: window.MagikitosAdventure.inspect().community.ghost,
             }));
+            dicho.servidor = respuestas;
             throw Error(
               "Colocar " + kind + " a " + width + " no se aplicó: " +
                 JSON.stringify(dicho) + " (" + error.message + ")",
@@ -342,6 +393,32 @@ const ZONE = Object.entries(
           await http.get("/api/world/community?zone=" + ZONE)
         ).json();
         assert.equal(after.objects.length, snapshot.objects.length + 1);
+        /**
+         * ⛔ EL IMÁN, contra lo que ACABA de quedarse puesto. Un toque a menos de una celda de un
+         * poste se pega a ÉL, sin espacio: empalmar con lo que ya hay es lo fácil, que es justo
+         * lo que la regla de vecindad premia. Y la celda no es a ojo — es el hueco más grande por
+         * el que un duende todavía no pasa, así que el imán solo cierra lo que no era una puerta.
+         */
+        if (kind === "twig-fence") {
+          const puesta = after.objects.find(
+            (o) => !snapshot.objects.some((b) => b.id === o.id),
+          );
+          const punta = {
+            x: puesta.x + puesta.points.at(-1)[0],
+            y: puesta.y + puesta.points.at(-1)[1],
+          };
+          const casi = await enPantalla({ x: punta.x + 0.6, y: punta.y - 0.4 });
+          await page.touchscreen.tap(casi.x, casi.y);
+          const pegado = await page.evaluate(
+            () => window.MagikitosAdventure.inspect().community.ghost,
+          );
+          assert.deepEqual(
+            [pegado.x, pegado.y],
+            [punta.x, punta.y],
+            "A tap within one tile of an existing post lands ON it, with no gap",
+          );
+          await page.locator("#build-undo").click();
+        }
         assert.equal(
           await page.evaluate(
             () => document.documentElement.scrollWidth > innerWidth,

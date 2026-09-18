@@ -1224,6 +1224,9 @@ class Adventure {
         editing: this.community.editing,
         objects: this.community.snapshot?.objects || [],
         ghost: this.community.ghost,
+        // `parked` distingue el PREVIO —que sigue al cursor— de una pieza ya apuntada: con el
+        // ratón encima del mapa las dos tienen coordenadas, y solo la segunda se puede confirmar.
+        parked: this.community.parked,
         invalid: this.community.invalid,
       },
       sync: {

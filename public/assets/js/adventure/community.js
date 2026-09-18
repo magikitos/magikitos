@@ -3,11 +3,10 @@ const { TILE } = require("./geometry");
 const {
   shapes,
   objectCost,
-  polylineLength,
   polylineReason,
   validateConstruction,
-  POLYLINE_MAX_POINTS,
-  POLYLINE_MAX_LENGTH,
+  POLYLINE_MIN_SEGMENT,
+  POLYLINE_HALF,
 } = require("./construction-layout");
 const { drawArtwork } = require("./entity-art");
 const { operationId } = require("./material-account");
@@ -18,6 +17,13 @@ const { CommunitySync } = require("./community-sync");
 const { applyCommunityLayer } = require("./community-layer");
 const fences = require("./fences");
 const byId = (id) => document.getElementById(id);
+/**
+ * Lo que el imán de los trazados alcanza, en celdas. Ver `snap()`: es el hueco más grande por el
+ * que un duende TODAVÍA no pasa, así que cerrarlo no le quita a nadie una puerta que sirviera.
+ */
+const MAGNET = 1;
+/** Lo que dura el destello de «ahí no», en milisegundos. */
+const REJECT_MS = 320;
 
 /**
  * CONSTRUIR: el bosque entero es de todos, y esto es la puerta para dejar algo en él.
@@ -96,6 +102,7 @@ class Community {
     byId("home-save").onclick = () => this.commit();
     byId("home-cancel").onclick = () => this.cancel();
     byId("community-rotate").onclick = () => this.rotate();
+    byId("build-undo").onclick = () => this.undo();
     // Cerrar el catálogo sin elegir nada no deja a nadie con una barra vacía en la mano.
     byId("build-dialog").addEventListener("close", () => {
       if (!this.ghost) this.cancel();
@@ -120,118 +127,28 @@ class Community {
         y: g.camera.y + ((e.clientY - r.top) / r.height) * g.renderer.height,
       };
     };
-    canvas.addEventListener("pointermove", (e) => {
-      if (
-        !this.editing ||
-        !this.ghost ||
-        this.busy ||
-        this.stroke ||
-        this.drawing ||
-        e.pointerType === "touch"
-      )
-        return;
-      this.position(ground(e));
-    });
     /**
-     * ⛔ UNA VALLITA SE DIBUJA DEJANDO PULSADO Y ARRASTRANDO, y ese medio segundo de más no es
-     * ceremonia: es lo único que salva el gesto de mover el mapa.
+     * ⛔ ARRASTRAR MUEVE EL MAPA. SIEMPRE. Aquí vivió una máquina de dejar-pulsado-y-arrastrar
+     * para trazar vallas, con su umbral de 350 ms, su holgura de diez píxeles, su captura de
+     * puntero y sus cuatro escuchas en fase de captura peleándose con el módulo de entrada. Y el
+     * cartel que la explicaba era mentira (18-sep-2026, el dueño: «eso lo que hace es mover el
+     * mapa, y está bien que eso mueva el mapa»): con la valla en la mano, la mitad de los
+     * arrastres acababan siendo un trazo que nadie había pedido.
      *
-     * El primer intento tomaba cualquier arrastre, y con la vallita elegida el mapa dejaba de
-     * poder moverse — se vio a la primera en la prueba de teléfono, que aparta la cámara para
-     * traer un hueco a la vista y se encontró trazando una valla de veintitrés celdas. Mantener
-     * pulsado es además el gesto que la casa ya usa para grabar, así que no hay vocabulario
-     * nuevo: un arrastre rápido mueve el mapa, un toque coloca la valla donde tocas, y quien
-     * aguanta medio segundo se pone a dibujar.
-     *
-     * Van en CAPTURA porque el módulo de entrada escucha en burbuja: al arrancar el trazo se le
-     * cancela el paneo que había empezado y se le esconde todo lo demás.
+     * Lo único que escucha esto ahora es el movimiento del RATÓN, y solo para apuntar: el previo
+     * sigue al cursor hasta que lo clavas. El dedo no tiene «encima» que valga, así que en un
+     * teléfono el primer toque es el que apunta, por el mismo camino y sin una rama propia.
      */
-    const HOLD_MS = 350,
-      SLOP = 10;
-    const soltarPresion = () => {
-      if (this.press) clearTimeout(this.press.timer);
-      this.press = null;
-    };
-    const empezarTrazo = () => {
-      const p = this.press;
-      soltarPresion();
-      this.game.input?.map?.clear();
-      canvas.setPointerCapture?.(p.id);
-      this.stroke = [p.ground];
-    };
-    for (const [type, handle] of [
-      [
-        "pointerdown",
-        (e) => {
-          soltarPresion();
-          this.press = {
-            id: e.pointerId,
-            x: e.clientX,
-            y: e.clientY,
-            ground: ground(e),
-            timer: setTimeout(empezarTrazo, HOLD_MS),
-          };
-          // ⛔ EL `pointerdown` SE DEJA PASAR SIEMPRE. Todavía no se sabe si esto va a ser un
-          // trazo, un paseo o un arrastre del mapa, y quedárselo aquí es quitarle al mundo el
-          // suceso con el que empieza a panear: la cámara se quedaba clavada con la vallita en
-          // la mano. Solo se le esconde lo que viene DESPUÉS, y solo si el trazo arranca.
-          return false;
-        },
-      ],
-      [
-        "pointermove",
-        (e) => {
-          if (this.stroke) {
-            this.stroke.push(ground(e));
-            return true;
-          }
-          if (
-            this.press &&
-            Math.hypot(e.clientX - this.press.x, e.clientY - this.press.y) >
-              SLOP
-          )
-            soltarPresion();
-          return false;
-        },
-      ],
-      [
-        "pointerup",
-        (e) => {
-          soltarPresion();
-          const raw = this.stroke;
-          this.stroke = null;
-          if (!raw) return false;
-          this.trace(raw, ground(e));
-          return true;
-        },
-      ],
-      [
-        "pointercancel",
-        () => {
-          soltarPresion();
-          const drawing = Boolean(this.stroke);
-          this.stroke = null;
-          return drawing;
-        },
-      ],
-    ])
-      canvas.addEventListener(
-        type,
-        (e) => {
-          if (!this.drawing || this.busy) {
-            soltarPresion();
-            this.stroke = null;
-            return;
-          }
-          // Solo se le esconde el suceso al mundo cuando de verdad estamos trazando: lo demás
-          // (mover el mapa, tocar para colocar) sigue siendo suyo.
-          if (handle(e) !== false) {
-            e.preventDefault();
-            e.stopPropagation();
-          }
-        },
-        true,
-      );
+    canvas.addEventListener("pointermove", (e) => {
+      if (!this.editing || !this.ghost || this.busy || e.pointerType === "touch")
+        return;
+      this.aim(ground(e));
+    });
+    canvas.addEventListener("pointerleave", () => {
+      if (!this.hover) return;
+      this.hover = null;
+      this.magnet = null;
+    });
   }
   get zone() {
     return (
@@ -644,23 +561,24 @@ class Community {
     return price || tool;
   }
   /**
-   * Elegir una cosa: se CIERRA el catálogo y la pieza se te queda en la mano.
+   * Elegir una cosa: se CIERRA el catálogo y la pieza se te queda EN LA MANO, sin sitio todavía.
    *
    * ⛔ Cerrar no es cosmética, es el arreglo. Con el panel abierto ocupando media pantalla,
    * «tócalo donde quieras» significaba tocar el panel: se elegía la piscina, aparecía su
    * rectángulo y al pinchar no se movía a ninguna parte. Aquí el mapa vuelve a ser tuyo entero y
-   * lo único que queda delante es la barra de confirmar.
+   * lo único que queda delante es la barra de abajo.
+   *
+   * ⛔ Y NO SE COLOCA POR DEFECTO (18-sep-2026, decisión del dueño). Nacía a los pies de quien la
+   * elegía, así que la primera vez que la veías ya estaba puesta en un sitio que no habías
+   * elegido tú. Ahora nace sin coordenadas: con el ratón aparece bajo el cursor y lo sigue, y con
+   * el dedo aparece donde tocas. Un trazado nace además sin un solo poste.
    */
   select(kind, variant) {
-    const g = this.game,
-      d = this.catalog.definitions[kind];
-    // Donde estabas poniendo cosas, y si es la primera, a tus pies: con la pantalla entera
-    // construible, el centro del mapa casi nunca es donde estás mirando.
-    const where = this.lastPlace || {
-      x: Math.round((g.player.x / TILE) * 2) / 2,
-      y: Math.round((g.player.y / TILE) * 2) / 2,
-    };
+    const d = this.catalog.definitions[kind];
     this.editing = true;
+    this.hover = null;
+    this.magnet = null;
+    this.parked = false;
     this.ghost = {
       // La pieza que estás colocando es la CANDIDATA, y las reglas que juzgan un permiso —lo
       // prohibido, no calcar un trazo— solo la miran a ella. Sin un nombre no habría a quién
@@ -669,79 +587,150 @@ class Community {
       kind,
       variant: d.variants.some((v) => v.id === variant) ? variant : d.variants[0].id,
       rotation: d.rotations[0],
-      x: where.x,
-      y: where.y,
-      // Dos celdas: es el trazo más corto que la casa permite y cuesta exactamente lo que
-      // costaba la vallita de antes, así que estrenar el trazado no encarece la primera valla
-      // de nadie. Desde ahí se arrastra para hacerla tan larga como se quiera pagar.
-      ...(d.shape === "polyline"
-        ? {
-            points: [
-              [0, 0],
-              [2, 0],
-            ],
-          }
-        : {}),
+      x: null,
+      y: null,
+      ...(d.shape === "polyline" ? { points: [] } : {}),
     };
-    this.revalidate();
+    this.invalid = null;
     byId("build-dialog").close();
+    this.paint();
+  }
+  /** ¿La pieza tiene ya un sitio en el mundo? Un trazado lo tiene desde su primer poste. */
+  get placed() {
+    return Boolean(this.ghost) && this.ghost.x !== null;
+  }
+  /**
+   * ¿Hay algo que CONFIRMAR? No es lo mismo que tener sitio: con el ratón encima del mapa el
+   * previo se pinta bajo el cursor sin que hayas decidido nada, y dar por buena esa posición
+   * sería colocar una cosa donde nadie ha pinchado — para siempre, que lo que se pone se queda.
+   * Una pieza suelta hace falta clavarla; un trazado, que tenga dos postes.
+   */
+  get ready() {
+    if (!this.placed) return false;
+    return this.drawing ? this.ghost.points.length >= 2 : this.parked;
+  }
+  /**
+   * ⛔ EL IMÁN: 1 CELDA, Y EL NÚMERO NO ES A OJO (18-sep-2026, decisión del dueño: «si el clic es
+   * cerca de uno existente, se toma como nodo desde ese, sin espacio… ver la distancia bien para
+   * poder hacer puertecitas sin que se pegue»).
+   *
+   * Cierra exactamente los huecos por los que no cabe un duende, y eso sale de la geometría que
+   * ya hay: una valla se come `POLYLINE_HALF` a cada lado de su último poste y el duende mide
+   * doce píxeles de ancho, así que un hueco de N celdas deja (N − 0,5) celdas de paso. Media
+   * celda deja cero, una celda deja ocho píxeles —un duende no pasa—, y celda y media deja
+   * dieciséis, que es el primer hueco por el que sí se pasa. Por eso el imán llega hasta UNA
+   * celda: todo lo que cierra era un hueco inútil y el primero que te deja conservar es el
+   * primero que sirve de puerta.
+   *
+   * Va en celdas del MUNDO y no en píxeles de pantalla: si fuera en pantalla, el zoom cambiaría
+   * qué toques empalman, que es de las cosas que se sienten rotas sin que nadie sepa por qué.
+   *
+   * Y solo se pega a POSTES, no a cualquier punto de un trazo: la rejilla es de media celda y un
+   * punto a mitad de tramo daría coordenadas que el propio validador rechaza (`invalid_points`).
+   */
+  snap(point) {
+    const x = Math.round((point.x / TILE) * 2) / 2,
+      y = Math.round((point.y / TILE) * 2) / 2;
+    if (!this.drawing) return { x, y, post: null };
+    let post = null,
+      best = MAGNET;
+    for (const p of this.posts()) {
+      const d = Math.hypot(p[0] - x, p[1] - y);
+      if (d > best) continue;
+      best = d;
+      post = p;
+    }
+    return post ? { x: post[0], y: post[1], post } : { x, y, post: null };
+  }
+  /** Los postes a los que este trazo se puede empalmar: los de su especie, y los suyos propios
+   *  menos el último, que un tramo de longitud cero no existe. */
+  posts() {
+    const out = [];
+    for (const o of this.snapshot?.objects || [])
+      if (o.kind === this.ghost.kind && Array.isArray(o.points))
+        out.push(...this.absolutePoints(o));
+    if (this.placed)
+      for (const p of this.ghost.points.slice(0, -1))
+        out.push([this.ghost.x + p[0], this.ghost.y + p[1]]);
+    return out;
+  }
+  /** Apuntar: lo que hace el ratón por encima del mapa. No coloca nada. */
+  aim(point) {
+    const aimed = this.snap(point);
+    this.hover = aimed;
+    this.magnet = aimed.post;
+    // Una pieza suelta que todavía no has clavado SIGUE al cursor; un trazado enseña el tramo
+    // que vendría, y para eso le basta con saber dónde está el dedo.
+    if (!this.drawing && !this.parked) {
+      this.ghost.x = aimed.x;
+      this.ghost.y = aimed.y;
+      this.revalidate();
+    }
     this.paint();
   }
   tap(point) {
     if (!this.editing) return false;
-    if (this.ghost) this.position(point);
+    if (!this.ghost || this.busy) return true;
+    const aimed = this.snap(point);
+    this.hover = aimed;
+    this.magnet = aimed.post;
+    if (this.drawing) this.plant(aimed);
+    else {
+      this.ghost.x = aimed.x;
+      this.ghost.y = aimed.y;
+      this.parked = true;
+      this.revalidate();
+      if (this.invalid) this.reject();
+    }
+    this.paint();
     return true;
   }
-  position(point) {
-    if (this.pending || !this.ghost) return;
-    const x = Math.round((point.x / TILE) * 2) / 2,
-      y = Math.round((point.y / TILE) * 2) / 2;
-    if (this.ghost.x === x && this.ghost.y === y) return;
-    Object.assign(this.ghost, { x, y });
-    this.lastPlace = { x, y };
-    this.revalidate();
-    this.paint();
-  }
   /**
-   * De lo que ha trazado el dedo a los vértices que se guardan.
-   *
-   * Se muestrea a un tile, se recorta a lo que la vallita puede medir y se simplifica por
-   * distancia perpendicular hasta que quepa en los vértices permitidos: lo que la persona hace es
-   * arrastrar, y lo que se guarda es el MISMO dato que escribe el Estudio. Un toque seco no
-   * dibuja nada y se trata como mover la valla entera, que es lo que parece que hace.
+   * Clavar un poste. Los trazados se hacen a toques, y cada toque es un poste: arrastrar sigue
+   * siendo mover el mapa, así que los dos gestos no pueden pisarse.
    */
-  trace(raw, end) {
-    if (!this.drawing || this.pending) return;
-    const snap = (v) => Math.round(v * 2) / 2;
-    const sampled = [];
-    for (const p of [...raw, end]) {
-      const q = [snap(p.x / TILE), snap(p.y / TILE)];
-      const last = sampled.at(-1);
-      if (!last || Math.hypot(q[0] - last[0], q[1] - last[1]) >= 1)
-        sampled.push(q);
-    }
-    if (sampled.length < 2) {
-      this.position(end);
+  plant(aimed) {
+    if (this.pending) return;
+    if (!this.placed) {
+      this.ghost.x = aimed.x;
+      this.ghost.y = aimed.y;
+      this.ghost.points = [[0, 0]];
       return;
     }
-    while (polylineLength(sampled) > POLYLINE_MAX_LENGTH && sampled.length > 2)
-      sampled.pop();
-    let points = sampled;
-    for (
-      let tolerance = 0.5;
-      points.length > POLYLINE_MAX_POINTS && tolerance <= 8;
-      tolerance *= 1.6
-    )
-      points = simplifyPath(sampled, tolerance);
-    points = points.slice(0, POLYLINE_MAX_POINTS);
-    const [ox, oy] = points[0];
-    this.ghost.x = ox;
-    this.ghost.y = oy;
-    this.ghost.points = points.map((p) => [p[0] - ox, p[1] - oy]);
-    this.lastPlace = { x: ox, y: oy };
+    const last = this.ghost.points.at(-1),
+      dx = aimed.x - this.ghost.x - last[0],
+      dy = aimed.y - this.ghost.y - last[1];
+    // Un toque casi encima del último poste es un dedo tembloroso, no un tramo: el validador lo
+    // llamaría `invalid_points` y te dejaría con un trazo que no se puede ni guardar ni entender.
+    if (Math.hypot(dx, dy) < POLYLINE_MIN_SEGMENT) return this.reject();
+    const grown = [...this.ghost.points, [last[0] + dx, last[1] + dy]];
+    // Lo estructural —cuántos postes caben y cuánto puede medir— se mira ANTES de añadirlo: un
+    // poste que el trazo no puede llevar no enseña nada puesto, solo deja un lío que deshacer.
+    if (polylineReason(grown)) return this.reject();
+    this.ghost.points = grown;
     this.revalidate();
+    if (this.invalid) this.reject();
+  }
+  /** Quitar el último poste. Con uno solo, el trazo vuelve a no tener sitio. */
+  undo() {
+    if (!this.drawing || !this.placed || this.busy || this.pending) return;
+    const points = this.ghost.points.slice(0, -1);
+    if (!points.length) {
+      this.ghost.x = null;
+      this.ghost.y = null;
+      this.ghost.points = [];
+      this.invalid = null;
+    } else {
+      this.ghost.points = points;
+      this.revalidate();
+    }
     this.paint();
   }
+  /** Ahí no. Sin una palabra: la pieza destella en rojo y ya. */
+  reject() {
+    this.flash = performance.now();
+  }
+
   revalidate() {
     if (!this.ghost || !this.snapshot) return;
     this.invalid = validateConstruction(
@@ -791,7 +780,9 @@ class Community {
     this.editing = false;
     this.ghost = null;
     this.invalid = null;
-    this.stroke = null;
+    this.hover = null;
+    this.magnet = null;
+    this.parked = false;
     this.game.focusPoint = null;
     const dialog = byId("build-dialog");
     if (dialog.open) dialog.close();
@@ -801,7 +792,7 @@ class Community {
    *  tienen puerta: lo que se pone se queda (18-sep-2026, decisión del dueño). */
   async commit() {
     if (this.game.live && !this.game.live.canWrite()) return;
-    if (this.busy || !this.ghost || !this.snapshot || this.invalid || this.missing()) return;
+    if (this.busy || !this.ready || !this.snapshot || this.invalid || this.missing()) return;
     const g = this.game;
     // After the guards: a rejected commit is not a milestone.
     g.telemetry?.milestone("build");
@@ -834,10 +825,13 @@ class Community {
       g.updateUI();
       g.save();
       g.audio.effect("found");
-      // ⛔ LA PIEZA SE QUEDA EN LA MANO: poner una flor casi nunca es poner una sola, y volver al
-      // catálogo entre flor y flor son dos toques de más. Se queda donde estaba, así que la barra
-      // dirá «ahí ya hay algo» hasta que la muevas — que es exactamente lo que hay que hacer.
-      this.revalidate();
+      // ⛔ LA PIEZA SE QUEDA EN LA MANO, PERO SIN SITIO: poner una flor casi nunca es poner una
+      // sola, y volver al catálogo entre flor y flor son dos toques de más. Antes se quedaba
+      // donde estaba y salía roja ella sola, porque lo que tenía debajo era lo que acababas de
+      // poner. Ahora vuelve a estar por apuntar, igual que al elegirla.
+      this.ghost = { ...this.ghost, x: null, y: null, ...(this.drawing ? { points: [] } : {}) };
+      this.parked = false;
+      this.invalid = null;
     } catch (error) {
       if (error.status >= 400 && error.status < 500) {
         this.clearPending();
@@ -915,45 +909,118 @@ class Community {
     ctx.restore();
     if (!this.ghost) return;
     const d = this.catalog.definitions[this.ghost.kind];
-    ctx.save();
-    ctx.globalAlpha = 0.6;
-    if (d.paint === "path")
-      drawPathTrace(
-        ctx,
-        this.absolutePoints(this.ghost).map((p) => [p[0] * TILE, p[1] * TILE]),
-        0.9,
-      );
-    else if (d.shape === "polyline")
-      for (const part of fences.parts({
-        x: this.ghost.x * TILE,
-        y: this.ghost.y * TILE,
-        fence: { points: this.ghost.points },
-      }))
-        fences.drawPart(ctx, part);
-    else
-      drawArtwork(
-        ctx,
-        g.renderer.sprites,
-        {
-          x: this.ghost.x * TILE,
-          y: this.ghost.y * TILE,
-          scale: d.scale || 1,
-        },
-        this.sprite(this.ghost),
-      );
-    ctx.globalAlpha = 1;
-    ctx.strokeStyle = this.invalid ? "#eab291" : "#e0ecc3";
-    ctx.fillStyle = this.invalid
-      ? "rgba(131,57,40,.25)"
-      : "rgba(152,193,111,.25)";
-    ctx.lineWidth = 1;
-    ctx.setLineDash(this.invalid ? [3, 2] : []);
-    for (const b of shapes(this.ghost, d)) {
+    // El poste al que el imán va a pegarse, encendido ANTES de que sueltes: empalmar no puede ser
+    // una sorpresa que descubres cuando ya está hecho.
+    if (this.magnet) {
+      ctx.save();
+      ctx.strokeStyle = "#f0d48a";
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.arc(this.magnet[0] * TILE, this.magnet[1] * TILE, 5, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
+    }
+    if (this.drawing) this.drawTrace(ctx, d);
+    else if (this.placed) this.drawPiece(ctx, d);
+  }
+  /** Cuánto queda del destello de «ahí no», de 1 a 0. */
+  get rejected() {
+    if (!this.flash) return 0;
+    const left = 1 - (performance.now() - this.flash) / REJECT_MS;
+    if (left <= 0) this.flash = 0;
+    return Math.max(0, left);
+  }
+  /** El relleno y el borde de la huella: verde si cabe, y rojo de verdad mientras destella. */
+  outline(ctx, boxes) {
+    const flash = this.rejected;
+    ctx.strokeStyle = flash ? "#ff8b6a" : this.invalid ? "#eab291" : "#e0ecc3";
+    ctx.fillStyle = flash
+      ? "rgba(190,48,32," + (0.2 + 0.4 * flash).toFixed(2) + ")"
+      : this.invalid
+        ? "rgba(131,57,40,.25)"
+        : "rgba(152,193,111,.25)";
+    ctx.lineWidth = flash ? 2 : 1;
+    ctx.setLineDash(this.invalid && !flash ? [3, 2] : []);
+    for (const b of boxes) {
       ctx.fillRect(b.x * TILE, b.y * TILE, b.w * TILE, b.h * TILE);
       ctx.strokeRect(b.x * TILE, b.y * TILE, b.w * TILE, b.h * TILE);
     }
+  }
+  drawPiece(ctx, d) {
+    ctx.save();
+    ctx.globalAlpha = 0.6;
+    drawArtwork(
+      ctx,
+      this.game.renderer.sprites,
+      { x: this.ghost.x * TILE, y: this.ghost.y * TILE, scale: d.scale || 1 },
+      this.sprite(this.ghost),
+    );
+    ctx.globalAlpha = 1;
+    this.outline(ctx, shapes(this.ghost, d));
     ctx.restore();
   }
+  /**
+   * Un trazado a medio clavar: lo puesto va entero y el tramo que VENDRÍA va tenue, porque
+   * todavía no es tuyo. Cada poste lleva su punto para que se vea dónde sigue la cosa.
+   */
+  drawTrace(ctx, d) {
+    const puesto = this.placed ? this.absolutePoints(this.ghost) : [];
+    const siguiente =
+      this.hover && puesto.length
+        ? [this.hover.x, this.hover.y]
+        : null;
+    ctx.save();
+    if (puesto.length > 1) {
+      ctx.globalAlpha = 0.6;
+      this.paintTrace(ctx, d, puesto);
+      ctx.globalAlpha = 1;
+      this.outline(ctx, shapes(this.ghost, d));
+    }
+    if (siguiente) {
+      ctx.globalAlpha = 0.28;
+      this.paintTrace(ctx, d, [puesto.at(-1), siguiente]);
+      ctx.globalAlpha = 1;
+    }
+    // Y si aún no hay ni un poste, lo que se enseña es dónde caería el primero.
+    ctx.fillStyle = this.rejected ? "#ff8b6a" : "#f6efcf";
+    ctx.strokeStyle = "#3d5233";
+    ctx.lineWidth = 1;
+    ctx.setLineDash([]);
+    for (const p of puesto.length ? puesto : this.hover ? [[this.hover.x, this.hover.y]] : []) {
+      ctx.beginPath();
+      ctx.arc(p[0] * TILE, p[1] * TILE, 2.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+  /** El dibujo de un trazado, con el pincel que le toque: tierra o postes y travesaños. */
+  paintTrace(ctx, d, points) {
+    if (d.paint === "path")
+      return drawPathTrace(
+        ctx,
+        points.map((p) => [p[0] * TILE, p[1] * TILE]),
+        0.9,
+      );
+    const [ox, oy] = points[0];
+    for (const part of fences.parts({
+      x: ox * TILE,
+      y: oy * TILE,
+      fence: { points: points.map((p) => [p[0] - ox, p[1] - oy]) },
+    }))
+      fences.drawPart(ctx, part);
+  }
+  /**
+   * ⛔ ESTO CORRE EN CADA FOTOGRAMA (lo llama el bucle del juego), así que lo único que se
+   * reconstruye es lo que ha cambiado: el dibujo de la pieza cuesta un canvas y se rehace solo
+   * cuando cambias de pieza. Lo demás son asignaciones que el navegador descarta solas si valen
+   * lo mismo.
+   *
+   * ⛔ Y NO HAY RENGLÓN DE MOTIVO (18-sep-2026, decisión del dueño: «si no deja, pues que salga
+   * algo de feedback visual rojo y ya, sin texto»). Que ahí no cabe lo dice la pieza poniéndose
+   * roja, que es donde estás mirando; lo que la barra dice es lo que CUESTA, y en rojo cuando no
+   * te llega, que es la única pregunta que el mapa no puede contestar solo.
+   */
   paint() {
     const g = this.game;
     if (!g.state) return;
@@ -971,34 +1038,35 @@ class Community {
     const short = this.missing(),
       tool = this.tool();
     byId("home-save").disabled =
-      this.busy || !this.ghost || !!this.invalid || !!short || !!tool;
+      this.busy || !this.ready || !!this.invalid || !!short || !!tool;
     byId("community-rotate").hidden = !d || d.rotations.length < 2;
     byId("community-rotate").disabled = this.busy || !!this.pending;
+    byId("build-undo").hidden = !this.drawing || !this.placed;
+    byId("build-undo").disabled = this.busy || !!this.pending;
     byId("home-cancel").disabled = this.busy;
     // Qué llevas en la mano, con su foto: la barra no dice «una pieza», dice CUÁL.
-    const piece = byId("build-piece");
-    piece.replaceChildren();
-    if (d) {
-      const icon = this.tile(d, d.variants.find((v) => v.id === this.ghost.variant));
-      if (icon) piece.append(icon);
+    // ⛔ Y SE LLAMA `shownPiece` Y NO `painted`: `painted` ya era la firma de los caminitos
+    // pintados en el suelo, un Map que `accept()` consulta con `.get()`. Llamando igual a las dos
+    // cosas, la primera pieza que entraba en la mano convertía el Map en una cadena y la
+    // siguiente instantánea del servidor reventaba con un «no es una función» que salía por la
+    // pantalla como «algo ha cambiado, revisa el lugar». Un colocado perfecto pareciendo un
+    // rechazo del bosque.
+    const firma = d ? this.ghost.kind + "/" + this.ghost.variant : "";
+    if (firma !== this.shownPiece) {
+      this.shownPiece = firma;
+      const piece = byId("build-piece");
+      piece.replaceChildren();
+      if (d) {
+        const icon = this.tile(d, d.variants.find((v) => v.id === this.ghost.variant));
+        if (icon) piece.append(icon);
+      }
     }
-    const say = byId("community-reason");
-    if (!this.ghost) say.textContent = g.text("communityChoose");
-    else if (tool)
-      say.textContent = `${g.text("communityToolRequired")} ${g.text(
-        g.catalog.items[tool]?.name || tool,
-      )}`;
-    else if (short)
-      say.textContent = `${g.text("communityMissing")} ${short
-        .map(([id, n]) => `${g.text(g.catalog.items[id]?.name || id)} ×${n}`)
-        .join(" · ")}`;
-    else if (this.invalid)
-      say.textContent = g.text(RAZONES[this.invalid] || "communityInvalid");
-    else
-      say.textContent = `${g.text("communityValid")}${
-        d.shape === "polyline" ? ` · ${this.costLabel(d, this.ghost)}` : ""
-      }`;
-    byId("community-hint").hidden = !d || d.shape !== "polyline";
+    const price = byId("build-price");
+    price.textContent = d ? this.costLabel(d, this.ghost) : "";
+    price.classList.toggle("is-short", Boolean(short || tool));
+    // El cartel que enseña el gesto invisible, y solo hasta que clavas el primero: a partir de
+    // ahí la cosa se explica sola, que ya se ve crecer.
+    byId("community-hint").hidden = !this.drawing || this.placed;
   }
 }
 /**
@@ -1024,31 +1092,5 @@ function drawPathTrace(c, points, alpha) {
     c.stroke();
   }
   c.restore();
-}
-/** Simplificación por distancia perpendicular (Douglas-Peucker). */
-function simplifyPath(points, tolerance) {
-  if (points.length <= 2) return points;
-  const a = points[0],
-    b = points.at(-1);
-  let index = 0,
-    worst = 0;
-  const dx = b[0] - a[0],
-    dy = b[1] - a[1],
-    span = Math.hypot(dx, dy);
-  for (let i = 1; i < points.length - 1; i++) {
-    const p = points[i];
-    const d = span
-      ? Math.abs(dy * p[0] - dx * p[1] + b[0] * a[1] - b[1] * a[0]) / span
-      : Math.hypot(p[0] - a[0], p[1] - a[1]);
-    if (d > worst) {
-      worst = d;
-      index = i;
-    }
-  }
-  if (worst <= tolerance) return [a, b];
-  return [
-    ...simplifyPath(points.slice(0, index + 1), tolerance).slice(0, -1),
-    ...simplifyPath(points.slice(index), tolerance),
-  ];
 }
 module.exports = { Community, RAZONES };

@@ -329,6 +329,28 @@ for (const [etiqueta, nuevo, esperado] of [
     ]),
     null,
   ],
+  /**
+   * ⛔ LA PUERTECITA. Una valla en línea con otra y con un hueco por el que se pasa NO es un
+   * paralelo, y hasta el 18-sep-2026 se caía por `too_close`: la regla medía distancia de punto
+   * a segmento y con eso una puerta y un paralelo son el mismo número. Se prueba el hueco por
+   * arriba y por abajo del que de verdad usa una persona.
+   */
+  [
+    "abrir una puertecita de una celda y media",
+    traza("twig-fence", 9.5, 8, [
+      [0, 0],
+      [2, 0],
+    ]),
+    null,
+  ],
+  [
+    "abrir una puertecita de dos celdas y media",
+    traza("twig-fence", 10.5, 8, [
+      [0, 0],
+      [1, 0],
+    ]),
+    null,
+  ],
   [
     "ponerse en paralelo a dos celdas",
     traza("twig-fence", 2, 10, [

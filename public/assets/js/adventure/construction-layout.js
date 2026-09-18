@@ -135,22 +135,38 @@ function absolutePoints(object) {
   return object.points.map((p) => [object.x + p[0], object.y + p[1]]);
 }
 
-/** Distancia de un punto a un segmento. La aritmética de toda la regla de vecindad. */
+/** Lo cerca que pasa un punto de un segmento y POR DÓNDE. La aritmética de toda la vecindad. */
 function pointToSegment(px, py, ax, ay, bx, by) {
   const dx = bx - ax,
     dy = by - ay,
     len = dx * dx + dy * dy;
   let t = len ? ((px - ax) * dx + (py - ay) * dy) / len : 0;
   t = t < 0 ? 0 : t > 1 ? 1 : t;
-  return Math.hypot(px - (ax + dx * t), py - (ay + dy * t));
+  return { distance: Math.hypot(px - (ax + dx * t), py - (ay + dy * t)), t };
 }
 
-/** Lo más cerca que pasa un punto de cualquiera de estos trazos. */
+/**
+ * Lo más cerca que pasa un punto de cualquiera de estos trazos, y si eso que tiene más cerca es
+ * una PUNTA: el primer vértice del primer tramo o el último del último.
+ *
+ * ⛔ PASAR CERCA DE DONDE UN TRAZO SE ACABA NO ES IR EN PARALELO A ÉL, y sin esa distinción una
+ * PUERTECITA ERA IMPOSIBLE. Medido con el validador de verdad, dos vallas en línea: empalmadas
+ * valen; a media celda valen y no se lo discute nadie, aunque dejen cero de paso; y de UNA celda
+ * a DOS Y MEDIA —que es justo el hueco por el que cabe un duende— se caían todas por
+ * `too_close`. Solo volvía a valer a partir de la separación entera, tres celdas, que son cuarenta
+ * píxeles de portón. O sea que se podía empalmar o dejar un portón, y nada en medio, porque la
+ * regla mide distancia de punto a segmento y con eso una puerta y un paralelo son el mismo número.
+ *
+ * Lo que NO se afloja: contra el INTERIOR de un trazo la banda sigue prohibida, así que un
+ * paralelo de verdad se cae igual en cuanto avanza un par de celdas y lo más cercano deja de ser
+ * la punta. La regla sigue diciendo lo que decía; lo único que aprende es por dónde le pasas.
+ */
 function distanceToTraces(px, py, traces) {
-  let best = Infinity;
+  let best = Infinity,
+    tip = false;
   for (const points of traces)
     for (let i = 1; i < points.length; i++) {
-      const d = pointToSegment(
+      const near = pointToSegment(
         px,
         py,
         points[i - 1][0],
@@ -158,9 +174,11 @@ function distanceToTraces(px, py, traces) {
         points[i][0],
         points[i][1],
       );
-      if (d < best) best = d;
+      if (near.distance >= best) continue;
+      best = near.distance;
+      tip = (i === 1 && near.t <= 0) || (i === points.length - 1 && near.t >= 1);
     }
-  return best;
+  return { distance: best, tip };
 }
 
 /**
@@ -180,11 +198,7 @@ function traceSamples(points, traces) {
       const t = s / steps;
       out.push({
         at: travelled + length * t,
-        distance: distanceToTraces(
-          ax + (bx - ax) * t,
-          ay + (by - ay) * t,
-          traces,
-        ),
+        ...distanceToTraces(ax + (bx - ax) * t, ay + (by - ay) * t, traces),
       });
     }
     travelled += length;
@@ -208,6 +222,8 @@ function neighbourhoodReason(samples, separation) {
   for (const sample of samples) {
     if (sample.distance <= POLYLINE_JOIN || sample.distance >= separation)
       continue;
+    // Le pasas por la PUNTA: una puertecita, una esquina o un empalme que aún no toca.
+    if (sample.tip) continue;
     if (!joins.some((at) => Math.abs(sample.at - at) <= separation))
       return "too_close";
   }
@@ -455,6 +471,8 @@ module.exports = {
   maskFromRows,
   POLYLINE_MAX_POINTS,
   POLYLINE_MAX_LENGTH,
+  POLYLINE_MIN_SEGMENT,
+  POLYLINE_HALF,
   POLYLINE_JOIN,
   POLYLINE_CONTACT_RUN,
 };

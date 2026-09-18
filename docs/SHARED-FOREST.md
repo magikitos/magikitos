@@ -89,12 +89,27 @@ Sin vidas, combate, Libro del Bosque, fiambreras ni parcelas privadas.
   **elegir la CIERRA**: era el fallo de fondo, porque con el panel ocupando media pantalla
   «tócalo donde quieras» significaba tocar el panel, y la pieza elegida no se quedaba en ningún
   sitio.
-- Elegida la pieza, el mapa vuelve a ser tuyo entero y abajo queda una barra fina: qué llevas en
-  la mano, por qué no cabe cuando no cabe, girar, dejarlo y **Colocar**. Se pone donde se quiera
-  y se confirma; **lo colocado se queda**. Vallitas y caminos se trazan dejando pulsado y
-  arrastrando, con la misma polilínea que dibuja el Studio, y las vallas tienen dos vistas
-  dibujadas: no giramos un PNG como una pegatina. La pieza SIGUE en la mano tras colocar, que
-  poner una flor casi nunca es poner una sola.
+- Elegida la pieza, **nace sin sitio**: con ratón aparece bajo el cursor y lo sigue, con el dedo
+  aparece donde tocas. El toque la CLAVA y el botón **Colocar** la fija — un clic no coloca nada
+  para siempre, que es lo que pide «lo que se pone se queda». Si ahí no cabe, la pieza se va igual
+  a ese sitio y **destella en rojo, sin una palabra**: lo que la barra dice es lo que CUESTA, y en
+  rojo cuando no te llega, que es la única pregunta que el mapa no puede contestar solo. La pieza
+  sigue en la mano tras colocar —poner una flor casi nunca es poner una sola— pero vuelve a estar
+  por apuntar, no encima de lo que acabas de dejar.
+- **Vallitas y caminos se clavan A TOQUES, poste a poste**, con la misma polilínea que dibuja el
+  Studio (ocho postes y veinticuatro celdas de largo, y las vallas con sus dos vistas dibujadas:
+  no giramos un PNG como una pegatina). Cada toque clava uno, el tramo del último a tu dedo va en
+  fantasma, el precio sube a la vista y `⟲` quita el último. **Arrastrar mueve el mapa. Siempre**:
+  aquí vivió un dejar-pulsado-y-arrastrar cuyo cartel era mentira (18-sep-2026, el dueño: «eso lo
+  que hace es mover el mapa, y está bien que eso mueva el mapa»), y los dos gestos ya no comparten
+  nada que puedan pisarse.
+- **Un toque a menos de UNA CELDA de un poste se pega a él, sin espacio.** El número no es a ojo:
+  una valla se come un cuarto de celda a cada lado de su punta y un duende mide doce píxeles, así
+  que un hueco de N celdas deja (N − 0,5) de paso — media celda deja cero, una celda deja ocho
+  píxeles (no pasa) y celda y media deja dieciséis, que es el primer hueco por el que sí se pasa.
+  El imán cierra exactamente lo que no servía de puerta, y el poste al que va a pegarse se
+  ENCIENDE antes de que sueltes. Va en celdas del mundo y no en píxeles de pantalla, o el zoom
+  cambiaría qué toques empalman.
 - **Lo que se pone se queda: no hay mover ni quitar** (18-sep-2026, decisión del dueño). Ni lo
   de otra persona ni lo tuyo — un bosque que cualquiera puede deshacer no es un sitio al que
   volver. Tocar algo puesto cuenta qué es y quién lo dejó, y nada más. ⛔ El servidor SIGUE
@@ -104,6 +119,14 @@ Sin vidas, combate, Libro del Bosque, fiambreras ni parcelas privadas.
 - Lo prohibido se compila de la propia pantalla: puertas, muelles, vecinos y cosas con
   las que se hace algo, con su margen, más los rincones de ambiente que declara el
   catálogo. Nadie puede cerrarle el paso a lo que ya se alcanzaba.
+- **Y una PUERTECITA se puede construir** (18-sep-2026). Un trazado se empalma o se aparta sus
+  celdas, pero pasar cerca de la PUNTA de otro no es ir en paralelo a él: medido con el validador
+  de verdad, dos vallas en línea separadas de una celda a dos y media —justo los huecos por los
+  que cabe un duende— se caían todas por `too_close`, así que solo se podía empalmar o dejar un
+  portón de tres celdas, y nada en medio. Contra el INTERIOR de un trazo la banda sigue prohibida
+  y un paralelo se cae igual en cuanto avanza un par de celdas. El arreglo vive en los dos
+  gemelos, `construction-layout.js` y `src/game/community.php`, y los dos lo comprueban en
+  negativo.
 
 ## Datos pequeños y responsabilidades claras
 

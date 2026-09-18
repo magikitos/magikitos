@@ -989,17 +989,26 @@ body:has(.world-dialogue:not([hidden])) .world-held-item {
    Centrada abajo y por encima del mando, nunca tapando el centro del mapa. */
 .world-build-bar {
   position: fixed; z-index: 14; left: 50%; transform: translateX(-50%);
-  bottom: calc(14px + var(--world-control-clearance) + var(--world-safe));
+  /* ⛔ SE APOYA JUSTO ENCIMA DE LO QUE VIVE EN LA ESQUINA DE ABAJO, sea lo que sea. `24px` es el
+     hueco que `.world-navigation` se deja, y lo de al lado es su ALTO: el aro del joystick cuando
+     se juega con el dedo (`--world-control-clearance`) y el disco de recentrar cuando se juega
+     con ratón, que mide 46 y con la holgura a cero se comía la esquina de Colocar — medido a
+     390px: el botón recibía su propio clic en el centro y el de recentrar en la esquina, o sea
+     una confirmación que a veces no confirma. */
+  bottom: calc(24px + max(var(--world-control-clearance), 46px) + var(--world-safe));
   width: min(520px, calc(100vw - 24px));
   display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
   padding: 10px 12px; border: 1px solid #c8c19b; border-radius: 18px;
   color: #fcf4db; background: #263f31f2; box-shadow: 0 8px 32px #17261c45;
 }
 .world-build-bar[hidden] { display: none; }
-.world-build-bar__what { display: flex; align-items: center; gap: 10px; flex: 1 1 200px; min-width: 0; }
+.world-build-bar__what { display: flex; align-items: center; gap: 10px; flex: 1 1 140px; min-width: 0; }
 .world-build-bar__what canvas { width: 38px; height: 36px; object-fit: contain; image-rendering: pixelated; flex: 0 0 auto; }
-.world-build-bar p { margin: 0; font-size: 13px; line-height: 1.35; min-width: 0; }
-.world-build-bar small { flex: 1 0 100%; font-size: 11px; opacity: .8; }
+/* Lo que cuesta, que es lo único que la barra tiene que decir con palabras: en rojo cuando no te
+   llega, porque ahí el mapa no puede contestar solo. */
+#build-price { font-size: 13px; line-height: 1.3; min-width: 0; }
+#build-price.is-short { color: #ffb9a3; font-weight: 600; }
+#community-hint { flex: 1 0 100%; font-size: 11px; opacity: .8; }
 .world-build-bar small[hidden] { display: none; }
 .world-build-bar__actions { display: flex; gap: 8px; align-items: center; }
 .world-build-bar__actions button {
@@ -1010,6 +1019,7 @@ body:has(.world-dialogue:not([hidden])) .world-held-item {
 .world-build-bar__actions button:disabled { opacity: .45; }
 .world-build-bar__actions button[hidden] { display: none; }
 .world-build-bar__actions #home-cancel { font-size: 20px; padding: 4px; }
+.world-build-bar__actions #build-undo { font-size: 18px; padding: 4px; }
 
 .world-cloud-save { border-top: 1px solid #a0ab8866; margin-top: 16px; padding-top: 8px; }
 #cloud-conflict:not([hidden]), #cloud-recoveries { display: grid; gap: 8px; }
