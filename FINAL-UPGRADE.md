@@ -1287,6 +1287,45 @@ conectados. Por eso la negociación de §E.6 **no es opcional**. Y por eso el
 protocolo se versiona solo cuando cambia de forma: si subes la versión en cada
 despliegue, echas a todo el mundo cada vez.
 
+## G.5 Publicar la Parte A: el runbook, en orden
+
+⛔ **El orden NO es negociable, y la razón es que la autoridad y el contrato tienen
+que cambiar A LA VEZ.** El `community.php` nuevo lee `bounds`/`terrain`/
+`accessGroups` y el viejo leía `editable`/`access`: con cualquiera de los dos
+desparejado, construir se rompe en TODAS las pantallas, también en la que ya
+funcionaba. La forma de que la ventana sea CERO es que el puntero y el PHP viajen
+en el mismo despliegue.
+
+1. **Comprobar y construir**, en el repo del juego:
+   `npm test` → `npm run build`. Anota el ID de la release.
+2. **Commit y push del repo del juego**, desde su propio directorio.
+   ⛔ Nunca resolver un push del repo público contra el privado.
+3. **Estacionar el artefacto** en el VPS, sin tocar el puntero:
+   ```sh
+   node install-release.cjs /ruta/staging/ID /home/magikitos/magikitos --stage-only
+   ```
+   ⛔ **Desde un Mac, el archivo se crea con
+   `COPYFILE_DISABLE=1 tar --no-xattrs --no-mac-metadata`**: los ficheros de
+   Finder no son arte del juego y el instalador rechaza el archivo entero si los
+   encuentra.
+4. **Aplicar la migración 4236**, primero en el clon
+   (`dev-migrate magikitos_dev migrations/4236_todo_el_bosque_se_construye.sql`) y
+   luego en producción por el panel. **Antes de activar el puntero**, que es lo que
+   la casa ya manda para el bosque compartido.
+5. **Un solo commit en el repo de la web** con las DOS cosas:
+   `src/game/community.php` y `public/game/current.json` apuntando al ID nuevo.
+6. **Desplegar la web** por el panel. El puntero y la autoridad entran juntos:
+   ventana cero.
+7. **Humo**: que las cuatro pantallas abran la caja de construir, que se pueda
+   colocar y quitar algo, que los dos `world-api.openapi.json` sigan idénticos, y
+   que nada de la web haya cambiado de estado.
+
+**Rollback**: se devuelve el puntero (la release anterior se conserva, no se poda).
+⛔ **Y la migración se puede dejar puesta**: `communitySnapshot` mira PRIMERO el
+catálogo, así que una fila de zona que el contrato instalado no nombra
+sencillamente no se la pide nadie. Es aditiva e inofensiva. **Nunca se revierte
+una base por encima de escrituras nuevas de la gente.**
+
 ---
 
 # PARTE H — La base de datos
@@ -1331,7 +1370,7 @@ estado actual, que `communityValidate()` ya hace de todas formas.
 
 | | |
 |---|---|
-| `4236_todo_el_bosque_se_construye.sql` | **escrita, sin aplicar.** Tres `INSERT IGNORE` en `game_community_zones` para `overworld`, `river-rapids` y `river-roots`. Sin ella esas pantallas contestan 503 y la caja de construir no abre |
+| `4236_todo_el_bosque_se_construye.sql` | **escrita, sin aplicar.** Tres `INSERT IGNORE` en `game_community_zones` para `overworld`, `river-rapids` y `river-roots`. Sin ella esas pantallas contestan 503 y la caja de construir no abre. **Se aplica ANTES de activar el puntero**: runbook completo en §G.5 |
 | *(siguiente)* | la tabla de las cacas-mensaje (§C.4) |
 
 Toda migración empieza con `SET NAMES utf8mb4;`. Se prueba primero en el clon
@@ -1354,7 +1393,7 @@ anterior.
 | 1 | **Parte B.1-B.4** (diálogo, setas, rastrillo, flores) | nada | bajo |
 | 1b | **Parte B.5 motor**: descomponer el remo, tirar bow/roll, descablear las seis variantes, caché por bytes, presupuesto de descarga | nada | medio |
 | 1c | **Parte B.5 arte**: 30 variantes × 124 sprites = 3.720 (210 hojas) | 1b | **alto (producción)** |
-| 2 | **Parte A**: aplicar la migración 4236 y desplegar lo que ya está en el árbol | 1 (por el renombrado) | bajo |
+| 2 | **Parte A**: publicar lo que ya está en el árbol — **runbook paso a paso en §G.5** (estacionar → migrar 4236 → puntero y PHP en el MISMO despliegue) | 1 (por el renombrado) | bajo |
 | 3 | El arte del rastrillo + sus dos recogidas (§A.9, §A.10) | 2 | bajo |
 | 4 | **Parte C**: la caca-mensaje, con su juez | 3 (el palo, el patrón de objetos) | medio |
 | 5 | **Parte E**: el demonio, primero SOLO presencia y espectadores | 2 | **alto** |
