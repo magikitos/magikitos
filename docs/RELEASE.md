@@ -4,6 +4,52 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: apuntar antes de clavar, y postes a toques — 18 septiembre 2026
+
+Artefacto `fb314b25fc8fecd9542c`, fuente del juego `a8d6c25c8619b28f60f2cbe63472148b28979fa5`,
+web `8d01a24a`. Anterior conservada: `bb91229ae4c7f1da4cd0`. Rutas: /aventura y
+cinco traducciones.
+
+SHA-256 de `release.json`:
+`2d45f00c3d26840a2005200a40b0e83c442621e7ef860a4270cd6ab02c8ccc3d`.
+525 archivos verificados y ESTACIONADOS antes de mover el puntero. Sin migración. **Con PHP**:
+esta vez la autoridad cambia —la regla de vecindad de los trazados— y por eso el puntero y el
+`src/game/community.php` viajan en el MISMO commit de la web, que es lo que deja la ventana en
+cero.
+
+⛔ **El artefacto se construyó desde un árbol LIMPIO** (`git worktree` sobre el commit publicado)
+porque otro agente estaba generando arte de duendes en el mismo repositorio: lo que no está
+comiteado no se publica, y su trabajo se quedó donde estaba.
+
+### Alcance publicado
+
+- **El rastrillo es el rastrillo**: `data-sprite="rake"`, el mismo objeto que se recoge en el
+  bosque para hacer caminos. Fuera el SVG dibujado a mano.
+- **La pieza nace sin sitio.** Con ratón aparece bajo el cursor y lo sigue; con el dedo aparece
+  donde tocas; el toque la clava y Colocar la fija. Si ahí no cabe, se va igual a ese sitio y
+  **destella en rojo, sin una palabra**: lo único que la barra dice con palabras es lo que CUESTA,
+  en rojo cuando no te llega. Tras colocar vuelve a la mano por apuntar, no encima de lo que
+  acabas de dejar.
+- **Vallas y caminos a TOQUES, poste a poste**, con el precio subiendo a la vista y `⟲` para
+  quitar el último. Se erradicó la máquina de mantener-pulsado entera: arrastrar mueve el mapa,
+  siempre.
+- **Imán de una celda** sobre los postes de su especie: es el hueco más grande por el que un
+  duende todavía no pasa, así que cierra exactamente lo que no servía de puerta. El poste que va
+  a atrapar se enciende antes de soltar.
+- **Y una puertecita se puede construir**: pasar cerca de la PUNTA de un trazo deja de contar como
+  ir en paralelo a él. Medido, los huecos de una celda a dos y media se caían todos por
+  `too_close`.
+
+### Comprobado
+
+`npm test` entero, las dos caras del validador en negativo (cliente y autoridad), el recorrido
+real en DDEV con valla, camino y piscina a 1440/768/390 —clavando postes, quitándolos, empalmando
+con lo recién puesto y comprobando que un arrastre sigue moviendo el mapa sin plantar nada—, la
+frontera con su puerta de cuenta, y en producción `check-release-live` en las seis rutas y tres
+anchuras con cero escrituras de jugador. De paso salió que el botón de recentrar se comía la
+esquina de Colocar a 390px: se comprobó PULSANDO los bordes de los tres botones de la barra en
+las dos modalidades y las tres anchuras.
+
 ## Producción: construir es un icono más, y lo que se pone se queda — 18 septiembre 2026
 
 Artefacto `bb91229ae4c7f1da4cd0`, fuente del juego `ddb5574374be2e7247bf6ff764dee03c587afab9`,
