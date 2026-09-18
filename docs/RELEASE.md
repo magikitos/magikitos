@@ -4,6 +4,54 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: construir es un icono más, y lo que se pone se queda — 18 septiembre 2026
+
+Artefacto `bb91229ae4c7f1da4cd0`, fuente del juego `ddb5574374be2e7247bf6ff764dee03c587afab9`,
+web `0e60ca9b`. Anterior conservada: `eb4e139a8b7d33148951`. Rutas: /aventura y
+cinco traducciones.
+
+SHA-256 de `release.json`:
+`e94af4224dad50461464314dbddf7d82bd85c6f71b29131db6b061fcbd64ddee`.
+525 archivos verificados y ESTACIONADOS antes de mover el puntero. **Sin migración y sin
+PHP**: esta entrega es del cliente del juego y no toca ni la autoridad, ni el contrato de la
+API, ni una tabla.
+
+### Alcance publicado
+
+- **Construir se abre desde un rastrillo de la esquina de arriba, junto al saco**, igual en
+  teléfono que en escritorio (decisión del dueño: «nada de botón abajo a la izquierda»), y se
+  llama **Construir** a secas: que el bosque es colectivo ya se ve.
+- **Su catálogo es la modal de la casa**: el mismo caparazón y la misma rejilla que el saco y
+  que «Yo» —`.world-bag-grid` pasa a ser `.world-pick-grid`, que no es del saco—, a pantalla
+  completa en el teléfono. Una baldosa por cosa, variantes incluidas: las diecisiete a la vista.
+- **Elegir CIERRA el catálogo**, y ahí estaba el fallo que el dueño reportó como «he
+  seleccionado piscina y al pinchar no se queda en el sitio»: con el panel ocupando media
+  pantalla, «tócalo donde quieras» significaba tocar el panel. La pieza se queda en la mano, el
+  mapa vuelve a ser tuyo entero y abajo queda una barra fina con qué llevas, por qué no cabe
+  cuando no cabe, y Colocar.
+- **Lo colocado se queda**: ni mover ni quitar, tampoco lo tuyo. Tocar algo puesto cuenta quién
+  lo dejó y nada más. El servidor sigue sabiendo mover y retirar y los datos conservan su
+  `removeCost`/`removeLabel`: el día que vuelva la retirada comunitaria es una pantalla.
+- **Dos baldosas no se llaman igual**: `construction.json` trae un mapa de variante a clave de
+  textos (doce palabras en seis idiomas) y `check-community-foundations` se niega a pasar si una
+  se queda sin nombre. Las flores del prado se llaman por lo que son y la prímula pasa a ser una
+  de sus dos caras.
+- **Los duendes chocan.** Los desconocidos eran un dibujo y se atravesaban; ahora tienen cuerpo y
+  solo contra ti, sin tocar la autoridad. Quien ya te está encima es atravesable hasta que sales.
+- **La barca amarrada se pega a su muelle.** Estaba entre 3,1 y 4,6 tiles de la punta por
+  compartir punto con el ancla de embarque, que es física; la aparcada es un dibujo y se deriva
+  del muelle real con `docks()`, así que se mueve con el embarcadero.
+
+### Comprobado
+
+`npm test` entero, el recorrido real de construir en DDEV (valla, camino y piscina a
+1440/768/390, contra el API y la base de verdad), la frontera con su puerta de cuenta, el río
+con sus seis muelles, el elenco, y las dos pruebas del Studio, que sigue editando solo lo fijo
+que pone el dueño. En producción, `check-release-live` en las seis rutas y tres anchuras, con
+cero escrituras de jugador enviadas. La prueba del rastrillo tras desembarcar espera al pintado
+siguiente: medido contra producción, aparece a los 17 ms, y leer el DOM en el mismo tic medía el
+estado de antes de bajarse de la barca.
+
 ## Producción: la tienda sale del bosque — 17 septiembre 2026
 
 Artefacto `50f00dde6041c46a1a7d`, fuente del juego `0b942dd6aefe807356b57b30d91c32a835845aa2`,

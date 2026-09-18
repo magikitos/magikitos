@@ -147,7 +147,11 @@ function assertShell(actual, expected, headers, route) {
       await page.keyboard.down('ArrowRight');
       await page.waitForFunction(()=>window.MagikitosAdventure.inspect().navigation.mode==='foot');
       await page.keyboard.up('ArrowRight');
-      assert(await page.locator('#build-toggle').isVisible());
+      // ⛔ EL RASTRILLO APARECE EN EL SIGUIENTE PINTADO, NO EN EL MISMO TIC. Soltar la tecla
+      // devuelve el control antes de que el motor repinte el mando, así que leer el DOM aquí
+      // mide el estado de ANTES de desembarcar: medido contra producción, tarda 17 ms. Se
+      // espera a que aparezca —con margen corto, que un segundo entero sí sería un defecto—.
+      await page.waitForFunction(()=>!document.getElementById('build-toggle').hidden,null,{timeout:3000});
       assert(await page.locator('#world-joystick').isHidden());
       assert(await page.locator('#world-boost').isHidden());
       // Do not open the editor in a read-only smoke: it explicitly creates an
