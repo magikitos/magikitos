@@ -4,7 +4,7 @@ const assert = require("node:assert/strict"),
 const { chromium } = require("playwright");
 const origin = process.env.GAME_ORIGIN || "http://127.0.0.1:47834";
 const catalog = JSON.parse(fs.readFileSync(".local/build/world.json"));
-const { nearbyPosition } = require("./browser-world.cjs");
+const { nearbyPosition, entityScreenPoint } = require("./browser-world.cjs");
 const errors = [];
 (async () => {
   const browser = await chromium.launch({ channel: "chrome", headless: true });
@@ -51,20 +51,25 @@ const errors = [];
         await page.reload();
         await require("./browser-entry.cjs").enterWorld(page);
       }
-      async function click(id, dy = 4) {
-        const s = await page.evaluate(() =>
-          window.MagikitosAdventure.inspect(),
-        );
-        const e = s.entities.find((e) => e.id === id);
-        assert(e, id);
+      /**
+       * ⛔ SE PINCHA LO QUE SE DIBUJA, NO UN HUECO SOBRE EL ANCLA. Esto restaba píxeles a mano al
+       * pie de la entidad, y un número a mano caduca con el arte: la seta de helecho vive a escala
+       * 0,72, su dibujo mide doce píxeles de alto y el `-20` apuntaba diez por ENCIMA del sombrero,
+       * o sea a la hierba. El check llevaba rojo desde que se escalaron las dos cosas en el mismo
+       * commit. `entityScreenPoint` es el helper de la casa para esto: recorte nativo, escala y
+       * desplazamiento de autor, y la cámara de AHORA.
+       */
+      async function click(id) {
+        const punto = await entityScreenPoint(page, catalog.scenes.overworld, id);
         const r = await page.locator("#world-canvas").boundingBox();
-        const x = ((e.x - s.camera.x) * r.width) / s.view.width;
-        const y = ((e.y - dy - s.camera.y) * r.height) / s.view.height;
         assert(
-          x >= 0 && x <= r.width && y >= 0 && y <= r.height,
+          punto.x >= r.x &&
+            punto.x <= r.x + r.width &&
+            punto.y >= r.y &&
+            punto.y <= r.y + r.height,
           id + " visible at " + width,
         );
-        await page.mouse.click(r.x + x, r.y + y);
+        await page.mouse.click(punto.x, punto.y);
         await page.waitForFunction(
           () => !!window.MagikitosAdventure.inspect().dialogue,
           null,
@@ -94,7 +99,7 @@ const errors = [];
       );
       await save();
       await near("forest-mushrooms-fern");
-      await click("forest-mushrooms-fern", 20); // Elf-height mushroom: tap the cap, not the old oversized canopy.
+      await click("forest-mushrooms-fern");
       await page.waitForFunction(
         () => window.MagikitosAdventure.inspect().inventory.mushroom === 1,
       );
