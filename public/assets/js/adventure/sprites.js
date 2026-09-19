@@ -195,10 +195,10 @@ class SpriteLibrary {
     );
     return true;
   }
-  icon(name) {
+  icon(name, { fullCanvas = false } = {}) {
     const f = this.frame(name);
     if (!f) return null;
-    const [ix,iy,iw,ih] = f.ink;
+    const [ix,iy,iw,ih] = fullCanvas ? [0, 0, f.w, f.h] : f.ink;
     const canvas = document.createElement("canvas");
     canvas.width = iw * f.pixelRatio;
     canvas.height = ih * f.pixelRatio;

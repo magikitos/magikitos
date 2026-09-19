@@ -106,11 +106,12 @@ write(path.join(dir, "elements.json"), { families });
 // One authored cast catalog; prompts and source details never enter the runtime.
 const profiles = JSON.parse(
   fs.readFileSync(path.join(dir, "art/residents/catalog.json")),
-).profiles.map(({ id, key, family, gender, label }) => ({
+).profiles.map(({ id, key, family, gender, label, playableOnly }) => ({
   id,
   key,
   family,
   gender,
+  ...(playableOnly ? { playableOnly: true } : {}),
   label: label.replace("Castana", "Castaña").replace("Sauco", "Saúco"),
 }));
 write(path.join(dir, "residents.json"), profiles);

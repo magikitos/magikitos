@@ -3,6 +3,7 @@ const profiles = require("../../../../data/aventura/residents.json");
 /** Lightweight, generated identities; production prompts and source artwork never enter the bundle. */
 const residentFamilies = {};
 for (const p of profiles) {
+  if (p.playableOnly) continue;
   const id = "resident-" + p.family,
     sprite = `person-${p.id}-down`;
   const family = (residentFamilies[id] ||= {

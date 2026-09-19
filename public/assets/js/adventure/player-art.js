@@ -28,7 +28,6 @@ function castVariant(catalog, chosen) {
 function castPortrait(variant) {
   return "cast-" + variant;
 }
-const CAST_PORTRAITS = "cast-portraits";
 module.exports = {
   ...definition,
   playerVariant,
@@ -36,5 +35,4 @@ module.exports = {
   castOffered,
   castVariant,
   castPortrait,
-  CAST_PORTRAITS,
 };

@@ -4,7 +4,7 @@ const { hash } = require("./geometry");
 /** Stable author preference, collision-free local casting. Each zone gets distinct silhouettes first. */
 class ZoneCasting {
   constructor(profiles, reserved = []) {
-    this.profiles = profiles;
+    this.profiles = profiles.filter((p) => !p.playableOnly);
     this.reserved = new Set(reserved);
     this.reservedFamilies = new Set(
       profiles.filter((p) => this.reserved.has(p.id)).map((p) => p.family),

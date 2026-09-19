@@ -15,13 +15,26 @@ const dir = `data/aventura/art/playable-cast/${key}`;
 const config = read(`${dir}/authoring.json`);
 const cataloguePath = "data/aventura/art/residents/actions/catalog.json";
 const catalogue = read(cataloguePath);
-const profile = read("data/aventura/art/residents/catalog.json").profiles.find(p => p.id === config.variant && p.key === key);
-assert(profile && profile.source === config.reference, "The original NPC is the identity authority");
-assert(catalogue.variants.includes(config.variant), "Only the explicitly selected protagonist roster");
+const residentsPath = "data/aventura/art/residents/catalog.json", residents = read(residentsPath);
+let profile = residents.profiles.find(p => p.id === config.variant && p.key === key);
+const approved = read("data/aventura/art/playable-cast/approved-101-110.json").characters.find(p => p.key === key);
+if (approved) {
+  assert.equal(config.variant, approved.variant);
+  assert.equal(config.referencePath, approved.identity);
+  assert(!residents.profiles.some(p => (p.id === config.variant || p.key === key || p.source === config.reference) && p !== profile), "Identity collision");
+  profile ??= { id: approved.variant, key, family: key.split("-")[0], gender: approved.gender,
+    label: approved.nickname, source: config.reference, description: approved.description,
+    prompt: fs.readFileSync(path.join(root, dir, config.walk.prompt), "utf8"),
+    playableOnly: true, sourceCellWidth: 384 };
+}
+assert(profile && profile.source === config.reference, "An approved identity is required");
+assert(approved || catalogue.variants.includes(config.variant), "Only the explicitly selected protagonist roster");
 const actions = ["run", "row", "push", "work", "carried", "needs", "discover"];
 assert.deepEqual(Object.keys(config.actions).sort(), [...actions].sort(), "All seven actions are required");
 const actionRoot = "data/aventura/art/residents/actions";
-const referenceSha256 = hash(fs.readFileSync(path.join(root, `data/aventura/art/residents/sources/${profile.source}.png`)));
+const referenceFile = `data/aventura/art/residents/sources/${profile.source}.png`;
+const walk = fs.readFileSync(path.join(root, approved ? `${dir}/review/walk.png` : referenceFile));
+const referenceSha256 = hash(walk);
 const referenceRow = catalogue.sheets.find(s => s.variant === 100 && s.action === "row");
 assert(referenceRow?.sourceSeatAnchors, "Approved rowing registration must exist");
 // Preflight all inputs before replacing any selected master.
@@ -30,17 +43,24 @@ const masters = actions.map(action => {
   assert(/^[a-z0-9-]+$/.test(source), "Source basename only");
   const image = fs.readFileSync(path.join(root, `${dir}/review/${action}.png`));
   assert(image.subarray(0, 8).equals(Buffer.from([137,80,78,71,13,10,26,10])), "PNG master required");
-  const prompt = fs.readFileSync(path.join(root, `${dir}/prompts/${source}.txt`), "utf8") +
+  const prompt = fs.readFileSync(path.join(root, dir, config.actions[action].prompt || `prompts/${source}.txt`), "utf8") +
     "\nOffline preparation: scripts/prepare-playable-master.php and scripts/prepare-playable-row.php; authoring.json stores reviewed scale, seat and hand pivots. Original walking sheet remains untouched. Rowing uses exactly eight immutable seated bodies and synchronized illustrated oars.\n";
   const id = `${key}-${action}-master`;
   assert(catalogue.sheets.filter(s => s.variant === config.variant && s.action === action).length <= 1, "Duplicate action registration");
   const sheet = { id, variant: config.variant, action, sourceSha256: hash(image), promptSha256: hash(prompt), referenceSha256,
-    generator: "built-in image_gen; deterministic offline composition", edgeMatte: "red", cleanFragments: .015, sourceCellWidth: 256 };
+    generator: "built-in image_gen; deterministic offline composition", edgeMatte: "red", cleanFragments: .015, sourceCellWidth: approved ? 384 : 256 };
   if (action === "row") for (const field of ["sourceSeatAnchors", "occludedOars", "hullSupportedOars"])
     sheet[field] = referenceRow[field];
   return { image, prompt, id, sheet };
 });
 const rig = read(`${dir}/review/row-rig-source.json`), body = read(`${dir}/review/row-body-source.json`);
+if (approved) {
+  fs.writeFileSync(path.join(root, referenceFile), walk);
+  if (!residents.profiles.includes(profile)) residents.profiles.push(profile);
+  write(residentsPath, residents);
+  if (!catalogue.variants.includes(config.variant)) catalogue.variants.push(config.variant);
+  execFileSync(process.env.STUDIO_PHP || "php", ["scripts/prepare-adventure-cast.php", `--sheet=${profile.source}`], { cwd: root, stdio: "inherit" });
+}
 for (const { image, prompt, id, sheet } of masters) {
   fs.writeFileSync(path.join(root, `${actionRoot}/sources/${id}.png`), image);
   fs.writeFileSync(path.join(root, `${actionRoot}/${id}.prompt.txt`), prompt);

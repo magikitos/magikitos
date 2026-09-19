@@ -7,7 +7,17 @@
     166,
     172,
     194,
-    198
+    198,
+    200,
+    201,
+    202,
+    203,
+    204,
+    205,
+    206,
+    207,
+    208,
+    209
   ],
   "actions": {
     "run": {
@@ -2129,6 +2139,2526 @@
       "edgeMatte": "red",
       "cleanFragments": 0.015,
       "sourceCellWidth": 256
+    },
+    {
+      "id": "rizo-alba-run-master",
+      "variant": 200,
+      "action": "run",
+      "sourceSha256": "8fdf88a5e4183e5ede4127f733413f516494e67305a45c14de0f6ff2e33f4c5b",
+      "promptSha256": "252984203a7b1291f6339887f6712a6951c2248562466eafa477711795f850b9",
+      "referenceSha256": "54d515c602b4f0ef5b07c0e1f33dbe0c017bcf416cfd7005376c60dff5da6731",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "rizo-alba-row-master",
+      "variant": 200,
+      "action": "row",
+      "sourceSha256": "88d7c6537608d8df27d47a1abd185e12b68a0eaa62d7953304e3f57d80e2c374",
+      "promptSha256": "ddd46dfa499c35ad62ffd7994b8ba348edb86e58dee8edf4bda27b8c9f96af42",
+      "referenceSha256": "54d515c602b4f0ef5b07c0e1f33dbe0c017bcf416cfd7005376c60dff5da6731",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384,
+      "sourceSeatAnchors": [
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ]
+      ],
+      "occludedOars": {
+        "up-right": {
+          "0": [
+            1
+          ],
+          "3": [
+            1
+          ]
+        },
+        "up-left": {
+          "0": [
+            0
+          ],
+          "3": [
+            0
+          ]
+        }
+      },
+      "hullSupportedOars": {
+        "up-right": {
+          "2": [
+            0
+          ]
+        },
+        "up-left": {
+          "2": [
+            1
+          ]
+        }
+      }
+    },
+    {
+      "id": "rizo-alba-push-master",
+      "variant": 200,
+      "action": "push",
+      "sourceSha256": "c174de9e5814b1ccec463a6d1ff658c1d861d64902e50fa49063c789f4b74adc",
+      "promptSha256": "4dd01c76b58a55f4d519dbf4fcc69e900a553175898b72c4d66bbe5e1fe73c7e",
+      "referenceSha256": "54d515c602b4f0ef5b07c0e1f33dbe0c017bcf416cfd7005376c60dff5da6731",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "rizo-alba-work-master",
+      "variant": 200,
+      "action": "work",
+      "sourceSha256": "fad6b0001f920cdf5aff86e07d53bb0c066baae4ef06c5b0c1bd536e7279273a",
+      "promptSha256": "6a67ab4b509cf976f1f1fc4ed42b274f222280b85b1651df58bcb01b3c12d36f",
+      "referenceSha256": "54d515c602b4f0ef5b07c0e1f33dbe0c017bcf416cfd7005376c60dff5da6731",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "rizo-alba-carried-master",
+      "variant": 200,
+      "action": "carried",
+      "sourceSha256": "2c2db58c2e582a6cc74c600a790091342d9e870d63039e466647d949c2972745",
+      "promptSha256": "31bd6fa3a25f954037041a24ede6e796509ac4c4919f1a27b09d91d2b73943c6",
+      "referenceSha256": "54d515c602b4f0ef5b07c0e1f33dbe0c017bcf416cfd7005376c60dff5da6731",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "rizo-alba-needs-master",
+      "variant": 200,
+      "action": "needs",
+      "sourceSha256": "fc0e2a8a42552119891be56d72dcbdc80820326f9cf5b45e8d6173d26ce558bc",
+      "promptSha256": "8a0977a59a4c8bc8d35bc6729f0953431b728bf22e51bd404486f8284c971e5b",
+      "referenceSha256": "54d515c602b4f0ef5b07c0e1f33dbe0c017bcf416cfd7005376c60dff5da6731",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "rizo-alba-discover-master",
+      "variant": 200,
+      "action": "discover",
+      "sourceSha256": "c9d2f6522bb2351ac971d23e881756e263b2c874b3cc05e2e5fafed6c01f9aca",
+      "promptSha256": "07de2abd32259cabb1d8572e198ba3a18a0d87470fc6af286bcd0c4ed03b5c75",
+      "referenceSha256": "54d515c602b4f0ef5b07c0e1f33dbe0c017bcf416cfd7005376c60dff5da6731",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "chispa-sol-run-master",
+      "variant": 201,
+      "action": "run",
+      "sourceSha256": "2a511f42dce69a490a82878d6d751df5a3ac496c33366c7fcf07df452d689b38",
+      "promptSha256": "7686cb37c096a805e317343676fa76ddb26bda0af3d4c4b1368c7c1d4e23dc31",
+      "referenceSha256": "05b73e900164fcf719f663a6b5cf0c019e10128685608c544cc7ba7ef0841d1c",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "chispa-sol-row-master",
+      "variant": 201,
+      "action": "row",
+      "sourceSha256": "6f5750df850ae6e5ca34a3553543e0139fbe5ace4aa7f8cc66dc7badf18aa827",
+      "promptSha256": "671000fdd5514d209623593e23a344b56d1cb8456120e4fa20fa593963eea2cc",
+      "referenceSha256": "05b73e900164fcf719f663a6b5cf0c019e10128685608c544cc7ba7ef0841d1c",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384,
+      "sourceSeatAnchors": [
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ]
+      ],
+      "occludedOars": {
+        "up-right": {
+          "0": [
+            1
+          ],
+          "3": [
+            1
+          ]
+        },
+        "up-left": {
+          "0": [
+            0
+          ],
+          "3": [
+            0
+          ]
+        }
+      },
+      "hullSupportedOars": {
+        "up-right": {
+          "2": [
+            0
+          ]
+        },
+        "up-left": {
+          "2": [
+            1
+          ]
+        }
+      }
+    },
+    {
+      "id": "chispa-sol-push-master",
+      "variant": 201,
+      "action": "push",
+      "sourceSha256": "7f6fe5acbdef3cc3492915dcd662f202c4403b4cee9c399a8fc12aa587595e49",
+      "promptSha256": "b5f5aff9b6aa052117cd39af0de95206c982d85cfea7e4e9b7c8be74fa24bc83",
+      "referenceSha256": "05b73e900164fcf719f663a6b5cf0c019e10128685608c544cc7ba7ef0841d1c",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "chispa-sol-work-master",
+      "variant": 201,
+      "action": "work",
+      "sourceSha256": "87ab7c9f69a98878ac95426726c53b7cbc32ceb8b3865af3ff29e98ee2ddf3ec",
+      "promptSha256": "8c786d54da73c0eb774673d01b1f0a3dde98055928b18b43c56d9698509fb21d",
+      "referenceSha256": "05b73e900164fcf719f663a6b5cf0c019e10128685608c544cc7ba7ef0841d1c",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "chispa-sol-carried-master",
+      "variant": 201,
+      "action": "carried",
+      "sourceSha256": "6c0c1a2805861d3f476677f1c841bbc6ce122c92f2c27fffdc74c3d8b4861651",
+      "promptSha256": "c1284fece541c86e3c5c7466eb06084dd357d074b3552153963aa8f3d2279482",
+      "referenceSha256": "05b73e900164fcf719f663a6b5cf0c019e10128685608c544cc7ba7ef0841d1c",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "chispa-sol-needs-master",
+      "variant": 201,
+      "action": "needs",
+      "sourceSha256": "cc8e2e0c2d14c62615843756b55974b60775a1e3af741a86adce035ae8f98c40",
+      "promptSha256": "fd1b7aa844eafc04b296d9ecf138532e6377698dbedebaf851b801fcd6e68797",
+      "referenceSha256": "05b73e900164fcf719f663a6b5cf0c019e10128685608c544cc7ba7ef0841d1c",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "chispa-sol-discover-master",
+      "variant": 201,
+      "action": "discover",
+      "sourceSha256": "3b9c816c82c9ff880b9b88a8ef6265863242611b66eb92e17b7b5db4037be602",
+      "promptSha256": "e06a2f074ffbb1fa817df4204ae7101d2c5e338b2c3cc00b211584b73a6e8949",
+      "referenceSha256": "05b73e900164fcf719f663a6b5cf0c019e10128685608c544cc7ba7ef0841d1c",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "tizon-musgo-run-master",
+      "variant": 202,
+      "action": "run",
+      "sourceSha256": "09472ed8dd620ceadfe7223a5d54c11b6c03c44cde129173bb09c0a711644b4d",
+      "promptSha256": "bbbb6ad7d6cbebd06ad581154855c90d33543eeea574e6c2ee2c5e1017c610e7",
+      "referenceSha256": "2df420e9b0abe23cb2bd463b0744077499d92f947aca2f98a6273b570a95f203",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "tizon-musgo-row-master",
+      "variant": 202,
+      "action": "row",
+      "sourceSha256": "a299f7a78123f9a8fce5de15ea75facba93c37738823ab3b40ce92f77bbe043f",
+      "promptSha256": "d3e727f4513c7784cced2b503401e5980a387abb9f9ee6eeb5bc59eea90ad8e8",
+      "referenceSha256": "2df420e9b0abe23cb2bd463b0744077499d92f947aca2f98a6273b570a95f203",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384,
+      "sourceSeatAnchors": [
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ]
+      ],
+      "occludedOars": {
+        "up-right": {
+          "0": [
+            1
+          ],
+          "3": [
+            1
+          ]
+        },
+        "up-left": {
+          "0": [
+            0
+          ],
+          "3": [
+            0
+          ]
+        }
+      },
+      "hullSupportedOars": {
+        "up-right": {
+          "2": [
+            0
+          ]
+        },
+        "up-left": {
+          "2": [
+            1
+          ]
+        }
+      }
+    },
+    {
+      "id": "tizon-musgo-push-master",
+      "variant": 202,
+      "action": "push",
+      "sourceSha256": "1db6923454c12b9e53137e444fe83ad0506a0e2d456ade358f53ddaf9f703893",
+      "promptSha256": "92c6d6524e25b1161ceed2e4fac2f9be083445e1d9e88431f29db3af4e8ffd20",
+      "referenceSha256": "2df420e9b0abe23cb2bd463b0744077499d92f947aca2f98a6273b570a95f203",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "tizon-musgo-work-master",
+      "variant": 202,
+      "action": "work",
+      "sourceSha256": "8e8a07b43cfd1e5bf812ab7e7f83df2980b13dfd766442464fb0f0faa0bf3f5d",
+      "promptSha256": "8d0e2acdc9cd66b1fdf5614435dc4a3ca65545fe50d211c143a9d74106773407",
+      "referenceSha256": "2df420e9b0abe23cb2bd463b0744077499d92f947aca2f98a6273b570a95f203",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "tizon-musgo-carried-master",
+      "variant": 202,
+      "action": "carried",
+      "sourceSha256": "73f3a2d5f36091425264995a158d517e093f616fa9cba4dfa3c7f99097b947e2",
+      "promptSha256": "64346602ed06dd36acb4557f704136310f2b3a9ae0147220c61d3fb8a4ee6521",
+      "referenceSha256": "2df420e9b0abe23cb2bd463b0744077499d92f947aca2f98a6273b570a95f203",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "tizon-musgo-needs-master",
+      "variant": 202,
+      "action": "needs",
+      "sourceSha256": "4304730fdc87a6569f10028bde06992440eb24a6e1ae468f493dfcbdb8b0397b",
+      "promptSha256": "ea3eba8d881d80c4d4fd4a098875493add1ec3763296858b84a1f5ded4d0c6dd",
+      "referenceSha256": "2df420e9b0abe23cb2bd463b0744077499d92f947aca2f98a6273b570a95f203",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "tizon-musgo-discover-master",
+      "variant": 202,
+      "action": "discover",
+      "sourceSha256": "64b7daf917fb484ecfcd8009ea8760c10c05456f337d82b2b20015387600c204",
+      "promptSha256": "3a5338c74d4dc1bf154feed297d1dfeff3372d167ba578119fec8d268357be5c",
+      "referenceSha256": "2df420e9b0abe23cb2bd463b0744077499d92f947aca2f98a6273b570a95f203",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "nispera-sol-run-master",
+      "variant": 203,
+      "action": "run",
+      "sourceSha256": "dc93831392cd5f470ad29f0cedd92c5e5dcd59ef71556384a9d7ab86f53fa7bb",
+      "promptSha256": "887a1f32b3ad6891fe19e976db390739baadeb5e130fa62e59fc71e53e5c4c39",
+      "referenceSha256": "945fbd9ff97812677fc54bbf704b5628b59db050587f116fd3f4e90f7825342f",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "nispera-sol-row-master",
+      "variant": 203,
+      "action": "row",
+      "sourceSha256": "e14a23a69f4b19d41cfa73ad4ece88b8fb59cee03a7b471b4fb5d4d23712e32e",
+      "promptSha256": "fbe319797c8025b39b85b5c5dc9154fdf07dbc3098390586ce3e93283ad607a7",
+      "referenceSha256": "945fbd9ff97812677fc54bbf704b5628b59db050587f116fd3f4e90f7825342f",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384,
+      "sourceSeatAnchors": [
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ]
+      ],
+      "occludedOars": {
+        "up-right": {
+          "0": [
+            1
+          ],
+          "3": [
+            1
+          ]
+        },
+        "up-left": {
+          "0": [
+            0
+          ],
+          "3": [
+            0
+          ]
+        }
+      },
+      "hullSupportedOars": {
+        "up-right": {
+          "2": [
+            0
+          ]
+        },
+        "up-left": {
+          "2": [
+            1
+          ]
+        }
+      }
+    },
+    {
+      "id": "nispera-sol-push-master",
+      "variant": 203,
+      "action": "push",
+      "sourceSha256": "d335658b08c0acc4066503ee3f1675c8db5f6d34de514b3d7e9d23a7e477f7f1",
+      "promptSha256": "fb9d775e7f1092ad30f2e15571074a664115103a73de51a4e1da66732c540ee9",
+      "referenceSha256": "945fbd9ff97812677fc54bbf704b5628b59db050587f116fd3f4e90f7825342f",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "nispera-sol-work-master",
+      "variant": 203,
+      "action": "work",
+      "sourceSha256": "754f414f97ce8cd152bff6c181bae9c7ca61eb6b2b08de09e862140fec5473cc",
+      "promptSha256": "8d1b4a39df61ce8b7e1a4e7e4137c3fa6f58429d8b6c2ab1d210cdbb3226d557",
+      "referenceSha256": "945fbd9ff97812677fc54bbf704b5628b59db050587f116fd3f4e90f7825342f",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "nispera-sol-carried-master",
+      "variant": 203,
+      "action": "carried",
+      "sourceSha256": "ea8267f215a97cf17db689d1fe71dbb22e5064c441bd6cb4346c334ebc3d78c0",
+      "promptSha256": "bf50849ad28c805ef4a196510db43fee12a276e4d5216d6bc83fb42c45cb6f49",
+      "referenceSha256": "945fbd9ff97812677fc54bbf704b5628b59db050587f116fd3f4e90f7825342f",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "nispera-sol-needs-master",
+      "variant": 203,
+      "action": "needs",
+      "sourceSha256": "85747560846035a8abe78d369b3ad8fcebc5ab811975f4e4ebe8775c612681c4",
+      "promptSha256": "3d78daecda98c2956556aaf707dec3e9903d60417920ac8c6332e49380f8cebd",
+      "referenceSha256": "945fbd9ff97812677fc54bbf704b5628b59db050587f116fd3f4e90f7825342f",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "nispera-sol-discover-master",
+      "variant": 203,
+      "action": "discover",
+      "sourceSha256": "00d80f7d319aeb69d2cd17b751400308286802bd4e4644acb941991b870ae342",
+      "promptSha256": "34c0818cb381ed4b49538683d9fd0941368eae676970104747418d44804ee3f7",
+      "referenceSha256": "945fbd9ff97812677fc54bbf704b5628b59db050587f116fd3f4e90f7825342f",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "trebol-bruma-run-master",
+      "variant": 204,
+      "action": "run",
+      "sourceSha256": "0c852689c2b921ca96fc6aa4ba35442ec07098f898a1dc03cdf62385f7bf4308",
+      "promptSha256": "2638aadc71eb1864f32a0634243d6d19793a10537fa2782b25b4db8729a6f808",
+      "referenceSha256": "70ec5687eebe6c00c6575f3da5fc03808593e3d7f07b8f3a4af28faa5ef6e223",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "trebol-bruma-row-master",
+      "variant": 204,
+      "action": "row",
+      "sourceSha256": "4479c5c8c46269c7ae506cfbf9667995a3d2926c526c72cc58725c1c915f5b71",
+      "promptSha256": "3f2de1918efc83bb6cf1996ff39c1e02b1e07ad91088582877805b227d4c3749",
+      "referenceSha256": "70ec5687eebe6c00c6575f3da5fc03808593e3d7f07b8f3a4af28faa5ef6e223",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384,
+      "sourceSeatAnchors": [
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ]
+      ],
+      "occludedOars": {
+        "up-right": {
+          "0": [
+            1
+          ],
+          "3": [
+            1
+          ]
+        },
+        "up-left": {
+          "0": [
+            0
+          ],
+          "3": [
+            0
+          ]
+        }
+      },
+      "hullSupportedOars": {
+        "up-right": {
+          "2": [
+            0
+          ]
+        },
+        "up-left": {
+          "2": [
+            1
+          ]
+        }
+      }
+    },
+    {
+      "id": "trebol-bruma-push-master",
+      "variant": 204,
+      "action": "push",
+      "sourceSha256": "eacc6f177f24183c0eb56eaae93053f12e457e24e796049128db313e3202b2fd",
+      "promptSha256": "0aeede342fc5430c0d238a6a5969d92f7edb65ddbf70b03a717e04ce16d5211d",
+      "referenceSha256": "70ec5687eebe6c00c6575f3da5fc03808593e3d7f07b8f3a4af28faa5ef6e223",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "trebol-bruma-work-master",
+      "variant": 204,
+      "action": "work",
+      "sourceSha256": "77465175bd68d7bf4b6eb9a678e439527fabfd029038f6dcba3d7ebe177c0969",
+      "promptSha256": "821f68fe540f12fd555789ade8e2918f11d19c64a779c8281744f3b04a0b3814",
+      "referenceSha256": "70ec5687eebe6c00c6575f3da5fc03808593e3d7f07b8f3a4af28faa5ef6e223",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "trebol-bruma-carried-master",
+      "variant": 204,
+      "action": "carried",
+      "sourceSha256": "e2fedf0c07cba274edf2da9f2ed679476d0ff1c43cd7b1cd38a970d5b122a733",
+      "promptSha256": "fee47c159cfb6420e9090ded36155d0d61605bd369819e9d2bba61d1b106c73c",
+      "referenceSha256": "70ec5687eebe6c00c6575f3da5fc03808593e3d7f07b8f3a4af28faa5ef6e223",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "trebol-bruma-needs-master",
+      "variant": 204,
+      "action": "needs",
+      "sourceSha256": "4455537a804f8a090d6d2147cdca53be2264c067c9058a3bee4c9c4fc9c736e2",
+      "promptSha256": "41edf3ac6092f7dc5ae47babd635b6f8b9b093b877633841685e22369c644f27",
+      "referenceSha256": "70ec5687eebe6c00c6575f3da5fc03808593e3d7f07b8f3a4af28faa5ef6e223",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "trebol-bruma-discover-master",
+      "variant": 204,
+      "action": "discover",
+      "sourceSha256": "35885e21a267bcfb28e30f78b88a59d4b15da9a2f4b8f626a990fca210c50303",
+      "promptSha256": "a3f45e821c9c6c60a68115ef9cbec62e9350edb05f671723948f5904686ba86c",
+      "referenceSha256": "70ec5687eebe6c00c6575f3da5fc03808593e3d7f07b8f3a4af28faa5ef6e223",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "mimbrera-noche-run-master",
+      "variant": 205,
+      "action": "run",
+      "sourceSha256": "25a17a7d84f6a2f840a3a0a5c4e0dbd737ee5aedde197b53255c4816289630d8",
+      "promptSha256": "c11033da6fe0d3872bb7b7783b7653c0ec05b192674c39b890acac20305cb5a0",
+      "referenceSha256": "0bcdf2990e19f113f122b48ea6be9936574b2a88e9667099b5c4ad757e19d1e3",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "mimbrera-noche-row-master",
+      "variant": 205,
+      "action": "row",
+      "sourceSha256": "aaf0b41e7a4b34718384ac280ef9747b07098645a5c28c11c8e1a0b18ecd0abd",
+      "promptSha256": "ea7d03a99cb71df206c9c8f44b8caa424c0bd2cbfa741c34f3424226f14d0a3c",
+      "referenceSha256": "0bcdf2990e19f113f122b48ea6be9936574b2a88e9667099b5c4ad757e19d1e3",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384,
+      "sourceSeatAnchors": [
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ]
+      ],
+      "occludedOars": {
+        "up-right": {
+          "0": [
+            1
+          ],
+          "3": [
+            1
+          ]
+        },
+        "up-left": {
+          "0": [
+            0
+          ],
+          "3": [
+            0
+          ]
+        }
+      },
+      "hullSupportedOars": {
+        "up-right": {
+          "2": [
+            0
+          ]
+        },
+        "up-left": {
+          "2": [
+            1
+          ]
+        }
+      }
+    },
+    {
+      "id": "mimbrera-noche-push-master",
+      "variant": 205,
+      "action": "push",
+      "sourceSha256": "b7f1e7f98a338fdf52926b91a4d39a484818685d4ca1bfcc51d8fa20c18717a4",
+      "promptSha256": "17e60bda060a1f8cdab7565204dbaa483feec1e61be7dd3e2a309bdbaac11315",
+      "referenceSha256": "0bcdf2990e19f113f122b48ea6be9936574b2a88e9667099b5c4ad757e19d1e3",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "mimbrera-noche-work-master",
+      "variant": 205,
+      "action": "work",
+      "sourceSha256": "d5df24e9c630095c37b522041d1510fa188265ee93b3e85c24061798d8c555bc",
+      "promptSha256": "c6c57caa948c6b9befb9ac669bddf7beff6948af52442beb51790ca2bb12a301",
+      "referenceSha256": "0bcdf2990e19f113f122b48ea6be9936574b2a88e9667099b5c4ad757e19d1e3",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "mimbrera-noche-carried-master",
+      "variant": 205,
+      "action": "carried",
+      "sourceSha256": "f86e9d364220941cdf06c34fb5c8f4962c60ad5279201dc5c4e4d3cfc232945a",
+      "promptSha256": "c4688af89a1ec81e1fc3d9eff2da893fb523f76ac30b62803c7e0e1df9e49048",
+      "referenceSha256": "0bcdf2990e19f113f122b48ea6be9936574b2a88e9667099b5c4ad757e19d1e3",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "mimbrera-noche-needs-master",
+      "variant": 205,
+      "action": "needs",
+      "sourceSha256": "fea1a7122fd8e97350b1d85efa20aa0d25d3a4027007db0386fa1a9ec3a455fb",
+      "promptSha256": "57268d6f11cb7ceaa9bd536ccc2096332bacf1c4d12a5b7a65ceb813aecb15b3",
+      "referenceSha256": "0bcdf2990e19f113f122b48ea6be9936574b2a88e9667099b5c4ad757e19d1e3",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "mimbrera-noche-discover-master",
+      "variant": 205,
+      "action": "discover",
+      "sourceSha256": "b2b4b275ff9483ea258d6602278eb033be3e2be069713da1d89845254bcb6208",
+      "promptSha256": "a1c41fdce7ae91479716f164f328a82c12c1389c5bab741e1ad320d3cd4806a9",
+      "referenceSha256": "0bcdf2990e19f113f122b48ea6be9936574b2a88e9667099b5c4ad757e19d1e3",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "avellano-cobre-run-master",
+      "variant": 206,
+      "action": "run",
+      "sourceSha256": "1ebce46ed7bd001ec99fdf6b886e93c751bfdbdedae58f72242e6caddfecc199",
+      "promptSha256": "e41e266dfebcf5145972382d048c27cdd27b6d276db212a3e7b03ab1b16894d3",
+      "referenceSha256": "0019ad0258f18b287066b7295cbf96e2c48b046b3385a08d5fb05b28de70a555",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "avellano-cobre-row-master",
+      "variant": 206,
+      "action": "row",
+      "sourceSha256": "94d3d54eff08af6d5254e5a7b1ca6d0acf4b4860b4b8fc9c4b37594581e0846d",
+      "promptSha256": "d45338b8824183bb6e005bc3ef103844c2998bdfd1ff41f025d2c127e222be5c",
+      "referenceSha256": "0019ad0258f18b287066b7295cbf96e2c48b046b3385a08d5fb05b28de70a555",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384,
+      "sourceSeatAnchors": [
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ]
+      ],
+      "occludedOars": {
+        "up-right": {
+          "0": [
+            1
+          ],
+          "3": [
+            1
+          ]
+        },
+        "up-left": {
+          "0": [
+            0
+          ],
+          "3": [
+            0
+          ]
+        }
+      },
+      "hullSupportedOars": {
+        "up-right": {
+          "2": [
+            0
+          ]
+        },
+        "up-left": {
+          "2": [
+            1
+          ]
+        }
+      }
+    },
+    {
+      "id": "avellano-cobre-push-master",
+      "variant": 206,
+      "action": "push",
+      "sourceSha256": "6c7cb753b498eb5cc81ce8ec613b01c2282e17cdef4863ad8c947d468b5dd506",
+      "promptSha256": "a4cf9c066e09630900f0743aeb248acaed801500242e03a3d2d580e09239c5a2",
+      "referenceSha256": "0019ad0258f18b287066b7295cbf96e2c48b046b3385a08d5fb05b28de70a555",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "avellano-cobre-work-master",
+      "variant": 206,
+      "action": "work",
+      "sourceSha256": "bc94899e59386466a3056f870554b3a9ee77c39935abf82261f7ba11da2f68f0",
+      "promptSha256": "35c52667d6949e5274d61d59e2013fcf57a4ecd3e51755cbc93e7e6038bf9dea",
+      "referenceSha256": "0019ad0258f18b287066b7295cbf96e2c48b046b3385a08d5fb05b28de70a555",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "avellano-cobre-carried-master",
+      "variant": 206,
+      "action": "carried",
+      "sourceSha256": "357dafcfd830058ab4180e98e6e8564f9a830b66c7bcc1a5fd0c901a0e4d4995",
+      "promptSha256": "64352fd54e0471f7f3e1551a504edb4f720112d2f24ac766db7ea98bb6980b22",
+      "referenceSha256": "0019ad0258f18b287066b7295cbf96e2c48b046b3385a08d5fb05b28de70a555",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "avellano-cobre-needs-master",
+      "variant": 206,
+      "action": "needs",
+      "sourceSha256": "ec6c85004d96c4f10818a248b1d81dba0dc1e14224c0645ae772244f4bb11df1",
+      "promptSha256": "03654a7ca19c0d62769838e65e0d1db5fe2f2eb8e5504342ce45c5582866d135",
+      "referenceSha256": "0019ad0258f18b287066b7295cbf96e2c48b046b3385a08d5fb05b28de70a555",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "avellano-cobre-discover-master",
+      "variant": 206,
+      "action": "discover",
+      "sourceSha256": "7e608b94a30119e0bd4d71ede62ccc511fc2a0dd3f7f01c1a91821a2efa6c878",
+      "promptSha256": "c1e082dc8acc5b95ac13c0c5c09cd2cf78f39a41e6b0a9f56d20f18c1b2bc70b",
+      "referenceSha256": "0019ad0258f18b287066b7295cbf96e2c48b046b3385a08d5fb05b28de70a555",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "oria-musgo-run-master",
+      "variant": 207,
+      "action": "run",
+      "sourceSha256": "a1cbf43c9df853216bb59cedd23e82b775c0c83e2c2e2579c6a5312e4996aa3a",
+      "promptSha256": "5361f943150b582486de9e5f29c775364f82637172164884fc611b59502cedee",
+      "referenceSha256": "4a317e2dbdc4cf787aedc192eea2521e439a8a01b5a3a711300c10037194c06a",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "oria-musgo-row-master",
+      "variant": 207,
+      "action": "row",
+      "sourceSha256": "05c5749195a5e38d49993c7da09d8ea289cdd3739c39707d0ff67e32af216d78",
+      "promptSha256": "1848c45fef159f2aaa8b68932cfac31196772addb04551939aeb4b0cb2207260",
+      "referenceSha256": "4a317e2dbdc4cf787aedc192eea2521e439a8a01b5a3a711300c10037194c06a",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384,
+      "sourceSeatAnchors": [
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ]
+      ],
+      "occludedOars": {
+        "up-right": {
+          "0": [
+            1
+          ],
+          "3": [
+            1
+          ]
+        },
+        "up-left": {
+          "0": [
+            0
+          ],
+          "3": [
+            0
+          ]
+        }
+      },
+      "hullSupportedOars": {
+        "up-right": {
+          "2": [
+            0
+          ]
+        },
+        "up-left": {
+          "2": [
+            1
+          ]
+        }
+      }
+    },
+    {
+      "id": "oria-musgo-push-master",
+      "variant": 207,
+      "action": "push",
+      "sourceSha256": "f0b9feb0d7668300f02f3dea6675cf8704b54556a0ed5769ecf1602f64b57c42",
+      "promptSha256": "e5bee645da22321d97d556c07aff1477358a41c47ad13566c10359a54cbdc75c",
+      "referenceSha256": "4a317e2dbdc4cf787aedc192eea2521e439a8a01b5a3a711300c10037194c06a",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "oria-musgo-work-master",
+      "variant": 207,
+      "action": "work",
+      "sourceSha256": "88bcf3db6dd88b0d57d56d9062ff6c51628ff90d1ab4123f9b1c11801ae0a26c",
+      "promptSha256": "ccd59b5ebeae584b04edbf7c3a9575954f516e5fe8c80a1f2aaf51a87334f018",
+      "referenceSha256": "4a317e2dbdc4cf787aedc192eea2521e439a8a01b5a3a711300c10037194c06a",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "oria-musgo-carried-master",
+      "variant": 207,
+      "action": "carried",
+      "sourceSha256": "7a0d10dfeacbb454938c881402c15df8d901251f8f6cbc259397e8387d724336",
+      "promptSha256": "71d0584860a8439dc99bedebdd2e34c5139473669fc75a20679b58b0690f4413",
+      "referenceSha256": "4a317e2dbdc4cf787aedc192eea2521e439a8a01b5a3a711300c10037194c06a",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "oria-musgo-needs-master",
+      "variant": 207,
+      "action": "needs",
+      "sourceSha256": "0bebcff0beb5025d7691a341aec10240273ba5124683da1610dc45f1b2453a52",
+      "promptSha256": "4721cb0a85554e41800dfcf3832893c21c09c752042826859fca8ed667a68237",
+      "referenceSha256": "4a317e2dbdc4cf787aedc192eea2521e439a8a01b5a3a711300c10037194c06a",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "oria-musgo-discover-master",
+      "variant": 207,
+      "action": "discover",
+      "sourceSha256": "359bf832659ca1a8f46b226da30b23f71b53c0730cd559a06fd0455f3dc062bd",
+      "promptSha256": "2a16cc56bcab4f79f9ec109fee23d66e9e6cb6a2fb481bf4ea8f4d1899c85a73",
+      "referenceSha256": "4a317e2dbdc4cf787aedc192eea2521e439a8a01b5a3a711300c10037194c06a",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "silo-bruma-run-master",
+      "variant": 208,
+      "action": "run",
+      "sourceSha256": "fdfa7bc4761c244dd91e09a87e4d38f905f582329f88686b73a06837bdbcbe98",
+      "promptSha256": "4a88e3ddfba8b2a072ed6c6fd9e898ec600910fb143a9b871be82893591dd45a",
+      "referenceSha256": "c29694bf1c41a53dbbd88fdd15b40e3e4a1bac08bdfc00cb478a0b5f04ed7808",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "silo-bruma-row-master",
+      "variant": 208,
+      "action": "row",
+      "sourceSha256": "8a25a83c6ee07ff8d4935d8d145be41aba57b27cb4f5c2d20078bf89cd2125c4",
+      "promptSha256": "c786a8ba29a3d651d3839447a830b22c62e16762348c505c19075087495b4da3",
+      "referenceSha256": "c29694bf1c41a53dbbd88fdd15b40e3e4a1bac08bdfc00cb478a0b5f04ed7808",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384,
+      "sourceSeatAnchors": [
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ]
+      ],
+      "occludedOars": {
+        "up-right": {
+          "0": [
+            1
+          ],
+          "3": [
+            1
+          ]
+        },
+        "up-left": {
+          "0": [
+            0
+          ],
+          "3": [
+            0
+          ]
+        }
+      },
+      "hullSupportedOars": {
+        "up-right": {
+          "2": [
+            0
+          ]
+        },
+        "up-left": {
+          "2": [
+            1
+          ]
+        }
+      }
+    },
+    {
+      "id": "silo-bruma-push-master",
+      "variant": 208,
+      "action": "push",
+      "sourceSha256": "e2f9ba224d4c6ff5810be5fa5706fdf17087c821c81a7dd33fbff57f3ce0ae36",
+      "promptSha256": "93ab9fa64e19c91867f8339a7e2b3aa699ee57271c4766778f45ef184b61a02d",
+      "referenceSha256": "c29694bf1c41a53dbbd88fdd15b40e3e4a1bac08bdfc00cb478a0b5f04ed7808",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "silo-bruma-work-master",
+      "variant": 208,
+      "action": "work",
+      "sourceSha256": "28894dc82652c1196325a458cb8b998faeac854a980a6807687976ee172de822",
+      "promptSha256": "8558a39a33d78f37621c6511028f4367b86ff8a7986a96b74e7e6d648b045b00",
+      "referenceSha256": "c29694bf1c41a53dbbd88fdd15b40e3e4a1bac08bdfc00cb478a0b5f04ed7808",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "silo-bruma-carried-master",
+      "variant": 208,
+      "action": "carried",
+      "sourceSha256": "df5bc9fc578b2bca813e890fb526e781560287d3076ab30eb026ea7472127990",
+      "promptSha256": "508130de2eb577ca52c17f8ee7bda0c3e492c0427820a1ec5c4bda9f0cc2893c",
+      "referenceSha256": "c29694bf1c41a53dbbd88fdd15b40e3e4a1bac08bdfc00cb478a0b5f04ed7808",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "silo-bruma-needs-master",
+      "variant": 208,
+      "action": "needs",
+      "sourceSha256": "8dd3972a64a99c7e720c7193118abd29763e40043422f3caa54fa297172c95dc",
+      "promptSha256": "f68b2b9b5d65822785f806d48f142fbd454846b098eebe976fe48804f9104fa6",
+      "referenceSha256": "c29694bf1c41a53dbbd88fdd15b40e3e4a1bac08bdfc00cb478a0b5f04ed7808",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "silo-bruma-discover-master",
+      "variant": 208,
+      "action": "discover",
+      "sourceSha256": "61ae3cba68da4dfa86b74d58a889b66a22cf4bd31530f555d3c044b9b77ea6f9",
+      "promptSha256": "86ea9631993542652cd79dcdc24bbaa4a3e891f96c5d1419aa80eab1a35dcdd3",
+      "referenceSha256": "c29694bf1c41a53dbbd88fdd15b40e3e4a1bac08bdfc00cb478a0b5f04ed7808",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "zarza-sol-run-master",
+      "variant": 209,
+      "action": "run",
+      "sourceSha256": "db64baa6d1e71a14c62dd3ada3f038d4b756d2d63d1c14f76a40d05ec75f5fa2",
+      "promptSha256": "61238e1f7544353eb22fd8e74a09f037dea8314b9b1644beab6fc6ad8029d179",
+      "referenceSha256": "2cd10d12bd1dabf35e2e6d6bc76e5f996d871ea14b5ecb10919aeea136b43f56",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "zarza-sol-row-master",
+      "variant": 209,
+      "action": "row",
+      "sourceSha256": "76e4dd076d9c09cee238245caa9e85d8f11e84b577c601d145f5cef77ce63411",
+      "promptSha256": "9cc642ec64cd7a50957b2852fe50167752c576da632c383d528a0b5a6ba5be09",
+      "referenceSha256": "2cd10d12bd1dabf35e2e6d6bc76e5f996d871ea14b5ecb10919aeea136b43f56",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384,
+      "sourceSeatAnchors": [
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ]
+      ],
+      "occludedOars": {
+        "up-right": {
+          "0": [
+            1
+          ],
+          "3": [
+            1
+          ]
+        },
+        "up-left": {
+          "0": [
+            0
+          ],
+          "3": [
+            0
+          ]
+        }
+      },
+      "hullSupportedOars": {
+        "up-right": {
+          "2": [
+            0
+          ]
+        },
+        "up-left": {
+          "2": [
+            1
+          ]
+        }
+      }
+    },
+    {
+      "id": "zarza-sol-push-master",
+      "variant": 209,
+      "action": "push",
+      "sourceSha256": "9adc993bdf5fe3bbffa94c94401ad7640b4789e86f3b0edf1e7ecaffc69a0fe6",
+      "promptSha256": "454a1827c396ea63b4de9b48986e0ac11312555e45cad16f2c738ab434d5216c",
+      "referenceSha256": "2cd10d12bd1dabf35e2e6d6bc76e5f996d871ea14b5ecb10919aeea136b43f56",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "zarza-sol-work-master",
+      "variant": 209,
+      "action": "work",
+      "sourceSha256": "6d9504cdb12d4a7b3d0aff3a3e01f056774f0e2e66d771b99c63056b3fba163b",
+      "promptSha256": "d90a861ce7f16a70311881dfce184a7d69db26829d5a01784187b0f68399e207",
+      "referenceSha256": "2cd10d12bd1dabf35e2e6d6bc76e5f996d871ea14b5ecb10919aeea136b43f56",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "zarza-sol-carried-master",
+      "variant": 209,
+      "action": "carried",
+      "sourceSha256": "eb96b69fd9ceaecef16c3b8153393c724e85f0f110979fd48ca079be04d7a8b4",
+      "promptSha256": "8f36e89f51951ce5f6458366428da49b60d1dbc85ca9b7e17a0b7ebf1b950b63",
+      "referenceSha256": "2cd10d12bd1dabf35e2e6d6bc76e5f996d871ea14b5ecb10919aeea136b43f56",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "zarza-sol-needs-master",
+      "variant": 209,
+      "action": "needs",
+      "sourceSha256": "3304a3860de989fb5522af551b95a9aca039a723cd5b533e2ae51b471cfd66d7",
+      "promptSha256": "9ed4c045081ff86c9c45ebc3275d50a2d90e4afc24faf13192f956ac7fb1a6dc",
+      "referenceSha256": "2cd10d12bd1dabf35e2e6d6bc76e5f996d871ea14b5ecb10919aeea136b43f56",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": "zarza-sol-discover-master",
+      "variant": 209,
+      "action": "discover",
+      "sourceSha256": "1cf221caac1ee60e298a5e4b0f26a7e63523d4edcf161aaa2b046ee547d8b381",
+      "promptSha256": "6b74da71b7c30b55459d5415c266e2d10d51d4eb57b27e9916226441faba31f8",
+      "referenceSha256": "2cd10d12bd1dabf35e2e6d6bc76e5f996d871ea14b5ecb10919aeea136b43f56",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 384
     }
   ],
   "rejectedSheets": [

@@ -2,7 +2,7 @@
 declare(strict_types=1);
 /** Art-only contract check. No roster, runtime packs or game state is modified. */
 $root=dirname(__DIR__);
-$options=getopt('', ['character:', 'prepared', 'all-approved']);
+$options=getopt('', ['character:', 'prepared', 'all-approved', 'baked']);
 $read=fn(string $path)=>json_decode(file_get_contents($path),true,512,JSON_THROW_ON_ERROR);
 $actors=$read("$root/data/aventura/art/residents/catalog.json");
 $actions=$read("$root/data/aventura/art/residents/actions/catalog.json")['actions'];
@@ -41,6 +41,30 @@ foreach($roster as $person){
         }
         $metadata=$read("$dir/$action-atlas.json");
         validateFrames($metadata,$names,$spec['canvas']??$actors['canvas'],$spec['anchor']??$actors['anchor']);
+        if(isset($options['baked'])) {
+            $manifest=$read("$root/public/assets/aventura/manifest.json");
+            $pack=$manifest['packs']["actor-$variant".($action==='walk'?'':"-$action")] ??
+                throw new RuntimeException("Build the registered packs first: $key/$action");
+            $baked=$read("$root/public/assets/aventura/{$pack['metadata']}");
+            $actual=imagecreatefrompng("$root/public/assets/aventura/{$pack['image']}");
+            $expected=imagecreatefrompng("$dir/$action-atlas.png");
+            imagepalettetotruecolor($actual);imagepalettetotruecolor($expected);
+            foreach($metadata['frames'] as $name=>$f) {
+                $g=$baked['frames'][$name];
+                foreach(['w','h','anchor','pixelRatio'] as $field)same($g[$field],$f[$field],"$name/$field baked");
+                $error=0;$pixels=0;
+                for($y=0;$y<$f['h']*2;$y++)for($x=0;$x<$f['w']*2;$x++) {
+                    $a=imagecolorat($actual,$g['x']+$x,$g['y']+$y);$b=imagecolorat($expected,$f['x']+$x,$f['y']+$y);
+                    // Production snaps alpha at 37, then uses a package-local indexed palette.
+                    same(($a>>24&127)>37,($b>>24&127)>37,"$name baked silhouette $x,$y");
+                    if(($b>>24&127)>37)continue;
+                    foreach([0,8,16] as $shift)$error+=abs(($a>>$shift&255)-($b>>$shift&248));
+                    $pixels++;
+                }
+                if($error/max(1,$pixels*3)>8)throw new RuntimeException("$name excessive palette error");
+            }
+            unset($actual,$expected);
+        }
         same($report['actions'][$action]['count'],$cols*$rows,"$key/$action count");
         same($report['actions'][$action]['measurement']['cellWidth'],384,"$key/$action shared master width");
         same(array_slice(getimagesize("$dir/$action.png"),0,2),[$cols*384,$rows*384],"$key/$action master grid");

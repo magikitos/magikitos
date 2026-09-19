@@ -1,0 +1,452 @@
+{
+    "frames": {
+        "person-204-down-work-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/trebol-bruma-work-master.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14336917562724014,
+                "offset": [
+                    -3.5268817204301044,
+                    -5.612903225806448
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-204-right-work-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/trebol-bruma-work-master.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                1,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14336917562724014,
+                "offset": [
+                    -3.5268817204301044,
+                    -5.612903225806448
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-204-up-work-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/trebol-bruma-work-master.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                2,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14336917562724014,
+                "offset": [
+                    -3.5268817204301044,
+                    -5.612903225806448
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-204-left-work-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/trebol-bruma-work-master.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                3,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14336917562724014,
+                "offset": [
+                    -3.5268817204301044,
+                    -5.612903225806448
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-204-down-work-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/trebol-bruma-work-master.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                0,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14336917562724014,
+                "offset": [
+                    -3.5268817204301044,
+                    -5.612903225806448
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-204-right-work-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/trebol-bruma-work-master.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                1,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14336917562724014,
+                "offset": [
+                    -3.5268817204301044,
+                    -5.612903225806448
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-204-up-work-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/trebol-bruma-work-master.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                2,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14336917562724014,
+                "offset": [
+                    -3.5268817204301044,
+                    -5.612903225806448
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-204-left-work-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/trebol-bruma-work-master.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                3,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14336917562724014,
+                "offset": [
+                    -3.5268817204301044,
+                    -5.612903225806448
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-204-down-work-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/trebol-bruma-work-master.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                0,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14336917562724014,
+                "offset": [
+                    -3.5268817204301044,
+                    -5.612903225806448
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-204-right-work-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/trebol-bruma-work-master.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                1,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14336917562724014,
+                "offset": [
+                    -3.5268817204301044,
+                    -5.612903225806448
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-204-up-work-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/trebol-bruma-work-master.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                2,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14336917562724014,
+                "offset": [
+                    -3.5268817204301044,
+                    -5.612903225806448
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-204-left-work-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/trebol-bruma-work-master.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                3,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14336917562724014,
+                "offset": [
+                    -3.5268817204301044,
+                    -5.612903225806448
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-204-down-work-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/trebol-bruma-work-master.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                0,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14336917562724014,
+                "offset": [
+                    -3.5268817204301044,
+                    -5.612903225806448
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-204-right-work-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/trebol-bruma-work-master.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                1,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14336917562724014,
+                "offset": [
+                    -3.5268817204301044,
+                    -5.612903225806448
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-204-up-work-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/trebol-bruma-work-master.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                2,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14336917562724014,
+                "offset": [
+                    -3.5268817204301044,
+                    -5.612903225806448
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-204-left-work-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/trebol-bruma-work-master.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                3,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14336917562724014,
+                "offset": [
+                    -3.5268817204301044,
+                    -5.612903225806448
+                ]
+            },
+            "cleanFragments": 0.015
+        }
+    }
+}

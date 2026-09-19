@@ -11,7 +11,7 @@ assert(selected.every(Boolean));
 assert(selected.length > 0, "The approved protagonist selection is not empty");
 assert.equal(new Set(actions.variants).size, selected.length, "No duplicate protagonists");
 assert(selected.every(p => ["M", "F"].includes(p.gender)), "Original resident identities are preserved");
-assert.equal(residents.profiles.length, 100, "Playable selection must not remove any of the 100 NPCs");
+assert.equal(residents.profiles.filter(p => !p.playableOnly).length, 100, "Playable selection must not remove any of the 100 NPCs");
 assert.deepEqual(Object.keys(actions.actions).sort(), ["carried", "discover", "needs", "push", "row", "run", "work"]);
 assert.equal(Object.values(actions.actions).reduce((count, spec) => count + spec.grid[0] * spec.grid[1], 0), 124);
 const digest = (file) => crypto.createHash("sha256").update(fs.readFileSync(file)).digest("hex");

@@ -1,0 +1,49 @@
+{
+    "sheet": "rizo-alba-discover-master",
+    "reference": "resident-101",
+    "sourceSha256": "c9d2f6522bb2351ac971d23e881756e263b2c874b3cc05e2e5fafed6c01f9aca",
+    "referenceSha256": "54d515c602b4f0ef5b07c0e1f33dbe0c017bcf416cfd7005376c60dff5da6731",
+    "measurement": {
+        "bodyHeight": 270,
+        "cellWidth": 384,
+        "ratio": 0.14814814814814814
+    },
+    "poses": {
+        "person-200-discover-0": {
+            "ink": [
+                16,
+                3.925925925925931,
+                16.14814814814815,
+                42.07407407407407
+            ],
+            "support": 46
+        },
+        "person-200-discover-1": {
+            "ink": [
+                12.444444444444446,
+                3.925925925925931,
+                23.11111111111111,
+                42.07407407407407
+            ],
+            "support": 46
+        },
+        "person-200-discover-2": {
+            "ink": [
+                9.333333333333334,
+                2.740740740740744,
+                29.185185185185183,
+                43.25925925925926
+            ],
+            "support": 46
+        },
+        "person-200-discover-3": {
+            "ink": [
+                14.222222222222221,
+                2.444444444444448,
+                19.555555555555554,
+                43.55555555555555
+            ],
+            "support": 46
+        }
+    }
+}

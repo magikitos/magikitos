@@ -26,13 +26,13 @@ Cada protagonista tiene en `data/aventura/art/playable-cast/<key>/`:
 - `review/portrait.json`: procedencia SHA-256, recorte, escala y destino.
 
 ```sh
-php scripts/prepare-playable-portrait.php --character=mora-alba
+php scripts/prepare-playable-card.php --character=mora-alba
 php scripts/review-playable-portraits.php
 php scripts/prepare-cast-portraits.php
 node tools/build.cjs
 ```
 
-La hoja de revisión `playable-cast/portraits-review.png` muestra los ocho
+La hoja de revisión `playable-cast/portraits-review.png` muestra los
 protagonistas, pero no los habilita por sí sola. El juego solo ofrece personajes con sus
 siete acciones completas y rig de remada registrado. El retrato por sí solo
 no convierte un NPC en protagonista.
@@ -40,15 +40,21 @@ no convierte un NPC en protagonista.
 ## Exportación y UI
 
 El empaquetador usa tamaño lógico 120×160 y textura 2×, con reducción integrada.
-No entrega al navegador los originales de generación. Un único atlas
-`cast-portraits`, inferior a 4 MiB decodificados para el elenco actual, se pide
-al abrir «Yo» y se libera al cerrarlo. No se precargan las hojas de caminar de
+No entrega al navegador los originales de generación. Los atlas paginados
+`cast-portraits-N` contienen como máximo ocho caras por página y menos de 4 MiB
+RGBA por página. Se prestan al abrir «Yo» y se liberan al cerrarlo. No se precargan las hojas de caminar de
 todos los candidatos para enseñar el selector.
 
-Medición del elenco de ocho (18-sep-2026): atlas 1024×648, **390.505 bytes PNG**,
-2.654.208 bytes RGBA decodificados. Son presupuestos distintos: la descarga
-comprimida no representa la memoria de la textura. El test limita esta última
-a 4 MiB y comprueba que no se acumulen hojas al cambiar de personaje.
+Todos los retratos, antiguos y nuevos, usan el mismo compositor: fondo individual
+al 16 %, bordes transparentes y halo difuso al 24 %. La figura conserva sus píxeles
+originales, sin brillo añadido. `prepare-cast-portraits.php` recompone las tarjetas
+y verifica sus hashes, también en un clon limpio. El test limita memoria por página
+y por personaje y comprueba que no se acumulen hojas al cambiar de personaje.
+
+Las páginas de retratos declaran `continuousAlpha: true`: conservan el lienzo
+completo y alfa gradual en el PNG final. El mundo y los personajes mantienen su
+paleta pixel-art con alfa binario; no se mezclan ambas políticas en un paquete.
+`check-adventure-crops.php` prueba el halo horneado y rechaza paquetes mezclados.
 
 Tarjetas táctiles de más de 44 píxeles, rejilla adaptable y altura acotada con
 desplazamiento. Selección visible por contorno, foco de teclado y `aria-pressed`.

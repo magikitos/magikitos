@@ -54,6 +54,10 @@ const read = (page) => page.evaluate(() => window.MagikitosAdventure.inspect());
         const box = await options.nth(i).boundingBox();
         assert(box.width >= 44 && box.height >= 44, `Tappable face at ${width}: ${JSON.stringify(box)}`);
         assert.equal(await options.nth(i).locator("canvas").count(), 1, "Every face is painted");
+        assert.deepEqual(await options.nth(i).locator("canvas").evaluate(c => [c.width, c.height]), [240, 320],
+          "Cards keep their full halo canvas instead of cropping to opaque ink");
+        const artBox = await options.nth(i).locator("canvas").boundingBox();
+        assert(artBox.width <= box.width && artBox.height <= box.height, "The full hat and boots fit inside each responsive card");
       }
       // La caja del panel no puede salirse de la pantalla por meterle una rejilla dentro.
       const dialog = await page.locator("#self-dialog").boundingBox();
@@ -94,7 +98,7 @@ const read = (page) => page.evaluate(() => window.MagikitosAdventure.inspect());
         "The previous body's sheets were released, not stacked",
       );
       assert(
-        !pinned.includes("cast-portraits"),
+        !pinned.some(id => id.startsWith("cast-portraits-")),
         "Portraits are lent while the panel is open, never pinned",
       );
 
@@ -108,11 +112,22 @@ const read = (page) => page.evaluate(() => window.MagikitosAdventure.inspect());
       );
       assert.equal(await options.count(), 0, "The grid is let go with the panel");
 
+      // Every offered identity must load and swap, including the ten new bodies.
+      for (const variant of offered) {
+        await page.locator("#self-toggle").click();
+        await page.waitForSelector("#self-cast:not([hidden]) .world-self-cast-option canvas");
+        await page.locator(".world-self-cast-option").nth(offered.indexOf(variant)).click();
+        await page.waitForFunction(want => window.MagikitosAdventure.inspect().player.variant === want &&
+          window.MagikitosAdventure.inspect().assets.active.includes("actor-" + want), variant);
+        await page.locator("#self-dialog [data-dismiss]").click();
+        await page.waitForFunction(() => !document.getElementById("self-cast-grid").children.length);
+      }
+
       await page.reload();
       await enterWorld(page);
       const resumed = await read(page);
-      assert.equal(resumed.player.variant, offered[other], "The duende survives a reload");
-      assert.equal(resumed.cast.chosen, offered[other]);
+      assert.equal(resumed.player.variant, offered.at(-1), "The duende survives a reload");
+      assert.equal(resumed.cast.chosen, offered.at(-1));
       await page.close();
     }
   } finally {

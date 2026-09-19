@@ -24,7 +24,7 @@ const catalog = JSON.parse(
   ),
 );
 const copy = composeLocales(catalog);
-const profiles = catalog.avatarProfiles,
+const profiles = catalog.avatarProfiles.filter(p => !p.playableOnly),
   source = require("../data/aventura/art/residents/catalog.json");
 const manifest = require("../public/assets/aventura/manifest.json"),
   owners = new Map();
@@ -37,7 +37,7 @@ assert.equal(profiles.filter((p) => p.gender === "M").length, 50);
 assert.equal(new Set(profiles.map((p) => p.family)).size, 20);
 assert.deepEqual(
   profiles.map(({ id, key, family, gender }) => ({ id, key, family, gender })),
-  source.profiles.map(({ id, key, family, gender }) => ({
+  source.profiles.filter(p => !p.playableOnly).map(({ id, key, family, gender }) => ({
     id,
     key,
     family,
@@ -69,7 +69,7 @@ for (const edition of require("../data/aventura/art/doorways/catalog.json")
       crypto.createHash("sha256").update(fs.readFileSync(file)).digest("hex"),
     );
 }
-const hashes = source.profiles.map((p) =>
+const hashes = source.profiles.filter(p => !p.playableOnly).map((p) =>
   crypto
     .createHash("sha256")
     .update(

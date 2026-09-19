@@ -1,0 +1,228 @@
+{
+    "frames": {
+        "person-204-pee-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/trebol-bruma-needs-master.png",
+            "grid": [
+                4,
+                2
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14336917562724014,
+                "offset": [
+                    -3.5268817204301044,
+                    -5.612903225806448
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-204-pee-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/trebol-bruma-needs-master.png",
+            "grid": [
+                4,
+                2
+            ],
+            "cell": [
+                1,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14336917562724014,
+                "offset": [
+                    -3.5268817204301044,
+                    -5.612903225806448
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-204-pee-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/trebol-bruma-needs-master.png",
+            "grid": [
+                4,
+                2
+            ],
+            "cell": [
+                2,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14336917562724014,
+                "offset": [
+                    -3.5268817204301044,
+                    -5.612903225806448
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-204-pee-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/trebol-bruma-needs-master.png",
+            "grid": [
+                4,
+                2
+            ],
+            "cell": [
+                3,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14336917562724014,
+                "offset": [
+                    -3.5268817204301044,
+                    -5.612903225806448
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-204-poop-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/trebol-bruma-needs-master.png",
+            "grid": [
+                4,
+                2
+            ],
+            "cell": [
+                0,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14336917562724014,
+                "offset": [
+                    -3.5268817204301044,
+                    -5.612903225806448
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-204-poop-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/trebol-bruma-needs-master.png",
+            "grid": [
+                4,
+                2
+            ],
+            "cell": [
+                1,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14336917562724014,
+                "offset": [
+                    -3.5268817204301044,
+                    -5.612903225806448
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-204-poop-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/trebol-bruma-needs-master.png",
+            "grid": [
+                4,
+                2
+            ],
+            "cell": [
+                2,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14336917562724014,
+                "offset": [
+                    -3.5268817204301044,
+                    -5.612903225806448
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-204-poop-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/trebol-bruma-needs-master.png",
+            "grid": [
+                4,
+                2
+            ],
+            "cell": [
+                3,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14336917562724014,
+                "offset": [
+                    -3.5268817204301044,
+                    -5.612903225806448
+                ]
+            },
+            "cleanFragments": 0.015
+        }
+    }
+}

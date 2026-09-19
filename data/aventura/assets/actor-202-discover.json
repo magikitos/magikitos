@@ -1,0 +1,116 @@
+{
+    "frames": {
+        "person-202-discover-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/tizon-musgo-discover-master.png",
+            "grid": [
+                4,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1520912547528517,
+                "offset": [
+                    -5.2015209125475295,
+                    -8.752851711026615
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-202-discover-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/tizon-musgo-discover-master.png",
+            "grid": [
+                4,
+                1
+            ],
+            "cell": [
+                1,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1520912547528517,
+                "offset": [
+                    -5.2015209125475295,
+                    -8.752851711026615
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-202-discover-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/tizon-musgo-discover-master.png",
+            "grid": [
+                4,
+                1
+            ],
+            "cell": [
+                2,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1520912547528517,
+                "offset": [
+                    -5.2015209125475295,
+                    -8.752851711026615
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-202-discover-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/tizon-musgo-discover-master.png",
+            "grid": [
+                4,
+                1
+            ],
+            "cell": [
+                3,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1520912547528517,
+                "offset": [
+                    -5.2015209125475295,
+                    -8.752851711026615
+                ]
+            },
+            "cleanFragments": 0.015
+        }
+    }
+}

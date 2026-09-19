@@ -1,0 +1,900 @@
+{
+    "frames": {
+        "person-208-down-row-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/silo-bruma-row-master.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14869888475836432,
+                "offset": [
+                    3.4498141263940525,
+                    -0.14869888475836746
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-208-down-right-row-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/silo-bruma-row-master.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                1,
+                0
+            ],
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14869888475836432,
+                "offset": [
+                    3.4498141263940525,
+                    -0.14869888475836746
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-208-right-row-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/silo-bruma-row-master.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                2,
+                0
+            ],
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14869888475836432,
+                "offset": [
+                    3.4498141263940525,
+                    -0.14869888475836746
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-208-up-right-row-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/silo-bruma-row-master.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                3,
+                0
+            ],
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14869888475836432,
+                "offset": [
+                    3.4498141263940525,
+                    -0.14869888475836746
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-208-up-row-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/silo-bruma-row-master.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                4,
+                0
+            ],
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14869888475836432,
+                "offset": [
+                    3.4498141263940525,
+                    -0.14869888475836746
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-208-up-left-row-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/silo-bruma-row-master.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                5,
+                0
+            ],
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14869888475836432,
+                "offset": [
+                    3.4498141263940525,
+                    -0.14869888475836746
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-208-left-row-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/silo-bruma-row-master.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                6,
+                0
+            ],
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14869888475836432,
+                "offset": [
+                    3.4498141263940525,
+                    -0.14869888475836746
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-208-down-left-row-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/silo-bruma-row-master.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                7,
+                0
+            ],
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14869888475836432,
+                "offset": [
+                    3.4498141263940525,
+                    -0.14869888475836746
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-208-down-row-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/silo-bruma-row-master.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                0,
+                1
+            ],
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14869888475836432,
+                "offset": [
+                    3.4498141263940525,
+                    -0.14869888475836746
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-208-down-right-row-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/silo-bruma-row-master.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                1,
+                1
+            ],
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14869888475836432,
+                "offset": [
+                    3.4498141263940525,
+                    -0.14869888475836746
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-208-right-row-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/silo-bruma-row-master.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                2,
+                1
+            ],
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14869888475836432,
+                "offset": [
+                    3.4498141263940525,
+                    -0.14869888475836746
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-208-up-right-row-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/silo-bruma-row-master.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                3,
+                1
+            ],
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14869888475836432,
+                "offset": [
+                    3.4498141263940525,
+                    -0.14869888475836746
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-208-up-row-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/silo-bruma-row-master.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                4,
+                1
+            ],
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14869888475836432,
+                "offset": [
+                    3.4498141263940525,
+                    -0.14869888475836746
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-208-up-left-row-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/silo-bruma-row-master.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                5,
+                1
+            ],
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14869888475836432,
+                "offset": [
+                    3.4498141263940525,
+                    -0.14869888475836746
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-208-left-row-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/silo-bruma-row-master.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                6,
+                1
+            ],
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14869888475836432,
+                "offset": [
+                    3.4498141263940525,
+                    -0.14869888475836746
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-208-down-left-row-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/silo-bruma-row-master.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                7,
+                1
+            ],
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14869888475836432,
+                "offset": [
+                    3.4498141263940525,
+                    -0.14869888475836746
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-208-down-row-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/silo-bruma-row-master.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                0,
+                2
+            ],
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14869888475836432,
+                "offset": [
+                    3.4498141263940525,
+                    -0.14869888475836746
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-208-down-right-row-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/silo-bruma-row-master.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                1,
+                2
+            ],
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14869888475836432,
+                "offset": [
+                    3.4498141263940525,
+                    -0.14869888475836746
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-208-right-row-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/silo-bruma-row-master.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                2,
+                2
+            ],
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14869888475836432,
+                "offset": [
+                    3.4498141263940525,
+                    -0.14869888475836746
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-208-up-right-row-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/silo-bruma-row-master.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                3,
+                2
+            ],
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14869888475836432,
+                "offset": [
+                    3.4498141263940525,
+                    -0.14869888475836746
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-208-up-row-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/silo-bruma-row-master.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                4,
+                2
+            ],
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14869888475836432,
+                "offset": [
+                    3.4498141263940525,
+                    -0.14869888475836746
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-208-up-left-row-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/silo-bruma-row-master.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                5,
+                2
+            ],
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14869888475836432,
+                "offset": [
+                    3.4498141263940525,
+                    -0.14869888475836746
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-208-left-row-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/silo-bruma-row-master.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                6,
+                2
+            ],
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14869888475836432,
+                "offset": [
+                    3.4498141263940525,
+                    -0.14869888475836746
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-208-down-left-row-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/silo-bruma-row-master.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                7,
+                2
+            ],
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14869888475836432,
+                "offset": [
+                    3.4498141263940525,
+                    -0.14869888475836746
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-208-down-row-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/silo-bruma-row-master.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                0,
+                3
+            ],
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14869888475836432,
+                "offset": [
+                    3.4498141263940525,
+                    -0.14869888475836746
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-208-down-right-row-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/silo-bruma-row-master.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                1,
+                3
+            ],
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14869888475836432,
+                "offset": [
+                    3.4498141263940525,
+                    -0.14869888475836746
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-208-right-row-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/silo-bruma-row-master.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                2,
+                3
+            ],
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14869888475836432,
+                "offset": [
+                    3.4498141263940525,
+                    -0.14869888475836746
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-208-up-right-row-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/silo-bruma-row-master.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                3,
+                3
+            ],
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14869888475836432,
+                "offset": [
+                    3.4498141263940525,
+                    -0.14869888475836746
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-208-up-row-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/silo-bruma-row-master.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                4,
+                3
+            ],
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14869888475836432,
+                "offset": [
+                    3.4498141263940525,
+                    -0.14869888475836746
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-208-up-left-row-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/silo-bruma-row-master.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                5,
+                3
+            ],
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14869888475836432,
+                "offset": [
+                    3.4498141263940525,
+                    -0.14869888475836746
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-208-left-row-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/silo-bruma-row-master.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                6,
+                3
+            ],
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14869888475836432,
+                "offset": [
+                    3.4498141263940525,
+                    -0.14869888475836746
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-208-down-left-row-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/silo-bruma-row-master.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                7,
+                3
+            ],
+            "size": [
+                64,
+                56
+            ],
+            "anchor": [
+                32,
+                40
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14869888475836432,
+                "offset": [
+                    3.4498141263940525,
+                    -0.14869888475836746
+                ]
+            },
+            "cleanFragments": 0.015
+        }
+    }
+}
