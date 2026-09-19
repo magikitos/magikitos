@@ -62,6 +62,11 @@ class Renderer {
   frame(entity, state) {
     if (entity.neighbor)
       return entity.activitySprite || characterFrame(entity.variant, entity, entity.moving);
+    // El parpadeo sutil de la bombita a media hora del final: dos sprites que se alternan despacio
+    // (ciclo de 2,2 s), nunca un estrobo. `since` ya viene traducido al reloj del navegador.
+    if (entity.pulse && this.epochNow >= entity.pulse.since &&
+        Math.floor(this.epochNow / (entity.pulse.periodMs / 2)) % 2)
+      return entity.pulse.sprite;
     return (
       (entity.visuals || []).find((v) => matches(state, v.when))?.sprite ||
       require("./elements").frameName(entity)
@@ -113,6 +118,7 @@ class Renderer {
     // catch, so a world preloaded out of sight would come up saying it failed.
     // The guard lives HERE, at the one place that draws, and not at each caller.
     if (!this.width || !this.height) return;
+    this.epochNow = Date.now();
     const c = this.ctx,
       world = game.world,
       cam = game.camera;

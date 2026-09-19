@@ -1,0 +1,280 @@
+{
+    "profile": {
+        "pixelRatio": 2,
+        "sampling": "area"
+    },
+    "packages": {
+        "items": {
+            "maintenance-bomb": {
+                "source": "data/aventura/art/automaintenance/cutouts/bomb-armed.png",
+                "grid": [
+                    1,
+                    1
+                ],
+                "cell": [
+                    0,
+                    0
+                ],
+                "size": [
+                    14,
+                    18
+                ],
+                "anchor": [
+                    7,
+                    17
+                ],
+                "fit": true
+            },
+            "maintenance-bomb-warning": {
+                "source": "data/aventura/art/automaintenance/cutouts/bomb-warning.png",
+                "grid": [
+                    1,
+                    1
+                ],
+                "cell": [
+                    0,
+                    0
+                ],
+                "size": [
+                    14,
+                    18
+                ],
+                "anchor": [
+                    7,
+                    17
+                ],
+                "fit": true
+            },
+            "maintenance-defuser": {
+                "source": "data/aventura/art/automaintenance/cutouts/defuser.png",
+                "grid": [
+                    1,
+                    1
+                ],
+                "cell": [
+                    0,
+                    0
+                ],
+                "size": [
+                    22,
+                    20
+                ],
+                "anchor": [
+                    11,
+                    18
+                ],
+                "fit": true
+            },
+            "maintenance-bomb-icon": {
+                "source": "data/aventura/art/automaintenance/cutouts/bomb.png",
+                "grid": [
+                    1,
+                    1
+                ],
+                "cell": [
+                    0,
+                    0
+                ],
+                "size": [
+                    48,
+                    56
+                ],
+                "anchor": [
+                    24,
+                    54
+                ],
+                "fit": true
+            },
+            "maintenance-defuser-icon": {
+                "source": "data/aventura/art/automaintenance/cutouts/defuser.png",
+                "grid": [
+                    1,
+                    1
+                ],
+                "cell": [
+                    0,
+                    0
+                ],
+                "size": [
+                    56,
+                    50
+                ],
+                "anchor": [
+                    28,
+                    48
+                ],
+                "fit": true
+            }
+        },
+        "overgrowth": {
+            "overgrowth-sparse-1": {
+                "source": "data/aventura/art/automaintenance/cutouts/path-overgrowth.png",
+                "grid": [
+                    4,
+                    2
+                ],
+                "cell": [
+                    0,
+                    0
+                ],
+                "size": [
+                    24,
+                    12
+                ],
+                "anchor": [
+                    12,
+                    11
+                ],
+                "fit": true,
+                "scaleGroup": "path-grass"
+            },
+            "overgrowth-sparse-2": {
+                "source": "data/aventura/art/automaintenance/cutouts/path-overgrowth.png",
+                "grid": [
+                    4,
+                    2
+                ],
+                "cell": [
+                    1,
+                    0
+                ],
+                "size": [
+                    24,
+                    12
+                ],
+                "anchor": [
+                    12,
+                    11
+                ],
+                "fit": true,
+                "scaleGroup": "path-grass"
+            },
+            "overgrowth-sparse-3": {
+                "source": "data/aventura/art/automaintenance/cutouts/path-overgrowth.png",
+                "grid": [
+                    4,
+                    2
+                ],
+                "cell": [
+                    2,
+                    0
+                ],
+                "size": [
+                    24,
+                    12
+                ],
+                "anchor": [
+                    12,
+                    11
+                ],
+                "fit": true,
+                "scaleGroup": "path-grass"
+            },
+            "overgrowth-sparse-4": {
+                "source": "data/aventura/art/automaintenance/cutouts/path-overgrowth.png",
+                "grid": [
+                    4,
+                    2
+                ],
+                "cell": [
+                    3,
+                    0
+                ],
+                "size": [
+                    24,
+                    12
+                ],
+                "anchor": [
+                    12,
+                    11
+                ],
+                "fit": true,
+                "scaleGroup": "path-grass"
+            },
+            "overgrowth-full-1": {
+                "source": "data/aventura/art/automaintenance/cutouts/path-overgrowth.png",
+                "grid": [
+                    4,
+                    2
+                ],
+                "cell": [
+                    0,
+                    1
+                ],
+                "size": [
+                    24,
+                    12
+                ],
+                "anchor": [
+                    12,
+                    11
+                ],
+                "fit": true,
+                "scaleGroup": "path-grass"
+            },
+            "overgrowth-full-2": {
+                "source": "data/aventura/art/automaintenance/cutouts/path-overgrowth.png",
+                "grid": [
+                    4,
+                    2
+                ],
+                "cell": [
+                    1,
+                    1
+                ],
+                "size": [
+                    24,
+                    12
+                ],
+                "anchor": [
+                    12,
+                    11
+                ],
+                "fit": true,
+                "scaleGroup": "path-grass"
+            },
+            "overgrowth-full-3": {
+                "source": "data/aventura/art/automaintenance/cutouts/path-overgrowth.png",
+                "grid": [
+                    4,
+                    2
+                ],
+                "cell": [
+                    2,
+                    1
+                ],
+                "size": [
+                    24,
+                    12
+                ],
+                "anchor": [
+                    12,
+                    11
+                ],
+                "fit": true,
+                "scaleGroup": "path-grass"
+            },
+            "overgrowth-full-4": {
+                "source": "data/aventura/art/automaintenance/cutouts/path-overgrowth.png",
+                "grid": [
+                    4,
+                    2
+                ],
+                "cell": [
+                    3,
+                    1
+                ],
+                "size": [
+                    24,
+                    12
+                ],
+                "anchor": [
+                    12,
+                    11
+                ],
+                "fit": true,
+                "scaleGroup": "path-grass"
+            }
+        }
+    }
+}

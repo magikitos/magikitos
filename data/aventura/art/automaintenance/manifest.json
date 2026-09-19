@@ -1,0 +1,42 @@
+{
+    "status": "art-only; not registered in the game",
+    "profile": {
+        "pixelRatio": 2,
+        "sampling": "area"
+    },
+    "inventory": {
+        "bomba": "maintenance-bomb-icon",
+        "desactivador": "maintenance-defuser-icon"
+    },
+    "warning": {
+        "base": "maintenance-bomb",
+        "highlight": "maintenance-bomb-warning",
+        "effect": "whole-body-red",
+        "flame": "identical in both world states; inventory unlit",
+        "suggestedPeriodMs": 2200
+    },
+    "packages": {
+        "items": {
+            "image": "packs/items.png",
+            "metadata": "packs/items.json",
+            "bytes": 9168,
+            "sha256": "fd24c51cb65c1c360385a0259f58f36b8a832daed82e70d5e595da0570353b9c",
+            "texturePixels": [
+                256,
+                218
+            ],
+            "rgbaBytes": 223232
+        },
+        "overgrowth": {
+            "image": "packs/overgrowth.png",
+            "metadata": "packs/overgrowth.json",
+            "bytes": 3189,
+            "sha256": "3dd81b628b429e997985fcab0c209f4cafe35937bcae6e6c942428ebcbf8e4e0",
+            "texturePixels": [
+                128,
+                108
+            ],
+            "rgbaBytes": 55296
+        }
+    }
+}

@@ -230,12 +230,60 @@ function neighbourhoodReason(samples, separation) {
   return null;
 }
 
-/** Lo que cuesta una pieza: lo suyo, o tantos palitos por celda de trazado. */
-function objectCost(object, definition) {
+/**
+ * ⛔ EL PRECIO SUBE CON LO QUE YA HAY EN LA ZONA (19-sep-2026, AUTOMANTENIMIENTO.md §A1, decisión
+ * del dueño: «al subir de forma exponencial será cada vez más difícil o imposible de ponerlo»). Un
+ * tope por persona no protege el bosque: con ocho vallas por cabeza y cien personas el claro se
+ * pela igual. El límite es DEL SITIO: el coste por celda se multiplica por 2^(d/D), donde d es la
+ * fracción de celdas pisables de la zona ya cubiertas por trazados de la MISMA familia y D es la
+ * fracción de duplicación de la pieza (`densityDoubling`; sin ella, multiplicador 1, y así los
+ * bancos y las flores no se enteran). Nunca dice que no: simplemente deja de ser pagable.
+ *
+ * El multiplicador se redondea a seis decimales ANTES de multiplicar, en los dos gemelos: así el
+ * precio que enseña el navegador y el que cobra el servidor salen del mismo número aunque las dos
+ * potencias difieran en el último bit.
+ */
+const family = (kind, catalog) =>
+  catalog.definitions[kind]?.family || kind;
+/** Celdas de trazado vivas de una familia en una zona (la candidata no cuenta: es lo que YA hay). */
+function coveredTiles(items, definition, catalog, excludeId = null) {
+  const mine = definition.family || Object.keys(catalog.definitions).find((k) => catalog.definitions[k] === definition);
+  let covered = 0;
+  for (const item of items) {
+    if (item.id === excludeId || !Array.isArray(item.points)) continue;
+    if (family(item.kind, catalog) !== mine) continue;
+    covered += Math.max(1, Math.ceil(polylineLength(item.points)));
+  }
+  return covered;
+}
+const walkableCache = new WeakMap();
+/** Cuántas celdas de la zona se pueden pisar: la máscara de suelo, que no cambia salvo en el Studio. */
+function walkableCells(ground) {
+  if (!ground) return 0;
+  if (!walkableCache.has(ground)) {
+    let n = 0;
+    for (const c of ground.cells) n += c;
+    walkableCache.set(ground, n);
+  }
+  return walkableCache.get(ground);
+}
+function densityMultiplier(definition, items, catalog, ground, excludeId = null) {
+  const doubling = definition.densityDoubling;
+  if (!doubling || definition.shape !== "polyline") return 1;
+  const walkable = walkableCells(ground);
+  if (!walkable) return 1;
+  const d = coveredTiles(items, definition, catalog, excludeId) / walkable;
+  return Math.round(Math.pow(2, d / doubling) * 1e6) / 1e6;
+}
+/** Lo que cuesta una pieza: lo suyo, o tantos palitos por celda de trazado, por lo pisado que esté el claro. */
+function objectCost(object, definition, multiplier = 1) {
   if (definition.shape !== "polyline") return definition.cost;
   const tiles = Math.max(1, Math.ceil(polylineLength(object.points)));
   return Object.fromEntries(
-    Object.entries(definition.costPerTile).map(([id, n]) => [id, n * tiles]),
+    Object.entries(definition.costPerTile).map(([id, n]) => [
+      id,
+      Math.ceil(n * tiles * multiplier - 1e-9),
+    ]),
   );
 }
 
@@ -464,6 +512,10 @@ module.exports = {
   shapes,
   absolutePoints,
   objectCost,
+  polylineLength,
+  coveredTiles,
+  walkableCells,
+  densityMultiplier,
   polylineReason,
   validateConstruction,
   groundMask,

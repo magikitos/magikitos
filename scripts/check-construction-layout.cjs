@@ -443,12 +443,14 @@ assert.deepEqual(
   { twig: 6 },
   "Three tiles of fence cost three tiles of twigs",
 );
-// Cavar no cuesta material: cuesta tener la pala. Un precio de cero no es un precio.
+// Cavar cuesta tener la pala Y hojas por celda (AUTOMANTENIMIENTO.md §A2, 19-sep-2026): el
+// material es el cuello de botella, y sin él ninguna regla de densidad aguanta.
 assert.deepEqual(
   objectCost(costs[0], catalog.definitions["forest-path"]),
-  {},
-  "A path is paid for with a tool, not with twigs",
+  { leaf: 3 },
+  "A path is paid for with the rake in hand and a leaf per tile",
 );
+assert.equal(catalog.definitions["forest-path"].densityDoubling, 0.02, "…and its price doubles every 2% of the clearing");
 assert.deepEqual(
   catalog.definitions["forest-path"].requires,
   { items: { rake: 1 } },

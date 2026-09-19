@@ -7,6 +7,13 @@
     "minimumDays": 28,
     "minimumVisitors": 10
   },
+  "bomb": {
+    "fuseMs": 18000000,
+    "warningMs": 1800000,
+    "sprite": "maintenance-bomb",
+    "warningSprite": "maintenance-bomb-warning",
+    "pulseMs": 2200
+  },
   "zones": {
     "claro-de-los-sauces": {
       "scene": "river-willows",
@@ -71,7 +78,9 @@
           "id": "tierra"
         }
       ],
-      "costPerTile": {},
+      "costPerTile": {
+        "leaf": 1
+      },
       "surfaces": [
         "flat-ground"
       ],
@@ -89,7 +98,12 @@
         "grassSeed": 1
       },
       "removeLabel": "buildSowGrass",
-      "separation": 3
+      "separation": 3,
+      "densityDoubling": 0.02,
+      "bombable": false,
+      "overgrowth": {
+        "minutes": 720
+      }
     },
     "twig-fence": {
       "label": "buildFence",
@@ -107,7 +121,8 @@
       ],
       "capabilities": [],
       "maxPerAuthor": 8,
-      "separation": 3
+      "separation": 3,
+      "densityDoubling": 0.02
     },
     "woodland-bench": {
       "label": "buildBench",

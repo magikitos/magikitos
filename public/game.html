@@ -353,6 +353,18 @@
         </div>
       </form>
     </dialog>
+    <dialog id="bomb-dialog" class="world-modal world-note" aria-labelledby="bomb-title">
+      <h2 id="bomb-title">{{communityBombNoteTitle}}</h2>
+      <form id="bomb-form">
+        <textarea id="bomb-note" rows="4" maxlength="500" dir="auto" placeholder="{{communityBombNotePlaceholder}}"
+          aria-label="{{communityBombNoteTitle}}" aria-describedby="bomb-note-count"></textarea>
+        <output id="bomb-note-count" for="bomb-note"></output>
+        <div class="world-note-actions">
+          <button type="button" data-dismiss>{{cancel}}</button>
+          <button type="submit" id="bomb-place" class="world-primary">{{communityBombNoteConfirm}}</button>
+        </div>
+      </form>
+    </dialog>
     <div class="world-experience-wash" aria-hidden="true"></div>
     <main
       id="world-content"

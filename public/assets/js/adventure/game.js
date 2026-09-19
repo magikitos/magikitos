@@ -466,6 +466,12 @@ class Adventure {
       entity.y - this.player.y,
       this.player.direction,
     );
+    // Una bombita o una tenaza en la mano sobre algo construido: es mantenimiento del bosque, no
+    // un uso de objeto sobre una entidad (AUTOMANTENIMIENTO.md §B).
+    if (entity.community && held && this.community?.isTool(held)) {
+      await this.community.useTool(held, entity);
+      return;
+    }
     if (typeof entity.onInteract === "function" && !held) {
       entity.onInteract(action);
       return;

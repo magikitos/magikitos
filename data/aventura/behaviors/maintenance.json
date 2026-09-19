@@ -1,0 +1,134 @@
+{
+  "bomb-cache": {
+    "sprite": "crate-bark",
+    "label": "bombCacheName",
+    "solid": [
+      -0.6,
+      -0.5,
+      1.2,
+      0.8
+    ],
+    "rules": [
+      {
+        "when": {
+          "items": {
+            "bomba": 1
+          }
+        },
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "bombAlreadyHave"
+          }
+        ]
+      },
+      {
+        "when": {
+          "items": {
+            "mushroom": 1
+          },
+          "maxItems": {
+            "bomba": 0
+          }
+        },
+        "effects": [
+          {
+            "type": "item",
+            "item": "mushroom",
+            "amount": -1
+          },
+          {
+            "type": "item",
+            "item": "bomba",
+            "amount": 1
+          },
+          {
+            "type": "dialogue",
+            "key": "bombFound"
+          },
+          {
+            "type": "sound",
+            "key": "found"
+          }
+        ]
+      },
+      {
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "bombNeedMushroom"
+          }
+        ]
+      }
+    ]
+  },
+  "defuser-kit": {
+    "sprite": "workbench",
+    "label": "defuserKitName",
+    "solid": [
+      -0.9,
+      -0.5,
+      1.8,
+      0.9
+    ],
+    "rules": [
+      {
+        "when": {
+          "items": {
+            "desactivador": 1
+          }
+        },
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "defuserAlreadyHave"
+          }
+        ]
+      },
+      {
+        "when": {
+          "items": {
+            "twig": 2,
+            "leaf": 1
+          },
+          "maxItems": {
+            "desactivador": 0
+          }
+        },
+        "effects": [
+          {
+            "type": "item",
+            "item": "twig",
+            "amount": -2
+          },
+          {
+            "type": "item",
+            "item": "leaf",
+            "amount": -1
+          },
+          {
+            "type": "item",
+            "item": "desactivador",
+            "amount": 1
+          },
+          {
+            "type": "dialogue",
+            "key": "defuserFound"
+          },
+          {
+            "type": "sound",
+            "key": "found"
+          }
+        ]
+      },
+      {
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "defuserNeedParts"
+          }
+        ]
+      }
+    ]
+  }
+}

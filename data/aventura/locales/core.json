@@ -2070,5 +2070,149 @@
     "fr": "Lutin :n",
     "it": "Folletto :n",
     "pt": "Duende :n"
+  },
+  "communityDense": {
+    "es": "Este claro ya está muy pisado",
+    "en": "This clearing is already well trodden",
+    "de": "Diese Lichtung ist schon sehr zertreten",
+    "fr": "Cette clairière est déjà très piétinée",
+    "it": "Questa radura è già molto calpestata",
+    "pt": "Esta clareira já está muito pisada"
+  },
+  "bombaName": {
+    "es": "Bombita",
+    "en": "Little bomb",
+    "de": "Bömbchen",
+    "fr": "Petite bombe",
+    "it": "Bombetta",
+    "pt": "Bombinha"
+  },
+  "bombaDescription": {
+    "es": "Se deja junto a algo que construyó otra persona, con un mensaje. Cinco horas de mecha; quien pase con una tenaza puede desactivarla.",
+    "en": "Left beside something another player built, with a message. A five-hour fuse; anyone passing with pliers can defuse it.",
+    "de": "Wird mit einer Nachricht neben etwas gelegt, das jemand anderes gebaut hat. Fünf Stunden Zündschnur; wer mit einer Zange vorbeikommt, kann sie entschärfen.",
+    "fr": "Se pose à côté de quelque chose qu'une autre personne a construit, avec un message. Cinq heures de mèche ; qui passe avec une pince peut la désamorcer.",
+    "it": "Si lascia accanto a qualcosa costruito da un'altra persona, con un messaggio. Cinque ore di miccia; chi passa con una tenaglia può disinnescarla.",
+    "pt": "Fica ao lado de algo que outra pessoa construiu, com uma mensagem. Cinco horas de pavio; quem passar com uma tenaz pode desativá-la."
+  },
+  "desactivadorName": {
+    "es": "Tenaza",
+    "en": "Pliers",
+    "de": "Zange",
+    "fr": "Pince",
+    "it": "Tenaglia",
+    "pt": "Tenaz"
+  },
+  "desactivadorDescription": {
+    "es": "Desactiva una bombita puesta en el bosque. Se gasta al usarla, y nadie se entera.",
+    "en": "Defuses a little bomb left in the forest. Used up on the spot, and nobody is told.",
+    "de": "Entschärft ein Bömbchen im Wald. Wird dabei verbraucht, und niemand erfährt es.",
+    "fr": "Désamorce une petite bombe posée dans la forêt. Elle se consomme, et personne n'en sait rien.",
+    "it": "Disinnesca una bombetta lasciata nel bosco. Si consuma, e nessuno lo viene a sapere.",
+    "pt": "Desativa uma bombinha deixada na floresta. Gasta-se ao usar, e ninguém fica sabendo."
+  },
+  "communityNotBombable": {
+    "es": "Eso no se vuela: los caminos se los come la hierba",
+    "en": "That can't be blown up: paths are for the grass to take back",
+    "de": "Das lässt sich nicht sprengen: Wege holt sich das Gras zurück",
+    "fr": "Ça ne se fait pas sauter : les chemins, c'est l'herbe qui les reprend",
+    "it": "Quello non si fa saltare: i sentieri se li riprende l'erba",
+    "pt": "Isso não se explode: os caminhos, a grama toma de volta"
+  },
+  "communityAlreadyMined": {
+    "es": "Ya tiene una bombita puesta",
+    "en": "It already has a bomb on it",
+    "de": "Da liegt schon ein Bömbchen",
+    "fr": "Il y a déjà une bombe dessus",
+    "it": "Ha già una bombetta",
+    "pt": "Já tem uma bombinha"
+  },
+  "communityBombRequired": {
+    "es": "Necesitas una bombita en el saco",
+    "en": "You need a little bomb in your sack",
+    "de": "Du brauchst ein Bömbchen im Sack",
+    "fr": "Il te faut une petite bombe dans le sac",
+    "it": "Ti serve una bombetta nel sacco",
+    "pt": "Você precisa de uma bombinha no saco"
+  },
+  "communityDefuserRequired": {
+    "es": "Necesitas una tenaza para desactivarla",
+    "en": "You need pliers to defuse it",
+    "de": "Zum Entschärfen brauchst du eine Zange",
+    "fr": "Il te faut une pince pour la désamorcer",
+    "it": "Ti serve una tenaglia per disinnescarla",
+    "pt": "Você precisa de uma tenaz para desativá-la"
+  },
+  "communityNotMined": {
+    "es": "Ahí no hay ninguna bombita",
+    "en": "There's no bomb there",
+    "de": "Da ist kein Bömbchen",
+    "fr": "Il n'y a pas de bombe là",
+    "it": "Lì non c'è nessuna bombetta",
+    "pt": "Não há nenhuma bombinha aí"
+  },
+  "communityNoteTooLong": {
+    "es": "El mensaje es demasiado largo",
+    "en": "The message is too long",
+    "de": "Die Nachricht ist zu lang",
+    "fr": "Le message est trop long",
+    "it": "Il messaggio è troppo lungo",
+    "pt": "A mensagem é longa demais"
+  },
+  "communityBombPlaced": {
+    "es": "Bombita puesta. Cinco horas de mecha.",
+    "en": "Bomb set. Five hours on the fuse.",
+    "de": "Bömbchen gelegt. Fünf Stunden Zündschnur.",
+    "fr": "Bombe posée. Cinq heures de mèche.",
+    "it": "Bombetta piazzata. Cinque ore di miccia.",
+    "pt": "Bombinha colocada. Cinco horas de pavio."
+  },
+  "communityBombDefused": {
+    "es": "Desactivada. Nadie se enterará.",
+    "en": "Defused. Nobody will know.",
+    "de": "Entschärft. Niemand wird es erfahren.",
+    "fr": "Désamorcée. Personne ne le saura.",
+    "it": "Disinnescata. Nessuno lo saprà.",
+    "pt": "Desativada. Ninguém vai saber."
+  },
+  "communityBombBy": {
+    "es": "Bombita de",
+    "en": "Bomb left by",
+    "de": "Bömbchen von",
+    "fr": "Bombe posée par",
+    "it": "Bombetta di",
+    "pt": "Bombinha de"
+  },
+  "communityBombExplodes": {
+    "es": "Explota a las",
+    "en": "Goes off at",
+    "de": "Explodiert um",
+    "fr": "Explose à",
+    "it": "Esplode alle",
+    "pt": "Explode às"
+  },
+  "communityBombNoteTitle": {
+    "es": "Deja un mensaje junto a la bombita",
+    "en": "Leave a message next to the bomb",
+    "de": "Hinterlass eine Nachricht neben dem Bömbchen",
+    "fr": "Laisse un message à côté de la bombe",
+    "it": "Lascia un messaggio accanto alla bombetta",
+    "pt": "Deixe uma mensagem junto à bombinha"
+  },
+  "communityBombNotePlaceholder": {
+    "es": "Por qué quitas esto (opcional)",
+    "en": "Why you're removing this (optional)",
+    "de": "Warum du das entfernst (optional)",
+    "fr": "Pourquoi tu enlèves ça (facultatif)",
+    "it": "Perché lo togli (facoltativo)",
+    "pt": "Por que você está tirando isto (opcional)"
+  },
+  "communityBombNoteConfirm": {
+    "es": "Poner la bombita",
+    "en": "Set the bomb",
+    "de": "Bömbchen legen",
+    "fr": "Poser la bombe",
+    "it": "Piazza la bombetta",
+    "pt": "Colocar a bombinha"
   }
 }

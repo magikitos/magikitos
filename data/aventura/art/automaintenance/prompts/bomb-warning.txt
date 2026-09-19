@@ -1,0 +1,6 @@
+Use case: precise-object-edit.
+Asset type: alternate WARNING colour frame for an existing small pixel-art game bomb.
+Input image 1: exact edit target, NOT just a style reference.
+Primary request: recolour the ENTIRE round charcoal metal BODY of this exact bomb to a clearly red, warm muted crimson / brick-red warning state. The bomb ITSELF turns red. Its upper-left highlight becomes pale warm red, its middle tones become warm muted red, its shaded lower-right turns deep burgundy. Preserve all the existing pixel clusters, shading pattern and texture. Visible red but not neon, no radiant bloom or external glow.
+CRITICAL invariants: exact same silhouette, exact same geometry, exact same size and position on the 1254x1254 canvas. Change colour ONLY, never redraw, warp, inflate, rotate or move the object. Keep the brass neck, terracotta ribbon knot and the entire beige rope fuse, including the tip, UNCHANGED in their original colours. The fuse is unlit; this is not an ember-tip effect.
+Keep the matte illustrated pixel-art finish. No new reflections, sparks, flames, background, shadow, labels or text. True transparent RGBA background remains unchanged. This image will crossfade with the original to make the whole body softly pulse red; absolutely no movement between frames.

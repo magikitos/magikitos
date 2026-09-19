@@ -34,7 +34,8 @@ function shoreDistance(data, x, y) {
  */
 function nearbyPaths(data, ox, oy) {
   const segments = [];
-  for (const path of [...(data.paths || []), ...(data.communityPaths || [])])
+  for (const trace of [...(data.paths || []), ...(data.communityPaths || [])]) {
+    const path = trace.points || trace; // los de la gente llevan además su desgaste por tramo
     for (let i = 1; i < path.length; i++) {
       const a = path[i - 1].map((v) => v * TILE),
         b = path[i].map((v) => v * TILE);
@@ -59,6 +60,7 @@ function nearbyPaths(data, ox, oy) {
         bottom: Math.max(a[1], b[1]) + 24,
       });
     }
+  }
   return segments;
 }
 /** Hoist all shoreline interpolation out of the per-pixel loop. */

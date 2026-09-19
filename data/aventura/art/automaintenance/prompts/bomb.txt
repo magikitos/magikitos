@@ -1,0 +1,6 @@
+Use case: stylized-concept.
+Asset type: isolated production game prop sprite for Magikitos, a cosy top-down woodland adventure of tiny elves.
+Primary request: ONE small instantly recognizable whimsical round bomb, matte charcoal dark iron body, little warm brass neck and a short curled natural fibre fuse, unlit. A simple narrow faded terracotta cloth tie around the brass neck gives handmade elf personality without hiding the bomb silhouette. Fantasy cartoon prop, no realism or technical detail.
+Input images: Image 1 is ONLY a reference for the game's illustrated pixel-art finish and top-down prop readability, NOT an object to copy.
+Style: beautifully defined hand-painted pixel art, deliberate small pixel clusters, restrained 5-7 value shading, matte earthy colours, sharp silhouette, absolutely NOT glossy 3D mobile-game rendering. Light from upper left. Camera elevated 35 degrees, showing top and front, orthographic game prop. Single object centred with 18% transparent padding, no ground tile, no shadow ellipse, no grass, no other props. Needs to read at 20 world pixels tall.
+Output: genuinely transparent RGBA background, square image, complete silhouette, no text, no logos, no numbers, no border, no interface, no explosion, no large glow. Fuse is NOT lit in this base state.

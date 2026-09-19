@@ -4,6 +4,7 @@ const { TILE } = require("./geometry");
 const {
   shapes,
   objectCost,
+  densityMultiplier,
   polylineReason,
   validateConstruction,
   POLYLINE_MIN_SEGMENT,
@@ -16,7 +17,10 @@ const { growthDeadline } = require("./construction-growth");
 const { sendConstruction } = require("./construction-request");
 const { CommunitySync } = require("./community-sync");
 const { applyCommunityLayer } = require("./community-layer");
+const { segmentWear, bombReason, bombSpot } = require("./maintenance");
 const fences = require("./fences");
+/** Lo que se USA sobre una pieza ajena: la bombita se pone, la tenaza la desactiva (§B). */
+const MAINTENANCE_TOOLS = new Set(["bomba", "desactivador"]);
 const byId = (id) => document.getElementById(id);
 /**
  * Lo que el imán de los trazados alcanza, en celdas. Ver `snap()`: es el hueco más grande por el
@@ -82,6 +86,13 @@ const RAZONES = {
   too_many: "communityTooFast",
   too_close: "communityTooClose",
   tool_required: "communityToolRequired",
+  // La bombita (AUTOMANTENIMIENTO.md §B): lo que el servidor rechaza al ponerla o desactivarla.
+  not_bombable: "communityNotBombable",
+  already_mined: "communityAlreadyMined",
+  bomb_required: "communityBombRequired",
+  defuser_required: "communityDefuserRequired",
+  not_mined: "communityNotMined",
+  invalid_note: "communityNoteTooLong",
 };
 class Community {
   constructor(game) {
@@ -94,6 +105,16 @@ class Community {
     this.activities = new (require("./ambient-activities").AmbientActivities)(
       game,
     );
+    // La nota de la bombita: la misma política que las notas del bosque (largo y saneado), y el
+    // mismo caparazón de modal; solo cambia quién la lee.
+    byId("bomb-note")?.addEventListener("input", () => this.paintBombNote());
+    byId("bomb-form")?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      this.placeBomb();
+    });
+    byId("bomb-dialog")?.addEventListener("close", () => {
+      this.composing = null;
+    });
     try {
       this.pending = JSON.parse(
         localStorage.getItem("magikitos.adventure.build-pending"),
@@ -238,7 +259,15 @@ class Community {
           (definition.shape === "polyline" && polylineReason(o.points)))
         throw Error("invalid_community_object");
       growthDeadline(o, definition);
+      // La bombita viene con su hora absoluta (epoch, la manda el servidor) y los caminos con la
+      // marca de pisada de cada tramo; el reloj de la zona son minutos de presencia.
+      if (o.bomb !== undefined && (!o.bomb || !Number.isSafeInteger(o.bomb.explodesAt)))
+        throw Error("invalid_community_object");
+      if (o.steps !== undefined && (!Array.isArray(o.steps) || o.steps.some((s) => s !== null && !Number.isFinite(s))))
+        throw Error("invalid_community_object");
     }
+    if (value.clock !== undefined && (!Number.isSafeInteger(value.clock) || value.clock < 0))
+      throw Error("invalid_community");
   }
   accept(value) {
     this.validate(value);
@@ -286,7 +315,7 @@ class Community {
     const base = {
       id: `community-${item.id}`,
       community: item.id,
-      communityVersion: JSON.stringify([item.kind, item.variant, item.x, item.y, item.rotation, item.points, item.createdAt]),
+      communityVersion: JSON.stringify([item.kind, item.variant, item.x, item.y, item.rotation, item.points, item.createdAt, item.bomb?.explodesAt ?? null]),
       x: item.x,
       y: item.y,
       rules: [],
@@ -321,25 +350,104 @@ class Community {
       ...(d.solid === false ? {} : { solid: [sx, sy, sw, sh] }),
     };
   }
+  /**
+   * ⛔ LA BOMBITA NO SE VE DE LEJOS Y NO MOLESTA (AUTOMANTENIMIENTO.md §B3): un objeto pequeño
+   * pegado a la esquina de lo que va a volar, sin marcador ni aviso a nadie. A media hora del
+   * final parpadea sutilmente en rojo (`pulse`, lo lee el renderizador). La hora la manda el
+   * servidor como instante absoluto; aquí solo se traduce al reloj del navegador.
+   */
+  bombEntity(item) {
+    const d = this.catalog.definitions[item.kind],
+      bomb = this.catalog.bomb,
+      spot = bombSpot(item, d),
+      g = this.game;
+    const skew = Date.now() - g.serverClock.now();
+    return {
+      id: `community-bomb-${item.id}`,
+      community: item.id,
+      communityBomb: true,
+      communityVersion: JSON.stringify(["bomb", item.id, item.bomb.explodesAt]),
+      x: spot.x,
+      y: spot.y,
+      sprite: bomb.sprite,
+      pulse: { sprite: bomb.warningSprite, since: item.bomb.explodesAt - bomb.warningMs + skew, periodMs: bomb.pulseMs },
+      rules: [],
+      pushable: false,
+      onInteract: () => {
+        const current = this.snapshot?.objects.find((o) => o.id === item.id);
+        if (current?.bomb) this.inspectBomb(current);
+        else if (current) this.inspect(current);
+      },
+    };
+  }
+  /**
+   * ⛔ SE TIENE QUE VER VENIR (§A3): a partir de la mitad del presupuesto de un tramo asoma hierba
+   * por sus bordes, más frondosa cuanto más cerca de morir. Son recortes pequeños apoyados a los
+   * lados del sendero (el centro sigue transitable), elegidos de forma ESTABLE por tramo y no
+   * sorteados por fotograma: un camino que se muere se salva andando por él, y eso se aprende
+   * mirándolo.
+   */
+  overgrowthEntities(item, wear) {
+    const out = [],
+      pts = this.absolutePoints(item);
+    for (let i = 1; i < pts.length; i++) {
+      const w = wear[i - 1];
+      if (w < 0.5) continue;
+      const [ax, ay] = pts[i - 1],
+        [bx, by] = pts[i],
+        len = Math.hypot(bx - ax, by - ay),
+        nx = -(by - ay) / (len || 1),
+        ny = (bx - ax) / (len || 1),
+        group = w >= 0.75 ? "full" : "sparse";
+      for (let k = 0; k * 1 < len; k++) {
+        const t = (k + 0.5) / Math.max(1, Math.ceil(len)),
+          side = k % 2 ? 1 : -1,
+          hash = (item.id.charCodeAt(k % item.id.length) + i * 7 + k * 13) % 4;
+        out.push({
+          id: `community-grass-${item.id}-${i}-${k}`,
+          community: item.id,
+          communityVersion: JSON.stringify(["grass", item.id, i, k, group]),
+          x: ax + (bx - ax) * t + nx * side * 0.55,
+          y: ay + (by - ay) * t + ny * side * 0.55,
+          sprite: `overgrowth-${group}-${hash + 1}`,
+          rules: [],
+          pushable: false,
+          solid: false,
+        });
+      }
+    }
+    return out;
+  }
+  /** El desgaste de cada tramo de un camino, 0…1, con el reloj de presencia de la zona. */
+  wearOf(item, snapshot) {
+    const d = this.catalog.definitions[item.kind],
+      minutes = d.overgrowth?.minutes || 0,
+      clock = snapshot?.clock ?? 0;
+    return Array.from({ length: Math.max(0, (item.points?.length || 1) - 1) }, (_, i) =>
+      segmentWear(clock, item.steps?.[i] ?? clock, minutes),
+    );
+  }
   sceneData(data) {
     const zone = Object.keys(this.catalog.zones).find(
       (id) => this.catalog.zones[id].scene === data?.id,
     );
     if (!zone) return data;
-    const objects = this.snapshots.get(zone)?.objects || [];
+    const snapshot = this.snapshots.get(zone),
+      objects = snapshot?.objects || [];
+    const paths = objects.filter((o) => this.catalog.definitions[o.kind].paint === "path");
     return {
       ...data,
       entities: [
         ...data.entities,
         ...objects.map((o) => this.entity(o)).filter(Boolean),
+        ...objects.filter((o) => o.bomb).map((o) => this.bombEntity(o)),
+        ...paths.flatMap((o) => this.overgrowthEntities(o, this.wearOf(o, snapshot))),
       ],
       // ⛔ EN SU PROPIA LISTA, NO EN `paths`. La del escenario alimenta `pathDistance()`, y de ahí
       // salen la vegetación colocada por procedimiento y la máscara de terreno que el servidor
       // tiene bakeada: un caminito de alguien movería árboles y desharía esa máscara. Aquí solo
       // se pinta.
-      communityPaths: objects
-        .filter((o) => this.catalog.definitions[o.kind].paint === "path")
-        .map((o) => this.absolutePoints(o)),
+      communityPaths: paths.map((o) => ({ points: this.absolutePoints(o), wear: this.wearOf(o, snapshot) })),
     };
   }
   sceneChanged() {
@@ -365,9 +473,103 @@ class Community {
     // otra persona— cuenta qué es y quién lo dejó, y nada más: no abre el editor ni lo levanta del
     // suelo. Que lo tuyo se pudiera coger otra vez convertía el bosque en un borrador, y una cosa
     // que cualquiera puede deshacer no es un sitio al que volver.
-    this.game.openDialogue([
+    const lines = [
       `${this.game.text(this.catalog.definitions[item.kind].label)} · ${item.author?.name || item.author?.handle || this.game.text("communityEveryone")}`,
-    ]);
+    ];
+    if (item.bomb) lines.push(...this.bombLines(item));
+    this.game.openDialogue(lines);
+  }
+  bombLines(item) {
+    const g = this.game,
+      who = item.bomb.by?.name || item.bomb.by?.handle || g.text("communityEveryone"),
+      when = new Intl.DateTimeFormat(g.locale || undefined, { hour: "2-digit", minute: "2-digit" }).format(new Date(item.bomb.explodesAt));
+    return [
+      `${g.text("communityBombBy")} ${who} · ${g.text("communityBombExplodes")} ${when}`,
+      ...(item.bomb.note ? [item.bomb.note] : []),
+    ];
+  }
+  inspectBomb(item) {
+    this.game.openDialogue(this.bombLines(item));
+  }
+  /** ¿Es una herramienta de mantenimiento la que llevas en la mano? */
+  isTool(item) {
+    return MAINTENANCE_TOOLS.has(item);
+  }
+  /**
+   * ⛔ LA BOMBITA SE PONE SOBRE UNA PIEZA CONCRETA Y SE LLEVA SOLO ESA PIEZA (§B2); la tenaza la
+   * desactiva sin avisar a nadie (§B4). Lo que se rechaza lo decide primero el mismo juicio que
+   * el servidor (`bombReason`) para no molestar con un viaje inútil, y el servidor lo repite.
+   */
+  async useTool(item, entity) {
+    const g = this.game,
+      object = this.snapshot?.objects.find((o) => o.id === entity.community);
+    if (!object) return g.openDialogue(g.lines("noUse"));
+    if (item === "bomba") {
+      const reason = bombReason(object, this.catalog.definitions[object.kind], this.catalog.zones[this.zone], {
+        hasBomb: (g.materials.account.inventory.bomba || 0) >= 1,
+      });
+      if (reason) return g.toast(g.text(RAZONES[reason] || "communityRetry"));
+      this.composing = object;
+      const dialog = byId("bomb-dialog"), text = byId("bomb-note");
+      text.value = "";
+      text.maxLength = g.catalog.messages.maxCharacters;
+      this.paintBombNote();
+      dialog.showModal();
+      text.focus();
+      return;
+    }
+    if (item === "desactivador") {
+      if (!object.bomb) return g.toast(g.text("communityNotMined"));
+      if ((g.materials.account.inventory.desactivador || 0) < 1) return g.toast(g.text("communityDefuserRequired"));
+      await this.maintain("community-defuse", { id: object.id }, "communityBombDefused");
+    }
+  }
+  paintBombNote() {
+    const max = this.game.catalog.messages.maxCharacters, n = [...byId("bomb-note").value].length;
+    byId("bomb-note-count").value = `${n} / ${max}`;
+    byId("bomb-place").disabled = n > max || this.busy;
+  }
+  async placeBomb() {
+    const object = this.composing, note = byId("bomb-note").value.trim();
+    if (!object || this.busy) return;
+    byId("bomb-dialog").close();
+    this.composing = null;
+    await this.maintain("community-mine", { id: object.id, ...(note ? { note } : {}) }, "communityBombPlaced");
+  }
+  /** Una operación de mantenimiento: misma revisión de zona y de cuenta que construir, y al
+   *  volver la instantánea nueva manda: se repinta, se descuenta lo gastado y la mano se vacía. */
+  async maintain(endpoint, extra, successKey) {
+    const g = this.game;
+    if (this.busy || !this.snapshot || !this.zone) return;
+    if (g.live && !g.live.canWrite()) return;
+    this.busy = true;
+    try {
+      const result = await g.api.request(
+        endpoint,
+        { operationId: operationId(), baseRevision: g.materials.account.revision, zone: this.zone, zoneRevision: this.snapshot.revision, ...extra },
+        { auth: true },
+      );
+      this.accept(result);
+      g.materials.accept(result.account);
+      g.materials.reconcile();
+      g.inventory?.clear();
+      await this.refreshWorld();
+      g.dirty = true;
+      g.updateUI();
+      g.save();
+      g.audio.effect("found");
+      g.toast(g.text(successKey));
+    } catch (error) {
+      if (error.status >= 400 && error.status < 500) {
+        if (error.details?.account) g.materials.accept(error.details.account);
+        await this.prepare(g.catalog.scenes[g.state.scene]);
+        await this.refreshWorld();
+      }
+      g.toast(g.text(RAZONES[error.code] || "communityRetry"));
+    } finally {
+      this.busy = false;
+      this.paint();
+    }
   }
   async begin() {
     const g = this.game;
@@ -582,6 +784,20 @@ class Community {
         root.append(button);
       }
   }
+  /**
+   * ⛔ EL PRECIO QUE SE ENSEÑA ES EL QUE SE COBRA (AUTOMANTENIMIENTO.md §A1): sale de la MISMA
+   * instantánea de la zona que el servidor va a exigir por revisión. Lo que ya hay de la misma
+   * familia multiplica el coste por celda; la candidata no cuenta.
+   */
+  multiplier(definition, excludeId = null) {
+    return densityMultiplier(
+      definition,
+      this.snapshot?.objects || [],
+      this.catalog,
+      this.ground(),
+      excludeId,
+    );
+  }
   /** «Palito ×4», o «Palito ×2 por celda» cuando se cobra por lo que mide. */
   costLabel(definition, object) {
     const g = this.game;
@@ -593,14 +809,18 @@ class Community {
       .map((id) => g.text(g.catalog.items[id]?.name || id))
       .join(" · ");
     if (definition.shape !== "polyline") return say(definition.cost) || tool;
+    const multiplier = this.multiplier(definition, object?.id);
     const price = object
-      ? say(objectCost(object, definition))
+      ? say(objectCost(object, definition, multiplier))
       : Object.keys(definition.costPerTile).length
         ? `${say(definition.costPerTile)} ${g.text("communityPerTile")}`
         : "";
     // Cavar cuesta trabajo y no material: lo que hay que tener es la herramienta, y eso es lo
     // que dice la baldosa en vez de un precio de cero que no significa nada.
-    return price || tool;
+    // Y cuando el claro ya está muy pisado (multiplicador ≥ 4) la barra dice por qué: no es un
+    // error, es información, y sin ella el precio parece un capricho.
+    const dense = multiplier >= 4 && price ? ` · ${g.text("communityDense")}` : "";
+    return (price || tool) + dense;
   }
   /**
    * Elegir una cosa: se CIERRA el catálogo y la pieza se te queda EN LA MANO, sin sitio todavía.
@@ -783,15 +1003,17 @@ class Community {
       this.ghost.id,
       this.game.live?.objects.bounds() || [],
     );
+    const definition = this.catalog.definitions[this.ghost.kind];
     this.cost = this.invalid
       ? null
-      : objectCost(this.ghost, this.catalog.definitions[this.ghost.kind]);
+      : objectCost(this.ghost, definition, this.multiplier(definition, this.ghost.id));
   }
   /** Lo que te falta para esta pieza, o null si te llega. */
   missing() {
     if (!this.ghost) return null;
+    const definition = this.catalog.definitions[this.ghost.kind];
     const inventory = this.game.materials.account.inventory,
-      cost = objectCost(this.ghost, this.catalog.definitions[this.ghost.kind]);
+      cost = objectCost(this.ghost, definition, this.multiplier(definition, this.ghost.id));
     const short = Object.entries(cost)
       .map(([id, n]) => [id, n - (inventory[id] || 0)])
       .filter(([, n]) => n > 0);

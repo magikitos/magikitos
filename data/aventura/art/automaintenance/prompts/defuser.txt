@@ -1,0 +1,7 @@
+Use case: stylized-concept.
+Asset type: one isolated production game item sprite for Magikitos top-down woodland elf adventure.
+Primary request: a small friendly fantasy bomb-defusing tool: stubby rounded pliers with two open blunt brass jaws, a chunky copper pivot and two curved little wooden handles wrapped in desaturated teal cloth. Whimsical handmade tiny-elf equipment, clear plier silhouette, no real technical diagram.
+Input image 1: style reference only for the hand-painted pixel finish and readability; do not include the lighter.
+Style/medium: beautifully crisp illustrated pixel art, carefully shaped small pixel clusters, matte earthy surfaces, warm brass, deep walnut wood, pale teal wrapping. Soft upper-left lighting with restrained shading, no glossy plastic, no 3D render. Same top-down game prop angle, slightly elevated orthographic camera, complete single tool centred diagonally (jaws upper right, handles lower left). Broad simple form easily recognizable when reduced to 22 world pixels.
+Scene/backdrop: genuinely transparent RGBA background, generous 16% margins, nothing else.
+Constraints: no text, no labels, no symbols, no lettering, no icons, no ground tile, no cast-shadow ellipse, no hands, no characters, no bomb in this image. Exactly one small tool.

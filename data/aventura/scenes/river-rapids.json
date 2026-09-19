@@ -153,6 +153,12 @@
       "y": 80,
       "artVariant": "red",
       "scale": 0.72
+    },
+    {
+      "id": "defuser-kit",
+      "behavior": "defuser-kit",
+      "x": 84.5,
+      "y": 91
     }
   ],
   "neighbors": [

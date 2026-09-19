@@ -1,0 +1,6 @@
+Use case: precise-object-edit.
+Asset type: warning sprite for a tiny pixel-art game bomb.
+Input image 1 is the EXACT approved red bomb to edit. Its body is already perfect.
+Primary request: Add ONE tiny orange-gold flame / glowing spark attached to the free end of the curled beige fuse at its UPPER RIGHT. A compact flame, about 40 pixels wide and 65 pixels tall on this 1254x1254 canvas, starting at the rope tip near x780 y350 and reaching upward no further than y285. A little warm orange/red flame edge and a pale golden centre. This should feel like a tiny burning fuse, not a big torch. It must visibly touch the rope tip.
+Everything else MUST stay identical: approved red metal body pixel-for-pixel, brass cap, cloth ribbon, rope shape, highlights, shading, geometry, position, canvas size, exact pixel-art style. Do not enlarge or move the bomb. No light spill onto the body, no glow halo, no smoke, no scattered sparks or detached dots, no background, no ground, no text. True transparent RGBA background. Keep the full object within the same overall bounding box as now, with the small flame nestled next to the upper-right curl of the fuse.
+Change ONLY this small flame at the rope tip.

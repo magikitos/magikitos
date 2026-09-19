@@ -18,12 +18,20 @@
   ],
   "items": {
     "parchment": {
-      "name": "parchmentName", "description": "parchmentDescription", "sprite": "parchment",
-      "max": 1, "usable": false, "reusable": true
+      "name": "parchmentName",
+      "description": "parchmentDescription",
+      "sprite": "parchment",
+      "max": 1,
+      "usable": false,
+      "reusable": true
     },
     "pen": {
-      "name": "penName", "description": "penDescription", "sprite": "pen",
-      "max": 1, "usable": false, "reusable": true
+      "name": "penName",
+      "description": "penDescription",
+      "sprite": "pen",
+      "max": 1,
+      "usable": false,
+      "reusable": true
     },
     "bowl": {
       "name": "bowlName",
@@ -160,6 +168,22 @@
       "max": 99,
       "usable": false,
       "reusable": false
+    },
+    "bomba": {
+      "name": "bombaName",
+      "description": "bombaDescription",
+      "sprite": "maintenance-bomb-icon",
+      "max": 1,
+      "usable": true,
+      "reusable": false
+    },
+    "desactivador": {
+      "name": "desactivadorName",
+      "description": "desactivadorDescription",
+      "sprite": "maintenance-defuser-icon",
+      "max": 1,
+      "usable": true,
+      "reusable": false
     }
   },
   "contentRooms": {
@@ -244,7 +268,10 @@
     "writeWithinMs": 300000,
     "separationTiles": 50,
     "reachTiles": 2,
-    "tools": ["parchment", "pen"],
+    "tools": [
+      "parchment",
+      "pen"
+    ],
     "stickItem": "twig"
   },
   "timers": {
