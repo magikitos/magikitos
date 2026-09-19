@@ -1497,6 +1497,12 @@ ProxyPass        /bosque  ws://127.0.0.1:47850/  upgrade=websocket
 ProxyPassReverse /bosque  ws://127.0.0.1:47850/
 ```
 
+⛔ **Desde el 19-sep-2026 esa regla vive en el `.htaccess` del proyecto web, y solo con
+`Upgrade: websocket`**: `/bosque` es también la landing del juego y `/bosque/explorar` el juego,
+así que un `ProxyPass` del prefijo entero se llevaba las dos páginas al demonio (contestaba
+`{}` con 404). Las líneas del vhost se quitaron ese día (copia en
+`/root/httpd.conf.bak-20260919-bosque`); ver `docs/RELEASE.md`.
+
 ⛔ **No se abre ni un puerto en firewalld.** El demonio escucha en `127.0.0.1` y
 sale por el 443 de siempre. Tocar firewalld es tocar la seguridad de doce
 proyectos.

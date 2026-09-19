@@ -4,6 +4,59 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: el juego se llama /bosque, la costura no salta y el dedo solo anda — 19 septiembre 2026
+
+Artefacto `31131f69d88aff7ca904`, fuente del juego `5443a67`, web `285faa4d` (landing y puntero) y
+`99aaa47f` (el WebSocket del bosque vivo al `.htaccess`). Anterior conservada:
+`29497b332ec03fcadcc2`. Rutas: /bosque/explorar y cinco traducciones (`/en/forest/explore`,
+`/de/wald/erkunden`, `/fr/foret/explorer`, `/it/bosco/esplora`, `/pt/floresta/explorar`), debajo
+de la landing /bosque y sus traducciones.
+
+SHA-256 de `release.json`:
+`a37c13abf38a5c96968214e0db44695292f66446f9464b4ab7ec416bdeaee2d9`.
+609 archivos verificados y ESTACIONADOS antes de mover el puntero. Frente a la anterior cambian
+`aventura.min.js`, `game-contract.json` y las seis páginas. **Sin migración**, **con PHP** (la web
+estrena la landing y las rutas nuevas, así que va por el despliegue normal de la web) y con
+contrato del bosque vivo (mismas llegadas; el demonio arrancó con `release=31131f69d88aff7ca904`).
+
+⛔ **El artefacto se construyó desde un árbol LIMPIO** (`git worktree` sobre `5443a67`, con
+`node tools/build.cjs --reuse-art`, que es lo único que un clon puede hacer: las carpetas
+`review/` del arte van fuera de git) y dio el MISMO id que el árbol de trabajo: el build es
+determinista. Las comprobaciones de Node se pasaron en el árbol de trabajo (66 bloques, con
+`check-world-layout`, `check-river-core` y `check-world-polish` adaptados); en el árbol limpio
+fallan solo las seis que buscan `../magikitos` al lado.
+
+### Alcance publicado
+
+- **Mundo continuo pulido** ([MUNDO-CONTINUO.md](MUNDO-CONTINUO.md)): al cruzar, el duende se
+  recoloca en el punto exacto del bosque (`settle`); sin recortes por pantalla ni raya en la
+  unión; el hueco del plano se pinta continuando el borde más cercano; el río de los sauces se
+  abre en abanico hasta el lago y la pradera y los sauces se pasan a pie por todo el borde. Paso
+  medido al cruzar: 3,2 px (un fotograma andando), cámara 4,3 px.
+- **La cámara es del duende**: dos dedos y la rueda solo hacen zoom (anclado al centro de la
+  vista si hay un viaje tocado en marcha), el arrastre queda para construir, el zoom máximo
+  nunca enseña más allá de los mapas.
+- **El joystick invisible solo anda** (correr es Espacio o el toque lejano), pinta una porción
+  casi transparente hacia donde manda y es más tenue en conjunto.
+- **La web**: `/aventura` pasa a `/bosque` sin redirección (decisión del dueño). `/bosque` y sus
+  traducciones son una landing real de la casa (qué es, cómo se juega, tu duende y tu partida,
+  captura real de la pradera) con «Explorar el bosque»; el iframe y su módulo solo existen ahí;
+  la habitación del menú vuelve a navegar. `compile-assets.sh` admite `SIN_BASE_DE_DATOS=1`.
+- **Incidente y arreglo en el mismo despliegue**: el vhost llevaba `ProxyPass /bosque` (a mano
+  en `httpd.conf`) para el WebSocket del bosque vivo, así que `/bosque` y `/bosque/explorar` en
+  castellano contestaban `{}` con 404 durante unos minutos. La regla vive ahora en el `.htaccess`
+  del proyecto, en la ruta exacta y solo con `Upgrade: websocket`; las líneas del vhost se
+  quitaron (copia en `/root/httpd.conf.bak-20260919-bosque`). Comprobado: landing 200, juego 200,
+  `101 Switching Protocols` a través de Cloudflare.
+
+### Comprobado
+
+`npm test` entero. En navegador contra el bundle local: controles del mundo (1440/768/390/844,
+con la costura del río a remo y el pellizco que no arrastra), movilidad, viajes, regresiones (44
+bloques, seis rutas), diálogo, bosque compartido, elenco, zoom, empotrado y río. En producción,
+`check-release-live` en las seis rutas, las seis landings enlazando su juego y tres anchuras
+(17 bloques), y el demonio del bosque vivo activo con la release nueva.
+
 ## Producción: el bosque exterior es uno (mundo continuo) — 19 septiembre 2026
 
 Artefacto `29497b332ec03fcadcc2`, fuente del juego `db986cdc9cd9e86a1df4585debe588262f2c6062`,
