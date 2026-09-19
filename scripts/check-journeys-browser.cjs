@@ -44,20 +44,20 @@ const arena = {
       await page.goto(origin + "/bosque/explorar");
       await require("./browser-entry.cjs").enterWorld(page);
       const inspect = () => page.evaluate(() => window.MagikitosAdventure.inspect());
+      // La cámara es del duende y no se arrastra (19-sep-2026), y alejar se para en 0,7× del encuadre
+      // automático: en un teléfono de 390 px la vista mide ~370 px de mundo, así que desde x=376 el
+      // punto de salida (120) queda fuera de pantalla y no se puede tocar. Las dos vueltas paran en
+      // 216: sigue cruzando el cuerpo del vecino (312), deja el cartel (184) a la vista y queda fuera
+      // de su margen táctil, que un toque a 200 ya era un toque en el cartel.
+      const home = width < 800 ? { x: 216, y: 200 } : start;
       const waitArrival = () => page.waitForFunction(() => !window.MagikitosAdventure.inspect().travel.intent, null, { timeout: 10000 });
       // Keep both obstacles and both route endpoints visible on touch and desktop.
       await page.mouse.move(width / 2, height / 2);
       for (let i = 0; i < 8; i++) await page.mouse.wheel(0, 1000);
       await page.waitForTimeout(150);
       async function click(point, touch) {
-        let s = await inspect();
-        if (point.x < s.camera.x + 16 || point.x > s.camera.x + s.view.width - 16) {
-          const dx = (s.camera.x + s.view.width / 2 - point.x) * s.scale;
-          // Mirar alrededor es el botón DERECHO: el izquierdo mantenido guía al duende (19-sep-2026).
-          await page.mouse.move(width / 2, height / 2); await page.mouse.down({ button: "right" });
-          await page.mouse.move(width / 2 + Math.max(-width * 0.45, Math.min(width * 0.45, dx)), height / 2, { steps: 8 });
-          await page.mouse.up({ button: "right" }); s = await inspect();
-        }
+        // La cámara no se arrastra (19-sep-2026): el punto tiene que estar a la vista de por sí.
+        const s = await inspect();
         const r = await page.locator("#world-canvas").boundingBox();
         const x = r.x + (point.x - s.camera.x) * r.width / s.view.width,
           y = r.y + (point.y - s.camera.y) * r.height / s.view.height;
@@ -87,7 +87,7 @@ const arena = {
       // and return, then deliberately click that same resident.
       await click({ x: 376, y: 200 }, width >= 800); await waitArrival();
       assert.equal((await inspect()).dialogue, null);
-      await click(start, width < 800); await waitArrival();
+      await click(home, width < 800); await waitArrival();
       assert.equal((await inspect()).dialogue, null);
       await click({ x: 312, y: 186 }, width < 800);
       await page.waitForFunction(() => window.MagikitosAdventure.inspect().dialogue?.entity?.id === "test-resident");
@@ -97,7 +97,7 @@ const arena = {
       await page.keyboard.press("Escape");
       await page.waitForTimeout(350);
       assert.equal((await inspect()).dialogue, null, "No reopening after arrival/close");
-      await click(start, width < 800); await waitArrival();
+      await click(home, width < 800); await waitArrival();
       await click({ x: 184, y: 187 }, width < 800);
       await page.waitForFunction(() => window.MagikitosAdventure.inspect().dialogue?.entity?.id === "test-sign");
       await page.keyboard.press("Enter");

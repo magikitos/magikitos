@@ -110,6 +110,16 @@ assert(!gestures.up(event(100,100,1)));
 gestures.move(event(260,160,2));assert(!gestures.steering&&gestures.intent()===null,"El dedo que queda no manda");
 assert(!gestures.up(event(260,160,2)),"No ghost tap at end of pinch");
 assert(!gestures.steering&&!gestures.dragging&&captures.size===0);
+// Con un viaje tocado en marcha el zoom no clava la cámara sobre el duende, pero tampoco sigue a
+// los dedos: el ancla es el centro de la vista, así que dos dedos que viajan no la mueven.
+game.cameraFollowing=true;game.camera={x:600,y:400};game.cameraGoal=()=>({x:900,y:700});
+gestures.down(event(100,100,1));gestures.down(event(200,100,2));
+gestures.move(event(230,100,2));   // misma distancia (100), dedos desplazados 30 px
+gestures.move(event(130,100,1));
+assert.deepEqual(game.camera,{x:600,y:400},"Viajando hacia un toque, dos dedos que se desplazan no arrastran la cámara");
+gestures.move(event(180,100,1));   // más cerca: zoom, mismo centro
+assert.deepEqual(game.camera,{x:600,y:400},"…y el zoom se clava en el centro de la vista, no bajo los dedos");
+assert(!gestures.up(event(180,100,1)));assert(!gestures.up(event(230,100,2)));delete game.cameraGoal;
 // El botón derecho no hace nada fuera de construir.
 game.cameraFollowing=true;game.camera={x:600,y:400};
 gestures.down(event(100,100,1,2));gestures.move(event(150,100,1,2));

@@ -196,7 +196,10 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
       assert(pellizco.cameraFollowing && !pellizco.gesture.panning && !pellizco.gesture.steering, "…y la cámara sigue siendo del duende");
       assert(await page.locator("#world-recenter").isHidden(), "…sin disco de recentrar");
       const camaraA = pellizco.camera;
-      for (let k = 1; k <= 6; k++) await touch("touchMove", par(8, k * 30));
+      // Los dedos viajan a la MISMA distancia, sin salirse de la pantalla: un dedo fuera del borde
+      // lo recorta el navegador y eso sí cambia la distancia (o sea, el zoom), que no es lo que se mide.
+      const paso = Math.min(30, (Math.round(width * 0.5) - 40 - 12) / 6);
+      for (let k = 1; k <= 6; k++) await touch("touchMove", par(8, k * paso));
       await page.waitForTimeout(150);
       const camaraB = (await inspect()).camera;
       assert(lejos(camaraA, camaraB) < 1, "Arrastrar con dos dedos no mueve la cámara " + JSON.stringify({ camaraA, camaraB }));

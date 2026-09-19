@@ -137,17 +137,22 @@ class MapGestures {
     const g = this.game,
       r = g.renderer,
       rect = this.canvas.getBoundingClientRect();
-    const u = Number.isFinite(anchor.x)
+    // ⛔ SOLO CONSTRUYENDO, con la cámara del gesto, el zoom se clava bajo los dedos. Siguiendo al
+    // duende el ancla es el CENTRO de la vista: si fuera el punto medio de los dedos, dos dedos que
+    // viajan por la pantalla a la misma distancia arrastrarían la cámara con ellos —que es el paneo
+    // que el dueño quitó— cada vez que hubiera un viaje tocado en marcha.
+    const pinned = !g.cameraFollowing;
+    const u = pinned && Number.isFinite(anchor.x)
       ? Math.max(0, Math.min(1, (anchor.x - rect.left) / rect.width))
       : 0.5;
-    const v = Number.isFinite(anchor.y)
+    const v = pinned && Number.isFinite(anchor.y)
       ? Math.max(0, Math.min(1, (anchor.y - rect.top) / rect.height))
       : 0.5;
     const focus = { x: g.camera.x + u * r.width, y: g.camera.y + v * r.height };
     r.requestedZoom = ratio;
     r.resize();
     // Siguiendo al duende, el zoom se clava sobre él. Si la cámara es tuya —o está VIAJANDO hacia
-    // un sitio tocado, que `centerCamera` no clava— lo que hay bajo los dedos se queda bajo los dedos.
+    // un sitio tocado, que `centerCamera` no clava— el centro de la vista se queda donde estaba.
     if (!g.cameraFollowing || g.cameraGoal?.())
       g.camera = clampCamera(
         { x: focus.x - u * r.width, y: focus.y - v * r.height },
