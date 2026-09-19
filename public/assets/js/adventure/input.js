@@ -17,8 +17,10 @@ const editable = (target) =>
 
 /**
  * Context priority: native form/modal > dialogue > the map. No device detection, y desde el
- * 19-sep-2026 tampoco hay nada que detectar: el mando es el MAPA (ver `map-gestures.js`), y
- * arrastrarlo funciona igual con un dedo, con un ratón o con un lápiz.
+ * 19-sep-2026 tampoco hay nada que detectar: tocar es ir, MANTENER es guiar al duende (ver
+ * `map-gestures.js`), y eso funciona igual con un dedo, con un ratón o con un lápiz. La cámara se
+ * mueve con dos dedos o con el botón derecho/central, así que el menú contextual del lienzo se
+ * anula: ahí no hay nada que copiar y sí un gesto que interrumpiría.
  */
 class WorldInput {
   constructor(game) {
@@ -62,6 +64,7 @@ class WorldInput {
       if (document.hidden) this.map.clear();
     });
     canvas.addEventListener("dblclick", (event) => event.preventDefault());
+    canvas.addEventListener("contextmenu", (event) => event.preventDefault());
     document.addEventListener(
       "keydown",
       (event) => {

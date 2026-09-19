@@ -269,6 +269,27 @@ assert.equal(
     "Snap wins over everything",
   );
 }
+{
+  /**
+   * ⛔ EL ADELANTO HACIA DONDE GUÍAS (19-sep-2026): crece con la distancia al dedo, tiene tope, se
+   * suaviza y con el dedo encima del duende —o sin dedo— vuelve a cero por el mismo camino.
+   */
+  const { cameraLead, CAMERA_LEAD } = require("../public/assets/js/adventure/camera");
+  const nada = { x: 0, y: 0 };
+  assert.deepEqual(cameraLead(nada, null, { ease: 1 }), nada, "Sin guiar no hay adelanto");
+  assert.deepEqual(cameraLead(nada, { x: 10, y: 0 }, { ease: 1 }), nada, "El dedo encima del duende tampoco adelanta");
+  const lejano = cameraLead(nada, { x: 500, y: 0 }, { ease: 1 });
+  assert.deepEqual(lejano, { x: CAMERA_LEAD, y: 0 }, "Lejos, el adelanto es el tope, y solo el tope");
+  const medio = cameraLead(nada, { x: 0, y: 30 }, { ease: 1 });
+  assert(medio.y > 0 && medio.y < CAMERA_LEAD && medio.x === 0, "A media distancia adelanta a medias, en el eje del dedo");
+  const paso = cameraLead(nada, { x: 500, y: 0 }, { ease: 0.25 });
+  assert(Math.abs(paso.x - CAMERA_LEAD * 0.25) < 1e-9, "Y se asienta suavizando, no de golpe");
+  const vuelta = cameraLead(lejano, null, { ease: 0.5 });
+  assert(Math.abs(vuelta.x - CAMERA_LEAD / 2) < 1e-9, "Soltar lo devuelve a cero por el mismo suavizado");
+  assert.deepEqual(cameraLead({ x: 0.004, y: -0.004 }, null, { ease: 0.5 }), nada, "…y termina en cero exacto, sin arrastrar decimales");
+  const diagonal = cameraLead(nada, { x: 300, y: 300 }, { ease: 1 });
+  assert(Math.abs(Math.hypot(diagonal.x, diagonal.y) - CAMERA_LEAD) < 1e-9, "En diagonal el tope es el mismo largo");
+}
 console.log(
   "PASS: exact collision index matches brute-force geometry, subpixel offsets, transforms and a camera that locks onto continuous travel.",
 );

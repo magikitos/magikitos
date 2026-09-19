@@ -40,38 +40,56 @@ Sin vidas, combate, Libro del Bosque, fiambreras ni parcelas privadas.
 - Flechas/WASD: movimiento directo. Espacio sostenido: correr o remar más rápido.
   Espacio en diálogo: siguiente; Enter/Escape: cerrar. Clic fuera del diálogo:
   cerrar y utilizar ese mismo clic para caminar/interactuar. **No hay rodar**.
-- **EL MAPA ES EL MANDO** (19-sep-2026, decisión del dueño: «el joystick táctil es
-  una mierda, no me gusta nada, ni el botón de turbo»). Mientras se arrastra la
-  cámara —con el dedo, con el ratón o con un lápiz, da igual— el protagonista
-  camina siempre hacia el CENTRO de lo que estás mirando. Es el mismo gesto con
-  el que ya se miraba alrededor, así que no hay nada nuevo que aprender, no ocupa
-  sitio en pantalla y no hace falta preguntarle al navegador qué tienes en la mano.
+- **MANTENER EL DEDO ES GUIAR AL DUENDE** (19-sep-2026, decisión del dueño). Por la
+  mañana se fue el joystick táctil («es una mierda, no me gusta nada, ni el botón de
+  turbo») y por la tarde el «arrastrar el mapa lleva al duende al centro» que lo
+  sustituyó («no permite navegación continua»: cada gesto movía media pantalla y al
+  llegar la cámara te recentraba). Lo que hay: un dedo que se queda puesto unos 180
+  ms, o que se desplaza más de la holgura de toque, guía al protagonista hacia el
+  punto del MUNDO que hay bajo el dedo. La cámara se queda pegada a él, así que ese
+  punto avanza con él y nunca lo alcanza mientras no sueltes; deslizas para virar.
+  Es el teclado sin teclado: toda la pantalla es el mando y su centro es el propio
+  duende, no una esquina. Vale igual con dedo, ratón (botón izquierdo) o lápiz, sin
+  preguntarle al navegador qué tienes en la mano. El dedo ENCIMA del duende es
+  quieto (14 px de mundo al cuerpo, con histéresis hasta 20 para no parpadear).
   La marcha la decide la DISTANCIA y no un botón: el ritmo de viaje de la casa ya
   corre por encima de ochenta píxeles de camino y afloja en los últimos cuarenta y
   ocho. Es un DESTINO y no una interacción: llegar a un punto del suelo no abre
-  nada ni habla con nadie, y el toque para interactuar sigue igual. Soltar no
-  frena: el destino era el último centro y se llega solo. Si no hay camino, el
-  viaje se queda en el último punto posible; y si el sitio solo se alcanza por
-  agua y la barca está en el saco, se va al muelle y se sigue remando.
-  Con esto se erradicaron el joystick flotante, su turbo de dos pulgares y TODA la
-  detección de modalidad táctil (`world-controls.js`, `input-modality.js` y sus dos
-  comprobaciones). Lo que queda de teclado es lo de siempre: flechas/WASD y espacio.
-  **El destino sigue al dedo aunque la cámara ya no pueda.** La cámara se para en
-  el borde del mapa, así que desde medio ancho de pantalla antes del final el
-  centro no puede acercarse más — y las costuras entre pantallas viven justo ahí.
-  Lo que se empuja es el destino: contra el borde la vista se queda quieta y el
-  duende sigue avanzando hasta cruzar. Y cruzar no suelta el dedo: al otro lado el
-  destino se replanta en lo que se está mirando ahora, así que un arrastre
-  sostenido sigue llevando la barca después de la costura.
+  nada ni habla con nadie. Soltar no frena: el viaje termina en el último punto
+  donde estaba el dedo. Si no hay camino, se queda en el último punto posible; y si
+  el sitio solo se alcanza por agua y la barca está en el saco, se va al muelle y se
+  sigue remando. El destino se replanea solo cuando se ha movido 14 px de mundo, no
+  por fotograma, y lo hace el bucle del juego (`MapGestures.update`), no un temporizador.
+  **Un toque largo sin mover el dedo sigue siendo un toque**: mientras lo mantienes el
+  duende ya camina hacia ahí, y al levantar se aplica la interacción de lo que
+  señalabas. Quien toca despacio no pierde nada.
+  **Guiando, la cámara sigue al duende y no al sitio** (la intención va marcada
+  `guided`): el sitio es el dedo, y llevar la cámara al dedo movería el dedo. Y se
+  adelanta hasta 32 px de mundo hacia el rumbo, suavizada (`cameraLead`, función pura
+  en `camera.js`), para que el pulgar no tape justo lo que viene; al soltar vuelve a
+  cero por el mismo suavizado, sin salto.
+  **Cruzar no suelta el dedo.** El gesto sobrevive a la escena (`keepPointerGesture`
+  llega hasta `scenes.enter`) y al otro lado el destino se recalcula desde el dedo y
+  la cámara nueva, así que un dedo sostenido sigue llevando la barca después de la
+  costura sin replantar nada a mano.
   **Mientras hay conversación o narración no hay mando**: `openDialogue` pausa el
   movimiento, y una marca en la raíz (`data-world-retired`) pone a cero el hueco
   que el disco de recentrar tiene reservado abajo a la derecha.
   Los controles son los mismos a pie y en la barca. Soltar, cancelar o perder el
   foco nunca deja un control pulsado. No se simulan teclas desde el DOM.
-- Arrastrar: desplazar mapa y, a la vez, caminar hacia el centro (arriba).
-  Pellizco/rueda: zoom del mapa, no de diálogos/botones. El recentrado es un disco
-  independiente abajo a la derecha, y solo aparece mientras la cámara es tuya: al
-  soltar, el viaje la vuelve a enganchar él solo.
+- **La cámara se mueve con DOS dedos, o con el botón derecho/central del ratón.** Es
+  el gesto de cualquier app de mapas: los dos dedos ya hacían zoom y ahora también
+  desplazan. Mirar alrededor no da órdenes: si el duende iba a algún sitio, sigue
+  yendo, y la cámara no tira de él mientras el gesto dura. Un pellizco QUIETO hace
+  zoom sobre el duende como siempre, sin soltar la cámara; solo cuando los dedos
+  viajan más de la holgura pasa a ser suya. Construyendo, un solo dedo sigue moviendo
+  el mapa, porque ahí no se dan órdenes de andar. El menú contextual del lienzo se
+  anula. Pellizco/rueda: zoom del mapa, no de diálogos/botones. El recentrado es un
+  disco independiente abajo a la derecha, y solo aparece mientras la cámara es tuya:
+  cualquier toque o dedo mantenido la vuelve a enganchar al duende.
+- **No se dibuja ningún marcador de destino** (19-sep-2026, el dueño: «no quiero el
+  puntito blanco placeholder de posición final, eso molesta»). Guiando saltaría por
+  delante del duende varias veces por segundo; tocando, el sitio ya lo sabes.
   En exteriores se puede alejar hasta el límite geométrico de cobertura del mapa,
   sin un porcentaje mínimo artificial ni bordes vacíos; el encuadre inicial no cambia.
   Los interiores conservan su presentación de habitación recortada con exterior pintado.

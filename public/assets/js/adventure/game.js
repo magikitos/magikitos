@@ -3,7 +3,7 @@ const { tryPush } = require("./movables");
 const { releaseContact } = require("./obstacles");
 const { World, TILE, insideThreshold } = require("./model");
 const { Renderer } = require("./renderer");
-const { clampCamera, cameraFollow, continuousTravel } = require("./camera");
+const { clampCamera, cameraFollow, cameraLead, continuousTravel } = require("./camera");
 const { doorDestination, acceptsEntry } = require("./portals");
 const { WoodlandAudio } = require("./audio");
 const { Entry } = require("./entry");
@@ -35,6 +35,8 @@ const { WALK_SPEED, RUN_SPEED, routeDistance } = require("./locomotion");
  */
 const CAMERA_FOLLOW_RATE = 9;
 const CAMERA_TRAVEL_RATE = 1.8;
+/** Lo que tarda en asentarse el adelanto de la cámara al guiar: virar no da tirones. */
+const CAMERA_LEAD_RATE = 4;
 const { Embed } = require("./embed");
 const { Journey } = require("./journey");
 const { PickupFeedback } = require("./pickups");
@@ -91,6 +93,7 @@ class Adventure {
     this.neighbors = [];
     this.camera = { x: 0, y: 0 };
     this.cameraFollowing = true;
+    this.cameraLead = { x: 0, y: 0 };
     this.lastTime = 0;
     this.lastSave = 0;
     this.dirty = false;
@@ -349,22 +352,26 @@ class Adventure {
     this.retireControls("listening", on);
   }
   /**
-   * ⛔ ARRASTRAR EL MAPA ES CAMINAR (19-sep-2026, decisión del dueño: «el joystick táctil es una
-   * mierda, no me gusta nada, ni el botón de turbo… mientras movemos la cámara con el drag, el
-   * protagonista siempre debe caminar hacia el centro»).
+   * ⛔ MANTENER EL DEDO ES GUIAR AL DUENDE (19-sep-2026, decisión del dueño). El joystick táctil
+   * se fue por la mañana («es una mierda, no me gusta nada, ni el botón de turbo») y el «arrastrar
+   * el mapa lleva al centro» que lo sustituyó se fue por la tarde («no permite navegación
+   * continua»: cada gesto movía media pantalla y había que volver a arrastrar).
    *
-   * El mando deja de ser una esquina de la pantalla y pasa a ser EL MAPA: miras a donde quieres ir
-   * y el duende va. Es el mismo gesto con el que ya se miraba alrededor, así que no hay nada que
-   * aprender, no ocupa sitio, no tapa el mundo con un aro y —lo mejor— no hay que preguntarle al
-   * navegador qué tienes en la mano: un dedo, un ratón y un lápiz arrastran igual.
+   * Lo que hay es esto: el duende camina hacia el punto del mundo que hay bajo tu dedo, y la cámara
+   * se queda pegada a él, así que ese punto avanza con él y no lo alcanza mientras no sueltes. Es el
+   * teclado sin teclado: toda la pantalla es el mando y su centro es el propio duende, no una
+   * esquina. Un dedo, un ratón y un lápiz mandan igual, sin preguntarle al navegador qué tienes en
+   * la mano. Quién decide cuándo y hacia dónde vive en `map-gestures.js`; aquí solo se ordena el viaje.
    *
    * La marcha la decide la DISTANCIA y no un botón: el ritmo de viaje de la casa ya corre cuando
    * el camino pasa de ochenta píxeles y afloja a andar en los últimos cuarenta y ocho, que es
-   * exactamente «si nos alejamos mucho corre y si el desplazamiento es suave camina».
+   * exactamente «cerca anda y lejos corre».
    *
    * Y es un destino, no una interacción: llegar a un punto del suelo no abre nada ni habla con
    * nadie. Si no se puede llegar, el viaje se queda en el último sitio posible, que es lo que ya
-   * hace `journey.start` con su aproximación.
+   * hace `journey.start` con su aproximación. La intención va marcada `guided` para que la cámara
+   * siga al duende y no al sitio (ver `centerCamera`): el sitio ES el dedo, y llevar la cámara al
+   * dedo movería el dedo, que es una persecución sin fin.
    */
   leadTo(point) {
     if (
@@ -386,18 +393,18 @@ class Adventure {
     // el viaje termina en la orilla, que es el último punto posible.
     const dock = this.river.dockFor(point);
     if (dock) {
-      if (this.journey.start(this.world, this.player, { kind: "dock", dock, point: dock.dry }))
+      if (
+        this.journey.start(this.world, this.player, {
+          kind: "dock",
+          dock,
+          point: dock.dry,
+          guided: true,
+        })
+      )
         this.river.pendingWater = { x: point.x, y: point.y };
       return;
     }
-    this.journey.start(this.world, this.player, { kind: "ground", point });
-  }
-  /** El centro de lo que estás mirando, en coordenadas del mundo. */
-  viewCentre() {
-    return {
-      x: this.camera.x + this.renderer.width / 2,
-      y: this.camera.y + this.renderer.height / 2,
-    };
+    this.journey.start(this.world, this.player, { kind: "ground", point, guided: true });
   }
   tap(point) {
     if (this.cats.locked) return;
@@ -928,12 +935,20 @@ class Adventure {
     // `focusPoint` es un destino que pide otra parte del juego —hoy, el claro compartido al
     // abrir la caja de construir—: se viaja a él con el mismo suavizado que a un destino tocado,
     // que es lo que hace que empezar a construir sea VER dónde se puede.
-    const goal = reading ? null : this.focusPoint || this.journey.goal;
+    //
+    const goal = this.cameraGoal();
     const subject = (reading ? this.site.focus() : null) || goal || this.player;
+    // El adelanto hacia donde guías solo existe siguiendo al duende; en cualquier otro encuadre
+    // se va apagando por el mismo suavizado, así que soltar nunca da un salto.
+    this.cameraLead = cameraLead(
+      this.cameraLead,
+      subject === this.player && !reading ? this.input?.map.guideVector() : null,
+      { ease: snap ? 1 : this.cameraLeadEase ?? 0 },
+    );
     const target = clampCamera(
       {
-        x: subject.x - this.renderer.width / 2,
-        y: subject.y - this.renderer.height * (reading ? 0.34 : 0.5),
+        x: subject.x + this.cameraLead.x - this.renderer.width / 2,
+        y: subject.y + this.cameraLead.y - this.renderer.height * (reading ? 0.34 : 0.5),
       },
       this.world,
       this.renderer,
@@ -951,13 +966,30 @@ class Adventure {
         tracking,
         goal,
         reading,
-        snap,
+        // ⛔ CLAVAR ES LLEGAR, NO VIAJAR. Un zoom o un cambio de tamaño a medio viaje hacia un
+        // sitio tocado no puede teletransportar la cámara al sitio: se reencuadra y sigue
+        // viajando despacio, que es lo que estaba haciendo.
+        snap: snap && !goal,
         ease: this.cameraEase,
         travelEase: this.cameraTravelEase,
       }),
       this.world,
       this.renderer,
     );
+  }
+  /**
+   * El sitio al que VIAJA la cámara en vez de seguir al duende, o null si le sigue: el foco que
+   * pide construir, o el destino de un toque.
+   *
+   * ⛔ GUIANDO, LA CÁMARA SIGUE AL DUENDE Y NO AL SITIO (19-sep-2026). El sitio es el punto que
+   * hay bajo el dedo, y el dedo está donde está EN PANTALLA: llevar la cámara al sitio movería el
+   * sitio, y así hasta el borde del mapa. Vale para el viaje que sigue vivo después de soltar,
+   * que sigue siendo el mismo viaje (la intención va marcada `guided`).
+   */
+  cameraGoal() {
+    if (!byId("world-content").hidden) return null;
+    const guided = Boolean(this.journey.intent?.guided) || Boolean(this.input?.map.guiding);
+    return this.focusPoint || (guided ? null : this.journey.goal) || null;
   }
   recenterCamera(snap = false) {
     this.input?.map.clear();
@@ -1049,9 +1081,9 @@ class Adventure {
   }
   /**
    * Hacia dónde se dirige quien juega AHORA MISMO, y solo del teclado: el joystick táctil y su
-   * botón de turbo se erradicaron el 19-sep-2026 (decisión del dueño). Con un dedo no se dirige,
-   * se ARRASTRA EL MAPA y el duende va al centro de lo que miras (ver `map-gestures.js`), que es
-   * el mismo gesto con el que ya se miraba alrededor y no ocupa una esquina de la pantalla.
+   * botón de turbo se erradicaron el 19-sep-2026 (decisión del dueño). Con un dedo no se dirige:
+   * se MANTIENE y el duende va hacia lo que hay bajo el dedo, como un viaje (ver `map-gestures.js`
+   * y `leadTo`), sin ocupar una esquina de la pantalla.
    */
   directionIntent() {
     return this.keyboardIntent();
@@ -1096,6 +1128,10 @@ class Adventure {
     this.telemetry.tick();
     this.cameraEase = 1 - Math.exp(-dt * CAMERA_FOLLOW_RATE);
     this.cameraTravelEase = 1 - Math.exp(-dt * CAMERA_TRAVEL_RATE);
+    this.cameraLeadEase = 1 - Math.exp(-dt * CAMERA_LEAD_RATE);
+    // El gesto del mapa vive en el bucle y no en un temporizador: aquí un dedo quieto pasa a
+    // guiar, y el destino guiado se recalcula antes de dar el paso de este fotograma.
+    this.input?.map.update(ms);
     this.walking = false;
     this.running = false;
     this.player.pushing = null;
@@ -1169,9 +1205,9 @@ class Adventure {
     // Panning is a stationary inspection mode. Any actual player movement resumes follow — y
     // señalar un destino también, desde el toque y no desde el primer paso: la cámara ya está
     // haciendo algo que tú le has pedido.
-    // ⛔ MIENTRAS EL DEDO ARRASTRA, LA CÁMARA ES SUYA. Andar vuelve a enganchar la cámara, y con
-    // el mapa de mando eso es siempre: sin esta guarda, la cámara tiraría hacia el destino
-    // mientras el dedo tira hacia otro lado y el mapa se sentiría pegajoso.
+    // ⛔ MIENTRAS DOS DEDOS —O EL BOTÓN DERECHO— MUEVEN EL MAPA, LA CÁMARA ES SUYA, aunque el
+    // duende siga andando hacia lo último que le ordenaste: mirar alrededor no le para, y sin
+    // esta guarda la cámara tiraría hacia él mientras los dedos tiran hacia otro lado.
     if ((this.walking || this.journey.intent) && !this.input?.map.dragging) {
       this.cameraFollowing = true;
       this.focusPoint = null;
@@ -1211,6 +1247,13 @@ class Adventure {
       materialSync: { pending: this.materials.queue.length, error: this.materials.error || null },
       camera: { ...this.camera },
       cameraFollowing: this.cameraFollowing,
+      // Qué está haciendo el dedo: guiar al duende o mover la cámara. Una prueba no puede
+      // distinguirlo por la posición, porque en los dos casos el mundo se desplaza.
+      gesture: {
+        guiding: Boolean(this.input?.map.guiding),
+        panning: Boolean(this.input?.map.dragging),
+        lead: { ...this.cameraLead },
+      },
       // Solo el punto: el destino puede ser una entidad entera y esto se serializa en cada sonda.
       cameraGoal: this.journey.goal
         ? { x: this.journey.goal.x, y: this.journey.goal.y }

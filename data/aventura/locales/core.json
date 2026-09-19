@@ -1156,12 +1156,12 @@
     "pt": "Chamar o guardião"
   },
   "hint": {
-    "es": "Toca un sitio para ir. Arrastra el mapa y el duende camina al centro: cuanto más lejos lo dejes, más corre. Pellizca para acercar. Flechas o WASD para moverte y espacio para correr.",
-    "en": "Tap a place to go there. Drag the map and the brownie walks to the middle: the further you leave it, the more he runs. Pinch to zoom. Arrow keys or WASD to move, space to run.",
-    "de": "Tipp auf eine Stelle, um hinzugehen. Zieh die Karte, und der Wichtel läuft zur Mitte: je weiter weg, desto schneller. Zum Zoomen zwei Finger. Pfeiltasten oder WASD zum Gehen, Leertaste zum Rennen.",
-    "fr": "Touche un endroit pour y aller. Fais glisser la carte et le lutin marche vers le centre : plus tu l’éloignes, plus il court. Pince pour zoomer. Flèches ou WASD pour bouger, espace pour courir.",
-    "it": "Tocca un posto per andarci. Trascina la mappa e il folletto cammina verso il centro: più lo lasci lontano, più corre. Pizzica per avvicinare. Frecce o WASD per muoverti, spazio per correre.",
-    "pt": "Toca num sítio para ires lá. Arrasta o mapa e o duende caminha para o centro: quanto mais longe o deixares, mais corre. Faz pinça para aproximar. Setas ou WASD para andares, espaço para correres."
+    "es": "Toca un sitio para ir. Mantén el dedo y el duende lo sigue: cerca anda y lejos corre. Con dos dedos mueves el mapa y acercas. Flechas o WASD para moverte y espacio para correr.",
+    "en": "Tap a place to go there. Hold your finger down and the brownie follows it: near he walks, far he runs. Two fingers move the map and zoom. Arrow keys or WASD to move, space to run.",
+    "de": "Tipp auf eine Stelle, um hinzugehen. Halte den Finger gedrückt, und der Wichtel folgt ihm: nah geht er, weit rennt er. Mit zwei Fingern bewegst du die Karte und zoomst. Pfeiltasten oder WASD zum Gehen, Leertaste zum Rennen.",
+    "fr": "Touche un endroit pour y aller. Garde le doigt appuyé et le lutin le suit : près il marche, loin il court. Deux doigts déplacent la carte et zooment. Flèches ou WASD pour bouger, espace pour courir.",
+    "it": "Tocca un posto per andarci. Tieni premuto il dito e il folletto lo segue: vicino cammina, lontano corre. Con due dita muovi la mappa e ingrandisci. Frecce o WASD per muoverti, spazio per correre.",
+    "pt": "Toca num sítio para ires lá. Mantém o dedo e o duende segue-o: perto anda, longe corre. Com dois dedos moves o mapa e aproximas. Setas ou WASD para andares, espaço para correres."
   },
   "humanProof": {
     "es": "Comprobación humana",

@@ -53,9 +53,10 @@ const arena = {
         let s = await inspect();
         if (point.x < s.camera.x + 16 || point.x > s.camera.x + s.view.width - 16) {
           const dx = (s.camera.x + s.view.width / 2 - point.x) * s.scale;
-          await page.mouse.move(width / 2, height / 2); await page.mouse.down();
+          // Mirar alrededor es el botón DERECHO: el izquierdo mantenido guía al duende (19-sep-2026).
+          await page.mouse.move(width / 2, height / 2); await page.mouse.down({ button: "right" });
           await page.mouse.move(width / 2 + Math.max(-width * 0.45, Math.min(width * 0.45, dx)), height / 2, { steps: 8 });
-          await page.mouse.up(); s = await inspect();
+          await page.mouse.up({ button: "right" }); s = await inspect();
         }
         const r = await page.locator("#world-canvas").boundingBox();
         const x = r.x + (point.x - s.camera.x) * r.width / s.view.width,

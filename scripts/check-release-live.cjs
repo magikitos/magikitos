@@ -124,18 +124,16 @@ function assertShell(actual, expected, headers, route) {
       assert(riverAfter.player.y<riverBefore.player.y-30);
       assert(riverAfter.assets.loaded.includes('actor-100-row'));
       assert(riverAfter.assets.loaded.includes('vessel-bottle'));
-      // ⛔ Y EL MANDO TÁCTIL ES EL MAPA (19-sep-2026): se tira de él con un dedo y la barca va al
-      // centro de lo que miras. Aquí el dedo baja, así que lo que queda en el centro está río
-      // arriba y la barca sube: el mismo gesto con el que ya se miraba alrededor.
+      // ⛔ Y EL MANDO TÁCTIL ES MANTENER EL DEDO (19-sep-2026): el dedo se queda puesto y la barca
+      // va hacia lo que hay debajo. Aquí el dedo está por encima de la barca, así que sube.
       const cdp=await page.context().newCDPSession(page);
       const dedo=(type,points)=>cdp.send('Input.dispatchTouchEvent',{type,touchPoints:points.map(([x,y])=>({id:1,x,y}))});
-      await dedo('touchStart',[[width/2,height*0.22]]);
-      for(let i=1;i<=12;i++) await dedo('touchMove',[[width/2,height*0.22+(i*height*0.5)/12]]);
+      await dedo('touchStart',[[width/2,height*0.15]]);
       await page.waitForTimeout(600);
       await dedo('touchEnd',[]);
       await cdp.detach();
       const accelerated=await page.evaluate(()=>window.MagikitosAdventure.inspect());
-      assert(accelerated.player.y<riverAfter.player.y-20,'Arrastrar el mapa rema la barca en el artefacto vivo');
+      assert(accelerated.player.y<riverAfter.player.y-20,'Mantener el dedo rema la barca en el artefacto vivo');
       await page.screenshot({path:'.local/production-controls/river-'+width+'.png'});
       // El claro compartido vive en la pradera de los sauces y su embarcadero mira al oeste, así
       // que se desembarca hacia la derecha. Se llega remando desde el agua del amarre.

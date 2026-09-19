@@ -113,8 +113,7 @@ class Crossings {
     // mismo gesto: quien cruza arrastrando el mapa tiene que seguir mandando al otro lado, y
     // limpiarlo aquí dejaba la barca parada en mitad del agua con el dedo todavía en la pantalla.
     g.pauseMovement({ keepControls: true, keepPointerGesture: true });
-    let prepared,
-      llegado = false;
+    let prepared;
     try {
       const state = {
         ...g.state,
@@ -131,7 +130,6 @@ class Crossings {
       await g.live?.cross("edge", exit.id, prepared.id, prepared.position, mode);
       g.state = state;
       g.scenes.enter(prepared, { keepControls: true, keepPointerGesture: true });
-      llegado = true;
       g.toast(g.text(g.world.data.label || "riverDock"));
       g.save();
     } catch (error) {
@@ -143,11 +141,9 @@ class Crossings {
       prepared?.packs.release?.();
       g.transitioning = false;
       // ⛔ EL DEDO SIGUE PUESTO AL OTRO LADO. Cruzar cambia el mundo entero debajo del gesto y
-      // detiene el viaje, así que el destino se vuelve a plantar en lo que se está mirando AHORA.
-      // Sin esto, un arrastre sostenido te dejaba parado en mitad del agua con el dedo todavía en
-      // la pantalla. Va DESPUÉS de soltar `transitioning`, que es lo único que mira `leadTo` para
-      // no aceptar órdenes a medio cruzar.
-      if (llegado && g.input?.map.dragging) g.input.map.lead();
+      // detiene el viaje; no hace falta replantar nada a mano: el guiado se recalcula cada
+      // fotograma desde el dedo y la cámara de AHORA (`MapGestures.update`), y al ver que la
+      // escena ha cambiado planta el primer destino en cuanto `transitioning` se suelta.
     }
   }
 }

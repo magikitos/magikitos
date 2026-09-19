@@ -108,9 +108,10 @@
     ></div>
     <div id="world-toast" class="world-toast" role="status" hidden></div>
     <!-- ⛔ AQUÍ VIVÍA EL JOYSTICK, y se fue entero el 19-sep-2026 (decisión del dueño: «el joystick
-         táctil es una mierda, no me gusta nada, ni el botón de turbo»). Ahora el mapa ES el mando:
-         arrastrarlo lleva al duende al centro de lo que miras, y eso vale igual con un dedo, con
-         un ratón o con un lápiz, así que tampoco hace falta detectar qué tienes en la mano. -->
+         táctil es una mierda, no me gusta nada, ni el botón de turbo»). El mando no ocupa DOM:
+         tocar es ir, mantener el dedo es guiar al duende hacia donde está el dedo, y la cámara se
+         mueve con dos dedos o con el botón derecho. Vale igual con un dedo, con un ratón o con un
+         lápiz, así que tampoco hace falta detectar qué tienes en la mano (`map-gestures.js`). -->
     <div class="world-navigation">
       <button id="world-recenter" class="world-recenter" type="button" aria-label="{{recenterMap}}" title="{{recenterMap}}" hidden>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="6.5"/><circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/><path d="M12 2v4m0 12v4M2 12h4m12 0h4" stroke-linecap="round"/></svg>

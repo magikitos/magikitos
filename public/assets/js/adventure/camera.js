@@ -79,4 +79,41 @@ function cameraFollow(camera, target, { tracking, goal, reading, snap, ease, tra
 }
 const distance = (a, b) => Math.hypot(b.x - a.x, b.y - a.y);
 
-module.exports = { cameraMetrics, clampCamera, cameraFollow, continuousTravel, CAMERA_LOCK };
+/** Hasta dónde se adelanta la cámara hacia donde guías, en píxeles de mundo. */
+const CAMERA_LEAD = 32;
+/** Desde qué distancia del dedo al duende empieza a adelantarse: coincide con el «quieto» del gesto. */
+const CAMERA_LEAD_FROM = 14;
+
+/**
+ * ⛔ LA CÁMARA SE ADELANTA UN POCO HACIA DONDE GUÍAS, para que el pulgar no tape justo lo que viene.
+ *
+ * Guiando, el dedo va por delante del duende y el duende va al centro de la pantalla, así que el
+ * pulgar se planta encima del camino. Desplazar la vista unos píxeles hacia el rumbo deja al duende
+ * un poco atrás y despeja lo de delante. El adelanto crece con la distancia al dedo —con el dedo
+ * encima del duende es cero— y se suaviza, para que virar o soltar no dé un tirón: al soltar el
+ * vector es null y el adelanto vuelve a cero por el mismo suavizado.
+ *
+ * Función pura por la misma razón que `cameraFollow`: lo que vive dentro del bucle no se puede
+ * preguntar desde una prueba.
+ */
+function cameraLead(current, vector, { reach = CAMERA_LEAD, from = CAMERA_LEAD_FROM, ease }) {
+  let want = { x: 0, y: 0 };
+  if (vector) {
+    const n = Math.hypot(vector.x, vector.y);
+    const span = Math.min(reach, Math.max(0, n - from));
+    if (n > 0) want = { x: (vector.x / n) * span, y: (vector.y / n) * span };
+  }
+  const x = current.x + (want.x - current.x) * ease,
+    y = current.y + (want.y - current.y) * ease;
+  return { x: Math.abs(x) < 0.01 ? 0 : x, y: Math.abs(y) < 0.01 ? 0 : y };
+}
+
+module.exports = {
+  cameraMetrics,
+  clampCamera,
+  cameraFollow,
+  cameraLead,
+  continuousTravel,
+  CAMERA_LOCK,
+  CAMERA_LEAD,
+};

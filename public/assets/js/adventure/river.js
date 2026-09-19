@@ -151,10 +151,10 @@ class River {
     return mejor;
   }
   /**
-   * ⛔ EL MANDO DEL MAPA APUNTA AL CENTRO DE LO QUE MIRAS, Y ESE CENTRO PUEDE NO SER AGUA. Un toque
-   * en tierra estando a flote no significa nada y `tap` hace bien en no hacer nada; pero arrastrar
-   * el mapa es una ORDEN sostenida, y contra el borde del mapa —que es justo donde viven las
-   * costuras— el centro acaba fuera del cauce. Se rema al último punto de agua de esa dirección,
+   * ⛔ EL DEDO QUE GUÍA APUNTA A LO QUE HAY DEBAJO, Y ESO PUEDE NO SER AGUA. Un toque en tierra
+   * estando a flote no significa nada y `tap` hace bien en no hacer nada; pero un dedo mantenido es
+   * una ORDEN sostenida, y muy a menudo cae en la orilla o, contra el borde del mapa —que es justo
+   * donde viven las costuras—, fuera del cauce. Se rema al último punto de agua de esa dirección,
    * que es el mismo «hasta el último sitio posible» que ya hace el viaje a pie.
    */
   lead(point) {

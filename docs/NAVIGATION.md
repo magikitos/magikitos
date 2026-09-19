@@ -11,16 +11,19 @@ Contrato de entrada y rutas compartido por juego y Studio. Estado de publicació
 | Clic/toque en objeto o vecino | Se acerca e interactúa únicamente con ese objetivo. Los demás cuerpos se esquivan. |
 | Clic/toque en puerta | Se coloca delante y cruza en la dirección de entrada. |
 | Clic/toque en objeto empujable | Busca un lado accesible y empuja ese objeto con la física compartida. |
+| Dedo o botón izquierdo mantenido (≥180 ms) o desplazado | Guía: viaje `ground` marcado `guided` hacia el punto bajo el puntero, replaneado cada 14 px de mundo mientras dura. Sin interacción. Soltar termina el viaje en el último punto. Levantar sin haberse movido sigue siendo un toque. |
+| Dos dedos, o botón derecho/central | Cámara: zoom y desplazamiento. No cambia la intención en curso. |
 | Movimiento con teclado | Conserva contacto, empuje y umbrales direccionales. |
 
 Ratón, lápiz y dedo generan la misma intención. Caminar, correr y remar no
 modifican qué se ha pedido. Cerrar el diálogo no reactiva un recorrido concluido.
 La selección visual conserva el margen táctil del objeto; un toque dentro de
-ese margen es un toque en objeto, no en suelo.
+ese margen es un toque en objeto, no en suelo. No se dibuja marcador de destino.
 
 ## Responsabilidades
 
-- `input.js` / `map-gestures.js`: traducen teclado, toque, arrastre, pellizco y dirección continua.
+- `input.js` / `map-gestures.js`: traducen teclado, toque, guiado sostenido, paneo a dos dedos o
+  botón secundario y pellizco. El guiado se recalcula desde el bucle (`update`), no con temporizadores.
 - `journey.js`: único propietario de intención, destino, waypoints, ritmo y
   reintento. Planea `ground`, `interact`, `portal` o `push` con servicios comunes.
   Devuelve una llegada, no abre UI ni ejecuta reglas.

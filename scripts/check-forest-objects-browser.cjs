@@ -155,7 +155,7 @@ async function main() {
     await until(async () => (await read(mobile.page)).live.role === "player");
     const cdp = await mobile.page.context().newCDPSession(mobile.page);
     const touch = (type, points) => cdp.send("Input.dispatchTouchEvent", { type,
-      touchPoints: points.map(([x, y]) => ({ x, y, id: 1 })) });
+      touchPoints: points.map(([x, y], i) => ({ x, y, id: i + 1 })) });
     /**
      * ⛔ CON EL DEDO SE EMPUJA TOCANDO LA COSA, NO CAMINANDO CONTRA ELLA. Aquí se empujaba con el
      * joystick, que se erradicó el 19-sep-2026: hoy el mando táctil es arrastrar el mapa, y eso
@@ -181,8 +181,9 @@ async function main() {
     await until(async () => !(await read(mobile.page)).travel.intent);
     await until(() => service.presence.objects.intents.size === 0);
     console.log("PASS mobile FIFO promotion and a real touch push; finishing the journey releases its intent.");
-    await touch("touchStart", [[65, 230]]);
-    for (let x = 105; x <= 345; x += 40) { await touch("touchMove", [[x, 230]]); await pause(30); }
+    // Mirar alrededor son DOS dedos (19-sep-2026): uno solo guiaría al duende hacia la derecha.
+    await touch("touchStart", [[65, 230], [65, 290]]);
+    for (let x = 105; x <= 345; x += 40) { await touch("touchMove", [[x, 230], [x, 290]]); await pause(30); }
     await touch("touchEnd", []);
     await until(() => {
       const view = service.presence.peers.get(3).viewport;
@@ -190,8 +191,9 @@ async function main() {
     });
     assert((await read(mobile.page)).entities.some(e => e.id === "shared-crate"), "Panned-away player's nearby crate keeps its collision");
     console.log("PASS real touch camera pan leaves the crate offscreen without dropping nearby collision interest.");
-    // Volver al protagonista ya no necesita botón: el propio arrastre plantó un destino, así que al
-    // soltar, el viaje reengancha la cámara él solo. Se espera a eso para la captura de revisión.
+    // Panear no da órdenes, así que nadie reengancha la cámara solo: el disco de volver es la salida.
+    assert(!(await read(mobile.page)).cameraFollowing, "A two-finger pan leaves the camera to the viewer");
+    await mobile.page.locator("#world-recenter").click();
     await until(async () => (await read(mobile.page)).cameraFollowing);
     await pause(500);
     const returning = await open(4, { width: 1024, height: 768 }, crate().x);

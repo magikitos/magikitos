@@ -311,16 +311,11 @@ class Renderer {
     game.presentation?.draw(c);
     game.community?.draw(c);
     if (world.data.night) this.night(world.data.night, time, cam);
-    const destination =
-      game.journey?.intent?.point || game.journey?.path.at(-1);
-    if (destination) {
-      const end = destination;
-      c.strokeStyle = "#fff0b1";
-      c.lineWidth = 1;
-      c.beginPath();
-      c.ellipse(end.x, end.y, 5, 2, 0, 0, 7);
-      c.stroke();
-    }
+    // ⛔ AQUÍ SE DIBUJABA UN ÓVALO CLARO EN EL DESTINO DEL VIAJE, y se quitó el 19-sep-2026
+    // (decisión del dueño: «no quiero el puntito blanco placeholder de posición final, eso
+    // molesta»). Guiando con el dedo el destino se replantaba varias veces por segundo y el
+    // puntito iba dando saltitos por delante del duende; y tocando, el sitio ya lo sabes porque
+    // acabas de tocarlo. El destino sigue existiendo para el viaje y para `inspect`, solo no se pinta.
     if (!game.reducedMotion) this.ambient(world, cam, time);
     c.restore();
     // A quiet edge vignette; no per-frame image processing.

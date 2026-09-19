@@ -138,6 +138,28 @@ const start = (() => {
           await page.mouse.up();
         }
       }
+      /** Mirar alrededor sin dar órdenes: dos dedos, o el botón derecho del ratón (19-sep-2026). */
+      async function pan(dx, dy, touch = false) {
+        const x = width * 0.55,
+          y = height * 0.5;
+        if (touch) {
+          const c = await page.context().newCDPSession(page);
+          const dedos = (i) => [
+            { x: x + (dx * i) / 8, y: y + (dy * i) / 8 - 40, id: 0 },
+            { x: x + (dx * i) / 8, y: y + (dy * i) / 8 + 40, id: 1 },
+          ];
+          await c.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: dedos(0) });
+          for (let i = 1; i <= 8; i++)
+            await c.send("Input.dispatchTouchEvent", { type: "touchMove", touchPoints: dedos(i) });
+          await c.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
+          await c.detach();
+        } else {
+          await page.mouse.move(x, y);
+          await page.mouse.down({ button: "right" });
+          await page.mouse.move(x + dx, y + dy, { steps: 8 });
+          await page.mouse.up({ button: "right" });
+        }
+      }
       /**
        * ⛔ AQUÍ SE ARRASTRABA EL MAPA PARA TRAER EL PUNTO A LA PANTALLA, y desde el 19-sep-2026
        * arrastrar ya no es un ajuste de cámara: es una ORDEN DE VIAJE, así que ensuciaba
@@ -160,10 +182,11 @@ const start = (() => {
         );
       }
       /**
-       * ⛔ ARRASTRAR EL MAPA ES CAMINAR (19-sep-2026, decisión del dueño). Aquí se comprobaba lo
-       * CONTRARIO —que mirar alrededor no movía a nadie—, porque mover al duende era trabajo del
-       * joystick. Hoy el gesto es el mando: la cámara sigue siendo del dedo y el destino es el
-       * centro de lo que miras, con ratón y con dedo exactamente igual.
+       * ⛔ MANTENER EL DEDO ES GUIAR (19-sep-2026, decisión del dueño), y arrastrar con un dedo o
+       * con el botón izquierdo es lo mismo que mantenerlo: el duende va hacia lo que hay bajo el
+       * puntero y la cámara sigue siendo SUYA, no del gesto. Aquí se comprobó primero que mirar
+       * alrededor no movía a nadie (era trabajo del joystick), luego que arrastrar llevaba al
+       * centro de la vista; hoy mirar alrededor son dos dedos o el botón derecho (`pan`).
        */
       for (const touch of [false, true]) {
         await seed();
@@ -171,22 +194,25 @@ const start = (() => {
         await drag(-80, -100, touch);
         await page.waitForTimeout(200);
         let s = await inspect();
-        assert(s.camera.y > before.camera.y + 20, "El arrastre sigue moviendo la cámara");
+        assert(s.cameraFollowing, "Guiar no suelta la cámara: sigue pegada al duende");
+        // El puntero acaba 100 px por encima del centro y casi en su vertical (empieza al 55 % del
+        // ancho y retrocede 80), así que lo que manda es subir; lo lateral depende del ancho.
         assert(
-          Math.hypot(s.player.x - before.player.x, s.player.y - before.player.y) > 4,
-          "…y el duende ya va hacia el centro " +
+          s.player.y < before.player.y - 4 &&
+            Math.abs(s.player.x - before.player.x) < before.player.y - s.player.y,
+          "…y el duende va hacia donde quedó el puntero, arriba " +
             JSON.stringify({ antes: before.player, ahora: s.player }),
         );
         assert(!s.dialogue, "…sin hablar con nada por el camino");
         assert(!s.roll);
-        // Soltar no frena: se llega solo, y al llegar la cámara vuelve a seguir al duende sin que
-        // nadie toque el disco de recentrar, que por eso deja de tener nada que recentrar.
+        // Soltar no frena: se llega solo, y la cámara nunca dejó de seguir, así que el disco de
+        // recentrar no tiene nada que recentrar.
         await page.waitForFunction(
           () => !window.MagikitosAdventure.inspect().travel.intent,
           null,
           { timeout: 15000 },
         );
-        assert((await inspect()).cameraFollowing, "Al terminar el viaje la cámara vuelve sola");
+        assert((await inspect()).cameraFollowing, "Al terminar el viaje la cámara sigue con el duende");
         assert(await page.locator("#world-recenter").isHidden());
       }
       await seed();
@@ -314,8 +340,8 @@ const start = (() => {
         null,
         "New game starts freely, without an introductory dialogue",
       );
-      await drag(-80, -100, width < 800);
-      assert.equal((await inspect()).cameraFollowing, false);
+      await pan(-80, -100, width < 800);
+      assert.equal((await inspect()).cameraFollowing, false, "Mirar alrededor suelta la cámara");
       await page.locator("#world-canvas").focus();
       await page.keyboard.down("ArrowDown");
       await page.waitForFunction(
@@ -394,7 +420,7 @@ const start = (() => {
       );
       await page.close();
       console.log(
-        `PASS mobility ${width}×${height}: arrastrar (ratón y dedo) camina al centro y la cámara vuelve sola, walk/run routes, held/double Space never rolls, dialogue isolation, natural cast, lazy elder.`,
+        `PASS mobility ${width}×${height}: guiar (ratón y dedo) va hacia el puntero con la cámara pegada y dos dedos/botón derecho la sueltan, walk/run routes, held/double Space never rolls, dialogue isolation, natural cast, lazy elder.`,
       );
     }
     assert.deepEqual(errors, []);
