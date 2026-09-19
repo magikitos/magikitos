@@ -1,0 +1,55 @@
+{
+    "status": "art-only; not registered or installed in the game",
+    "profile": {
+        "pixelRatio": 2,
+        "sampling": "area"
+    },
+    "npcSourceNumber": 111,
+    "runtimeVariant": null,
+    "packages": {
+        "warehouse-exterior": {
+            "image": "packs/warehouse-exterior.png",
+            "metadata": "packs/warehouse-exterior.json",
+            "bytes": 111668,
+            "sha256": "469911338511b41e4a8a3948246e72e4cccd7e6a78dbcaf71066f1da559ebf8b",
+            "texturePixels": [
+                1024,
+                478
+            ],
+            "rgbaBytes": 1957888
+        },
+        "warehouse-interior": {
+            "image": "packs/warehouse-interior.png",
+            "metadata": "packs/warehouse-interior.json",
+            "bytes": 321216,
+            "sha256": "8226e8adcd0f765141c1470bcb469ffd1c1b5c40011133af2c3f0d3623c8653e",
+            "texturePixels": [
+                1024,
+                942
+            ],
+            "rgbaBytes": 3858432
+        },
+        "warehouse-props": {
+            "image": "packs/warehouse-props.png",
+            "metadata": "packs/warehouse-props.json",
+            "bytes": 33844,
+            "sha256": "1965f5b50a3c9bda859e0fefc41ff618e589c9e9a449579b5bc0092f3d0815dd",
+            "texturePixels": [
+                256,
+                366
+            ],
+            "rgbaBytes": 374784
+        },
+        "resident-111": {
+            "image": "packs/resident-111.png",
+            "metadata": "packs/resident-111.json",
+            "bytes": 62793,
+            "sha256": "82a8a45e2508b0906daa93247ac1c109e96bd6628f8bd4cbfe8354cbc66ffe59",
+            "texturePixels": [
+                1024,
+                400
+            ],
+            "rgbaBytes": 1638400
+        }
+    }
+}

@@ -78,3 +78,87 @@ aquella propuesta.
 
 Ver [definición y vida](DEFINITION-MOTION.md) y
 [verificación de la entrega](../RELEASE.md).
+
+## El elenco jugable: 18 protagonistas (19-sep-2026)
+
+Ocho protagonistas anteriores (100–107) y los diez aprobados como 200–209, con el mismo contrato
+de 156 poses cada uno y tarjetas con alfa para «Yo». Los cien NPC conservan su identidad.
+
+El dueño ha aprobado **los diez nuevos diseños `resident-101`–`resident-110`**
+como protagonistas. No confundir estos números de fuente con el antiguo actor
+101/Brezo bruma. Los nuevos IDs son 200–209. Los cien NPC originales
+y los ocho protagonistas anteriores se conservan.
+
+Se preparan uno por uno: andar/quieto, carrera, ocho cuerpos sentados con remos
+sincronizados, empujar, trabajar, llevado por gato, necesidades, hallazgo y card.
+Las cards conservan los píxeles originales del personaje: ambiente muy tenue,
+transparencia real y halo suave individual. Nada de reinterpretar su identidad.
+
+| Fuente | Key / ID previsto | Arte y revisión |
+|---|---|---|
+| 101 | rizo-alba / 200 | Completo: 156 frames, card alfa, rig y nueve barcas; registrado para «Yo» |
+| 102 | chispa-sol / 201 | Completo: 156 frames, card alfa, rig y nueve barcas; registrado para «Yo» |
+| 103 | tizon-musgo / 202 | Completo: 156 frames, card alfa, rig y nueve barcas; registrado para «Yo» |
+| 104 | nispera-sol / 203 | Completo: 156 frames, card alfa, rig y nueve barcas; registrado para «Yo» |
+| 105 | trebol-bruma / 204 | Completo: 156 frames, card alfa, rig y nueve barcas; registrado para «Yo» |
+| 106 | mimbrera-noche / 205 | Completo: 156 frames, card alfa, rig y nueve barcas; registrado para «Yo» |
+| 107 | avellano-cobre / 206 | Completo: 156 frames, card alfa, rig y nueve barcas; registrado para «Yo» |
+| 108 | oria-musgo / 207 | Completo: 156 frames, card alfa, rig y nueve barcas; registrado para «Yo» |
+| 109 | silo-bruma / 208 | Completo: 156 frames, card alfa, rig y nueve barcas; registrado para «Yo» |
+| 110 | zarza-sol / 209 | Completo: 156 frames, card alfa, rig y nueve barcas; registrado para «Yo» |
+
+Autoría en `data/aventura/art/playable-cast/<key>/`; diseños aprobados y originales
+en `residents/candidates/101-110/`. La orden posterior del dueño amplía esta ronda
+a registro, selector «Yo» y despliegue. Una hoja generada no cuenta como terminada hasta pasar
+recorte, registro, escala, revisión de poses y composición de barcas. No se
+declara una integración ni un despliegue que no se haya realizado. No falta
+world art para esta petición: son exclusivamente estos diez protagonistas y cards.
+
+Revisión del dueño: al ser transportado por el gato, el gorro debe seguir bien
+asentado sobre la frente/coronilla, compacto y parcialmente oculto por el cuerpo.
+No cuelga como un cono bajo la barbilla. Revisado en los diez; en las tres vistas
+traseras se ve la nuca, no una cara frontal. Las últimas correcciones de Chispa
+y Níspera conservan expresiones de susto; Zarza tiene un solo gorro y mantiene
+mangas ocres y pantalones índigo. Se retiró un bolso duplicado en la remada de Oria.
+Selección de fuentes, escalas y puntos de agarre: `authoring.json` de cada duende.
+
+**Contrato idéntico para todos, incluidos los ocho protagonistas anteriores:**
+andar/quieto 8×4; correr 8×4; remar 8×4; empujar 4×4; trabajar 4×4;
+llevado por gato 8×2; necesidades 4×2; hallazgo 4×1. Total **156 frames**.
+Mismos nombres, orden, lienzos lógicos y anclas por acción. Masters de esta tanda
+con celdas de 384px; exportación de revisión a 2× con reducción integrada.
+Los estudios intermedios de cuatro poses o con otra disposición **no son hojas
+de entrega**: las correcciones sustituyen slots, nunca añaden fases.
+`php scripts/check-playable-sheet-contract.php --prepared` comprueba todas las
+entregas disponibles y enumera las pendientes; `--all-approved` exige las diez.
+Incluye controles negativos: eliminar una fase debe fallar. Usa el catálogo de
+acciones existente como autoridad, sin registrar protagonistas en el juego.
+
+**Resultado de esta tanda:** 80 hojas finales de sprites, 1.560 fotogramas y diez
+cards con alfa. Contrato completo con 80 controles negativos, invariancia corporal
+de remada y 5.760 composiciones de barcas entre Chrome/WebKit. Tres tamaños por
+duende: 1440×900, 768×1024 y 390×844. Las pruebas de renderer no equivalen a una
+partida integrada. El registro preserva la escala nominal 384 en andar y acciones;
+el selector usa tarjetas alfa paginadas. El estado del despliegue se registra
+en `docs/RELEASE.md`. No queda otra familia de world art
+por generar para esta petición. Los ocho protagonistas anteriores y los 100 NPC
+no se han sustituido.
+
+Abrir la [galería local animada](../../data/aventura/art/playable-cast/review-101-110/index.html):
+cambio de personaje/acción, pausa, fase manual, fondos y capturas de las barcas.
+Fuentes, prompts, reconstrucción y advertencias concretas de integración:
+[la entrega de los diez protagonistas](../../data/aventura/ART.md#protagonistas-101110-integrados-el-19-sep-2026-como-200209).
+
+### Necesidades y tarjetas: contrato común de los 18
+
+Los 18 protagonistas conservan exactamente las mismas 156 poses. En las mujeres,
+`pee` reutiliza las cuatro fases agachadas `poop` **solo al dibujar**. La acción
+sigue siendo orinar: chorro corto, charco de orina, sin caca, sin gastar hoja y sin
+reiniciar el reloj de defecación. El mismo selector de postura se usa para otros
+jugadores visibles. No se alteran los PNG ni se crean sheets específicos por sexo.
+
+Las 18 tarjetas usan `prepare-playable-card.php`, con identidad original, fondo
+al 16 % y halo al 24 %. Tres atlas de hasta ocho tarjetas evitan superar 4 MiB
+decodificados por textura. El selector los toma prestados solo mientras está abierto.
+Los diez perfiles nuevos son `playableOnly`: los 100 NPC originales no cambian
+de identidad, reparto determinista ni familias del Studio.

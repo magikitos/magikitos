@@ -8555,6 +8555,37 @@
             "height": 400,
             "bytes": 57543
         },
+        "automaintenance-items": {
+            "image": "packs/automaintenance-items-74c88a73c84d.png",
+            "metadata": "packs/automaintenance-items-74c88a73c84d.json",
+            "sprites": [
+                "maintenance-bomb",
+                "maintenance-bomb-warning",
+                "maintenance-defuser",
+                "maintenance-bomb-icon",
+                "maintenance-defuser-icon"
+            ],
+            "width": 256,
+            "height": 218,
+            "bytes": 9168
+        },
+        "automaintenance-overgrowth": {
+            "image": "packs/automaintenance-overgrowth-2edd7889caef.png",
+            "metadata": "packs/automaintenance-overgrowth-2edd7889caef.json",
+            "sprites": [
+                "overgrowth-sparse-1",
+                "overgrowth-sparse-2",
+                "overgrowth-sparse-3",
+                "overgrowth-sparse-4",
+                "overgrowth-full-1",
+                "overgrowth-full-2",
+                "overgrowth-full-3",
+                "overgrowth-full-4"
+            ],
+            "width": 128,
+            "height": 108,
+            "bytes": 3189
+        },
         "barbecue": {
             "image": "packs/barbecue-82d3032b4c27.png",
             "metadata": "packs/barbecue-82d3032b4c27.json",
@@ -9398,6 +9429,81 @@
             "width": 256,
             "height": 296,
             "bytes": 18315
+        },
+        "warehouse-exterior": {
+            "image": "packs/warehouse-exterior-ef9e5b631d96.png",
+            "metadata": "packs/warehouse-exterior-ef9e5b631d96.json",
+            "sprites": [
+                "warehouse-watering-can"
+            ],
+            "width": 1024,
+            "height": 478,
+            "bytes": 111668
+        },
+        "warehouse-interior": {
+            "image": "packs/warehouse-interior-44dbbc828c7d.png",
+            "metadata": "packs/warehouse-interior-44dbbc828c7d.json",
+            "sprites": [
+                "warehouse-watering-can-interior"
+            ],
+            "width": 1024,
+            "height": 942,
+            "bytes": 321216
+        },
+        "warehouse-keeper": {
+            "image": "packs/warehouse-keeper-d300ddf8b861.png",
+            "metadata": "packs/warehouse-keeper-d300ddf8b861.json",
+            "sprites": [
+                "warehouse-keeper-down",
+                "warehouse-keeper-down-right",
+                "warehouse-keeper-right",
+                "warehouse-keeper-up-right",
+                "warehouse-keeper-up",
+                "warehouse-keeper-up-left",
+                "warehouse-keeper-left",
+                "warehouse-keeper-down-left",
+                "warehouse-keeper-down-walk-1",
+                "warehouse-keeper-down-right-walk-1",
+                "warehouse-keeper-right-walk-1",
+                "warehouse-keeper-up-right-walk-1",
+                "warehouse-keeper-up-walk-1",
+                "warehouse-keeper-up-left-walk-1",
+                "warehouse-keeper-left-walk-1",
+                "warehouse-keeper-down-left-walk-1",
+                "warehouse-keeper-down-walk-2",
+                "warehouse-keeper-down-right-walk-2",
+                "warehouse-keeper-right-walk-2",
+                "warehouse-keeper-up-right-walk-2",
+                "warehouse-keeper-up-walk-2",
+                "warehouse-keeper-up-left-walk-2",
+                "warehouse-keeper-left-walk-2",
+                "warehouse-keeper-down-left-walk-2",
+                "warehouse-keeper-down-walk-3",
+                "warehouse-keeper-down-right-walk-3",
+                "warehouse-keeper-right-walk-3",
+                "warehouse-keeper-up-right-walk-3",
+                "warehouse-keeper-up-walk-3",
+                "warehouse-keeper-up-left-walk-3",
+                "warehouse-keeper-left-walk-3",
+                "warehouse-keeper-down-left-walk-3"
+            ],
+            "width": 1024,
+            "height": 170,
+            "bytes": 59270
+        },
+        "warehouse-props": {
+            "image": "packs/warehouse-props-f394a688e013.png",
+            "metadata": "packs/warehouse-props-f394a688e013.json",
+            "sprites": [
+                "gravel-sack-open",
+                "gravel-sack-tied",
+                "gravel-sack-icon",
+                "warehouse-counter",
+                "warehouse-stock-rack"
+            ],
+            "width": 256,
+            "height": 366,
+            "bytes": 33844
         },
         "woodland-art-easel": {
             "image": "packs/woodland-art-easel-e183d72f00bd.png",

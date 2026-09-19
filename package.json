@@ -57,7 +57,8 @@
     "art:review": "php scripts/audit-woodland-art.php",
     "test:woodland": "node scripts/check-woodland-browser.cjs",
     "test:gallery": "node scripts/check-studio-gallery-browser.cjs",
-    "review:woodland": "node scripts/review-woodland-browser.cjs"
+    "review:woodland": "node scripts/review-woodland-browser.cjs",
+    "test:warehouse": "node scripts/check-warehouse-browser.cjs"
   },
   "devDependencies": {
     "esbuild": "0.28.2",

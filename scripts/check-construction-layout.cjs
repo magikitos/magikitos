@@ -443,12 +443,12 @@ assert.deepEqual(
   { twig: 6 },
   "Three tiles of fence cost three tiles of twigs",
 );
-// Cavar cuesta tener la pala Y hojas por celda (AUTOMANTENIMIENTO.md §A2, 19-sep-2026): el
+// Cavar cuesta tener la pala Y hojas por celda (docs/AUTOMANTENIMIENTO.md §A2, 19-sep-2026): el
 // material es el cuello de botella, y sin él ninguna regla de densidad aguanta.
 assert.deepEqual(
   objectCost(costs[0], catalog.definitions["forest-path"]),
-  { leaf: 3 },
-  "A path is paid for with the rake in hand and a leaf per tile",
+  { gravilla: 3 },
+  "A path is paid for with the rake in hand and one gravel per tile (a sack is ten)",
 );
 assert.equal(catalog.definitions["forest-path"].densityDoubling, 0.02, "…and its price doubles every 2% of the clearing");
 assert.deepEqual(

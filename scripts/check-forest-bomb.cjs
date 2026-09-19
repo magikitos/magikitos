@@ -1,6 +1,6 @@
 "use strict";
 /**
- * ⛔ LA BOMBITA SE RECHAZA DONDE HAY QUE RECHAZARLA (AUTOMANTENIMIENTO.md §B2): patrimonio, rincón
+ * ⛔ LA BOMBITA SE RECHAZA DONDE HAY QUE RECHAZARLA (docs/AUTOMANTENIMIENTO.md §B2): patrimonio, rincón
  * protegido, camino (`bombable: false`), ya minada y sin bombita en el saco. La mecha tiene tres
  * fases (armada, aviso a media hora, toca). El gemelo PHP dice lo mismo, con mutación negativa.
  */
@@ -47,9 +47,8 @@ casos.forEach(([nombre, , , , esperado], i) => assert.equal(dicho[i], esperado, 
 assert.deepEqual(dicho.slice(casos.length), ["armed", "warning", "due"], "PHP: las tres fases de la mecha");
 const original = fs.readFileSync(twin, "utf8"), roto = original.replace('if (($definition["bombable"] ?? true) === false) return "not_bombable";', "");
 assert(roto !== original, "La mutación encuentra la regla del camino");
-const tmp = path.join(require("node:os").tmpdir(), "bomb-roto-" + process.pid + ".php");
-fs.writeFileSync(tmp, roto.replace(/require_once __DIR__ \. "\/([a-z-]+)\.php";/g, (_, f) => `require_once "${path.join(web, "src/game", f)}.php";`));
-try {
+const tmp = path.join(path.dirname(twin), "bomb-roto-" + process.pid + ".php");
+fs.writeFileSync(tmp, roto);try {
   const mutado = php("require '" + tmp + "';");
   assert(JSON.stringify(mutado) !== JSON.stringify(dicho), "Un gemelo que deja volar caminos da otro veredicto, y la prueba lo caza");
 } finally { fs.unlinkSync(tmp); }

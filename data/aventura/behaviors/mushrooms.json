@@ -3,7 +3,7 @@
     "sprite": "mushrooms",
     "label": "mushroomName",
     "harvest": {
-      "renewMs": 18000000,
+      "renewMs": 28800000,
       "keepVisible": false
     },
     "solid": [

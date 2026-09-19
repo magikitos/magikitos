@@ -206,12 +206,6 @@
       "y": 119,
       "artVariant": "bolete",
       "scale": 0.72
-    },
-    {
-      "id": "bomb-cache",
-      "behavior": "bomb-cache",
-      "x": 95.5,
-      "y": 124.5
     }
   ],
   "neighbors": [

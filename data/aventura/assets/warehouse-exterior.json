@@ -1,0 +1,24 @@
+{
+  "frames": {
+    "warehouse-watering-can": {
+      "size": [
+        264,
+        237
+      ],
+      "anchor": [
+        143,
+        224
+      ],
+      "source": "data/aventura/art/construction/cutouts/warehouse-exterior.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "fit": true
+    }
+  }
+}

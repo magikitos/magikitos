@@ -79,7 +79,7 @@ fuentes de farmeo retiradas en el mundo. Los recursos ya confirmados no se borra
 
 Inventario = cantidades; recogidas = bitsets por ciclo; no instancias de cada palo
 en el saco. La hora del servidor manda al sincronizar. Reglas de seguridad,
-reintentos y recuperación: [GAME-SAVE-API.md](../../docs/GAME-SAVE-API.md).
+reintentos y recuperación: [../../docs/API.md#save-protocol-and-server-authority](../../docs/API.md#save-protocol-and-server-authority).
 
 ## Geometría, arte y guardado
 

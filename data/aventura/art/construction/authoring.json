@@ -1,0 +1,62 @@
+{
+  "status": "art-only; not registered or installed in the game",
+  "profile": {"pixelRatio": 2, "sampling": "area"},
+  "sources": {
+    "warehouse-exterior": "data/aventura/art/construction/sources/warehouse-exterior.png",
+    "warehouse-interior": "data/aventura/art/construction/sources/warehouse-interior.png",
+    "gravel-sack-open": "data/aventura/art/construction/sources/gravel-sack-open.png",
+    "gravel-sack-tied": "data/aventura/art/construction/sources/gravel-sack-tied.png",
+    "warehouse-counter": "data/aventura/art/construction/sources/warehouse-counter.png",
+    "warehouse-stock-rack": "data/aventura/art/construction/sources/warehouse-stock-rack.png",
+    "resident-111": "data/aventura/art/residents/sources/resident-111.png"
+  },
+  "packages": {
+    "warehouse-exterior": {
+      "warehouse-watering-can": {"art": "warehouse-exterior", "size": [264, 237], "anchor": [143, 224]}
+    },
+    "warehouse-interior": {
+      "warehouse-watering-can-interior": {"art": "warehouse-interior", "size": [480, 469], "anchor": [0, 0]}
+    },
+    "warehouse-props": {
+      "gravel-sack-open": {"art": "gravel-sack-open", "size": [24, 26], "anchor": [12, 24]},
+      "gravel-sack-tied": {"art": "gravel-sack-tied", "size": [24, 26], "anchor": [12, 24]},
+      "gravel-sack-icon": {"art": "gravel-sack-open", "size": [52, 56], "anchor": [26, 54]},
+      "warehouse-counter": {"art": "warehouse-counter", "size": [88, 46], "anchor": [44, 42]},
+      "warehouse-stock-rack": {"art": "warehouse-stock-rack", "size": [82, 76], "anchor": [41, 71]}
+    }
+  },
+  "npc": {
+    "sourceNumber": 111,
+    "runtimeVariant": null,
+    "note": "111 is the source-file number, NOT a free runtime variant. Existing variant 111 belongs to another NPC. Do not overwrite it.",
+    "id": "resident-111",
+    "variant": "resident-111",
+    "directory": "construction",
+    "grid": [8, 4],
+    "directions": ["down", "down-right", "right", "up-right", "up", "up-left", "left", "down-left"],
+    "canvas": [48, 48],
+    "anchor": [24, 46],
+    "height": 40,
+    "action": "walk",
+    "strictMargins": true,
+    "cleanFragments": 0.008
+  },
+  "reviewLayout": {
+    "purpose": "Art composition only; not an installed scene or collision definition.",
+    "background": "warehouse-watering-can-interior",
+    "instances": [
+      {"sprite": "warehouse-stock-rack", "at": [134, 211]},
+      {"sprite": "warehouse-stock-rack", "at": [361, 245]},
+      {"sprite": "person-resident-111-down", "at": [270, 209]},
+      {"sprite": "warehouse-counter", "at": [270, 239]},
+      {"sprite": "gravel-sack-tied", "at": [132, 253]},
+      {"sprite": "gravel-sack-tied", "at": [150, 259]},
+      {"sprite": "gravel-sack-open", "at": [141, 278]},
+      {"sprite": "gravel-sack-tied", "at": [354, 288]},
+      {"sprite": "gravel-sack-open", "at": [375, 306]}
+    ],
+    "exteriorEntranceApprox": [143, 224],
+    "interiorEntranceApprox": [238, 438],
+    "coordinates": "logical units, before camera zoom; approximate art guides only"
+  }
+}

@@ -2214,5 +2214,29 @@
     "fr": "Poser la bombe",
     "it": "Piazza la bombetta",
     "pt": "Colocar a bombinha"
+  },
+  "gravillaName": {
+    "es": "Gravilla",
+    "en": "Gravel",
+    "de": "Kies",
+    "fr": "Gravier",
+    "it": "Ghiaia",
+    "pt": "Cascalho"
+  },
+  "gravillaDescription": {
+    "es": "Piedrecitas para hacer caminos: una por celda. El constructor del almacén cambia un saco de diez por cinco setas.",
+    "en": "Little stones for making paths: one per tile. The warehouse builder trades a ten-tile sack for five mushrooms.",
+    "de": "Steinchen für Wege: eines pro Zelle. Der Baumeister im Lager tauscht einen Sack für zehn Zellen gegen fünf Pilze.",
+    "fr": "Des petites pierres pour faire des chemins : une par case. Le constructeur de l'entrepôt échange un sac de dix contre cinq champignons.",
+    "it": "Sassolini per fare sentieri: uno per cella. Il costruttore del magazzino cambia un sacco da dieci con cinque funghi.",
+    "pt": "Pedrinhas para fazer caminhos: uma por célula. O construtor do armazém troca um saco de dez por cinco cogumelos."
+  },
+  "warehouseDoor": {
+    "es": "El almacén del constructor",
+    "en": "The builder's warehouse",
+    "de": "Das Lager des Baumeisters",
+    "fr": "L'entrepôt du constructeur",
+    "it": "Il magazzino del costruttore",
+    "pt": "O armazém do construtor"
   }
 }

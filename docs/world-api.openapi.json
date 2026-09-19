@@ -2809,6 +2809,214 @@
           }
         }
       }
+    },
+    "/community-mine": {
+      "post": {
+        "operationId": "worldCommunityMine",
+        "summary": "Set the single little bomb from the sack on another player's object",
+        "description": "JSON only. Same live seat and zone rules as community-build. Consumes the caller's `bomba` (cap 1 per account, earned in-game), refuses heritage objects, protected corners, paths (`bombable: false`), objects already mined and callers without a bomb; validates the optional note with the forest-notes policy; writes history (`mine`), bumps the zone revision and notifies the author (`forest_bomb`). The fuse (construction.bomb.fuseMs) is enforced by the website cron; the DTO carries `explodesAt` as absolute server time.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommunityMine"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommunitySnapshot"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/community-defuse": {
+      "post": {
+        "operationId": "worldCommunityDefuse",
+        "summary": "Defuse a little bomb with the pliers, silently",
+        "description": "JSON only. Same live seat and zone rules as community-build. Consumes the caller's `desactivador`, clears the bomb, writes history (`defuse`) and bumps the zone revision. Nobody is notified.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommunityDefuse"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommunitySnapshot"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Validated failure; no partial mutation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -4167,6 +4375,61 @@
           },
           "mine": {
             "type": "boolean"
+          },
+          "bomb": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "explodesAt",
+              "note",
+              "by"
+            ],
+            "description": "A little bomb set on this object (AUTOMANTENIMIENTO §B). Server-owned absolute time; the client never computes remaining minutes.",
+            "properties": {
+              "explodesAt": {
+                "type": "integer",
+                "minimum": 1,
+                "description": "Unix ms when the cron retires the object."
+              },
+              "note": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "maxLength": 500
+              },
+              "by": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "handle",
+                  "name"
+                ],
+                "properties": {
+                  "handle": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "name": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "steps": {
+            "type": "array",
+            "maxItems": 7,
+            "items": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "description": "Paths only: per segment, the zone presence clock (minutes) of the last footstep, marked by the live daemon. Read against CommunitySnapshot.clock."
           }
         }
       },
@@ -4214,6 +4477,11 @@
             "type": "integer",
             "minimum": 1,
             "description": "Authoritative server Unix time in milliseconds. Plant growth uses this clock, never the device calendar."
+          },
+          "clock": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Zone presence clock in minutes: advances only while someone is in the scene. Never a wall-clock date."
           }
         }
       },
@@ -4417,6 +4685,72 @@
           "avatar": {
             "type": "integer",
             "minimum": 0
+          }
+        }
+      },
+      "CommunityMine": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "operationId",
+          "baseRevision",
+          "zone",
+          "zoneRevision",
+          "id"
+        ],
+        "properties": {
+          "operationId": {
+            "$ref": "#/components/schemas/GameId"
+          },
+          "baseRevision": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "zone": {
+            "type": "string"
+          },
+          "zoneRevision": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "id": {
+            "$ref": "#/components/schemas/GameId"
+          },
+          "note": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500,
+            "description": "Optional message left beside the bomb; same policy as forest notes (adventure.messages.maxCharacters)."
+          }
+        }
+      },
+      "CommunityDefuse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "operationId",
+          "baseRevision",
+          "zone",
+          "zoneRevision",
+          "id"
+        ],
+        "properties": {
+          "operationId": {
+            "$ref": "#/components/schemas/GameId"
+          },
+          "baseRevision": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "zone": {
+            "type": "string"
+          },
+          "zoneRevision": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "id": {
+            "$ref": "#/components/schemas/GameId"
           }
         }
       }

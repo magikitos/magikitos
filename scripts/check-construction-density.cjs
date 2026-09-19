@@ -1,6 +1,6 @@
 "use strict";
 /**
- * ⛔ EL PRECIO SUBE CON LO PISADO, Y LOS DOS GEMELOS DICEN EL MISMO NÚMERO (AUTOMANTENIMIENTO.md
+ * ⛔ EL PRECIO SUBE CON LO PISADO, Y LOS DOS GEMELOS DICEN EL MISMO NÚMERO (docs/AUTOMANTENIMIENTO.md
  * §A1, 19-sep-2026). La curva 2^(d/D) se comprueba sobre una tabla de entradas en JS y en PHP, con
  * una zona sintética de suelo conocido; y en NEGATIVO: una copia del gemelo PHP con el exponente
  * cambiado tiene que dar otro precio, o esta prueba no estaría vigilando nada.
@@ -86,9 +86,8 @@ casos.forEach((c, i) => {
 // Negativo: la misma autoridad con el exponente roto tiene que dar otro precio.
 const roto = fs.readFileSync(authority, "utf8").replace("round(2 ** ($d / $doubling) * 1e6)", "round(3 ** ($d / $doubling) * 1e6)");
 assert(roto !== fs.readFileSync(authority, "utf8"), "La mutación encuentra la fórmula");
-const tmp = path.join(require("node:os").tmpdir(), "community-roto-" + process.pid + ".php");
-fs.writeFileSync(tmp, roto.replace(/require_once __DIR__ \. "\/([a-z-]+)\.php";/g, (_, f) => `require_once "${path.join(web, "src/game", f)}.php";`));
-try {
+const tmp = path.join(path.dirname(authority), "community-roto-" + process.pid + ".php");
+fs.writeFileSync(tmp, roto);try {
   const mutado = php("require '" + tmp + "';");
   assert.notDeepEqual(mutado[0], dicho[0], "Un gemelo con el exponente cambiado da otro precio, y la prueba lo caza");
 } finally {

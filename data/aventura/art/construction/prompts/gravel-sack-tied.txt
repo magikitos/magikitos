@@ -1,0 +1,4 @@
+Use case: precise-object-edit.
+Asset type: closed/carrying variant of the Magikitos gravel sack.
+Input image 1 is the exact sack design reference. Make ONE matching sack now tied shut for transport: keep the same coarse golden-tan burlap, green square hand-sewn front patch, charming fibre texture and proportions, but cinch the mouth shut with a natural rope bow and bunch the fabric above it. The weight of gravel makes the bottom stout and solid. Do not show loose stones or an opening.
+Preserve the matte detailed illustrated pixel-art style, overhead three-quarter game camera and upper-left light. Full object centred, generous 15% transparent margin; genuinely transparent RGBA background. No floor tile, no shadows outside the object, no text, no logo, no extra items, no hands, no people.

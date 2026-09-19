@@ -1,0 +1,182 @@
+{
+  "id": "almacen",
+  "width": 30,
+  "height": 30,
+  "seed": 1911,
+  "indoor": true,
+  "spawn": {
+    "x": 15,
+    "y": 21.5
+  },
+  "paths": [],
+  "waters": [],
+  "clearings": [],
+  "regions": [],
+  "ambient": {
+    "kind": "dust",
+    "count": 2
+  },
+  "label": "almacen",
+  "interior": {
+    "material": "bark",
+    "artwork": "warehouse-watering-can-interior",
+    "inset": {
+      "left": 0,
+      "right": 0,
+      "top": 0,
+      "bottom": 0.7
+    },
+    "outline": [
+      [
+        0.2,
+        0.34
+      ],
+      [
+        0.35,
+        0.31
+      ],
+      [
+        0.5,
+        0.3
+      ],
+      [
+        0.65,
+        0.31
+      ],
+      [
+        0.8,
+        0.34
+      ],
+      [
+        0.88,
+        0.45
+      ],
+      [
+        0.9,
+        0.55
+      ],
+      [
+        0.86,
+        0.66
+      ],
+      [
+        0.75,
+        0.73
+      ],
+      [
+        0.62,
+        0.755
+      ],
+      [
+        0.62,
+        0.99
+      ],
+      [
+        0.38,
+        0.99
+      ],
+      [
+        0.38,
+        0.755
+      ],
+      [
+        0.25,
+        0.73
+      ],
+      [
+        0.14,
+        0.66
+      ],
+      [
+        0.1,
+        0.55
+      ],
+      [
+        0.12,
+        0.45
+      ]
+    ],
+    "background": "woodland-context"
+  },
+  "entities": [
+    {
+      "id": "exit",
+      "x": 15,
+      "y": 27.4,
+      "hitArea": [
+        -2,
+        -1.6,
+        4,
+        2.2
+      ],
+      "rules": [
+        {
+          "effects": [
+            {
+              "type": "travel",
+              "scene": "overworld",
+              "arrivalAt": "warehouse-door"
+            }
+          ]
+        }
+      ],
+      "label": "outside",
+      "portal": true
+    },
+    {
+      "id": "warehouse-keeper",
+      "behavior": "warehouse-keeper",
+      "x": 16.9,
+      "y": 12.6
+    },
+    {
+      "id": "warehouse-counter",
+      "behavior": "warehouse-counter",
+      "x": 16.9,
+      "y": 15.4,
+      "interactAs": "warehouse-keeper"
+    },
+    {
+      "id": "warehouse-rack-west",
+      "behavior": "warehouse-stock-rack",
+      "x": 8.4,
+      "y": 13.2
+    },
+    {
+      "id": "warehouse-rack-east",
+      "behavior": "warehouse-stock-rack",
+      "x": 22.6,
+      "y": 15.3
+    },
+    {
+      "id": "warehouse-sack-1",
+      "behavior": "warehouse-sack-tied",
+      "x": 8.25,
+      "y": 15.8
+    },
+    {
+      "id": "warehouse-sack-2",
+      "behavior": "warehouse-sack-tied",
+      "x": 9.4,
+      "y": 16.2
+    },
+    {
+      "id": "warehouse-sack-3",
+      "behavior": "warehouse-sack-tied",
+      "x": 22.1,
+      "y": 18
+    },
+    {
+      "id": "warehouse-sack-4",
+      "behavior": "warehouse-sack-tied",
+      "x": 23.4,
+      "y": 19.1
+    },
+    {
+      "id": "warehouse-daily-sack",
+      "behavior": "warehouse-daily-sack",
+      "x": 8.8,
+      "y": 17.4
+    }
+  ]
+}

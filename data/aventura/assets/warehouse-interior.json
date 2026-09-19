@@ -1,0 +1,24 @@
+{
+  "frames": {
+    "warehouse-watering-can-interior": {
+      "size": [
+        480,
+        469
+      ],
+      "anchor": [
+        0,
+        0
+      ],
+      "source": "data/aventura/art/construction/cutouts/warehouse-interior.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "fit": true
+    }
+  }
+}

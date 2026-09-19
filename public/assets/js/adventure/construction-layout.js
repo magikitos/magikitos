@@ -231,7 +231,7 @@ function neighbourhoodReason(samples, separation) {
 }
 
 /**
- * ⛔ EL PRECIO SUBE CON LO QUE YA HAY EN LA ZONA (19-sep-2026, AUTOMANTENIMIENTO.md §A1, decisión
+ * ⛔ EL PRECIO SUBE CON LO QUE YA HAY EN LA ZONA (19-sep-2026, docs/AUTOMANTENIMIENTO.md §A1, decisión
  * del dueño: «al subir de forma exponencial será cada vez más difícil o imposible de ponerlo»). Un
  * tope por persona no protege el bosque: con ocho vallas por cabeza y cien personas el claro se
  * pela igual. El límite es DEL SITIO: el coste por celda se multiplica por 2^(d/D), donde d es la

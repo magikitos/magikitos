@@ -37,6 +37,12 @@
           38,
           14,
           11
+        ],
+        [
+          95,
+          96,
+          19,
+          12
         ]
       ]
     },
@@ -79,7 +85,7 @@
         }
       ],
       "costPerTile": {
-        "leaf": 1
+        "gravilla": 1
       },
       "surfaces": [
         "flat-ground"

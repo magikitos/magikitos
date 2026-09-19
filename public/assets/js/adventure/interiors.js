@@ -20,6 +20,8 @@ function wall(c, x, y, w, h, height = 22) {
 }
 function drawInteriors(c, world) {
   if (!world.data.indoor) return;
+  // Un interior dibujado ya trae sus paredes en la estampa (ver interior-ground.js).
+  if (world.data.interior?.artwork) return;
   const width = world.width * TILE,
     height = world.height * TILE;
   const room = require("./room-shape"),

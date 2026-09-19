@@ -1,0 +1,104 @@
+{
+  "frames": {
+    "gravel-sack-open": {
+      "size": [
+        24,
+        26
+      ],
+      "anchor": [
+        12,
+        24
+      ],
+      "source": "data/aventura/art/construction/cutouts/gravel-sack-open.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "fit": true
+    },
+    "gravel-sack-tied": {
+      "size": [
+        24,
+        26
+      ],
+      "anchor": [
+        12,
+        24
+      ],
+      "source": "data/aventura/art/construction/cutouts/gravel-sack-tied.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "fit": true
+    },
+    "gravel-sack-icon": {
+      "size": [
+        52,
+        56
+      ],
+      "anchor": [
+        26,
+        54
+      ],
+      "source": "data/aventura/art/construction/cutouts/gravel-sack-open.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "fit": true
+    },
+    "warehouse-counter": {
+      "size": [
+        88,
+        46
+      ],
+      "anchor": [
+        44,
+        42
+      ],
+      "source": "data/aventura/art/construction/cutouts/warehouse-counter.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "fit": true
+    },
+    "warehouse-stock-rack": {
+      "size": [
+        82,
+        76
+      ],
+      "anchor": [
+        41,
+        71
+      ],
+      "source": "data/aventura/art/construction/cutouts/warehouse-stock-rack.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "fit": true
+    }
+  }
+}

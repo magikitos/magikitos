@@ -8,7 +8,7 @@ compartida cuando se necesita integración. Sus datos y medios actuales bastan:
 ninguna herramienta de desarrollo importa producción ni despliega automáticamente.
 
 La API necesita el esquema actual del repo web; no se ejecutan migraciones desde
-el juego. [Contrato y seguridad](GAME-SAVE-API.md) · [Publicación](RELEASING.md).
+el juego. [Contrato y seguridad](API.md#save-protocol-and-server-authority) · [Publicación](RELEASING.md).
 
 ## Arrancar
 

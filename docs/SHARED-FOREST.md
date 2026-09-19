@@ -31,7 +31,7 @@ Sin vidas, combate, Libro del Bosque, fiambreras ni parcelas privadas.
    pantalla entera, y lo que se enumera es lo PROHIBIDO. Cuatro pantallas abiertas
    (el bosque y los tres tramos de río) con vallitas, caminos, bancos, mesas, flores,
    macetas, farolitas y piscina. Todos ven la misma versión confirmada al visitarla.
-   No son visitantes conectados en tiempo real. Detalle en [CONSTRUCCION.md](../CONSTRUCCION.md).
+   No son visitantes conectados en tiempo real. Detalle en «El almacén del constructor», más abajo.
 
 ## Controles y construcción
 
@@ -288,6 +288,105 @@ primero diseñar una aventura y anclajes RIVER_EDGE reales. El esquema admite
 superficies; esta entrega solo publica construcciones de suelo firme. No fingimos
 que ya exista toda la futura rama mecánica, pesca, comercio o reputación avanzada.
 
-Seguridad, límites, migración y operación: [GAME-SAVE-API.md](GAME-SAVE-API.md).
+Seguridad, límites, migración y operación: [API.md#save-protocol-and-server-authority](API.md#save-protocol-and-server-authority).
 La autorregulación social es una dirección de diseño; las modificaciones ajenas
 siguen cerradas en esta primera entrega hasta tener evidencia para abrirlas.
+
+## El bosque se cuida solo (19-sep-2026)
+
+Decisiones, reglas y qué medir: [AUTOMANTENIMIENTO.md](AUTOMANTENIMIENTO.md). En corto: **el
+precio sube con lo pisado** (`densityMultiplier` en `construction-layout.js`, gemelo PHP con
+paridad), **la bombita** se pone con la mano sobre una pieza ajena y la tenaza la desactiva
+(`community.useTool`, `maintenance.js`), y **la hierba vuelve** por los extremos de los caminos
+que nadie pisa (reloj de presencia de la zona, `steps` por tramo, hierba pintada desde la mitad
+del presupuesto). Reglas puras en `maintenance.js`; pruebas `check-construction-density`,
+`check-forest-overgrowth`, `check-forest-bomb`, `check-bomb-balance`.
+
+### El almacén del constructor (19-sep-2026, decisión del dueño)
+
+Una regadera humana antigua recuperada por los Magikitos, en el rincón nocturno junto al lago
+de la pradera (`warehouse-door`, protegido en `construction.json` para que nadie tape su puerta).
+Dentro, la escena `almacen`: un interior DIBUJADO (`interior.artwork`, el motor estampa la sala y
+el contorno manda en la colisión), mostrador, expositores, sacos y **Cebolino, el constructor**
+(`warehouse-keeper`, arte `warehouse-keeper-*`, una entidad con botones de trueque, no un
+residente). **Todo se paga en setas, nunca en setines** (los setines son reputación):
+
+| Trueque | Setas | Regla |
+| --- | ---: | --- |
+| Saco de gravilla (`gravilla` ×10, `bundle`) | 5 | tope 60 en el saco; el camino cuesta una gravilla por celda |
+| Bombita | 6 | solo sin bombita en el saco |
+| Tenaza | 2 | solo sin tenaza en el saco |
+| Saco del día (`warehouse-daily-sack`) | 0 | uno cada 24 h de reloj del servidor (`timers.gravelDaily`) |
+
+Las setas se cortan con cuchillo en el bosque y **rebrotan a las ocho horas** por jugador
+(`harvest.renewMs`, regiones `harvest-*-28800000` en `resource-nodes.json`). Las vallas siguen
+costando palitos; el resto de piezas, lo que ya costaban. Lo vigila `check-bomb-balance.cjs`.
+
+## Arte y animación del picnic
+
+Guía de autoría vigente; ubicaciones y recogibles están en las escenas.
+Manta y comida son piezas independientes: tortilla, nachos triangulares,
+guacamole, bebidas y altavoz. Navaja y mechero son herramientas; la botella del
+suelo aparece junto a la papelera al cocinar la primera brocheta. Los humanos y
+la manta desaparecen entonces; los utensilios no recogidos siguen disponibles.
+El gato permanece y se suma otro. Brizno y la barbacoa están junto a su casa,
+cerca del muelle. Recorrido y pistas: [SHARED-FOREST.md](SHARED-FOREST.md).
+
+### Source art and prompts
+
+Generated with the **built-in image_gen tool**, not CLI/API fallback. The original
+project picnic sheet was the identity/style reference for the two human pose sheets;
+the earlier knife illustration was the design reference for its readability edit.
+
+**Exact prompts, input roles and every saved output path:**
+[`data/aventura/art/picnic-polish/prompts.json`](../data/aventura/art/picnic-polish/prompts.json).
+
+Seven isolated object masters are retained in `data/aventura/art/woodland-kit/`:
+`knife-taramundi-readable.png`, `picnic-lighter-coral.png`,
+`picnic-guacamole.png`, `picnic-potato-chips.png`, `picnic-lemonade.png`,
+`picnic-orange-soda.png`, `picnic-speaker.png`.
+
+Two four-pose masters are retained in `data/aventura/art/picnic-polish/`:
+`picnic-smoker-poses.png` and `picnic-friend-poses.png`.
+The earlier knife and picnic originals are also retained.
+
+The owner-authorised local pipeline only prepares alpha/cutouts and native packing,
+not a replacement design. Existing alpha is preserved; generated magenta mattes are
+removed with the shared cutout helper. Source hashes accompany the prepared PNGs.
+No source-resolution image is included in the static release.
+
+### Animation contract
+
+- `assets/picnic-humans.json` owns all eight frames in one scene-lazy package.
+- `preserveCanvas: true` keeps a fixed source registration rectangle before native
+  baking. Independent silhouette fitting must not resize or recenter each pose.
+- Each actor uses one native size and anchor across all poses; atlas trimming adjusts
+  the anchor without changing the actor's world position.
+- `ambient-actors.js` declares durations, independent phases and the smoke interval.
+  It chooses a frame from render time, without timers, canvas allocation or pixel readback.
+- The idle lower body is clipped below an authored waist seam; the active upper pose
+  is clipped above it using the shared `drawArtwork` native transform. This prevents
+  tiny generated drawing differences from making seated feet slide.
+- Reduced motion uses the still idle pose and no smoke. Collision never depends on
+  animation. The previous manually shifted head/painted-mouth rig has been removed.
+- The browser raster test checks **pixel-identical lower bodies** across every pose.
+
+### Reproduce and inspect
+
+```sh
+php scripts/prepare-picnic-actors.php
+php scripts/prepare-woodland-cutouts.php knife-taramundi-readable picnic-lighter-coral picnic-guacamole picnic-potato-chips picnic-lemonade picnic-orange-soda picnic-speaker
+npm run art:catalog
+npm run build
+php scripts/review-picnic-art.php
+npm run test:picnic-animation
+npm run test:picnic
+npm run install:local
+```
+
+QA output (untracked): `.local/picnic-review/native-art.png`,
+`rendered-poses.png`, `animation-report.json`, `studio-gallery.png`.
+Scene/device captures: `.local/woodland-review/picnic.png` and `picnic-mobile.png`.
+
+Verificar con `npm test`, `test:picnic-animation`, `test:picnic` y `test:gallery`.
+Resultados de publicación: [RELEASE.md](RELEASE.md).

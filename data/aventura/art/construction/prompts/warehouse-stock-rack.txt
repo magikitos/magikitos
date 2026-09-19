@@ -1,0 +1,6 @@
+Use case: stylized-concept.
+Asset type: ONE modular materials storage rack, isolated furniture sprite for Magikitos construction warehouse.
+Input image 1 is the exterior warehouse STYLE reference, not part of the output.
+Primary request: a charming compact broad wooden storage rack made by tiny elves from reclaimed planks, twig cross-braces and fibre ties. Three orderly open compartments: neatly stacked short timber offcuts and thin planks at the bottom, bundles of straight little twigs and a coil of natural rope in the middle, two shallow bark trays with fine pale gravel and flat little stones at the top. A few small leaf and moss details at the joins, not overgrown. Shelves look useful and well organised. Standalone furniture, no wall behind it. Warm wood, pale sand-coloured stone, dark green fibres, tiny brass pegs.
+Camera elevated orthographic top-down RPG angle around 50 degrees, looking toward its front. Clear complete silhouette wider than tall, readable at roughly 82x68 logical pixels. Refined matte hand-painted pixel-art finish, detailed but clear forms, tiny crisp pixel clusters, no glossy 3D, no huge pixel blocks, gentle upper-left light.
+Genuinely transparent RGBA background, whole prop centered with 12% margin, no labels, no text, no glyphs, no price tags, no weapons, no people, no ground tile, no oval shadow, no other furniture.

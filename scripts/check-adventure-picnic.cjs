@@ -115,7 +115,12 @@ assert(
   !expireTimers(state, now + 5 * hour + 1),
   "Expiration is applied only once",
 );
+// Brizno vuelve a tener hambre a las cinco horas, pero las setas rebrotan a las OCHO (decisión
+// del dueño, 19-sep-2026): la mata de antes sigue descansando y la segunda brocheta sale de otra.
 react("forest-mushrooms-fern", { now: now + 5 * hour });
+assert(!state.inventory.mushroom, "The first patch still rests at five hours");
+react("forest-mushrooms-root", { now: now + 5 * hour });
+assert.equal(state.inventory.mushroom, 1, "Another patch feeds the second skewer");
 react("picnic-twigs", { now: now + 5 * hour });
 react("picnic-barbecue", { action: "cook", now: now + 5 * hour });
 assert(actions(entity("picnic-neighbor"), state).some((a) => a.id === "give"));

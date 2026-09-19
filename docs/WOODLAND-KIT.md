@@ -151,7 +151,7 @@ are documented in [SHARED-FOREST.md](SHARED-FOREST.md).
 `ambient-actors.js` now plays authored smoking/conversation/sipping poses from one
 scene-lazy native pack. A shared source registration canvas and fixed lower-body
 layer keep seated legs/feet stable. Reduced motion uses the idle pose without smoke.
-See [PICNIC-POLISH.md](PICNIC-POLISH.md); the previous cut-and-shift head rig is removed.
+See [SHARED-FOREST.md#arte-y-animación-del-picnic](SHARED-FOREST.md#arte-y-animación-del-picnic); the previous cut-and-shift head rig is removed.
 
 
 Verification: `npm test`, `npm run test:woodland`, `npm run test:gallery` and

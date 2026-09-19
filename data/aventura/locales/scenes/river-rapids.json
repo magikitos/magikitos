@@ -6,55 +6,5 @@
     "fr": "Le courant farceur",
     "it": "La corrente birichina",
     "pt": "A corrente marota"
-  },
-  "defuserKitName": {
-    "es": "Banco del barquero",
-    "en": "Boatman's workbench",
-    "de": "Werkbank des Fährmanns",
-    "fr": "Établi du passeur",
-    "it": "Banco del barcaiolo",
-    "pt": "Bancada do barqueiro"
-  },
-  "defuserFound": {
-    "es": [
-      "Dos palitos, una hoja y un buen apretón: una tenaza como las del barquero.",
-      "Sirve para desactivar una bombita. Una vez."
-    ],
-    "en": [
-      "Two twigs, a leaf and a good squeeze: pliers like the boatman's.",
-      "Good for defusing one little bomb. Once."
-    ],
-    "de": [
-      "Zwei Zweige, ein Blatt und ein kräftiger Druck: eine Zange wie die des Fährmanns.",
-      "Damit lässt sich ein Bömbchen entschärfen. Einmal."
-    ],
-    "fr": [
-      "Deux brindilles, une feuille et une bonne pression : une pince comme celle du passeur.",
-      "Ça sert à désamorcer une petite bombe. Une fois."
-    ],
-    "it": [
-      "Due rametti, una foglia e una bella stretta: una tenaglia come quella del barcaiolo.",
-      "Serve a disinnescare una bombetta. Una volta."
-    ],
-    "pt": [
-      "Dois galhinhos, uma folha e um bom aperto: uma tenaz como a do barqueiro.",
-      "Serve para desativar uma bombinha. Uma vez."
-    ]
-  },
-  "defuserNeedParts": {
-    "es": "Aquí se hacen tenazas: dos palitos y una hoja para el mango.",
-    "en": "Pliers are made here: two twigs and a leaf for the grip.",
-    "de": "Hier werden Zangen gemacht: zwei Zweige und ein Blatt für den Griff.",
-    "fr": "Ici on fabrique des pinces : deux brindilles et une feuille pour le manche.",
-    "it": "Qui si fanno tenaglie: due rametti e una foglia per l'impugnatura.",
-    "pt": "Aqui se fazem tenazes: dois galhinhos e uma folha para o cabo."
-  },
-  "defuserAlreadyHave": {
-    "es": "Ya llevas una tenaza. Gástala antes de hacer otra.",
-    "en": "You already carry pliers. Use them before making another pair.",
-    "de": "Du hast schon eine Zange. Verbrauch sie, bevor du eine neue machst.",
-    "fr": "Tu as déjà une pince. Utilise-la avant d'en faire une autre.",
-    "it": "Hai già una tenaglia. Usala prima di farne un'altra.",
-    "pt": "Você já leva uma tenaz. Use-a antes de fazer outra."
   }
 }

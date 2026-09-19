@@ -1,0 +1,178 @@
+{
+  "almacen": {
+    "es": "El almacén del constructor",
+    "en": "The builder's warehouse",
+    "de": "Das Lager des Baumeisters",
+    "fr": "L'entrepôt du constructeur",
+    "it": "Il magazzino del costruttore",
+    "pt": "O armazém do construtor"
+  },
+  "warehouseKeeperName": {
+    "es": "Cebolino, el constructor",
+    "en": "Cebolino the builder",
+    "de": "Cebolino, der Baumeister",
+    "fr": "Cebolino le constructeur",
+    "it": "Cebolino il costruttore",
+    "pt": "Cebolino, o construtor"
+  },
+  "warehouseGreeting": {
+    "es": "¡Buenas! Aquí hay piedrecitas, mechas y tenazas, y todo se paga en setas: cinco por un saco de gravilla, que son diez celdas de camino.",
+    "en": "Hello there! Little stones, fuses and pliers, and everything's paid in mushrooms: five for a sack of gravel, which is ten tiles of path.",
+    "de": "Grüß dich! Steinchen, Zündschnüre und Zangen, und alles wird mit Pilzen bezahlt: fünf für einen Sack Kies, das sind zehn Zellen Weg.",
+    "fr": "Salut ! Des petites pierres, des mèches et des pinces, et tout se paie en champignons : cinq pour un sac de gravier, soit dix cases de chemin.",
+    "it": "Salve! Sassolini, micce e tenaglie, e tutto si paga in funghi: cinque per un sacco di ghiaia, cioè dieci celle di sentiero.",
+    "pt": "Olá! Pedrinhas, pavios e tenazes, e tudo se paga com cogumelos: cinco por um saco de cascalho, que são dez células de caminho."
+  },
+  "warehouseTradeGravel": {
+    "es": "5 setas → saco de gravilla",
+    "en": "5 mushrooms → sack of gravel",
+    "de": "5 Pilze → Sack Kies",
+    "fr": "5 champignons → sac de gravier",
+    "it": "5 funghi → sacco di ghiaia",
+    "pt": "5 cogumelos → saco de cascalho"
+  },
+  "warehouseTradeBomb": {
+    "es": "6 setas → bombita",
+    "en": "6 mushrooms → little bomb",
+    "de": "6 Pilze → Bömbchen",
+    "fr": "6 champignons → petite bombe",
+    "it": "6 funghi → bombetta",
+    "pt": "6 cogumelos → bombinha"
+  },
+  "warehouseTradeDefuser": {
+    "es": "2 setas → tenaza",
+    "en": "2 mushrooms → pliers",
+    "de": "2 Pilze → Zange",
+    "fr": "2 champignons → pince",
+    "it": "2 funghi → tenaglia",
+    "pt": "2 cogumelos → tenaz"
+  },
+  "warehouseGravelDone": {
+    "es": "Un saco de gravilla, diez celdas de camino. Que aproveche.",
+    "en": "One sack of gravel, ten tiles of path. Enjoy.",
+    "de": "Ein Sack Kies, zehn Zellen Weg. Viel Spaß damit.",
+    "fr": "Un sac de gravier, dix cases de chemin. Bon usage.",
+    "it": "Un sacco di ghiaia, dieci celle di sentiero. Buon lavoro.",
+    "pt": "Um saco de cascalho, dez células de caminho. Bom proveito."
+  },
+  "warehouseGravelFull": {
+    "es": "Ya no te cabe más gravilla en el saco. Gasta un poco y vuelve.",
+    "en": "Your sack can't hold any more gravel. Use some and come back.",
+    "de": "In deinen Sack passt kein Kies mehr. Verbrauch etwas und komm wieder.",
+    "fr": "Ton sac ne peut plus contenir de gravier. Utilise-en et reviens.",
+    "it": "Nel sacco non ti entra più ghiaia. Usane un po' e torna.",
+    "pt": "Não cabe mais cascalho no seu saco. Gaste um pouco e volte."
+  },
+  "warehouseNeedMushrooms": {
+    "es": "Te faltan setas. Las que se cortan con cuchillo, en el bosque; tardan ocho horas en volver a salir.",
+    "en": "You're short of mushrooms. The ones you cut with a knife, out in the forest; they take eight hours to grow back.",
+    "de": "Dir fehlen Pilze. Die, die man mit dem Messer schneidet, draußen im Wald; sie brauchen acht Stunden zum Nachwachsen.",
+    "fr": "Il te manque des champignons. Ceux qu'on coupe au couteau, dans la forêt ; ils mettent huit heures à repousser.",
+    "it": "Ti mancano funghi. Quelli che si tagliano col coltello, nel bosco; ci mettono otto ore a ricrescere.",
+    "pt": "Faltam cogumelos. Aqueles que se cortam com faca, na floresta; demoram oito horas para voltar a crescer."
+  },
+  "warehouseBombDone": {
+    "es": "Una bombita. Cinco horas de mecha. Piensa bien dónde la dejas, y con quién.",
+    "en": "One little bomb. Five hours on the fuse. Think hard about where you leave it, and about whom.",
+    "de": "Ein Bömbchen. Fünf Stunden Zündschnur. Überleg dir gut, wo du es hinlegst, und bei wem.",
+    "fr": "Une petite bombe. Cinq heures de mèche. Réfléchis bien à l'endroit où tu la laisses, et à qui.",
+    "it": "Una bombetta. Cinque ore di miccia. Pensa bene a dove la lasci, e a chi.",
+    "pt": "Uma bombinha. Cinco horas de pavio. Pense bem onde a deixa, e com quem."
+  },
+  "warehouseBombHave": {
+    "es": "Ya llevas una bombita. Con una basta.",
+    "en": "You already carry a little bomb. One is enough.",
+    "de": "Du hast schon ein Bömbchen. Eins reicht.",
+    "fr": "Tu as déjà une petite bombe. Une suffit.",
+    "it": "Hai già una bombetta. Ne basta una.",
+    "pt": "Você já leva uma bombinha. Uma basta."
+  },
+  "warehouseDefuserDone": {
+    "es": "Una tenaza. Sirve para desactivar una bombita, una vez, y nadie se entera.",
+    "en": "A pair of pliers. Good for defusing one little bomb, once, and nobody is told.",
+    "de": "Eine Zange. Damit entschärfst du ein Bömbchen, einmal, und niemand erfährt es.",
+    "fr": "Une pince. Elle désamorce une petite bombe, une fois, et personne n'en sait rien.",
+    "it": "Una tenaglia. Disinnesca una bombetta, una volta, e nessuno lo sa.",
+    "pt": "Uma tenaz. Serve para desativar uma bombinha, uma vez, e ninguém fica sabendo."
+  },
+  "warehouseDefuserHave": {
+    "es": "Ya llevas una tenaza. Gástala antes de pedir otra.",
+    "en": "You already carry pliers. Use them before asking for another pair.",
+    "de": "Du hast schon eine Zange. Verbrauch sie, bevor du eine neue willst.",
+    "fr": "Tu as déjà une pince. Utilise-la avant d'en demander une autre.",
+    "it": "Hai già una tenaglia. Usala prima di chiederne un'altra.",
+    "pt": "Você já leva uma tenaz. Use-a antes de pedir outra."
+  },
+  "warehouseDailySackName": {
+    "es": "Saco del día",
+    "en": "Sack of the day",
+    "de": "Sack des Tages",
+    "fr": "Sac du jour",
+    "it": "Sacco del giorno",
+    "pt": "Saco do dia"
+  },
+  "warehouseDailyTaken": {
+    "es": "Un saco abierto, de regalo. Uno al día, que las piedras no crecen en los árboles.",
+    "en": "An open sack, on the house. One a day: stones don't grow on trees.",
+    "de": "Ein offener Sack, geschenkt. Einer pro Tag, Steine wachsen nicht auf Bäumen.",
+    "fr": "Un sac ouvert, cadeau. Un par jour : les pierres ne poussent pas sur les arbres.",
+    "it": "Un sacco aperto, in regalo. Uno al giorno: i sassi non crescono sugli alberi.",
+    "pt": "Um saco aberto, de presente. Um por dia, que pedra não dá em árvore."
+  },
+  "warehouseDailyLater": {
+    "es": "El saco del día ya está atado. Mañana habrá otro.",
+    "en": "Today's sack is already tied up. There'll be another tomorrow.",
+    "de": "Der Sack des Tages ist schon zugebunden. Morgen gibt es einen neuen.",
+    "fr": "Le sac du jour est déjà ficelé. Il y en aura un autre demain.",
+    "it": "Il sacco del giorno è già legato. Domani ce ne sarà un altro.",
+    "pt": "O saco do dia já está amarrado. Amanhã tem outro."
+  },
+  "warehouseCounterName": {
+    "es": "Mostrador",
+    "en": "Counter",
+    "de": "Tresen",
+    "fr": "Comptoir",
+    "it": "Bancone",
+    "pt": "Balcão"
+  },
+  "warehouseCounterLook": {
+    "es": "Un banco de trabajo lleno de marcas de sierra y de gravilla suelta.",
+    "en": "A workbench full of saw marks and loose gravel.",
+    "de": "Eine Werkbank voller Sägespuren und losem Kies.",
+    "fr": "Un établi couvert de traces de scie et de gravier en vrac.",
+    "it": "Un banco da lavoro pieno di segni di sega e ghiaia sparsa.",
+    "pt": "Uma bancada cheia de marcas de serra e cascalho solto."
+  },
+  "warehouseRackName": {
+    "es": "Expositor",
+    "en": "Stock rack",
+    "de": "Regal",
+    "fr": "Présentoir",
+    "it": "Espositore",
+    "pt": "Expositor"
+  },
+  "warehouseRackLook": {
+    "es": "Estantes con sacos, cuerdas y herramientas ordenadas por tamaño.",
+    "en": "Shelves with sacks, ropes and tools sorted by size.",
+    "de": "Regale mit Säcken, Seilen und Werkzeug, nach Größe geordnet.",
+    "fr": "Des étagères avec des sacs, des cordes et des outils rangés par taille.",
+    "it": "Scaffali con sacchi, corde e attrezzi in ordine di grandezza.",
+    "pt": "Prateleiras com sacos, cordas e ferramentas por tamanho."
+  },
+  "warehouseSackName": {
+    "es": "Saco de gravilla",
+    "en": "Sack of gravel",
+    "de": "Sack Kies",
+    "fr": "Sac de gravier",
+    "it": "Sacco di ghiaia",
+    "pt": "Saco de cascalho"
+  },
+  "warehouseSackLook": {
+    "es": "Atado y pesado. Los que se venden están en el mostrador.",
+    "en": "Tied and heavy. The ones for trade are at the counter.",
+    "de": "Zugebunden und schwer. Die zum Tauschen liegen am Tresen.",
+    "fr": "Ficelé et lourd. Ceux qu'on échange sont au comptoir.",
+    "it": "Legato e pesante. Quelli in cambio sono al bancone.",
+    "pt": "Amarrado e pesado. Os de troca estão no balcão."
+  }
+}

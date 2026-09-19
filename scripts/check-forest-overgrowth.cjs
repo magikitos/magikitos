@@ -1,6 +1,6 @@
 "use strict";
 /**
- * ⛔ LA HIERBA VUELVE POR LOS EXTREMOS (AUTOMANTENIMIENTO.md §A3). Mueren los tramos de las puntas y
+ * ⛔ LA HIERBA VUELVE POR LOS EXTREMOS (docs/AUTOMANTENIMIENTO.md §A3). Mueren los tramos de las puntas y
  * nunca los del medio; el camino no se parte; con menos de dos puntos se retira entero; sin
  * presencia el reloj no avanza y no muere nada; nada devuelve material (no hay material que
  * devolver en la función: solo geometría). Y el gemelo PHP dice lo mismo, con mutación negativa.
@@ -48,9 +48,8 @@ casos.forEach(([nombre, , , esperado], i) => assert.deepEqual(dicho[i], esperado
 assert.equal(dicho[casos.length], 0.5, "PHP: desgaste a mitad");
 const original = fs.readFileSync(twin, "utf8"), roto = original.replace("$clock - $marks[$i] >= $minutes", "$clock - $marks[$i] > $minutes");
 assert(roto !== original, "La mutación encuentra el umbral");
-const tmp = path.join(require("node:os").tmpdir(), "maintenance-roto-" + process.pid + ".php");
-fs.writeFileSync(tmp, roto.replace(/require_once __DIR__ \. "\/([a-z-]+)\.php";/g, (_, f) => `require_once "${path.join(web, "src/game", f)}.php";`));
-try {
+const tmp = path.join(path.dirname(twin), "maintenance-roto-" + process.pid + ".php");
+fs.writeFileSync(tmp, roto);try {
   const mutado = php("require '" + tmp + "';");
   assert(JSON.stringify(mutado) !== JSON.stringify(dicho), "Un gemelo con el umbral corrido da otro resultado, y la prueba lo caza");
 } finally { fs.unlinkSync(tmp); }

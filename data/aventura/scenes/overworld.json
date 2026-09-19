@@ -1116,6 +1116,31 @@
       "x": 72,
       "y": 68,
       "scale": 0.45
+    },
+    {
+      "id": "warehouse-door",
+      "sprite": "warehouse-watering-can",
+      "x": 104,
+      "y": 105,
+      "rules": [
+        {
+          "effects": [
+            {
+              "type": "travel",
+              "scene": "almacen",
+              "spawn": true
+            }
+          ]
+        }
+      ],
+      "solid": [
+        -8.5,
+        -7.5,
+        17,
+        7.7
+      ],
+      "label": "warehouseDoor",
+      "portal": true
     }
   ],
   "neighbors": [

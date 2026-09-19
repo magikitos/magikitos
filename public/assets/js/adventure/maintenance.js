@@ -1,6 +1,6 @@
 "use strict";
 /**
- * EL BOSQUE SE MANTIENE SOLO (AUTOMANTENIMIENTO.md, 19-sep-2026): las reglas PURAS de la hierba
+ * EL BOSQUE SE MANTIENE SOLO (docs/AUTOMANTENIMIENTO.md, 19-sep-2026): las reglas PURAS de la hierba
  * que vuelve y de la bombita, sin red ni DOM, para que el navegador, las pruebas y el gemelo PHP
  * (`src/game/community-maintenance.php` en la web) digan exactamente lo mismo.
  *

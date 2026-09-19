@@ -1,0 +1,6 @@
+Use case: stylized-concept.
+Asset type: ONE collectible gravel sack, isolated game prop sprite, Magikitos tiny-elf woodland construction warehouse.
+Input image 1 is style reference only: match the detailed matte illustrated pixel-art of the warehouse. Do not include the building.
+Primary request: a small stout OPEN burlap sack filled with fine path-building GRAVEL. Folded uneven fabric rim, little moss-green stitched rectangular repair patch on the front, natural fibre drawstring draped around the neck. Clear warm tan sack silhouette. The gravel is a mound of small rounded and slightly angular pale limestone / warm grey / sand-coloured pebbles, clearly stones NOT rice, seeds, gold, gems or food. A few larger readable pebbles among fine gravel. No spilling pile outside the sack. Handmade duende scale and personality.
+Elevated orthographic three-quarter top-down game angle, light from upper left. Defined small pixel-art clusters, charming rich texture but strong readable shape, matte cloth and stone, not glossy plastic and not huge pixel blocks. Full single sack centered with 15 percent transparent margin. This must read as a small object at roughly 22x24 logical pixels, also usable larger as an inventory icon.
+True transparent RGBA background, no ground slab, no text, no letters, no logos, no shadow ellipse, no characters, no extra objects.

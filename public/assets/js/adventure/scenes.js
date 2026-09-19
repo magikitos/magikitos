@@ -149,6 +149,7 @@ class SceneDirector {
       if (name && !name.startsWith("person-")) sprites.add(name);
     };
     if (data.interior?.background) sprites.add(data.interior.background);
+    if (data.interior?.artwork) sprites.add(data.interior.artwork);
     for (const bridge of data.bridges || []) sprites.add(bridge.sprite);
     for (const visitor of data.riverLife || [])
       for (const frame of visitor.frames) sprites.add(frame);

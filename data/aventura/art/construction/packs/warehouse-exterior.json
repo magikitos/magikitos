@@ -1,0 +1,44 @@
+{
+    "version": 1,
+    "width": 1024,
+    "height": 478,
+    "frames": {
+        "warehouse-watering-can": {
+            "x": 2,
+            "y": 2,
+            "w": 264,
+            "h": 237,
+            "pixelRatio": 2,
+            "ink": [
+                0,
+                0,
+                264,
+                237
+            ],
+            "anchor": [
+                143,
+                224
+            ],
+            "bounds": [
+                -143,
+                -224,
+                264,
+                237
+            ],
+            "nativeSize": [
+                264,
+                237
+            ],
+            "trim": [
+                0,
+                0
+            ],
+            "crop": [
+                0,
+                0,
+                264,
+                237
+            ]
+        }
+    }
+}

@@ -8,7 +8,7 @@ de juego que pueda contradecir las reglas actuales.
 - [Escenas, comportamientos y recogibles](REFACTOR.md).
 - [Arte y pipeline](ART.md), [familias y variantes](../../docs/WOODLAND-KIT.md).
 - [Studio: una propuesta local revisable](../../tools/adventure-studio/README.md).
-- [API, autoridad y guardado](../../docs/GAME-SAVE-API.md).
+- [API, autoridad y guardado](../../docs/API.md#save-protocol-and-server-authority).
 - [Desarrollo local](../../docs/LOCAL-DEVELOPMENT.md), [release vigente](../../docs/RELEASE.md).
 
 Las escenas y comportamientos son fuentes; `elements.json` y `residents.json`

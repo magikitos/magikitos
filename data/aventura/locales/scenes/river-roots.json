@@ -14,55 +14,5 @@
     "fr": "Les vieilles racines",
     "it": "Le vecchie radici",
     "pt": "As raízes velhas"
-  },
-  "bombCacheName": {
-    "es": "Caja del contrabandista",
-    "en": "Smuggler's crate",
-    "de": "Kiste des Schmugglers",
-    "fr": "Caisse du contrebandier",
-    "it": "Cassa del contrabbandiere",
-    "pt": "Caixa do contrabandista"
-  },
-  "bombFound": {
-    "es": [
-      "Dentro hay una bombita de las de antes, con su mecha y todo.",
-      "Le cabe justo una seta de pólvora. Pues ya está cargada."
-    ],
-    "en": [
-      "Inside there's an old-fashioned little bomb, fuse and all.",
-      "It takes exactly one powder mushroom. Loaded, then."
-    ],
-    "de": [
-      "Drin liegt ein Bömbchen von der alten Sorte, mit Zündschnur und allem.",
-      "Genau ein Pulverpilz passt hinein. Geladen."
-    ],
-    "fr": [
-      "Dedans, une petite bombe à l'ancienne, mèche comprise.",
-      "Il y a juste la place pour un champignon à poudre. La voilà chargée."
-    ],
-    "it": [
-      "Dentro c'è una bombetta di quelle di una volta, con la miccia e tutto.",
-      "Ci sta giusto un fungo da polvere. Ecco, carica."
-    ],
-    "pt": [
-      "Dentro há uma bombinha das antigas, com pavio e tudo.",
-      "Cabe exatamente um cogumelo de pólvora. Pronto, carregada."
-    ]
-  },
-  "bombNeedMushroom": {
-    "es": "Una bombita vacía. Le falta la pólvora: una seta, de las que se cortan con cuchillo.",
-    "en": "An empty little bomb. It needs powder: a mushroom, the kind you cut with a knife.",
-    "de": "Ein leeres Bömbchen. Es fehlt das Pulver: ein Pilz, von denen, die man mit dem Messer schneidet.",
-    "fr": "Une petite bombe vide. Il manque la poudre : un champignon, de ceux qu'on coupe au couteau.",
-    "it": "Una bombetta vuota. Manca la polvere: un fungo, di quelli che si tagliano col coltello.",
-    "pt": "Uma bombinha vazia. Falta a pólvora: um cogumelo, daqueles que se cortam com faca."
-  },
-  "bombAlreadyHave": {
-    "es": "Ya llevas una bombita en el saco. Con una basta.",
-    "en": "You already carry a bomb in your sack. One is enough.",
-    "de": "Du hast schon ein Bömbchen im Sack. Eins reicht.",
-    "fr": "Tu as déjà une bombe dans le sac. Une suffit.",
-    "it": "Hai già una bombetta nel sacco. Ne basta una.",
-    "pt": "Você já leva uma bombinha no saco. Uma basta."
   }
 }

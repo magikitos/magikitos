@@ -58,6 +58,22 @@ class Terrain {
     }
     return this.contexts.get(name);
   }
+  /**
+   * ⛔ UN INTERIOR PUEDE SER UN DIBUJO (19-sep-2026, el almacén-regadera): `interior.artwork` es un
+   * sprite que ES la sala —paredes, suelo y luz pintadas— y se estampa una vez sobre la caja del
+   * marco (`inset`), sin el suelo ni las paredes procedimentales. El contorno (`outline`) sigue
+   * mandando en la colisión y en la luz, que es lo que hace que un dibujo sea una habitación.
+   */
+  artwork(data, sprites) {
+    const name = data.interior?.artwork;
+    if (!name || !sprites?.frame(name)) return null;
+    if (!this.artworks) this.artworks = new Map();
+    if (!this.artworks.has(name)) {
+      this.artworks.set(name, sprites.icon(name));
+      if (this.artworks.size > 3) this.artworks.delete(this.artworks.keys().next().value);
+    }
+    return this.artworks.get(name);
+  }
   background(data, sprites) {
     const background = data.indoor ? this.context(data, sprites) : null;
     if (
@@ -142,7 +158,7 @@ class Terrain {
         : "#547c4c";
     c.fillRect(0, 0, 256, 256);
     if (world.data.indoor) {
-      paintInteriorGround(c, world, ox, oy, background);
+      paintInteriorGround(c, world, ox, oy, background, this.artwork(world.data, sprites));
     } else {
       paintGround(c, world, ox, oy);
       for (const region of world.data.regions)

@@ -145,7 +145,7 @@ check reports the incomplete count; it does not waive this release requirement
 or the visual review of direction, anatomy and skin consistency.
 
 Current accepted characters and evidence live only in
-[ART-DUENDES.md](../ART-DUENDES.md). `player-art.json` declares which complete
+[art-direction/DUENDES.md](art-direction/DUENDES.md). `player-art.json` declares which complete
 characters are enabled and the default. `check-rowing-contract.cjs` rejects an
 enabled character missing any of its seven sheets or its measured rowing rig.
 The independent hull/mask contract is in [ART.md](../data/aventura/ART.md#composición-de-navegación).
@@ -184,6 +184,6 @@ and anchors. Bow/roll declarations were retired; their original masters remain.
 - `npm run test:actor-stream`: actual Chrome textures, viewport loading, decoded
   budget including in-flight loads, and screenshots at desktop/tablet/mobile sizes.
 
-Game preview: <http://127.0.0.1:47834/aventura>. Studio:
+Game preview: <http://127.0.0.1:47834/bosque/explorar>. Studio:
 <http://127.0.0.1:47832>. `npm run install:local` installs only in the local DDEV
-website, at <https://magikitos.ddev.site/aventura>. It does not deploy.
+website, at <https://magikitos.ddev.site/bosque/explorar>. It does not deploy.

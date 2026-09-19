@@ -13,7 +13,9 @@ original characters and music, and not a single reflex test.
 
 The game combines personal adventures with a [shared woodland](docs/SHARED-FOREST.md):
 cats, cooking, bottle navigation and community construction, backed by
-[private API saves and server-authoritative materials](docs/GAME-SAVE-API.md).
+[private API saves and server-authoritative materials](docs/API.md#save-protocol-and-server-authority),
+and it looks after itself: [density price, the little bomb and the grass that
+comes back](docs/AUTOMANTENIMIENTO.md).
 
 Current art direction: [Ascua and the approved compact cast](docs/art-direction/DUENDES.md),
 [2× integrated textures and selective motion](docs/art-direction/DEFINITION-MOTION.md).
@@ -24,7 +26,7 @@ The exterior scenes play as one seamless forest while staying separate data unit
 [mundo continuo](docs/MUNDO-CONTINUO.md).
 For operations and verified delivery, see [releasing](docs/RELEASING.md) and
 [the current release ledger](docs/RELEASE.md).
-The website keeps the world loaded behind every page and lifts it full screen on
+The website's `/bosque` landing keeps the world loaded behind it and lifts it full screen on
 request: [embedding contract](docs/EMBEDDING.md). The way back only exists when a
 same-origin parent is there, so a native build never grows that button.
 The [entry and audio implementation](docs/AUDIO-AND-ENTRY.md) covers music,
@@ -45,8 +47,8 @@ that's on purpose.
 - Movement is calm. The magic works slowly.
 
 The world is a 144 × 112 tile exterior — a starting clearing, forest, human
-picnic, a village on grass, the boat lake and a night campfire corner — plus
-seven interiors. Three 128 × 144 river reaches run north from it: the willow
+picnic, a village on grass, the boat lake, a night campfire corner and, by the
+lake, the builder's warehouse inside an old watering can — plus eight interiors. Three 128 × 144 river reaches run north from it: the willow
 bend, where the forest builds together in a shared clearing, the rapids and the
 old roots, and from the roots a water channel leads into a 128 × 96 human garden.
 The three reaches join each other on foot along both banks; the lake mouth and
@@ -164,13 +166,18 @@ website at its six game routes. It never deploys or copies editable engine sourc
 
 See [local development](docs/LOCAL-DEVELOPMENT.md),
 [Studio](tools/adventure-studio/README.md), and the
-[completed repository boundary](docs/REPOSITORY-BOUNDARY.md),
+[game / website boundary](docs/RELEASING.md#game--website-boundary),
 [API contract](docs/API.md) and [OpenAPI](docs/world-api.openapi.json).
 
 Authoring guides: [woodland art](docs/WOODLAND-KIT.md),
-[original art and prompts](data/aventura/ART.md),
+[original art, prompts and integrated art deliveries](data/aventura/ART.md),
+[the playable cast and the art direction](docs/art-direction/DUENDES.md),
 [100 residents and Brizno](docs/RESIDENTS.md),
 [collectibles and data rules](data/aventura/REFACTOR.md).
+
+Every document in `docs/` describes how the game IS or how it is OPERATED. Plans,
+hand-offs and tracking notes are folded into these documents once done and then
+deleted; the only history kept is the release ledger.
 
 ## Contributing
 

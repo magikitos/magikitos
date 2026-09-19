@@ -184,6 +184,15 @@
       "max": 1,
       "usable": true,
       "reusable": false
+    },
+    "gravilla": {
+      "name": "gravillaName",
+      "description": "gravillaDescription",
+      "sprite": "gravel-sack-icon",
+      "max": 60,
+      "bundle": 10,
+      "usable": false,
+      "reusable": false
     }
   },
   "contentRooms": {
@@ -277,6 +286,9 @@
   "timers": {
     "picnic": {
       "hours": 5
+    },
+    "gravelDaily": {
+      "hours": 24
     }
   }
 }

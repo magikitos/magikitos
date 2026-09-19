@@ -113,5 +113,32 @@
     "nodes": [
       "bank-mushrooms-fern"
     ]
+  },
+  "harvest-overworld-28800000": {
+    "renewMs": 28800000,
+    "nodes": [
+      "forest-mushrooms-fern",
+      "forest-mushrooms-root",
+      "forest-mushrooms-camp"
+    ]
+  },
+  "harvest-river-willows-28800000": {
+    "renewMs": 28800000,
+    "nodes": [
+      "bank-mushrooms-fern",
+      "bank-mushrooms-root"
+    ]
+  },
+  "harvest-river-rapids-28800000": {
+    "renewMs": 28800000,
+    "nodes": [
+      "bank-mushrooms-fern"
+    ]
+  },
+  "harvest-river-roots-28800000": {
+    "renewMs": 28800000,
+    "nodes": [
+      "bank-mushrooms-fern"
+    ]
   }
 }

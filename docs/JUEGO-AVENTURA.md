@@ -1,4 +1,4 @@
-# La aventura de los Magikitos
+# El bosque de los Magikitos
 
 Documento de diseño vigente. La versión publicada y sus verificaciones se consultan
 en [RELEASE.md](RELEASE.md); este documento no es una autorización de despliegue.
@@ -19,7 +19,9 @@ Los otros cinco idiomas adaptan el tono, no traducen cada muletilla literalmente
 ## Web y juego
 
 El juego vive en /bosque/explorar y sus cinco traducciones, debajo de la landing /bosque
-(«El bosque de los Magikitos», 19-sep-2026). La web conserva portada,
+(«El bosque de los Magikitos», 19-sep-2026). El bosque compartido se cuida solo
+([AUTOMANTENIMIENTO.md](AUTOMANTENIMIENTO.md)): los caminos se pagan en gravilla que el
+constructor cambia por setas en su almacén, y bombita, tenaza y hierba regulan lo construido. La web conserva portada,
 contenidos, tienda, formularios, SEO y admin. No páginas embebidas ni navegación
 por parámetros de contenido: entrar recupera la partida; un nuevo jugador aparece
 en el claro, sin diálogo obligatorio. “Explorar / Continuar explorando” activa
@@ -33,7 +35,7 @@ tampoco forman parte del juego. Las actividades son UI propia sobre el mundo y
 JSON de la API, conservando la selección de content pulse. Leer/imprimir/grabar
 y gestionar cuenta siguen siendo acciones explícitas hacia la web.
 Durante una voz se silencia todo el audio del juego.
-[Audio y entrada](AUDIO-AND-ENTRY.md) · [Frontera y API](REPOSITORY-BOUNDARY.md).
+[Audio y entrada](AUDIO-AND-ENTRY.md) · [Frontera y API](RELEASING.md#game--website-boundary).
 
 ## Mundo y primera aventura
 
@@ -89,8 +91,10 @@ Las trazas son privadas y temporales: caca 24 horas, charco 5 minutos, máximo 4
 Guardado local primero; sincronización privada por la identidad web existente.
 Materiales, setines del juego y construcción compartida tienen autoridad en la API,
 separados de la reputación y del dinero de la web. No eventos por movimiento.
-El bosque de aventura está protegido; solo ciertos rincones permiten construir.
-[Contrato de guardado y seguridad](GAME-SAVE-API.md).
+El bosque entero se construye salvo los rincones protegidos que enumera `construction.json`
+(caminos autorados, puertas, el almacén), y lo construido se regula solo (precio por densidad,
+bombita, hierba).
+[Contrato de guardado y seguridad](API.md#save-protocol-and-server-authority).
 
 ## Lo siguiente no está implementado
 

@@ -3,7 +3,7 @@ const { hash, random } = require("./geometry");
 const { paintGround } = require("./ground");
 const room = require("./room-shape");
 /** Native-pixel chunks: a natural cutaway floor, never a floating human foundation. */
-function paintInteriorGround(c, world, ox, oy, context) {
+function paintInteriorGround(c, world, ox, oy, context, artwork = null) {
   const data = world.data,
     width = world.width * 16,
     height = world.height * 16,
@@ -16,6 +16,23 @@ function paintInteriorGround(c, world, ox, oy, context) {
     c.imageSmoothingEnabled = true;
     c.drawImage(context, -384, -384, width + 768, height + 768);
     c.restore();
+  }
+  // Un interior dibujado (`interior.artwork`): la estampa ES la sala, sobre la caja del marco, y no
+  // se pinta ni suelo ni pared procedimental encima. Ver terrain.artwork.
+  if (artwork) {
+    const inset = data.interior?.inset || { left: 0, right: 0, top: 0, bottom: 0 };
+    c.save();
+    c.translate(-ox, -oy);
+    c.imageSmoothingEnabled = false;
+    c.drawImage(
+      artwork,
+      inset.left * 16,
+      inset.top * 16,
+      width - (inset.left + inset.right) * 16,
+      height - (inset.top + inset.bottom) * 16,
+    );
+    c.restore();
+    return;
   }
   c.fillStyle = "#18362b55";
   c.fillRect(0, 0, 256, 256);

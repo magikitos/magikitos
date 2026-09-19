@@ -10,8 +10,10 @@ const { growthDeadline, germinating, drawGrowing } = require("../public/assets/j
 const { gameContract } = require("../tools/game-contract.cjs");
 const world = JSON.parse(execFileSync("php", ["-r", 'echo json_encode(require "data/aventura/world.php");']));
 const contract = gameContract(world);
-const fiveHours = 18_000_000, now = 100 * fiveHours + 1000;
 const node = world.scenes.overworld.entities.find(e => e.id === "forest-mushrooms-fern");
+// El ciclo de las setas es dato (ocho horas desde el 19-sep-2026, decisión del dueño): se lee del nodo.
+const cycle = node.resource.renewMs, now = 100 * cycle + 1000;
+assert.equal(cycle, 8 * 3600000, "Mushrooms regrow every eight hours");
 const fresh = () => cleanSave(null, world);
 let state = fresh();
 const reaction = (e, context = {}) => {
@@ -43,12 +45,12 @@ reaction(fire, { action: "cook" });
 assert.equal(state.inventory.mushroom, 1, "Recipe consumes just one mushroom");
 reaction(neighbor, { action: "give" });
 assert(!active(node, state, { now }), "Giving the skewer cannot respawn mushrooms");
-assert(!active(node, state, { now: 101 * fiveHours - 1 }));
-assert(active(node, state, { now: 101 * fiveHours }), "Renews at the five-hour regional cycle");
+assert(!active(node, state, { now: 101 * cycle - 1 }));
+assert(active(node, state, { now: 101 * cycle }), "Renews at the regional cycle");
 state.inventory.mushroom = 99;
-assert.equal(reaction(node, { now: 101 * fiveHours }), null, "Full bag cannot consume a renewed node");
+assert.equal(reaction(node, { now: 101 * cycle }), null, "Full bag cannot consume a renewed node");
 state.inventory.mushroom = 98;
-reaction(node, { now: 101 * fiveHours });
+reaction(node, { now: 101 * cycle });
 assert.equal(state.inventory.mushroom, 99);
 assert.equal(state.inventory.knife, 1, "Knife remains reusable");
 const patches = Object.values(world.scenes).flatMap(s => s.entities.filter(e => e.family === "ground-mushrooms"));
@@ -56,7 +58,7 @@ assert(patches.length >= 7);
 assert(new Set(patches.map(e => e.artVariant)).size >= 4);
 for (const [scene, data] of Object.entries(world.scenes))
   for (const e of data.entities.filter(e => e.family === "ground-mushrooms")) {
-    assert.equal(e.resource.renewMs, fiveHours);
+    assert.equal(e.resource.renewMs, cycle);
     assert.equal(e.resource.keepVisible, false);
     assert.deepEqual(contract.adventure.entities[scene][e.id].resource, e.resource);
   }
@@ -135,4 +137,4 @@ for (const [id, scene] of Object.entries(world.scenes)) {
   assert.deepEqual(contract.live.scenes[id].spawn, { x: scene.spawn.x * 16, y: scene.spawn.y * 16 });
   assert.equal(contract.live.scenes[id].maxFootSpeed, require("../public/assets/js/adventure/locomotion").RUN_SPEED);
 }
-console.log("PASS forest upgrade: multi-patch mushrooms, five-hour bits, reusable tools, exact meal regression, capped bag, historical pickups, obtainable flower seeds, server-clock growth and mirrored API.");
+console.log("PASS forest upgrade: multi-patch mushrooms, eight-hour bits, reusable tools, exact meal regression, capped bag, historical pickups, obtainable flower seeds, server-clock growth and mirrored API.");

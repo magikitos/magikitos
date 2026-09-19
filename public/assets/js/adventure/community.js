@@ -86,7 +86,7 @@ const RAZONES = {
   too_many: "communityTooFast",
   too_close: "communityTooClose",
   tool_required: "communityToolRequired",
-  // La bombita (AUTOMANTENIMIENTO.md §B): lo que el servidor rechaza al ponerla o desactivarla.
+  // La bombita (docs/AUTOMANTENIMIENTO.md §B): lo que el servidor rechaza al ponerla o desactivarla.
   not_bombable: "communityNotBombable",
   already_mined: "communityAlreadyMined",
   bomb_required: "communityBombRequired",
@@ -351,7 +351,7 @@ class Community {
     };
   }
   /**
-   * ⛔ LA BOMBITA NO SE VE DE LEJOS Y NO MOLESTA (AUTOMANTENIMIENTO.md §B3): un objeto pequeño
+   * ⛔ LA BOMBITA NO SE VE DE LEJOS Y NO MOLESTA (docs/AUTOMANTENIMIENTO.md §B3): un objeto pequeño
    * pegado a la esquina de lo que va a volar, sin marcador ni aviso a nadie. A media hora del
    * final parpadea sutilmente en rojo (`pulse`, lo lee el renderizador). La hora la manda el
    * servidor como instante absoluto; aquí solo se traduce al reloj del navegador.
@@ -785,7 +785,7 @@ class Community {
       }
   }
   /**
-   * ⛔ EL PRECIO QUE SE ENSEÑA ES EL QUE SE COBRA (AUTOMANTENIMIENTO.md §A1): sale de la MISMA
+   * ⛔ EL PRECIO QUE SE ENSEÑA ES EL QUE SE COBRA (docs/AUTOMANTENIMIENTO.md §A1): sale de la MISMA
    * instantánea de la zona que el servidor va a exigir por revisión. Lo que ya hay de la misma
    * familia multiplica el coste por celda; la candidata no cuenta.
    */
