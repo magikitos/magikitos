@@ -6,6 +6,32 @@ y reutilizar la postura agachada para orinar en protagonistas femeninas.
 La activación y sus pruebas se registran en `docs/RELEASE.md` (raíz del repo).
 No se han alterado las identidades de los 100 NPC ni de los ocho protagonistas anteriores.
 
+## Integración lista en local; producción a cargo del otro agente
+
+Última instrucción del dueño: **no desplegar esta entrega**. Integración en el
+commit `f3be956` (fuentes de arte aprobadas en `aeb9e72`). Copia de trabajo aislada:
+`../magikitos-game-cast-release`, rama `cast-release-20260919`. Se evita tocar
+los cambios de navegación en curso en la copia principal.
+
+Artefacto local probado e instalado en DDEV: `f93b61c6d932e6f21f87`, 773 archivos.
+SHA-256 de `release.json`: `d86eb6bdae74c96d06fc7d56de4f92c34533b09355d2ff02a4e30a2eb686f52a`.
+El puntero de la web está cambiado **solo localmente**, no publicado ni commiteado.
+No hay modificaciones de backend, migraciones, cuentas, partidas ni datos de producción.
+
+Verificaciones: `npm test` completo; 126/126 hojas de acciones para 18 personajes;
+contrato de 156 poses y comparación de siluetas horneadas de los diez nuevos;
+invariancia de cuerpos/agarres y máscaras de remada; selección de los 18 y
+persistencia en 1440×900, 768×1024 y 390×844; receta/hallazgos con movimiento
+normal y reducido; frontera web/API y montaje DDEV en los seis idiomas.
+Las cards se revisaron renderizadas, con lienzo completo, alfa gradual y gorros/pies
+sin recorte. Son tres páginas, 2.638.400 bytes PNG en total y 5.971.968 bytes RGBA;
+se prestan al abrir «Yo», no se descargan todas las acciones de los 18.
+
+Para la publicación conjunta: integrar el commit, reconstruir y probar el artefacto
+con los cambios del otro agente. El contrato deriva automáticamente los IDs 200–209
+y su sexo; **reiniciar `bosque-vivo.service` al activar la release** para que la
+presencia acepte el nuevo elenco. Seguir `docs/RELEASING.md`; no basta con copiar PNG.
+
 Abrir [la galería local](review-101-110/index.html) directamente en el navegador.
 Funciona sin servidor ni API: elegir duende/acción, animar o pausar y recorrer
 fases. Los tiempos de ese visor son de inspección, no los del juego. Dentro
