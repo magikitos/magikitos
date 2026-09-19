@@ -1,6 +1,6 @@
 # Arte de protagonistas — seguimiento real
 
-## Ampliación aprobada — 19-sep-2026, en curso
+## Ampliación aprobada — 19-sep-2026, arte preparado
 
 El dueño ha aprobado **los diez nuevos diseños `resident-101`–`resident-110`**
 como protagonistas. No confundir estos números de fuente con el antiguo actor
@@ -14,16 +14,16 @@ transparencia real y halo suave individual. Nada de reinterpretar su identidad.
 
 | Fuente | Key / ID previsto | Arte y revisión |
 |---|---|---|
-| 101 | rizo-alba / 200 | En preparación; no completo todavía |
-| 102 | chispa-sol / 201 | Pendiente |
-| 103 | tizon-musgo / 202 | Pendiente |
-| 104 | nispera-sol / 203 | Pendiente |
-| 105 | trebol-bruma / 204 | Pendiente |
-| 106 | mimbrera-noche / 205 | Pendiente |
-| 107 | avellano-alba / 206 | Pendiente |
-| 108 | oria-musgo / 207 | Pendiente |
-| 109 | silo-bruma / 208 | Pendiente |
-| 110 | zarza-sol / 209 | Pendiente |
+| 101 | rizo-alba / 200 | Arte preparado y revisado: 156 frames, card alfa, 9 barcas Chrome/WebKit y tres tamaños; integración por el otro agente pendiente |
+| 102 | chispa-sol / 201 | Arte preparado y revisado: 156 frames, card alfa, 9 barcas Chrome/WebKit y tres tamaños; integración por el otro agente pendiente |
+| 103 | tizon-musgo / 202 | Arte preparado y revisado: 156 frames, card alfa, 9 barcas Chrome/WebKit y tres tamaños; integración por el otro agente pendiente |
+| 104 | nispera-sol / 203 | Arte preparado y revisado: 156 frames, card alfa, 9 barcas Chrome/WebKit y tres tamaños; integración por el otro agente pendiente |
+| 105 | trebol-bruma / 204 | Arte preparado y revisado: 156 frames, card alfa, 9 barcas Chrome/WebKit y tres tamaños; integración por el otro agente pendiente |
+| 106 | mimbrera-noche / 205 | Arte preparado y revisado: 156 frames, card alfa, 9 barcas Chrome/WebKit y tres tamaños; integración por el otro agente pendiente |
+| 107 | avellano-alba / 206 | Arte preparado y revisado: 156 frames, card alfa, 9 barcas Chrome/WebKit y tres tamaños; integración por el otro agente pendiente |
+| 108 | oria-musgo / 207 | Arte preparado y revisado: 156 frames, card alfa, 9 barcas Chrome/WebKit y tres tamaños; integración por el otro agente pendiente |
+| 109 | silo-bruma / 208 | Arte preparado y revisado: 156 frames, card alfa, 9 barcas Chrome/WebKit y tres tamaños; integración por el otro agente pendiente |
+| 110 | zarza-sol / 209 | Arte preparado y revisado: 156 frames, card alfa, 9 barcas Chrome/WebKit y tres tamaños; integración por el otro agente pendiente |
 
 Autoría en `data/aventura/art/playable-cast/<key>/`; diseños aprobados y originales
 en `residents/candidates/101-110/`. Esta ronda es de **arte**; otro agente lleva
@@ -31,6 +31,40 @@ la lógica/integración. Una hoja generada no cuenta como terminada hasta pasar
 recorte, registro, escala, revisión de poses y composición de barcas. No se
 declara una integración ni un despliegue que no se haya realizado. No falta
 world art para esta petición: son exclusivamente estos diez protagonistas y cards.
+
+Revisión del dueño: al ser transportado por el gato, el gorro debe seguir bien
+asentado sobre la frente/coronilla, compacto y parcialmente oculto por el cuerpo.
+No cuelga como un cono bajo la barbilla. Revisado en los diez; en las tres vistas
+traseras se ve la nuca, no una cara frontal. Las últimas correcciones de Chispa
+y Níspera conservan expresiones de susto; Zarza tiene un solo gorro y mantiene
+mangas ocres y pantalones índigo. Se retiró un bolso duplicado en la remada de Oria.
+Selección de fuentes, escalas y puntos de agarre: `authoring.json` de cada duende.
+
+**Contrato idéntico para todos, incluidos los ocho protagonistas anteriores:**
+andar/quieto 8×4; correr 8×4; remar 8×4; empujar 4×4; trabajar 4×4;
+llevado por gato 8×2; necesidades 4×2; hallazgo 4×1. Total **156 frames**.
+Mismos nombres, orden, lienzos lógicos y anclas por acción. Masters de esta tanda
+con celdas de 384px; exportación de revisión a 2× con reducción integrada.
+Los estudios intermedios de cuatro poses o con otra disposición **no son hojas
+de entrega**: las correcciones sustituyen slots, nunca añaden fases.
+`php scripts/check-playable-sheet-contract.php --prepared` comprueba todas las
+entregas disponibles y enumera las pendientes; `--all-approved` exige las diez.
+Incluye controles negativos: eliminar una fase debe fallar. Usa el catálogo de
+acciones existente como autoridad, sin registrar protagonistas en el juego.
+
+**Resultado de esta tanda:** 80 hojas finales de sprites, 1.560 fotogramas y diez
+cards con alfa. Contrato completo con 80 controles negativos, invariancia corporal
+de remada y 5.760 composiciones de barcas entre Chrome/WebKit. Tres tamaños por
+duende: 1440×900, 768×1024 y 390×844. Las pruebas de renderer no equivalen a una
+partida integrada ni a aprobación artística del dueño; el código, alta en «Yo»
+y despliegue siguen en manos del otro agente. No queda otra familia de world art
+por generar para esta petición. Los ocho protagonistas anteriores y los 100 NPC
+no se han sustituido.
+
+Abrir la [galería local animada](data/aventura/art/playable-cast/review-101-110/index.html):
+cambio de personaje/acción, pausa, fase manual, fondos y capturas de las barcas.
+Fuentes, prompts, reconstrucción y advertencias concretas de integración:
+[entrega de los diez protagonistas](data/aventura/art/playable-cast/HANDOFF-101-110.md).
 
 ## Entrega anterior — 18-sep-2026
 
@@ -87,7 +121,7 @@ visible fuera de la cabeza. Recortes secos, cuerpo y casco quedan protegidos.
 Autoría reproducible, fuentes, prompts y medidas:
 `data/aventura/art/brezo-repair/README.md`.
 
-### Entrega vigente: ocho terminados, ninguno pendiente
+### Elenco de la entrega anterior: ocho terminados
 
 | Original | Protagonista / ID interno | Estado |
 |---|---|---|

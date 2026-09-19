@@ -1,0 +1,217 @@
+{
+    "101": {
+        "source": "resident-101-ear-fix.png",
+        "sourceSha256": "0b6fbf901744c35143fdb1398105e9034178ae1d040f825f9cf9a1127c3c972a",
+        "sheetSha256": "5d2eb2233e30e46ccff38728f18c30175eb06c938a2a396f8196289f8ca2b102",
+        "size": [
+            1774,
+            887
+        ],
+        "frontCrop": [
+            74,
+            8,
+            94,
+            214
+        ],
+        "matte": {
+            "runtimeMarginReviewRequired": true,
+            "warning": "Art touches source edge; regenerate with full silhouette: candidate-101"
+        }
+    },
+    "102": {
+        "source": "resident-102-distinct.png",
+        "sourceSha256": "ec43ccafc03b8e4a9e584256ac591943dfba6e53ba96353a6caa5fb34a65bc54",
+        "sheetSha256": "f677942de5f734e3f3406286ed5d8be2b60a87f327029715b634697835b15087",
+        "size": [
+            1774,
+            887
+        ],
+        "frontCrop": [
+            84,
+            9,
+            100,
+            213
+        ],
+        "matte": {
+            "runtimeMarginReviewRequired": true,
+            "warning": "Art touches source edge; regenerate with full silhouette: candidate-102"
+        }
+    },
+    "103": {
+        "source": "resident-103-ear-fix.png",
+        "sourceSha256": "7b26e1bd55ba327e37032041f00a87675056acb150035f929a7787d7d3588677",
+        "sheetSha256": "532ba0dec4079f5f90e5e89fb805198518d835467540d4497a9382e90828a46d",
+        "size": [
+            1774,
+            887
+        ],
+        "frontCrop": [
+            65,
+            11,
+            116,
+            211
+        ],
+        "matte": {
+            "bounds": [
+                61,
+                11,
+                1652,
+                871
+            ],
+            "alpha": 0.683
+        }
+    },
+    "104": {
+        "source": "resident-104.png",
+        "sourceSha256": "14c45cbdaec7ff95effc060bb6b8c41e1fedd0542531cf8209f57932b65627be",
+        "sheetSha256": "3dd13ae8175e7dae8b4206912681bf491b85fb52a62b97e368a648fa9773bcdf",
+        "size": [
+            1774,
+            887
+        ],
+        "frontCrop": [
+            68,
+            8,
+            132,
+            214
+        ],
+        "matte": {
+            "bounds": [
+                63,
+                8,
+                1651,
+                875
+            ],
+            "alpha": 0.645
+        }
+    },
+    "105": {
+        "source": "resident-105.png",
+        "sourceSha256": "e1b982407d295d0b92c12638894b14ed0c86bb9bb0bd737cae7ccc6435b80803",
+        "sheetSha256": "a1a111415cd05316ea6a4d05765df53d93ef2a0e0ef1d862c7082e69b6fe84ea",
+        "size": [
+            1774,
+            887
+        ],
+        "frontCrop": [
+            70,
+            4,
+            104,
+            218
+        ],
+        "matte": {
+            "bounds": [
+                70,
+                4,
+                1632,
+                880
+            ],
+            "alpha": 0.744
+        }
+    },
+    "106": {
+        "source": "resident-106.png",
+        "sourceSha256": "bcae1f117b4840ef8413aefbfd71bf883a811c8e8dc956d3a8226ec46821a1b1",
+        "sheetSha256": "25eca4ea13979e6f39b7a918c915b16d66572adbc8db73995400182f9adb525f",
+        "size": [
+            1774,
+            887
+        ],
+        "frontCrop": [
+            66,
+            4,
+            126,
+            218
+        ],
+        "matte": {
+            "runtimeMarginReviewRequired": true,
+            "warning": "Art touches source edge; regenerate with full silhouette: candidate-106"
+        }
+    },
+    "107": {
+        "source": "resident-107.png",
+        "sourceSha256": "a468d259604b428ffb9f0e0cbb5762d1a506a82f01b4eef1e5d2965cd4dd1154",
+        "sheetSha256": "1ae85f1a44b5073f7b0b0ce0adabc5ad566492a24a5c2ebbef6966d6b7c6ac8a",
+        "size": [
+            1774,
+            887
+        ],
+        "frontCrop": [
+            73,
+            7,
+            114,
+            215
+        ],
+        "matte": {
+            "bounds": [
+                69,
+                7,
+                1665,
+                878
+            ],
+            "alpha": 0.674
+        }
+    },
+    "108": {
+        "source": "resident-108.png",
+        "sourceSha256": "93fafe5005000f592927a2bab36abb743c40b01bc4a9742b30d84b0eb18300a0",
+        "sheetSha256": "2cb150114ed19d8a1557e470872b7e334e124477f9de1efaaae86d5638581bca",
+        "size": [
+            1774,
+            887
+        ],
+        "frontCrop": [
+            74,
+            9,
+            104,
+            213
+        ],
+        "matte": {
+            "runtimeMarginReviewRequired": true,
+            "warning": "Art touches source edge; regenerate with full silhouette: candidate-108"
+        }
+    },
+    "109": {
+        "source": "resident-109.png",
+        "sourceSha256": "94b5258f48b445880d40a415669a21667be6a11d8508b231972c060019b4c20e",
+        "sheetSha256": "5c98064b54abe475430c72ead6c8492c4c7cef7b6c7133eb99fcd328b643006d",
+        "size": [
+            1774,
+            887
+        ],
+        "frontCrop": [
+            75,
+            4,
+            111,
+            218
+        ],
+        "matte": {
+            "runtimeMarginReviewRequired": true,
+            "warning": "Art touches source edge; regenerate with full silhouette: candidate-109"
+        }
+    },
+    "110": {
+        "source": "resident-110.png",
+        "sourceSha256": "8190e7189b98957cb8ea4db0507579a8149a17c4ce7b35bb9bd5f6d1d5c9f55c",
+        "sheetSha256": "3857de4033912852838f949d4030ce678345724340b633186491f36db1de2aee",
+        "size": [
+            1774,
+            887
+        ],
+        "frontCrop": [
+            41,
+            8,
+            127,
+            214
+        ],
+        "matte": {
+            "bounds": [
+                41,
+                8,
+                1693,
+                877
+            ],
+            "alpha": 0.657
+        }
+    }
+}

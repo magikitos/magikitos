@@ -1,0 +1,271 @@
+{
+  "variant": 203,
+  "reference": "resident-104",
+  "referencePath": "data/aventura/art/residents/candidates/101-110/sheets/resident-104.png",
+  "walk": {
+    "source": "walk-spaced-01",
+    "scale": 0.78,
+    "prompt": "prompts/walk-spaced-01.txt"
+  },
+  "actions": {
+    "run": {
+      "source": "run-01",
+      "scale": 0.83,
+      "overrides": [
+        {
+          "source": "run-front-back-03",
+          "grid": [
+            4,
+            2
+          ],
+          "scale": 1.5,
+          "cells": [
+            {
+              "from": [
+                0,
+                0
+              ],
+              "to": [
+                0,
+                0
+              ]
+            },
+            {
+              "from": [
+                1,
+                0
+              ],
+              "to": [
+                0,
+                1
+              ]
+            },
+            {
+              "from": [
+                2,
+                0
+              ],
+              "to": [
+                0,
+                2
+              ]
+            },
+            {
+              "from": [
+                3,
+                0
+              ],
+              "to": [
+                0,
+                3
+              ]
+            },
+            {
+              "from": [
+                0,
+                1
+              ],
+              "to": [
+                4,
+                0
+              ]
+            },
+            {
+              "from": [
+                1,
+                1
+              ],
+              "to": [
+                4,
+                1
+              ]
+            },
+            {
+              "from": [
+                2,
+                1
+              ],
+              "to": [
+                4,
+                2
+              ]
+            },
+            {
+              "from": [
+                3,
+                1
+              ],
+              "to": [
+                4,
+                3
+              ]
+            }
+          ],
+          "prompt": "prompts/run-front-back-03.txt"
+        }
+      ],
+      "prompt": "prompts/run-01.txt"
+    },
+    "push": {
+      "source": "push-01",
+      "scale": 1.15,
+      "prompt": "prompts/push-01.txt"
+    },
+    "work": {
+      "source": "work-01",
+      "scale": 1.15,
+      "prompt": "prompts/work-01.txt"
+    },
+    "carried": {
+      "source": "carried-expression-02",
+      "scale": 1,
+      "prompt": "prompts/carried-expression-02-used.txt"
+    },
+    "needs": {
+      "source": "needs-01",
+      "scale": 0.99,
+      "prompt": "prompts/needs-01.txt"
+    },
+    "discover": {
+      "source": "discover-01",
+      "scale": 0.96,
+      "prompt": "prompts/discover-01.txt"
+    },
+    "row": {
+      "source": "row-direction-02",
+      "grid": [
+        4,
+        2
+      ],
+      "scale": 1.16,
+      "prompt": "prompts/row-direction-02.txt"
+    }
+  },
+  "row": {
+    "seats": [
+      [
+        209,
+        368
+      ],
+      [
+        220,
+        367
+      ],
+      [
+        194,
+        374
+      ],
+      [
+        211,
+        377
+      ],
+      [
+        204,
+        340
+      ],
+      [
+        212,
+        338
+      ],
+      [
+        237,
+        338
+      ],
+      [
+        232,
+        338
+      ]
+    ],
+    "grips": [
+      [
+        [
+          137,
+          286
+        ],
+        [
+          294,
+          289
+        ]
+      ],
+      [
+        [
+          193,
+          296
+        ],
+        [
+          326,
+          286
+        ]
+      ],
+      [
+        [
+          279,
+          297
+        ],
+        [
+          302,
+          283
+        ]
+      ],
+      [
+        [
+          336,
+          295
+        ],
+        [
+          330,
+          278
+        ]
+      ],
+      [
+        [
+          116,
+          249
+        ],
+        [
+          284,
+          249
+        ]
+      ],
+      [
+        [
+          74,
+          263
+        ],
+        [
+          89,
+          248
+        ]
+      ],
+      [
+        [
+          114,
+          260
+        ],
+        [
+          137,
+          273
+        ]
+      ],
+      [
+        [
+          126,
+          265
+        ],
+        [
+          246,
+          280
+        ]
+      ]
+    ]
+  },
+  "portrait": {
+    "backgroundOpacity": 0.16,
+    "haloOpacity": 0.24,
+    "haloColor": [
+      247,
+      161,
+      165
+    ]
+  }
+}

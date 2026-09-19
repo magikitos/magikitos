@@ -1,0 +1,116 @@
+{
+  "approved": "2026-09-19",
+  "scope": "All ten approved as protagonists. Art-only delivery; gameplay integration belongs to the other agent.",
+  "characters": [
+    {
+      "number": 101,
+      "variant": 200,
+      "key": "rizo-alba",
+      "nickname": "Rizo",
+      "gender": "M",
+      "identity": "data/aventura/art/residents/candidates/101-110/sheets/resident-101.png",
+      "description": "A wiry young adult male duende with fair sun-freckled skin, a sharp cheeky face, one slightly raised eyebrow, amber eyes, a wild ginger forelock and short unruly ginger hair (no beard). A VERY tall mustard-ochre pointed cloth cap with an angular folded tip, an indigo diamond patch and conspicuous hand stitching; a short petrol-teal patchwork jacket over an oatmeal shirt, burgundy neckerchief, patched chocolate knee trousers, mismatched striped socks and scuffed lace boots. A tiny acorn-button pouch at the hip. Mischievous explorer with swagger, no weapon. Distinct pointed silhouette, narrow shoulders, witty sideways smile.",
+      "dir": "data/aventura/art/playable-cast/rizo-alba",
+      "status": "art-reviewed-not-integrated"
+    },
+    {
+      "number": 102,
+      "variant": 201,
+      "key": "chispa-sol",
+      "nickname": "Chispa",
+      "gender": "F",
+      "identity": "data/aventura/art/residents/candidates/101-110/sheets/resident-102.png",
+      "description": "An athletic young adult female duende with deep warm brown skin, broad luminous smile, expressive dark eyebrows and tightly cropped silver-white curls (not the previous dark curly hairstyle). Oversized turquoise pointed cap folding into a long soft hook backwards, rust-red cloth repairs along its band. A brick-red sleeveless patched waistcoat over an ivory rolled-sleeve blouse, charcoal roomy cropped trousers with one ochre knee patch, short tan boots, a mustard braided cloth belt and a tiny brass-coloured button at the collar. Bold resourceful adventurer, angular athletic silhouette, cheeky confident eyes. No glasses, no weapons. FACE must be distinctly different from the former female style reference: elongated angular face, broad flat nose with a clear bridge, wide-set slightly narrow lively eyes (NOT huge round doll eyes), a strong chin and one eyebrow cocked higher; broad smiling mouth with a tiny front-tooth gap. Her little pale curls contrast strongly with warm dark skin. Personal accessories: a short necklace of three pale seeds, one diagonal cross-body strap to a little rust-coloured drawstring bag, no yellow sash. Use only one ochre trouser patch so the outfit is not symmetrical.",
+      "dir": "data/aventura/art/playable-cast/chispa-sol",
+      "status": "art-reviewed-not-integrated"
+    },
+    {
+      "number": 103,
+      "variant": 202,
+      "key": "tizon-musgo",
+      "nickname": "Tizon",
+      "gender": "M",
+      "identity": "data/aventura/art/residents/candidates/101-110/sheets/resident-103.png",
+      "description": "A very short broad stout middle-aged male duende with warm olive skin, rosy large round nose, thick dark eyebrows, dark close-cropped beard and curly dark sideburns. A LOW but unmistakably pointed russet cloth cap whose stiff tip curls forward, big visible beige repair stitches. Charcoal blue linen shirt, warm ochre patched work overalls with two large wood buttons, a dark brown short waist apron and broad old ankle boots. One small soot smudge on a cheek, NOT soot all over. Funny affectionate grumpy smile, proud pot belly, powerful little hands relaxed empty. A tiny copper washer worn as a belt ornament, not armour. Wholesome gruff craftsman.",
+      "dir": "data/aventura/art/playable-cast/tizon-musgo",
+      "status": "art-reviewed-not-integrated"
+    },
+    {
+      "number": 104,
+      "variant": 203,
+      "key": "nispera-sol",
+      "nickname": "Nispera",
+      "gender": "F",
+      "identity": "data/aventura/art/residents/candidates/101-110/sheets/resident-104.png",
+      "description": "A plump adult female duende with warm golden tan skin, abundant freckles, round cheeks, dark hazel eyes, broad delighted smile and two small chestnut hair buns near her ears. A LONG soft coral-orange pointed cap drooping sideways with plum and moss fabric patches and a tiny dried marigold pinned to its brim. Plum-purple work dress with oatmeal blouse sleeves, irregular sage-green apron made of sewn leaf-shaped fabric pieces, striped cream-and-ochre stockings, short dark ankle boots. Playful sociable personality; comfortably round body, not a thin recolour of another girl. Little cloth pockets, visible stitches, no tools held. Her face is pear-shaped and middle-aged, with a soft double chin, rounded short upturned nose, small laughing crescent eyes, crow's-feet and dimples, not the same large-eyed young girl's face. Personal accessories: a short necklace with one wooden strawberry-shaped pendant, a soft little side bag made from two stitched fabric leaves, and two contrasting blue cloth beads tied to the long cap tip. Keep the small marigold brooch. Warm coral hat against cool plum dress.",
+      "dir": "data/aventura/art/playable-cast/nispera-sol",
+      "status": "art-reviewed-not-integrated"
+    },
+    {
+      "number": 105,
+      "variant": 204,
+      "key": "trebol-bruma",
+      "nickname": "Trebol",
+      "gender": "M",
+      "identity": "data/aventura/art/residents/candidates/101-110/sheets/resident-105.png",
+      "description": "A lanky elderly male duende with dark chestnut-brown skin, an expressive long face, large pointed ears, a pointed silver goatee, short silver side curls, crooked jovial smile and tiny smile wrinkles. An unusually NARROW tall pale sage pointed hat whose tip makes one simple corkscrew-like curl, rust repair patch on its side. Burnt orange buttoned vest over a faded ivory shirt, indigo patched cropped trousers with braces, moss-striped socks, narrow battered brown lace shoes. Lean long shins within the same small duende scale, not a full-height human. Storyteller and prankster, sly twinkly eyes. NO long white garden-gnome beard. Distinct facial architecture: VERY long thin face, narrow gently drooping nose, high cheekbones, little half-closed mischievous eyes under uneven silver eyebrows, a small expressive mouth, sparse pointed silver chin tuft. One compact necklace of dark seeds around the ivory collar and one pale stitched leaf purse. Sage hat with orange vest and indigo trousers provides three bold readable colour masses.",
+      "dir": "data/aventura/art/playable-cast/trebol-bruma",
+      "status": "art-reviewed-not-integrated"
+    },
+    {
+      "number": 106,
+      "variant": 205,
+      "key": "mimbrera-noche",
+      "nickname": "Mimbrera",
+      "gender": "F",
+      "identity": "data/aventura/art/residents/candidates/101-110/sheets/resident-106.png",
+      "description": "A wiry older adult female duende with lightly tanned freckled skin, angular nose, knowing mischievous squint, green-brown eyes and ONE thick silver braid reaching her waist. A dramatic asymmetric deep blue pointed cap with its tip leaning backwards, an ochre patch and little copper stitch repairs; ears always visible. Ochre short open patchwork coat over a moss-green waistcoat and ivory shirt, dark plum knee trousers, red-and-cream striped socks, soft worn brown boots. Thin confident silhouette, raised eyebrow and lively crooked grin, practical stylish forest adventurer rather than an evil witch. No wand, no staff, empty hands. Distinct face: angular hawk-like nose and pointed chin, strong visible smile creases, fine small amused eyes and one raised arched eyebrow. Lively adult face, no cute little button nose. A single acorn-shell pendant on a short cord, a small flat indigo satchel and one pink seed bead threaded into the silver braid. Her pointed hat is deep blue with a wide lopsided folded brim and a long sharp backwards tip, NOT another short floppy stocking cap.",
+      "dir": "data/aventura/art/playable-cast/mimbrera-noche",
+      "status": "art-reviewed-not-integrated"
+    },
+    {
+      "number": 107,
+      "variant": 206,
+      "key": "avellano-alba",
+      "nickname": "Avellano",
+      "gender": "M",
+      "identity": "data/aventura/art/residents/candidates/101-110/sheets/resident-107.png",
+      "description": "A stocky cheerful adult male duende with fair rosy skin, a broad squarish face, soft hazel eyes, dense copper ringlets at his temples and big ginger mutton-chop sideburns leaving chin and mouth clearly visible. A broad plum-violet pointed cap with a short jaunty sideways peak, stitched ochre star-shaped repair patch (fabric only). Cream linen shirt with rolled sleeves, moss-and-indigo patchwork overalls, large acorn buttons, burgundy woven belt, sturdy chestnut boots. Very welcoming wide grin with one small tooth gap, solid torso and chunky legs. Looks like the fun neighbour who builds elaborate nonsense, not a warrior or garden gnome. Distinct face: broad square jaw, small slightly asymmetrical hazel eyes, extremely broad cheeky grin with one missing front tooth, snub freckled nose, dense mutton-chop sideburns WITHOUT chin beard. Head noticeably wider than 101. His violet hat has a wide squashy gathered crown and one short sharply upturned pointed tip, a mustard cloth patch and a tiny brass button. A short necklace of three mismatched wooden buttons and a little round acorn-shell purse, strong cream/indigo/plum colour blocks.",
+      "dir": "data/aventura/art/playable-cast/avellano-alba",
+      "status": "art-reviewed-not-integrated"
+    },
+    {
+      "number": 108,
+      "variant": 207,
+      "key": "oria-musgo",
+      "nickname": "Oria",
+      "gender": "F",
+      "identity": "data/aventura/art/residents/candidates/101-110/sheets/resident-108.png",
+      "description": "A lean middle-aged female duende with warm olive skin, long dark eyes, strong brow, angular cheekbones and black hair in a short messy ponytail emerging below her cap. A small sharply pointed rusty-cinnamon cap tilted rakishly, cream stitches and tiny teal leaf sewn on the brim. Deep teal asymmetrically buttoned short tunic with rust elbow patches, ivory undershirt, warm cream cropped trousers with indigo knee patches, narrow dark brown boots, belt with a tiny fabric pouch. Outdoorsy roguish explorer with an amused lopsided smile, compact agile body, natural elegant proportions. No weapons, no giant cloak, no flowing floor-length fabric. Distinct face: olive angular diamond-shaped face, strong cheekbones, one small notch-shaped eyebrow gap, long narrow eyes, slender straight nose, smirking mouth skewed to one side. Compact black messy ponytail. Short triangular burnt-orange cap with one black-and-cream feather tucked into its stitched band; a very small amber seed pendant and a diagonal cream strap to her soft dark pouch. Sharply different face from the cheerful round-faced women.",
+      "dir": "data/aventura/art/playable-cast/oria-musgo",
+      "status": "art-reviewed-not-integrated"
+    },
+    {
+      "number": 109,
+      "variant": 208,
+      "key": "silo-bruma",
+      "nickname": "Silo",
+      "gender": "M",
+      "identity": "data/aventura/art/residents/candidates/101-110/sheets/resident-109.png",
+      "description": "A slim adult male duende with pale peach freckled skin, a long inquisitive nose, soft chestnut hair swept in a large curl, friendly round small wire spectacles and a delighted nerdy grin. A mushroom-beige pointed cap folded in a pronounced S-shaped curve, patched in indigo and faded terracotta. A dusty-rose short patched coat over a mustard vest and ivory shirt, dark olive cropped trousers, blue striped socks, scuffed tan boots. One tiny harmless wooden spool hangs at his belt as a character detail. Slightly hunched curious shoulders, wonderful oddball inventor personality, distinct from heroic standard gnome. Spectacles correctly rotate with head, no goggles or armour. Distinct face: long oval face, a big hooked but friendly nose, round small spectacles that magnify LITTLE eyes, narrow chin with one tiny chestnut soul patch, slightly lopsided grin. Tall cap has a clear S-bent point above a slightly flared brim. A dark teal scarf, visible ochre fabric repair stitches, a flat tiny button pouch and a two-seed necklace. No big generic anime eyes. Keep dusty rose coat, beige hat and olive trousers for readable contrast.",
+      "dir": "data/aventura/art/playable-cast/silo-bruma",
+      "status": "art-reviewed-not-integrated"
+    },
+    {
+      "number": 110,
+      "variant": 209,
+      "key": "zarza-sol",
+      "nickname": "Zarza",
+      "gender": "F",
+      "identity": "data/aventura/art/residents/candidates/101-110/sheets/resident-110.png",
+      "description": "A strong curvy adult female duende with deep dark brown skin, expressive almond eyes, full smiling cheeks, black coiled hair tucked into two small low puffs and a confident open playful grin. A very long burgundy pointed cap sweeping backwards and ending in a gentle curl, moss-and-ochre stitched patches, a tiny oak-leaf-shaped cloth brooch. Warm ochre linen tunic, sage-green laced short waistcoat, roomy indigo patched trousers gathered at calves, ochre socks and robust walnut boots. Tiny wooden ear studs near her clearly pointed ears. Confident warm adventurous leader, distinctive broad shoulders and hips, never babyish, hands empty. Distinct face: mature full broad cheeks but firm squarish jaw, broad nose with rounded tip, deep dark skin, thick gently slanted eyebrows, warm narrow almond eyes, big expressive laughing smile. Adult strong curvy woman, NOT small round-eyed young girl. Long burgundy pointed cloth cap with leaf-edge fabric inserts and tip swept like a wave behind her head, two tiny wood beads threaded on its tail. One pendant made from a turquoise-painted wooden ring, and an ochre woven round shoulder pouch. Hat/ochre/teal/indigo clear contrast, only a few strong decorative accents.",
+      "dir": "data/aventura/art/playable-cast/zarza-sol",
+      "status": "art-reviewed-not-integrated"
+    }
+  ]
+}

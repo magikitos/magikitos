@@ -82,6 +82,42 @@ foreach($selected as $action=>$settings) {
             $records[]=['cell'=>[$c,$r],'sourceRect'=>$rect,'ink'=>[$bx,$by,$bw,$bh],'scale'=>$scale];
         }
     }
+    // Reviewed corrections replace existing slots; they never add phases or
+    // change the shared action contract. A whole correction strip has ONE scale.
+    $replaced=[];
+    foreach($settings['overrides']??[] as $override) {
+        $name=$override['source'];
+        if(!preg_match('/^[a-z0-9-]+$/D',$name))throw new RuntimeException('Invalid override source');
+        $extra=imagecreatefrompng("$dir/sources/$name.png");
+        try { adventureKeyedCutout($extra,"$key/$action/$name",false,'red'); }
+        catch(RuntimeException $e) {
+            if(!str_starts_with($e->getMessage(),'Art touches source edge;'))throw $e;
+            // An unused outer cell may be clipped. Each selected cell below
+            // still has to have completely transparent margins of its own.
+        }
+        [$nc,$nr]=$override['grid'];
+        $extraScale=256/(imagesx($extra)/$nc)*$override['scale'];
+        foreach($override['cells'] as $mapping) {
+            [$sc,$sr]=$mapping['from'];[$tc,$tr]=$mapping['to'];
+            if(min($sc,$sr,$tc,$tr)<0||$sc>=$nc||$sr>=$nr||$tc>=$cols||$tr>=$rows||isset($replaced["$tc/$tr"]))
+                throw new RuntimeException('Invalid or duplicate replacement slot');
+            $sx=(int)round($sc*imagesx($extra)/$nc);$sy=(int)round($sr*imagesy($extra)/$nr);
+            $sw=(int)round(($sc+1)*imagesx($extra)/$nc)-$sx;$sh=(int)round(($sr+1)*imagesy($extra)/$nr)-$sy;
+            $rect=$mapping['sourceRect']??[$sx,$sy,$sw,$sh];
+            [$sx,$sy,$sw,$sh]=$rect;
+            if(min($sx,$sy)<0||min($sw,$sh)<1||$sx+$sw>imagesx($extra)||$sy+$sh>imagesy($extra))throw new RuntimeException('Replacement rectangle outside source');
+            $cell=adventurePreparedSpriteCell($extra,$rect,['cleanFragments'=>.015]);
+            [$bx,$by,$bw,$bh]=adventureVisibleBounds($cell,[0,0,$sw,$sh],"$key/$action/$name");
+            if($bx<1||$by<1||$bx+$bw>=$sw||$by+$bh>=$sh)throw new RuntimeException("Replacement silhouette touches crop edge: $key/$action/$name $tc,$tr rect=".json_encode($rect).' ink='.json_encode([$bx,$by,$bw,$bh]));
+            $dw=(int)round($bw*$extraScale);$dh=(int)round($bh*$extraScale);
+            if($dw>348||$dh>348)throw new RuntimeException('Replacement needs reviewed uniform scale');
+            imagefilledrectangle($out,$tc*384,$tr*384,($tc+1)*384-1,($tr+1)*384-1,imagecolorallocatealpha($out,0,0,0,127));
+            imagecopyresampled($out,$cell,$tc*384+192-(int)round($dw/2),$tr*384+($action==='carried'?32:360-$dh),$bx,$by,$dw,$dh,$bw,$bh);
+            $replaced["$tc/$tr"]=true;
+            foreach($records as &$record)if($record['cell']===[$tc,$tr])$record=['cell'=>[$tc,$tr],'overrideSource'=>$name,'sourceRect'=>$rect,'ink'=>[$bx,$by,$bw,$bh],'scale'=>$extraScale];
+            unset($record);
+        }
+    }
     imagepng($out,"$dir/review/$action.png",9);
     file_put_contents("$dir/review/$action.registration.json",json_encode($records,JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES)."\n");
     echo "$key/$action: ".count($records)." cells, fixed source scale $scale\n";

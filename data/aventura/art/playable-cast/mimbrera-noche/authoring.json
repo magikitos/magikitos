@@ -1,0 +1,178 @@
+{
+  "variant": 205,
+  "reference": "resident-106",
+  "referencePath": "data/aventura/art/residents/candidates/101-110/sheets/resident-106.png",
+  "actions": {
+    "run": {
+      "source": "run-01",
+      "scale": 0.82,
+      "prompt": "prompts/run-01.txt"
+    },
+    "push": {
+      "source": "push-01",
+      "scale": 1.12,
+      "prompt": "prompts/push-01.txt"
+    },
+    "work": {
+      "source": "work-01",
+      "scale": 1.12,
+      "prompt": "prompts/work-01.txt"
+    },
+    "carried": {
+      "source": "carried-final-03",
+      "scale": 0.96,
+      "prompt": "prompts/carried-final-fix.txt"
+    },
+    "needs": {
+      "source": "needs-01",
+      "scale": 0.9,
+      "prompt": "prompts/needs-01.txt"
+    },
+    "discover": {
+      "source": "discover-01",
+      "scale": 0.98,
+      "prompt": "prompts/discover-01.txt"
+    },
+    "row": {
+      "source": "row-direction-02",
+      "grid": [
+        4,
+        2
+      ],
+      "scale": 1.19,
+      "prompt": "prompts/row-direction-fix.txt"
+    }
+  },
+  "row": {
+    "seats": [
+      [
+        223,
+        383
+      ],
+      [
+        197,
+        391
+      ],
+      [
+        161,
+        401
+      ],
+      [
+        206,
+        398
+      ],
+      [
+        225,
+        340
+      ],
+      [
+        220,
+        340
+      ],
+      [
+        223,
+        340
+      ],
+      [
+        236,
+        338
+      ]
+    ],
+    "grips": [
+      [
+        [
+          164,
+          327
+        ],
+        [
+          279,
+          327
+        ]
+      ],
+      [
+        [
+          211,
+          331
+        ],
+        [
+          301,
+          313
+        ]
+      ],
+      [
+        [
+          264,
+          329
+        ],
+        [
+          268,
+          313
+        ]
+      ],
+      [
+        [
+          291,
+          323
+        ],
+        [
+          284,
+          312
+        ]
+      ],
+      [
+        [
+          144,
+          261
+        ],
+        [
+          305,
+          261
+        ]
+      ],
+      [
+        [
+          117,
+          265
+        ],
+        [
+          128,
+          257
+        ]
+      ],
+      [
+        [
+          128,
+          259
+        ],
+        [
+          138,
+          272
+        ]
+      ],
+      [
+        [
+          123,
+          265
+        ],
+        [
+          202,
+          278
+        ]
+      ]
+    ]
+  },
+  "portrait": {
+    "backgroundOpacity": 0.16,
+    "haloOpacity": 0.24,
+    "haloColor": [
+      161,
+      190,
+      242
+    ]
+  },
+  "walk": {
+    "source": "walk-spaced-01",
+    "scale": 0.8,
+    "prompt": "prompts/walk-spaced-01.txt"
+  }
+}

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 /** Exact offline invariant, separate from the visual Chrome/WebKit clipping review. */
-$root=dirname(__DIR__);$key=getopt('', ['character:'])['character']??'';
+$root=dirname(__DIR__);$options=getopt('', ['character:','review-only']);$key=$options['character']??'';
 if(!preg_match('/^[a-z]+-[a-z]+$/D',$key))throw new RuntimeException('Use --character=profile-key');
 $dir="$root/data/aventura/art/playable-cast/$key";
 $master=imagecreatefrompng("$dir/review/row.png");$body=imagecreatefrompng("$dir/review/row-fixed-bodies.png");
@@ -22,9 +22,10 @@ $original=imagecolorat($master,192,540);imagesetpixel($master,192,540,imagecolor
 $caught=false;try{verifyBody($master,$body,$coverage);}catch(RuntimeException $e){$caught=true;}
 if(!$caught)throw new RuntimeException('Negative body control failed');imagesetpixel($master,192,540,$original);
 $config=json_decode(file_get_contents("$dir/authoring.json"),true,512,JSON_THROW_ON_ERROR);
-$qa=json_decode(file_get_contents("$root/data/aventura/art/residents/actions/cutouts/$key-row-master.json"),true,512,JSON_THROW_ON_ERROR);
+$review=isset($options['review-only'])?json_decode(file_get_contents("$dir/review/review.json"),true,512,JSON_THROW_ON_ERROR):null;
+$qa=$review?$review['actions']['row']:json_decode(file_get_contents("$root/data/aventura/art/residents/actions/cutouts/$key-row-master.json"),true,512,JSON_THROW_ON_ERROR);
 $raw=json_decode(file_get_contents("$dir/review/row-rig-source.json"),true,512,JSON_THROW_ON_ERROR);
-$runtime=json_decode(file_get_contents("$root/data/aventura/rowing.json"),true,512,JSON_THROW_ON_ERROR)['rigs'][$key];
+$runtime=$review?$review['rowingRig']:json_decode(file_get_contents("$root/data/aventura/rowing.json"),true,512,JSON_THROW_ON_ERROR)['rigs'][$key];
 foreach($raw as $direction=>$phases)foreach($phases as $phase=>$pair)foreach($pair as $i=>$point) {
  if(array_slice($point,0,2)!==array_slice($phases[0][$i],0,2))throw new RuntimeException('Grip moves between phases');
  foreach($point as $axis=>$value)if(abs($runtime[$direction][$phase][$i][$axis]-round($value*$qa['measurement']['ratio'],2))>.001)
