@@ -4,6 +4,50 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: Yo, el saco y Construir rediseñados, y la puerta de la cuenta — 19 septiembre 2026
+
+Artefacto `3a3ab5c30627e39142e4`, fuente del juego `c68e5e42e126d0fd0891228be037ebb9f079002e`,
+web `e8022702`. Anterior conservada: `6b034b57ec99f966e0d0`. Rutas: /aventura y
+cinco traducciones.
+
+SHA-256 de `release.json`:
+`39575add3b4c72fb048cee9e28d9a7a85b07373ad6257cce38f0c93dee60ebbd`.
+610 archivos verificados y ESTACIONADOS antes de mover el puntero (instalador en un solo
+fichero Node, ejecutado como `magikitos` desde `/tmp`, temporal borrado después). Frente a
+la anterior solo cambian `aventura.min.css`, `aventura.min.js` y las seis páginas. **Sin
+migración y sin PHP**.
+
+### Alcance publicado
+
+- **Las modales hacen scroll y se rediseñan en tarjetas** (el dueño: «un diseño un poco
+  cutre… déjalo perfecto con máxima usabilidad en mobile, tablet y desktop»). Hasta hoy
+  tenían tope de alto sin desplazamiento: en escritorio y tablet el elenco, el correo de
+  la cuenta y las últimas filas del catálogo quedaban recortados. Pantalla completa solo
+  en el teléfono (< 640 px); la tablet conserva la tarjeta.
+- **«Yo»**: cabecero con el retrato del elenco y una línea que dice si la partida te sigue
+  o vive solo en este navegador; dos columnas en escritorio (tu duende / tu cuenta, tu
+  partida, idioma) en tarjetas con rótulo.
+- **El saco**: fotos en cajas del mismo tamaño (`sprites.iconIn`), la cuenta en una chapa,
+  detalle con foto en columna fija a la derecha desde 900 px.
+- **Construir**: el sitio como subtítulo; «Llevas» con nombre y número y solo lo que llevas;
+  precio en rojo en la baldosa cuando no te llega; barra de colocar con etiquetas en
+  escritorio e iconos en el teléfono. El nombre de la esquina se recorta para no pisar el saco.
+- **Construir sin cuenta abre «Yo»** (el dueño: «no simplemente decirle "tienes que guardar
+  tu cuenta", sino mostrar el modal de Yo»). Sin sesión, «para construir en el mapa público
+  tienes que tener tu cuenta creada» con la tarjeta de la cuenta resaltada; con sesión sin
+  la partida guardada, la tarjeta de la partida con su botón. Textos nuevos en seis idiomas.
+- **El aro del joystick se queda** siempre que el dedo manda, más tenue (el dueño: «que
+  siempre salga, solo ligeramente más transparentito»). Fuera el contador de aprendizaje.
+
+### Comprobado
+
+`npm test` entero (65 bloques, con los textos nuevos en seis idiomas), y en navegador a
+1440/768/390/844: controles del mundo, elenco, regresiones generales y la puerta de la
+cuenta de la frontera (su comparación con la web de DDEV no corrió: DDEV servía 503 sin la
+release instalada). Capturas revisadas de los tres paneles, del aviso de cuenta y de la barra
+en 390, 768 y 1440, con la API simulada en local. En producción, `check-release-live` en las
+seis rutas y tres anchuras con cero escrituras de jugador enviadas.
+
 ## Producción: el joystick invisible bajo el dedo — 19 septiembre 2026
 
 Artefacto `6b034b57ec99f966e0d0`, fuente del juego `6e37940a65ad17f2bb29e09c505b49eea911ca4c`,
