@@ -252,6 +252,11 @@ class Account {
     identity.hidden = !claimed;
     if (!claimed) this.step("email");
     if (link) link.hidden = !claimed || !url;
+    // Una línea bajo tu nombre que dice, sin rodeos, si esta partida te sigue o vive aquí: es lo
+    // primero que hay que saber al abrir el panel, y antes había que deducirlo de qué botones había.
+    const state = byId("self-identity-state");
+    if (state) state.textContent = this.game.text(claimed ? "accountClaimed" : "accountNone");
+    byId("self-account")?.classList.toggle("is-claimed", Boolean(claimed));
 
     // Handle and portrait belong to the identity, claimed or not: an anonymous
     // player already has both, and they sit next to the sprite, not inside the

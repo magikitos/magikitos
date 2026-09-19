@@ -28,6 +28,8 @@ class Self {
         why.hidden = true;
         why.textContent = "";
       }
+      for (const card of document.querySelectorAll("#self-dialog .world-card.is-wanted"))
+        card.classList.remove("is-wanted");
       this.paint();
       // Reading here and not in the constructor: the panel is a deliberate
       // act, boot is not, and this request must never ride on a page load.
@@ -90,7 +92,18 @@ class Self {
       why.textContent = game.text(key);
     }
     this.account.read();
+    this.openCast();
     if (!byId("self-dialog").open) byId("self-dialog").showModal();
+    // La puerta que falta se señala y se trae a la vista: sin cuenta es la tarjeta de la cuenta,
+    // con cuenta pero sin la partida guardada, la de la partida. En el teléfono, donde el panel
+    // scrollea entero, sin esto el aviso podía quedar por debajo del elenco.
+    const wanted = byId(key === "communitySyncNeeded" ? "cloud-title" : "self-account")?.closest(".world-card");
+    for (const card of document.querySelectorAll("#self-dialog .world-card.is-wanted"))
+      card.classList.remove("is-wanted");
+    if (wanted) {
+      wanted.classList.add("is-wanted");
+      requestAnimationFrame(() => why?.scrollIntoView({ block: "start", behavior: "smooth" }));
+    }
   }
   /**
    * ⛔ EL ELENCO SE PIDE AL ABRIR EL PANEL Y SE SUELTA AL CERRARLO.
@@ -139,6 +152,14 @@ class Self {
   paintCast() {
     const game = this.game,
       current = playerVariant(game.player);
+    // La cara con la que te ven, grande, arriba del panel: el retrato del elenco mientras está
+    // prestado. Si no llega, se queda el sprite de siempre, que `paintCards` ya pinta.
+    const portrait = game.renderer.sprites.icon(castPortrait(current));
+    if (portrait) {
+      portrait.classList.add("is-portrait");
+      portrait.style.width = portrait.style.height = "";
+      byId("self-portrait").replaceChildren(portrait);
+    }
     byId("self-cast-grid").replaceChildren(
       ...castOffered(game.catalog).map((variant, index) => {
         const button = document.createElement("button");

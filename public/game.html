@@ -110,7 +110,7 @@
     <!-- ⛔ AQUÍ VIVÍA EL JOYSTICK FIJO, y se fue entero el 19-sep-2026 (decisión del dueño: «el
          joystick táctil es una mierda, no me gusta nada, ni el botón de turbo»). El mando no ocupa
          DOM: tocar es ir, y mover el dedo es un joystick invisible que nace donde lo apoyas y cuyo
-         origen le sigue; su aro de aprendizaje lo pinta el lienzo y se apaga solo. La cámara se
+         origen le sigue; su aro tenue lo pinta el lienzo mientras el dedo manda. La cámara se
          mueve con dos dedos o con el botón derecho. Vale igual con un dedo, con un ratón o con un
          lápiz, así que tampoco hace falta detectar qué tienes en la mano (`map-gestures.js`). -->
     <div class="world-navigation">
@@ -125,14 +125,19 @@
          abajo, que ocupa lo mínimo para que veas dónde estás poniendo la cosa. -->
     <dialog class="world-modal world-build" id="build-dialog" aria-labelledby="build-title">
       <header>
-        <h2 id="build-title">{{communityBuild}}</h2>
+        <div class="world-modal-heading">
+          <h2 id="build-title">{{communityBuild}}</h2>
+          <p id="community-zone" class="world-modal-subtitle"></p>
+        </div>
         <button type="button" data-dismiss aria-label="{{close}}">×</button>
       </header>
-      <div class="world-build-head">
-        <strong id="community-zone"></strong>
+      <!-- Lo que llevas, siempre a la vista y con su nombre: no se deduce de qué baldosas están
+           apagadas, porque ninguna lo está. -->
+      <div class="world-build-head world-card">
+        <span class="world-card-title">{{communityYouHave}}</span>
         <div id="community-materials" class="world-build-materials" aria-label="{{bag}}"></div>
       </div>
-      <div id="home-palette" class="world-pick-grid"></div>
+      <div id="home-palette" class="world-pick-grid world-pick-grid--build"></div>
       <p class="world-build-note">{{communityPublic}}</p>
     </dialog>
     <!-- ⛔ SIN RENGLÓN DE MOTIVO. Que ahí no cabe lo dice la pieza poniéndose roja, que es donde
@@ -144,9 +149,9 @@
         <small id="build-price"></small>
       </div>
       <div class="world-build-bar__actions">
-        <button type="button" id="home-cancel" aria-label="{{close}}">×</button>
-        <button type="button" id="build-undo" aria-label="{{communityUndoPost}}" title="{{communityUndoPost}}" hidden>⟲</button>
-        <button type="button" id="community-rotate">{{communityRotate}}</button>
+        <button type="button" id="home-cancel" aria-label="{{close}}" title="{{close}}"><span aria-hidden="true">×</span><small>{{close}}</small></button>
+        <button type="button" id="build-undo" aria-label="{{communityUndoPost}}" title="{{communityUndoPost}}" hidden><span aria-hidden="true">⟲</span><small>{{communityUndoShort}}</small></button>
+        <button type="button" id="community-rotate"><span aria-hidden="true">⟳</span><small>{{communityRotate}}</small></button>
         <button type="button" id="home-save" class="world-primary">{{communityConfirm}}</button>
       </div>
       <small id="community-hint" hidden>{{communityPosts}}</small>
@@ -197,14 +202,17 @@
         <span data-sprite="setin" aria-hidden="true"></span
         ><strong id="wallet-balance"></strong><small>{{walletLocal}}</small>
       </div>
-      <div id="bag-items" class="world-pick-grid"></div>
-      <div id="bag-detail" class="world-bag-detail" hidden>
-        <h3 id="bag-item-title"></h3>
-        <p id="bag-item-description"></p>
-        <small id="bag-item-lifetime"></small
-        ><button type="button" id="bag-use" class="world-primary">
-          {{useItem}}
-        </button>
+      <div class="world-bag-layout">
+        <div id="bag-items" class="world-pick-grid"></div>
+        <aside id="bag-detail" class="world-bag-detail world-card" hidden>
+          <span id="bag-item-icon" class="world-bag-detail-icon" aria-hidden="true"></span>
+          <div class="world-bag-detail-text">
+            <h3 id="bag-item-title"></h3>
+            <p id="bag-item-description"></p>
+            <small id="bag-item-lifetime"></small>
+          </div>
+          <button type="button" id="bag-use" class="world-primary">{{useItem}}</button>
+        </aside>
       </div>
       <p id="save-status" role="status">{{saved}}</p>
     </dialog>
@@ -217,10 +225,17 @@
         <h2 id="self-title">{{self}}</h2>
         <button type="button" data-dismiss aria-label="{{close}}">×</button>
       </header>
-      <div class="world-self-summary">
-        <span data-player-sprite aria-hidden="true"></span>
-        <img id="self-identity-avatar" alt="" width="44" height="44" hidden />
-        <p id="self-identity-handle" hidden></p>
+      <!-- Quién eres, de un vistazo: la cara con la que te ven, tu nombre y si esta partida
+           te sigue a otro sitio o vive solo en este navegador. -->
+      <div class="world-self-hero">
+        <span class="world-self-portrait" id="self-portrait"
+          ><span data-player-sprite aria-hidden="true"></span
+        ></span>
+        <div class="world-self-who">
+          <img id="self-identity-avatar" alt="" width="44" height="44" hidden />
+          <p id="self-identity-handle" hidden></p>
+          <p id="self-identity-state" class="world-self-state"></p>
+        </div>
       </div>
 
       <!-- The body is a running joke, not a chore list: one small line and its
@@ -236,86 +251,93 @@
         </button>
       </div>
 
-      <!-- ⛔ SIN CATEGORÍAS: TODOS A LA VEZ Y SE ELIGE POR LA CARA. Partir el elenco en hombres y
-           mujeres, o en tonos de piel, obliga a la persona a declarar algo para poder mirar. Aquí
-           están todos, y lo único que hace falta saber es cuál te gusta. La sección no se pinta si
-           no hay entre qué elegir. -->
-      <section class="world-self-cast" id="self-cast" hidden>
-        <h3 id="self-cast-title">{{castTitle}}</h3>
-        <p class="world-self-cast-lead">{{castLead}}</p>
-        <div
-          class="world-self-cast-grid"
-          id="self-cast-grid"
-          role="group"
-          aria-labelledby="self-cast-title"
-        ></div>
-      </section>
+      <div class="world-self-columns">
+        <!-- ⛔ SIN CATEGORÍAS: TODOS A LA VEZ Y SE ELIGE POR LA CARA. Partir el elenco en hombres y
+             mujeres, o en tonos de piel, obliga a la persona a declarar algo para poder mirar. Aquí
+             están todos, y lo único que hace falta saber es cuál te gusta. La sección no se pinta si
+             no hay entre qué elegir. -->
+        <section class="world-self-cast world-card" id="self-cast" hidden>
+          <h3 id="self-cast-title" class="world-card-title">{{castTitle}}</h3>
+          <p class="world-self-cast-lead">{{castLead}}</p>
+          <div
+            class="world-self-cast-grid"
+            id="self-cast-grid"
+            role="group"
+            aria-labelledby="self-cast-title"
+          ></div>
+        </section>
 
-      <button type="button" id="puzzle-reset" hidden>{{puzzleReset}}</button>
+        <div class="world-self-side">
+          <!-- Por qué se ha abierto este panel solo: quien lo abre lo explica aquí, encima de la
+               puerta que hace falta cruzar. -->
+          <p id="self-why" class="world-callout" role="status" hidden></p>
+          <section class="world-self-account world-card" id="self-account" aria-labelledby="self-account-title">
+            <h3 id="self-account-title" class="world-card-title">{{accountTitle}}</h3>
+            <div id="self-signin" hidden>
+              <p class="world-self-lead">{{accountSave}}</p>
+              <button type="button" class="world-primary world-self-google" id="self-google">
+                {{authGoogle}}
+              </button>
+              <p class="world-self-or" id="self-signin-or"><span>{{authOr}}</span></p>
+              <form id="self-email-form" novalidate>
+                <input
+                  type="email"
+                  id="self-email"
+                  autocomplete="email"
+                  inputmode="email"
+                  maxlength="190"
+                  aria-label="{{authEmailPlaceholder}}"
+                  placeholder="{{authEmailPlaceholder}}"
+                />
+                <button type="submit" class="world-primary">{{authSendCode}}</button>
+              </form>
+              <form id="self-code-form" hidden novalidate>
+                <input
+                  type="text"
+                  id="self-code"
+                  inputmode="numeric"
+                  pattern="[0-9]*"
+                  maxlength="6"
+                  autocomplete="one-time-code"
+                  aria-label="{{authCodePlaceholder}}"
+                  placeholder="{{authCodePlaceholder}}"
+                />
+                <button type="submit" class="world-primary">{{authConfirm}}</button>
+                <button type="button" class="world-self-link" id="self-code-back">
+                  {{authChangeEmail}}
+                </button>
+              </form>
+            </div>
+            <div id="self-identity" hidden>
+              <a id="self-account-link" class="world-self-link-out" target="_blank" rel="noopener"
+                >{{account}} ↗</a
+              >
+            </div>
+            <p id="self-identity-note" role="status"></p>
+          </section>
 
-      <!-- Por qué se ha abierto este panel solo: quien lo abre lo explica aquí. -->
-      <p id="self-why" class="world-self-need" role="status" hidden></p>
-      <section class="world-self-account">
-        <div id="self-signin" hidden>
-          <p class="world-self-lead">{{accountSave}}</p>
-          <button type="button" class="world-primary world-self-google" id="self-google">
-            {{authGoogle}}
-          </button>
-          <p class="world-self-or" id="self-signin-or"><span>{{authOr}}</span></p>
-          <form id="self-email-form" novalidate>
-            <input
-              type="email"
-              id="self-email"
-              autocomplete="email"
-              inputmode="email"
-              maxlength="190"
-              aria-label="{{authEmailPlaceholder}}"
-              placeholder="{{authEmailPlaceholder}}"
-            />
-            <button type="submit" class="world-primary">{{authSendCode}}</button>
-          </form>
-          <form id="self-code-form" hidden novalidate>
-            <input
-              type="text"
-              id="self-code"
-              inputmode="numeric"
-              pattern="[0-9]*"
-              maxlength="6"
-              autocomplete="one-time-code"
-              aria-label="{{authCodePlaceholder}}"
-              placeholder="{{authCodePlaceholder}}"
-            />
-            <button type="submit" class="world-primary">{{authConfirm}}</button>
-            <button type="button" class="world-self-link" id="self-code-back">
-              {{authChangeEmail}}
-            </button>
-          </form>
-        </div>
-        <div id="self-identity" hidden>
-          <a id="self-account-link" target="_blank" rel="noopener"
-            >{{account}} ↗</a
+          <section class="world-cloud-save world-card" aria-labelledby="cloud-title">
+            <h3 id="cloud-title" class="world-card-title">{{cloudTitle}}</h3>
+            <p id="cloud-status" role="status"></p>
+            <button type="button" id="cloud-connect" class="world-primary">{{cloudConnect}}</button>
+            <div id="cloud-conflict" hidden>
+              <button type="button" id="cloud-remote">{{cloudUseRemote}}</button>
+              <button type="button" id="cloud-local">{{cloudUseLocal}}</button>
+            </div>
+            <div id="cloud-recoveries"></div>
+          </section>
+
+          <button type="button" id="puzzle-reset" hidden>{{puzzleReset}}</button>
+
+          <!-- Last and small: changing language is a once-ever setting, not something
+               you come to this panel to do. -->
+          <label class="world-language"
+            >{{language}}<select id="world-language">
+              {{languageOptions}}
+            </select></label
           >
         </div>
-        <p id="self-identity-note" role="status"></p>
-      </section>
-
-      <section class="world-cloud-save" aria-label="{{cloudConnect}}">
-        <p id="cloud-status" role="status"></p>
-        <button type="button" id="cloud-connect" class="world-primary">{{cloudConnect}}</button>
-        <div id="cloud-conflict" hidden>
-          <button type="button" id="cloud-remote">{{cloudUseRemote}}</button>
-          <button type="button" id="cloud-local">{{cloudUseLocal}}</button>
-        </div>
-        <div id="cloud-recoveries"></div>
-      </section>
-
-      <!-- Last and small: changing language is a once-ever setting, not something
-           you come to this panel to do. -->
-      <label class="world-language"
-        >{{language}}<select id="world-language">
-          {{languageOptions}}
-        </select></label
-      >
+      </div>
     </dialog>
     <dialog id="forest-note-dialog" class="world-modal world-note" aria-labelledby="forest-note-title">
       <h2 id="forest-note-title">{{noteWrite}}</h2>

@@ -35,28 +35,6 @@ const { WALK_SPEED, RUN_SPEED, routeDistance } = require("./locomotion");
  */
 const CAMERA_FOLLOW_RATE = 9;
 const CAMERA_TRAVEL_RATE = 1.8;
-/**
- * Segundos andados con el mando del dedo a partir de los cuales el aro de aprendizaje deja de
- * pintarse. Es una preferencia de ESTE navegador (`STICK_KEY`), como el duende elegido: el
- * contrato de la partida en la nube no admite claves nuevas y un pulgar nuevo merece verlo una vez.
- */
-const STICK_LEARNED_SECONDS = 6;
-const STICK_KEY = "magikitos.adventure.stick";
-function readStickPractice() {
-  try {
-    const value = Number(localStorage.getItem(STICK_KEY));
-    return Number.isFinite(value) ? Math.max(0, Math.min(STICK_LEARNED_SECONDS, value)) : 0;
-  } catch (_) {
-    return 0;
-  }
-}
-function writeStickPractice(seconds) {
-  try {
-    localStorage.setItem(STICK_KEY, String(Math.round(seconds * 100) / 100));
-  } catch (_) {
-    /* Sin almacenamiento el aro se enseña cada visita, que es lo menos malo. */
-  }
-}
 const { Embed } = require("./embed");
 const { Journey } = require("./journey");
 const { PickupFeedback } = require("./pickups");
@@ -113,8 +91,6 @@ class Adventure {
     this.neighbors = [];
     this.camera = { x: 0, y: 0 };
     this.cameraFollowing = true;
-    // Cuánto se ha andado ya con el mando del dedo, en segundos; decide si se pinta el aro.
-    this.stickPractice = readStickPractice();
     this.lastTime = 0;
     this.lastSave = 0;
     this.dirty = false;
@@ -1050,12 +1026,13 @@ class Adventure {
     return this.keyboardIntent() || this.input?.map.intent() || null;
   }
   /**
-   * El aro de aprendizaje del mando: dónde pintarlo, o null. Se pinta mientras el dedo manda y
-   * hasta que se ha andado con él STICK_LEARNED_SECONDS; después, nunca más en este navegador.
+   * El aro del mando: dónde pintarlo, o null. Se pinta SIEMPRE que el dedo manda (19-sep-2026,
+   * decisión del dueño tras probarlo: «no lo quitaría cuando pasa el tiempo, que siempre salga,
+   * solo ligeramente más transparentito»). Aquí vivió un contador de segundos andados que lo
+   * apagaba al aprender, y se fue el mismo día.
    */
   stickHint() {
-    if (!this.input?.map.steering || this.stickPractice >= STICK_LEARNED_SECONDS) return null;
-    return this.input.map.stickView();
+    return this.input?.map.steering ? this.input.map.stickView() : null;
   }
   boosted() {
     return this.keys.has(" ") || Boolean(this.input?.map.running);
@@ -1157,13 +1134,6 @@ class Adventure {
         }
       }
       if (this.walking) this.dirty = true;
-      // Andar con el mando del dedo es aprenderlo: cuando se ha andado lo bastante, el aro deja
-      // de pintarse y se recuerda en este navegador.
-      if (this.walking && this.input?.map.steering && this.stickPractice < STICK_LEARNED_SECONDS) {
-        this.stickPractice = Math.min(STICK_LEARNED_SECONDS, this.stickPractice + dt);
-        if (this.stickPractice >= STICK_LEARNED_SECONDS || Math.floor(this.stickPractice) > Math.floor(this.stickPractice - dt))
-          writeStickPractice(this.stickPractice);
-      }
       if (!this.reducedMotion) this.updateNeighbors(dt);
     }
     if (this.guardian) {
@@ -1226,7 +1196,6 @@ class Adventure {
         running: Boolean(this.input?.map.running),
         intent: this.input?.map.intent() || null,
         panning: Boolean(this.input?.map.dragging),
-        practice: this.stickPractice,
         hint: Boolean(this.stickHint()),
       },
       // Solo el punto: el destino puede ser una entidad entera y esto se serializa en cada sonda.

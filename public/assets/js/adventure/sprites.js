@@ -1,6 +1,15 @@
 "use strict";
 const { SpriteResidency } = require("./sprite-residency");
 /** Independent native sprite packages. Prepared sets are leases: activate or release them. */
+/** Reescala el tamaño CSS de un icono para que quepa en `box` sin pasar de `maxScale` aumentos. */
+function fitIcon(canvas, box, maxScale = 3) {
+  const w = parseFloat(canvas.style.width) || canvas.width,
+    h = parseFloat(canvas.style.height) || canvas.height,
+    scale = Math.min(maxScale, box / Math.max(1, w, h));
+  canvas.style.width = Math.round(w * scale) + "px";
+  canvas.style.height = Math.round(h * scale) + "px";
+  return canvas;
+}
 class SpriteLibrary {
   constructor({ budget } = {}) {
     this.packs = new Map();
@@ -199,6 +208,15 @@ class SpriteLibrary {
     this.drawRegion(canvas.getContext("2d"), name, ix,iy,iw,ih,0,0,canvas.width,canvas.height);
     return canvas;
   }
+  /**
+   * Un icono que CABE en una caja de `box` píxeles CSS sin agrandarse más de `maxScale`: en una
+   * rejilla de baldosas iguales, la seta no puede ser una mota y la botella no puede comerse la
+   * baldosa, pero un sprite de doce píxeles estirado a sesenta tampoco es un dibujo, es bloques.
+   */
+  iconIn(name, box, maxScale = 3) {
+    const canvas = this.icon(name);
+    return canvas ? fitIcon(canvas, box, maxScale) : null;
+  }
   portrait(context, name, width, height) {
     const f = this.frame(name);
     if (!f) return false;
@@ -216,4 +234,4 @@ class SpriteLibrary {
     };
   }
 }
-module.exports = { SpriteLibrary };
+module.exports = { SpriteLibrary, fitIcon };

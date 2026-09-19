@@ -1,4 +1,5 @@
 "use strict";
+const { fitIcon } = require("./sprites");
 const { TILE } = require("./geometry");
 const {
   shapes,
@@ -378,8 +379,11 @@ class Community {
          * puerta es la cuenta; con sesión y sin poder hablar con el bosque, no hay puerta que
          * abrir y lo único honesto es decir que se ha perdido la conexión.
          */
-        if (!g.session.get()) g.self.explain("communityNeedsAccount");
-        else g.toast(g.text("communitySyncNeeded"));
+        // ⛔ Y CON SESIÓN PERO SIN LA PARTIDA GUARDADA EN LA CUENTA, TAMBIÉN SE ABRE LA PUERTA
+        // (19-sep-2026, el dueño: «no simplemente decirle "tienes que guardar tu cuenta", sino
+        // mostrar el modal de Yo»). El aviso flotante decía «sincroniza» y se iba solo; el panel
+        // tiene el botón que lo hace, y la línea de arriba dice cuál.
+        g.self.explain(g.session.get() ? "communitySyncNeeded" : "communityNeedsAccount");
         return;
       }
       if (this.pending) {
@@ -477,23 +481,45 @@ class Community {
         ...(d.removeCost || {}),
       }))
         used.add(id);
-    for (const id of used) {
+    // ⛔ SOLO LO QUE LLEVAS, Y CON SU NOMBRE (19-sep-2026, el dueño: «un diseño un poco cutre»).
+    // La fila enseñaba las siete bolsitas de semillas iguales a cero una detrás de otra: siete
+    // dibujos idénticos que no decían nada. Lo que se lleva se dice con nombre y número; lo que
+    // no se lleva lo dice cada baldosa en su precio, en rojo, que es donde se decide.
+    const carried = [...used].filter((id) => (g.materials.account.inventory[id] || 0) > 0);
+    if (!carried.length) {
+      const empty = document.createElement("p");
+      empty.textContent = g.text("communityNoMaterialsYet");
+      root.append(empty);
+      return;
+    }
+    for (const id of carried) {
       const item = document.createElement("span");
       const icon = g.renderer.sprites.icon(g.catalog.items[id]?.sprite);
       // ⛔ `icon()` escribe el tamaño del sprite EN LÍNEA, y un estilo en línea le gana a
       // cualquier clase: el cuenco de los gatos entraba aquí a su tamaño real y se comía la
       // cabecera. Se le quita la medida y manda la hoja, que es la que sabe que esta fila son
-      // dieciocho píxeles y todos iguales.
+      // veinte píxeles y todos iguales.
       if (icon) {
         icon.style.width = icon.style.height = "";
         item.append(icon);
       }
+      const name = document.createElement("span");
+      name.textContent = g.text(g.catalog.items[id]?.name || id);
+      item.append(name);
       const n = document.createElement("strong");
-      n.textContent = String(g.materials.account.inventory[id] || 0);
+      n.textContent = "×" + (g.materials.account.inventory[id] || 0);
       item.append(n);
-      item.title = g.text(g.catalog.items[id]?.name || id);
       root.append(item);
     }
+  }
+  /** Lo que te falta de una pieza suelta antes de tenerla en la mano: coste fijo y herramienta. */
+  shortFor(definition) {
+    const inventory = this.game.materials.account.inventory;
+    for (const [id, n] of Object.entries(definition.cost || {}))
+      if ((inventory[id] || 0) < n) return true;
+    for (const [id, n] of Object.entries(definition.requires?.items || {}))
+      if ((inventory[id] || 0) < n) return true;
+    return false;
   }
   palette() {
     const g = this.game,
@@ -511,9 +537,15 @@ class Community {
         const button = document.createElement("button");
         button.type = "button";
         button.className = "world-pick";
+        // La foto en una caja del mismo tamaño para todas las baldosas (`fitIcon`): la valla se
+        // dibuja a 96 y una maceta mide treinta; sin la caja, la rejilla bailaba.
+        const box = document.createElement("span");
+        box.className = "world-pick-icon";
         const icon = this.tile(d, variant);
-        if (icon) button.append(icon);
+        if (icon) box.append(fitIcon(icon, 56, 3));
+        button.append(box);
         const label = document.createElement("small");
+        label.className = "world-pick-name";
         label.textContent = g.text(d.label);
         button.append(label);
         // ⛔ Y EL NOMBRE DE LA VARIANTE CUANDO HAY MÁS DE UNA. Con las diecisiete a la vista, dos
@@ -527,7 +559,10 @@ class Community {
           button.append(which);
         }
         const detail = document.createElement("small");
+        detail.className = "world-pick-cost";
         detail.textContent = this.costLabel(d);
+        // Lo que no te llega, en el mismo rojo que la barra de colocar; la baldosa sigue viva.
+        detail.classList.toggle("is-short", d.shape !== "polyline" && this.shortFor(d));
         button.append(detail);
         button.title =
           `${g.text(d.label)}${d.variants.length > 1 && variant.label ? " · " + g.text(variant.label) : ""} — ${detail.textContent}`;

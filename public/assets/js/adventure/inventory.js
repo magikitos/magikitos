@@ -64,12 +64,27 @@ class Inventory {
       button.type = "button";
       button.className = "world-pick";
       button.dataset.item = id;
-      const icon = game.renderer.sprites.icon(definition.sprite);
-      if (icon) button.append(icon);
+      // La foto en una caja del mismo tamaño para todas, el nombre debajo y, si hay más de una,
+      // la cuenta en una chapa en la esquina: «Palito × 5» partido en dos líneas no se leía.
+      const box = document.createElement("span");
+      box.className = "world-pick-icon";
+      const icon = game.renderer.sprites.iconIn(definition.sprite, 56);
+      if (icon) box.append(icon);
+      button.append(box);
       const label = document.createElement("span");
-      label.textContent =
-        game.text(definition.name) + (count > 1 ? " × " + count : "");
+      label.className = "world-pick-name";
+      label.textContent = game.text(definition.name);
       button.append(label);
+      if (count > 1) {
+        const badge = document.createElement("span");
+        badge.className = "world-pick-count";
+        badge.textContent = "×" + count;
+        button.append(badge);
+      }
+      button.setAttribute(
+        "aria-label",
+        game.text(definition.name) + (count > 1 ? " × " + count : ""),
+      );
       button.addEventListener("click", () => {
         this.selected = id;
         this.detail();
@@ -91,6 +106,8 @@ class Inventory {
       definition = game.catalog.items[this.selected];
     byId("bag-detail").hidden = !definition;
     if (!definition) return;
+    const icon = game.renderer.sprites.iconIn(definition.sprite, 60, 4);
+    byId("bag-item-icon").replaceChildren(...(icon ? [icon] : []));
     byId("bag-item-title").textContent = game.text(definition.name);
     byId("bag-item-description").textContent = game.text(
       definition.description,

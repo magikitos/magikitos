@@ -334,11 +334,11 @@ class Renderer {
     c.fillRect(0, 0, this.width, this.height);
   }
   /**
-   * ⛔ EL ARO DE APRENDIZAJE DEL MANDO (19-sep-2026). Un círculo tenue donde apoyaste el dedo y
-   * una bolita donde está ahora: enseña que el mando nace bajo tu dedo y, cuando el origen se
-   * arrastra detrás del dedo, que no hace falta levantar para virar. Se pinta en unidades de la
-   * vista, encima del mundo y debajo del viñeteado, solo mientras el dedo manda y solo hasta que
-   * quien juega ya sabe andar (`game.stickHint`). Nada de DOM: cuando sobra, no deja rastro.
+   * ⛔ EL ARO DEL MANDO (19-sep-2026). Un círculo tenue donde apoyaste el dedo y una bolita donde
+   * está ahora: enseña que el mando nace bajo tu dedo y, cuando el origen se arrastra detrás del
+   * dedo, que no hace falta levantar para virar. Se pinta en unidades de la vista, encima del mundo
+   * y debajo del viñeteado, SIEMPRE que el dedo manda (decisión del dueño: «que siempre salga, solo
+   * ligeramente más transparentito») y se apaga al soltar. Nada de DOM.
    */
   stickHint(view) {
     if (!view) return;
@@ -346,17 +346,17 @@ class Renderer {
       u = view.unit;
     c.save();
     c.lineWidth = 1.5 * u;
-    c.strokeStyle = view.running ? "rgba(255, 240, 177, 0.55)" : "rgba(255, 255, 255, 0.34)";
-    c.fillStyle = "rgba(255, 255, 255, 0.10)";
+    c.strokeStyle = view.running ? "rgba(255, 240, 177, 0.42)" : "rgba(255, 255, 255, 0.26)";
+    c.fillStyle = "rgba(255, 255, 255, 0.07)";
     c.beginPath();
     c.arc(view.origin.x, view.origin.y, view.radius, 0, Math.PI * 2);
     c.fill();
     c.stroke();
-    c.fillStyle = "rgba(255, 255, 255, 0.5)";
+    c.fillStyle = "rgba(255, 255, 255, 0.38)";
     c.beginPath();
     c.arc(view.origin.x, view.origin.y, view.dead * 0.35, 0, Math.PI * 2);
     c.fill();
-    c.fillStyle = view.running ? "rgba(255, 240, 177, 0.9)" : "rgba(255, 255, 255, 0.85)";
+    c.fillStyle = view.running ? "rgba(255, 240, 177, 0.72)" : "rgba(255, 255, 255, 0.66)";
     c.beginPath();
     c.arc(view.knob.x, view.knob.y, 9 * u, 0, Math.PI * 2);
     c.fill();

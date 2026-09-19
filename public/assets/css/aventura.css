@@ -329,18 +329,26 @@ body.world-page {
   box-shadow: 0 8px 28px #11261d44;
   text-align: center;
 }
+/* LAS MODALES DE LA CASA (el saco, «Yo», Construir, las notas). Una tarjeta de papel que HACE
+   SCROLL ELLA MISMA: hasta el 19-sep-2026 tenía tope de alto y nada de desplazamiento, así que en
+   escritorio y tablet el elenco, el correo de la cuenta y las últimas filas del catálogo quedaban
+   recortados sin manera de llegar. La cabecera se queda pegada arriba para que la cruz esté
+   siempre a mano. */
 .world-modal {
   margin: auto;
   inset: 0;
   height: fit-content;
   border: 1px solid #b5a37b;
-  border-radius: 23px;
+  border-radius: 24px;
   background: #f7efdc;
   color: #2e4a35;
-  width: min(490px, calc(100vw - 28px));
-  max-height: 85dvh;
-  padding: 24px;
-  box-shadow: 0 20px 80px #152a2670;
+  width: min(560px, calc(100vw - 32px));
+  max-height: min(88dvh, 940px);
+  padding: 0 24px 24px;
+  box-shadow: 0 24px 80px #152a2670;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
 }
 .world-modal::backdrop {
   background: #152c2666;
@@ -385,19 +393,36 @@ body.world-page {
   overscroll-behavior: contain;
 }
 .world-modal header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  margin-bottom: 20px;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 22px 0 14px;
+  margin: 0 0 12px;
+  background: linear-gradient(#f7efdc 78%, #f7efdc00);
 }
 .world-modal h2 {
   font:
-    25px WorldRound,
+    26px/1.1 WorldRound,
     serif;
   margin: 0;
 }
+.world-modal-heading {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.world-modal .world-modal-subtitle {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #7a6b4b;
+}
 .world-modal header [data-dismiss] {
+  flex: 0 0 auto;
   width: 40px;
   height: 40px;
   border: 1px solid var(--world-line);
@@ -405,8 +430,11 @@ body.world-page {
   background: #fffbec;
   color: #36523c;
   font-size: 25px;
+  line-height: 1;
 }
-
+.world-modal header [data-dismiss]:hover {
+  background: #f1e7cf;
+}
 .world-modal label,
 .world-modal select {
   display: block;
@@ -414,8 +442,54 @@ body.world-page {
   width: 100%;
 }
 .world-modal p {
-  font-size: 12px;
-  line-height: 1.6;
+  font-size: 14px;
+  line-height: 1.55;
+}
+/* Las tarjetas de dentro: cada cosa en su caja, con un rótulo pequeño en mayúsculas que dice
+   qué es sin gritar. */
+.world-card {
+  background: #fffaf0;
+  border: 1px solid #e3d6b8;
+  border-radius: 16px;
+  padding: 14px 16px;
+}
+.world-card-title {
+  display: block;
+  margin: 0 0 10px;
+  font: 600 11px/1.2 Roboto, system-ui, sans-serif;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #8a7a55;
+}
+/* El porqué se ha abierto un panel solo: una llamada de atención que se lee antes que nada y
+   señala la puerta que hay debajo. */
+.world-callout {
+  position: relative;
+  margin: 0;
+  padding: 12px 14px 12px 44px;
+  border-radius: 14px;
+  background: #fff1cf;
+  border: 1px solid #d8b678;
+  color: #5c4420;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.world-callout::before {
+  content: "!";
+  position: absolute;
+  left: 14px;
+  top: 12px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #b88746;
+  color: #fff8e6;
+  font: 700 13px/20px Roboto, system-ui, sans-serif;
+  text-align: center;
+}
+.world-card.is-wanted {
+  border-color: #b88746;
+  box-shadow: 0 0 0 3px #b8874633;
 }
 
 @media (max-width: 799px) {
@@ -494,7 +568,8 @@ body.world-page {
   right: -3px;
   min-width: 18px;
   height: 18px;
-  border-radius: 50%;
+  padding: 0 4px;
+  border-radius: 9px;
   background: #efdcb0;
   color: #354b35;
   font:
@@ -503,7 +578,7 @@ body.world-page {
     sans-serif;
 }
 .world-bag {
-  box-sizing: border-box;
+  width: min(680px, calc(100vw - 32px));
 }
 /* ⛔ UNA SOLA REJILLA PARA ELEGIR COSAS. El saco y el catálogo de construir son la misma clase de
    pantalla —una cuadrícula de cosas entre las que se elige una— y tenerlas con dos diseños hacía
@@ -511,61 +586,128 @@ body.world-page {
    la siguiente que necesite una cuadrícula así no tiene que inventarse otra. */
 .world-pick-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 10px;
   min-height: 110px;
+  align-content: start;
 }
 .world-pick-grid > p {
   grid-column: 1/-1;
   color: #777356;
   line-height: 1.6;
+  margin: 0;
 }
 .world-modal .world-pick {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
-  min-height: 110px;
-  background: #fff9e8;
-  border: 2px solid #d5c5a1;
+  justify-content: flex-start;
+  gap: 6px;
+  min-height: 124px;
+  padding: 12px 8px;
+  background: #fffaf0;
+  border: 2px solid #e3d6b8;
+  border-radius: 14px;
+  color: inherit;
+  text-align: center;
+  transition: border-color 0.15s, background 0.15s;
 }
-.world-pick canvas {
-  height: 44px;
-  width: auto;
-  image-rendering: pixelated;
+.world-modal .world-pick:hover {
+  border-color: #b7a77f;
 }
 .world-modal .world-pick[aria-pressed="true"] {
   border-color: #5e8050;
-  background: #e9ebd3;
-  box-shadow: 0 0 0 2px #5e805020;
+  background: #ecefd8;
+  box-shadow: 0 0 0 3px #5e805022;
+}
+/* La foto de cada cosa en una caja del mismo tamaño: un sprite pequeño no se hace bloques y uno
+   grande no se come la baldosa (`sprites.iconIn`). */
+.world-pick-icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  flex: 0 0 auto;
+}
+.world-pick-icon canvas {
+  image-rendering: pixelated;
+}
+.world-pick-name {
+  font-size: 13px;
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.world-pick-count {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 11px;
+  background: #375b43;
+  color: #fff3d2;
+  font: 700 12px/22px Roboto, system-ui, sans-serif;
+}
+.world-bag-layout {
+  display: grid;
+  gap: 16px;
 }
 .world-bag-detail {
-  border-top: 1px solid var(--world-line);
-  margin-top: 20px;
-  padding-top: 18px;
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+}
+.world-bag-detail-icon {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 16px;
+  background: #f1e7cf;
+}
+.world-bag-detail-icon canvas {
+  image-rendering: pixelated;
 }
 .world-bag-detail h3 {
   font:
-    22px WorldRound,
+    20px WorldRound,
     Georgia,
     serif;
-  margin: 0 0 8px;
+  margin: 0 0 6px;
 }
 .world-bag-detail p {
   font-size: 14px;
-  line-height: 1.7;
-  margin: 0 0 12px;
+  line-height: 1.6;
+  margin: 0 0 6px;
 }
 .world-bag-detail small {
   display: block;
   color: #7c724e;
-  margin-bottom: 18px;
+  font-size: 12px;
+}
+.world-bag-detail .world-primary {
+  width: 100%;
+  margin-top: 4px;
 }
 #save-status {
   font-size: 11px;
   color: #7e805e;
-  margin: 24px 0 0;
+  margin: 18px 0 0;
+}
+@media (min-width: 900px) {
+  .world-bag-layout {
+    grid-template-columns: minmax(0, 1fr) 240px;
+    align-items: start;
+  }
+  .world-bag-detail {
+    position: sticky;
+    top: 78px;
+  }
 }
 #dialogue-actions {
   display: flex;
@@ -626,21 +768,28 @@ body:has(.world-dialogue:not([hidden])) .world-held-item {
   display: block;
 }
 .world-wallet {
-  display: grid;
-  grid-template-columns: 32px 1fr;
-  gap: 4px 10px;
+  display: flex;
   align-items: center;
-  padding: 10px 0 16px;
-  border-bottom: 1px solid #b6a37a55;
-  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  padding: 10px 14px;
+  margin: 0 0 16px;
+  border-radius: 14px;
+  background: #fffaf0;
+  border: 1px solid #e3d6b8;
 }
 .world-wallet canvas {
-  width: 30px;
-  height: 30px;
+  width: 26px;
+  height: 26px;
   image-rendering: pixelated;
 }
+.world-wallet strong {
+  font:
+    16px WorldRound,
+    serif;
+}
 .world-wallet small {
-  grid-column: 2;
+  flex: 1 1 100%;
   color: #74664e;
   font-size: 12px;
   line-height: 1.4;
@@ -696,90 +845,138 @@ body:has(.world-dialogue:not([hidden])) .world-held-item {
   height: 29px;
   image-rendering: pixelated;
 }
+/* Tu nombre en la esquina, recortado a lo que cabe: un nombre largo no puede pisar el saco. */
 .world-self-toggle small {
   position: absolute;
   bottom: -4px;
   right: -3px;
+  max-width: 54px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-size: 10px;
   background: #efdcb0;
   color: #354b35;
   border-radius: 8px;
   padding: 1px 5px;
 }
+
+/* «YO»: quién eres arriba de un vistazo, y debajo dos columnas cuando hay sitio —tu duende a un
+   lado; tu cuenta, tu partida y el idioma al otro—. En el teléfono es una sola columna que
+   scrollea entera. */
 .world-self {
-  width: min(440px, calc(100vw - 28px));
+  width: min(560px, calc(100vw - 32px));
 }
-.world-self-summary {
+.world-self-hero {
   display: flex;
   align-items: center;
-  gap: 20px;
-  margin: 20px 0;
+  gap: 18px;
+  padding: 14px 16px;
+  margin: 0 0 14px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #eef0d9, #f4ead2);
+  border: 1px solid #dfd3b3;
 }
-.world-self-summary canvas {
-  width: 56px;
-  height: 80px;
+.world-self-portrait {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 96px;
+  flex: 0 0 auto;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #d9dcc0;
+}
+.world-self-portrait canvas {
   image-rendering: pixelated;
 }
-.world-self-summary p {
-  font-size: 18px;
+/* El retrato del elenco, cuando está prestado: pintado a su resolución, no un sprite estirado. */
+.world-self-portrait canvas.is-portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  image-rendering: auto;
+}
+.world-self-who {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.world-self-who img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.world-self-who #self-identity-handle {
+  margin: 0;
+  font-size: 14px;
+  color: #5c6a4e;
+}
+.world-self-state {
+  margin: 0;
+  font-size: 14px;
   line-height: 1.45;
 }
 .world-self-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin: 16px 0;
+  gap: 10px;
+  margin: 0 0 14px;
+}
+.world-self-actions:empty,
+.world-self-actions:not(:has(button:not([hidden]))) {
+  display: none;
+}
+.world-self-columns {
+  display: grid;
+  gap: 14px;
+}
+.world-self-side {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+}
+.world-self-side > .world-callout {
+  margin: 0;
 }
 
 /* Illustrated choices use one lazy 2× atlas; names stay in accessible labels, not the art. */
-.world-self-cast {
-  margin: 16px 0;
-  padding-top: 16px;
-  border-top: 1px solid rgba(0, 0, 0, 0.12);
-}
-.world-self-cast h3 {
-  font-size: 16px;
-  margin: 0;
-}
 .world-self-cast-lead {
-  font-size: 14px;
-  opacity: 0.8;
-  margin: 4px 0 12px;
+  font-size: 13px;
+  color: #6f6a52;
+  margin: -4px 0 12px;
 }
 .world-self-cast-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
   gap: 8px;
-  max-height: min(360px, 44dvh);
-  padding: 3px;
-  overflow-y: auto;
 }
 .world-self-cast-option {
   display: flex;
   align-items: flex-end;
   justify-content: center;
   min-width: 0;
-  min-height: 136px;
   padding: 0;
   background: rgba(255, 255, 255, 0.55);
-  border: 2px solid transparent;
-  border-radius: 10px;
+  border: 2px solid #e3d6b8;
+  border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
+  aspect-ratio: 3 / 4;
 }
 .world-self-cast-option canvas {
   /* Authored at 240×320: integrated reduction, not CSS pixel enlargement. */
   image-rendering: auto;
-  height: auto;
+  height: 100%;
   width: 100%;
-  aspect-ratio: 3 / 4;
-  max-width: 100%;
+  object-fit: cover;
+}
+.world-self-cast-option:hover {
+  border-color: #b7a77f;
 }
 .world-self-cast-option.is-chosen {
   border-color: #6d8c4a;
-  outline: 2px solid #6d8c4a;
-  outline-offset: 1px;
-  background: rgba(109, 140, 74, 0.18);
+  box-shadow: 0 0 0 3px #6d8c4a33;
 }
 .world-self-cast-option:focus-visible {
   outline: 3px solid #b77d27;
@@ -789,47 +986,30 @@ body:has(.world-dialogue:not([hidden])) .world-held-item {
 /* La cuenta dentro del panel «Yo»: las dos MISMAS puertas que la web (Google o
    un código por correo). El retrato puede no existir todavía (lo pinta el cron
    de avatares), así que la fila se compone sin contar con él. */
-.world-self-summary img {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  flex: 0 0 auto;
-}
-.world-self-summary #self-identity-handle {
-  opacity: 0.75;
-  font-size: 13px;
-  margin: 0;
-}
-.world-self-account {
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(0, 0, 0, 0.12);
-}
 .world-self-lead {
   font-size: 14px;
   margin: 0 0 12px;
 }
 .world-self-account form {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: 8px;
   margin: 0;
 }
 .world-self-account input {
-  flex: 1 1 11rem;
   min-width: 0;
   /* 16px is not a typography choice: below it iOS Safari zooms the page on
      focus, and this panel sits over a canvas that must not be zoomed. */
   font: 16px/1.3 Roboto, system-ui, sans-serif;
   min-height: 44px;
   padding: 0 12px;
-  border: 1px solid var(--world-line);
+  border: 1px solid #c9bb96;
   border-radius: 12px;
-  background: #fffbec;
+  background: #fffdf6;
   color: #2e4a35;
 }
 .world-self-account form .world-primary {
-  flex: 0 0 auto;
+  white-space: nowrap;
 }
 .world-self-or {
   display: flex;
@@ -850,7 +1030,7 @@ body:has(.world-dialogue:not([hidden])) .world-held-item {
   width: 100%;
 }
 .world-self-link {
-  flex: 1 1 100%;
+  grid-column: 1 / -1;
   min-height: 44px;
   border: 0;
   background: none;
@@ -858,31 +1038,80 @@ body:has(.world-dialogue:not([hidden])) .world-held-item {
   font: 13px Roboto, system-ui, sans-serif;
   text-decoration: underline;
 }
+.world-self-link-out {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: 12px;
+  border: 1px solid #b5a37b;
+  background: #fffbec;
+  color: inherit;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+}
 #self-identity-note:empty {
   display: none;
 }
 #self-identity-note {
   font-size: 13px;
-  margin-top: 10px;
+  margin: 10px 0 0;
 }
 /* The body joke: one small line, never the headline of the panel. */
 .world-self-need {
   font-size: 13px;
   opacity: 0.85;
+  margin: 0 0 10px;
+}
+.world-cloud-save p {
+  margin: 0 0 10px;
+}
+.world-cloud-save p:last-child {
   margin: 0;
+}
+#cloud-conflict:not([hidden]),
+#cloud-recoveries:not(:empty) {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+}
+#cloud-conflict button,
+#cloud-recoveries button {
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid #b5a37b;
+  border-radius: 12px;
+  background: #fffbec;
+  color: inherit;
+  font: inherit;
+  font-size: 14px;
 }
 /* Language is a once-ever setting; it sits at the very bottom and stays out of
    the way of everything you actually came here to do. */
-.world-language {
-  margin-top: 18px;
-  padding-top: 14px;
-  border-top: 1px solid rgba(0, 0, 0, 0.12);
+.world-modal label.world-language {
+  margin: 0;
   font-size: 12px;
-  opacity: 0.75;
+  color: #7a6b4b;
 }
 .world-modal label.world-language select {
-  margin-top: 6px;
-  min-height: 40px;
+  margin: 6px 0 0;
+  min-height: 42px;
+  padding: 0 12px;
+  border: 1px solid #c9bb96;
+  border-radius: 12px;
+  background: #fffdf6;
+  color: #2e4a35;
+  font-size: 14px;
+}
+@media (min-width: 900px) {
+  .world-self {
+    width: min(900px, calc(100vw - 48px));
+  }
+  .world-self-columns {
+    grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+    align-items: start;
+  }
 }
 /* Boating controls are a movement affordance, never a permanent navigation dock. */
 .world-page .world-primary {
@@ -925,23 +1154,83 @@ body:has(.world-dialogue:not([hidden])) .world-held-item {
 }
 
 /* EL CATÁLOGO DE CONSTRUIR — es una modal de la casa (ver `.world-modal`), así que de aquí solo
-   salen las tres cosas que son suyas: el rótulo del sitio, lo que llevas encima y la nota del pie. */
-.world-build-head { display: flex; align-items: center; gap: 12px; margin: 0 0 14px; flex-wrap: wrap; }
-.world-build-head strong { font-size: 15px; }
-/* Lo que llevas, siempre a la vista: no se deduce de qué baldosas están apagadas. */
-.world-build-materials { display: flex; gap: 10px; margin-left: auto; align-items: center; flex-wrap: wrap; }
-.world-build-materials span { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; }
-.world-build-materials canvas { width: 20px; height: 20px; object-fit: contain; image-rendering: pixelated; }
-.world-build-note { margin: 16px 0 0; }
-.world-pick small { display: block; text-align: center; line-height: 1.3; }
-.world-pick small + small { font-size: 11px; color: #7c724e; margin-top: -4px; }
+   salen las tres cosas que son suyas: lo que llevas, la rejilla de baldosas y la nota del pie. */
+.world-build {
+  width: min(760px, calc(100vw - 32px));
+}
+.world-build-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin: 0 0 14px;
+  padding: 10px 14px;
+}
+.world-build-head .world-card-title {
+  margin: 0;
+}
+/* Lo que llevas, con su nombre y su número, y solo lo que llevas: siete bolsitas iguales a cero
+   no decían nada. */
+.world-build-materials {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.world-build-materials span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px 4px 6px;
+  border-radius: 999px;
+  background: #f1e7cf;
+  font-size: 13px;
+}
+.world-build-materials canvas {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+.world-build-materials > p {
+  margin: 0;
+  font-size: 13px;
+  color: #7c724e;
+}
+.world-pick-grid--build {
+  grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+}
+.world-pick small {
+  display: block;
+  text-align: center;
+  line-height: 1.3;
+  font-size: 12px;
+}
 /* El nombre de la variante es lo que separa dos baldosas que se llaman igual, así que se
    lee antes que el precio: mismo tamaño pequeño, pero con el verde de la casa. */
-.world-pick .world-pick-variant { color: #5e8050; font-weight: 600; }
+.world-pick .world-pick-variant {
+  color: #5e8050;
+  font-weight: 600;
+  font-size: 11px;
+}
+.world-pick .world-pick-cost {
+  color: #7c724e;
+  font-size: 11px;
+  margin-top: auto;
+}
+/* ⛔ NUNCA APAGADA, pero sí dicho: cuando no te llega, el precio va en el mismo rojo que la barra. */
+.world-pick .world-pick-cost.is-short {
+  color: #a8452b;
+}
+.world-build-note {
+  margin: 16px 0 0;
+  font-size: 13px;
+  color: #7a6b4b;
+}
 
 /* LA BARRA DE COLOCAR — lo único que queda en pantalla mientras eliges el sitio, así que ocupa lo
-   mínimo: qué estás poniendo, por qué no cabe si no cabe, y las tres cosas que puedes hacer.
-   Centrada abajo y por encima del mando, nunca tapando el centro del mapa. */
+   mínimo: qué estás poniendo, lo que cuesta, y las tres cosas que puedes hacer. Centrada abajo y
+   por encima del mando, nunca tapando el centro del mapa. */
 .world-build-bar {
   position: fixed; z-index: 14; left: 50%; transform: translateX(-50%);
   /* ⛔ SE APOYA JUSTO ENCIMA DE LO QUE VIVE EN LA ESQUINA DE ABAJO: `24px` es el hueco que
@@ -949,42 +1238,49 @@ body:has(.world-dialogue:not([hidden])) .world-held-item {
      recentrar se comía la esquina de Colocar — medido a 390px, el botón recibía su propio clic en
      el centro y el de recentrar en la esquina, o sea una confirmación que a veces no confirma. */
   bottom: calc(24px + var(--world-control-clearance) + var(--world-safe));
-  width: min(520px, calc(100vw - 24px));
+  width: min(600px, calc(100vw - 24px));
   display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-  padding: 10px 12px; border: 1px solid #c8c19b; border-radius: 18px;
+  padding: 10px 12px; border: 1px solid #c8c19b; border-radius: 20px;
   color: #fcf4db; background: #263f31f2; box-shadow: 0 8px 32px #17261c45;
 }
 .world-build-bar[hidden] { display: none; }
-.world-build-bar__what { display: flex; align-items: center; gap: 10px; flex: 1 1 140px; min-width: 0; }
-.world-build-bar__what canvas { width: 38px; height: 36px; object-fit: contain; image-rendering: pixelated; flex: 0 0 auto; }
+.world-build-bar__what { display: flex; align-items: center; gap: 12px; flex: 1 1 140px; min-width: 0; }
+#build-piece {
+  display: grid; place-items: center; width: 48px; height: 48px; flex: 0 0 auto;
+  border-radius: 12px; background: #fff3d244;
+}
+#build-piece canvas { max-width: 40px; max-height: 40px; width: auto; height: auto; object-fit: contain; image-rendering: pixelated; }
 /* Lo que cuesta, que es lo único que la barra tiene que decir con palabras: en rojo cuando no te
    llega, porque ahí el mapa no puede contestar solo. */
 #build-price { font-size: 13px; line-height: 1.3; min-width: 0; }
 #build-price.is-short { color: #ffb9a3; font-weight: 600; }
-#community-hint { flex: 1 0 100%; font-size: 11px; opacity: .8; }
+#community-hint { flex: 1 0 100%; font-size: 12px; opacity: .85; margin: 2px 4px 0; }
 .world-build-bar small[hidden] { display: none; }
-.world-build-bar__actions { display: flex; gap: 8px; align-items: center; }
+.world-build-bar__actions { display: flex; gap: 8px; align-items: center; margin-left: auto; }
 .world-build-bar__actions button {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
   min-height: 44px; min-width: 44px; padding: 8px 14px; border-radius: 12px;
   border: 1px solid #a0ab88; background: #e8e8c7; color: #263f31; font: 14px/1.2 system-ui; cursor: pointer;
 }
-.world-build-bar__actions #home-save { background: #d8bc75; }
-.world-build-bar__actions button:disabled { opacity: .45; }
+.world-build-bar__actions button > span { font-size: 19px; line-height: 1; }
+.world-build-bar__actions button small { font-size: 13px; }
+.world-build-bar__actions #home-save { background: #d8bc75; font-weight: 600; }
+.world-build-bar__actions button:disabled { opacity: .45; cursor: default; }
 .world-build-bar__actions button[hidden] { display: none; }
-.world-build-bar__actions #home-cancel { font-size: 20px; padding: 4px; }
-.world-build-bar__actions #build-undo { font-size: 18px; padding: 4px; }
+@media (max-width: 639px) {
+  .world-build-bar__actions button small { display: none; }
+  .world-build-bar__actions button { padding: 8px 10px; }
+  .world-build-bar__actions #home-save { padding: 8px 14px; }
+}
 
-.world-cloud-save { border-top: 1px solid #a0ab8866; margin-top: 16px; padding-top: 8px; }
-#cloud-conflict:not([hidden]), #cloud-recoveries { display: grid; gap: 8px; }
 
 /* ⛔ Al FINAL del fichero a propósito. El saco, «Yo» y el catálogo de construir son los tres
    paneles con contenido de verdad dentro (un inventario que crece, la cuenta con su login y
-   diecisiete cosas que poner): a 85dvh y 490px se quedan cortos y lo de abajo queda fuera de
-   alcance, así que en el teléfono ocupan la pantalla entera y scrollean. El
-   resto de modales son avisos de dos líneas y siguen siendo tarjetas centradas.
-   Va aquí porque `.world-bag` y `.world-self` declaran su propia anchura más
-   arriba y, a igual especificidad, gana la regla que va después. */
-@media (max-width: 799px) {
+   diecisiete cosas que poner): en el TELÉFONO ocupan la pantalla entera y scrollean, que una
+   tarjeta con márgenes ahí solo quita sitio. Una tablet ya tiene espacio para la tarjeta, por eso
+   el corte está en 640 y no en 800. Va aquí porque las tres declaran su propia anchura más arriba
+   y, a igual especificidad, gana la regla que va después. */
+@media (max-width: 639px) {
   .world-modal.world-bag,
   .world-modal.world-self,
   .world-modal.world-build {
@@ -994,21 +1290,29 @@ body:has(.world-dialogue:not([hidden])) .world-held-item {
     max-height: none;
     border: 0;
     border-radius: 0;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    padding: max(16px, env(safe-area-inset-top))
-      max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom))
+    padding: 0 max(16px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom))
       max(16px, env(safe-area-inset-left));
   }
-  /* La cruz tiene que seguir alcanzable con el panel scrolleado hasta abajo. */
   .world-modal.world-bag header,
   .world-modal.world-self header,
   .world-modal.world-build header {
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    margin: 0 0 16px;
-    padding: 4px 0 10px;
-    background: #f7efdc;
+    padding-top: max(18px, env(safe-area-inset-top));
+    background: linear-gradient(#f7efdc 82%, #f7efdc00);
+  }
+  .world-modal .world-pick-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .world-modal .world-pick {
+    padding: 10px 6px;
+    min-height: 116px;
+  }
+  .world-self-hero {
+    gap: 14px;
+    padding: 12px;
+  }
+  .world-self-portrait {
+    width: 60px;
+    height: 80px;
   }
 }

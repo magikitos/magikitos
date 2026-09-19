@@ -62,8 +62,8 @@ Un mismo motor de entrada para ratón, teclado y táctil, y desde el 19-sep-2026
 ningún mando fijo en pantalla: **tocar es ir y mover el dedo es un joystick
 invisible**. Apoyas el dedo (o el botón izquierdo) donde quieras y lo mueves: el
 protagonista va en esa dirección como con una flecha, un poco anda y en el borde
-corre, y el origen sigue al dedo para virar sin levantar. Soltar para. Mientras se
-aprende, el lienzo pinta un aro tenue bajo el dedo que desaparece solo. Dos dedos,
+corre, y el origen sigue al dedo para virar sin levantar. Soltar para. Mientras el
+dedo manda, el lienzo pinta un aro tenue bajo el dedo, que se va al soltar. Dos dedos,
 o el botón derecho, mueven la cámara y hacen zoom sin dar órdenes. Clic en suelo
 significa llegar esquivando sin activar otros objetos; clic en objeto significa
 interactuar. Flechas/WASD siguen moviendo directo y espacio sostenido corre o rema

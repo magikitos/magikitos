@@ -82,7 +82,7 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
        * Se prueba lo que se ve: un dedo quieto no manda; moverlo manda al duende en esa dirección
        * como una tecla, sin destino; un poco anda y en el borde corre; el origen sigue al dedo, así
        * que volver hacia atrás es virar sin levantar; soltar para; la cámara es del duende; el aro
-       * se pinta mientras se aprende y se apaga solo; y dos dedos mueven la cámara sin dar órdenes.
+       * se pinta mientras el dedo manda; y dos dedos mueven la cámara sin dar órdenes.
        */
       assert.equal(await page.locator("#world-joystick").count(), 0, "El joystick fijo ya no existe");
       assert.equal(await page.locator("#world-boost").count(), 0, "Ni su botón de turbo");
@@ -135,7 +135,7 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
       assert(!ahora.travel.intent, "…sin destino: es una tecla, no un viaje");
       assert.equal(ahora.pace, "walk", "Un poco es andar");
       assert(ahora.cameraFollowing, "La cámara es del duende");
-      assert(ahora.gesture.hint, "…y el aro de aprendizaje se pinta mientras se aprende");
+      assert(ahora.gesture.hint, "…y el aro del mando se pinta mientras el dedo manda");
 
       // 3. En el borde se corre.
       await mover(-70, 0);
@@ -161,18 +161,16 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
       await page.waitForTimeout(200);
       assert(lejos((await inspect()).player, parado.player) < 1, "…parado de verdad");
 
-      // 6. El aro se apaga cuando ya sabes andar: con casi todo aprendido, un paso más lo retira para
-      //    siempre en este navegador. El resto del barrido corre ya sin aro, como cualquier veterano.
-      await page.evaluate(() => localStorage.setItem("magikitos.adventure.stick", "5.7"));
-      await seed({ scene: "overworld", position: { x: 900, y: 900 } });
-      dedo = [Math.round(width * 0.3), Math.round(height * 0.72)];
+      // 6. El aro se pinta SIEMPRE que el dedo manda y se apaga al soltar (decisión del dueño:
+      //    «que siempre salga, solo ligeramente más transparentito»). Aquí vivió un contador que lo
+      //    retiraba tras seis segundos andados, y se fue el mismo día.
       await apoyar();
       await mover(50, 0);
-      await page.waitForFunction(() => !window.MagikitosAdventure.inspect().gesture.hint, null, { timeout: 4000 });
-      const aprendido = await inspect();
-      assert(aprendido.gesture.steering && aprendido.gesture.practice >= 6, "Seis segundos andados apagan el aro " + JSON.stringify(aprendido.gesture));
-      assert.equal(await page.evaluate(() => localStorage.getItem("magikitos.adventure.stick")), "6", "…y se recuerda en este navegador");
+      await page.waitForTimeout(200);
+      assert((await inspect()).gesture.hint, "Mandando, el aro está");
       await soltar();
+      await page.waitForTimeout(100);
+      assert(!(await inspect()).gesture.hint, "Soltando, el aro se va");
       await quieto();
 
       // 7. Dos dedos mueven la CÁMARA y no dan órdenes.
@@ -649,7 +647,7 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
       await cdp.detach();
       await page.close();
       console.log(
-        `PASS ${width}×${height}: joystick invisible (nace bajo el dedo, anda/corre por radio, el origen sigue al dedo, soltar para, aro hasta aprender), dos dedos mueven la cámara sin dar órdenes, sin joystick fijo ni turbo en el DOM, hablar retira la esquina, la cámara vuelve suavizando (${vuelta.mayor.toFixed(0)}px el mayor paso de ${vuelta.total.toFixed(0)}), recentrar, clic a través del diálogo, rueda/pellizco cubriendo el mapa entero y remo ${rowNormal.toFixed(0)}→${rowFast.toFixed(0)} px con espacio.`,
+        `PASS ${width}×${height}: joystick invisible (nace bajo el dedo, anda/corre por radio, el origen sigue al dedo, soltar para, aro mientras manda), dos dedos mueven la cámara sin dar órdenes, sin joystick fijo ni turbo en el DOM, hablar retira la esquina, la cámara vuelve suavizando (${vuelta.mayor.toFixed(0)}px el mayor paso de ${vuelta.total.toFixed(0)}), recentrar, clic a través del diálogo, rueda/pellizco cubriendo el mapa entero y remo ${rowNormal.toFixed(0)}→${rowFast.toFixed(0)} px con espacio.`,
       );
     }
     assert.deepEqual(errors, []);

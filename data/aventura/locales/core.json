@@ -796,12 +796,12 @@
     "pt": "Destes já puseste uns quantos. Experimenta outra coisa."
   },
   "communityNeedsAccount": {
-    "es": "Para construir aquí hace falta conectar tu partida: lo que dejes lo ve todo el bosque y lleva tu firma.",
-    "en": "Building here needs your game connected: whatever you leave is seen by the whole forest, with your name on it.",
-    "de": "Zum Bauen muss dein Spiel verbunden sein: Was du hier lässt, sieht der ganze Wald, mit deinem Namen daran.",
-    "fr": "Pour construire ici il faut connecter ta partie : ce que tu laisses, toute la forêt le voit, signé de ton nom.",
-    "it": "Per costruire qui serve la partita collegata: quello che lasci lo vede tutto il bosco, con la tua firma.",
-    "pt": "Para construir aqui é preciso ligar o teu jogo: o que deixares vê-o a floresta toda, com a tua assinatura."
+    "es": "Para construir en el mapa público tienes que tener tu cuenta creada. Créala o entra aquí mismo: lo que dejes lo ve todo el bosque y lleva tu firma.",
+    "en": "To build on the public map you need an account. Create one or sign in right here: what you leave is seen by the whole forest and carries your name.",
+    "de": "Um auf der öffentlichen Karte zu bauen, brauchst du ein Konto. Erstelle eins oder melde dich gleich hier an: was du hinterlässt, sieht der ganze Wald und trägt deinen Namen.",
+    "fr": "Pour construire sur la carte publique, il te faut un compte. Crée-le ou connecte-toi ici même : ce que tu laisses, toute la forêt le voit et il porte ton nom.",
+    "it": "Per costruire sulla mappa pubblica devi avere un account. Crealo o entra qui: quello che lasci lo vede tutto il bosco e porta la tua firma.",
+    "pt": "Para construir no mapa público precisas de ter a tua conta criada. Cria-a ou entra aqui mesmo: o que deixares vê-o toda a floresta e leva a tua assinatura."
   },
   "communityNoMaterials": {
     "es": "Se te ha acabado el material justo ahora.",
@@ -876,12 +876,12 @@
     "pt": "Rodar"
   },
   "communitySyncNeeded": {
-    "es": "Conecta tu partida y sincroniza los materiales antes de construir.",
-    "en": "Connect your save and sync your materials before building.",
-    "de": "Verbinde deinen Spielstand und synchronisiere die Materialien.",
-    "fr": "Connecte ta partie et synchronise tes matériaux avant de construire.",
-    "it": "Collega la partita e sincronizza i materiali prima di costruire.",
-    "pt": "Liga a tua partida e sincroniza os materiais antes de construir."
+    "es": "Para construir en el mapa público tu partida tiene que estar guardada en tu cuenta. Pulsa «Guardar con mi usuario» y vuelve a intentarlo.",
+    "en": "To build on the public map your game has to be saved to your account. Press “Save with my identity” and try again.",
+    "de": "Um auf der öffentlichen Karte zu bauen, muss dein Spiel in deinem Konto gespeichert sein. Drück „Mit meinem Benutzer speichern“ und versuch es noch einmal.",
+    "fr": "Pour construire sur la carte publique, ta partie doit être enregistrée dans ton compte. Appuie sur « Enregistrer avec mon identité » et réessaie.",
+    "it": "Per costruire sulla mappa pubblica la tua partita deve essere salvata nel tuo account. Premi «Salva con il mio utente» e riprova.",
+    "pt": "Para construir no mapa público a tua partida tem de estar guardada na tua conta. Carrega em «Guardar com o meu utilizador» e tenta outra vez."
   },
   "communityTerrain": {
     "es": "Necesita suelo firme y espacio libre.",
@@ -1162,6 +1162,62 @@
     "fr": "Touche un endroit pour y aller. Pose le doigt où tu veux et bouge-le : le lutin marche dans cette direction, et au bord il court. Deux doigts déplacent la carte et zooment. Flèches ou WASD pour bouger, espace pour courir.",
     "it": "Tocca un posto per andarci. Appoggia il dito dove vuoi e muovilo: il folletto cammina in quella direzione, e al bordo corre. Con due dita muovi la mappa e ingrandisci. Frecce o WASD per muoverti, spazio per correre.",
     "pt": "Toca num sítio para ires lá. Pousa o dedo onde quiseres e move-o: o duende anda nessa direção, e na borda corre. Com dois dedos moves o mapa e aproximas. Setas ou WASD para andares, espaço para correres."
+  },
+  "accountTitle": {
+    "es": "Tu cuenta",
+    "en": "Your account",
+    "de": "Dein Konto",
+    "fr": "Ton compte",
+    "it": "Il tuo account",
+    "pt": "A tua conta"
+  },
+  "cloudTitle": {
+    "es": "Tu partida",
+    "en": "Your game",
+    "de": "Dein Spiel",
+    "fr": "Ta partie",
+    "it": "La tua partita",
+    "pt": "A tua partida"
+  },
+  "accountNone": {
+    "es": "Sin cuenta todavía: esta partida vive solo en este navegador.",
+    "en": "No account yet: this game lives only in this browser.",
+    "de": "Noch kein Konto: dieses Spiel lebt nur in diesem Browser.",
+    "fr": "Pas encore de compte : cette partie ne vit que dans ce navigateur.",
+    "it": "Ancora senza account: questa partita vive solo in questo browser.",
+    "pt": "Ainda sem conta: esta partida vive só neste navegador."
+  },
+  "accountClaimed": {
+    "es": "Cuenta guardada: tu partida te sigue a cualquier dispositivo.",
+    "en": "Account saved: your game follows you to any device.",
+    "de": "Konto gespeichert: dein Spiel folgt dir auf jedes Gerät.",
+    "fr": "Compte enregistré : ta partie te suit sur n’importe quel appareil.",
+    "it": "Account salvato: la tua partita ti segue su qualsiasi dispositivo.",
+    "pt": "Conta guardada: a tua partida segue-te para qualquer dispositivo."
+  },
+  "communityYouHave": {
+    "es": "Llevas",
+    "en": "You carry",
+    "de": "Du trägst",
+    "fr": "Tu portes",
+    "it": "Hai con te",
+    "pt": "Levas"
+  },
+  "communityNoMaterialsYet": {
+    "es": "Aún no llevas materiales. Se recogen por el bosque.",
+    "en": "You carry no materials yet. You gather them around the forest.",
+    "de": "Du trägst noch keine Materialien. Man sammelt sie im Wald.",
+    "fr": "Tu ne portes encore aucun matériau. On les ramasse dans la forêt.",
+    "it": "Non hai ancora materiali. Si raccolgono nel bosco.",
+    "pt": "Ainda não levas materiais. Apanham-se pela floresta."
+  },
+  "communityUndoShort": {
+    "es": "Quitar",
+    "en": "Undo",
+    "de": "Zurück",
+    "fr": "Retirer",
+    "it": "Togli",
+    "pt": "Tirar"
   },
   "humanProof": {
     "es": "Comprobación humana",

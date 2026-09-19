@@ -65,13 +65,12 @@ Sin vidas, combate, Libro del Bosque, fiambreras ni parcelas privadas.
   **Cruzar no suelta el dedo.** El gesto sobrevive a la escena (`keepPointerGesture`
   llega hasta `scenes.enter`) y al otro lado `directionIntent` lo lee igual, como una
   tecla que sigue pulsada.
-  **Se aprende viéndolo una vez.** Mientras el dedo manda, el lienzo pinta un aro
-  tenue donde lo apoyaste y una bolita donde está (`renderer.stickHint`, sin DOM):
-  enseña que el mando nace bajo el dedo y, cuando el origen se desliza detrás, que no
-  hace falta levantar para virar. Tras seis segundos acumulados andando con él deja
-  de pintarse para siempre en ese navegador (`magikitos.adventure.stick` en
-  localStorage, como el duende elegido: el contrato de la partida en la nube no admite
-  claves nuevas, y un pulgar nuevo merece verlo una vez).
+  **El aro se ve siempre que el dedo manda.** El lienzo pinta un aro tenue donde
+  lo apoyaste y una bolita donde está (`renderer.stickHint`, sin DOM): enseña que el
+  mando nace bajo el dedo y, cuando el origen se desliza detrás, que no hace falta
+  levantar para virar; al soltar desaparece. Aquí vivió un contador que lo apagaba tras
+  seis segundos andados, y se fue el mismo día (el dueño: «no lo quitaría cuando pasa
+  el tiempo, que siempre salga, solo ligeramente más transparentito»).
   **El lienzo no se selecciona**: `user-select: none` y `-webkit-touch-callout: none`
   en el escenario, porque iOS trataba la pulsación larga como seleccionar texto.
   **Mientras hay conversación o narración no hay mando**: `openDialogue` pausa el
@@ -93,6 +92,27 @@ Sin vidas, combate, Libro del Bosque, fiambreras ni parcelas privadas.
 - **No se dibuja ningún marcador de destino** (19-sep-2026, el dueño: «no quiero el
   puntito blanco placeholder de posición final, eso molesta»). Guiando saltaría por
   delante del duende varias veces por segundo; tocando, el sitio ya lo sabes.
+- **Construir sin cuenta abre «Yo», no un aviso** (19-sep-2026, el dueño: «no
+  simplemente decirle "tienes que guardar tu cuenta", sino mostrar el modal de Yo»).
+  `community.begin()` pasa por `self.explain()` en los dos casos que tienen puerta:
+  sin sesión, `communityNeedsAccount` («para construir en el mapa público tienes que
+  tener tu cuenta creada») con la tarjeta de la cuenta resaltada; con sesión pero sin la
+  partida guardada en la cuenta, `communitySyncNeeded` con la tarjeta de la partida y
+  su botón. El aviso se pinta como llamada de atención encima de la puerta y el panel se
+  desplaza hasta ella. Sin conexión o de visita sigue siendo un aviso flotante, porque
+  ahí no hay puerta que abrir.
+- **Los tres paneles grandes se rediseñaron el 19-sep-2026** (el dueño: «un diseño un
+  poco cutre»). La modal HACE SCROLL ella misma con la cabecera pegada, que en
+  escritorio y tablet recortaba el elenco, el correo de la cuenta y las últimas filas
+  del catálogo sin manera de llegar; a pantalla completa solo en el teléfono (< 640).
+  «Yo»: un cabecero con el retrato del elenco y una línea que dice si la partida te
+  sigue o vive en este navegador, y dos columnas en escritorio (tu duende / tu cuenta,
+  tu partida, idioma) en tarjetas con rótulo. El saco: iconos en cajas del mismo tamaño
+  (`sprites.iconIn`, sin bloques ni gigantes), la cuenta en una chapa, y el detalle en
+  columna fija a la derecha desde 900 px. Construir: el sitio como subtítulo, «Llevas»
+  con nombre y número y SOLO lo que llevas (siete bolsitas iguales a cero no decían
+  nada), precio en rojo en la baldosa cuando no te llega, y la barra con etiquetas de
+  texto en escritorio e iconos en el teléfono.
   En exteriores se puede alejar hasta el límite geométrico de cobertura del mapa,
   sin un porcentaje mínimo artificial ni bordes vacíos; el encuadre inicial no cambia.
   Los interiores conservan su presentación de habitación recortada con exterior pintado.
