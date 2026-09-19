@@ -110,7 +110,8 @@ const start = (() => {
           requestAnimationFrame(sample);
         });
       }
-      async function drag(dx, dy, touch = false) {
+      /** Un dedo (o el botón izquierdo) que se mueve y se queda `hold` ms puesto antes de soltar. */
+      async function drag(dx, dy, touch = false, hold = 0) {
         const x = width * 0.55,
           y = height * 0.5;
         if (touch) {
@@ -126,6 +127,7 @@ const start = (() => {
                 { x: x + (dx * i) / 8, y: y + (dy * i) / 8, id: 0 },
               ],
             });
+          if (hold) await page.waitForTimeout(hold);
           await c.send("Input.dispatchTouchEvent", {
             type: "touchEnd",
             touchPoints: [],
@@ -135,6 +137,7 @@ const start = (() => {
           await page.mouse.move(x, y);
           await page.mouse.down();
           await page.mouse.move(x + dx, y + dy, { steps: 8 });
+          if (hold) await page.waitForTimeout(hold);
           await page.mouse.up();
         }
       }
@@ -182,37 +185,34 @@ const start = (() => {
         );
       }
       /**
-       * ⛔ MANTENER EL DEDO ES GUIAR (19-sep-2026, decisión del dueño), y arrastrar con un dedo o
-       * con el botón izquierdo es lo mismo que mantenerlo: el duende va hacia lo que hay bajo el
-       * puntero y la cámara sigue siendo SUYA, no del gesto. Aquí se comprobó primero que mirar
-       * alrededor no movía a nadie (era trabajo del joystick), luego que arrastrar llevaba al
-       * centro de la vista; hoy mirar alrededor son dos dedos o el botón derecho (`pan`).
+       * ⛔ MOVER EL DEDO ES UN JOYSTICK INVISIBLE (19-sep-2026, decisión del dueño): el duende va
+       * hacia donde tira el dedo desde donde se apoyó, como una flecha, mientras el dedo siga
+       * puesto; soltar para; y la cámara sigue siendo SUYA, no del gesto. Aquí se comprobó primero
+       * que mirar alrededor no movía a nadie (era trabajo del joystick fijo), luego que arrastrar
+       * llevaba al centro de la vista, luego que guiaba hacia el dedo; hoy mirar alrededor son dos
+       * dedos o el botón derecho (`pan`), y esto es una tecla.
        */
       for (const touch of [false, true]) {
         await seed();
         const before = await inspect();
-        await drag(-80, -100, touch);
-        await page.waitForTimeout(200);
+        await drag(-80, -100, touch, 350);
         let s = await inspect();
-        assert(s.cameraFollowing, "Guiar no suelta la cámara: sigue pegada al duende");
-        // El puntero acaba 100 px por encima del centro y casi en su vertical (empieza al 55 % del
-        // ancho y retrocede 80), así que lo que manda es subir; lo lateral depende del ancho.
+        assert(s.cameraFollowing, "Mandar con el dedo no suelta la cámara: sigue pegada al duende");
+        // El dedo tira hacia arriba a la izquierda (−80, −100) desde donde se apoyó.
         assert(
-          s.player.y < before.player.y - 4 &&
-            Math.abs(s.player.x - before.player.x) < before.player.y - s.player.y,
-          "…y el duende va hacia donde quedó el puntero, arriba " +
+          s.player.y < before.player.y - 4 && s.player.x < before.player.x,
+          "…y el duende ha ido hacia donde tiraba el dedo, arriba a la izquierda " +
             JSON.stringify({ antes: before.player, ahora: s.player }),
         );
+        assert(!s.travel.intent, "…sin destino: es una tecla, no un viaje");
         assert(!s.dialogue, "…sin hablar con nada por el camino");
         assert(!s.roll);
-        // Soltar no frena: se llega solo, y la cámara nunca dejó de seguir, así que el disco de
+        // Soltar para, como soltar una tecla; la cámara nunca dejó de seguir, así que el disco de
         // recentrar no tiene nada que recentrar.
-        await page.waitForFunction(
-          () => !window.MagikitosAdventure.inspect().travel.intent,
-          null,
-          { timeout: 15000 },
-        );
-        assert((await inspect()).cameraFollowing, "Al terminar el viaje la cámara sigue con el duende");
+        await page.waitForTimeout(150);
+        const parado = await inspect();
+        assert.equal(parado.pace, "idle", "Soltar para");
+        assert(parado.cameraFollowing, "…y la cámara sigue con el duende");
         assert(await page.locator("#world-recenter").isHidden());
       }
       await seed();
@@ -420,7 +420,7 @@ const start = (() => {
       );
       await page.close();
       console.log(
-        `PASS mobility ${width}×${height}: guiar (ratón y dedo) va hacia el puntero con la cámara pegada y dos dedos/botón derecho la sueltan, walk/run routes, held/double Space never rolls, dialogue isolation, natural cast, lazy elder.`,
+        `PASS mobility ${width}×${height}: joystick invisible (ratón y dedo) con la cámara pegada, soltar para, dos dedos/botón derecho sueltan la cámara, walk/run routes, held/double Space never rolls, dialogue isolation, natural cast, lazy elder.`,
       );
     }
     assert.deepEqual(errors, []);

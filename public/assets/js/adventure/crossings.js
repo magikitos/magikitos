@@ -140,10 +140,9 @@ class Crossings {
     } finally {
       prepared?.packs.release?.();
       g.transitioning = false;
-      // ⛔ EL DEDO SIGUE PUESTO AL OTRO LADO. Cruzar cambia el mundo entero debajo del gesto y
-      // detiene el viaje; no hace falta replantar nada a mano: el guiado se recalcula cada
-      // fotograma desde el dedo y la cámara de AHORA (`MapGestures.update`), y al ver que la
-      // escena ha cambiado planta el primer destino en cuanto `transitioning` se suelta.
+      // ⛔ EL DEDO SIGUE PUESTO AL OTRO LADO. El mando del dedo es un vector, como una tecla
+      // pulsada: `directionIntent` lo lee igual en la pantalla nueva en cuanto `transitioning`
+      // se suelta, sin replantar nada.
     }
   }
 }

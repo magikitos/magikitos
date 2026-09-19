@@ -1,6 +1,38 @@
 # Arte de protagonistas — seguimiento real
 
-## Estado vigente — 18-sep-2026
+## Ampliación aprobada — 19-sep-2026, en curso
+
+El dueño ha aprobado **los diez nuevos diseños `resident-101`–`resident-110`**
+como protagonistas. No confundir estos números de fuente con el antiguo actor
+101/Brezo bruma. Los nuevos IDs previstos son 200–209. Los cien NPC originales
+y los ocho protagonistas anteriores se conservan.
+
+Se preparan uno por uno: andar/quieto, carrera, ocho cuerpos sentados con remos
+sincronizados, empujar, trabajar, llevado por gato, necesidades, hallazgo y card.
+Las cards conservan los píxeles originales del personaje: ambiente muy tenue,
+transparencia real y halo suave individual. Nada de reinterpretar su identidad.
+
+| Fuente | Key / ID previsto | Arte y revisión |
+|---|---|---|
+| 101 | rizo-alba / 200 | En preparación; no completo todavía |
+| 102 | chispa-sol / 201 | Pendiente |
+| 103 | tizon-musgo / 202 | Pendiente |
+| 104 | nispera-sol / 203 | Pendiente |
+| 105 | trebol-bruma / 204 | Pendiente |
+| 106 | mimbrera-noche / 205 | Pendiente |
+| 107 | avellano-alba / 206 | Pendiente |
+| 108 | oria-musgo / 207 | Pendiente |
+| 109 | silo-bruma / 208 | Pendiente |
+| 110 | zarza-sol / 209 | Pendiente |
+
+Autoría en `data/aventura/art/playable-cast/<key>/`; diseños aprobados y originales
+en `residents/candidates/101-110/`. Esta ronda es de **arte**; otro agente lleva
+la lógica/integración. Una hoja generada no cuenta como terminada hasta pasar
+recorte, registro, escala, revisión de poses y composición de barcas. No se
+declara una integración ni un despliegue que no se haya realizado. No falta
+world art para esta petición: son exclusivamente estos diez protagonistas y cards.
+
+## Entrega anterior — 18-sep-2026
 
 **Ocho protagonistas completos: Brezo alba aprobado por el dueño y los siete
 residentes elegidos expresamente, terminados y revisados uno por uno. Ocho

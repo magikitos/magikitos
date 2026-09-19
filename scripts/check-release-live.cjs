@@ -124,16 +124,17 @@ function assertShell(actual, expected, headers, route) {
       assert(riverAfter.player.y<riverBefore.player.y-30);
       assert(riverAfter.assets.loaded.includes('actor-100-row'));
       assert(riverAfter.assets.loaded.includes('vessel-bottle'));
-      // ⛔ Y EL MANDO TÁCTIL ES MANTENER EL DEDO (19-sep-2026): el dedo se queda puesto y la barca
-      // va hacia lo que hay debajo. Aquí el dedo está por encima de la barca, así que sube.
+      // ⛔ Y EL MANDO TÁCTIL ES UN JOYSTICK INVISIBLE (19-sep-2026): se apoya el dedo donde sea, se
+      // mueve, y la barca va hacia donde tira. Aquí el dedo sube sesenta píxeles, así que sube.
       const cdp=await page.context().newCDPSession(page);
       const dedo=(type,points)=>cdp.send('Input.dispatchTouchEvent',{type,touchPoints:points.map(([x,y])=>({id:1,x,y}))});
-      await dedo('touchStart',[[width/2,height*0.15]]);
+      await dedo('touchStart',[[width/2,height*0.6]]);
+      for(let i=1;i<=6;i++) await dedo('touchMove',[[width/2,height*0.6-i*10]]);
       await page.waitForTimeout(600);
       await dedo('touchEnd',[]);
       await cdp.detach();
       const accelerated=await page.evaluate(()=>window.MagikitosAdventure.inspect());
-      assert(accelerated.player.y<riverAfter.player.y-20,'Mantener el dedo rema la barca en el artefacto vivo');
+      assert(accelerated.player.y<riverAfter.player.y-20,'Mover el dedo rema la barca en el artefacto vivo');
       await page.screenshot({path:'.local/production-controls/river-'+width+'.png'});
       // El claro compartido vive en la pradera de los sauces y su embarcadero mira al oeste, así
       // que se desembarca hacia la derecha. Se llega remando desde el agua del amarre.

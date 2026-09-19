@@ -59,17 +59,17 @@ El saco apila cantidades. Autoría y persistencia: [contrato de datos](../data/a
 ## Controles y presentación
 
 Un mismo motor de entrada para ratón, teclado y táctil, y desde el 19-sep-2026
-ningún mando dibujado en pantalla: **tocar es ir y mantener es guiar**. Un dedo
-(o el botón izquierdo) que se queda puesto lleva al protagonista hacia lo que hay
-debajo, con la cámara pegada a él, así que se puede andar sin soltar y virar
-deslizando; lejos corre y cerca camina, porque la marcha la decide la distancia del
-camino y no un botón. Soltar no frena. Dos dedos, o el botón derecho, mueven la
-cámara y hacen zoom sin dar órdenes. Clic en suelo significa llegar esquivando sin
-activar otros objetos; clic en objeto significa interactuar. Flechas/WASD siguen
-moviendo directo y espacio sostenido corre o rema más rápido. Rodar no está activo;
-se conserva su arte. El zoom afecta únicamente al mapa. No se dibuja marcador de
-destino. Diálogos: Espacio avanza, Enter/Esc cierran; clic fuera cierra y usa ese
-mismo clic como destino.
+ningún mando fijo en pantalla: **tocar es ir y mover el dedo es un joystick
+invisible**. Apoyas el dedo (o el botón izquierdo) donde quieras y lo mueves: el
+protagonista va en esa dirección como con una flecha, un poco anda y en el borde
+corre, y el origen sigue al dedo para virar sin levantar. Soltar para. Mientras se
+aprende, el lienzo pinta un aro tenue bajo el dedo que desaparece solo. Dos dedos,
+o el botón derecho, mueven la cámara y hacen zoom sin dar órdenes. Clic en suelo
+significa llegar esquivando sin activar otros objetos; clic en objeto significa
+interactuar. Flechas/WASD siguen moviendo directo y espacio sostenido corre o rema
+más rápido. Rodar no está activo; se conserva su arte. El zoom afecta únicamente al
+mapa. No se dibuja marcador de destino. Diálogos: Espacio avanza, Enter/Esc
+cierran; clic fuera cierra y usa ese mismo clic como destino.
 [Navegación](NAVIGATION.md) · [Controles detallados](SHARED-FOREST.md#controles-y-construcción).
 
 Arte: 2× con reducción integrada; animación selectiva, sutil para vegetación y

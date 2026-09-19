@@ -68,8 +68,7 @@ class Journey {
       return false;
     }
     // Resolve an inaccessible clicked pixel once, not to a different nearby
-    // destination on every reroute, so arrival is consistent. Lo demás de la intención —hoy,
-    // `guided`, que es lo que le dice a la cámara que siga al duende y no al sitio— se conserva.
+    // destination on every reroute, so arrival is consistent. Lo demás de la intención se conserva.
     if (intent.kind === "ground")
       this.intent = { ...intent, point: { ...path.at(-1) } };
     this.path = path;

@@ -8,11 +8,18 @@ if(!preg_match('/^[a-z]+-[a-z]+$/D',$key))throw new RuntimeException('Use --char
 $dir="$root/data/aventura/art/playable-cast/$key";
 $config=json_decode(file_get_contents("$dir/authoring.json"),true,512,JSON_THROW_ON_ERROR);
 $specs=json_decode(file_get_contents("$root/data/aventura/art/residents/actions/catalog.json"),true,512,JSON_THROW_ON_ERROR)['actions'];
+// New approved designs may need a separately reviewed walking layout. This remains
+// offline authoring and never modifies their original candidate or NPC catalogue.
+$selected=$config['actions'];
+if(isset($config['walk'])) {
+    $specs['walk']=['grid'=>[8,4]];
+    $selected=['walk'=>$config['walk']]+$selected;
+}
 function masterCanvas(int $w,int $h):GdImage {
     $im=imagecreatetruecolor($w,$h);imagealphablending($im,false);imagesavealpha($im,true);
     imagefill($im,0,0,imagecolorallocatealpha($im,0,0,0,127));return $im;
 }
-foreach($config['actions'] as $action=>$settings) {
+foreach($selected as $action=>$settings) {
     if($action==='row')continue;
     [$cols,$rows]=$specs[$action]['grid'];
     $source=imagecreatefrompng("$dir/sources/{$settings['source']}.png");
@@ -54,10 +61,12 @@ foreach($config['actions'] as $action=>$settings) {
         $ys=[0];
         for($r=1;$r<$rows;$r++) {
             $target=$r*imagesy($source)/$rows;$best=INF;$line=0;
-            for($y=max(1,(int)$target-32);$y<min(imagesy($source)-1,(int)$target+32);$y++) {
+            $radius=(int)ceil(imagesy($source)/$rows*.35);
+            for($y=max($ys[$r-1]+2,(int)$target-$radius);$y<min(imagesy($source)-1,(int)$target+$radius);$y++) {
                 $ink=0;for($x=$x0;$x<$x1;$x++)if((imagecolorat($source,$x,$y)>>24&127)<100)$ink++;
                 $score=$ink*1000+abs($y-$target);if($score<$best){$best=$score;$line=$y;}
             }
+            if($best>=1000)throw new RuntimeException("No transparent row separator for $action/$c/$r; review source rectangles");
             $ys[]=$line;
         }
         $ys[]=imagesy($source);

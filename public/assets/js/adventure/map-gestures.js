@@ -2,45 +2,35 @@
 const { clampCamera } = require("./camera");
 const DRAG_SLOP = 8; // CSS pixels, equally comfortable for mouse, pen and touch.
 /**
- * Cuánto hay que dejar el dedo quieto para que sea GUIAR y no un toque que todavía no ha
- * terminado. Un toque humano dura menos de 120 ms; quien toca despacio no pierde nada, porque
- * levantar sin haber movido el dedo sigue siendo un toque (ver `up`).
+ * El mando invisible, en píxeles de PANTALLA y no de mundo: la sensación en el pulgar no puede
+ * cambiar con el zoom. Más cerca del origen que STICK_DEAD no hay dirección; en el borde
+ * (STICK_RUN) se corre, y para volver a andar hay que recogerse hasta STICK_WALK, que sin
+ * histéresis un pulgar en el límite haría parpadear la marcha.
  */
-const HOLD_MS = 180;
-/**
- * Cada cuánto se replanea el destino mientras se guía, en píxeles de MUNDO. Un camino por
- * fotograma serían sesenta búsquedas por segundo para mover la meta cuatro píxeles; con esto el
- * destino se refresca cuando de verdad ha cambiado de sitio y el rumbo se sigue viendo pegado al
- * dedo, porque entre replaneos el duende ya va hacia allí.
- */
-const LEAD_STEP = 14;
-/**
- * El dedo ENCIMA del duende es «quieto». Se mide contra el cuerpo y no contra los pies, porque
- * ahí es donde la gente pone el dedo, y con histéresis: se para a menos de REST y no vuelve a
- * arrancar hasta REST_RELEASE, que si no un dedo en el límite haría parpadear la marcha.
- */
-const REST = 14;
-const REST_RELEASE = 20;
-const BODY_LIFT = 8;
+const STICK_DEAD = 10;
+const STICK_RUN = 100;
+const STICK_WALK = 80;
 const point = (event) => ({ x: event.clientX, y: event.clientY });
-const now = () => performance.now();
 
 /**
- * ⛔ MANTENER ES GUIAR, TOCAR ES IR, Y LA CÁMARA SE MUEVE CON DOS DEDOS (19-sep-2026, decisión del
- * dueño). Un toque ordena un viaje CON interacción: lo que señalas, se usa. Un dedo mantenido, o
- * uno que se desplaza, ordena un viaje SIN ella hacia el punto del mundo que hay bajo el dedo, y
- * como la cámara se queda pegada al duende, ese punto avanza con él y no lo alcanza mientras no
- * sueltes: es el teclado sin teclado, con toda la pantalla de mando y el propio duende de centro.
- * Cerca anda y lejos corre, que la marcha la decide la distancia del camino y no un botón. Soltar
- * no frena: el viaje termina en el último punto donde estaba el dedo.
+ * ⛔ EL MANDO ES UN JOYSTICK INVISIBLE QUE NACE DONDE APOYAS EL DEDO (19-sep-2026, decisión del
+ * dueño, tras probar en producción el guiado hacia el punto bajo el dedo: «con nada que me alejo
+ * ya se pone a correr» y «para ir arriba el dedo tiene que estar muy arriba»). Apoyas el dedo en
+ * cualquier sitio, lo mueves un poco y el duende va en esa dirección, como una flecha del
+ * teclado: el vector entra por `directionIntent` y comparte con las teclas colisiones, empujes,
+ * charlas al chocar, costuras y remo. Soltar para, como soltar una tecla. Un toque sigue siendo
+ * ir e interactuar.
  *
- * Mirar alrededor sin dar órdenes es cosa de DOS dedos —que ya hacían el zoom y ahora también
- * desplazan, como cualquier mapa— o del botón derecho o central del ratón. Y mientras se
- * construye, un solo dedo sigue moviendo el mapa, porque construyendo no se dan órdenes de andar.
+ * ⛔ Y EL ORIGEN SIGUE AL DEDO. El joystick que se centra donde tocas y obliga a LEVANTAR para
+ * recentrar es el que la gente odia (lo describía el hilo que trajo el dueño: arrastran el dedo
+ * por toda la pantalla y nunca lo sueltan). Aquí, pasado el radio, el origen se arrastra detrás:
+ * ir a la izquierda y volver hacia la derecha se nota al instante sin levantar. No hay nada que
+ * explicar; la única regla es mover el dedo hacia donde quieres ir.
  *
- * Esto sustituye al «arrastrar el mapa lleva al duende al centro» del mismo día, que tenía un
- * tope estructural: cada gesto movía media pantalla como mucho y al llegar la cámara te
- * recentraba, así que había que volver a arrastrar. El dueño: «no permite navegación continua».
+ * Mirar alrededor son DOS dedos —que ya hacían zoom y también desplazan, como cualquier mapa— o
+ * el botón derecho o central del ratón. Construyendo, un dedo mueve el mapa, que ahí no se anda.
+ * Nada de esto dibuja DOM: el aro de aprendizaje lo pinta el renderizador con `stickView`, y solo
+ * hasta que quien juega ya sabe andar.
  */
 class MapGestures {
   constructor(game, canvas) {
@@ -105,19 +95,20 @@ class MapGestures {
     });
   }
   reset() {
-    /** null mientras un solo dedo no ha decidido nada; luego "guide", "pan" o "pinch". */
+    /** null mientras un solo dedo no ha decidido nada; luego "stick", "pan" o "pinch". */
     this.mode = null;
     this.suppressed = false;
-    this.led = null;
-    this.resting = false;
-    this.heading = null;
-    this.scene = null;
+    this.stick = null;
     this.pinch = null;
     this.canvas.classList.remove("is-panning");
   }
-  /** El dedo manda al duende. */
-  get guiding() {
-    return this.mode === "guide";
+  /** El dedo es el mando del duende. */
+  get steering() {
+    return this.mode === "stick";
+  }
+  /** En el borde del mando se corre; es lo que `boosted` lee junto a la barra espaciadora. */
+  get running() {
+    return Boolean(this.stick?.running);
   }
   /** La cámara es del gesto: un paneo, o un pellizco que además se ha desplazado. */
   get dragging() {
@@ -165,16 +156,6 @@ class MapGestures {
       );
     g.centerCamera(true);
   }
-  /** Un punto de la pantalla, en coordenadas del mundo y con la cámara de AHORA. */
-  worldPoint(p) {
-    const r = this.game.renderer,
-      rect = this.canvas.getBoundingClientRect(),
-      camera = this.game.camera;
-    return {
-      x: camera.x + ((p.x - rect.left) / rect.width) * r.width,
-      y: camera.y + ((p.y - rect.top) / rect.height) * r.height,
-    };
-  }
   /**
    * Desplaza la cámara lo que se ha movido el dedo en pantalla, en píxeles de mundo. La cámara
    * pasa a ser del gesto en el PRIMER desplazamiento real, no al apoyar: un botón derecho que no
@@ -202,11 +183,10 @@ class MapGestures {
     if (!this.allowed() || this.points.size >= 2) return;
     const button = event.button;
     // El botón derecho o central del ratón mueve la cámara; un segundo puntero solo puede ser un dedo.
-    if (button !== 0 && (button === undefined || ![1, 2].includes(button) || this.points.size))
-      return;
+    if (button !== 0 && !([1, 2].includes(button) && !this.points.size)) return;
     event.preventDefault();
     const p = point(event);
-    this.points.set(event.pointerId, { ...p, origin: p, at: now(), button });
+    this.points.set(event.pointerId, { ...p, origin: p, button });
     this.canvas.setPointerCapture(event.pointerId);
     if (button !== 0) {
       this.suppressed = true;
@@ -214,8 +194,8 @@ class MapGestures {
       return;
     }
     if (this.points.size === 2) {
-      // Llega el segundo dedo: sea lo que fuera el primero, ahora es un gesto de cámara. Un viaje
-      // que ya estuviera guiado termina solo en su último punto, que es lo que hace soltar.
+      // Llega el segundo dedo: sea lo que fuera el primero, ahora es un gesto de cámara. El mando
+      // se suelta, así que el duende se para: te has detenido a mirar.
       this.suppressed = true;
       const [a, b] = this.points.values();
       const mid = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
@@ -227,26 +207,71 @@ class MapGestures {
         panned: false,
       };
       this.mode = "pinch";
-      this.led = this.heading = null;
+      this.stick = null;
     }
   }
   beginPan() {
     this.mode = "pan";
-    this.led = this.heading = null;
+    this.stick = null;
   }
-  beginGuide() {
+  /** El mando nace donde se apoyó el dedo, no donde está ahora: la holgura ya es dirección. */
+  beginStick(p) {
     const g = this.game;
-    this.mode = "guide";
-    this.led = null;
-    this.resting = false;
-    this.scene = g.world?.data?.id;
-    // Se conservan las teclas: guiar con una flecha pulsada no es soltarla. El viaje anterior sí
-    // se corta, que el primer `guide` planta el nuevo en el mismo fotograma.
-    g.pauseMovement({ keepPointerGesture: true, keepControls: true });
+    this.mode = "stick";
+    this.stick = { origin: { ...p.origin }, finger: { x: p.x, y: p.y }, running: false };
+    // Igual que pulsar una flecha: el viaje tocado se cancela, la cámara es del duende.
+    g.cancelPath();
     g.cameraFollowing = true;
     g.focusPoint = null;
     g.unlockAudio?.();
     this.canvas.focus?.({ preventScroll: true });
+  }
+  /**
+   * ⛔ EL ORIGEN SIGUE AL DEDO pasado el radio: el dedo nunca se sale del mando, así que volver
+   * hacia atrás es cambiar de rumbo al instante, sin levantar. La marcha lleva histéresis.
+   */
+  steer(p) {
+    const s = this.stick;
+    s.finger = { x: p.x, y: p.y };
+    let dx = p.x - s.origin.x,
+      dy = p.y - s.origin.y,
+      len = Math.hypot(dx, dy);
+    if (len > STICK_RUN) {
+      s.origin = { x: p.x - (dx / len) * STICK_RUN, y: p.y - (dy / len) * STICK_RUN };
+      len = STICK_RUN;
+    }
+    if (len >= STICK_RUN - 0.5) s.running = true;
+    else if (len < STICK_WALK) s.running = false;
+  }
+  /** Hacia dónde empuja el dedo, o null si no hay mando o está en la zona muerta. */
+  intent() {
+    const s = this.stick;
+    if (!s) return null;
+    const dx = s.finger.x - s.origin.x,
+      dy = s.finger.y - s.origin.y,
+      len = Math.hypot(dx, dy);
+    return len < STICK_DEAD ? null : { x: dx / len, y: dy / len };
+  }
+  /**
+   * El mando tal y como se ve, en unidades de la VISTA (píxeles de mundo sin cámara), para que el
+   * renderizador pinte el aro de aprendizaje encima del mundo. `unit` es lo que mide un píxel de
+   * pantalla ahí, para que los trazos tengan el mismo grosor a cualquier zoom.
+   */
+  stickView() {
+    const s = this.stick;
+    if (!s) return null;
+    const r = this.game.renderer,
+      rect = this.canvas.getBoundingClientRect(),
+      k = r.width / rect.width,
+      at = (q) => ({ x: (q.x - rect.left) * k, y: (q.y - rect.top) * k });
+    return {
+      origin: at(s.origin),
+      knob: at(s.finger),
+      radius: STICK_RUN * k,
+      dead: STICK_DEAD * k,
+      unit: k,
+      running: s.running,
+    };
   }
   move(event) {
     const previous = this.points.get(event.pointerId);
@@ -257,9 +282,9 @@ class MapGestures {
     }
     const p = point(event);
     this.points.set(event.pointerId, { ...previous, ...p });
-    // ⛔ CRUZAR NO SUELTA EL DEDO. Mientras la pantalla cambia debajo, el gesto se guarda y no se
-    // aplica: al otro lado, `update` sigue guiando con la cámara nueva y el mismo dedo.
-    if (this.game.transitioning) return;
+    // ⛔ CRUZAR NO SUELTA EL DEDO. Mientras la pantalla cambia debajo, la cámara no se toca; el
+    // mando sí se sigue leyendo, que al otro lado `directionIntent` lo encuentra donde estaba.
+    if (this.game.transitioning && this.mode !== "stick") return;
     if (this.points.size === 2) {
       event.preventDefault();
       const [a, b] = this.points.values();
@@ -285,77 +310,25 @@ class MapGestures {
     if (!this.mode) {
       if (!moved) return;
       if (this.exploring()) this.beginPan();
-      else this.beginGuide();
+      else this.beginStick(previous);
     }
-    // Moverse pasada la holgura ya no es un toque, ni siquiera guiando: soltar aquí no interactúa.
+    // Moverse pasada la holgura ya no es un toque: soltar aquí no interactúa con nada.
     if (moved) this.suppressed = true;
     event.preventDefault();
     if (this.mode === "pan") this.panBy(p.x - previous.x, p.y - previous.y);
-    else if (this.mode === "guide") this.guide();
-  }
-  /**
-   * Un fotograma del gesto, desde el bucle del juego y no desde un temporizador: aquí un dedo
-   * quieto pasa a guiar cuando lleva HOLD_MS puesto, y el guiado se recalcula aunque el dedo no se
-   * mueva, porque la cámara sigue al duende y el punto del mundo bajo el dedo avanza con ella.
-   */
-  update(time = now()) {
-    if (this.points.size !== 1 || this.mode === "pan" || this.mode === "pinch") return;
-    const [p] = this.points.values();
-    if (!this.mode) {
-      if (p.button !== 0 || this.exploring() || time - p.at < HOLD_MS || !this.allowed()) return;
-      this.beginGuide();
-    }
-    this.guide();
-  }
-  /** El vector del duende al dedo mientras se guía, para que la cámara se adelante un poco. */
-  guideVector() {
-    return this.mode === "guide" ? this.heading : null;
-  }
-  guide() {
-    const g = this.game;
-    if (!this.allowed()) return; // A medio cruzar se espera; el dedo sigue puesto.
-    const [p] = this.points.values();
-    const scene = g.world?.data?.id;
-    if (scene !== this.scene) {
-      // El mundo entero ha cambiado bajo el dedo: lo guiado antes ya no significa nada aquí.
-      this.scene = scene;
-      this.led = null;
-      this.resting = false;
-    }
-    const target = this.worldPoint(p);
-    const body = { x: g.player.x, y: g.player.y - BODY_LIFT };
-    const gap = Math.hypot(target.x - body.x, target.y - body.y);
-    if (gap < (this.resting ? REST_RELEASE : REST)) {
-      if (!this.resting) {
-        this.resting = true;
-        this.led = null;
-        g.pauseMovement({ keepPointerGesture: true, keepControls: true });
-      }
-      this.heading = null;
-      return;
-    }
-    this.resting = false;
-    this.heading = { x: target.x - body.x, y: target.y - body.y };
-    if (
-      this.led &&
-      Math.hypot(target.x - this.led.x, target.y - this.led.y) < LEAD_STEP
-    )
-      return;
-    this.led = target;
-    g.leadTo(target);
+    else if (this.mode === "stick") this.steer(p);
   }
   up(event, cancel = false) {
     const p = this.points.get(event.pointerId);
     if (!p) return false;
     if (!cancel) this.move(event);
-    // Levantar sin haber movido el dedo es un toque aunque se haya estado guiando: el duende ya
-    // iba hacia ahí y ahora, además, usa lo que señalabas.
+    // Levantar sin haber movido el dedo es un toque, dure lo que dure la pulsación.
     const tap = !cancel && !this.suppressed && p.button === 0 && this.allowed();
     this.points.delete(event.pointerId);
     if (this.canvas.hasPointerCapture(event.pointerId))
       this.canvas.releasePointerCapture(event.pointerId);
     if (this.points.size) {
-      // El dedo que queda tras un pellizco sigue siendo de la cámara: ni toca ni guía.
+      // El dedo que queda tras un pellizco sigue siendo de la cámara: ni toca ni manda.
       for (const q of this.points.values()) q.origin = { x: q.x, y: q.y };
       this.pinch = null;
       this.suppressed = true;
@@ -372,4 +345,4 @@ class MapGestures {
         this.canvas.releasePointerCapture(id);
   }
 }
-module.exports = { MapGestures, HOLD_MS, DRAG_SLOP, LEAD_STEP, REST };
+module.exports = { MapGestures, DRAG_SLOP, STICK_DEAD, STICK_RUN, STICK_WALK };

@@ -73,17 +73,18 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
       await page.goto(origin + "/aventura");
       await ready();
       /**
-       * ⛔ MANTENER ES GUIAR, TOCAR ES IR, Y LA CÁMARA SE MUEVE CON DOS DEDOS (19-sep-2026, decisión
-       * del dueño). Por la mañana se fue el joystick («es una mierda, no me gusta nada, ni el botón
-       * de turbo») y por la tarde el «arrastrar lleva al duende al centro» que lo sustituyó («no
-       * permite navegación continua»: media pantalla por gesto y vuelta a empezar).
+       * ⛔ EL MANDO ES UN JOYSTICK INVISIBLE QUE NACE DONDE APOYAS EL DEDO (19-sep-2026, decisión
+       * del dueño, la tercera del día). Por la mañana se fue el joystick fijo («es una mierda, no me
+       * gusta nada, ni el botón de turbo»); a mediodía, arrastrar el mapa al centro («no permite
+       * navegación continua»); por la tarde, probado en producción, guiar hacia el dedo («con nada
+       * que me alejo ya se pone a correr», «para ir arriba el dedo tiene que estar muy arriba»).
        *
-       * Se prueba lo que se ve: un dedo quieto pasa a guiar, el destino es lo que hay bajo el dedo,
-       * se anda hacia él mientras siga puesto y no se llega nunca, lejos se corre y cerca se anda,
-       * encima del duende es quieto, soltar no para, la cámara sigue siendo del duende, y dos dedos
-       * mueven la cámara sin dar ninguna orden ni tocar el viaje que hubiera.
+       * Se prueba lo que se ve: un dedo quieto no manda; moverlo manda al duende en esa dirección
+       * como una tecla, sin destino; un poco anda y en el borde corre; el origen sigue al dedo, así
+       * que volver hacia atrás es virar sin levantar; soltar para; la cámara es del duende; el aro
+       * se pinta mientras se aprende y se apaga solo; y dos dedos mueven la cámara sin dar órdenes.
        */
-      assert.equal(await page.locator("#world-joystick").count(), 0, "El joystick ya no existe");
+      assert.equal(await page.locator("#world-joystick").count(), 0, "El joystick fijo ya no existe");
       assert.equal(await page.locator("#world-boost").count(), 0, "Ni su botón de turbo");
       const cdp = await page.context().newCDPSession(page);
       const touch = (type, points) =>
@@ -91,26 +92,18 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
           type,
           touchPoints: points.map(([x, y, id]) => ({ x, y, id })),
         });
-      const marco = await page.locator("#world-canvas").boundingBox();
       const lejos = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
-      /** Lo que hay bajo un punto de la pantalla, con la cámara de esa misma lectura. */
-      const bajo = (s, [x, y]) => ({
-        x: s.camera.x + ((x - marco.x) / marco.width) * s.view.width,
-        y: s.camera.y + ((y - marco.y) / marco.height) * s.view.height,
-      });
-      // Con la cámara pegada al duende, el duende está en el centro: un dedo a (dx, dy) píxeles de
-      // PANTALLA del centro es un dedo a esa distancia de él. Y se queda quieto, que es la gracia.
-      const dedoA = async (dx, dy) => {
-        const p = [Math.round(width / 2 + dx), Math.round(height / 2 + dy), 1];
-        await touch("touchStart", [p]);
-        return p;
+      // El dedo se apoya donde le viene bien al pulgar —abajo, a un lado— y desde ahí se mueve.
+      let dedo = [Math.round(width * 0.3), Math.round(height * 0.72)];
+      const apoyar = () => touch("touchStart", [[dedo[0], dedo[1], 1]]);
+      const mover = async (dx, dy, pasos = 6) => {
+        for (let i = 1; i <= pasos; i++)
+          await touch("touchMove", [
+            [Math.round(dedo[0] + (dx * i) / pasos), Math.round(dedo[1] + (dy * i) / pasos), 1],
+          ]);
+        dedo = [dedo[0] + dx, dedo[1] + dy];
       };
-      const guiando = () =>
-        page.waitForFunction(
-          () => window.MagikitosAdventure.inspect().gesture.guiding,
-          null,
-          { timeout: 3000 },
-        );
+      const soltar = () => touch("touchEnd", []);
       const quieto = () =>
         page.waitForFunction(
           () => {
@@ -120,102 +113,74 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
           null,
           { timeout: 15000 },
         );
-      const largo = Math.min(240, Math.round(width * 0.35));
 
-      // 1. Un dedo QUIETO a la izquierda del duende, pasado el tiempo de mantener, guía: hay destino
-      //    y es lo que hay bajo el dedo. Sin mover el dedo ni un píxel.
+      // 1. Apoyar sin mover no manda nada, dure lo que dure.
       let antes = await inspect();
-      const dedo = await dedoA(-largo, 0);
-      await guiando();
-      let ahora = await inspect();
-      assert(ahora.travel.destination, "Mantener el dedo pone un destino");
-      assert(
-        lejos(ahora.travel.destination, bajo(ahora, dedo)) < 40,
-        "…y el destino es lo que hay bajo el dedo " +
-          JSON.stringify({ destino: ahora.travel.destination, dedo: bajo(ahora, dedo) }),
-      );
-      assert.equal(ahora.travel.intent, "ground", "…que es un sitio, no una interacción");
-      assert(ahora.cameraFollowing, "…y la cámara sigue siendo del duende, no del dedo");
-
-      // 2. Y el duende ANDA hacia allí mientras el dedo sigue puesto: hacia la izquierda.
-      await page.waitForTimeout(260);
-      let andando = (await inspect()).player;
-      assert(
-        andando.x < antes.player.x - 6,
-        "El duende camina hacia el dedo " + JSON.stringify({ antes: antes.player, andando }),
-      );
-
-      // 3. Lejos se CORRE. La marcha la decide la distancia del camino, no un botón.
-      const marcha = await inspect();
-      assert.equal(
-        marcha.pace,
-        "run",
-        "Un dedo lejos es correr " + JSON.stringify({ dedo: largo, resto: marcha.travel.remaining }),
-      );
-      // Y mientras el dedo esté puesto no se llega nunca: el punto bajo el dedo avanza con la cámara.
+      await apoyar();
       await page.waitForTimeout(400);
-      const sigue = await inspect();
-      assert(sigue.travel.intent && sigue.pace !== "idle", "Con el dedo puesto el viaje no se acaba");
-      assert(sigue.gesture.guiding, "…porque se sigue guiando");
-      assert(
-        sigue.gesture.lead.x < -8,
-        "…y la cámara se adelanta hacia donde guías " + JSON.stringify(sigue.gesture.lead),
-      );
+      let ahora = await inspect();
+      assert(!ahora.gesture.steering && ahora.pace === "idle", "Un dedo quieto no manda");
+      assert(lejos(ahora.player, antes.player) < 1, "…ni mueve al duende");
 
-      // 4. Soltar no para: el viaje termina en el último punto donde estaba el dedo.
-      await touch("touchEnd", []);
-      antes = await inspect();
-      assert(!antes.gesture.guiding && antes.travel.intent, "Soltar deja el viaje vivo");
+      // 2. Moverlo un poco a la izquierda: se anda a la izquierda, sin destino, con la cámara pegada.
+      await mover(-50, 0);
       await page.waitForTimeout(260);
-      andando = (await inspect()).player;
+      ahora = await inspect();
+      assert(ahora.gesture.steering, "Mover el dedo es mandar");
+      assert(ahora.gesture.intent && ahora.gesture.intent.x < -0.9, "…hacia la izquierda " + JSON.stringify(ahora.gesture.intent));
       assert(
-        lejos(andando, antes.player) > 6,
-        "Levantar el dedo no frena: el viaje sigue hasta el sitio",
+        ahora.player.x < antes.player.x - 6,
+        "…y el duende anda hacia allí " + JSON.stringify({ antes: antes.player, ahora: ahora.player }),
       );
-      await quieto();
-      assert(
-        Math.hypot((await inspect()).gesture.lead.x, (await inspect()).gesture.lead.y) < 1,
-        "Parado, el adelanto de la cámara ha vuelto a cero",
-      );
+      assert(!ahora.travel.intent, "…sin destino: es una tecla, no un viaje");
+      assert.equal(ahora.pace, "walk", "Un poco es andar");
+      assert(ahora.cameraFollowing, "La cámara es del duende");
+      assert(ahora.gesture.hint, "…y el aro de aprendizaje se pinta mientras se aprende");
 
-      // 5. Un dedo CERCA es andar, no correr: la marcha sigue a la distancia.
-      await dedoA(-40, 0);
-      await guiando();
-      await page.waitForTimeout(160);
-      const suave = await inspect();
-      assert.equal(
-        suave.pace,
-        "walk",
-        "Un dedo cerca es andar " + JSON.stringify({ resto: suave.travel.remaining }),
-      );
-      await touch("touchEnd", []);
-      await quieto();
-
-      // 6. El dedo ENCIMA del duende es quieto: se guía, pero no hay viaje ni marcha.
-      await dedoA(0, -6);
-      await guiando();
+      // 3. En el borde se corre.
+      await mover(-70, 0);
       await page.waitForTimeout(200);
-      const encima = await inspect();
-      assert.equal(encima.pace, "idle", "El dedo encima del duende no le mueve");
-      assert(!encima.travel.intent, "…ni le deja un destino pendiente");
-      await touch("touchEnd", []);
+      const corriendo = await inspect();
+      assert(corriendo.gesture.running, "En el borde del mando se corre");
+      assert.equal(corriendo.pace, "run", "…de verdad");
 
-      // 7. Dos dedos mueven la CÁMARA y no dan órdenes: el duende sigue con lo suyo. Se guía primero
-      //    hacia lejos por el eje largo de la pantalla, para que el viaje dure más que el gesto.
-      const eje = width >= height ? [-Math.round(width * 0.45), 0] : [0, -Math.round(height * 0.4)];
-      await dedoA(eje[0], eje[1]);
-      await guiando();
-      await page.waitForTimeout(120);
-      await touch("touchEnd", []);
-      const viajando = await inspect();
-      assert(viajando.travel.intent, "Hay un viaje en marcha");
+      // 4. El origen ha seguido al dedo: volver 150 px a la derecha, sin levantar, ya es ir a la derecha.
+      await mover(150, 0);
+      await page.waitForTimeout(260);
+      const virada = await inspect();
+      assert(virada.gesture.intent && virada.gesture.intent.x > 0.9, "Volver hacia atrás vira sin levantar " + JSON.stringify(virada.gesture.intent));
+      assert(virada.player.x > corriendo.player.x + 6, "…y el duende va ahora a la derecha");
+      assert.equal(virada.pace, "walk", "…andando, que el dedo quedó a media distancia del origen nuevo");
+
+      // 5. Soltar para, como soltar una tecla.
+      await soltar();
+      await page.waitForTimeout(150);
+      const parado = await inspect();
+      assert(!parado.gesture.steering && parado.pace === "idle" && !parado.travel.intent, "Soltar para");
+      assert(parado.cameraFollowing, "…y la cámara sigue siendo del duende");
+      await page.waitForTimeout(200);
+      assert(lejos((await inspect()).player, parado.player) < 1, "…parado de verdad");
+
+      // 6. El aro se apaga cuando ya sabes andar: con casi todo aprendido, un paso más lo retira para
+      //    siempre en este navegador. El resto del barrido corre ya sin aro, como cualquier veterano.
+      await page.evaluate(() => localStorage.setItem("magikitos.adventure.stick", "5.7"));
+      await seed({ scene: "overworld", position: { x: 900, y: 900 } });
+      dedo = [Math.round(width * 0.3), Math.round(height * 0.72)];
+      await apoyar();
+      await mover(50, 0);
+      await page.waitForFunction(() => !window.MagikitosAdventure.inspect().gesture.hint, null, { timeout: 4000 });
+      const aprendido = await inspect();
+      assert(aprendido.gesture.steering && aprendido.gesture.practice >= 6, "Seis segundos andados apagan el aro " + JSON.stringify(aprendido.gesture));
+      assert.equal(await page.evaluate(() => localStorage.getItem("magikitos.adventure.stick")), "6", "…y se recuerda en este navegador");
+      await soltar();
+      await quieto();
+
+      // 7. Dos dedos mueven la CÁMARA y no dan órdenes.
+      const enPie = await inspect();
       const paso = Math.round(Math.min(width, height) * 0.3);
-      // Los dedos tiran en sentido CONTRARIO al viaje: por ese lado el duende puede estar ya pegado
-      // a un borde del mapa, y la cámara no se mueve contra un borde.
-      const tira = width >= height ? [-1, 0] : [0, -1];
       const par = (k) => {
-        const x = Math.round(width * 0.6 + (tira[0] * paso * k) / 8),
-          y = Math.round(height * 0.6 + (tira[1] * paso * k) / 8);
+        const x = Math.round(width * 0.6 - (paso * k) / 8),
+          y = Math.round(height * 0.5);
         return [
           [x, y, 1],
           [x + 60, y + 60, 2],
@@ -225,22 +190,17 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
       for (let k = 1; k <= 8; k++) await touch("touchMove", par(k));
       const dosDedos = await inspect();
       assert(!dosDedos.cameraFollowing, "Dos dedos hacen suya la cámara");
-      assert(dosDedos.gesture.panning && !dosDedos.gesture.guiding, "…y eso es panear, no guiar");
-      const movida = tira[0]
-        ? dosDedos.camera.x - viajando.camera.x
-        : dosDedos.camera.y - viajando.camera.y;
+      assert(dosDedos.gesture.panning && !dosDedos.gesture.steering, "…y eso es panear, no mandar");
       assert(
-        movida > 30,
-        "…hacia donde tiran los dedos " +
-          JSON.stringify({ antes: viajando.camera, ahora: dosDedos.camera, movida }),
+        dosDedos.camera.x > enPie.camera.x + 30,
+        "…hacia donde tiran los dedos " + JSON.stringify({ antes: enPie.camera, ahora: dosDedos.camera }),
       );
-      assert(dosDedos.travel.intent, "…sin tocar el viaje que ya había");
-      assert.deepEqual(dosDedos.travel.destination, viajando.travel.destination, "…ni su destino");
+      assert(dosDedos.pace === "idle" && !dosDedos.travel.intent, "…sin mover al duende");
       /**
        * Los toques de CDP y `evaluate` llegan al renderizador por caminos distintos, así que leer
        * la cámara justo después del último `touchMove` puede pillarla con un tramo del paneo sin
        * aplicar y contarlo luego como deriva. Se espera a que el paneo se asiente, y ahí empieza la
-       * medida: con los dedos quietos, la cámara no puede moverse ni un píxel aunque el duende ande.
+       * medida: con los dedos quietos, la cámara no puede moverse ni un píxel.
        */
       const camaraA = await (async () => {
         let previa = null;
@@ -262,7 +222,7 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
 
       /**
        * ⛔ RECENTRAR SOLO VIVE MIENTRAS LA CÁMARA ES TUYA: con dos dedos en el mapa, o después de
-       * soltarlos con el duende ya parado. Guiar nunca la suelta, así que guiando no hay disco.
+       * soltarlos con el duende parado. Mandar con un dedo nunca la suelta, así que ahí no hay disco.
        */
       const recenter = page.locator("#world-recenter");
       assert(await recenter.isVisible(), "Con dos dedos en el mapa, el disco de volver está ahí");
@@ -658,9 +618,9 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
       );
 
       /**
-       * ⛔ Y UN DEDO SOSTENIDO CRUZA LA COSTURA DEL RÍO. El destino es lo que hay bajo el dedo, y al
-       * cambiar de pantalla el gesto sigue vivo y se recalcula con la cámara nueva, así que la barca
-       * sigue subiendo: sin esto, cruzar te dejaba parado en mitad del agua con el dedo todavía puesto.
+       * ⛔ Y UN DEDO PUESTO CRUZA LA COSTURA DEL RÍO. El mando es un vector, como una tecla pulsada,
+       * y al cambiar de pantalla sigue leyéndose, así que la barca sigue subiendo: sin esto, cruzar
+       * te dejaba parado en mitad del agua con el dedo todavía puesto.
        */
       await seed({
         scene: "river-willows",
@@ -668,10 +628,11 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
         inventory: { boat: 1 },
         navigation: { mode: "boat", direction: "up" },
       });
-      // Pegada al borde de arriba, la cámara ya no puede centrar la barca y la barca queda en lo
-      // alto de la pantalla: el dedo va casi al borde superior, que es lo único que queda por
-      // encima de ella. Y ahí se queda quieto: cruzar no lo suelta.
-      await touch("touchStart", [[Math.round(width / 2), Math.round(height * 0.02), 1]]);
+      // El dedo se apoya donde sea y sube sesenta píxeles: remar río arriba, andando. Y ahí se
+      // queda: cruzar no lo suelta.
+      await touch("touchStart", [[Math.round(width / 2), Math.round(height * 0.6), 1]]);
+      for (let i = 1; i <= 6; i++)
+        await touch("touchMove", [[Math.round(width / 2), Math.round(height * 0.6) - i * 10, 1]]);
       await page.waitForFunction(
         () => window.MagikitosAdventure.inspect().scene === "river-rapids",
         null,
@@ -682,13 +643,13 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
       const trasLaCostura = (await inspect()).player;
       assert(
         Math.hypot(trasLaCostura.x - antesDeLaCostura.x, trasLaCostura.y - antesDeLaCostura.y) > 4,
-        "El dedo sostenido sigue llevando la barca después de la costura",
+        "El dedo puesto sigue llevando la barca después de la costura",
       );
       await touch("touchEnd", []);
       await cdp.detach();
       await page.close();
       console.log(
-        `PASS ${width}×${height}: mantener es guiar (destino bajo el dedo, anda/corre por distancia, encima es quieto, soltar no para, la cámara es del duende y se adelanta), dos dedos mueven la cámara sin dar órdenes, sin joystick ni turbo en el DOM, hablar retira la esquina, la cámara vuelve suavizando (${vuelta.mayor.toFixed(0)}px el mayor paso de ${vuelta.total.toFixed(0)}), recentrar, clic a través del diálogo, rueda/pellizco cubriendo el mapa entero y remo ${rowNormal.toFixed(0)}→${rowFast.toFixed(0)} px con espacio.`,
+        `PASS ${width}×${height}: joystick invisible (nace bajo el dedo, anda/corre por radio, el origen sigue al dedo, soltar para, aro hasta aprender), dos dedos mueven la cámara sin dar órdenes, sin joystick fijo ni turbo en el DOM, hablar retira la esquina, la cámara vuelve suavizando (${vuelta.mayor.toFixed(0)}px el mayor paso de ${vuelta.total.toFixed(0)}), recentrar, clic a través del diálogo, rueda/pellizco cubriendo el mapa entero y remo ${rowNormal.toFixed(0)}→${rowFast.toFixed(0)} px con espacio.`,
       );
     }
     assert.deepEqual(errors, []);

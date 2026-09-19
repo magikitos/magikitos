@@ -40,38 +40,40 @@ Sin vidas, combate, Libro del Bosque, fiambreras ni parcelas privadas.
 - Flechas/WASD: movimiento directo. Espacio sostenido: correr o remar más rápido.
   Espacio en diálogo: siguiente; Enter/Escape: cerrar. Clic fuera del diálogo:
   cerrar y utilizar ese mismo clic para caminar/interactuar. **No hay rodar**.
-- **MANTENER EL DEDO ES GUIAR AL DUENDE** (19-sep-2026, decisión del dueño). Por la
-  mañana se fue el joystick táctil («es una mierda, no me gusta nada, ni el botón de
-  turbo») y por la tarde el «arrastrar el mapa lleva al duende al centro» que lo
-  sustituyó («no permite navegación continua»: cada gesto movía media pantalla y al
-  llegar la cámara te recentraba). Lo que hay: un dedo que se queda puesto unos 180
-  ms, o que se desplaza más de la holgura de toque, guía al protagonista hacia el
-  punto del MUNDO que hay bajo el dedo. La cámara se queda pegada a él, así que ese
-  punto avanza con él y nunca lo alcanza mientras no sueltes; deslizas para virar.
-  Es el teclado sin teclado: toda la pantalla es el mando y su centro es el propio
-  duende, no una esquina. Vale igual con dedo, ratón (botón izquierdo) o lápiz, sin
-  preguntarle al navegador qué tienes en la mano. El dedo ENCIMA del duende es
-  quieto (14 px de mundo al cuerpo, con histéresis hasta 20 para no parpadear).
-  La marcha la decide la DISTANCIA y no un botón: el ritmo de viaje de la casa ya
-  corre por encima de ochenta píxeles de camino y afloja en los últimos cuarenta y
-  ocho. Es un DESTINO y no una interacción: llegar a un punto del suelo no abre
-  nada ni habla con nadie. Soltar no frena: el viaje termina en el último punto
-  donde estaba el dedo. Si no hay camino, se queda en el último punto posible; y si
-  el sitio solo se alcanza por agua y la barca está en el saco, se va al muelle y se
-  sigue remando. El destino se replanea solo cuando se ha movido 14 px de mundo, no
-  por fotograma, y lo hace el bucle del juego (`MapGestures.update`), no un temporizador.
-  **Un toque largo sin mover el dedo sigue siendo un toque**: mientras lo mantienes el
-  duende ya camina hacia ahí, y al levantar se aplica la interacción de lo que
-  señalabas. Quien toca despacio no pierde nada.
-  **Guiando, la cámara sigue al duende y no al sitio** (la intención va marcada
-  `guided`): el sitio es el dedo, y llevar la cámara al dedo movería el dedo. Y se
-  adelanta hasta 32 px de mundo hacia el rumbo, suavizada (`cameraLead`, función pura
-  en `camera.js`), para que el pulgar no tape justo lo que viene; al soltar vuelve a
-  cero por el mismo suavizado, sin salto.
+- **EL MANDO ES UN JOYSTICK INVISIBLE QUE NACE DONDE APOYAS EL DEDO** (19-sep-2026,
+  decisión del dueño, tercera y definitiva del día). Por la mañana se fue el joystick
+  fijo de la esquina («es una mierda, no me gusta nada, ni el botón de turbo»); a
+  mediodía, el «arrastrar el mapa lleva al duende al centro» («no permite navegación
+  continua»); y por la tarde, probado en producción, el «mantener el dedo guía hacia
+  lo que hay debajo» («con nada que me alejo ya se pone a correr», «para ir arriba el
+  dedo tiene que estar muy arriba»). Lo que hay: apoyas el dedo en CUALQUIER sitio,
+  lo mueves más de la holgura de toque (8 px) y el protagonista va en esa dirección,
+  exactamente como una flecha del teclado: el vector entra por `directionIntent` y
+  comparte con las teclas colisiones, empujes, charlas al chocar, costuras y remo.
+  Umbrales en píxeles de PANTALLA, para que el zoom no cambie la sensación: zona
+  muerta de 10, andar hasta 100, correr en el borde, y para volver a andar hay que
+  recogerse hasta 80 (histéresis). Soltar para, como soltar una tecla; para viajes
+  largos ya está el toque, que sigue igual: pulsar sin mover y soltar es tocar e
+  interactuar, dure lo que dure la pulsación. Vale igual con dedo, ratón (botón
+  izquierdo) o lápiz, sin preguntarle al navegador qué tienes en la mano.
+  **El origen sigue al dedo.** El joystick que se centra donde tocas y obliga a
+  levantar para recentrar es el que la gente odia (arrastran el dedo por toda la
+  pantalla y nunca lo sueltan). Pasado el radio, el origen se arrastra detrás del
+  dedo: ir a la izquierda y volver hacia la derecha se nota al instante sin levantar.
+  **La cámara se queda pegada al duende**, sin adelanto ni destino: `cameraGoal` solo
+  viaja al sitio de un toque o al foco de construir.
   **Cruzar no suelta el dedo.** El gesto sobrevive a la escena (`keepPointerGesture`
-  llega hasta `scenes.enter`) y al otro lado el destino se recalcula desde el dedo y
-  la cámara nueva, así que un dedo sostenido sigue llevando la barca después de la
-  costura sin replantar nada a mano.
+  llega hasta `scenes.enter`) y al otro lado `directionIntent` lo lee igual, como una
+  tecla que sigue pulsada.
+  **Se aprende viéndolo una vez.** Mientras el dedo manda, el lienzo pinta un aro
+  tenue donde lo apoyaste y una bolita donde está (`renderer.stickHint`, sin DOM):
+  enseña que el mando nace bajo el dedo y, cuando el origen se desliza detrás, que no
+  hace falta levantar para virar. Tras seis segundos acumulados andando con él deja
+  de pintarse para siempre en ese navegador (`magikitos.adventure.stick` en
+  localStorage, como el duende elegido: el contrato de la partida en la nube no admite
+  claves nuevas, y un pulgar nuevo merece verlo una vez).
+  **El lienzo no se selecciona**: `user-select: none` y `-webkit-touch-callout: none`
+  en el escenario, porque iOS trataba la pulsación larga como seleccionar texto.
   **Mientras hay conversación o narración no hay mando**: `openDialogue` pausa el
   movimiento, y una marca en la raíz (`data-world-retired`) pone a cero el hueco
   que el disco de recentrar tiene reservado abajo a la derecha.
@@ -79,8 +81,9 @@ Sin vidas, combate, Libro del Bosque, fiambreras ni parcelas privadas.
   foco nunca deja un control pulsado. No se simulan teclas desde el DOM.
 - **La cámara se mueve con DOS dedos, o con el botón derecho/central del ratón.** Es
   el gesto de cualquier app de mapas: los dos dedos ya hacían zoom y ahora también
-  desplazan. Mirar alrededor no da órdenes: si el duende iba a algún sitio, sigue
-  yendo, y la cámara no tira de él mientras el gesto dura. Un pellizco QUIETO hace
+  desplazan. Mirar alrededor no da órdenes: el segundo dedo suelta el mando (te has
+  parado a mirar), un viaje tocado sigue su camino, y la cámara no tira del duende
+  mientras el gesto dura. Un pellizco QUIETO hace
   zoom sobre el duende como siempre, sin soltar la cámara; solo cuando los dedos
   viajan más de la holgura pasa a ser suya. Construyendo, un solo dedo sigue moviendo
   el mapa, porque ahí no se dan órdenes de andar. El menú contextual del lienzo se

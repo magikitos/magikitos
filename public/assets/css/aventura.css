@@ -71,6 +71,16 @@ body.world-page {
   overflow: hidden;
   background: #426849;
 }
+/* ⛔ EL LIENZO NO SE SELECCIONA (19-sep-2026, visto por el dueño en producción: al dejar el dedo
+   puesto, iOS sacaba «Copiar / Buscar con Google» y pintaba la página de azul). Es la selección
+   nativa de pulsación larga, que ningún preventDefault de puntero corta; se apaga con CSS en el
+   lienzo y en su escenario, que es lo que hay debajo del dedo. */
+.world-stage,
+#world-canvas {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
 #world-canvas {
   display: block;
   touch-action: none;

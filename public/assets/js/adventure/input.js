@@ -17,10 +17,10 @@ const editable = (target) =>
 
 /**
  * Context priority: native form/modal > dialogue > the map. No device detection, y desde el
- * 19-sep-2026 tampoco hay nada que detectar: tocar es ir, MANTENER es guiar al duende (ver
- * `map-gestures.js`), y eso funciona igual con un dedo, con un ratón o con un lápiz. La cámara se
- * mueve con dos dedos o con el botón derecho/central, así que el menú contextual del lienzo se
- * anula: ahí no hay nada que copiar y sí un gesto que interrumpiría.
+ * 19-sep-2026 tampoco hay nada que detectar: tocar es ir, y mover el dedo es un joystick
+ * invisible que nace donde lo apoyas (ver `map-gestures.js`), igual con un dedo, con un ratón o
+ * con un lápiz. La cámara se mueve con dos dedos o con el botón derecho/central, así que el menú
+ * contextual del lienzo se anula: ahí no hay nada que copiar y sí un gesto que interrumpiría.
  */
 class WorldInput {
   constructor(game) {

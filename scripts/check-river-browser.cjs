@@ -102,9 +102,9 @@ const boat = (scene, x, y) =>
         "Space accelerates rowing",
       );
       /**
-       * ⛔ Y REMAR TAMBIÉN ES MANTENER EL DEDO (19-sep-2026). Desde que el joystick se erradicó, el
-       * mando de un dedo es el mismo a pie que en la barca: el dedo se queda puesto y la barca va
-       * hacia lo que hay debajo. Aquí el dedo está por debajo de la barca, así que rema río abajo.
+       * ⛔ Y REMAR TAMBIÉN ES EL JOYSTICK INVISIBLE (19-sep-2026). Desde que el joystick fijo se
+       * erradicó, el mando de un dedo es el mismo a pie que en la barca: se apoya, se mueve y la
+       * barca va hacia donde tira. Aquí el dedo baja sesenta píxeles, así que rema río abajo.
        */
       await seed(boat("river-willows", 48, 6));
       const cdp = await page.context().newCDPSession(page);
@@ -114,13 +114,14 @@ const boat = (scene, x, y) =>
           touchPoints: points.map(([x, y]) => ({ id: 1, x, y })),
         });
       start = (await inspect()).player.y;
-      await dedo("touchStart", [[width / 2, height * 0.78]]);
+      await dedo("touchStart", [[width / 2, height * 0.5]]);
+      for (let i = 1; i <= 6; i++) await dedo("touchMove", [[width / 2, height * 0.5 + i * 10]]);
       await page.waitForTimeout(700);
       await dedo("touchEnd", []);
       await cdp.detach();
       assert(
         (await inspect()).player.y > start + 20,
-        "Un dedo mantenido rema la barca hacia lo que hay bajo el dedo",
+        "Mover el dedo hacia abajo rema la barca río abajo",
       );
       await page.reload();
       await ready();

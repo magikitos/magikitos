@@ -3,7 +3,7 @@ const { tryPush } = require("./movables");
 const { releaseContact } = require("./obstacles");
 const { World, TILE, insideThreshold } = require("./model");
 const { Renderer } = require("./renderer");
-const { clampCamera, cameraFollow, cameraLead, continuousTravel } = require("./camera");
+const { clampCamera, cameraFollow, continuousTravel } = require("./camera");
 const { doorDestination, acceptsEntry } = require("./portals");
 const { WoodlandAudio } = require("./audio");
 const { Entry } = require("./entry");
@@ -35,8 +35,28 @@ const { WALK_SPEED, RUN_SPEED, routeDistance } = require("./locomotion");
  */
 const CAMERA_FOLLOW_RATE = 9;
 const CAMERA_TRAVEL_RATE = 1.8;
-/** Lo que tarda en asentarse el adelanto de la cámara al guiar: virar no da tirones. */
-const CAMERA_LEAD_RATE = 4;
+/**
+ * Segundos andados con el mando del dedo a partir de los cuales el aro de aprendizaje deja de
+ * pintarse. Es una preferencia de ESTE navegador (`STICK_KEY`), como el duende elegido: el
+ * contrato de la partida en la nube no admite claves nuevas y un pulgar nuevo merece verlo una vez.
+ */
+const STICK_LEARNED_SECONDS = 6;
+const STICK_KEY = "magikitos.adventure.stick";
+function readStickPractice() {
+  try {
+    const value = Number(localStorage.getItem(STICK_KEY));
+    return Number.isFinite(value) ? Math.max(0, Math.min(STICK_LEARNED_SECONDS, value)) : 0;
+  } catch (_) {
+    return 0;
+  }
+}
+function writeStickPractice(seconds) {
+  try {
+    localStorage.setItem(STICK_KEY, String(Math.round(seconds * 100) / 100));
+  } catch (_) {
+    /* Sin almacenamiento el aro se enseña cada visita, que es lo menos malo. */
+  }
+}
 const { Embed } = require("./embed");
 const { Journey } = require("./journey");
 const { PickupFeedback } = require("./pickups");
@@ -93,7 +113,8 @@ class Adventure {
     this.neighbors = [];
     this.camera = { x: 0, y: 0 };
     this.cameraFollowing = true;
-    this.cameraLead = { x: 0, y: 0 };
+    // Cuánto se ha andado ya con el mando del dedo, en segundos; decide si se pinta el aro.
+    this.stickPractice = readStickPractice();
     this.lastTime = 0;
     this.lastSave = 0;
     this.dirty = false;
@@ -352,60 +373,12 @@ class Adventure {
     this.retireControls("listening", on);
   }
   /**
-   * ⛔ MANTENER EL DEDO ES GUIAR AL DUENDE (19-sep-2026, decisión del dueño). El joystick táctil
-   * se fue por la mañana («es una mierda, no me gusta nada, ni el botón de turbo») y el «arrastrar
-   * el mapa lleva al centro» que lo sustituyó se fue por la tarde («no permite navegación
-   * continua»: cada gesto movía media pantalla y había que volver a arrastrar).
-   *
-   * Lo que hay es esto: el duende camina hacia el punto del mundo que hay bajo tu dedo, y la cámara
-   * se queda pegada a él, así que ese punto avanza con él y no lo alcanza mientras no sueltes. Es el
-   * teclado sin teclado: toda la pantalla es el mando y su centro es el propio duende, no una
-   * esquina. Un dedo, un ratón y un lápiz mandan igual, sin preguntarle al navegador qué tienes en
-   * la mano. Quién decide cuándo y hacia dónde vive en `map-gestures.js`; aquí solo se ordena el viaje.
-   *
-   * La marcha la decide la DISTANCIA y no un botón: el ritmo de viaje de la casa ya corre cuando
-   * el camino pasa de ochenta píxeles y afloja a andar en los últimos cuarenta y ocho, que es
-   * exactamente «cerca anda y lejos corre».
-   *
-   * Y es un destino, no una interacción: llegar a un punto del suelo no abre nada ni habla con
-   * nadie. Si no se puede llegar, el viaje se queda en el último sitio posible, que es lo que ya
-   * hace `journey.start` con su aproximación. La intención va marcada `guided` para que la cámara
-   * siga al duende y no al sitio (ver `centerCamera`): el sitio ES el dedo, y llevar la cámara al
-   * dedo movería el dedo, que es una persecución sin fin.
+   * ⛔ AQUÍ VIVIÓ `leadTo`, el «guiar hacia el punto bajo el dedo» de la mañana del 19-sep-2026,
+   * y se fue la misma tarde tras probarlo el dueño en producción: «con nada que me alejo ya se
+   * pone a correr» y «para ir arriba el dedo tiene que estar muy arriba». El mando del dedo es
+   * desde entonces un joystick invisible que entra por `directionIntent`, como las flechas
+   * (`map-gestures.js`). El toque para ir e interactuar sigue aquí debajo, igual que siempre.
    */
-  leadTo(point) {
-    if (
-      !this.ready ||
-      this.transitioning ||
-      this.dialogue ||
-      this.hasOverlay() ||
-      this.cats.locked ||
-      this.community.editing
-    )
-      return;
-    if (this.river.active) {
-      this.river.lead(point);
-      return;
-    }
-    // ⛔ Y SI HAY QUE COGER LA BARCA, SE COGE. Un sitio que solo se alcanza por agua se alcanza
-    // remando: se camina al muelle más cercano, embarcar ya es automático al pisar la punta, y el
-    // río recoge el destino que quedaba pendiente. Sin barca en el saco no hay muelle que valga y
-    // el viaje termina en la orilla, que es el último punto posible.
-    const dock = this.river.dockFor(point);
-    if (dock) {
-      if (
-        this.journey.start(this.world, this.player, {
-          kind: "dock",
-          dock,
-          point: dock.dry,
-          guided: true,
-        })
-      )
-        this.river.pendingWater = { x: point.x, y: point.y };
-      return;
-    }
-    this.journey.start(this.world, this.player, { kind: "ground", point, guided: true });
-  }
   tap(point) {
     if (this.cats.locked) return;
     if (this.community.tap(point)) return;
@@ -938,17 +911,10 @@ class Adventure {
     //
     const goal = this.cameraGoal();
     const subject = (reading ? this.site.focus() : null) || goal || this.player;
-    // El adelanto hacia donde guías solo existe siguiendo al duende; en cualquier otro encuadre
-    // se va apagando por el mismo suavizado, así que soltar nunca da un salto.
-    this.cameraLead = cameraLead(
-      this.cameraLead,
-      subject === this.player && !reading ? this.input?.map.guideVector() : null,
-      { ease: snap ? 1 : this.cameraLeadEase ?? 0 },
-    );
     const target = clampCamera(
       {
-        x: subject.x + this.cameraLead.x - this.renderer.width / 2,
-        y: subject.y + this.cameraLead.y - this.renderer.height * (reading ? 0.34 : 0.5),
+        x: subject.x - this.renderer.width / 2,
+        y: subject.y - this.renderer.height * (reading ? 0.34 : 0.5),
       },
       this.world,
       this.renderer,
@@ -979,17 +945,12 @@ class Adventure {
   }
   /**
    * El sitio al que VIAJA la cámara en vez de seguir al duende, o null si le sigue: el foco que
-   * pide construir, o el destino de un toque.
-   *
-   * ⛔ GUIANDO, LA CÁMARA SIGUE AL DUENDE Y NO AL SITIO (19-sep-2026). El sitio es el punto que
-   * hay bajo el dedo, y el dedo está donde está EN PANTALLA: llevar la cámara al sitio movería el
-   * sitio, y así hasta el borde del mapa. Vale para el viaje que sigue vivo después de soltar,
-   * que sigue siendo el mismo viaje (la intención va marcada `guided`).
+   * pide construir, o el destino de un toque. Con el mando del dedo no hay destino, así que la
+   * cámara va pegada al duende, como con las teclas.
    */
   cameraGoal() {
     if (!byId("world-content").hidden) return null;
-    const guided = Boolean(this.journey.intent?.guided) || Boolean(this.input?.map.guiding);
-    return this.focusPoint || (guided ? null : this.journey.goal) || null;
+    return this.focusPoint || this.journey.goal || null;
   }
   recenterCamera(snap = false) {
     this.input?.map.clear();
@@ -1080,16 +1041,24 @@ class Adventure {
     return x || y ? { x, y } : null;
   }
   /**
-   * Hacia dónde se dirige quien juega AHORA MISMO, y solo del teclado: el joystick táctil y su
-   * botón de turbo se erradicaron el 19-sep-2026 (decisión del dueño). Con un dedo no se dirige:
-   * se MANTIENE y el duende va hacia lo que hay bajo el dedo, como un viaje (ver `map-gestures.js`
-   * y `leadTo`), sin ocupar una esquina de la pantalla.
+   * Hacia dónde se dirige quien juega AHORA MISMO: las teclas, y si no, el mando del dedo. El
+   * joystick fijo con su turbo se erradicó el 19-sep-2026 (decisión del dueño); lo que hay es un
+   * joystick invisible que nace donde apoyas el dedo (`map-gestures.js`) y entra por aquí como
+   * una flecha más, así que colisiones, empujes, charlas al chocar, costuras y remo son los mismos.
    */
   directionIntent() {
-    return this.keyboardIntent();
+    return this.keyboardIntent() || this.input?.map.intent() || null;
+  }
+  /**
+   * El aro de aprendizaje del mando: dónde pintarlo, o null. Se pinta mientras el dedo manda y
+   * hasta que se ha andado con él STICK_LEARNED_SECONDS; después, nunca más en este navegador.
+   */
+  stickHint() {
+    if (!this.input?.map.steering || this.stickPractice >= STICK_LEARNED_SECONDS) return null;
+    return this.input.map.stickView();
   }
   boosted() {
-    return this.keys.has(" ");
+    return this.keys.has(" ") || Boolean(this.input?.map.running);
   }
   movementIntent() {
     const keys = this.directionIntent();
@@ -1128,10 +1097,6 @@ class Adventure {
     this.telemetry.tick();
     this.cameraEase = 1 - Math.exp(-dt * CAMERA_FOLLOW_RATE);
     this.cameraTravelEase = 1 - Math.exp(-dt * CAMERA_TRAVEL_RATE);
-    this.cameraLeadEase = 1 - Math.exp(-dt * CAMERA_LEAD_RATE);
-    // El gesto del mapa vive en el bucle y no en un temporizador: aquí un dedo quieto pasa a
-    // guiar, y el destino guiado se recalcula antes de dar el paso de este fotograma.
-    this.input?.map.update(ms);
     this.walking = false;
     this.running = false;
     this.player.pushing = null;
@@ -1192,6 +1157,13 @@ class Adventure {
         }
       }
       if (this.walking) this.dirty = true;
+      // Andar con el mando del dedo es aprenderlo: cuando se ha andado lo bastante, el aro deja
+      // de pintarse y se recuerda en este navegador.
+      if (this.walking && this.input?.map.steering && this.stickPractice < STICK_LEARNED_SECONDS) {
+        this.stickPractice = Math.min(STICK_LEARNED_SECONDS, this.stickPractice + dt);
+        if (this.stickPractice >= STICK_LEARNED_SECONDS || Math.floor(this.stickPractice) > Math.floor(this.stickPractice - dt))
+          writeStickPractice(this.stickPractice);
+      }
       if (!this.reducedMotion) this.updateNeighbors(dt);
     }
     if (this.guardian) {
@@ -1247,12 +1219,15 @@ class Adventure {
       materialSync: { pending: this.materials.queue.length, error: this.materials.error || null },
       camera: { ...this.camera },
       cameraFollowing: this.cameraFollowing,
-      // Qué está haciendo el dedo: guiar al duende o mover la cámara. Una prueba no puede
+      // Qué está haciendo el dedo: mandar al duende o mover la cámara. Una prueba no puede
       // distinguirlo por la posición, porque en los dos casos el mundo se desplaza.
       gesture: {
-        guiding: Boolean(this.input?.map.guiding),
+        steering: Boolean(this.input?.map.steering),
+        running: Boolean(this.input?.map.running),
+        intent: this.input?.map.intent() || null,
         panning: Boolean(this.input?.map.dragging),
-        lead: { ...this.cameraLead },
+        practice: this.stickPractice,
+        hint: Boolean(this.stickHint()),
       },
       // Solo el punto: el destino puede ser una entidad entera y esto se serializa en cada sonda.
       cameraGoal: this.journey.goal
