@@ -54,7 +54,7 @@ async function scene(group, viewport = { width: 1440, height: 900 }) {
       localStorage.setItem("magikitos.adventure", JSON.stringify(state)),
     { scene: room.scene, position, flags: {}, muted: true },
   );
-  await page.goto(origin + "/aventura");
+  await page.goto(origin + "/bosque/explorar");
   await require("./browser-entry.cjs").enterWorld(page);
   await page.waitForTimeout(400);
   const s = await page.evaluate(() => window.MagikitosAdventure.inspect());

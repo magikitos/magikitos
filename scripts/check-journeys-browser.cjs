@@ -26,7 +26,7 @@ const arena = {
         if (!["127.0.0.1", "magikitos.ddev.site"].includes(url.hostname)) return route.abort();
         if (url.pathname.startsWith("/api/"))
           return route.fulfill({ status: 503, contentType: "application/json", body: '{"ok":false,"error":"offline"}' });
-        if (url.pathname !== "/aventura") return route.continue();
+        if (url.pathname !== "/bosque/explorar") return route.continue();
         const response = await route.fetch();
         const body = (await response.text()).replace(
           /(<script type="application\/json" id="adventure-config">)([\s\S]*?)(<\/script>)/,
@@ -41,7 +41,7 @@ const arena = {
       await page.addInitScript(position => {
         localStorage.setItem("magikitos.adventure", JSON.stringify({ scene: "overworld", position, flags: {  }, muted: true }));
       }, start);
-      await page.goto(origin + "/aventura");
+      await page.goto(origin + "/bosque/explorar");
       await require("./browser-entry.cjs").enterWorld(page);
       const inspect = () => page.evaluate(() => window.MagikitosAdventure.inspect());
       const waitArrival = () => page.waitForFunction(() => !window.MagikitosAdventure.inspect().travel.intent, null, { timeout: 10000 });

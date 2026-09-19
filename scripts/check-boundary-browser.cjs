@@ -53,7 +53,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
       JSON.stringify({ flags: {  }, muted: true }),
     ),
   );
-  await p.goto(offline + "/aventura");
+  await p.goto(offline + "/bosque/explorar");
   await require("./browser-entry.cjs").enterWorld(p);
   assert(!(await p.locator("#loading").isVisible()));
   const before = await p.evaluate(
@@ -98,7 +98,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
       }),
     ),
   );
-  await sinCuenta.goto(offline + "/aventura");
+  await sinCuenta.goto(offline + "/bosque/explorar");
   await require("./browser-entry.cjs").enterWorld(sinCuenta);
   await sinCuenta.locator("#build-toggle").click();
   await sinCuenta.locator("#self-dialog[open]").waitFor();
@@ -186,7 +186,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
         }),
       );
     }, mode);
-    await page.goto(origin + "/aventura");
+    await page.goto(origin + "/bosque/explorar");
     await require("./browser-entry.cjs").enterWorld(page);
     /**
      * ⛔ EL BOTÓN QUE PEDÍA IDENTIDAD YA NO EXISTE, y esta prueba se quedó apuntándole: «Yo» dejó
@@ -280,7 +280,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
       }),
     ),
   );
-  await chat.goto(origin + "/aventura");
+  await chat.goto(origin + "/bosque/explorar");
   await require("./browser-entry.cjs").enterWorld(chat);
   const s = await chat.evaluate(() => window.MagikitosAdventure.inspect()),
     e = s.entities.find((e) => e.id === "expression-book"),

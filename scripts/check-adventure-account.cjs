@@ -8,7 +8,7 @@ const {
   webUrl,
 } = require("../public/assets/js/adventure/api");
 const { Session, Heard } = require("../public/assets/js/adventure/session");
-global.location = { href: "http://127.0.0.1:47834/aventura" };
+global.location = { href: "http://127.0.0.1:47834/bosque/explorar" };
 global.document = { getElementById: () => null };
 const data = new Map(),
   storage = {

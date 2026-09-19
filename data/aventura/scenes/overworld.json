@@ -2457,15 +2457,47 @@
       {
         "id": "river-mouth",
         "area": [
-          99,
+          92,
           1.5,
-          26,
+          52,
           1.2
         ],
         "scene": "river-willows",
         "mode": "boat",
         "position": [
-          48,
+          54,
+          143.9
+        ],
+        "direction": "up"
+      },
+      {
+        "id": "meadow-up",
+        "area": [
+          67.5,
+          0,
+          13,
+          3.4
+        ],
+        "scene": "river-willows",
+        "mode": "foot",
+        "position": [
+          10,
+          143.9
+        ],
+        "direction": "up"
+      },
+      {
+        "id": "meadow-up-east",
+        "area": [
+          89.5,
+          0,
+          5,
+          3.4
+        ],
+        "scene": "river-willows",
+        "mode": "foot",
+        "position": [
+          28,
           143.9
         ],
         "direction": "up"

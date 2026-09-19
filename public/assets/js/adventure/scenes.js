@@ -52,6 +52,18 @@ class SceneDirector {
     // de la costura mientras se les ve.
     this.layout = layoutScenes(game.catalog.scenes, game.catalog.start);
     this.residents = new Map();
+    // El plano en píxeles, para pintar el hueco entre pantallas continuando el borde más cercano
+    // (`paintVoid`): cada pantalla con su esquina y su tamaño, y la caja de todas.
+    const b = this.layout.bounds;
+    this.plane = {
+      scenes: [...this.layout.offsets].map(([id, o]) => {
+        const data = game.catalog.scenes[id];
+        return { id, data, x: o.x * TILE, y: o.y * TILE, w: data.width * TILE, h: data.height * TILE };
+      }),
+      bounds: Number.isFinite(b.x0)
+        ? { x: b.x0 * TILE, y: b.y0 * TILE, w: (b.x1 - b.x0) * TILE, h: (b.y1 - b.y0) * TILE }
+        : null,
+    };
   }
   /**
    * ⛔ ENLAZA LAS PANTALLAS QUE ESTÁN EN MEMORIA POR SUS COSTURAS (mundo continuo). Cada mundo

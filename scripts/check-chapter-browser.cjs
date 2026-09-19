@@ -33,7 +33,7 @@ const origin = process.env.GAME_ORIGIN || "http://127.0.0.1:47834";
           sessionStorage.removeItem("chapter-seed");
         }
       });
-      await page.goto(origin + "/aventura");
+      await page.goto(origin + "/bosque/explorar");
       const inspect = () =>
         page.evaluate(() => window.MagikitosAdventure.inspect());
       const ready = () =>

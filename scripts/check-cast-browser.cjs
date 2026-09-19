@@ -34,7 +34,7 @@ const read = (page) => page.evaluate(() => window.MagikitosAdventure.inspect());
       await page.addInitScript(() =>
         localStorage.setItem("magikitos.adventure", JSON.stringify({ muted: true })),
       );
-      await page.goto(origin + "/aventura");
+      await page.goto(origin + "/bosque/explorar");
       await enterWorld(page);
       const offered = (await read(page)).cast.offered;
       assert(offered.length >= 1, "The release offers somebody");

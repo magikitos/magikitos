@@ -29,6 +29,14 @@ function assertShell(actual, expected, headers, route) {
     const mode=assertShell(text,fs.readFileSync(path.join(directory,'pages',lang+'.html'),'utf8'),r.headers,route);
     console.log('PASS live static shell '+route+' '+id+' ('+mode+')');
   }
+  // La landing de la web (19-sep-2026): `/bosque` y sus traducciones son una página normal de la
+  // casa que enlaza al artefacto con «Explorar el bosque». Sin ese enlace el juego no tiene puerta.
+  for(const route of Object.values(manifest.routes)) {
+    const landing=route.replace(/\/[^/]+$/,''), text=await (await response(landing)).text();
+    assert(text.includes('href="'+route+'"'),'La landing '+landing+' enlaza al juego en '+route);
+    assert(text.includes('id="bosque-host"'),'La landing '+landing+' lleva el hueco del iframe');
+    console.log('PASS live landing '+landing+' → '+route);
+  }
   for(const file of ['assets/js/aventura.min.js','assets/css/aventura.min.css','assets/aventura/manifest.json','game-contract.json']) {
     const r=await response('/game/releases/'+id+'/'+file);
     assert.equal(crypto.createHash('sha256').update(Buffer.from(await r.arrayBuffer())).digest('hex'),manifest.files[file]);
@@ -100,7 +108,7 @@ function assertShell(actual, expected, headers, route) {
         const seed=sessionStorage.getItem('smoke-next') || JSON.stringify({flags:{},muted:true});
         localStorage.setItem('magikitos.adventure',seed);
       });
-      await page.goto(origin+'/aventura');
+      await page.goto(origin+'/bosque/explorar');
       await require("./browser-entry.cjs").enterWorld(page);
       const before=await page.evaluate(()=>window.MagikitosAdventure.inspect());
       await page.keyboard.down('ArrowDown'); await page.waitForTimeout(240); await page.keyboard.up('ArrowDown');

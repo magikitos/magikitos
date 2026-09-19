@@ -17,7 +17,7 @@ const scene = JSON.parse(fs.readFileSync(".local/build/world.json")).scenes.over
         scene: "overworld", position: { x: spawn.x * 16, y: spawn.y * 16 },
         flags: {  }, muted: true,
       })), scene.spawn);
-      await page.goto(origin + "/aventura");
+      await page.goto(origin + "/bosque/explorar");
       await require("./browser-entry.cjs").enterWorld(page);
       const inspect = () => page.evaluate(() => window.MagikitosAdventure.inspect());
       const initial = await inspect();

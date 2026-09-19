@@ -43,7 +43,7 @@ async function main() {
         if (packet.type !== "objetos") return;
         packets.push(packet); if (packets.length > 64) packets.shift();
       }));
-      await page.goto(origin + "/aventura"); await enterWorld(page);
+      await page.goto(origin + "/bosque/explorar"); await enterWorld(page);
       await page.waitForFunction(() => window.MagikitosAdventure.inspect().live.role === "player");
       try {
         await until(() => packets.some(p => p.scene === scene && p.objects.some(row => row[0] === id)), "Authored crate never reached real socket");

@@ -39,7 +39,7 @@ fs.mkdirSync(shots, { recursive: true });
           muted: true,
         },
       );
-      await p.goto("http://127.0.0.1:47834/aventura");
+      await p.goto("http://127.0.0.1:47834/bosque/explorar");
       await require("./browser-entry.cjs").enterWorld(p);
       await p.waitForTimeout(250);
       const state = await p.evaluate(() => window.MagikitosAdventure.inspect());

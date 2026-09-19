@@ -39,7 +39,7 @@ const origin = process.env.GAME_ORIGIN || "http://127.0.0.1:47834";
         }),
       ),
     );
-    await page.goto(origin + "/aventura");
+    await page.goto(origin + "/bosque/explorar");
     await require("./browser-entry.cjs").enterWorld(page);
     const bundle = buildSync({
       stdin: {

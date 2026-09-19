@@ -22,7 +22,7 @@ const key = 'magikitos.adventure';
         page.on('pageerror', e => errors.push(e.message));
         await page.route('**/*', r => ['127.0.0.1','magikitos.ddev.site'].includes(new URL(r.request().url()).hostname) ? r.continue() : r.abort());
         await require('./browser-art.cjs').useReviewVariant(page);
-        await page.goto(origin+'/aventura');
+        await page.goto(origin+'/bosque/explorar');
         const inspect = () => page.evaluate(() => window.MagikitosAdventure.inspect());
         const stored = () => page.evaluate(k => JSON.parse(localStorage.getItem(k)), key);
         /**

@@ -41,7 +41,7 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
             contentType: "application/json",
             body: '{"ok":false,"error":"offline"}',
           });
-        if (url.pathname !== "/aventura") return route.continue();
+        if (url.pathname !== "/bosque/explorar") return route.continue();
         return fulfillArena(route);
       });
       await page.addInitScript(() => {
@@ -70,7 +70,7 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
         await page.reload();
         await ready();
       };
-      await page.goto(origin + "/aventura");
+      await page.goto(origin + "/bosque/explorar");
       await ready();
       /**
        * ⛔ EL MANDO ES UN JOYSTICK INVISIBLE QUE NACE DONDE APOYAS EL DEDO (19-sep-2026, decisión
@@ -137,12 +137,13 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
       assert(ahora.cameraFollowing, "La cámara es del duende");
       assert(ahora.gesture.hint, "…y el aro del mando se pinta mientras el dedo manda");
 
-      // 3. En el borde se corre.
+      // 3. En el borde del aro TAMBIÉN se anda: el dedo no corre nunca (correr es Espacio o el toque lejano).
       await mover(-70, 0);
       await page.waitForTimeout(200);
       const corriendo = await inspect();
-      assert(corriendo.gesture.running, "En el borde del mando se corre");
-      assert.equal(corriendo.pace, "run", "…de verdad");
+      assert(corriendo.gesture.steering && corriendo.gesture.intent.x < -0.9, "En el borde del aro se sigue mandando");
+      assert.equal(corriendo.pace, "walk", "…y se anda, no se corre");
+      assert(!("running" in corriendo.gesture), "El mando no tiene marcha que inspeccionar");
 
       // 4. El origen ha seguido al dedo: volver 150 px a la derecha, sin levantar, ya es ir a la derecha.
       await mover(150, 0);
@@ -150,7 +151,7 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
       const virada = await inspect();
       assert(virada.gesture.intent && virada.gesture.intent.x > 0.9, "Volver hacia atrás vira sin levantar " + JSON.stringify(virada.gesture.intent));
       assert(virada.player.x > corriendo.player.x + 6, "…y el duende va ahora a la derecha");
-      assert.equal(virada.pace, "walk", "…andando, que el dedo quedó a media distancia del origen nuevo");
+      assert.equal(virada.pace, "walk", "…andando, como siempre con el dedo");
 
       // 5. Soltar para, como soltar una tecla.
       await soltar();
@@ -173,68 +174,43 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
       assert(!(await inspect()).gesture.hint, "Soltando, el aro se va");
       await quieto();
 
-      // 7. Dos dedos mueven la CÁMARA y no dan órdenes.
-      const enPie = await inspect();
-      const paso = Math.round(Math.min(width, height) * 0.3);
-      const par = (k) => {
-        const x = Math.round(width * 0.6 - (paso * k) / 8),
-          y = Math.round(height * 0.5);
+      // 7. Dos dedos hacen ZOOM y nada más (decisión del dueño: «dejaría solo el zoom»): la cámara
+      //    sigue siendo del duende, no se desplaza aunque los dedos viajen, y no hay disco de recentrar.
+      const antesDelPellizco = await inspect();
+      const par = (k, shift = 0) => {
+        const cx = Math.round(width * 0.5) - shift,
+          cy = Math.round(height * 0.45),
+          d = 120 - k * 10;
         return [
-          [x, y, 1],
-          [x + 60, y + 60, 2],
+          [cx - d, cy, 1],
+          [cx + d, cy, 2],
         ];
       };
       await touch("touchStart", par(0));
       for (let k = 1; k <= 8; k++) await touch("touchMove", par(k));
-      const dosDedos = await inspect();
-      assert(!dosDedos.cameraFollowing, "Dos dedos hacen suya la cámara");
-      assert(dosDedos.gesture.panning && !dosDedos.gesture.steering, "…y eso es panear, no mandar");
+      const pellizco = await inspect();
       assert(
-        dosDedos.camera.x > enPie.camera.x + 30,
-        "…hacia donde tiran los dedos " + JSON.stringify({ antes: enPie.camera, ahora: dosDedos.camera }),
+        pellizco.scale < antesDelPellizco.scale,
+        "Juntar los dedos aleja el zoom " + JSON.stringify({ antes: antesDelPellizco.scale, ahora: pellizco.scale }),
       );
-      assert(dosDedos.pace === "idle" && !dosDedos.travel.intent, "…sin mover al duende");
-      /**
-       * Los toques de CDP y `evaluate` llegan al renderizador por caminos distintos, así que leer
-       * la cámara justo después del último `touchMove` puede pillarla con un tramo del paneo sin
-       * aplicar y contarlo luego como deriva. Se espera a que el paneo se asiente, y ahí empieza la
-       * medida: con los dedos quietos, la cámara no puede moverse ni un píxel.
-       */
-      const camaraA = await (async () => {
-        let previa = null;
-        for (let i = 0; i < 20; i++) {
-          const c = (await inspect()).camera;
-          if (previa && lejos(previa, c) < 0.5) return c;
-          previa = c;
-          await page.waitForTimeout(60);
-        }
-        return previa;
-      })();
-      await page.waitForTimeout(200);
-      await touch("touchMove", par(8));
+      assert(pellizco.cameraFollowing && !pellizco.gesture.panning && !pellizco.gesture.steering, "…y la cámara sigue siendo del duende");
+      assert(await page.locator("#world-recenter").isHidden(), "…sin disco de recentrar");
+      const camaraA = pellizco.camera;
+      for (let k = 1; k <= 6; k++) await touch("touchMove", par(8, k * 30));
+      await page.waitForTimeout(150);
       const camaraB = (await inspect()).camera;
-      assert(
-        lejos(camaraA, camaraB) < 1,
-        "Con los dedos puestos, la cámara no se va sola " + JSON.stringify({ camaraA, camaraB }),
-      );
-
-      /**
-       * ⛔ RECENTRAR SOLO VIVE MIENTRAS LA CÁMARA ES TUYA: con dos dedos en el mapa, o después de
-       * soltarlos con el duende parado. Mandar con un dedo nunca la suelta, así que ahí no hay disco.
-       */
-      const recenter = page.locator("#world-recenter");
-      assert(await recenter.isVisible(), "Con dos dedos en el mapa, el disco de volver está ahí");
-      const rect = await recenter.boundingBox();
-      assert(
-        rect.x + rect.width <= width && rect.y + rect.height <= height,
-        "El disco de recentrar cabe entero en la esquina de abajo a la derecha",
-      );
-      await recenter.click();
-      assert((await inspect()).cameraFollowing);
-      assert(await recenter.isHidden());
+      assert(lejos(camaraA, camaraB) < 1, "Arrastrar con dos dedos no mueve la cámara " + JSON.stringify({ camaraA, camaraB }));
+      assert.equal((await inspect()).pace, "idle", "…ni al duende");
       await touch("touchEnd", []);
       await quieto();
-      assert((await inspect()).cameraFollowing, "Con el duende parado y los dedos fuera, la cámara sigue siendo suya");
+      // Y el zoom máximo nunca enseña más allá del plano: la vista cabe en la caja del bosque.
+      const alejado = await inspect();
+      assert(
+        alejado.frame &&
+          alejado.view.width <= alejado.frame.w * 16 + 1e-6 &&
+          alejado.view.height <= alejado.frame.h * 16 + 1e-6,
+        "Alejar del todo sigue cabiendo dentro del plano",
+      );
 
       await seed({ scene: "overworld", position: { x: 900, y: 900 } });
       /**
@@ -282,99 +258,6 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
           r.y + ((point.y - s.camera.y) * r.height) / s.view.height,
         );
       }
-      // ⛔ VOLVER AL DUENDE ES UN VIAJE, NO UN SALTO. Tocar el mapa para caminar
-      // enciende el seguimiento y arranca las piernas en el MISMO gesto, así que con
-      // la cámara clavada al duende el mundo se teletransportaba lo que hubieras
-      // desplazado: cientos de píxeles en un frame. Ahora solo se clava cuando ya
-      // está encima (CAMERA_LOCK), y el resto del camino lo hace suavizando.
-      // Con el duende todavía andando de un paso anterior, la cámara se reengancha
-      // sola mientras arrastras y no hay hueco que cerrar: la prueba aprobaría el
-      // salto sin haberlo provocado. Se empieza desde un mundo quieto.
-      await page.waitForFunction(
-        () => {
-          const s = window.MagikitosAdventure.inspect();
-          return !s.travel.intent && s.pace === "idle";
-        },
-        null,
-        { timeout: 10000 },
-      );
-      const camAntes = (await inspect()).camera;
-      const lienzo = await page.locator("#world-canvas").boundingBox();
-      await page.mouse.move(
-        lienzo.x + lienzo.width * 0.5,
-        lienzo.y + lienzo.height * 0.5,
-      );
-      await page.mouse.down({ button: "right" });
-      for (let i = 1; i <= 8; i++)
-        await page.mouse.move(
-          lienzo.x + lienzo.width * 0.5 - i * 22,
-          lienzo.y + lienzo.height * 0.5 - i * 11,
-        );
-      await page.mouse.up({ button: "right" });
-      const camTrasArrastre = (await inspect()).camera;
-      const desplazada = Math.hypot(
-        camTrasArrastre.x - camAntes.x,
-        camTrasArrastre.y - camAntes.y,
-      );
-      assert(desplazada > 60, "El mapa se ha desplazado de verdad: " + desplazada);
-      assert(
-        !(await inspect()).cameraFollowing,
-        "…y desplazar suelta el seguimiento, que es lo que crea el hueco",
-      );
-      // Se mide FRAME A FRAME y no con una lectura suelta: con la cámara clavada, el
-      // salto dura UN frame, así que una lectura desde fuera llega tarde y aprueba lo
-      // que venía a denunciar (comprobado en negativo, restaurando el salto).
-      await page.evaluate(() => {
-        window.__cam = [];
-        const paso = () => {
-          const s = window.MagikitosAdventure.inspect();
-          window.__cam.push([s.camera.x, s.camera.y]);
-          if (window.__cam.length < 240) requestAnimationFrame(paso);
-        };
-        requestAnimationFrame(paso);
-      });
-      const destino = (await inspect()).player;
-      await clickWorld({ x: destino.x + 40, y: destino.y + 24 });
-      await page.waitForTimeout(700);
-      const vuelta = await page.evaluate(() => {
-        let mayor = 0,
-          total = 0;
-        for (let i = 1; i < window.__cam.length; i++) {
-          const d = Math.hypot(
-            window.__cam[i][0] - window.__cam[i - 1][0],
-            window.__cam[i][1] - window.__cam[i - 1][1],
-          );
-          mayor = Math.max(mayor, d);
-          total += d;
-        }
-        return { mayor, total, muestras: window.__cam.length };
-      });
-      assert(
-        vuelta.total > 40,
-        "La cámara ha vuelto de verdad: " + JSON.stringify(vuelta),
-      );
-      // La relación es lo que distingue las dos cosas y no depende de la escala ni
-      // del recorte del mapa: suavizando, el mayor paso es ~14% del recorrido;
-      // clavándose, el primer frame se lo lleva casi entero.
-      assert(
-        vuelta.mayor < vuelta.total * 0.4,
-        "…y vuelve suavizando, no de un salto: " +
-          JSON.stringify({ desplazada, ...vuelta }),
-      );
-      await page.waitForFunction(
-        () => {
-          const s = window.MagikitosAdventure.inspect();
-          return (
-            Math.hypot(
-              s.camera.x - (s.player.x - s.view.width / 2),
-              s.camera.y - (s.player.y - s.view.height / 2),
-            ) < 25
-          );
-        },
-        null,
-        { timeout: 4000 },
-      );
-
       /**
        * ⛔ Y LA CÁMARA VA AL SITIO QUE HAS TOCADO, NO AL DUENDE (17-sep-2026, decisión del
        * dueño): «habría en realidad que llevar lentamente la cámara poniendo en el centro el
@@ -395,18 +278,6 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
         { timeout: 10000 },
       );
       const partida = (await inspect()).player;
-      await page.mouse.move(
-        lienzo.x + lienzo.width * 0.5,
-        lienzo.y + lienzo.height * 0.5,
-      );
-      await page.mouse.down({ button: "right" });
-      for (let i = 1; i <= 8; i++)
-        await page.mouse.move(
-          lienzo.x + lienzo.width * 0.5 - i * 20,
-          lienzo.y + lienzo.height * 0.5 - i * 14,
-        );
-      await page.mouse.up({ button: "right" });
-      assert(!(await inspect()).cameraFollowing, "el mapa queda desplazado a mano");
       // El sitio no se escribe a mano: se prueban unos cuantos y vale el primero que de verdad
       // arranca un viaje, que es lo que sobrevive a que el dueño redibuje el bosque.
       let meta = null;
@@ -647,7 +518,7 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
       await cdp.detach();
       await page.close();
       console.log(
-        `PASS ${width}×${height}: joystick invisible (nace bajo el dedo, anda/corre por radio, el origen sigue al dedo, soltar para, aro mientras manda), dos dedos mueven la cámara sin dar órdenes, sin joystick fijo ni turbo en el DOM, hablar retira la esquina, la cámara vuelve suavizando (${vuelta.mayor.toFixed(0)}px el mayor paso de ${vuelta.total.toFixed(0)}), recentrar, clic a través del diálogo, rueda/pellizco cubriendo el mapa entero y remo ${rowNormal.toFixed(0)}→${rowFast.toFixed(0)} px con espacio.`,
+        `PASS ${width}×${height}: joystick invisible (nace bajo el dedo, anda/corre por radio, el origen sigue al dedo, soltar para, aro mientras manda), dos dedos solo hacen zoom, sin joystick fijo ni turbo en el DOM, hablar retira la esquina, la cámara viaja al sitio tocado sin acercarse al duende, clic a través del diálogo, rueda/pellizco cubriendo el mapa entero y remo ${rowNormal.toFixed(0)}→${rowFast.toFixed(0)} px con espacio.`,
       );
     }
     assert.deepEqual(errors, []);

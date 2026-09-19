@@ -152,7 +152,7 @@ const ZONE = Object.entries(
           if (!r.url().includes("/api/world/community-build")) return;
           respuestas.push({ status: r.status(), cuerpo: await r.text().catch(() => "") });
         });
-        await page.goto(origin + "/aventura");
+        await page.goto(origin + "/bosque/explorar");
         await require("./browser-entry.cjs").enterWorld(page);
         await page.waitForFunction(() => window.MagikitosAdventure.inspect().live.role === "player");
         // ⛔ EL CATÁLOGO SE ABRE DESDE EL ICONO DE ARRIBA, junto al saco, y elegir una cosa lo

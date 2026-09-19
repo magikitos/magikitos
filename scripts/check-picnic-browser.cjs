@@ -41,7 +41,7 @@ const errors = [];
         flags: {},
         muted: true,
       };
-      await page.goto(origin + "/aventura");
+      await page.goto(origin + "/bosque/explorar");
       async function position(x, y) {
         state.position = { x: x * 16, y: y * 16 };
         await page.evaluate(

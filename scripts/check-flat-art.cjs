@@ -2,7 +2,7 @@
 const assert = require("node:assert/strict");
 const { WorldApi } = require("../public/assets/js/adventure/api");
 const { WorldContent } = require("../public/assets/js/adventure/content");
-global.location = { href: "https://local.invalid/aventura" };
+global.location = { href: "https://local.invalid/bosque/explorar" };
 (async () => {
   const requests = [];
   let response = {

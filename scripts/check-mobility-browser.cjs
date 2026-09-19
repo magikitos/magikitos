@@ -74,7 +74,7 @@ const start = (() => {
           : r.abort(),
       );
       await require("./browser-art.cjs").useReviewVariant(page);
-      await page.goto(origin + "/aventura");
+      await page.goto(origin + "/bosque/explorar");
       const inspect = () =>
         page.evaluate(() => window.MagikitosAdventure.inspect());
       async function seed(position = start, flags = {}) {
@@ -141,7 +141,7 @@ const start = (() => {
           await page.mouse.up();
         }
       }
-      /** Mirar alrededor sin dar órdenes: dos dedos, o el botón derecho del ratón (19-sep-2026). */
+      /** Dos dedos o el botón derecho: hoy no mueven la cámara; la prueba lo comprueba en negativo. */
       async function pan(dx, dy, touch = false) {
         const x = width * 0.55,
           y = height * 0.5;
@@ -340,8 +340,9 @@ const start = (() => {
         null,
         "New game starts freely, without an introductory dialogue",
       );
+      // Dos dedos o el botón derecho ya no mueven la cámara (19-sep-2026): la cámara es del duende.
       await pan(-80, -100, width < 800);
-      assert.equal((await inspect()).cameraFollowing, false, "Mirar alrededor suelta la cámara");
+      assert.equal((await inspect()).cameraFollowing, true, "Ni dos dedos ni el botón derecho sueltan la cámara");
       await page.locator("#world-canvas").focus();
       await page.keyboard.down("ArrowDown");
       await page.waitForFunction(
@@ -420,7 +421,7 @@ const start = (() => {
       );
       await page.close();
       console.log(
-        `PASS mobility ${width}×${height}: joystick invisible (ratón y dedo) con la cámara pegada, soltar para, dos dedos/botón derecho sueltan la cámara, walk/run routes, held/double Space never rolls, dialogue isolation, natural cast, lazy elder.`,
+        `PASS mobility ${width}×${height}: joystick invisible (ratón y dedo) con la cámara pegada, soltar para, dos dedos/botón derecho no mueven la cámara, walk/run routes, held/double Space never rolls, dialogue isolation, natural cast, lazy elder.`,
       );
     }
     assert.deepEqual(errors, []);

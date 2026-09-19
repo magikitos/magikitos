@@ -28,7 +28,7 @@ if (!["127.0.0.1", "localhost", "magikitos.ddev.site"].includes(new URL(origin).
             scene, position: { x: spawn.x * 16, y: spawn.y * 16 }, muted: true,
           }));
         }, { scene, spawn: world.scenes[scene].spawn });
-        await page.goto(origin + "/aventura");
+        await page.goto(origin + "/bosque/explorar");
         await enterWorld(page);
         await page.waitForFunction(() => {
           const s = window.MagikitosAdventure.inspect();

@@ -57,7 +57,7 @@ const notes = new Map(), debits = new Map(), operations = new Map();
         if (url.origin !== origin) return route.abort();
         if (url.pathname.endsWith("/js/aventura.min.js"))
           return route.fulfill({ contentType: "text/javascript", body: bundled.outputFiles[0].text });
-        if (url.pathname === "/aventura") {
+        if (url.pathname === "/bosque/explorar") {
           const response = await route.fetch(), html = await response.text();
           const body = html.replace(/(<script type="application\/json" id="adventure-config">)([\s\S]*?)(<\/script>)/, (_, a, json, b) => {
             const config = JSON.parse(json);
@@ -122,7 +122,7 @@ const notes = new Map(), debits = new Map(), operations = new Map();
         return route.continue();
       });
       await require("./browser-art.cjs").useReviewVariant(page);
-      await page.goto(origin + "/aventura"); await enterWorld(page);
+      await page.goto(origin + "/bosque/explorar"); await enterWorld(page);
       try { await page.waitForFunction(() => window.MagikitosAdventure.inspect().live.connected); }
       catch (error) {
         console.error({ endpoints, sockets, issues, consoleErrors, game: await page.evaluate(() => {

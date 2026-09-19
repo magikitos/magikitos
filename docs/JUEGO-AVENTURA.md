@@ -18,7 +18,8 @@ Los otros cinco idiomas adaptan el tono, no traducen cada muletilla literalmente
 
 ## Web y juego
 
-El juego vive en /aventura y sus cinco traducciones. La web conserva portada,
+El juego vive en /bosque/explorar y sus cinco traducciones, debajo de la landing /bosque
+(«El bosque de los Magikitos», 19-sep-2026). La web conserva portada,
 contenidos, tienda, formularios, SEO y admin. No páginas embebidas ni navegación
 por parámetros de contenido: entrar recupera la partida; un nuevo jugador aparece
 en el claro, sin diálogo obligatorio. “Explorar / Continuar explorando” activa
@@ -61,10 +62,11 @@ El saco apila cantidades. Autoría y persistencia: [contrato de datos](../data/a
 Un mismo motor de entrada para ratón, teclado y táctil, y desde el 19-sep-2026
 ningún mando fijo en pantalla: **tocar es ir y mover el dedo es un joystick
 invisible**. Apoyas el dedo (o el botón izquierdo) donde quieras y lo mueves: el
-protagonista va en esa dirección como con una flecha, un poco anda y en el borde
-corre, y el origen sigue al dedo para virar sin levantar. Soltar para. Mientras el
-dedo manda, el lienzo pinta un aro tenue bajo el dedo, que se va al soltar. Dos dedos,
-o el botón derecho, mueven la cámara y hacen zoom sin dar órdenes. Clic en suelo
+protagonista anda en esa dirección como con una flecha (con el dedo nunca se corre;
+correr es Espacio o un toque lejano), y el origen sigue al dedo para virar sin
+levantar. Soltar para. Mientras el dedo manda, el lienzo pinta un aro tenue con una
+porción que apunta hacia donde va, y se va al soltar. Dos dedos, o la rueda, hacen
+zoom sobre el protagonista; la cámara no se arrastra (salvo construyendo). Clic en suelo
 significa llegar esquivando sin activar otros objetos; clic en objeto significa
 interactuar. Flechas/WASD siguen moviendo directo y espacio sostenido corre o rema
 más rápido. Rodar no está activo; se conserva su arte. El zoom afecta únicamente al

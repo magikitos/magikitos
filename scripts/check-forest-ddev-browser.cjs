@@ -24,7 +24,7 @@ function fixture(action, value) {
     }, { bearer: user.bearer, origin });
     const page = await context.newPage(); page.setDefaultTimeout(20000);
     page.on("pageerror", error => issues.push(error.message));
-    await page.goto(origin + "/aventura"); await enterWorld(page);
+    await page.goto(origin + "/bosque/explorar"); await enterWorld(page);
     try {
       await page.waitForFunction(() => window.MagikitosAdventure.inspect().live.role === "player" &&
         window.MagikitosAdventure.inspect().needStatus === "poop");

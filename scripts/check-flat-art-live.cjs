@@ -4,7 +4,7 @@ const assert = require("node:assert/strict"),
   fs = require("node:fs");
 const { chromium } = require("playwright");
 const { World, TILE } = require("../public/assets/js/adventure/model");
-const [host, shell = "/aventura"] = process.argv.slice(2);
+const [host, shell = "/bosque/explorar"] = process.argv.slice(2);
 if (!host)
   throw Error(
     "Usage: node scripts/check-flat-art-live.cjs ORIGIN [STATIC_SHELL_PATH]",

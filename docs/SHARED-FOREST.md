@@ -51,8 +51,10 @@ Sin vidas, combate, Libro del Bosque, fiambreras ni parcelas privadas.
   exactamente como una flecha del teclado: el vector entra por `directionIntent` y
   comparte con las teclas colisiones, empujes, charlas al chocar, costuras y remo.
   Umbrales en píxeles de PANTALLA, para que el zoom no cambie la sensación: zona
-  muerta de 10, andar hasta 100, correr en el borde, y para volver a andar hay que
-  recogerse hasta 80 (histéresis). Soltar para, como soltar una tecla; para viajes
+  muerta de 10 y aro de 100. **Con el dedo se anda y punto**: cerca o lejos, la
+  distancia no es la marcha (aquí vivió medio día un borde donde se corría, y el
+  dueño lo quitó: «esté cerca o lejos el dedo, eso es andar»); correr queda para
+  Espacio y para el toque lejano. Soltar para, como soltar una tecla; para viajes
   largos ya está el toque, que sigue igual: pulsar sin mover y soltar es tocar e
   interactuar, dure lo que dure la pulsación. Vale igual con dedo, ratón (botón
   izquierdo) o lápiz, sin preguntarle al navegador qué tienes en la mano.
@@ -68,12 +70,14 @@ Sin vidas, combate, Libro del Bosque, fiambreras ni parcelas privadas.
   **Y cruzar no se ve** (19-sep-2026, [mundo continuo](MUNDO-CONTINUO.md)): las
   pantallas exteriores están pegadas en un plano, la vecina se pinta al lado antes de
   pisarla, la llegada es el mismo punto del bosque, la cámara viaja con el duende y no
-  hay aviso. Dos dedos pueden llevar la cámara hasta el otro extremo del bosque, y un
-  toque en la pantalla de al lado es un viaje que cruza la costura y termina allí.
+  hay aviso. Lo que no es ninguna pantalla se pinta como continuación del borde más
+  cercano, y un toque en la pantalla de al lado es un viaje que cruza la costura y
+  termina allí.
   **El aro se ve siempre que el dedo manda.** El lienzo pinta un aro tenue donde
-  lo apoyaste y una bolita donde está (`renderer.stickHint`, sin DOM): enseña que el
-  mando nace bajo el dedo y, cuando el origen se desliza detrás, que no hace falta
-  levantar para virar; al soltar desaparece. Aquí vivió un contador que lo apagaba tras
+  lo apoyaste, una bolita donde está y, dentro del aro, una porción casi transparente
+  («pizza slice», un octavo de vuelta) que apunta a donde manda (`renderer.stickHint`,
+  sin DOM): enseña que el mando nace bajo el dedo, hacia dónde va y, cuando el origen
+  se desliza detrás, que no hace falta levantar para virar; al soltar desaparece. Aquí vivió un contador que lo apagaba tras
   seis segundos andados, y se fue el mismo día (el dueño: «no lo quitaría cuando pasa
   el tiempo, que siempre salga, solo ligeramente más transparentito»).
   **El lienzo no se selecciona**: `user-select: none` y `-webkit-touch-callout: none`
@@ -83,17 +87,17 @@ Sin vidas, combate, Libro del Bosque, fiambreras ni parcelas privadas.
   que el disco de recentrar tiene reservado abajo a la derecha.
   Los controles son los mismos a pie y en la barca. Soltar, cancelar o perder el
   foco nunca deja un control pulsado. No se simulan teclas desde el DOM.
-- **La cámara se mueve con DOS dedos, o con el botón derecho/central del ratón.** Es
-  el gesto de cualquier app de mapas: los dos dedos ya hacían zoom y ahora también
-  desplazan. Mirar alrededor no da órdenes: el segundo dedo suelta el mando (te has
-  parado a mirar), un viaje tocado sigue su camino, y la cámara no tira del duende
-  mientras el gesto dura. Un pellizco QUIETO hace
-  zoom sobre el duende como siempre, sin soltar la cámara; solo cuando los dedos
-  viajan más de la holgura pasa a ser suya. Construyendo, un solo dedo sigue moviendo
-  el mapa, porque ahí no se dan órdenes de andar. El menú contextual del lienzo se
-  anula. Pellizco/rueda: zoom del mapa, no de diálogos/botones. El recentrado es un
-  disco independiente abajo a la derecha, y solo aparece mientras la cámara es tuya:
-  cualquier toque o dedo mantenido la vuelve a enganchar al duende.
+- **La cámara es del duende y no se arrastra** (19-sep-2026, decisión del dueño:
+  «quitaría también lo de desplazarse por el mapa; dejaría solo el zoom»). Dos dedos
+  hacen ZOOM sobre el duende y nada más, aunque viajen por la pantalla; la rueda
+  también; el botón derecho no hace nada, y el menú contextual del lienzo se anula. El
+  segundo dedo suelta el mando (te has parado a mirar), y un viaje tocado sigue su
+  camino. El zoom máximo es el que cubre la pantalla en la que estás, y la cámara se
+  acota al plano del bosque ([mundo continuo](MUNDO-CONTINUO.md)), así que alejar
+  nunca enseña nada más allá de los mapas. Aquí vivieron el paneo a dos dedos y el del
+  botón derecho, y se fueron el mismo día que nacieron. La única excepción es
+  construir: con la pieza en la mano un dedo, o el botón derecho, mueve el mapa para
+  llevarla a su sitio, y el disco de recentrar aparece solo ahí.
 - **No se dibuja ningún marcador de destino** (19-sep-2026, el dueño: «no quiero el
   puntito blanco placeholder de posición final, eso molesta»). Guiando saltaría por
   delante del duende varias veces por segundo; tocando, el sitio ya lo sabes.

@@ -21,11 +21,11 @@ npm run dev
 npm run studio
 ```
 
-- Juego: http://127.0.0.1:47834/aventura.
+- Juego: http://127.0.0.1:47834/bosque/explorar.
 - Studio único: http://127.0.0.1:47832/#map.
 - Sin web/API: `npm run dev:offline`.
 - Integración instalada: `npm run install:local`, después
-  https://magikitos.ddev.site/aventura.
+  https://magikitos.ddev.site/bosque/explorar.
 - Otro puerto: `GAME_PORT=47842 node tools/preview.cjs --offline`.
 - Reconstrucción JS/datos sin cambios de arte: `node tools/build.cjs --reuse-art`.
 - Propuesta del Studio: `npm run studio:diff`; nunca aplicación automática.

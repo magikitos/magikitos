@@ -48,7 +48,7 @@ const read = (p) => p.evaluate(() => window.MagikitosAdventure.inspect());
             }),
           );
       }, { scene, position: approach(scene, id) });
-      await p.goto(origin + "/aventura");
+      await p.goto(origin + "/bosque/explorar");
       await require("./browser-entry.cjs").enterWorld(p);
       const initial = await read(p),
         before = initial.entities.find((e) => e.id === id);

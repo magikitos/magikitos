@@ -69,7 +69,7 @@ const boat = (scene, x, y) =>
         }
       });
       await require("./browser-art.cjs").useReviewVariant(page);
-      await page.goto(origin + "/aventura");
+      await page.goto(origin + "/bosque/explorar");
       const inspect = () =>
         page.evaluate(() => window.MagikitosAdventure.inspect());
       const ready = () =>

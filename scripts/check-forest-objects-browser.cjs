@@ -63,7 +63,7 @@ async function main() {
         if (url.origin !== origin) return route.abort();
         if (url.pathname.endsWith("/js/aventura.min.js"))
           return route.fulfill({ contentType: "text/javascript", body: bundled.outputFiles[0].text });
-        if (url.pathname === "/aventura") {
+        if (url.pathname === "/bosque/explorar") {
           const response = await route.fetch(), html = await response.text();
           const body = html.replace(/(<script type="application\/json" id="adventure-config">)([\s\S]*?)(<\/script>)/, (_, a, json, b) => {
             const config = JSON.parse(json);
@@ -96,7 +96,7 @@ async function main() {
         }
         return route.fulfill({ status: body ? 200 : 503, contentType: "application/json", body: JSON.stringify(body || { ok: false, error: "offline" }) });
       });
-      await page.goto(origin + "/aventura"); await enterWorld(page);
+      await page.goto(origin + "/bosque/explorar"); await enterWorld(page);
       await page.waitForFunction(() => window.MagikitosAdventure.inspect().live.connected &&
         window.MagikitosAdventure.inspect().entities.some(e => e.id === "shared-crate"));
       return { page, frames };
@@ -181,20 +181,16 @@ async function main() {
     await until(async () => !(await read(mobile.page)).travel.intent);
     await until(() => service.presence.objects.intents.size === 0);
     console.log("PASS mobile FIFO promotion and a real touch push; finishing the journey releases its intent.");
-    // Mirar alrededor son DOS dedos (19-sep-2026): uno solo guiaría al duende hacia la derecha.
+    // ⛔ La cámara ya no se arrastra (19-sep-2026): dos dedos solo hacen zoom y siguen al duende.
+    // Aquí se paneaba para dejar la caja fuera de la vista y comprobar que conservaba su colisión;
+    // hoy se comprueba lo que queda de esa idea: dos dedos no sueltan la cámara y la caja sigue ahí.
     await touch("touchStart", [[65, 230], [65, 290]]);
     for (let x = 105; x <= 345; x += 40) { await touch("touchMove", [[x, 230], [x, 290]]); await pause(30); }
     await touch("touchEnd", []);
-    await until(() => {
-      const view = service.presence.peers.get(3).viewport;
-      return view[0] + view[2] < crate().x - 8;
-    });
-    assert((await read(mobile.page)).entities.some(e => e.id === "shared-crate"), "Panned-away player's nearby crate keeps its collision");
-    console.log("PASS real touch camera pan leaves the crate offscreen without dropping nearby collision interest.");
-    // Panear no da órdenes, así que nadie reengancha la cámara solo: el disco de volver es la salida.
-    assert(!(await read(mobile.page)).cameraFollowing, "A two-finger pan leaves the camera to the viewer");
-    await mobile.page.locator("#world-recenter").click();
-    await until(async () => (await read(mobile.page)).cameraFollowing);
+    await pause(300);
+    assert((await read(mobile.page)).cameraFollowing, "Two fingers never take the camera away from the player");
+    assert((await read(mobile.page)).entities.some(e => e.id === "shared-crate"), "The nearby crate keeps its collision");
+    console.log("PASS real two-finger gesture keeps the camera on the player and the crate's collision.");
     await pause(500);
     const returning = await open(4, { width: 1024, height: 768 }, crate().x);
     const arrived = (await read(returning.page)).player;

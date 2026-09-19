@@ -70,9 +70,29 @@
           64
         ],
         [
-          148,
+          136,
           32,
           64
+        ],
+        [
+          140,
+          32,
+          64
+        ],
+        [
+          142,
+          32,
+          66
+        ],
+        [
+          144,
+          32,
+          80
+        ],
+        [
+          148,
+          32,
+          80
         ]
       ]
     }
@@ -1175,13 +1195,13 @@
         "area": [
           28,
           141,
-          40,
+          52,
           1.2
         ],
         "scene": "overworld",
         "mode": "boat",
         "position": [
-          112,
+          118,
           0.1
         ],
         "direction": "down"
@@ -1233,6 +1253,38 @@
           143.9
         ],
         "direction": "up"
+      },
+      {
+        "id": "meadow-down",
+        "area": [
+          3.5,
+          140.6,
+          13,
+          3.4
+        ],
+        "scene": "overworld",
+        "mode": "foot",
+        "position": [
+          74,
+          0.1
+        ],
+        "direction": "down"
+      },
+      {
+        "id": "meadow-down-east",
+        "area": [
+          25.5,
+          140.6,
+          5,
+          3.4
+        ],
+        "scene": "overworld",
+        "mode": "foot",
+        "position": [
+          92,
+          0.1
+        ],
+        "direction": "down"
       }
     ]
   },

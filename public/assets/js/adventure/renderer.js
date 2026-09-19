@@ -14,6 +14,8 @@ const { drawRipples } = require("./water");
 const { cameraMetrics } = require("./camera");
 const { chunkRange } = require("./scene-frame");
 const fences = require("./fences");
+/** La porción del aro del mando que marca la dirección: un octavo de vuelta. */
+const STICK_SLICE = Math.PI / 4;
 class Renderer {
   constructor(canvas, viewport) {
     this.canvas = canvas;
@@ -122,16 +124,19 @@ class Renderer {
     c.translate(-Math.round(cam.x), -Math.round(cam.y));
     const view = { ...cam, width: this.width, height: this.height };
     this.terrain.beginFrame();
-    // ⛔ PRIMERO LAS PANTALLAS DE AL LADO (mundo continuo). Cada vecina enlazada por una costura se
-    // pinta entera —suelo, puentes, cosas y residentes— desplazada lo que dice el plano, así que
-    // la cámara enseña el bosque seguido y no el borde de un mapa. Van antes que la tuya y fuera
-    // de su recorte, y lo que se pinte de ellas se ancla en la misma caché de trozos.
-    const seamActors = [];
-    for (const seam of world.seams || []) this.drawSeam(game, seam, view, time, seamActors);
-    if (!world.data.indoor) {
-      c.beginPath();
-      c.rect(0, 0, world.width * TILE, world.height * TILE);
-      c.clip();
+    /**
+     * ⛔ EL SUELO ENTERO PRIMERO, LAS COSAS DESPUÉS, Y NINGÚN RECORTE POR PANTALLA (mundo continuo).
+     * Recortar cada pantalla a su rectángulo dejaba una raya en la costura —el borde del recorte
+     * cae en medio píxel y se difumina— y partía por la mitad al duende y a cualquier árbol que
+     * asomara al otro lado. Aquí se pinta el hueco del plano, luego el suelo de las vecinas y el
+     * de la tuya, y por último TODAS las cosas de todas las pantallas en una sola pasada ordenada
+     * por profundidad, cada una trasladada a las coordenadas de la tuya.
+     */
+    const seams = world.data.indoor ? [] : world.seams || [];
+    this.drawVoid(game, world, view);
+    for (const seam of seams) {
+      const local = this.localView(seam, view);
+      if (local) this.drawGround(seam.world, local, time);
     }
     this.drawGround(world, view, time);
     game.river?.drawWater(c, time);
@@ -170,14 +175,45 @@ class Renderer {
       ...(game.hidePlayer || game.cats?.locked ? [] : [player]),
     ].flatMap((e) => (e.fence ? fences.parts(e) : e))
       .map(e => game.live?.objects.visual(e) || e);
+    // Las cosas de las vecinas, con el desplazamiento de su costura; sin duende, sin presencia
+    // en vivo ni gatos, que esos son de la pantalla que pisas.
+    const placed = renderables.filter(visible).map((e) => ({ e, ox: 0, oy: 0 }));
+    const streamed = [...renderables];
+    for (const seam of seams) {
+      const local = this.localView(seam, view);
+      if (!local) continue;
+      const w = seam.world,
+        ox = seam.dx * TILE,
+        oy = seam.dy * TILE;
+      const theirs = [
+        ...w.props,
+        ...w.architecture,
+        ...w.entities.filter((e) => active(e, game.state)),
+        ...(w.actors || []),
+        ...require("./river-life").riverVisitors(w.data, time),
+      ].flatMap((e) => (e.fence ? fences.parts(e) : e));
+      for (const e of theirs) {
+        if (!this.inView(e, local, game.state)) continue;
+        placed.push({ e, ox, oy });
+        // Para pedir su arte hace falta verlos desde aquí: copia trasladada, solo para eso.
+        streamed.push({ ...e, x: e.x + ox, y: e.y + oy });
+      }
+    }
     // El arte de los actores se pide una vez por fotograma para TODO lo que se ve, los de las
     // vecinas incluidos y ya traducidos a estas coordenadas: una segunda llamada pisaría la
     // primera, porque el foco de residencia se sustituye, no se suma.
-    this.actorArt.update([...renderables, ...seamActors], view, frameFor);
-    const list = renderables
-      .filter(visible)
-      .sort((a, b) => (a.depth ?? a.y) - (b.depth ?? b.y));
-    for (const e of list) this.drawRenderable(c, e, game, time, player, frameFor);
+    this.actorArt.update(streamed, view, frameFor);
+    placed.sort((a, b) => (a.e.depth ?? a.e.y) + a.oy - ((b.e.depth ?? b.e.y) + b.oy));
+    for (const { e, ox, oy } of placed) {
+      if (!ox && !oy) {
+        this.drawRenderable(c, e, game, time, player, frameFor);
+        continue;
+      }
+      c.save();
+      c.translate(ox, oy);
+      this.drawRenderable(c, e, game, time, { x: player.x - ox, y: player.y - oy }, frameFor);
+      c.restore();
+    }
     game.presentation?.draw(c);
     game.community?.draw(c);
     if (world.data.night) this.night(world.data.night, time, cam);
@@ -241,45 +277,56 @@ class Renderer {
     drawRipples(c, world, view, time);
     drawInteriors(c, world);
   }
-  /**
-   * Una pantalla vecina entera, desplazada lo que dice su costura: su suelo, sus cosas y sus
-   * residentes en sus propias coordenadas, recortada a su rectángulo. Sin duende, sin presencia
-   * en vivo ni gatos, que esos son de la pantalla que pisas. Los actores que pinta se apuntan
-   * traducidos para que el arte se les pida junto con los tuyos.
-   */
-  drawSeam(game, seam, view, time, seamActors) {
-    const c = this.ctx,
-      w = seam.world,
-      ox = seam.dx * TILE,
-      oy = seam.dy * TILE;
-    const local = { x: view.x - ox, y: view.y - oy, width: view.width, height: view.height };
+  /** La vista de la cámara en coordenadas de una vecina, o null si no la toca. */
+  localView(seam, view) {
+    const w = seam.world,
+      local = { x: view.x - seam.dx * TILE, y: view.y - seam.dy * TILE, width: view.width, height: view.height };
     if (
       local.x + local.width <= 0 ||
       local.y + local.height <= 0 ||
       local.x >= w.width * TILE ||
       local.y >= w.height * TILE
     )
-      return;
-    c.save();
-    c.translate(ox, oy);
-    c.beginPath();
-    c.rect(0, 0, w.width * TILE, w.height * TILE);
-    c.clip();
-    this.drawGround(w, local, time);
-    const frameFor = (e) => this.frame(e, game.state);
-    const renderables = [
-      ...w.props,
-      ...w.architecture,
-      ...w.entities.filter((e) => active(e, game.state)),
-      ...(w.actors || []),
-      ...require("./river-life").riverVisitors(w.data, time),
-    ].flatMap((e) => (e.fence ? fences.parts(e) : e));
-    for (const e of w.actors || []) seamActors.push({ ...e, x: e.x + ox, y: e.y + oy });
-    const list = renderables
-      .filter((e) => this.inView(e, local, game.state))
-      .sort((a, b) => (a.depth ?? a.y) - (b.depth ?? b.y));
-    for (const e of list) this.drawRenderable(c, e, game, time, null, frameFor);
-    c.restore();
+      return null;
+    return local;
+  }
+  /**
+   * El hueco del plano que la cámara ve, en trozos de 256 en coordenadas del plano: suelo que
+   * continúa el borde más cercano (`terrain.voidChunk`). Se pinta debajo de todo y solo dentro de
+   * la caja del plano, que es hasta donde la cámara puede llegar.
+   */
+  drawVoid(game, world, view) {
+    const plane = game.scenes?.plane,
+      origin = world.origin;
+    if (!plane?.bounds || !origin || world.data.indoor) return;
+    const c = this.ctx,
+      b = plane.bounds;
+    // La vista en coordenadas del plano, acotada a su caja.
+    const px = view.x + origin.x,
+      py = view.y + origin.y;
+    const left = Math.max(b.x, px),
+      top = Math.max(b.y, py),
+      right = Math.min(b.x + b.w, px + view.width),
+      bottom = Math.min(b.y + b.h, py + view.height);
+    if (right <= left || bottom <= top) return;
+    const range = {
+      left: Math.floor(left / 256),
+      top: Math.floor(top / 256),
+      right: Math.floor((right - 0.001) / 256),
+      bottom: Math.floor((bottom - 0.001) / 256),
+    };
+    this.terrain.pinVoid(range);
+    for (let cy = range.top; cy <= range.bottom; cy++)
+      for (let cx = range.left; cx <= range.right; cx++) {
+        const x = Math.round((cx * 256 - Math.round(px)) * this.pixelScale);
+        const y = Math.round((cy * 256 - Math.round(py)) * this.pixelScale);
+        const xr = Math.round(((cx + 1) * 256 - Math.round(px)) * this.pixelScale);
+        const yb = Math.round(((cy + 1) * 256 - Math.round(py)) * this.pixelScale);
+        c.save();
+        c.setTransform(1, 0, 0, 1, 0, 0);
+        c.drawImage(this.terrain.voidChunk(plane, cx, cy), x, y, xr - x, yb - y);
+        c.restore();
+      }
   }
   /** Una cosa del mundo, dibujada en las coordenadas del contexto actual. `player` es null en las vecinas. */
   drawRenderable(c, e, game, time, player, frameFor) {
@@ -349,31 +396,45 @@ class Renderer {
     }
   }
   /**
-   * ⛔ EL ARO DEL MANDO (19-sep-2026). Un círculo tenue donde apoyaste el dedo y una bolita donde
-   * está ahora: enseña que el mando nace bajo tu dedo y, cuando el origen se arrastra detrás del
-   * dedo, que no hace falta levantar para virar. Se pinta en unidades de la vista, encima del mundo
-   * y debajo del viñeteado, SIEMPRE que el dedo manda (decisión del dueño: «que siempre salga, solo
-   * ligeramente más transparentito») y se apaga al soltar. Nada de DOM.
+   * ⛔ EL ARO DEL MANDO (19-sep-2026). Un círculo tenue donde apoyaste el dedo, una bolita donde
+   * está ahora y, dentro del aro, una PORCIÓN casi transparente que apunta a donde manda el dedo
+   * (decisión del dueño: «la bolita bajo el dedo no se ve; debe ser un pizza slice de la dirección
+   * actual, casi transparente, dentro del joystick… y en general todo un poco más transparente»).
+   * Enseña que el mando nace bajo tu dedo y, cuando el origen se arrastra detrás, que no hace
+   * falta levantar para virar. Se pinta en unidades de la vista, encima del mundo y debajo del
+   * viñeteado, SIEMPRE que el dedo manda y se apaga al soltar. Nada de DOM.
    */
   stickHint(view) {
     if (!view) return;
     const c = this.ctx,
-      u = view.unit;
+      u = view.unit,
+      { x, y } = view.origin;
     c.save();
     c.lineWidth = 1.5 * u;
-    c.strokeStyle = view.running ? "rgba(255, 240, 177, 0.42)" : "rgba(255, 255, 255, 0.26)";
-    c.fillStyle = "rgba(255, 255, 255, 0.07)";
+    c.strokeStyle = "rgba(255, 255, 255, 0.16)";
+    c.fillStyle = "rgba(255, 255, 255, 0.04)";
     c.beginPath();
-    c.arc(view.origin.x, view.origin.y, view.radius, 0, Math.PI * 2);
+    c.arc(x, y, view.radius, 0, Math.PI * 2);
     c.fill();
     c.stroke();
-    c.fillStyle = "rgba(255, 255, 255, 0.38)";
+    if (view.heading) {
+      // La porción: un octavo de aro centrado en la dirección que manda, del origen al borde.
+      const angle = Math.atan2(view.heading.y, view.heading.x),
+        half = STICK_SLICE / 2;
+      c.fillStyle = "rgba(255, 255, 255, 0.11)";
+      c.beginPath();
+      c.moveTo(x, y);
+      c.arc(x, y, view.radius - 0.75 * u, angle - half, angle + half);
+      c.closePath();
+      c.fill();
+    }
+    c.fillStyle = "rgba(255, 255, 255, 0.28)";
     c.beginPath();
-    c.arc(view.origin.x, view.origin.y, view.dead * 0.35, 0, Math.PI * 2);
+    c.arc(x, y, view.dead * 0.35, 0, Math.PI * 2);
     c.fill();
-    c.fillStyle = view.running ? "rgba(255, 240, 177, 0.72)" : "rgba(255, 255, 255, 0.66)";
+    c.fillStyle = "rgba(255, 255, 255, 0.5)";
     c.beginPath();
-    c.arc(view.knob.x, view.knob.y, 9 * u, 0, Math.PI * 2);
+    c.arc(view.knob.x, view.knob.y, 8 * u, 0, Math.PI * 2);
     c.fill();
     c.restore();
   }

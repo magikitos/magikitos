@@ -109,6 +109,100 @@ function shoreRow(data, py) {
 /** Native-pixel material raster. Only the 9×9 shade lattice is hashed, not 4 corners per pixel. */
 /** La semilla de la hierba de todo el bosque exterior: una, para que la costura no la parta. */
 const FOREST_SEED = hash("mundo-continuo");
+/**
+ * ⛔ LO QUE NO ES NINGUNA PANTALLA TAMBIÉN ES BOSQUE (mundo continuo, decisión del dueño: «todo lo
+ * que falte para cuadrícula perfecta debería ser césped»; «que no haya fondo sin nada»). El plano
+ * de pantallas no es un rectángulo lleno, y donde no hay pantalla se pinta suelo CONTINUANDO EL
+ * BORDE MÁS CERCANO: cada píxel del hueco toma la orilla del píxel de borde de la pantalla más
+ * próxima, así que un lago que llega al borde de su mapa sigue siendo lago hacia fuera y un prado
+ * sigue siendo prado, con la misma hierba (ruido del plano) y la misma paleta de agua. No hay
+ * caminos ni cosas: es el fondo que sostiene la cuadrícula.
+ *
+ * `plane.scenes` son las pantallas del plano con su esquina en píxeles del plano; `ox, oy` es la
+ * esquina del trozo, también en píxeles del plano.
+ */
+function paintVoid(c, plane, ox, oy) {
+  const image = c.createImageData(256, 256),
+    pixels = image.data;
+  const lattice = new Float64Array(81),
+    blend = new Float64Array(32),
+    row = new Float64Array(9);
+  for (let y = 0; y < 9; y++)
+    for (let x = 0; x < 9; x++)
+      lattice[y * 9 + x] = noise(ox / 32 + x, oy / 32 + y, FOREST_SEED);
+  for (let x = 0; x < 32; x++) {
+    const t = x / 32;
+    blend[x] = t * t * (3 - 2 * t);
+  }
+  const scenes = plane.scenes;
+  const shores = new Array(scenes.length);
+  for (let y = 0; y < 256; y++) {
+    const py = oy + y,
+      gy = y >> 5,
+      sy = blend[y & 31];
+    for (let i = 0; i < 9; i++)
+      row[i] = lattice[gy * 9 + i] * (1 - sy) + lattice[(gy + 1) * 9 + i] * sy;
+    // Una orilla por pantalla y fila, evaluada en la fila del borde más cercana a esta.
+    for (let i = 0; i < scenes.length; i++) {
+      const s = scenes[i];
+      shores[i] = shoreRow(s.data, Math.max(0, Math.min(s.h - 1, py - s.y)));
+    }
+    for (let x = 0; x < 256; x++) {
+      const px = ox + x,
+        gx = x >> 5,
+        sx = blend[x & 31],
+        variation = row[gx] * (1 - sx) + row[gx + 1] * sx;
+      let nearest = 0,
+        best = Infinity;
+      for (let i = 0; i < scenes.length; i++) {
+        const s = scenes[i];
+        const d =
+          Math.max(0, s.x - px, px - (s.x + s.w)) + Math.max(0, s.y - py, py - (s.y + s.h));
+        if (d < best) {
+          best = d;
+          nearest = i;
+        }
+      }
+      const s = scenes[nearest];
+      const shore = shores[nearest](Math.max(0, Math.min(s.w - 1, px - s.x)));
+      let color = palette.grass[Math.min(4, Math.floor(variation * 5))];
+      if (shore >= 0) {
+        const depth = shore + (variation - 0.5) * 4;
+        color =
+          palette.water[
+            depth < 2 ? 0 : depth < 7 ? 1 : depth < 19 ? 2 : depth < 40 ? 3 : 4
+          ];
+      } else {
+        if (s.data.baseWater && shore > -24) color = SAND;
+        if (shore > -5) color = shore > -1.5 ? BANK : EDGE;
+      }
+      const at = (y * 256 + x) * 4;
+      pixels[at] = color[0];
+      pixels[at + 1] = color[1];
+      pixels[at + 2] = color[2];
+      pixels[at + 3] = 255;
+    }
+  }
+  c.putImageData(image, 0, 0);
+}
+/** Si hay agua en un punto del hueco del plano: la del borde más cercano de la pantalla más próxima. */
+function voidWaterAt(plane, px, py) {
+  let nearest = null,
+    best = Infinity;
+  for (const s of plane.scenes) {
+    const d = Math.max(0, s.x - px, px - (s.x + s.w)) + Math.max(0, s.y - py, py - (s.y + s.h));
+    if (d < best) {
+      best = d;
+      nearest = s;
+    }
+  }
+  if (!nearest) return false;
+  return (
+    shoreRow(nearest.data, Math.max(0, Math.min(nearest.h - 1, py - nearest.y)))(
+      Math.max(0, Math.min(nearest.w - 1, px - nearest.x)),
+    ) >= 0
+  );
+}
 function paintGround(c, world, ox, oy) {
   const data = world.data,
     segments = nearbyPaths(data, ox, oy);
@@ -194,4 +288,4 @@ function paintGround(c, world, ox, oy) {
   }
   c.putImageData(image, 0, 0);
 }
-module.exports = { paintGround, shoreDistance, noise };
+module.exports = { paintGround, shoreDistance, noise, paintVoid, voidWaterAt, FOREST_SEED };

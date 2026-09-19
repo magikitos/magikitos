@@ -174,7 +174,7 @@ http
         return;
       }
       if (url.pathname === "/") {
-        res.writeHead(302, { Location: "/aventura" });
+        res.writeHead(302, { Location: ROUTES.es });
         res.end();
         return;
       }
@@ -211,7 +211,7 @@ http
     console.log(
       "Static game: " +
         origin +
-        "/aventura" +
+        ROUTES.es +
         (offline
           ? " — no website connection"
           : " — local JSON API: " + web.origin),

@@ -53,7 +53,7 @@ const world = JSON.parse(fs.readFileSync(".local/build/world.json"));
           }
         };
       });
-      await page.goto(origin + "/aventura");
+      await page.goto(origin + "/bosque/explorar");
       await page.waitForFunction(
         () => window.MagikitosAdventure?.inspect().ready,
       );
@@ -262,7 +262,7 @@ const world = JSON.parse(fs.readFileSync(".local/build/world.json"));
         ),
       riverScene,
     );
-    await page.goto(origin + "/aventura");
+    await page.goto(origin + "/bosque/explorar");
     await require("./browser-entry.cjs").enterWorld(page);
     await page.waitForFunction(
       () => window.MagikitosAdventure.inspect().audio.riverLoaded,

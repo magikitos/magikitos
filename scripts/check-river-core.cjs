@@ -565,7 +565,10 @@ check(starts.length === 0, "No off-screen current rendering");
       aPie++;
     }
   }
-  check(aPie === 8, "Ocho costuras a pie entre las tres pantallas del río, no " + aPie);
+  // Ocho entre los tres tramos del río, y cuatro más desde el mundo continuo (19-sep-2026): la
+  // pradera y los sauces se pasan a pie por los dos tramos de césped que hay a la izquierda del
+  // río, medidos con los propios mundos (donde los dos lados se pisan).
+  check(aPie === 12, "Doce costuras a pie entre las pantallas exteriores, no " + aPie);
 }
 
   check(porAgua > 0, "Hay salidas por agua que barrer");

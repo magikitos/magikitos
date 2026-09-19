@@ -73,7 +73,7 @@ fs.mkdirSync(out, { recursive: true });
         (s) => localStorage.setItem("magikitos.adventure", JSON.stringify(s)),
         state,
       );
-      await p.goto(origin + "/aventura");
+      await p.goto(origin + "/bosque/explorar");
       await require("./browser-entry.cjs").enterWorld(p);
       await p.waitForTimeout(350);
       await p.screenshot({ path: path.join(out, name + ".png") });

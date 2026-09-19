@@ -1052,8 +1052,9 @@ class Adventure {
   stickHint() {
     return this.input?.map.steering ? this.input.map.stickView() : null;
   }
+  /** Correr es la barra espaciadora (o el toque lejano, en `journey`); el dedo del mando solo anda. */
   boosted() {
-    return this.keys.has(" ") || Boolean(this.input?.map.running);
+    return this.keys.has(" ");
   }
   movementIntent() {
     const keys = this.directionIntent();
@@ -1211,7 +1212,6 @@ class Adventure {
       // distinguirlo por la posición, porque en los dos casos el mundo se desplaza.
       gesture: {
         steering: Boolean(this.input?.map.steering),
-        running: Boolean(this.input?.map.running),
         intent: this.input?.map.intent() || null,
         panning: Boolean(this.input?.map.dragging),
         hint: Boolean(this.stickHint()),

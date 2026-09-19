@@ -39,7 +39,7 @@ fs.mkdirSync(output, { recursive: true });
         ),
       { scene, spawn: world.scenes[scene].spawn },
     );
-    await page.goto(origin + "/aventura");
+    await page.goto(origin + "/bosque/explorar");
     await require("./browser-entry.cjs").enterWorld(page);
     await page.waitForTimeout(400);
     const state = await page.evaluate(() =>

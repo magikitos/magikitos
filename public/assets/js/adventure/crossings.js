@@ -22,7 +22,7 @@
 const { TILE, inRect, clamp } = require("./geometry");
 
 /** Lo que el casco de la barca se deja de margen con el borde; a pie no hay margen que valga. */
-const { HULL_RADIUS } = require("./river-navigation");
+const { HULL_RADIUS, canFloat } = require("./river-navigation");
 
 const MODES = Object.freeze(["foot", "boat"]);
 const crosses = (exit, mode) => (exit.mode || "boat") === mode || exit.mode === "both";
@@ -215,6 +215,24 @@ class Crossings {
       g.toast(g.s.blocked);
     }
   }
+  /**
+   * Ya en la pantalla nueva, el duende vuelve al punto exacto del bosque en el que estaba, en las
+   * coordenadas de aquí y acotado a esta pantalla; si ahí no cabe (un cuerpo pegado al borde), se
+   * queda en la llegada validada, que está a un par de píxeles.
+   */
+  settle(actual, shift, mode) {
+    const g = this.game,
+      w = g.world,
+      exact = {
+        x: clamp(actual.x - shift.x, 0.01, w.width * TILE - 0.01),
+        y: clamp(actual.y - shift.y, 0.01, w.height * TILE - 0.01),
+      };
+    const fits =
+      mode === "boat" ? canFloat(w, exact.x, exact.y) : w.canStand(exact.x, exact.y, g.player);
+    if (!fits) return;
+    Object.assign(g.player, exact);
+    g.state.position = { x: exact.x, y: exact.y };
+  }
   async travel(exit, mode) {
     const g = this.game;
     if (g.transitioning) return;
@@ -223,17 +241,20 @@ class Crossings {
     // mismo gesto: el mando del dedo es un vector, como una tecla pulsada, y `directionIntent` lo
     // lee igual en la pantalla nueva en cuanto `transitioning` se suelta.
     g.pauseMovement({ keepControls: true, keepPointerGesture: true });
-    // Quien ha rebasado el borde se recoge a él antes de cruzar: es el origen que el servidor
-    // admite y el que la llegada geométrica toma como referencia.
+    // Dónde estabas DE VERDAD, aunque hayas rebasado el borde; y el origen recogido al borde, que
+    // es el que el servidor admite y el que la llegada geométrica toma como referencia.
+    const actual = { x: g.player.x, y: g.player.y };
     Object.assign(g.player, ontoEdge(g.world.data, exit, g.player));
     const arrival = crossingArrival(exit, g.player);
-    // ⛔ LA CÁMARA VIAJA CON EL DUENDE. La misma traslación que lleva al duende de estas
-    // coordenadas a las de la vecina se aplica a la cámara: lo que se ve no se mueve ni un píxel
-    // por cruzar, solo cambia qué pantalla es «la tuya» por debajo.
-    const camera = {
-      x: g.camera.x - (g.player.x - arrival.x),
-      y: g.camera.y - (g.player.y - arrival.y),
-    };
+    // ⛔ LA CÁMARA VIAJA CON EL DUENDE, Y EL DUENDE NO SALTA. La traslación entre las dos pantallas
+    // es la del plano (`seams`): se aplica a la cámara tal cual, y al duende se le devuelve, ya al
+    // otro lado, el punto exacto del bosque en el que estaba —acotado a la pantalla nueva—. La
+    // llegada que valida el servidor sigue siendo la geométrica; lo que se ve es continuo.
+    const seam = (g.world.seams || []).find((s) => s.scene === exit.scene);
+    const shift = seam
+      ? { x: seam.dx * TILE, y: seam.dy * TILE }
+      : { x: g.player.x - arrival.x, y: g.player.y - arrival.y };
+    const camera = { x: g.camera.x - shift.x, y: g.camera.y - shift.y };
     const pending = this.pending?.scene === exit.scene ? this.pending : null;
     this.pending = null;
     let prepared;
@@ -251,6 +272,7 @@ class Crossings {
       await g.live?.cross("edge", exit.id, prepared.id, prepared.position, mode);
       g.state = state;
       g.scenes.enter(prepared, { keepControls: true, keepPointerGesture: true, camera });
+      if (seam) this.settle(actual, shift, mode);
       // Se aparece dentro de la banda de vuelta a propósito; esa salida queda cerrada hasta que
       // se salga de ella, que si no se volvería por donde se vino en el mismo fotograma.
       this.latched = crossingAt(g.world.data, g.player, mode, SEAM_TRIGGER, true)?.id || null;

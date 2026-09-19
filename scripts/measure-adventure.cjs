@@ -30,7 +30,7 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
     const cdp = await page.context().newCDPSession(page);
     await cdp.send("Emulation.setCPUThrottlingRate", { rate });
     const started = Date.now();
-    await page.goto("http://127.0.0.1:47834/aventura");
+    await page.goto("http://127.0.0.1:47834/bosque/explorar");
     await require("./browser-entry.cjs").enterWorld(page);
     const ready = Date.now() - started;
     await page.waitForTimeout(400);

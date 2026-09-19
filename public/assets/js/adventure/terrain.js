@@ -1,6 +1,6 @@
 "use strict";
 const { TILE, random, hash } = require("./model");
-const { paintGround } = require("./ground");
+const { paintGround, paintVoid, voidWaterAt } = require("./ground");
 const { chunkRange } = require("./scene-frame");
 const { paintInteriorGround } = require("./interior-ground");
 /** Static, deterministic ground painter. Bounded native-pixel chunks shared by all scenes. */
@@ -70,6 +70,54 @@ class Terrain {
       this.sceneContexts.set(data.id, data.interior.background);
     }
     return background;
+  }
+  /**
+   * Un trozo del HUECO del plano (mundo continuo): suelo que continúa el borde más cercano, con
+   * el mismo grano de hierba que las pantallas y sin caminos. Se cachea con las demás baldosas,
+   * en coordenadas del plano, y se ancla por fotograma igual que ellas (`pinVoid`).
+   */
+  voidChunk(plane, cx, cy) {
+    const key = "void:" + cx + ":" + cy;
+    if (this.chunks.has(key)) {
+      const v = this.chunks.get(key);
+      this.chunks.delete(key);
+      this.chunks.set(key, v);
+      return v;
+    }
+    this.buildCount++;
+    const cv = document.createElement("canvas");
+    cv.width = cv.height = 256;
+    const c = cv.getContext("2d", { alpha: false });
+    const ox = cx * 256,
+      oy = cy * 256;
+    paintVoid(c, plane, ox, oy);
+    const rand = random(hash(key));
+    for (let i = 0; i < 460; i++) {
+      const x = Math.floor(rand() * 256),
+        y = Math.floor(rand() * 256);
+      if (voidWaterAt(plane, ox + x, oy + y)) {
+        if (i % 10 === 0) rand();
+        continue;
+      }
+      c.fillStyle = rand() < 0.5 ? "#89a364" : "#5c7c48";
+      c.fillRect(x, y, 1 + Math.floor(rand() * 2), 1);
+      if (i % 11 === 0) {
+        c.fillRect(x + 1, y - 2, 1, 3);
+        c.fillRect(x + 2, y - 1, 1, 1);
+      }
+      if (i % 113 === 0) {
+        c.fillStyle = "#e0c87d";
+        c.fillRect(x, y - 2, 2, 2);
+      }
+    }
+    this.chunks.set(key, cv);
+    this.prune();
+    return cv;
+  }
+  pinVoid(range) {
+    for (let y = range.top; y <= range.bottom; y++)
+      for (let x = range.left; x <= range.right; x++) this.pinned.add("void:" + x + ":" + y);
+    this.budget = Math.max(this.limit || 24, this.pinned.size + 4);
   }
   chunk(world, cx, cy, sprites) {
     const background = this.background(world.data, sprites);

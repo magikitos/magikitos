@@ -166,6 +166,15 @@ for (const s of Object.values(catalog.scenes).filter((s) =>
     );
   const arriba = cruza("up"),
     abajo = cruza("down");
+  /* ⛔ Y UNA COSTURA CONTRA EL LAGO SE ABRE (19-sep-2026, mundo continuo). Donde el otro lado es
+     otro tramo, el cauce mide 32..64 en las dos pantallas y encaja. Donde el otro lado es la
+     pradera, lo que hay enfrente es el lago hasta el borde del mapa: el río se abre en abanico en
+     sus últimas filas hasta ese borde, y exigirle 64 ahí sería exigir agua contra césped. */
+  const destino = (dir) =>
+    (s.navigation?.exits || []).find(
+      (e) => e.direction === dir && (e.mode || "boat") !== "foot",
+    )?.scene;
+  const lago = (dir) => Boolean(destino(dir)) && !destino(dir).startsWith("river-");
   for (const [y, hay] of [
     [0, arriba],
     [4, arriba],
@@ -176,9 +185,11 @@ for (const s of Object.values(catalog.scenes).filter((s) =>
   ]) {
     if (!hay) continue;
     const section = riverSection(river, y);
+    const abre = y >= 140 && lago("down");
     assert(
-      Math.abs(section.left - 32) < 1e-8 && Math.abs(section.right - 64) < 1e-8,
-      "Shared river seams: " + s.id,
+      Math.abs(section.left - 32) < 1e-8 &&
+        (abre ? section.right >= 64 && (y < 144 || section.right >= 80) : Math.abs(section.right - 64) < 1e-8),
+      "Shared river seams: " + s.id + " at " + y + " → " + JSON.stringify(section),
     );
   }
   for (const [y, hay] of [

@@ -3,11 +3,13 @@
 Implementación del 16 de septiembre de 2026 (decisión del dueño). No cambia mapas,
 reglas, guardados ni la API. Prueba: `npm run test:embed`.
 
-La web sirve el artefacto del juego desde su propio origen (`/aventura` y las cinco
+La web sirve el artefacto del juego desde su propio origen (`/bosque/explorar` y las cinco
 rutas traducidas, ver [RELEASE.md](RELEASE.md)), así que puede además tenerlo cargado
-DETRÁS de cualquier página, en un `<iframe>` que se levanta a pantalla completa cuando
-alguien pide el bosque y se baja cuando pulsa el logo. La página de debajo no se
-recarga: volver es instantáneo y el mundo no rearranca.
+DETRÁS de su landing `/bosque`, en un `<iframe>` que se levanta a pantalla completa cuando
+alguien pulsa «Explorar el bosque» y se baja cuando pulsa el logo. La página de debajo no se
+recarga: volver es instantáneo y el mundo no rearranca. Desde el 19-sep-2026 (decisión del
+dueño: «el juego NO se carga en todas las páginas») el marco solo existe en esa landing: las
+demás páginas de la web no saben nada del juego.
 
 ## La garantía que sostiene todo esto
 
@@ -22,7 +24,7 @@ tener que acordarse de ninguna:
   el botón no puede mostrarse por mucho que se compile el mismo artefacto. La promesa
   «en iOS/Android solo hay juego» la cumple la forma de la cosa, no un `embedded: false`
   pasado por cinco capas.
-- **Suelto en `/aventura` tampoco aparece**, que es correcto: ahí no hay página debajo.
+- **Suelto en `/bosque/explorar` tampoco aparece**, que es correcto: ahí no hay página debajo.
 - **Un extraño que nos meta en un iframe no consigue nada**: sus mensajes vienen de otro
   origen y se descartan. Además la web manda `X-Frame-Options: SAMEORIGIN` en esa ruta
   (`src/game-release.php` del repositorio web), así que ni llega a pintarse.
@@ -68,9 +70,9 @@ convenga sin que el juego sepa nada de rutas ni de fragmentos.
 
 ## Lo que hace la web
 
-Está documentado en su repositorio (`views/components/aventura-host.php` y
-`public/assets/js/aventura-embed.js`). En resumen: el iframe se construye cuando hay
-señal de que hace falta —intención sobre un enlace a la aventura, o partida guardada en
-este navegador— nunca con ahorro de datos ni con la pestaña de fondo; el enlace del menú
-es un enlace de verdad, así que sin JS la aventura se abre como página; y manda el
-sonido quien está en pantalla.
+Está documentado en su repositorio (`views/components/bosque-host.php` y
+`public/assets/js/bosque-embed.js`, que solo se sirven en la landing `/bosque`). En
+resumen: el iframe se construye cuando hay señal de que hace falta —intención sobre el
+botón «Explorar el bosque», o partida guardada en este navegador— nunca con ahorro de
+datos ni con la pestaña de fondo; el botón es un enlace de verdad a `/bosque/explorar`,
+así que sin JS el bosque se abre como página; y manda el sonido quien está en pantalla.

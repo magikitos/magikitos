@@ -3,7 +3,7 @@
 A top-down pixel-art adventure set in the world of the Magikitos: warm art,
 original characters and music, and not a single reflex test.
 
-> **Status: playable development build, also published at `/aventura`.**
+> **Status: playable development build, also published at `/bosque/explorar` (the website's `/bosque` landing opens it).**
 > The normal website remains separate. Local changes in
 > this repository are not deployed automatically by any of the development tools.
 
@@ -146,7 +146,7 @@ npm run dev
 npm run studio
 ```
 
-- Game: http://127.0.0.1:47834/aventura
+- Game: http://127.0.0.1:47834/bosque/explorar
 - Studio: http://127.0.0.1:47832
 - Tests: `npm test`; Chrome regressions: `npm run test:browser`
 - Native activities: `npm run test:native`; API: `npm run test:api:local`

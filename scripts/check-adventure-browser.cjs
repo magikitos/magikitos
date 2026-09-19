@@ -50,7 +50,7 @@ async function pageFor(
       ...options,
     },
   );
-  await page.goto(origin + "/aventura");
+  await page.goto(origin + "/bosque/explorar");
   await require("./browser-entry.cjs").enterWorld(page);
   return page;
 }
@@ -268,14 +268,7 @@ async function pinch(page) {
       );
       await page.close();
     }
-  for (const [locale, route] of Object.entries({
-    es: "/aventura",
-    en: "/en/adventure",
-    de: "/de/abenteuer",
-    fr: "/fr/aventure",
-    it: "/it/avventura",
-    pt: "/pt/aventura",
-  })) {
+  for (const [locale, route] of Object.entries(require("../tools/page.cjs").ROUTES)) {
     const page = await pageFor();
     const response = await page.goto(origin + route);
     assert.equal(response.status(), 200);

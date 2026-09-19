@@ -86,7 +86,7 @@ const points = [
         (s) => localStorage.setItem("magikitos.adventure", JSON.stringify(s)),
         state,
       );
-      await page.goto(origin + "/aventura");
+      await page.goto(origin + "/bosque/explorar");
       await require("./browser-entry.cjs").enterWorld(page);
       if (overview) {
         await page.mouse.move(width / 2, height / 2);

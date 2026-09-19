@@ -50,7 +50,7 @@ function fixture(action, data) {
       if (!localStorage.getItem("magikitos.adventure.actions"))
         localStorage.setItem("magikitos.adventure.actions", JSON.stringify({ owner: user.user, queue }));
     }, user);
-    await page.goto(origin + "/aventura"); await enterWorld(page);
+    await page.goto(origin + "/bosque/explorar"); await enterWorld(page);
     await page.waitForFunction(() => window.MagikitosAdventure.inspect().live.role === "player");
     const outward = Math.abs(dock.outward.x) > Math.abs(dock.outward.y)
       ? dock.outward.x > 0 ? "ArrowRight" : "ArrowLeft"

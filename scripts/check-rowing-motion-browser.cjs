@@ -73,7 +73,7 @@ async function contactSheet(browser, images, filename, reduced) {
       await useReviewVariant(page);
       const images = [];
       for (const [direction, keys] of Object.entries(headings)) {
-        await page.goto(origin + "/aventura"); await enterWorld(page);
+        await page.goto(origin + "/bosque/explorar"); await enterWorld(page);
         await page.waitForFunction(({ variant, pack }) => {
           const s = window.MagikitosAdventure.inspect();
           return s.player.variant === variant && s.assets.loaded.includes(`actor-${variant}-row`) && s.assets.loaded.includes(pack);

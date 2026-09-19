@@ -1,11 +1,19 @@
 {
   "noteTitle": {
-    "es": "Nota del bosque", "en": "Forest note", "de": "Waldnotiz",
-    "fr": "Un mot dans la forêt", "it": "Messaggio nel bosco", "pt": "Bilhete do bosque"
+    "es": "Nota del bosque",
+    "en": "Forest note",
+    "de": "Waldnotiz",
+    "fr": "Un mot dans la forêt",
+    "it": "Messaggio nel bosco",
+    "pt": "Bilhete do bosque"
   },
   "noteWrite": {
-    "es": "Dejar una notita", "en": "Leave a note", "de": "Eine Notiz hinterlassen",
-    "fr": "Laisser un petit mot", "it": "Lascia un messaggio", "pt": "Deixar um bilhete"
+    "es": "Dejar una notita",
+    "en": "Leave a note",
+    "de": "Eine Notiz hinterlassen",
+    "fr": "Laisser un petit mot",
+    "it": "Lascia un messaggio",
+    "pt": "Deixar um bilhete"
   },
   "noteOffer": {
     "es": "Ea, aquí cabe un pergamino. ¿Dejamos una notita pa quien pase?",
@@ -17,8 +25,10 @@
   },
   "noteBare": {
     "es": "Alguien se ha quedao bien a gusto aquí, vaya.",
-    "en": "Someone's feeling a lot lighter now.", "de": "Da fühlt sich wohl jemand gleich viel leichter.",
-    "fr": "Il y en a un qui se sent plus léger !", "it": "Qualcuno si sente molto più leggero, eh!",
+    "en": "Someone's feeling a lot lighter now.",
+    "de": "Da fühlt sich wohl jemand gleich viel leichter.",
+    "fr": "Il y en a un qui se sent plus léger !",
+    "it": "Qualcuno si sente molto più leggero, eh!",
     "pt": "Alguém ficou bem mais leve, pelos vistos!"
   },
   "noteHint": {
@@ -30,13 +40,19 @@
     "pt": "Escreve o que quiseres, na tua língua. Gasta um raminho. O bilhete desaparece com o cocó ao fim de 24 horas."
   },
   "notePublish": {
-    "es": "Clavar el pergamino", "en": "Plant the parchment", "de": "Pergament aufstellen",
-    "fr": "Planter le parchemin", "it": "Pianta la pergamena", "pt": "Espetar o pergaminho"
+    "es": "Clavar el pergamino",
+    "en": "Plant the parchment",
+    "de": "Pergament aufstellen",
+    "fr": "Planter le parchemin",
+    "it": "Pianta la pergamena",
+    "pt": "Espetar o pergaminho"
   },
   "notePublished": {
     "es": "¡Ea, notita puesta! Ya la puede leer quien pase.",
-    "en": "There we go! Anyone passing can read it now.", "de": "Steht! Wer vorbeikommt, kann sie jetzt lesen.",
-    "fr": "Voilà ! Les passants peuvent déjà la lire.", "it": "Ecco fatto! Chi passa può già leggerlo.",
+    "en": "There we go! Anyone passing can read it now.",
+    "de": "Steht! Wer vorbeikommt, kann sie jetzt lesen.",
+    "fr": "Voilà ! Les passants peuvent déjà la lire.",
+    "it": "Ecco fatto! Chi passa può già leggerlo.",
     "pt": "Prontinho! Quem passar já pode ler."
   },
   "noteExpired": {
@@ -64,8 +80,12 @@
     "pt": "Falta-me o pergaminho ou a caneta. Sem isso não há bilhete!"
   },
   "forestRetry": {
-    "es": "Confirmar la acción pendiente", "en": "Confirm pending action", "de": "Offene Aktion bestätigen",
-    "fr": "Confirmer l'action en attente", "it": "Conferma l'azione in sospeso", "pt": "Confirmar a ação pendente"
+    "es": "Confirmar la acción pendiente",
+    "en": "Confirm pending action",
+    "de": "Offene Aktion bestätigen",
+    "fr": "Confirmer l'action en attente",
+    "it": "Conferma l'azione in sospeso",
+    "pt": "Confirmar a ação pendente"
   },
   "forestActionPending": {
     "es": "Falta confirmar la acción. Reinténtala desde «Yo»; no se cobrará dos veces.",
@@ -1156,12 +1176,12 @@
     "pt": "Chamar o guardião"
   },
   "hint": {
-    "es": "Toca un sitio para ir. Apoya el dedo donde quieras y muévelo: el duende anda hacia allí, y si lo llevas al borde, corre. Con dos dedos mueves el mapa y acercas. Flechas o WASD para moverte y espacio para correr.",
-    "en": "Tap a place to go there. Put your finger anywhere and move it: the brownie walks that way, and at the edge he runs. Two fingers move the map and zoom. Arrow keys or WASD to move, space to run.",
-    "de": "Tipp auf eine Stelle, um hinzugehen. Leg den Finger irgendwo hin und beweg ihn: der Wichtel geht in diese Richtung, am Rand rennt er. Mit zwei Fingern bewegst du die Karte und zoomst. Pfeiltasten oder WASD zum Gehen, Leertaste zum Rennen.",
-    "fr": "Touche un endroit pour y aller. Pose le doigt où tu veux et bouge-le : le lutin marche dans cette direction, et au bord il court. Deux doigts déplacent la carte et zooment. Flèches ou WASD pour bouger, espace pour courir.",
-    "it": "Tocca un posto per andarci. Appoggia il dito dove vuoi e muovilo: il folletto cammina in quella direzione, e al bordo corre. Con due dita muovi la mappa e ingrandisci. Frecce o WASD per muoverti, spazio per correre.",
-    "pt": "Toca num sítio para ires lá. Pousa o dedo onde quiseres e move-o: o duende anda nessa direção, e na borda corre. Com dois dedos moves o mapa e aproximas. Setas ou WASD para andares, espaço para correres."
+    "es": "Toca un sitio para ir. Apoya el dedo donde quieras y muévelo: el duende anda hacia allí. Pellizca para acercar o alejar. Flechas o WASD para moverte y espacio para correr.",
+    "en": "Tap a place to go there. Put your finger anywhere and move it: the brownie walks that way. Pinch to zoom in or out. Arrow keys or WASD to move, space to run.",
+    "de": "Tipp auf eine Stelle, um hinzugehen. Leg den Finger irgendwo hin und beweg ihn: der Wichtel geht in diese Richtung. Zum Zoomen zwei Finger. Pfeiltasten oder WASD zum Gehen, Leertaste zum Rennen.",
+    "fr": "Touche un endroit pour y aller. Pose le doigt où tu veux et bouge-le : le lutin marche dans cette direction. Pince pour zoomer. Flèches ou WASD pour bouger, espace pour courir.",
+    "it": "Tocca un posto per andarci. Appoggia il dito dove vuoi e muovilo: il folletto cammina in quella direzione. Pizzica per avvicinare o allontanare. Frecce o WASD per muoverti, spazio per correre.",
+    "pt": "Toca num sítio para ires lá. Pousa o dedo onde quiseres e move-o: o duende anda nessa direção. Faz pinça para aproximar ou afastar. Setas ou WASD para andares, espaço para correres."
   },
   "accountTitle": {
     "es": "Tu cuenta",
@@ -1860,12 +1880,12 @@
     "pt": "Contos à volta da fogueira"
   },
   "title": {
-    "es": "La aventura de los Magikitos",
-    "en": "The Magikitos Adventure",
-    "de": "Das Magikitos-Abenteuer",
-    "fr": "L’aventure des Magikitos",
-    "it": "L’avventura dei Magikitos",
-    "pt": "A aventura dos Magikitos"
+    "es": "El bosque de los Magikitos",
+    "en": "The Magikitos Forest",
+    "de": "Der Magikitos-Wald",
+    "fr": "La forêt des Magikitos",
+    "it": "Il bosco dei Magikitos",
+    "pt": "A floresta dos Magikitos"
   },
   "travelError": {
     "es": "No hemos podido preparar el viaje. Conservas tus objetos y setines. Prueba otra vez.",
@@ -2028,8 +2048,12 @@
     "pt": "Semeia-as no bosque. Numa horinha já há flores!"
   },
   "castTitle": {
-    "es": "Tu duende", "en": "Your brownie", "de": "Dein Wichtel",
-    "fr": "Ton lutin", "it": "Il tuo folletto", "pt": "O teu duende"
+    "es": "Tu duende",
+    "en": "Your brownie",
+    "de": "Dein Wichtel",
+    "fr": "Ton lutin",
+    "it": "Il tuo folletto",
+    "pt": "O teu duende"
   },
   "castLead": {
     "es": "Elige con quién quieres andar por el bosque. Se te queda puesto.",
@@ -2040,7 +2064,11 @@
     "pt": "Escolhe com quem queres andar pelo bosque. Fica contigo."
   },
   "castChoose": {
-    "es": "Duende :n", "en": "Brownie :n", "de": "Wichtel :n",
-    "fr": "Lutin :n", "it": "Folletto :n", "pt": "Duende :n"
+    "es": "Duende :n",
+    "en": "Brownie :n",
+    "de": "Wichtel :n",
+    "fr": "Lutin :n",
+    "it": "Folletto :n",
+    "pt": "Duende :n"
   }
 }

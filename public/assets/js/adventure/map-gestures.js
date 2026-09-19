@@ -3,13 +3,11 @@ const { clampCamera } = require("./camera");
 const DRAG_SLOP = 8; // CSS pixels, equally comfortable for mouse, pen and touch.
 /**
  * El mando invisible, en píxeles de PANTALLA y no de mundo: la sensación en el pulgar no puede
- * cambiar con el zoom. Más cerca del origen que STICK_DEAD no hay dirección; en el borde
- * (STICK_RUN) se corre, y para volver a andar hay que recogerse hasta STICK_WALK, que sin
- * histéresis un pulgar en el límite haría parpadear la marcha.
+ * cambiar con el zoom. Más cerca del origen que STICK_DEAD no hay dirección; STICK_RADIUS es el
+ * aro, y pasado el aro el origen se arrastra detrás del dedo. La distancia NO es la marcha.
  */
 const STICK_DEAD = 10;
-const STICK_RUN = 100;
-const STICK_WALK = 80;
+const STICK_RADIUS = 100;
 const point = (event) => ({ x: event.clientX, y: event.clientY });
 
 /**
@@ -27,10 +25,16 @@ const point = (event) => ({ x: event.clientX, y: event.clientY });
  * ir a la izquierda y volver hacia la derecha se nota al instante sin levantar. No hay nada que
  * explicar; la única regla es mover el dedo hacia donde quieres ir.
  *
- * Mirar alrededor son DOS dedos —que ya hacían zoom y también desplazan, como cualquier mapa— o
- * el botón derecho o central del ratón. Construyendo, un dedo mueve el mapa, que ahí no se anda.
- * Nada de esto dibuja DOM: el aro de aprendizaje lo pinta el renderizador con `stickView`, y solo
- * hasta que quien juega ya sabe andar.
+ * ⛔ CON EL DEDO SE ANDA Y PUNTO (19-sep-2026, decisión del dueño tras probarlo: «esté cerca o
+ * lejos el dedo, eso es andar»). Aquí vivió medio día un borde donde se corría, con histéresis, y
+ * hacía que un pulgar suelto saliera corriendo sin querer. Correr queda para la barra espaciadora
+ * y para el toque lejano, que ya corre solo (`journey`).
+ *
+ * ⛔ LA CÁMARA ES DEL DUENDE Y NO SE ARRASTRA (19-sep-2026, decisión del dueño: «quitaría también
+ * lo de desplazarse por el mapa; dejaría solo el zoom»). Dos dedos hacen ZOOM y nada más, la rueda
+ * también, y el botón derecho no hace nada. La única excepción es construir, donde arrastrar
+ * mueve el mapa para llevar la pieza a su sitio, y al terminar la cámara vuelve sola. Nada de esto
+ * dibuja DOM: el aro del mando lo pinta el renderizador con `stickView` mientras el dedo manda.
  */
 class MapGestures {
   constructor(game, canvas) {
@@ -106,13 +110,9 @@ class MapGestures {
   get steering() {
     return this.mode === "stick";
   }
-  /** En el borde del mando se corre; es lo que `boosted` lee junto a la barra espaciadora. */
-  get running() {
-    return Boolean(this.stick?.running);
-  }
-  /** La cámara es del gesto: un paneo, o un pellizco que además se ha desplazado. */
+  /** La cámara es del gesto: solo construyendo, mientras se arrastra el mapa. */
   get dragging() {
-    return this.mode === "pan" || (this.mode === "pinch" && Boolean(this.pinch?.panned));
+    return this.mode === "pan";
   }
   /** Construyendo no se dan órdenes de andar: ahí un dedo mueve el mapa, como siempre. */
   exploring() {
@@ -182,8 +182,9 @@ class MapGestures {
   down(event) {
     if (!this.allowed() || this.points.size >= 2) return;
     const button = event.button;
-    // El botón derecho o central del ratón mueve la cámara; un segundo puntero solo puede ser un dedo.
-    if (button !== 0 && !([1, 2].includes(button) && !this.points.size)) return;
+    // Solo el botón principal, o el dedo. El derecho o el central únicamente arrastran el mapa
+    // construyendo; fuera de ahí no hacen nada, que la cámara es del duende.
+    if (button !== 0 && !([1, 2].includes(button) && !this.points.size && this.exploring())) return;
     event.preventDefault();
     const p = point(event);
     this.points.set(event.pointerId, { ...p, origin: p, button });
@@ -194,17 +195,13 @@ class MapGestures {
       return;
     }
     if (this.points.size === 2) {
-      // Llega el segundo dedo: sea lo que fuera el primero, ahora es un gesto de cámara. El mando
-      // se suelta, así que el duende se para: te has detenido a mirar.
+      // Llega el segundo dedo: es un pellizco, o sea zoom, y nada más. El mando se suelta, así que
+      // el duende se para: te has detenido a mirar más cerca o más lejos.
       this.suppressed = true;
       const [a, b] = this.points.values();
-      const mid = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
       this.pinch = {
         distance: Math.hypot(a.x - b.x, a.y - b.y),
         ratio: this.game.renderer.viewZoom,
-        mid,
-        origin: mid,
-        panned: false,
       };
       this.mode = "pinch";
       this.stick = null;
@@ -218,7 +215,7 @@ class MapGestures {
   beginStick(p) {
     const g = this.game;
     this.mode = "stick";
-    this.stick = { origin: { ...p.origin }, finger: { x: p.x, y: p.y }, running: false };
+    this.stick = { origin: { ...p.origin }, finger: { x: p.x, y: p.y } };
     // Igual que pulsar una flecha: el viaje tocado se cancela, la cámara es del duende.
     g.cancelPath();
     g.cameraFollowing = true;
@@ -228,20 +225,16 @@ class MapGestures {
   }
   /**
    * ⛔ EL ORIGEN SIGUE AL DEDO pasado el radio: el dedo nunca se sale del mando, así que volver
-   * hacia atrás es cambiar de rumbo al instante, sin levantar. La marcha lleva histéresis.
+   * hacia atrás es cambiar de rumbo al instante, sin levantar.
    */
   steer(p) {
     const s = this.stick;
     s.finger = { x: p.x, y: p.y };
-    let dx = p.x - s.origin.x,
+    const dx = p.x - s.origin.x,
       dy = p.y - s.origin.y,
       len = Math.hypot(dx, dy);
-    if (len > STICK_RUN) {
-      s.origin = { x: p.x - (dx / len) * STICK_RUN, y: p.y - (dy / len) * STICK_RUN };
-      len = STICK_RUN;
-    }
-    if (len >= STICK_RUN - 0.5) s.running = true;
-    else if (len < STICK_WALK) s.running = false;
+    if (len > STICK_RADIUS)
+      s.origin = { x: p.x - (dx / len) * STICK_RADIUS, y: p.y - (dy / len) * STICK_RADIUS };
   }
   /** Hacia dónde empuja el dedo, o null si no hay mando o está en la zona muerta. */
   intent() {
@@ -254,8 +247,9 @@ class MapGestures {
   }
   /**
    * El mando tal y como se ve, en unidades de la VISTA (píxeles de mundo sin cámara), para que el
-   * renderizador pinte el aro de aprendizaje encima del mundo. `unit` es lo que mide un píxel de
-   * pantalla ahí, para que los trazos tengan el mismo grosor a cualquier zoom.
+   * renderizador pinte el aro encima del mundo. `unit` es lo que mide un píxel de pantalla ahí,
+   * para que los trazos tengan el mismo grosor a cualquier zoom; `heading` es la dirección que
+   * manda ahora mismo (la misma que `intent`), o null en la zona muerta.
    */
   stickView() {
     const s = this.stick;
@@ -267,10 +261,10 @@ class MapGestures {
     return {
       origin: at(s.origin),
       knob: at(s.finger),
-      radius: STICK_RUN * k,
+      radius: STICK_RADIUS * k,
       dead: STICK_DEAD * k,
       unit: k,
-      running: s.running,
+      heading: this.intent(),
     };
   }
   move(event) {
@@ -288,23 +282,17 @@ class MapGestures {
     if (this.points.size === 2) {
       event.preventDefault();
       const [a, b] = this.points.values();
-      const mid = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
-      // El pellizco quieto hace zoom sobre el duende como siempre; si además los dedos viajan, la
-      // cámara pasa a ser suya, como en cualquier mapa.
-      if (
-        !this.pinch.panned &&
-        Math.hypot(mid.x - this.pinch.origin.x, mid.y - this.pinch.origin.y) >= DRAG_SLOP
-      )
-        this.pinch.panned = true;
-      if (this.pinch.panned) this.panBy(mid.x - this.pinch.mid.x, mid.y - this.pinch.mid.y);
-      this.pinch.mid = mid;
+      // El pellizco hace zoom sobre el duende y nada más: la cámara sigue siendo suya aunque los
+      // dedos viajen por la pantalla.
       this.zoom(
         (this.pinch.ratio * Math.hypot(a.x - b.x, a.y - b.y)) /
           Math.max(1, this.pinch.distance),
-        mid,
+        { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 },
       );
       return;
     }
+    // El dedo que queda tras un pellizco no manda ni toca hasta que se levante.
+    if (this.mode === "pinch") return;
     const moved =
       Math.hypot(p.x - previous.origin.x, p.y - previous.origin.y) >= DRAG_SLOP;
     if (!this.mode) {
@@ -328,11 +316,11 @@ class MapGestures {
     if (this.canvas.hasPointerCapture(event.pointerId))
       this.canvas.releasePointerCapture(event.pointerId);
     if (this.points.size) {
-      // El dedo que queda tras un pellizco sigue siendo de la cámara: ni toca ni manda.
-      for (const q of this.points.values()) q.origin = { x: q.x, y: q.y };
+      // El dedo que queda tras un pellizco no manda ni toca: se queda en «pellizco» hasta que se
+      // levante, y `move` lo ignora.
       this.pinch = null;
       this.suppressed = true;
-      this.beginPan();
+      this.mode = "pinch";
     } else this.clear();
     return tap;
   }
@@ -345,4 +333,4 @@ class MapGestures {
         this.canvas.releasePointerCapture(id);
   }
 }
-module.exports = { MapGestures, DRAG_SLOP, STICK_DEAD, STICK_RUN, STICK_WALK };
+module.exports = { MapGestures, DRAG_SLOP, STICK_DEAD, STICK_RADIUS };

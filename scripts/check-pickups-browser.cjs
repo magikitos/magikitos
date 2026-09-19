@@ -37,7 +37,7 @@ const read = (page) => page.evaluate(() => window.MagikitosAdventure.inspect());
           sessionStorage.removeItem("pickup-test-seed");
         }
       });
-      await page.goto(origin + "/aventura");
+      await page.goto(origin + "/bosque/explorar");
       async function seed(extra = {}, anchor = "picnic-trash-bin") {
         const state = {
           scene: "overworld",

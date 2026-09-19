@@ -32,7 +32,7 @@ const fs = require("node:fs");
   const browser = await chromium.launch({ channel: "chrome", headless: true });
   try {
     const page = await browser.newPage({ viewport: { width: 1500, height: 750 } });
-    await page.goto("http://127.0.0.1:47834/aventura");
+    await page.goto("http://127.0.0.1:47834/bosque/explorar");
     const manifest = await page.evaluate(() => JSON.parse(document.querySelector("#adventure-config").textContent).assetManifest);
     await page.setContent('<canvas width="1500" height="750"></canvas><style>body{margin:0}</style>');
     await page.addScriptTag({ content: bundle.outputFiles[0].text });

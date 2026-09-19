@@ -57,7 +57,8 @@ for (const [id, s] of Object.entries(scenes))
       : exit.position[0];
     assert(depth > 0 && depth <= SEAM_TRIGGER, `${id}/${exit.id}: la llegada está en el borde de destino (${depth})`);
     const [ax, ay, aw, ah] = exit.area;
-    const along = (vertical ? ax + aw / 2 : ay + ah / 2) + 3.7; // descentrado, dentro de la banda
+    const half = (vertical ? aw : ah) / 2,
+      along = (vertical ? ax : ay) + half + Math.min(3.7, half - 0.5); // descentrado, dentro de la banda
     const source = vertical
       ? { x: along * TILE, y: (exit.direction === "up" ? 0.3 : s.height - 0.3) * TILE }
       : { x: (exit.direction === "left" ? 0.3 : s.width - 0.3) * TILE, y: along * TILE };
@@ -75,7 +76,7 @@ for (const [id, s] of Object.entries(scenes))
     const back = crossingAt(target, arrival, mode, SEAM_TRIGGER, true);
     assert(back && back.scene === id, `${id}/${exit.id}: la llegada cae en la banda de vuelta hacia ${id}`);
   }
-assert(exits >= 16, "Se han mirado todas las salidas: " + exits);
+assert(exits >= 18, "Se han mirado todas las salidas: " + exits);
 
 // 3. El marco se abre en las bandas a pie y sigue cerrado en el resto del borde.
 const willows = new World(scenes["river-willows"]),
@@ -94,9 +95,20 @@ assert(willows.walkable(95, -1) === false, "El buscador de rutas no sale de la p
 const seams = seamsOf(scenes, layout.offsets, "river-willows");
 assert.deepEqual(
   seams.map((s) => [s.scene, s.dx, s.dy, s.exits.length]).sort(),
-  [["overworld", -64, 144, 1], ["river-rapids", 0, -144, 3]].sort(),
-  "Una costura por vecina, con todas sus salidas",
+  [["overworld", -64, 144, 3], ["river-rapids", 0, -144, 3]].sort(),
+  "Una costura por vecina, con todas sus salidas: a la pradera se baja por el río y por dos pasos a pie",
 );
+// La pradera y los sauces se pasan a pie por todo el borde compartido donde hay césped, y por el
+// río se rema por el agua entera, que en las últimas filas de los sauces se abre hasta el lago.
+assert(willows.terrainWalkable(10, 143) && willows.terrainWalkable(10, 142), "El prado de los sauces se abre hacia la pradera");
+assert(willows.terrainWalkable(70, 143) === false, "…pero el agua del abanico no se pisa");
+assert.equal(crossingAt(willows.data, { x: 10 * TILE, y: 143.95 * TILE }, "foot", SEAM_TRIGGER, true)?.id, "meadow-down");
+assert(canFloat(willows, 60 * TILE, (144 - 0.3) * TILE), "La banda de barca ensanchada flota hasta el borde por la derecha del cauce");
+const overworld = new World(scenes.overworld);
+assert(overworld.terrainWalkable(80, 0) && overworld.terrainWalkable(80, 1), "La pradera se abre hacia los sauces por arriba");
+assert(!overworld.terrainWalkable(20, 0), "…y no fuera del borde compartido");
+assert.equal(crossingAt(overworld.data, { x: 80 * TILE, y: 0.05 * TILE }, "foot", SEAM_TRIGGER, true)?.id, "meadow-up");
+assert(canFloat(overworld, 120 * TILE, 0.3 * TILE), "La boca del lago flota hasta el borde de arriba");
 willows.link(seams.filter((s) => s.scene === "river-rapids").map((s) => ({ ...s, world: rapids })));
 assert(willows.terrainWalkable(95, -1), "Con la vecina enlazada, su primera fila contesta");
 assert(willows.terrainWalkable(95, -5) === rapids.terrainWalkable(95, 139), "…y cualquier casilla suya");

@@ -46,7 +46,7 @@ async function brokenInputBundle() {
           return route.fulfill({ status: 503, contentType: "application/json", body: '{"ok":false,"error":"offline"}' });
         if (broken && url.pathname.endsWith("/js/aventura.min.js"))
           return route.fulfill({ contentType: "text/javascript", body: broken });
-        if (url.pathname === "/aventura") return fulfillArena(route);
+        if (url.pathname === "/bosque/explorar") return fulfillArena(route);
         return route.continue();
       });
       await page.addInitScript(() => localStorage.setItem("magikitos.adventure", JSON.stringify({
@@ -55,7 +55,7 @@ async function brokenInputBundle() {
       return page;
     }
     async function talk(page) {
-      await page.goto(origin + "/aventura");
+      await page.goto(origin + "/bosque/explorar");
       await enterWorld(page);
       const point = await page.evaluate(() => {
         const s = window.MagikitosAdventure.inspect();

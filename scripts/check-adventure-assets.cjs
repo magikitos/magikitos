@@ -7,7 +7,7 @@ const manifest = JSON.parse(
 );
 const directory = "public/assets/aventura/";
 // The test adapter reads native files only: no browser, fetch, network or production host.
-global.location = { href: "http://localhost/aventura" };
+global.location = { href: "http://localhost/bosque/explorar" };
 class LocalSprites extends SpriteLibrary {
   constructor(options) {
     super(options);

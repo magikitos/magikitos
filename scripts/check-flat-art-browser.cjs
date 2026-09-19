@@ -80,7 +80,7 @@ const origin = process.env.GAME_ORIGIN || "http://127.0.0.1:47834";
           localStorage.setItem("magikitos.adventure", JSON.stringify(state)),
         { scene: room.scene, position: spawn, muted: true, flags: {} },
       );
-      await page.goto(origin + "/aventura");
+      await page.goto(origin + "/bosque/explorar");
       await require("./browser-entry.cjs").enterWorld(page);
       const s = await page.evaluate(() => window.MagikitosAdventure.inspect()),
         r = await page.locator("#world-canvas").boundingBox();

@@ -1,13 +1,20 @@
 "use strict";
 const fs = require("node:fs"),
   path = require("node:path");
+/**
+ * Las rutas del ARTEFACTO en la web (19-sep-2026, decisión del dueño: «no se llamará
+ * /aventura, se llamará /bosque»). `/bosque` y sus traducciones son la landing de la web, una
+ * página normal que explica qué es esto; el juego cuelga debajo, en `explorar`, y es lo que
+ * la web sirve estático antes de su bootstrap (`src/game-release.php`). La misma tabla viaja
+ * en `release.json` y `current.json`, así que cambiarla aquí cambia lo que la web monta.
+ */
 const ROUTES = Object.freeze({
-  es: "/aventura",
-  en: "/en/adventure",
-  de: "/de/abenteuer",
-  fr: "/fr/aventure",
-  it: "/it/avventura",
-  pt: "/pt/aventura",
+  es: "/bosque/explorar",
+  en: "/en/forest/explore",
+  de: "/de/wald/erkunden",
+  fr: "/fr/foret/explorer",
+  it: "/it/bosco/esplora",
+  pt: "/pt/floresta/explorar",
 });
 const NAMES = {
   es: "Español",

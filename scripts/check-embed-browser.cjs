@@ -31,7 +31,7 @@ const PADRE = `<!doctype html><meta charset="utf-8"><title>host</title>
   });
   function marco() { return document.getElementById("f"); }
   window.mandar = (verbo) => marco().contentWindow.postMessage({ magikitos: verbo }, location.origin);
-  document.write('<iframe id="f" src="/aventura" allow="autoplay; fullscreen"></iframe>');
+  document.write('<iframe id="f" src="/bosque/explorar" allow="autoplay; fullscreen"></iframe>');
 </script>`;
 
 (async () => {
@@ -57,7 +57,7 @@ const PADRE = `<!doctype html><meta charset="utf-8"><title>host</title>
     );
 
     // (1) SUELTO: no hay a dónde volver, así que no hay botón.
-    await page.goto(origin + "/aventura");
+    await page.goto(origin + "/bosque/explorar");
     await page.waitForFunction(() => Boolean(window.MagikitosAdventure), { timeout: 45000 });
     assert(
       await page.locator("#world-leave").isHidden(),
