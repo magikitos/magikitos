@@ -45,4 +45,4 @@ function catalogGround(catalog, scene) {
   // comes from the live authority; otherwise moving it would leave an invisible hole.
   return sceneGround(new World({ ...data, entities: data.entities.filter(e => e.shared !== true) }));
 }
-module.exports = { catalogGround, STAND_SAMPLES };
+module.exports = { catalogGround };

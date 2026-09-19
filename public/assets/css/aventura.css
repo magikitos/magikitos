@@ -15,15 +15,12 @@
   --world-gold: #b88746;
   --world-shadow: 0 18px 60px #14291f55;
   --world-safe: env(safe-area-inset-bottom, 0px);
-  /* The stick's ZONE: where a thumb may land, not what is painted. The ring you
-   * see is --world-stick-base and it follows the thumb inside this square. */
-  --world-stick-size: 180px;
-  --world-stick-travel: 46px;
-  --world-stick-base: 92px;
-  --world-stick-knob: 46px;
-  --world-control-clearance: 0px;
+  /* ⛔ LO QUE HAY QUE DEJAR LIBRE ABAJO A LA DERECHA, y hoy es UNA cosa: el disco de recentrar.
+   * Aquí vivió el aro del joystick táctil con sus cuatro medidas y su variante por dispositivo;
+   * se fue entero el 19-sep-2026 y con él la pregunta de qué tienes en la mano, porque el mando
+   * pasó a ser el MAPA: arrastrarlo lleva al duende al centro de lo que miras. */
+  --world-control-clearance: 46px;
 }
-:root[data-world-input="touch"] { --world-control-clearance: var(--world-stick-size); }
 /* ⛔ QUIEN OCUPA LA PANTALLA RETIRA EL MANDO. Hablar pausa el movimiento, así que un mando ahí
  * no mueve a nadie y le cuesta a la conversación su propia altura dos veces: una como hueco
  * reservado y otra como el empujón que ese hueco le da al panel. Desde el 17-sep-2026 lo mismo
@@ -31,8 +28,6 @@
  * `game.retireControls()`, que lleva la cuenta de los motivos— y las cinco reglas que se apartan
  * de la esquina se recomponen solas. */
 :root[data-world-retired] { --world-control-clearance: 0px; }
-:root[data-world-retired] #world-joystick,
-:root[data-world-retired] #world-boost { display: none; }
 body.world-page {
   margin: 0;
   padding: 0 !important;
@@ -726,10 +721,7 @@ body:has(.world-dialogue:not([hidden])) .world-held-item {
   margin: 16px 0;
 }
 
-/* Elegir duende: una rejilla de caras y nada más. Las columnas las decide lo que CABE
-   (`auto-fill`) y no un número escrito a mano, porque el elenco crece solo cuando entra arte
-   nuevo: con dos duendes salen dos y con treinta salen las que quepan, sin tocar esta hoja. El
-   alto se acota para que treinta caras no empujen la cuenta fuera del panel. */
+/* Illustrated choices use one lazy 2× atlas; names stay in accessible labels, not the art. */
 .world-self-cast {
   margin: 16px 0;
   padding-top: 16px;
@@ -746,37 +738,42 @@ body:has(.world-dialogue:not([hidden])) .world-held-item {
 }
 .world-self-cast-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
   gap: 8px;
-  /* Tres filas a la vista y el resto se desliza: con treinta duendes, una rejilla sin techo
-     empujaría la cuenta —que vive justo debajo— fuera del panel. */
-  max-height: 268px;
+  max-height: min(360px, 44dvh);
+  padding: 3px;
   overflow-y: auto;
 }
 .world-self-cast-option {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  /* 64x84 es zona tocable de sobra y deja caber el retrato entero sin recortarle los pies. */
-  min-width: 64px;
-  min-height: 84px;
-  padding: 4px;
+  min-width: 0;
+  min-height: 136px;
+  padding: 0;
   background: rgba(255, 255, 255, 0.55);
   border: 2px solid transparent;
   border-radius: 10px;
+  overflow: hidden;
   cursor: pointer;
 }
 .world-self-cast-option canvas {
-  /* El retrato se dibuja a su tamaño nativo (unos 30px de alto) y aquí se agranda para que se le
-     vean la ropa y el pelo, que es lo único por lo que se elige. Nunca suavizado: es pixel art. */
-  image-rendering: pixelated;
-  height: 64px;
-  width: auto;
+  /* Authored at 240×320: integrated reduction, not CSS pixel enlargement. */
+  image-rendering: auto;
+  height: auto;
+  width: 100%;
+  aspect-ratio: 3 / 4;
   max-width: 100%;
 }
 .world-self-cast-option.is-chosen {
   border-color: #6d8c4a;
+  outline: 2px solid #6d8c4a;
+  outline-offset: 1px;
   background: rgba(109, 140, 74, 0.18);
+}
+.world-self-cast-option:focus-visible {
+  outline: 3px solid #b77d27;
+  outline-offset: 1px;
 }
 
 /* La cuenta dentro del panel «Yo»: las dos MISMAS puertas que la web (Google o
@@ -898,75 +895,23 @@ body:has(.world-dialogue:not([hidden])) .world-held-item {
 }
 .world-navigation {
   position: fixed; z-index: 35;
-  /* 24px and not 18: the knob rides the rim of its ring, so at full deflection its
-   * outer edge reaches one knob-radius past the zone. This keeps that edge on screen. */
   right: max(24px, env(safe-area-inset-right));
   bottom: calc(24px + var(--world-safe));
   width: 46px; height: 46px; pointer-events: none;
 }
-:root[data-world-input="touch"] .world-navigation { width: var(--world-stick-size); height: var(--world-stick-size); }
-/* ⛔ THE ZONE PAINTS NOTHING. It is the only element of the pair that takes a
- * gesture, so everything outside it — tap to walk, drag to pan, pinch — behaves
- * exactly as it did. Painting a 180px disc here would drop a permanent blob over
- * a corner of the map to advertise an area the ring already advertises. */
-.world-joystick {
-  position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: auto;
-  touch-action: none; user-select: none; -webkit-user-select: none; cursor: grab;
-}
-.world-joystick.is-active { cursor: grabbing; }
-.world-stick-base, .world-stick-knob {
-  position: absolute; left: 50%; top: 50%; border-radius: 50%; pointer-events: none;
-  /* Eases home on release; tracks the thumb with zero lag while held. */
-  transition: transform .16s ease-out, opacity .16s ease-out, border-color .16s ease-out;
-}
-.world-joystick.is-active .world-stick-base,
-.world-joystick.is-active .world-stick-knob { transition: none; }
-.world-stick-base {
-  width: var(--world-stick-base); height: var(--world-stick-base); opacity: .84;
-  transform: translate(calc(-50% + var(--stick-home-x, 0px)), calc(-50% + var(--stick-home-y, 0px)));
-  color: #dfdbb28c; border: 1px solid #e5dbaf55;
-  background: radial-gradient(circle, #354d358a 27%, #203a2c88 65%, #61734c80);
-  box-shadow: inset 0 1px 10px #102e2430, 0 3px 14px #17261c35;
-}
-.world-joystick.is-active .world-stick-base { opacity: 1; border-color: #f1d38ba0; }
-.world-stick-compass { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-.world-stick-knob {
-  width: var(--world-stick-knob); height: var(--world-stick-knob);
-  transform: translate(
-    calc(-50% + var(--stick-home-x, 0px) + var(--stick-x, 0px)),
-    calc(-50% + var(--stick-home-y, 0px) + var(--stick-y, 0px)));
-  background: radial-gradient(circle at 35% 25%, #9aab77e0, #3a563be8); border: 1px solid #e5d9a58a;
-  box-shadow: 0 4px 10px #11251b50, inset 0 1px 2px #fff2c14a;
-}
-.world-boost {
-  position: fixed; z-index: 35; left: max(22px, env(safe-area-inset-left));
-  bottom: calc(32px + var(--world-safe)); width: 72px; height: 72px;
-  display: grid; place-items: center; border-radius: 50%; border: 1px solid #e8d2a789;
-  background: radial-gradient(circle at 35% 25%, #738057d9, #263f31e0); color: #fff0bd;
-  box-shadow: 0 4px 15px #17261c45; touch-action: none !important; user-select: none; -webkit-user-select: none;
-}
-.world-boost.is-active { background: #a4823d; transform: scale(.95); }
 @media (max-width: 1000px) {
   .world-dialogue { bottom: calc(var(--world-control-clearance) + 34px + var(--world-safe)); max-height: calc(100dvh - var(--world-control-clearance) - 56px - var(--world-safe)); overflow-y: auto; }
-}
-@media (max-width: 480px), (max-height: 500px) {
-  :root {
-    --world-stick-size: 152px;
-    --world-stick-travel: 40px;
-    --world-stick-base: 80px;
-    --world-stick-knob: 40px;
-  }
-  .world-boost { width: 64px; height: 64px; }
 }
 @media (max-height: 500px) {
   .world-dialogue { padding: 12px 16px; gap: 4px 12px; grid-template-columns: 42px minmax(0, 1fr) auto; }
   .world-dialogue canvas { width: 42px; height: 60px; }
   #dialogue-text { font-size: 14px; line-height: 1.4; margin: 4px 0; }
 }
-/* ⛔ El listening tiene su sitio propio en escritorio; aquí no hay nada de construir porque
-   construir ya no vive en una esquina: su puerta es un icono de la barra de arriba. */
-:root:not([data-world-input="touch"]) .world-listening {
-  left: auto; right: 80px; width: min(420px, calc(100vw - 100px));
+/* El listening se aparta de la esquina de abajo a la derecha, que es de quien recentra. */
+@media (min-width: 1001px) {
+  .world-listening {
+    left: auto; right: 80px; width: min(420px, calc(100vw - 100px));
+  }
 }
 
 /* EL CATÁLOGO DE CONSTRUIR — es una modal de la casa (ver `.world-modal`), así que de aquí solo
@@ -989,13 +934,11 @@ body:has(.world-dialogue:not([hidden])) .world-held-item {
    Centrada abajo y por encima del mando, nunca tapando el centro del mapa. */
 .world-build-bar {
   position: fixed; z-index: 14; left: 50%; transform: translateX(-50%);
-  /* ⛔ SE APOYA JUSTO ENCIMA DE LO QUE VIVE EN LA ESQUINA DE ABAJO, sea lo que sea. `24px` es el
-     hueco que `.world-navigation` se deja, y lo de al lado es su ALTO: el aro del joystick cuando
-     se juega con el dedo (`--world-control-clearance`) y el disco de recentrar cuando se juega
-     con ratón, que mide 46 y con la holgura a cero se comía la esquina de Colocar — medido a
-     390px: el botón recibía su propio clic en el centro y el de recentrar en la esquina, o sea
-     una confirmación que a veces no confirma. */
-  bottom: calc(24px + max(var(--world-control-clearance), 46px) + var(--world-safe));
+  /* ⛔ SE APOYA JUSTO ENCIMA DE LO QUE VIVE EN LA ESQUINA DE ABAJO: `24px` es el hueco que
+     `.world-navigation` se deja y la holgura es su alto. Con la holgura a cero, el disco de
+     recentrar se comía la esquina de Colocar — medido a 390px, el botón recibía su propio clic en
+     el centro y el de recentrar en la esquina, o sea una confirmación que a veces no confirma. */
+  bottom: calc(24px + var(--world-control-clearance) + var(--world-safe));
   width: min(520px, calc(100vw - 24px));
   display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
   padding: 10px 12px; border: 1px solid #c8c19b; border-radius: 18px;

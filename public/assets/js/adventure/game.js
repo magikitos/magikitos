@@ -1,7 +1,7 @@
 "use strict";
 const { tryPush } = require("./movables");
 const { releaseContact } = require("./obstacles");
-const { World, TILE, clamp, insideThreshold } = require("./model");
+const { World, TILE, insideThreshold } = require("./model");
 const { Renderer } = require("./renderer");
 const { clampCamera, cameraFollow, continuousTravel } = require("./camera");
 const { doorDestination, acceptsEntry } = require("./portals");
@@ -308,10 +308,7 @@ class Adventure {
   pauseMovement({ keepPointerGesture = false, keepControls = false } = {}) {
     this.live?.objects.stop();
     this.river?.pause();
-    if (!keepControls) {
-      this.input?.controls.clear();
-      this.keys.clear();
-    }
+    if (!keepControls) this.keys.clear();
     if (!keepPointerGesture) this.input?.map.clear();
     this.cancelPath();
     this.walking = false;
@@ -350,6 +347,57 @@ class Adventure {
   narrating(on) {
     this.audio.setVoice(on);
     this.retireControls("listening", on);
+  }
+  /**
+   * ⛔ ARRASTRAR EL MAPA ES CAMINAR (19-sep-2026, decisión del dueño: «el joystick táctil es una
+   * mierda, no me gusta nada, ni el botón de turbo… mientras movemos la cámara con el drag, el
+   * protagonista siempre debe caminar hacia el centro»).
+   *
+   * El mando deja de ser una esquina de la pantalla y pasa a ser EL MAPA: miras a donde quieres ir
+   * y el duende va. Es el mismo gesto con el que ya se miraba alrededor, así que no hay nada que
+   * aprender, no ocupa sitio, no tapa el mundo con un aro y —lo mejor— no hay que preguntarle al
+   * navegador qué tienes en la mano: un dedo, un ratón y un lápiz arrastran igual.
+   *
+   * La marcha la decide la DISTANCIA y no un botón: el ritmo de viaje de la casa ya corre cuando
+   * el camino pasa de ochenta píxeles y afloja a andar en los últimos cuarenta y ocho, que es
+   * exactamente «si nos alejamos mucho corre y si el desplazamiento es suave camina».
+   *
+   * Y es un destino, no una interacción: llegar a un punto del suelo no abre nada ni habla con
+   * nadie. Si no se puede llegar, el viaje se queda en el último sitio posible, que es lo que ya
+   * hace `journey.start` con su aproximación.
+   */
+  leadTo(point) {
+    if (
+      !this.ready ||
+      this.transitioning ||
+      this.dialogue ||
+      this.hasOverlay() ||
+      this.cats.locked ||
+      this.community.editing
+    )
+      return;
+    if (this.river.active) {
+      this.river.lead(point);
+      return;
+    }
+    // ⛔ Y SI HAY QUE COGER LA BARCA, SE COGE. Un sitio que solo se alcanza por agua se alcanza
+    // remando: se camina al muelle más cercano, embarcar ya es automático al pisar la punta, y el
+    // río recoge el destino que quedaba pendiente. Sin barca en el saco no hay muelle que valga y
+    // el viaje termina en la orilla, que es el último punto posible.
+    const dock = this.river.dockFor(point);
+    if (dock) {
+      if (this.journey.start(this.world, this.player, { kind: "dock", dock, point: dock.dry }))
+        this.river.pendingWater = { x: point.x, y: point.y };
+      return;
+    }
+    this.journey.start(this.world, this.player, { kind: "ground", point });
+  }
+  /** El centro de lo que estás mirando, en coordenadas del mundo. */
+  viewCentre() {
+    return {
+      x: this.camera.x + this.renderer.width / 2,
+      y: this.camera.y + this.renderer.height / 2,
+    };
   }
   tap(point) {
     if (this.cats.locked) return;
@@ -653,13 +701,12 @@ class Adventure {
   }
   /**
    * ⛔ QUIEN OCUPA LA PANTALLA RETIRA EL MANDO, Y HOY SON DOS (17-sep-2026, decisión del dueño:
-   * al reproducir una voz, un cuento o un chiste el joystick también se va).
+   * al reproducir una voz, un cuento o un chiste el mando también se va).
    *
-   * El mando no mueve a nadie durante una conversación —`pauseMovement` acaba de correr— y
-   * mientras suena algo tampoco es lo que la persona está haciendo: en los dos casos cuesta su
-   * propia altura DOS veces, una como hueco reservado y otra como el empujón que ese hueco le da
-   * al panel. Una sola bandera en la raíz y las cinco reglas que se apartan de la esquina se
-   * recomponen solas.
+   * Desde que el joystick se erradicó (19-sep-2026), lo que se retira es el HUECO que el disco de
+   * recentrar tiene reservado abajo a la derecha: ese botón se esconde hablando y escuchando, así
+   * que reservarle sitio le cuesta al panel su propia altura sin que haya nada debajo. Una sola
+   * bandera en la raíz y las reglas que se apartan de la esquina se recomponen solas.
    *
    * Es un CONJUNTO de motivos y no un booleano porque los dos pueden solaparse: abrir un diálogo
    * mientras suena un cuento y cerrarlo NO puede devolver el mando con el cuento todavía sonando.
@@ -1000,11 +1047,17 @@ class Adventure {
       );
     return x || y ? { x, y } : null;
   }
+  /**
+   * Hacia dónde se dirige quien juega AHORA MISMO, y solo del teclado: el joystick táctil y su
+   * botón de turbo se erradicaron el 19-sep-2026 (decisión del dueño). Con un dedo no se dirige,
+   * se ARRASTRA EL MAPA y el duende va al centro de lo que miras (ver `map-gestures.js`), que es
+   * el mismo gesto con el que ya se miraba alrededor y no ocupa una esquina de la pantalla.
+   */
   directionIntent() {
-    return this.input?.controls.vector || this.keyboardIntent();
+    return this.keyboardIntent();
   }
   boosted() {
-    return this.keys.has(" ") || Boolean(this.input?.controls.boosted);
+    return this.keys.has(" ");
   }
   movementIntent() {
     const keys = this.directionIntent();
@@ -1116,7 +1169,10 @@ class Adventure {
     // Panning is a stationary inspection mode. Any actual player movement resumes follow — y
     // señalar un destino también, desde el toque y no desde el primer paso: la cámara ya está
     // haciendo algo que tú le has pedido.
-    if (this.walking || this.journey.intent) {
+    // ⛔ MIENTRAS EL DEDO ARRASTRA, LA CÁMARA ES SUYA. Andar vuelve a enganchar la cámara, y con
+    // el mapa de mando eso es siempre: sin esta guarda, la cámara tiraría hacia el destino
+    // mientras el dedo tira hacia otro lado y el mapa se sentiría pegajoso.
+    if ((this.walking || this.journey.intent) && !this.input?.map.dragging) {
       this.cameraFollowing = true;
       this.focusPoint = null;
     }
@@ -1165,6 +1221,9 @@ class Adventure {
       inventory: { ...this.state.inventory },
       dialogue: this.dialogue ? { ...this.dialogue } : null,
       pathLength: this.journey.path.length,
+      // La ruta de la BARCA es otra cola y otro pathfinding: sin esto, una prueba del río no puede
+      // distinguir «no le he dado ninguna orden» de «se la he dado y el agua no deja».
+      vesselPath: this.river.path.length,
       travel: {
         remaining: routeDistance(this.player, this.journey.path),
         intent: this.journey.intent?.kind || null,

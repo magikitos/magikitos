@@ -6,15 +6,7 @@ const { runFrame, DIRECTIONS } = require("../public/assets/js/adventure/characte
 const { seatedClip } = require("../public/assets/js/adventure/seating");
 const { pose } = require("../public/assets/js/adventure/ambient-actors");
 const { MapGestures } = require("../public/assets/js/adventure/map-gestures");
-const { stickVector } = require("../public/assets/js/adventure/world-controls");
 const { smoothPath } = require("../public/assets/js/adventure/navigation");
-assert.equal(stickVector(0,0,40),null);
-assert.equal(stickVector(4,4,40),null);
-for(let i=0;i<8;i++) {
-  const angle=i*Math.PI/4, vector=stickVector(Math.cos(angle)*40,Math.sin(angle)*40,40);
-  assert(Math.abs(Math.hypot(vector.x,vector.y)-1)<1e-10,"Equal speed in all eight directions");
-  assert(Math.abs(vector.x-Math.cos(angle))<1e-10 && Math.abs(vector.y-Math.sin(angle))<1e-10);
-}
 const diagonal=Array.from({length:180},(_,i)=>({x:(i+1)*16,y:(i+1)*16}));
 assert.deepEqual(smoothPath({clearSegment:()=>true},{x:0,y:0},diagonal),[diagonal.at(-1)],"Long clear diagonals have no steering waypoints, even beyond the search horizon");
 assert.deepEqual(smoothPath({clearSegment:()=>true},{x:0,y:0},[...diagonal,{x:4000,y:3000}]),[{x:4000,y:3000}],"A distant visible target needs no intermediate bends");
@@ -59,15 +51,36 @@ const canvas={ addEventListener(){}, setPointerCapture:id=>captures.add(id),hasP
   classList:{add:n=>classes.add(n),remove:n=>classes.delete(n)},getBoundingClientRect:()=>({left:0,top:0,width:800,height:600}) };
 global.document={getElementById:()=>({hidden:true}),addEventListener(){}};
 let paused=0;
-const game={ready:true,world,hasOverlay:()=>false,cameraFollowing:true,camera:{x:600,y:400},renderer:{width:400,height:300,viewZoom:1,resize(){}},pauseMovement(){paused++;},centerCamera(){}};
+const llevado=[];
+const game={ready:true,world,hasOverlay:()=>false,cameraFollowing:true,camera:{x:600,y:400},renderer:{width:400,height:300,viewZoom:1,resize(){}},
+  pauseMovement(){paused++;},centerCamera(){},
+  viewCentre(){return {x:this.camera.x+this.renderer.width/2,y:this.camera.y+this.renderer.height/2};},
+  leadTo(p){llevado.push(p);}};
 const gestures=new MapGestures(game,canvas);
 const event=(x,y,id=1)=>({clientX:x,clientY:y,pointerId:id,button:0,preventDefault(){}});
 gestures.down(event(100,100));gestures.move(event(103,102));assert(gestures.up(event(103,102)));
 assert.equal(paused,0);assert(game.cameraFollowing);
+assert.deepEqual(llevado,[],"Un toque no arrastra, así que no lleva a nadie a ninguna parte");
 gestures.down(event(100,100));gestures.move(event(180,140));assert(!gestures.up(event(180,140)));
 assert(!game.cameraFollowing);assert.deepEqual(game.camera,{x:560,y:380});assert.equal(paused,1);assert.equal(captures.size,0);
+/**
+ * ⛔ ARRASTRAR EL MAPA ES CAMINAR (19-sep-2026). El destino es el centro de lo que miras, y se
+ * replanea según el centro se mueve DE VERDAD: un camino por fotograma serían sesenta búsquedas
+ * por segundo para correr la meta cuatro píxeles.
+ */
+assert.deepEqual(llevado,[{x:760,y:530}],"El arrastre lleva al centro de la vista");
+llevado.length=0;
+gestures.down(event(100,100));
+gestures.move(event(160,100));   // arrastre que pasa la holgura: primer destino
+gestures.move(event(164,100));   // cuatro píxeles: todavía es el mismo sitio
+assert.equal(llevado.length,1,"Mover el centro cuatro píxeles no replanea nada");
+gestures.move(event(200,100));   // ya son de sobra: destino nuevo
+assert.equal(llevado.length,2,"Y cuando el centro cambia de sitio, el destino se muda");
+assert(llevado[1].x<llevado[0].x,"Arrastrando a la derecha se mira —y se anda— hacia la izquierda");
+gestures.up(event(200,100));
+llevado.length=0;
 gestures.down(event(100,100,1));gestures.down(event(200,100,2));gestures.move(event(230,100,2));
 assert(!gestures.up(event(100,100,1)));assert(!gestures.up(event(230,100,2)),"No ghost tap at end of pinch");
 gestures.down(event(100,100));assert(!gestures.up(event(100,100),true));
 gestures.down(event(100,100));gestures.clear();assert(!gestures.up(event(100,100)));assert.equal(captures.size,0);
-console.log("PASS mobility: route-relative gait, eight-direction run/recovery, no corner cutting, frame-independent waypoints, reusable seated clips, mouse/touch gesture arbitration.");
+console.log("PASS mobility: route-relative gait, eight-direction run/recovery, no corner cutting, frame-independent waypoints, reusable seated clips, gesture arbitration and drag-to-walk leading.");

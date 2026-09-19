@@ -182,7 +182,7 @@ completo del encargo ni demuestra por sí solo que estén desplegados.
   a 20/30/60/120 fps y seis mutaciones negativas. Navegadores reales de
   escritorio/tablet/móvil prueban
   fuerzas opuestas, llegada y empuje por clic, promoción del espectador móvil,
-  joystick y conservación de colisiones al desplazar la cámara. La admisión
+  empuje con el mando del mapa y conservación de colisiones al desplazar la cámara. La admisión
   comprueba que un objeto desplazado no atrape a quien vuelve a entrar; incluye
   cinco mutaciones negativas, reconexión con gracia y llegada real en navegador
   desde un guardado ocupado por un objeto. Las pruebas de navegador

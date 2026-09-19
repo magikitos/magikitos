@@ -72,220 +72,148 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
       };
       await page.goto(origin + "/aventura");
       await ready();
-      const stick = await page.locator("#world-joystick").boundingBox();
-      assert(stick.x > width / 2 && stick.y + stick.height <= height);
-      assert(
-        await page.locator("#world-boost").isHidden(),
-        "Turbo starts hidden",
-      );
-      // The stick is a ZONE with a ring floating inside it: neutral is wherever
-      // the thumb lands and full deflection is a fixed number of pixels from there.
-      const cx = stick.x + stick.width / 2,
-        cy = stick.y + stick.height / 2;
-      const reads = () =>
-        page.evaluate(() => {
-          const node = document.getElementById("world-joystick"),
-            style = getComputedStyle(node);
-          return {
-            travel: parseFloat(style.getPropertyValue("--world-stick-travel")),
-            clearance: getComputedStyle(document.documentElement)
-              .getPropertyValue("--world-control-clearance")
-              .trim(),
-            display: style.display,
-            hidden: node.hidden,
-            home: {
-              x: parseFloat(node.style.getPropertyValue("--stick-home-x")) || 0,
-              y: parseFloat(node.style.getPropertyValue("--stick-home-y")) || 0,
-            },
-          };
-        });
-      const travel = (await reads()).travel,
-        reach = stick.width / 2 - travel;
-      assert(travel > 0 && reach > 0, "A zone with room to choose neutral in");
+      /**
+       * ⛔ EL MANDO ES EL MAPA (19-sep-2026, decisión del dueño: «el joystick táctil es una
+       * mierda, no me gusta nada, ni el botón de turbo… mientras movemos la cámara con el drag,
+       * el protagonista siempre debe caminar hacia el centro»).
+       *
+       * Aquí vivían trescientas líneas de geometría de aro flotante, sectores, zona muerta,
+       * turbo a dos pulgares y la detección de qué tienes en la mano. Lo que hay ahora es un
+       * gesto que ya existía —arrastrar para mirar— haciendo además de mando, así que se prueba
+       * lo que se ve: el destino es el centro, se anda hacia él, lejos se corre y soltar no para.
+       */
+      assert.equal(await page.locator("#world-joystick").count(), 0, "El joystick ya no existe");
+      assert.equal(await page.locator("#world-boost").count(), 0, "Ni su botón de turbo");
       const cdp = await page.context().newCDPSession(page);
       const touch = (type, points) =>
         cdp.send("Input.dispatchTouchEvent", {
           type,
           touchPoints: points.map(([x, y, id]) => ({ x, y, id })),
         });
-      // One held touch slides through all eight sectors. Equal diagonal speed.
-      // It starts at the centre, so neutral is the centre and each sector sits
-      // exactly `travel` pixels away — the geometry the sweep assumes.
-      await touch("touchStart", [[cx, cy, 1]]);
+      // El arrastre empieza donde quepa entero: se mide en píxeles de PANTALLA y el hueco que abre
+      // en el mundo depende del zoom, así que los sitios se eligen para que el gesto no se salga.
+      const arrastra = async (dx, dy, pasos = 10) => {
+        const x0 = dx < 0 ? width * 0.82 : width * 0.18,
+          y0 = dy < 0 ? height * 0.78 : height * 0.18;
+        await touch("touchStart", [[x0, y0, 1]]);
+        for (let i = 1; i <= pasos; i++)
+          await touch("touchMove", [[x0 + (dx * i) / pasos, y0 + (dy * i) / pasos, 1]]);
+        return [x0 + dx, y0 + dy, 1];
+      };
+      const largo = Math.min(240, Math.round(width * 0.6));
+      const lejos = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
+
+      // 1. Arrastrar pone destino, y el destino es el CENTRO de lo que estás mirando.
+      let antes = (await inspect()).player;
+      await arrastra(-largo, 0, 12);
+      let ahora = await inspect();
+      const centro = {
+        x: ahora.camera.x + ahora.view.width / 2,
+        y: ahora.camera.y + ahora.view.height / 2,
+      };
+      assert(ahora.travel.destination, "Arrastrar el mapa pone un destino");
       assert(
-        await page.locator("#world-boost").isHidden(),
-        "A thumb landing is not yet a direction",
+        lejos(ahora.travel.destination, centro) < 48,
+        "…y el destino es el centro de la vista " +
+          JSON.stringify({ destino: ahora.travel.destination, centro }),
       );
-      await touch("touchMove", [[cx + travel, cy, 1]]);
-      const boost = await page.locator("#world-boost").boundingBox();
+      assert.equal(ahora.travel.intent, "ground", "…que es un sitio, no una interacción");
+
+      // 2. Y el duende ANDA hacia allí mientras el dedo sigue puesto.
+      await page.waitForTimeout(260);
+      let andando = (await inspect()).player;
       assert(
-        boost &&
-          boost.x + boost.width < width / 2 &&
-          boost.y + boost.height <= height,
+        lejos(andando, antes) > 6,
+        "El duende camina mientras arrastras " + JSON.stringify({ antes, andando }),
       );
-      for (let i = 0; i < 8; i++) {
-        const a = (i * Math.PI) / 4;
-        await touch("touchMove", [
-          [cx + Math.cos(a) * travel, cy + Math.sin(a) * travel, 1],
-        ]);
-        const before = (await inspect()).player;
-        await page.waitForTimeout(170);
-        const after = (await inspect()).player,
-          dx = after.x - before.x,
-          dy = after.y - before.y;
-        assert(
-          dx * Math.cos(a) + dy * Math.sin(a) > 5,
-          "Held sector moves in correct direction " +
-            i +
-            " " +
-            JSON.stringify({
-              before,
-              after,
-              errors,
-              state: (await inspect()).dialogue,
-              ui: await page.locator("#world-joystick").getAttribute("style"),
-              classes: await page
-                .locator("#world-joystick")
-                .getAttribute("class"),
-              hidden: await page.evaluate(() => document.hidden),
-            }),
-        );
-        assert(
-          Math.abs(dx * Math.sin(a) - dy * Math.cos(a)) < 3,
-          "No stray perpendicular motion " + i,
-        );
-      }
-      await touch("touchMove", [[cx, cy, 1]]);
-      await page.waitForTimeout(60);
-      let before = (await inspect()).player;
-      await page.waitForTimeout(120);
-      let after = (await inspect()).player;
-      assert(
-        Math.hypot(after.x - before.x, after.y - before.y) < 0.1,
-        "Center dead zone stops without lifting",
-      );
-      assert(
-        await page.locator("#world-boost").isHidden(),
-        "Center dead zone hides turbo even while touching",
-      );
-      await touch("touchEnd", []);
-      // Real independent touch pointers: right thumb direction + left thumb boost.
-      const neutral = [cx, cy, 1],
-        direction = [cx, cy + travel, 1],
-        accelerator = [
-          boost.x + boost.width / 2,
-          boost.y + boost.height / 2,
-          2,
-        ];
-      async function measure(fast) {
-        const before = (await inspect()).player;
-        await touch("touchStart", [neutral]);
-        await touch("touchMove", [direction]);
-        assert(await page.locator("#world-boost").isVisible());
-        if (fast) await touch("touchStart", [direction, accelerator]);
-        await page.waitForTimeout(450);
-        await touch("touchEnd", []);
-        assert(await page.locator("#world-boost").isHidden());
-        const after = (await inspect()).player;
-        return Math.hypot(after.x - before.x, after.y - before.y);
-      }
-      const normal = await measure(false),
-        fast = await measure(true);
-      assert(fast > normal * 2, "Two-handed running boost is clearly faster");
+
+      // 3. Lejos se CORRE. La marcha la decide la distancia del camino, no un botón.
+      const marcha = await inspect();
       assert.equal(
-        await page.locator("#world-boost").getAttribute("aria-pressed"),
-        "false",
-      );
-      await touch("touchStart", [neutral]);
-      await touch("touchMove", [direction]);
-      await touch("touchStart", [direction, accelerator]);
-      await touch("touchCancel", []);
-      before = (await inspect()).player;
-      await page.waitForTimeout(130);
-      after = (await inspect()).player;
-      assert(
-        Math.hypot(after.x - before.x, after.y - before.y) < 0.1,
-        "Cancellation cannot leave movement stuck",
+        marcha.pace,
+        "run",
+        "Un arrastre largo es correr " +
+          JSON.stringify({ arrastre: largo, resto: marcha.travel.remaining }),
       );
 
-      // ⛔ THE ZONE EXISTS SO NO DIRECTION HAS TO BE REACHED FOR. Press where a
-      // thumb naturally falls — up and left inside the zone — and push down-right:
-      // the ring moves to the thumb, so full deflection finishes far from both
-      // margins. With the old ring pinned to the corner the same input ended about
-      // 47px from each edge, right on the system gesture strip.
-      const landed = [cx - reach * 0.7, cy - reach * 0.7, 1];
-      await touch("touchStart", [landed]);
-      const home = (await reads()).home;
-      assert(
-        Math.abs(home.x + reach * 0.7) < 1 && Math.abs(home.y + reach * 0.7) < 1,
-        "Neutral is wherever the thumb landed " + JSON.stringify(home),
-      );
-      const corner = [
-        landed[0] + travel * 0.7071,
-        landed[1] + travel * 0.7071,
-        1,
-      ];
-      await touch("touchMove", [corner]);
-      before = (await inspect()).player;
-      await page.waitForTimeout(170);
-      after = (await inspect()).player;
-      assert(
-        after.x - before.x > 3 && after.y - before.y > 3,
-        "Down-right from a chosen neutral " +
-          JSON.stringify({ before, after, home }),
-      );
-      assert(
-        width - corner[0] > 70 && height - corner[1] > 70,
-        "Full down-right leaves the thumb clear of both margins " +
-          JSON.stringify({ corner, width, height }),
-      );
+      // 4. Soltar no para: el destino era el último centro y se llega solo.
       await touch("touchEnd", []);
-      assert.deepEqual(
-        (await reads()).home,
-        { x: 0, y: 0 },
-        "The ring eases home on release",
+      antes = (await inspect()).player;
+      await page.waitForTimeout(260);
+      andando = (await inspect()).player;
+      assert(
+        lejos(andando, antes) > 6,
+        "Levantar el dedo no frena: el viaje sigue hasta el sitio",
       );
 
-      // ⛔ A BIGGER TERRITORY CANNOT EAT A DESTINATION. A press that never steers
-      // is somebody pointing at the map, and it walks there like any other pixel.
-      before = (await inspect()).player;
-      await touch("touchStart", [[cx, cy, 1]]);
+      // 5. Un arrastre cortito es andar, no correr: la marcha sigue al hueco que abres.
+      await page.waitForFunction(() => window.MagikitosAdventure.inspect().pace === "idle");
+      await arrastra(-40, 0, 4);
+      await page.waitForTimeout(160);
+      const suave = await inspect();
+      assert.equal(
+        suave.pace,
+        "walk",
+        "Un empujoncito es andar " + JSON.stringify({ resto: suave.travel.remaining }),
+      );
       await touch("touchEnd", []);
-      await page.waitForTimeout(90);
-      const walk = (await inspect()).travel;
+      await page.waitForFunction(() => window.MagikitosAdventure.inspect().pace === "idle");
+
+      // 6. Y la cámara es del dedo mientras arrastra: andar no puede tirar de ella.
+      const quieto = await arrastra(largo, 0, 8);
+      /**
+       * Los toques de CDP y `evaluate` llegan al renderizador por caminos distintos, así que leer
+       * la cámara justo después del último `touchMove` puede pillarla con un tramo del arrastre sin
+       * aplicar y contarlo luego como deriva. Se espera a que el paneo se asiente, y ahí empieza la
+       * medida: con el dedo quieto, la cámara no puede moverse ni un píxel.
+       */
+      const camaraA = await (async () => {
+        let previa = null;
+        for (let i = 0; i < 20; i++) {
+          const c = (await inspect()).camera;
+          if (previa && lejos(previa, c) < 0.5) return c;
+          previa = c;
+          await page.waitForTimeout(60);
+        }
+        return previa;
+      })();
+      await page.waitForTimeout(200);
+      // El dedo NO se mueve: cualquier desplazamiento de aquí sería la cámara yéndose sola.
+      await touch("touchMove", [quieto]);
+      const camaraB = (await inspect()).camera;
       assert(
-        walk.destination &&
-          walk.destination.x > before.x &&
-          walk.destination.y > before.y,
-        "A tap on the stick's territory is a destination " +
-          JSON.stringify({ before, walk }),
+        lejos(camaraA, camaraB) < 1,
+        "Con el dedo puesto, la cámara no se va sola " + JSON.stringify({ camaraA, camaraB }),
       );
 
-      // Touch recenter stays centered inside the joystick.
-      await touch("touchStart", [[width * 0.5, height * 0.35, 1]]);
-      for (let i = 1; i <= 5; i++)
-        await touch("touchMove", [
-          [width * 0.5 + i * 14, height * 0.35 + i * 4, 1],
-        ]);
-      await touch("touchEnd", []);
+      /**
+       * ⛔ RECENTRAR SOLO VIVE MIENTRAS LA CÁMARA ES TUYA, y eso lo cambió el mapa-mando: soltar
+       * el dedo ya devuelve la cámara sola, porque el viaje la vuelve a enganchar. Así que el
+       * disco dejó de ser «deshacer el paneo» y es la salida mientras lo estás haciendo —o cuando
+       * el sitio que señalaste no tenía camino y el duende se quedó donde pudo—. Se comprueba con
+       * el dedo puesto, que es el único estado en el que de verdad hace falta.
+       */
       const recenter = page.locator("#world-recenter");
-      assert(await recenter.isVisible());
+      assert(await recenter.isVisible(), "Con el dedo en el mapa, el disco de volver está ahí");
       const rect = await recenter.boundingBox();
       assert(
-        Math.abs(rect.x + rect.width / 2 - cx) < 1 &&
-          Math.abs(rect.y + rect.height / 2 - cy) < 1,
+        rect.x + rect.width <= width && rect.y + rect.height <= height,
+        "El disco de recentrar cabe entero en la esquina de abajo a la derecha",
       );
-      await page.touchscreen.tap(
-        rect.x + rect.width / 2,
-        rect.y + rect.height / 2,
-      );
+      await recenter.click();
       assert((await inspect()).cameraFollowing);
       assert(await recenter.isHidden());
+      await touch("touchEnd", []);
+      await page.waitForFunction(() => window.MagikitosAdventure.inspect().pace === "idle");
+      // Y al soltar, la cámara vuelve SOLA: el viaje la reengancha sin tocar nada.
+      assert((await inspect()).cameraFollowing, "Soltar deja la cámara siguiendo al duende");
 
       await seed({ scene: "overworld", position: { x: 900, y: 900 } });
-      // ⛔ TALKING RETIRES THE STICK, and it is the conversation doing it and not
-      // the modality: the browser is still on touch and the attribute is untouched,
-      // so what removes the control is the flag the dialogue puts on the root.
+      /**
+       * ⛔ HABLAR RETIRA EL MANDO, y lo retira la CONVERSACIÓN. Lo que se aparta hoy es el disco
+       * de recentrar y el hueco que tiene reservado: hablando no hay nada que recentrar, así que
+       * reservarle sitio le cuesta al panel su propia altura sin que haya nada debajo.
+       */
       async function tapWorld(point) {
         const s = await inspect(),
           r = await page.locator("#world-canvas").boundingBox();
@@ -294,15 +222,19 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
           r.y + ((point.y - s.camera.y) * r.height) / s.view.height,
         );
       }
-      assert(await page.locator("#world-joystick").isVisible());
+      const holgura = () =>
+        page.evaluate(() =>
+          getComputedStyle(document.documentElement)
+            .getPropertyValue("--world-control-clearance")
+            .trim(),
+        );
+      assert.equal(await holgura(), "46px", "La esquina reserva lo que mide recentrar");
       await tapWorld({ x: 1000, y: 906 });
       await page.waitForFunction(() =>
         Boolean(window.MagikitosAdventure.inspect().dialogue),
       );
-      const talking = await reads();
-      assert.equal(talking.display, "none", "The stick goes while talking");
-      assert.equal(talking.hidden, false, "…and the modality never touched it");
-      assert.equal(talking.clearance, "0px", "…so nothing reserves its corner");
+      assert.equal(await holgura(), "0px", "Hablando no se reserva esa esquina");
+      assert(await page.locator("#world-recenter").isHidden(), "…y no hay nada que recentrar");
       const talkBox = await page.locator("#dialogue").boundingBox();
       assert(
         talkBox.y >= 0 && talkBox.y + talkBox.height <= height,
@@ -312,10 +244,7 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
       await page.waitForFunction(
         () => !window.MagikitosAdventure.inspect().dialogue,
       );
-      assert(
-        await page.locator("#world-joystick").isVisible(),
-        "…and it comes back when the conversation ends",
-      );
+      assert.equal(await holgura(), "46px", "…y la esquina vuelve al acabar");
 
       async function clickWorld(point) {
         const s = await inspect(),
@@ -539,11 +468,6 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
       );
       const dialogue = await page.locator("#dialogue").boundingBox();
       assert(dialogue.y >= 0 && dialogue.y + dialogue.height <= height);
-      assert(
-        await page.locator("#world-joystick").isHidden(),
-        "Mouse hides touch controls",
-      );
-      assert(await page.locator("#world-boost").isHidden());
       await page.screenshot({
         path: `.local/controls-review/dialogue-${width}.png`,
       });
@@ -566,13 +490,13 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
         y:
           Math.floor((frame.camera.y + frame.view.height * 0.04) / 16) * 16 + 8,
       };
-      before = frame.player;
+      const before = frame.player;
       await clickWorld(target);
       assert.equal((await inspect()).dialogue, null);
       await page.waitForFunction(
         () => !window.MagikitosAdventure.inspect().travel.intent,
       );
-      after = (await inspect()).player;
+      const after = (await inspect()).player;
       assert(
         Math.hypot(after.x - target.x, after.y - target.y) < 1,
         "Same outside click closes dialogue AND reaches destination " +
@@ -618,10 +542,6 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
         "DOM never pinch zooms",
       );
       assert.equal(
-        (await page.locator("#world-joystick").boundingBox()).width,
-        stick.width,
-      );
-      assert.equal(
         await page.evaluate(
           () => document.documentElement.scrollWidth > innerWidth,
         ),
@@ -631,46 +551,74 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
         path: `.local/controls-review/zoom-${width}.png`,
       });
 
+      /**
+       * REMAR: el turbo es la BARRA ESPACIADORA y nada más. El botón de dos pulgares se fue con el
+       * joystick, así que lo que queda es lo que siempre funcionó en un teclado y ahora es lo
+       * único: flechas para remar, espacio para remar fuerte.
+       */
       await seed({
         scene: "river-willows",
         position: { x: 768, y: 96 },
         inventory: { boat: 1 },
         navigation: { mode: "boat", direction: "down" },
       });
-      assert(await page.locator("#world-joystick").isVisible());
-      assert(await page.locator("#world-boost").isHidden());
-      const rowNormal = await measure(false),
-        rowFast = await measure(true);
+      const remaEn = async (turbo) => {
+        await page.locator("#world-canvas").focus();
+        if (turbo) await page.keyboard.down(" ");
+        await page.keyboard.down("ArrowDown");
+        const desde = (await inspect()).player;
+        await page.waitForTimeout(420);
+        const hasta = (await inspect()).player;
+        await page.keyboard.up("ArrowDown");
+        if (turbo) await page.keyboard.up(" ");
+        await page.waitForTimeout(120);
+        return Math.hypot(hasta.x - desde.x, hasta.y - desde.y);
+      };
+      const rowNormal = await remaEn(false);
+      await seed({
+        scene: "river-willows",
+        position: { x: 768, y: 96 },
+        inventory: { boat: 1 },
+        navigation: { mode: "boat", direction: "down" },
+      });
+      const rowFast = await remaEn(true);
       assert(
-        rowFast > rowNormal * 1.9,
-        "Two-handed rowing turbo is clearly faster " +
-          rowNormal +
-          " / " +
-          rowFast,
+        rowFast > rowNormal * 1.5,
+        "Con espacio se rema claramente más fuerte " + rowNormal + " / " + rowFast,
       );
+
+      /**
+       * ⛔ Y UN ARRASTRE SOSTENIDO CRUZA LA COSTURA DEL RÍO. El destino es el centro de lo que
+       * miras, así que al cambiar de pantalla el gesto sigue vivo y la barca sigue subiendo: sin
+       * esto, cruzar te dejaba parado en mitad del agua con el dedo todavía puesto.
+       */
       await seed({
         scene: "river-willows",
         position: { x: 768, y: 48 },
         inventory: { boat: 1 },
         navigation: { mode: "boat", direction: "up" },
       });
-      await touch("touchStart", [[cx, cy, 1]]);
-      await touch("touchMove", [[cx, cy - travel, 1]]);
+      // La brazada se mide en pantalla y tiene que cubrir lo que hay del centro de la vista al
+      // borde del mapa: la cámara se para ahí, así que lo último que empuja hacia la costura es el
+      // destino, no la vista. Media pantalla sobra en las cuatro formas.
+      await arrastra(0, Math.round(height * 0.55), 16);
       await page.waitForFunction(
         () => window.MagikitosAdventure.inspect().scene === "river-rapids",
+        null,
+        { timeout: 15000 },
       );
-      before = (await inspect()).player;
+      const antesDeLaCostura = (await inspect()).player;
       await page.waitForTimeout(350);
-      after = (await inspect()).player;
+      const trasLaCostura = (await inspect()).player;
       assert(
-        after.y < before.y - 12,
-        "Held thumb continues across river scene seam without lifting",
+        Math.hypot(trasLaCostura.x - antesDeLaCostura.x, trasLaCostura.y - antesDeLaCostura.y) > 4,
+        "El arrastre sostenido sigue llevando la barca después de la costura",
       );
       await touch("touchEnd", []);
       await cdp.detach();
       await page.close();
       console.log(
-        `PASS ${width}×${height}: floating eight-way stick (zone ${stick.width}px, travel ${travel}px, neutral free within ${reach.toFixed(0)}px), tap-through, talking retires it, camera returns easing (${vuelta.mayor.toFixed(0)}px el mayor paso de ${vuelta.total.toFixed(0)}), two-thumb running/rowing, cancel, center recenter, dialogue click-through, wheel/pinch full map coverage; run ${normal.toFixed(0)}→${fast.toFixed(0)}, row ${rowNormal.toFixed(0)}→${rowFast.toFixed(0)} px.`,
+        `PASS ${width}×${height}: el mapa es el mando (destino al centro, anda/corre por distancia, soltar no para, la cámara es del dedo), sin joystick ni turbo en el DOM, hablar retira la esquina, la cámara vuelve suavizando (${vuelta.mayor.toFixed(0)}px el mayor paso de ${vuelta.total.toFixed(0)}), recentrar, clic a través del diálogo, rueda/pellizco cubriendo el mapa entero y remo ${rowNormal.toFixed(0)}→${rowFast.toFixed(0)} px con espacio.`,
       );
     }
     assert.deepEqual(errors, []);

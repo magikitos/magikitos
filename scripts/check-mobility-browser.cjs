@@ -138,47 +138,56 @@ const start = (() => {
           await page.mouse.up();
         }
       }
+      /**
+       * ⛔ AQUÍ SE ARRASTRABA EL MAPA PARA TRAER EL PUNTO A LA PANTALLA, y desde el 19-sep-2026
+       * arrastrar ya no es un ajuste de cámara: es una ORDEN DE VIAJE, así que ensuciaba
+       * exactamente lo que esta prueba mide (qué marchas usa un toque). Se aleja la vista con la
+       * rueda, que solo cambia el zoom y no manda a nadie a ninguna parte.
+       */
       async function tapWorld(point) {
-        let s = await inspect();
-        if (point.y > s.camera.y + s.view.height - 20)
-          await drag(
-            0,
-            -Math.min(
-              height * 0.4,
-              (point.y - s.camera.y - s.view.height * 0.75) * s.scale,
-            ),
-            width < 800,
-          );
-        s = await inspect();
+        for (let i = 0; i < 16; i++) {
+          const v = await inspect();
+          if (point.y <= v.camera.y + v.view.height - 24) break;
+          await page.mouse.move(width / 2, height / 2);
+          await page.mouse.wheel(0, 240);
+          await page.waitForTimeout(40);
+        }
+        const s = await inspect();
         const r = await page.locator("#world-canvas").boundingBox();
         await page.touchscreen.tap(
           r.x + ((point.x - s.camera.x) * r.width) / s.view.width,
           r.y + ((point.y - s.camera.y) * r.height) / s.view.height,
         );
       }
+      /**
+       * ⛔ ARRASTRAR EL MAPA ES CAMINAR (19-sep-2026, decisión del dueño). Aquí se comprobaba lo
+       * CONTRARIO —que mirar alrededor no movía a nadie—, porque mover al duende era trabajo del
+       * joystick. Hoy el gesto es el mando: la cámara sigue siendo del dedo y el destino es el
+       * centro de lo que miras, con ratón y con dedo exactamente igual.
+       */
       for (const touch of [false, true]) {
         await seed();
         const before = await inspect();
         await drag(-80, -100, touch);
         await page.waitForTimeout(200);
         let s = await inspect();
-        assert.equal(s.player.x, before.player.x);
-        assert.equal(s.player.y, before.player.y);
-        assert.equal(s.pathLength, 0);
-        assert.equal(s.cameraFollowing, false);
-        assert(!s.dialogue);
-        assert(s.camera.y > before.camera.y + 20);
-        await page.locator("#world-recenter").click();
-        await page.waitForFunction(
-          () => window.MagikitosAdventure.inspect().cameraFollowing,
-        );
-        assert(await page.locator("#world-recenter").isHidden());
-        await page.waitForTimeout(650);
-        s = await inspect();
+        assert(s.camera.y > before.camera.y + 20, "El arrastre sigue moviendo la cámara");
         assert(
-          Math.abs(s.camera.x - before.camera.x) < 2 &&
-            Math.abs(s.camera.y - before.camera.y) < 2,
+          Math.hypot(s.player.x - before.player.x, s.player.y - before.player.y) > 4,
+          "…y el duende ya va hacia el centro " +
+            JSON.stringify({ antes: before.player, ahora: s.player }),
         );
+        assert(!s.dialogue, "…sin hablar con nada por el camino");
+        assert(!s.roll);
+        // Soltar no frena: se llega solo, y al llegar la cámara vuelve a seguir al duende sin que
+        // nadie toque el disco de recentrar, que por eso deja de tener nada que recentrar.
+        await page.waitForFunction(
+          () => !window.MagikitosAdventure.inspect().travel.intent,
+          null,
+          { timeout: 15000 },
+        );
+        assert((await inspect()).cameraFollowing, "Al terminar el viaje la cámara vuelve sola");
+        assert(await page.locator("#world-recenter").isHidden());
       }
       await seed();
       {
@@ -385,7 +394,7 @@ const start = (() => {
       );
       await page.close();
       console.log(
-        `PASS mobility ${width}×${height}: mouse/touch pan/recenter, walk/run routes, held/double Space never rolls, dialogue isolation, natural cast, lazy elder.`,
+        `PASS mobility ${width}×${height}: arrastrar (ratón y dedo) camina al centro y la cámara vuelve sola, walk/run routes, held/double Space never rolls, dialogue isolation, natural cast, lazy elder.`,
       );
     }
     assert.deepEqual(errors, []);

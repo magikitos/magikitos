@@ -1,5 +1,4 @@
 "use strict";
-const { TILE } = require("./geometry");
 const { findPath } = require("./navigation");
 const { drawCurrentTraces } = require("./current-traces");
 const { docks, dockAt, atDock, enteringDock } = require("./docks");
@@ -123,8 +122,69 @@ class River {
     g.updateUI();
     g.save();
     if (mode === "foot") g.community?.arrive();
+    // Lo que quedaba del viaje: se vino andando hasta el muelle para llegar a un sitio del agua,
+    // así que al soltar amarras se sigue hacia allí. `pauseMovement` acaba de limpiar el camino,
+    // por eso esto va DESPUÉS y no antes.
+    const pendiente = this.pendingWater;
+    this.pendingWater = null;
+    if (mode === "boat" && pendiente) this.tap(pendiente);
   }
-  tap(point) {
+  /**
+   * El muelle por el que se llega REMANDO a este sitio, o null. Hace falta tener la barca en el
+   * saco y que el sitio sea agua: lo demás se anda. Se elige el amarre más cercano al destino y
+   * no al duende, que es lo que hace que el rodeo tenga sentido visto desde fuera.
+   */
+  dockFor(point) {
+    const g = this.game;
+    if (this.active || !g.state.inventory.boat) return null;
+    if (!canFloat(g.world, point.x, point.y)) return null;
+    let mejor = null,
+      cerca = Infinity;
+    for (const dock of docks(g.world.data)) {
+      if (!canFloat(g.world, dock.wet.x, dock.wet.y)) continue;
+      const d = Math.hypot(dock.wet.x - point.x, dock.wet.y - point.y);
+      if (d < cerca) {
+        cerca = d;
+        mejor = dock;
+      }
+    }
+    return mejor;
+  }
+  /**
+   * ⛔ EL MANDO DEL MAPA APUNTA AL CENTRO DE LO QUE MIRAS, Y ESE CENTRO PUEDE NO SER AGUA. Un toque
+   * en tierra estando a flote no significa nada y `tap` hace bien en no hacer nada; pero arrastrar
+   * el mapa es una ORDEN sostenida, y contra el borde del mapa —que es justo donde viven las
+   * costuras— el centro acaba fuera del cauce. Se rema al último punto de agua de esa dirección,
+   * que es el mismo «hasta el último sitio posible» que ya hace el viaje a pie.
+   */
+  lead(point) {
+    const g = this.game,
+      from = { x: g.player.x, y: g.player.y },
+      dx = point.x - from.x,
+      dy = point.y - from.y,
+      largo = Math.hypot(dx, dy);
+    if (!largo) return;
+    // Se prueba de FUERA HACIA DENTRO, en pasos de media celda y con un tope de intentos. Dos
+    // cosas lo hacen necesario: el agua llega más lejos que el casco, y el buscador de rutas
+    // trabaja por centros de celda, así que el punto más lejano que FLOTA no es siempre el más
+    // lejano al que se puede LLEGAR —medido, hay dos píxeles de diferencia contra el borde del
+    // mapa, que es justo donde viven las costuras—. En agua abierta el primer candidato vale y
+    // esto cuesta una sola búsqueda.
+    let intentos = 0;
+    for (let d = largo; d > 0 && intentos < 6; d -= 8) {
+      const objetivo = { x: from.x + (dx * d) / largo, y: from.y + (dy * d) / largo };
+      if (!canFloat(g.world, objetivo.x, objetivo.y)) continue;
+      intentos++;
+      this.tap(objetivo, true);
+      if (this.path.length) return;
+    }
+  }
+  /**
+   * `callado` es para el mando del mapa: un arrastre replantea el rumbo muchas veces por segundo y
+   * avisar de que no cabe la barca en cada intento sería un cartel parpadeando. Un TOQUE sí avisa,
+   * que ahí la persona ha señalado un sitio concreto y merece saber por qué no se va.
+   */
+  tap(point, callado = false) {
     const g = this.game,
       world = g.world;
     this.dockTarget = dockAt(world.data, point) || null;
@@ -159,7 +219,8 @@ class River {
     if (this.path.length && this.dockTarget) this.path.push({ ...point });
     if (
       !this.path.length &&
-      !(this.dockTarget && atDock(this.dockTarget, g.player, "boat"))
+      !(this.dockTarget && atDock(this.dockTarget, g.player, "boat")) &&
+      !callado
     )
       g.toast(g.text("riverNoRoute"));
   }
@@ -208,7 +269,9 @@ class River {
     // código, que es lo mismo que vale para cualquier frase del bosque.
     // Quien te alcanza cuenta igual que aquel contra el que remas: el río es de todos en los dos
     // sentidos, y una barca parada tampoco se deja pisar.
-    const bump = this.motion.takeBump() || yieldToRiverBodies(g.world, g.player, dt);
+    const bump =
+      this.motion.takeBump() ||
+      yieldToRiverBodies(g.world, g.player, dt, this.motion);
     if (bump?.bump && time >= this.nextBump) {
       this.nextBump = time + 6;
       const lines = g.lines(bump.bump);

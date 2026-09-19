@@ -27,7 +27,6 @@ for (const name of [
   "check-adventure-picnic",
   "check-adventure-ascua",
   "check-adventure-controls",
-  "check-input-modality",
   "check-audio-core",
   "check-adventure-mobility",
   "check-adventure-journeys",

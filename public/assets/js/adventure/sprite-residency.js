@@ -58,4 +58,4 @@ class SpriteResidency {
     }
   }
 }
-module.exports = { SpriteResidency, SpriteBudgetError, SPRITE_BUDGET };
+module.exports = { SpriteResidency, SpriteBudgetError };

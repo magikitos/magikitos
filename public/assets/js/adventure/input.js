@@ -1,6 +1,5 @@
 "use strict";
 const { MapGestures } = require("./map-gestures");
-const { WorldControls } = require("./world-controls");
 const MOVE_KEYS = new Set([
   "arrowup",
   "arrowdown",
@@ -16,7 +15,11 @@ const MOVE_KEYS = new Set([
 const editable = (target) =>
   target.closest('input,textarea,select,[contenteditable="true"]');
 
-/** Context priority: native form/modal > dialogue > world controls. No device detection. */
+/**
+ * Context priority: native form/modal > dialogue > the map. No device detection, y desde el
+ * 19-sep-2026 tampoco hay nada que detectar: el mando es el MAPA (ver `map-gestures.js`), y
+ * arrastrarlo funciona igual con un dedo, con un ratón o con un lápiz.
+ */
 class WorldInput {
   constructor(game) {
     const canvas = document.getElementById("world-canvas");
@@ -35,7 +38,6 @@ class WorldInput {
       },
       true,
     );
-    this.controls = new WorldControls(game);
     this.map = new MapGestures(game, canvas);
     const press = (event) => {
       if (!event.isPrimary || event.button !== 0) return;
@@ -108,7 +110,6 @@ class WorldInput {
           if (
             event.target === canvas ||
             event.target === document.body ||
-            event.target.closest("#world-boost,#world-joystick") ||
             game.movementIntent()
           ) {
             event.preventDefault();
@@ -131,10 +132,7 @@ class WorldInput {
       game.keys.delete(key);
     });
   }
-  /** The one place a screen point becomes a destination. The stick's zone borrows
-   * it so a press there that never steers walks like a press anywhere else —
-   * otherwise the corner it occupies would be the only part of the map that
-   * answers nothing. */
+  /** The one place a screen point becomes a destination. */
   tapAt(clientX, clientY) {
     const game = this.game;
     if (

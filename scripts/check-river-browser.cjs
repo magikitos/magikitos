@@ -91,7 +91,6 @@ const boat = (scene, x, y) =>
         if (fast) await page.keyboard.up(" ");
       }
       await seed(boat("river-willows", 48, 6));
-      assert(await page.locator("#world-joystick").isVisible());
       let start = (await inspect()).player.y;
       await row("ArrowDown", 650);
       const normal = (await inspect()).player.y - start;
@@ -102,27 +101,29 @@ const boat = (scene, x, y) =>
         (await inspect()).player.y - start > normal + 7,
         "Space accelerates rowing",
       );
-      assert(
-        await page.locator("#world-joystick").isHidden(),
-        "Keyboard hides touch controls",
-      );
-      await page.touchscreen.tap(width / 2, 100);
-      const pad = await page.locator("#world-joystick").boundingBox();
+      /**
+       * ⛔ Y REMAR TAMBIÉN ES ARRASTRAR EL MAPA (19-sep-2026). Desde que el joystick se erradicó, el
+       * mando de un dedo es el mismo a pie que en la barca: se tira del mapa y se va al centro de
+       * lo que miras. Aquí el dedo sube, así que lo que queda en el centro está río abajo.
+       */
+      await seed(boat("river-willows", 48, 6));
       const cdp = await page.context().newCDPSession(page);
+      const dedo = (type, points) =>
+        cdp.send("Input.dispatchTouchEvent", {
+          type,
+          touchPoints: points.map(([x, y]) => ({ id: 1, x, y })),
+        });
       start = (await inspect()).player.y;
-      await cdp.send("Input.dispatchTouchEvent", {
-        type: "touchStart",
-        touchPoints: [
-          { id: 1, x: pad.x + pad.width / 2, y: pad.y + pad.height * 0.82 },
-        ],
-      });
-      await page.waitForTimeout(600);
-      await cdp.send("Input.dispatchTouchEvent", {
-        type: "touchEnd",
-        touchPoints: [],
-      });
+      await dedo("touchStart", [[width / 2, height * 0.78]]);
+      for (let i = 1; i <= 12; i++)
+        await dedo("touchMove", [[width / 2, height * 0.78 - (i * height * 0.5) / 12]]);
+      await page.waitForTimeout(700);
+      await dedo("touchEnd", []);
       await cdp.detach();
-      assert((await inspect()).player.y > start + 20);
+      assert(
+        (await inspect()).player.y > start + 20,
+        "Un arrastre del mapa rema la barca hacia el centro de lo que miras",
+      );
       await page.reload();
       await ready();
       assert.equal((await inspect()).navigation.mode, "boat");
@@ -239,7 +240,7 @@ const boat = (scene, x, y) =>
         }
       await page.close();
       console.log(
-        "PASS river rowing/boost/pad, seam, current, reload and all automatic docks " +
+        "PASS river rowing (teclado y arrastre), seam, current, reload and all automatic docks " +
           width +
           "x" +
           height,

@@ -61,8 +61,9 @@ Según el cambio:
   comprueba que la versión del propietario no cambia.
 - `npm run test:picnic`: receta completa y hambre repetida en cinco tamaños.
 - `npm run test:browser`: integración con API local, seis idiomas e interiores.
-- `npm run test:journeys`, `test:world-controls`, `test:input-mode`:
-  destinos, navegación, palanca y cambios de entrada. Las dos últimas montan el
+- `npm run test:journeys`, `test:world-controls`: destinos, navegación y el mando
+  del mapa (arrastrar planta el destino en el centro, anda/corre por distancia,
+  soltar no para y la cámara es del dedo). La segunda monta el
   claro compartido de `scripts/lib/input-arena.cjs`: **el mundo de verdad está vivo**
   y un gato que te coge en brazos convierte una prueba de controles en una lotería
   que falla en un sitio distinto en cada pasada.

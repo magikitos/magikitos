@@ -1,9 +1,21 @@
 "use strict";
 const { clampCamera } = require("./camera");
+const { TILE, clamp } = require("./geometry");
 const DRAG_SLOP = 8; // CSS pixels, equally comfortable for mouse, pen and touch.
+/**
+ * Cada cuánto se replanea el destino mientras el dedo arrastra, en píxeles de MUNDO. Un camino
+ * por fotograma serían sesenta búsquedas por segundo para mover la meta cuatro píxeles; con esto
+ * el destino se refresca cuando de verdad ha cambiado de sitio y el rumbo se sigue viendo pegado
+ * al dedo, porque entre replaneos el duende ya va hacia allí.
+ */
+const LEAD_STEP = 14;
 const point = (event) => ({ x: event.clientX, y: event.clientY });
 
-/** A gesture is either a tap, a drag or a pinch. Only a completed tap orders travel. */
+/**
+ * A gesture is either a tap, a drag or a pinch. Un toque ordena un viaje CON interacción —lo que
+ * señalas, se usa—; un arrastre ordena un viaje sin ella, hacia el centro de lo que miras. Un
+ * pellizco no ordena nada.
+ */
 class MapGestures {
   constructor(game, canvas) {
     this.game = game;
@@ -141,22 +153,87 @@ class MapGestures {
       return;
     event.preventDefault();
     if (!this.dragging) {
-      this.game.pauseMovement({ keepPointerGesture: true });
+      // Se conservan las teclas: arrastrar el mapa con una flecha pulsada no es soltarla.
+      this.game.pauseMovement({ keepPointerGesture: true, keepControls: true });
       this.game.cameraFollowing = false;
       this.suppressed = this.dragging = true;
+      this.led = this.aim = this.push = null;
       this.canvas.classList.add("is-panning");
     }
     const r = this.game.renderer,
       rect = this.canvas.getBoundingClientRect();
+    const dx = ((p.x - previous.x) * r.width) / rect.width,
+      dy = ((p.y - previous.y) * r.height) / rect.height;
     this.game.camera = clampCamera(
-      {
-        x: this.game.camera.x - ((p.x - previous.x) * r.width) / rect.width,
-        y: this.game.camera.y - ((p.y - previous.y) * r.height) / rect.height,
-      },
+      { x: this.game.camera.x - dx, y: this.game.camera.y - dy },
       this.game.world,
       r,
     );
     this.game.centerCamera();
+    this.aimBy(-dx, -dy);
+    this.lead();
+  }
+  /**
+   * ⛔ EL DESTINO SIGUE AL DEDO AUNQUE LA CÁMARA YA NO PUEDA, y sin esto no se cambiaría de
+   * pantalla con un dedo en todo el bosque. La cámara se para en el borde del mapa, así que desde
+   * medio ancho de pantalla antes del final el CENTRO ya no puede acercarse más — y las costuras
+   * entre pantallas viven justo ahí, pegadas al borde. Lo que se empuja es el destino: contra el
+   * borde la vista se queda quieta y el duende sigue avanzando hasta cruzar.
+   *
+   * Mientras la cámara no topa, el destino y el centro son EL MISMO PUNTO, porque los dos llevan
+   * el mismo desplazamiento. Solo se separan donde el mapa se acaba.
+   */
+  aimBy(dx, dy) {
+    const g = this.game,
+      escena = g.world?.data?.id,
+      ancho = g.world.width * TILE,
+      alto = g.world.height * TILE,
+      previo = this.push || { x: 0, y: 0 };
+    if (!this.aim || this.aimScene !== escena) {
+      /**
+       * ⛔ CRUZAR NO CAMBIA EL RUMBO. El mundo entero cambia bajo el dedo, así que el destino se
+       * replanta; pero plantarlo en el centro pelado dejaba parado a quien cruza, porque al
+       * llegar la cámara te centra A TI y entonces el centro ERES TÚ. Se planta media pantalla
+       * por delante, en la dirección que el dedo venía empujando: el gesto es el mismo gesto y
+       * sigue significando lo mismo al otro lado. Al EMPEZAR un arrastre no hay empuje todavía,
+       * así que ahí el destino es el centro exacto y no da ningún salto.
+       */
+      const centro = g.viewCentre(),
+        largo = Math.max(g.renderer.width, g.renderer.height) / 2,
+        n = Math.hypot(previo.x, previo.y);
+      this.aim = n
+        ? {
+            x: clamp(centro.x + (previo.x / n) * largo, 0, ancho),
+            y: clamp(centro.y + (previo.y / n) * largo, 0, alto),
+          }
+        : centro;
+      this.aimScene = escena;
+      this.led = null;
+    } else
+      this.aim = {
+        x: clamp(this.aim.x + dx, 0, ancho),
+        y: clamp(this.aim.y + dy, 0, alto),
+      };
+    this.push = { x: previo.x + dx, y: previo.y + dy };
+  }
+  /**
+   * ⛔ EL MAPA ES EL MANDO: lo que miras es a donde vas (19-sep-2026, decisión del dueño). Mover
+   * la cámara deja de ser solo mirar y pasa a ser CONDUCIR — el duende camina al centro de lo que
+   * tienes delante, corriendo si lo has dejado lejos y andando si lo has movido poquito, porque la
+   * marcha la decide la distancia del camino y no un botón.
+   *
+   * Y no se suelta al levantar el dedo: el destino es el último centro, así que se sigue llegando
+   * solo. Eso es lo que convierte un gesto sostenido en una orden, y lo que permitió borrar el
+   * joystick, su turbo y toda la detección de pantalla táctil.
+   */
+  lead() {
+    // Resincroniza si el mundo ha cambiado bajo el dedo; con la misma escena no hace nada.
+    this.aimBy(0, 0);
+    const centre = this.aim;
+    if (this.led && Math.hypot(centre.x - this.led.x, centre.y - this.led.y) < LEAD_STEP)
+      return;
+    this.led = centre;
+    this.game.leadTo(centre);
   }
   up(event, cancel = false) {
     if (!this.points.has(event.pointerId)) return false;
@@ -174,6 +251,7 @@ class MapGestures {
     const ids = [...this.points.keys()];
     this.points.clear();
     this.dragging = this.suppressed = false;
+    this.led = this.aim = this.aimScene = this.push = null;
     this.pinch = null;
     this.canvas.classList.remove("is-panning");
     for (const id of ids)

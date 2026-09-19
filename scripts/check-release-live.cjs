@@ -114,7 +114,8 @@ function assertShell(actual, expected, headers, route) {
         await require("./browser-entry.cjs").enterWorld(page);
       };
       await seed({scene:'river-willows',position:{x:768,y:960},inventory:{boat:1},navigation:{mode:'boat',direction:'up'}});
-      assert(await page.locator('#world-joystick').isVisible());
+      assert.equal(await page.locator('#world-joystick').count(),0,'El joystick ya no existe en el artefacto vivo');
+      assert.equal(await page.locator('#world-boost').count(),0,'Ni su botón de turbo');
       const riverBefore=await page.evaluate(()=>window.MagikitosAdventure.inspect());
       await page.locator('#world-canvas').focus();
       await page.keyboard.down('ArrowUp'); await page.waitForTimeout(750); await page.keyboard.up('ArrowUp');
@@ -123,22 +124,18 @@ function assertShell(actual, expected, headers, route) {
       assert(riverAfter.player.y<riverBefore.player.y-30);
       assert(riverAfter.assets.loaded.includes('actor-100-row'));
       assert(riverAfter.assets.loaded.includes('vessel-bottle'));
-      assert(await page.locator('#world-joystick').isHidden());
-      assert(await page.locator('#world-boost').isHidden());
-      await page.touchscreen.tap(width/2,100);
-      const stick=await page.locator('#world-joystick').boundingBox();
+      // ⛔ Y EL MANDO TÁCTIL ES EL MAPA (19-sep-2026): se tira de él con un dedo y la barca va al
+      // centro de lo que miras. Aquí el dedo baja, así que lo que queda en el centro está río
+      // arriba y la barca sube: el mismo gesto con el que ya se miraba alrededor.
       const cdp=await page.context().newCDPSession(page);
-      const direction={id:1,x:stick.x+stick.width/2,y:stick.y+stick.height*.18};
-      await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[direction]});
-      const boost=await page.locator('#world-boost').boundingBox();
-      assert(stick.x>width/2 && boost.x+boost.width<width/2);
-      await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[direction,{id:2,x:boost.x+boost.width/2,y:boost.y+boost.height/2}]});
-      await page.waitForTimeout(450);
-      await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+      const dedo=(type,points)=>cdp.send('Input.dispatchTouchEvent',{type,touchPoints:points.map(([x,y])=>({id:1,x,y}))});
+      await dedo('touchStart',[[width/2,height*0.22]]);
+      for(let i=1;i<=12;i++) await dedo('touchMove',[[width/2,height*0.22+(i*height*0.5)/12]]);
+      await page.waitForTimeout(600);
+      await dedo('touchEnd',[]);
       await cdp.detach();
       const accelerated=await page.evaluate(()=>window.MagikitosAdventure.inspect());
-      assert(accelerated.player.y<riverAfter.player.y-45,'Two-thumb joystick and left turbo work on the live artifact');
-      assert.equal(await page.locator('#world-boost').getAttribute('aria-pressed'),'false');
+      assert(accelerated.player.y<riverAfter.player.y-20,'Arrastrar el mapa rema la barca en el artefacto vivo');
       await page.screenshot({path:'.local/production-controls/river-'+width+'.png'});
       // El claro compartido vive en la pradera de los sauces y su embarcadero mira al oeste, así
       // que se desembarca hacia la derecha. Se llega remando desde el agua del amarre.
@@ -152,8 +149,6 @@ function assertShell(actual, expected, headers, route) {
       // mide el estado de ANTES de desembarcar: medido contra producción, tarda 17 ms. Se
       // espera a que aparezca —con margen corto, que un segundo entero sí sería un defecto—.
       await page.waitForFunction(()=>!document.getElementById('build-toggle').hidden,null,{timeout:3000});
-      assert(await page.locator('#world-joystick').isHidden());
-      assert(await page.locator('#world-boost').isHidden());
       // Do not open the editor in a read-only smoke: it explicitly creates an
       // anonymous identity. Real builds use the separate labelled example run.
       assert.equal((await page.evaluate(()=>window.MagikitosAdventure.inspect())).community.zone,'claro-de-los-sauces');

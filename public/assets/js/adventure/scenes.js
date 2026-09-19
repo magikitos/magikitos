@@ -265,7 +265,12 @@ class SceneDirector {
       });
     this.warming.set(next, task);
   }
-  enter(prepared, { keepControls = false } = {}) {
+  /**
+   * `keepPointerGesture` es para quien llega CON EL DEDO PUESTO: cruzar un borde arrastrando el
+   * mapa es un solo gesto que atraviesa dos pantallas, y soltarlo aquí dejaba a quien cruza parado
+   * al otro lado sin haber levantado el dedo. Por una puerta o al cargar no hay gesto que guardar.
+   */
+  enter(prepared, { keepControls = false, keepPointerGesture = false } = {}) {
     const game = this.game;
     // A prepared set is leased until entry, so concurrent prewarming cannot evict it.
     game.renderer.sprites.activate(prepared.packs);
@@ -295,7 +300,7 @@ class SceneDirector {
     game.world.actors = [game.player, ...game.neighbors];
     game.world.refresh(game.state);
     game.live?.objects.bind(game.world);
-    game.pauseMovement({ keepControls });
+    game.pauseMovement({ keepControls, keepPointerGesture });
     game.contactLatch = null;
     // Only suppress a threshold occupied on arrival, until the player steps out.
     // A timer could miss an entire narrow doorway during its blind period.

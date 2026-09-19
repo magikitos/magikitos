@@ -1,5 +1,5 @@
 "use strict";
-const { TILE, waterAt, inRect, collisionBounds, clamp } = require("./geometry");
+const { TILE, waterAt, collisionBounds, clamp } = require("./geometry");
 const { riverSection } = require("./river-course");
 const { facing } = require("./characters");
 const { playerVariant } = require("./player-art");
@@ -26,6 +26,24 @@ const FAST_ROW_SPEED = 205;
  */
 const ROW_RESPONSE = 2.6;
 const GLIDE_DRAG = 0.9;
+/** Lo deprisa que la barca se corre para dejar sitio a quien la alcanza, en píxeles por segundo. */
+const YIELD_SPEED = 70;
+/**
+ * ⛔ Y LO HACE BLANDO, QUE ES LO QUE QUITA EL BANDAZO. Apartarse a tope desde el primer roce es un
+ * cambio de dirección de 173° en un fotograma —medido: la barca iba a 0,04 px por fotograma y
+ * pasaba a 1,1 en sentido contrario—, y eso desde fuera es un temblor, no un empujoncito. Con la
+ * rigidez, la corrección vale lo que vale el SOLAPE: al tocarse es casi nada y crece según el
+ * cuerpo insiste, hasta el tope de arriba. Siete píxeles de solape ya dan el empujón entero, que
+ * sobre un alcance de cuarenta y seis no se ve venir de lejos pero tampoco pega un salto.
+ */
+const YIELD_STIFFNESS = 10;
+/**
+ * Y el último trocito se cierra a esta velocidad, porque una rampa proporcional se ACERCA al
+ * borde del casco y no llega nunca: la barca se quedaría rozando para siempre, que es lo que hace
+ * que `canFloat` siga diciendo que ahí no se puede estar. Un cuarto de píxel por fotograma no se
+ * ve y garantiza que apartarse TERMINA.
+ */
+const YIELD_CLOSE = 15;
 const probes = [[0, 0]];
 for (let y = -HULL_RADIUS; y <= HULL_RADIUS; y += 4)
   for (let x = -HULL_RADIUS; x <= HULL_RADIUS; x += 4)
@@ -62,21 +80,53 @@ function riverBodyAt(world, x, y, from = null) {
  * alcanza, la barca se corre lo justo para dejarle sitio, y solo hacia donde hay agua: si no la
  * hay, se queda donde está antes que empotrarse en la orilla.
  */
-function yieldToRiverBodies(world, player, dt) {
-  const body = riverBodyAt(world, player.x, player.y);
-  const touching = body || riverBodyAt(world, player.x, player.y, null);
+function yieldToRiverBodies(world, player, dt, motion = null) {
+  // Una sola pregunta: la de antes la hacía dos veces con los MISMOS argumentos («body || …»),
+  // así que la segunda no podía contestar nunca otra cosa.
+  const touching = riverBodyAt(world, player.x, player.y);
   if (!touching) return null;
   const away = Math.hypot(player.x - touching.x, player.y - touching.y) || 1;
-  const step = Math.min(touching.radius + HULL_RADIUS - away, 70 * dt);
+  const overlap = touching.radius + HULL_RADIUS - away;
+  if (overlap <= 0) return null;
+  const step = Math.min(
+    Math.max(overlap * YIELD_STIFFNESS * dt, YIELD_CLOSE * dt),
+    YIELD_SPEED * dt,
+    overlap,
+  );
   if (step <= 0) return null;
-  const dx = ((player.x - touching.x) / away) * step,
-    dy = ((player.y - touching.y) / away) * step;
+  const nx = (player.x - touching.x) / away,
+    ny = (player.y - touching.y) / away;
+  const dx = nx * step,
+    dy = ny * step;
   if (canFloat(world, player.x + dx, player.y + dy, player)) {
     player.x += dx;
     player.y += dy;
   } else if (canFloat(world, player.x + dx, player.y, player)) player.x += dx;
   else if (canFloat(world, player.x, player.y + dy, player)) player.y += dy;
   else return null;
+  /**
+   * ⛔ APARTARSE TAMBIÉN ES FRENAR, Y SIN ESTO LA BARCA TIEMBLA (19-sep-2026, lo vio el dueño:
+   * «en las corrientes del río, incluso en las más suaves, parece que el barquito vibra»).
+   *
+   * El apartado movía la POSICIÓN y no tocaba la velocidad, así que mientras el cuerpo te
+   * alcanzaba la barca se iba a un lado a setenta píxeles por segundo —casi lo que se rema— con
+   * su velocidad todavía apuntando al otro: en cuanto el cuerpo dejaba de rozarte, volvía. Medido
+   * sobre los tres ríos, cinco segundos de deriva por cada punto de agua con corriente: 179 sitios
+   * en los que el dibujado iba y venía tres veces o más, y los peores coincidían con los
+   * fotogramas en los que algo te estaba empujando.
+   *
+   * Lo que se quita es SOLO la componente que te metía dentro del cuerpo, que es la que la física
+   * ya no puede gastar: el resto de la velocidad —la que te lleva río abajo— se respeta entera.
+   * Con eso la corriente vuelve a acelerarte desde cero, que tarda casi un segundo, y lo que se ve
+   * es un empujoncito y seguir, no un temblor.
+   */
+  if (motion) {
+    const into = motion.vx * nx + motion.vy * ny;
+    if (into < 0) {
+      motion.vx -= into * nx;
+      motion.vy -= into * ny;
+    }
+  }
   return touching;
 }
 function canFloat(world, x, y, from = null) {

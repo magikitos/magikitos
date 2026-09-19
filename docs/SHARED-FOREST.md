@@ -40,33 +40,38 @@ Sin vidas, combate, Libro del Bosque, fiambreras ni parcelas privadas.
 - Flechas/WASD: movimiento directo. Espacio sostenido: correr o remar más rápido.
   Espacio en diálogo: siguiente; Enter/Escape: cerrar. Clic fuera del diálogo:
   cerrar y utilizar ese mismo clic para caminar/interactuar. **No hay rodar**.
-- Palanca FLOTANTE de ocho direcciones a la derecha cuando se usa el táctil. La
-  zona es una caja invisible en la esquina (`--world-stick-size`) y el anillo que
-  se ve se dibuja DONDE cae el pulgar: ese punto es el neutro, y desde él todas las
-  direcciones cuestan los mismos `--world-stick-travel` píxeles. Con el anillo
-  clavado en la esquina, «abajo» y «abajo-derecha» eran las dos direcciones más
-  difíciles del juego —el neutro estaba a 84px de dos bordes y la deflexión se
-  gastaba 45, así que el pulgar terminaba a unos 47px del margen, encima de la
-  franja de gestos del sistema—; eligiendo el neutro el problema no se pelea, se
-  quita. Al soltar, el anillo vuelve a su sitio con una transición.
-  La zona es lo ÚNICO que captura el gesto, así que fuera de ella el toque para
-  caminar, el arrastre para desplazar el mapa y el pellizco siguen siendo los de
-  siempre; y una pulsación DENTRO que no llega a dirigir se reenvía como toque en
-  el mapa (`WorldInput.tapAt`), para que la esquina no se coma un destino.
-  Arrastrar el pulgar cambia dirección sin levantarlo, con zona muerta y captura
-  del puntero. El turbo aparece a la izquierda **solo con dirección activa**; al
-  volver al centro, soltar o cancelar se oculta y desactiva, incluso si el otro
-  dedo seguía pulsando. **Mientras hay conversación no hay palanca**: `openDialogue`
-  pausa el movimiento, así que una palanca en pantalla no dirige a nadie y solo le
-  cuesta al diálogo su propia altura dos veces (la que reserva y el empujón que esa
-  reserva le da). Una marca en la raíz (`data-world-talking`) pone la reserva a cero
-  y recompone las cinco reglas que se apartan de la esquina.
-  Los controles son los mismos a pie y en la barca; una mano
-  puede seguir dirigiendo al cruzar muelles y límites del río. Soltar, cancelar o
-  perder el foco nunca deja un control pulsado. No se simulan teclas desde el DOM.
-- Arrastrar: desplazar mapa; moverse retoma seguimiento. Pellizco/rueda: zoom del
-  mapa, no de diálogos/botones. El recentrado aparece en el centro del joystick
-  táctil, o como botón independiente abajo a la derecha con ratón/teclado.
+- **EL MAPA ES EL MANDO** (19-sep-2026, decisión del dueño: «el joystick táctil es
+  una mierda, no me gusta nada, ni el botón de turbo»). Mientras se arrastra la
+  cámara —con el dedo, con el ratón o con un lápiz, da igual— el protagonista
+  camina siempre hacia el CENTRO de lo que estás mirando. Es el mismo gesto con
+  el que ya se miraba alrededor, así que no hay nada nuevo que aprender, no ocupa
+  sitio en pantalla y no hace falta preguntarle al navegador qué tienes en la mano.
+  La marcha la decide la DISTANCIA y no un botón: el ritmo de viaje de la casa ya
+  corre por encima de ochenta píxeles de camino y afloja en los últimos cuarenta y
+  ocho. Es un DESTINO y no una interacción: llegar a un punto del suelo no abre
+  nada ni habla con nadie, y el toque para interactuar sigue igual. Soltar no
+  frena: el destino era el último centro y se llega solo. Si no hay camino, el
+  viaje se queda en el último punto posible; y si el sitio solo se alcanza por
+  agua y la barca está en el saco, se va al muelle y se sigue remando.
+  Con esto se erradicaron el joystick flotante, su turbo de dos pulgares y TODA la
+  detección de modalidad táctil (`world-controls.js`, `input-modality.js` y sus dos
+  comprobaciones). Lo que queda de teclado es lo de siempre: flechas/WASD y espacio.
+  **El destino sigue al dedo aunque la cámara ya no pueda.** La cámara se para en
+  el borde del mapa, así que desde medio ancho de pantalla antes del final el
+  centro no puede acercarse más — y las costuras entre pantallas viven justo ahí.
+  Lo que se empuja es el destino: contra el borde la vista se queda quieta y el
+  duende sigue avanzando hasta cruzar. Y cruzar no suelta el dedo: al otro lado el
+  destino se replanta en lo que se está mirando ahora, así que un arrastre
+  sostenido sigue llevando la barca después de la costura.
+  **Mientras hay conversación o narración no hay mando**: `openDialogue` pausa el
+  movimiento, y una marca en la raíz (`data-world-retired`) pone a cero el hueco
+  que el disco de recentrar tiene reservado abajo a la derecha.
+  Los controles son los mismos a pie y en la barca. Soltar, cancelar o perder el
+  foco nunca deja un control pulsado. No se simulan teclas desde el DOM.
+- Arrastrar: desplazar mapa y, a la vez, caminar hacia el centro (arriba).
+  Pellizco/rueda: zoom del mapa, no de diálogos/botones. El recentrado es un disco
+  independiente abajo a la derecha, y solo aparece mientras la cámara es tuya: al
+  soltar, el viaje la vuelve a enganchar él solo.
   En exteriores se puede alejar hasta el límite geométrico de cobertura del mapa,
   sin un porcentaje mínimo artificial ni bordes vacíos; el encuadre inicial no cambia.
   Los interiores conservan su presentación de habitación recortada con exterior pintado.
@@ -130,24 +135,20 @@ Sin vidas, combate, Libro del Bosque, fiambreras ni parcelas privadas.
 
 ## Datos pequeños y responsabilidades claras
 
-La presentación táctil arranca con `pointer: coarse`, ausencia de `any-pointer:
-fine` y `maxTouchPoints > 0`. El HTML trae joystick/turbo ocultos para evitar un
-destello en escritorio. Después manda la entrada real: Pointer Events de tipo
-touch muestran el joystick; ratón/lápiz o teclado de juego lo ocultan. No se usa
-`ontouchstart`, detección de modelo ni listeners `once`. Los MouseEvents de
-compatibilidad no se escuchan; el movimiento de ratón mientras hay dedos
-apoyados no interrumpe el control. Escribir/componer en formularios tampoco cambia
-el modo. Los cambios de capacidades solo corrigen la estimación antes de la
-primera entrada observada. Las consultas son una ayuda, nunca una identidad del
-dispositivo ni una garantía infalible de hardware.
+**Ya no hay detección de modalidad, y esa es la mejor parte del mando nuevo.** Aquí
+se describía una estimación con `pointer: coarse`, `any-pointer: fine` y
+`maxTouchPoints`, corregida después por la entrada real, para decidir si se pintaba
+el joystick. Con el mapa de mando la pregunta desaparece: un dedo, un ratón y un
+lápiz arrastran igual, así que no hay nada que adivinar, ningún destello que evitar
+y ningún estado que pueda quedarse mal. `input-modality.js` y sus dos comprobaciones
+se erradicaron enteros.
 
 | Módulo/dato | Responsabilidad |
 | --- | --- |
 | behaviors/*.json + rules.js | Reacciones y recetas declarativas; sin ramas por misión en interact |
 | resource-nodes.json + resources.js | Registro estable de recogidas; un bit por nodo y ciclo por región |
 | cat-encounters.js | Visión, cobertura, patrulla, persecución, transporte y salida segura locales |
-| world-controls.js / input.js / map-gestures.js | Joystick y turbo simultáneos, prioridad del diálogo, teclado y cámara; sin distinguir dispositivos |
-| input-modality.js | Estimación inicial conservadora y selección dinámica de entrada real, sin user-agent ni estado persistido |
+| input.js / map-gestures.js | Teclado, cámara y EL MANDO: arrastrar el mapa planta el destino en el centro de la vista, empujándolo más allá del borde cuando la cámara ya no puede seguir |
 | navigation.js / journey.js / movement.js | Rutas compartidas simplificadas, intención persistente y colisión por subpasos |
 | river-navigation.js / river.js / docks.js | Casco/corrientes, navegación y umbrales direccionales derivados de cada muelle |
 | river-course.js | Márgenes dibujados mediante puntos [y, izquierda, derecha]; curva monótona compartida por agua, física y corrientes |

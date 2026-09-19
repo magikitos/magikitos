@@ -134,37 +134,35 @@ const world = JSON.parse(fs.readFileSync(".local/build/world.json"));
         "Narration has no game soundtrack or ambient mix",
       );
       /**
-       * ⛔ Y LA NARRACIÓN SE QUEDA TAMBIÉN CON LA PANTALLA: mientras suena, el mando se retira por
-       * la misma puerta que lo retira una conversación, y el hueco que se le reservaba en la
-       * esquina vuelve a ser sitio. Se comprueba con lo que la página HACE —el `display` calculado
-       * y la variable del hueco—, no con el atributo, que aquí no lo toca nadie.
+       * ⛔ Y LA NARRACIÓN SE QUEDA TAMBIÉN CON LA ESQUINA: mientras suena, el mando se retira por
+       * la misma puerta que lo retira una conversación. Desde que el joystick se erradicó
+       * (19-sep-2026) lo único que vive ahí es el disco de recentrar, así que lo que se retira es
+       * el HUECO que tiene reservado: se mide la variable que lo dice y el panel que se apoya en
+       * ella, no un atributo que aquí no toca nadie.
        */
-      const mando = () =>
+      const esquina = () =>
         page.evaluate(() => ({
-          display: getComputedStyle(document.getElementById("world-joystick"))
-            .display,
           clearance: getComputedStyle(document.documentElement)
             .getPropertyValue("--world-control-clearance")
             .trim(),
-          hidden: document.getElementById("world-joystick").hidden,
+          retirado: document.documentElement.dataset.worldRetired || "",
+          panel: document.querySelector(".world-listening")?.getBoundingClientRect().bottom,
+          alto: window.innerHeight,
         }));
-      // El mando solo existe en modalidad TÁCTIL, así que primero se toca: sin esto la
-      // comprobación pasaría sola sobre un mando que ya estaba escondido por el puntero.
-      await page.touchscreen.tap(5, 5);
-      await page.waitForFunction(
-        () => document.documentElement.dataset.worldInput === "touch",
+      const sonando = await esquina();
+      assert.equal(sonando.clearance, "0px", "Sonando no se reserva la esquina del mando");
+      assert.equal(sonando.retirado, "1", "…porque la narración retira el mando");
+      assert(
+        sonando.panel <= sonando.alto,
+        "…y el panel de escucha cabe entero " + JSON.stringify(sonando),
       );
-      const sonando = await mando();
-      assert.equal(sonando.display, "none", "The stick goes while it sounds");
-      assert.equal(sonando.clearance, "0px", "…so nothing reserves its corner");
-      assert.equal(sonando.hidden, false, "…and the modality never touched it");
       await page.evaluate(() => document.getElementById("world-audio").pause());
       await page.waitForFunction(() => window.__energy() > 0.0001);
-      const callado = await mando();
-      assert.notEqual(
-        callado.display,
-        "none",
-        "…and it comes back when the sound stops",
+      const callado = await esquina();
+      assert.equal(
+        callado.clearance,
+        "46px",
+        "…y la esquina se reserva otra vez al callarse " + JSON.stringify(callado),
       );
       await page.evaluate(() =>
         window.dispatchEvent(

@@ -4,7 +4,12 @@ node_modules/
 *.log
 .env
 .env.*
-# Regenerable native-art inspection sheets (source masters stay in Git).
+# Regenerable native-art inspection sheets (source masters stay in Git). Ninguna carpeta de arte
+# ha tenido nunca su `review/` dentro: se rehacen con su receta y son decenas de megas de hojas de
+# contacto, así que lo que viaja son los masters, los recortes y el prompt con el que se pidieron.
 data/aventura/art/woodland-kit/previews/
+data/aventura/art/*/review/
+data/aventura/art/*/*/review/
+data/aventura/art/playable-cast/portraits-review.png
 data/audio/*.tmp
 data/audio/*.tmp.mp3

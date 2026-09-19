@@ -149,20 +149,38 @@ async function main() {
     console.log("PASS actual sprite click approaches, waits on network authority and finishes the original push journey.");
 
     // Releasing the second player's seat promotes the existing mobile spectator, not a
-    // fabricated replacement. Its real joystick then takes the same authority path.
+    // fabricated replacement. Its real control —arrastrar el mapa, que desde el 19-sep-2026 es el
+    // único mando táctil— toma el mismo camino de autoridad que el teclado del escritorio.
     await tablet.page.close();
     await until(async () => (await read(mobile.page)).live.role === "player");
-    const stick = await mobile.page.locator("#world-joystick").boundingBox();
     const cdp = await mobile.page.context().newCDPSession(mobile.page);
     const touch = (type, points) => cdp.send("Input.dispatchTouchEvent", { type,
       touchPoints: points.map(([x, y]) => ({ x, y, id: 1 })) });
-    const cx = stick.x + stick.width / 2, cy = stick.y + stick.height / 2;
-    const beforeTouch = crate().x;
-    await touch("touchStart", [[cx, cy]]); await touch("touchMove", [[cx + 50, cy]]);
-    await until(() => crate().x > beforeTouch + 8);
-    await touch("touchEnd", []);
+    /**
+     * ⛔ CON EL DEDO SE EMPUJA TOCANDO LA COSA, NO CAMINANDO CONTRA ELLA. Aquí se empujaba con el
+     * joystick, que se erradicó el 19-sep-2026: hoy el mando táctil es arrastrar el mapa, y eso
+     * planta un DESTINO cuyo camino RODEA lo que estorba —que es exactamente lo que se pidió, «que
+     * encuentre el camino hasta ese sitio»—. Así que la forma táctil de empujar es la misma que la
+     * del ratón, tocar la caja, y el camino de autoridad que se prueba aquí no cambia.
+     */
+    // El escritorio acaba de empujar, así que está plantado justo en el sitio DESDE el que se
+    // empuja, y los duendes chocan entre ellos: se aparta, y suelta la caja. Un TOQUE pide la
+    // autoridad UNA vez y una negativa es definitiva, mientras que el mando sostenido de antes la
+    // volvía a pedir en cada fotograma hasta que el otro la soltaba.
+    await desktop.page.keyboard.down("ArrowUp");
+    await pause(700);
+    await desktop.page.keyboard.up("ArrowUp");
     await until(() => service.presence.objects.intents.size === 0);
-    console.log("PASS mobile FIFO promotion and a real held joystick push; releasing cancels its intent.");
+    const beforeTouch = crate().x;
+    const mobileScene = { ...scene, entities: [{ ...scene.entities[0], x: beforeTouch / 16 }] };
+    const mobilePoint = await entityScreenPoint(mobile.page, mobileScene, "shared-crate");
+    await mobile.page.touchscreen.tap(mobilePoint.x, mobilePoint.y);
+    await until(() => crate().x > beforeTouch + 8);
+    // Y el empujón se suelta al TERMINAR el viaje, no al levantar el dedo: el toque ya dio la orden
+    // entera, así que nada se queda reservado cuando la caja deja de hacer falta.
+    await until(async () => !(await read(mobile.page)).travel.intent);
+    await until(() => service.presence.objects.intents.size === 0);
+    console.log("PASS mobile FIFO promotion and a real touch push; finishing the journey releases its intent.");
     await touch("touchStart", [[65, 230]]);
     for (let x = 105; x <= 345; x += 40) { await touch("touchMove", [[x, 230]]); await pause(30); }
     await touch("touchEnd", []);
@@ -172,8 +190,9 @@ async function main() {
     });
     assert((await read(mobile.page)).entities.some(e => e.id === "shared-crate"), "Panned-away player's nearby crate keeps its collision");
     console.log("PASS real touch camera pan leaves the crate offscreen without dropping nearby collision interest.");
-    // Return to the protagonist for a useful visual-review capture.
-    await mobile.page.locator("#world-recenter").click();
+    // Volver al protagonista ya no necesita botón: el propio arrastre plantó un destino, así que al
+    // soltar, el viaje reengancha la cámara él solo. Se espera a eso para la captura de revisión.
+    await until(async () => (await read(mobile.page)).cameraFollowing);
     await pause(500);
     const returning = await open(4, { width: 1024, height: 768 }, crate().x);
     const arrived = (await read(returning.page)).player;

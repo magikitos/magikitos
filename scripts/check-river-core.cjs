@@ -699,4 +699,71 @@ check(starts.length === 0, "No off-screen current rendering");
   }
   check(segundos > 0.8, "Letting go glides instead of stopping dead");
 }
-console.log(`${checks} river, recipe, geometry, current and save checks PASS`);
+
+/**
+ * ⛔ Y LA BARCA NO DA TIRONES A LA DERIVA (19-sep-2026, lo vio el dueño: «en las corrientes del
+ * río, incluso en las más suaves, parece que el barquito vibra un poco»).
+ *
+ * El culpable no era la corriente: era APARTARSE. Cuando un cuerpo del río te alcanzaba, el
+ * apartado movía la POSICIÓN de golpe —hasta setenta píxeles por segundo, casi lo que se rema— y
+ * no tocaba la velocidad, así que la barca salía disparada de lado con su velocidad apuntando al
+ * otro sitio y volvía en cuanto el cuerpo se iba. Un empujón y un rebote, sesenta veces por
+ * segundo: eso es el temblor.
+ *
+ * Se mide lo que se ve: cuánto cambia el PASO de un fotograma al siguiente, sobre cada punto de
+ * agua con corriente de los tres ríos, cinco segundos de deriva sin remar. Antes del arreglo
+ * había 108 sitios con tirones de más de media celda por fotograma; ahora quedan los que son un
+ * choque de verdad, que es otra cosa y tiene que doler.
+ */
+{
+  let sitios = 0,
+    tirones = 0,
+    peor = 0,
+    donde = null;
+  for (const id of ["river-willows", "river-roots", "river-rapids", "human-hedge"]) {
+    const data = catalog.scenes[id];
+    if (!data.navigation?.currents?.length) continue;
+    const world = new World(data);
+    world.refresh({ ...cleanSave(null, catalog), scene: id });
+    for (let tx = 1; tx < data.width; tx += 2)
+      for (let ty = 1; ty < data.height; ty += 2) {
+        const x = tx * TILE,
+          y = ty * TILE;
+        world.riverBodies = riverBodies(data, 0);
+        if (!canFloat(world, x, y)) continue;
+        const flujo = currentAt(data, x, y);
+        if (Math.hypot(flujo.x, flujo.y) < 1) continue;
+        sitios++;
+        const barca = { x, y, direction: "up" };
+        const motor = new VesselMotion();
+        let previo = { x, y },
+          paso = 0,
+          bump = false,
+          peorAqui = 0;
+        for (let i = 0; i < 300; i++) {
+          world.riverBodies = riverBodies(data, i / 60);
+          motor.step(world, barca, null, 1 / 60);
+          // Un choque para en seco A PROPÓSITO, y eso no es un tirón: es el golpe.
+          if (motor.takeBump()) bump = true;
+          else yieldToRiverBodies(world, barca, 1 / 60, motor);
+          const ahora = Math.hypot(barca.x - previo.x, barca.y - previo.y);
+          peorAqui = Math.max(peorAqui, Math.abs(ahora - paso));
+          paso = ahora;
+          previo = { x: barca.x, y: barca.y };
+        }
+        if (bump) continue;
+        if (peorAqui > 0.5) tirones++;
+        if (peorAqui > peor) {
+          peor = peorAqui;
+          donde = id + " " + tx + "," + ty;
+        }
+      }
+  }
+  check(sitios > 2000, "The sweep actually looked at the rivers: " + sitios);
+  check(
+    tirones === 0,
+    "Drifting never lurches: " + tirones + " spots, worst " + peor.toFixed(2) +
+      " px/frame at " + donde,
+  );
+}
+console.log(`${checks} river, recipe, geometry, current, drift and save checks PASS`);
