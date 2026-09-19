@@ -1,0 +1,9 @@
+Use case: style-transfer with identity preservation. Image1 is the approved original duende: thin hand-inked contours, detailed MATTE fabric, slender anatomy and narrow expressive face. Image2 is the side/rear-diagonal ROWING action sheet to correct. The poses and paddle perspective of Image2 are already correct. Preserve them.
+
+Edit Image2 into the EXACT art style and anatomy of Image1, especially the duende's head, face, hat, torso and limbs. He is the same slender young woodland duende with curly black hair, pointy ears, tall olive pointed cap, muted ochre patched shirt, cream cuffs, green patched trousers and brown boots. Remove Image2's rounded plastic/chibi rendering and glossy orange highlights. Replace with the original fine textured matte drawing, restrained cloth shading and slim original proportions. Do not change clothes or add props. Head size relative to body must match Image1; do not make seated character rounder.
+
+Keep exactly FOUR columns by FOUR rows, 16 sprites on genuine transparent alpha. No text, shadows, scene, checkerboard or ground. Clear margin around every full figure and both entire oars.
+Columns in every row: RIGHT, BACK-RIGHT, BACK-LEFT, LEFT.
+The four rows preserve Image2's four different rowing phases. Keep ALL the accepted perspective: two complete wooden oars, one near pointing down/outward, the far oar visible beyond the far shoulder. Exactly two shafts attached to two hands and two blades. Never introduce a third paddle. No oar goes through neck, face, head or torso. Do not turn back-diagonals into front-facing views.
+Keep feet forward, seated pelvis position, oar lengths, blade angles and tip locations of Image2. NO boat, NO seat, NO water; the duende and oars are separate layers from the boat in game.
+This is faithful restoration to Image1's original artwork, not a redesigned character. Preserve the working geometry/layout of Image2.

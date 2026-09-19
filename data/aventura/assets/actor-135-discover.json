@@ -1,0 +1,116 @@
+{
+    "frames": {
+        "person-135-discover-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/lila-alba-discover-master.png",
+            "grid": [
+                4,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.16517857142857142,
+                "offset": [
+                    -7.714285714285715,
+                    -13.464285714285715
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-135-discover-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/lila-alba-discover-master.png",
+            "grid": [
+                4,
+                1
+            ],
+            "cell": [
+                1,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.16517857142857142,
+                "offset": [
+                    -7.714285714285715,
+                    -13.464285714285715
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-135-discover-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/lila-alba-discover-master.png",
+            "grid": [
+                4,
+                1
+            ],
+            "cell": [
+                2,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.16517857142857142,
+                "offset": [
+                    -7.714285714285715,
+                    -13.464285714285715
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-135-discover-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/lila-alba-discover-master.png",
+            "grid": [
+                4,
+                1
+            ],
+            "cell": [
+                3,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.16517857142857142,
+                "offset": [
+                    -7.714285714285715,
+                    -13.464285714285715
+                ]
+            },
+            "cleanFragments": 0.015
+        }
+    }
+}

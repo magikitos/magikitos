@@ -1,0 +1,13 @@
+Use case: identity-preserve. EDIT the supplied original walking atlas (image1) into a running atlas for the EXACT SAME DUENDE. Image2 is the approved RIGHT-profile run motion/style study. Change arm/leg pose only; preserve image1's fine hand-inked 2D style, subtle matte cloth texture, slim body, pointed ears, curly black hair, specific narrow expressive face, green crooked pointed cap, ochre shirt, cream cuffs, green trousers with tiny stitched square knee patches, brown pouch and boots. No redesign. Not glossy, not plastic, not 3D, not rounder cheeks, not larger head, not baby-like. Same exact clothing and art treatment as image1 in every direction. No new accessories or belt hardware.
+
+Output same 2:1 landscape layout as image1: EIGHT equal columns, FOUR equal rows, exactly 32 complete sprites. Genuine transparent alpha background. No text/grid/shadows. Clear padding in each cell: hats, fists and boots never touch cell edges or neighbors. Same body scale across all cells and same scale as original walking sprites relative to cell width. Do not enlarge figures because legs bend. Keep face/hat geometry, proportions, and upper-left light unchanged; slight forward lean only.
+
+Columns left-to-right, invariant in all four rows:
+FRONT, FRONT-RIGHT, RIGHT, BACK-RIGHT, BACK, BACK-LEFT, LEFT, FRONT-LEFT.
+Use original real diagonals, not four repeated cardinal views.
+Rows are four phases of ONE running cycle:
+1: left leg forward / right leg bent back, opposite bent arm swinging forward. Airborne long stride.
+2: left foot supports under hip / right knee advancing, hands passing, slight body lift.
+3: RIGHT leg forward / LEFT leg bent back, opposite bent arm forward. Actual opposite physical leg to row1, NOT a duplicate of row1.
+4: right foot supports under hip / left knee advancing, return into row1.
+The visible near/far legs and swinging arms must swap in profiles and diagonals. Keep both feet clearly drawn. The stitched knee patch stays attached to its own leg. Small stable head motion; do not bounce/change head size. Match the original's lean silhouette and muted textured ochre/olive palette exactly. Image2 shows the kind of fine matte run treatment to carry over, but use image1's own face and direction for each column. Thirty-two sprites, full clean silhouettes, no cropped pixels.

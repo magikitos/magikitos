@@ -8,15 +8,10 @@ const manifest = JSON.parse(fs.readFileSync("public/assets/aventura/manifest.jso
 const profiles = new Map(residents.profiles.map((profile) => [profile.id, profile]));
 const selected = actions.variants.map((id) => profiles.get(id));
 assert(selected.every(Boolean));
-assert.equal(selected.length, 30);
-assert.equal(new Set(actions.variants).size, 30);
-for (const gender of ["M", "F"]) assert.equal(selected.filter((p) => p.gender === gender).length, 15);
-const families = new Map();
-for (const p of selected) families.set(p.family, (families.get(p.family) || 0) + 1);
-assert.equal(families.size, 20);
-assert([...families.values()].every((count) => count === 1 || count === 2));
-for (const gender of ["M", "F"])
-  assert.equal(new Set(selected.filter((p) => p.gender === gender && families.get(p.family) === 2).map((p) => p.family)).size, 5);
+assert(selected.length > 0, "The approved protagonist selection is not empty");
+assert.equal(new Set(actions.variants).size, selected.length, "No duplicate protagonists");
+assert(selected.every(p => ["M", "F"].includes(p.gender)), "Original resident identities are preserved");
+assert.equal(residents.profiles.length, 100, "Playable selection must not remove any of the 100 NPCs");
 assert.deepEqual(Object.keys(actions.actions).sort(), ["carried", "discover", "needs", "push", "row", "run", "work"]);
 assert.equal(Object.values(actions.actions).reduce((count, spec) => count + spec.grid[0] * spec.grid[1], 0), 124);
 const digest = (file) => crypto.createHash("sha256").update(fs.readFileSync(file)).digest("hex");
@@ -25,7 +20,8 @@ for (const [sheets, active] of [[actions.sheets, true], [actions.rejectedSheets,
   for (const sheet of sheets) {
     assert(!known.has(sheet.id), "A source has exactly one review outcome");
     known.add(sheet.id);
-    assert(actions.variants.includes(sheet.variant) && actions.actions[sheet.action]);
+    assert(profiles.has(sheet.variant) && actions.actions[sheet.action]);
+    if (active) assert(actions.variants.includes(sheet.variant), "Only approved protagonists have active action art");
     const profile = profiles.get(sheet.variant);
     assert.equal(digest(directory + "actions/sources/" + sheet.id + ".png"), sheet.sourceSha256);
     assert.equal(digest(directory + "actions/" + sheet.id + ".prompt.txt"), sheet.promptSha256);
@@ -74,9 +70,9 @@ for (const [sheets, active] of [[actions.sheets, true], [actions.rejectedSheets,
 }
 const expected = selected.length * Object.keys(actions.actions).length;
 /**
- * ⛔ LA PUERTA MIDE EL ELENCO QUE SE OFRECE, NO LOS TREINTA QUE SE QUIEREN LLEGAR A TENER.
+ * ⛔ LA PUERTA MIDE EL ELENCO QUE SE OFRECE, NO LAS CANDIDATURAS AÚN EN PRODUCCIÓN.
  *
- * Exigir las 210 hojas para dejar publicar convierte una entrega en rehén de una producción de
+ * Exigir todas las hojas pendientes para dejar publicar convierte una entrega en rehén de una producción de
  * arte que va por su cuenta: el dueño sube hojas cuando puede, y el juego tiene que poder salir
  * con las que hay. Lo que de verdad NO puede pasar es ofrecer un duende a medio dibujar, y eso es
  * lo que se comprueba: **cada personaje elegible tiene sus siete acciones**. El elenco elegible

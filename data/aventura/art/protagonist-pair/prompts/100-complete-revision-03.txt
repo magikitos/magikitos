@@ -1,0 +1,21 @@
+Generate ONE complete sprite atlas for the exact same duende shown in the reference. Copy its hand-inked finely textured matte 2D art, slim anatomy, small expressive face, pointed ears, black curls, olive pointed hat, ochre shirt with cream cuffs, patched green trousers and brown boots. NOT glossy plastic/chibi. This character must NEVER change design or proportions between walking/running/sitting. No scene, no text, no grid lines, genuinely transparent background.
+
+IMPORTANT FORMAT: landscape 3072x1920, EXACTLY 16 columns and EXACTLY 10 rows of square cells. The entire image is a uniform 16x10 sprite grid. There are 156 complete sprites, and four empty cells in bottom-right. Full characters and oars fit inside their cell with padding; no overlapping cells. This is a dense production sprite atlas, NOT a loose character concept collection.
+
+Direction order D8: front, front-right, right, back-right, back, back-left, left, front-left.
+C4: front, right, back, left.
+Each row is fully occupied except last four cells, and has EXACTLY sixteen sprites.
+Rows:
+1. Columns1-8 IDLE D8. Columns9-16 WALK left-foot-forward D8.
+2. Columns1-8 WALK passing D8. Columns9-16 WALK right-foot-forward D8.
+3. Columns1-8 RUN long left-foot-forward stride D8. Columns9-16 RUN passing with left foot supporting D8.
+4. Columns1-8 RUN long RIGHT-foot-forward stride D8. Columns9-16 RUN passing with RIGHT foot supporting D8.
+5. Columns1-8 ROWING reach D8. Columns9-16 ROWING pull D8.
+6. Columns1-8 ROWING finish D8. Columns9-16 ROWING recovery D8.
+7. PUSH: columns1-4 C4 hands out and left foot back; 5-8 C4 left foot forward; 9-12 C4 right foot back; 13-16 C4 right foot forward. Both hands extended to push an invisible object. Leaning torso and bent knees.
+8. WORK: columns1-4 C4 hands near waist; 5-8 C4 hands slightly raised; 9-12 C4 hands press downward; 13-16 C4 recover. No tool.
+9. CARRIED: cols1-8 D8 hanging pose A, cols9-16 D8 hanging pose B. Fully clothed duende dangles folded over the seat of his trousers, BUTTOCKS UP and both arms/legs down, head below bottom, startled face. No cat drawn. A cat would carry the seat of trousers but is a separate sprite. NOT standing. No exposed body.
+10. Cols1-4 four modest comic fully clothed pee/relief poses (no anatomy/fluid). Cols5-8 four clothed squat/wipe-leaf/stand poses (no anatomy/waste). Cols9-12 four discovery poses facing front, raising BOTH empty hands over head triumphantly. Cols13-16 EMPTY.
+
+Rowing sprites ONLY duende seated with legs forward and exactly two long wooden oars in his hands, NO BOAT NO SEAT NO WATER. Blades extend low below his seated bottom. Each complete oar has shaft and blade. Side and rear-diagonal perspective correctly uses one near and one far oar, not an extra third oar. Pelvis fixed between phases.
+Pixel-compatible fine matte painted texture and thin dark contours from the reference. Reproduce that original artistic treatment EXACTLY, no glossy rounded redesign. Same face, hat, clothes and slender body through all 156 poses. All ten rows, all sixteen columns.

@@ -1,0 +1,13 @@
+Use case: precise-object-edit, running animation leg/arm phase correction.
+Image1 is the edit target, a transparent sprite strip of 8 columns by 2 rows. Image2 is the approved original character design. Keep EVERY head, hat, face, camera view, torso shape, fabric texture and outfit of image1. Edit ONLY arm and leg positions in image1, to create the OTHER HALF of a running cycle. Do not merely redraw the same pose. No glossy shading, no style change.
+
+Preserve exactly 8 columns and 2 rows. Column directions FRONT, FRONT-RIGHT, RIGHT, BACK-RIGHT, BACK, BACK-LEFT, LEFT, FRONT-LEFT. Full sprites, padding, transparent alpha background, no labels/shadows.
+TOP ROW: physically SWAP which leg is leading and which arm is leading compared to current image1 top row.
+- RIGHT profile (column3): the CLOSE/visible arm must now reach FORWARD toward screen-right across chest, with elbow bent; CLOSE/visible leg must trail BEHIND pointing screen-left with boot tucked back. FAR/darker leg stretches FORWARD to screen-right, seen behind near leg. Keep both legs connected to their own hips. The near knee patch therefore goes on the BACKWARD leg, not the front leg.
+- LEFT profile (column7): CLOSE arm forward toward screen-left, CLOSE leg folded BACK toward screen-right; FAR leg extends toward screen-left.
+- FRONT (column1): the boot on the LEFT side of the image must now reach forward and low; the boot on the RIGHT side lifts back and high. Arms oppose the legs.
+- BACK (column5): alternate left/right hips and boots relative to reference top row.
+- Diagonals: use the SAME opposite-leg phase in the original direction of that column. Change limbs, not facing.
+BOTTOM ROW: following passing phase of that opposite stride. FAR foot planted under hips, CLOSE knee moving forward, close arm beginning to go backward. Distinct from top row. Both legs/feet visible.
+
+The current wrong top/bottom poses repeat the leading leg used in the first half of the run. These edits MUST alternate the physical leg. All eight headings remain exactly as given. Keep the original fine matte hand-inked drawing, not a 3D render. Image2 only locks style and anatomy, never copy its walking poses here. Output only the corrected two-row sixteen-pose sheet.

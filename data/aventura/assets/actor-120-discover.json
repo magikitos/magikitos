@@ -1,0 +1,116 @@
+{
+    "frames": {
+        "person-120-discover-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/mora-alba-discover-master.png",
+            "grid": [
+                4,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.16757246376811594,
+                "offset": [
+                    -8.173913043478258,
+                    -14.326086956521735
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-120-discover-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/mora-alba-discover-master.png",
+            "grid": [
+                4,
+                1
+            ],
+            "cell": [
+                1,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.16757246376811594,
+                "offset": [
+                    -8.173913043478258,
+                    -14.326086956521735
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-120-discover-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/mora-alba-discover-master.png",
+            "grid": [
+                4,
+                1
+            ],
+            "cell": [
+                2,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.16757246376811594,
+                "offset": [
+                    -8.173913043478258,
+                    -14.326086956521735
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-120-discover-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/mora-alba-discover-master.png",
+            "grid": [
+                4,
+                1
+            ],
+            "cell": [
+                3,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.16757246376811594,
+                "offset": [
+                    -8.173913043478258,
+                    -14.326086956521735
+                ]
+            },
+            "cleanFragments": 0.015
+        }
+    }
+}

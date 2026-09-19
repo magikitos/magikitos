@@ -1,0 +1,157 @@
+{
+    "sheet": "amapola-musgo-carried-master",
+    "reference": "resident-099",
+    "sourceSha256": "0801520d841fb8118f3e521bcccf37da798556b926700bae1fa72f96450d366d",
+    "referenceSha256": "9e6fa664a791183ffcd88afddfeed0b0d09c8267a5b2dbcf51a69bf1f92c008b",
+    "measurement": {
+        "bodyHeight": 230.63063063063063,
+        "cellWidth": 256,
+        "ratio": 0.1734375
+    },
+    "poses": {
+        "person-198-down-carried-0": {
+            "ink": [
+                13.246875000000003,
+                4,
+                21.506249999999998,
+                37.809374999999996
+            ],
+            "support": 4
+        },
+        "person-198-down-right-carried-0": {
+            "ink": [
+                10.818750000000001,
+                4,
+                26.1890625,
+                37.809374999999996
+            ],
+            "support": 4
+        },
+        "person-198-right-carried-0": {
+            "ink": [
+                9.778125000000003,
+                4,
+                28.2703125,
+                37.9828125
+            ],
+            "support": 4
+        },
+        "person-198-up-right-carried-0": {
+            "ink": [
+                12.032812500000002,
+                4,
+                23.7609375,
+                37.809374999999996
+            ],
+            "support": 4
+        },
+        "person-198-up-carried-0": {
+            "ink": [
+                14.8078125,
+                4,
+                18.384375,
+                36.074999999999996
+            ],
+            "support": 4
+        },
+        "person-198-up-left-carried-0": {
+            "ink": [
+                11.3390625,
+                4,
+                25.1484375,
+                37.4625
+            ],
+            "support": 4
+        },
+        "person-198-left-carried-0": {
+            "ink": [
+                10.818750000000001,
+                4,
+                26.1890625,
+                37.9828125
+            ],
+            "support": 4
+        },
+        "person-198-down-left-carried-0": {
+            "ink": [
+                11.3390625,
+                4,
+                25.321875,
+                37.9828125
+            ],
+            "support": 4
+        },
+        "person-198-down-carried-1": {
+            "ink": [
+                13.0734375,
+                4,
+                21.6796875,
+                38.15625
+            ],
+            "support": 4
+        },
+        "person-198-down-right-carried-1": {
+            "ink": [
+                11.165625000000002,
+                4,
+                25.66875,
+                38.3296875
+            ],
+            "support": 4
+        },
+        "person-198-right-carried-1": {
+            "ink": [
+                10.298437500000002,
+                4,
+                27.2296875,
+                38.3296875
+            ],
+            "support": 4
+        },
+        "person-198-up-right-carried-1": {
+            "ink": [
+                12.032812500000002,
+                4,
+                23.7609375,
+                38.676562499999996
+            ],
+            "support": 4
+        },
+        "person-198-up-carried-1": {
+            "ink": [
+                14.8078125,
+                4,
+                18.2109375,
+                36.074999999999996
+            ],
+            "support": 4
+        },
+        "person-198-up-left-carried-1": {
+            "ink": [
+                11.512500000000003,
+                4,
+                24.974999999999998,
+                38.676562499999996
+            ],
+            "support": 4
+        },
+        "person-198-left-carried-1": {
+            "ink": [
+                10.992187500000004,
+                4,
+                26.015625,
+                38.15625
+            ],
+            "support": 4
+        },
+        "person-198-down-left-carried-1": {
+            "ink": [
+                11.3390625,
+                4,
+                25.321875,
+                38.3296875
+            ],
+            "support": 4
+        }
+    }
+}

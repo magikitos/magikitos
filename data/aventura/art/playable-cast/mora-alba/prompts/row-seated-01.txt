@@ -1,0 +1,8 @@
+Use case: identity-preserve. Production game sprite sheet, ONLY eight fixed seated poses of Mora alba.
+Image 1 is the exact character/wardrobe/face/style reference: the existing woman with brown skin, short dark curls, bent wine-red pointed fabric hat, ivory rolled sleeves under brown stitched vest, golden-yellow sash, olive patched shorts, brown boots. Match that precise original MATTE finely inked illustration, NOT glossy plastic, not 3D, not chibi.
+Image 2 is ONLY the pose and heading/layout reference. Replace its male character with the woman from image1. Do not copy his green hat, face or clothing.
+EXACTLY FOUR equal columns and TWO equal rows, 8 full characters on transparent background:
+row1: front/down, down-right, right side profile, up-right.
+row2: back/up, up-left, left side profile, down-left.
+Each figure sits on her bottom with both knees bent and boots pointing FORWARD in her facing direction. No chair, seat, boat, water, or ground. BOTH EMPTY HANDS form closed fists holding imaginary handles in front at lower chest height, elbows bent. Hands must not be on knees or face. These will hold separately composited oars, so keep both fists legible and separate. No oars, no sticks, no props.
+All eight have EXACT same anatomy/scale, like an eight-angle turnaround of ONE seated statue, matching image1's build and head/body size. Same overhead three-quarter RPG perspective and upper-left light. Sharp detailed patchwork cloth and original face, no enlarged head or rounded toy body. Keep hat fully inside each cell, generous transparent margins. Landscape 2:1. No labels, grid, shadows or checkerboard.

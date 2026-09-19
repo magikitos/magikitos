@@ -2,6 +2,12 @@
   "defaultVariant": 100,
   "rowingRigs": {
     "100": "brezo",
-    "101": "brezo-bruma"
+    "120": "mora-alba",
+    "135": "lila-alba",
+    "142": "tomillo-sol",
+    "166": "dalia-bruma",
+    "172": "sauco-sol",
+    "194": "acebo-noche",
+    "198": "amapola-musgo"
   }
 }

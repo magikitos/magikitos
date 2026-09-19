@@ -1,0 +1,9 @@
+Use case: identity-preserve, localized pose edit of existing game sprites.
+Edit the supplied four-frame strip. It shows the SAME approved woodland duende walking RIGHT. Change ONLY the arm and leg poses into a four-frame RUN cycle facing RIGHT. Keep his original face, narrow body, black curls, exact pointed green hat, ochre linen shirt, cream rolled cuffs, patched green trousers, brown boots and tiny pouch. Preserve the original hand-drawn fine ink contours and MATTE textured cloth shading. This must look like the same artist simply animated the supplied artwork, not a new character design. Keep head and hat shape/size practically unchanged; do not make the head rounder, eyes bigger, limbs chunkier or clothes glossy. No plastic shine, no 3D rendering, no chibi restyling, no smooth airbrushed replacement. Fine original texture, not big blocky pixelation.
+Output ONE horizontal strip, FOUR equal cells, one full duende per cell, all facing right in the original slightly overhead camera. Transparent alpha background, no shadows, text, guides, numbers or scene. Each body and hat fully inside its cell with generous margins. Fixed body scale and ground baseline. Small forward lean from hips only.
+Left-to-right running cycle:
+1. NEAR leg extended forward, FAR leg bent back, opposite arm forward.
+2. NEAR foot supporting under hips, FAR knee advancing forward; small upward body lift.
+3. FAR leg extended forward, NEAR leg bent back, opposite arm forward. This is the opposite physical stride to frame1; do not repeat frame1.
+4. FAR foot supporting under hips, NEAR knee advancing forward, returning toward frame1.
+Visible near and far boot alternate which is ahead. Distinct leg silhouettes and bent running elbows. Do not change any identity/style detail to create this motion. Match the provided original artwork exactly.

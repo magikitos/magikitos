@@ -1,0 +1,5 @@
+Use case: precise-object-edit.
+Image1 edit target: same FOUR columns by FOUR rows, seated duende poses. Image2 exact original identity/style reference.
+REMOVE ALL THE WOODEN OARS from all 16 sprites. Keep his CLOSED hands in their original gripping positions, but empty. Where an oar obscured his trousers/body, restore the patched olive cloth naturally. Remove every blade and shaft, including blades behind his head. He is sitting with both booted feet forward, pelvis fixed. No boat, no seat, no props at all.
+Keep the same 4 directions: right, back-right, back-left, left; same 4 animation phases with slightly different arm reaches. Do NOT change body sizes, head sizes, facial identity or outfit. Fine detailed MATTE inked cloth style matching original Image2, no glossy highlights, no big round chibi head.
+Transparent alpha background, generous space between all 16 sprites. All pointed hats, curled black hair, ears, boots fully visible. No text or guides.

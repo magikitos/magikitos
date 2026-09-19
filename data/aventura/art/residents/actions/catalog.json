@@ -1,35 +1,13 @@
 {
   "variants": [
     100,
-    101,
-    105,
-    110,
-    111,
-    115,
     120,
-    125,
-    130,
-    131,
     135,
-    136,
-    140,
-    145,
-    146,
-    150,
-    155,
-    160,
-    161,
-    165,
+    142,
     166,
-    170,
-    171,
-    175,
-    180,
-    181,
-    185,
-    190,
-    195,
-    196
+    172,
+    194,
+    198
   ],
   "actions": {
     "run": {
@@ -126,6 +104,2035 @@
   },
   "sheets": [
     {
+      "id": "sauco-sol-run-master",
+      "variant": 172,
+      "action": "run",
+      "sourceSha256": "1d375cd81b9446953e058c72984e6bb9a6916dc811f80ce42015eb897c03d43c",
+      "promptSha256": "11e71c9bef0d649b34a47b203ce69163608591234a61375618442e5129fbb65d",
+      "referenceSha256": "68c4b8eda795ce224cb1019cb12d397903686ad23eaabf06ea0261da04ebe5de",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "sauco-sol-push-master",
+      "variant": 172,
+      "action": "push",
+      "sourceSha256": "5709c4b816a82c9b03c925fe538771c9e2d5de58773ac6574b846524a12d3995",
+      "promptSha256": "cca27e7883c13a0fc7369506a957947676551f735848e74e699c225eda40f41a",
+      "referenceSha256": "68c4b8eda795ce224cb1019cb12d397903686ad23eaabf06ea0261da04ebe5de",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "sauco-sol-work-master",
+      "variant": 172,
+      "action": "work",
+      "sourceSha256": "ad3381dc309baa20237dde7166b191e11c91aba7340dec9ee181523881c6404e",
+      "promptSha256": "0b17f74e3108c8d82b453a24289e897cf7b0d08ce15842643e04a6d7f2c8f186",
+      "referenceSha256": "68c4b8eda795ce224cb1019cb12d397903686ad23eaabf06ea0261da04ebe5de",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "sauco-sol-carried-master",
+      "variant": 172,
+      "action": "carried",
+      "sourceSha256": "f30ccae90474dcd83df18483e0265fc26dcc3f371f6541a5c54cf980d5dc5db1",
+      "promptSha256": "ec1faa40f4b1c95cf1e6b21cc2eb0fe80bd433ba72e790f655c31f368f8d62df",
+      "referenceSha256": "68c4b8eda795ce224cb1019cb12d397903686ad23eaabf06ea0261da04ebe5de",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "sauco-sol-needs-master",
+      "variant": 172,
+      "action": "needs",
+      "sourceSha256": "322b3bc2463962ea0896069eb43f4833c70c6cb653ac0756c13f90f8402789ae",
+      "promptSha256": "f97a7be998509c5060c45e3eb52565922bf6b500c7db1ce935f4d487f3b161a5",
+      "referenceSha256": "68c4b8eda795ce224cb1019cb12d397903686ad23eaabf06ea0261da04ebe5de",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "sauco-sol-discover-master",
+      "variant": 172,
+      "action": "discover",
+      "sourceSha256": "5c8194eb1ba4daf043b43cfd0730141f2046b93d85d27c42d328a8210dc30fd4",
+      "promptSha256": "c308f231b53103826bc738baed9c3cf486d81ff7ac2578924b2a9b96e32e4cb2",
+      "referenceSha256": "68c4b8eda795ce224cb1019cb12d397903686ad23eaabf06ea0261da04ebe5de",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "sauco-sol-row-master",
+      "variant": 172,
+      "action": "row",
+      "sourceSha256": "aa6eae1b0adbab25802bfa0b327fd37f20a8ffd1af2d1f080878f675355bfa62",
+      "promptSha256": "550161d3ccd69b8786fb43def72cb742f435500988881454d513b9276dafe0dd",
+      "referenceSha256": "68c4b8eda795ce224cb1019cb12d397903686ad23eaabf06ea0261da04ebe5de",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256,
+      "sourceSeatAnchors": [
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ]
+      ],
+      "occludedOars": {
+        "up-right": {
+          "0": [
+            1
+          ],
+          "3": [
+            1
+          ]
+        },
+        "up-left": {
+          "0": [
+            0
+          ],
+          "3": [
+            0
+          ]
+        }
+      },
+      "hullSupportedOars": {
+        "up-right": {
+          "2": [
+            0
+          ]
+        },
+        "up-left": {
+          "2": [
+            1
+          ]
+        }
+      }
+    },
+    {
+      "id": "dalia-bruma-run-master",
+      "variant": 166,
+      "action": "run",
+      "sourceSha256": "e410cb6cae72d0c5ad2bc24fa246f6ac535785f7d4c2ed81f8e3b04511479ab8",
+      "promptSha256": "723f04e898d84165c6ccaaefa0dca51eab49e75ae3b4fd8269bd9167fafc0086",
+      "referenceSha256": "cde209553018def883c65854d9136e1b20a3d20fdcc0e6900b17d6672a9f0ab8",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "dalia-bruma-push-master",
+      "variant": 166,
+      "action": "push",
+      "sourceSha256": "61f812b120e8f2041404066179665e58f7bb3e7aa680ac5991dd9ea2e4df7a90",
+      "promptSha256": "763fba382e9c6bef1d33477fd3e49b0f4aa0f19ce5403c67a9e6ffc8798c7bc8",
+      "referenceSha256": "cde209553018def883c65854d9136e1b20a3d20fdcc0e6900b17d6672a9f0ab8",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "dalia-bruma-work-master",
+      "variant": 166,
+      "action": "work",
+      "sourceSha256": "efa853aa8e4180538613d27795bef11015b910218379e4f6accd4214111f162b",
+      "promptSha256": "90feb50ade634d07ddf8128e05102919848bd7b8aea9c464e65bcb27f5ce0e7c",
+      "referenceSha256": "cde209553018def883c65854d9136e1b20a3d20fdcc0e6900b17d6672a9f0ab8",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "dalia-bruma-carried-master",
+      "variant": 166,
+      "action": "carried",
+      "sourceSha256": "ca611e21e309a4b68da23931924187ffacbe7548aebbd83f643bb5f6f58f281e",
+      "promptSha256": "721cb4f957264847a398333b31c56fbb139eb3d1b6593f81c8c18026cb228274",
+      "referenceSha256": "cde209553018def883c65854d9136e1b20a3d20fdcc0e6900b17d6672a9f0ab8",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "dalia-bruma-needs-master",
+      "variant": 166,
+      "action": "needs",
+      "sourceSha256": "b30ebf2e85cdc618fa4bf864461f486239a3468502976aad7f024fb8813d7062",
+      "promptSha256": "3129ae82d735a2e447a1f58ba7d9e86cfa667bf03ea3bbb88d850428b0a91026",
+      "referenceSha256": "cde209553018def883c65854d9136e1b20a3d20fdcc0e6900b17d6672a9f0ab8",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "dalia-bruma-discover-master",
+      "variant": 166,
+      "action": "discover",
+      "sourceSha256": "6661ed4a6d3516d18deded0ebd5709a8f6daeb9d536e6ca2933fb9283ecf3483",
+      "promptSha256": "bc69ef2b3f6629238e9ce33156a91398d1b880a10f24bc873ea05bdf53f6f17a",
+      "referenceSha256": "cde209553018def883c65854d9136e1b20a3d20fdcc0e6900b17d6672a9f0ab8",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "dalia-bruma-row-master",
+      "variant": 166,
+      "action": "row",
+      "sourceSha256": "98cf57127722530c1554fb330532ec1a3c1ca77d54c34c4cc10204e7579f10b9",
+      "promptSha256": "8401b0e61627e3ce7db1123d4130792d4eaf0a1f114f0b4ea82a1c540a6e28ef",
+      "referenceSha256": "cde209553018def883c65854d9136e1b20a3d20fdcc0e6900b17d6672a9f0ab8",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256,
+      "sourceSeatAnchors": [
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ]
+      ],
+      "occludedOars": {
+        "up-right": {
+          "0": [
+            1
+          ],
+          "3": [
+            1
+          ]
+        },
+        "up-left": {
+          "0": [
+            0
+          ],
+          "3": [
+            0
+          ]
+        }
+      },
+      "hullSupportedOars": {
+        "up-right": {
+          "2": [
+            0
+          ]
+        },
+        "up-left": {
+          "2": [
+            1
+          ]
+        }
+      }
+    },
+    {
+      "id": "tomillo-sol-run-master",
+      "variant": 142,
+      "action": "run",
+      "sourceSha256": "4eb1fbf653de2b84834b541db76c0b5ad7f152a041e7c1097e3fcb6bf30ee77c",
+      "promptSha256": "b12ab06fb4dc411614e6129e04dd1fe0ca0e8f18c71dbf9aeb35124eae886628",
+      "referenceSha256": "fcdcf93506901103b425416920ea1b2583b2f3bb5dc28964803f4fa17f025c79",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "tomillo-sol-push-master",
+      "variant": 142,
+      "action": "push",
+      "sourceSha256": "f0d42bb628ffbbcd0baccf03733973452ba68715feb38022816b028899c95cb9",
+      "promptSha256": "91e332f78c342d457b438c10d5b663627b8af036cca1693270ee542c09bec6e7",
+      "referenceSha256": "fcdcf93506901103b425416920ea1b2583b2f3bb5dc28964803f4fa17f025c79",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "tomillo-sol-work-master",
+      "variant": 142,
+      "action": "work",
+      "sourceSha256": "f5b1977492ad94fb5f0ae5903b3b9dc305e42d1224d5c39fb515c40a6aa92c4b",
+      "promptSha256": "4c13656d3cacd80c4b40d6bb83624005125d36930cb52d2a539c4f9969ae5737",
+      "referenceSha256": "fcdcf93506901103b425416920ea1b2583b2f3bb5dc28964803f4fa17f025c79",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "tomillo-sol-carried-master",
+      "variant": 142,
+      "action": "carried",
+      "sourceSha256": "fdd98e729d8082e0b2bb8cd5ec7ae38a53ece725a296882036ea650c1a6a1469",
+      "promptSha256": "af6f718eb7d14fe6b2a72d71885a801fc9586e32b3c606657259d0b36cdfe8dc",
+      "referenceSha256": "fcdcf93506901103b425416920ea1b2583b2f3bb5dc28964803f4fa17f025c79",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "tomillo-sol-needs-master",
+      "variant": 142,
+      "action": "needs",
+      "sourceSha256": "705f750e2b02799f970cf108a49088748b7fa3a5836b0c8fe15df607a74ff422",
+      "promptSha256": "b3d73bc2692047373b9c3b4576345fb8ef131b29fff8fbf46da10c51b5b30aef",
+      "referenceSha256": "fcdcf93506901103b425416920ea1b2583b2f3bb5dc28964803f4fa17f025c79",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "tomillo-sol-discover-master",
+      "variant": 142,
+      "action": "discover",
+      "sourceSha256": "4f3619fefed499d4d8f6e39a442ffa42197bc0716814f35ff6419fe022027127",
+      "promptSha256": "c4376a3b779f850c13ad657ba01fa3a75baa19e04991e26c347eb2f411fb4d33",
+      "referenceSha256": "fcdcf93506901103b425416920ea1b2583b2f3bb5dc28964803f4fa17f025c79",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "tomillo-sol-row-master",
+      "variant": 142,
+      "action": "row",
+      "sourceSha256": "f960e359402c017e57e532397210bf6129a67544007cee5d8f1c2d6fe4d5c895",
+      "promptSha256": "11d14d0198f11617d608255f73b27a05e9084d17afb03ddbf1c776882b9f35b3",
+      "referenceSha256": "fcdcf93506901103b425416920ea1b2583b2f3bb5dc28964803f4fa17f025c79",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256,
+      "sourceSeatAnchors": [
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ]
+      ],
+      "occludedOars": {
+        "up-right": {
+          "0": [
+            1
+          ],
+          "3": [
+            1
+          ]
+        },
+        "up-left": {
+          "0": [
+            0
+          ],
+          "3": [
+            0
+          ]
+        }
+      },
+      "hullSupportedOars": {
+        "up-right": {
+          "2": [
+            0
+          ]
+        },
+        "up-left": {
+          "2": [
+            1
+          ]
+        }
+      }
+    },
+    {
+      "id": "lila-alba-run-master",
+      "variant": 135,
+      "action": "run",
+      "sourceSha256": "0e70e54ff5a138036a6a9af4193c6ff67201b651b4646cf5b915532042492c9d",
+      "promptSha256": "fd17669d82579f1cfe2a5be89d28b28dc734211e367d5f51c0bb5fcd8f87b48a",
+      "referenceSha256": "98a96445e93582530e13e366b9e65c9eff6e02b9e932a2bc9d8a4d51670ae267",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "lila-alba-push-master",
+      "variant": 135,
+      "action": "push",
+      "sourceSha256": "c965344c875d0973e2d086a4bbdee94661fa122cd67892fdf7b1dfd04c7e3c7c",
+      "promptSha256": "7ad0103d25fcefd9a1674ae7a5b922a5b32089def8fa90baf080569569759149",
+      "referenceSha256": "98a96445e93582530e13e366b9e65c9eff6e02b9e932a2bc9d8a4d51670ae267",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "lila-alba-work-master",
+      "variant": 135,
+      "action": "work",
+      "sourceSha256": "833d5cda7e845873ce8de09b50cea51177ee94ad8d21caa83cddfe0c41914ea3",
+      "promptSha256": "96121624346d7446f27c2d47c235273f38f22a6ff140197345dd1feb366c7db0",
+      "referenceSha256": "98a96445e93582530e13e366b9e65c9eff6e02b9e932a2bc9d8a4d51670ae267",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "lila-alba-carried-master",
+      "variant": 135,
+      "action": "carried",
+      "sourceSha256": "7eb9f79c8d44a99d68800501d2555ae20e7c9cb83773c17831271beb66969cc9",
+      "promptSha256": "07dd341c88087c9b4ef51a647f5010a5f7fcab9a0565580ad1836793620a0df4",
+      "referenceSha256": "98a96445e93582530e13e366b9e65c9eff6e02b9e932a2bc9d8a4d51670ae267",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "lila-alba-needs-master",
+      "variant": 135,
+      "action": "needs",
+      "sourceSha256": "101f877da9e693c0f21680043fd569bbe839358d0cd6feee7953d381117e4a00",
+      "promptSha256": "314c5aa34ac6f575f7f425c251d8999a6fecd6b750762fbb4041e4f4081b3f5b",
+      "referenceSha256": "98a96445e93582530e13e366b9e65c9eff6e02b9e932a2bc9d8a4d51670ae267",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "lila-alba-discover-master",
+      "variant": 135,
+      "action": "discover",
+      "sourceSha256": "0fcaa8248c077104c3cda15ec0e3db032f508a9f596258c8d6e91e1fa7fe14ec",
+      "promptSha256": "bbdee320f53755732417a0e058c6c4911934389add70bdbc34b9a58bb4e7fd99",
+      "referenceSha256": "98a96445e93582530e13e366b9e65c9eff6e02b9e932a2bc9d8a4d51670ae267",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "lila-alba-row-master",
+      "variant": 135,
+      "action": "row",
+      "sourceSha256": "1ecbfbc1aad9a5ff31abce4b1be00a6bf698599d23def4857f6e86a86c9a72ae",
+      "promptSha256": "36610ad94787ca82b0a6b2798d38b5cded8ed0cec1e1b88eafbc19138c8c465d",
+      "referenceSha256": "98a96445e93582530e13e366b9e65c9eff6e02b9e932a2bc9d8a4d51670ae267",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256,
+      "sourceSeatAnchors": [
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ]
+      ],
+      "occludedOars": {
+        "up-right": {
+          "0": [
+            1
+          ],
+          "3": [
+            1
+          ]
+        },
+        "up-left": {
+          "0": [
+            0
+          ],
+          "3": [
+            0
+          ]
+        }
+      },
+      "hullSupportedOars": {
+        "up-right": {
+          "2": [
+            0
+          ]
+        },
+        "up-left": {
+          "2": [
+            1
+          ]
+        }
+      }
+    },
+    {
+      "id": "brezo-alba-row-matte",
+      "variant": 100,
+      "action": "row",
+      "sourceSha256": "2950355cd74e49413751fef6f952a1289a664beec5b354311ddd2d2af14ccec5",
+      "promptSha256": "aa261b4dc4e7aeea6922afb3c157adcde8d33a85a6adfcd8165f2bfee5998b82",
+      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
+      "generator": "built-in image_gen; offline cropped composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "grid": [
+        8,
+        4
+      ],
+      "sourceCellWidth": 280,
+      "sourceSeatAnchors": [
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ]
+      ],
+      "occludedOars": {
+        "up-right": {
+          "0": [
+            1
+          ],
+          "3": [
+            1
+          ]
+        },
+        "up-left": {
+          "0": [
+            0
+          ],
+          "3": [
+            0
+          ]
+        }
+      },
+      "hullSupportedOars": {
+        "up-right": {
+          "2": [
+            0
+          ]
+        },
+        "up-left": {
+          "2": [
+            1
+          ]
+        }
+      }
+    },
+    {
+      "id": "brezo-alba-run-matte",
+      "variant": 100,
+      "action": "run",
+      "sourceSha256": "8c14d096c7065f6a4c64fb44d52308dda7f0616147f895b5c2e66ae95b0f7684",
+      "promptSha256": "597b172fec62be3ed559f73eab03f1257f1c9e92ce97aa40070731e0a5b39b1b",
+      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
+      "generator": "built-in image_gen; offline cropped composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015
+    },
+    {
+      "id": "brezo-alba-needs-scale",
+      "variant": 100,
+      "action": "needs",
+      "sourceSha256": "e34135a4ff168184b53f90bc4e994e7d04d1541349df6354dd48bd5eb6cdf8b8",
+      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
+      "promptSha256": "6d42bbfede03450bcc3709cd5845f4493a02a8faf6f012995b3f73a2f5da2c5b",
+      "guideSha256": "426a08d7942072b0859a4f51c5dec79a68b53317e4a7dd9ceb919096c4d5c628",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "editSource": "brezo-alba-needs",
+      "editSourceSha256": "038432152228d529e49cbd56f7363861afbd727594307ce566ff0001183545ce"
+    },
+    {
+      "id": "brezo-alba-carried-padded",
+      "variant": 100,
+      "action": "carried",
+      "sourceSha256": "2c42252eff0a7bc998db4d3827cde04ee9a1e1ecdcd0877e0053a004943fd90b",
+      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
+      "promptSha256": "581e0eea39dacf4d0694979d5eb28768f53208bf13ad38a675d3a54cec653c2d",
+      "guideSha256": "e2054466125e356568de6a96b76217ffb2f6bc305ad24816c098bf39f3876238",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "editSource": "brezo-alba-carried",
+      "editSourceSha256": "7d47c321acff4f34eeb15b9bea426e387d68aa2af1c03a50c38de23fdb99bee1"
+    },
+    {
+      "id": "brezo-alba-work-scale",
+      "variant": 100,
+      "action": "work",
+      "sourceSha256": "3054f45320a069b88c4c33ff70f75f55202e963c00ab1e8395f8eefbd9f66481",
+      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
+      "promptSha256": "20614483ade2670131234abdbb80416339c9e56cf7303892352b6c4cbaca0fbc",
+      "guideSha256": "34c77a0fbb703b146c443efb2c2ee4964b67b22953b9773fde277b3ceae3fb0c",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "editSource": "brezo-alba-work",
+      "editSourceSha256": "d8b469c51157b8d027f6391923ec4882bd8f06b553e1c43f60ac50640ca91008"
+    },
+    {
+      "id": "brezo-alba-push-scale",
+      "variant": 100,
+      "action": "push",
+      "sourceSha256": "e2d625f8dd1540d7f627001fcb486378eb2b0ba38b46127cbc49afd554282485",
+      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
+      "promptSha256": "b70d3202d61106b60ee7f5083e09dfe8c6da04c1b7aff614d01fdcaecbfb8ff1",
+      "guideSha256": "34c77a0fbb703b146c443efb2c2ee4964b67b22953b9773fde277b3ceae3fb0c",
+      "editSource": "brezo-alba-push",
+      "editSourceSha256": "a2f077c4640ad27492c3b0e4e514b6a67593631aec85acfd92796d996be9e094",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015
+    },
+    {
+      "id": "brezo-alba-discover",
+      "variant": 100,
+      "action": "discover",
+      "sourceSha256": "c40b09b746c00633d1b7a1eab5b04c29f952770cb07a0137fde4464640c318be",
+      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
+      "promptSha256": "edfad4496bd88b4de4c253d4e9e53a0147dedeb0ee039c64824fdbfee3ef65fd",
+      "guideSha256": "bcbfb44b6e33e282f1b229389cbf1bee7cecccbd3e2c6aa4ab3e7e3228de5457",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015
+    },
+    {
+      "id": "mora-alba-run-master",
+      "variant": 120,
+      "action": "run",
+      "sourceSha256": "66f043a92a26449ad6fd23068ad18b35861673fa213aad2e85769d4ba2cdec20",
+      "promptSha256": "682d81dcde9f5afcf40d3c2cb88a501812815d632f067dde2253a50124769386",
+      "referenceSha256": "afc0156c06a972847dd7721d530a1c270a7300d6ebad7855df04a2b7079ce7c3",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "mora-alba-push-master",
+      "variant": 120,
+      "action": "push",
+      "sourceSha256": "ddd7fe4116354c5312c4d606c70b72cde80b86f0b93e01626403e196e2188c7a",
+      "promptSha256": "9cd06fab090aa673b48ac10b6c6053923d8b70ef1caa9f9f0456acb062f63d7b",
+      "referenceSha256": "afc0156c06a972847dd7721d530a1c270a7300d6ebad7855df04a2b7079ce7c3",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "mora-alba-work-master",
+      "variant": 120,
+      "action": "work",
+      "sourceSha256": "28146feb8a0f7d8cd53bfe7a9b79e7bcd7359fcbab4ec2746fb23ed1fcbfe341",
+      "promptSha256": "79e77074a8e10fea3453430e7f60f2506bc7f91ecc39d8ef7721d3c10ae03de3",
+      "referenceSha256": "afc0156c06a972847dd7721d530a1c270a7300d6ebad7855df04a2b7079ce7c3",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "mora-alba-carried-master",
+      "variant": 120,
+      "action": "carried",
+      "sourceSha256": "53856c2276c231c39464425303bf08606e1beb3cb4f4bfc663828e21f0667b2f",
+      "promptSha256": "a2f40ccd6e1dac71d254adc05a2df7b2937ceb96809dedc7c8859b10bd0c3d20",
+      "referenceSha256": "afc0156c06a972847dd7721d530a1c270a7300d6ebad7855df04a2b7079ce7c3",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "mora-alba-needs-master",
+      "variant": 120,
+      "action": "needs",
+      "sourceSha256": "4f87f1784a7a98d94377608baf7a3d0bb217839963b87a4c786a85b1b43fa22d",
+      "promptSha256": "5fcd9e2546a5a82880e2467e78248095bfd4463c2bbc5722063c2fd64e02ef70",
+      "referenceSha256": "afc0156c06a972847dd7721d530a1c270a7300d6ebad7855df04a2b7079ce7c3",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "mora-alba-discover-master",
+      "variant": 120,
+      "action": "discover",
+      "sourceSha256": "f5aed1312159d3e54438bc5f6e4f4334a742ab3d38da538c637a2bb8f3859312",
+      "promptSha256": "cd242bdf3b850f5fe78516acda86ecd20251e3d0000e29c29ddd7ef99a60330f",
+      "referenceSha256": "afc0156c06a972847dd7721d530a1c270a7300d6ebad7855df04a2b7079ce7c3",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "mora-alba-row-master",
+      "variant": 120,
+      "action": "row",
+      "sourceSha256": "d0e5869c629da85faa64cabfc4761c95f935021374396edeaa84ed61871213e3",
+      "promptSha256": "300633e8d7d52c1041902de3e2dd4a11b4c4ad12a5bd712631275973ef9d4caa",
+      "referenceSha256": "afc0156c06a972847dd7721d530a1c270a7300d6ebad7855df04a2b7079ce7c3",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256,
+      "sourceSeatAnchors": [
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ]
+      ],
+      "occludedOars": {
+        "up-right": {
+          "0": [
+            1
+          ],
+          "3": [
+            1
+          ]
+        },
+        "up-left": {
+          "0": [
+            0
+          ],
+          "3": [
+            0
+          ]
+        }
+      },
+      "hullSupportedOars": {
+        "up-right": {
+          "2": [
+            0
+          ]
+        },
+        "up-left": {
+          "2": [
+            1
+          ]
+        }
+      }
+    },
+    {
+      "id": "acebo-noche-run-master",
+      "variant": 194,
+      "action": "run",
+      "sourceSha256": "569b60a4967036277d026a701bcc7285ffe392f624f96eb7b6778d8f39120ece",
+      "promptSha256": "ce07dcce07bd9688a48397f7d3b5f30a3d38505a5212e5240f77a1a0ad6d1622",
+      "referenceSha256": "e3d7aeb795aa0245d346baf71f72a44290817dc88244d7fa75e991e56d249d23",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "acebo-noche-row-master",
+      "variant": 194,
+      "action": "row",
+      "sourceSha256": "c993f650a36716befb0ebb706aba4aa1191e5f1583f4cc8b9b5fdfedb1ae66f5",
+      "promptSha256": "e7d7083724bd868e86cd7b4111a590a10e905b876779dc6f236828027251c72f",
+      "referenceSha256": "e3d7aeb795aa0245d346baf71f72a44290817dc88244d7fa75e991e56d249d23",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256,
+      "sourceSeatAnchors": [
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ]
+      ],
+      "occludedOars": {
+        "up-right": {
+          "0": [
+            1
+          ],
+          "3": [
+            1
+          ]
+        },
+        "up-left": {
+          "0": [
+            0
+          ],
+          "3": [
+            0
+          ]
+        }
+      },
+      "hullSupportedOars": {
+        "up-right": {
+          "2": [
+            0
+          ]
+        },
+        "up-left": {
+          "2": [
+            1
+          ]
+        }
+      }
+    },
+    {
+      "id": "acebo-noche-push-master",
+      "variant": 194,
+      "action": "push",
+      "sourceSha256": "810c7438808db547efae87a52254372035789d7d7c928d5ab5da93df6a721c61",
+      "promptSha256": "cbf253de2a491765bd88e81dd6edd2b8cb6fe3756814f41fc9b8557e32890339",
+      "referenceSha256": "e3d7aeb795aa0245d346baf71f72a44290817dc88244d7fa75e991e56d249d23",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "acebo-noche-work-master",
+      "variant": 194,
+      "action": "work",
+      "sourceSha256": "79f21d1bdc83d4a0145feb68b682f4d9262742469fdc002f85d437f50ae00b3d",
+      "promptSha256": "f907526d14a131b406d23ae059942e05d592175ca56e449eecc593d9827a9380",
+      "referenceSha256": "e3d7aeb795aa0245d346baf71f72a44290817dc88244d7fa75e991e56d249d23",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "acebo-noche-carried-master",
+      "variant": 194,
+      "action": "carried",
+      "sourceSha256": "203a4c1f41b07b681a1d32002d8beed9a69db2b570c95fc3d6d8cf7731c2a3dd",
+      "promptSha256": "1978962276527cf0e4cd78b000b8373a5bb1ee26f7332879ff517b4714752e91",
+      "referenceSha256": "e3d7aeb795aa0245d346baf71f72a44290817dc88244d7fa75e991e56d249d23",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "acebo-noche-needs-master",
+      "variant": 194,
+      "action": "needs",
+      "sourceSha256": "00da496f157547a5db94c687b20b347b7c87fa688ae12aecc3731c671220a220",
+      "promptSha256": "1028d0914e40df9a2a6a76c8a0b48990cc9090a089269e888478c8368de14f76",
+      "referenceSha256": "e3d7aeb795aa0245d346baf71f72a44290817dc88244d7fa75e991e56d249d23",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "acebo-noche-discover-master",
+      "variant": 194,
+      "action": "discover",
+      "sourceSha256": "6ae6d53f49f14411c4766a6e53eba996b39b4c62c8cbe26a92b931a66625d7f6",
+      "promptSha256": "90a9d6ad591024f71fa22fba9389a59500f5c33ecdc8227374d619d36e105ba1",
+      "referenceSha256": "e3d7aeb795aa0245d346baf71f72a44290817dc88244d7fa75e991e56d249d23",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "amapola-musgo-run-master",
+      "variant": 198,
+      "action": "run",
+      "sourceSha256": "51eba79d27088c0de13d26a8eaf0611a51dd222045308e488285606fb9e9a49b",
+      "promptSha256": "a21a2117d1e1116a69fb1e3306686f596cd16060ec330ba433a886a778d48bb3",
+      "referenceSha256": "9e6fa664a791183ffcd88afddfeed0b0d09c8267a5b2dbcf51a69bf1f92c008b",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "amapola-musgo-row-master",
+      "variant": 198,
+      "action": "row",
+      "sourceSha256": "0db42886d41853e491c8695720f35debfd02bc6a72302135b1c1994aaaafac15",
+      "promptSha256": "4ec981fb7569f613edb161a66e8fc00e72f2e40581f6be13b89deae731fb1439",
+      "referenceSha256": "9e6fa664a791183ffcd88afddfeed0b0d09c8267a5b2dbcf51a69bf1f92c008b",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256,
+      "sourceSeatAnchors": [
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ],
+        [
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ],
+          [
+            192,
+            270
+          ]
+        ]
+      ],
+      "occludedOars": {
+        "up-right": {
+          "0": [
+            1
+          ],
+          "3": [
+            1
+          ]
+        },
+        "up-left": {
+          "0": [
+            0
+          ],
+          "3": [
+            0
+          ]
+        }
+      },
+      "hullSupportedOars": {
+        "up-right": {
+          "2": [
+            0
+          ]
+        },
+        "up-left": {
+          "2": [
+            1
+          ]
+        }
+      }
+    },
+    {
+      "id": "amapola-musgo-push-master",
+      "variant": 198,
+      "action": "push",
+      "sourceSha256": "a2c896a2d11a674e7dc42abdd9b24429bfc52448bc78f7b2953906872752c1a4",
+      "promptSha256": "a00c6c00310d9b7f3483d6f5babb0895eba20fab8edd787d96ff41645e27f410",
+      "referenceSha256": "9e6fa664a791183ffcd88afddfeed0b0d09c8267a5b2dbcf51a69bf1f92c008b",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "amapola-musgo-work-master",
+      "variant": 198,
+      "action": "work",
+      "sourceSha256": "1eb718357ecfddaa91467a926a9fc72ee3c150d619a04121d57dce51712e153a",
+      "promptSha256": "3e002ff66ccfd4cd4f238d8ab988495f45ca5e845cd3fc546cd256079dcdf72a",
+      "referenceSha256": "9e6fa664a791183ffcd88afddfeed0b0d09c8267a5b2dbcf51a69bf1f92c008b",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "amapola-musgo-carried-master",
+      "variant": 198,
+      "action": "carried",
+      "sourceSha256": "0801520d841fb8118f3e521bcccf37da798556b926700bae1fa72f96450d366d",
+      "promptSha256": "b65b11244d5cec3d6484e3dfb06a7a4b2d37f4e54871126187d2cc563fc27c6b",
+      "referenceSha256": "9e6fa664a791183ffcd88afddfeed0b0d09c8267a5b2dbcf51a69bf1f92c008b",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "amapola-musgo-needs-master",
+      "variant": 198,
+      "action": "needs",
+      "sourceSha256": "ad39520989eb7ae6b522d6bae1d0fe9b29ad7b1d838383e2e24fe28b5d799dc1",
+      "promptSha256": "63b93fc1da0214bbb5b640a5e8ca2c4adc41126018ddb64870173722fa918213",
+      "referenceSha256": "9e6fa664a791183ffcd88afddfeed0b0d09c8267a5b2dbcf51a69bf1f92c008b",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    },
+    {
+      "id": "amapola-musgo-discover-master",
+      "variant": 198,
+      "action": "discover",
+      "sourceSha256": "f666c873275e2b54565b6406096cbd5f2d4ff6850854be652b31945dc692585a",
+      "promptSha256": "b20e88813c82814b45a949f9a046f682ae982bee3a9721a2d234d83f28e536c8",
+      "referenceSha256": "9e6fa664a791183ffcd88afddfeed0b0d09c8267a5b2dbcf51a69bf1f92c008b",
+      "generator": "built-in image_gen; deterministic offline composition",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "sourceCellWidth": 256
+    }
+  ],
+  "rejectedSheets": [
+    {
       "id": "brezo-bruma-push-scale",
       "variant": 101,
       "action": "push",
@@ -136,7 +2143,8 @@
       "edgeMatte": "red",
       "cleanFragments": 0.015,
       "editSource": "brezo-bruma-push",
-      "editSourceSha256": "50bfccb08cd46d2331dd11f0a9ff34fbe76250b042e567b873eec9e703f7b5bb"
+      "editSourceSha256": "50bfccb08cd46d2331dd11f0a9ff34fbe76250b042e567b873eec9e703f7b5bb",
+      "rejectedReason": "Retired from playable roster by owner; original resident-002 NPC preserved."
     },
     {
       "id": "brezo-bruma-row-long-cuffs",
@@ -620,7 +2628,8 @@
             1254
           ]
         }
-      ]
+      ],
+      "rejectedReason": "Retired from playable roster by owner; original resident-002 NPC preserved."
     },
     {
       "id": "brezo-bruma-run-scale",
@@ -633,7 +2642,8 @@
       "edgeMatte": "red",
       "cleanFragments": 0.015,
       "editSource": "brezo-bruma-run",
-      "editSourceSha256": "494ab3b2b8fcbec9fd1b9122f0d45c36b3dd88bb76b370c3e1b1b1c055885820"
+      "editSourceSha256": "494ab3b2b8fcbec9fd1b9122f0d45c36b3dd88bb76b370c3e1b1b1c055885820",
+      "rejectedReason": "Retired from playable roster by owner; original resident-002 NPC preserved."
     },
     {
       "id": "brezo-bruma-discover",
@@ -646,7 +2656,8 @@
       "edgeMatte": "red",
       "cleanFragments": 0.015,
       "editSource": "brezo-alba-discover",
-      "editSourceSha256": "c40b09b746c00633d1b7a1eab5b04c29f952770cb07a0137fde4464640c318be"
+      "editSourceSha256": "c40b09b746c00633d1b7a1eab5b04c29f952770cb07a0137fde4464640c318be",
+      "rejectedReason": "Retired from playable roster by owner; original resident-002 NPC preserved."
     },
     {
       "id": "brezo-bruma-work-scale",
@@ -659,7 +2670,8 @@
       "edgeMatte": "red",
       "cleanFragments": 0.015,
       "editSource": "brezo-bruma-work",
-      "editSourceSha256": "3b8b0938a9bf3dcb7a5628be7f786e5e615e4748b889cb6c59d92daf2eb56265"
+      "editSourceSha256": "3b8b0938a9bf3dcb7a5628be7f786e5e615e4748b889cb6c59d92daf2eb56265",
+      "rejectedReason": "Retired from playable roster by owner; original resident-002 NPC preserved."
     },
     {
       "id": "brezo-bruma-needs-scale",
@@ -672,7 +2684,8 @@
       "edgeMatte": "red",
       "cleanFragments": 0.015,
       "editSource": "brezo-bruma-needs",
-      "editSourceSha256": "2623e55b4600b483a994fc2f9995d041dbc98d2a63b241aa95b2de3760b6c4ac"
+      "editSourceSha256": "2623e55b4600b483a994fc2f9995d041dbc98d2a63b241aa95b2de3760b6c4ac",
+      "rejectedReason": "Retired from playable roster by owner; original resident-002 NPC preserved."
     },
     {
       "id": "brezo-bruma-carried-scale",
@@ -685,557 +2698,9 @@
       "edgeMatte": "red",
       "cleanFragments": 0.015,
       "editSource": "brezo-bruma-carried",
-      "editSourceSha256": "1119e8d04b58f2a58bb21bfa0a30921f2f761a4989b3f174d09ead4807b643cd"
+      "editSourceSha256": "1119e8d04b58f2a58bb21bfa0a30921f2f761a4989b3f174d09ead4807b643cd",
+      "rejectedReason": "Retired from playable roster by owner; original resident-002 NPC preserved."
     },
-    {
-      "id": "brezo-alba-row-long-clean",
-      "variant": 100,
-      "action": "row",
-      "sourceSha256": "b0002ff110628aacddf4b8b84c8ef8fbea42736df67a34900da203b61020ce96",
-      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
-      "promptSha256": "a374ab270086da3b9b50128d4bd097787c4eede76f5857492a18a3935d9a07b6",
-      "generator": "built-in image_gen",
-      "edgeMatte": "red",
-      "cleanFragments": 0.015,
-      "editSource": "brezo-alba-row-long-oars",
-      "editSourceSha256": "92e263a58962d3d09f8b74ccbd3e7d5243fc9b720b69cdd69e10f7874282c846",
-      "sourceCellWidth": 221.75,
-      "sourceRects": [
-        [
-          [
-            0,
-            0,
-            239,
-            264
-          ],
-          [
-            239,
-            0,
-            220,
-            264
-          ],
-          [
-            459,
-            0,
-            216,
-            264
-          ],
-          [
-            675,
-            0,
-            216,
-            264
-          ],
-          [
-            891,
-            0,
-            215,
-            264
-          ],
-          [
-            1106,
-            0,
-            211,
-            264
-          ],
-          [
-            1317,
-            0,
-            220,
-            264
-          ],
-          [
-            1537,
-            0,
-            237,
-            264
-          ]
-        ],
-        [
-          [
-            0,
-            264,
-            239,
-            208
-          ],
-          [
-            239,
-            264,
-            220,
-            211
-          ],
-          [
-            459,
-            264,
-            216,
-            211
-          ],
-          [
-            675,
-            264,
-            216,
-            209
-          ],
-          [
-            891,
-            264,
-            215,
-            209
-          ],
-          [
-            1106,
-            264,
-            211,
-            210
-          ],
-          [
-            1317,
-            264,
-            220,
-            210
-          ],
-          [
-            1537,
-            264,
-            237,
-            207
-          ]
-        ],
-        [
-          [
-            0,
-            472,
-            239,
-            188
-          ],
-          [
-            239,
-            474,
-            220,
-            190
-          ],
-          [
-            459,
-            476,
-            216,
-            188
-          ],
-          [
-            675,
-            477,
-            216,
-            186
-          ],
-          [
-            891,
-            471,
-            215,
-            190
-          ],
-          [
-            1106,
-            477,
-            211,
-            189
-          ],
-          [
-            1317,
-            474,
-            220,
-            190
-          ],
-          [
-            1537,
-            473,
-            237,
-            187
-          ]
-        ],
-        [
-          [
-            0,
-            660,
-            239,
-            227
-          ],
-          [
-            239,
-            664,
-            220,
-            223
-          ],
-          [
-            459,
-            665,
-            216,
-            222
-          ],
-          [
-            675,
-            665,
-            216,
-            222
-          ],
-          [
-            891,
-            661,
-            215,
-            226
-          ],
-          [
-            1104,
-            666,
-            213,
-            221
-          ],
-          [
-            1317,
-            664,
-            220,
-            223
-          ],
-          [
-            1536,
-            661,
-            238,
-            226
-          ]
-        ]
-      ],
-      "sourceSeatAnchors": [
-        [
-          [
-            123,
-            214
-          ],
-          [
-            96,
-            214
-          ],
-          [
-            104,
-            214
-          ],
-          [
-            107,
-            214
-          ],
-          [
-            105,
-            214
-          ],
-          [
-            115,
-            214
-          ],
-          [
-            115,
-            214
-          ],
-          [
-            121,
-            214
-          ]
-        ],
-        [
-          [
-            123,
-            149
-          ],
-          [
-            96,
-            149
-          ],
-          [
-            104,
-            149
-          ],
-          [
-            107,
-            149
-          ],
-          [
-            105,
-            149
-          ],
-          [
-            115,
-            149
-          ],
-          [
-            115,
-            149
-          ],
-          [
-            121,
-            149
-          ]
-        ],
-        [
-          [
-            123,
-            135
-          ],
-          [
-            96,
-            133
-          ],
-          [
-            104,
-            131
-          ],
-          [
-            107,
-            130
-          ],
-          [
-            105,
-            136
-          ],
-          [
-            115,
-            130
-          ],
-          [
-            115,
-            133
-          ],
-          [
-            121,
-            134
-          ]
-        ],
-        [
-          [
-            123,
-            135
-          ],
-          [
-            96,
-            131
-          ],
-          [
-            104,
-            130
-          ],
-          [
-            107,
-            130
-          ],
-          [
-            105,
-            134
-          ],
-          [
-            117,
-            129
-          ],
-          [
-            115,
-            131
-          ],
-          [
-            122,
-            134
-          ]
-        ]
-      ],
-      "overrides": [
-        {
-          "id": "brezo-alba-row-perspective-clean",
-          "sourceSha256": "fe3e140d068ae245f4a7288b0c54cd8c223e042ea0b984ecb650399e6272a68e",
-          "promptSha256": "a3c7f193a71aa2519dc536a16567d27416f9b6b2e58792912f2357bee96995cd",
-          "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
-          "generator": "built-in image_gen",
-          "editSource": "brezo-alba-row-perspective-two",
-          "editSourceSha256": "d1ec9b8bfd54977b7477dc6271688883b99c44eedc42e12218adf6c9646ac523",
-          "edgeMatte": "red",
-          "cleanFragments": 0.015,
-          "grid": [
-            4,
-            4
-          ],
-          "directions": [
-            "right",
-            "up-right",
-            "up-left",
-            "left"
-          ],
-          "sourceCellWidth": 280,
-          "sourceColumnBounds": [
-            0,
-            314,
-            627,
-            941,
-            1254
-          ],
-          "sourceRowBounds": [
-            0,
-            322,
-            615,
-            890,
-            1254
-          ],
-          "sourceSeatAnchors": [
-            [
-              [
-                160,
-                235
-              ],
-              [
-                156,
-                235
-              ],
-              [
-                160,
-                235
-              ],
-              [
-                139,
-                235
-              ]
-            ],
-            [
-              [
-                160,
-                205
-              ],
-              [
-                156,
-                203
-              ],
-              [
-                160,
-                203
-              ],
-              [
-                139,
-                208
-              ]
-            ],
-            [
-              [
-                164,
-                199
-              ],
-              [
-                156,
-                185
-              ],
-              [
-                160,
-                185
-              ],
-              [
-                139,
-                199
-              ]
-            ],
-            [
-              [
-                164,
-                220
-              ],
-              [
-                156,
-                205
-              ],
-              [
-                160,
-                205
-              ],
-              [
-                139,
-                220
-              ]
-            ]
-          ]
-        }
-      ]
-    },
-    {
-      "id": "brezo-alba-run-stride",
-      "variant": 100,
-      "action": "run",
-      "sourceSha256": "dca605fefc44c2d8e04a0d779da5fa1256b12b81bfb9d052741cc56f85deb76c",
-      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
-      "promptSha256": "610295369f326d2930131d87120e2b6bc0602ae54e8807529eeecd725cd361b7",
-      "generator": "built-in image_gen",
-      "edgeMatte": "red",
-      "cleanFragments": 0.015,
-      "editSource": "brezo-alba-run-opposite",
-      "editSourceSha256": "b48c83bac24f5a51db78ad75b5fee2779d51fe3123641a37caabf00480c6fc98"
-    },
-    {
-      "id": "brezo-alba-needs-scale",
-      "variant": 100,
-      "action": "needs",
-      "sourceSha256": "e34135a4ff168184b53f90bc4e994e7d04d1541349df6354dd48bd5eb6cdf8b8",
-      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
-      "promptSha256": "6d42bbfede03450bcc3709cd5845f4493a02a8faf6f012995b3f73a2f5da2c5b",
-      "guideSha256": "426a08d7942072b0859a4f51c5dec79a68b53317e4a7dd9ceb919096c4d5c628",
-      "generator": "built-in image_gen",
-      "edgeMatte": "red",
-      "cleanFragments": 0.015,
-      "editSource": "brezo-alba-needs",
-      "editSourceSha256": "038432152228d529e49cbd56f7363861afbd727594307ce566ff0001183545ce"
-    },
-    {
-      "id": "brezo-alba-carried-padded",
-      "variant": 100,
-      "action": "carried",
-      "sourceSha256": "2c42252eff0a7bc998db4d3827cde04ee9a1e1ecdcd0877e0053a004943fd90b",
-      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
-      "promptSha256": "581e0eea39dacf4d0694979d5eb28768f53208bf13ad38a675d3a54cec653c2d",
-      "guideSha256": "e2054466125e356568de6a96b76217ffb2f6bc305ad24816c098bf39f3876238",
-      "generator": "built-in image_gen",
-      "edgeMatte": "red",
-      "cleanFragments": 0.015,
-      "editSource": "brezo-alba-carried",
-      "editSourceSha256": "7d47c321acff4f34eeb15b9bea426e387d68aa2af1c03a50c38de23fdb99bee1"
-    },
-    {
-      "id": "brezo-alba-work-scale",
-      "variant": 100,
-      "action": "work",
-      "sourceSha256": "3054f45320a069b88c4c33ff70f75f55202e963c00ab1e8395f8eefbd9f66481",
-      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
-      "promptSha256": "20614483ade2670131234abdbb80416339c9e56cf7303892352b6c4cbaca0fbc",
-      "guideSha256": "34c77a0fbb703b146c443efb2c2ee4964b67b22953b9773fde277b3ceae3fb0c",
-      "generator": "built-in image_gen",
-      "edgeMatte": "red",
-      "cleanFragments": 0.015,
-      "editSource": "brezo-alba-work",
-      "editSourceSha256": "d8b469c51157b8d027f6391923ec4882bd8f06b553e1c43f60ac50640ca91008"
-    },
-    {
-      "id": "brezo-alba-push-scale",
-      "variant": 100,
-      "action": "push",
-      "sourceSha256": "e2d625f8dd1540d7f627001fcb486378eb2b0ba38b46127cbc49afd554282485",
-      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
-      "promptSha256": "b70d3202d61106b60ee7f5083e09dfe8c6da04c1b7aff614d01fdcaecbfb8ff1",
-      "guideSha256": "34c77a0fbb703b146c443efb2c2ee4964b67b22953b9773fde277b3ceae3fb0c",
-      "editSource": "brezo-alba-push",
-      "editSourceSha256": "a2f077c4640ad27492c3b0e4e514b6a67593631aec85acfd92796d996be9e094",
-      "generator": "built-in image_gen",
-      "edgeMatte": "red",
-      "cleanFragments": 0.015
-    },
-    {
-      "id": "brezo-alba-discover",
-      "variant": 100,
-      "action": "discover",
-      "sourceSha256": "c40b09b746c00633d1b7a1eab5b04c29f952770cb07a0137fde4464640c318be",
-      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
-      "promptSha256": "edfad4496bd88b4de4c253d4e9e53a0147dedeb0ee039c64824fdbfee3ef65fd",
-      "guideSha256": "bcbfb44b6e33e282f1b229389cbf1bee7cecccbd3e2c6aa4ab3e7e3228de5457",
-      "generator": "built-in image_gen",
-      "edgeMatte": "red",
-      "cleanFragments": 0.015
-    }
-  ],
-  "rejectedSheets": [
     {
       "id": "brezo-alba-row-oars",
       "variant": 100,
@@ -1918,6 +3383,487 @@
       "promptSha256": "8f434db256c785ca207dd32a6474124c64d5f3137dc8c16ec3ea0e1722112411",
       "referenceSha256": "0df0ca5f2e785d841e5ed106e87b6f9bef0606dfcfd4eadabdb5cd71dcde395d",
       "rejectedReason": "Intermediate long-oar identity transfer; blue cuffs and leaf pocket needed correction. Replaced by row-long-cuffs; source preserved."
+    },
+    {
+      "id": "brezo-alba-run-stride",
+      "variant": 100,
+      "action": "run",
+      "sourceSha256": "dca605fefc44c2d8e04a0d779da5fa1256b12b81bfb9d052741cc56f85deb76c",
+      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
+      "promptSha256": "610295369f326d2930131d87120e2b6bc0602ae54e8807529eeecd725cd361b7",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "editSource": "brezo-alba-run-opposite",
+      "editSourceSha256": "b48c83bac24f5a51db78ad75b5fee2779d51fe3123641a37caabf00480c6fc98",
+      "rejectedReason": "Replaced locally: original matte identity restored; running head preserved, rowing strokes synchronized. Historical immutable source retained."
+    },
+    {
+      "id": "brezo-alba-row-long-clean",
+      "variant": 100,
+      "action": "row",
+      "sourceSha256": "b0002ff110628aacddf4b8b84c8ef8fbea42736df67a34900da203b61020ce96",
+      "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
+      "promptSha256": "a374ab270086da3b9b50128d4bd097787c4eede76f5857492a18a3935d9a07b6",
+      "generator": "built-in image_gen",
+      "edgeMatte": "red",
+      "cleanFragments": 0.015,
+      "editSource": "brezo-alba-row-long-oars",
+      "editSourceSha256": "92e263a58962d3d09f8b74ccbd3e7d5243fc9b720b69cdd69e10f7874282c846",
+      "sourceCellWidth": 221.75,
+      "sourceRects": [
+        [
+          [
+            0,
+            0,
+            239,
+            264
+          ],
+          [
+            239,
+            0,
+            220,
+            264
+          ],
+          [
+            459,
+            0,
+            216,
+            264
+          ],
+          [
+            675,
+            0,
+            216,
+            264
+          ],
+          [
+            891,
+            0,
+            215,
+            264
+          ],
+          [
+            1106,
+            0,
+            211,
+            264
+          ],
+          [
+            1317,
+            0,
+            220,
+            264
+          ],
+          [
+            1537,
+            0,
+            237,
+            264
+          ]
+        ],
+        [
+          [
+            0,
+            264,
+            239,
+            208
+          ],
+          [
+            239,
+            264,
+            220,
+            211
+          ],
+          [
+            459,
+            264,
+            216,
+            211
+          ],
+          [
+            675,
+            264,
+            216,
+            209
+          ],
+          [
+            891,
+            264,
+            215,
+            209
+          ],
+          [
+            1106,
+            264,
+            211,
+            210
+          ],
+          [
+            1317,
+            264,
+            220,
+            210
+          ],
+          [
+            1537,
+            264,
+            237,
+            207
+          ]
+        ],
+        [
+          [
+            0,
+            472,
+            239,
+            188
+          ],
+          [
+            239,
+            474,
+            220,
+            190
+          ],
+          [
+            459,
+            476,
+            216,
+            188
+          ],
+          [
+            675,
+            477,
+            216,
+            186
+          ],
+          [
+            891,
+            471,
+            215,
+            190
+          ],
+          [
+            1106,
+            477,
+            211,
+            189
+          ],
+          [
+            1317,
+            474,
+            220,
+            190
+          ],
+          [
+            1537,
+            473,
+            237,
+            187
+          ]
+        ],
+        [
+          [
+            0,
+            660,
+            239,
+            227
+          ],
+          [
+            239,
+            664,
+            220,
+            223
+          ],
+          [
+            459,
+            665,
+            216,
+            222
+          ],
+          [
+            675,
+            665,
+            216,
+            222
+          ],
+          [
+            891,
+            661,
+            215,
+            226
+          ],
+          [
+            1104,
+            666,
+            213,
+            221
+          ],
+          [
+            1317,
+            664,
+            220,
+            223
+          ],
+          [
+            1536,
+            661,
+            238,
+            226
+          ]
+        ]
+      ],
+      "sourceSeatAnchors": [
+        [
+          [
+            123,
+            214
+          ],
+          [
+            96,
+            214
+          ],
+          [
+            104,
+            214
+          ],
+          [
+            107,
+            214
+          ],
+          [
+            105,
+            214
+          ],
+          [
+            115,
+            214
+          ],
+          [
+            115,
+            214
+          ],
+          [
+            121,
+            214
+          ]
+        ],
+        [
+          [
+            123,
+            149
+          ],
+          [
+            96,
+            149
+          ],
+          [
+            104,
+            149
+          ],
+          [
+            107,
+            149
+          ],
+          [
+            105,
+            149
+          ],
+          [
+            115,
+            149
+          ],
+          [
+            115,
+            149
+          ],
+          [
+            121,
+            149
+          ]
+        ],
+        [
+          [
+            123,
+            135
+          ],
+          [
+            96,
+            133
+          ],
+          [
+            104,
+            131
+          ],
+          [
+            107,
+            130
+          ],
+          [
+            105,
+            136
+          ],
+          [
+            115,
+            130
+          ],
+          [
+            115,
+            133
+          ],
+          [
+            121,
+            134
+          ]
+        ],
+        [
+          [
+            123,
+            135
+          ],
+          [
+            96,
+            131
+          ],
+          [
+            104,
+            130
+          ],
+          [
+            107,
+            130
+          ],
+          [
+            105,
+            134
+          ],
+          [
+            117,
+            129
+          ],
+          [
+            115,
+            131
+          ],
+          [
+            122,
+            134
+          ]
+        ]
+      ],
+      "overrides": [
+        {
+          "id": "brezo-alba-row-perspective-clean",
+          "sourceSha256": "fe3e140d068ae245f4a7288b0c54cd8c223e042ea0b984ecb650399e6272a68e",
+          "promptSha256": "a3c7f193a71aa2519dc536a16567d27416f9b6b2e58792912f2357bee96995cd",
+          "referenceSha256": "e7d5fd1a15e7e560aac5cd651c0e6de22b89dc820b96b0de573a1a00c8500594",
+          "generator": "built-in image_gen",
+          "editSource": "brezo-alba-row-perspective-two",
+          "editSourceSha256": "d1ec9b8bfd54977b7477dc6271688883b99c44eedc42e12218adf6c9646ac523",
+          "edgeMatte": "red",
+          "cleanFragments": 0.015,
+          "grid": [
+            4,
+            4
+          ],
+          "directions": [
+            "right",
+            "up-right",
+            "up-left",
+            "left"
+          ],
+          "sourceCellWidth": 280,
+          "sourceColumnBounds": [
+            0,
+            314,
+            627,
+            941,
+            1254
+          ],
+          "sourceRowBounds": [
+            0,
+            322,
+            615,
+            890,
+            1254
+          ],
+          "sourceSeatAnchors": [
+            [
+              [
+                160,
+                235
+              ],
+              [
+                156,
+                235
+              ],
+              [
+                160,
+                235
+              ],
+              [
+                139,
+                235
+              ]
+            ],
+            [
+              [
+                160,
+                205
+              ],
+              [
+                156,
+                203
+              ],
+              [
+                160,
+                203
+              ],
+              [
+                139,
+                208
+              ]
+            ],
+            [
+              [
+                164,
+                199
+              ],
+              [
+                156,
+                185
+              ],
+              [
+                160,
+                185
+              ],
+              [
+                139,
+                199
+              ]
+            ],
+            [
+              [
+                164,
+                220
+              ],
+              [
+                156,
+                205
+              ],
+              [
+                160,
+                205
+              ],
+              [
+                139,
+                220
+              ]
+            ]
+          ]
+        }
+      ],
+      "rejectedReason": "Replaced locally: original matte identity restored; running head preserved, rowing strokes synchronized. Historical immutable source retained."
     }
   ]
 }

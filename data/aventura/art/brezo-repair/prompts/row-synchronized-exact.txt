@@ -1,0 +1,24 @@
+Use case: precise-object-edit.
+Edit Image1 only. Image2 is the original fine matte cloth/ink character identity reference. Preserve face, hat, costume, slim body and seated legs. Correct ONLY the wooden oars and hand grips. EXACTLY 4 columns x 4 rows, transparent alpha.
+
+CRITICAL: both oars work simultaneously, as a symmetric pair on opposite sides of a rowboat. NO alternating paddling. There is NO permanent blade sticking behind the head. Both blades change angle together. Do not leave one blade fixed while the other moves.
+
+Columns RIGHT, BACK-RIGHT, BACK-LEFT, LEFT. Four rows are four animation phases. Below are approximate blade TIP pixel coordinates WITHIN EACH 314 x 314 cell, x from left, y from top. Place the actual ends there, adjusting grips naturally. These coordinates matter more than the old oar placements.
+
+Column RIGHT:
+row1 near (292,275), far (280,170): BOTH forward/right.
+row2 near (240,294), far (230,162): BOTH pulling, still on the right.
+row3 near (45,280), far (50,164): BOTH back/left.
+row4 near (278,258), far (263,148): BOTH lifted forward/right in recovery.
+
+Column BACK-RIGHT:
+row1 near (292,264), far (220,138).
+row2 near (277,295), far (99,143).
+row3 near (125,291), far (39,220).
+row4 near (280,241), far (202,120).
+The near oar MUST swing from lower-right in row1 to LOWER-LEFT in row3. It must not stay at lower-right in every frame. The far blade travels from upper-right to left as well. Both sweep backwards together in the character's world direction. No paddle crosses the neck; shafts behind him disappear behind his body.
+
+Columns BACK-LEFT and LEFT mirror these blade positions and phases, with x reflected across the cell center. Character facing still corresponds to each column.
+Blade lengths approximately 50 pixels, widths 24 to 36 pixels; shafts straight, continuous, about 6 pixels thick. Full wooden handles in hands, no double-ended paddle. Exactly two oars per character.
+For mid-stroke a shaft may be naturally occluded by the body. Keep both blades clearly separated and OUTSIDE the body. No blade attached to shoulder. No head/neck crossing.
+Do not add boat, seat, water, ground, shadow, text, guides, grid. Leave generous margin between cells. Matte textured 2D inked illustration, NOT glossy or round plastic.

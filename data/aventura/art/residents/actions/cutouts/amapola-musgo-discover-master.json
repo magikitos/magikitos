@@ -1,0 +1,49 @@
+{
+    "sheet": "amapola-musgo-discover-master",
+    "reference": "resident-099",
+    "sourceSha256": "f666c873275e2b54565b6406096cbd5f2d4ff6850854be652b31945dc692585a",
+    "referenceSha256": "9e6fa664a791183ffcd88afddfeed0b0d09c8267a5b2dbcf51a69bf1f92c008b",
+    "measurement": {
+        "bodyHeight": 230.63063063063063,
+        "cellWidth": 256,
+        "ratio": 0.1734375
+    },
+    "poses": {
+        "person-198-discover-0": {
+            "ink": [
+                13.767187500000002,
+                5.2421875,
+                20.2921875,
+                40.7578125
+            ],
+            "support": 46
+        },
+        "person-198-discover-1": {
+            "ink": [
+                12.726562500000004,
+                5.415624999999999,
+                22.373437499999998,
+                40.584375
+            ],
+            "support": 46
+        },
+        "person-198-discover-2": {
+            "ink": [
+                8.910937500000003,
+                5.2421875,
+                30.0046875,
+                40.7578125
+            ],
+            "support": 46
+        },
+        "person-198-discover-3": {
+            "ink": [
+                9.084375000000001,
+                5.2421875,
+                29.83125,
+                40.7578125
+            ],
+            "support": 46
+        }
+    }
+}

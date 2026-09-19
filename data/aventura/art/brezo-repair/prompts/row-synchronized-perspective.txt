@@ -1,0 +1,14 @@
+Use case: precise-object-edit. Correct ONLY rowing mechanics in Image1; keep the duende's existing matte 2D drawing, face, hat, anatomy, costume, cell layout and scale. Image2 locks his original identity. The current oars move ASYMMETRICALLY, which is wrong. He uses TWO OARS SIMULTANEOUSLY like rowing a rowboat, not alternate canoe paddling.
+
+Output the same FOUR columns by FOUR rows on transparent alpha. Columns: RIGHT, BACK-RIGHT, BACK-LEFT, LEFT. Rows: both oars forward/catch; both oars middle/pull; both oars back/finish; both oars middle/lifted recovery. Both hands and oars must always be in the SAME phase. Symmetric in world space; perspective foreshortens the far oar but does NOT put it in the opposite stroke.
+
+Most important correction in RIGHT-facing column:
+Row1: BOTH wooden paddle blades point FORWARD toward screen-RIGHT. Near blade right and down; far blade right and slightly up. The far blade must NOT stick backward to screen-left behind the head.
+Row2: BOTH blades swing toward the middle beside the character.
+Row3: BOTH blades point BACKWARD toward screen-LEFT. Near blade left and down; far blade left and slightly up.
+Row4: BOTH blades lift and return together toward middle/forward.
+LEFT-facing column mirrors this: row1 both blades screen-LEFT; row3 both screen-RIGHT.
+BACK-RIGHT / BACK-LEFT columns are the SAME synchronized bilateral stroke rotated into those views, viewed from behind. Preserve correct facing; both oars advance and sweep back together in the same world direction.
+
+Exactly TWO complete long wooden oars held in TWO hands. Their blades extend beyond/below seated buttocks so they reach water beside a boat. Far shaft is naturally OCCLUDED by torso when it passes behind, not drawn through head/neck. No permanent extra blade behind shoulder. No third oar. Body seated with feet forward, invisible seat, fixed pelvis position between frames.
+No boat, seat, water, ground, shadow, text or grid. Each entire sprite has safe margins, including both blade tips. Preserve Image1's fine ink lines and MATTE cloth texture; no shiny plastic rendering. Only change hands/oars enough to produce the synchronized rowing cycle. This synchronization is mandatory.

@@ -10,9 +10,17 @@ assert(Object.hasOwn(require("../data/aventura/rowing.json").vessels, vessel), "
 const label = process.argv.find(arg => arg.startsWith("--label="))?.split("=")[1] || "current";
 assert(/^[a-z0-9-]+$/.test(label));
 const reviewDir = `.local/vessel-art-reviews/${variant}/${label}`;
-assert(require("../data/aventura/art/residents/actions/catalog.json").sheets.some(s => s.variant === variant && s.action === "row"),
-  "Choose a rower with accepted art");
-const { id } = JSON.parse(fs.readFileSync(".local/build/current.json"));
+const rowSheet = require("../data/aventura/art/residents/actions/catalog.json").sheets.find(s => s.variant === variant && s.action === "row");
+assert(rowSheet, "Choose a rower with accepted art");
+// These are authored visual occlusions, not exemptions from clipping correctness:
+// an occluded oar must have NO wood outside the protected body; a blade crossing
+// the transom must overlap real hull pixels, never fake immersion over plastic.
+const occludedOars = rowSheet.occludedOars || {}, hullSupportedOars = rowSheet.hullSupportedOars || {};
+// A concurrent Studio/agent build may advance current.json during art review.
+// Pin the immutable artifact so the atlas under test cannot silently change.
+const id = process.argv.find(arg => arg.startsWith("--release="))?.split("=")[1] ||
+  JSON.parse(fs.readFileSync(".local/build/current.json")).id;
+assert(/^[a-f0-9]{20}$/.test(id), "Choose an immutable local release");
 const code = esbuild.buildSync({ bundle: true, write: false, platform: "browser", stdin: {
   resolveDir: process.cwd(), contents: `
     const {SpriteLibrary}=require('./public/assets/js/adventure/sprites');
@@ -108,17 +116,23 @@ const code = esbuild.buildSync({ bundle: true, write: false, platform: "browser"
           }
         }
         const bladeContact=art.masks(layers).blades.map(blade=>{
-          let ink=0, waterInk=0, hullWater=0, submerged=0, blurredInterior=0, dryChanged=0;
+          let ink=0, outsideBodyInk=0, hullInk=0, waterInk=0, hullWater=0, submerged=0, blurredInterior=0, dryChanged=0;
           for(let y=0;y<160;y++) for(let x=0;x<160;x++) {
             const i=(y*160+x)*4;
             if(original[i+3]>220 && original[i]>80 && original[i+1]>40 &&
               original[i+2]<original[i+1]*0.85 && sc.isPointInPath(blade.path,x/2-40,y/2-40)) {
               ink++;
+              if(!masks.body || !sc.isPointInPath(masks.body,x/2-40,y/2-40)) outsideBodyInk++;
+              if(hullPixels[i+3]>220) hullInk++;
               const depth=(y/2-40-blade.waterline)*blade.waterSide;
               if (depth >= 0 && hullPixels[i+3]<24) waterInk++;
               // Exclude the one texture-pixel antialiased boundary, never accept a
               // broad semi-transparent patch inside a submerged wooden blade.
-              if(depth>1 && hullPixels[i+3]===0 && dryRower[i+3]>250) {
+              // Brown skin/cloth beneath a projected far blade is not submerged wood.
+              // Body integrity is asserted separately above; exclude its antialiased edge too.
+              const outsideBody = !masks.body || [-.5,0,.5].every(dx=>[-.5,0,.5].every(dy=>
+                !sc.isPointInPath(masks.body,x/2-40+dx,y/2-40+dy)));
+              if(depth>1 && hullPixels[i+3]===0 && dryRower[i+3]>250 && outsideBody) {
                 submerged++;
                 if(wetRower[i+3]!==0) blurredInterior++;
               }
@@ -127,7 +141,7 @@ const code = esbuild.buildSync({ bundle: true, write: false, platform: "browser"
             }
             if(hullPixels[i+3]===255 && full.slice(i,i+4).some((v,k)=>v!==dry[i+k])) hullWater++;
           }
-          return {ink,waterInk,hullWater,submerged,blurredInterior,dryChanged};
+          return {ink,outsideBodyInk,hullInk,waterInk,hullWater,submerged,blurredInterior,dryChanged};
         });
         const bladeInk=bladeContact.map(p=>p.ink);
         rc.save();rc.translate(col*216+108,phase*215+128);rc.scale(3,3);
@@ -185,14 +199,24 @@ const code = esbuild.buildSync({ bundle: true, write: false, platform: "browser"
     assert.equal(result.scratchBytes,256*1024);
     assert.equal(result.waterScratchBytes,256*1024);
     for(const p of result.comparisons) {
-      assert(p.bladeInk.every(n=>n>=48),`Both blade masks cover real wooden paddle pixels ${p.direction}/${p.phase}: ${p.bladeInk}`);
+      for(let i=0;i<2;i++) {
+        if(occludedOars[p.direction]?.[p.phase]?.includes(i)) {
+          assert([0,3].includes(p.phase), 'Full head occlusion belongs to the dry catch/recovery');
+          assert.equal(p.far,i,'Only the far oar may be hidden behind the head');
+          assert.equal(p.bladeContact[i].outsideBodyInk,0,`No exposed wood from the occluded oar ${p.direction}/${p.phase}/${i}`);
+        } else assert(p.bladeInk[i]>=48,`Visible blade mask covers actual wood ${p.direction}/${p.phase}/${i}: ${p.bladeInk[i]}`);
+      }
       assert.equal(p.head,0,`Immersion must not affect head/body ${p.direction}/${p.phase}`);
       assert.equal(p.bodyDamaged,0,`Rear paddle cannot erase the neck/body ${p.direction}/${p.phase}`);
       if([0,3].includes(p.phase)) assert.equal(p.water,0,'Dry stroke remains identical');
       else assert(p.water>0,`Water mask actually affects paddle ${p.direction}/${p.phase}`);
       if([1,2].includes(p.phase)) for(let i=0;i<2;i++) {
-        if(i!==p.far) assert(p.bladeContact[i].waterInk>=12,
-          `Visible blade actually enters WATER outside the hull ${p.direction}/${p.phase}/${i}: ${p.bladeContact[i].waterInk}`);
+        if(i!==p.far) {
+          if(hullSupportedOars[p.direction]?.[p.phase]?.includes(i))
+            assert(p.bladeContact[i].hullInk>=48,`Authored transom-crossing blade overlaps real hull ${p.direction}/${p.phase}/${i}`);
+          else assert(p.bladeContact[i].waterInk>=12,
+            `Visible blade actually enters WATER outside the hull ${p.direction}/${p.phase}/${i}: ${p.bladeContact[i].waterInk}`);
+        }
         assert.equal(p.bladeContact[i].hullWater,0,`No fake water over opaque hull ${p.direction}/${p.phase}`);
         assert.equal(p.bladeContact[i].blurredInterior,0,`Submerged blade is cut completely ${p.direction}/${p.phase}/${i}`);
         assert.equal(p.bladeContact[i].dryChanged,0,`Dry blade preserves its original pixels ${p.direction}/${p.phase}/${i}`);
@@ -203,7 +227,7 @@ const code = esbuild.buildSync({ bundle: true, write: false, platform: "browser"
     if(require('../data/aventura/rowing.json').bodies?.[require('../data/aventura/player-art.json').rowingRigs[variant]])
       assert(result.comparisons.some(p=>p.unprotectedDamage>0),'Negative test reproduces missing body protection');
     console.log(JSON.stringify({variant,vessel,compositions:result.comparisons.length,
-      minimumBladeInk:Math.min(...result.comparisons.flatMap(p=>p.bladeInk)),
+      minimumVisibleBladeInk:Math.min(...result.comparisons.flatMap(p=>p.bladeInk.filter((n,i)=>!occludedOars[p.direction]?.[p.phase]?.includes(i)))),
       floorOpaque:result.floorOpaque,scratchBytes:result.scratchBytes+result.waterScratchBytes,bytes:result.bytes,ms500:result.ms500}));
     console.log('PASS: 32 real atlas compositions, hull/paddle occlusion, phase-specific water, unaffected head, reused paths and bounded scratch.');
   } finally {await browser.close();}

@@ -1,0 +1,17 @@
+{
+  "variant": 120,
+  "reference": "resident-021",
+  "actions": {
+    "run": {"source": "run-guided-01", "scale": 0.94},
+    "push": {"source": "push-01", "scale": 1},
+    "work": {"source": "work-01", "scale": 1},
+    "carried": {"source": "carried-01", "scale": 0.76},
+    "needs": {"source": "needs-01", "scale": 1},
+    "discover": {"source": "discover-01", "scale": 0.85},
+    "row": {"source": "row-seated-01", "grid": [4, 2], "scale": 1}
+  },
+  "row": {
+    "seats": [[205,357],[222,363],[225,366],[215,362],[211,345],[223,352],[206,357],[225,354]],
+    "grips": [[[150,292],[259,292]],[[202,297],[288,280]],[[243,303],[298,277]],[[302,276],[269,259]],[[145,247],[268,247]],[[154,228],[107,245]],[[120,243],[145,264]],[[123,246],[207,267]]]
+  }
+}

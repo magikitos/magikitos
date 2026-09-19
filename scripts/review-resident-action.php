@@ -62,7 +62,7 @@ for ($row = 0; $row <= $rows; $row++) for ($col = 0; $col < $columns; $col++) {
     $cell = adventurePreparedSpriteCell($source, adventureSourceCell($source, $frame), $frame);
     $image = adventureNativeSprite($cell, $frame, [0, 0, imagesx($cell), imagesy($cell)], []);
     // Same 3x viewing magnification and baseline, including the sheet-specific attachment.
-    $candidateAnchor = $candidate['anchor'] ?? $residents['anchor'];
+    $candidateAnchor = $row === 0 ? $residents['anchor'] : ($candidate['anchor'] ?? $residents['anchor']);
     $support = $row > 0 && ($candidate['registrationPoint'] ?? '') === 'top'
         ? 14 : $cellHeight - 22 - max(0, $canvas[1] - $candidateAnchor[1]) * 3;
     $x = $col * $cellWidth + $cellWidth / 2 - $frame['anchor'][0] * 3;

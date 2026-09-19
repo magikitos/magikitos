@@ -1,0 +1,33 @@
+Use case: identity-preserve. Single complete GAME SPRITE ATLAS. Image 1 is the ONLY approved style reference. Match its original thin detailed matte ink and textured clothing, lean body and narrow expressive face exactly. NOT glossy 3D, not round chibi. Same young male pointy-eared duende, green crooked pointed hat, black curls, ochre patched shirt, cream cuffs, patched dark green trousers, brown boots. Every pose is THE SAME anatomy, clothes, face and rendering.
+
+Image 2 is an INCOMPLETE rejected draft for content guidance ONLY, not identity. It has only sixteen rows, omits animation phases, and has wrong cat-carried poses. DO NOT replicate that layout.
+
+Create a NEW complete high resolution portrait sprite atlas 1536x3840. EXACTLY EIGHT COLUMNS AND TWENTY ROWS. Each of the 160 cells occupies 1/8 width and 1/20 height. Put all 20 equally spaced row centers in the canvas. Do not use sixteen rows! Every row's actors must fit entirely in that row band; shrink actor scale if necessary to fit twenty rows. 156 full characters, last four cells blank. Genuine transparent alpha background. No ground shadows, no grid, no lettering. Keep every pointed hat, boot and paddle tip intact with clear margins between cells. Fine detailed pixel-compatible 2D painted sprites like Image1, no coarse pixel enlargement filter.
+
+Directions D8 (eight columns): FRONT, FRONT-RIGHT, RIGHT, BACK-RIGHT, BACK, BACK-LEFT, LEFT, FRONT-LEFT.
+Directions C4: FRONT, RIGHT, BACK, LEFT.
+
+All twenty rows, exactly in this order:
+01 IDLE D8.
+02 WALK D8, left leg forward/right leg back.
+03 WALK D8, passing stance legs close.
+04 WALK D8, RIGHT leg forward/LEFT leg back.
+05 RUN D8, left-leg-forward airborne stride.
+06 RUN D8, LEFT boot on ground, right knee forward.
+07 RUN D8, RIGHT-leg-forward airborne stride.
+08 RUN D8, RIGHT boot on ground, left knee forward.
+09 ROWING D8, seated with feet forward holding exactly two LONG wooden oars, arms reaching forward.
+10 ROWING D8, same seated pelvis, pull oars toward body, blades low.
+11 ROWING D8, same seated pelvis, oar handles near ribs, blades swept back.
+12 ROWING D8, same seated pelvis, lift blades and return arms forward.
+13 PUSH: phase A in C4 then phase B in C4; BOTH palms reaching forward, knees braced, no object.
+14 PUSH: phase C in C4 then phase D in C4; alternate braced leg, both hands still reaching.
+15 WORK: phase A C4 then phase B C4; hands at waist, then slightly raised as cooking, no tools.
+16 WORK: phase C C4 then phase D C4; hands press downward then recover, no tools.
+17 HANGING CARRIED D8: fully clothed torso bent upside down below the seat of trousers; BOTTOM/SEAT OF TROUSERS IS HIGHEST, both arms and legs dangle DOWN toward ground. A cat would be carrying the cloth at the buttocks but NO CAT in image. Head below the buttocks with startled face; do not draw upright standing poses!
+18 HANGING CARRIED D8: same folded hanging pose, slightly different dangling swing; seat of trousers uppermost, head/arms/boots hanging down. No cat.
+19 Columns1-4: four comic modest fully clothed relieving/pee poses looking downward then relaxing; no anatomy/fluid. Columns5-8: four comic fully clothed squat/wipe-with-leaf/stand-up poses; no anatomy or waste.
+20 Columns1-4: four front-facing discovery poses, hands at chest then hands rise then BOTH HANDS ABOVE HEAD proudly showing imaginary object. No object. Columns5-8 EMPTY.
+
+For all rowing sprites: two complete long oars belong to duende, no hull/boat, no bench/seat, no water. Long paddle blades below seated bottom. In RIGHT and LEFT views, one near oar extends downward/outward, far oar seen beyond far shoulder in depth, not contradictory left/right front view. BACK diagonals show back of torso. Fixed seated pelvis through phases. Slender original body, not a different fatter character.
+Same body proportions and outfit everywhere. Running does not widen shoulders, head or thighs. Avoid missing any of the twenty rows. Whole image is one finished 156-pose sprite sheet.

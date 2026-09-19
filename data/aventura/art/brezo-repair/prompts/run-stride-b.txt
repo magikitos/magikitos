@@ -1,0 +1,16 @@
+Use case: identity-preserve. An eight-view TURNAROUND of a SINGLE running pose.
+Image1: EXACT original identity/style, hand-inked MATTE texture, slender duende, detailed stitched clothes, curly hair, pointed cap. This is not a 3D toy; preserve original proportions and face.
+Image2: movement reference. Use the pose of the THIRD sprite ONLY: the visible arm swings FORWARD and the visible leg bends BACK. Do not use the first sprite's pose.
+Image3: completed running cycle context, but its third row wrongly repeats the first row; you are drawing the missing OPPOSITE stride.
+
+Output 4 columns by 2 rows, eight full-body sprites, high detail, fully transparent background. All have the same opposite running stride viewed from eight compass angles. Equal cells, plenty of padding, no text/grid/shadows.
+Top row: FRONT, FRONT-RIGHT, RIGHT, BACK-RIGHT.
+Bottom row: BACK, BACK-LEFT, LEFT, FRONT-LEFT.
+
+Concrete pose:
+RIGHT view: the RIGHT arm (nearest viewer) reaches forward toward screen-right at chest height, cream cuff and fist prominent in FRONT of chest. The RIGHT leg (nearest viewer) folds BACK toward screen-left, knee bent, boot up behind the buttocks. The LEFT leg, farther away, extends FORWARD to screen-right behind the right leg, darker because it is farther away. The LEFT arm swings back behind torso, partially obscured.
+LEFT view: the same physical right-leg-back pose seen from the other side, not the same silhouette with both sides swapped anatomically.
+FRONT: right leg (left on image) is BEHIND and left leg (right on image) reaches ahead. Right fist forward, left fist back.
+BACK: see rear of cap/head, right leg back toward viewer with bent sole visible, left leg stretches away. No face.
+DIAGONALS: rotate this ONE coherent pose to the four diagonal views; maintain right arm forward, left leg forward.
+No folded arms. No hands stuck at waist. Hat, face, body slenderness, curls, clothes, skin colour and subtle matte treatment exactly match image1. Distinct from the repeated wrong pose in image3. Do not gloss up or simplify the drawing. All 8 views, one single phase, one image.

@@ -1,5 +1,185 @@
 # Arte de protagonistas — seguimiento real
 
+## Estado vigente — 18-sep-2026
+
+**Ocho protagonistas completos: Brezo alba aprobado por el dueño y los siete
+residentes elegidos expresamente, terminados y revisados uno por uno. Ocho
+retratos ilustrados para el selector «Yo». Entrega local; no desplegar esta
+ronda en producción sin nueva orden.**
+
+Elenco final: los originales `resident-001`, `021`, `036`, `043`, `067`, `073`,
+`095`, `099`. Los **100 residentes NPC se conservan sin cambios**. El antiguo
+plan de treinta protagonistas queda sustituido por esta selección de ocho.
+`Brezo bruma (101)` se retira de protagonistas: sin rig elegible ni paquetes de
+acciones activos; fuentes conservadas como procedencia, NPC original intacto.
+
+Contrato reusable de barcas y remada: **[docs/ROWING-ART.md](docs/ROWING-ART.md)**.
+
+- `run`: 32 poses mate, con cara y gorro del original `resident-001` conservados
+  como píxeles, no reinterpretados por el generador en cada acción.
+- `row`: **un único cuerpo sentado por dirección**, repetido sin desplazar ni
+  redibujar en las cuatro fases. Cara, gorro, ropa, piernas y agarres fijos;
+  únicamente giran los dos remos sincronizados. Esta petición sustituye la
+  anterior de conservar 28 poses distintas. Mantiene las cuatro ocultaciones
+  aprobadas y el asiento retrasado en perfiles/diagonales inferiores.
+- Andar/quieto, empujar, trabajar, llevado por gato, necesidades y hallazgo:
+  originales conservados. No se ha regenerado lo que ya estaba bien.
+- El remero sigue separado del casco. Ambos remos pertenecen a su hoja;
+  las oclusiones se preparan offline y el punto de asiento pertenece a la barca.
+- Paquetes activos: `actor-100-run` (45.128 B), `actor-100-row` (59.612 B),
+  ambos a 2×. Sin nuevas capas runtime ni coste de decodificación por las fuentes.
+- La última corrección aprobada de Brezo solo cambió `actor-100-row`. El dueño confirmó
+  que veía la carrera antigua al seleccionar **Brezo bruma (101)**: no era caché.
+  Bruma se retira ahora del elenco jugable por indicación expresa del dueño.
+
+Referencia DDEV de la aprobación de Brezo: **`e223116731b5acaa6b84`**, en
+`https://magikitos.ddev.site/aventura`. No commit, push ni despliegue a producción.
+Atlas servido: `actor-100-row-e0f8cfd89c08.png`; su SHA-256 se comparó con el
+archivo local. Las entregas progresivas del nuevo elenco la sustituyen en local;
+el ID servido se consulta en `public/game/current.json` del repositorio web.
+Partidas y releases anteriores conservadas. La instalación
+incluye el trabajo concurrente del otro agente, sin editar su lógica.
+
+Evidencia: `.local/vessel-art-reviews/100/fixed-body/` y `fixed-body-webkit/`
+(32 composiciones por navegador), `100/game/` (8 direcciones × 4 fases en
+escritorio/tablet/móvil y movimiento reducido). La entrada real de DDEV carga
+al personaje 100 y el nuevo atlas sin errores JS/HTTP. La regresión offline
+comprueba 558.030 píxeles corporales invariantes, agarres fijos, correspondencia
+entre palas y máscaras, y detecta una alteración intencionada de la cara.
+Pasan también los contratos de remada, arte de protagonistas y nueve cascos.
+Las pruebas distinguen una pala sumergida de una pala que pasa sobre el casco:
+las fases 2 de las diagonales traseras conservan esa postura aprobada y nunca
+simulan agua sobre el plástico. Los remos ocultos de las fases 0/3 no dejan madera
+visible fuera de la cabeza. Recortes secos, cuerpo y casco quedan protegidos.
+
+Autoría reproducible, fuentes, prompts y medidas:
+`data/aventura/art/brezo-repair/README.md`.
+
+### Entrega vigente: ocho terminados, ninguno pendiente
+
+| Original | Protagonista / ID interno | Estado |
+|---|---|---|
+| 001 | Brezo alba / 100 | Completo; siete acciones aprobadas y retrato ilustrado |
+| 021 | Mora alba / 120 | Completa en local; siete acciones, retrato, nueve barcas Chrome/WebKit y movimiento a tres tamaños |
+| 036 | Lila alba / 135 | Completa en local; siete acciones y retrato, nueve barcas Chrome/WebKit, escala revisada y navegación a tres tamaños |
+| 043 | Tomillo sol / 142 | Completo en local; siete acciones y retrato, nueve barcas Chrome/WebKit y navegación a tres tamaños |
+| 067 | Dalia bruma / 166 | Completa en local; siete acciones, retrato, nueve barcas Chrome/WebKit y navegación a tres tamaños |
+| 073 | Sauco sol / 172 | Completo en local; siete acciones, retrato, nueve barcas Chrome/WebKit y navegación a tres tamaños |
+| 095 | Acebo noche / 194 | Completo en local; siete acciones, retrato, nueve barcas Chrome/WebKit y navegación a tres tamaños |
+| 099 | Amapola musgo / 198 | Completa en local; siete acciones, retrato, nueve barcas Chrome/WebKit y navegación a tres tamaños |
+
+Cada protagonista requiere `run`, `row`, `push`, `work`, `carried`, `needs`,
+`discover`, además de sus andar/quieto originales. Solo se ofrece en «Yo» al
+tener todas sus hojas horneadas y revisadas. Generación no equivale a entrega.
+
+Elenco completo: **56/56 hojas de acciones, 992 fotogramas adicionales**, más
+las hojas originales de andar/quieto. No quedan protagonistas pendientes de
+esta selección ni se han habilitado otros residentes por nuestra cuenta.
+
+Entrega local verificada: **`34c8eb93997bb8feabdf`**, instalada en
+`https://magikitos.ddev.site/aventura`. `npm test` completo pasa, así como los
+contratos de arte, elenco y remada. Selector probado a 1440×900, 768×1024 y
+390×844: tarjetas táctiles, selección persistente y liberación de hojas/retratos.
+En DDEV real se han elegido los ocho protagonistas y recargado la página sin
+errores JS/HTTP. Capturas: `.local/cast-review/`. El atlas servido de Brezo se
+ha vuelto a comparar por SHA-256 con el aprobado; permanece idéntico. Las
+fuentes y el catálogo de los cien NPC no tienen cambios. Sin commit, push ni
+despliegue a producción en esta ronda; releases y partidas anteriores conservadas.
+
+**Reparto aleatorio inicial comprobado:** `live.avatars` del artefacto instalado
+contiene exactamente estos ocho protagonistas. La API web lo usa en
+`gameCastDraw`/`gameCastSettle`, sin lista paralela ni cambios de backend. El test
+`php scripts/check-game-cast.php` del repo web pasa 1.236 comprobaciones: los
+600 identificadores de prueba alcanzan a los ocho y repiten la misma asignación
+por cuenta. `ddev exec php scripts/check-game-cast-sql.php` pasa 21 comprobaciones
+de persistencia, elección y rechazos; sus cuatro cuentas temporales se retiran
+al terminar, sin tocar usuarios existentes. El sorteo no sustituye una elección
+ya guardada. Las partidas sin conexión conservan el respaldo definido por el motor.
+
+### Autoría del elenco nuevo
+
+Cada carpeta `data/aventura/art/playable-cast/<key>/` conserva los prompts exactos,
+fuentes generadas, maestros de revisión y `authoring.json`. Ese JSON selecciona
+un intento por acción y guarda escalas constantes, pelvis y agarres. Los intentos
+descartados no se publican. Para carrera, editar directamente la hoja original
+preserva mejor identidad y alternancia que transferir una carrera de otro duende.
+En otras acciones una guía aporta solo la postura, nunca ropa ni anatomía.
+
+```sh
+php scripts/prepare-playable-master.php --character=sauco-sol
+php scripts/prepare-playable-row.php --character=sauco-sol
+node scripts/register-playable-art.cjs --character=sauco-sol
+php scripts/check-playable-row-master.php --character=sauco-sol
+```
+
+Revisar cada acción con `scripts/review-resident-action.php` frente a su idle
+original. No normalizar cada fotograma por su altura: saltaría la escala corporal.
+El recorte busca separadores transparentes, no corta automáticamente un gorro por
+la línea nominal de la rejilla. Las poses que no caben hacen fallar el registro.
+`sourcePadding` es excepcional: solo añade borde cuando toda la silueta está
+completa y el borde exterior queda transparente después de limpiar el matte.
+Si existe tinta en el borde real, el exportador lo rechaza; no reconstruye píxeles
+perdidos ni permite disimular un dibujo cortado.
+Tras revisar, `--enable` en el registrador habilita el personaje **en el código
+local**, antes de hornear, probar flota/navegación y usar `tools/install-local.cjs`.
+Ninguno de esos comandos publica en producción. Brezo conserva su receta aprobada
+en `brezo-repair/`; no regenerarlo con los prompts nuevos.
+
+Nueva petición: un retrato propio por protagonista, **sin texto ni nombre dentro
+de la ilustración**, fondo de experiencia de juego y personaje inequívoco. El
+grid original fija identidad/ropa/proporciones: no rediseñar al hacer el retrato.
+Guardar prompts, fuentes, preparación y contrato para futuros personajes.
+Los ocho retratos están preparados. Contrato y reconstrucción:
+[docs/CHARACTER-PORTRAITS.md](docs/CHARACTER-PORTRAITS.md). Se cargan únicamente
+los del elenco ya elegible al abrir el selector, con presupuesto acotado.
+
+Mora: evidencia `.local/vessel-art-reviews/120/`, nueve cascos × 32 fases × dos
+navegadores; navegación real 1440×900, 768×1024, 390×844 y movimiento reducido.
+503.992 píxeles corporales invariantes comprobados, agarres constantes y rig
+vinculado a la pala dibujada. Todas sus acciones revisadas contra su idle original;
+recorte del gato corregido sin regenerar ni cortar el gorro. El selector pasa
+elección, persistencia, cambio de hojas y liberación de retratos a los tres tamaños.
+
+Lila: evidencia `.local/vessel-art-reviews/135/`, nueve cascos en ambos motores
+y navegación real en escritorio/tablet/móvil, también con movimiento reducido.
+524.368 píxeles corporales invariantes comprobados. Se rechazaron dos intentos
+de `carried` por anatomía incorrecta; la hoja activa es `carried-03`. La carrera
+se redujo respecto a la generación inicial para no agrandar su cuerpo al correr.
+
+Tomillo: evidencia `.local/vessel-art-reviews/142/`; 604.077 píxeles corporales
+invariantes, nueve cascos Chrome/WebKit, ocho rumbos en escritorio/tablet/móvil
+y movimiento reducido. Sus zuecos, barba, complexión y cinturón rojo se revisaron
+contra el original; se rechazó `push-01` porque heredaba una cola de tela amarilla
+ajena al personaje. La hoja activa de empujar es `push-02`.
+
+Dalia: evidencia `.local/vessel-art-reviews/166/`; 600.416 píxeles invariantes,
+nueve cascos Chrome/WebKit y movimiento real en tres tamaños más movimiento
+reducido. Carrera activa `run-original-01`, derivada directamente del original;
+los otros ensayos no se usan. `carried-fixed-01` corrige el segundo gorro que
+inventaba el primer intento; escala revisada para conservar las dos trenzas enteras.
+
+Sauco: evidencia `.local/vessel-art-reviews/172/`; 552.830 píxeles invariantes,
+nueve cascos Chrome/WebKit y navegación en tres tamaños más movimiento reducido.
+Carrera derivada del original; escala del hallazgo reducida antes de integrar
+para conservar sus 40 píxeles lógicos, sin agrandarlo al enseñar un objeto.
+
+Acebo: evidencia `.local/vessel-art-reviews/194/`; 535.507 píxeles invariantes,
+nueve cascos Chrome/WebKit y ocho rumbos a tres tamaños más movimiento reducido.
+La carrera activa es `run-01` con margen transparente documentado: la suela
+original está completa, con una línea exterior sin tinta. `run-padding-01` queda
+rechazado por manchas inventadas. Hallazgo y pose del gato ajustados a escala.
+
+Amapola: evidencia `.local/vessel-art-reviews/198/`; 684.231 píxeles invariantes,
+nueve cascos Chrome/WebKit y ocho rumbos a tres tamaños más movimiento reducido.
+Carrera derivada directamente del original, falda/capita/gorro conservados;
+las seis acciones terrestres revisadas junto a su idle a la misma escala.
+
+No se necesita generar arte del mundo para cerrar esta corrección. Las nueve
+barcas y los cien vecinos originales se conservan. Las tres propuestas de hoja
+única en `protagonist-pair/` siguen rechazadas y nunca se usan en el juego.
+
+## Historial anterior — archivado, NO es el plan vigente
+
 Actualizado: 18-sep-2026. Prioridad del dueño: **cerrar primero todo el arte del
 mundo exigido por `FINAL-UPGRADE.md`; después completar los protagonistas**.
 Esta línea de arte y su integración progresiva tienen **prioridad absoluta**.

@@ -1,0 +1,116 @@
+{
+    "frames": {
+        "person-172-discover-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/sauco-sol-discover-master.png",
+            "grid": [
+                4,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1620911214953271,
+                "offset": [
+                    -7.121495327102799,
+                    -12.352803738317753
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-172-discover-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/sauco-sol-discover-master.png",
+            "grid": [
+                4,
+                1
+            ],
+            "cell": [
+                1,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1620911214953271,
+                "offset": [
+                    -7.121495327102799,
+                    -12.352803738317753
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-172-discover-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/sauco-sol-discover-master.png",
+            "grid": [
+                4,
+                1
+            ],
+            "cell": [
+                2,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1620911214953271,
+                "offset": [
+                    -7.121495327102799,
+                    -12.352803738317753
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-172-discover-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/sauco-sol-discover-master.png",
+            "grid": [
+                4,
+                1
+            ],
+            "cell": [
+                3,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1620911214953271,
+                "offset": [
+                    -7.121495327102799,
+                    -12.352803738317753
+                ]
+            },
+            "cleanFragments": 0.015
+        }
+    }
+}
