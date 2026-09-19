@@ -4,6 +4,46 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: mantener el dedo es guiar — 19 septiembre 2026
+
+Artefacto `4afa37fb2d4b5f31342b`, fuente del juego `d0f5405b7a7b7db2625963e2871f27b81d4b5cea`,
+web `6008980b`. Anterior conservada: `7ef023e7b6b41c66bef3` (el mando del mapa de esta
+madrugada, activado en la web `e0e88da3` sin acta propia aquí; se conserva para pestañas
+abiertas y vuelta atrás). Rutas: /aventura y cinco traducciones.
+
+SHA-256 de `release.json`:
+`57492727190e03d9dff1eac8f8eadd4a6b3663ba218e3cf52c438ba5de322fbb`.
+610 archivos verificados y ESTACIONADOS antes de mover el puntero (instalador en un solo
+fichero Node, ejecutado como `magikitos` desde `/tmp`, temporal borrado después). **Sin
+migración y sin PHP**: solo el cliente del juego y el puntero.
+
+### Alcance publicado
+
+- **Mantener el dedo es guiar** (decisión del dueño: el «arrastrar el mapa lleva al duende al
+  centro» «no permite navegación continua»). Un dedo, lápiz o botón izquierdo que se queda
+  puesto 180 ms, o que pasa la holgura de toque, lleva al duende hacia lo que hay bajo el dedo
+  con la cámara pegada a él: se anda sin soltar y se vira deslizando. Cerca anda, lejos corre,
+  encima del duende es quieto (14 → 20 px de histéresis). Soltar termina el viaje en el último
+  punto. Un toque largo sin mover el dedo sigue siendo un toque con interacción.
+- **La cámara se mueve con dos dedos o con el botón derecho/central**, sin dar órdenes ni
+  cortar el viaje en curso. Un pellizco quieto sigue haciendo zoom sobre el duende sin soltar la
+  cámara. Construyendo, un dedo sigue moviendo el mapa. Menú contextual del lienzo anulado.
+- **Guiando, la cámara sigue al duende y no al sitio**, y se adelanta hasta 32 px de mundo
+  hacia el rumbo, suavizado (`cameraLead`, función pura). **Clavar es llegar, no viajar**: un
+  zoom a medio viaje hacia un sitio tocado ya no teletransporta la cámara al sitio (lo destapó
+  la prueba en 390×844).
+- **Sin marcador de destino** («no quiero el puntito blanco placeholder de posición final»).
+- Textos de ayuda del lienzo en seis idiomas al día. Del teclado no se tocó nada.
+
+### Comprobado
+
+`npm test` entero (65 bloques, con la unitaria de gestos reescrita y la nueva de
+`cameraLead`), y en navegador contra el bundle local a 1440/768/390/844: controles del mundo,
+movilidad, viajes, río, mundo y zoom, diálogo y bosque compartido. La suite de construcción
+contra DDEV no pasó del asiento del servicio en vivo (entorno; el paneo en modo construir queda
+en la unitaria). En producción, `check-release-live` en las seis rutas y tres anchuras, con
+el dedo mantenido remando y cero escrituras de jugador enviadas.
+
 ## Producción: apuntar antes de clavar, y postes a toques — 18 septiembre 2026
 
 Artefacto `fb314b25fc8fecd9542c`, fuente del juego `a8d6c25c8619b28f60f2cbe63472148b28979fa5`,
