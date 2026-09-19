@@ -129,20 +129,42 @@ function yieldToRiverBodies(world, player, dt, motion = null) {
   }
   return touching;
 }
+/**
+ * Por qué bordes se abre el agua de esta pantalla: los que tienen una salida a remo cuya banda,
+ * ensanchada lo que mide el casco, alcanza este punto. Geometría de los datos (`world.bands`).
+ */
+function openSeamEdges(world, x, y) {
+  const open = { up: false, down: false, left: false, right: false };
+  for (const band of world.bands || []) {
+    if (!band.modes.has("boat")) continue;
+    const along = (band.edge === "up" || band.edge === "down" ? x : y) / TILE;
+    if (along >= band.from - HULL_RADIUS / TILE && along < band.to + HULL_RADIUS / TILE)
+      open[band.edge] = true;
+  }
+  return open;
+}
 function canFloat(world, x, y, from = null) {
   const data = world.data || world;
+  if (![x, y].every(Number.isFinite)) return false;
+  // ⛔ EN UNA COSTURA DE BARCA EL BORDE NO ES ORILLA (mundo continuo). El margen del casco contra el
+  // borde del mapa se salta en el tramo que una salida a remo abre, y el agua de más allá la
+  // contesta la vecina enlazada o, sin ella en memoria, la propia banda: por ahí se rema hasta la
+  // pantalla de al lado sin frenar en una pared que no existe.
+  const open = openSeamEdges(world, x, y);
   if (
-    ![x, y].every(Number.isFinite) ||
-    x < HULL_RADIUS ||
-    y < HULL_RADIUS ||
-    x > data.width * TILE - HULL_RADIUS ||
-    y > data.height * TILE - HULL_RADIUS
+    (x < HULL_RADIUS && !open.left) ||
+    (y < HULL_RADIUS && !open.up) ||
+    (x > data.width * TILE - HULL_RADIUS && !open.right) ||
+    (y > data.height * TILE - HULL_RADIUS && !open.down)
   )
     return false;
-  if (
-    !probes.every(([dx, dy]) => waterAt(data, (x + dx) / TILE, (y + dy) / TILE))
-  )
-    return false;
+  const wet = (px, py) => {
+    const tx = px / TILE,
+      ty = py / TILE;
+    if (tx >= 0 && ty >= 0 && tx < data.width && ty < data.height) return waterAt(data, tx, ty);
+    return Boolean(world.waterBeyond?.(tx, ty));
+  };
+  if (!probes.every(([dx, dy]) => wet(x + dx, y + dy))) return false;
   if (riverBodyAt(world, x, y, from)) return false;
   return !(world.colliders || []).some((e) => {
     const b = collisionBounds(e);

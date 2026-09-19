@@ -38,6 +38,7 @@ for (const name of [
   "check-playable-cast",
   "check-adventure-life",
   "check-adventure-camera",
+  "check-world-layout",
   "check-adventure-materials-portals",
   "check-adventure-studio",
   "check-studio-selection",

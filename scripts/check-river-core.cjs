@@ -551,11 +551,14 @@ check(starts.length === 0, "No off-screen current rendering");
           destino.canStand(arrival.x, arrival.y),
           id + "/" + exit.id + ": la llegada en " + (arrival.x / TILE).toFixed(2) + " no es suelo",
         );
-        // Sin rebotar: la banda de vuelta no puede alcanzar el sitio donde acabas de aparecer.
+        // ⛔ DESDE EL MUNDO CONTINUO SE APARECE EN LA PROPIA BANDA DE VUELTA, a propósito: la
+        // llegada está en el borde de destino para que cruzar no dé un salto, y el rebote lo
+        // corta el cerrojo de `Crossings.check`, no la geometría. Lo que se exige aquí es que la
+        // salida de vuelta exista y mire hacia donde vienes, que es lo que el cerrojo cierra.
         check(
-          crossingAt(catalog.scenes[exit.scene], arrival, "foot")?.direction !==
+          crossingAt(catalog.scenes[exit.scene], arrival, "foot")?.direction ===
             (arriba ? "down" : "up"),
-          id + "/" + exit.id + ": la llegada cae dentro de la costura de vuelta",
+          id + "/" + exit.id + ": la llegada cae en la costura de vuelta, que es la que se cierra",
         );
       }
       check(pisadas > 0, id + "/" + exit.id + ": ni un punto pisable en su banda");

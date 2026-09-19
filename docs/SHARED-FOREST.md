@@ -65,6 +65,11 @@ Sin vidas, combate, Libro del Bosque, fiambreras ni parcelas privadas.
   **Cruzar no suelta el dedo.** El gesto sobrevive a la escena (`keepPointerGesture`
   llega hasta `scenes.enter`) y al otro lado `directionIntent` lo lee igual, como una
   tecla que sigue pulsada.
+  **Y cruzar no se ve** (19-sep-2026, [mundo continuo](MUNDO-CONTINUO.md)): las
+  pantallas exteriores están pegadas en un plano, la vecina se pinta al lado antes de
+  pisarla, la llegada es el mismo punto del bosque, la cámara viaja con el duende y no
+  hay aviso. Dos dedos pueden llevar la cámara hasta el otro extremo del bosque, y un
+  toque en la pantalla de al lado es un viaje que cruza la costura y termina allí.
   **El aro se ve siempre que el dedo manda.** El lienzo pinta un aro tenue donde
   lo apoyaste y una bolita donde está (`renderer.stickHint`, sin DOM): enseña que el
   mando nace bajo el dedo y, cuando el origen se desliza detrás, que no hace falta

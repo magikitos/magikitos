@@ -12,8 +12,17 @@ class Terrain {
     this.contexts = new Map();
     this.sceneContexts = new Map();
   }
-  beginFrame(world, view) {
+  /**
+   * Un fotograma puede pintar varias pantallas a la vez (mundo continuo): se empieza vaciando lo
+   * anclado y cada pantalla que se pinte ancla sus trozos visibles con `pin`. Llamarlo con una
+   * pantalla sigue valiendo, que es lo que hacía siempre.
+   */
+  beginFrame(world = null, view = null) {
     this.pinned.clear();
+    if (world) this.pin(world, view);
+    else this.prune();
+  }
+  pin(world, view) {
     const range = chunkRange(world, view);
     for (let y = range.top; y <= range.bottom; y++)
       for (let x = range.left; x <= range.right; x++)

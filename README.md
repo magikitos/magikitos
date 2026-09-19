@@ -20,6 +20,8 @@ Current art direction: [Ascua and the approved compact cast](docs/art-direction/
 Current design: [game guide](docs/JUEGO-AVENTURA.md); controls and first adventure:
 [shared woodland](docs/SHARED-FOREST.md).
 Click intentions, live obstacle avoidance and regression tests: [navigation](docs/NAVIGATION.md).
+The exterior scenes play as one seamless forest while staying separate data units:
+[mundo continuo](docs/MUNDO-CONTINUO.md).
 For operations and verified delivery, see [releasing](docs/RELEASING.md) and
 [the current release ledger](docs/RELEASE.md).
 The website keeps the world loaded behind every page and lifts it full screen on

@@ -19,6 +19,52 @@ const { restorePositions } = require("./movables");
 const room = require("./room-shape");
 const { populate } = require("./placement");
 const { findPath } = require("./navigation");
+/**
+ * Las bandas por las que una pantalla se abre a sus vecinas, una por salida de borde: qué borde,
+ * qué tramo de ese borde (en casillas) y por qué modos se cruza. Es geometría de los DATOS, sin
+ * mundo vecino delante: sirve igual para abrir el marco, para dar por continuada la banda cuando
+ * la vecina aún no está en memoria y para decidir por dónde se dispara el cruce.
+ */
+function seamBands(data) {
+  const w = data.width,
+    h = data.height;
+  return (data.navigation?.exits || []).map((exit) => {
+    const [ax, ay, aw, ah] = exit.area,
+      vertical = exit.direction === "up" || exit.direction === "down";
+    const from = Math.max(0, Math.floor(vertical ? ax : ay)),
+      to = Math.min(vertical ? w : h, Math.ceil(vertical ? ax + aw : ay + ah));
+    const modes = new Set(exit.mode === "both" ? ["foot", "boat"] : [exit.mode || "boat"]);
+    return {
+      exit,
+      edge: exit.direction,
+      from,
+      to,
+      modes,
+      /** Las casillas del marco (dos de fondo) que caen dentro de la banda. */
+      borderTiles(width, height) {
+        const tiles = [];
+        for (let a = from; a < to; a++)
+          for (let d = 0; d < 2; d++)
+            tiles.push(
+              vertical
+                ? [a, exit.direction === "up" ? d : height - 1 - d]
+                : [exit.direction === "left" ? d : width - 1 - d, a],
+            );
+        return tiles;
+      },
+      /** Si una casilla que queda FUERA de la pantalla es la continuación de esta banda. */
+      beyond(tx, ty) {
+        const along = vertical ? tx : ty,
+          depth =
+            exit.direction === "up" ? -ty - 1
+            : exit.direction === "down" ? ty - h
+            : exit.direction === "left" ? -tx - 1
+            : tx - w;
+        return along >= from && along < to && depth >= 0 && depth < 2;
+      },
+    };
+  });
+}
 class World {
   constructor(data) {
     this.data = data;
@@ -52,6 +98,22 @@ class World {
     // Its exact physical bodies enter the shared collision index below.
     this.blocked = boundaries;
     this.terrain = boundaries.slice();
+    /**
+     * ⛔ LAS COSTURAS SE ABREN (19-sep-2026, mundo continuo). El marco de dos casillas que cierra
+     * cada pantalla se queda cerrado en todo el borde MENOS en la banda de cada salida a pie: por
+     * ahí se sigue andando hasta la pantalla de al lado sin muro invisible. Se abre DESPUÉS de
+     * repartir la vegetación, que respeta el marco cerrado: así en la banda no nace un arbusto
+     * que la tape. Lo que hay más allá del borde lo contesta `terrainWalkable` preguntando a la
+     * vecina enlazada, o dando por hecho que la banda continúa mientras no lo esté.
+     */
+    this.seams = [];
+    this.bands = seamBands(data);
+    for (const band of this.bands)
+      if (band.modes.has("foot"))
+        for (const [x, y] of band.borderTiles(this.width, this.height)) {
+          this.blocked[y * this.width + x] = 0;
+          this.terrain[y * this.width + x] = 0;
+        }
     // Static navigation is built once. Picking up a leaf only refreshes entity occupancy.
     for (let y = 0; y < this.height; y++)
       for (let x = 0; x < this.width; x++)
@@ -202,13 +264,44 @@ class World {
     }
   }
   terrainWalkable(x, y) {
-    return (
-      x >= 0 &&
-      y >= 0 &&
-      x < this.width &&
-      y < this.height &&
-      !this.terrain[y * this.width + x]
-    );
+    if (x >= 0 && y >= 0 && x < this.width && y < this.height)
+      return !this.terrain[y * this.width + x];
+    // ⛔ MÁS ALLÁ DEL BORDE SIGUE EL BOSQUE (mundo continuo). Una casilla fuera de la pantalla se le
+    // pregunta a la vecina enlazada en sus propias coordenadas; sin vecina en memoria, la banda de
+    // la costura se da por continuada y el resto del borde sigue siendo pared.
+    const seam = this.seamFor(x, y);
+    if (seam) return seam.world.terrainWalkable(x - seam.dx, y - seam.dy);
+    return this.bands.some((band) => band.beyond(x, y));
+  }
+  /**
+   * Enlaza esta pantalla con las vecinas del plano que están en memoria (`scenes.link`): cada
+   * costura trae la vecina y su desplazamiento en casillas. Desde aquí colisiones y agua se
+   * consultan a través del borde, y el renderizador sabe qué pintar al lado.
+   */
+  link(seams) {
+    this.seams = seams;
+  }
+  /** La costura cuya vecina contiene una casilla exterior a esta pantalla, o null. */
+  seamFor(tx, ty) {
+    for (const seam of this.seams) {
+      const lx = tx - seam.dx,
+        ly = ty - seam.dy;
+      if (lx >= 0 && ly >= 0 && lx < seam.world.width && ly < seam.world.height) return seam;
+    }
+    return null;
+  }
+  /** Un punto en píxeles que cae fuera de esta pantalla, traducido a la vecina que lo contiene. */
+  beyond(point) {
+    const seam = this.seamFor(Math.floor(point.x / TILE), Math.floor(point.y / TILE));
+    return seam
+      ? { seam, world: seam.world, x: point.x - seam.dx * TILE, y: point.y - seam.dy * TILE }
+      : null;
+  }
+  /** Si hay agua en una casilla que queda fuera de la pantalla: la vecina lo sabe; sin ella, la banda de barca continúa. */
+  waterBeyond(tx, ty) {
+    const seam = this.seamFor(Math.floor(tx), Math.floor(ty));
+    if (seam) return seam.world.waterAt(tx - seam.dx, ty - seam.dy);
+    return this.bands.some((band) => band.modes.has("boat") && band.beyond(Math.floor(tx), Math.floor(ty)));
   }
   /**
    * Quién te para aquí: lo que está clavado en el suelo (la rejilla) y quien está VIVO en la
@@ -230,8 +323,43 @@ class World {
           !(e.animal && ignore?.animal) &&
           overlaps(actorBounds(x, y), collisionBounds(e)),
       ) ||
+      this.collisionBeyond(x, y, ignore) ||
       null
     );
+  }
+  /**
+   * Un cuerpo de la pantalla de al lado pegado a la costura también te para: el banco que alguien
+   * dejó en su primera fila es un banco aunque tú estés todavía en la última de la tuya. Solo se
+   * pregunta a menos de dos casillas del borde, que es hasta donde llegan los pies.
+   */
+  collisionBeyond(x, y, ignore) {
+    if (!this.seams.length) return null;
+    const near = 2 * TILE;
+    if (
+      x >= near &&
+      y >= near &&
+      x < this.width * TILE - near &&
+      y < this.height * TILE - near
+    )
+      return null;
+    for (const seam of this.seams) {
+      const lx = x - seam.dx * TILE,
+        ly = y - seam.dy * TILE,
+        w = seam.world.width * TILE,
+        h = seam.world.height * TILE;
+      if (lx < -near || ly < -near || lx >= w + near || ly >= h + near) continue;
+      const hit =
+        seam.world.collisionGrid.at(lx, ly, ignore) ||
+        (seam.world.actors || []).find(
+          (e) =>
+            e !== ignore &&
+            !e.passable &&
+            !(e.animal && ignore?.animal) &&
+            overlaps(actorBounds(lx, ly), collisionBounds(e)),
+        );
+      if (hit) return hit;
+    }
+    return null;
   }
   distanceTo(point, entity) {
     const r = collisionBounds(entity);

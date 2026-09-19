@@ -365,13 +365,18 @@ class Adventure {
     this.cancelPath();
     if (this.river.tapFoot(point)) return;
     if (
-      this.world.data.indoor &&
-      (point.x < 0 ||
-        point.y < 0 ||
-        point.x >= this.world.width * TILE ||
-        point.y >= this.world.height * TILE)
-    )
-      return; // The garden framing a cutaway is presentation, not a walking destination.
+      point.x < 0 ||
+      point.y < 0 ||
+      point.x >= this.world.width * TILE ||
+      point.y >= this.world.height * TILE
+    ) {
+      // The garden framing a cutaway is presentation, not a walking destination. Fuera, en
+      // cambio, más allá del borde está la pantalla de al lado (mundo continuo): el toque se
+      // convierte en un viaje hasta la costura y se repite allí (`crossings.aimBeyond`).
+      const beyond = this.world.data.indoor ? null : this.world.beyond(point);
+      if (beyond) this.crossings.aimBeyond(beyond, point);
+      return;
+    }
     const candidates = [
       ...this.world.entities.filter(
         (e) =>
@@ -954,30 +959,43 @@ class Adventure {
         !this.dialogue && entity.edgeSlide && this.contactLatch === entity.id,
     };
   }
-  followResident(actor, dt, speed) {
+  followResident(actor, dt, speed, world = this.world) {
     const path = actor.path;
-    return follow(this.world, actor, path, dt, speed, () => {
+    return follow(world, actor, path, dt, speed, () => {
       path.splice(0);
       actor.pause = 3;
     });
   }
   updateNeighbors(dt) {
     this.community.activities.update(dt);
-    for (const n of this.neighbors) {
+    this.wander(this.world, this.neighbors, dt, this.camera);
+    // ⛔ LOS DE LA PANTALLA DE AL LADO TAMBIÉN VIVEN (mundo continuo): sus residentes pasean en
+    // su propio mundo con la cámara traducida a sus coordenadas, así que quien cae en la vista se
+    // mueve igual que los tuyos y quien no, se queda quieto y no cuesta nada.
+    for (const seam of this.world.seams || [])
+      this.wander(seam.world, seam.world.actors || [], dt, {
+        x: this.camera.x - seam.dx * TILE,
+        y: this.camera.y - seam.dy * TILE,
+      });
+  }
+  /** El paseo de los residentes de UNA pantalla: los que se ven andan, los demás esperan. */
+  wander(world, residents, dt, camera) {
+    for (const n of residents) {
+      if (!n.neighbor && !n.home) continue; // Solo residentes: la presencia y los gatos van aparte.
       if (n.activity && !n.path.length) {
         n.moving = false;
         continue;
       }
       if (
         n === this.journey.target ||
-        Math.abs(n.x - this.camera.x) > this.renderer.width + 120 ||
-        Math.abs(n.y - this.camera.y) > this.renderer.height + 120
+        Math.abs(n.x - camera.x) > this.renderer.width + 120 ||
+        Math.abs(n.y - camera.y) > this.renderer.height + 120
       ) {
         n.moving = false;
         continue;
       }
       if (n.path.length) {
-        n.moving = this.followResident(n, dt, 15);
+        n.moving = this.followResident(n, dt, 15, world);
         n.sprite = `person-${n.variant}-${n.direction || "down"}`;
         if (!n.path.length) n.pause = 3 + n.rand() * 8;
       } else {
@@ -997,7 +1015,7 @@ class Adventure {
                 0.5) *
               TILE,
           };
-          n.path = this.world.path(n, target) || [];
+          n.path = world.path(n, target) || [];
           n.pause = 4 + n.rand() * 8;
         }
       }
@@ -1237,6 +1255,11 @@ class Adventure {
         width: this.world.width * TILE,
         height: this.world.height * TILE,
       },
+      // El mundo continuo, visto desde aquí: qué vecinas están enlazadas por sus costuras, hasta
+      // dónde puede mirar la cámara y si hay un toque esperando al otro lado de un borde.
+      seams: (this.world.seams || []).map((s) => ({ scene: s.scene, dx: s.dx, dy: s.dy })),
+      frame: this.world.frame || null,
+      pendingBeyond: this.crossings.pending?.scene || null,
       view: { width: this.renderer.width, height: this.renderer.height },
       scale: this.renderer.scale,
       storageOK: this.storageOK,

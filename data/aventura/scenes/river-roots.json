@@ -814,7 +814,7 @@
         "mode": "boat",
         "position": [
           48,
-          10.8
+          0.1
         ],
         "direction": "down"
       },
@@ -829,7 +829,7 @@
         "scene": "human-hedge",
         "mode": "boat",
         "position": [
-          7,
+          0.1,
           81
         ],
         "direction": "right"
@@ -846,7 +846,7 @@
         "mode": "foot",
         "position": [
           95,
-          7
+          0.1
         ],
         "direction": "down"
       },
@@ -862,7 +862,7 @@
         "mode": "foot",
         "position": [
           17,
-          7
+          0.1
         ],
         "direction": "down"
       }

@@ -6,9 +6,14 @@ const { canFloat } = require("./river-navigation");
 const { SpriteBudgetError } = require("./sprite-residency");
 const { playerPack } = require("./player-art");
 const { definition: vesselDefinition } = require("./vessel-art");
+const { clampCamera } = require("./camera");
+const { layoutScenes, seamsOf, frameOf, scenesIntersecting } = require("./world-layout");
 /** Cuántas vecinas se tienen calientes a la vez. Ver `prewarm`: precargar es un favor, no una
- * excusa para reservar el bosque entero en memoria. */
-const WARM_SCENES = 3;
+ * excusa para reservar el bosque entero en memoria. Cuatro y no tres desde el mundo continuo:
+ * en una esquina del plano la cámara puede enseñar tres pantallas a la vez además de la tuya. */
+const WARM_SCENES = 4;
+/** Cuánto margen alrededor de la vista cuenta como «a punto de verse» para la precarga, en píxeles de mundo. */
+const VIEW_MARGIN = 192;
 /**
  * ⛔ QUÉ HOJAS DEL PROTAGONISTA HACEN FALTA AQUÍ SE DECIDE UNA VEZ.
  *
@@ -42,6 +47,32 @@ class SceneDirector {
     this.warm = new Map();
     this.unreachable = new Set();
     this.nextWarm = 0;
+    // El plano del bosque exterior, sacado de las salidas (ver `world-layout.js`), y los
+    // residentes de cada pantalla en memoria: los de las vecinas siguen viviendo al otro lado
+    // de la costura mientras se les ve.
+    this.layout = layoutScenes(game.catalog.scenes, game.catalog.start);
+    this.residents = new Map();
+  }
+  /**
+   * ⛔ ENLAZA LAS PANTALLAS QUE ESTÁN EN MEMORIA POR SUS COSTURAS (mundo continuo). Cada mundo
+   * cacheado recibe sus vecinas cacheadas con el desplazamiento del plano, y el marco hasta donde
+   * puede mirar la cámara. Se llama cada vez que la caché cambia, así que enlazar es idempotente
+   * y nunca deja una costura apuntando a un mundo expulsado.
+   */
+  link() {
+    const scenes = this.game.catalog.scenes;
+    for (const [id, world] of this.cache) {
+      world.link(
+        seamsOf(scenes, this.layout.offsets, id)
+          .filter((seam) => this.cache.has(seam.scene))
+          .map((seam) => ({ ...seam, world: this.cache.get(seam.scene) })),
+      );
+      world.frame = frameOf(this.layout, id);
+      // Dónde cae esta pantalla en el plano, en píxeles: la hierba se pinta con esa referencia
+      // para que su manchado no se parta en la costura (`paintGround`).
+      const offset = this.layout.offsets.get(id);
+      world.origin = offset ? { x: offset.x * TILE, y: offset.y * TILE } : null;
+    }
   }
   /**
    * Las pantallas que tocan esta y POR DÓNDE se va a cada una. Son las dos formas de salir que
@@ -74,12 +105,19 @@ class SceneDirector {
     for (const packs of this.warm.values()) for (const id of packs) keep.add(id);
     this.game.renderer.sprites.retainWarm(keep);
   }
-  async prepare(id, position, state) {
-    await this.game.community?.prepare(this.game.catalog.scenes[id]);
-    const game = this.game,
-      data =
-        game.community?.sceneData(game.catalog.scenes[id]) ||
-        game.catalog.scenes[id];
+  /**
+   * `seam` es para quien llega por una costura del mundo continuo: la instantánea de lo construido
+   * en esa pantalla ya se pidió al calentarla, así que no se vuelve a esperar a la red para cruzar
+   * —se refresca por detrás—. Esperarla congelaba al duende en el borde lo que tardara la petición,
+   * que es justo el corte que el plano quiere borrar. Sin instantánea previa se espera, como siempre.
+   */
+  async prepare(id, position, state, { seam = false } = {}) {
+    const game = this.game;
+    if (seam && game.community?.hasSnapshot(id)) game.community.prepare(game.catalog.scenes[id]);
+    else await game.community?.prepare(game.catalog.scenes[id]);
+    const data =
+      game.community?.sceneData(game.catalog.scenes[id]) ||
+      game.catalog.scenes[id];
     if (!data) throw new Error("Unknown scene: " + id);
     const shared = Object.values(game.catalog.construction.zones).some(
       (z) => z.scene === id,
@@ -90,6 +128,10 @@ class SceneDirector {
     world.refresh(state);
     game.live?.objects.prepare(world);
     const neighbors = createNeighbors(world, game.config, game.cast);
+    // Los residentes viven en su pantalla aunque no sea la tuya: al otro lado de la costura se
+    // les ve pasear y te paran igual. Al ENTRAR, `enter` les suma el duende.
+    world.actors = neighbors;
+    this.residents.set(id, neighbors);
     const sprites = new Set(["sack", "setin"]);
     const addStatic = (name) => {
       if (name && !name.startsWith("person-")) sprites.add(name);
@@ -163,8 +205,12 @@ class SceneDirector {
     this.cache.set(id, world);
     // Sitio para la pantalla en la que estás y las que se calientan: con el techo de cuatro que
     // había, un tramo de río se expulsaba a sí mismo y la precarga no servía de nada.
-    while (this.cache.size > WARM_SCENES + 2)
-      this.cache.delete(this.cache.keys().next().value);
+    while (this.cache.size > WARM_SCENES + 2) {
+      const oldest = this.cache.keys().next().value;
+      this.cache.delete(oldest);
+      this.residents.delete(oldest);
+    }
+    this.link();
     return { id, world, neighbors, position: { ...destination }, packs, strings };
   }
   /**
@@ -225,15 +271,24 @@ class SceneDirector {
      * calientan las WARM_SCENES más próximas por donde se sale hacia ellas, que son justo las
      * que estás a punto de cruzar, y lo demás espera a que te acerques.
      */
-    const wanted = this.neighbours(g.world.data)
+    /**
+     * ⛔ Y PRIMERO LO QUE LA CÁMARA ESTÁ A PUNTO DE ENSEÑAR (mundo continuo). Con dos dedos se
+     * puede mirar hasta el otro extremo del bosque, y lo que entra en la vista tiene que estar
+     * pintado antes de que llegue: las pantallas del plano que tocan la vista con su margen van
+     * delante, ordenadas por lo cerca que están de ella; detrás, las vecinas por las que se sale,
+     * ordenadas por la distancia del duende a su salida. El techo es el mismo para todas.
+     */
+    const view = { ...g.camera, width: g.renderer.width, height: g.renderer.height };
+    const byView = scenesIntersecting(g.catalog.scenes, this.layout.offsets, g.state.scene, view, VIEW_MARGIN);
+    const byExit = this.neighbours(g.world.data)
       .filter((way) => way.id !== g.state.scene)
       .sort(
         (a, b) =>
           Math.hypot(a.x - g.player.x, a.y - g.player.y) -
           Math.hypot(b.x - g.player.x, b.y - g.player.y),
       )
-      .slice(0, WARM_SCENES)
       .map((way) => way.id);
+    const wanted = [...new Set([...byView, ...byExit])].slice(0, WARM_SCENES);
     // Lo que deja de ser vecina deja de estar caliente: si no, cruzar el bosque entero acabaría
     // reteniendo el arte de todas las pantallas que has pisado.
     let dropped = false;
@@ -270,7 +325,7 @@ class SceneDirector {
    * mapa es un solo gesto que atraviesa dos pantallas, y soltarlo aquí dejaba a quien cruza parado
    * al otro lado sin haber levantado el dedo. Por una puerta o al cargar no hay gesto que guardar.
    */
-  enter(prepared, { keepControls = false, keepPointerGesture = false } = {}) {
+  enter(prepared, { keepControls = false, keepPointerGesture = false, camera = null } = {}) {
     const game = this.game;
     // A prepared set is leased until entry, so concurrent prewarming cannot evict it.
     game.renderer.sprites.activate(prepared.packs);
@@ -278,6 +333,10 @@ class SceneDirector {
     // under it; the very first call happens before telemetry has begun and is a
     // no-op, which is what we want.
     game.telemetry?.enterScene(prepared.world?.data?.id);
+    // La pantalla que dejas sigue en memoria como vecina: se queda con sus residentes y sin el
+    // duende ni los cuerpos de la presencia, que son de la pantalla que pisas.
+    if (game.world && game.world !== prepared.world)
+      game.world.actors = this.residents.get(game.world.data?.id) || [];
     game.cameraFollowing = true;
     // Lo que dice esta pantalla, antes de que se pinte nada de ella.
     game.sceneStrings = prepared.strings || {};
@@ -314,8 +373,15 @@ class SceneDirector {
     this.warm.delete(prepared.id);
     this.unreachable.clear();
     this.retainWarm();
+    this.link();
     game.cats?.enter();
-    game.centerCamera(true);
+    // ⛔ POR UNA COSTURA LA CÁMARA NO SALTA (mundo continuo): quien cruza trae la cámara ya
+    // traducida a estas coordenadas y aquí solo se acota; por una puerta o al cargar se clava
+    // sobre el duende, como siempre.
+    if (camera) {
+      game.camera = clampCamera(camera, game.world, game.renderer);
+      game.centerCamera();
+    } else game.centerCamera(true);
     game.dirty = true;
     game.content?.sceneChanged(prepared.id);
     game.community?.sceneChanged();

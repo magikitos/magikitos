@@ -185,6 +185,13 @@ class Community {
       this.grounds.set(scene, catalogGround(this.game.catalog, scene));
     return this.grounds.get(scene);
   }
+  /** Si ya hay instantánea de lo construido en una pantalla (o no tiene zona que construir). */
+  hasSnapshot(sceneId) {
+    const zone = Object.keys(this.catalog.zones).find(
+      (id) => this.catalog.zones[id].scene === sceneId,
+    );
+    return !zone || this.snapshots.has(zone);
+  }
   async prepare(data) {
     const zone = Object.keys(this.catalog.zones).find(
       (id) => this.catalog.zones[id].scene === data?.id,

@@ -120,71 +120,23 @@ class Renderer {
     c.fillRect(0, 0, this.width, this.height);
     c.save();
     c.translate(-Math.round(cam.x), -Math.round(cam.y));
+    const view = { ...cam, width: this.width, height: this.height };
+    this.terrain.beginFrame();
+    // ⛔ PRIMERO LAS PANTALLAS DE AL LADO (mundo continuo). Cada vecina enlazada por una costura se
+    // pinta entera —suelo, puentes, cosas y residentes— desplazada lo que dice el plano, así que
+    // la cámara enseña el bosque seguido y no el borde de un mapa. Van antes que la tuya y fuera
+    // de su recorte, y lo que se pinte de ellas se ancla en la misma caché de trozos.
+    const seamActors = [];
+    for (const seam of world.seams || []) this.drawSeam(game, seam, view, time, seamActors);
     if (!world.data.indoor) {
       c.beginPath();
       c.rect(0, 0, world.width * TILE, world.height * TILE);
       c.clip();
     }
-    this.terrain.beginFrame(world, {
-      ...cam,
-      width: this.width,
-      height: this.height,
-    });
-    const range = chunkRange(world, {
-      ...cam,
-      width: this.width,
-      height: this.height,
-    });
-    for (let cy = range.top; cy <= range.bottom; cy++)
-      for (let cx = range.left; cx <= range.right; cx++) {
-        // Snap shared chunk edges in device pixels so fractional zoom cannot open seams.
-        const x = Math.round((cx * 256 - Math.round(cam.x)) * this.pixelScale);
-        const y = Math.round((cy * 256 - Math.round(cam.y)) * this.pixelScale);
-        const right = Math.round(
-          ((cx + 1) * 256 - Math.round(cam.x)) * this.pixelScale,
-        );
-        const bottom = Math.round(
-          ((cy + 1) * 256 - Math.round(cam.y)) * this.pixelScale,
-        );
-        c.save();
-        c.setTransform(1, 0, 0, 1, 0, 0);
-        c.drawImage(
-          this.terrain.chunk(world, cx, cy, this.sprites),
-          x,
-          y,
-          right - x,
-          bottom - y,
-        );
-        c.restore();
-      }
-    drawBridges(c, world, this.sprites, {
-      ...cam,
-      width: this.width,
-      height: this.height,
-    });
-    drawRipples(
-      c,
-      world,
-      { ...cam, width: this.width, height: this.height },
-      time,
-    );
-    drawInteriors(c, world);
+    this.drawGround(world, view, time);
     game.river?.drawWater(c, time);
     game.self.drawGround(c);
-    const visible = (e) => {
-      if (e.wall) return true;
-      const frame = this.sprites.frame(this.frame(e, game.state));
-      const vessel = e.vesselArt && this.vesselArt.bounds(e.vesselArt);
-      const b = vessel ? { x: e.x + vessel.x, y: e.y + vessel.y, w: vessel.w, h: vessel.h } : frame
-        ? artworkBounds(e, frame)
-        : { x: e.x - 32, y: e.y - 64, w: 64, h: 72 };
-      return (
-        b.x + b.w >= cam.x &&
-        b.x <= cam.x + this.width &&
-        b.y + b.h >= cam.y &&
-        b.y <= cam.y + this.height
-      );
-    };
+    const visible = (e) => this.inView(e, view, game.state);
     const player = {
       ...game.player,
       vesselArt: game.river?.layers(),
@@ -218,96 +170,14 @@ class Renderer {
       ...(game.hidePlayer || game.cats?.locked ? [] : [player]),
     ].flatMap((e) => (e.fence ? fences.parts(e) : e))
       .map(e => game.live?.objects.visual(e) || e);
-    this.actorArt.update(renderables, { ...cam, width: this.width, height: this.height }, frameFor);
+    // El arte de los actores se pide una vez por fotograma para TODO lo que se ve, los de las
+    // vecinas incluidos y ya traducidos a estas coordenadas: una segunda llamada pisaría la
+    // primera, porque el foco de residencia se sustituye, no se suma.
+    this.actorArt.update([...renderables, ...seamActors], view, frameFor);
     const list = renderables
       .filter(visible)
       .sort((a, b) => (a.depth ?? a.y) - (b.depth ?? b.y));
-    for (const e of list) {
-      if (e.vesselArt) {
-        this.vesselArt.draw(c, e, e.vesselArt);
-        continue;
-      }
-      if (drawGrowing(c, e, game.serverClock?.now())) continue;
-      if (e.fencePart) {
-        fences.drawPart(c, e);
-        continue;
-      }
-      if (e.wall) {
-        drawPartition(c, e.wall);
-        continue;
-      }
-      const name = this.actorArt.frame(frameFor(e)),
-        f = this.sprites.frame(name);
-      if (!f) continue;
-      require("./seating").drawSeat(c, this.sprites, e);
-      if ((e.player && !game.river?.active) || e.neighbor) {
-        c.fillStyle = "rgba(31,46,33,.22)";
-        c.beginPath();
-        c.ellipse(e.x, e.y + 1, 8, 3, 0, 0, 7);
-        c.fill();
-      }
-      if (
-        !require("./ambient-actors").drawAmbientActor(
-          c,
-          this.sprites,
-          e,
-          name,
-          time,
-        ) &&
-        !require("./vegetation").drawVegetation(c, this.sprites, e, name, time)
-      )
-        drawArtwork(c, this.sprites, e, name);
-      drawAttachments(c, this.sprites, e);
-      if (e.player) game.self.drawStream(c);
-      require("./river-life").drawFishing(c, e, time);
-      if (e.cat) game.cats.drawWarning(c, e);
-      if (e.lightRadius) {
-        const radius = e.lightRadius;
-        const light = c.createRadialGradient(
-          e.x,
-          e.y - 12,
-          1,
-          e.x,
-          e.y - 12,
-          radius,
-        );
-        light.addColorStop(0, "rgba(255,225,144,.15)");
-        light.addColorStop(1, "rgba(255,225,144,0)");
-        c.fillStyle = light;
-        c.fillRect(e.x - radius, e.y - 12 - radius, radius * 2, radius * 2);
-      }
-      require("./keepsakes").drawKeepsakes(c, this.sprites, e, game.state);
-      if (
-        (e.rules?.length || e.neighbor || e.interactAs) &&
-        (!e.interactWhen || matches(game.state, e.interactWhen)) &&
-        !game.dialogue &&
-        Math.hypot(e.x - player.x, e.y - player.y) < 52
-      ) {
-        c.fillStyle = "#faf1c5";
-        c.fillRect(
-          e.x - 1,
-          e.y - f.anchor[1] - 6 + Math.round(Math.sin(time * 3)),
-          3,
-          3,
-        );
-      }
-      if (name === "fire" || name === "barbecue-lit") {
-        // Soft ember bounce fades to zero; a filled ellipse reads as a painted ground patch.
-        const glow = c.createRadialGradient(e.x, e.y - 8, 2, e.x, e.y - 8, 30);
-        glow.addColorStop(
-          0,
-          `rgba(250,186,80,${0.1 + Math.sin(time * 6) * 0.02})`,
-        );
-        glow.addColorStop(1, "rgba(250,186,80,0)");
-        c.fillStyle = glow;
-        c.fillRect(e.x - 30, e.y - 38, 60, 60);
-        for (let i = 0; i < 3; i++) {
-          const t = (time * 0.4 + i * 0.3) % 1;
-          c.fillStyle = "#ffe6a0";
-          c.fillRect(e.x + Math.sin(time + i) * 4, e.y - 11 - t * 18, 1, 1);
-        }
-      }
-    }
+    for (const e of list) this.drawRenderable(c, e, game, time, player, frameFor);
     game.presentation?.draw(c);
     game.community?.draw(c);
     if (world.data.night) this.night(world.data.night, time, cam);
@@ -332,6 +202,151 @@ class Renderer {
     gradient.addColorStop(1, "rgba(19,38,27,.17)");
     c.fillStyle = gradient;
     c.fillRect(0, 0, this.width, this.height);
+  }
+  /** Si un renderable cae dentro de una vista (píxeles de mundo de su propia pantalla). */
+  inView(e, view, state) {
+    if (e.wall) return true;
+    const frame = this.sprites.frame(this.frame(e, state));
+    const vessel = e.vesselArt && this.vesselArt.bounds(e.vesselArt);
+    const b = vessel
+      ? { x: e.x + vessel.x, y: e.y + vessel.y, w: vessel.w, h: vessel.h }
+      : frame
+        ? artworkBounds(e, frame)
+        : { x: e.x - 32, y: e.y - 64, w: 64, h: 72 };
+    return (
+      b.x + b.w >= view.x &&
+      b.x <= view.x + view.width &&
+      b.y + b.h >= view.y &&
+      b.y <= view.y + view.height
+    );
+  }
+  /** El suelo de UNA pantalla: trozos de terreno, puentes, ondas y recortes interiores. */
+  drawGround(world, view, time) {
+    const c = this.ctx;
+    this.terrain.pin(world, view);
+    const range = chunkRange(world, view);
+    for (let cy = range.top; cy <= range.bottom; cy++)
+      for (let cx = range.left; cx <= range.right; cx++) {
+        // Snap shared chunk edges in device pixels so fractional zoom cannot open seams.
+        const x = Math.round((cx * 256 - Math.round(view.x)) * this.pixelScale);
+        const y = Math.round((cy * 256 - Math.round(view.y)) * this.pixelScale);
+        const right = Math.round(((cx + 1) * 256 - Math.round(view.x)) * this.pixelScale);
+        const bottom = Math.round(((cy + 1) * 256 - Math.round(view.y)) * this.pixelScale);
+        c.save();
+        c.setTransform(1, 0, 0, 1, 0, 0);
+        c.drawImage(this.terrain.chunk(world, cx, cy, this.sprites), x, y, right - x, bottom - y);
+        c.restore();
+      }
+    drawBridges(c, world, this.sprites, view);
+    drawRipples(c, world, view, time);
+    drawInteriors(c, world);
+  }
+  /**
+   * Una pantalla vecina entera, desplazada lo que dice su costura: su suelo, sus cosas y sus
+   * residentes en sus propias coordenadas, recortada a su rectángulo. Sin duende, sin presencia
+   * en vivo ni gatos, que esos son de la pantalla que pisas. Los actores que pinta se apuntan
+   * traducidos para que el arte se les pida junto con los tuyos.
+   */
+  drawSeam(game, seam, view, time, seamActors) {
+    const c = this.ctx,
+      w = seam.world,
+      ox = seam.dx * TILE,
+      oy = seam.dy * TILE;
+    const local = { x: view.x - ox, y: view.y - oy, width: view.width, height: view.height };
+    if (
+      local.x + local.width <= 0 ||
+      local.y + local.height <= 0 ||
+      local.x >= w.width * TILE ||
+      local.y >= w.height * TILE
+    )
+      return;
+    c.save();
+    c.translate(ox, oy);
+    c.beginPath();
+    c.rect(0, 0, w.width * TILE, w.height * TILE);
+    c.clip();
+    this.drawGround(w, local, time);
+    const frameFor = (e) => this.frame(e, game.state);
+    const renderables = [
+      ...w.props,
+      ...w.architecture,
+      ...w.entities.filter((e) => active(e, game.state)),
+      ...(w.actors || []),
+      ...require("./river-life").riverVisitors(w.data, time),
+    ].flatMap((e) => (e.fence ? fences.parts(e) : e));
+    for (const e of w.actors || []) seamActors.push({ ...e, x: e.x + ox, y: e.y + oy });
+    const list = renderables
+      .filter((e) => this.inView(e, local, game.state))
+      .sort((a, b) => (a.depth ?? a.y) - (b.depth ?? b.y));
+    for (const e of list) this.drawRenderable(c, e, game, time, null, frameFor);
+    c.restore();
+  }
+  /** Una cosa del mundo, dibujada en las coordenadas del contexto actual. `player` es null en las vecinas. */
+  drawRenderable(c, e, game, time, player, frameFor) {
+    if (e.vesselArt) {
+      this.vesselArt.draw(c, e, e.vesselArt);
+      return;
+    }
+    if (drawGrowing(c, e, game.serverClock?.now())) return;
+    if (e.fencePart) {
+      fences.drawPart(c, e);
+      return;
+    }
+    if (e.wall) {
+      drawPartition(c, e.wall);
+      return;
+    }
+    const name = this.actorArt.frame(frameFor(e)),
+      f = this.sprites.frame(name);
+    if (!f) return;
+    require("./seating").drawSeat(c, this.sprites, e);
+    if ((e.player && !game.river?.active) || e.neighbor) {
+      c.fillStyle = "rgba(31,46,33,.22)";
+      c.beginPath();
+      c.ellipse(e.x, e.y + 1, 8, 3, 0, 0, 7);
+      c.fill();
+    }
+    if (
+      !require("./ambient-actors").drawAmbientActor(c, this.sprites, e, name, time) &&
+      !require("./vegetation").drawVegetation(c, this.sprites, e, name, time)
+    )
+      drawArtwork(c, this.sprites, e, name);
+    drawAttachments(c, this.sprites, e);
+    if (e.player) game.self.drawStream(c);
+    require("./river-life").drawFishing(c, e, time);
+    if (e.cat) game.cats.drawWarning(c, e);
+    if (e.lightRadius) {
+      const radius = e.lightRadius;
+      const light = c.createRadialGradient(e.x, e.y - 12, 1, e.x, e.y - 12, radius);
+      light.addColorStop(0, "rgba(255,225,144,.15)");
+      light.addColorStop(1, "rgba(255,225,144,0)");
+      c.fillStyle = light;
+      c.fillRect(e.x - radius, e.y - 12 - radius, radius * 2, radius * 2);
+    }
+    require("./keepsakes").drawKeepsakes(c, this.sprites, e, game.state);
+    if (
+      player &&
+      (e.rules?.length || e.neighbor || e.interactAs) &&
+      (!e.interactWhen || matches(game.state, e.interactWhen)) &&
+      !game.dialogue &&
+      Math.hypot(e.x - player.x, e.y - player.y) < 52
+    ) {
+      c.fillStyle = "#faf1c5";
+      c.fillRect(e.x - 1, e.y - f.anchor[1] - 6 + Math.round(Math.sin(time * 3)), 3, 3);
+    }
+    if (name === "fire" || name === "barbecue-lit") {
+      // Soft ember bounce fades to zero; a filled ellipse reads as a painted ground patch.
+      const glow = c.createRadialGradient(e.x, e.y - 8, 2, e.x, e.y - 8, 30);
+      glow.addColorStop(0, `rgba(250,186,80,${0.1 + Math.sin(time * 6) * 0.02})`);
+      glow.addColorStop(1, "rgba(250,186,80,0)");
+      c.fillStyle = glow;
+      c.fillRect(e.x - 30, e.y - 38, 60, 60);
+      for (let i = 0; i < 3; i++) {
+        const t = (time * 0.4 + i * 0.3) % 1;
+        c.fillStyle = "#ffe6a0";
+        c.fillRect(e.x + Math.sin(time + i) * 4, e.y - 11 - t * 18, 1, 1);
+      }
+    }
   }
   /**
    * ⛔ EL ARO DEL MANDO (19-sep-2026). Un círculo tenue donde apoyaste el dedo y una bolita donde

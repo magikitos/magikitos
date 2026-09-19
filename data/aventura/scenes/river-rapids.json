@@ -814,7 +814,7 @@
         "mode": "boat",
         "position": [
           48,
-          10.8
+          0.1
         ],
         "direction": "down"
       },
@@ -830,7 +830,7 @@
         "mode": "boat",
         "position": [
           48,
-          133.20000000000002
+          143.9
         ],
         "direction": "up"
       },
@@ -846,7 +846,7 @@
         "mode": "foot",
         "position": [
           95,
-          137
+          143.9
         ],
         "direction": "up"
       },
@@ -862,7 +862,7 @@
         "mode": "foot",
         "position": [
           17,
-          137
+          143.9
         ],
         "direction": "up"
       },
@@ -878,7 +878,7 @@
         "mode": "foot",
         "position": [
           95,
-          7
+          0.1
         ],
         "direction": "down"
       },
@@ -894,7 +894,7 @@
         "mode": "foot",
         "position": [
           17,
-          7
+          0.1
         ],
         "direction": "down"
       }

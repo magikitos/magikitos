@@ -12,7 +12,8 @@ Contrato de entrada y rutas compartido por juego y Studio. Estado de publicació
 | Clic/toque en puerta | Se coloca delante y cruza en la dirección de entrada. |
 | Clic/toque en objeto empujable | Busca un lado accesible y empuja ese objeto con la física compartida. |
 | Dedo o botón izquierdo desplazado (> 8 px de pantalla) | Joystick invisible con origen donde se apoyó, que sigue al puntero pasado el radio. Vector por `directionIntent`, como una tecla: sin viaje ni interacción. Zona muerta 10 px, correr desde 100, volver a andar bajo 80. Soltar para. Pulsar sin moverse sigue siendo un toque. |
-| Dos dedos, o botón derecho/central | Cámara: zoom y desplazamiento. No cambia la intención en curso. |
+| Dos dedos, o botón derecho/central | Cámara: zoom y desplazamiento por el plano entero del bosque exterior ([mundo continuo](MUNDO-CONTINUO.md)). No cambia la intención en curso. |
+| Clic/toque más allá del borde de la pantalla | Viaje en dos tramos: hasta la costura (`crossings.aimBeyond`) y, al otro lado, el mismo toque en las coordenadas de la vecina. |
 | Movimiento con teclado | Conserva contacto, empuje y umbrales direccionales. |
 
 Ratón, lápiz y dedo generan la misma intención. Caminar, correr y remar no

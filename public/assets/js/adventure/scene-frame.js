@@ -3,14 +3,24 @@ const { TILE, clamp } = require("./geometry");
 const indoor = (world) => Boolean((world?.data || world)?.indoor);
 /** Physical room bounds never change. Cutaway presentation can show its painted exterior. */
 function cameraLimits(world, view) {
-  const axis = (size, visible) => {
-    if (!indoor(world)) return [0, Math.max(0, Math.floor(size - visible))];
+  const axis = (size, visible, start = 0) => {
+    if (!indoor(world)) return [start, Math.max(start, Math.floor(start + size - visible))];
     if (visible >= size + 32) {
       const centered = (size - visible) / 2;
       return [centered, centered];
     }
     return [-16, size - visible + 16];
   };
+  // ⛔ FUERA, LA CÁMARA RECORRE EL PLANO ENTERO (mundo continuo): el marco es la caja de todas
+  // las pantallas exteriores enlazadas, en casillas locales de esta (`world.frame`, lo pone
+  // `scenes.link`). Así se puede mirar la pantalla de al lado antes de pisarla, y arrastrar el
+  // mapa hasta el otro extremo del bosque. Sin plano, el límite es la pantalla, como siempre.
+  const frame = !indoor(world) && world.frame;
+  if (frame)
+    return {
+      x: axis(frame.w * TILE, view.width, frame.x * TILE),
+      y: axis(frame.h * TILE, view.height, frame.y * TILE),
+    };
   return {
     x: axis(world.width * TILE, view.width),
     y: axis(world.height * TILE, view.height),

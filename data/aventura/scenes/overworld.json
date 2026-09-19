@@ -201,8 +201,22 @@
     ]
   },
   "entities": [
-    {"id": "forest-parchment", "family": "forest-parchment", "behavior": "forest-parchment", "x": 65.25, "y": 67.25, "artVariant": "original"},
-    {"id": "forest-pen", "family": "forest-pen", "behavior": "forest-pen", "x": 68.25, "y": 67.75, "artVariant": "original"},
+    {
+      "id": "forest-parchment",
+      "family": "forest-parchment",
+      "behavior": "forest-parchment",
+      "x": 65.25,
+      "y": 67.25,
+      "artVariant": "original"
+    },
+    {
+      "id": "forest-pen",
+      "family": "forest-pen",
+      "behavior": "forest-pen",
+      "x": 68.25,
+      "y": 67.75,
+      "artVariant": "original"
+    },
     {
       "id": "picnic-barbecue",
       "behavior": "picnic-barbecue",
@@ -2445,14 +2459,14 @@
         "area": [
           99,
           1.5,
-          25,
+          26,
           1.2
         ],
         "scene": "river-willows",
         "mode": "boat",
         "position": [
           48,
-          138
+          143.9
         ],
         "direction": "up"
       }

@@ -107,10 +107,22 @@ function shoreRow(data, py) {
   };
 }
 /** Native-pixel material raster. Only the 9×9 shade lattice is hashed, not 4 corners per pixel. */
+/** La semilla de la hierba de todo el bosque exterior: una, para que la costura no la parta. */
+const FOREST_SEED = hash("mundo-continuo");
 function paintGround(c, world, ox, oy) {
   const data = world.data,
-    segments = nearbyPaths(data, ox, oy),
-    seed = hash(data.seed);
+    segments = nearbyPaths(data, ox, oy);
+  /**
+   * ⛔ LA HIERBA NO SABE DÓNDE ACABA UNA PANTALLA (mundo continuo). El manchado de la hierba es un
+   * ruido suave; sembrado por escena y medido en sus coordenadas, cambiaba de fase justo en el
+   * borde y la costura se veía como una raya de otro verde. Las pantallas del plano lo miden en
+   * coordenadas del PLANO (`world.origin`, en píxeles) y con una semilla común, así que el campo
+   * sigue sin costura de una a otra. Las que no están en el plano —interiores— siguen como antes.
+   */
+  const origin = world.origin,
+    seed = origin ? FOREST_SEED : hash(data.seed),
+    nx = ox + (origin?.x || 0),
+    ny = oy + (origin?.y || 0);
   const image = c.createImageData(256, 256),
     pixels = image.data;
   const lattice = new Float64Array(81),
@@ -118,7 +130,7 @@ function paintGround(c, world, ox, oy) {
     row = new Float64Array(9);
   for (let y = 0; y < 9; y++)
     for (let x = 0; x < 9; x++)
-      lattice[y * 9 + x] = noise(ox / 32 + x, oy / 32 + y, seed);
+      lattice[y * 9 + x] = noise(nx / 32 + x, ny / 32 + y, seed);
   for (let x = 0; x < 32; x++) {
     const t = x / 32;
     blend[x] = t * t * (3 - 2 * t);
