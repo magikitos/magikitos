@@ -4,6 +4,46 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: el bosque exterior es uno (mundo continuo) — 19 septiembre 2026
+
+Artefacto `29497b332ec03fcadcc2`, fuente del juego `db986cdc9cd9e86a1df4585debe588262f2c6062`,
+web `843691a7`. Anterior conservada: `3a3ab5c30627e39142e4`. Rutas: /aventura y
+cinco traducciones.
+
+SHA-256 de `release.json`:
+`91bbb3b716bda226346a8ea34cd92bd0201479fb340973bcc896e6d7ef9cdfcf`.
+610 archivos verificados y ESTACIONADOS antes de mover el puntero (instalador en un solo
+fichero Node, ejecutado como `magikitos` desde `/tmp`, temporal borrado después). Frente a la
+anterior cambian `aventura.min.js`, `game-contract.json` y las seis páginas. **Sin migración y
+sin PHP**, pero **con contrato del bosque vivo**: las llegadas de los cruces están ahora en el
+propio borde y el demonio, que relee el contrato del artefacto al reiniciarse con el despliegue,
+arrancó con `release=29497b332ec03fcadcc2`.
+
+### Alcance publicado
+
+- **Mundo continuo** ([MUNDO-CONTINUO.md](MUNDO-CONTINUO.md)): las pantallas exteriores se
+  colocan en un plano derivado de sus salidas; la vecina se pinta al lado antes de pisarla, con
+  sus residentes paseando; el cruce se dispara pegado al borde, llega al mismo punto del bosque
+  (cuatro píxeles de paso medidos), traduce la cámara en vez de recentrarla, cierra la salida de
+  vuelta y no avisa; dos dedos llevan la cámara hasta el otro extremo; un toque en la pantalla
+  vecina es un viaje en dos tramos. La hierba se pinta con un ruido continuo por el plano.
+- **Datos**: las dieciséis llegadas de borde pasan a 0,1 casillas del borde de destino; la banda
+  de la boca del río de la pradera se centra en 112. El plano: pradera (0,0), sauces (64,−144),
+  rápidos (64,−288), raíces (64,−432), jardín humano (192,−432).
+- **Límites declarados**: la presencia en vivo sigue siendo por pantalla (quien está al otro
+  lado aparece al cruzar); los márgenes de las pantallas se dibujaron como bordes y donde las
+  anchuras no coinciden se ve un cambio de dibujo, que es trabajo de Studio.
+
+### Comprobado
+
+`npm test` entero (66 bloques) con `check-world-layout` nuevo y `check-river-core` adaptado. En
+navegador contra el bundle local a 1440/768/390/844: controles del mundo (la barca cruza la
+costura con el dedo puesto), río, viajes, movilidad, regresiones, diálogo, bosque compartido,
+elenco, zoom y la frontera de cuenta. Un cruce a pie medido fotograma a fotograma en escritorio y
+móvil: paso máximo de 4,8 px al cruzar, cámara 5,7 px. En producción, `check-release-live` en las
+seis rutas y tres anchuras con cero escrituras de jugador, y el demonio del bosque vivo activo
+con la release nueva.
+
 ## Producción: Yo, el saco y Construir rediseñados, y la puerta de la cuenta — 19 septiembre 2026
 
 Artefacto `3a3ab5c30627e39142e4`, fuente del juego `c68e5e42e126d0fd0891228be037ebb9f079002e`,
