@@ -4,6 +4,73 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: el bosque se mantiene solo, el almacén del constructor y los 18 protagonistas — 19 septiembre 2026
+
+Artefacto `2fc664357039f59ed6f5`, fuente del juego `e0106f4` (incluye la rama `cast-release-20260919`,
+`14f31d1`, fusionada en `74708f7`), web `5a2988d6` (migración 4240 y su lista blanca local) y
+`8f3b453b` (PHP, demonio, cron, landing, textos y puntero). Anterior conservada:
+`31131f69d88aff7ca904`. Mismas seis rutas de juego debajo de /bosque y sus traducciones.
+
+SHA-256 de `release.json`:
+`028fe696bf791e85ad2d5ea0b4f0aca7bf7261863a6e9d3364f18496ffa63def`.
+791 archivos verificados y ESTACIONADOS antes de mover el puntero (frente a la anterior: 184
+nuevos, 2 retirados, 9 cambiados: `aventura.min.js`, `manifest.json`, `game-contract.json` y las
+seis páginas). **Con migración** (`4240_el_bosque_se_mantiene_solo.sql`: `mined_by`, `mined_at`,
+`explodes_at`, `steps_json` en los objetos comunitarios, `clock` de presencia por zona y el aviso
+`forest_bomb`; aplicada por el panel ANTES del PHP que la lee, copia automática en
+`/var/backups/migrations/magikitos/20260919T182547Z__4240_el_bosque_se_mantiene_solo.sql.gz`),
+**con PHP** (dos endpoints nuevos, `community-mine` y `community-defuse`; el snapshot devuelve
+`clock` y el desgaste por tramo) y **con contrato del bosque vivo** (el demonio arrancó con
+`release=2fc664357039f59ed6f5; sharedProps=3` y aprendió los mandos `clock` y `steps`). Dos redes
+de seguridad nuevas en el cron de cada minuto, `Bosque (bombitas)` y `Bosque (hierba)`, que solo
+escriben cuando recogen algo o fallan.
+
+⛔ **Construido desde un árbol LIMPIO** (`git worktree` sobre `e0106f4`, `node tools/build.cjs
+--reuse-art`) con el MISMO id que el árbol de trabajo. `npm test` completo sobre esa misma build
+(en el árbol de trabajo, por bloques), con cuatro comprobaciones nuevas: `check-construction-density`,
+`check-forest-overgrowth`, `check-forest-bomb` (gemelo JS/PHP con mutación negativa) y
+`check-bomb-balance` (solo setas, bomba > alicates, saco = paquete, 8 h).
+
+### Alcance publicado
+
+- **El bosque se mantiene solo** ([AUTOMANTENIMIENTO.md](AUTOMANTENIMIENTO.md)): el precio de
+  caminos y vallas se dobla por cada 2 % de la zona ya construido (`densityDoubling`, gemelos
+  JS/PHP con la misma redondez), la bombita con nota se pega a un objeto ajeno y estalla a las
+  cinco horas con aviso a los treinta minutos, los alicates la desactivan, y la hierba se come
+  por los extremos los tramos de camino que nadie pisa en 720 minutos de reloj de presencia (el
+  reloj solo corre con alguien en la zona). Herencia y accesos protegidos no se bombardean.
+- **El almacén del constructor**: Cebolino (residente 111) vive en la regadera junto al lago del
+  rincón nocturno del primer bosque (`overworld` 104,105). Dentro, una habitación dibujada
+  (`interior.artwork`) con mostrador, estantería y sacos. Cambia cinco setas por un saco de
+  gravilla (diez celdas de camino), seis por una bombita y dos por los alicates, y regala un saco
+  abierto cada 24 horas de servidor. Las setas vuelven a salir en el mismo sitio a las 8 horas.
+  Los setines siguen siendo reputación, nunca moneda. Los caminos se pagan en gravilla y las
+  vallas en palitos; nadie regala gravilla fuera del almacén.
+- **Los 18 protagonistas** del otro agente (`cast-release-20260919`): elenco jugable completo con
+  sus packs, retratos y la guía [art-direction/DUENDES.md](art-direction/DUENDES.md).
+- **La web**: la landing /bosque estrena la sección «El bosque se cuida solo» en seis idiomas
+  con el CSS de la casa (sin reglas nuevas), el aviso `forest_bomb` llega a la campana y al
+  correo, y `mined_by` entra en la lista de columnas de usuario (se anula al borrar y se
+  reasigna al fusionar cuentas).
+- **Limpieza**: fuera los planes viejos (`FINAL-UPGRADE.md`, `ART-DUENDES.md`, `ART-PROMPTS.md`,
+  `PICNIC-POLISH.md`, `GAME-SAVE-API.md`, `REPOSITORY-BOUNDARY.md`, los README de entregas de
+  arte ya integradas y el `FINAL.md` de este mismo plan) y seis scripts de revisión de un solo
+  uso. Lo vigente vive en el índice del README, [SHARED-FOREST.md](SHARED-FOREST.md),
+  [API.md](API.md), [RELEASING.md](RELEASING.md) y [ART.md](../data/aventura/ART.md).
+
+### Comprobado
+
+`npm test` entero sobre la build publicada. En navegador contra el bundle local: almacén
+(`test:warehouse`, nuevo: entrar, hablar, los tres cambios y el saco diario), controles del
+mundo, movilidad, viajes, regresiones, diálogo, bosque compartido, elenco, zoom, empotrado y río.
+En producción: `check-release-live` (17 bloques: seis rutas, seis landings y tres anchuras), el
+demonio del bosque vivo con la release nueva, `GET /api/world/community?zone=overworld` con
+`clock`, la landing con el texto del almacén y la gravilla, y los packs, textos y contrato del
+almacén servidos bajo `/game/releases/2fc664357039f59ed6f5/`. **Pendiente conocido**:
+`scripts/check-community-maintenance.php` (web) es una prueba de la base de datos local y
+requiere DDEV, así que se escribió pero no se ejecutó; la migración se verificó directamente
+en producción con su copia previa.
+
 ## Producción: el juego se llama /bosque, la costura no salta y el dedo solo anda — 19 septiembre 2026
 
 Artefacto `31131f69d88aff7ca904`, fuente del juego `5443a67`, web `285faa4d` (landing y puntero) y
