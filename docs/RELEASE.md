@@ -4,6 +4,49 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: el joystick invisible bajo el dedo — 19 septiembre 2026
+
+Artefacto `6b034b57ec99f966e0d0`, fuente del juego `6e37940a65ad17f2bb29e09c505b49eea911ca4c`,
+web `c3fb0999`. Anterior conservada: `4afa37fb2d4b5f31342b`. Rutas: /aventura y
+cinco traducciones.
+
+SHA-256 de `release.json`:
+`2d7cf2b18c9199028bf1826850b8de3ae886a98274783e68846573b3a0bbaf9b`.
+610 archivos verificados y ESTACIONADOS antes de mover el puntero (instalador en un solo
+fichero Node, ejecutado como `magikitos` desde `/tmp`, temporal borrado después). **Sin
+migración y sin PHP**: solo el cliente del juego y el puntero.
+
+### Alcance publicado
+
+- **El mando es un joystick invisible que nace donde apoyas el dedo** (decisión del dueño
+  tras probar en producción el guiado hacia el dedo de la entrega anterior: «con nada que
+  me alejo ya se pone a correr», «para ir arriba el dedo tiene que estar muy arriba»).
+  Mover el dedo manda al duende en esa dirección como una flecha del teclado, por
+  `directionIntent`: mismas colisiones, empujes, charlas al chocar, costuras y remo.
+  Umbrales en píxeles de pantalla: zona muerta 10, andar hasta 100, correr en el borde,
+  volver a andar bajo 80. Soltar para. El origen sigue al dedo pasado el radio, así que
+  virar no exige levantar. Tocar sigue siendo ir e interactuar.
+- **Aro de aprendizaje** pintado en el lienzo mientras el dedo manda, hasta seis segundos
+  acumulados andando con él; después se apaga para siempre en ese navegador
+  (`localStorage`, como el duende elegido: el contrato `GameState` de la nube no admite
+  claves nuevas).
+- **El lienzo no se selecciona en iOS**: la pulsación larga sacaba «Copiar / Buscar con
+  Google» y pintaba la página de azul. `user-select: none` y `-webkit-touch-callout: none`.
+- La cámara va pegada al duende, sin adelanto ni destino. Dos dedos y botón derecho mueven
+  la cámara; el segundo dedo suelta el mando. Se borran `leadTo`, `cameraLead`, `guided`,
+  `river.lead`, `dockFor` y `pendingWater`. Textos de ayuda en seis idiomas al día.
+
+### Comprobado
+
+`npm test` entero (65 bloques, con la unitaria de gestos reescrita: origen que sigue, zona
+muerta, histéresis, dos dedos, botón derecho, modo construir, cancelación), y en navegador
+contra el bundle local a 1440/768/390/844: controles del mundo (con el aro apagándose al
+aprender y la costura del río con el dedo puesto), movilidad, viajes, río, mundo y zoom,
+diálogo y bosque compartido. Captura del aro en móvil simulado revisada. En producción,
+`check-release-live` en las seis rutas y tres anchuras, remando con el dedo y cero
+escrituras de jugador enviadas. Nota operativa: el disco del Mac del dueño quedó con menos
+de 400 MB libres durante la construcción; se limpiaron solo los temporales de la sesión.
+
 ## Producción: mantener el dedo es guiar — 19 septiembre 2026
 
 Artefacto `4afa37fb2d4b5f31342b`, fuente del juego `d0f5405b7a7b7db2625963e2871f27b81d4b5cea`,
