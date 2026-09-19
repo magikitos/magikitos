@@ -7,7 +7,6 @@ const {
   castVariant,
   castPortrait,
   playerVariant,
-  CAST_PORTRAITS,
 } = require("../public/assets/js/adventure/player-art");
 const { readCast, writeCast, CAST_KEY } = require("../public/assets/js/adventure/save");
 const { gameContract } = require("../tools/game-contract.cjs");
@@ -18,6 +17,9 @@ const manifest = require("../public/assets/aventura/manifest.json");
 const actions = Object.keys(require("../data/aventura/art/residents/actions/catalog.json").actions);
 const authored = Object.keys(require("../data/aventura/player-art.json").rowingRigs).map(Number);
 const offered = castOffered(world);
+const approved = require("../data/aventura/art/playable-cast/approved-101-110.json").characters;
+for (const person of approved) assert(offered.includes(person.variant), "Approved protagonist missing from Yo: " + person.key);
+assert.equal(new Set(world.avatarProfiles.map(p => p.key)).size, world.avatarProfiles.length, "Profile keys never shadow an existing NPC");
 
 /**
  * ⛔ EL ELENCO SE MIDE, NO SE DECLARA.
@@ -43,8 +45,9 @@ for (const id of authored)
     );
 
 // El retrato del selector existe para CADA duende ofrecido, y sale del mismo paquete pequeño.
-const portraits = manifest.packs[CAST_PORTRAITS];
-assert(portraits, "The cast portraits package must be baked");
+const portraitPages = Object.entries(manifest.packs).filter(([id]) => /^cast-portraits-\d+$/.test(id)).map(([, pack]) => pack);
+assert(portraitPages.length > 0, "The cast portrait pages must be baked");
+const portraits = { sprites: portraitPages.flatMap(pack => pack.sprites) };
 for (const id of offered)
   assert(
     portraits.sprites.includes(castPortrait(id)),
@@ -58,9 +61,11 @@ assert.deepEqual(
 // Un retrato es UNA pose, no una hoja de andar: si alguien la cambia por el paquete completo, el
 // selector pasaría de unos kilobytes a decenas de megas sin que nada fallara.
 assert(
-  portraits.width * portraits.height * 4 < 4 * 1024 * 1024,
+  portraitPages.every(pack => pack.width * pack.height * 4 < 4 * 1024 * 1024),
   "The portrait sheet stays small enough to lend while a panel is open",
 );
+assert(portraitPages.reduce((bytes, pack) => bytes + pack.width * pack.height * 4, 0) < authored.length * 480000,
+  "Decoded portrait pages stay bounded per choice, not per animation sheet");
 
 /** El contrato del servidor lleva el mismo elenco y su sexo, que es lo único que la web necesita
  * del arte para rellenar `users.gender` cuando está vacío. */

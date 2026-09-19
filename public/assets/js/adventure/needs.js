@@ -1,4 +1,5 @@
 "use strict";
+const { reliefOffset } = require("./relief-art");
 const { TILE } = require("./geometry");
 const HOUR = 3600000;
 function nextDue(kind, now, catalog, random) {
@@ -67,11 +68,12 @@ function completeRelief(
 }
 function appendTrace(state, kind, catalog, position, now = Date.now()) {
   const traces = cleanTraces(state.traces, catalog, now);
+  const [dx, dy] = reliefOffset(kind, position);
   traces.push({
     kind,
     scene: state.scene,
-    x: position.x + (kind === "pee" ? 20 : -7),
-    y: position.y + 3,
+    x: position.x + dx,
+    y: position.y + dy,
     expires: now + catalog.needs.traces[kind + "Seconds"] * 1000,
   });
   return traces.slice(-catalog.needs.traces.max);

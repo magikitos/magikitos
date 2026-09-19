@@ -1,10 +1,10 @@
 # Arte de protagonistas — seguimiento real
 
-## Ampliación aprobada — 19-sep-2026, arte preparado
+## Ampliación aprobada — 19-sep-2026, integración del elenco
 
 El dueño ha aprobado **los diez nuevos diseños `resident-101`–`resident-110`**
 como protagonistas. No confundir estos números de fuente con el antiguo actor
-101/Brezo bruma. Los nuevos IDs previstos son 200–209. Los cien NPC originales
+101/Brezo bruma. Los nuevos IDs son 200–209. Los cien NPC originales
 y los ocho protagonistas anteriores se conservan.
 
 Se preparan uno por uno: andar/quieto, carrera, ocho cuerpos sentados con remos
@@ -14,20 +14,20 @@ transparencia real y halo suave individual. Nada de reinterpretar su identidad.
 
 | Fuente | Key / ID previsto | Arte y revisión |
 |---|---|---|
-| 101 | rizo-alba / 200 | Arte preparado y revisado: 156 frames, card alfa, 9 barcas Chrome/WebKit y tres tamaños; integración por el otro agente pendiente |
-| 102 | chispa-sol / 201 | Arte preparado y revisado: 156 frames, card alfa, 9 barcas Chrome/WebKit y tres tamaños; integración por el otro agente pendiente |
-| 103 | tizon-musgo / 202 | Arte preparado y revisado: 156 frames, card alfa, 9 barcas Chrome/WebKit y tres tamaños; integración por el otro agente pendiente |
-| 104 | nispera-sol / 203 | Arte preparado y revisado: 156 frames, card alfa, 9 barcas Chrome/WebKit y tres tamaños; integración por el otro agente pendiente |
-| 105 | trebol-bruma / 204 | Arte preparado y revisado: 156 frames, card alfa, 9 barcas Chrome/WebKit y tres tamaños; integración por el otro agente pendiente |
-| 106 | mimbrera-noche / 205 | Arte preparado y revisado: 156 frames, card alfa, 9 barcas Chrome/WebKit y tres tamaños; integración por el otro agente pendiente |
-| 107 | avellano-alba / 206 | Arte preparado y revisado: 156 frames, card alfa, 9 barcas Chrome/WebKit y tres tamaños; integración por el otro agente pendiente |
-| 108 | oria-musgo / 207 | Arte preparado y revisado: 156 frames, card alfa, 9 barcas Chrome/WebKit y tres tamaños; integración por el otro agente pendiente |
-| 109 | silo-bruma / 208 | Arte preparado y revisado: 156 frames, card alfa, 9 barcas Chrome/WebKit y tres tamaños; integración por el otro agente pendiente |
-| 110 | zarza-sol / 209 | Arte preparado y revisado: 156 frames, card alfa, 9 barcas Chrome/WebKit y tres tamaños; integración por el otro agente pendiente |
+| 101 | rizo-alba / 200 | Completo: 156 frames, card alfa, rig y nueve barcas; registrado para «Yo» |
+| 102 | chispa-sol / 201 | Completo: 156 frames, card alfa, rig y nueve barcas; registrado para «Yo» |
+| 103 | tizon-musgo / 202 | Completo: 156 frames, card alfa, rig y nueve barcas; registrado para «Yo» |
+| 104 | nispera-sol / 203 | Completo: 156 frames, card alfa, rig y nueve barcas; registrado para «Yo» |
+| 105 | trebol-bruma / 204 | Completo: 156 frames, card alfa, rig y nueve barcas; registrado para «Yo» |
+| 106 | mimbrera-noche / 205 | Completo: 156 frames, card alfa, rig y nueve barcas; registrado para «Yo» |
+| 107 | avellano-cobre / 206 | Completo: 156 frames, card alfa, rig y nueve barcas; registrado para «Yo» |
+| 108 | oria-musgo / 207 | Completo: 156 frames, card alfa, rig y nueve barcas; registrado para «Yo» |
+| 109 | silo-bruma / 208 | Completo: 156 frames, card alfa, rig y nueve barcas; registrado para «Yo» |
+| 110 | zarza-sol / 209 | Completo: 156 frames, card alfa, rig y nueve barcas; registrado para «Yo» |
 
 Autoría en `data/aventura/art/playable-cast/<key>/`; diseños aprobados y originales
-en `residents/candidates/101-110/`. Esta ronda es de **arte**; otro agente lleva
-la lógica/integración. Una hoja generada no cuenta como terminada hasta pasar
+en `residents/candidates/101-110/`. La orden posterior del dueño amplía esta ronda
+a registro, selector «Yo» y despliegue. Una hoja generada no cuenta como terminada hasta pasar
 recorte, registro, escala, revisión de poses y composición de barcas. No se
 declara una integración ni un despliegue que no se haya realizado. No falta
 world art para esta petición: son exclusivamente estos diez protagonistas y cards.
@@ -56,8 +56,9 @@ acciones existente como autoridad, sin registrar protagonistas en el juego.
 cards con alfa. Contrato completo con 80 controles negativos, invariancia corporal
 de remada y 5.760 composiciones de barcas entre Chrome/WebKit. Tres tamaños por
 duende: 1440×900, 768×1024 y 390×844. Las pruebas de renderer no equivalen a una
-partida integrada ni a aprobación artística del dueño; el código, alta en «Yo»
-y despliegue siguen en manos del otro agente. No queda otra familia de world art
+partida integrada. El registro preserva la escala nominal 384 en andar y acciones;
+el selector usa tarjetas alfa paginadas. El estado del despliegue se registra
+en `docs/RELEASE.md`. No queda otra familia de world art
 por generar para esta petición. Los ocho protagonistas anteriores y los 100 NPC
 no se han sustituido.
 
@@ -65,6 +66,20 @@ Abrir la [galería local animada](data/aventura/art/playable-cast/review-101-110
 cambio de personaje/acción, pausa, fase manual, fondos y capturas de las barcas.
 Fuentes, prompts, reconstrucción y advertencias concretas de integración:
 [entrega de los diez protagonistas](data/aventura/art/playable-cast/HANDOFF-101-110.md).
+
+### Necesidades y tarjetas: contrato común
+
+Los 18 protagonistas conservan exactamente las mismas 156 poses. En las mujeres,
+`pee` reutiliza las cuatro fases agachadas `poop` **solo al dibujar**. La acción
+sigue siendo orinar: chorro corto, charco de orina, sin caca, sin gastar hoja y sin
+reiniciar el reloj de defecación. El mismo selector de postura se usa para otros
+jugadores visibles. No se alteran los PNG ni se crean sheets específicos por sexo.
+
+Las 18 tarjetas usan `prepare-playable-card.php`, con identidad original, fondo
+al 16 % y halo al 24 %. Tres atlas de hasta ocho tarjetas evitan superar 4 MiB
+decodificados por textura. El selector los toma prestados solo mientras está abierto.
+Los diez perfiles nuevos son `playableOnly`: los 100 NPC originales no cambian
+de identidad, reparto determinista ni familias del Studio.
 
 ## Entrega anterior — 18-sep-2026
 

@@ -1,0 +1,60 @@
+{
+    "frames": {
+        "cast-208": {
+            "source": "data/aventura/art/playable-cast/silo-bruma/review/portrait.png",
+            "grid": [
+                1,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                120,
+                160
+            ],
+            "anchor": [
+                60,
+                160
+            ],
+            "preserveCanvas": true,
+            "continuousAlpha": true,
+            "registration": {
+                "scale": 0.5,
+                "offset": [
+                    0,
+                    0
+                ]
+            }
+        },
+        "cast-209": {
+            "source": "data/aventura/art/playable-cast/zarza-sol/review/portrait.png",
+            "grid": [
+                1,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                120,
+                160
+            ],
+            "anchor": [
+                60,
+                160
+            ],
+            "preserveCanvas": true,
+            "continuousAlpha": true,
+            "registration": {
+                "scale": 0.5,
+                "offset": [
+                    0,
+                    0
+                ]
+            }
+        }
+    }
+}

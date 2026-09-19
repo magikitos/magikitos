@@ -44,4 +44,23 @@ foreach ($poses['metadata']['frames'] as $frame) {
     $color = imagecolorsforindex($image, imagecolorat($image, $footX, $footY));
     check($color['alpha'] === 0, 'A raised arm must not resize or recenter the shared foot');
 }
-echo "PASS: offline native crop, source debris, immutable originals, bounds and registered animation feet.\n";
+// UI cards must keep faint backgrounds; the world still uses its crisp binary palette.
+$card = adventureClearCanvas(32, 40);
+imagefilledrectangle($card, 2, 2, 29, 37, imagecolorallocatealpha($card, 190, 150, 90, 105));
+imagefilledrectangle($card, 12, 8, 19, 32, imagecolorallocatealpha($card, 90, 80, 70, 0));
+imagepng($card, $directory . '/card.png');
+$cardDefinition = ['source'=>'card.png','grid'=>[1,1],'cell'=>[0,0],'size'=>[32,40],
+    'anchor'=>[16,40],'preserveCanvas'=>true,'continuousAlpha'=>true,'registration'=>['scale'=>1,'offset'=>[0,0]]];
+$cards = bakeAdventureSprites(['portrait'=>$cardDefinition], $directory);
+$image = imagecreatefromstring($cards['png']);$f = $cards['metadata']['frames']['portrait'];
+check($f['w'] === 32 && $f['h'] === 40 && $f['trim'] === [0,0], 'Halo canvas cannot be cropped to opaque body');
+$alpha = imagecolorat($image,$f['x']+8,$f['y']+8)>>24&127;
+check($alpha === 105, 'Continuous alpha survives the final PNG, not only the source card');
+check((imagecolorat($image,$f['x'],$f['y'])>>24&127) === 127, 'Transparent outer edge stays transparent');
+try {
+    bakeAdventureSprites(['portrait'=>$cardDefinition,'world'=>$definition], $directory);
+    throw new RuntimeException('Mixed alpha policy accepted');
+} catch (RuntimeException $error) {
+    check(str_contains($error->getMessage(),'Do not mix'), 'Explicit package alpha policy');
+}
+echo "PASS: offline native crop, source debris, immutable originals, bounds, registered animation feet and preserved portrait alpha.\n";

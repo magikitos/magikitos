@@ -179,6 +179,13 @@ function bakeAdventureSprites(array $definitions, string $root, array $profile =
     if (!$definitions) {
         throw new RuntimeException('Empty sprite package');
     }
+    // UI portraits need their faint scenery/halo, not the world's binary-alpha pixel palette.
+    // Keep the policy explicit per package so existing world/actor textures remain identical.
+    $alphaCount = count(array_filter($definitions, static fn($d) => ($d['continuousAlpha'] ?? false) === true));
+    if ($alphaCount !== 0 && $alphaCount !== count($definitions)) {
+        throw new RuntimeException('Do not mix continuous and binary alpha in one sprite package');
+    }
+    $continuousAlpha = $alphaCount > 0;
     foreach ($definitions as $definition) {
         [$width, $height] = $definition['size'];
         if ($width < 1 || $width > 510 || $height < 1 || $height > 2046) {
@@ -223,7 +230,7 @@ function bakeAdventureSprites(array $definitions, string $root, array $profile =
             || $editCrop[0] + $editCrop[2] > $nativeWidth || $editCrop[1] + $editCrop[3] > $nativeHeight) {
             throw new RuntimeException('Invalid native crop: ' . $name);
         }
-        if (str_starts_with($name, 'person-')) {
+        if (str_starts_with($name, 'person-') || $continuousAlpha) {
             [$cropX, $cropY, $w, $h] = $editCrop;
         } else {
             [$vx,$vy,$vw,$vh] = adventureVisibleBounds($sprite, array_map(static fn($n)=>$n*$density, $editCrop), $name);
@@ -250,7 +257,7 @@ function bakeAdventureSprites(array $definitions, string $root, array $profile =
         }
         imagecopy($atlas, $sprite, $x, $y, $cropX * $density, $cropY * $density, $tw, $th);
         // Binary alpha and 5-bit channels share the same crisp native pixel grid.
-        for ($py = $y; $py < $y + $th; $py++) {
+        for ($py = $y; !$continuousAlpha && $py < $y + $th; $py++) {
             for ($px = $x; $px < $x + $tw; $px++) {
                 $color = imagecolorat($atlas, $px, $py);
                 imagesetpixel($atlas, $px, $py, (($color >> 24) & 127) > 37 ? $clear : ($color & 0x00f8f8f8));
@@ -272,7 +279,7 @@ function bakeAdventureSprites(array $definitions, string $root, array $profile =
     $packed = imagecrop($atlas, ['x' => 0, 'y' => 0, 'width' => $width, 'height' => $height]);
     imagesavealpha($packed, true);
     ob_start();
-    imagepng(adventureIndexedImage($packed), null, 9);
+    imagepng($continuousAlpha ? $packed : adventureIndexedImage($packed), null, 9);
     $png = ob_get_clean();
     return [
         'png' => $png,

@@ -1,0 +1,228 @@
+{
+    "frames": {
+        "cast-200": {
+            "source": "data/aventura/art/playable-cast/rizo-alba/review/portrait.png",
+            "grid": [
+                1,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                120,
+                160
+            ],
+            "anchor": [
+                60,
+                160
+            ],
+            "preserveCanvas": true,
+            "continuousAlpha": true,
+            "registration": {
+                "scale": 0.5,
+                "offset": [
+                    0,
+                    0
+                ]
+            }
+        },
+        "cast-201": {
+            "source": "data/aventura/art/playable-cast/chispa-sol/review/portrait.png",
+            "grid": [
+                1,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                120,
+                160
+            ],
+            "anchor": [
+                60,
+                160
+            ],
+            "preserveCanvas": true,
+            "continuousAlpha": true,
+            "registration": {
+                "scale": 0.5,
+                "offset": [
+                    0,
+                    0
+                ]
+            }
+        },
+        "cast-202": {
+            "source": "data/aventura/art/playable-cast/tizon-musgo/review/portrait.png",
+            "grid": [
+                1,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                120,
+                160
+            ],
+            "anchor": [
+                60,
+                160
+            ],
+            "preserveCanvas": true,
+            "continuousAlpha": true,
+            "registration": {
+                "scale": 0.5,
+                "offset": [
+                    0,
+                    0
+                ]
+            }
+        },
+        "cast-203": {
+            "source": "data/aventura/art/playable-cast/nispera-sol/review/portrait.png",
+            "grid": [
+                1,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                120,
+                160
+            ],
+            "anchor": [
+                60,
+                160
+            ],
+            "preserveCanvas": true,
+            "continuousAlpha": true,
+            "registration": {
+                "scale": 0.5,
+                "offset": [
+                    0,
+                    0
+                ]
+            }
+        },
+        "cast-204": {
+            "source": "data/aventura/art/playable-cast/trebol-bruma/review/portrait.png",
+            "grid": [
+                1,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                120,
+                160
+            ],
+            "anchor": [
+                60,
+                160
+            ],
+            "preserveCanvas": true,
+            "continuousAlpha": true,
+            "registration": {
+                "scale": 0.5,
+                "offset": [
+                    0,
+                    0
+                ]
+            }
+        },
+        "cast-205": {
+            "source": "data/aventura/art/playable-cast/mimbrera-noche/review/portrait.png",
+            "grid": [
+                1,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                120,
+                160
+            ],
+            "anchor": [
+                60,
+                160
+            ],
+            "preserveCanvas": true,
+            "continuousAlpha": true,
+            "registration": {
+                "scale": 0.5,
+                "offset": [
+                    0,
+                    0
+                ]
+            }
+        },
+        "cast-206": {
+            "source": "data/aventura/art/playable-cast/avellano-cobre/review/portrait.png",
+            "grid": [
+                1,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                120,
+                160
+            ],
+            "anchor": [
+                60,
+                160
+            ],
+            "preserveCanvas": true,
+            "continuousAlpha": true,
+            "registration": {
+                "scale": 0.5,
+                "offset": [
+                    0,
+                    0
+                ]
+            }
+        },
+        "cast-207": {
+            "source": "data/aventura/art/playable-cast/oria-musgo/review/portrait.png",
+            "grid": [
+                1,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                120,
+                160
+            ],
+            "anchor": [
+                60,
+                160
+            ],
+            "preserveCanvas": true,
+            "continuousAlpha": true,
+            "registration": {
+                "scale": 0.5,
+                "offset": [
+                    0,
+                    0
+                ]
+            }
+        }
+    }
+}

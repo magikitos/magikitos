@@ -6,6 +6,7 @@ $root=dirname(__DIR__);
 $key=getopt('', ['character:'])['character']??'';
 if(!preg_match('/^[a-z]+-[a-z]+$/D',$key))throw new RuntimeException('Use --character=profile-key');
 $dir="$root/data/aventura/art/playable-cast/$key";
+if(!is_dir("$dir/review"))mkdir("$dir/review",0775,true);
 $config=json_decode(file_get_contents("$dir/authoring.json"),true,512,JSON_THROW_ON_ERROR);
 $specs=json_decode(file_get_contents("$root/data/aventura/art/residents/actions/catalog.json"),true,512,JSON_THROW_ON_ERROR)['actions'];
 // New approved designs may need a separately reviewed walking layout. This remains

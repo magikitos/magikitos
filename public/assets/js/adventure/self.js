@@ -1,11 +1,11 @@
 "use strict";
 const { needStatus, reliefError, completeRelief } = require("./needs");
 const { Account } = require("./account");
+const { reliefPose, reliefFrame, reliefOffset } = require("./relief-art");
 const {
   castOffered,
   castPortrait,
   playerVariant,
-  CAST_PORTRAITS,
 } = require("./player-art");
 const byId = (id) => document.getElementById(id);
 /** Body status UI and presentation; deadlines/inventory accounting stay in needs.js. */
@@ -128,7 +128,7 @@ class Self {
     const token = ++this.castToken;
     let lease;
     try {
-      lease = await game.renderer.sprites.prepare([], [CAST_PORTRAITS]);
+      lease = await game.renderer.sprites.prepare(castOffered(game.catalog).map(castPortrait));
     } catch (_) {
       section.hidden = true;
       return;
@@ -154,7 +154,7 @@ class Self {
       current = playerVariant(game.player);
     // La cara con la que te ven, grande, arriba del panel: el retrato del elenco mientras está
     // prestado. Si no llega, se queda el sprite de siempre, que `paintCards` ya pinta.
-    const portrait = game.renderer.sprites.icon(castPortrait(current));
+    const portrait = game.renderer.sprites.icon(castPortrait(current), { fullCanvas: true });
     if (portrait) {
       portrait.classList.add("is-portrait");
       portrait.style.width = portrait.style.height = "";
@@ -171,8 +171,11 @@ class Self {
         );
         button.setAttribute("aria-pressed", String(variant === current));
         button.classList.toggle("is-chosen", variant === current);
-        const portrait = game.renderer.sprites.icon(castPortrait(variant));
-        if (portrait) button.append(portrait);
+        const portrait = game.renderer.sprites.icon(castPortrait(variant), { fullCanvas: true });
+        if (portrait) {
+          portrait.style.width = portrait.style.height = "";
+          button.append(portrait);
+        }
         button.addEventListener("click", () => this.choose(variant));
         return button;
       }),
@@ -327,9 +330,9 @@ class Self {
     const p = this.game.sequence.progress(),
       kind = seq.data.kind;
     let pose = p < 0.14 ? 0 : p < 0.68 ? 1 : p < 0.88 ? 2 : 3;
-    if (kind === "pee" && p > 0.3 && p < 0.7)
+    if (reliefPose(kind, this.game.player) === "pee" && p > 0.3 && p < 0.7)
       pose = (Math.floor(seq.elapsed * 3) % 2) + 1;
-    return `person-${require("./player-art").playerVariant(this.game.player)}-${kind}-${pose}`;
+    return reliefFrame(this.game.player, kind, pose);
   }
   drawGround(c) {
     const game = this.game,
@@ -355,7 +358,8 @@ class Self {
     if (kind === "pee" && p > 0.2) {
       c.save();
       c.globalAlpha = Math.min(1, (p - 0.2) * 3);
-      game.renderer.drawSprite("pee-puddle", player.x + 20, player.y + 3);
+      const [dx, dy] = reliefOffset(kind, player);
+      game.renderer.drawSprite("pee-puddle", player.x + dx, player.y + dy);
       c.restore();
     }
   }
@@ -366,14 +370,15 @@ class Self {
     const p = game.sequence.progress();
     if (p < 0.2 || p > 0.83) return;
     const { x, y } = game.player;
+    const crouched = reliefPose("pee", game.player) === "poop";
     c.fillStyle = "#e9d67a";
     for (let i = 0; i < 11; i++) {
       if (!game.reducedMotion && (i + Math.floor(seq.elapsed * 12)) % 4 === 0)
         continue;
       const t = i / 10;
       c.fillRect(
-        Math.round(x + 9 + t * 12),
-        Math.round(y - 13 - 7 * Math.sin(t * Math.PI) + 16 * t),
+        Math.round(x + (crouched ? -5 - t * 2 : 9 + t * 12)),
+        Math.round(y + (crouched ? -5 + t * 8 : -13 - 7 * Math.sin(t * Math.PI) + 16 * t)),
         1,
         2,
       );

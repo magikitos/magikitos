@@ -3,6 +3,7 @@ declare(strict_types=1);
 $root=dirname(__DIR__,4);
 require "$root/scripts/lib/adventure-actor-registration.php";
 $dir="$root/data/aventura/art/brezo-repair";
+if(!is_dir("$dir/review"))mkdir("$dir/review",0775,true);
 function canvas(int $w,int $h):GdImage {
     $im=imagecreatetruecolor($w,$h);imagealphablending($im,false);imagesavealpha($im,true);
     imagefill($im,0,0,imagecolorallocatealpha($im,0,0,0,127));return $im;

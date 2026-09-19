@@ -1,4 +1,5 @@
 node_modules/
+/node_modules
 .DS_Store
 .local/
 *.log
@@ -11,5 +12,6 @@ data/aventura/art/woodland-kit/previews/
 data/aventura/art/*/review/
 data/aventura/art/*/*/review/
 data/aventura/art/playable-cast/portraits-review.png
+data/aventura/art/playable-cast/review-101-110/
 data/audio/*.tmp
 data/audio/*.tmp.mp3

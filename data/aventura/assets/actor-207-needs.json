@@ -1,0 +1,228 @@
+{
+    "frames": {
+        "person-207-pee-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/oria-musgo-needs-master.png",
+            "grid": [
+                4,
+                2
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14760147601476015,
+                "offset": [
+                    -4.339483394833948,
+                    -7.136531365313651
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-207-pee-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/oria-musgo-needs-master.png",
+            "grid": [
+                4,
+                2
+            ],
+            "cell": [
+                1,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14760147601476015,
+                "offset": [
+                    -4.339483394833948,
+                    -7.136531365313651
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-207-pee-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/oria-musgo-needs-master.png",
+            "grid": [
+                4,
+                2
+            ],
+            "cell": [
+                2,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14760147601476015,
+                "offset": [
+                    -4.339483394833948,
+                    -7.136531365313651
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-207-pee-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/oria-musgo-needs-master.png",
+            "grid": [
+                4,
+                2
+            ],
+            "cell": [
+                3,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14760147601476015,
+                "offset": [
+                    -4.339483394833948,
+                    -7.136531365313651
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-207-poop-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/oria-musgo-needs-master.png",
+            "grid": [
+                4,
+                2
+            ],
+            "cell": [
+                0,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14760147601476015,
+                "offset": [
+                    -4.339483394833948,
+                    -7.136531365313651
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-207-poop-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/oria-musgo-needs-master.png",
+            "grid": [
+                4,
+                2
+            ],
+            "cell": [
+                1,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14760147601476015,
+                "offset": [
+                    -4.339483394833948,
+                    -7.136531365313651
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-207-poop-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/oria-musgo-needs-master.png",
+            "grid": [
+                4,
+                2
+            ],
+            "cell": [
+                2,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14760147601476015,
+                "offset": [
+                    -4.339483394833948,
+                    -7.136531365313651
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-207-poop-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/oria-musgo-needs-master.png",
+            "grid": [
+                4,
+                2
+            ],
+            "cell": [
+                3,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14760147601476015,
+                "offset": [
+                    -4.339483394833948,
+                    -7.136531365313651
+                ]
+            },
+            "cleanFragments": 0.015
+        }
+    }
+}

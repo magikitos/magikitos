@@ -11,6 +11,7 @@ foreach ($residents['profiles'] as $profile) {
         'id'=>$profile['source'], 'directory'=>'residents', 'edgeMatte'=>'red', 'cleanFragments'=>0.015,
         'grid'=>$residents['grid'], 'directions'=>$residents['directions'],
         'height'=>$residents['height'], 'variant'=>$profile['id'], 'action'=>'walk', 'pack'=>'actor-'.$profile['id'],
+        ...(isset($profile['sourceCellWidth']) ? ['sourceCellWidth'=>$profile['sourceCellWidth']] : []),
     ];
 }
 $actionsDir = $root . '/data/aventura/art/residents/actions';

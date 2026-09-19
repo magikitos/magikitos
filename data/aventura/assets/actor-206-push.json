@@ -1,0 +1,452 @@
+{
+    "frames": {
+        "person-206-down-push-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/avellano-cobre-push-master.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14925373134328357,
+                "offset": [
+                    -4.656716417910445,
+                    -7.731343283582085
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-206-right-push-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/avellano-cobre-push-master.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                1,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14925373134328357,
+                "offset": [
+                    -4.656716417910445,
+                    -7.731343283582085
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-206-up-push-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/avellano-cobre-push-master.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                2,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14925373134328357,
+                "offset": [
+                    -4.656716417910445,
+                    -7.731343283582085
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-206-left-push-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/avellano-cobre-push-master.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                3,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14925373134328357,
+                "offset": [
+                    -4.656716417910445,
+                    -7.731343283582085
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-206-down-push-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/avellano-cobre-push-master.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                0,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14925373134328357,
+                "offset": [
+                    -4.656716417910445,
+                    -7.731343283582085
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-206-right-push-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/avellano-cobre-push-master.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                1,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14925373134328357,
+                "offset": [
+                    -4.656716417910445,
+                    -7.731343283582085
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-206-up-push-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/avellano-cobre-push-master.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                2,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14925373134328357,
+                "offset": [
+                    -4.656716417910445,
+                    -7.731343283582085
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-206-left-push-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/avellano-cobre-push-master.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                3,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14925373134328357,
+                "offset": [
+                    -4.656716417910445,
+                    -7.731343283582085
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-206-down-push-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/avellano-cobre-push-master.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                0,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14925373134328357,
+                "offset": [
+                    -4.656716417910445,
+                    -7.731343283582085
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-206-right-push-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/avellano-cobre-push-master.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                1,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14925373134328357,
+                "offset": [
+                    -4.656716417910445,
+                    -7.731343283582085
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-206-up-push-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/avellano-cobre-push-master.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                2,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14925373134328357,
+                "offset": [
+                    -4.656716417910445,
+                    -7.731343283582085
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-206-left-push-2": {
+            "source": "data/aventura/art/residents/actions/cutouts/avellano-cobre-push-master.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                3,
+                2
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14925373134328357,
+                "offset": [
+                    -4.656716417910445,
+                    -7.731343283582085
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-206-down-push-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/avellano-cobre-push-master.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                0,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14925373134328357,
+                "offset": [
+                    -4.656716417910445,
+                    -7.731343283582085
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-206-right-push-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/avellano-cobre-push-master.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                1,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14925373134328357,
+                "offset": [
+                    -4.656716417910445,
+                    -7.731343283582085
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-206-up-push-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/avellano-cobre-push-master.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                2,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14925373134328357,
+                "offset": [
+                    -4.656716417910445,
+                    -7.731343283582085
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-206-left-push-3": {
+            "source": "data/aventura/art/residents/actions/cutouts/avellano-cobre-push-master.png",
+            "grid": [
+                4,
+                4
+            ],
+            "cell": [
+                3,
+                3
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                46
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.14925373134328357,
+                "offset": [
+                    -4.656716417910445,
+                    -7.731343283582085
+                ]
+            },
+            "cleanFragments": 0.015
+        }
+    }
+}

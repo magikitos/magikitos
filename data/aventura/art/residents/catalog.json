@@ -1022,6 +1022,126 @@
       "source": "resident-100",
       "description": "short rounded young adult woman, pale freckled skin, honey-blonde thick bob, wide smiling eyes; fern-green pointed hood with a red petal tucked into brim, cream bodice and rust pleated skirt; deep berry scarf tucked into collar, linen ankle wraps, three asymmetric wooden buttons; sleepy relaxed expression",
       "prompt": "Use case: stylized-concept. Asset type: production sprite sheet for an original woodland top-down pixel-art RPG. EXACTLY ONE original duende NPC identity in all cells, not a famous character. Pointy ears, natural human skin colour, pointed hat ALWAYS. Carefully hand-drawn pixel-art shading with clean dark contours, sharp legible eyes, organic fabric and tiny stitches; charming but not baby-like. Designed to be integrated at 40 logical pixels tall using a 2x texture. No blur or fake large block pixels. Full body, consistent overhead three-quarter camera and upper-left light.\nSHEET LAYOUT: EXACTLY 8 equally wide columns and 4 equally tall rows, landscape 2:1 image. 32 sprites. Left-to-right columns are facing DOWN (front), DOWN-RIGHT, RIGHT (profile), UP-RIGHT, UP (back), UP-LEFT, LEFT, DOWN-LEFT. Draw actual diagonals. Row1 is neutral standing. Row2 is left foot forward walking, right arm forward; row3 is passing step feet close, opposite arms relaxed; row4 is right foot forward, left arm forward. Real distinct walking leg poses, stationary same-scale torso with restrained arm swing. Same identity, clothing, colours and registration across every frame. Centre every sprite in its cell with generous padding on ALL four sides, particularly the top hat and lower boots. Each entire figure fits inside its own cell. Every cell complete, never cut off at page edges. No grid lines, no labels, no text, no watermark, no ground, no shadow, no items held in hands. Genuine transparent alpha background, never checkerboard.\nCHARACTER DESIGN: short rounded young adult woman, pale freckled skin, honey-blonde thick bob, wide smiling eyes. Clothing: fern-green pointed hood with a red petal tucked into brim, cream bodice and rust pleated skirt. Individual details: deep berry scarf tucked into collar, linen ankle wraps, three asymmetric wooden buttons. Face: sleepy relaxed expression. Do not replace this design with the standard long white-bearded green-hat gnome. Ensure this profile's body proportions, nose, hair, outfit and pointed-cap silhouette are all clear."
+    },
+    {
+      "id": 200,
+      "key": "rizo-alba",
+      "family": "rizo",
+      "gender": "M",
+      "label": "Rizo",
+      "source": "resident-101",
+      "description": "A wiry young adult male duende with fair sun-freckled skin, a sharp cheeky face, one slightly raised eyebrow, amber eyes, a wild ginger forelock and short unruly ginger hair (no beard). A VERY tall mustard-ochre pointed cloth cap with an angular folded tip, an indigo diamond patch and conspicuous hand stitching; a short petrol-teal patchwork jacket over an oatmeal shirt, burgundy neckerchief, patched chocolate knee trousers, mismatched striped socks and scuffed lace boots. A tiny acorn-button pouch at the hip. Mischievous explorer with swagger, no weapon. Distinct pointed silhouette, narrow shoulders, witty sideways smile.",
+      "prompt": "Use case: identity-preserve. Precise production layout correction of APPROVED resident-101 Rizo. PRESERVE EXACT face, clothes, hat, hair, colours, physique, matte inked style and all 32 original poses in this reference. Do NOT redesign. Produce the SAME 8 columns x 4 rows of standing/walking, but SPREAD OUT with clearly transparent empty space between sprites: TALLER canvas landscape4:3, TALL rectangular cells. Reproduce every FULL silhouette without clipping boots at bottom as happens in the original. Each cell must have 20% vertical clear padding above and below, 10% horizontal padding. Same original standing row and three walking rows in same D8 column order, real alternating feet. One ear on either side, one pointed tip each. All hats and feet entirely visible and isolated. Genuine TRANSPARENT alpha. NO ground, no background, no shadow, no text, no labels. Preserve details and original dry matte style, NO glossy shiny plastic style.\n",
+      "playableOnly": true,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": 201,
+      "key": "chispa-sol",
+      "family": "chispa",
+      "gender": "F",
+      "label": "Chispa",
+      "source": "resident-102",
+      "description": "An athletic young adult female duende with deep warm brown skin, broad luminous smile, expressive dark eyebrows and tightly cropped silver-white curls (not the previous dark curly hairstyle). Oversized turquoise pointed cap folding into a long soft hook backwards, rust-red cloth repairs along its band. A brick-red sleeveless patched waistcoat over an ivory rolled-sleeve blouse, charcoal roomy cropped trousers with one ochre knee patch, short tan boots, a mustard braided cloth belt and a tiny brass-coloured button at the collar. Bold resourceful adventurer, angular athletic silhouette, cheeky confident eyes. No glasses, no weapons. FACE must be distinctly different from the former female style reference: elongated angular face, broad flat nose with a clear bridge, wide-set slightly narrow lively eyes (NOT huge round doll eyes), a strong chin and one eyebrow cocked higher; broad smiling mouth with a tiny front-tooth gap. Her little pale curls contrast strongly with warm dark skin. Personal accessories: a short necklace of three pale seeds, one diagonal cross-body strap to a little rust-coloured drawstring bag, no yellow sash. Use only one ochre trouser patch so the outfit is not symmetrical.",
+      "prompt": "Use case: identity-preserve. Precise production layout correction of APPROVED 102 Chispa. PRESERVE EXACT face, clothes, hat, hair, colours, physique, matte inked style and all 32 original poses in this reference. Do NOT redesign. Produce the SAME 8 columns x 4 rows of standing/walking, but SPREAD OUT with clearly transparent empty space between sprites: TALLER canvas landscape4:3, TALL rectangular cells. Reproduce every FULL silhouette without clipping boots at bottom as happens in the original. Each cell must have 20% vertical clear padding above and below, 10% horizontal padding. Same original standing row and three walking rows in same D8 column order, real alternating feet. One ear on either side, one pointed tip each. All hats and feet entirely visible and isolated. Genuine TRANSPARENT alpha. NO ground, no background, no shadow, no text, no labels. Preserve details and original dry matte style, NO glossy shiny plastic style.\n",
+      "playableOnly": true,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": 202,
+      "key": "tizon-musgo",
+      "family": "tizon",
+      "gender": "M",
+      "label": "Tizon",
+      "source": "resident-103",
+      "description": "A very short broad stout middle-aged male duende with warm olive skin, rosy large round nose, thick dark eyebrows, dark close-cropped beard and curly dark sideburns. A LOW but unmistakably pointed russet cloth cap whose stiff tip curls forward, big visible beige repair stitches. Charcoal blue linen shirt, warm ochre patched work overalls with two large wood buttons, a dark brown short waist apron and broad old ankle boots. One small soot smudge on a cheek, NOT soot all over. Funny affectionate grumpy smile, proud pot belly, powerful little hands relaxed empty. A tiny copper washer worn as a belt ornament, not armour. Wholesome gruff craftsman.",
+      "prompt": "Use case: identity-preserve. Precise production layout correction of APPROVED 103 Tizon. PRESERVE EXACT face, clothes, hat, hair, colours, physique, matte inked style and all 32 original poses in this reference. Do NOT redesign. Produce the SAME 8 columns x 4 rows of standing/walking, but SPREAD OUT with clearly transparent empty space between sprites: TALLER canvas landscape4:3, TALL rectangular cells. Reproduce every FULL silhouette without clipping boots at bottom as happens in the original. Each cell must have 20% vertical clear padding above and below, 10% horizontal padding. Same original standing row and three walking rows in same D8 column order, real alternating feet. One ear on either side, one pointed tip each. All hats and feet entirely visible and isolated. Genuine TRANSPARENT alpha. NO ground, no background, no shadow, no text, no labels. Preserve details and original dry matte style, NO glossy shiny plastic style.\n",
+      "playableOnly": true,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": 203,
+      "key": "nispera-sol",
+      "family": "nispera",
+      "gender": "F",
+      "label": "Nispera",
+      "source": "resident-104",
+      "description": "A plump adult female duende with warm golden tan skin, abundant freckles, round cheeks, dark hazel eyes, broad delighted smile and two small chestnut hair buns near her ears. A LONG soft coral-orange pointed cap drooping sideways with plum and moss fabric patches and a tiny dried marigold pinned to its brim. Plum-purple work dress with oatmeal blouse sleeves, irregular sage-green apron made of sewn leaf-shaped fabric pieces, striped cream-and-ochre stockings, short dark ankle boots. Playful sociable personality; comfortably round body, not a thin recolour of another girl. Little cloth pockets, visible stitches, no tools held. Her face is pear-shaped and middle-aged, with a soft double chin, rounded short upturned nose, small laughing crescent eyes, crow's-feet and dimples, not the same large-eyed young girl's face. Personal accessories: a short necklace with one wooden strawberry-shaped pendant, a soft little side bag made from two stitched fabric leaves, and two contrasting blue cloth beads tied to the long cap tip. Keep the small marigold brooch. Warm coral hat against cool plum dress.",
+      "prompt": "Use case: identity-preserve. Precise production layout correction of APPROVED 104 Nispera. PRESERVE EXACT face, clothes, hat, hair, colours, physique, matte inked style and all 32 original poses in this reference. Do NOT redesign. Produce the SAME 8 columns x 4 rows of standing/walking, but SPREAD OUT with clearly transparent empty space between sprites: TALLER canvas landscape4:3, TALL rectangular cells. Reproduce every FULL silhouette without clipping boots at bottom as happens in the original. Each cell must have 20% vertical clear padding above and below, 10% horizontal padding. Same original standing row and three walking rows in same D8 column order, real alternating feet. One ear on either side, one pointed tip each. All hats and feet entirely visible and isolated. Genuine TRANSPARENT alpha. NO ground, no background, no shadow, no text, no labels. Preserve details and original dry matte style, NO glossy shiny plastic style.\n",
+      "playableOnly": true,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": 204,
+      "key": "trebol-bruma",
+      "family": "trebol",
+      "gender": "M",
+      "label": "Trebol",
+      "source": "resident-105",
+      "description": "A lanky elderly male duende with dark chestnut-brown skin, an expressive long face, large pointed ears, a pointed silver goatee, short silver side curls, crooked jovial smile and tiny smile wrinkles. An unusually NARROW tall pale sage pointed hat whose tip makes one simple corkscrew-like curl, rust repair patch on its side. Burnt orange buttoned vest over a faded ivory shirt, indigo patched cropped trousers with braces, moss-striped socks, narrow battered brown lace shoes. Lean long shins within the same small duende scale, not a full-height human. Storyteller and prankster, sly twinkly eyes. NO long white garden-gnome beard. Distinct facial architecture: VERY long thin face, narrow gently drooping nose, high cheekbones, little half-closed mischievous eyes under uneven silver eyebrows, a small expressive mouth, sparse pointed silver chin tuft. One compact necklace of dark seeds around the ivory collar and one pale stitched leaf purse. Sage hat with orange vest and indigo trousers provides three bold readable colour masses.",
+      "prompt": "Use case: identity-preserve. Precise production layout correction of APPROVED 105 Trebol. PRESERVE EXACT face, clothes, hat, hair, colours, physique, matte inked style and all 32 original poses in this reference. Do NOT redesign. Produce the SAME 8 columns x 4 rows of standing/walking, but SPREAD OUT with clearly transparent empty space between sprites: TALLER canvas landscape4:3, TALL rectangular cells. Reproduce every FULL silhouette without clipping boots at bottom as happens in the original. Each cell must have 20% vertical clear padding above and below, 10% horizontal padding. Same original standing row and three walking rows in same D8 column order, real alternating feet. One ear on either side, one pointed tip each. All hats and feet entirely visible and isolated. Genuine TRANSPARENT alpha. NO ground, no background, no shadow, no text, no labels. Preserve details and original dry matte style, NO glossy shiny plastic style.\n",
+      "playableOnly": true,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": 205,
+      "key": "mimbrera-noche",
+      "family": "mimbrera",
+      "gender": "F",
+      "label": "Mimbrera",
+      "source": "resident-106",
+      "description": "A wiry older adult female duende with lightly tanned freckled skin, angular nose, knowing mischievous squint, green-brown eyes and ONE thick silver braid reaching her waist. A dramatic asymmetric deep blue pointed cap with its tip leaning backwards, an ochre patch and little copper stitch repairs; ears always visible. Ochre short open patchwork coat over a moss-green waistcoat and ivory shirt, dark plum knee trousers, red-and-cream striped socks, soft worn brown boots. Thin confident silhouette, raised eyebrow and lively crooked grin, practical stylish forest adventurer rather than an evil witch. No wand, no staff, empty hands. Distinct face: angular hawk-like nose and pointed chin, strong visible smile creases, fine small amused eyes and one raised arched eyebrow. Lively adult face, no cute little button nose. A single acorn-shell pendant on a short cord, a small flat indigo satchel and one pink seed bead threaded into the silver braid. Her pointed hat is deep blue with a wide lopsided folded brim and a long sharp backwards tip, NOT another short floppy stocking cap.",
+      "prompt": "Use case: identity-preserve. Precise production layout correction of APPROVED 106 Mimbrera. PRESERVE EXACT face, clothes, hat, hair, colours, physique, matte inked style and all 32 original poses in this reference. Do NOT redesign. Produce the SAME 8 columns x 4 rows of standing/walking, but SPREAD OUT with clearly transparent empty space between sprites: TALLER canvas landscape4:3, TALL rectangular cells. Reproduce every FULL silhouette without clipping boots at bottom as happens in the original. Each cell must have 20% vertical clear padding above and below, 10% horizontal padding. Same original standing row and three walking rows in same D8 column order, real alternating feet. One ear on either side, one pointed tip each. All hats and feet entirely visible and isolated. Genuine TRANSPARENT alpha. NO ground, no background, no shadow, no text, no labels. Preserve details and original dry matte style, NO glossy shiny plastic style.\n",
+      "playableOnly": true,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": 206,
+      "key": "avellano-cobre",
+      "family": "avellano",
+      "gender": "M",
+      "label": "Avellano",
+      "source": "resident-107",
+      "description": "A stocky cheerful adult male duende with fair rosy skin, a broad squarish face, soft hazel eyes, dense copper ringlets at his temples and big ginger mutton-chop sideburns leaving chin and mouth clearly visible. A broad plum-violet pointed cap with a short jaunty sideways peak, stitched ochre star-shaped repair patch (fabric only). Cream linen shirt with rolled sleeves, moss-and-indigo patchwork overalls, large acorn buttons, burgundy woven belt, sturdy chestnut boots. Very welcoming wide grin with one small tooth gap, solid torso and chunky legs. Looks like the fun neighbour who builds elaborate nonsense, not a warrior or garden gnome. Distinct face: broad square jaw, small slightly asymmetrical hazel eyes, extremely broad cheeky grin with one missing front tooth, snub freckled nose, dense mutton-chop sideburns WITHOUT chin beard. Head noticeably wider than 101. His violet hat has a wide squashy gathered crown and one short sharply upturned pointed tip, a mustard cloth patch and a tiny brass button. A short necklace of three mismatched wooden buttons and a little round acorn-shell purse, strong cream/indigo/plum colour blocks.",
+      "prompt": "Use case: identity-preserve. Precise production layout correction of APPROVED 107 Avellano. PRESERVE EXACT face, clothes, hat, hair, colours, physique, matte inked style and all 32 original poses in this reference. Do NOT redesign. Produce the SAME 8 columns x 4 rows of standing/walking, but SPREAD OUT with clearly transparent empty space between sprites: TALLER canvas landscape4:3, TALL rectangular cells. Reproduce every FULL silhouette without clipping boots at bottom as happens in the original. Each cell must have 20% vertical clear padding above and below, 10% horizontal padding. Same original standing row and three walking rows in same D8 column order, real alternating feet. One ear on either side, one pointed tip each. All hats and feet entirely visible and isolated. Genuine TRANSPARENT alpha. NO ground, no background, no shadow, no text, no labels. Preserve details and original dry matte style, NO glossy shiny plastic style.\n",
+      "playableOnly": true,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": 207,
+      "key": "oria-musgo",
+      "family": "oria",
+      "gender": "F",
+      "label": "Oria",
+      "source": "resident-108",
+      "description": "A lean middle-aged female duende with warm olive skin, long dark eyes, strong brow, angular cheekbones and black hair in a short messy ponytail emerging below her cap. A small sharply pointed rusty-cinnamon cap tilted rakishly, cream stitches and tiny teal leaf sewn on the brim. Deep teal asymmetrically buttoned short tunic with rust elbow patches, ivory undershirt, warm cream cropped trousers with indigo knee patches, narrow dark brown boots, belt with a tiny fabric pouch. Outdoorsy roguish explorer with an amused lopsided smile, compact agile body, natural elegant proportions. No weapons, no giant cloak, no flowing floor-length fabric. Distinct face: olive angular diamond-shaped face, strong cheekbones, one small notch-shaped eyebrow gap, long narrow eyes, slender straight nose, smirking mouth skewed to one side. Compact black messy ponytail. Short triangular burnt-orange cap with one black-and-cream feather tucked into its stitched band; a very small amber seed pendant and a diagonal cream strap to her soft dark pouch. Sharply different face from the cheerful round-faced women.",
+      "prompt": "Use case: identity-preserve precise layout correction. SAME32 SPRITES from input, same character EXACT design, face, clothing, colours, head/body proportions, same4rows8columns. Shrink EVERY complete sprite uniformly to 78% of its current size WITHIN its existing cell to create wide transparent gaps on EVERY side; preserve SAME ratio for all32 poses. Do not cut any hat tip, feather or boot. Every silhouette must have clear empty padding of 15% cell height ABOVE and BELOW, and 10%left/right. No touching or overlap between rows, specifically third-row back diagonal boot must not touch fourth-row hat. Keep all EXACT poses/heading and original matte inked rendering, not glossy. 4:3 landscape canvas;8equalcolumns4equalrows. Transparent alpha, no background floor shadow labels. No new actions. Reproduce visible identity exactly and reduce only figure occupancy, do not change style or physique.\n",
+      "playableOnly": true,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": 208,
+      "key": "silo-bruma",
+      "family": "silo",
+      "gender": "M",
+      "label": "Silo",
+      "source": "resident-109",
+      "description": "A slim adult male duende with pale peach freckled skin, a long inquisitive nose, soft chestnut hair swept in a large curl, friendly round small wire spectacles and a delighted nerdy grin. A mushroom-beige pointed cap folded in a pronounced S-shaped curve, patched in indigo and faded terracotta. A dusty-rose short patched coat over a mustard vest and ivory shirt, dark olive cropped trousers, blue striped socks, scuffed tan boots. One tiny harmless wooden spool hangs at his belt as a character detail. Slightly hunched curious shoulders, wonderful oddball inventor personality, distinct from heroic standard gnome. Spectacles correctly rotate with head, no goggles or armour. Distinct face: long oval face, a big hooked but friendly nose, round small spectacles that magnify LITTLE eyes, narrow chin with one tiny chestnut soul patch, slightly lopsided grin. Tall cap has a clear S-bent point above a slightly flared brim. A dark teal scarf, visible ochre fabric repair stitches, a flat tiny button pouch and a two-seed necklace. No big generic anime eyes. Keep dusty rose coat, beige hat and olive trousers for readable contrast.",
+      "prompt": "Use case: identity-preserve. Precise production layout correction of APPROVED 109 Silo. PRESERVE EXACT face, clothes, hat, hair, colours, physique, matte inked style and all 32 original poses in this reference. Do NOT redesign. Produce the SAME 8 columns x 4 rows of standing/walking, but SPREAD OUT with clearly transparent empty space between sprites: TALLER canvas landscape4:3, TALL rectangular cells. Reproduce every FULL silhouette without clipping boots at bottom as happens in the original. Each cell must have 20% vertical clear padding above and below, 10% horizontal padding. Same original standing row and three walking rows in same D8 column order, real alternating feet. One ear on either side, one pointed tip each. All hats and feet entirely visible and isolated. Genuine TRANSPARENT alpha. NO ground, no background, no shadow, no text, no labels. Preserve details and original dry matte style, NO glossy shiny plastic style.\n",
+      "playableOnly": true,
+      "sourceCellWidth": 384
+    },
+    {
+      "id": 209,
+      "key": "zarza-sol",
+      "family": "zarza",
+      "gender": "F",
+      "label": "Zarza",
+      "source": "resident-110",
+      "description": "A strong curvy adult female duende with deep dark brown skin, expressive almond eyes, full smiling cheeks, black coiled hair tucked into two small low puffs and a confident open playful grin. A very long burgundy pointed cap sweeping backwards and ending in a gentle curl, moss-and-ochre stitched patches, a tiny oak-leaf-shaped cloth brooch. Warm ochre linen tunic, sage-green laced short waistcoat, roomy indigo patched trousers gathered at calves, ochre socks and robust walnut boots. Tiny wooden ear studs near her clearly pointed ears. Confident warm adventurous leader, distinctive broad shoulders and hips, never babyish, hands empty. Distinct face: mature full broad cheeks but firm squarish jaw, broad nose with rounded tip, deep dark skin, thick gently slanted eyebrows, warm narrow almond eyes, big expressive laughing smile. Adult strong curvy woman, NOT small round-eyed young girl. Long burgundy pointed cloth cap with leaf-edge fabric inserts and tip swept like a wave behind her head, two tiny wood beads threaded on its tail. One pendant made from a turquoise-painted wooden ring, and an ochre woven round shoulder pouch. Hat/ochre/teal/indigo clear contrast, only a few strong decorative accents.",
+      "prompt": "Use case: identity-preserve. Precise production layout correction of APPROVED 110 Zarza. PRESERVE EXACT face, clothes, hat, hair, colours, physique, matte inked style and all 32 original poses in this reference. Do NOT redesign. Produce the SAME 8 columns x 4 rows of standing/walking, but SPREAD OUT with clearly transparent empty space between sprites: TALLER canvas landscape4:3, TALL rectangular cells. Reproduce every FULL silhouette without clipping boots at bottom as happens in the original. Each cell must have 20% vertical clear padding above and below, 10% horizontal padding. Same original standing row and three walking rows in same D8 column order, real alternating feet. One ear on either side, one pointed tip each. All hats and feet entirely visible and isolated. Genuine TRANSPARENT alpha. NO ground, no background, no shadow, no text, no labels. Preserve details and original dry matte style, NO glossy shiny plastic style.\n",
+      "playableOnly": true,
+      "sourceCellWidth": 384
     }
   ]
 }

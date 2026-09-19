@@ -3,6 +3,7 @@ const { protocol } = require("./forest-connection");
 const { characterFrame } = require("./characters");
 const { VesselMotion } = require("./river-navigation");
 const { vesselLayers } = require("./vessel-art");
+const { reliefFrame } = require("./relief-art");
 const INTERPOLATION_MS = protocol.limits.playerSnapshotMs;
 
 /**
@@ -63,7 +64,8 @@ class ForestPeople {
         p.vessel.rowing = p.pose === "row"; p.vessel.stroke = elapsed;
         p.vesselArt = vesselLayers(p, p.vessel.phase(reducedMotion));
         p.sprite = p.vesselArt.rower;
-      } else if (["pee", "poop", "discover"].includes(p.pose)) p.sprite = `${base}-${p.pose}-${phase}`;
+      } else if (["pee", "poop"].includes(p.pose)) p.sprite = reliefFrame(p, p.pose, phase);
+      else if (p.pose === "discover") p.sprite = `${base}-${p.pose}-${phase}`;
       else if (["run", "push", "work", "carried"].includes(p.pose))
         p.sprite = `${heading}-${p.pose}-${p.pose === "carried" ? phase % 2 : phase}`;
       else p.sprite = characterFrame(p.variant, p, p.pose === "walk" && !reducedMotion);

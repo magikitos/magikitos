@@ -1,0 +1,49 @@
+{
+    "sheet": "zarza-sol-discover-master",
+    "reference": "resident-110",
+    "sourceSha256": "1cf221caac1ee60e298a5e4b0f26a7e63523d4edcf161aaa2b046ee547d8b381",
+    "referenceSha256": "2cd10d12bd1dabf35e2e6d6bc76e5f996d871ea14b5ecb10919aeea136b43f56",
+    "measurement": {
+        "bodyHeight": 249,
+        "cellWidth": 384,
+        "ratio": 0.1606425702811245
+    },
+    "poses": {
+        "person-209-discover-0": {
+            "ink": [
+                12.112449799196789,
+                5.518072289156624,
+                23.6144578313253,
+                40.48192771084337
+            ],
+            "support": 46
+        },
+        "person-209-discover-1": {
+            "ink": [
+                10.345381526104418,
+                4.875502008032129,
+                27.309236947791163,
+                41.12449799196787
+            ],
+            "support": 46
+        },
+        "person-209-discover-2": {
+            "ink": [
+                8.578313253012048,
+                4.714859437751002,
+                30.68273092369478,
+                41.285140562249
+            ],
+            "support": 46
+        },
+        "person-209-discover-3": {
+            "ink": [
+                12.273092369477911,
+                4.393574297188753,
+                23.29317269076305,
+                41.606425702811244
+            ],
+            "support": 46
+        }
+    }
+}

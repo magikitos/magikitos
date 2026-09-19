@@ -1,9 +1,36 @@
 # Protagonistas 101–110 · entrega de arte
 
-19-sep-2026. Los diez diseños están aprobados; hojas y cards preparadas y
-revisadas. **No registrados ni instalados por esta ronda de arte.** El otro
-agente se encarga del código, catálogo, selector «Yo», integración y despliegue.
-No se han alterado los 100 residentes NPC ni los ocho protagonistas anteriores.
+19-sep-2026. Los diez diseños están aprobados y registrados como protagonistas
+200–209. El dueño pidió después integrar «Yo», unificar las tarjetas de los 18
+y reutilizar la postura agachada para orinar en protagonistas femeninas.
+La activación y sus pruebas se registran en `docs/RELEASE.md` (raíz del repo).
+No se han alterado las identidades de los 100 NPC ni de los ocho protagonistas anteriores.
+
+## Integración lista en local; producción a cargo del otro agente
+
+Última instrucción del dueño: **no desplegar esta entrega**. Integración en el
+commit `f3be956` (fuentes de arte aprobadas en `aeb9e72`). Copia de trabajo aislada:
+`../magikitos-game-cast-release`, rama `cast-release-20260919`. Se evita tocar
+los cambios de navegación en curso en la copia principal.
+
+Artefacto local probado e instalado en DDEV: `f93b61c6d932e6f21f87`, 773 archivos.
+SHA-256 de `release.json`: `d86eb6bdae74c96d06fc7d56de4f92c34533b09355d2ff02a4e30a2eb686f52a`.
+El puntero de la web está cambiado **solo localmente**, no publicado ni commiteado.
+No hay modificaciones de backend, migraciones, cuentas, partidas ni datos de producción.
+
+Verificaciones: `npm test` completo; 126/126 hojas de acciones para 18 personajes;
+contrato de 156 poses y comparación de siluetas horneadas de los diez nuevos;
+invariancia de cuerpos/agarres y máscaras de remada; selección de los 18 y
+persistencia en 1440×900, 768×1024 y 390×844; receta/hallazgos con movimiento
+normal y reducido; frontera web/API y montaje DDEV en los seis idiomas.
+Las cards se revisaron renderizadas, con lienzo completo, alfa gradual y gorros/pies
+sin recorte. Son tres páginas, 2.638.400 bytes PNG en total y 5.971.968 bytes RGBA;
+se prestan al abrir «Yo», no se descargan todas las acciones de los 18.
+
+Para la publicación conjunta: integrar el commit, reconstruir y probar el artefacto
+con los cambios del otro agente. El contrato deriva automáticamente los IDs 200–209
+y su sexo; **reiniciar `bosque-vivo.service` al activar la release** para que la
+presencia acepte el nuevo elenco. Seguir `docs/RELEASING.md`; no basta con copiar PNG.
 
 Abrir [la galería local](review-101-110/index.html) directamente en el navegador.
 Funciona sin servidor ni API: elegir duende/acción, animar o pausar y recorrer
@@ -14,7 +41,9 @@ están las hojas completas, comparación de escalas, card y capturas de barcas.
 
 El manifiesto [approved-101-110.json](approved-101-110.json) identifica las diez
 fuentes y sus keys. `resident-101` es un número de imagen, **no** el retirado
-actor 101/Brezo bruma. Los IDs propuestos para integrar son **200–209**.
+actor 101/Brezo bruma. Los IDs registrados son **200–209**.
+El nuevo Avellano usa la key `avellano-cobre`: `avellano-alba` ya pertenece al
+NPC 125, cuya identidad se conserva. No cambian su dibujo ni el número de fuente 107.
 
 | Acción | Rejilla final | Frames | Lienzo lógico / ancla |
 |---|---|---|---|
@@ -59,10 +88,10 @@ Cada `<key>/` contiene:
 
 ## Atención al integrar: escala, IDs y cards
 
-1. **No ejecutar a ciegas `register-playable-art.cjs` para esta tanda.** Ese
-   registrador todavía parte de un NPC existente, busca referencias antiguas
-   y fija `sourceCellWidth: 256`. Aquí también se entrega el master de andar.
-   Dar de alta los nuevos perfiles/base sheets sin sustituir ninguno anterior.
+1. `register-playable-art.cjs --character=KEY --enable` valida el manifiesto
+   aprobado, impide colisiones de IDs y registra la base más las siete acciones.
+   Los nuevos perfiles tienen `playableOnly: true`: no alteran el reparto NPC.
+   Guarda las referencias normalizadas sin modificar los originales aprobados.
 2. **Usar ancho nominal 384 tanto para andar como para las siete acciones.**
    Si andar se mide con 384 y las acciones se importan con 256, las acciones
    salen un 50% mayores. El visor/validador ya usa 384 en todas. Mantener las
@@ -75,23 +104,24 @@ Cada `<key>/` contiene:
    máscaras con el mismo ratio que los píxeles, no offsets especiales por barca.
 4. Cards con alfa: **no marcar `opaque: true`** ni hornearlas sobre un rectángulo
    de fondo. La política vieja de retratos opacos no sirve para estas cards.
-   Con 18 protagonistas revisar el presupuesto actual de 4 MiB del atlas de
-   retratos; paginar/cargar por necesidad si se supera, no subir el límite sin
-   medir. No descargar todas las acciones al abrir el selector.
+   Los 18 retratos se paginan en atlas de hasta ocho tarjetas, menos de 4 MiB
+   RGBA por textura. No descargar todas las acciones al abrir el selector.
 5. Publicar únicamente atlas reducidos y manifiestos necesarios. El visor,
    prompts, fuentes, intentos y capturas se quedan como herramientas de autoría.
    Los diez conjuntos de PNG de revisión, cards incluidas, suman aproximadamente
    13,8 MB; eso **no** es una recomendación de descarga inicial. Medir los packs
    definitivos, memoria decodificada y liberación al cambiar de personaje.
-6. Tras integrar, probar selección persistente, representación remota de otros
-   jugadores y acciones reales en DDEV. Esta entrega prueba el renderer de
-   sprites/barcas aisladamente, no autoriza ni acredita producción.
+6. Probar selección persistente, representación remota de otros jugadores y
+   acciones reales en DDEV. `check-relief-art.cjs` comprueba postura femenina,
+   orina y contabilidad intacta; `check-cast-browser.cjs` selecciona todos los
+   personajes a tres tamaños. La prueba de arte aislada no sustituye estas puertas.
 
 ## Reconstrucción y comprobaciones
 
 Desde la raíz del repo, sustituyendo la key por cualquiera de las diez:
 
 ```sh
+php data/aventura/art/brezo-repair/prepare-row.php
 php scripts/prepare-playable-master.php --character=zarza-sol
 php scripts/prepare-playable-row.php --character=zarza-sol
 php scripts/prepare-playable-review.php --character=zarza-sol
@@ -102,6 +132,10 @@ node scripts/check-playable-review-browser.cjs --character=zarza-sol
 node scripts/check-playable-review-browser.cjs --character=zarza-sol --webkit
 php scripts/prepare-playable-gallery.php
 node scripts/check-playable-gallery.cjs
+# Tras revisar, registro y build (no publican por sí mismos):
+node scripts/register-playable-art.cjs --character=zarza-sol --enable
+node scripts/build-woodland-kit.cjs
+node tools/build.cjs
 ```
 
 La generación de imágenes no es determinista. La reconstrucción **desde las
@@ -120,5 +154,5 @@ JS ni desbordamiento. La galería recorre las 1.560 poses en ambos navegadores.
 Estos tests garantizan formato, registro y composición; **no certifican por sí
 solos anatomía, identidad ni calidad de animación**. Las hojas/contactos se han
 revisado visualmente por separado y se dejan accesibles para la aprobación del
-dueño. No declarar «integrado», «elegible en Yo» o «desplegado» por haber pasado
-la prueba de arte. No queda world art pendiente en el alcance de esta tanda.
+dueño. La prueba de arte por sí sola no acredita el despliegue: consultar el
+registro de entregas. No queda world art pendiente en el alcance de esta tanda.

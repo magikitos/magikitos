@@ -1,0 +1,452 @@
+{
+    "frames": {
+        "person-202-down-carried-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/tizon-musgo-carried-master.png",
+            "grid": [
+                8,
+                2
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                4
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1520912547528517,
+                "offset": [
+                    -5.2015209125475295,
+                    -1.0190114068441067
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-202-down-right-carried-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/tizon-musgo-carried-master.png",
+            "grid": [
+                8,
+                2
+            ],
+            "cell": [
+                1,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                4
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1520912547528517,
+                "offset": [
+                    -5.2015209125475295,
+                    -0.8669201520912546
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-202-right-carried-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/tizon-musgo-carried-master.png",
+            "grid": [
+                8,
+                2
+            ],
+            "cell": [
+                2,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                4
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1520912547528517,
+                "offset": [
+                    -5.2015209125475295,
+                    -0.8669201520912546
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-202-up-right-carried-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/tizon-musgo-carried-master.png",
+            "grid": [
+                8,
+                2
+            ],
+            "cell": [
+                3,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                4
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1520912547528517,
+                "offset": [
+                    -5.2015209125475295,
+                    -0.8669201520912546
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-202-up-carried-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/tizon-musgo-carried-master.png",
+            "grid": [
+                8,
+                2
+            ],
+            "cell": [
+                4,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                4
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1520912547528517,
+                "offset": [
+                    -5.2015209125475295,
+                    -0.8669201520912546
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-202-up-left-carried-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/tizon-musgo-carried-master.png",
+            "grid": [
+                8,
+                2
+            ],
+            "cell": [
+                5,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                4
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1520912547528517,
+                "offset": [
+                    -5.2015209125475295,
+                    -0.8669201520912546
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-202-left-carried-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/tizon-musgo-carried-master.png",
+            "grid": [
+                8,
+                2
+            ],
+            "cell": [
+                6,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                4
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1520912547528517,
+                "offset": [
+                    -5.2015209125475295,
+                    -0.8669201520912546
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-202-down-left-carried-0": {
+            "source": "data/aventura/art/residents/actions/cutouts/tizon-musgo-carried-master.png",
+            "grid": [
+                8,
+                2
+            ],
+            "cell": [
+                7,
+                0
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                4
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1520912547528517,
+                "offset": [
+                    -5.2015209125475295,
+                    -0.8669201520912546
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-202-down-carried-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/tizon-musgo-carried-master.png",
+            "grid": [
+                8,
+                2
+            ],
+            "cell": [
+                0,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                4
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1520912547528517,
+                "offset": [
+                    -5.2015209125475295,
+                    -0.8669201520912546
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-202-down-right-carried-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/tizon-musgo-carried-master.png",
+            "grid": [
+                8,
+                2
+            ],
+            "cell": [
+                1,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                4
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1520912547528517,
+                "offset": [
+                    -5.2015209125475295,
+                    -0.8669201520912546
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-202-right-carried-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/tizon-musgo-carried-master.png",
+            "grid": [
+                8,
+                2
+            ],
+            "cell": [
+                2,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                4
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1520912547528517,
+                "offset": [
+                    -5.2015209125475295,
+                    -0.8669201520912546
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-202-up-right-carried-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/tizon-musgo-carried-master.png",
+            "grid": [
+                8,
+                2
+            ],
+            "cell": [
+                3,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                4
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1520912547528517,
+                "offset": [
+                    -5.2015209125475295,
+                    -0.8669201520912546
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-202-up-carried-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/tizon-musgo-carried-master.png",
+            "grid": [
+                8,
+                2
+            ],
+            "cell": [
+                4,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                4
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1520912547528517,
+                "offset": [
+                    -5.2015209125475295,
+                    -0.8669201520912546
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-202-up-left-carried-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/tizon-musgo-carried-master.png",
+            "grid": [
+                8,
+                2
+            ],
+            "cell": [
+                5,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                4
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1520912547528517,
+                "offset": [
+                    -5.2015209125475295,
+                    -0.8669201520912546
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-202-left-carried-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/tizon-musgo-carried-master.png",
+            "grid": [
+                8,
+                2
+            ],
+            "cell": [
+                6,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                4
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1520912547528517,
+                "offset": [
+                    -5.2015209125475295,
+                    -0.8669201520912546
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "person-202-down-left-carried-1": {
+            "source": "data/aventura/art/residents/actions/cutouts/tizon-musgo-carried-master.png",
+            "grid": [
+                8,
+                2
+            ],
+            "cell": [
+                7,
+                1
+            ],
+            "size": [
+                48,
+                48
+            ],
+            "anchor": [
+                24,
+                4
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.1520912547528517,
+                "offset": [
+                    -5.2015209125475295,
+                    -0.8669201520912546
+                ]
+            },
+            "cleanFragments": 0.015
+        }
+    }
+}

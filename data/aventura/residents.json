@@ -698,5 +698,85 @@
     "family": "amapola",
     "gender": "F",
     "label": "Amapola noche"
+  },
+  {
+    "id": 200,
+    "key": "rizo-alba",
+    "family": "rizo",
+    "gender": "M",
+    "playableOnly": true,
+    "label": "Rizo"
+  },
+  {
+    "id": 201,
+    "key": "chispa-sol",
+    "family": "chispa",
+    "gender": "F",
+    "playableOnly": true,
+    "label": "Chispa"
+  },
+  {
+    "id": 202,
+    "key": "tizon-musgo",
+    "family": "tizon",
+    "gender": "M",
+    "playableOnly": true,
+    "label": "Tizon"
+  },
+  {
+    "id": 203,
+    "key": "nispera-sol",
+    "family": "nispera",
+    "gender": "F",
+    "playableOnly": true,
+    "label": "Nispera"
+  },
+  {
+    "id": 204,
+    "key": "trebol-bruma",
+    "family": "trebol",
+    "gender": "M",
+    "playableOnly": true,
+    "label": "Trebol"
+  },
+  {
+    "id": 205,
+    "key": "mimbrera-noche",
+    "family": "mimbrera",
+    "gender": "F",
+    "playableOnly": true,
+    "label": "Mimbrera"
+  },
+  {
+    "id": 206,
+    "key": "avellano-cobre",
+    "family": "avellano",
+    "gender": "M",
+    "playableOnly": true,
+    "label": "Avellano"
+  },
+  {
+    "id": 207,
+    "key": "oria-musgo",
+    "family": "oria",
+    "gender": "F",
+    "playableOnly": true,
+    "label": "Oria"
+  },
+  {
+    "id": 208,
+    "key": "silo-bruma",
+    "family": "silo",
+    "gender": "M",
+    "playableOnly": true,
+    "label": "Silo"
+  },
+  {
+    "id": 209,
+    "key": "zarza-sol",
+    "family": "zarza",
+    "gender": "F",
+    "playableOnly": true,
+    "label": "Zarza"
   }
 ]

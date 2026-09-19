@@ -40,6 +40,7 @@ for (const name of [
   "check-vessel-art",
   "check-rowing-contract",
   "check-playable-cast",
+  "check-relief-art",
   "check-adventure-life",
   "check-adventure-camera",
   "check-world-layout",
