@@ -188,6 +188,9 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
       };
       await touch("touchStart", par(0));
       for (let k = 1; k <= 8; k++) await touch("touchMove", par(k));
+      // El último paso del pellizco se aplica en el fotograma siguiente: se deja asentar antes de
+      // leer la cámara, o el «desplazamiento» que se mide después es solo el zoom terminando.
+      await page.waitForTimeout(150);
       const pellizco = await inspect();
       assert(
         pellizco.scale < antesDelPellizco.scale,
