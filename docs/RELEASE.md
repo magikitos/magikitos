@@ -4,6 +4,53 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: el cruce que el demonio rechazaba — 20 septiembre 2026
+
+Artefacto `e272286c082e930c947b`, fuente del juego `a2bf30f`, web `ac050b7e` (puntero y el demonio del bosque vivo
+admitiendo el borde del mapa). Anterior conservada: `f9266288e12030a7902b`. Mismas rutas.
+
+SHA-256 de `release.json`: `c72d750fe1a38e442179f7c50e0b044110cea6ed37559c681b4733918cf24951`. 791 archivos verificados y ESTACIONADOS antes de mover
+el puntero (frente a la anterior cambian `aventura.min.js` y las seis páginas). **Sin migración**,
+**con el demonio** (tres cotas de posición pasan a inclusivas) y **sin cambio de contrato** (el
+demonio arrancó con `release=e272286c082e930c947b`).
+
+⛔ **Construido desde un árbol LIMPIO** con el MISMO id que el árbol de trabajo. `npm test`
+completo y las suites de navegador de cruces, viajes, regresiones, zoom y río.
+
+### Alcance publicado
+
+- **El rechazo del demonio, cazado en su registro** (la línea que la release anterior empezó a
+  escribir): `cruce rechazado: edge/meadow-down… from=[…, 2303.99]`. El cliente recogía el origen
+  del cruce a alto−0,01 píxeles (`ontoEdge`) y el demonio solo admitía hasta alto−1
+  (`movement.move`), así que quien rebasaba el borde de un paso —andando rápido o con un
+  fotograma lento— veía «no hemos podido preparar el viaje». El cliente recoge ahora un píxel
+  dentro y el demonio admite el borde inclusive, también para los clientes que aún no han
+  recargado. El motivo del último cruce fallido queda en `inspect().crossingError`.
+- **La vecina sin mundo**: un precalentado que fallaba (red, presupuesto) apartaba la pantalla
+  hasta cambiar de pantalla, y su hueco se pintaba como relleno, césped sin camino ni árboles
+  (captura del dueño). Se reintenta a los cinco segundos y el motivo queda en
+  `inspect().prewarmError`.
+- **La pantalla que dejas pasa a caliente en el mismo gesto de activar la nueva**
+  (`SpriteLibrary.activate(ids, warm)`), que es cuando se poda el presupuesto: antes, en ese
+  instante, sus hojas no eran ni fijas ni calientes. Y el presupuesto de hojas es de 128 MB cuando
+  el navegador no dice cuánta memoria hay (Safari), 192 MB con cuatro gigas o más y 96 MB con menos.
+
+- **La prueba que faltaba**: `npm run test:live-crossing` (`check-live-crossing-browser.cjs`)
+  levanta el demonio real con el contrato de esta misma build, simula identidad, guardado y
+  ticket, y un jugador CON SESIÓN sube y baja ocho veces por la costura pradera↔sauces (andando,
+  corriendo y dándose la vuelta al momento) mientras el demonio le sigue pantalla a pantalla sin
+  un rechazo ni un precalentado fallido. Con el recogido antiguo o la cota antigua del demonio la
+  suite falla (comprobado a propósito antes de publicar). Las tres releases anteriores se dieron
+  por buenas con suites sin sesión, que nunca pasaban por el demonio.
+
+### Comprobado
+
+`npm test` entero (74 bloques); en navegador contra el bundle local: controles del mundo, viajes,
+regresiones, zoom, río, la suite nueva de cruces con demonio y la de bosque vivo (puertas, notas,
+plazas); en la web, `check-forest-live` (cota inclusiva), `-negative` y `-load`. En producción:
+`check-release-live` en las seis rutas, el demonio con la release nueva, seis cruces anónimos sin
+anomalías y cero «cruce rechazado» en el registro del demonio tras el despliegue.
+
 ## Producción: la rejilla perfecta, el lago de la pradera y los cruces que no se pillan — 20 septiembre 2026
 
 Artefacto `f9266288e12030a7902b`, fuente del juego `91f3fdf`, web `853f33e3` (puntero y el demonio del bosque vivo
