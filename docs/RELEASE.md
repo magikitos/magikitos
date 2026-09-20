@@ -54,6 +54,63 @@ de las seis rutas en origen y `check-release-live` completo en el dominio públi
 escrituras bloqueadas en las pruebas públicas; ninguna partida alterada. Evidencia
 local en `.local/gait-review/` y `.local/production-controls/`.
 
+## Producción: la rejilla perfecta, el lago de la pradera y los cruces que no se pillan — 20 septiembre 2026
+
+Artefacto `f9266288e12030a7902b`, fuente del juego `91f3fdf`, web `853f33e3` (puntero y el demonio del bosque vivo
+anotando los cruces que rechaza). Anterior conservada: `8a3ae0eab255158cede5`. Mismas rutas.
+
+SHA-256 de `release.json`: `b20701fac5dd414934f9a791b17a947ad5e407bac357b50b9be45a94a8638c92`. 791 archivos verificados y ESTACIONADOS antes de mover
+el puntero (frente a la anterior cambian `aventura.min.js`, `game-contract.json` y las seis páginas;
+el arte no se toca). **Sin migración** (las zonas de río no tenían nada construido: el
+desplazamiento de 64 casillas no toca ninguna fila; lo construido en la pradera conserva sus
+coordenadas), **con PHP mínimo** (una línea de registro en `bosque-vivo/presence.cjs`) y **con
+contrato del bosque vivo** (pantallas, bandas y máscaras nuevas; el demonio arrancó con
+`release=f9266288e12030a7902b`). Las posiciones guardadas dentro de un tramo de río caen al punto de aparición
+de la pantalla la primera vez, como cualquier llegada que no se puede pisar.
+
+⛔ **Construido desde un árbol LIMPIO** con el MISMO id que el árbol de trabajo. `npm test` completo
+y las suites de navegador (veintiuna, sin DDEV).
+
+### Alcance publicado
+
+- **La rejilla** ([MUNDO-CONTINUO.md](MUNDO-CONTINUO.md), «La rejilla»; decisión del dueño: «que
+  todo el mundo sean escenarios del mismo tamaño y encajen como una cuadrícula perfecta entre
+  ellos, modular»): las cinco pantallas exteriores miden 192 × 144 y ocupan celdas exactas
+  (pradera 0,0; sauces 0,−144; rápidos 0,−288; raíces 0,−432; jardín 192,−432). Los tramos de río
+  se desplazaron 64 casillas a la derecha y crecieron por el oeste; la pradera creció por el este
+  y el sur; el jardín por el este y el sur. El suelo nuevo lleva la flora autorada de cada
+  pantalla, lejos del agua, los caminos, lo colocado y los bordes, y es pisable y construible.
+  `check-world-layout` exige la celda entera y la posición exacta.
+- **El lago de la pradera**: el océano de un solo lado pasa a ser un lago de dos orillas (`rivers`,
+  con `sway`) cerrado por el este y por el sur; el cauce de los sauces llega recto (96..128) y el
+  lago se ensancha ya dentro de la pradera. Fuera del plano solo queda césped, así que no hay
+  dos bordes distintos que se encuentren en diagonal (la «línea recta sin orilla» de la derecha).
+  El vaivén de la orilla muere en el propio borde para encajar píxel a píxel con los sauces.
+- **Las bandas de paso cubren todo el césped** de cada borde compartido, a los dos lados del río
+  (a la pradera se baja también por la orilla este del lago); si enfrente hay un árbol, se aparece
+  un paso al lado dentro de la banda antes que en el centro (el «se desplaza a la derecha»).
+- **Los cruces que se pillaban** (capturas del dueño): la caché de mundos era una LRU pura y, tras
+  cruzar a los sauces, tiraba la pradera —a la vista— por detrás de las casitas calentadas: sus
+  árboles y su casa desaparecían y volvían. Ahora nunca se expulsa la pantalla activa ni sus
+  vecinas por costura, y una vecina caliente sin mundo se vuelve a preparar. El cerrojo de la
+  llegada exigía salir de la banda entera para volver (la «barrera invisible»): basta con andar
+  dos píxeles hacia el borde. El viaje reutiliza la preparación que la precarga ya tiene en marcha
+  en vez de reservar el arte dos veces, y el presupuesto de hojas es de 192 MB en aparatos con
+  cuatro gigas o más. Medido en local: 16 cruces seguidos arriba-abajo sin una anomalía.
+- **Detalles del cruce**: el icono de construir ya no parpadea al cambiar de pantalla, y la
+  barquita de los sauces sigue remando por el lago y se desvanece en vez de cortarse en la
+  costura (`riverLife[].beyond`, opacidad).
+- **El demonio anota los cruces que rechaza** (kind, id, pantalla, origen y llegada), para que un
+  «no hemos podido preparar el viaje» tenga rastro en `journalctl -u bosque-vivo`.
+
+### Comprobado
+
+`npm test` entero (con la rejilla y el lago en `check-world-layout`, `check-adventure-geography`,
+`check-river-core` y `check-world-polish`). En navegador contra el bundle local: controles del
+mundo, movilidad, viajes, regresiones, diálogo, elenco, zoom, empotrado, río, capítulo, picnic,
+seto, bosque, gatos, recogibles, Ascua, almacén y Studio (caminos, selección, galería, entradas).
+En producción: `check-release-live` en las seis rutas y el demonio con la release nueva.
+
 ## Producción: el bosque anda suelto, la orilla es orilla y las entradas se dibujan — 20 septiembre 2026
 
 Artefacto `8a3ae0eab255158cede5`, fuente del juego `5898874`, web `771318a8` (puntero y documentación de la API).
