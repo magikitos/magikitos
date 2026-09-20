@@ -1141,6 +1141,24 @@
       ],
       "label": "warehouseDoor",
       "portal": true
+    },
+    {
+      "id": "warehouse-sign",
+      "sprite": "sign",
+      "x": 107.5,
+      "y": 107.25,
+      "rules": [
+        {
+          "effects": [
+            {
+              "type": "dialogue",
+              "key": "warehouseSign"
+            }
+          ]
+        }
+      ],
+      "label": "sign",
+      "edgeSlide": true
     }
   ],
   "neighbors": [

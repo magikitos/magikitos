@@ -66,10 +66,17 @@ function nearbyPaths(data, ox, oy) {
 /** Hoist all shoreline interpolation out of the per-pixel loop. */
 function shoreRow(data, py) {
   const y = py / TILE;
-  const coasts = (data.coasts || []).map((c) => ({
-    edge: coastX(c, y) * TILE,
-    west: c.side === "west",
-  }));
+  // La distancia a la costa se mide PERPENDICULAR a la orilla (20-sep-2026): medida en
+  // horizontal, un tramo en diagonal estrechaba la banda de orilla y el degradado del agua por
+  // el coseno de la pendiente, y la costa salía como una raya fina frente a las orillas del río.
+  const coasts = (data.coasts || []).map((c) => {
+    const slope = coastX(c, y + 0.5) - coastX(c, y - 0.5);
+    return {
+      edge: coastX(c, y) * TILE,
+      west: c.side === "west",
+      scale: 1 / Math.sqrt(1 + slope * slope),
+    };
+  });
   const rivers = (data.rivers || []).map((r) => {
     const banks = riverSection(r, y);
     return {
@@ -88,7 +95,7 @@ function shoreRow(data, py) {
     islands = (data.islands || []).map(ellipse);
   return (x) => {
     let d = -10000;
-    for (const c of coasts) d = Math.max(d, c.west ? c.edge - x : x - c.edge);
+    for (const c of coasts) d = Math.max(d, (c.west ? c.edge - x : x - c.edge) * c.scale);
     for (const r of rivers) {
       const dx = x - r.left;
       d = Math.max(d, Math.min(dx, r.width - dx, r.vertical));

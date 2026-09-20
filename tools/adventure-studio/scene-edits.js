@@ -10,6 +10,10 @@ const {
   families,
 } = require("../../public/assets/js/adventure/elements");
 const { validatePaths } = require("./path-edits");
+const {
+  doorGeometry,
+  validEntrance,
+} = require("../../public/assets/js/adventure/portals");
 const FIELDS = [
   "x",
   "y",
@@ -19,6 +23,7 @@ const FIELDS = [
   "solid",
   "artVariant",
   "fence",
+  "entrance",
 ];
 const clone = (value) => JSON.parse(JSON.stringify(value));
 function placement(e) {
@@ -30,6 +35,7 @@ function placement(e) {
     flip: !!e.flip,
     ...(e.fence ? { fence: clone(e.fence) } : {}),
     ...(e.solid ? { solid: [...e.solid] } : {}),
+    ...(e.entrance ? { entrance: [...e.entrance] } : {}),
     ...(familyOf(e)
       ? {
           artVariant:
@@ -98,6 +104,24 @@ function validatePlacement(scene, source, value) {
     )
       throw Error("Colisión no admitida; puertas y actores están protegidos");
   }
+  /**
+   * ⛔ LA ENTRADA DE UNA PUERTA SE DIBUJA A MANO (20-sep-2026, decisión del dueño). `entrance` es la
+   * franja que abre la puerta, [dx, dy, ancho, alto] en casillas relativas al pie; sin ella el
+   * compilador la deriva del pie como siempre. Solo las puertas la tienen —una escalera deriva su
+   * rellano de su cuerpo— y va con los mismos límites que exige el compilador (`portals.js`).
+   */
+  if (JSON.stringify(next.entrance) !== JSON.stringify(source.entrance)) {
+    if (!source.portal || source.portal === "stairs")
+      throw Error("Solo las puertas tienen entrada; las escaleras derivan su rellano");
+    if (next.entrance !== undefined) {
+      if (!validEntrance(next.entrance))
+        throw Error(
+          "Entrada fuera de rango: hasta 12 casillas del pie, de ¼ a 2 casillas de ancho y de 1 a 8 píxeles de alto",
+        );
+      next.entrance = next.entrance.map((v) => Math.round(v * 16) / 16);
+    }
+  }
+  if (next.entrance === undefined) delete next.entrance;
   if (next.artVariant !== undefined) {
     const family = familyOf(source);
     if (
@@ -248,7 +272,23 @@ function renderScene(snapshot, sceneId, changes = {}) {
   if (Object.hasOwn(edits, "paths")) scene.paths = clone(edits.paths);
   scene.entities = scene.entities
     .filter((e) => keep(e, "entities"))
-    .map((e) => ({ ...e, ...edits.entities?.[e.id] }));
+    .map((e) => {
+      const edit = edits.entities?.[e.id];
+      if (!edit) return e;
+      const merged = { ...e, ...edit };
+      // Una colocación es completa: sin `entrance` en ella, la puerta vuelve a derivarse.
+      if (!Object.hasOwn(edit, "entrance")) delete merged.entrance;
+      // La vista previa enseña el umbral y la llegada que escribirá el compilador para el pie y la
+      // entrada de AHORA, no los de la escena compilada antes de mover la casa.
+      if (merged.portal) {
+        try {
+          Object.assign(merged, doorGeometry(scene, merged));
+        } catch {
+          /* la validación ya rechazó la entrada; se conserva la geometría compilada */
+        }
+      }
+      return merged;
+    });
   for (const [id, value] of Object.entries(edits.added || {}))
     scene.entities.push({
       ...makeElement(value.family, id, value.x, value.y, value.artVariant),

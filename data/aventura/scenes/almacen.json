@@ -126,8 +126,8 @@
     {
       "id": "warehouse-keeper",
       "behavior": "warehouse-keeper",
-      "x": 16.9,
-      "y": 12.6
+      "x": 13.3,
+      "y": 15.9
     },
     {
       "id": "warehouse-counter",
@@ -171,12 +171,6 @@
       "behavior": "warehouse-sack-tied",
       "x": 23.4,
       "y": 19.1
-    },
-    {
-      "id": "warehouse-daily-sack",
-      "behavior": "warehouse-daily-sack",
-      "x": 8.8,
-      "y": 17.4
     }
   ]
 }

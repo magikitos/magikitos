@@ -52,6 +52,7 @@ for (const name of [
   "check-woodland-core",
   "check-adventure-paths",
   "check-adventure-doors",
+  "check-door-geometry",
   "check-adventure-account",
   "check-flat-art",
   "check-release-install",

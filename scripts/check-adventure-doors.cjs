@@ -22,7 +22,7 @@ for (const scene of Object.values(catalog.scenes)) {
       dir = door.entryDirection;
     assert.equal(dir, scene.indoor ? 1 : -1);
     assert(
-      w <= 1 && h <= 0.375,
+      w <= 2 && h <= 0.5,
       "Door requires physical proximity, not a large radius",
     );
     const center = {

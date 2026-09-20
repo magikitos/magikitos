@@ -20,6 +20,7 @@ const {
   removable,
 } = require("./scene-edits");
 const { capabilities } = require("../../public/assets/js/adventure/entity-art");
+const { doorGeometry } = require("../../public/assets/js/adventure/portals");
 const {
   TILE,
   collisionBounds,
@@ -300,7 +301,54 @@ function currentEntityInTiles() {
   const e = currentEntity();
   return { ...e, x: e.x / TILE, y: e.y / TILE };
 }
+/**
+ * Arrastrar la franja azul de una puerta mueve su entrada, no la puerta. Mientras dura el arrastre
+ * se recalcula en vivo el umbral con el mismo gemelo que usa el compilador; al soltar se rehace la
+ * escena y entra en el historial como un solo cambio.
+ */
+function dragEntrance(info, position, commit, cancel) {
+  const e = currentEntity();
+  if (!e) return;
+  if (!dragBefore) dragBefore = editsJSON();
+  if (cancel) {
+    restoreEdits(dragBefore);
+    dragBefore = null;
+    rebuild();
+    return;
+  }
+  if (position) {
+    const step = Number($("snap").value),
+      [, , w, h] = e.threshold,
+      entrance = [
+        Math.round((position.x - e.x / TILE) / step) * step,
+        Math.round((position.y - e.y / TILE) / step) * step,
+        w,
+        h,
+      ];
+    try {
+      setChanges([
+        { selection: selected, value: { ...placement(currentEntityInTiles()), entrance } },
+      ]);
+      Object.assign(
+        e,
+        { entrance },
+        doorGeometry(snapshot.world.scenes[sceneId], { ...e, x: e.x / TILE, y: e.y / TILE, entrance }),
+      );
+      paintEntrance(e);
+      view.dirty = true;
+    } catch (error) {
+      toast(error.message);
+    }
+  }
+  if (commit) {
+    const before = dragBefore;
+    dragBefore = null;
+    rebuild();
+    history(before);
+  }
+}
 function drag(info, position, commit, cancel) {
+  if (info.entrance) return dragEntrance(info, position, commit, cancel);
   if (!dragBefore) {
     dragBefore = editsJSON();
     dragMembers = selectionTools
@@ -421,6 +469,13 @@ function warnings(entity) {
     messages.push(
       "Puerta: al aplicar el diff hay que comprobar umbral, salida y llegada. La orientación y escala quedan protegidas.",
     );
+  if (entity.threshold && view.world) {
+    const [tx, ty, tw, th] = entity.threshold;
+    if (!view.world.canStand((tx + tw / 2) * TILE, (ty + th / 2) * TILE, { actor: true }))
+      messages.push(
+        "El umbral de la entrada cae sobre un cuerpo o sobre agua: nadie podrá pisarlo. Muévelo a suelo libre.",
+      );
+  }
   if (view.world.waterAt(entity.x / TILE, entity.y / TILE))
     messages.push(
       "El ancla está sobre agua. Revisa si la colocación es intencionada.",
@@ -448,6 +503,25 @@ function warnings(entity) {
       "La luz nocturna y la zona de cuentos tienen anclas propias: habrá que recolocarlas junto al fuego al aplicar.",
     );
   return messages;
+}
+/**
+ * La entrada de una puerta en el inspector: la franja que la abre, relativa al pie, tal y como la
+ * escribirá el compilador (`entrance`). Automática si nadie la ha dibujado.
+ */
+const ENTRANCE_INPUTS = ["entrance-dx", "entrance-dy", "entrance-w", "entrance-h"];
+function paintEntrance(e) {
+  const door = !!e.portal && e.portal !== "stairs" && Array.isArray(e.threshold);
+  $("entrance-section").hidden = !door;
+  if (!door) return;
+  const [tx, ty, tw, th] = e.threshold,
+    values = [tx - e.x / TILE, ty - e.y / TILE, tw, th];
+  ENTRANCE_INPUTS.forEach((id, i) => {
+    $(id).value = Math.round(values[i] * 16) / 16;
+  });
+  $("entrance-auto").disabled = !e.entrance;
+  $("entrance-help").textContent = e.entrance
+    ? "Entrada dibujada a mano. Se guarda como «entrance» en la escena; el compilador saca de ahí el umbral y la llegada."
+    : "Entrada automática desde el pie de la puerta. Cambia los valores o arrastra la franja azul del mapa para dibujarla a mano.";
 }
 function paintInspector() {
   const multi = view.selection.length > 1;
@@ -533,7 +607,10 @@ function paintInspector() {
   }
   $("collision-help").textContent = editableBody
     ? "Cuerpo físico en píxeles, relativo al pie naranja. Independiente del recorte; azul en el mapa."
-    : "Umbral protegido: su geometría se calcula desde la puerta o escalera.";
+    : e.portal && e.portal !== "stairs"
+      ? "Cuerpo protegido. La franja por la que se entra se ajusta abajo, en «Entrada»."
+      : "Umbral protegido: su geometría se calcula desde la puerta o escalera.";
+  paintEntrance(e);
   thumbnail($("preview"), view.renderer.sprites, e, 15);
   $("warnings").innerHTML = warnings(e)
     .map((m) => "<p>" + escape(m) + "</p>")
@@ -623,6 +700,11 @@ for (const id of ["crop-x", "crop-y", "crop-w", "crop-h"])
     adjustCrop(
       ["crop-x", "crop-y", "crop-w", "crop-h"].map((k) => Number($(k).value)),
     );
+for (const id of ENTRANCE_INPUTS)
+  $(id).addEventListener("change", () =>
+    adjust({ entrance: ENTRANCE_INPUTS.map((k) => Number($(k).value)) }),
+  );
+$("entrance-auto").onclick = () => adjust({ entrance: undefined });
 for (const id of ["body-x", "body-y", "body-w", "body-h"])
   $(id).onchange = () =>
     adjust({

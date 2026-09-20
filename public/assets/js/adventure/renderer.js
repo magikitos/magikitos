@@ -139,12 +139,18 @@ class Renderer {
      * por profundidad, cada una trasladada a las coordenadas de la tuya.
      */
     const seams = world.data.indoor ? [] : world.seams || [];
-    this.drawVoid(game, world, view);
-    for (const seam of seams) {
-      const local = this.localView(seam, view);
-      if (local) this.drawGround(seam.world, local, time);
-    }
-    this.drawGround(world, view, time);
+    // Todo lo que este fotograma enseña se ancla ANTES de pintar nada: hueco, vecinas y la tuya.
+    // Ver `Terrain.pin`: anclar por partes y podar entre medias construía las mismas baldosas
+    // cada fotograma en cuanto una vecina asomaba.
+    const voidArea = this.voidArea(game, world, view);
+    const grounds = seams
+      .map((seam) => ({ world: seam.world, view: this.localView(seam, view) }))
+      .filter((g) => g.view);
+    grounds.push({ world, view });
+    if (voidArea) this.terrain.pinVoid(voidArea.range);
+    for (const g of grounds) this.terrain.pin(g.world, g.view);
+    if (voidArea) this.drawVoid(voidArea);
+    for (const g of grounds) this.drawGround(g.world, g.view, time);
     game.river?.drawWater(c, time);
     game.self.drawGround(c);
     const visible = (e) => this.inView(e, view, game.state);
@@ -230,6 +236,15 @@ class Renderer {
     // acabas de tocarlo. El destino sigue existiendo para el viaje y para `inspect`, solo no se pinta.
     if (!game.reducedMotion) this.ambient(world, cam, time);
     c.restore();
+    // Una baldosa del anillo de alrededor, por adelantado, si este fotograma no construyó ninguna.
+    if (!game.transitioning)
+      this.terrain.prefetch(
+        [
+          ...grounds.map((g) => ({ world: g.world, range: chunkRange(g.world, g.view) })),
+          ...(voidArea ? [{ plane: voidArea.plane, range: voidArea.range, inside: voidArea.inside }] : []),
+        ],
+        this.sprites,
+      );
     this.stickHint(game.stickHint?.());
     // A quiet edge vignette; no per-frame image processing.
     const gradient = c.createRadialGradient(
@@ -265,7 +280,6 @@ class Renderer {
   /** El suelo de UNA pantalla: trozos de terreno, puentes, ondas y recortes interiores. */
   drawGround(world, view, time) {
     const c = this.ctx;
-    this.terrain.pin(world, view);
     const range = chunkRange(world, view);
     for (let cy = range.top; cy <= range.bottom; cy++)
       for (let cx = range.left; cx <= range.right; cx++) {
@@ -301,12 +315,11 @@ class Renderer {
    * continúa el borde más cercano (`terrain.voidChunk`). Se pinta debajo de todo y solo dentro de
    * la caja del plano, que es hasta donde la cámara puede llegar.
    */
-  drawVoid(game, world, view) {
+  voidArea(game, world, view) {
     const plane = game.scenes?.plane,
       origin = world.origin;
-    if (!plane?.bounds || !origin || world.data.indoor) return;
-    const c = this.ctx,
-      b = plane.bounds;
+    if (!plane?.bounds || !origin || world.data.indoor) return null;
+    const b = plane.bounds;
     // La vista en coordenadas del plano, acotada a su caja.
     const px = view.x + origin.x,
       py = view.y + origin.y;
@@ -314,14 +327,20 @@ class Renderer {
       top = Math.max(b.y, py),
       right = Math.min(b.x + b.w, px + view.width),
       bottom = Math.min(b.y + b.h, py + view.height);
-    if (right <= left || bottom <= top) return;
+    if (right <= left || bottom <= top) return null;
     const range = {
       left: Math.floor(left / 256),
       top: Math.floor(top / 256),
       right: Math.floor((right - 0.001) / 256),
       bottom: Math.floor((bottom - 0.001) / 256),
     };
-    this.terrain.pinVoid(range);
+    // Qué trozos del hueco existen: los que caen dentro de la caja del plano.
+    const inside = (cx, cy) =>
+      (cx + 1) * 256 > b.x && cx * 256 < b.x + b.w && (cy + 1) * 256 > b.y && cy * 256 < b.y + b.h;
+    return { plane, range, px, py, inside };
+  }
+  drawVoid({ plane, range, px, py }) {
+    const c = this.ctx;
     for (let cy = range.top; cy <= range.bottom; cy++)
       for (let cx = range.left; cx <= range.right; cx++) {
         const x = Math.round((cx * 256 - Math.round(px)) * this.pixelScale);

@@ -316,7 +316,10 @@ residente). **Todo se paga en setas, nunca en setines** (los setines son reputac
 | Saco de gravilla (`gravilla` ×10, `bundle`) | 5 | tope 60 en el saco; el camino cuesta una gravilla por celda |
 | Bombita | 6 | solo sin bombita en el saco |
 | Tenaza | 2 | solo sin tenaza en el saco |
-| Saco del día (`warehouse-daily-sack`) | 0 | uno cada 24 h de reloj del servidor (`timers.gravelDaily`) |
+
+**Nada se regala** (20-sep-2026, decisión del dueño): la gravilla solo sale del trueque con
+Cebolino, que atiende junto al mostrador (`interactAs` desde el mostrador), y fuera hay un cartel
+(`warehouse-sign`) que dice quién vive en la regadera y qué cambia.
 
 Las setas se cortan con cuchillo en el bosque y **rebrotan a las ocho horas** por jugador
 (`harvest.renewMs`, regiones `harvest-*-28800000` en `resource-nodes.json`). Las vallas siguen

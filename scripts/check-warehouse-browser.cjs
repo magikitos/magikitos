@@ -1,9 +1,10 @@
 "use strict";
 /**
  * EL ALMACÉN DEL CONSTRUCTOR, EN NAVEGADOR (19-sep-2026, decisión del dueño): se entra en la regadera,
- * se habla con Cebolino, salen los tres trueques en setas, cinco setas se convierten en un saco de
- * diez gravillas en el propio saco, y se vuelve a la pradera por la rampa. Sin setines por ningún
- * lado. La API va simulada como caída: la regla se aplica en local y se anota en la cola, que es lo
+ * Cebolino está a la vista junto al mostrador (20-sep-2026: el dueño no lo encontraba detrás), se
+ * habla con él, salen los tres trueques en setas, cinco setas se convierten en un saco de diez
+ * gravillas en el propio saco, y se vuelve a la pradera por la rampa. Sin setines por ningún lado y
+ * sin sacos regalados. La API va simulada como caída: la regla se aplica en local y se anota en la cola, que es lo
  * que hace el juego cuando la red no está.
  */
 const assert = require("node:assert/strict");
@@ -32,6 +33,20 @@ const origin = process.env.GAME_ORIGIN || "http://127.0.0.1:47834";
       let s = await inspect();
       assert.equal(s.scene, "almacen", "Se entra en el almacén");
       assert.equal(s.inventory?.mushroom ?? (await page.evaluate(() => window.MagikitosAdventure.inspect().inventory?.mushroom)), 7);
+      assert(!s.entities.some((e) => /daily/.test(e.id)), "Ningún saco se regala");
+      // Cebolino se ve: está junto al mostrador, dentro de la vista, y sus píxeles no son los del suelo.
+      const keeper = s.entities.find((e) => e.id === "warehouse-keeper");
+      assert(keeper?.presented, "Cebolino está en la sala");
+      const [kx, ky] = await world(keeper.x / 16, keeper.y / 16 - 1.2);
+      assert(kx > 0 && ky > 0 && kx < width && ky < height, "Cebolino cae dentro de la pantalla al entrar");
+      const colours = await page.evaluate(([sx, sy]) => {
+        const canvas = document.getElementById("world-canvas"), r = canvas.getBoundingClientRect();
+        const px = Math.round((sx - r.left) * canvas.width / r.width), py = Math.round((sy - r.top) * canvas.height / r.height);
+        const data = canvas.getContext("2d").getImageData(px - 8, py - 8, 16, 16).data, seen = new Set();
+        for (let i = 0; i < data.length; i += 4) seen.add((data[i] >> 4) + "," + (data[i + 1] >> 4) + "," + (data[i + 2] >> 4));
+        return seen.size;
+      }, [kx, ky]);
+      assert(colours > 6, "Los píxeles de Cebolino no son un suelo liso: " + colours + " tonos");
       // Tocar el mostrador habla con el constructor (interactAs).
       await tap(16.9, 14.4);
       await page.waitForFunction(() => Boolean(window.MagikitosAdventure.inspect().dialogue), null, { timeout: 15000 });
@@ -64,7 +79,7 @@ const origin = process.env.GAME_ORIGIN || "http://127.0.0.1:47834";
       assert(Math.abs(s.player.x - 104 * 16) < 40 && s.player.y > 105 * 16, "Se sale por la puerta de la regadera " + JSON.stringify(s.player));
       await page.screenshot({ path: `.local/warehouse-review/outside-${width}.png` }).catch(() => {});
       await page.close();
-      console.log(`PASS warehouse ${width}×${height}: entrar, tres trueques en setas, un saco de diez por cinco setas, sin bombita sin setas, salida a la pradera.`);
+      console.log(`PASS warehouse ${width}×${height}: entrar, Cebolino a la vista, tres trueques en setas, un saco de diez por cinco setas, sin bombita sin setas, ningún saco regalado, salida a la pradera.`);
     }
     assert.deepEqual(errors, []);
   } finally { await browser.close(); }

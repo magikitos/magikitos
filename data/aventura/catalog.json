@@ -286,9 +286,6 @@
   "timers": {
     "picnic": {
       "hours": 5
-    },
-    "gravelDaily": {
-      "hours": 24
     }
   }
 }

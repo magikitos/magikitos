@@ -8,6 +8,7 @@ const {
   validateChanges,
   placement,
   diff,
+  renderScene,
 } = require("../tools/adventure-studio/scene-edits");
 const {
   validateSprites,
@@ -42,6 +43,41 @@ assert.throws(
     }),
   /Colisión/,
 );
+// La entrada de una puerta se dibuja a mano (20-sep-2026): se valida, se enseña en vivo y se
+// escribe como `entrance` en la escena, nunca como geometría derivada.
+const cottage = base.world.scenes.overworld.entities.find((e) => e.id === "home-one");
+const drawn = [-1.25, 0.5, 1.5, 0.375];
+const entrance = validateChanges(base, {
+  overworld: { entities: { "home-one": { ...placement(cottage), entrance: drawn } } },
+});
+assert.deepEqual(entrance.overworld.entities["home-one"].entrance, drawn);
+const preview = renderScene(base, "overworld", entrance).entities.find((e) => e.id === "home-one");
+assert.deepEqual(preview.threshold, [cottage.x - 1.25, cottage.y + 0.5, 1.5, 0.375], "La vista previa enseña el umbral dibujado");
+assert.equal(preview.entryDirection, -1);
+assert.deepEqual(preview.arrival, [cottage.x - 0.5, cottage.y + 0.5 + 0.375 + 2], "La llegada sale de la franja");
+const written = diff(base, entrance)[0].proposedScene.entities.find((e) => e.id === "home-one");
+assert.deepEqual(written.entrance, drawn, "La propuesta escribe entrance en la escena");
+assert(!Object.hasOwn(written, "threshold") && !Object.hasOwn(written, "arrival"), "La propuesta no escribe geometría derivada");
+assert.throws(
+  () => validateChanges(base, { overworld: { entities: { "home-one": { ...placement(cottage), entrance: [0, 0, 3, 0.25] } } } }),
+  /fuera de rango/,
+);
+assert.throws(
+  () => validateChanges(base, { house: { entities: { "human-bed": { ...placement(bed), entrance: [0, 0, 1, 0.25] } } } }),
+  /puertas/,
+);
+const moved = validateChanges(base, {
+  overworld: { entities: { "home-one": { ...placement(cottage), x: cottage.x + 2 } } },
+});
+assert.equal(
+  renderScene(base, "overworld", moved).entities.find((e) => e.id === "home-one").threshold[0],
+  cottage.threshold[0] + 2,
+  "Mover la casa mueve su umbral en la vista previa",
+);
+const reset = validateChanges(base, {
+  overworld: { entities: { "home-one": { ...placement(cottage), entrance: undefined } } },
+});
+assert.deepEqual(reset, {}, "Volver a la entrada automática sin haberla dibujado no es un cambio");
 const collision = validateChanges(base, {
   house: { entities: { "human-bed": { solid: [-1, -2, 2, 2.5] } } },
 });

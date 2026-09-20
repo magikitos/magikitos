@@ -19,9 +19,30 @@ Rutas y toques: [NAVIGATION.md](NAVIGATION.md).
 | `crossings.js` | El cruce se **dispara pegado al borde** (`SEAM_TRIGGER`, 0,15 casillas, para los dos modos) y no en la zona autorada de hasta tres casillas, que sigue valiendo para el contrato del servidor. La llegada es la geométrica (`crossingArrival`: banda alineada + desvío conservado), la **cámara viaja con el duende** (se traduce, no se recentra), la salida de vuelta queda **cerrada** hasta salir de su banda y no hay aviso al cruzar. Un toque más allá del borde (`aimBeyond`) es un viaje en dos tramos: hasta la costura y, al otro lado, el mismo toque en sus coordenadas. |
 | `scenes.js` (director) | Calcula el plano al arrancar y su versión en píxeles (`plane`), guarda los **residentes** de cada pantalla en memoria (siguen viviendo al otro lado), **enlaza** las cacheadas por sus costuras cada vez que la caché cambia —y les pone `origin`, su esquina en el plano—, y precarga primero lo que la cámara está a punto de enseñar (`scenesIntersecting` con margen) y después las vecinas por las que se sale. Por una costura no se espera a la red: la instantánea de lo construido ya se pidió al calentar y se refresca por detrás. |
 | `scene-frame.js` | La cámara se acota al **marco del plano** en exteriores (`world.frame`), a la pantalla en interiores o sin plano. La cámara es del duende y no se arrastra (salvo construyendo), y el zoom máximo es el que cubre la pantalla en la que estás: entre las dos cosas, alejar nunca enseña más allá de los mapas. |
-| `renderer.js` | Sin recortes por pantalla (dejaban una raya en la costura y partían al duende). Primero el **hueco del plano** (`drawVoid`), luego el suelo de las vecinas enlazadas y el de la tuya, y por último **todas las cosas de todas las pantallas en una sola pasada** ordenada por profundidad, cada una trasladada a tus coordenadas. El arte de los actores se pide una vez para todo lo visible, los de las vecinas incluidos. El terreno se ancla por trozos (`terrain.pin`, `pinVoid`). |
+| `renderer.js` | Sin recortes por pantalla (dejaban una raya en la costura y partían al duende). Se **ancla primero todo lo que el fotograma va a enseñar** (hueco, vecinas y la tuya) y solo después se pinta: primero el **hueco del plano** (`drawVoid`), luego el suelo de las vecinas enlazadas y el de la tuya, y por último **todas las cosas de todas las pantallas en una sola pasada** ordenada por profundidad, cada una trasladada a tus coordenadas. El arte de los actores se pide una vez para todo lo visible, los de las vecinas incluidos. Al final, si el fotograma no ha tenido que construir ninguna baldosa a la vista, se construye **una del anillo de alrededor por adelantado** (`terrain.prefetch`). |
 | `ground.js` / `terrain.js` | `paintVoid` pinta lo que no es ninguna pantalla **continuando el borde más cercano**: cada píxel del hueco toma la orilla del píxel de borde de la pantalla más próxima, así que un lago que llega al borde de su mapa sigue siendo lago y un prado sigue siendo prado, con la misma hierba (ruido del plano, semilla común) y sin caminos. `terrain.voidChunk` lo cachea en coordenadas del plano como las demás baldosas. |
 | `game.js` | Los residentes de las vecinas pasean en su propio mundo con la cámara traducida (`wander`). Un toque fuera de la pantalla busca la vecina (`world.beyond`) y llama a `crossings.aimBeyond`. `inspect()` expone `seams`, `frame` y `pendingBeyond`. |
+
+## Los trompicones que había (20-sep-2026)
+
+Dos cosas hacían que el bosque diera saltitos al moverse, y ninguna era la animación:
+
+- **Anclar por partes expulsaba lo que aún no estaba anclado.** Cada `terrain.pin` podaba en el
+  acto con el presupuesto de lo anclado hasta ese momento, así que con una vecina a la vista
+  anclar su suelo tiraba las baldosas de la pantalla que pisas, que se reconstruían en el mismo
+  fotograma: unas 240 baldosas de 256×256 por segundo pintadas píxel a píxel, quietos o andando,
+  en cuanto asomaba una costura (medido en `.local/polish-review`: el tick pasaba de 1,4 ms a 8 ms
+  en un portátil; en un teléfono eso son fotogramas de 30-60 ms). Ahora anclar no expulsa: la poda
+  ocurre al insertar, con todo lo visible ya anclado, y el presupuesto lleva holgura para el anillo.
+- **Una fila entera de baldosas nuevas entraba de golpe.** Al andar, las cinco o seis baldosas de
+  la fila que asoma se construían en el mismo fotograma (hasta 77 ms en portátil). Ahora se pinta
+  una por adelantado y por fotograma, del anillo que rodea la vista, cuando el fotograma va suelto.
+
+Y con ellos, tres cosas que hacían «aparecer y desaparecer» al cruzar: la pantalla que dejas pasa
+de activa a **caliente en el acto** (sus hojas no quedan sin proteger los ~600 ms hasta la
+siguiente precarga), sus **residentes siguen donde estaban** (no se rehacen al entrar), y las hojas
+viven en un **ImageBitmap propio** en vez de en la caché del descodificador del navegador, que un
+teléfono vacía cuando quiere. Las ondas del agua se calculan una vez por celda (`water.js`).
 
 ## Los datos
 

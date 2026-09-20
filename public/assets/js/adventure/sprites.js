@@ -113,7 +113,14 @@ class SpriteLibrary {
           )
             throw new Error("Invalid sprite frame: " + name);
         }
-        this.packs.set(id, { image, frames: metadata.frames, bytes });
+        // ⛔ EL DIBUJO SE QUEDA EN UN MAPA DE BITS PROPIO (20-sep-2026). Un <img> descodificado
+        // vive en la caché del descodificador del navegador, que en un teléfono con poca memoria
+        // la vacía cuando quiere: el siguiente drawImage no pinta nada hasta que vuelve a
+        // descodificar, y eso se ve como árboles que desaparecen un instante y vuelven. Un
+        // ImageBitmap es memoria de la página, dentro del mismo presupuesto, y no se purga así.
+        const bitmap = await this.bitmap(image);
+        this.packs.set(id, { image: bitmap || image, frames: metadata.frames, bytes });
+        if (bitmap) image.src = "";
         this.residency.reservations.delete(id);
         this.residency.bytes += bytes;
       } catch (error) {
@@ -127,6 +134,14 @@ class SpriteLibrary {
     } finally {
       this.pending.delete(id);
       this.residency.reservations.delete(id);
+    }
+  }
+  async bitmap(image) {
+    if (typeof createImageBitmap !== "function") return null;
+    try {
+      return await createImageBitmap(image);
+    } catch {
+      return null;
     }
   }
   loadImage(url) {

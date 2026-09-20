@@ -43,9 +43,13 @@ assert.equal(grants.bomba[0].rule.when?.maxItems?.bomba, 0, "La bombita solo se 
 assert.equal(grants.desactivador[0].rule.when?.maxItems?.desactivador, 0, "La tenaza solo se compra sin tenaza en el saco");
 for (const g of grants.gravilla) {
   assert.equal(g.amount, items.gravilla.bundle, `${g.entity}: un saco es un saco`);
-  assert(g.rule.when?.maxItems?.gravilla <= items.gravilla.max - items.gravilla.bundle, `${g.entity}: no se regala lo que no cabe`);
-  assert(g.mushrooms === 5 || g.rule.effects.some((f) => f.type === "timer"), `${g.entity}: la gravilla o cuesta cinco setas o es el saco del día`);
+  assert(g.rule.when?.maxItems?.gravilla <= items.gravilla.max - items.gravilla.bundle, `${g.entity}: no se vende lo que no cabe`);
+  assert.equal(g.mushrooms, 5, `${g.entity}: la gravilla cuesta cinco setas, siempre`);
+  assert(!g.rule.effects.some((f) => f.type === "timer"), `${g.entity}: la gravilla no va con reloj`);
 }
-assert(grants.gravilla.length >= 2, "El saco se compra y, una vez al día, se regala");
-assert.equal(world.timers.gravelDaily?.hours, 24, "El saco del día va con el reloj del servidor, un día");
-console.log("PASS bomb balance: bombita " + grants.bomba[0].mushrooms + " setas, tenaza " + grants.desactivador[0].mushrooms + " setas, saco de " + items.gravilla.bundle + " por 5 setas más el saco del día, setas a 8 h, cero setines.");
+// ⛔ LOS SACOS NO SE REGALAN (20-sep-2026, decisión del dueño: «esa idea es una estupidez»). Una
+// sola forma de conseguir gravilla, y es cambiando setas con Cebolino.
+assert.equal(grants.gravilla.length, 1, "La gravilla solo se consigue cambiando setas");
+assert.equal(grants.gravilla[0].entity, "warehouse-keeper");
+assert(!Object.hasOwn(world.timers, "gravelDaily"), "No queda ningún reloj de regalo de gravilla");
+console.log("PASS bomb balance: bombita " + grants.bomba[0].mushrooms + " setas, tenaza " + grants.desactivador[0].mushrooms + " setas, saco de " + items.gravilla.bundle + " por 5 setas y nada regalado, setas a 8 h, cero setines.");

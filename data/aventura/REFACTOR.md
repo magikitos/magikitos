@@ -85,7 +85,8 @@ reintentos y recuperación: [../../docs/API.md#save-protocol-and-server-authorit
 
 Render, selección y colisión comparten ancla, escala y huella. Recortar transparencia
 no cambia el cuerpo; escalar una instancia transforma dibujo y cuerpo conjuntamente.
-Las puertas derivan umbral y llegada del mismo portal; un regreso usa
+Las puertas derivan umbral y llegada del mismo portal —o de su `entrance`
+dibujada en el Studio ([dx, dy, ancho, alto] relativos al pie, 20-sep-2026)—; un regreso usa
 `arrivalAt`, no coordenadas duplicadas. Caminos, agua, orillas y cuerpos se validan
 en las mismas funciones que navegan los personajes.
 

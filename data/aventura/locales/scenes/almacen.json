@@ -103,30 +103,6 @@
     "it": "Hai già una tenaglia. Usala prima di chiederne un'altra.",
     "pt": "Você já leva uma tenaz. Use-a antes de pedir outra."
   },
-  "warehouseDailySackName": {
-    "es": "Saco del día",
-    "en": "Sack of the day",
-    "de": "Sack des Tages",
-    "fr": "Sac du jour",
-    "it": "Sacco del giorno",
-    "pt": "Saco do dia"
-  },
-  "warehouseDailyTaken": {
-    "es": "Un saco abierto, de regalo. Uno al día, que las piedras no crecen en los árboles.",
-    "en": "An open sack, on the house. One a day: stones don't grow on trees.",
-    "de": "Ein offener Sack, geschenkt. Einer pro Tag, Steine wachsen nicht auf Bäumen.",
-    "fr": "Un sac ouvert, cadeau. Un par jour : les pierres ne poussent pas sur les arbres.",
-    "it": "Un sacco aperto, in regalo. Uno al giorno: i sassi non crescono sugli alberi.",
-    "pt": "Um saco aberto, de presente. Um por dia, que pedra não dá em árvore."
-  },
-  "warehouseDailyLater": {
-    "es": "El saco del día ya está atado. Mañana habrá otro.",
-    "en": "Today's sack is already tied up. There'll be another tomorrow.",
-    "de": "Der Sack des Tages ist schon zugebunden. Morgen gibt es einen neuen.",
-    "fr": "Le sac du jour est déjà ficelé. Il y en aura un autre demain.",
-    "it": "Il sacco del giorno è già legato. Domani ce ne sarà un altro.",
-    "pt": "O saco do dia já está amarrado. Amanhã tem outro."
-  },
   "warehouseCounterName": {
     "es": "Mostrador",
     "en": "Counter",

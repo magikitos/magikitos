@@ -19,16 +19,57 @@ class Terrain {
    */
   beginFrame(world = null, view = null) {
     this.pinned.clear();
-    if (world) this.pin(world, view);
-    else this.prune();
+    this.frameBuilds = this.buildCount;
+    if (world) {
+      this.pin(world, view);
+      this.prune();
+    } else this.prune();
   }
+  /**
+   * ⛔ ANCLAR NO EXPULSA (20-sep-2026). Anclar solo apunta lo que este fotograma va a enseñar y
+   * sube el presupuesto; la expulsión ocurre al INSERTAR una baldosa nueva, cuando ya está todo
+   * anclado. Antes cada `pin` podaba en el acto con el presupuesto de lo anclado HASTA ESE MOMENTO:
+   * con una vecina a la vista, anclar su suelo expulsaba las baldosas de la pantalla que pisas
+   * —que aún no estaban ancladas—, y estas volvían a construirse en el mismo fotograma, ~240 por
+   * segundo, quietos o andando. Ese era el trompicón junto a las costuras. El presupuesto lleva
+   * además un anillo de holgura para que las baldosas que acaban de salir de la vista no se
+   * repinten al dar media vuelta.
+   */
   pin(world, view) {
     const range = chunkRange(world, view);
     for (let y = range.top; y <= range.bottom; y++)
       for (let x = range.left; x <= range.right; x++)
         this.pinned.add(world.data.id + ":" + x + ":" + y);
-    this.budget = Math.max(this.limit || 24, this.pinned.size + 4);
-    this.prune();
+    this.budget = Math.max(this.limit || 24, this.pinned.size * 3 + 16);
+  }
+  /**
+   * Una baldosa POR ADELANTADO y por fotograma, del anillo que rodea lo que se ve, y solo si este
+   * fotograma no ha tenido que construir ninguna a la vista: así una fila entera de baldosas
+   * nuevas no entra de golpe en el mismo fotograma al andar, que era el otro trompicón (una fila
+   * de cinco o seis baldosas de 256×256 pintadas píxel a píxel en un solo fotograma).
+   */
+  prefetch(targets, sprites) {
+    if (this.buildCount !== this.frameBuilds) return false;
+    for (const target of targets) {
+      const r = target.range;
+      for (let y = r.top - 1; y <= r.bottom + 1; y++)
+        for (let x = r.left - 1; x <= r.right + 1; x++) {
+          if (y >= r.top && y <= r.bottom && x >= r.left && x <= r.right) continue;
+          if (target.plane) {
+            if (!target.inside(x, y)) continue;
+            if (this.chunks.has("void:" + x + ":" + y)) continue;
+            this.voidChunk(target.plane, x, y);
+            return true;
+          }
+          const world = target.world;
+          if (world.data.indoor) continue;
+          if (x < 0 || y < 0 || x > Math.ceil((world.width * TILE) / 256) - 1 || y > Math.ceil((world.height * TILE) / 256) - 1) continue;
+          if (this.chunks.has(world.data.id + ":" + x + ":" + y)) continue;
+          this.chunk(world, x, y, sprites);
+          return true;
+        }
+    }
+    return false;
   }
   /** Un claro con caminos nuevos hay que repintarlo: las baldosas se cachean por escena. */
   invalidate(sceneId) {
@@ -133,7 +174,7 @@ class Terrain {
   pinVoid(range) {
     for (let y = range.top; y <= range.bottom; y++)
       for (let x = range.left; x <= range.right; x++) this.pinned.add("void:" + x + ":" + y);
-    this.budget = Math.max(this.limit || 24, this.pinned.size + 4);
+    this.budget = Math.max(this.limit || 24, this.pinned.size * 3 + 16);
   }
   chunk(world, cx, cy, sprites) {
     const background = this.background(world.data, sprites);

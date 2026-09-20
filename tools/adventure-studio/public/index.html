@@ -279,6 +279,50 @@
               /></label>
             </div>
           </details>
+          <details id="entrance-section" open hidden>
+            <summary>Entrada · por dónde se cruza la puerta</summary>
+            <p id="entrance-help" class="note"></p>
+            <div class="coordinates">
+              <label
+                >ΔX · tiles<input
+                  id="entrance-dx"
+                  type="number"
+                  step=".0625"
+                  min="-12"
+                  max="12" /></label
+              ><label
+                >ΔY · tiles<input
+                  id="entrance-dy"
+                  type="number"
+                  step=".0625"
+                  min="-12"
+                  max="12"
+              /></label>
+            </div>
+            <div class="coordinates">
+              <label
+                >Ancho<input
+                  id="entrance-w"
+                  type="number"
+                  step=".0625"
+                  min=".25"
+                  max="2" /></label
+              ><label
+                >Alto<input
+                  id="entrance-h"
+                  type="number"
+                  step=".0625"
+                  min=".0625"
+                  max=".5"
+              /></label>
+            </div>
+            <button id="entrance-auto">Volver a la entrada automática</button>
+            <p class="note">
+              Franja azul en el mapa, relativa al pie naranja de la puerta;
+              arrástrala para moverla. El punto azul es donde se llega al salir.
+              Se guarda como «entrance» en la escena.
+            </p>
+          </details>
           <div id="warnings" role="status"></div>
         </div>
         <div class="review">

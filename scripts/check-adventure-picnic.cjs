@@ -50,8 +50,20 @@ const entity = (id) => world.entities.find((e) => e.id === id);
     }
   }
 }
-const hour = 3600000,
-  now = Date.now();
+const hour = 3600000;
+/**
+ * ⛔ LAS SETAS REBROTAN POR VENTANAS DE OCHO HORAS DEL RELOJ, no ocho horas después del corte
+ * (`resources.js`: un ciclo por región, `floor(now / renewMs)`; el servidor lo valida igual en
+ * `adventure-authority.php`). Esta prueba comprueba que a las cinco horas la mata sigue
+ * descansando, y eso solo es cierto si las cinco horas no cruzan el cambio de ventana: con
+ * `Date.now()` a secas fallaba tres horas de cada ocho (20-sep-2026). Si el reloj real cae en
+ * esas tres horas, la prueba arranca en el inicio de la siguiente ventana, que es tiempo
+ * inyectado y no cambia lo que se comprueba.
+ */
+const renew = catalog.scenes.overworld.entities.find((e) => e.id === "forest-mushrooms-fern").resource.renewMs;
+let now = Date.now();
+if (Math.floor((now + 5 * hour) / renew) !== Math.floor(now / renew))
+  now = (Math.floor(now / renew) + 1) * renew + 1000;
 let state = cleanSave(null, catalog);
 function react(id, context = {}) {
   const before = JSON.stringify(state);

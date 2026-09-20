@@ -139,9 +139,11 @@ class SceneDirector {
     world.actors = [];
     world.refresh(state);
     game.live?.objects.prepare(world);
-    const neighbors = createNeighbors(world, game.config, game.cast);
     // Los residentes viven en su pantalla aunque no sea la tuya: al otro lado de la costura se
-    // les ve pasear y te paran igual. Al ENTRAR, `enter` les suma el duende.
+    // les ve pasear y te paran igual, y si ya estaban en memoria SIGUEN donde estaban (20-sep-2026):
+    // rehacerlos al cruzar los devolvía de golpe a su sitio de partida, un salto a la vista de
+    // quien acaba de verlos pasear desde el otro lado. Al ENTRAR, `enter` les suma el duende.
+    const neighbors = this.residents.get(id) || createNeighbors(world, game.config, game.cast);
     world.actors = neighbors;
     this.residents.set(id, neighbors);
     const sprites = new Set(["sack", "setin"]);
@@ -381,6 +383,14 @@ class SceneDirector {
         .filter((e) => !e.entryDirection && insideThreshold(e, game.player))
         .map((e) => e.id),
     );
+    // ⛔ LA PANTALLA QUE DEJAS SIGUE CALIENTE EN EL ACTO (20-sep-2026). Sus hojas dejaban de
+    // estar fijadas al activar las nuevas y no estaban en `warm` —era la activa, no una vecina—,
+    // así que durante los ~600 ms hasta que la precarga la volvía a pedir eran lo primero que el
+    // presupuesto expulsaba: sus árboles desaparecían al cruzar y reaparecían al rato. Aquí pasa
+    // de activa a caliente sin hueco; la precarga la soltará si deja de tocar la vista.
+    const previous = this.active;
+    if (previous && previous.id !== prepared.id) this.warm.set(previous.id, previous.packs);
+    this.active = { id: prepared.id, packs: new Set(prepared.packs) };
     // Entrar fija el arte de esta pantalla, así que sale de las calentadas; y lo que ayer no se
     // pudo preparar vuelve a tener una oportunidad desde aquí.
     this.warm.delete(prepared.id);

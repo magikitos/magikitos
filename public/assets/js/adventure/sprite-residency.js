@@ -54,7 +54,8 @@ class SpriteResidency {
       bytes -= pack.bytes;
       this.bytes -= pack.bytes;
       // Release the decoded bitmap even if the browser keeps the HTTP response cached.
-      pack.image.src = "";
+      if (typeof pack.image.close === "function") pack.image.close();
+      else pack.image.src = "";
     }
   }
 }

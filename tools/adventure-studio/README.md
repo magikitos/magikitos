@@ -97,6 +97,21 @@ quest objects, entrances, actors and other functional entities.
 Additions/removals/variants share undo, redo, autosave and the one reviewed diff.
 No map change is applied live to the game. See [the collection contract](../../docs/WOODLAND-KIT.md).
 
+## Entradas de casas y salidas (20-sep-2026)
+
+Selecciona una casa, la taberna, el taller o la salida de un interior y el inspector enseña
+**Entrada · por dónde se cruza la puerta**: la franja azul del mapa que abre la puerta al pisarla
+andando hacia ella, en casillas relativas al pie naranja (ΔX, ΔY, ancho, alto), y el punto azul
+donde se llega al salir. Por defecto es **automática** (el compilador la deriva del pie y del
+cuerpo, como siempre). Si el dibujo de una casa tiene la puerta a un lado y «no cuadra», cambia
+los valores o **arrastra la franja azul** en el mapa: se guarda como `entrance` en la escena y
+`data/aventura/world.php` la convierte en el mismo umbral y llegada que una puerta derivada, así
+que el motor, el contrato del bosque vivo y las pruebas no notan la diferencia. Límites: hasta 12
+casillas del pie, de ¼ a 2 casillas de ancho, de 1 a 8 píxeles de alto; las escaleras no admiten
+entrada dibujada (su rellano sale de su cuerpo). **Volver a la entrada automática** la borra. El
+inspector avisa si la franja cae sobre un cuerpo o agua. Mover la casa arrastra su franja con
+ella, tanto la automática como la dibujada. Paridad PHP/JS: `check-door-geometry.cjs`.
+
 ## Continuous fences
 
 **Vallas** starts a single connected fence: click/tap its corners, then **Guardar

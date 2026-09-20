@@ -2238,5 +2238,13 @@
     "fr": "L'entrepôt du constructeur",
     "it": "Il magazzino del costruttore",
     "pt": "O armazém do construtor"
+  },
+  "warehouseSign": {
+    "es": "Almacén del constructor. Dentro atiende Cebolino: cinco setas por un saco de gravilla, y también bombitas y tenazas.",
+    "en": "The builder's warehouse. Cebolino is inside: five mushrooms for a sack of gravel, plus little bombs and pliers.",
+    "de": "Das Lager des Baumeisters. Drinnen bedient Cebolino: fünf Pilze für einen Sack Schotter, dazu Bömbchen und Zangen.",
+    "fr": "L'entrepôt du constructeur. Cebolino est à l'intérieur : cinq champignons pour un sac de gravier, plus des bombinettes et des pinces.",
+    "it": "Il magazzino del costruttore. Dentro c'è Cebolino: cinque funghi per un sacco di ghiaia, e anche bombette e tenaglie.",
+    "pt": "O armazém do construtor. Lá dentro atende o Cebolino: cinco cogumelos por um saco de cascalho, e também bombinhas e tenazes."
   }
 }
