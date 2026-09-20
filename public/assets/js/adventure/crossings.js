@@ -163,7 +163,26 @@ class Crossings {
       this.latched = null;
       return false;
     }
-    if (exit.id === this.failed || exit.id === this.latched) return false;
+    if (exit.id === this.failed) return false;
+    /**
+     * ⛔ EL CERROJO SE SUELTA AL VOLVER A PROPÓSITO (20-sep-2026, decisión del dueño: «subo, bajo,
+     * subo, bajo… se queda pillado en la barrera invisible»). Se aparece dentro de la banda de
+     * vuelta y el cerrojo impide rebotar en el mismo fotograma; pero exigía SALIR de la banda
+     * entera (tres casillas y media) para volver, así que quien cruzaba y se daba la vuelta al
+     * momento se quedaba empujando un muro que no se ve. Ahora basta con haber andado un par de
+     * píxeles HACIA el borde desde donde se llegó: eso es querer volver, y se vuelve.
+     */
+    if (this.latched && exit.id === this.latched.id) {
+      const p = g.player,
+        at = this.latched,
+        toward =
+          exit.direction === "down" ? p.y - at.y
+          : exit.direction === "up" ? at.y - p.y
+          : exit.direction === "right" ? p.x - at.x
+          : at.x - p.x;
+      if (toward < 2) return false;
+      this.latched = null;
+    }
     this.travel(exit, mode);
     return true;
   }
@@ -263,9 +282,21 @@ class Crossings {
         ...g.state,
         navigation: { ...g.state.navigation, mode, direction: exit.direction },
       };
+      // Si justo enfrente hay un árbol, se aparece un paso al lado dentro de la banda antes de
+      // recurrir al centro escrito: con las bandas anchas de la rejilla (20-sep-2026) eso evita
+      // el salto al centro que el dueño veía como «se desplaza a la derecha».
+      const vertical = exit.direction === "up" || exit.direction === "down";
+      const [ax, ay, aw, ah] = exit.area;
+      const side = [0, -8, 8, -16, 16, -24, 24, -32, 32]
+        .map((d) => (vertical ? { x: arrival.x + d, y: arrival.y } : { x: arrival.x, y: arrival.y + d }))
+        .filter((p) =>
+          vertical
+            ? p.x >= (ax + 0.5) * TILE && p.x <= (ax + aw - 0.5) * TILE
+            : p.y >= (ay + 0.5) * TILE && p.y <= (ay + ah - 0.5) * TILE,
+        );
       prepared = await g.scenes.prepare(
         exit.scene,
-        [arrival, { x: exit.position[0] * TILE, y: exit.position[1] * TILE }],
+        [...side, { x: exit.position[0] * TILE, y: exit.position[1] * TILE }],
         state,
         { seam: true },
       );
@@ -275,7 +306,8 @@ class Crossings {
       if (seam) this.settle(actual, shift, mode);
       // Se aparece dentro de la banda de vuelta a propósito; esa salida queda cerrada hasta que
       // se salga de ella, que si no se volvería por donde se vino en el mismo fotograma.
-      this.latched = crossingAt(g.world.data, g.player, mode, SEAM_TRIGGER, true)?.id || null;
+      const back = crossingAt(g.world.data, g.player, mode, SEAM_TRIGGER, true);
+      this.latched = back ? { id: back.id, x: g.player.x, y: g.player.y } : null;
       g.save();
       if (pending) g.tap(pending.point);
     } catch (error) {

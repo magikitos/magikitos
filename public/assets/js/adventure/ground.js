@@ -77,12 +77,15 @@ function shoreRow(data, py) {
       scale: 1 / Math.sqrt(1 + slope * slope),
     };
   });
+  // Y las orillas de los ríos igual: la distancia se corrige por la pendiente de la orilla
+  // (`tangent`), que si no una orilla en diagonal salía con la banda de arena más fina.
   const rivers = (data.rivers || []).map((r) => {
     const banks = riverSection(r, y);
     return {
       left: banks.left * TILE,
       width: (banks.right - banks.left) * TILE,
       vertical: Math.min(y - r.rect[1], r.rect[1] + r.rect[3] - y) * TILE,
+      scale: 1 / Math.sqrt(1 + banks.tangent * banks.tangent),
     };
   });
   const ellipse = (p) => ({
@@ -97,8 +100,9 @@ function shoreRow(data, py) {
     let d = -10000;
     for (const c of coasts) d = Math.max(d, (c.west ? c.edge - x : x - c.edge) * c.scale);
     for (const r of rivers) {
+      if (r.width <= 0) continue; // el cauce ya se ha cerrado: ni agua ni orilla
       const dx = x - r.left;
-      d = Math.max(d, Math.min(dx, r.width - dx, r.vertical));
+      d = Math.max(d, Math.min(dx * r.scale, (r.width - dx) * r.scale, r.vertical));
     }
     for (const p of ponds) {
       const dx = (x - p.cx) * p.inverse;

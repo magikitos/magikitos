@@ -44,6 +44,25 @@ siguiente precarga), sus **residentes siguen donde estaban** (no se rehacen al e
 viven en un **ImageBitmap propio** en vez de en la caché del descodificador del navegador, que un
 teléfono vacía cuando quiere. Las ondas del agua se calculan una vez por celda (`water.js`).
 
+Y la causa de fondo, encontrada con las capturas del dueño (20-sep-2026, «subo, bajo, subo, bajo…
+a veces desaparecen cosas, otras… se queda pillado en la barrera invisible»):
+
+- **La caché de mundos era una LRU pura** con techo de seis, y la pantalla que pisas solo «se
+  usaba» al entrar: tras cruzar a los sauces, la pradera —enlazada y a la vista— era lo más viejo
+  de la lista, por detrás de las casitas calentadas al pasar junto a sus puertas, y la siguiente
+  precarga la tiraba: sus árboles y su casa desaparecían y volvían al rato (`scenes.prepare`).
+  Ahora nunca se expulsa la pantalla activa ni una vecina suya por costura, y una vecina caliente
+  sin mundo en la caché se vuelve a preparar.
+- **El cerrojo de la llegada exigía salir de la banda entera** (3,4 casillas) para volver: quien
+  cruzaba y se daba la vuelta al momento empujaba un muro invisible. Basta con andar dos píxeles
+  hacia el borde para volver (`Crossings.check`).
+- **Dos preparaciones a la vez de la misma pantalla** (la precarga y el viaje) reservaban el arte
+  dos veces; ahora el viaje espera a la que ya está en marcha (`SceneDirector.prepare`). Y el
+  presupuesto de hojas es de 192 MB en aparatos con cuatro gigas o más.
+- El icono de construir ya no se esconde durante el instante del cruce, y la barquita de los
+  sauces sigue remando por el lago hasta desvanecerse en vez de cortarse en la costura
+  (`river-life.js`, `riverLife[].beyond`).
+
 ## Los datos
 
 Las llegadas de las salidas (`position`) están en el **propio borde de destino** (0,1 casillas dentro).
@@ -59,12 +78,32 @@ La **hierba** se pinta con un ruido medido en coordenadas del plano y una semill
 (`paintGround`, `world.origin`): sin eso, el manchado cambiaba de fase en la costura y se veía
 como una raya de otro verde.
 
-El plano actual, en casillas: pradera (0, 0); sauces (64, −144); rápidos (64, −288); raíces
-(64, −432); jardín humano (192, −432). Caja: de (0, −432) a (320, 112).
+## La rejilla (20-sep-2026)
 
-**Para añadir una zona** basta con autorar su escena con una salida de borde hacia una vecina del
-plano (y la de vuelta): entra en el plano, en la precarga, en el enlace y en el pintado sin tocar
-una línea del motor. `npm test` avisa si el plano no cierra.
+Decisión del dueño: «el parche de relleno de césped… debe ser parte del mundo, normal caminable y
+construible… que todo el mundo sean escenarios del mismo tamaño y encajen como una cuadrícula
+perfecta entre ellos, modular». Toda pantalla exterior mide **192 × 144 casillas** y ocupa una
+celda exacta del plano; `check-world-layout` lo exige. El plano actual, en casillas: pradera
+(0, 0); sauces (0, −144); rápidos (0, −288); raíces (0, −432); jardín humano (192, −432). Caja: de
+(0, −432) a (384, 144). Los tres tramos de río se desplazaron 64 casillas a la derecha y crecieron
+por el oeste (bosque nuevo, pisable y construible); la pradera creció por el este y el sur, y su
+océano pasó a ser **el lago de la pradera**: un río de dos orillas (`rivers`, con `sway`) cerrado por
+el este y por el sur, así que fuera del plano solo hay césped y la costura con los sauces encaja
+agua con agua y césped con césped a los dos lados del río. El jardín humano creció por el este y el
+sur. Las bandas a pie cubren **todo el césped** de cada borde compartido (a la pradera se baja por
+el prado del oeste y por la orilla este del lago); si enfrente hay un árbol, `Crossings.travel`
+prueba las columnas de al lado antes que el centro de la banda, para no dar un salto. El suelo
+nuevo se pobló con la flora autorada de cada pantalla (misma paleta, mismos cuerpos), lejos del
+agua, de los caminos, de lo colocado y de los bordes.
+
+Lo que no es ninguna celda sigue pintándose continuando el borde más cercano (`paintVoid`), pero
+ya solo queda a la derecha de la pradera, los sauces y los rápidos, donde todos los bordes son
+césped: no hay dos bordes distintos que se encuentren en diagonal.
+
+**Para añadir una zona** basta con autorar su escena de 192 × 144 con una salida de borde hacia
+una vecina del plano (y la de vuelta): entra en el plano, en la precarga, en el enlace y en el
+pintado sin tocar una línea del motor. `npm test` avisa si el plano no cierra o si la celda no
+mide lo que debe.
 
 ## El servidor
 
@@ -82,11 +121,10 @@ las llegadas en los datos sin regenerar el contrato dejaría cruces rechazados: 
   es raro coincidir justo en una costura; hacerlo bien pide que el cliente mande una vista por
   pantalla que toca y el demonio conteste por cada una (protocolo privado).
 - **Las costuras están pintadas como bordes.** Los márgenes de las pantallas se dibujaron cuando
-  eran bordes; ahora se ven pegados. La boca del río de la pradera se arregló con geometría: el
-  río de los sauces se abre en abanico hasta el lago en sus últimas filas (`banks` 140→144) y
-  las bandas de barca cubren el agua entera; y la pradera y los sauces se pasan a pie por todo el
-  borde compartido (`meadow-up` / `meadow-down`). Lo que queda —vegetación que no cruza la
-  costura, algún cambio de dibujo— es trabajo de Studio, no del motor.
+  eran bordes; ahora se ven pegados. La boca del río encaja por geometría (el cauce mide 96..128
+  en las dos pantallas hasta el borde y el lago se ensancha ya dentro de la pradera) y las bandas
+  cubren todo el césped compartido. Lo que queda —vegetación que no cruza la costura, algún cambio de dibujo— es
+  trabajo de Studio, no del motor.
 - **Rutas largas.** Un toque en la vecina va en dos tramos por la costura más cercana; no busca
   camino a través de dos pantallas.
 

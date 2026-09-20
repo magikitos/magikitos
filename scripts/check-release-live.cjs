@@ -121,7 +121,7 @@ function assertShell(actual, expected, headers, route) {
         await page.reload();
         await require("./browser-entry.cjs").enterWorld(page);
       };
-      await seed({scene:'river-willows',position:{x:768,y:960},inventory:{boat:1},navigation:{mode:'boat',direction:'up'}});
+      await seed({scene:'river-willows',position:{x:1792,y:960},inventory:{boat:1},navigation:{mode:'boat',direction:'up'}});
       assert.equal(await page.locator('#world-joystick').count(),0,'El joystick ya no existe en el artefacto vivo');
       assert.equal(await page.locator('#world-boost').count(),0,'Ni su botón de turbo');
       const riverBefore=await page.evaluate(()=>window.MagikitosAdventure.inspect());
@@ -146,7 +146,7 @@ function assertShell(actual, expected, headers, route) {
       await page.screenshot({path:'.local/production-controls/river-'+width+'.png'});
       // El claro compartido vive en la pradera de los sauces y su embarcadero mira al oeste, así
       // que se desembarca hacia la derecha. Se llega remando desde el agua del amarre.
-      await seed({scene:'river-willows',position:{x:56*16,y:58*16},inventory:{boat:1,oars:1},navigation:{mode:'boat',direction:'right'}});
+      await seed({scene:'river-willows',position:{x:120*16,y:58*16},inventory:{boat:1,oars:1},navigation:{mode:'boat',direction:'right'}});
       await page.locator('#world-canvas').focus();
       await page.keyboard.down('ArrowRight');
       await page.waitForFunction(()=>window.MagikitosAdventure.inspect().navigation.mode==='foot');

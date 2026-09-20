@@ -123,10 +123,37 @@ class SceneDirector {
    * —se refresca por detrás—. Esperarla congelaba al duende en el borde lo que tardara la petición,
    * que es justo el corte que el plano quiere borrar. Sin instantánea previa se espera, como siempre.
    */
-  async prepare(id, position, state, { seam = false } = {}) {
+  async prepare(id, position, state, options = {}) {
+    // Una preparación por pantalla a la vez: si la precarga ya está trayendo esta pantalla, el
+    // viaje espera a ESA en vez de arrancar otra igual (dos mundos, dos reservas de arte). La
+    // posición de llegada se resuelve después sobre el mundo que salga de ahí.
+    const flight = this.warming.get(id);
+    if (flight && !options.reuse) {
+      const prepared = await flight.catch(() => null);
+      if (prepared && this.cache.get(id) === prepared.world) {
+        const destination = this.arrival(prepared.world, position, state);
+        if (destination) return { ...prepared, position: destination, packs: await this.game.renderer.sprites.prepare([], [...prepared.packs]) };
+      }
+    }
+    return this.prepareFresh(id, position, state, options);
+  }
+  /** La primera llegada que vale: las propuestas por orden y, si ninguna, el sitio de aparición. */
+  arrival(world, position, state) {
+    const data = world.data;
+    const valid =
+      state.navigation?.mode === "boat"
+        ? (x, y) => canFloat(world, x, y)
+        : (x, y) => world.canStand(x, y);
+    const offered = Array.isArray(position) ? position : position ? [position] : [];
+    return [...offered, { x: data.spawn.x * TILE, y: data.spawn.y * TILE }].find((point) =>
+      valid(point?.x, point?.y),
+    ) || null;
+  }
+  async prepareFresh(id, position, state, { seam = false } = {}) {
     const game = this.game;
     if (seam && game.community?.hasSnapshot(id)) game.community.prepare(game.catalog.scenes[id]);
     else await game.community?.prepare(game.catalog.scenes[id]);
+    const scenes = game.catalog.scenes;
     const data =
       game.community?.sceneData(game.catalog.scenes[id]) ||
       game.catalog.scenes[id];
@@ -200,28 +227,30 @@ class SceneDirector {
       throw failure.reason;
     }
     const [packs, strings] = resources.map((result) => result.value);
-    const valid =
-      state.navigation?.mode === "boat"
-        ? (x, y) => canFloat(world, x, y)
-        : (x, y) => world.canStand(x, y);
     // Se puede proponer más de un punto de llegada y se coge el primero que valga: el río manda
     // el sitio que conserva por dónde ibas y, detrás, el escrito en los datos. El sitio de
     // aparición de la escena cierra la lista y es lo que había antes cuando solo llega uno.
-    const offered = Array.isArray(position) ? position : position ? [position] : [];
-    const destination = [
-      ...offered,
-      { x: data.spawn.x * TILE, y: data.spawn.y * TILE },
-    ].find((point) => valid(point?.x, point?.y));
+    const destination = this.arrival(world, position, state);
     if (!destination) {
       packs.release?.();
       throw new Error("Blocked scene arrival: " + id);
     }
     this.cache.delete(id);
     this.cache.set(id, world);
-    // Sitio para la pantalla en la que estás y las que se calientan: con el techo de cuatro que
-    // había, un tramo de río se expulsaba a sí mismo y la precarga no servía de nada.
-    while (this.cache.size > WARM_SCENES + 2) {
-      const oldest = this.cache.keys().next().value;
+    /**
+     * ⛔ LA CACHÉ NO EXPULSA LO QUE SE ESTÁ VIENDO (20-sep-2026). Era una LRU pura con techo de
+     * seis: la pantalla que pisas solo «se usaba» al entrar, así que tras cruzar a los sauces la
+     * pradera —enlazada por la costura y a la vista— era lo más VIEJO de la lista, por detrás de
+     * las casitas calentadas al pasar junto a sus puertas, y la siguiente precarga la tiraba: sus
+     * árboles y su casa desaparecían de golpe y volvían al rato. Se expulsa lo más viejo que NO
+     * sea la pantalla activa ni una vecina suya por costura; si todo lo viejo está a la vista, se
+     * deja crecer, que son mundos sin arte y pesan poco.
+     */
+    const active = game.state?.scene,
+      keep = new Set([id, active, ...(active ? seamsOf(scenes, this.layout.offsets, active).map((s) => s.scene) : [])]);
+    for (const oldest of [...this.cache.keys()]) {
+      if (this.cache.size <= WARM_SCENES + 2) break;
+      if (keep.has(oldest)) continue;
       this.cache.delete(oldest);
       this.residents.delete(oldest);
     }
@@ -313,16 +342,25 @@ class SceneDirector {
         dropped = true;
       }
     if (dropped) this.retainWarm();
+    // Caliente de verdad es tener las hojas Y el mundo: si la caché soltó el mundo de una vecina
+    // que sigue a la vista, se vuelve a preparar aunque sus hojas estén calientes.
     const next = wanted.find(
-      (id) => !this.warm.has(id) && !this.warming.has(id) && !this.unreachable.has(id),
+      (id) =>
+        !(this.warm.has(id) && this.cache.has(id)) &&
+        !this.warming.has(id) &&
+        !this.unreachable.has(id),
     );
     if (!next) return;
-    const task = this.prepare(next, null, g.state)
+    // La tarea resuelve con lo preparado: si un viaje hacia esa misma pantalla llega mientras se
+    // calienta, `prepare` espera a esta y reutiliza su mundo en vez de construir otro.
+    const task = this.prepare(next, null, g.state, { reuse: true })
       .then((prepared) => {
         try {
-          if (g.state.scene === next) return;
-          this.warm.set(next, prepared.packs);
-          this.retainWarm();
+          if (g.state.scene !== next) {
+            this.warm.set(next, prepared.packs);
+            this.retainWarm();
+          }
+          return prepared;
         } finally { prepared.packs.release?.(); }
       })
       .catch((error) => {

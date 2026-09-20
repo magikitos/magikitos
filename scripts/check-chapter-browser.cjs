@@ -57,8 +57,8 @@ const origin = process.env.GAME_ORIGIN || "http://127.0.0.1:47834";
       for (const [name, scene, x, y] of [
         ["picnic", "overworld", 25, 28],
         ["brizno", "overworld", 25, 74],
-        ["pradera", "river-willows", 82, 65],
-        ["conchas", "river-willows", 60, 74],
+        ["pradera", "river-willows", 146, 65],
+        ["conchas", "river-willows", 124, 74],
       ]) {
         await seed(scene, x, y);
         await page.waitForTimeout(180);

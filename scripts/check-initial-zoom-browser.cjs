@@ -35,9 +35,13 @@ const scene = JSON.parse(fs.readFileSync(".local/build/world.json")).scenes.over
       await page.waitForTimeout(120);
       let s = await inspect();
       assert(s.scale < initial.scale);
-      assert(s.camera.x >= 0 && s.camera.y >= 0);
-      assert(s.camera.x + s.view.width <= s.bounds.width + 1);
-      assert(s.camera.y + s.view.height <= s.bounds.height + 1);
+      // Alejado del todo, la cámara se queda dentro del marco del plano (la celda y sus vecinas).
+      const frame = s.frame
+        ? { x: s.frame.x * 16, y: s.frame.y * 16, w: s.frame.w * 16, h: s.frame.h * 16 }
+        : { x: 0, y: 0, w: s.bounds.width, h: s.bounds.height };
+      assert(s.camera.x >= frame.x - 1 && s.camera.y >= frame.y - 1);
+      assert(s.camera.x + s.view.width <= frame.x + frame.w + 1);
+      assert(s.camera.y + s.view.height <= frame.y + frame.h + 1);
       for (let n = 0; n < 10; n++) await page.mouse.wheel(0, -1000);
       await page.waitForTimeout(120);
       s = await inspect();

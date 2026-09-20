@@ -1,8 +1,8 @@
 {
   "id": "human-hedge",
   "label": "humanHedge",
-  "width": 128,
-  "height": 96,
+  "width": 192,
+  "height": 144,
   "seed": 734918,
   "spawn": {
     "x": 64,
@@ -48,7 +48,7 @@
       "rect": [
         -4,
         70,
-        136,
+        200,
         22
       ]
     }
@@ -425,7 +425,7 @@
         "scene": "river-roots",
         "mode": "boat",
         "position": [
-          127.9,
+          191.9,
           81
         ],
         "direction": "left"
@@ -798,6 +798,4005 @@
       "x": 94,
       "y": 31,
       "scale": 1.25
+    },
+    {
+      "id": "seto-forest-birch-1",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 154.275,
+      "y": 4.167
+    },
+    {
+      "id": "seto-crooked-oak-2",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 131.597,
+      "y": 9.932
+    },
+    {
+      "id": "seto-forest-birch-3",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 147.769,
+      "y": 11.087
+    },
+    {
+      "id": "seto-forest-birch-4",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 178.312,
+      "y": 10.153
+    },
+    {
+      "id": "seto-forest-birch-5",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 149.537,
+      "y": 17.383
+    },
+    {
+      "id": "seto-forest-birch-6",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 154.853,
+      "y": 16.515
+    },
+    {
+      "id": "seto-crooked-oak-7",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 179.026,
+      "y": 16.504
+    },
+    {
+      "id": "seto-crooked-oak-8",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 135.121,
+      "y": 20.783
+    },
+    {
+      "id": "seto-forest-birch-9",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 158.933,
+      "y": 23.23
+    },
+    {
+      "id": "seto-forest-birch-10",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 176.752,
+      "y": 20.979
+    },
+    {
+      "id": "seto-crooked-oak-11",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 129.777,
+      "y": 27.554
+    },
+    {
+      "id": "seto-forest-birch-12",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 176.835,
+      "y": 26.711
+    },
+    {
+      "id": "seto-forest-birch-13",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 182.846,
+      "y": 29.171
+    },
+    {
+      "id": "seto-forest-birch-14",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 142.431,
+      "y": 32.889
+    },
+    {
+      "id": "seto-crooked-oak-15",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 148.596,
+      "y": 34.801
+    },
+    {
+      "id": "seto-crooked-oak-16",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 159.332,
+      "y": 34.189
+    },
+    {
+      "id": "seto-forest-birch-17",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 165.994,
+      "y": 33.361
+    },
+    {
+      "id": "seto-forest-birch-18",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 147.72,
+      "y": 40.693
+    },
+    {
+      "id": "seto-forest-birch-19",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 155.406,
+      "y": 39.454
+    },
+    {
+      "id": "seto-forest-birch-20",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 178.339,
+      "y": 38.946
+    },
+    {
+      "id": "seto-crooked-oak-21",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 165.902,
+      "y": 46.336
+    },
+    {
+      "id": "seto-forest-birch-22",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 172.136,
+      "y": 46.917
+    },
+    {
+      "id": "seto-forest-birch-23",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 140.808,
+      "y": 50.997
+    },
+    {
+      "id": "seto-forest-birch-24",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 171.759,
+      "y": 52.402
+    },
+    {
+      "id": "seto-crooked-oak-25",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 140.485,
+      "y": 57.98
+    },
+    {
+      "id": "seto-crooked-oak-26",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 146.824,
+      "y": 58.919
+    },
+    {
+      "id": "seto-crooked-oak-27",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 164.997,
+      "y": 58.338
+    },
+    {
+      "id": "seto-crooked-oak-28",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 170.408,
+      "y": 58.547
+    },
+    {
+      "id": "seto-crooked-oak-29",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 146.571,
+      "y": 62.435
+    },
+    {
+      "id": "seto-crooked-oak-30",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 160.169,
+      "y": 65.16
+    },
+    {
+      "id": "seto-crooked-oak-31",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 129.789,
+      "y": 94.809
+    },
+    {
+      "id": "seto-forest-birch-32",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 159.179,
+      "y": 94.02
+    },
+    {
+      "id": "seto-forest-birch-33",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 172.711,
+      "y": 94.237
+    },
+    {
+      "id": "seto-crooked-oak-34",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 185.205,
+      "y": 95.332
+    },
+    {
+      "id": "seto-crooked-oak-35",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 11.46,
+      "y": 98.592
+    },
+    {
+      "id": "seto-crooked-oak-36",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 15.798,
+      "y": 101.396
+    },
+    {
+      "id": "seto-forest-birch-37",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 32.67,
+      "y": 100.717
+    },
+    {
+      "id": "seto-crooked-oak-38",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 83.358,
+      "y": 100.169
+    },
+    {
+      "id": "seto-forest-birch-39",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 88.865,
+      "y": 100.332
+    },
+    {
+      "id": "seto-crooked-oak-40",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 95.164,
+      "y": 99.059
+    },
+    {
+      "id": "seto-crooked-oak-41",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 129.131,
+      "y": 101.505
+    },
+    {
+      "id": "seto-forest-birch-42",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 140.62,
+      "y": 100.46
+    },
+    {
+      "id": "seto-forest-birch-43",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 185.022,
+      "y": 101.396
+    },
+    {
+      "id": "seto-forest-birch-44",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 4.263,
+      "y": 107.396
+    },
+    {
+      "id": "seto-crooked-oak-45",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 45.127,
+      "y": 104.928
+    },
+    {
+      "id": "seto-crooked-oak-46",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 56.554,
+      "y": 104.515
+    },
+    {
+      "id": "seto-forest-birch-47",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 68.914,
+      "y": 105.942
+    },
+    {
+      "id": "seto-forest-birch-48",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 105.822,
+      "y": 106.645
+    },
+    {
+      "id": "seto-crooked-oak-49",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 128.49,
+      "y": 107.029
+    },
+    {
+      "id": "seto-crooked-oak-50",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 134.467,
+      "y": 104.762
+    },
+    {
+      "id": "seto-forest-birch-51",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 159.425,
+      "y": 105.321
+    },
+    {
+      "id": "seto-forest-birch-52",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 177.076,
+      "y": 105.496
+    },
+    {
+      "id": "seto-crooked-oak-53",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 28.092,
+      "y": 111.384
+    },
+    {
+      "id": "seto-crooked-oak-54",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 32.553,
+      "y": 112.716
+    },
+    {
+      "id": "seto-forest-birch-55",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 98.867,
+      "y": 113.327
+    },
+    {
+      "id": "seto-crooked-oak-56",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 147.387,
+      "y": 110.425
+    },
+    {
+      "id": "seto-forest-birch-57",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 155.168,
+      "y": 111.874
+    },
+    {
+      "id": "seto-forest-birch-58",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 165.108,
+      "y": 112.482
+    },
+    {
+      "id": "seto-crooked-oak-59",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 182.515,
+      "y": 113.541
+    },
+    {
+      "id": "seto-forest-birch-60",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 45.599,
+      "y": 118.896
+    },
+    {
+      "id": "seto-forest-birch-61",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 63.745,
+      "y": 117.604
+    },
+    {
+      "id": "seto-crooked-oak-62",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 76.526,
+      "y": 119.19
+    },
+    {
+      "id": "seto-crooked-oak-63",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 111.258,
+      "y": 119.059
+    },
+    {
+      "id": "seto-forest-birch-64",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 123.453,
+      "y": 119.28
+    },
+    {
+      "id": "seto-crooked-oak-65",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 148.44,
+      "y": 117.671
+    },
+    {
+      "id": "seto-forest-birch-66",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 153.32,
+      "y": 118.987
+    },
+    {
+      "id": "seto-crooked-oak-67",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 159.089,
+      "y": 118.24
+    },
+    {
+      "id": "seto-crooked-oak-68",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 170.739,
+      "y": 118.369
+    },
+    {
+      "id": "seto-crooked-oak-69",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 16.022,
+      "y": 122.662
+    },
+    {
+      "id": "seto-forest-birch-70",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 71.596,
+      "y": 123.996
+    },
+    {
+      "id": "seto-crooked-oak-71",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 130.758,
+      "y": 122.965
+    },
+    {
+      "id": "seto-crooked-oak-72",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 141.847,
+      "y": 122.565
+    },
+    {
+      "id": "seto-forest-birch-73",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 166.274,
+      "y": 123.081
+    },
+    {
+      "id": "seto-forest-birch-74",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 22.926,
+      "y": 129.209
+    },
+    {
+      "id": "seto-crooked-oak-75",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 28.262,
+      "y": 129.779
+    },
+    {
+      "id": "seto-crooked-oak-76",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 75.923,
+      "y": 128.715
+    },
+    {
+      "id": "seto-forest-birch-77",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 99.958,
+      "y": 128.978
+    },
+    {
+      "id": "seto-forest-birch-78",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 110.804,
+      "y": 129.707
+    },
+    {
+      "id": "seto-forest-birch-79",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 140.708,
+      "y": 129.872
+    },
+    {
+      "id": "seto-forest-birch-80",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 178.763,
+      "y": 129.816
+    },
+    {
+      "id": "seto-crooked-oak-81",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 184.257,
+      "y": 129.459
+    },
+    {
+      "id": "seto-crooked-oak-82",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 46,
+      "y": 135.94
+    },
+    {
+      "id": "seto-forest-birch-83",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 58.752,
+      "y": 137.554
+    },
+    {
+      "id": "seto-forest-birch-84",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 62.473,
+      "y": 134.596
+    },
+    {
+      "id": "seto-forest-birch-85",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 70.748,
+      "y": 136.363
+    },
+    {
+      "id": "seto-crooked-oak-86",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 82.895,
+      "y": 135.658
+    },
+    {
+      "id": "seto-forest-birch-87",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 107.086,
+      "y": 136.861
+    },
+    {
+      "id": "seto-crooked-oak-88",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 118.852,
+      "y": 136.082
+    },
+    {
+      "id": "seto-crooked-oak-89",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 143.241,
+      "y": 134.6
+    },
+    {
+      "id": "seto-crooked-oak-90",
+      "sprite": "crooked-oak",
+      "scale": 1.1,
+      "solid": [
+        -2,
+        -2.2,
+        4,
+        2.7
+      ],
+      "x": 149.342,
+      "y": 137.54
+    },
+    {
+      "id": "seto-forest-birch-91",
+      "sprite": "forest-birch",
+      "solid": [
+        -2,
+        -2,
+        4,
+        2.5
+      ],
+      "x": 166.863,
+      "y": 135.959
+    },
+    {
+      "id": "seto-giant-fern-92",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 138.592,
+      "y": 4.505
+    },
+    {
+      "id": "seto-flowers-coral-93",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 183.153,
+      "y": 5.106
+    },
+    {
+      "id": "seto-giant-fern-94",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 129.809,
+      "y": 7.119
+    },
+    {
+      "id": "seto-giant-clover-95",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 141.144,
+      "y": 6.67
+    },
+    {
+      "id": "seto-giant-fern-96",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 153.961,
+      "y": 7.635
+    },
+    {
+      "id": "seto-fern-97",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 169.515,
+      "y": 7.598
+    },
+    {
+      "id": "seto-giant-fern-98",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 161.632,
+      "y": 10.87
+    },
+    {
+      "id": "seto-fern-99",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 172.666,
+      "y": 11.531
+    },
+    {
+      "id": "seto-giant-fern-100",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 144.183,
+      "y": 13.92
+    },
+    {
+      "id": "seto-flowers-coral-101",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 158.095,
+      "y": 12.807
+    },
+    {
+      "id": "seto-giant-fern-102",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 161.972,
+      "y": 12.687
+    },
+    {
+      "id": "seto-flowers-primrose-103",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 186.354,
+      "y": 13.852
+    },
+    {
+      "id": "seto-flowers-primrose-104",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 139.54,
+      "y": 17.438
+    },
+    {
+      "id": "seto-flowers-coral-105",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 142.463,
+      "y": 16.056
+    },
+    {
+      "id": "seto-fern-106",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 164.95,
+      "y": 16.125
+    },
+    {
+      "id": "seto-giant-fern-107",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 166.938,
+      "y": 16.333
+    },
+    {
+      "id": "seto-flowers-primrose-108",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 170.078,
+      "y": 17.088
+    },
+    {
+      "id": "seto-giant-fern-109",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 173.86,
+      "y": 16.59
+    },
+    {
+      "id": "seto-giant-clover-110",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 142.395,
+      "y": 19.426
+    },
+    {
+      "id": "seto-flowers-primrose-111",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 145.309,
+      "y": 19.846
+    },
+    {
+      "id": "seto-giant-fern-112",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 164.064,
+      "y": 19.778
+    },
+    {
+      "id": "seto-giant-clover-113",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 167.47,
+      "y": 19.781
+    },
+    {
+      "id": "seto-fern-114",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 171.079,
+      "y": 20.626
+    },
+    {
+      "id": "seto-flowers-primrose-115",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 185.999,
+      "y": 19.667
+    },
+    {
+      "id": "seto-flowers-coral-116",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 142.57,
+      "y": 22.705
+    },
+    {
+      "id": "seto-fern-117",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 144.257,
+      "y": 22.247
+    },
+    {
+      "id": "seto-fern-118",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 179.794,
+      "y": 22.343
+    },
+    {
+      "id": "seto-flowers-primrose-119",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 182.818,
+      "y": 22.053
+    },
+    {
+      "id": "seto-fern-120",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 142.119,
+      "y": 26.455
+    },
+    {
+      "id": "seto-flowers-coral-121",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 143.863,
+      "y": 27.106
+    },
+    {
+      "id": "seto-giant-fern-122",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 161.59,
+      "y": 26.81
+    },
+    {
+      "id": "seto-giant-fern-123",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 173.665,
+      "y": 25.379
+    },
+    {
+      "id": "seto-fern-124",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 144.009,
+      "y": 28.938
+    },
+    {
+      "id": "seto-flowers-primrose-125",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 148.166,
+      "y": 29.799
+    },
+    {
+      "id": "seto-flowers-primrose-126",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 151.919,
+      "y": 29.53
+    },
+    {
+      "id": "seto-giant-clover-127",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 154.021,
+      "y": 30.615
+    },
+    {
+      "id": "seto-fern-128",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 161.988,
+      "y": 28.922
+    },
+    {
+      "id": "seto-flowers-coral-129",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 169.905,
+      "y": 30.302
+    },
+    {
+      "id": "seto-giant-fern-130",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 186.046,
+      "y": 30.257
+    },
+    {
+      "id": "seto-flowers-primrose-131",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 128.059,
+      "y": 31.774
+    },
+    {
+      "id": "seto-giant-fern-132",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 177.167,
+      "y": 32.7
+    },
+    {
+      "id": "seto-flowers-primrose-133",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 186.81,
+      "y": 33.935
+    },
+    {
+      "id": "seto-fern-134",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 139.152,
+      "y": 36.92
+    },
+    {
+      "id": "seto-giant-fern-135",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 172.675,
+      "y": 35.505
+    },
+    {
+      "id": "seto-giant-fern-136",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 180.182,
+      "y": 36.223
+    },
+    {
+      "id": "seto-giant-clover-137",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 183.121,
+      "y": 35.569
+    },
+    {
+      "id": "seto-giant-clover-138",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 128.395,
+      "y": 38.685
+    },
+    {
+      "id": "seto-flowers-coral-139",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 134.671,
+      "y": 39.36
+    },
+    {
+      "id": "seto-fern-140",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 142.768,
+      "y": 39.087
+    },
+    {
+      "id": "seto-flowers-coral-141",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 169.64,
+      "y": 40.224
+    },
+    {
+      "id": "seto-flowers-primrose-142",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 182.822,
+      "y": 39.556
+    },
+    {
+      "id": "seto-giant-fern-143",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 135.55,
+      "y": 41.437
+    },
+    {
+      "id": "seto-fern-144",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 151.135,
+      "y": 41.766
+    },
+    {
+      "id": "seto-giant-fern-145",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 164.371,
+      "y": 42.23
+    },
+    {
+      "id": "seto-flowers-coral-146",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 167.688,
+      "y": 41.786
+    },
+    {
+      "id": "seto-giant-clover-147",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 172.449,
+      "y": 43.431
+    },
+    {
+      "id": "seto-flowers-primrose-148",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 177.603,
+      "y": 43.064
+    },
+    {
+      "id": "seto-giant-clover-149",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 180.051,
+      "y": 43.386
+    },
+    {
+      "id": "seto-giant-fern-150",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 183.027,
+      "y": 41.604
+    },
+    {
+      "id": "seto-giant-fern-151",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 128.743,
+      "y": 46.525
+    },
+    {
+      "id": "seto-giant-fern-152",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 149.025,
+      "y": 45.436
+    },
+    {
+      "id": "seto-giant-clover-153",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 182.655,
+      "y": 45.535
+    },
+    {
+      "id": "seto-flowers-coral-154",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 129.711,
+      "y": 48.477
+    },
+    {
+      "id": "seto-fern-155",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 148.144,
+      "y": 47.712
+    },
+    {
+      "id": "seto-giant-clover-156",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 157.602,
+      "y": 49.964
+    },
+    {
+      "id": "seto-fern-157",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 169.301,
+      "y": 49.142
+    },
+    {
+      "id": "seto-giant-fern-158",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 179.371,
+      "y": 48.719
+    },
+    {
+      "id": "seto-giant-clover-159",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 185.453,
+      "y": 49.4
+    },
+    {
+      "id": "seto-flowers-coral-160",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 128.689,
+      "y": 51.365
+    },
+    {
+      "id": "seto-flowers-primrose-161",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 148.716,
+      "y": 52.424
+    },
+    {
+      "id": "seto-flowers-primrose-162",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 154.6,
+      "y": 51.647
+    },
+    {
+      "id": "seto-fern-163",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 160.355,
+      "y": 51.788
+    },
+    {
+      "id": "seto-giant-clover-164",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 163.366,
+      "y": 51.774
+    },
+    {
+      "id": "seto-giant-fern-165",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 166.548,
+      "y": 52.009
+    },
+    {
+      "id": "seto-giant-clover-166",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 128.101,
+      "y": 54.403
+    },
+    {
+      "id": "seto-flowers-coral-167",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 134.253,
+      "y": 56.311
+    },
+    {
+      "id": "seto-flowers-coral-168",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 145.92,
+      "y": 54.346
+    },
+    {
+      "id": "seto-fern-169",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 154.868,
+      "y": 55.588
+    },
+    {
+      "id": "seto-flowers-coral-170",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 167.389,
+      "y": 56.199
+    },
+    {
+      "id": "seto-giant-clover-171",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 172.593,
+      "y": 56.176
+    },
+    {
+      "id": "seto-flowers-primrose-172",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 132.572,
+      "y": 59.586
+    },
+    {
+      "id": "seto-flowers-primrose-173",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 150.186,
+      "y": 59.263
+    },
+    {
+      "id": "seto-fern-174",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 155.543,
+      "y": 58.036
+    },
+    {
+      "id": "seto-giant-fern-175",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 181.008,
+      "y": 59.134
+    },
+    {
+      "id": "seto-fern-176",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 185.913,
+      "y": 57.646
+    },
+    {
+      "id": "seto-flowers-coral-177",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 167.703,
+      "y": 62.792
+    },
+    {
+      "id": "seto-giant-fern-178",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 174.606,
+      "y": 60.831
+    },
+    {
+      "id": "seto-giant-clover-179",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 183.081,
+      "y": 60.769
+    },
+    {
+      "id": "seto-giant-clover-180",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 132.874,
+      "y": 65.209
+    },
+    {
+      "id": "seto-giant-fern-181",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 164.231,
+      "y": 64.853
+    },
+    {
+      "id": "seto-flowers-primrose-182",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 176.064,
+      "y": 64.054
+    },
+    {
+      "id": "seto-fern-183",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 134.554,
+      "y": 66.982
+    },
+    {
+      "id": "seto-giant-fern-184",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 151.693,
+      "y": 66.973
+    },
+    {
+      "id": "seto-fern-185",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 164.828,
+      "y": 67.694
+    },
+    {
+      "id": "seto-fern-186",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 174.384,
+      "y": 67.436
+    },
+    {
+      "id": "seto-giant-fern-187",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 185.748,
+      "y": 67.779
+    },
+    {
+      "id": "seto-giant-clover-188",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 166.352,
+      "y": 94.308
+    },
+    {
+      "id": "seto-fern-189",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 4.591,
+      "y": 96.486
+    },
+    {
+      "id": "seto-giant-fern-190",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 26.804,
+      "y": 96.401
+    },
+    {
+      "id": "seto-flowers-primrose-191",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 43.214,
+      "y": 97.679
+    },
+    {
+      "id": "seto-giant-fern-192",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 48.685,
+      "y": 96.123
+    },
+    {
+      "id": "seto-fern-193",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 53.187,
+      "y": 97.65
+    },
+    {
+      "id": "seto-giant-fern-194",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 67.856,
+      "y": 96.282
+    },
+    {
+      "id": "seto-giant-fern-195",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 88.373,
+      "y": 96.123
+    },
+    {
+      "id": "seto-flowers-coral-196",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 90.518,
+      "y": 97.434
+    },
+    {
+      "id": "seto-flowers-primrose-197",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 93.201,
+      "y": 96.226
+    },
+    {
+      "id": "seto-flowers-coral-198",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 96.817,
+      "y": 96.133
+    },
+    {
+      "id": "seto-flowers-coral-199",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 125.728,
+      "y": 96.324
+    },
+    {
+      "id": "seto-fern-200",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 147.024,
+      "y": 96.408
+    },
+    {
+      "id": "seto-fern-201",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 150.533,
+      "y": 96.291
+    },
+    {
+      "id": "seto-fern-202",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 154.574,
+      "y": 97.329
+    },
+    {
+      "id": "seto-giant-clover-203",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 167.601,
+      "y": 95.619
+    },
+    {
+      "id": "seto-flowers-coral-204",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 174.308,
+      "y": 97.374
+    },
+    {
+      "id": "seto-flowers-primrose-205",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 176.534,
+      "y": 97.248
+    },
+    {
+      "id": "seto-fern-206",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 27.489,
+      "y": 99.475
+    },
+    {
+      "id": "seto-flowers-coral-207",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 36.816,
+      "y": 101.111
+    },
+    {
+      "id": "seto-flowers-primrose-208",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 42.577,
+      "y": 99.181
+    },
+    {
+      "id": "seto-giant-fern-209",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 45.557,
+      "y": 99.77
+    },
+    {
+      "id": "seto-giant-fern-210",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 100.497,
+      "y": 100.592
+    },
+    {
+      "id": "seto-giant-fern-211",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 110.508,
+      "y": 100.467
+    },
+    {
+      "id": "seto-flowers-primrose-212",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 115.901,
+      "y": 98.829
+    },
+    {
+      "id": "seto-giant-clover-213",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 123.07,
+      "y": 100.262
+    },
+    {
+      "id": "seto-flowers-coral-214",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 167.598,
+      "y": 100.271
+    },
+    {
+      "id": "seto-flowers-coral-215",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 173.936,
+      "y": 99.449
+    },
+    {
+      "id": "seto-fern-216",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 178.938,
+      "y": 100.715
+    },
+    {
+      "id": "seto-giant-clover-217",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 41.203,
+      "y": 102.132
+    },
+    {
+      "id": "seto-giant-clover-218",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 52.192,
+      "y": 102.218
+    },
+    {
+      "id": "seto-flowers-coral-219",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 71.757,
+      "y": 102.026
+    },
+    {
+      "id": "seto-fern-220",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 76.615,
+      "y": 103.116
+    },
+    {
+      "id": "seto-giant-fern-221",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 103.213,
+      "y": 102.443
+    },
+    {
+      "id": "seto-flowers-primrose-222",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 112.131,
+      "y": 103.664
+    },
+    {
+      "id": "seto-flowers-primrose-223",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 125.328,
+      "y": 103.814
+    },
+    {
+      "id": "seto-giant-fern-224",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 167.558,
+      "y": 102.787
+    },
+    {
+      "id": "seto-flowers-primrose-225",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 169.34,
+      "y": 103.421
+    },
+    {
+      "id": "seto-flowers-primrose-226",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 10.272,
+      "y": 105.277
+    },
+    {
+      "id": "seto-flowers-coral-227",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 30.701,
+      "y": 107.519
+    },
+    {
+      "id": "seto-giant-clover-228",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 33.626,
+      "y": 106.578
+    },
+    {
+      "id": "seto-fern-229",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 36.536,
+      "y": 106.241
+    },
+    {
+      "id": "seto-giant-fern-230",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 40.371,
+      "y": 107.499
+    },
+    {
+      "id": "seto-giant-clover-231",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 52.039,
+      "y": 107.586
+    },
+    {
+      "id": "seto-flowers-coral-232",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 89.577,
+      "y": 105.542
+    },
+    {
+      "id": "seto-flowers-coral-233",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 110.005,
+      "y": 107.352
+    },
+    {
+      "id": "seto-giant-fern-234",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 113.619,
+      "y": 107.436
+    },
+    {
+      "id": "seto-flowers-primrose-235",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 116.333,
+      "y": 105.276
+    },
+    {
+      "id": "seto-giant-fern-236",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 151.861,
+      "y": 105.836
+    },
+    {
+      "id": "seto-giant-clover-237",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 163.667,
+      "y": 107.218
+    },
+    {
+      "id": "seto-fern-238",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 167.375,
+      "y": 105.718
+    },
+    {
+      "id": "seto-giant-fern-239",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 173.598,
+      "y": 105.586
+    },
+    {
+      "id": "seto-giant-clover-240",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 10.433,
+      "y": 109.254
+    },
+    {
+      "id": "seto-flowers-primrose-241",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 33.596,
+      "y": 108.738
+    },
+    {
+      "id": "seto-giant-fern-242",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 45.056,
+      "y": 110.066
+    },
+    {
+      "id": "seto-fern-243",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 60.44,
+      "y": 109.249
+    },
+    {
+      "id": "seto-fern-244",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 70.857,
+      "y": 109.732
+    },
+    {
+      "id": "seto-giant-clover-245",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 75.166,
+      "y": 109.923
+    },
+    {
+      "id": "seto-fern-246",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 112.631,
+      "y": 109.119
+    },
+    {
+      "id": "seto-giant-fern-247",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 141.258,
+      "y": 110.107
+    },
+    {
+      "id": "seto-fern-248",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 176.067,
+      "y": 109.229
+    },
+    {
+      "id": "seto-flowers-primrose-249",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 179.225,
+      "y": 109.104
+    },
+    {
+      "id": "seto-flowers-primrose-250",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 186.585,
+      "y": 108.439
+    },
+    {
+      "id": "seto-fern-251",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 7.615,
+      "y": 111.729
+    },
+    {
+      "id": "seto-giant-clover-252",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 13.09,
+      "y": 113.19
+    },
+    {
+      "id": "seto-giant-fern-253",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 17.772,
+      "y": 113.19
+    },
+    {
+      "id": "seto-flowers-coral-254",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 38.742,
+      "y": 113.839
+    },
+    {
+      "id": "seto-giant-fern-255",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 48.885,
+      "y": 113.627
+    },
+    {
+      "id": "seto-flowers-primrose-256",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 67.51,
+      "y": 113.463
+    },
+    {
+      "id": "seto-giant-clover-257",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 71.839,
+      "y": 113.128
+    },
+    {
+      "id": "seto-giant-clover-258",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 74.946,
+      "y": 111.97
+    },
+    {
+      "id": "seto-giant-clover-259",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 80.462,
+      "y": 113.094
+    },
+    {
+      "id": "seto-flowers-coral-260",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 91.033,
+      "y": 111.867
+    },
+    {
+      "id": "seto-flowers-coral-261",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 111.873,
+      "y": 113.642
+    },
+    {
+      "id": "seto-fern-262",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 116.623,
+      "y": 112.328
+    },
+    {
+      "id": "seto-fern-263",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 120.215,
+      "y": 113.089
+    },
+    {
+      "id": "seto-fern-264",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 122.545,
+      "y": 111.948
+    },
+    {
+      "id": "seto-fern-265",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 137.753,
+      "y": 112.646
+    },
+    {
+      "id": "seto-flowers-coral-266",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 143.719,
+      "y": 111.72
+    },
+    {
+      "id": "seto-flowers-coral-267",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 150.52,
+      "y": 113.879
+    },
+    {
+      "id": "seto-giant-fern-268",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 158.79,
+      "y": 113.038
+    },
+    {
+      "id": "seto-flowers-primrose-269",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 168.246,
+      "y": 111.704
+    },
+    {
+      "id": "seto-giant-fern-270",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 176.101,
+      "y": 112.403
+    },
+    {
+      "id": "seto-fern-271",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 186.094,
+      "y": 112.214
+    },
+    {
+      "id": "seto-flowers-primrose-272",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 12.735,
+      "y": 116.111
+    },
+    {
+      "id": "seto-giant-clover-273",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 16.641,
+      "y": 115.622
+    },
+    {
+      "id": "seto-fern-274",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 27.434,
+      "y": 115.693
+    },
+    {
+      "id": "seto-fern-275",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 35.774,
+      "y": 117.052
+    },
+    {
+      "id": "seto-giant-clover-276",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 70.326,
+      "y": 116.86
+    },
+    {
+      "id": "seto-giant-fern-277",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 94.539,
+      "y": 115.991
+    },
+    {
+      "id": "seto-giant-clover-278",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 100.888,
+      "y": 116.163
+    },
+    {
+      "id": "seto-flowers-coral-279",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 109.351,
+      "y": 115.672
+    },
+    {
+      "id": "seto-giant-fern-280",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 129.259,
+      "y": 116.567
+    },
+    {
+      "id": "seto-flowers-coral-281",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 131.382,
+      "y": 115.147
+    },
+    {
+      "id": "seto-flowers-primrose-282",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 136.306,
+      "y": 116.936
+    },
+    {
+      "id": "seto-flowers-primrose-283",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 138.274,
+      "y": 115.431
+    },
+    {
+      "id": "seto-flowers-primrose-284",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 144.617,
+      "y": 116.516
+    },
+    {
+      "id": "seto-giant-clover-285",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 155.313,
+      "y": 115.14
+    },
+    {
+      "id": "seto-giant-fern-286",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 163.161,
+      "y": 115.117
+    },
+    {
+      "id": "seto-flowers-primrose-287",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 167.748,
+      "y": 115.298
+    },
+    {
+      "id": "seto-flowers-coral-288",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 176.782,
+      "y": 116.023
+    },
+    {
+      "id": "seto-flowers-coral-289",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 22.39,
+      "y": 119.17
+    },
+    {
+      "id": "seto-giant-fern-290",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 50.983,
+      "y": 119.61
+    },
+    {
+      "id": "seto-fern-291",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 68.95,
+      "y": 119.204
+    },
+    {
+      "id": "seto-fern-292",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 89.376,
+      "y": 119.912
+    },
+    {
+      "id": "seto-giant-fern-293",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 96.814,
+      "y": 118.822
+    },
+    {
+      "id": "seto-giant-fern-294",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 105.889,
+      "y": 119.854
+    },
+    {
+      "id": "seto-flowers-primrose-295",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 116.811,
+      "y": 118.99
+    },
+    {
+      "id": "seto-giant-clover-296",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 166.482,
+      "y": 118.291
+    },
+    {
+      "id": "seto-flowers-primrose-297",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 182.139,
+      "y": 120.163
+    },
+    {
+      "id": "seto-flowers-coral-298",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 8.268,
+      "y": 122.873
+    },
+    {
+      "id": "seto-fern-299",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 10.367,
+      "y": 123.025
+    },
+    {
+      "id": "seto-fern-300",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 12.999,
+      "y": 121.577
+    },
+    {
+      "id": "seto-giant-fern-301",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 19.516,
+      "y": 122.076
+    },
+    {
+      "id": "seto-flowers-coral-302",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 28.626,
+      "y": 123.265
+    },
+    {
+      "id": "seto-flowers-primrose-303",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 36.462,
+      "y": 121.674
+    },
+    {
+      "id": "seto-flowers-primrose-304",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 52.326,
+      "y": 121.404
+    },
+    {
+      "id": "seto-flowers-primrose-305",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 54.968,
+      "y": 123.212
+    },
+    {
+      "id": "seto-flowers-primrose-306",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 65.925,
+      "y": 123.428
+    },
+    {
+      "id": "seto-flowers-primrose-307",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 81.148,
+      "y": 122.372
+    },
+    {
+      "id": "seto-giant-fern-308",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 84.648,
+      "y": 122.326
+    },
+    {
+      "id": "seto-giant-fern-309",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 88.258,
+      "y": 121.892
+    },
+    {
+      "id": "seto-fern-310",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 90.76,
+      "y": 121.898
+    },
+    {
+      "id": "seto-flowers-coral-311",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 110.416,
+      "y": 122.741
+    },
+    {
+      "id": "seto-flowers-coral-312",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 115.14,
+      "y": 121.409
+    },
+    {
+      "id": "seto-giant-clover-313",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 126.013,
+      "y": 123.003
+    },
+    {
+      "id": "seto-fern-314",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 138.018,
+      "y": 122.019
+    },
+    {
+      "id": "seto-giant-clover-315",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 150.521,
+      "y": 122.294
+    },
+    {
+      "id": "seto-flowers-coral-316",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 179.938,
+      "y": 122.171
+    },
+    {
+      "id": "seto-giant-clover-317",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 24.021,
+      "y": 124.614
+    },
+    {
+      "id": "seto-flowers-coral-318",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 31.939,
+      "y": 124.917
+    },
+    {
+      "id": "seto-fern-319",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 42.945,
+      "y": 126.224
+    },
+    {
+      "id": "seto-flowers-primrose-320",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 56.13,
+      "y": 126.52
+    },
+    {
+      "id": "seto-flowers-primrose-321",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 62.109,
+      "y": 125.378
+    },
+    {
+      "id": "seto-giant-clover-322",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 66.85,
+      "y": 124.914
+    },
+    {
+      "id": "seto-flowers-coral-323",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 75.397,
+      "y": 124.684
+    },
+    {
+      "id": "seto-flowers-primrose-324",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 86.406,
+      "y": 125.163
+    },
+    {
+      "id": "seto-giant-clover-325",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 95.794,
+      "y": 125.742
+    },
+    {
+      "id": "seto-fern-326",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 116.115,
+      "y": 124.63
+    },
+    {
+      "id": "seto-fern-327",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 119.441,
+      "y": 126.009
+    },
+    {
+      "id": "seto-giant-clover-328",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 125.866,
+      "y": 125.227
+    },
+    {
+      "id": "seto-giant-clover-329",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 139.165,
+      "y": 124.608
+    },
+    {
+      "id": "seto-giant-clover-330",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 162.883,
+      "y": 124.507
+    },
+    {
+      "id": "seto-flowers-primrose-331",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 170.369,
+      "y": 124.688
+    },
+    {
+      "id": "seto-flowers-coral-332",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 52.216,
+      "y": 128.771
+    },
+    {
+      "id": "seto-giant-clover-333",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 65.116,
+      "y": 128.625
+    },
+    {
+      "id": "seto-fern-334",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 96.269,
+      "y": 129.728
+    },
+    {
+      "id": "seto-giant-fern-335",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 126.729,
+      "y": 129.237
+    },
+    {
+      "id": "seto-flowers-primrose-336",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 127.945,
+      "y": 128.032
+    },
+    {
+      "id": "seto-giant-fern-337",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 151.337,
+      "y": 128.25
+    },
+    {
+      "id": "seto-fern-338",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 161.219,
+      "y": 129.354
+    },
+    {
+      "id": "seto-flowers-primrose-339",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 169.208,
+      "y": 129.461
+    },
+    {
+      "id": "seto-giant-clover-340",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 6.512,
+      "y": 132.05
+    },
+    {
+      "id": "seto-giant-clover-341",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 14.408,
+      "y": 132.333
+    },
+    {
+      "id": "seto-giant-clover-342",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 17.979,
+      "y": 131.596
+    },
+    {
+      "id": "seto-fern-343",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 33.053,
+      "y": 130.983
+    },
+    {
+      "id": "seto-flowers-primrose-344",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 35.158,
+      "y": 133.145
+    },
+    {
+      "id": "seto-fern-345",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 39.593,
+      "y": 131.739
+    },
+    {
+      "id": "seto-giant-clover-346",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 48.923,
+      "y": 132.544
+    },
+    {
+      "id": "seto-giant-clover-347",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 55.56,
+      "y": 132.385
+    },
+    {
+      "id": "seto-flowers-coral-348",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 59.375,
+      "y": 132.624
+    },
+    {
+      "id": "seto-giant-fern-349",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 68.107,
+      "y": 131.707
+    },
+    {
+      "id": "seto-flowers-primrose-350",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 75.554,
+      "y": 132.12
+    },
+    {
+      "id": "seto-giant-clover-351",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 123.399,
+      "y": 130.962
+    },
+    {
+      "id": "seto-giant-fern-352",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 131.923,
+      "y": 132.874
+    },
+    {
+      "id": "seto-giant-fern-353",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 135.664,
+      "y": 132.829
+    },
+    {
+      "id": "seto-giant-fern-354",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 153.277,
+      "y": 131.869
+    },
+    {
+      "id": "seto-giant-clover-355",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 173.995,
+      "y": 132.887
+    },
+    {
+      "id": "seto-flowers-primrose-356",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 182.524,
+      "y": 132.806
+    },
+    {
+      "id": "seto-giant-clover-357",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 8.354,
+      "y": 135.792
+    },
+    {
+      "id": "seto-giant-clover-358",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 25.295,
+      "y": 134.6
+    },
+    {
+      "id": "seto-flowers-coral-359",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 39.733,
+      "y": 134.294
+    },
+    {
+      "id": "seto-fern-360",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 76.671,
+      "y": 134.573
+    },
+    {
+      "id": "seto-flowers-primrose-361",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 99.885,
+      "y": 134.67
+    },
+    {
+      "id": "seto-giant-clover-362",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 148.633,
+      "y": 134.185
+    },
+    {
+      "id": "seto-flowers-coral-363",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 154.559,
+      "y": 134.557
+    },
+    {
+      "id": "seto-flowers-coral-364",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 156.702,
+      "y": 134.246
+    },
+    {
+      "id": "seto-fern-365",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 176.878,
+      "y": 134.188
+    },
+    {
+      "id": "seto-fern-366",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 184.293,
+      "y": 135.811
+    },
+    {
+      "id": "seto-flowers-coral-367",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 13.686,
+      "y": 138.622
+    },
+    {
+      "id": "seto-fern-368",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 32.459,
+      "y": 139.02
+    },
+    {
+      "id": "seto-giant-fern-369",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 80.302,
+      "y": 139.523
+    },
+    {
+      "id": "seto-flowers-primrose-370",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 96.566,
+      "y": 138.946
+    },
+    {
+      "id": "seto-flowers-primrose-371",
+      "sprite": "flowers-primrose",
+      "scale": 1,
+      "x": 120.397,
+      "y": 139.345
+    },
+    {
+      "id": "seto-fern-372",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 125.61,
+      "y": 137.427
+    },
+    {
+      "id": "seto-giant-clover-373",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 129.784,
+      "y": 138.174
+    },
+    {
+      "id": "seto-giant-fern-374",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 135.04,
+      "y": 138.212
+    },
+    {
+      "id": "seto-giant-clover-375",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 139.154,
+      "y": 138.846
+    },
+    {
+      "id": "seto-giant-fern-376",
+      "sprite": "giant-fern",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 145.951,
+      "y": 138.756
+    },
+    {
+      "id": "seto-fern-377",
+      "sprite": "fern",
+      "scale": 1.3,
+      "x": 164.101,
+      "y": 139.496
+    },
+    {
+      "id": "seto-flowers-coral-378",
+      "sprite": "flowers-coral",
+      "scale": 1.3,
+      "x": 176.676,
+      "y": 137.712
+    },
+    {
+      "id": "seto-giant-clover-379",
+      "sprite": "giant-clover",
+      "scale": 1.2,
+      "solid": [
+        -2,
+        -1.3,
+        4,
+        2
+      ],
+      "visionBlocker": true,
+      "x": 183.288,
+      "y": 138.14
     }
   ]
 }

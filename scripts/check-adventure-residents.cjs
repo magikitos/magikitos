@@ -163,7 +163,8 @@ for (const portal of catalog.scenes.overworld.entities.filter((e) => e.portal)) 
   );
 }
 assert.equal(catalog.scenes.overworld.waters.length, 0);
-assert.equal(catalog.scenes.overworld.rivers.length, 0);
+// El agua de la pradera es un lago cerrado, descrito como un río de dos orillas (20-sep-2026).
+assert.equal(catalog.scenes.overworld.rivers.length, 1);
 assert(
   !catalog.scenes.overworld.entities.some(
     (e) => e.id === "human-picnic-basket",

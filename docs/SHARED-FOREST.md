@@ -20,7 +20,8 @@ Sin vidas, combate, Libro del Bosque, fiambreras ni parcelas privadas.
 3. Al marcharse los humanos aparece una botella tirada junto a la papelera;
    antes no existe ni se puede obtener mediante la API. En el embarcadero: botella + navaja +
    remos del viejo. Solo se consume la botella. La navegación queda desbloqueada.
-4. Tres regiones de río de 128 × 144 tiles, con orillas explorables, desembarcos,
+4. Tres regiones de río, cada una una celda entera de la rejilla (192 × 144 tiles desde el
+   20-sep-2026, con bosque nuevo por el oeste), con orillas explorables, desembarcos,
    vegetación, recursos y corrientes. Las rápidas empujan de verdad: busca remansos.
    La dirección de las estelas usa el mismo campo que la física; no es una flecha
    decorativa que promete una corriente inexistente.

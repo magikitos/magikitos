@@ -463,7 +463,7 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
        */
       await seed({
         scene: "river-willows",
-        position: { x: 768, y: 96 },
+        position: { x: 1792, y: 96 },
         inventory: { boat: 1 },
         navigation: { mode: "boat", direction: "down" },
       });
@@ -482,7 +482,7 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
       const rowNormal = await remaEn(false);
       await seed({
         scene: "river-willows",
-        position: { x: 768, y: 96 },
+        position: { x: 1792, y: 96 },
         inventory: { boat: 1 },
         navigation: { mode: "boat", direction: "down" },
       });
@@ -499,7 +499,7 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
        */
       await seed({
         scene: "river-willows",
-        position: { x: 768, y: 48 },
+        position: { x: 1792, y: 48 },
         inventory: { boat: 1 },
         navigation: { mode: "boat", direction: "up" },
       });

@@ -184,11 +184,12 @@ for (const s of Object.values(catalog.scenes).filter((s) =>
     [144, abajo],
   ]) {
     if (!hay) continue;
+    // Desde la rejilla (20-sep-2026) el cauce compartido va de 96 a 128 en las dos pantallas de
+    // cada costura, también en la boca del lago: el lago se ensancha ya dentro de la pradera.
     const section = riverSection(river, y);
-    const abre = y >= 140 && lago("down");
+    void lago;
     assert(
-      Math.abs(section.left - 32) < 1e-8 &&
-        (abre ? section.right >= 64 && (y < 144 || section.right >= 80) : Math.abs(section.right - 64) < 1e-8),
+      Math.abs(section.left - 96) < 1e-8 && Math.abs(section.right - 128) < 1e-8,
       "Shared river seams: " + s.id + " at " + y + " → " + JSON.stringify(section),
     );
   }

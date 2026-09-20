@@ -1289,13 +1289,15 @@ class Community {
     const g = this.game;
     if (!g.state) return;
     // El icono de construir vive con el saco y se retira por lo mismo que el resto del mando.
+    // Cruzar una costura pone `transitioning` un instante; esconder el icono en ese instante lo
+    // hacía parpadear en cada cambio de pantalla (20-sep-2026). Si la pantalla nueva tiene zona,
+    // el icono se queda; si no, se va por `!this.zone`.
     byId("build-toggle").hidden =
       !this.zone ||
       g.live?.spectator ||
       g.river?.active ||
       g.dialogue ||
-      g.hasOverlay() ||
-      g.transitioning;
+      g.hasOverlay();
     byId("build-bar").hidden = !this.editing;
     if (!this.editing) return;
     const d = this.ghost && this.catalog.definitions[this.ghost.kind];

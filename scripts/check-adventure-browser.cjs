@@ -84,9 +84,15 @@ function coverage(s) {
       );
     return;
   }
-  assert(s.camera.x >= 0 && s.camera.y >= 0);
-  assert(s.camera.x + s.view.width <= scene.width * TILE + 1);
-  assert(s.camera.y + s.view.height <= scene.height * TILE + 1);
+  // Fuera, la cámara recorre el marco del plano (mundo continuo): al alejar del todo se ve la
+  // celda entera y, si el duende no está justo en el centro, una franja de la vecina, que desde
+  // la rejilla (20-sep-2026) es bosque de verdad y no relleno.
+  const frame = s.frame
+    ? { x: s.frame.x * TILE, y: s.frame.y * TILE, w: s.frame.w * TILE, h: s.frame.h * TILE }
+    : { x: 0, y: 0, w: scene.width * TILE, h: scene.height * TILE };
+  assert(s.camera.x >= frame.x - 1 && s.camera.y >= frame.y - 1);
+  assert(s.camera.x + s.view.width <= frame.x + frame.w + 1);
+  assert(s.camera.y + s.view.height <= frame.y + frame.h + 1);
 }
 async function pinch(page) {
   const session = await page.context().newCDPSession(page);

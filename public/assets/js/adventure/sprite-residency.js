@@ -1,6 +1,11 @@
 "use strict";
 // Decoded RGBA, not PNG transfer size. Terrain canvases have their own separate budget.
-const SPRITE_BUDGET = 96 * 1024 * 1024;
+// 96 MB en un aparato justo de memoria; el doble donde el navegador dice tener cuatro gigas o
+// más (Chrome y derivados; Safari no lo dice y se queda en lo justo). Con cinco pantallas
+// calientes, sus residentes en foco y una llegada preparándose a la vez, 96 MB se quedaban
+// cortos de vez en cuando y la llegada fallaba con «no hemos podido preparar el viaje».
+const SPRITE_BUDGET =
+  (typeof navigator !== "undefined" && navigator.deviceMemory >= 4 ? 192 : 96) * 1024 * 1024;
 class SpriteBudgetError extends Error {}
 
 /** Admission before decoding, bounded in-flight reservations, and proximity-aware eviction. */

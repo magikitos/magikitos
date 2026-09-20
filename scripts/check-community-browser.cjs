@@ -132,7 +132,7 @@ const ZONE = Object.entries(
                 "magikitos.adventure",
                 JSON.stringify({
                   scene: "river-willows",
-                  position: { x: 92 * 16, y: 95 * 16 },
+                  position: { x: 156 * 16, y: 95 * 16 },
                   flags: account.progress.flags,
                   inventory: account.inventory,
                   muted: true,

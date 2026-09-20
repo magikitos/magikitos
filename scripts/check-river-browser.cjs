@@ -90,11 +90,11 @@ const boat = (scene, x, y) =>
         await page.keyboard.up(key);
         if (fast) await page.keyboard.up(" ");
       }
-      await seed(boat("river-willows", 48, 6));
+      await seed(boat("river-willows", 112, 6));
       let start = (await inspect()).player.y;
       await row("ArrowDown", 650);
       const normal = (await inspect()).player.y - start;
-      await seed(boat("river-willows", 48, 6));
+      await seed(boat("river-willows", 112, 6));
       start = (await inspect()).player.y;
       await row("ArrowDown", 650, true);
       assert(
@@ -106,7 +106,7 @@ const boat = (scene, x, y) =>
        * erradicó, el mando de un dedo es el mismo a pie que en la barca: se apoya, se mueve y la
        * barca va hacia donde tira. Aquí el dedo baja sesenta píxeles, así que rema río abajo.
        */
-      await seed(boat("river-willows", 48, 6));
+      await seed(boat("river-willows", 112, 6));
       const cdp = await page.context().newCDPSession(page);
       const dedo = (type, points) =>
         cdp.send("Input.dispatchTouchEvent", {
@@ -126,7 +126,7 @@ const boat = (scene, x, y) =>
       await page.reload();
       await ready();
       assert.equal((await inspect()).navigation.mode, "boat");
-      await seed(boat("river-willows", 48, 3));
+      await seed(boat("river-willows", 112, 3));
       await page.locator("#world-canvas").focus();
       await page.keyboard.down("ArrowUp");
       await page.waitForFunction(
@@ -137,7 +137,7 @@ const boat = (scene, x, y) =>
       const rapids = new World(catalog.scenes["river-rapids"]);
       let rapid;
       for (let y = 40; y < 65 && !rapid; y++)
-        for (let x = 35; x < 65 && !rapid; x++)
+        for (let x = 99; x < 129 && !rapid; x++)
           if (
             canFloat(rapids, x * 16, y * 16) &&
             currentAt(rapids.data, x * 16, y * 16).y > 110

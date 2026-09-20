@@ -46,13 +46,17 @@ that's on purpose.
 - Humour is everyday and cheeky, never at another player's expense.
 - Movement is calm. The magic works slowly.
 
-The world is a 144 × 112 tile exterior — a starting clearing, forest, human
-picnic, a village on grass, the boat lake, a night campfire corner and, by the
-lake, the builder's warehouse inside an old watering can — plus eight interiors. Three 128 × 144 river reaches run north from it: the willow
-bend, where the forest builds together in a shared clearing, the rapids and the
-old roots, and from the roots a water channel leads into a 128 × 96 human garden.
-The three reaches join each other on foot along both banks; the lake mouth and
-the garden channel are crossed by boat. The navigable river is its own adventure.
+The outdoor world is a grid of 192 × 144 tile cells (owner's decision, 20 Sep
+2026: same size, perfect modular fit, no background filler). The meadow cell —
+a starting clearing, forest, human picnic, a village on grass, the lake with
+its east shore, a night campfire corner and, by the lake, the builder's
+warehouse inside an old watering can — sits at the origin, plus eight
+interiors. Three river cells run north from it: the willow bend, where the
+forest builds together in a shared clearing, the rapids and the old roots, and
+from the roots a water channel leads east into the human garden cell. Adjacent
+cells join on foot along every stretch of shared grass; the river mouth and the
+garden channel are crossed by boat. The navigable river is its own adventure.
+See [docs/MUNDO-CONTINUO.md](docs/MUNDO-CONTINUO.md).
 
 ---
 

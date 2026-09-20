@@ -92,7 +92,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
       "magikitos.adventure",
       JSON.stringify({
         scene: "river-willows",
-        position: { x: 92 * 16, y: 95 * 16 },
+        position: { x: 156 * 16, y: 95 * 16 },
         flags: {},
         muted: true,
       }),
@@ -180,7 +180,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
         "magikitos.adventure",
         JSON.stringify({
           scene: "river-willows",
-          position: { x: 92 * 16, y: 95 * 16 },
+          position: { x: 156 * 16, y: 95 * 16 },
           flags: {},
           muted: true,
         }),

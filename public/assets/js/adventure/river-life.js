@@ -6,13 +6,25 @@ const { riverSection } = require("./river-course");
  * sitio es una función del reloj, así que dibujarlos y chocar con ellos leen exactamente lo
  * mismo y no pueden discrepar.
  */
+/**
+ * El recorrido de un visitante empieza `lead` casillas antes del borde de arriba y sigue `beyond`
+ * casillas más allá del de abajo —por defecto diez, o lo que diga `riverLife[].beyond`—, y en las
+ * últimas y primeras casillas se DESVANECE en vez de cortarse (20-sep-2026, decisión del dueño:
+ * «el NPC de la barquita… desaparece de repente en el mismo punto»). Como las vecinas se pintan
+ * trasladadas, la barca de los sauces sigue remando por el lago de la pradera hasta esfumarse.
+ */
+const FADE = 6;
 function riverVisitors(data, time) {
   const river = data.rivers?.[0];
   if (!river) return [];
   return (data.riverLife || []).map((v) => {
-    const y = ((time * v.speed + v.phase) % (data.height + 20)) - 10;
+    const lead = 10,
+      beyond = v.beyond ?? 10,
+      span = data.height + lead + beyond,
+      y = ((time * v.speed + v.phase) % span) - lead;
     const bank = riverSection(river, y);
     const frame = v.frames[Math.floor(time / 0.9) % v.frames.length];
+    const opacity = Math.max(0, Math.min(1, (y + lead) / FADE, (data.height + beyond - y) / FADE));
     return {
       ...v,
       x: ((bank.left + bank.right) / 2 + v.offset) * TILE,
@@ -20,6 +32,7 @@ function riverVisitors(data, time) {
       sprite: frame,
       artSprite: frame,
       flip: bank.tangent < -0.05,
+      opacity,
     };
   });
 }

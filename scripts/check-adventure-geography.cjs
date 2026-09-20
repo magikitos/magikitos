@@ -5,7 +5,6 @@ const {
   World,
   TILE,
   FOOTPRINT,
-  coastX,
   actorBounds,
   collisionBounds,
 } = require("../public/assets/js/adventure/model");
@@ -24,7 +23,12 @@ const catalog = JSON.parse(
 );
 const state = cleanSave(null, catalog);
 const world = new World(catalog.scenes.overworld);
-const coast = world.data.coasts[0];
+// El agua de la pradera es un LAGO (20-sep-2026): un río con dos orillas cerrado por el este y
+// por el sur; la orilla oeste es la costa de siempre.
+const { riverSection } = require("../public/assets/js/adventure/river-course");
+const lake = world.data.rivers[0];
+const coastX = (_, y) => riverSection(lake, y).left;
+const coast = lake;
 assert.equal(SAVE_KEY, "magikitos.adventure");
 const keys = [];
 readSave(catalog, {
@@ -43,11 +47,8 @@ assert.deepEqual(
   "Player and NPC feet use one geometry",
 );
 for (let y = 0; y <= world.height; y += 0.25) {
-  assert(
-    world.waterAt(world.width - 0.1, y),
-    "Lake continues to east boundary",
-  );
-  for (let x = coastX(coast, y); x < world.width; x += 0.5) {
+  assert(!world.waterAt(world.width - 0.1, y), "The lake has an east shore inside the meadow");
+  for (let x = coastX(coast, y); x < riverSection(lake, y).right; x += 0.5) {
     if (
       (world.data.bridges || []).some(
         (b) =>

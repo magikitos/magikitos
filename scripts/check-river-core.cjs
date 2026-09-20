@@ -345,7 +345,7 @@ const persisted = cleanSave(
   {
     ...state,
     scene: "river-willows",
-    position: { x: 48 * 16, y: 60 * 16 },
+    position: { x: 112 * 16, y: 60 * 16 },
     navigation: { mode: "boat", direction: "up" },
   },
   catalog,
@@ -528,6 +528,7 @@ check(starts.length === 0, "No off-screen current rendering");
       const destino = new World(catalog.scenes[exit.scene]);
       destino.refresh(state);
       let pisadas = 0;
+      const point0 = (along, borde) => ({ x: along * TILE, y: borde * TILE });
       for (let along = ax; along <= ax + aw; along += 0.25) {
         // El pie más adelantado de esa columna: se entra desde el borde hacia dentro.
         let borde = null;
@@ -538,17 +539,30 @@ check(starts.length === 0, "No off-screen current rendering");
             break;
           }
         }
-        if (borde === null) continue;
+        // Desde la rejilla (20-sep-2026) las bandas cubren todo el césped del borde, árboles
+        // incluidos: una columna cuyo primer suelo queda más adentro que la banda no llega al
+        // borde, así que no hay cruce que exigirle. Lo mismo al otro lado: si delante hay un
+        // árbol, `Crossings.travel` prueba las columnas de al lado antes que el centro.
+        if (borde === null || (arriba ? borde : data.height - borde) > ah + 0.05) continue;
+        const arrival = crossingArrival(exit, point0(along, borde));
+        let frente = null;
+        for (let d = 0; d <= 8; d += 0.05) {
+          const y = arriba ? destino.height - d : d;
+          if (destino.canStand(arrival.x, y * TILE)) {
+            frente = y;
+            break;
+          }
+        }
+        if (frente === null || (arriba ? destino.height - frente : frente) > ah + 0.05) continue;
         pisadas++;
-        const point = { x: along * TILE, y: borde * TILE };
+        const point = point0(along, borde);
         check(
           crossingAt(data, point, "foot")?.id === exit.id,
           id + "/" + exit.id + ": se llega al borde en " + along.toFixed(2) + " y no pasa nada",
         );
-        // Y donde aparece, se aguanta de pie.
-        const arrival = crossingArrival(exit, point);
+        // Y donde aparece, o justo al lado dentro de la banda, se aguanta de pie.
         check(
-          destino.canStand(arrival.x, arrival.y),
+          [0, -8, 8, -16, 16, -24, 24, -32, 32].some((dx) => destino.canStand(arrival.x + dx, arrival.y)),
           id + "/" + exit.id + ": la llegada en " + (arrival.x / TILE).toFixed(2) + " no es suelo",
         );
         // ⛔ DESDE EL MUNDO CONTINUO SE APARECE EN LA PROPIA BANDA DE VUELTA, a propósito: la
@@ -672,7 +686,7 @@ check(starts.length === 0, "No off-screen current rendering");
   // 1. HAY LÍNEA: del centro del cauce hacia la orilla la corriente solo puede bajar, nunca
   //    quedarse plana. Con la meseta de antes esto fallaba: cuatro tiles seguidos valían igual.
   const corte = [];
-  for (let x = 44; x <= 56; x++) {
+  for (let x = 108; x <= 120; x++) {
     const f = currentAt(willows.data, x * TILE, 72 * TILE);
     corte.push(Math.hypot(f.x, f.y));
   }
@@ -688,7 +702,7 @@ check(starts.length === 0, "No off-screen current rendering");
 
   // 2. HAY MASA: se rema hasta coger velocidad, se suelta y la barca SIGUE. Sin inercia esto
   //    recorre prácticamente cero.
-  const barca = { x: 46 * TILE, y: 72 * TILE, direction: "down" };
+  const barca = { x: 110 * TILE, y: 72 * TILE, direction: "down" };
   const motor = new VesselMotion();
   for (let i = 0; i < 180; i++) motor.step(willows, barca, { x: 0, y: 1 }, 1 / 60);
   const dePunta = Math.hypot(motor.vx, motor.vy);
