@@ -4,6 +4,64 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: el bosque anda suelto, la orilla es orilla y las entradas se dibujan — 20 septiembre 2026
+
+Artefacto `8a3ae0eab255158cede5`, fuente del juego `5898874`, web `771318a8` (puntero y documentación de la API).
+Anterior conservada: `2fc664357039f59ed6f5`. Mismas rutas.
+
+SHA-256 de `release.json`: `7f7ca61d7620c7529d709b0a0bca58b44e85b9e5395b3395d43cb3f2e23825d3`. 791 archivos verificados y ESTACIONADOS antes de mover
+el puntero (frente a la anterior cambian `aventura.min.js`, `game-contract.json` y las seis
+páginas; el arte no se toca). **Sin migración**, **sin PHP de juego** (la web solo cambia el
+puntero y `docs/WORLD-API.md`), **con contrato del bosque vivo** (la máscara de suelo seco se
+recompila con la costa nueva; el demonio arrancó con `release=8a3ae0eab255158cede5`).
+
+⛔ **Construido desde un árbol LIMPIO** (`git worktree` sobre `5898874`, `node tools/build.cjs
+--reuse-art`) con el MISMO id que el árbol de trabajo. `npm test` completo (con dos comprobaciones
+nuevas, `check-door-geometry` y la del Studio ampliada) y las suites de navegador.
+
+### Alcance publicado
+
+- **Los sacos no se regalan** (decisión del dueño: «esa idea es una estupidez»): fuera el saco
+  del día, su temporizador `gravelDaily` y sus textos. La gravilla solo sale del trueque de cinco
+  setas con Cebolino; `check-bomb-balance` lo exige.
+- **Cebolino a la vista**: atiende junto al extremo del mostrador, no detrás, y fuera de la
+  regadera hay un cartel (`warehouse-sign`) que dice quién vive dentro y qué cambia. La suite
+  `test:warehouse` comprueba que sus píxeles están en pantalla al entrar.
+- **Los trompicones** ([MUNDO-CONTINUO.md](MUNDO-CONTINUO.md), «Los trompicones que había»):
+  con una costura a la vista, anclar el suelo por partes expulsaba las baldosas de la pantalla
+  que pisas y las reconstruía en el mismo fotograma (unas 240 baldosas de 256×256 por segundo,
+  medidas: el tick pasaba de 1,4 a 8 ms en portátil). Ahora se ancla todo lo visible antes de
+  pintar, la poda ocurre al insertar y hay holgura para un anillo; y las baldosas nuevas entran
+  de una en una y por adelantado (`terrain.prefetch`) en vez de una fila entera en un fotograma
+  (77 ms medidos). Las ondas del agua se calculan una vez por celda. Medido después: 0 baldosas
+  rehechas junto a la costura, tick máximo 5-6 ms, ningún fotograma por encima de 16 ms.
+- **Nada aparece ni desaparece al cruzar**: la pantalla que dejas pasa de activa a caliente en el
+  acto (sus hojas no quedaban protegidas durante los ~600 ms hasta la siguiente precarga), sus
+  residentes siguen donde estaban en vez de rehacerse, y las hojas viven en un `ImageBitmap`
+  propio en lugar de en la caché del descodificador del navegador, que un teléfono vacía cuando
+  quiere.
+- **La orilla del océano** es una curva de Hermite monótona como las de los ríos (antes, tramos
+  en S con la tangente vertical en cada punto: la «diagonal cortante»), con un vaivén de un
+  tercio de casilla que se apaga en los extremos para que la boca del río encaje en la costura,
+  y la banda de orilla se mide perpendicular a la costa: el mismo grosor de arena y borde que
+  en los ríos. Física, pintura y máscara del servidor leen la misma función (`coastX`).
+- **Las entradas se dibujan en el Studio** ([README del Studio](../tools/adventure-studio/README.md#entradas-de-casas-y-salidas-20-sep-2026)):
+  una puerta lleva una sección «Entrada» con la franja que la abre, relativa al pie (ΔX, ΔY,
+  ancho, alto), editable a mano o arrastrando la franja azul del mapa, con deshacer, guardado y
+  propuesta. Se guarda como `entrance` en la escena y `adventureDoorGeometry` (PHP) la convierte
+  en el mismo umbral y llegada de siempre; gemelo `doorGeometry` en JS con prueba de paridad.
+  Ninguna escena lleva todavía una entrada dibujada: eso lo decide el dueño en el Studio.
+- **Prueba del picnic** independiente del reloj: las setas rebrotan por ventanas de ocho horas
+  del reloj (`floor(now / renewMs)`, igual en el servidor), y la prueba fallaba tres horas de cada
+  ocho.
+
+### Comprobado
+
+`npm test` entero. En navegador contra el bundle local: almacén, controles del mundo, movilidad,
+viajes, regresiones, diálogo, elenco, zoom, empotrado, río, Studio (caminos, selección, galería y
+la entrada nueva). Medidas de rendimiento y capturas en `.local/polish-review` (fuera de git). En
+producción, `check-release-live` en las seis rutas y el demonio con la release nueva.
+
 ## Producción: el bosque se mantiene solo, el almacén del constructor y los 18 protagonistas — 19 septiembre 2026
 
 Artefacto `2fc664357039f59ed6f5`, fuente del juego `e0106f4` (incluye la rama `cast-release-20260919`,
