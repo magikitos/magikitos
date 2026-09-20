@@ -45,7 +45,11 @@ class SceneDirector {
     // pantalla: una escena puede pasar de imposible a posible en cuanto tienes la barca, y sin
     // olvidarlo se quedaría fría para siempre.
     this.warm = new Map();
-    this.unreachable = new Set();
+    // Lo que no se pudo calentar y hasta cuándo no se vuelve a intentar: un fallo de red o de
+    // presupuesto es cosa de un momento, y dejarlo apartado hasta cambiar de pantalla dejaba la
+    // vecina sin mundo —hueco pintado como relleno— hasta que la pisabas (20-sep-2026).
+    this.unreachable = new Map();
+    this.lastPrewarmError = null;
     this.nextWarm = 0;
     // El plano del bosque exterior, sacado de las salidas (ver `world-layout.js`), y los
     // residentes de cada pantalla en memoria: los de las vecinas siguen viviendo al otro lado
@@ -111,11 +115,15 @@ class SceneDirector {
       );
     return [...ways.values()];
   }
-  /** Los sprites de todas las vecinas calientes a la vez; retainWarm sustituye, no suma. */
-  retainWarm() {
+  /** Los sprites de todas las vecinas calientes a la vez. */
+  warmIds() {
     const keep = new Set();
     for (const packs of this.warm.values()) for (const id of packs) keep.add(id);
-    this.game.renderer.sprites.retainWarm(keep);
+    return keep;
+  }
+  /** retainWarm sustituye, no suma. */
+  retainWarm() {
+    this.game.renderer.sprites.retainWarm(this.warmIds());
   }
   /**
    * `seam` es para quien llega por una costura del mundo continuo: la instantánea de lo construido
@@ -348,7 +356,7 @@ class SceneDirector {
       (id) =>
         !(this.warm.has(id) && this.cache.has(id)) &&
         !this.warming.has(id) &&
-        !this.unreachable.has(id),
+        (this.unreachable.get(id) ?? 0) <= time,
     );
     if (!next) return;
     // La tarea resuelve con lo preparado: si un viaje hacia esa misma pantalla llega mientras se
@@ -364,8 +372,10 @@ class SceneDirector {
         } finally { prepared.packs.release?.(); }
       })
       .catch((error) => {
+        console.warn("Prewarm:", next, error);
+        this.lastPrewarmError = { scene: next, reason: String(error?.message || error), at: Date.now() };
         if (error instanceof SpriteBudgetError) this.nextWarm = time + 3000;
-        else this.unreachable.add(next);
+        else this.unreachable.set(next, time + 5000);
       })
       .finally(() => {
         this.warming.delete(next);
@@ -380,8 +390,16 @@ class SceneDirector {
    */
   enter(prepared, { keepControls = false, keepPointerGesture = false, camera = null } = {}) {
     const game = this.game;
+    // ⛔ LA PANTALLA QUE DEJAS PASA A CALIENTE ANTES DE ACTIVAR LA NUEVA (20-sep-2026). Activar
+    // poda con el presupuesto, y en ese instante las hojas de la pantalla anterior no eran ni
+    // fijas ni calientes: en un aparato justo eran lo primero que se expulsaba, y sus árboles
+    // desaparecían al cruzar. Ahora ya cuentan como calientes cuando se poda.
+    const previous = this.active;
+    if (previous && previous.id !== prepared.id) this.warm.set(previous.id, previous.packs);
+    this.active = { id: prepared.id, packs: new Set(prepared.packs) };
+    this.warm.delete(prepared.id);
     // A prepared set is leased until entry, so concurrent prewarming cannot evict it.
-    game.renderer.sprites.activate(prepared.packs);
+    game.renderer.sprites.activate(prepared.packs, this.warmIds());
     // Closes the previous scene's row and its heat map before the world changes
     // under it; the very first call happens before telemetry has begun and is a
     // no-op, which is what we want.
@@ -426,12 +444,7 @@ class SceneDirector {
     // así que durante los ~600 ms hasta que la precarga la volvía a pedir eran lo primero que el
     // presupuesto expulsaba: sus árboles desaparecían al cruzar y reaparecían al rato. Aquí pasa
     // de activa a caliente sin hueco; la precarga la soltará si deja de tocar la vista.
-    const previous = this.active;
-    if (previous && previous.id !== prepared.id) this.warm.set(previous.id, previous.packs);
-    this.active = { id: prepared.id, packs: new Set(prepared.packs) };
-    // Entrar fija el arte de esta pantalla, así que sale de las calentadas; y lo que ayer no se
-    // pudo preparar vuelve a tener una oportunidad desde aquí.
-    this.warm.delete(prepared.id);
+    // Lo que ayer no se pudo preparar vuelve a tener una oportunidad desde aquí.
     this.unreachable.clear();
     this.retainWarm();
     this.link();

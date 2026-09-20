@@ -149,6 +149,11 @@ assert.equal(beyondEdge(willows.data, { x: 112 * TILE, y: -0.7 * TILE }, "foot")
 assert.equal(beyondEdge(willows.data, { x: 159 * TILE, y: -2.5 * TILE }, "foot"), null, "…ni a más de dos casillas");
 const upExit = willows.data.navigation.exits.find((e) => e.id === "meadow-up");
 assert.deepEqual(ontoEdge(willows.data, upExit, { x: 159 * TILE, y: -7 }), { x: 159 * TILE, y: 0 }, "El origen se recoge al borde");
+// Y por abajo o por la derecha se recoge UN PÍXEL dentro, que es la cota que admite el demonio
+// (`movement.move`: 0..alto); a alto−0,01 se rechazaba (registro del demonio, 20-sep-2026).
+const downExit = willows.data.navigation.exits.find((e) => e.id === "meadow-down");
+assert.deepEqual(ontoEdge(willows.data, downExit, { x: 74 * TILE, y: 144 * TILE + 5 }), { x: 74 * TILE, y: 144 * TILE - 1 }, "El origen por abajo se recoge un píxel dentro");
+assert(Number.isInteger(ontoEdge(willows.data, downExit, { x: 74 * TILE, y: 144 * TILE + 5 }).y), "…en un píxel entero");
 
 // 7. La cámara recorre el plano entero desde cualquier pantalla.
 willows.frame = frameOf(layout, "river-willows");

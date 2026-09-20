@@ -90,13 +90,19 @@ function beyondEdge(data, point, mode = "boat") {
   }
   return null;
 }
-/** El origen de un cruce, recogido al propio borde: el servidor solo admite orígenes dentro del mapa. */
+/**
+ * El origen de un cruce, recogido UN PÍXEL dentro del mapa. El demonio del bosque vivo solo admite
+ * posiciones entre 0 y ancho−1 / alto−1 píxeles (`movement.move`), y aquí se recogía a alto−0,01:
+ * quien rebasaba el borde de un paso —andando rápido o con un fotograma lento— mandaba 2303,99 en
+ * una pantalla de 2304 y el demonio lo rechazaba: «no hemos podido preparar el viaje», a veces
+ * (20-sep-2026, visto en su registro: `cruce rechazado… from=[…, 2303.99]`).
+ */
 function ontoEdge(data, exit, point) {
   const w = data.width * TILE,
     h = data.height * TILE;
   return {
-    x: exit.direction === "left" ? Math.max(point.x, 0) : exit.direction === "right" ? Math.min(point.x, w - 0.01) : point.x,
-    y: exit.direction === "up" ? Math.max(point.y, 0) : exit.direction === "down" ? Math.min(point.y, h - 0.01) : point.y,
+    x: exit.direction === "left" ? Math.max(point.x, 0) : exit.direction === "right" ? Math.min(point.x, w - 1) : point.x,
+    y: exit.direction === "up" ? Math.max(point.y, 0) : exit.direction === "down" ? Math.min(point.y, h - 1) : point.y,
   };
 }
 
@@ -312,8 +318,10 @@ class Crossings {
       if (pending) g.tap(pending.point);
     } catch (error) {
       console.error("Crossing:", error);
-      // Se conservan la barca y el saco en la orilla de partida; se reintenta al apartarse.
+      // Se conservan la barca y el saco en la orilla de partida; se reintenta al apartarse. El
+      // motivo queda a la vista en `inspect().crossingError` para poder leerlo en producción.
       this.failed = exit.id;
+      this.lastError = { exit: exit.id, scene: exit.scene, reason: String(error?.message || error), at: Date.now() };
       g.toast(g.text("travelError"));
     } finally {
       prepared?.packs.release?.();

@@ -62,6 +62,16 @@ a veces desaparecen cosas, otras… se queda pillado en la barrera invisible»):
 - El icono de construir ya no se esconde durante el instante del cruce, y la barquita de los
   sauces sigue remando por el lago hasta desvanecerse en vez de cortarse en la costura
   (`river-life.js`, `riverLife[].beyond`).
+- **El demonio rechazaba cruces legítimos** (visto en su registro, 20-sep-2026: `cruce rechazado…
+  from=[…, 2303.99]`): el cliente recogía el origen a alto−0,01 píxeles y el demonio solo admitía
+  hasta alto−1. Quien rebasaba el borde de un paso —andando rápido o con un fotograma lento— veía
+  «no hemos podido preparar el viaje». Ahora `ontoEdge` recoge un píxel dentro y el demonio admite
+  el borde inclusive (`movement.move`, `transitions.cross`); el motivo del último cruce fallido
+  queda en `inspect().crossingError` y el del último precalentado en `inspect().prewarmError`.
+- **Lo que no se pudo calentar se apartaba para siempre** hasta cambiar de pantalla: la vecina
+  quedaba sin mundo y su hueco se pintaba como relleno (césped sin camino ni árboles). Ahora se
+  reintenta a los cinco segundos, y la pantalla que dejas pasa a caliente ANTES de activar la
+  nueva, que es cuando se poda el presupuesto.
 
 ## Los datos
 
@@ -130,7 +140,18 @@ las llegadas en los datos sin regenerar el contrato dejaría cruces rechazados: 
 
 ## Verificación
 
-`npm test` incluye `check-world-layout.cjs` (plano, costuras, enrutado, agua, disparo, cámara) y
-`check-river-core.cjs` (bordes flotables, llegadas dentro de la banda). En navegador,
+`npm test` incluye `check-world-layout.cjs` (plano, rejilla, costuras, enrutado, agua, disparo,
+cámara) y `check-river-core.cjs` (bordes flotables, llegadas dentro de la banda). En navegador,
 `test:world-controls` cruza la costura del río remando con el dedo puesto y comprueba que la barca
 sigue al otro lado; `test:river` recorre los muelles y la costura a remo.
+
+⛔ **Los cruces se prueban con el demonio de verdad** (`npm run test:live-crossing`,
+`check-live-crossing-browser.cjs`, 20-sep-2026). Las suites anteriores iban sin sesión y nunca
+pasaban por el bosque vivo, que es quien rechazaba el origen recogido en el borde: tres veces se
+dio por arreglado lo que el demonio seguía rechazando. Esta suite levanta el demonio real con el
+contrato de la misma build, simula la identidad y el guardado, y un jugador con sesión sube y baja
+ocho veces por la costura pradera↔sauces (andando, corriendo y dándose la vuelta al momento)
+mientras el demonio tiene que seguirle pantalla a pantalla sin un solo rechazo ni un precalentado
+fallido. Con el recogido antiguo (alto−0,01) o la cota antigua del demonio (alto−1) la suite FALLA,
+comprobado. Las puertas con demonio las cubre `check-forest-browser.cjs`, y la cota inclusiva del
+demonio tiene su prueba unitaria en la web (`check-forest-live.cjs`, «edge inclusive»).

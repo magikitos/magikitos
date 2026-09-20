@@ -5,7 +5,13 @@
 // calientes, sus residentes en foco y una llegada preparándose a la vez, 96 MB se quedaban
 // cortos de vez en cuando y la llegada fallaba con «no hemos podido preparar el viaje».
 const SPRITE_BUDGET =
-  (typeof navigator !== "undefined" && navigator.deviceMemory >= 4 ? 192 : 96) * 1024 * 1024;
+  (typeof navigator === "undefined" || navigator.deviceMemory === undefined
+    ? 128 // Safari no dice cuánta memoria hay: un término medio
+    : navigator.deviceMemory >= 4
+      ? 192
+      : 96) *
+  1024 *
+  1024;
 class SpriteBudgetError extends Error {}
 
 /** Admission before decoding, bounded in-flight reservations, and proximity-aware eviction. */

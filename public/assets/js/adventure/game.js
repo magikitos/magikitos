@@ -1215,6 +1215,8 @@ class Adventure {
       cast: { chosen: this.avatar, offered: require("./player-art").castOffered(this.catalog) },
       vessel: this.river.layers(),
       travelFailure: this.river.lastFailure || null,
+      crossingError: this.crossings?.lastError || null,
+      prewarmError: this.scenes?.lastPrewarmError || null,
       materialSync: { pending: this.materials.queue.length, error: this.materials.error || null },
       camera: { ...this.camera },
       cameraFollowing: this.cameraFollowing,

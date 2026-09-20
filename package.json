@@ -60,7 +60,8 @@
     "test:gallery": "node scripts/check-studio-gallery-browser.cjs",
     "review:woodland": "node scripts/review-woodland-browser.cjs",
     "test:warehouse": "node scripts/check-warehouse-browser.cjs",
-    "test:studio-entrance": "node scripts/check-studio-entrance-browser.cjs"
+    "test:studio-entrance": "node scripts/check-studio-entrance-browser.cjs",
+    "test:live-crossing": "node scripts/check-live-crossing-browser.cjs"
   },
   "devDependencies": {
     "esbuild": "0.28.2",

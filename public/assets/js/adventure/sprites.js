@@ -164,11 +164,17 @@ class SpriteLibrary {
       image.src = url.href;
     });
   }
-  activate(ids) {
+  /**
+   * Fija las hojas de la pantalla que se pisa y, en el MISMO gesto, decide qué queda caliente: la
+   * poda que sigue mira las dos listas, así que lo caliente tiene que llegar aquí y no después
+   * (20-sep-2026: la pantalla que se dejaba no era ni fija ni caliente en el instante de podar).
+   * Sin `warm`, llegar suelta toda la retención anterior, que es el contrato de siempre.
+   */
+  activate(ids, warm = []) {
     for (const id of ids)
       if (!this.packs.has(id)) throw new Error("Sprite package was not prepared: " + id);
     this.pinned = new Set(ids);
-    this.warm.clear();
+    this.warm = new Set(warm);
     for (const id of ids) {
       const pack = this.packs.get(id);
       this.packs.delete(id);
