@@ -13,6 +13,7 @@ function move(
     onStep = () => true,
     resolveCollision = () => false,
     edgeSlide = () => false,
+    gait = "walk",
   } = {},
 ) {
   const before = { x: actor.x, y: actor.y },
@@ -50,7 +51,7 @@ function move(
     } else break;
     if (onStep({ x: dx / steps, y: dy / steps }) === false) break;
   }
-  return recordStep(actor, actor.x - before.x, actor.y - before.y);
+  return recordStep(actor, actor.x - before.x, actor.y - before.y, gait);
 }
 function follow(
   world,

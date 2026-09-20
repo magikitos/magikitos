@@ -16,18 +16,34 @@ function facing(dx, dy, previous = "down") {
   if (Math.hypot(dx, dy) < 0.001) return previous;
   return DIRECTIONS[(Math.round(Math.atan2(dy, dx) / (Math.PI / 4)) + 8) % 8];
 }
-function recordStep(actor, dx, dy) {
+// One cycle = both feet. Four readable poses, not four animation frames per
+// browser tick. At 72/190 world px/s these give 7.2/11.875 pose changes/s.
+// Keep a single phase through pace/direction changes: dividing the lifetime
+// distance by a different stride on Space made the supporting leg jump.
+const GAITS = Object.freeze({
+  walk: Object.freeze({ stride: 40, poses: Object.freeze([1, 2, 3, 2]) }),
+  run: Object.freeze({ stride: 64, poses: Object.freeze([0, 1, 2, 3]) }),
+});
+function advanceGait(actor, distance, pace = "walk") {
+  if (!(distance > 0)) return;
+  actor.gaitPhase = ((actor.gaitPhase || 0) + distance / GAITS[pace].stride) % 1;
+}
+function gaitPose(actor, pace) {
+  // Tolerate floating-point rounding at exact quarter-cycle boundaries.
+  const slot = Math.floor(((actor.gaitPhase || 0) + 1e-9) * 4) % 4;
+  return GAITS[pace].poses[slot];
+}
+function recordStep(actor, dx, dy, pace = "walk") {
   const travelled = Math.hypot(dx, dy);
   if (travelled < 0.001) return false;
   actor.direction = facing(dx, dy, actor.direction);
   actor.walkDistance = (actor.walkDistance || 0) + travelled;
+  advanceGait(actor, travelled, pace);
   return true;
 }
 function characterFrame(variant, actor, moving) {
   const base = `person-${variant}-${actor.direction || "down"}`;
-  const pose = moving
-    ? [1, 2, 3, 2][Math.floor((actor.walkDistance || 0) / 7) % 4]
-    : 0;
+  const pose = moving ? gaitPose(actor, "walk") : 0;
   return pose ? `${base}-walk-${pose}` : base;
 }
 function pushFrame(actor) {
@@ -37,6 +53,6 @@ function pushFrame(actor) {
 }
 function runFrame(actor, running) {
   if (!running) return null;
-  return `person-${playerVariant(actor)}-${actor.direction || "down"}-run-${Math.floor((actor.walkDistance || 0) / 9) % 4}`;
+  return `person-${playerVariant(actor)}-${actor.direction || "down"}-run-${gaitPose(actor, "run")}`;
 }
-module.exports = { DIRECTIONS, facing, recordStep, characterFrame, pushFrame, runFrame };
+module.exports = { DIRECTIONS, GAITS, facing, advanceGait, gaitPose, recordStep, characterFrame, pushFrame, runFrame };

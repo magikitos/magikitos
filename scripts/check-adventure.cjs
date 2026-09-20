@@ -156,7 +156,7 @@ for (const [i, direction] of DIRECTIONS.entries()) {
   );
   for (const variant of [0, ...catalog.avatarVariants, 12])
     for (let step = 0; step < 4; step++) {
-      const actor = { direction, walkDistance: step * 7 };
+      const actor = { direction, gaitPhase: step / 4 };
       assert(
         atlas.frames[characterFrame(variant, actor, true)],
         "Missing directional walking pose",

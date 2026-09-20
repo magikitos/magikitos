@@ -90,7 +90,7 @@ class Journey {
       !this.intent || (this.intent.kind === "portal" && this.target === entity)
     );
   }
-  step(world, actor, dt, speed, { onStep, resolveCollision } = {}) {
+  step(world, actor, dt, speed, { onStep, resolveCollision, gait = "walk" } = {}) {
     if (!this.intent || dt <= 0 || speed <= 0) return { moved: false };
     if (this.target && !active(this.target, world.state)) {
       this.clear();
@@ -130,6 +130,7 @@ class Journey {
       },
       onStep,
       {
+        gait,
         slide: false,
         resolveCollision: (entity, dx, dy) =>
           this.permitsPush(entity) ? resolveCollision?.(entity, dx, dy) : false,

@@ -43,6 +43,9 @@ const owners = new Map(Object.entries(manifest.packs).flatMap(([id, pack]) => pa
   assert.equal(art.frame("person-12-down-sit-0"), "person-12-down-sit-0", "Seated characters keep their pose");
   sprites.packs.set("actor-0-run", {});
   assert.equal(art.frame("person-0-left-run-2"), "person-0-left-run-2");
+  for (let phase = 0; phase < 4; phase++)
+    assert.equal(art.frame(`person-100-left-run-${phase}`), `person-100-left-walk-${[1, 2, 3, 2][phase]}`,
+      "An unloaded run pack falls back to the matching walking leg, not idle");
   calls = [];
   const rower = { x: 1200, y: 1200, sprite: "person-100-down-row-0",
     vesselArt: { hull: "boat-bottle-down-0" } };

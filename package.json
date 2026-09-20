@@ -24,6 +24,7 @@
     "test:dialogue": "node scripts/check-dialogue-movement-browser.cjs",
     "test:ascua": "node scripts/check-ascua-browser.cjs",
     "test:mobility": "node scripts/check-mobility-browser.cjs",
+    "test:gait": "node scripts/check-gait.cjs && node scripts/check-gait-browser.cjs",
     "test:journeys": "node scripts/check-journeys-browser.cjs",
     "test:world-controls": "node scripts/check-world-controls-browser.cjs",
     "test:embed": "node scripts/check-embed-browser.cjs",

@@ -33,6 +33,7 @@ for (const name of [
   "check-adventure-controls",
   "check-audio-core",
   "check-adventure-mobility",
+  "check-gait",
   "check-adventure-journeys",
   "check-adventure-interactions",
   "check-adventure-assets",

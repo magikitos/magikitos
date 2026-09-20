@@ -8,7 +8,7 @@ const peers = new ForestPeople((variant) => variant, () => clock), id = "a".repe
 const snapshot = (rows, scene = "forest") => peers.snapshot({ scene, people: rows }, "forest", bounds);
 assert(snapshot([[id, 100, 100, 2, 1, 0, 0]]));
 peers.update();
-assert.equal(peers.list[0].sprite, "person-0-right-walk-1");
+assert.equal(peers.list[0].sprite, "person-0-right", "No travel yet: no walking on the spot");
 assert(snapshot([[id, 120, 100, 2, 1, 0, 0]]));
 clock = 50; peers.update(); assert.equal(peers.list[0].x, 110);
 clock = 100; peers.update(); assert.equal(peers.list[0].x, 120);

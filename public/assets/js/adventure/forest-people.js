@@ -1,6 +1,6 @@
 "use strict";
 const { protocol } = require("./forest-connection");
-const { characterFrame } = require("./characters");
+const { advanceGait, characterFrame, runFrame } = require("./characters");
 const { VesselMotion } = require("./river-navigation");
 const { vesselLayers } = require("./vessel-art");
 const { reliefFrame } = require("./relief-art");
@@ -56,7 +56,14 @@ class ForestPeople {
     for (const p of this.list) {
       const t = Math.min(1, Math.max(0, (now - p.at) / INTERPOLATION_MS));
       const x = p.fromX + (p.toX - p.fromX) * t, y = p.fromY + (p.toY - p.fromY) * t;
-      p.walkDistance += Math.hypot(p.x - x, p.y - y); p.x = x; p.y = y;
+      const distance = Math.hypot(p.x - x, p.y - y);
+      p.walkDistance += distance; p.x = x; p.y = y;
+      const walking = p.mode === 0 && ["walk", "run"].includes(p.pose);
+      if (walking) advanceGait(p, distance, p.pose);
+      // A render on the exact snapshot boundary has zero delta. Hold its leg
+      // rather than flashing idle between packets; stop when packets go stale.
+      const moving = walking && !reducedMotion && (distance > 0.001 ||
+        (now - p.at < INTERPOLATION_MS * 2 && Math.hypot(p.toX - p.fromX, p.toY - p.fromY) > 0.001));
       const elapsed = (now - p.poseAt) / 1000, phase = reducedMotion ? 0 : Math.floor(elapsed * 5) % 4;
       const base = `person-${p.variant}`, heading = `${base}-${p.direction}`;
       p.vesselArt = null;
@@ -66,9 +73,10 @@ class ForestPeople {
         p.sprite = p.vesselArt.rower;
       } else if (["pee", "poop"].includes(p.pose)) p.sprite = reliefFrame(p, p.pose, phase);
       else if (p.pose === "discover") p.sprite = `${base}-${p.pose}-${phase}`;
-      else if (["run", "push", "work", "carried"].includes(p.pose))
+      else if (p.pose === "run") p.sprite = runFrame(p, moving) || characterFrame(p.variant, p, false);
+      else if (["push", "work", "carried"].includes(p.pose))
         p.sprite = `${heading}-${p.pose}-${p.pose === "carried" ? phase % 2 : phase}`;
-      else p.sprite = characterFrame(p.variant, p, p.pose === "walk" && !reducedMotion);
+      else p.sprite = characterFrame(p.variant, p, moving);
     }
     return this.list;
   }

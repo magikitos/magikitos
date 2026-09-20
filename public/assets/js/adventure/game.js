@@ -1135,6 +1135,7 @@ class Adventure {
             (entity) => this.contact(entity),
             {
               ...this.obstacleOptions(),
+              gait: speed === RUN_SPEED ? "run" : "walk",
               onStep: (motion) => !this.checkThresholds(motion),
             },
           );
@@ -1148,6 +1149,7 @@ class Adventure {
             ? RUN_SPEED
             : this.journey.pace.speed(this.player, this.journey.path);
           const travel = this.journey.step(this.world, this.player, dt, speed, {
+            gait: speed === RUN_SPEED ? "run" : "walk",
             onStep: (motion) => !this.checkThresholds(motion),
             resolveCollision: this.obstacleOptions().resolveCollision,
           });
@@ -1181,9 +1183,11 @@ class Adventure {
     }
     this.centerCamera();
     this.live.update(ms);
-    // Suspend expensive animation behind reading/dialogs; render only 12fps there.
+    // Resting/reading can paint at 12fps. Essential travel must stay smooth even
+    // with reduced motion; otherwise a running cycle aliases and hides its legs.
     const calm =
       !this.sequence.current &&
+      !this.walking &&
       (this.blocked() || this.reducedMotion || this.dialogue);
     if (!calm || ms - (this.lastRender || 0) > 83) {
       this.renderer.render(this, this.reducedMotion ? 0 : ms / 1000);

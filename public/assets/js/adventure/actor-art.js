@@ -1,5 +1,6 @@
 "use strict";
 const { SpriteBudgetError } = require("./sprite-residency");
+const { GAITS } = require("./characters");
 
 function baseActorFrame(name) {
   const actor = /^person-(\d+)-/.exec(name || "");
@@ -17,7 +18,15 @@ class ActorArt {
     this.next = 0;
   }
   frame(name) {
-    return this.sprites.frame(name) || /-(sit|row|carried)-/.test(name) ? name : baseActorFrame(name) || name;
+    if (this.sprites.frame(name) || /-(sit|row|carried)-/.test(name)) return name;
+    // While a distant runner's action pack streams, use the same leg in its
+    // already-loaded walking sheet, never a standing body sliding over ground.
+    const run = /^(person-\d+-(?:down-right|down-left|up-right|up-left|down|up|left|right))-run-([0-3])$/.exec(name);
+    if (run) {
+      const walk = `${run[1]}-walk-${GAITS.walk.poses[Number(run[2])]}`;
+      if (this.sprites.frame(walk)) return walk;
+    }
+    return baseActorFrame(name) || name;
   }
   update(entities, view, frameFor, now = performance.now()) {
     if (!this.sprites.manifest || now < this.next) return;

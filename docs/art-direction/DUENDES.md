@@ -63,6 +63,42 @@ El recorte alfa conserva anclas, tamaño lógico y colisión. `ink` describe el
 área visible para retratos e iconos; no altera el cuerpo ni la física.
 `pixelRatio` solo multiplica las coordenadas de lectura de la textura.
 
+### Andar y correr: reproducción común (20-sep-2026)
+
+`public/assets/js/adventure/characters.js` define los dos ciclos de piernas para
+todo el elenco, NPC y jugadores remotos. Las hojas y sus anclas no cambian:
+
+| Marcha | Orden de poses | Distancia por ciclo completo (dos pies) | Cambios de pose/s |
+| --- | --- | ---: | ---: |
+| Andar a 72 px/s | `walk-1 → walk-2 → walk-3 → walk-2` | 40 px | 7,2 |
+| Correr a 190 px/s | `run-0 → run-1 → run-2 → run-3` | 64 px | 11,875 |
+
+Antes correr recorría las cuatro poses en 36 px: 21,1 cambios/s, que hacía difícil
+leer las piernas, especialmente con el pintado a 12 FPS de movimiento reducido.
+El paseo anterior cambiaba de pose cada 7 px (10,3/s). Ahora el ciclo se deja leer
+sin ralentizar al jugador ni añadir rebotes, deformaciones o fotogramas inventados.
+
+La fase normalizada `gaitPhase` avanza **solo con distancia realmente recorrida**;
+no se vuelve a calcular dividiendo toda la distancia histórica al pulsar Espacio.
+Se conserva al acelerar, frenar, girar y recorrer los nodos de una ruta. Chocar
+sin avanzar no mueve las piernas; detenerse muestra reposo. Es estado visual en
+memoria, no un campo nuevo del guardado ni del protocolo de red. `walkDistance`
+sigue independiente para empujes y gatos; la remada conserva su propio reloj.
+
+Los jugadores remotos usan la misma fase sobre su desplazamiento interpolado,
+no un temporizador distinto de cinco poses/s. Si falta temporalmente su hoja de
+carrera se dibuja el paso equivalente de su propia hoja de paseo, nunca reposo
+deslizándose. Sin nuevos paquetes de posición se detienen; no hay predicción
+ilimitada. El movimiento reducido sigue suprimiendo ambientación, pero **no baja
+el pintado del protagonista en movimiento a 12 FPS**: los pasos son información
+esencial, no un efecto decorativo.
+
+Pruebas: `npm run test:gait` (preview local offline en 47838). Incluye todos los
+protagonistas y ocho direcciones a 1440/768/390, fases dibujadas por el motor real,
+paradas y movimiento reducido; pruebas puras a 20/30/60/120/144 FPS, diagonales,
+colisiones, rutas con varios nodos, cambios de marcha y paridad con otros jugadores.
+Capturas y resultados reproducibles: `.local/gait-review/` (no se publican).
+
 ## Ampliaciones, cuando exista la mecánica
 
 Levantar/cargar/depositar, lanzar, trepar y nadar son módulos posibles, no
