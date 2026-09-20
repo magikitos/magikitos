@@ -4,60 +4,11 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
-## Producción: pasos legibles y una fase común para todo el elenco — 20 septiembre 2026
-
-Artefacto `c6ce1261cff94ca1f0ce`, fuente del juego `4998d12`, web `d57e54a8`
-(solo puntero). Anterior conservada: `8a3ae0eab255158cede5`.
-SHA-256 de `release.json`:
-`3f035ffde3cbdad3520e0ff43c2824c59015843119653ec882e7fbbe1413925c`.
-
-791 archivos verificados y estacionados antes de activar por fast-forward guardado.
-Construcción desde un checkout limpio del commit publicado, con `--reuse-art`:
-mismo ID y mismo inventario que el candidato probado. Solo cambian el JS y las seis
-páginas; **ningún sprite, mapa, CSS, audio, API, guardado ni contrato del servidor**.
-Sin migración ni reinicio del bosque vivo: el contrato tiene el mismo hash y el
-servicio permanece activo. Identidad personal `alvarofranz` en ambos repositorios.
-
-### Corrección
-
-- Paseo y carrera conservan sus velocidades (72/190 px/s) pero dejan leer las
-  piernas: 7,2/11,875 cambios de pose por segundo, antes 10,3/21,1.
-- Fase continua basada en distancia realmente recorrida: no cambia arbitrariamente
-  de pierna al pulsar Espacio, girar o pasar por un nodo de una ruta. Sin rebotes
-  artificiales, retoques de anclas ni imágenes nuevas; chocar sin avanzar no anima.
-- Los jugadores remotos usan el mismo ciclo, no un reloj de carrera independiente.
-  Durante la carga de su hoja de correr se usa el paso equivalente de su propio
-  paseo; no se deslizan con el sprite quieto. Una conexión detenida no los deja
-  corriendo indefinidamente sobre el sitio.
-- Movimiento reducido mantiene apagada la ambientación, pero ya no limita a 12 FPS
-  el pintado del protagonista cuando se desplaza: antes se perdían fases de piernas.
-
-Contrato de animación y cómo probarlo: [Duendes](art-direction/DUENDES.md#andar-y-correr-reproducción-común-20-sep-2026).
-
-### Verificación
-
-`npm test` completo. `test:gait`: 18 protagonistas × ocho direcciones × dos marchas
-en tres tamaños, más movimiento reducido: **912 casos / 32.832 pintados**, con las
-poses solicitadas realmente disponibles (sin fallback quieto). Pruebas puras a
-20/30/60/120/144 FPS, diagonales, colisiones, paradas, cambios de marcha, rutas y
-paridad con jugadores interpolados.
-
-Suites de navegador: movilidad, viajes, controles, selector, diálogos, gatos,
-Ascua/cocina/hallazgos, río, empotrado, frontera web/API y regresiones completas
-incluido Studio. La primera ejecución de regresiones agotó el plazo de horneado
-offline del Studio; repetida sin la carga paralela pasó **sin modificar el test ni
-su plazo**. DDEV sirve el artefacto y sus seis páginas exactas.
-
-En producción: prueba previa del artefacto estacionado (andar/correr), bytes exactos
-de las seis rutas en origen y `check-release-live` completo en el dominio público
-(landings, API, web, assets, paseo, remo y desembarque a 1440/768/390). Todas las
-escrituras bloqueadas en las pruebas públicas; ninguna partida alterada. Evidencia
-local en `.local/gait-review/` y `.local/production-controls/`.
-
 ## Producción: la rejilla perfecta, el lago de la pradera y los cruces que no se pillan — 20 septiembre 2026
 
 Artefacto `f9266288e12030a7902b`, fuente del juego `91f3fdf`, web `853f33e3` (puntero y el demonio del bosque vivo
-anotando los cruces que rechaza). Anterior conservada: `8a3ae0eab255158cede5`. Mismas rutas.
+anotando los cruces que rechaza). Anterior conservada: `c6ce1261cff94ca1f0ce` (los pasos legibles del elenco, del otro agente, que esta
+release incluye). Mismas rutas.
 
 SHA-256 de `release.json`: `b20701fac5dd414934f9a791b17a947ad5e407bac357b50b9be45a94a8638c92`. 791 archivos verificados y ESTACIONADOS antes de mover
 el puntero (frente a la anterior cambian `aventura.min.js`, `game-contract.json` y las seis páginas;
@@ -110,6 +61,56 @@ y las suites de navegador (veintiuna, sin DDEV).
 mundo, movilidad, viajes, regresiones, diálogo, elenco, zoom, empotrado, río, capítulo, picnic,
 seto, bosque, gatos, recogibles, Ascua, almacén y Studio (caminos, selección, galería, entradas).
 En producción: `check-release-live` en las seis rutas y el demonio con la release nueva.
+
+## Producción: pasos legibles y una fase común para todo el elenco — 20 septiembre 2026
+
+Artefacto `c6ce1261cff94ca1f0ce`, fuente del juego `4998d12`, web `d57e54a8`
+(solo puntero). Anterior conservada: `8a3ae0eab255158cede5`.
+SHA-256 de `release.json`:
+`3f035ffde3cbdad3520e0ff43c2824c59015843119653ec882e7fbbe1413925c`.
+
+791 archivos verificados y estacionados antes de activar por fast-forward guardado.
+Construcción desde un checkout limpio del commit publicado, con `--reuse-art`:
+mismo ID y mismo inventario que el candidato probado. Solo cambian el JS y las seis
+páginas; **ningún sprite, mapa, CSS, audio, API, guardado ni contrato del servidor**.
+Sin migración ni reinicio del bosque vivo: el contrato tiene el mismo hash y el
+servicio permanece activo. Identidad personal `alvarofranz` en ambos repositorios.
+
+### Corrección
+
+- Paseo y carrera conservan sus velocidades (72/190 px/s) pero dejan leer las
+  piernas: 7,2/11,875 cambios de pose por segundo, antes 10,3/21,1.
+- Fase continua basada en distancia realmente recorrida: no cambia arbitrariamente
+  de pierna al pulsar Espacio, girar o pasar por un nodo de una ruta. Sin rebotes
+  artificiales, retoques de anclas ni imágenes nuevas; chocar sin avanzar no anima.
+- Los jugadores remotos usan el mismo ciclo, no un reloj de carrera independiente.
+  Durante la carga de su hoja de correr se usa el paso equivalente de su propio
+  paseo; no se deslizan con el sprite quieto. Una conexión detenida no los deja
+  corriendo indefinidamente sobre el sitio.
+- Movimiento reducido mantiene apagada la ambientación, pero ya no limita a 12 FPS
+  el pintado del protagonista cuando se desplaza: antes se perdían fases de piernas.
+
+Contrato de animación y cómo probarlo: [Duendes](art-direction/DUENDES.md#andar-y-correr-reproducción-común-20-sep-2026).
+
+### Verificación
+
+`npm test` completo. `test:gait`: 18 protagonistas × ocho direcciones × dos marchas
+en tres tamaños, más movimiento reducido: **912 casos / 32.832 pintados**, con las
+poses solicitadas realmente disponibles (sin fallback quieto). Pruebas puras a
+20/30/60/120/144 FPS, diagonales, colisiones, paradas, cambios de marcha, rutas y
+paridad con jugadores interpolados.
+
+Suites de navegador: movilidad, viajes, controles, selector, diálogos, gatos,
+Ascua/cocina/hallazgos, río, empotrado, frontera web/API y regresiones completas
+incluido Studio. La primera ejecución de regresiones agotó el plazo de horneado
+offline del Studio; repetida sin la carga paralela pasó **sin modificar el test ni
+su plazo**. DDEV sirve el artefacto y sus seis páginas exactas.
+
+En producción: prueba previa del artefacto estacionado (andar/correr), bytes exactos
+de las seis rutas en origen y `check-release-live` completo en el dominio público
+(landings, API, web, assets, paseo, remo y desembarque a 1440/768/390). Todas las
+escrituras bloqueadas en las pruebas públicas; ninguna partida alterada. Evidencia
+local en `.local/gait-review/` y `.local/production-controls/`.
 
 ## Producción: el bosque anda suelto, la orilla es orilla y las entradas se dibujan — 20 septiembre 2026
 
