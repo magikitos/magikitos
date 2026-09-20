@@ -28,8 +28,17 @@ class ActorArt {
     }
     return baseActorFrame(name) || name;
   }
+  /**
+   * Si este fotograma toca repasar el arte. El repaso es cada 120 ms, no cada cuadro, y quien
+   * dibuja lo pregunta ANTES de armar la lista de lo que se ve: con el mundo continuo esa lista
+   * lleva copias trasladadas de las cosas de las vecinas, y armarlas sesenta veces por segundo
+   * para tirarlas es basura pura.
+   */
+  due(now = performance.now()) {
+    return Boolean(this.sprites.manifest) && now >= this.next;
+  }
   update(entities, view, frameFor, now = performance.now()) {
-    if (!this.sprites.manifest || now < this.next) return;
+    if (!this.due(now)) return;
     this.next = now + 120;
     const requests = new Map();
     const offer = (id, distance) => {
@@ -51,7 +60,10 @@ class ActorArt {
     this.sprites.residency.focus = requests;
     // Work out the admissible set before scheduling. Repeatedly downloading far-away actors
     // that cannot fit would churn the cache every animation frame when fully zoomed out.
-    const selected = new Set([...this.sprites.pinned, ...this.sprites.residency.holds.keys()]);
+    // Lo fijo, lo visible y lo reservado ya ocupan su sitio: los actores solo entran en lo que
+    // queda, los más cercanos primero. Antes solo se contaba lo fijo, y el arte de la gente
+    // lejana expulsaba los árboles de la pantalla vecina.
+    const selected = new Set([...this.sprites.pinned, ...this.sprites.visible, ...this.sprites.residency.holds.keys()]);
     let bytes = [...selected].reduce((n, id) => n + this.bytes(id), 0);
     for (const [id] of [...requests].sort((a, b) => a[1] - b[1])) {
       if (!selected.has(id)) {

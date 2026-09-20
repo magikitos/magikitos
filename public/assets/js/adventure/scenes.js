@@ -35,6 +35,20 @@ function playerPacks(game, world, state, actor = game.player) {
     playerPack(null, actor),
   ];
 }
+/**
+ * Las hojas que el que VIAJA necesita al llegar: las suyas y, si llega remando, las de la barca.
+ * Lo piden los dos caminos de la llegada —preparar de cero y reaprovechar un precalentado— y
+ * tienen que pedir lo mismo: el precalentado pidió las hojas de un duende quieto en tierra, así
+ * que sin esto quien cruza una costura a remo llegaría sin remo y sin barca.
+ */
+function travellerPacks(game, world, state) {
+  return [
+    ...playerPacks(game, world, state),
+    ...(state.navigation?.mode === "boat"
+      ? [vesselDefinition.vessels[vesselDefinition.defaultVessel].pack]
+      : []),
+  ];
+}
 /** Prepares destinations and their art before any state is committed. */
 class SceneDirector {
   constructor(game) {
@@ -121,9 +135,34 @@ class SceneDirector {
     for (const packs of this.warm.values()) for (const id of packs) keep.add(id);
     return keep;
   }
-  /** retainWarm sustituye, no suma. */
+  /**
+   * Las hojas de las vecinas calientes que tocan la vista de la cámara: la de ahora, o la de la
+   * pantalla a la que se está entrando con la cámara ya traducida a sus coordenadas.
+   */
+  visibleIds(sceneId = this.game.state?.scene, camera = this.game.camera) {
+    const g = this.game,
+      keep = new Set();
+    if (!sceneId || !camera || !g.renderer?.width) return keep;
+    const view = { x: camera.x, y: camera.y, width: g.renderer.width, height: g.renderer.height };
+    for (const id of scenesIntersecting(g.catalog.scenes, this.layout.offsets, sceneId, view, VIEW_MARGIN))
+      for (const pack of this.warm.get(id) || []) keep.add(pack);
+    return keep;
+  }
+  /**
+   * ⛔ CALIENTE ES TENER LAS HOJAS DESCODIFICADAS, no tener su lista (20-sep-2026, revisión). La
+   * poda puede expulsar las hojas de una vecina caliente cuando el presupuesto se llena de
+   * actores; si «caliente» fuera solo tener sus ids, la precarga la daría por lista y nadie las
+   * volvería a pedir: la vecina se quedaba en blanco hasta pisarla. Una vecina cuenta como lista
+   * solo con su mundo en la caché y TODAS sus hojas residentes.
+   */
+  ready(id) {
+    const packs = this.warm.get(id),
+      library = this.game.renderer.sprites;
+    return Boolean(packs) && this.cache.has(id) && [...packs].every((pack) => library.packs.has(pack));
+  }
+  /** retainWarm sustituye, no suma: lo caliente y, dentro de ello, lo que está a la vista. */
   retainWarm() {
-    this.game.renderer.sprites.retainWarm(this.warmIds());
+    this.game.renderer.sprites.retainWarm(this.warmIds(), this.visibleIds());
   }
   /**
    * `seam` es para quien llega por una costura del mundo continuo: la instantánea de lo construido
@@ -140,7 +179,15 @@ class SceneDirector {
       const prepared = await flight.catch(() => null);
       if (prepared && this.cache.get(id) === prepared.world) {
         const destination = this.arrival(prepared.world, position, state);
-        if (destination) return { ...prepared, position: destination, packs: await this.game.renderer.sprites.prepare([], [...prepared.packs]) };
+        if (destination)
+          return {
+            ...prepared,
+            position: destination,
+            packs: await this.game.renderer.sprites.prepare([], [
+              ...prepared.packs,
+              ...travellerPacks(this.game, prepared.world, state),
+            ]),
+          };
       }
     }
     return this.prepareFresh(id, position, state, options);
@@ -180,7 +227,6 @@ class SceneDirector {
     // quien acaba de verlos pasear desde el otro lado. Al ENTRAR, `enter` les suma el duende.
     const neighbors = this.residents.get(id) || createNeighbors(world, game.config, game.cast);
     world.actors = neighbors;
-    this.residents.set(id, neighbors);
     const sprites = new Set(["sack", "setin"]);
     const addStatic = (name) => {
       if (name && !name.startsWith("person-")) sprites.add(name);
@@ -221,10 +267,7 @@ class SceneDirector {
     // sitio donde los carteles dirían el nombre de su clave.
     const resources = await Promise.allSettled([
       game.renderer.sprites.prepare(sprites, [
-        ...playerPacks(game, world, state),
-        ...(state.navigation?.mode === "boat"
-          ? [vesselDefinition.vessels[vesselDefinition.defaultVessel].pack]
-          : []),
+        ...travellerPacks(game, world, state),
         ...(data.assetPacks || []),
       ]),
       game.sceneText.load(id),
@@ -245,6 +288,7 @@ class SceneDirector {
     }
     this.cache.delete(id);
     this.cache.set(id, world);
+    this.residents.set(id, neighbors);
     /**
      * ⛔ LA CACHÉ NO EXPULSA LO QUE SE ESTÁ VIENDO (20-sep-2026). Era una LRU pura con techo de
      * seis: la pantalla que pisas solo «se usaba» al entrar, así que tras cruzar a los sauces la
@@ -283,10 +327,15 @@ class SceneDirector {
       playerPacks(game, game.world, game.state, { variant: previous }),
     );
     const packs = await sprites.prepare([], playerPacks(game, game.world, game.state));
-    sprites.activate(
-      new Set([...[...sprites.pinned].filter((id) => !stale.has(id)), ...packs]),
-    );
-    packs.release?.();
+    try {
+      sprites.activate(
+        new Set([...[...sprites.pinned].filter((id) => !stale.has(id)), ...packs]),
+      );
+    } finally {
+      // La reserva se suelta pase lo que pase: si no, unas hojas que no llegaron a fijarse se
+      // quedarían retenidas el resto de la partida y encogerían el presupuesto para siempre.
+      packs.release?.();
+    }
   }
   /**
    * ⛔ TODAS LAS PANTALLAS QUE TOCAN ESTA, SIEMPRE (17-sep-2026, decisión del dueño).
@@ -343,20 +392,15 @@ class SceneDirector {
     const wanted = [...new Set([...byView, ...byExit])].slice(0, WARM_SCENES);
     // Lo que deja de ser vecina deja de estar caliente: si no, cruzar el bosque entero acabaría
     // reteniendo el arte de todas las pantallas que has pisado.
-    let dropped = false;
-    for (const id of [...this.warm.keys()])
-      if (!wanted.includes(id)) {
-        this.warm.delete(id);
-        dropped = true;
-      }
-    if (dropped) this.retainWarm();
+    for (const id of [...this.warm.keys()]) if (!wanted.includes(id)) this.warm.delete(id);
+    // Y lo que está a la vista cambia al andar aunque no cambie lo caliente: se refresca aquí, en
+    // el mismo pulso, para que la poda no toque a una vecina que acaba de asomar. Una sola vez:
+    // cada llamada es una pasada de poda entera.
+    this.retainWarm();
     // Caliente de verdad es tener las hojas Y el mundo: si la caché soltó el mundo de una vecina
     // que sigue a la vista, se vuelve a preparar aunque sus hojas estén calientes.
     const next = wanted.find(
-      (id) =>
-        !(this.warm.has(id) && this.cache.has(id)) &&
-        !this.warming.has(id) &&
-        (this.unreachable.get(id) ?? 0) <= time,
+      (id) => !this.ready(id) && !this.warming.has(id) && (this.unreachable.get(id) ?? 0) <= time,
     );
     if (!next) return;
     // La tarea resuelve con lo preparado: si un viaje hacia esa misma pantalla llega mientras se
@@ -398,8 +442,15 @@ class SceneDirector {
     if (previous && previous.id !== prepared.id) this.warm.set(previous.id, previous.packs);
     this.active = { id: prepared.id, packs: new Set(prepared.packs) };
     this.warm.delete(prepared.id);
+    // Lo visible en el instante de activar: la pantalla que se deja (acaba de estar en pantalla)
+    // y, por una costura, lo que la cámara ya traducida toca de la nueva. El siguiente pulso de
+    // la precarga lo afina con la cámara definitiva.
+    const visible = new Set([
+      ...(previous && previous.id !== prepared.id ? previous.packs : []),
+      ...(camera ? this.visibleIds(prepared.id, camera) : []),
+    ]);
     // A prepared set is leased until entry, so concurrent prewarming cannot evict it.
-    game.renderer.sprites.activate(prepared.packs, this.warmIds());
+    game.renderer.sprites.activate(prepared.packs, this.warmIds(), visible);
     // Closes the previous scene's row and its heat map before the world changes
     // under it; the very first call happens before telemetry has begun and is a
     // no-op, which is what we want.
@@ -446,7 +497,6 @@ class SceneDirector {
     // de activa a caliente sin hueco; la precarga la soltará si deja de tocar la vista.
     // Lo que ayer no se pudo preparar vuelve a tener una oportunidad desde aquí.
     this.unreachable.clear();
-    this.retainWarm();
     this.link();
     game.cats?.enter();
     // ⛔ POR UNA COSTURA LA CÁMARA NO SALTA (mundo continuo): quien cruza trae la cámara ya
@@ -456,6 +506,11 @@ class SceneDirector {
       game.camera = clampCamera(camera, game.world, game.renderer);
       game.centerCamera();
     } else game.centerCamera(true);
+    // ⛔ LO VISIBLE SE DECIDE CON LA CÁMARA DEFINITIVA (20-sep-2026, revisión). Aquí arriba
+    // `game.camera` era todavía la de la pantalla ANTERIOR, en sus coordenadas: leída en el marco
+    // de la nueva señalaba a la vecina contraria, y la pantalla que acabas de dejar —media
+    // pantalla de árboles— se quedaba solo caliente y volvía a ser lo primero que la poda tiraba.
+    this.retainWarm();
     game.dirty = true;
     game.content?.sceneChanged(prepared.id);
     game.community?.sceneChanged();

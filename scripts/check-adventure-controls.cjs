@@ -1,7 +1,7 @@
 "use strict";
+const { compileWorld } = require("../tools/world.cjs");
 const assert = require("node:assert/strict"),
   fs = require("node:fs");
-const { execFileSync } = require("node:child_process");
 const {
   World,
   TILE,
@@ -18,13 +18,7 @@ assert(
 );
 const { cleanWallet } = require("../public/assets/js/adventure/economy");
 const { dialogueText } = require("../public/assets/js/adventure/dialogue");
-const catalog = JSON.parse(
-  execFileSync(
-    "php",
-    ["-r", 'echo json_encode(require "data/aventura/world.php");'],
-    { encoding: "utf8" },
-  ),
-);
+const catalog = compileWorld(process.cwd());
 const manifest = JSON.parse(
   fs.readFileSync("public/assets/aventura/manifest.json"),
 );

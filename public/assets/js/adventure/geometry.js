@@ -87,62 +87,14 @@ function actorBounds(x, y) {
   };
 }
 /**
- * ⛔ LA COSTA ES UNA ORILLA, NO UNA REGLA (20-sep-2026, decisión del dueño: «cierra el océano
- * como en diagonal y queda una línea cortante rara sin orillita de río como todas las demás»).
- * Antes cada tramo entre dos puntos autorados era una S de `smoothstep` con la tangente vertical
- * en los extremos, así que la línea iba a tirones: vertical en cada punto y recta en diagonal en
- * medio. Ahora pasa por los mismos puntos con la MISMA interpolación de Hermite monótona que las
- * orillas de los ríos (`river-course.js`), sin rebasar ningún punto, y le suma un vaivén suave de
- * un tercio de casilla que se apaga en los dos extremos para que la boca del río de al lado siga
- * encajando en la costura. Física, pintura y máscara del servidor leen esta misma función.
+ * ⛔ YA NO HAY COSTAS DE UN SOLO LADO (20-sep-2026). El océano de la pradera era una línea `coasts`
+ * con agua hasta el infinito por el este; con la rejilla pasó a ser el lago, un `rivers` de dos
+ * orillas cerrado por el este y por el sur. Toda el agua abierta se describe con `rivers` (orillas
+ * autoradas con Hermite monótona, `sway` opcional) y `waters` (elipses): un solo camino para la
+ * física, la pintura y la máscara del servidor.
  */
-const coastCourses = new WeakMap();
-const COAST_SWAY = 0.34;
-function coastCourse(coast) {
-  if (coastCourses.has(coast)) return coastCourses.get(coast);
-  const points = coast.points;
-  const slopes = points.map((p, i) => {
-    if (!i || i === points.length - 1) return 0;
-    const a = (p[0] - points[i - 1][0]) / (p[1] - points[i - 1][1]);
-    const b = (points[i + 1][0] - p[0]) / (points[i + 1][1] - p[1]);
-    return a * b > 0 ? (2 * a * b) / (a + b) : 0;
-  });
-  const course = { points, slopes, top: points[0][1], bottom: points.at(-1)[1] };
-  coastCourses.set(coast, course);
-  return course;
-}
-function coastSway(course, y) {
-  const fade = Math.max(0, Math.min(1, (y - course.top) / 4, (course.bottom - y) / 4));
-  return fade * COAST_SWAY * (Math.sin(y * 0.9 + 1.3) * 0.6 + Math.sin(y * 2.3) * 0.4);
-}
-function coastX(coast, y) {
-  const course = coastCourse(coast),
-    { points, slopes } = course;
-  if (y <= points[0][1]) return points[0][0];
-  if (y >= points.at(-1)[1]) return points.at(-1)[0];
-  let i = 1;
-  while (i < points.length - 1 && y > points[i][1]) i++;
-  const a = points[i - 1],
-    b = points[i],
-    h = b[1] - a[1],
-    t = (y - a[1]) / h,
-    t2 = t * t,
-    t3 = t2 * t;
-  const x =
-    (2 * t3 - 3 * t2 + 1) * a[0] +
-    (t3 - 2 * t2 + t) * h * slopes[i - 1] +
-    (-2 * t3 + 3 * t2) * b[0] +
-    (t3 - t2) * h * slopes[i];
-  return x + coastSway(course, y);
-}
 function waterAt(data, x, y) {
   if ((data.bridges || []).some((b) => inRect(x, y, b.rect))) return false;
-  if (
-    (data.coasts || []).some((c) =>
-      c.side === "west" ? x <= coastX(c, y) : x >= coastX(c, y),
-    )
-  )
-    return true;
   if (
     (data.rivers || []).some((r) => {
       if (y < r.rect[1] || y >= r.rect[1] + r.rect[3]) return false;
@@ -188,17 +140,6 @@ function waterNearby(data, x, y) {
     )
   )
     return true;
-  for (const coast of data.coasts || []) {
-    // La envolvente lleva el vaivén de la orilla: la curva pasa por los puntos, pero se mece.
-    let min = Math.min(coastX(coast, top), coastX(coast, bottom)) - COAST_SWAY;
-    let max = Math.max(coastX(coast, top), coastX(coast, bottom)) + COAST_SWAY;
-    for (const [cx, cy] of coast.points)
-      if (cy > top && cy < bottom) {
-        min = Math.min(min, cx - COAST_SWAY);
-        max = Math.max(max, cx + COAST_SWAY);
-      }
-    if (coast.side === "west" ? left <= max : right >= min) return true;
-  }
   for (const r of data.rivers || []) {
     const [, ry, , rh] = r.rect,
       banks = riverEnvelope(r);
@@ -236,7 +177,6 @@ module.exports = {
   insideThreshold,
   FOOTPRINT,
   actorBounds,
-  coastX,
   waterAt,
   dryFootprint,
 };

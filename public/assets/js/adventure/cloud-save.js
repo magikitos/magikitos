@@ -202,17 +202,14 @@ class CloudSave {
     if (g.ready) {
       g.pauseMovement();
       g.transitioning = true;
+      let prepared;
       try {
-        const prepared = await g.scenes.prepare(
-          next.scene,
-          next.position,
-          next,
-        );
+        prepared = await g.scenes.prepare(next.scene, next.position, next);
         g.state = next;
         g.scenes.enter(prepared);
-      } catch (error) {
-        throw error;
       } finally {
+        // La preparación es un préstamo de hojas: se devuelve siempre, o quedarían fijas para siempre.
+        prepared?.packs.release?.();
         g.transitioning = false;
       }
     } else g.state = next;
@@ -222,31 +219,30 @@ class CloudSave {
       g.save();
     }
   }
+  /**
+   * Otro intento más tarde, con un solo temporizador. Todo lo que aplaza una subida pasa por aquí
+   * —un cambio nuevo, una obra de la comunidad a medias, un envío ya en vuelo o un error de red—,
+   * para que ningún camino se quede sin reintento: antes, un cambio hecho durante una obra se
+   * quedaba sin subir hasta el siguiente cambio, y si no había siguiente, sin subir.
+   */
+  rearm(delay = 10000) {
+    if (this.timer) return;
+    this.timer = setTimeout(() => {
+      this.timer = null;
+      this.flush();
+    }, delay);
+  }
   mark() {
-    if (
-      !this.owner ||
-      this.conflict ||
-      this.owner !== this.meta.owner ||
-      this.game.community?.busy
-    )
-      return;
+    if (!this.owner || this.conflict || this.owner !== this.meta.owner) return;
     this.status = "cloudOffline";
-    if (!this.timer)
-      this.timer = setTimeout(() => {
-        this.timer = null;
-        this.flush();
-      }, 10000);
+    this.rearm();
     this.paint();
   }
   async flush() {
-    if (
-      this.busy ||
-      !this.owner ||
-      this.owner !== this.meta.owner ||
-      this.conflict ||
-      this.game.community?.busy
-    )
-      return;
+    if (!this.owner || this.owner !== this.meta.owner || this.conflict) return;
+    // Mientras la comunidad construye manda su transacción, y un envío en vuelo manda sobre otro:
+    // en los dos casos esto se aplaza, nunca se descarta.
+    if (this.busy || this.game.community?.busy) return this.rearm();
     const current = this.snapshot();
     if (!this.meta.pending && same(current, this.meta.base)) {
       this.status = "cloudSaved";
@@ -297,11 +293,7 @@ class CloudSave {
           this.meta.pending = null;
           this.status = "cloudError";
           this.persist();
-        } else if (!this.timer)
-          this.timer = setTimeout(() => {
-            this.timer = null;
-            this.flush();
-          }, 30000);
+        } else this.rearm(30000);
       }
     } finally {
       this.busy = false;
@@ -359,8 +351,10 @@ class CloudSave {
         { auth: true },
       );
       const profile = this.validProfile(data.profile);
-      this.accept(profile);
+      // Primero se aplica y después se acepta: si aplicar falla, la revisión no queda adelantada
+      // con el estado viejo en pantalla (que la siguiente subida pisaría lo restaurado).
       await this.apply(profile);
+      this.accept(profile);
       this.recoveries = data.recoveries || [];
       this.persist();
       this.status = "cloudSaved";

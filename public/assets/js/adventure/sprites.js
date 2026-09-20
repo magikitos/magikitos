@@ -17,6 +17,9 @@ class SpriteLibrary {
     this.owners = new Map();
     this.pinned = new Set();
     this.warm = new Set();
+    // Las hojas de las pantallas vecinas que están A LA VISTA: ni fijas (no son la tuya) ni
+    // solo calientes (no se pueden soltar mientras se ven). Ver `retainWarm`.
+    this.visible = new Set();
     this.residency = new SpriteResidency(budget);
   }
   async initialize(url) {
@@ -165,16 +168,19 @@ class SpriteLibrary {
     });
   }
   /**
-   * Fija las hojas de la pantalla que se pisa y, en el MISMO gesto, decide qué queda caliente: la
-   * poda que sigue mira las dos listas, así que lo caliente tiene que llegar aquí y no después
-   * (20-sep-2026: la pantalla que se dejaba no era ni fija ni caliente en el instante de podar).
-   * Sin `warm`, llegar suelta toda la retención anterior, que es el contrato de siempre.
+   * Fija las hojas de la pantalla que se pisa y, en el MISMO gesto, decide qué queda caliente y
+   * qué está a la vista: la poda que sigue mira las tres listas, así que tienen que llegar aquí y
+   * no después (20-sep-2026: la pantalla que se dejaba no era ni fija ni caliente en el instante
+   * de podar). Quien fija sin decir nada más —subir a la barca, un cambio de duende, una escena
+   * presentada— conserva lo caliente y lo visible que había; solo el director de pantallas, al
+   * llegar a otra, las sustituye.
    */
-  activate(ids, warm = []) {
+  activate(ids, warm = this.warm, visible = this.visible) {
     for (const id of ids)
       if (!this.packs.has(id)) throw new Error("Sprite package was not prepared: " + id);
     this.pinned = new Set(ids);
     this.warm = new Set(warm);
+    this.visible = new Set(visible);
     for (const id of ids) {
       const pack = this.packs.get(id);
       this.packs.delete(id);
@@ -183,8 +189,17 @@ class SpriteLibrary {
     ids.release?.();
     this.prune();
   }
-  retainWarm(ids) {
+  /**
+   * ⛔ LO QUE SE VE NO SE EXPULSA (20-sep-2026, capturas del dueño: los árboles de la pradera
+   * desaparecían mirando desde los sauces con sesión). Cada protagonista pesa 8,3 MB descodificado
+   * y las hojas de los jugadores cercanos entran con prioridad de foco; las de la pantalla vecina
+   * eran solo «calientes» y eran lo primero que caía cuando el presupuesto se llenaba de gente.
+   * `visible` son las hojas de las vecinas que tocan la vista: valen como fijas para la poda, y
+   * el arte de los actores lejanos es lo que deja de admitirse cuando no cabe.
+   */
+  retainWarm(ids, visible = []) {
     this.warm = new Set(ids);
+    this.visible = new Set(visible);
     this.prune();
   }
   prune() {
@@ -248,6 +263,7 @@ class SpriteLibrary {
     return {
       loaded: [...this.packs.keys()],
       active: [...this.pinned],
+      visible: [...this.visible],
       warm: [...this.warm],
       bytes: this.residency.bytes,
       reservedBytes: this.residency.reservedBytes,

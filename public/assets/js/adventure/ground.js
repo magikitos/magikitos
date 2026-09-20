@@ -1,5 +1,5 @@
 "use strict";
-const { TILE, coastX, hash } = require("./geometry");
+const { TILE, hash } = require("./geometry");
 const { riverSection } = require("./river-course");
 const colors = {
   grass: ["#68884e", "#6a8a4f", "#6c8c51", "#6e8e52", "#709054"],
@@ -66,19 +66,9 @@ function nearbyPaths(data, ox, oy) {
 /** Hoist all shoreline interpolation out of the per-pixel loop. */
 function shoreRow(data, py) {
   const y = py / TILE;
-  // La distancia a la costa se mide PERPENDICULAR a la orilla (20-sep-2026): medida en
-  // horizontal, un tramo en diagonal estrechaba la banda de orilla y el degradado del agua por
-  // el coseno de la pendiente, y la costa salía como una raya fina frente a las orillas del río.
-  const coasts = (data.coasts || []).map((c) => {
-    const slope = coastX(c, y + 0.5) - coastX(c, y - 0.5);
-    return {
-      edge: coastX(c, y) * TILE,
-      west: c.side === "west",
-      scale: 1 / Math.sqrt(1 + slope * slope),
-    };
-  });
-  // Y las orillas de los ríos igual: la distancia se corrige por la pendiente de la orilla
-  // (`tangent`), que si no una orilla en diagonal salía con la banda de arena más fina.
+  // La distancia a la orilla se mide PERPENDICULAR a ella (20-sep-2026): medida en horizontal,
+  // un tramo en diagonal estrechaba la banda de orilla y el degradado del agua por el coseno de
+  // la pendiente (`tangent`), y la orilla salía como una raya fina.
   const rivers = (data.rivers || []).map((r) => {
     const banks = riverSection(r, y);
     return {
@@ -98,7 +88,6 @@ function shoreRow(data, py) {
     islands = (data.islands || []).map(ellipse);
   return (x) => {
     let d = -10000;
-    for (const c of coasts) d = Math.max(d, (c.west ? c.edge - x : x - c.edge) * c.scale);
     for (const r of rivers) {
       if (r.width <= 0) continue; // el cauce ya se ha cerrado: ni agua ni orilla
       const dx = x - r.left;
@@ -119,7 +108,6 @@ function shoreRow(data, py) {
     return d;
   };
 }
-/** Native-pixel material raster. Only the 9×9 shade lattice is hashed, not 4 corners per pixel. */
 /** La semilla de la hierba de todo el bosque exterior: una, para que la costura no la parta. */
 const FOREST_SEED = hash("mundo-continuo");
 /**
@@ -216,6 +204,7 @@ function voidWaterAt(plane, px, py) {
     ) >= 0
   );
 }
+/** Native-pixel material raster. Only the 9×9 shade lattice is hashed, not 4 corners per pixel. */
 function paintGround(c, world, ox, oy) {
   const data = world.data,
     segments = nearbyPaths(data, ox, oy);
@@ -301,4 +290,4 @@ function paintGround(c, world, ox, oy) {
   }
   c.putImageData(image, 0, 0);
 }
-module.exports = { paintGround, shoreDistance, noise, paintVoid, voidWaterAt, FOREST_SEED };
+module.exports = { paintGround, shoreDistance, noise, paintVoid, voidWaterAt };

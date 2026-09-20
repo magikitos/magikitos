@@ -155,6 +155,13 @@ class Crossings {
     /** Un toque más allá del borde, guardado para volver a tocarlo al otro lado. */
     this.pending = null;
   }
+  /**
+   * Olvida el toque guardado más allá de la costura. Cualquier otro toque lo sustituye: si no, el
+   * de hace diez minutos se repetía solo al cruzar esa costura por cualquier otro motivo.
+   */
+  forget() {
+    this.pending = null;
+  }
   /** Se llama cada fotograma desde el bucle que toque. Devuelve true si se ha empezado a cruzar. */
   check(mode) {
     const g = this.game;
@@ -223,15 +230,15 @@ class Crossings {
     const span = vertical ? point.y - from.y : point.x - from.x;
     const t = clamp((edge - (vertical ? from.y : from.x)) / (span || 1e-9), 0, 1);
     const hit = { x: from.x + (point.x - from.x) * t, y: from.y + (point.y - from.y) * t };
-    const [ax, ay, aw, ah] = exit.area,
-      inset = (SEAM_TRIGGER - 0.15) * TILE;
+    // El destino del primer tramo está en el propio borde, dentro de la banda.
+    const [ax, ay, aw, ah] = exit.area;
     const target = vertical
       ? {
           x: clamp(hit.x, (ax + 0.5) * TILE, (ax + aw - 0.5) * TILE),
-          y: exit.direction === "up" ? inset : world.height * TILE - inset,
+          y: exit.direction === "up" ? 0 : world.height * TILE,
         }
       : {
-          x: exit.direction === "left" ? inset : world.width * TILE - inset,
+          x: exit.direction === "left" ? 0 : world.width * TILE,
           y: clamp(hit.y, (ay + 0.5) * TILE, (ay + ah - 0.5) * TILE),
         };
     this.pending = { scene: beyond.seam.scene, point: { x: beyond.x, y: beyond.y } };
@@ -291,15 +298,17 @@ class Crossings {
       // Si justo enfrente hay un árbol, se aparece un paso al lado dentro de la banda antes de
       // recurrir al centro escrito: con las bandas anchas de la rejilla (20-sep-2026) eso evita
       // el salto al centro que el dueño veía como «se desplaza a la derecha».
+      // Los pasos de al lado se acotan a la banda de DESTINO, centrada en `exit.position` y tan
+      // ancha como la banda de salida (los centros están alineados por el plano). La medida es la
+      // MISMA que la de `crossingArrival`: con media casilla menos, la llegada exacta de quien
+      // cruza pegado al filo de la banda se caía del filtro y el duende daba un salto de 8 px.
       const vertical = exit.direction === "up" || exit.direction === "down";
-      const [ax, ay, aw, ah] = exit.area;
+      const [, , aw, ah] = exit.area,
+        centre = (vertical ? exit.position[0] : exit.position[1]) * TILE,
+        half = ((vertical ? aw : ah) / 2) * TILE;
       const side = [0, -8, 8, -16, 16, -24, 24, -32, 32]
         .map((d) => (vertical ? { x: arrival.x + d, y: arrival.y } : { x: arrival.x, y: arrival.y + d }))
-        .filter((p) =>
-          vertical
-            ? p.x >= (ax + 0.5) * TILE && p.x <= (ax + aw - 0.5) * TILE
-            : p.y >= (ay + 0.5) * TILE && p.y <= (ay + ah - 0.5) * TILE,
-        );
+        .filter((p) => Math.abs((vertical ? p.x : p.y) - centre) <= half);
       prepared = await g.scenes.prepare(
         exit.scene,
         [...side, { x: exit.position[0] * TILE, y: exit.position[1] * TILE }],
@@ -329,4 +338,4 @@ class Crossings {
     }
   }
 }
-module.exports = { MODES, SEAM_TRIGGER, OVERSHOOT, crossingAt, crossingAreas, crossingArrival, beyondEdge, ontoEdge, Crossings };
+module.exports = { MODES, SEAM_TRIGGER, crossingAt, crossingAreas, crossingArrival, beyondEdge, ontoEdge, Crossings };

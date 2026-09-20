@@ -9,9 +9,9 @@
 const assert = require("node:assert/strict"),
   fs = require("node:fs"),
   os = require("node:os"),
-  path = require("node:path"),
-  cp = require("node:child_process");
+  path = require("node:path");
 const { chromium } = require("playwright");
+const { startStudio } = require("./browser-studio.cjs");
 const origin = "http://127.0.0.1:47841",
   temp = fs.mkdtempSync(path.join(os.tmpdir(), "magikitos-entrance-browser-")),
   errors = [];
@@ -27,24 +27,11 @@ async function point(p, [x, y]) {
     r = await p.locator("#map").boundingBox();
   return { x: r.x + (x * 16 - s.camera.x) * s.zoom, y: r.y + (y * 16 - s.camera.y) * s.zoom };
 }
+const scenesDir = path.resolve("data/aventura/scenes"),
+  sceneFiles = () => Object.fromEntries(fs.readdirSync(scenesDir).map((f) => [f, fs.readFileSync(path.join(scenesDir, f), "utf8")]));
 (async () => {
-  studio = cp.spawn(process.execPath, ["tools/adventure-studio/server.cjs"], {
-    env: { ...process.env, STUDIO_PORT: "47841", STUDIO_DATA_DIR: temp },
-    stdio: ["ignore", "pipe", "pipe"],
-  });
-  await new Promise((resolve, reject) => {
-    const timer = setTimeout(() => reject(Error("Studio startup timeout")), 120000);
-    studio.stdout.on("data", (b) => {
-      if (b.toString().includes("Magikitos Studio:")) {
-        clearTimeout(timer);
-        resolve();
-      }
-    });
-    studio.once("exit", (code) => {
-      clearTimeout(timer);
-      reject(Error("Studio exit " + code));
-    });
-  });
+  const before = sceneFiles();
+  studio = await startStudio({ port: 47841, temp });
   browser = await chromium.launch({ channel: "chrome", headless: true });
   const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
   page.on("pageerror", (e) => errors.push(e.message));
@@ -127,7 +114,7 @@ async function point(p, [x, y]) {
     }
   }
   assert.deepEqual(errors, []);
-  assert.equal(cp.execSync("git status --porcelain -- data/aventura/scenes", { encoding: "utf8" }).split("\n").filter((l) => /home-one|\bhouse\b/.test(l)).length, 0, "El Studio no toca las escenas");
+  assert.deepEqual(sceneFiles(), before, "El Studio no toca ninguna escena del árbol");
   console.log("PASS studio entrance: la franja de la puerta se ajusta desde el inspector y arrastrando, con deshacer, guardado, propuesta con `entrance` y sin geometría derivada; camas y escaleras no la enseñan.");
 })()
   .catch((e) => {

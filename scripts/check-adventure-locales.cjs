@@ -1,4 +1,5 @@
 "use strict";
+const { compileWorld } = require("../tools/world.cjs");
 /**
  * EL MOTOR NO PUEDE DEPENDER DE UNA PANTALLA, Y UNA PANTALLA NO PUEDE PEDIR LO QUE NADIE DICE.
  *
@@ -14,15 +15,9 @@
 const assert = require("node:assert/strict");
 const fs = require("node:fs"),
   path = require("node:path");
-const { execFileSync } = require("node:child_process");
 const { composeLocales, sceneKeys, readUnits, pageKeys, LANGS } = require("../tools/locales.cjs");
 
-const world = JSON.parse(
-  execFileSync("php", ["-r", 'echo json_encode(require "data/aventura/world.php");'], {
-    encoding: "utf8",
-    maxBuffer: 8 * 1024 * 1024,
-  }),
-);
+const world = compileWorld(process.cwd());
 const { core, scenes } = composeLocales(world);
 const units = readUnits();
 

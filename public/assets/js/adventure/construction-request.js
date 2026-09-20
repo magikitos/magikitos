@@ -1,5 +1,5 @@
 "use strict";
-const { operationId } = require("./material-account");
+const { operationId } = require("./ids");
 
 /** Retry one *rejected* zone revision, never an ambiguous transport failure.
  * The exact next request is journalled before sending, so a lost acknowledgement

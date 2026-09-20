@@ -69,8 +69,21 @@ class LocalSprites extends SpriteLibrary {
     [...warm].every((id) => sprites.packs.has(id)),
     "A large warmed destination is not immediately evicted",
   );
+  // Lo VISIBLE (una vecina a la vista) aguanta la presión del arte de los actores; lo solo caliente, no.
+  const visible = [...warm].slice(0, 3), onlyWarm = [...warm].slice(3).filter((id) => !first.has(id));
   warm.release();
+  sprites.retainWarm(warm, visible);
+  sprites.residency.evict(sprites.residency.bytes, sprites);
+  assert(visible.every((id) => sprites.packs.has(id)), "Visible neighbour packs survive a full eviction pass");
+  assert(onlyWarm.some((id) => !sprites.packs.has(id)), "Merely warm packs are what gives way");
+  for (const id of Object.keys(manifest.packs)) await sprites.load(id);
+  // Fijar sin decir nada más (subir a la barca, cambiar de duende) conserva lo caliente y lo visible…
   sprites.activate(first);
+  assert.equal(sprites.visible.size, visible.length, "Plain activation keeps the visible set");
+  assert.equal(sprites.warm.size, warm.size, "…and the warm set");
+  // …y llegar a otra pantalla los sustituye por lo que el director diga, aunque sea nada.
+  sprites.activate(first, [], []);
+  assert.equal(sprites.visible.size, 0, "Arriving with an empty visible set clears it");
   assert.equal(
     sprites.warm.size,
     0,

@@ -2,38 +2,18 @@
 const assert = require("node:assert/strict"),
   fs = require("node:fs"),
   os = require("node:os"),
-  path = require("node:path"),
-  cp = require("node:child_process");
+  path = require("node:path");
 const { chromium } = require("playwright");
+const { startStudio } = require("./browser-studio.cjs");
 const temp = fs.mkdtempSync(path.join(os.tmpdir(), "magikitos-selection-")),
   port = "47849",
   origin = "http://127.0.0.1:" + port;
 const main = path.resolve(".local/adventure-studio/workspace.json"),
   before = fs.readFileSync(main, "utf8");
 const read = (p) => p.evaluate(() => window.MagikitosStudio.inspect());
-let server,
-  browser,
-  output = "";
+let server, browser;
 (async () => {
-  server = cp.spawn(process.execPath, ["tools/adventure-studio/server.cjs"], {
-    env: { ...process.env, STUDIO_PORT: port, STUDIO_DATA_DIR: temp },
-    stdio: ["ignore", "pipe", "pipe"],
-  });
-  await new Promise((resolve, reject) => {
-    const timer = setTimeout(() => reject(Error(output)), 120000);
-    server.stdout.on("data", (b) => {
-      output += b;
-      if (output.includes("Magikitos Studio:")) {
-        clearTimeout(timer);
-        resolve();
-      }
-    });
-    server.stderr.on("data", (b) => (output += b));
-    server.on("exit", () => {
-      clearTimeout(timer);
-      reject(Error(output));
-    });
-  });
+  server = await startStudio({ port, temp });
   browser = await chromium.launch({ channel: "chrome", headless: true });
   const page = await browser.newPage({
       viewport: { width: 1440, height: 1000 },
@@ -230,7 +210,7 @@ let server,
   );
 })()
   .catch((e) => {
-    console.error(e, output);
+    console.error(e, server?.log?.());
     process.exitCode = 1;
   })
   .finally(async () => {

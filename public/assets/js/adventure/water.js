@@ -25,14 +25,18 @@ function rippleCell(world, col, row) {
 }
 function drawRipples(c, world, view, time = 0) {
   if (world.data.indoor) return;
+  // Solo las celdas de la propia pantalla: la vista traducida a una vecina puede sobresalir de
+  // su rectángulo, y fuera de él no hay agua que ondear ni celda que guardar.
+  const rows = Math.ceil((world.height * TILE) / 24),
+    cols = Math.ceil((world.width * TILE) / 32);
   for (
-    let row = Math.floor(view.y / 24) - 1;
-    row < Math.ceil((view.y + view.height) / 24) + 1;
+    let row = Math.max(0, Math.floor(view.y / 24) - 1);
+    row < Math.min(rows, Math.ceil((view.y + view.height) / 24) + 1);
     row++
   )
     for (
-      let col = Math.floor(view.x / 32) - 1;
-      col < Math.ceil((view.x + view.width) / 32) + 1;
+      let col = Math.max(0, Math.floor(view.x / 32) - 1);
+      col < Math.min(cols, Math.ceil((view.x + view.width) / 32) + 1);
       col++
     ) {
       const cell = rippleCell(world, col, row);

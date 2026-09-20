@@ -1,8 +1,8 @@
 "use strict";
-const { operationId } = require("./material-account");
+const { operationId } = require("./ids");
+const { ambiguous } = require("./api");
 const KEY = "magikitos.adventure.forest-action";
 const ENDPOINTS = new Set(["forest-relief", "forest-message"]);
-const ambiguous = error => !error.status || error.status === 429 || error.status >= 500;
 
 /** One durable, unacknowledged intent, not another inventory. A lost reply is retried byte for
  * byte; a definitive revision rejection may be rebased once. Never carries credentials. */
@@ -25,7 +25,9 @@ class ForestActions {
     // Refuse a new mutation when it cannot be journalled: otherwise a reload after a lost
     // acknowledgement could spend twice. Preserve the previous identity's unresolved intent.
     if (this.pending && value && this.pending.owner !== value.owner) {
-      const archive = JSON.parse(this.storage.getItem(KEY + ".recovery") || "[]");
+      let archive = [];
+      try { archive = JSON.parse(this.storage.getItem(KEY + ".recovery") || "[]"); } catch (_) {}
+      if (!Array.isArray(archive)) archive = [];
       this.storage.setItem(KEY + ".recovery", JSON.stringify([...archive, this.pending].slice(-3)));
     }
     if (value) this.storage.setItem(KEY, JSON.stringify(value));
@@ -91,4 +93,4 @@ class ForestActions {
     } finally { this.busy = false; }
   }
 }
-module.exports = { ForestActions, ambiguous };
+module.exports = { ForestActions };

@@ -1,5 +1,8 @@
 "use strict";
 
+const PUBLIC_READS = new Set(["bootstrap", "discover"]);
+/** Un fallo del que no se sabe si la petición llegó (sin respuesta, 429 o 5xx): lo único que se reintenta a ciegas. */
+const ambiguous = (error) => !error.status || error.status === 429 || error.status >= 500;
 const METHODS = Object.freeze({
   bootstrap: "GET",
   discover: "GET",
@@ -189,13 +192,9 @@ class WorldApi {
     if (typeof granted === "string" && granted) this.session.set(granted);
     return data;
   }
-  /** Deduplicate public catalogue reads in flight. Never caches an identity or a mutation. */
+  /** Deduplicate public catalogue reads in flight. Only the listed anonymous reads qualify: an authenticated read or a mutation never goes through here. */
   once(endpoint, params = {}) {
-    if (
-      METHODS[endpoint] !== "GET" ||
-      ["csrf", "guardian-thread", "game-state"].includes(endpoint)
-    )
-      throw new ApiError("not_public_read");
+    if (!PUBLIC_READS.has(endpoint)) throw new ApiError("not_public_read");
     const key = endpoint + JSON.stringify(params);
     if (!this.pending.has(key)) {
       const task = this.request(endpoint, params).finally(() =>
@@ -233,4 +232,4 @@ class WorldApi {
     );
   }
 }
-module.exports = { WorldApi, ApiError, webUrl, piece };
+module.exports = { WorldApi, ApiError, webUrl, piece, ambiguous };

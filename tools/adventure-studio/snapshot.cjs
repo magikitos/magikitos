@@ -1,13 +1,13 @@
 "use strict";
 const fs = require("node:fs"),
   path = require("node:path"),
-  crypto = require("node:crypto"),
-  cp = require("node:child_process");
+  crypto = require("node:crypto");
 const { World, TILE } = require("../../public/assets/js/adventure/model");
 const {
   resolveAppearance,
 } = require("../../public/assets/js/adventure/elements");
 const { readUnits } = require("../locales.cjs");
+const { compileWorld } = require("../world.cjs");
 const hash = (value) => crypto.createHash("sha256").update(value).digest("hex");
 
 /**
@@ -37,17 +37,7 @@ function sceneNames(world) {
 function snapshot(root) {
   const dir = path.join(root, "data/aventura"),
     sources = {};
-  const world = JSON.parse(
-    cp.execFileSync(
-      process.env.STUDIO_PHP || "php",
-      [
-        "-r",
-        "echo json_encode(require $argv[1], JSON_THROW_ON_ERROR);",
-        path.join(dir, "world.php"),
-      ],
-      { maxBuffer: 8 * 1024 * 1024, encoding: "utf8" },
-    ),
-  );
+  const world = compileWorld(root);
   // Edit each authored template once; guest instances and moored vessels are derived data.
   const instances = JSON.parse(
     fs.readFileSync(path.join(dir, "scene-instances.json")),

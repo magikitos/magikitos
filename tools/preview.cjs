@@ -194,7 +194,7 @@ http
       // A deliberate website navigation leaves the game; never fetch or embed that page.
       if (
         offline ||
-        /^\/(game|assets|api|\\.local|tools)(\/|$)/.test(url.pathname)
+        /^\/(game|assets|api|\.local|tools)(\/|$)/.test(url.pathname)
       ) {
         send(res, 404, "Not found");
         return;

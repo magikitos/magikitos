@@ -3,7 +3,8 @@ const assert = require("node:assert/strict"),
   fs = require("node:fs"),
   os = require("node:os"),
   path = require("node:path");
-const { execFileSync } = require("node:child_process");
+const { compileWorld } = require("../tools/world.cjs");
+const { isolateWorld } = require("./lib/world-fixture.cjs");
 const { paintGround } = require("../public/assets/js/adventure/ground");
 const { portalArrival } = require("../public/assets/js/adventure/portals");
 const { cleanSave } = require("../public/assets/js/adventure/save");
@@ -96,9 +97,7 @@ assert.equal(
 );
 
 // Move a building in an isolated source copy: both a compiled exit and a resumed save follow it.
-const temp = require("./lib/world-fixture.cjs").isolateWorld(
-  "magikitos-portal-fixture-",
-);
+const temp = isolateWorld("magikitos-portal-fixture-");
 try {
   const file = path.join(temp, "data/aventura/scenes/overworld.json"),
     scene = JSON.parse(fs.readFileSync(file));
@@ -106,18 +105,7 @@ try {
   house.x += 0.25;
   house.y += 1;
   fs.writeFileSync(file, JSON.stringify(scene));
-  const compile = () =>
-    JSON.parse(
-      execFileSync(
-        "php",
-        [
-          "-r",
-          "echo json_encode(require $argv[1]);",
-          path.join(temp, "data/aventura/world.php"),
-        ],
-        { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] },
-      ),
-    );
+  const compile = () => compileWorld(temp);
   const moved = compile(),
     point = portalArrival(moved, save.entrance.scene, save.entrance.portal),
     before = portalArrival(catalog, entrance.scene, entrance.portal);

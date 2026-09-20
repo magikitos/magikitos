@@ -137,4 +137,4 @@ function scenesIntersecting(scenes, offsets, id, rect, margin = 0) {
   return hits.sort((a, b) => a.distance - b.distance).map((h) => h.id);
 }
 
-module.exports = { layoutScenes, placeBy, seamsOf, frameOf, scenesIntersecting };
+module.exports = { layoutScenes, seamsOf, frameOf, scenesIntersecting };

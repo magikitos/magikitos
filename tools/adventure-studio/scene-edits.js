@@ -376,5 +376,4 @@ module.exports = {
   renderScene,
   diff,
   removable,
-  sourceEntities,
 };

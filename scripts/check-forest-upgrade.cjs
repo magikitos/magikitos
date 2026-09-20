@@ -1,14 +1,14 @@
 "use strict";
+const { compileWorld } = require("../tools/world.cjs");
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
-const { execFileSync } = require("node:child_process");
 const { planReaction, active } = require("../public/assets/js/adventure/rules");
 const { cleanSave } = require("../public/assets/js/adventure/save");
 const { collected } = require("../public/assets/js/adventure/resources");
 const { ServerClock } = require("../public/assets/js/adventure/server-clock");
 const { growthDeadline, germinating, drawGrowing } = require("../public/assets/js/adventure/construction-growth");
 const { gameContract } = require("../tools/game-contract.cjs");
-const world = JSON.parse(execFileSync("php", ["-r", 'echo json_encode(require "data/aventura/world.php");']));
+const world = compileWorld(process.cwd());
 const contract = gameContract(world);
 const node = world.scenes.overworld.entities.find(e => e.id === "forest-mushrooms-fern");
 // El ciclo de las setas es dato (ocho horas desde el 19-sep-2026, decisión del dueño): se lee del nodo.

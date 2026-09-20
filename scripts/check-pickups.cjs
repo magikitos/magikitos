@@ -1,7 +1,6 @@
 "use strict";
 const assert = require("node:assert/strict");
 const fs = require("node:fs"), os = require("node:os"), path = require("node:path");
-const { execFileSync } = require("node:child_process");
 const { cleanSave } = require("../public/assets/js/adventure/save");
 const { active, planReaction } = require("../public/assets/js/adventure/rules");
 const { collected } = require("../public/assets/js/adventure/resources");
@@ -10,7 +9,8 @@ const { makeElement, families } = require("../public/assets/js/adventure/element
 const { validateChanges, placement, diff } = require("../tools/adventure-studio/scene-edits");
 const { gameContract } = require("../tools/game-contract.cjs");
 const { collisionBounds, overlaps } = require("../public/assets/js/adventure/geometry");
-const { isolateWorld, compileWorld: compile } = require("./lib/world-fixture.cjs");
+const { isolateWorld } = require("./lib/world-fixture.cjs");
+const { compileWorld: compile } = require("../tools/world.cjs");
 const world = compile(process.cwd()), state = cleanSave(null, world);
 const entities = world.scenes.overworld.entities, find = (id) => entities.find((e) => e.id === id);
 // Pickup command identity stays stable across the visual move out of the bin.

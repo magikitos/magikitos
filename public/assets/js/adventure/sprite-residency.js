@@ -55,7 +55,7 @@ class SpriteResidency {
   evict(bytes, library) {
     const rank = (id) => this.focus.has(id) ? 2 : library.warm.has(id) ? 1 : 0;
     const candidates = [...library.packs.keys()]
-      .filter((id) => !library.pinned.has(id) && !this.holds.has(id))
+      .filter((id) => !library.pinned.has(id) && !library.visible.has(id) && !this.holds.has(id))
       .sort((a, b) => rank(a) - rank(b) ||
         (rank(a) === 2 ? this.focus.get(b) - this.focus.get(a) : 0));
     for (const id of candidates) {

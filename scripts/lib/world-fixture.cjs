@@ -2,7 +2,6 @@
 const fs = require("node:fs"),
   os = require("node:os"),
   path = require("node:path");
-const { execFileSync } = require("node:child_process");
 
 /**
  * ⛔ LO QUE EL COMPILADOR DEL MUNDO NECESITA SE ENUMERA UNA VEZ.
@@ -44,18 +43,4 @@ function isolateWorld(prefix = "magikitos-world-") {
   return root;
 }
 
-/** Compila el mundo de un árbol cualquiera, el de verdad o uno aislado. */
-function compileWorld(root) {
-  return JSON.parse(
-    execFileSync(
-      "php",
-      [
-        "-r",
-        "echo json_encode(require $argv[1], JSON_THROW_ON_ERROR);",
-        path.join(root, "data/aventura/world.php"),
-      ],
-      { encoding: "utf8", maxBuffer: 8 * 1024 * 1024, stdio: ["ignore", "pipe", "pipe"] },
-    ),
-  );
-}
-module.exports = { isolateWorld, compileWorld };
+module.exports = { isolateWorld };

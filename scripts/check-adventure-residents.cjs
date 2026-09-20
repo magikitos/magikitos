@@ -1,8 +1,8 @@
 "use strict";
+const { compileWorld } = require("../tools/world.cjs");
 const assert = require("node:assert/strict"),
   fs = require("node:fs"),
   crypto = require("node:crypto");
-const { execFileSync } = require("node:child_process");
 const { World, TILE } = require("../public/assets/js/adventure/model");
 const { createNeighbors } = require("../public/assets/js/adventure/neighbors");
 const { ZoneCasting } = require("../public/assets/js/adventure/casting");
@@ -16,13 +16,7 @@ const {
   doorDestination,
   portalArrival,
 } = require("../public/assets/js/adventure/portals");
-const catalog = JSON.parse(
-  execFileSync(
-    "php",
-    ["-r", 'echo json_encode(require "data/aventura/world.php");'],
-    { encoding: "utf8" },
-  ),
-);
+const catalog = compileWorld(process.cwd());
 const copy = composeLocales(catalog);
 const profiles = catalog.avatarProfiles.filter(p => !p.playableOnly),
   source = require("../data/aventura/art/residents/catalog.json");

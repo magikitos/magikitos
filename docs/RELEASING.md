@@ -197,9 +197,10 @@ Decisions that still hold from the shared-forest rollout (18/19 September 2026):
   `Upgrade: websocket` on the exact path, because `/bosque` is also the game's landing page.
   Never add a vhost `ProxyPass /bosque`: it swallows the landing and the game page. Virtualmin
   regenerates `/etc/httpd/conf/httpd.conf`; nothing of ours lives there.
-- Cloudflare drops an idle WebSocket around 100 s: the heartbeat every 30 s in both directions
-  is not optional. The protocol version changes only when the wire format changes, so a
-  release never kicks every connected client.
+- Cloudflare drops an idle WebSocket around 100 s, so the heartbeat is not optional: the client
+  sends `latido` every 5 s (`heartbeatMs`) and the daemon drops a peer after 15 s of silence
+  (`lostMs`, both in `docs/forest-protocol.json`). The protocol version changes only when the
+  wire format changes, so a release never kicks every connected client.
 - The deploy script restarts the daemon after `git reset --hard`; the restart is ordered
   (stop accepting, flush dirty positions, tell clients "back in a second", exit). Seats and the
   queue are rebuilt; personal progress and the persistent world are untouched.

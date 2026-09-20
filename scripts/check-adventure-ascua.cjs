@@ -1,5 +1,6 @@
 "use strict";
-const assert = require("node:assert/strict"), {execFileSync} = require("node:child_process");
+const { compileWorld } = require("../tools/world.cjs");
+const assert = require("node:assert/strict");
 const root = "../public/assets/js/adventure/";
 const {planReaction,actions,matches,active}=require(root+"rules");
 const {cleanSave}=require(root+"save");
@@ -12,7 +13,7 @@ const {move}=require(root+"movement");
 const {tryPush,PUSH_SPEED_RATIO}=require(root+"movables");
 const {pushFrame}=require(root+"characters");
 const {SpriteLibrary}=require(root+"sprites");
-const catalog=JSON.parse(execFileSync("php",["-r",'echo json_encode(require "data/aventura/world.php");'],{encoding:"utf8"}));
+const catalog=compileWorld(process.cwd());
 const scene=catalog.scenes.overworld, find=id=>scene.entities.find(e=>e.id===id);
 const bbq=find("picnic-barbecue"), fountain=find("fountain");
 for(let bits=0;bits<64;bits++){

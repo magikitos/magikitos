@@ -1,6 +1,6 @@
 "use strict";
+const { compileWorld } = require("../tools/world.cjs");
 const assert = require("node:assert/strict");
-const { execFileSync } = require("node:child_process");
 const {
   matches,
   active,
@@ -13,13 +13,7 @@ const {
 } = require("../public/assets/js/adventure/timers");
 const { cleanSave } = require("../public/assets/js/adventure/save");
 const { World, TILE } = require("../public/assets/js/adventure/model");
-const catalog = JSON.parse(
-  execFileSync(
-    "php",
-    ["-r", 'echo json_encode(require "data/aventura/world.php");'],
-    { encoding: "utf8" },
-  ),
-);
+const catalog = compileWorld(process.cwd());
 const scene = catalog.scenes.overworld,
   world = new World(scene);
 const entity = (id) => world.entities.find((e) => e.id === id);
@@ -64,6 +58,11 @@ const renew = catalog.scenes.overworld.entities.find((e) => e.id === "forest-mus
 let now = Date.now();
 if (Math.floor((now + 5 * hour) / renew) !== Math.floor(now / renew))
   now = (Math.floor(now / renew) + 1) * renew + 1000;
+// Y el reloj de pared ES ese instante para todo el motor: `cleanSave` y los relojes por defecto
+// leen `Date.now()`, y con el arranque desplazado a la siguiente ventana un plazo de cinco horas
+// quedaba fuera del horizonte que `cleanTimers` admite (el «Reload does not restart the hunger
+// clock» fallaba solo en las tres últimas horas de cada ventana).
+Date.now = () => now;
 let state = cleanSave(null, catalog);
 function react(id, context = {}) {
   const before = JSON.stringify(state);

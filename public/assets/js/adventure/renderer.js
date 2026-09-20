@@ -144,13 +144,13 @@ class Renderer {
     // cada fotograma en cuanto una vecina asomaba.
     const voidArea = this.voidArea(game, world, view);
     const grounds = seams
-      .map((seam) => ({ world: seam.world, view: this.localView(seam, view) }))
+      .map((seam) => ({ world: seam.world, view: this.localView(seam, view), ox: seam.dx * TILE, oy: seam.dy * TILE }))
       .filter((g) => g.view);
-    grounds.push({ world, view });
+    grounds.unshift({ world, view, ox: 0, oy: 0 });
     if (voidArea) this.terrain.pinVoid(voidArea.range);
     for (const g of grounds) this.terrain.pin(g.world, g.view);
     if (voidArea) this.drawVoid(voidArea);
-    for (const g of grounds) this.drawGround(g.world, g.view, time);
+    for (const g of grounds) this.drawGround(g.world, g.view, time, g.ox, g.oy);
     game.river?.drawWater(c, time);
     game.self.drawGround(c);
     const visible = (e) => this.inView(e, view, game.state);
@@ -190,7 +190,8 @@ class Renderer {
     // Las cosas de las vecinas, con el desplazamiento de su costura; sin duende, sin presencia
     // en vivo ni gatos, que esos son de la pantalla que pisas.
     const placed = renderables.filter(visible).map((e) => ({ e, ox: 0, oy: 0 }));
-    const streamed = [...renderables];
+    const artDue = this.actorArt.due();
+    const streamed = artDue ? [...renderables] : null;
     for (const seam of seams) {
       const local = this.localView(seam, view);
       if (!local) continue;
@@ -207,14 +208,15 @@ class Renderer {
       for (const e of theirs) {
         if (!this.inView(e, local, game.state)) continue;
         placed.push({ e, ox, oy });
-        // Para pedir su arte hace falta verlos desde aquí: copia trasladada, solo para eso.
-        streamed.push({ ...e, x: e.x + ox, y: e.y + oy });
+        // Para pedir su arte hace falta verlos desde aquí: copia trasladada, solo para eso, y
+        // solo los fotogramas en los que el repaso de arte toca (`actorArt.due`).
+        if (artDue) streamed.push({ ...e, x: e.x + ox, y: e.y + oy });
       }
     }
     // El arte de los actores se pide una vez por fotograma para TODO lo que se ve, los de las
     // vecinas incluidos y ya traducidos a estas coordenadas: una segunda llamada pisaría la
     // primera, porque el foco de residencia se sustituye, no se suma.
-    this.actorArt.update(streamed, view, frameFor);
+    if (artDue) this.actorArt.update(streamed, view, frameFor);
     placed.sort((a, b) => (a.e.depth ?? a.e.y) + a.oy - ((b.e.depth ?? b.e.y) + b.oy));
     for (const { e, ox, oy } of placed) {
       if (!ox && !oy) {
@@ -237,6 +239,7 @@ class Renderer {
     if (!game.reducedMotion) this.ambient(world, cam, time);
     c.restore();
     // Una baldosa del anillo de alrededor, por adelantado, si este fotograma no construyó ninguna.
+    // El orden es el de `grounds`: primero la pantalla que pisas, que es por donde se anda.
     if (!game.transitioning)
       this.terrain.prefetch(
         [
@@ -277,25 +280,25 @@ class Renderer {
       b.y <= view.y + view.height
     );
   }
-  /** El suelo de UNA pantalla: trozos de terreno, puentes, ondas y recortes interiores. */
-  drawGround(world, view, time) {
+  /**
+   * El suelo de UNA pantalla: trozos de terreno, puentes, ondas y recortes interiores. Las
+   * baldosas se pegan en píxeles de pantalla y ya llevan su sitio en la vista traducida; lo demás
+   * se dibuja en coordenadas del mundo y necesita el desplazamiento de la costura (20-sep-2026:
+   * sin él, el puente y las ondas de una vecina caían una pantalla entera fuera de la vista, y su
+   * río se veía quieto y sin puente hasta pisarlo).
+   */
+  drawGround(world, view, time, ox = 0, oy = 0) {
     const c = this.ctx;
     const range = chunkRange(world, view);
-    for (let cy = range.top; cy <= range.bottom; cy++)
-      for (let cx = range.left; cx <= range.right; cx++) {
-        // Snap shared chunk edges in device pixels so fractional zoom cannot open seams.
-        const x = Math.round((cx * 256 - Math.round(view.x)) * this.pixelScale);
-        const y = Math.round((cy * 256 - Math.round(view.y)) * this.pixelScale);
-        const right = Math.round(((cx + 1) * 256 - Math.round(view.x)) * this.pixelScale);
-        const bottom = Math.round(((cy + 1) * 256 - Math.round(view.y)) * this.pixelScale);
-        c.save();
-        c.setTransform(1, 0, 0, 1, 0, 0);
-        c.drawImage(this.terrain.chunk(world, cx, cy, this.sprites), x, y, right - x, bottom - y);
-        c.restore();
-      }
+    this.blitChunks(range, view.x, view.y, (cx, cy) =>
+      this.terrain.chunk(world, cx, cy, this.sprites),
+    );
+    c.save();
+    if (ox || oy) c.translate(ox, oy);
     drawBridges(c, world, this.sprites, view);
     drawRipples(c, world, view, time);
     drawInteriors(c, world);
+    c.restore();
   }
   /** La vista de la cámara en coordenadas de una vecina, o null si no la toca. */
   localView(seam, view) {
@@ -340,20 +343,32 @@ class Renderer {
     return { plane, range, px, py, inside };
   }
   drawVoid({ plane, range, px, py }) {
+    this.blitChunks(range, px, py, (cx, cy) => this.terrain.voidChunk(plane, cx, cy));
+  }
+  /**
+   * Las baldosas de 256×256 que toca la vista, pegadas en píxeles del dispositivo: los bordes se
+   * redondean en la pantalla y no en el mundo, porque un zoom fraccionario abriría si no una raya
+   * entre dos trozos contiguos. Lo comparten el suelo de una pantalla y el hueco del plano.
+   */
+  blitChunks(range, viewX, viewY, chunkAt) {
     const c = this.ctx;
+    c.save();
+    c.setTransform(1, 0, 0, 1, 0, 0);
     for (let cy = range.top; cy <= range.bottom; cy++)
       for (let cx = range.left; cx <= range.right; cx++) {
-        const x = Math.round((cx * 256 - Math.round(px)) * this.pixelScale);
-        const y = Math.round((cy * 256 - Math.round(py)) * this.pixelScale);
-        const xr = Math.round(((cx + 1) * 256 - Math.round(px)) * this.pixelScale);
-        const yb = Math.round(((cy + 1) * 256 - Math.round(py)) * this.pixelScale);
-        c.save();
-        c.setTransform(1, 0, 0, 1, 0, 0);
-        c.drawImage(this.terrain.voidChunk(plane, cx, cy), x, y, xr - x, yb - y);
-        c.restore();
+        const x = Math.round((cx * 256 - Math.round(viewX)) * this.pixelScale),
+          y = Math.round((cy * 256 - Math.round(viewY)) * this.pixelScale),
+          right = Math.round(((cx + 1) * 256 - Math.round(viewX)) * this.pixelScale),
+          bottom = Math.round(((cy + 1) * 256 - Math.round(viewY)) * this.pixelScale);
+        c.drawImage(chunkAt(cx, cy), x, y, right - x, bottom - y);
       }
+    c.restore();
   }
-  /** Una cosa del mundo, dibujada en las coordenadas del contexto actual. `player` es null en las vecinas. */
+  /**
+   * Una cosa del mundo, dibujada en las coordenadas del contexto actual. En una vecina, `player`
+   * llega trasladado a esas mismas coordenadas (solo su sitio), que es lo que necesitan los
+   * efectos que miran dónde está el duende.
+   */
   drawRenderable(c, e, game, time, player, frameFor) {
     if (e.vesselArt) {
       this.vesselArt.draw(c, e, e.vesselArt);

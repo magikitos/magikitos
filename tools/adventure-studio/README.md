@@ -110,7 +110,8 @@ que el motor, el contrato del bosque vivo y las pruebas no notan la diferencia. 
 casillas del pie, de ¼ a 2 casillas de ancho, de 1 a 8 píxeles de alto; las escaleras no admiten
 entrada dibujada (su rellano sale de su cuerpo). **Volver a la entrada automática** la borra. El
 inspector avisa si la franja cae sobre un cuerpo o agua. Mover la casa arrastra su franja con
-ella, tanto la automática como la dibujada. Paridad PHP/JS: `check-door-geometry.cjs`.
+ella, tanto la automática como la dibujada. Paridad PHP/JS: `check-door-geometry.cjs`; el editor
+en navegador, `npm run test:studio-entrance`.
 
 ## Continuous fences
 
@@ -210,8 +211,9 @@ Generated vegetation is frozen in the reviewed scene proposal so moving a table
 cannot inadvertently regenerate the forest. Behaviors and rules remain intact.
 When transferring positions, apply only changed placement fields: do not copy
 unchanged, inherited behavior bodies into the source as redundant overrides.
-Interior exits link to exterior portal IDs (`arrivalAt`), and saved entrances use
-the same IDs, so relocating a house does not leave its return point behind.
+Interior exits link to exterior portal IDs (`arrivalAt`), and saved return points use
+the same IDs, so relocating a house does not leave its return point behind. The door's
+own `entrance` (the strip that opens it) is edited in the inspector, see «Entradas».
 Always validate reachability and entry/exit after placing a building.
 
 ## Local working files — preserve these

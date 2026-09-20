@@ -9,6 +9,8 @@ const { Music } = require("../public/assets/js/adventure/audio/music");
 const { WoodlandAudio } = require("../public/assets/js/adventure/audio");
 const { hasSavedJourney } = require("../public/assets/js/adventure/entry");
 const { verify } = require("../tools/artifact.cjs");
+const { compileWorld } = require("../tools/world.cjs");
+const { composeLocales } = require("../tools/locales.cjs");
 const catalog = require("../public/assets/audio/catalog.json");
 assert(catalog.music.length >= 4);
 for (const entry of [...catalog.music, ...Object.values(catalog.ambience)]) {
@@ -145,15 +147,7 @@ global.Audio = class {
   );
   // La entrada y el aviso del sonido los dice el MOTOR, así que tienen que estar en el core: si
   // cayeran en el paquete de una pantalla, la tarjeta de bienvenida saldría muda.
-  const core = require("../tools/locales.cjs").composeLocales(
-    JSON.parse(
-      require("node:child_process").execFileSync(
-        "php",
-        ["-r", 'echo json_encode(require "data/aventura/world.php");'],
-        { encoding: "utf8", maxBuffer: 8 * 1024 * 1024 },
-      ),
-    ),
-  ).core;
+  const core = composeLocales(compileWorld(process.cwd())).core;
   for (const lang of ["es", "en", "de", "fr", "it", "pt"])
     for (const key of [
       "entryExplore",

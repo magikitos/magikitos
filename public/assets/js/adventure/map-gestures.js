@@ -338,4 +338,4 @@ class MapGestures {
         this.canvas.releasePointerCapture(id);
   }
 }
-module.exports = { MapGestures, DRAG_SLOP, STICK_DEAD, STICK_RADIUS };
+module.exports = { MapGestures, STICK_DEAD, STICK_RADIUS };

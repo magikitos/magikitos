@@ -11,7 +11,8 @@ const {
 const { readCast, writeCast, CAST_KEY } = require("../public/assets/js/adventure/save");
 const { gameContract } = require("../tools/game-contract.cjs");
 
-const { isolateWorld, compileWorld: compile } = require("./lib/world-fixture.cjs");
+const { isolateWorld } = require("./lib/world-fixture.cjs");
+const { compileWorld: compile } = require("../tools/world.cjs");
 const world = compile(process.cwd());
 const manifest = require("../public/assets/aventura/manifest.json");
 const actions = Object.keys(require("../data/aventura/art/residents/actions/catalog.json").actions);

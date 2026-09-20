@@ -1,6 +1,6 @@
 "use strict";
+const { compileWorld } = require("../tools/world.cjs");
 const assert = require("node:assert/strict");
-const { execFileSync } = require("node:child_process");
 const { cleanSave } = require("../public/assets/js/adventure/save");
 const { active, planReaction } = require("../public/assets/js/adventure/rules");
 const {
@@ -23,13 +23,7 @@ const {
   ROW_SPEED,
   FAST_ROW_SPEED,
 } = require("../public/assets/js/adventure/river-navigation");
-const catalog = JSON.parse(
-  execFileSync(
-    "php",
-    ["-r", 'echo json_encode(require "data/aventura/world.php");'],
-    { encoding: "utf8" },
-  ),
-);
+const catalog = compileWorld(process.cwd());
 let count = 0;
 const check = (value, note) => {
   assert(value, note);

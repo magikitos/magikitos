@@ -121,7 +121,6 @@ class River {
     g.recenterCamera(true);
     g.updateUI();
     g.save();
-    if (mode === "foot") g.community?.arrive();
   }
   /**
    * `callado` silencia el aviso de que no cabe la barca, para quien replantea el rumbo muchas

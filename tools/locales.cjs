@@ -205,4 +205,4 @@ function pageKeys() {
   return [...html.matchAll(/{{(\w+)}}/g)].map((m) => m[1]);
 }
 
-module.exports = { LANGS, BUILT, composeLocales, sceneKeys, readUnits, pageKeys };
+module.exports = { LANGS, composeLocales, sceneKeys, readUnits, pageKeys };

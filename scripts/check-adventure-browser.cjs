@@ -2,9 +2,9 @@
 const assert = require("node:assert/strict"),
   fs = require("node:fs"),
   os = require("node:os"),
-  path = require("node:path"),
-  cp = require("node:child_process");
+  path = require("node:path");
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
+const { startStudio } = require("./browser-studio.cjs");
 const origin = process.env.GAME_ORIGIN || "http://127.0.0.1:47834";
 const world = JSON.parse(fs.readFileSync(".local/build/world.json"));
 const { cameraLimits } = require("../public/assets/js/adventure/scene-frame");
@@ -201,6 +201,40 @@ async function pinch(page) {
       await page.screenshot({ path: path.join(shots, "mobile-pinch.png") });
     }
     console.log("PASS viewport", width, height);
+    await page.close();
+  }
+  {
+    /**
+     * ⛔ LA PANTALLA VECINA ESTÁ VIVA, NO ES UN FONDO (20-sep-2026, revisión). Sus baldosas se
+     * pegan en píxeles de pantalla y salen bien solas, pero lo que se dibuja en coordenadas del
+     * mundo —puentes, ondas y recortes de interiores— necesita el desplazamiento de la costura.
+     * Sin él caía una pantalla entera fuera de la vista: el río de los sauces se veía QUIETO
+     * desde la pradera y su puente no estaba. Aquí se mira el agua de la vecina en dos instantes.
+     */
+    const page = await pageFor("overworld", { width: 1440, height: 900 }, {
+      position: { x: 74 * TILE, y: 9 * TILE },
+    });
+    await wait(page, () => window.MagikitosAdventure.inspect().seams.some((s) => s.scene === "river-willows"));
+    await page.waitForTimeout(1200);
+    // Una franja del cauce compartido (96..128 casillas) por encima y por debajo de la costura.
+    const strip = (top) => page.evaluate((top) => {
+      const i = window.MagikitosAdventure.inspect(), canvas = document.querySelector("canvas");
+      const scale = canvas.width / i.view.width, c = document.createElement("canvas");
+      c.width = 200; c.height = 60;
+      c.getContext("2d").drawImage(canvas, Math.round((96 * 16 - i.camera.x) * scale),
+        Math.round((top - i.camera.y) * scale), 200, 60, 0, 0, 200, 60);
+      return [...c.getContext("2d").getImageData(0, 0, 200, 60).data];
+    }, top);
+    const moved = (a, b) => a.reduce((n, v, i) => n + (v !== b[i] ? 1 : 0), 0);
+    const neighbourBefore = await strip(-120), mineBefore = await strip(40);
+    await page.waitForTimeout(700);
+    const neighbourAfter = await strip(-120), mineAfter = await strip(40);
+    assert(moved(mineBefore, mineAfter) > 100, "El agua de tu pantalla se mueve (control)");
+    assert(
+      moved(neighbourBefore, neighbourAfter) > 100,
+      "El agua de la pantalla vecina también se mueve: " + moved(neighbourBefore, neighbourAfter),
+    );
+    console.log("PASS neighbour scene ripples animate across the seam");
     await page.close();
   }
   // Small rooms use painted cutaway framing, not viewport-filling giant sprites.
@@ -479,33 +513,9 @@ async function pinch(page) {
   const temp = fs.mkdtempSync(
     path.join(os.tmpdir(), "magikitos-browser-studio-"),
   );
-  studio = cp.spawn(process.execPath, ["tools/adventure-studio/server.cjs"], {
-    env: { ...process.env, STUDIO_PORT: "47836", STUDIO_DATA_DIR: temp },
-    stdio: ["ignore", "pipe", "pipe"],
-  });
-  await new Promise((resolve, reject) => {
-    // Cold Studio startup prepares its uncropped authoring atlas and archived labs.
-    // This is offline art preparation, not a game loading-time allowance.
-    let output = "";
-    const t = setTimeout(
-      () => reject(Error("Test Studio timeout: " + output)),
-      120000,
-    );
-    studio.stdout.on("data", (b) => {
-      output += b;
-      if (output.includes("Magikitos Studio:")) {
-        clearTimeout(t);
-        resolve();
-      }
-    });
-    studio.stderr.on("data", (b) => {
-      output += b;
-    });
-    studio.once("exit", (code) => {
-      clearTimeout(t);
-      reject(Error("Test Studio exit " + code + ": " + output));
-    });
-  });
+  // Cold Studio startup prepares its uncropped authoring atlas and archived labs.
+  // This is offline art preparation, not a game loading-time allowance.
+  studio = await startStudio({ port: "47836", temp });
   const page = await browser.newPage({
     viewport: { width: 1440, height: 1000 },
   });

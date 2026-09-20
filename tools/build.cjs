@@ -4,6 +4,7 @@ const fs = require("node:fs"),
   cp = require("node:child_process"),
   crypto = require("node:crypto");
 const { esbuild } = require("./adventure-studio/build.cjs");
+const { compileWorld } = require("./world.cjs");
 const { page, ROUTES } = require("./page.cjs");
 const { composeLocales } = require("./locales.cjs");
 const { verify } = require("./artifact.cjs");
@@ -70,17 +71,7 @@ function build({ reuseArt = false } = {}) {
     path.join(assets, "fonts"),
     { recursive: true },
   );
-  const world = JSON.parse(
-    cp.execFileSync(
-      process.env.STUDIO_PHP || "php",
-      [
-        "-r",
-        "echo json_encode(require $argv[1], JSON_THROW_ON_ERROR);",
-        path.join(root, "data/aventura/world.php"),
-      ],
-      { encoding: "utf8", maxBuffer: 8 * 1024 * 1024 },
-    ),
-  );
+  const world = compileWorld(root);
   // El motor va incrustado en la página; lo que dice cada pantalla viaja con la pantalla.
   // Ver tools/locales.cjs: componer aborta si una clave falta, se repite o ya no la dice nadie.
   const locales = composeLocales(world);

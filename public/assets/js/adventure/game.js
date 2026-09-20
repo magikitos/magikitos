@@ -171,8 +171,10 @@ class Adventure {
       this.renderer.render(this, 0);
       await this.renderer.sprites.initialize(this.config.assetManifest);
       await cloud;
+      // La cola de materiales se vacía en segundo plano: entrar no espera más de unos segundos a
+      // una red lenta con muchos apuntes pendientes.
       if (this.cloud.owner && !this.cloud.conflict)
-        await this.materials.flush();
+        await Promise.race([this.materials.flush(), new Promise((r) => setTimeout(r, 4000))]);
       const prepared = await this.scenes.prepare(
         this.state.scene,
         this.state.position,
@@ -357,6 +359,8 @@ class Adventure {
    */
   tap(point) {
     if (this.cats.locked) return;
+    // Un toque nuevo manda sobre el guardado al otro lado de una costura, lo consuma quien lo consuma.
+    this.crossings?.forget();
     if (this.community.tap(point)) return;
     if (this.river.active) {
       this.river.tap(point);
@@ -819,8 +823,20 @@ class Adventure {
     this.avatar = chosen;
     if (this.player) this.player.variant = chosen;
     writeCast(chosen);
-    // Las hojas del cuerpo nuevo, antes de repintar nada con ellas.
-    if (this.ready && this.world) await this.scenes.rewear(previous);
+    // Las hojas del cuerpo nuevo, antes de repintar nada con ellas. Si no caben o no llegan, se
+    // vuelve al cuerpo anterior y se dice: un cambio a medias dejaría al duende sin hojas.
+    if (this.ready && this.world) {
+      try {
+        await this.scenes.rewear(previous);
+      } catch (error) {
+        this.avatar = previous;
+        if (this.player) this.player.variant = previous;
+        writeCast(previous);
+        this.toast(this.text("wearError"));
+        console.error("Wear:", error);
+        return previous;
+      }
+    }
     this.paintCards();
     if (this.ready) this.paintPortrait();
     this.dirty = true;
@@ -1169,6 +1185,7 @@ class Adventure {
       this.guardianChat.update();
     }
     this.scenes.prewarm(ms);
+    if (this.materials.reconcileLater && !this.transitioning) this.materials.reconcile();
     this.rooms.enforce();
     this.community.paint();
     // Panning is a stationary inspection mode. Any actual player movement resumes follow — y

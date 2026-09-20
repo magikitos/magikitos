@@ -1,7 +1,7 @@
 "use strict";
+const { compileWorld } = require("../tools/world.cjs");
 const assert = require("node:assert/strict"),
-  fs = require("node:fs"),
-  { execFileSync } = require("node:child_process");
+  fs = require("node:fs");
 const {
   World,
   TILE,
@@ -22,13 +22,7 @@ const {
   recordStep,
   characterFrame,
 } = require("../public/assets/js/adventure/characters");
-const catalog = JSON.parse(
-  execFileSync(
-    "php",
-    ["-r", 'echo json_encode(require "data/aventura/world.php");'],
-    { encoding: "utf8" },
-  ),
-);
+const catalog = compileWorld(process.cwd());
 const { createNeighbors } = require("../public/assets/js/adventure/neighbors");
 const manifest = JSON.parse(
   fs.readFileSync("public/assets/aventura/manifest.json"),
@@ -399,7 +393,7 @@ const poisoned = cleanSave(
   catalog,
 );
 assert.deepEqual(poisoned.flags, { picnicFed: true });
-assert.deepEqual(poisoned.inventory, { lighter: 1, oars: 1 });
+assert.deepEqual(poisoned.inventory, { lighter: 1 }, "Los remos solo los da Brizno: ninguna migración los regala");
 assert.equal(poisoned.position.x, catalog.scenes.house.spawn.x * TILE);
 for (const value of [null, [], 123, "invalid", { scene: "__proto__" }])
   assert.equal(cleanSave(value, catalog).scene, catalog.start);

@@ -1,6 +1,6 @@
 "use strict";
+const { compileWorld } = require("../tools/world.cjs");
 const assert = require("node:assert/strict");
-const { execFileSync } = require("node:child_process");
 const {
   World,
   TILE,
@@ -14,21 +14,14 @@ const {
   cleanSave,
   readSave,
 } = require("../public/assets/js/adventure/save");
-const catalog = JSON.parse(
-  execFileSync(
-    "php",
-    ["-r", 'echo json_encode(require "data/aventura/world.php");'],
-    { encoding: "utf8" },
-  ),
-);
+const catalog = compileWorld(process.cwd());
 const state = cleanSave(null, catalog);
 const world = new World(catalog.scenes.overworld);
 // El agua de la pradera es un LAGO (20-sep-2026): un río con dos orillas cerrado por el este y
-// por el sur; la orilla oeste es la costa de siempre.
+// por el sur; la orilla oeste es la de siempre.
 const { riverSection } = require("../public/assets/js/adventure/river-course");
 const lake = world.data.rivers[0];
-const coastX = (_, y) => riverSection(lake, y).left;
-const coast = lake;
+const shoreX = (y) => riverSection(lake, y).left;
 assert.equal(SAVE_KEY, "magikitos.adventure");
 const keys = [];
 readSave(catalog, {
@@ -48,7 +41,7 @@ assert.deepEqual(
 );
 for (let y = 0; y <= world.height; y += 0.25) {
   assert(!world.waterAt(world.width - 0.1, y), "The lake has an east shore inside the meadow");
-  for (let x = coastX(coast, y); x < riverSection(lake, y).right; x += 0.5) {
+  for (let x = shoreX(y); x < riverSection(lake, y).right; x += 0.5) {
     if (
       (world.data.bridges || []).some(
         (b) =>
@@ -93,7 +86,7 @@ for (const y of [20, 30, 38, 50, 60, 72, 90]) {
   for (let dir = 0; dir < 8; dir++) {
     const actor = {
       actor: true,
-      x: (coastX(coast, y) - 1.5) * TILE,
+      x: (shoreX(y) - 1.5) * TILE,
       y: y * TILE,
     };
     if (!world.canStand(actor.x, actor.y)) continue;
@@ -102,13 +95,13 @@ for (const y of [20, 30, 38, 50, 60, 72, 90]) {
       move(world,actor,Math.cos(a)*138/60,Math.sin(a)*138/60,()=>{});
       assert(
         world.canStand(actor.x, actor.y),
-        "Running respects coast each substep",
+        "Running respects the shore each substep",
       );
     }
     move(world, actor, Math.cos(a) * 80, Math.sin(a) * 80, () => {});
     assert(
       world.canStand(actor.x, actor.y),
-      "Walking and diagonal sliding respect coast",
+      "Walking and diagonal sliding respect the shore",
     );
   }
 }
@@ -131,5 +124,5 @@ for (let i = 0; i < corners.length; i++)
 console.log(
   "PASS: single save contract, shared feet, " +
     checked +
-    " dry standing points, open coast, shoreline sweeps, connected fountain plaza.",
+    " dry standing points, lake shores, shoreline sweeps, connected fountain plaza.",
 );

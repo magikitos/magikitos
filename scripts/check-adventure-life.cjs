@@ -1,6 +1,6 @@
 "use strict";
+const { compileWorld } = require("../tools/world.cjs");
 const assert = require("node:assert/strict");
-const { execFileSync } = require("node:child_process");
 const {
   HOUR,
   cleanNeeds,
@@ -14,13 +14,7 @@ const { Sequence } = require("../public/assets/js/adventure/sequence");
 const { Self } = require("../public/assets/js/adventure/self");
 const { drawRipples } = require("../public/assets/js/adventure/water");
 const { planReaction } = require("../public/assets/js/adventure/rules");
-const catalog = JSON.parse(
-  execFileSync(
-    "php",
-    ["-r", 'echo json_encode(require "data/aventura/world.php");'],
-    { encoding: "utf8" },
-  ),
-);
+const catalog = compileWorld(process.cwd());
 const now = 1800000000000;
 const fresh = cleanNeeds(null, catalog, now, () => 0);
 assert.deepEqual(fresh, {
@@ -236,7 +230,7 @@ const renderWater = (time, indoor = false, wet = true) => {
   };
   drawRipples(
     ctx,
-    { data: { seed: 1, indoor }, waterAt: () => wet },
+    { data: { seed: 1, indoor }, width: 40, height: 30, waterAt: () => wet },
     { x: 0, y: 0, width: 320, height: 240 },
     time,
   );

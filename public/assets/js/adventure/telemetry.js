@@ -22,13 +22,7 @@ const CELL = 32; // Heat-map cell, in world pixels: two tiles.
 const MAX_CELLS = 40;
 const MINUTES = [1, 5, 15, 30];
 
-const uuid = () => {
-  const b = crypto.getRandomValues(new Uint8Array(16));
-  b[6] = (b[6] & 15) | 64;
-  b[8] = (b[8] & 63) | 128;
-  const h = Array.from(b, (x) => x.toString(16).padStart(2, "0")).join("");
-  return `${h.slice(0, 8)}-${h.slice(8, 12)}-${h.slice(12, 16)}-${h.slice(16, 20)}-${h.slice(20)}`;
-};
+const { uuid } = require("./ids");
 
 class Telemetry {
   constructor(game) {
@@ -69,7 +63,7 @@ class Telemetry {
     }
   }
 
-  flush(beacon = false) {
+  flush() {
     if (!this.queue.length) return;
     const body = JSON.stringify({
       device_id: this.deviceId,
@@ -225,7 +219,7 @@ class Telemetry {
         acted: this.acted,
       },
     });
-    this.flush(true);
+    this.flush();
   }
 }
 module.exports = { Telemetry };

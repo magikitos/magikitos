@@ -1,7 +1,7 @@
 "use strict";
+const { compileWorld } = require("../tools/world.cjs");
 const assert = require("node:assert/strict"),
   fs = require("node:fs");
-const { execFileSync } = require("node:child_process");
 const { World, TILE } = require("../public/assets/js/adventure/model");
 const { cleanSave } = require("../public/assets/js/adventure/save");
 const { active, planReaction } = require("../public/assets/js/adventure/rules");
@@ -12,12 +12,7 @@ const { riverSection } = require("../public/assets/js/adventure/river-course");
 const { HULL_RADIUS } = require("../public/assets/js/adventure/river-navigation");
 const { riverVisitors } = require("../public/assets/js/adventure/river-life");
 const { createNeighbors } = require("../public/assets/js/adventure/neighbors");
-const catalog = JSON.parse(
-  execFileSync("php", [
-    "-r",
-    'echo json_encode(require "data/aventura/world.php");',
-  ]),
-);
+const catalog = compileWorld(process.cwd());
 const state = cleanSave(null, catalog),
   world = new World(catalog.scenes.overworld);
 world.refresh(state);
@@ -157,7 +152,7 @@ for (const s of Object.values(catalog.scenes).filter((s) =>
   const river = s.rivers[0];
   /* ⛔ UNA COSTURA SOLO TIENE QUE ENCAJAR DONDE HAY OTRA PANTALLA AL OTRO LADO. Las raíces
      viejas cierran el río en su nacimiento desde el recorte del mapa (17-sep-2026), así que
-     exigirle 32/64 arriba sería exigirle una costura contra la nada. Lo que se le pide a un
+     exigirle arriba el cauce compartido sería exigirle una costura contra la nada. Lo que se le pide a un
      borde sin salida es lo contrario: que el cauce se CIERRE, para que se lea como un
      nacimiento y no como un muro invisible a mitad del agua. */
   const cruza = (dir) =>
@@ -166,15 +161,11 @@ for (const s of Object.values(catalog.scenes).filter((s) =>
     );
   const arriba = cruza("up"),
     abajo = cruza("down");
-  /* ⛔ Y UNA COSTURA CONTRA EL LAGO SE ABRE (19-sep-2026, mundo continuo). Donde el otro lado es
-     otro tramo, el cauce mide 32..64 en las dos pantallas y encaja. Donde el otro lado es la
-     pradera, lo que hay enfrente es el lago hasta el borde del mapa: el río se abre en abanico en
-     sus últimas filas hasta ese borde, y exigirle 64 ahí sería exigir agua contra césped. */
-  const destino = (dir) =>
-    (s.navigation?.exits || []).find(
-      (e) => e.direction === dir && (e.mode || "boat") !== "foot",
-    )?.scene;
-  const lago = (dir) => Boolean(destino(dir)) && !destino(dir).startsWith("river-");
+  /* ⛔ Y LA BOCA DEL LAGO ES UNA COSTURA COMO LAS DEMÁS (20-sep-2026, la rejilla). Hasta entonces
+     el río se abría en abanico contra la pradera en sus últimas filas y aquí se le perdonaba la
+     medida; hoy el lago se ensancha YA DENTRO de la pradera, así que el cauce compartido vale
+     96..128 en las DOS pantallas de todas las costuras, boca incluida, y no hay excepción que
+     mantener. */
   for (const [y, hay] of [
     [0, arriba],
     [4, arriba],
@@ -184,10 +175,7 @@ for (const s of Object.values(catalog.scenes).filter((s) =>
     [144, abajo],
   ]) {
     if (!hay) continue;
-    // Desde la rejilla (20-sep-2026) el cauce compartido va de 96 a 128 en las dos pantallas de
-    // cada costura, también en la boca del lago: el lago se ensancha ya dentro de la pradera.
     const section = riverSection(river, y);
-    void lago;
     assert(
       Math.abs(section.left - 96) < 1e-8 && Math.abs(section.right - 128) < 1e-8,
       "Shared river seams: " + s.id + " at " + y + " → " + JSON.stringify(section),

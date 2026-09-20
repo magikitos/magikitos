@@ -2,9 +2,9 @@
 const assert = require("node:assert/strict"),
   fs = require("node:fs"),
   os = require("node:os"),
-  path = require("node:path"),
-  cp = require("node:child_process");
+  path = require("node:path");
 const { chromium } = require("playwright");
+const { startStudio } = require("./browser-studio.cjs");
 const { snapshot } = require("../tools/adventure-studio/snapshot.cjs");
 const origin = "http://127.0.0.1:47840",
   temp = fs.mkdtempSync(path.join(os.tmpdir(), "magikitos-path-browser-"));
@@ -39,26 +39,7 @@ async function pathsMode(p) {
   await p.locator("#paths-mode").click();
 }
 (async () => {
-  studio = cp.spawn(process.execPath, ["tools/adventure-studio/server.cjs"], {
-    env: { ...process.env, STUDIO_PORT: "47840", STUDIO_DATA_DIR: temp },
-    stdio: ["ignore", "pipe", "pipe"],
-  });
-  await new Promise((resolve, reject) => {
-    const timer = setTimeout(
-      () => reject(Error("Studio startup timeout")),
-      120000,
-    );
-    studio.stdout.on("data", (b) => {
-      if (b.toString().includes("Magikitos Studio:")) {
-        clearTimeout(timer);
-        resolve();
-      }
-    });
-    studio.once("exit", (code) => {
-      clearTimeout(timer);
-      reject(Error("Studio exit " + code));
-    });
-  });
+  studio = await startStudio({ port: 47840, temp });
   browser = await chromium.launch({ channel: "chrome", headless: true });
   const page = await browser.newPage({
     viewport: { width: 1440, height: 1000 },

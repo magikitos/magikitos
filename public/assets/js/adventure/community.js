@@ -9,9 +9,10 @@ const {
   validateConstruction,
   POLYLINE_MIN_SEGMENT,
   POLYLINE_HALF,
+  absolutePoints,
 } = require("./construction-layout");
 const { drawArtwork } = require("./entity-art");
-const { operationId } = require("./material-account");
+const { operationId } = require("./ids");
 const { catalogGround } = require("./construction-ground");
 const { growthDeadline } = require("./construction-growth");
 const { sendConstruction } = require("./construction-request");
@@ -116,9 +117,19 @@ class Community {
       this.composing = null;
     });
     try {
-      this.pending = JSON.parse(
-        localStorage.getItem("magikitos.adventure.build-pending"),
-      );
+      // Lo pendiente se valida como cualquier cosa que viene del almacenamiento: forma, dueño y
+      // petición completa. Un apunte roto se descarta en vez de dejar la puerta de construir
+      // diciendo «sin conexión» para siempre (20-sep-2026, revisión).
+      const saved = JSON.parse(localStorage.getItem("magikitos.adventure.build-pending"));
+      const validPending =
+        saved && typeof saved === "object" && !Array.isArray(saved) &&
+        (typeof saved.owner === "string" || Number.isSafeInteger(saved.owner)) &&
+        saved.request && typeof saved.request === "object" &&
+        /^[a-f0-9]{32}$/.test(saved.request.operationId) &&
+        Number.isSafeInteger(saved.request.baseRevision) &&
+        typeof saved.request.zone === "string";
+      this.pending = validPending ? saved : null;
+      if (!validPending) localStorage.removeItem("magikitos.adventure.build-pending");
     } catch (_) {}
     byId("build-toggle").onclick = () => this.begin();
     byId("home-save").onclick = () => this.commit();
@@ -172,12 +183,12 @@ class Community {
       this.magnet = null;
     });
   }
+  /** La zona que se construye en una pantalla, o null si en esa pantalla no se construye. */
+  zoneOf(sceneId) {
+    return Object.keys(this.catalog.zones).find((id) => this.catalog.zones[id].scene === sceneId) || null;
+  }
   get zone() {
-    return (
-      Object.keys(this.catalog.zones).find(
-        (id) => this.catalog.zones[id].scene === this.game.state.scene,
-      ) || null
-    );
+    return this.zoneOf(this.game.state.scene);
   }
   get snapshot() {
     return this.snapshots.get(this.zone);
@@ -208,15 +219,11 @@ class Community {
   }
   /** Si ya hay instantánea de lo construido en una pantalla (o no tiene zona que construir). */
   hasSnapshot(sceneId) {
-    const zone = Object.keys(this.catalog.zones).find(
-      (id) => this.catalog.zones[id].scene === sceneId,
-    );
+    const zone = this.zoneOf(sceneId);
     return !zone || this.snapshots.has(zone);
   }
   async prepare(data) {
-    const zone = Object.keys(this.catalog.zones).find(
-      (id) => this.catalog.zones[id].scene === data?.id,
-    );
+    const zone = this.zoneOf(data?.id);
     if (!zone) return;
     const identity = this.game.session.get();
     try {
@@ -280,7 +287,7 @@ class Community {
     const firma = JSON.stringify(
       value.objects
         .filter((o) => this.catalog.definitions[o.kind].paint === "path")
-        .map((o) => this.absolutePoints(o)),
+        .map((o) => absolutePoints(o)),
     );
     this.painted ||= new Map();
     if (this.painted.get(value.zone) !== firma) {
@@ -303,10 +310,6 @@ class Community {
    * el Estudio (`fence: { points }`), así que el motor la pinta, la parte en postes y travesaños
    * y la hace sólida sin una sola línea nueva: es el mismo dato en los dos sitios.
    */
-  /** Los puntos de un trazado en coordenadas del escenario, que es como los escribe el Estudio. */
-  absolutePoints(item) {
-    return item.points.map((p) => [item.x + p[0], item.y + p[1]]);
-  }
   entity(item) {
     const d = this.catalog.definitions[item.kind];
     // Un caminito no se levanta: se pinta en el suelo con el mismo pincel que los del Estudio,
@@ -389,7 +392,7 @@ class Community {
    */
   overgrowthEntities(item, wear) {
     const out = [],
-      pts = this.absolutePoints(item);
+      pts = absolutePoints(item);
     for (let i = 1; i < pts.length; i++) {
       const w = wear[i - 1];
       if (w < 0.5) continue;
@@ -428,9 +431,7 @@ class Community {
     );
   }
   sceneData(data) {
-    const zone = Object.keys(this.catalog.zones).find(
-      (id) => this.catalog.zones[id].scene === data?.id,
-    );
+    const zone = this.zoneOf(data?.id);
     if (!zone) return data;
     const snapshot = this.snapshots.get(zone),
       objects = snapshot?.objects || [];
@@ -447,8 +448,13 @@ class Community {
       // salen la vegetación colocada por procedimiento y la máscara de terreno que el servidor
       // tiene bakeada: un caminito de alguien movería árboles y desharía esa máscara. Aquí solo
       // se pinta.
-      communityPaths: paths.map((o) => ({ points: this.absolutePoints(o), wear: this.wearOf(o, snapshot) })),
+      communityPaths: paths.map((o) => ({ points: absolutePoints(o), wear: this.wearOf(o, snapshot) })),
     };
+  }
+  /** Suelta el apunte de una colocación pendiente, en memoria y en el almacenamiento. */
+  forget() {
+    this.pending = null;
+    localStorage.removeItem("magikitos.adventure.build-pending");
   }
   sceneChanged() {
     this.activities.reset();
@@ -460,7 +466,6 @@ class Community {
    * ser el nombre de la pantalla dicho dos veces: el motor ya lo canta al viajar. Una zona ya no
    * es un sitio al que se llega, es el suelo que pisas.
    */
-  arrive() {}
   async inspect(item) {
     if (
       this.catalog.definitions[item.kind].capabilities?.length &&
@@ -574,7 +579,7 @@ class Community {
   async begin() {
     const g = this.game;
     if (g.live && !g.live.canWrite()) return;
-    if (!this.zone || g.river.active || this.busy) return;
+    if (!this.zone || g.river.active || this.busy || g.transitioning) return;
     this.busy = true;
     g.pauseMovement();
     g.closeDialogue();
@@ -595,9 +600,17 @@ class Community {
         g.self.explain(g.session.get() ? "communitySyncNeeded" : "communityNeedsAccount");
         return;
       }
+      if (this.pending && this.pending.owner !== g.materials.owner) {
+        // Lo pendiente era de otra identidad: se guarda su intención y se suelta, igual que hace
+        // la cola de materiales. Lanzar aquí dejaba la puerta cerrada para la cuenta actual.
+        try {
+          const key = "magikitos.adventure.build-pending.recovery",
+            archive = JSON.parse(localStorage.getItem(key) || "[]");
+          localStorage.setItem(key, JSON.stringify([...archive, this.pending].slice(-3)));
+        } catch (_) {}
+        this.forget();
+      }
       if (this.pending) {
-        if (this.pending.owner !== g.materials.owner)
-          throw Error("pending_identity");
         const result = await this.sendPending();
         this.accept(result);
         g.materials.accept(result.account);
@@ -910,7 +923,7 @@ class Community {
     const out = [];
     for (const o of this.snapshot?.objects || [])
       if (o.kind === this.ghost.kind && Array.isArray(o.points))
-        out.push(...this.absolutePoints(o));
+        out.push(...absolutePoints(o));
     if (this.placed)
       for (const p of this.ghost.points.slice(0, -1))
         out.push([this.ghost.x + p[0], this.ghost.y + p[1]]);
@@ -932,7 +945,7 @@ class Community {
   }
   tap(point) {
     if (!this.editing) return false;
-    if (!this.ghost || this.busy) return true;
+    if (!this.ghost || this.busy || this.pending) return true;
     const aimed = this.snap(point);
     this.hover = aimed;
     this.magnet = aimed.post;
@@ -1143,8 +1156,7 @@ class Community {
     });
   }
   clearPending() {
-    this.pending = null;
-    localStorage.removeItem("magikitos.adventure.build-pending");
+    this.forget();
   }
   refreshWorld() {
     const g = this.game;
@@ -1228,7 +1240,7 @@ class Community {
    * todavía no es tuyo. Cada poste lleva su punto para que se vea dónde sigue la cosa.
    */
   drawTrace(ctx, d) {
-    const puesto = this.placed ? this.absolutePoints(this.ghost) : [];
+    const puesto = this.placed ? absolutePoints(this.ghost) : [];
     const siguiente =
       this.hover && puesto.length
         ? [this.hover.x, this.hover.y]

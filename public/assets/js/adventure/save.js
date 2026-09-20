@@ -10,8 +10,6 @@ const { castOffered } = require("./player-art");
 const SAVE_KEY = "magikitos.adventure";
 function cleanSave(value, catalog) {
   if (!value || typeof value !== "object" || Array.isArray(value)) value = null;
-  if (value && ["guest-garden", "guest-room"].includes(value.scene))
-    value = { ...value, scene: value.scene.replace("guest-", "home-") };
   const spawn = catalog.scenes[catalog.start].spawn;
   const state = {
     scene: catalog.start,
@@ -48,8 +46,6 @@ function cleanSave(value, catalog) {
         definition.max || 99,
       );
   state.wallet = cleanWallet(value.wallet, catalog);
-  // One-way release migration: earlier cooks/boat owners keep their earned access.
-  if (state.flags.picnicFed || state.inventory.boat) state.inventory.oars = 1;
   state.objects = require("./movables").cleanPositions(
     value.objects,
     catalog,

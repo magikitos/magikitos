@@ -135,11 +135,10 @@ for (const scene of Object.values(world.scenes).filter((s) => s.indoor)) {
     width: metrics.width,
     height: metrics.height,
   });
-  cache.beginFrame(room, {
-    ...cam,
-    width: metrics.width,
-    height: metrics.height,
-  });
+  // Como en el fotograma de verdad: vaciar lo anclado, anclar cada pantalla y solo después podar.
+  cache.beginFrame();
+  cache.pin(room, { ...cam, width: metrics.width, height: metrics.height });
+  cache.prune();
   assert.equal(
     cache.pinned.size,
     (range.right - range.left + 1) * (range.bottom - range.top + 1),
@@ -155,7 +154,9 @@ for (const scene of Object.values(world.scenes).filter((s) => s.indoor)) {
 }
 const terrain = new Terrain(),
   sample = { data: { id: "large" }, width: 128, height: 96 };
-terrain.beginFrame(sample, { x: 0, y: 0, width: 1780, height: 1050 });
+terrain.beginFrame();
+terrain.pin(sample, { x: 0, y: 0, width: 1780, height: 1050 });
+terrain.prune();
 assert(
   terrain.pinned.size > 24,
   "Zoom-out genuinely exceeds the former cache limit",
@@ -175,10 +176,84 @@ assert.equal(
   0,
   "Repeated frames never rebuild visible chunks",
 );
-terrain.beginFrame(sample, { x: 0, y: 0, width: 400, height: 250 });
+terrain.beginFrame();
+terrain.pin(sample, { x: 0, y: 0, width: 400, height: 250 });
+terrain.prune();
 assert(terrain.chunks.size <= 24, "Zoom-in releases surplus cache entries");
 console.log(
   "PASS: visible terrain pinning prevents zoom-out cache thrashing and stays bounded.",
+);
+/**
+ * ⛔ LA HIERBA DEL HUECO Y LA DE UNA PANTALLA SON LA MISMA (mundo continuo): si el grano cambiara,
+ * el parche de relleno se vería como un parche y la rejilla dejaría de leerse como un solo bosque.
+ * El pintor es uno (`paintTufts`) y aquí se le exige lo que el jugador ve: mismo dibujo para la
+ * misma baldosa, agua sin briznas, y ni puntas ni florecillas sobre el camino o la arena.
+ */
+const {
+  paintTufts,
+  GRASS,
+  SHOULDER,
+  ROAD,
+  SAND,
+} = require("../public/assets/js/adventure/terrain");
+const { random, hash } = require("../public/assets/js/adventure/model");
+const recorder = () => {
+  const ops = [];
+  return {
+    ops,
+    set fillStyle(v) {
+      ops.push(["style", v]);
+    },
+    fillRect: (...a) => ops.push(["rect", ...a]),
+  };
+};
+const grainOf = (key, sample) => {
+  const c = recorder();
+  paintTufts(c, random(hash(key)), sample);
+  return c.ops;
+};
+for (const key of ["overworld:2:3", "void:2:3"]) {
+  assert.deepEqual(
+    grainOf(key, () => GRASS),
+    grainOf(key, () => GRASS),
+    "La misma baldosa se pinta igual siempre",
+  );
+  assert(grainOf(key, () => GRASS).length > 900, "Una baldosa de hierba tiene grano");
+}
+assert.deepEqual(
+  grainOf("void:2:3", () => GRASS),
+  grainOf("void:2:3", () => GRASS),
+  "El hueco del plano usa el mismo pincel que una pantalla",
+);
+assert.deepEqual(
+  grainOf("overworld:1:1", () => null),
+  [],
+  "Sobre el agua no se pinta una sola brizna",
+);
+for (const [name, material] of [
+  ["camino", ROAD],
+  ["arena", SAND],
+]) {
+  const ops = grainOf("overworld:1:1", () => material);
+  assert(ops.length > 0, name + " se pinta");
+  assert.equal(
+    ops.filter(([kind, ...rect]) => kind === "rect" && rect[3] === 3).length,
+    0,
+    "Ni puntas de hierba sobre " + name,
+  );
+  assert.equal(
+    ops.filter(([kind, value]) => kind === "style" && value === "#e0c87d").length,
+    0,
+    "Ni florecillas sobre " + name,
+  );
+}
+assert(
+  grainOf("overworld:1:1", () => SHOULDER).length >
+    grainOf("overworld:1:1", () => GRASS).length,
+  "El borde de un camino lleva más puntas que la hierba abierta",
+);
+console.log(
+  "PASS: un solo grano de hierba para las pantallas y el hueco del plano, determinista, sin briznas en el agua ni puntas sobre camino o arena.",
 );
 const {
   CollisionGrid,

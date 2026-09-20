@@ -2,9 +2,9 @@
 const assert = require("node:assert/strict"),
   fs = require("node:fs"),
   os = require("node:os"),
-  path = require("node:path"),
-  cp = require("node:child_process");
+  path = require("node:path");
 const { chromium } = require("playwright");
+const { startStudio } = require("./browser-studio.cjs");
 const { snapshot } = require("../tools/adventure-studio/snapshot.cjs");
 const temp = fs.mkdtempSync(
     path.join(os.tmpdir(), "magikitos-gallery-browser-"),
@@ -13,9 +13,7 @@ const temp = fs.mkdtempSync(
   origin = "http://127.0.0.1:" + port;
 const initialHash = snapshot(process.cwd()).baseHash;
 const errors = [];
-let server,
-  browser,
-  output = "";
+let server, browser;
 const read = (p) => p.evaluate(() => window.MagikitosStudio.inspect());
 async function ready(p) {
   await p.waitForFunction(() => window.MagikitosStudio?.inspect().ready);
@@ -29,28 +27,7 @@ async function openGallery(p) {
     await p.locator("#gallery summary").click();
 }
 (async () => {
-  server = cp.spawn(process.execPath, ["tools/adventure-studio/server.cjs"], {
-    env: { ...process.env, STUDIO_PORT: port, STUDIO_DATA_DIR: temp },
-    stdio: ["ignore", "pipe", "pipe"],
-  });
-  await new Promise((resolve, reject) => {
-    const timer = setTimeout(
-      () => reject(Error("Studio startup timeout: " + output)),
-      120000,
-    );
-    server.stdout.on("data", (b) => {
-      output += b;
-      if (output.includes("Magikitos Studio:")) {
-        clearTimeout(timer);
-        resolve();
-      }
-    });
-    server.stderr.on("data", (b) => (output += b));
-    server.once("exit", (code) => {
-      clearTimeout(timer);
-      reject(Error("Studio exited " + code + ": " + output));
-    });
-  });
+  server = await startStudio({ port, temp });
   browser = await chromium.launch({ channel: "chrome", headless: true });
   const page = await browser.newPage({
     viewport: { width: 1440, height: 1000 },
@@ -213,7 +190,7 @@ async function openGallery(p) {
   );
 })()
   .catch((e) => {
-    console.error(e);
+    console.error(e, server?.log?.());
     process.exitCode = 1;
   })
   .finally(async () => {

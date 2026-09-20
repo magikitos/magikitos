@@ -33,9 +33,8 @@ function cameraMetrics(view, world, requested = null, presentation = 1) {
     height: view.height / scale,
   };
 }
-function clampCamera(camera, world, view) {
-  return frameCamera(camera, world, view);
-}
+/** La cámara acotada al marco: el mismo `frameCamera` de `scene-frame`, con el nombre que usa el juego. */
+const clampCamera = frameCamera;
 
 /** Lo cerca que hay que estar para dejar de suavizar y sencillamente seguir. Correr mueve el
  *  objetivo ~1,8 px por frame a 60 Hz, así que esto no se suelta andando; un mapa que acabas de

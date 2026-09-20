@@ -1,6 +1,7 @@
 "use strict";
 const KEY = "magikitos.adventure.actions";
-const operationId = () => crypto.randomUUID().replaceAll("-", "");
+const { ambiguous } = require("./api");
+const { operationId } = require("./ids");
 const rejectedAction = (error) =>
   (error.status === 404 && error.code === "unknown_action") ||
   (error.status === 409 && error.code === "requirements_not_met");
@@ -282,7 +283,12 @@ class MaterialAccount {
     return this.busy;
   }
   retry(error) {
-    if ((!error.status || error.status === 429 || error.status >= 500) && this.queue.length) {
+    // Una cola de recuperación llena no se arregla esperando: se dice y se deja de insistir.
+    if (error.code === "recovery_queue_full") {
+      this.game.toast?.(this.game.text("communitySyncNeeded"));
+      return;
+    }
+    if (ambiguous(error) && this.queue.length) {
       clearTimeout(this.retryTimer);
       this.retryTimer = setTimeout(() => this.flush(), 30000);
       this.retryTimer.unref?.(); // Node fixtures must not outlive their assertions.
@@ -296,7 +302,12 @@ class MaterialAccount {
   reconcile() {
     const g = this.game,
       a = this.account;
-    if (!a || this.queue.length || g.cloud.conflict) return;
+    // En mitad de un cambio de pantalla el estado vive en una copia que se asigna al terminar:
+    // escribir aquí ahora se perdería. Se deja para el siguiente fotograma libre (`game.tick`), y
+    // la bandera se limpia SIEMPRE que se sale de aquí por cualquier otro motivo: si no, se
+    // pediría el apunte en cada fotograma de la partida.
+    this.reconcileLater = Boolean(a) && !this.queue.length && !g.cloud.conflict && g.transitioning;
+    if (!a || this.queue.length || g.cloud.conflict || g.transitioning) return;
     // Migration recovery preserves the private pre-authority bag before replacing
     // counters with authoritative materials. Never overwrite the archive on retry.
     try {
@@ -322,4 +333,4 @@ class MaterialAccount {
     }
   }
 }
-module.exports = { MaterialAccount, operationId };
+module.exports = { MaterialAccount };

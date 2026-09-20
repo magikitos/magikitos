@@ -9,7 +9,8 @@
 const assert = require("node:assert/strict"),
   fs = require("node:fs"),
   path = require("node:path");
-const { isolateWorld, compileWorld } = require("./lib/world-fixture.cjs");
+const { isolateWorld } = require("./lib/world-fixture.cjs");
+const { compileWorld } = require("../tools/world.cjs");
 const { doorGeometry, validEntrance, ENTRANCE_LIMITS } = require("../public/assets/js/adventure/portals");
 const near = (a, b, label) => assert(Math.abs(a - b) < 1e-9, `${label}: ${a} ≠ ${b}`);
 const same = (actual, expected, label) => {

@@ -70,7 +70,11 @@ class ForestLive {
         g.state = state;
         g.scenes.enter(prepared);
         g.save();
-      } catch (_) { this.connection.stop(); }
+      } catch (error) {
+        // Sin identidad, `update` vuelve a arrancar la presencia; con `stop` a secas quedaba muerta.
+        console.error("Correction:", error);
+        this.connection.stop(); this.identity = null;
+      }
       finally { prepared?.packs.release?.(); g.transitioning = false; }
       return;
     }

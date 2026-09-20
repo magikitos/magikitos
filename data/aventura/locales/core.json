@@ -1895,6 +1895,14 @@
     "it": "Non è stato possibile preparare il viaggio. Oggetti e setines sono al sicuro. Riprova.",
     "pt": "Não foi possível preparar a viagem. Manténs os objetos e setines. Tenta outra vez."
   },
+  "wearError": {
+    "es": "No hemos podido ponerte ese cuerpo. Sigues con el de antes. Prueba otra vez.",
+    "en": "We couldn't put you in that body. You keep the one you had. Please try again.",
+    "de": "Dieser Körper konnte nicht angelegt werden. Du behältst deinen bisherigen. Versuch es erneut.",
+    "fr": "Ce corps n’a pas pu être enfilé. Tu gardes celui d’avant. Réessaie.",
+    "it": "Non è stato possibile darti quel corpo. Resti con quello di prima. Riprova.",
+    "pt": "Não foi possível dar-te esse corpo. Ficas com o anterior. Tenta outra vez."
+  },
   "twigDescription": {
     "es": "Una ramita recia. Sirve pa una brocheta, una vallita o un banco.",
     "en": "A sturdy twig. Handy for a skewer, a fence or a bench.",

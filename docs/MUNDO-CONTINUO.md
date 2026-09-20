@@ -19,7 +19,7 @@ Rutas y toques: [NAVIGATION.md](NAVIGATION.md).
 | `crossings.js` | El cruce se **dispara pegado al borde** (`SEAM_TRIGGER`, 0,15 casillas, para los dos modos) y no en la zona autorada de hasta tres casillas, que sigue valiendo para el contrato del servidor. La llegada es la geométrica (`crossingArrival`: banda alineada + desvío conservado), la **cámara viaja con el duende** (se traduce, no se recentra), la salida de vuelta queda **cerrada** hasta salir de su banda y no hay aviso al cruzar. Un toque más allá del borde (`aimBeyond`) es un viaje en dos tramos: hasta la costura y, al otro lado, el mismo toque en sus coordenadas. |
 | `scenes.js` (director) | Calcula el plano al arrancar y su versión en píxeles (`plane`), guarda los **residentes** de cada pantalla en memoria (siguen viviendo al otro lado), **enlaza** las cacheadas por sus costuras cada vez que la caché cambia —y les pone `origin`, su esquina en el plano—, y precarga primero lo que la cámara está a punto de enseñar (`scenesIntersecting` con margen) y después las vecinas por las que se sale. Por una costura no se espera a la red: la instantánea de lo construido ya se pidió al calentar y se refresca por detrás. |
 | `scene-frame.js` | La cámara se acota al **marco del plano** en exteriores (`world.frame`), a la pantalla en interiores o sin plano. La cámara es del duende y no se arrastra (salvo construyendo), y el zoom máximo es el que cubre la pantalla en la que estás: entre las dos cosas, alejar nunca enseña más allá de los mapas. |
-| `renderer.js` | Sin recortes por pantalla (dejaban una raya en la costura y partían al duende). Se **ancla primero todo lo que el fotograma va a enseñar** (hueco, vecinas y la tuya) y solo después se pinta: primero el **hueco del plano** (`drawVoid`), luego el suelo de las vecinas enlazadas y el de la tuya, y por último **todas las cosas de todas las pantallas en una sola pasada** ordenada por profundidad, cada una trasladada a tus coordenadas. El arte de los actores se pide una vez para todo lo visible, los de las vecinas incluidos. Al final, si el fotograma no ha tenido que construir ninguna baldosa a la vista, se construye **una del anillo de alrededor por adelantado** (`terrain.prefetch`). |
+| `renderer.js` | Sin recortes por pantalla (dejaban una raya en la costura y partían al duende). Se **ancla primero todo lo que el fotograma va a enseñar** (hueco, vecinas y la tuya) y solo después se pinta: primero el **hueco del plano** (`drawVoid`), luego el suelo de las vecinas enlazadas y el de la tuya, y por último **todas las cosas de todas las pantallas en una sola pasada** ordenada por profundidad, cada una trasladada a tus coordenadas. El arte de los actores se pide una vez para todo lo visible, los de las vecinas incluidos, y solo en los fotogramas en que toca repasarlo (cada 120 ms, `actorArt.due`), que es cuando se arman las copias trasladadas de las vecinas. Al final, si el fotograma no ha tenido que construir ninguna baldosa a la vista, se construye **una del anillo de alrededor por adelantado** (`terrain.prefetch`). |
 | `ground.js` / `terrain.js` | `paintVoid` pinta lo que no es ninguna pantalla **continuando el borde más cercano**: cada píxel del hueco toma la orilla del píxel de borde de la pantalla más próxima, así que un lago que llega al borde de su mapa sigue siendo lago y un prado sigue siendo prado, con la misma hierba (ruido del plano, semilla común) y sin caminos. `terrain.voidChunk` lo cachea en coordenadas del plano como las demás baldosas. |
 | `game.js` | Los residentes de las vecinas pasean en su propio mundo con la cámara traducida (`wander`). Un toque fuera de la pantalla busca la vecina (`world.beyond`) y llama a `crossings.aimBeyond`. `inspect()` expone `seams`, `frame` y `pendingBeyond`. |
 
@@ -72,6 +72,27 @@ a veces desaparecen cosas, otras… se queda pillado en la barrera invisible»):
   quedaba sin mundo y su hueco se pintaba como relleno (césped sin camino ni árboles). Ahora se
   reintenta a los cinco segundos, y la pantalla que dejas pasa a caliente ANTES de activar la
   nueva, que es cuando se poda el presupuesto.
+- **Lo que se ve no se expulsa** (la última causa, medida: cada protagonista pesa 8,3 MB
+  descodificado y el arte de los jugadores cercanos entra con prioridad de foco; las hojas de la
+  pantalla vecina eran solo «calientes» y eran lo primero que caía con gente alrededor, con
+  sesión). `SpriteLibrary` tiene tres niveles: fijo (la pantalla que pisas), **visible** (las
+  vecinas que tocan la vista, que la poda no puede tocar) y caliente (las demás vecinas). El arte
+  de los actores solo se admite en lo que queda, los más cercanos primero (`actor-art.js`).
+- **Ya no hay costas de un solo lado** (`coasts`): el lago es un `rivers` de dos orillas, y ese
+  código se retiró de `geometry.js` y `ground.js`.
+- **La pantalla vecina estaba a medio pintar** (20-sep-2026, repaso): sus baldosas salían bien
+  —se pegan en píxeles de pantalla desde la vista traducida— pero lo que se dibuja en coordenadas
+  del mundo (puentes, ondas y recortes de interiores) iba sin el desplazamiento de la costura y
+  caía una pantalla entera fuera de la vista. Desde la pradera, el río de los sauces se veía
+  QUIETO y sin puente hasta pisarlo. `drawGround` recibe ahora `ox, oy` y los traslada;
+  `check-adventure-browser` mira el agua de la vecina en dos instantes y exige que se mueva (con
+  el código anterior cambian 68 píxeles, con este 390).
+- **Lo visible se decidía con la cámara anterior**: al llegar por una costura, el repaso de
+  retención corría antes de acotar la cámara nueva, así que el rectángulo de la pantalla vieja se
+  leía en el marco de la nueva y señalaba a la vecina contraria. La pantalla que acabas de dejar
+  —media pantalla de árboles— se quedaba solo caliente hasta el siguiente pulso de la precarga, y
+  con la precarga frenada (diálogo, ahorro de datos, 2G) hasta el siguiente cruce. Ahora
+  `retainWarm` corre DESPUÉS de fijar la cámara.
 
 ## Los datos
 
@@ -137,6 +158,13 @@ las llegadas en los datos sin regenerar el contrato dejaría cruces rechazados: 
   trabajo de Studio, no del motor.
 - **Rutas largas.** Un toque en la vecina va en dos tramos por la costura más cercana; no busca
   camino a través de dos pantallas.
+- **Tres celdas del plano siguen vacías.** (192, 0), (192, −144) y (192, −288): el rincón que
+  deja la L de las cinco pantallas. La cámara llega hasta ahí a propósito —se puede mirar hasta el
+  otro extremo del bosque— así que el hueco se pinta continuando el borde más cercano y el mapa se
+  lee entero; plantado en el extremo este de la pradera, casi media pantalla es ese hueco: se ve
+  como pradera, pero ahí no se entra. Llenarlo es autorar tres pantallas de 192 × 144 con sus
+  salidas de borde, y el motor las admite sin tocar una línea; no hay nada que arreglar en el
+  código, hay bosque que escribir.
 
 ## Verificación
 

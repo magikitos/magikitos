@@ -74,6 +74,23 @@ Según el cambio:
   padre del mismo origen sí — más la tarjeta que no repite la pregunta, abrir con
   sonido y callar sin pisar la preferencia. Ver [EMBEDDING.md](EMBEDDING.md).
 - `npm run test:boundary`: separación y arranque sin web; ver su arnés para puertos.
+- `npm run test:live-crossing`: el bosque vivo DE VERDAD. Levanta el demonio de la web
+  privada con el contrato de esta misma build, entra con sesión y sube y baja ocho veces
+  por la costura pradera↔sauces andando, corriendo y dándose la vuelta al momento. Es la
+  única suite que prueba lo que rechazaba los viajes; sin `../magikitos` al lado se salta sola
+  (y SOLO por eso: cualquier otro fallo al cargar el demonio rompe la suite, a propósito).
+- `npm run test:forest`, `test:objects`: las otras dos con demonio real en proceso — puertas,
+  notas, plazas y cuerpos la primera; objetos compartidos, empujes y cámara la segunda.
+- `npm run test:forest-ddev`, `test:shared-map`: la pila COMPLETA (DDEV HTTPS/WSS → PHP →
+  MariaDB) con fixtures propias. Necesitan el DDEV arriba y la build instalada
+  (`npm run install:local`); cuelgan si el servicio de plazas no está.
+- `npm run test:art-live <origen>`: verificación de solo lectura del arte y el catálogo contra un
+  host real, en los seis idiomas. Se usa después de desplegar: `npm run test:art-live https://magikitos.com`.
+- `npm run test:studio-entrance`: la entrada de un edificio movida a mano en el Studio,
+  con la geometría de PHP y la de JS dando el mismo hueco (`check-door-geometry.cjs`
+  las compara en `npm test`). Workspace temporal; el del propietario no cambia.
+- `npm run test:warehouse`: el almacén de la regadera — Cebolino a la vista junto al
+  mostrador, precios en setas y nada regalado.
 - Scripts PHP `check-community*.php` en el repo web: autoridad/transacciones
   con fixtures locales identificados y limpieza acotada a esas fixtures.
 

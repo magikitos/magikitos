@@ -3,6 +3,39 @@ const { TILE, random, hash } = require("./model");
 const { paintGround, paintVoid, voidWaterAt } = require("./ground");
 const { chunkRange } = require("./scene-frame");
 const { paintInteriorGround } = require("./interior-ground");
+/** Cuántas baldosas de 256×256 (256 KB cada una) se guardan como mínimo, aunque la vista sea pequeña. */
+const CHUNK_FLOOR = 24;
+/**
+ * El grano del suelo: 460 briznas deterministas por baldosa, las mismas en una pantalla y en el
+ * hueco del plano, para que la costura no se note. `sample(x, y)` dice qué hay bajo ese píxel
+ * —`null` si es agua, o uno de los materiales de abajo— y el azar avanza igual pase lo que pase,
+ * que es lo que mantiene el dibujo idéntico entre partidas.
+ */
+const GRASS = { colors: ["#89a364", "#5c7c48"], grass: true, shoulder: false },
+  SHOULDER = { ...GRASS, shoulder: true },
+  ROAD = { colors: ["#b7a877", "#d4c795"], grass: false, shoulder: false },
+  SAND = { colors: ["#c4bb8d", "#e2d4aa"], grass: false, shoulder: false };
+function paintTufts(c, rand, sample) {
+  for (let i = 0; i < 460; i++) {
+    const x = Math.floor(rand() * 256),
+      y = Math.floor(rand() * 256),
+      blade = sample(x, y);
+    if (!blade) {
+      if (i % 10 === 0) rand(); // Preserve deterministic land decoration sequence.
+      continue;
+    }
+    c.fillStyle = blade.colors[rand() < 0.5 ? 0 : 1];
+    c.fillRect(x, y, 1 + Math.floor(rand() * 2), 1);
+    if (blade.grass && (i % 11 === 0 || (blade.shoulder && i % 3 === 0))) {
+      c.fillRect(x + 1, y - 2, 1, 3);
+      c.fillRect(x + 2, y - 1, 1, 1);
+    }
+    if (blade.grass && i % 113 === 0) {
+      c.fillStyle = "#e0c87d";
+      c.fillRect(x, y - 2, 2, 2);
+    }
+  }
+}
 /** Static, deterministic ground painter. Bounded native-pixel chunks shared by all scenes. */
 class Terrain {
   constructor() {
@@ -13,17 +46,13 @@ class Terrain {
     this.sceneContexts = new Map();
   }
   /**
-   * Un fotograma puede pintar varias pantallas a la vez (mundo continuo): se empieza vaciando lo
-   * anclado y cada pantalla que se pinte ancla sus trozos visibles con `pin`. Llamarlo con una
-   * pantalla sigue valiendo, que es lo que hacía siempre.
+   * Un fotograma pinta varias pantallas a la vez (mundo continuo): se empieza vaciando lo anclado
+   * y cada pantalla que se vaya a pintar ancla sus trozos con `pin` antes de que se pinte nada.
    */
-  beginFrame(world = null, view = null) {
+  beginFrame() {
     this.pinned.clear();
     this.frameBuilds = this.buildCount;
-    if (world) {
-      this.pin(world, view);
-      this.prune();
-    } else this.prune();
+    this.prune();
   }
   /**
    * ⛔ ANCLAR NO EXPULSA (20-sep-2026). Anclar solo apunta lo que este fotograma va a enseñar y
@@ -40,7 +69,14 @@ class Terrain {
     for (let y = range.top; y <= range.bottom; y++)
       for (let x = range.left; x <= range.right; x++)
         this.pinned.add(world.data.id + ":" + x + ":" + y);
-    this.budget = Math.max(this.limit || 24, this.pinned.size * 3 + 16);
+    this.rebudget();
+  }
+  /**
+   * El presupuesto sigue a lo anclado: lo que este fotograma enseña, un anillo de holgura para que
+   * lo que acaba de salir de la vista no se repinte al dar media vuelta, y un suelo mínimo.
+   */
+  rebudget() {
+    this.budget = Math.max(CHUNK_FLOOR, this.pinned.size * 3 + 16);
   }
   /**
    * Una baldosa POR ADELANTADO y por fotograma, del anillo que rodea lo que se ve, y solo si este
@@ -78,7 +114,7 @@ class Terrain {
   }
   prune() {
     for (const key of this.chunks.keys()) {
-      if (this.chunks.size <= (this.budget || this.limit || 24)) break;
+      if (this.chunks.size <= (this.budget || CHUNK_FLOOR)) break;
       if (!this.pinned.has(key)) this.chunks.delete(key);
     }
   }
@@ -122,8 +158,7 @@ class Terrain {
       this.sceneContexts.get(data.id) !== data.interior.background
     ) {
       // The immediate terrain preview can precede lazy background art. Invalidate just this scene once.
-      for (const cached of this.chunks.keys())
-        if (cached.startsWith(data.id + ":")) this.chunks.delete(cached);
+      this.invalidate(data.id);
       this.sceneContexts.set(data.id, data.interior.background);
     }
     return background;
@@ -148,25 +183,9 @@ class Terrain {
     const ox = cx * 256,
       oy = cy * 256;
     paintVoid(c, plane, ox, oy);
-    const rand = random(hash(key));
-    for (let i = 0; i < 460; i++) {
-      const x = Math.floor(rand() * 256),
-        y = Math.floor(rand() * 256);
-      if (voidWaterAt(plane, ox + x, oy + y)) {
-        if (i % 10 === 0) rand();
-        continue;
-      }
-      c.fillStyle = rand() < 0.5 ? "#89a364" : "#5c7c48";
-      c.fillRect(x, y, 1 + Math.floor(rand() * 2), 1);
-      if (i % 11 === 0) {
-        c.fillRect(x + 1, y - 2, 1, 3);
-        c.fillRect(x + 2, y - 1, 1, 1);
-      }
-      if (i % 113 === 0) {
-        c.fillStyle = "#e0c87d";
-        c.fillRect(x, y - 2, 2, 2);
-      }
-    }
+    paintTufts(c, random(hash(key)), (x, y) =>
+      voidWaterAt(plane, ox + x, oy + y) ? null : GRASS,
+    );
     this.chunks.set(key, cv);
     this.prune();
     return cv;
@@ -174,7 +193,7 @@ class Terrain {
   pinVoid(range) {
     for (let y = range.top; y <= range.bottom; y++)
       for (let x = range.left; x <= range.right; x++) this.pinned.add("void:" + x + ":" + y);
-    this.budget = Math.max(this.limit || 24, this.pinned.size * 3 + 16);
+    this.rebudget();
   }
   chunk(world, cx, cy, sprites) {
     const background = this.background(world.data, sprites);
@@ -222,51 +241,26 @@ class Terrain {
             }
           c.restore();
         }
-      for (let i = 0; i < 460; i++) {
-        const x = Math.floor(rand() * 256),
-          y = Math.floor(rand() * 256),
-          tx = (ox + x) / TILE,
+      paintTufts(c, rand, (x, y) => {
+        const tx = (ox + x) / TILE,
           ty = (oy + y) / TILE;
-        if (world.waterAt(tx, ty)) {
-          if (i % 10 === 0) rand(); // Preserve deterministic land decoration sequence.
-          continue;
-        }
-        const pathDistance = world.pathDistance(tx, ty);
-        const road = pathDistance < 1;
-        const sand =
+        if (world.waterAt(tx, ty)) return null;
+        // La arena manda sobre el camino: una playa con sendero sigue siendo playa.
+        if (
           world.data.baseWater &&
           (world.data.islands || []).every(
             (p) =>
               ((tx - p.x) / (p.rx - 2.5)) ** 2 +
                 ((ty - p.y) / (p.ry - 2.5)) ** 2 >=
               1,
-          );
-        c.fillStyle = sand
-          ? rand() < 0.5
-            ? "#c4bb8d"
-            : "#e2d4aa"
-          : road
-            ? rand() < 0.5
-              ? "#b7a877"
-              : "#d4c795"
-            : rand() < 0.5
-              ? "#89a364"
-              : "#5c7c48";
-        c.fillRect(x, y, 1 + Math.floor(rand() * 2), 1);
+          )
+        )
+          return SAND;
+        const pathDistance = world.pathDistance(tx, ty);
+        if (pathDistance < 1) return ROAD;
         // Sparse grass tips at the path shoulder; no bright patches over the earth.
-        if (
-          !sand &&
-          !road &&
-          (i % 11 === 0 || (pathDistance < 1.6 && i % 3 === 0))
-        ) {
-          c.fillRect(x + 1, y - 2, 1, 3);
-          c.fillRect(x + 2, y - 1, 1, 1);
-        }
-        if (!sand && !road && i % 113 === 0) {
-          c.fillStyle = "#e0c87d";
-          c.fillRect(x, y - 2, 2, 2);
-        }
-      }
+        return pathDistance < 1.6 ? SHOULDER : GRASS;
+      });
     }
     this.chunks.set(key, cv);
     this.prune();
@@ -291,4 +285,4 @@ function drawBridges(c, world, sprites, view) {
     sprites.draw(c, bridge.sprite, x, y, w, h);
   }
 }
-module.exports = { Terrain, drawBridges };
+module.exports = { Terrain, drawBridges, paintTufts, GRASS, SHOULDER, ROAD, SAND };

@@ -6,7 +6,7 @@ const owners = new Map(Object.entries(manifest.packs).flatMap(([id, pack]) => pa
 (async () => {
   let calls = [], resolve = [];
   const sprites = {
-    manifest, owners, pinned: new Set(), packs: new Map(),
+    manifest, owners, pinned: new Set(), visible: new Set(), packs: new Map(),
     residency: { holds: new Map(), limit: 96 * 1024 * 1024 },
     packageFor: (name) => owners.get(name),
     load: (id) => {

@@ -61,7 +61,12 @@
     "review:woodland": "node scripts/review-woodland-browser.cjs",
     "test:warehouse": "node scripts/check-warehouse-browser.cjs",
     "test:studio-entrance": "node scripts/check-studio-entrance-browser.cjs",
-    "test:live-crossing": "node scripts/check-live-crossing-browser.cjs"
+    "test:live-crossing": "node scripts/check-live-crossing-browser.cjs",
+    "test:forest": "node scripts/check-forest-browser.cjs",
+    "test:objects": "node scripts/check-forest-objects-browser.cjs",
+    "test:forest-ddev": "node scripts/check-forest-ddev-browser.cjs",
+    "test:shared-map": "node scripts/check-shared-map-browser.cjs",
+    "test:art-live": "node scripts/check-flat-art-live.cjs"
   },
   "devDependencies": {
     "esbuild": "0.28.2",

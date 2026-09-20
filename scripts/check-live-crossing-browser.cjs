@@ -1,4 +1,5 @@
 "use strict";
+const { compileWorld } = require("../tools/world.cjs");
 /**
  * ⛔ LOS CRUCES SE PRUEBAN CON EL DEMONIO DE VERDAD (20-sep-2026, tres veces «está arreglado» sin
  * estarlo). Las suites de cruces iban sin sesión, así que nunca pasaban por el bosque vivo, que es
@@ -9,30 +10,26 @@
  * rechazar un solo cruce.
  */
 const assert = require("node:assert/strict");
-const { execFileSync } = require("node:child_process");
 const { chromium } = require("playwright"), { build } = require("esbuild");
 const { enterWorld } = require("./browser-entry.cjs");
 const { cleanSave } = require("../public/assets/js/adventure/save");
 const { liveContract } = require("../tools/live-contract.cjs");
-const { protocol } = require("../public/assets/js/adventure/forest-connection");
-let createLiveServer, mac;
-try {
-  ({ createLiveServer } = require("../../magikitos/bosque-vivo/server.cjs"));
-  ({ mac } = require("../../magikitos/bosque-vivo/tickets.cjs"));
-} catch (_) {
+const { liveDaemon, routeLiveWebsite } = require("./browser-live.cjs");
+const daemon = liveDaemon();
+if (!daemon) {
   console.log("SKIP live crossing: el demonio del bosque vivo (../magikitos/bosque-vivo) no está al lado.");
   process.exit(0);
 }
 const origin = process.env.GAME_ORIGIN || "http://127.0.0.1:47834";
 if (!["localhost", "127.0.0.1"].includes(new URL(origin).hostname)) throw Error("Loopback only");
-const world = JSON.parse(execFileSync("php", ["-r", 'echo json_encode(require "data/aventura/world.php");']));
+const world = compileWorld(process.cwd());
 const secret = "synthetic-live-crossing-key-never-production";
 const user = 7, TILE = 16;
 const rejected = [], issues = [];
 const warn = console.warn;
 console.warn = (...args) => { if (/cruce rechazado/.test(String(args[0]))) rejected.push(args.join(" ")); warn(...args); };
 (async () => {
-  const service = createLiveServer({ secret, scenes: liveContract(world).scenes, origins: [origin] });
+  const service = daemon.createLiveServer({ secret, scenes: liveContract(world).scenes, origins: [origin] });
   const { port } = await service.listen(0);
   const bundled = await build({ entryPoints: ["public/assets/js/aventura.js"], bundle: true, write: false });
   const browser = await chromium.launch({ channel: "chrome", headless: true });
@@ -50,40 +47,15 @@ console.warn = (...args) => { if (/cruce rechazado/.test(String(args[0]))) rejec
       localStorage.setItem("magikitos_session", "synthetic-live-crossing-" + user);
       localStorage.setItem("magikitos.adventure", JSON.stringify(saved));
     }, { saved, user, origin });
-    await page.route("**/*", async (route) => {
-      const url = new URL(route.request().url());
-      if (url.origin !== origin) return route.abort();
-      if (url.pathname.endsWith("/js/aventura.min.js"))
-        return route.fulfill({ contentType: "text/javascript", body: bundled.outputFiles[0].text });
-      if (url.pathname === "/bosque/explorar") {
-        const response = await route.fetch(), html = await response.text();
-        const body = html.replace(/(<script type="application\/json" id="adventure-config">)([\s\S]*?)(<\/script>)/, (_, a, json, b) => {
-          const config = JSON.parse(json);
-          config.websiteBase = `http://127.0.0.1:${port}/`;
-          config.apiBase = origin + "/api/world/";
-          return a + JSON.stringify(config).replaceAll("<", "\\u003c") + b;
-        });
-        return route.fulfill({ response, body });
-      }
-      if (url.pathname.startsWith("/api/")) {
-        const endpoint = url.pathname.split("/").at(-1);
-        let body;
-        if (endpoint === "identity") body = { user: { id: user, handle: "synthetic-" + user, name: "Test" } };
-        else if (endpoint === "game-state") body = { profile: profile(), recoveries: [] };
-        else if (endpoint === "game-save") { saved = route.request().postDataJSON().state; revision++; body = { profile: profile(), acknowledgedRevision: revision }; }
-        else if (endpoint === "game-account") body = { account: { revision: 1, inventory: {}, setines: 0, progress: { flags: {} }, resources: {} } };
-        else if (endpoint === "game-body") body = { now: Date.now(), needs: {} };
-        else if (endpoint === "forest-messages") body = { zone: url.searchParams.get("zone"), now: Date.now(), messages: [] };
-        else if (endpoint === "forest-ticket") {
-          const now = Date.now(), claims = { aud: protocol.ticketAudience, user,
-            publicId: mac(secret, "public", String(user)).slice(0, 24), session: mac(secret, "session", String(user)),
-            issuedAt: now, expiresAt: now + 300000, variant: 0, scene: saved.scene, ...saved.position, mode: "foot", capabilities: { boat: false } };
-          const payload = Buffer.from(JSON.stringify(claims)).toString("base64url");
-          body = { protocol: 1, socketPath: "/bosque", now, expiresAt: claims.expiresAt, ticket: payload + "." + mac(secret, "forest-ticket", payload) };
-        }
-        return route.fulfill({ status: body ? 200 : 503, contentType: "application/json", body: JSON.stringify(body || { ok: false, error: "offline" }) });
-      }
-      return route.continue();
+    await routeLiveWebsite(page, {
+      origin, port, bundled, user, secret,
+      state: {
+        saved: () => saved,
+        profile,
+        save: (state) => { saved = state; revision++; return { profile: profile(), acknowledgedRevision: revision }; },
+        account: () => ({ revision: 1, inventory: {}, setines: 0, progress: { flags: {} }, resources: {} }),
+        needs: () => ({}),
+      },
     });
     await page.goto(origin + "/bosque/explorar"); await enterWorld(page);
     await page.waitForFunction(() => window.MagikitosAdventure.inspect().live.connected && window.MagikitosAdventure.inspect().live.role === "player");

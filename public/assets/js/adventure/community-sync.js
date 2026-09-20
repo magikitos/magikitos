@@ -2,7 +2,7 @@
 const protocol = require("../../../../docs/forest-protocol.json");
 
 /** Revision notices are hints; authenticated HTTP owns the snapshot. One in-flight request,
- * coalesced latest revisions and bounded retries, with no per-frame fetches or idle polling. */
+ * coalesced latest revisions and retries with a capped backoff, with no per-frame fetches or idle polling. */
 class CommunitySync {
   constructor(community, now = () => performance.now()) {
     this.community = community; this.now = now;
@@ -52,7 +52,7 @@ class CommunitySync {
     this.loading = true;
     this.next = this.now() + protocol.limits.zoneSnapshotMs;
     const abort = this.abort = new AbortController();
-    this.request = g.api.request("community", { zone }, { auth: true, timeout: 3000, signal: abort.signal })
+    g.api.request("community", { zone }, { auth: true, timeout: 3000, signal: abort.signal })
       .then(snapshot => {
         if (epoch !== this.epoch || identity !== g.session.get()) return;
         if (snapshot?.zone !== zone) throw Error("invalid_community_zone");

@@ -29,9 +29,11 @@ function rebase(workspace, before, current) {
           conflicts.push(scene + "/" + id + ": elemento eliminado");
           continue;
         }
+        // Una colocación guardada es COMPLETA: un campo que no trae (una `entrance` borrada) es
+        // un campo que se quitó, no uno que se conserva (20-sep-2026, revisión).
         const base = placement(old),
           next = placement(now),
-          target = { ...base, ...after };
+          target = after;
         for (const field of FIELDS)
           if (!same(target[field], base[field])) {
             if (same(next[field], base[field])) next[field] = target[field];

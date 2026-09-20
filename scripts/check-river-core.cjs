@@ -1,6 +1,6 @@
 "use strict";
-const assert = require("node:assert/strict"),
-  cp = require("node:child_process");
+const { compileWorld } = require("../tools/world.cjs");
+const assert = require("node:assert/strict");
 const { World, TILE } = require("../public/assets/js/adventure/model");
 const { cleanSave } = require("../public/assets/js/adventure/save");
 const { planReaction, active } = require("../public/assets/js/adventure/rules");
@@ -31,12 +31,7 @@ const {
   dockPath,
 } = require("../public/assets/js/adventure/docks");
 const { moorVessels, MOOR_GAP } = require("../tools/moor-vessels.cjs");
-const catalog = JSON.parse(
-  cp.execFileSync("php", [
-    "-r",
-    'echo json_encode(require "data/aventura/world.php");',
-  ]),
-);
+const catalog = compileWorld(process.cwd());
 let checks = 0;
 const check = (ok, message) => {
   assert(ok, message);
