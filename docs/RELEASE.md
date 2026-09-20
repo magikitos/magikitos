@@ -4,6 +4,85 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: el repaso a fondo — lo que se ve no se expulsa y una herramienta por trabajo — 20 septiembre 2026
+
+Artefacto `d1ef0ad5d748e9217e61`, fuente del juego `071cc70`, web `5c11c7e9` (solo puntero). Anterior conservada:
+`e272286c082e930c947b`. Mismas rutas.
+
+SHA-256 de `release.json`: `d67bb26dbdfc0d8c28d748bd29a7fca018c96d6285374eec643487bf9fb96f23`. 791 archivos verificados y ESTACIONADOS antes de mover
+el puntero. **Sin migración**, **sin PHP**, **sin cambio de contrato**; el demonio arrancó con
+`release=d1ef0ad5d748e9217e61`.
+
+⛔ **Construido desde un árbol LIMPIO** (worktree disperso sin los másteres de arte) con el MISMO
+id que el árbol de trabajo.
+
+### Alcance publicado
+
+- **La pantalla vecina estaba a medio pintar**: sus baldosas salían bien, pero lo que se dibuja en
+  coordenadas del mundo —puentes, ondas y recortes de interiores— iba sin el desplazamiento de la
+  costura y caía una pantalla entera fuera de la vista. Desde la pradera, el río de los sauces se
+  veía QUIETO y sin puente hasta pisarlo. `check-adventure-browser` mira ahora el agua de la
+  vecina en dos instantes: con el código anterior cambian 68 píxeles, con este 390.
+- **Y lo visible se decidía con la cámara anterior**: al llegar por una costura, el repaso de
+  retención corría ANTES de acotar la cámara nueva, así que el rectángulo de la pantalla vieja se
+  leía en el marco de la nueva y señalaba a la vecina contraria; la pantalla que acabas de dejar
+  se quedaba solo caliente hasta el siguiente pulso de la precarga —y con la precarga frenada
+  (diálogo, ahorro de datos, 2G) hasta el siguiente cruce. Es la misma avería que los tres niveles
+  de retención vinieron a arreglar, escondida un piso más abajo.
+- **La última causa de las cosas que desaparecían, medida**: cada protagonista pesa 8,3 MB de
+  hojas descodificadas y, con sesión, el arte de los jugadores cercanos entra con prioridad de
+  foco. Las hojas de la pantalla vecina eran solo «calientes» y eran lo primero que la poda
+  expulsaba cuando el presupuesto se llenaba de gente: mirando la pradera desde los sauces, sus
+  árboles y su casa desaparecían y volvían al rato. `SpriteLibrary` tiene tres niveles —fijo (la
+  pantalla que pisas), **visible** (las vecinas que tocan la vista, que la poda no puede tocar) y
+  caliente—, el director dice en cada pulso de la precarga qué vecinas están a la vista, y el arte
+  de los actores solo se admite en lo que queda, los más cercanos primero. Además, «caliente» pasa
+  a significar tener las hojas Y el mundo (`SceneDirector.ready`): si la poda se llevaba las hojas,
+  la precarga daba la vecina por lista y nadie las volvía a pedir.
+- **Un solo pintor de briznas** para las pantallas y para el hueco del plano (`paintTufts`), con
+  su prueba en `check-adventure-camera`: mismo grano, agua sin briznas, ni puntas ni flores sobre
+  camino o arena. El dibujo es idéntico al anterior, comprobado operación a operación antes de
+  sustituir los dos bucles.
+- **Un solo pegado de baldosas** (`blitChunks`) para el suelo y el hueco; un solo sitio donde se
+  decide el presupuesto (`rebudget`); las copias trasladadas de las cosas de las vecinas solo se
+  arman en los fotogramas en que toca repasar el arte (`actorArt.due`), no sesenta veces por
+  segundo para tirarlas.
+- **Una sola lista de hojas para el que viaja** (`travellerPacks`): quien cruzaba una costura a
+  remo podía llegar sin remo y sin barca, porque las dos llegadas pedían cosas distintas.
+- **Lo que se perdía sin decirlo**: la subida de la partida se reintenta siempre que se aplaza
+  (antes, un cambio hecho durante una obra de la comunidad se quedaba sin subir hasta el siguiente
+  cambio); cambiar de cuerpo sin que quepan sus hojas vuelve al anterior y lo dice, con su frase
+  en los seis idiomas; lo pendiente de construir se valida al cargarlo; una cola de recuperación
+  llena se cuenta en vez de reintentarse cada 30 s; las ondas del agua solo se calculan dentro de
+  la propia pantalla.
+- **Código muerto fuera**: las costas de un solo lado (`coasts`, `coastX`), dos migraciones de
+  guardado que ya no aplican a nadie, `placeBy`, `DRAG_SLOP`, `BUILT`, `sourceEntities`,
+  `arrive()`, un `clampCamera` que solo llamaba a `frameCamera` y ocho scripts que no ejecutaba
+  nadie (cuatro suites de navegador muertas y cuatro preparadores de arte de una sola vez).
+- **Una herramienta por trabajo**: `tools/world.cjs` es la única forma de compilar el mundo (build,
+  Studio y veintiuna pruebas); `scripts/browser-studio.cjs` arranca el Studio aislado de las cinco
+  suites que lo necesitan; `scripts/browser-live.cjs` es la web simulada de las tres suites con
+  demonio de verdad, que se saltan solas si la web privada no está al lado y SOLO por eso.
+- **Cinco suites que nadie podía ejecutar**: existían, funcionaban y no las llamaba ningún
+  comando. Son `test:forest`, `test:objects`, `test:forest-ddev`, `test:shared-map` y
+  `test:art-live`, y cubren lo que ninguna otra cubre: la pila completa con DDEV, los objetos
+  compartidos por el WebSocket y el arte real en los seis idiomas.
+
+### Comprobado
+
+`npm test` entero (75 bloques). En navegador contra el bundle local: cruces con demonio de verdad
+(`test:live-crossing`), bosque vivo (`test:forest`), objetos compartidos (`test:objects`),
+controles del mundo, viajes, regresiones (45 bloques, con el agua de la vecina), movilidad,
+diálogo, elenco, zoom, empotrado, capítulo, picnic, seto, arbolado, gatos, recogidas, Ascua, el
+almacén y las cuatro del Studio. Veinte cruces seguidos por la costura sin una sola anomalía, con
+las hojas clavadas en 49 MB y CERO baldosas repintadas después de las 84 primeras. Fotograma
+medido junto a la costura: 1,7 ms de mediana y 5,7 en el percentil 99 sin frenar la CPU; 5,4 y
+24,1 con la CPU a un sexto, un solo fotograma por encima de 33 ms en 358.
+
+En producción: `check-release-live` en las seis rutas, `test:art-live` (catálogo y arte reales en
+tres tamaños), seis cruces por la costura con la API de verdad sin anomalías ni peticiones
+fallidas, el demonio arrancado con la release nueva y su registro sin un solo «cruce rechazado».
+
 ## Producción: el cruce que el demonio rechazaba — 20 septiembre 2026
 
 Artefacto `e272286c082e930c947b`, fuente del juego `a2bf30f`, web `ac050b7e` (puntero y el demonio del bosque vivo
