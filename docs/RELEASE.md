@@ -4,6 +4,52 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: arboledas 2.5D, setas y balanza — 21 septiembre 2026
+
+Artefacto `7a20d5b13025487467c0`; fuente `528aea9` (implementación `f9c7435`);
+smoke endurecido en `3309e93`; web `f2be66ad`. Anterior conservada:
+`b0a7d454754724d0785b`, que ya incluía las colocaciones del Studio y la noche
+anclada a la hoguera del suroeste.
+SHA-256 de `release.json`:
+`f49d38a009e53faaba4b900a1e6e5e7d22d12be2b47b4c3cd4fbd02efe0e0f6e`.
+
+- Ocho arboledas de troncos visibles reemplazan las copas cenitales en la galería;
+  extremos naturales, cuatro esquinas y cuerpos por silueta. Las ocho rocas no
+  cambian. Másteres anteriores conservados; su atlas obsoleto ya no se distribuye.
+- Seis grupos de setas (tres especies × pareja/trío), con rendimiento declarado
+  por variante. Selección visual compartida entre cliente, Studio y compilador:
+  dos/tres visibles entregan dos/tres, tanto localmente como en el servidor.
+  Sin cambiar los IDs/bits de recolección ni reiniciar partidas.
+- Brocheta: cinco setas, una ramita, navaja y fuego; herramientas reutilizables.
+  El almacén sigue trocando setas, no setines. Textos revisados en seis idiomas.
+- Balanza del Setómetro junto a la taberna: daily y ranking nativos, paginados,
+  sin HTML embebido ni sesiones colaborativas. Tres endpoints JSON documentados
+  delegan selección, clasificación y votos a los servicios existentes de la web.
+  CSRF, prueba humana y cuotas conservados; par/día validados por servidor.
+  Ningún premio o cargo en el saco; sin reintentos automáticos de votos ambiguos.
+
+Comprobado: suite completa `npm test`; receta Ascua en tres tamaños × dos modos de
+movimiento; almacén en escritorio/móvil; 16 delimitadores en Studio aislado, tres
+tamaños; Setómetro en cinco formatos, errores/cuotas/cierre durante envío/doble clic,
+y lecturas reales de DDEV. API local: 182 lecturas y escrituras rechazadas; 47
+comprobaciones de autoridad del bosque; adaptador PHP puro sin escrituras reales.
+Capturas revisadas en `.local/screenshots/`.
+
+Build reproducible desde worktree limpio `528aea9`, idéntico al de desarrollo.
+Release estacionada y verificada antes de publicar el puntero/API juntos por la
+pipeline normal de la web. Backup automático conservado; sin migraciones nuevas
+ni importaciones en producción. Demonio reiniciado y confirmado con la nueva ID.
+
+En producción: seis HTML/landings/API correctos, tres formatos de caminar/remar,
+daily/ranking reales en cinco formatos y seis idiomas, y SHA-256 de los seis
+PNG/JSON nuevos comprobados contra CDN. Cero escrituras de jugador en el smoke.
+
+Studio local reiniciado en 47832; workspace 653 sin cambios pendientes/conflictos,
+historial preservado. DDEV recuperado aplicando solo la migración existente 4240,
+que le faltaba, tras backup local `.local/backups/pre-setometro-20260921.sql.gz`.
+Servicio local del bosque operativo. Arte y reconstrucción:
+[`forest-market/README.md`](../data/aventura/art/forest-market/README.md).
+
 ## Producción: mapa del Studio y noche anclada — 21 septiembre 2026
 
 Artefacto `b0a7d454754724d0785b`, juego `283ee0d`, web `bad9803a`
