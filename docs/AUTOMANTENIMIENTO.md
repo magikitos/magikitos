@@ -22,6 +22,15 @@ de cada minuto, migración `4240`). Lo que aquí se cuenta es cómo funciona, no
   precio BASE, sin multiplicador (lo pagado no se guarda y devolver al precio de hoy sería una
   granja).
 
+⛔ **LA BOMBITA Y LA TENAZA NO SALÍAN DEL NAVEGADOR** (21-sep-2026, repaso). El servidor tenía
+`community-mine` y `community-defuse` implementados y documentados en el OpenAPI, pero faltaban en
+la lista blanca del cliente (`api.js`, `METHODS`), que rechaza cualquier punto desconocido ANTES de
+tocar la red. Como `maintain()` pasa el nombre del punto en una variable, ningún buscador de
+literales lo vio: la función entera estaba muerta desde que se escribió y el jugador solo veía
+«vuelve a intentarlo», siempre, porque el fallo llega sin `status` y cae en la rama de reintento.
+Lo cierra `scripts/check-api-contract.cjs`, que exige que lo que el motor nombra esté en la lista y
+que lo que la lista promete exista en el contrato público.
+
 ## A. El precio sube con lo pisado
 
 `coste(material) = ceil(costePorCelda × celdas × 2^(d/D))`, con `d` = celdas de trazado vivas de
@@ -35,8 +44,10 @@ zona que el servidor exige por revisión. Desde ×4 la barra dice «este claro y
 
 Un camino cuesta **una gravilla por celda**; un **saco son diez** (`gravilla.bundle`); en el saco
 caben 60. La gravilla sale del **almacén del constructor** (la regadera junto al lago, escena
-`almacen`): **5 setas → 1 saco**; **6 setas → bombita**; **2 setas → tenaza**; y un **saco del
-día** gratis cada 24 h de reloj del servidor. Las setas se cortan con cuchillo y **rebrotan a las
+`almacen`): **5 setas → 1 saco**; **6 setas → bombita**; **2 setas → tenaza**. ⛔ **NADA SE REGALA**
+(20-sep-2026, decisión del dueño: «los sacos NO se regalan, esa idea es una estupidez»): el saco
+del día gratis que hubo unas horas se retiró, y `check-bomb-balance.cjs` lo exige. Las setas se
+cortan con cuchillo y **rebrotan a las
 8 horas** por jugador. Lo concede el servidor por las reglas de la entidad (`game-action`), nunca
 el cliente. Ver el almacén en [SHARED-FOREST.md](SHARED-FOREST.md).
 

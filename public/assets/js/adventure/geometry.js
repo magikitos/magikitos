@@ -230,7 +230,7 @@ function waterNearby(data, x, y) {
     )
       return true;
   }
-  return data.waters.some((p) => {
+  return (data.waters || []).some((p) => {
     const nx = clamp(p.x, left, right),
       ny = clamp(p.y, top, bottom);
     return ((nx - p.x) / p.rx) ** 2 + ((ny - p.y) / p.ry) ** 2 <= 1;

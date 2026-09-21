@@ -158,7 +158,7 @@ class BodyEditor {
         '">Caja ' +
         (index + 1) +
         " · " +
-        box.map((v) => v.toFixed(2).replace(/\\.?0+$/, "")).join(" ") +
+        box.map((v) => v.toFixed(2).replace(/\.?0+$/, "")).join(" ") +
         "</button>"
       );
     });
@@ -337,10 +337,14 @@ class BodyEditor {
     this.refresh();
   }
   finish() {
+    // La entrada quitada viaja como `null`: sin la clave, quien aplica la propuesta no sabría
+    // distinguir «no la he tocado» de «quítala», y el elemento se quedaría con la de antes.
     if (
       this.commit.apply(this.scope, {
         solids: clone(this.solids),
-        ...(this.entrance ? { entrance: clone(this.entrance) } : {}),
+        ...(this.scope.portal
+          ? { entrance: this.entrance ? clone(this.entrance) : null }
+          : {}),
       })
     )
       this.stop();

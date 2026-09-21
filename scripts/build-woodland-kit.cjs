@@ -10,6 +10,14 @@ const root = path.resolve(__dirname, ".."),
 const blueprint = JSON.parse(
   fs.readFileSync(path.join(dir, "element-families.json")),
 ).families;
+/**
+ * Lo que este generador ya escribió antes. De aquí sale el CUERPO de cada variante, que es el
+ * único dato de `elements.json` que no viene del manifiesto de arte: lo dibuja el dueño en el
+ * Studio y lo aplica el agente, y volver a hornear el arte no puede borrárselo.
+ */
+const physics = fs.existsSync(path.join(dir, "elements.json"))
+  ? JSON.parse(fs.readFileSync(path.join(dir, "elements.json"))).families
+  : {};
 const doorways = JSON.parse(
   fs.readFileSync(path.join(dir, "art/doorways/catalog.json")),
 ).assets;
@@ -57,10 +65,21 @@ for (const a of kit.assets) {
     defaults: {},
     variants: [],
   });
+  /**
+   * ⛔ EL CUERPO Y LA ENTRADA DE UNA VARIANTE SOBREVIVEN A ESTE GENERADOR (21-sep-2026, repaso).
+   * Esto rehace 39 de las 77 familias desde el manifiesto de arte —entre ellas las CINCO de
+   * casitas, que son justo para las que se hizo el editor de entradas— y solo escribía id,
+   * rótulo y sprite. Aplicar una propuesta del Studio y volver a correr `art:catalog` la borraba
+   * sin decir nada, y el Studio la volvía a proponer para siempre. El arte lo manda el
+   * manifiesto; la física, no: la física es del elemento y se conserva.
+   */
+  const kept = (physics[a.family]?.variants || []).find((v) => v.id === a.variant);
   const variant = {
     id: a.variant,
     label: a.label || label(a.variant),
     sprite: a.sprite,
+    ...(kept?.solids ? { solids: kept.solids } : {}),
+    ...(kept?.entrance ? { entrance: kept.entrance } : {}),
   };
   if (f.variants.some((v) => v.id === variant.id))
     throw Error("Duplicate family variant " + a.family + "/" + variant.id);

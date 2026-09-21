@@ -136,7 +136,17 @@ async function openEditor(p, id) {
   const diff = await (await page.request.get(origin + "/api/diff")).json();
   const entry = diff.elements.find((b) => b.family === "log-home" && b.variant === "redondo");
   assert(entry, "El diff lleva el cuerpo del elemento");
-  assert.equal(entry.file, "data/aventura/element-families.json");
+  /**
+   * ⛔ EL DIFF APUNTA AL FICHERO DONDE ESA VARIANTE EXISTE DE VERDAD. `log-home` es una de las 39
+   * familias que `build-woodland-kit.cjs` rehace desde el manifiesto de arte: su entrada en
+   * `element-families.json` NO tiene `variants` (solo rótulo, categoría, plantilla y entrada), y
+   * el generador arranca cada una de esas familias con `variants: []`. Escribir ahí el cuerpo de
+   * `redondo` sería escribirlo donde nadie lo lee, y el siguiente `art:catalog` lo borraría sin
+   * decir nada. Va a `elements.json`, que es el fichero que ese generador conserva. Las familias
+   * AUTORADAS —las 38 que sí llevan sus variantes escritas a mano— van al otro, y esa mitad la
+   * cubre `check-element-bodies.cjs`.
+   */
+  assert.equal(entry.file, "data/aventura/elements.json");
   assert.deepEqual(entry.before.solids, [[-3, -1, 7, 1.2]]);
   assert.deepEqual(entry.after.solids, [sized]);
 

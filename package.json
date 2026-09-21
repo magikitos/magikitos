@@ -69,7 +69,13 @@
     "test:objects": "node scripts/check-forest-objects-browser.cjs",
     "test:forest-ddev": "node scripts/check-forest-ddev-browser.cjs",
     "test:shared-map": "node scripts/check-shared-map-browser.cjs",
-    "test:art-live": "node scripts/check-flat-art-live.cjs"
+    "test:art-live": "node scripts/check-flat-art-live.cjs",
+    "test:playable-gallery": "node scripts/check-playable-gallery.cjs",
+    "test:playable-review": "node scripts/check-playable-review-browser.cjs",
+    "test:playable-row": "php scripts/check-playable-row-master.php",
+    "test:playable-sheets": "php scripts/check-playable-sheet-contract.php",
+    "test:river-ddev": "node scripts/check-river-ddev-browser.cjs",
+    "test:release-live": "node scripts/check-release-live.cjs"
   },
   "devDependencies": {
     "esbuild": "0.28.2",

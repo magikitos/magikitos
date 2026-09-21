@@ -32,6 +32,11 @@ const METHODS = Object.freeze({
   community: "GET",
   "community-build": "POST",
   "community-use": "POST",
+  // ⛔ MANTENIMIENTO: la bombita y la tenaza (21-sep-2026). Faltaban aquí desde que se escribió
+  // la función: `maintain()` pasa el nombre del punto en una variable, así que ningún buscador de
+  // literales lo notó y la partida entera de mantenimiento no llegaba a salir del navegador.
+  "community-mine": "POST",
+  "community-defuse": "POST",
 });
 /** The website's own account door. Separate allow-list and base from the world
  * contract on purpose: these three endpoints already exist, already carry their
@@ -235,4 +240,4 @@ class WorldApi {
     );
   }
 }
-module.exports = { WorldApi, ApiError, webUrl, piece, ambiguous };
+module.exports = { WorldApi, ApiError, METHODS, webUrl, piece, ambiguous };

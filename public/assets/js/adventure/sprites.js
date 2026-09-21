@@ -177,7 +177,12 @@ class SpriteLibrary {
    */
   activate(ids, warm = this.warm, visible = this.visible) {
     for (const id of ids)
-      if (!this.packs.has(id)) throw new Error("Sprite package was not prepared: " + id);
+      if (!this.packs.has(id)) {
+        // La reserva se suelta aunque la activación se rechace: retenerla sería encoger el
+        // presupuesto de hojas para el resto de la partida sin que nadie lo sepa.
+        ids.release?.();
+        throw new Error("Sprite package was not prepared: " + id);
+      }
     this.pinned = new Set(ids);
     this.warm = new Set(warm);
     this.visible = new Set(visible);

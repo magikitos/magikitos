@@ -112,7 +112,7 @@ una en una, con el mundo quieto, ordenadas por lo cerca que está la salida haci
 ellas y con un techo (`WARM_SCENES`). El techo no es prudencia abstracta: el
 bosque tiene ocho puertas y cada pantalla cuesta megas de textura.
 `check-adventure-residents.cjs` mide el peor caso real (cada escena con sus tres
-vecinas más caras) y `check-river-core.cjs` barre las dieciséis salidas punto por
+vecinas más caras) y `check-river-core.cjs` barre las veinte salidas punto por
 punto sobre el borde flotable.
 
 ⛔ Y en `SceneDirector.enter` se FIJA antes de retener: `activate()` vacía el

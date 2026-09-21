@@ -7,13 +7,16 @@ function collisionBodies(entity) {
       .geometry(entity.fence)
       .bodies.map((solid) => ({ ...entity, solid, collisionSource: entity }));
   if (!entity.solids) return [entity];
+  // ⛔ UNA LISTA VACÍA ES «ESTE ELEMENTO NO ESTORBA» (21-sep-2026). El Studio deja quitarle todas
+  // las cajas a un elemento a propósito —una alfombra, un charco pintado— y eso tiene que poder
+  // decirse. Lo que sigue siendo un error de datos es llevar cuerpo simple Y compuesto.
+  if (Array.isArray(entity.solids) && !entity.solids.length) return [];
   if (
     entity.pushable ||
     entity.actor ||
     entity.neighbor ||
     entity.solid ||
-    !Array.isArray(entity.solids) ||
-    !entity.solids.length
+    !Array.isArray(entity.solids)
   )
     throw new Error("Invalid compound body: " + entity.id);
   return entity.solids.map((solid) => {

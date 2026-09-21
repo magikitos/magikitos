@@ -138,10 +138,19 @@ a later client implementation; never bypass verification to make an app work.
 | magikitos.adventure.home | Single committed owner layout |
 | magikitos.adventure.sync | Owner, revision, pending receipt and bounded recovery copies; no token |
 
-No gameplay analytics events or play tracking are sent by the game. Existing
-sessions are read at startup to restore progress; user creation stays explicit.
-The private website's
-existing independent analytics behavior is unchanged.
+⛔ **THE GAME DOES SEND GAMEPLAY TELEMETRY, AND THIS PAGE USED TO SAY IT DID NOT** (21-sep-2026,
+review). `public/assets/js/adventure/telemetry.js` posts to `/api/world/telemetry` with
+`sendBeacon`: `game_start`, `game_first_act`, `game_minute`, `game_scene`, `game_milestone`,
+`game_listen`, `game_contribute`, `game_account`, `game_stuck`, `game_where` (a coarse heat map,
+at most 40 cells of 32 world px — two tiles — per scene, ordered by time spent) and `game_end`.
+Each event carries the device id from `magikito.discovery`, a per-session UUID and the website
+session token when there is one — so it is attributable to an account, not anonymous. Queue capped
+at 50 events (`MAX_QUEUE`), flushed every 15 s (`FLUSH_MS`) and on `pagehide`; coming back from
+the back/forward cache starts a new session. The endpoint is in the OpenAPI contract. A false privacy claim is worse than no claim: if this behaviour should change,
+change the code, not this paragraph.
+
+Existing sessions are read at startup to restore progress; user creation stays explicit. The
+private website's existing independent analytics behavior is unchanged.
 
 ## Errors and tests
 
@@ -303,7 +312,9 @@ protected ground or bypass ownership/heritage with an arbitrary API call. Paid
 trading or competitive prizes would require additional anti-abuse design.
 
 NPC activities are local atmosphere and never award social trust. Human usage is
-a capped aggregate, not an analytics events feed. No socket or live-presence loop.
+a capped aggregate, not an analytics events feed. The live forest DOES keep a socket
+(`wss://magikitos.com/bosque`, `docs/forest-protocol.json`): what has no socket is this
+community/construction API, which is plain authenticated HTTP.
 
 Moderator recovery is CLI-only in the private repository:
 `php scripts/restore-community.php HISTORY_ID EXPECTED_OBJECT_REV --apply`.

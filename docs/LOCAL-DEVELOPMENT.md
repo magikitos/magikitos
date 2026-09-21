@@ -40,8 +40,19 @@ pruebas que lo soportan. No dirigir pruebas de escritura contra producción.
 ## Verificación
 
 `npm test` hornea arte, construye el artefacto y ejecuta el núcleo: reglas,
-recetas, economía, guardado, cien NPC, colisiones, orillas, navegación, cámara,
-entrada, audio, bitsets, API, Studio y verificación del instalador.
+recetas, economía, guardado, 110 NPC, colisiones, orillas, navegación, cámara,
+entrada, audio, bitsets, API, Studio y verificación del instalador. Tres de sus
+bloques vigilan cosas que antes no vigilaba nadie y que se rompieron de verdad:
+
+- `check-api-contract.cjs`: cada punto que el motor nombra está en su lista blanca
+  y cada punto de la lista existe en el OpenAPI con el mismo verbo. La bombita y la
+  tenaza estuvieron muertas en el navegador porque faltaban dos líneas en `METHODS`.
+- `check-element-bodies.cjs`: colisiones y entrada pertenecen al ELEMENTO, no a la
+  colocación; herencia, límites, cuerpo vacío, entrada quitada, fichero de destino
+  por familia y supervivencia a `npm run art:catalog`.
+- `check-docs-links.cjs`: ningún enlace interno de ningún `.md` apunta al vacío, ni
+  por fichero ni por ancla. Catorce estaban rotos el 21-sep-2026 y nadie lo vio
+  porque ninguna prueba leía la documentación.
 
 Según el cambio:
 
@@ -60,10 +71,24 @@ Según el cambio:
   trazado y edición de vallas, persistencia y tres tamaños. Workspace temporal;
   comprueba que la versión del propietario no cambia.
 - `npm run test:picnic`: receta completa y hambre repetida en cinco tamaños.
+- **Las seis que no tenían mando** (21-sep-2026). Existían, cubrían cosas que no cubre nadie
+  más y no las llamaba ni `package.json` ni otro script: encontrarlas era saber de antemano que
+  estaban. Ya tienen comando, que es como se evita volver a confundirlas con código muerto: el
+  20-sep-2026 se borraron cuatro por eso y eran la única cobertura del camino real PHP/BD/WebSocket.
+  `npm run test:playable-gallery` (la galería de autoría, también por `file://`),
+  `npm run test:playable-sheets` (contrato de las láminas de los diez protagonistas nuevos; lo
+  que no tenga su `review/` regenerado en local sale como `notPrepared`, que no es un fallo:
+  esas carpetas están en `.gitignore`),
+  `npm run test:playable-review -- --character=<clave>` y
+  `npm run test:playable-row -- --character=<clave>` (una persona concreta, por el renderizador
+  de verdad y por el invariante exacto del remo; **sin `--character` no hacen nada**),
+  `npm run test:river-ddev` (embarque autenticado de verdad contra DDEV) y
+  `npm run test:release-live <origen> <artefacto>` (humo en producción tras desplegar).
 - `npm run test:browser`: integración con API local, seis idiomas e interiores.
 - `npm run test:journeys`, `test:world-controls`: destinos, navegación y el mando
-  del mapa (arrastrar planta el destino en el centro, anda/corre por distancia,
-  soltar no para y la cámara es del dedo). La segunda monta el
+  del mapa (el dedo es un joystick invisible que SOLO anda, soltar para, y la cámara
+  es del duende; lo de plantar destino arrastrando y correr por distancia se retiró
+  el 19-sep-2026 tras probarlo el dueño). La segunda monta el
   claro compartido de `scripts/lib/input-arena.cjs`: **el mundo de verdad está vivo**
   y un gato que te coge en brazos convierte una prueba de controles en una lotería
   que falla en un sitio distinto en cada pasada.

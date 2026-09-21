@@ -451,7 +451,7 @@ servicio permanece activo. Identidad personal `alvarofranz` en ambos repositorio
 - Movimiento reducido mantiene apagada la ambientación, pero ya no limita a 12 FPS
   el pintado del protagonista cuando se desplaza: antes se perdían fases de piernas.
 
-Contrato de animación y cómo probarlo: [Duendes](art-direction/DUENDES.md#andar-y-correr-reproducción-común-20-sep-2026).
+Contrato de animación y cómo probarlo: [Duendes](art-direction/DUENDES.md#andar-y-correr-reproducción-común-21-sep-2026).
 
 ### Verificación
 
@@ -514,7 +514,7 @@ nuevas, `check-door-geometry` y la del Studio ampliada) y las suites de navegado
   tercio de casilla que se apaga en los extremos para que la boca del río encaje en la costura,
   y la banda de orilla se mide perpendicular a la costa: el mismo grosor de arena y borde que
   en los ríos. Física, pintura y máscara del servidor leen la misma función (`coastX`).
-- **Las entradas se dibujan en el Studio** ([README del Studio](../tools/adventure-studio/README.md#entradas-de-casas-y-salidas-20-sep-2026)):
+- **Las entradas se dibujan en el Studio** ([README del Studio](../tools/adventure-studio/README.md#cuerpo-y-entrada-de-un-elemento-21-sep-2026)):
   una puerta lleva una sección «Entrada» con la franja que la abre, relativa al pie (ΔX, ΔY,
   ancho, alto), editable a mano o arrastrando la franja azul del mapa, con deshacer, guardado y
   propuesta. Se guarda como `entrance` en la escena y `adventureDoorGeometry` (PHP) la convierte

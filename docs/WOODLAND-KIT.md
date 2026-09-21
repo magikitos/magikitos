@@ -74,7 +74,11 @@ using the existing oak as a style reference. Their original alpha is preserved;
 source hashes and silhouette bounds are in `woodland-kit/cutouts/*.json`, and full
 prompts in `woodland-kit/prompts.json`. They use the same 2× integrated bake and
 subtle canopy wind as the existing trees. Both packs together add about 476 KB
-to the complete library, not to every scene; the total PNG budget stays 10.5 MB.
+to the complete library, not to every scene. The shipped packs weigh 20.0 MB — 19.1 MiB —
+of PNG across 351 files, measured 21-sep-2026. Quote the unit: `du -h` prints MiB, and a
+figure copied from it into a sentence that says "MB" is how the old 10.5 here drifted away
+from reality unnoticed. The size section in docs/RELEASING.md records why that number
+cannot be compressed any further.
 
 Continuous authored fences are the exception to sprite assembly: `fences.js`
 renders upright textured posts and rails from a tile-relative polyline. Cached

@@ -111,8 +111,9 @@ node tools/install-local.cjs
 ```
 
 El último comando instala **solo en DDEV** y conserva releases anteriores.
-No despliega en producción ni modifica partidas. La receta específica y prompts
-originales están en `data/aventura/art/brezo-repair/README.md`.
+No despliega en producción ni modifica partidas. Los prompts originales, uno por
+lámina, están en `data/aventura/art/brezo-repair/prompts/` (y las capturas de revisión que
+justificaron cada corte, en `review/`).
 
 ## Comprobación visual obligatoria
 

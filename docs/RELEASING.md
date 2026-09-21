@@ -74,7 +74,7 @@ the immutable game's lifecycle.
 se mira primero —«ese paquete ocupa 13 MB»— suele ser la memoria DESCODIFICADA, no el fichero.
 El artefacto de hoy son **87 MB**: 62 de audio, 22 de arte, 1,9 de páginas y menos de 1 el resto.
 
-**Arte: 19,0 MB de PNG en 351 paquetes, ya en el mínimo.** 348 de los 351 se guardan con paleta
+**Arte: 20,0 MB de PNG (19,1 MiB) en 351 paquetes, ya en el mínimo.** 348 de los 351 se guardan con paleta
 de 256 colores y `imagepng(..., 9)`; los otros tres son los retratos del elenco (2,5 MB), que
 tienen degradados y necesitan color real. Medido sobre los 351 ficheros:
 

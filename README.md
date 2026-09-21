@@ -198,7 +198,11 @@ Read `docs/JUEGO-AVENTURA.md` first — it is the design contract, and it is
 binding. Then `data/aventura/REFACTOR.md` for the object grammar and
 `data/aventura/ART.md` for the art pipeline.
 
-**Language:** code, comments, identifiers and documentation are in English.
+**Language:** code and identifiers are in English. Comments and documentation are in
+**both**, and increasingly in Spanish: a decision is written down in the words the owner
+made it in, so `docs/` and the ⛔ notes that explain why something is the way it is are
+mostly Spanish, while the older engine comments are English. Do not translate one into
+the other for consistency — a rewritten decision loses the sentence that justified it.
 Player-facing content is translated across the six locales in
 `data/aventura/locales/`; Spanish is the source language for that content.
 

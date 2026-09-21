@@ -25,6 +25,9 @@ function appearanceFor(families) {
     const solids = variant.solids || entity.solids;
     const resolved = {
       ...family.template, ...entity, ...(solids ? { solids } : {}),
+      // La entrada de la variante vale igual que su cuerpo: el compilador ya la mezcla
+      // (`world.php`), y sin esto el Studio dibujaba la puerta en un sitio y el juego en otro.
+      ...(variant.entrance && !entity.entrance ? { entrance: variant.entrance } : {}),
       artVariant: entity.artVariant || variant.id, artSprite: variant.sprite,
     };
     /**

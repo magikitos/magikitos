@@ -879,11 +879,14 @@ class Adventure {
       this.storageOK = true;
       byId("save-status").textContent = this.s.saved;
       this.dirty = false;
-      this.cloud?.mark();
     } catch (_) {
       this.storageOK = false;
       byId("save-status").textContent = this.s.unsaved;
     }
+    // ⛔ Y LA NUBE SE ENTERA IGUAL (21-sep-2026). Estaba DENTRO del try, después de escribir: a
+    // quien se le llenaba el almacenamiento del navegador se le apagaba también el guardado en la
+    // cuenta, que es justo la única persistencia que le quedaba.
+    this.cloud?.mark();
   }
   centerCamera(snap = false) {
     if (!this.renderer.width) return;
@@ -951,9 +954,16 @@ class Adventure {
    * pide construir, o el destino de un toque. Con el mando del dedo no hay destino, así que la
    * cámara va pegada al duende, como con las teclas.
    */
+  /**
+   * ⛔ LA CÁMARA SIGUE UN CAMINO, NO UNA INTENCIÓN (21-sep-2026, revisión). Esperar en un destino
+   * ocupado es deliberado: el duende aguanta a que el vecino se aparte sin cambiarte el sitio al
+   * que ibas. Lo que no puede pasar es que mientras espera la cámara se vaya a ese punto y se
+   * quede ahí, con el duende fuera y el botón de recentrar escondido. Sin camino, el sujeto es
+   * el duende.
+   */
   cameraGoal() {
     if (!byId("world-content").hidden) return null;
-    return this.focusPoint || this.journey.goal || null;
+    return this.focusPoint || (this.journey.path.length ? this.journey.goal : null);
   }
   recenterCamera(snap = false) {
     this.input?.map.clear();
@@ -1088,8 +1098,28 @@ class Adventure {
       ? { x: next.x - this.player.x, y: next.y - this.player.y }
       : null;
   }
+  /**
+   * ⛔ UN FOTOGRAMA QUE FALLA NO PARA EL MUNDO (21-sep-2026, revisión). `requestAnimationFrame` era
+   * la ÚLTIMA línea del tick: cualquier excepción por el camino —un objeto de la comunidad sin
+   * zona, una cuenta que se vuelve nula a mitad de un envío— dejaba el juego congelado para
+   * siempre, y solo revivía si cambiabas de pestaña y volvías. Ahora el siguiente fotograma se pide
+   * pase lo que pase, el fallo se cuenta una vez y el juego sigue: quedarse quieto es peor que
+   * repintar con un dato raro.
+   */
   tick(ms) {
     if (document.hidden || this.inactive) return;
+    try {
+      this.step(ms);
+    } catch (error) {
+      console.error("Frame:", error);
+      if (!this.frameError) {
+        this.frameError = String(error?.message || error);
+        this.toast(this.text("loadError"));
+      }
+      this.frame = requestAnimationFrame((t) => this.tick(t));
+    }
+  }
+  step(ms) {
     const dt = Math.min(0.05, this.lastTime ? (ms - this.lastTime) / 1000 : 0);
     this.lastTime = ms;
     // ⛔ A FRAME THAT IS NOT ON SCREEN COSTS NOTHING BUT THE LOOP. An iframe set to
@@ -1194,7 +1224,10 @@ class Adventure {
     // ⛔ MIENTRAS DOS DEDOS —O EL BOTÓN DERECHO— MUEVEN EL MAPA, LA CÁMARA ES SUYA, aunque el
     // duende siga andando hacia lo último que le ordenaste: mirar alrededor no le para, y sin
     // esta guarda la cámara tiraría hacia él mientras los dedos tiran hacia otro lado.
-    if ((this.walking || this.journey.intent) && !this.input?.map.dragging) {
+    if (
+      (this.walking || this.journey.path.length) &&
+      !this.input?.map.dragging
+    ) {
       this.cameraFollowing = true;
       this.focusPoint = null;
     }

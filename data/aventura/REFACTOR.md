@@ -10,7 +10,7 @@
 | resource-nodes.json | Identidad persistente de recogibles por región/ciclo |
 | element-families.json + art/* | Familias, variantes y maestros de arte |
 | assets/*.json | Tamaños, anclas, recortes y frames por paquete |
-| locales/*.json | Un catálogo por cada uno de los seis idiomas |
+| locales/ | `core.json` + `packs/*.json` + `scenes/*.json`; cada clave lleva sus seis idiomas |
 | construction.json | Requisitos, costes, huellas, capacidades y zonas comunes |
 | world.php | Compilación offline, composición y validación |
 | tools/game-contract.cjs | Contrato de datos que instala y valida la API privada |

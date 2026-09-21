@@ -43,6 +43,33 @@ class Telemetry {
     this.url = new URL("telemetry", game.api.base).href;
     // pagehide is the only close event mobile browsers reliably fire.
     addEventListener("pagehide", () => this.end());
+    /**
+     * ⛔ Y VOLVER DE LA CACHÉ DE ATRÁS ES UNA PARTIDA NUEVA (21-sep-2026, revisión). `pagehide`
+     * cerraba la sesión y paraba el reloj; si el navegador guardaba la página y se volvía con la
+     * flecha de atrás, el juego seguía vivo pero ya no contaba nada nunca más. `forest-live` ya
+     * tenía su `pageshow`; esto no.
+     */
+    addEventListener("pageshow", (e) => {
+      if (!e.persisted || !this.ended) return;
+      // Y es una partida nueva de verdad: uid nuevo, contadores a cero y su `game_start`. Reusar
+      // el uid mandaría DOS `game_end` con el mismo identificador y una duración que se solapa,
+      // que es peor que no medir: una sesión tiene un principio y un final, o no es una sesión.
+      this.ended = false;
+      this.sessionUid = uuid();
+      this.acted = false;
+      this.milestones = new Set();
+      this.minutes = new Set();
+      this.scene = null;
+      this.sceneAt = 0;
+      this.cells = new Map();
+      this.stuckAt = 0;
+      this.sampleAt = 0;
+      this.timer = setInterval(() => this.flush(), FLUSH_MS);
+      // El modo va en español como los otros dos (`nueva`, `retomada`) y es SUYO: una vuelta
+      // con la flecha de atrás no es lo mismo que retomar una partida guardada, y contarlas
+      // juntas escondería justo lo que se quiere saber.
+      if (this.startedAt) this.begin("vuelta-atras");
+    });
     this.timer = setInterval(() => this.flush(), FLUSH_MS);
   }
 

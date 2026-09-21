@@ -96,7 +96,7 @@ function game(state = {}) {
     await assert.rejects(m.connect(), /recovery_queue_full/);
     assert.equal(JSON.stringify(m.queue), full, "A full journal is never truncated to make recovery fit");
   }
-  for (const fault of ["unknown_action", "requirements_not_met", "not_found", "archive-full", "archive-write-failed"]) {
+  for (const fault of ["unknown_action", "requirements_not_met", "not_found", "archive-full", "archive-broken", "archive-write-failed"]) {
     const g = game(), m = new MaterialAccount(g), received = [];
     const account = { ...empty(), revision: 13, inventory: { boat: 1, oars: 1 }, setines: 7 };
     const old = { operationId: "retired-mushroom", scene: "overworld", entity: "picnic-mushroom", action: "interact", baseRevision: 13 };
@@ -112,11 +112,37 @@ function game(state = {}) {
     m.owner = 1; m.queue = [old, next]; m.persist();
     const archiveKey = "magikitos.adventure.actions.rejected", writer = localStorage.setItem;
     if (fault === "archive-full") store.set(archiveKey, JSON.stringify(Array(192).fill({ owner: 2, entry: {} })));
+    // Un archivo que ya no es una lista: otra pestaña, una versión vieja, o basura a medio escribir.
+    if (fault === "archive-broken") store.set(archiveKey, '{"roto":true}');
     if (fault === "archive-write-failed") localStorage.setItem = (key, value) => {
       if (key === archiveKey) throw Error("quota");
       writer(key, value);
     };
     try { await m.flush(); } finally { localStorage.setItem = writer; }
+    if (fault === "archive-full") {
+      // ⛔ EL ARCHIVO LLENO YA NO ATASCA LA COLA (21-sep-2026). Guarda los 192 recibos más
+      // recientes; antes lanzaba al llenarse y el cliente reenviaba cada 30 s, para siempre, un
+      // mandato que el servidor ya había rechazado, dejando la partida sin poder construir.
+      assert.equal(m.queue.length, 0, "Un archivo lleno tira el recibo más viejo, no la cola");
+      const guardados = JSON.parse(store.get(archiveKey));
+      assert.equal(guardados.length, 192, "Y se queda en 192");
+      assert.equal(guardados.at(-1).entry.operationId, old.operationId, "con el último rechazo dentro");
+      continue;
+    }
+    if (fault === "archive-broken") {
+      /**
+       * ⛔ UN ARCHIVO ILEGIBLE NO ES MOTIVO PARA NO SOLTAR LA COLA (21-sep-2026). El archivo es
+       * forense: sirve para mirar después qué rechazó el servidor, no para decidir nada. Si lo
+       * que hay guardado no es una lista, no hay nada que conservar —ya era ilegible—, así que se
+       * empieza uno nuevo y el mandato rechazado se suelta. Lo contrario dejaba la partida
+       * atascada por culpa de una clave de `localStorage` corrupta que nadie iba a leer jamás.
+       */
+      assert.equal(m.queue.length, 0, "Un archivo ilegible no atasca la cola");
+      const guardados = JSON.parse(store.get(archiveKey));
+      assert.equal(guardados.length, 1, "Se empieza un archivo nuevo");
+      assert.equal(guardados[0].entry.operationId, old.operationId, "con el rechazo de ahora");
+      continue;
+    }
     if (!["unknown_action", "requirements_not_met"].includes(fault)) {
       assert.equal(m.queue.length, 2, "Generic 404 or archive failure must preserve the pending command");
       assert.deepEqual(received, [old.operationId]);

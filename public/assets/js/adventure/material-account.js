@@ -2,8 +2,16 @@
 const KEY = "magikitos.adventure.actions";
 const { ambiguous } = require("./api");
 const { operationId } = require("./ids");
+/**
+ * ⛔ UNA NEGATIVA FIRME SE ARCHIVA Y SE SUELTA; LO DEMÁS SE REINTENTA (21-sep-2026, repaso).
+ * `journey_required` (403) entró en la lista porque no estaba y era el único fallo que no era ni
+ * reintentable ni descartable: el mandato se quedaba en la cabeza de la cola PARA SIEMPRE y todo
+ * lo que se recogiera después se quedaba detrás sin llegar nunca al servidor. Lo provocaba un
+ * `requires: barca` que los tres tramos de río arrastraban de cuando solo se llegaba remando.
+ */
 const rejectedAction = (error) =>
   (error.status === 404 && error.code === "unknown_action") ||
+  (error.status === 403 && error.code === "journey_required") ||
   (error.status === 409 && error.code === "requirements_not_met");
 const MUTATIONS = new Set([
   "item",
@@ -41,20 +49,27 @@ class MaterialAccount {
       this.game.toast(this.game.text("unsaved"));
     }
   }
+  /**
+   * A removed map entity can leave an offline command behind. Keep the original receipt for
+   * inspection, but never let a definite API rejection block unrelated pickups or travel forever.
+   * A generic HTTP 404 is NOT sufficient. Recipe preconditions can also be definitively obsolete
+   * (for example, lighting an already-lit fire after offline quest recovery).
+   *
+   * ⛔ Y EL ARCHIVO ES UN ANILLO, NO UN MURO (21-sep-2026, revisión). Estaba tope en 192 y sin
+   * podar: al llenarse lanzaba, el manejador de arriba lo tomaba por un fallo de red y el cliente
+   * reenviaba cada treinta segundos, para siempre, algo que el servidor ya había rechazado; con la
+   * cola atascada no se podía volver a construir ni dejar un recado. Ahora se queda con los 192
+   * MÁS RECIENTES, que es para lo que sirve. Lo que sigue sin descartarse es el mandato cuyo
+   * recibo no se pudo ESCRIBIR: ahí el almacenamiento está roto y perder la orden sería peor.
+   */
   archiveRejected(entry, error) {
-    // A removed map entity can leave an offline command behind. Keep the
-    // original receipt for inspection, but never let a definite API rejection
-    // block unrelated pickups or travel forever. A generic HTTP 404 is NOT
-    // sufficient. Recipe preconditions can also be definitively obsolete (for
-    // example, lighting an already-lit fire after offline quest recovery).
     const key = KEY + ".rejected";
     try {
-      const records = JSON.parse(localStorage.getItem(key) || "[]");
-      if (!Array.isArray(records)) throw Error("invalid_recovery_archive");
-      if (!records.some(r => r.owner === this.owner && r.entry?.operationId === entry.operationId)) {
-        if (records.length >= 192) throw Error("recovery_archive_full");
+      const stored = JSON.parse(localStorage.getItem(key) || "[]");
+      const records = Array.isArray(stored) ? stored : [];
+      if (!records.some((r) => r.owner === this.owner && r.entry?.operationId === entry.operationId)) {
         records.push({ owner: this.owner, entry: { ...entry }, error: error.code, at: Date.now() });
-        localStorage.setItem(key, JSON.stringify(records));
+        localStorage.setItem(key, JSON.stringify(records.slice(-192)));
       }
     } catch (cause) {
       // Do not discard the command if its recovery copy could not be saved.
@@ -112,7 +127,12 @@ class MaterialAccount {
     // Browser-only saves from before server authority have no frozen server
     // snapshot. Re-establish finite tool/quest entitlements through the same
     // validated commands, never upload an arbitrary balance/material count.
+    // ⛔ Y NO SE REORDENA LA COLA CON UN ENVÍO EN VUELO (21-sep-2026, revisión). `recoverLocalTools`
+    // reescribe la cola entera y `flush` quita la cabeza por posición: si se cruzan, el acuse de
+    // un mandato descarta OTRO sin haberlo mandado, y al conciliar desaparece del inventario algo
+    // que se acababa de recoger. Con un envío en vuelo se deja para el siguiente intento.
     if (
+      !this.busy &&
       this.account.revision === 0 &&
       !Object.keys(this.account.inventory).length &&
       !this.account.setines &&
@@ -253,6 +273,10 @@ class MaterialAccount {
               delete entry.baseRevision;
               this.persist();
               if (++conflicts < 3) continue;
+              // Tres rebases seguidos son dos aparatos jugando a la vez: se deja para luego con
+              // motivo, no en silencio, que si no la cola se queda quieta sin que nada lo diga.
+              this.error = "account_conflict";
+              this.retry(error);
               return;
             }
             if (

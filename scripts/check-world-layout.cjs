@@ -178,6 +178,31 @@ assert.deepEqual(
   "…y una vista que solo asoma por arriba toca solo el tramo de arriba",
 );
 
+/**
+ * ⛔ LO QUE SE PIDE PARA ESTAR EN UNA PANTALLA TIENE QUE CUADRAR CON CÓMO SE LLEGA (21-sep-2026,
+ * repaso). Los tres tramos de río arrastraban un `requires: barca` de cuando solo se llegaba
+ * remando; desde que tienen costuras a pie, un duende sin barca podía entrar andando y recoger un
+ * palo: el cliente se lo daba, el servidor contestaba 403 y ese mandato se quedaba en la cabeza de
+ * la cola PARA SIEMPRE, con todo lo demás detrás sin llegar nunca. Una pantalla a la que se entra
+ * andando no puede exigir nada para estar en ella.
+ */
+for (const data of Object.values(scenes)) {
+  const exits = data.navigation?.exits || [];
+  // Sin `mode` no se puede contestar, así que se exige decirlo: un «boat» por defecto convertiría
+  // una salida a pie recién escrita en una excepción silenciosa justo a esta comprobación.
+  for (const exit of exits)
+    assert.ok(
+      exit.mode === "foot" || exit.mode === "boat",
+      data.id + ": toda salida dice si se cruza a pie o remando",
+    );
+  if (!exits.some((e) => e.mode === "foot")) continue;
+  assert.equal(
+    data.requires,
+    undefined,
+    data.id + ": se entra andando, así que no puede exigir nada para estar dentro",
+  );
+}
+
 console.log(
   `PASS mundo continuo: plano de ${layout.offsets.size} pantallas sin conflictos, ${exits} salidas con llegada en el borde y vuelta cerrada, costuras abiertas solo en sus bandas, suelo y agua enrutados a la vecina, disparo pegado al borde y cámara sobre el plano.`,
 );

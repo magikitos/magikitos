@@ -3801,11 +3801,6 @@
       }
     ]
   },
-  "requires": {
-    "items": {
-      "boat": 1
-    }
-  },
   "riverLife": [
     {
       "id": "river-roots-rower",

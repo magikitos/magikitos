@@ -9,7 +9,7 @@ recorte y cuerpo físico son controles distintos.
 
 - [Kit del bosque](art/woodland-kit/prompts.json): casas, vegetación y muebles.
 - [Pipeline y familias](../../docs/WOODLAND-KIT.md): alfa, anclas y variantes.
-- [Ascua](../../docs/art-direction/DUENDES.md) y [cien NPC](../../docs/RESIDENTS.md).
+- [Ascua](../../docs/art-direction/DUENDES.md) y [110 NPC](../../docs/RESIDENTS.md).
 - [Picnic](../../docs/SHARED-FOREST.md#arte-y-animación-del-picnic): humanos animados y elementos de la manta.
 - Gatos: `art/cats/`; botella, remos y río: `art/river/catalog.json`.
 - Barca independiente: `art/river/vessels.json` y
@@ -22,7 +22,7 @@ recorte y cuerpo físico son controles distintos.
   Los maestros anteriores con remos/asiento se conservan fuera del atlas.
 - Seguimiento de protagonistas y auditoría de arte pendiente:
   [docs/art-direction/DUENDES.md](../../docs/art-direction/DUENDES.md).
-- [Prompts anteriores](la sección «Prompts de animación y detalle»): procedencia, no guía para reintroducir
+- [Prompts anteriores](#prompts-de-animación-y-detalle-1213-de-septiembre-de-2026): procedencia, no guía para reintroducir
   mecánicas o diseños descartados.
 
 `assets/*.json` define los módulos. `bake-adventure-atlas.php` genera paquetes
@@ -771,7 +771,7 @@ Esta carpeta conserva la selección visual original; las acciones completas y la
 cards se entregan aparte en `../../../playable-cast/`. Estado y reconstrucción:
 [entrega 101–110](#protagonistas-101110-integrados-el-19-sep-2026-como-200209).
 
-Abrir [index.html](index.html) en un navegador. [Resumen de diez](review/overview.png).
+Abrir [index.html](art/residents/candidates/101-110/index.html) en un navegador. [Resumen de diez](art/residents/candidates/101-110/review/overview.png).
 Cada número designa un **archivo de residente**, no un ID de variante runtime (el antiguo
 actor 101/Brezo bruma NO es el nuevo archivo resident-101).
 
@@ -779,16 +779,16 @@ actor 101/Brezo bruma NO es el nuevo archivo resident-101).
 
 | Fuente | Apodo provisional | Identidad visual |
 |---|---|---|
-| [101](sheets/resident-101.png) | Rizo | Pelirrojo pecoso, cara afilada y sonrisa pícara; gorro mostaza y chaquetilla petróleo. |
-| [102](sheets/resident-102.png) | Chispa | Pelo blanco corto, piel tostada, cara angular y sonrisa con carácter; turquesa y ladrillo. |
-| [103](sheets/resident-103.png) | Tizon | Bajito y ancho, nariz redonda, cejazas y barba oscura; gorro teja y peto de artesano. |
-| [104](sheets/resident-104.png) | Nispera | Cara redonda madura, hoyuelos y sonrisa risueña; gorro coral largo y vestido ciruela. |
-| [105](sheets/resident-105.png) | Trebol | Anciano delgado, cara alargada y perilla plateada; gorro espiral salvia y chaleco naranja. |
-| [106](sheets/resident-106.png) | Mimbrera | Rostro anguloso, nariz marcada y trenza gris; gorro azul asimétrico y abrigo ocre. |
-| [107](sheets/resident-107.png) | Avellano | Mandíbula ancha, patillas pelirrojas y sonrisa desdentada; gorro violeta y peto azul. |
-| [108](sheets/resident-108.png) | Oria | Pómulos y ceja marcada, mirada de granuja; gorro corto canela con pluma y ropa teal. |
-| [109](sheets/resident-109.png) | Silo | Nariz prominente, gafitas y curiosidad de inventor; gorro beige curvado y abrigo rosa viejo. |
-| [110](sheets/resident-110.png) | Zarza | Complexión fuerte, piel oscura y sonrisa abierta; gorro largo burdeos, collar y bolsa tejida. |
+| [101](art/residents/candidates/101-110/sheets/resident-101.png) | Rizo | Pelirrojo pecoso, cara afilada y sonrisa pícara; gorro mostaza y chaquetilla petróleo. |
+| [102](art/residents/candidates/101-110/sheets/resident-102.png) | Chispa | Pelo blanco corto, piel tostada, cara angular y sonrisa con carácter; turquesa y ladrillo. |
+| [103](art/residents/candidates/101-110/sheets/resident-103.png) | Tizon | Bajito y ancho, nariz redonda, cejazas y barba oscura; gorro teja y peto de artesano. |
+| [104](art/residents/candidates/101-110/sheets/resident-104.png) | Nispera | Cara redonda madura, hoyuelos y sonrisa risueña; gorro coral largo y vestido ciruela. |
+| [105](art/residents/candidates/101-110/sheets/resident-105.png) | Trebol | Anciano delgado, cara alargada y perilla plateada; gorro espiral salvia y chaleco naranja. |
+| [106](art/residents/candidates/101-110/sheets/resident-106.png) | Mimbrera | Rostro anguloso, nariz marcada y trenza gris; gorro azul asimétrico y abrigo ocre. |
+| [107](art/residents/candidates/101-110/sheets/resident-107.png) | Avellano | Mandíbula ancha, patillas pelirrojas y sonrisa desdentada; gorro violeta y peto azul. |
+| [108](art/residents/candidates/101-110/sheets/resident-108.png) | Oria | Pómulos y ceja marcada, mirada de granuja; gorro corto canela con pluma y ropa teal. |
+| [109](art/residents/candidates/101-110/sheets/resident-109.png) | Silo | Nariz prominente, gafitas y curiosidad de inventor; gorro beige curvado y abrigo rosa viejo. |
+| [110](art/residents/candidates/101-110/sheets/resident-110.png) | Zarza | Complexión fuerte, piel oscura y sonrisa abierta; gorro largo burdeos, collar y bolsa tejida. |
 
 ### Qué incluye esta ronda
 

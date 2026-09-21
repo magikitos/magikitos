@@ -39,7 +39,8 @@ comprobaciones de navegador.
 
 Lo aprobado que SIGUE mandando: **2× con reducción integrada y movimiento selectivo**, en
 [la decisión de trazo y vida](../../docs/art-direction/DEFINITION-MOTION.md); la cámara del juego
-es FIJA; y Ascua es el protagonista con los otros once duendes como vecinos.
+es FIJA; y Ascua es el protagonista, con el reparto de vecinos salido de los 110 perfiles
+de `data/aventura/residents.json` (29 familias), repartidos de forma determinista.
 
 ## Arrange objects
 
@@ -183,12 +184,29 @@ mismos cuatro números están en el panel para escribirlos a mano. **Añadir caj
 —un arco con dos patas y el hueco libre en medio—, y **Entrada** añade la franja por la que se
 cruza una puerta. `Enter` guarda, `Esc` cancela, **Volver al original** deshace lo tanteado.
 
-Lo que se guarda va a la VARIANTE de la familia en `data/aventura/element-families.json`
-(`solids`, `entrance`) y de ahí lo heredan todas sus copias, las puestas y las que pongas después;
-el panel dice cuántas son antes de tocar nada. Si el elemento aún no tiene familia, se escribe en
-todas sus copias del bosque a la vez, en todas las pantallas, y el panel también lo dice. Al
-guardar se RETIRAN los cuerpos sueltos que cada copia llevaba encima: si no, la copia antigua
-seguiría ganando y el cambio no se vería.
+Lo que se guarda va a la VARIANTE de la familia (`solids`, `entrance`) y de ahí lo heredan todas
+sus copias, las puestas y las que pongas después; el panel dice cuántas son antes de tocar nada.
+⛔ **Y a la variante donde esa variante existe de verdad**: las 38 familias autoradas llevan sus
+variantes escritas a mano en `data/aventura/element-families.json` y ahí se escribe; las otras 39
+—entre ellas las cinco de casitas— las rehace `build-woodland-kit.cjs` desde el manifiesto de arte
+arrancando con `variants: []`, así que su sitio es `data/aventura/elements.json`. Escribirlas en el
+otro fichero sería escribirlas donde nadie las lee y el siguiente `art:catalog` las borraría en
+silencio. El diff dice cuál de los dos toca; lo comprueba `check-element-bodies.cjs` por los dos
+lados.
+
+Si el elemento aún no tiene familia, se escribe en todas sus copias del bosque a la vez, en todas
+las pantallas, y el panel también lo dice. Al guardar se RETIRAN los cuerpos sueltos que cada copia
+llevaba encima: si no, la copia antigua seguiría ganando y el cambio no se vería.
+
+⛔ **UN CUERPO DONDE NO HAY DIBUJO ES UN MURO INVISIBLE** (21-sep-2026, repaso). Cuatro
+colocaciones del bosque —taberna, taller, casa del pescador y almacén— llevaban un cuerpo escrito
+cuando su lámina tenía el ancla pegada al borde izquierdo; el arte se recortó y se volvió a anclar
+al centro y los cuerpos se quedaron atrás, empujados al este. El del almacén medía 17 celdas para
+un dibujo de 8,25: **56 casillas de suelo libre tapiadas**, contra las que se choca sin ver nada.
+Corregidos los cuatro, y desde ahora `check-element-bodies.cjs` compara los 665 cuerpos del mundo
+con la tinta REAL del atlas horneado y no deja que ninguno sobresalga más de 1,5 celdas. Más
+estrecho que la lámina sí se puede —el tronco de un árbol, la base de una casa por la que se pasa
+por detrás—; más ancho es un muro que nadie ve.
 
 La entrada sigue siendo la franja que abre la puerta al pisarla andando hacia ella, en casillas
 relativas al pie, y `data/aventura/world.php` la convierte en el mismo umbral y llegada que una

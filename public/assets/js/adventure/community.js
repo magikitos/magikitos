@@ -487,7 +487,7 @@ class Community {
   bombLines(item) {
     const g = this.game,
       who = item.bomb.by?.name || item.bomb.by?.handle || g.text("communityEveryone"),
-      when = new Intl.DateTimeFormat(g.locale || undefined, { hour: "2-digit", minute: "2-digit" }).format(new Date(item.bomb.explodesAt));
+      when = new Intl.DateTimeFormat(g.config.locale || undefined, { hour: "2-digit", minute: "2-digit" }).format(new Date(item.bomb.explodesAt));
     return [
       `${g.text("communityBombBy")} ${who} · ${g.text("communityBombExplodes")} ${when}`,
       ...(item.bomb.note ? [item.bomb.note] : []),
@@ -510,8 +510,9 @@ class Community {
       object = this.snapshot?.objects.find((o) => o.id === entity.community);
     if (!object) return g.openDialogue(g.lines("noUse"));
     if (item === "bomba") {
+      // La cuenta es null mientras no haya sesión con la nube: sin ella no hay bombita que gastar.
       const reason = bombReason(object, this.catalog.definitions[object.kind], this.catalog.zones[this.zone], {
-        hasBomb: (g.materials.account.inventory.bomba || 0) >= 1,
+        hasBomb: (g.materials.account?.inventory.bomba || 0) >= 1,
       });
       if (reason) return g.toast(g.text(RAZONES[reason] || "communityRetry"));
       this.composing = object;
@@ -525,7 +526,8 @@ class Community {
     }
     if (item === "desactivador") {
       if (!object.bomb) return g.toast(g.text("communityNotMined"));
-      if ((g.materials.account.inventory.desactivador || 0) < 1) return g.toast(g.text("communityDefuserRequired"));
+      if ((g.materials.account?.inventory.desactivador || 0) < 1)
+        return g.toast(g.text("communityDefuserRequired"));
       await this.maintain("community-defuse", { id: object.id }, "communityBombDefused");
     }
   }
@@ -547,6 +549,9 @@ class Community {
     const g = this.game;
     if (this.busy || !this.snapshot || !this.zone) return;
     if (g.live && !g.live.canWrite()) return;
+    // Sin cuenta no hay revisión que mandar ni materiales que descontar: se dice y no se viaja.
+    if (!(await g.materials.ready()) || !g.materials.account)
+      return g.self.explain(g.session.get() ? "communitySyncNeeded" : "communityNeedsAccount");
     this.busy = true;
     try {
       const result = await g.api.request(
@@ -574,6 +579,9 @@ class Community {
     } finally {
       this.busy = false;
       this.paint();
+      // El botón de la nota se desactiva con `busy` y solo lo reactiva quien lo pintó: sin esto,
+      // abrir la nota de otra pieza mientras vuela un envío lo dejaba gris para siempre.
+      this.paintBombNote();
     }
   }
   async begin() {
@@ -1025,7 +1033,7 @@ class Community {
   missing() {
     if (!this.ghost) return null;
     const definition = this.catalog.definitions[this.ghost.kind];
-    const inventory = this.game.materials.account.inventory,
+    const inventory = this.game.materials.account?.inventory || {},
       cost = objectCost(this.ghost, definition, this.multiplier(definition, this.ghost.id));
     const short = Object.entries(cost)
       .map(([id, n]) => [id, n - (inventory[id] || 0)])
@@ -1039,7 +1047,7 @@ class Community {
   tool() {
     const d = this.ghost && this.catalog.definitions[this.ghost.kind];
     if (!d) return null;
-    const inventory = this.game.materials.account.inventory;
+    const inventory = this.game.materials.account?.inventory || {};
     for (const [id, n] of Object.entries(d.requires?.items || {}))
       if ((inventory[id] || 0) < n) return id;
     return null;
@@ -1164,7 +1172,9 @@ class Community {
     this.applied = { world: g.world, snapshot: this.snapshot };
   }
   draw(ctx) {
-    if (!this.editing) return;
+    // La pantalla puede cambiar debajo del modo construir (una corrección del bosque vivo) y
+    // dejarlo abierto en un sitio sin zona: se pinta solo donde hay algo que pintar.
+    if (!this.editing || !this.catalog.zones[this.zone]) return;
     const g = this.game;
     /**
      * ⛔ SE PINTA LO PROHIBIDO, NO LO PERMITIDO. Antes el claro era una alfombra con su borde
@@ -1321,7 +1331,14 @@ class Community {
     byId("community-rotate").disabled = this.busy || !!this.pending;
     byId("build-undo").hidden = !this.drawing || !this.placed;
     byId("build-undo").disabled = this.busy || !!this.pending;
-    byId("home-cancel").disabled = this.busy;
+    /**
+     * ⛔ NO SE PUEDE CANCELAR LO QUE EL SERVIDOR QUIZÁ YA TIENE (21-sep-2026, repaso). Con una
+     * petición en el diario (`pending`), `cancel()` cerraba el diálogo y quitaba el fantasma, pero
+     * el envío seguía vivo: al siguiente `prepare()` se reintentaba y la pieza aparecía igual.
+     * Girar y deshacer ya se apagaban por esto mismo; a «Cancelar» se le olvidó, y era el único
+     * botón que además MENTÍA. Se apaga por la misma razón: nadie pierde lo que ha pagado.
+     */
+    byId("home-cancel").disabled = this.busy || !!this.pending;
     // Qué llevas en la mano, con su foto: la barra no dice «una pieza», dice CUÁL.
     // ⛔ Y SE LLAMA `shownPiece` Y NO `painted`: `painted` ya era la firma de los caminitos
     // pintados en el suelo, un Map que `accept()` consulta con `.get()`. Llamando igual a las dos

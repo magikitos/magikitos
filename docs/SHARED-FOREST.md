@@ -126,7 +126,7 @@ Sin vidas, combate, Libro del Bosque, fiambreras ni parcelas privadas.
   En exteriores se puede alejar hasta el límite geométrico de cobertura del mapa,
   sin un porcentaje mínimo artificial ni bordes vacíos; el encuadre inicial no cambia.
   Los interiores conservan su presentación de habitación recortada con exterior pintado.
-- Caminar/correr: 72/190 píxeles de mundo por segundo. Remar/turbo: 82/205,
+- Caminar/correr: 84/216 píxeles de mundo por segundo. Remar/turbo: 82/205,
   antes de sumar corrientes. El núcleo más fuerte de los rápidos mantiene el
   retroceso físico incluso con turbo; hay remansos para remontar, no vidas que perder.
 - Las rutas de clic, vecinos, gatos y barca comparten A* y simplificación por
@@ -199,7 +199,7 @@ se erradicaron enteros.
 | behaviors/*.json + rules.js | Reacciones y recetas declarativas; sin ramas por misión en interact |
 | resource-nodes.json + resources.js | Registro estable de recogidas; un bit por nodo y ciclo por región |
 | cat-encounters.js | Visión, cobertura, patrulla, persecución, transporte y salida segura locales |
-| input.js / map-gestures.js | Teclado, cámara y EL MANDO: arrastrar el mapa planta el destino en el centro de la vista, empujándolo más allá del borde cuando la cámara ya no puede seguir |
+| input.js / map-gestures.js | Teclado, cámara y EL MANDO: el dedo es un joystick invisible que solo anda —arrastrar el mapa ya NO planta destino, se retiró el 19-sep-2026— y el toque suelto sigue yendo e interactuando |
 | navigation.js / journey.js / movement.js | Rutas compartidas simplificadas, intención persistente y colisión por subpasos |
 | river-navigation.js / river.js / docks.js | Casco/corrientes, navegación y umbrales direccionales derivados de cada muelle |
 | river-course.js | Márgenes dibujados mediante puntos [y, izquierda, derecha]; curva monótona compartida por agua, física y corrientes |
@@ -266,8 +266,11 @@ el terreno por chunks visibles y los gatos a ocho por escena. No se descargan
 maestros, se escanean imágenes fuente ni se manda movimiento al servidor.
 
 Los cinco márgenes principales usan perfiles propios, no una onda repetida.
-Se alinean en ambos extremos a 32 tiles de anchura, con centro en x=48 y tramos
-rectos de enlace. El contrato de navegación y pruebas de casco
+Se alinean en cada costura a 32 tiles de anchura, con centro en x=112 (la rejilla del
+20-sep-2026 desplazó los tres tramos 64 casillas al este) y tramos rectos de enlace; entre
+costura y costura el cauce serpentea entre x=99 y x=116. La única excepción es la cabecera de
+`river-roots`, que no tiene vecina por arriba y nace con anchura cero: es el manantial, no una
+costura mal cuadrada. El contrato de navegación y pruebas de casco
 comprueban que se puede remontar por un remanso sin cruzar tierra ni saltar paredes.
 Las zonas siguen siendo lugares grandes, no pantallitas de una sola curva.
 Las estelas son líneas que siguen la corriente física: no llevan puntas de flecha.

@@ -86,17 +86,21 @@ function validateElements(elements = {}) {
           throw Error("Cuerpo fuera de límites: " + familyId + "/" + variantId);
         next.solids = solids.map((box) => box.map(Number));
       }
-      if (Object.hasOwn(edit, "entrance") && edit.entrance !== null) {
-        if (!validEntrance(edit.entrance))
-          throw Error(
-            "Entrada fuera de límites (" +
-              ENTRANCE_LIMITS.offset +
-              " casillas): " +
-              familyId +
-              "/" +
-              variantId,
-          );
-        next.entrance = edit.entrance.map(Number);
+      if (Object.hasOwn(edit, "entrance")) {
+        // `null` es quitar la entrada dibujada y volver a la automática, y se conserva como tal.
+        if (edit.entrance === null) next.entrance = null;
+        else {
+          if (!validEntrance(edit.entrance))
+            throw Error(
+              "Entrada fuera de límites (" +
+                ENTRANCE_LIMITS.offset +
+                " casillas): " +
+                familyId +
+                "/" +
+                variantId,
+            );
+          next.entrance = edit.entrance.map(Number);
+        }
       }
       const base = bodyOf(familyId, variantId);
       if (
@@ -108,12 +112,24 @@ function validateElements(elements = {}) {
   }
   return out;
 }
+/**
+ * Dónde se escribe el cuerpo de un elemento. Las familias autoradas a mano llevan sus variantes en
+ * `element-families.json`; las 39 del kit del bosque no las tienen ahí —las genera
+ * `build-woodland-kit.cjs` desde el manifiesto de arte— y su sitio es `elements.json`, que ese
+ * generador ya respeta para la física. Decirlo por elemento evita que alguien aplique la propuesta
+ * en un fichero donde esa variante no existe.
+ */
+const blueprint = require("../../data/aventura/element-families.json").families;
+const fileFor = (familyId, variantId) =>
+  (blueprint[familyId]?.variants || []).some((v) => v.id === variantId)
+    ? "data/aventura/element-families.json"
+    : "data/aventura/elements.json";
 /** Qué elemento cambia, qué tenía, qué tendría y dónde se escribe. Solo propuesta. */
 function elementDiff(elements = {}) {
   return Object.entries(validateElements(elements)).flatMap(
     ([familyId, variants]) =>
       Object.entries(variants).map(([variantId, after]) => ({
-        file: "data/aventura/element-families.json",
+        file: fileFor(familyId, variantId),
         family: familyId,
         familyLabel: families[familyId].label,
         variant: variantId,
@@ -130,7 +146,11 @@ function proposedBody(familyId, variantId, elements = {}) {
   const base = bodyOf(familyId, variantId);
   if (!base) return null;
   const edit = elements?.[familyId]?.[variantId];
-  return edit ? { ...base, ...edit } : base;
+  if (!edit) return base;
+  const merged = { ...base, ...edit };
+  // Una entrada quitada se dibuja quitada, no con la que había.
+  if (merged.entrance === null) delete merged.entrance;
+  return merged;
 }
 module.exports = {
   BODY_LIMIT,
