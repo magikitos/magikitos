@@ -4,6 +4,32 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: mapa del Studio y noche anclada — 21 septiembre 2026
+
+Artefacto `b0a7d454754724d0785b`, juego `283ee0d`, web `bad9803a`
+(solo puntero, sobre `743fdc30`). Anterior conservada: `82a321d87cc9d16beca7`.
+SHA-256 de `release.json`: `b8f4eada5c87f677eea561917f53277b7fe080420094a261e047d5031c05147a`.
+
+Aplicada la propuesta del Studio 648: posiciones, caminos, retiradas y 17 altas.
+La noche, el corrillo y el área de cuentos siguen `story-fire` sin coordenadas
+duplicadas. Patrullas del picnic trasladadas con sus gatos; una bebida movida una
+casilla para recuperar su acceso. Delimitadores promovidos al catálogo compartido,
+con cuerpos por variante y esquinas huecas. Studio: vecinas, filtro de árboles,
+guardado multiescena; propuesta reaplicada mediante rebase, sin conflictos ni borrado
+de historial. Los nuevos cambios de arte/Setómetro/setas aún no forman parte de esta entrega.
+
+Suite de unidades completa, retomada tras corregir referencias antiguas de fixtures;
+Ascua en tres tamaños y movimiento reducido; 16 variantes de delimitadores probadas
+en Studio aislado en tres tamaños; capturas y aproximación a la hoguera. Artefacto
+idéntico reconstruido desde el commit limpio con `--reuse-art`. Instalado localmente;
+DDEV no estaba escuchando, así que las pruebas locales usaron el preview Node.
+
+Release estacionada y verificada antes de activar; reinicio ordenado únicamente de
+`bosque-vivo`. Sin migraciones, importaciones ni cambios de partidas. Smoke público:
+seis HTML y assets correctos, seis landings/API, web normal intacta, caminar/remar
+en 1440×900, 768×1024 y 390×844; cero escrituras de jugador enviadas. Las inserciones
+de seguridad de Cloudflare se validaron por la excepción estricta del smoke.
+
 ## Producción: apoyos alternos y encaje paseo/carrera — 21 septiembre 2026
 
 Artefacto `82a321d87cc9d16beca7`, fuente del juego `f7cfe43` (incluye `5d2abf5`),
