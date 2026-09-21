@@ -55,6 +55,12 @@ function get(endpoint, params = {}, options = {}) {
     assert.equal(boot.data.locale, lang);
     assert(boot.data.destinations.recordStory);
     assert(!("world" in boot.data));
+    const daily = await get("setometro", { lang });
+    assert.equal(daily.status, 200);
+    require("../public/assets/js/adventure/setometro").daily(daily.data);
+    const ranking = await get("setometro-ranking", { lang });
+    assert.equal(ranking.status, 200);
+    require("../public/assets/js/adventure/setometro").ranking(ranking.data);
     for (const kind of ["cuento", "chiste", "expresion"]) {
       const batch = await get("discover", { lang, kind });
       assert.equal(batch.status, 200);
@@ -141,6 +147,10 @@ function get(endpoint, params = {}, options = {}) {
     console.log("PASS local public API", lang);
   }
   const invalid = [
+    ["setometro", { lang: "xx" }, 400],
+    ["setometro-ranking", { lang: "es", cursor: -1 }, 400],
+    ["setometro-ranking", { lang: "es", cursor: 10001 }, 400],
+    ["setometro-vote", {}, 405],
     ["bootstrap", { lang: "xx" }, 400],
     ["discover", { lang: "es", kind: "invalid" }, 400],
     ["catalog", { lang: "es", kind: "products" }, 400],
@@ -155,6 +165,18 @@ function get(endpoint, params = {}, options = {}) {
   ];
   for (const [endpoint, params, status] of invalid)
     assert.equal((await get(endpoint, params)).status, status, endpoint);
+  const today = (await get("setometro", { lang: "es" })).data;
+  const payload = { lang: "es", day: today.day, winner_id: today.pair[0].id,
+    loser_id: today.pair[1].id, csrf_token: "deliberately-invalid-local-proof" };
+  for (const [body, expected] of [
+    [{ ...payload, winner_id: "12" }, 400],
+    [{ ...payload, day: "1900-01-01" }, 409],
+    [payload, 403],
+  ]) {
+    const response = await get("setometro-vote", {}, { method:"POST",
+      headers:{"content-type":"application/json"}, body:JSON.stringify(body) });
+    assert.equal(response.status, expected, "Daily adapter never bypasses type/day/CSRF gates");
+  }
   for (const body of ["[1]", "{", "null", JSON.stringify({ create: "yes" })]) {
     const res = await get(
       "identity",

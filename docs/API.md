@@ -325,3 +325,24 @@ Production examples use `scripts/seed-community-examples.php --apply-labelled-ex
 only three dedicated `bosque-ejemplo-*` accounts, visibly labelled as game tests.
 All rewards and placements use the public HTTP API. Sessions are revoked afterward;
 the examples remain. Never borrow a real person's identity for synthetic play.
+
+## Setómetro in the forest (21 September 2026)
+
+The balance beside the tavern opens the daily pair and global ranking as native game
+activities. It exposes no collaborative/session mode, website HTML or embedded page.
+
+- `GET /api/world/setometro?lang=es`: server day and two `{id,title,score}` concepts.
+- `GET /api/world/setometro-ranking?lang=es&cursor=0`: up to 24 concepts, offset and nextCursor.
+- `POST /api/world/setometro-vote`: lang, day, winner_id, loser_id, csrf_token and human-proof token.
+
+The private adapter delegates to the existing daily vote service: same score system,
+CSRF/human-proof gates, per-IP/per-identity quotas and website reputation accounting.
+It additionally rejects stale/invented pairs (409) and bounds adapter attempts.
+**No inventory is awarded or spent.** Ranking scores are not the mushrooms in the bag.
+The existing website service permits three daily requests, not a persistent once-only
+vote per day. The client remembers a confirmed choice locally and never automatically
+retries a POST with an ambiguous outcome. Clearing that local receipt is not an
+authorization bypass; the server's shared quotas still apply.
+
+Read-only production tests never submit synthetic votes. Mocked browser tests exercise
+submission, cancellation, duplicate clicks, stale day, quota errors and pagination.

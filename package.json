@@ -43,6 +43,7 @@
     "test:studio-navigation": "node scripts/check-studio-navigation.cjs && node scripts/check-studio-navigation-browser.cjs",
     "test:studio-delimiters": "node scripts/check-studio-delimiters.cjs && node scripts/check-studio-delimiters-browser.cjs",
     "test:native": "node scripts/check-native-browser.cjs",
+    "test:setometro": "node scripts/check-forest-market.cjs && node scripts/check-setometro-browser.cjs",
     "test:api:local": "node scripts/check-api-local.cjs",
     "test:boundary": "node scripts/check-boundary-browser.cjs",
     "test:picnic": "node scripts/check-picnic-browser.cjs",

@@ -223,6 +223,7 @@ check(
 check(!apply("river-dock", "craft"), "Oars must first be earned");
 apply("picnic-lighter");
 apply("forest-mushrooms-fern");
+apply("forest-mushrooms-root");
 apply("picnic-barbecue", "light");
 apply("picnic-barbecue", "cook");
 apply("picnic-bin");

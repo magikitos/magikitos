@@ -1,0 +1,124 @@
+{
+    "frames": {
+        "forage-porcini-2": {
+            "source": "data/aventura/art/forest-market/cutouts/forage-porcini-2.png",
+            "grid": [
+                1,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                46,
+                37
+            ],
+            "preserveCanvas": true,
+            "anchor": [
+                23,
+                34
+            ]
+        },
+        "forage-porcini-3": {
+            "source": "data/aventura/art/forest-market/cutouts/forage-porcini-3.png",
+            "grid": [
+                1,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                54,
+                40
+            ],
+            "preserveCanvas": true,
+            "anchor": [
+                27,
+                37
+            ]
+        },
+        "forage-chanterelle-2": {
+            "source": "data/aventura/art/forest-market/cutouts/forage-chanterelle-2.png",
+            "grid": [
+                1,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                46,
+                34
+            ],
+            "preserveCanvas": true,
+            "anchor": [
+                23,
+                31
+            ]
+        },
+        "forage-chanterelle-3": {
+            "source": "data/aventura/art/forest-market/cutouts/forage-chanterelle-3.png",
+            "grid": [
+                1,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                54,
+                37
+            ],
+            "preserveCanvas": true,
+            "anchor": [
+                27,
+                34
+            ]
+        },
+        "forage-saffron-2": {
+            "source": "data/aventura/art/forest-market/cutouts/forage-saffron-2.png",
+            "grid": [
+                1,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                46,
+                31
+            ],
+            "preserveCanvas": true,
+            "anchor": [
+                23,
+                28
+            ]
+        },
+        "forage-saffron-3": {
+            "source": "data/aventura/art/forest-market/cutouts/forage-saffron-3.png",
+            "grid": [
+                1,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                54,
+                36
+            ],
+            "preserveCanvas": true,
+            "anchor": [
+                27,
+                33
+            ]
+        }
+    }
+}

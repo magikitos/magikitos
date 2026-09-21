@@ -8973,22 +8973,22 @@
             "height": 78,
             "bytes": 4547
         },
-        "delimiter-canopy": {
-            "image": "packs/delimiter-canopy-849f3556c02a.png",
-            "metadata": "packs/delimiter-canopy-849f3556c02a.json",
+        "delimiter-grove": {
+            "image": "packs/delimiter-grove-e4812017be77.png",
+            "metadata": "packs/delimiter-grove-e4812017be77.json",
             "sprites": [
-                "delimiter-canopy-horizontal-long",
-                "delimiter-canopy-horizontal-short",
-                "delimiter-canopy-vertical-long",
-                "delimiter-canopy-vertical-short",
-                "delimiter-canopy-north-west",
-                "delimiter-canopy-north-east",
-                "delimiter-canopy-south-west",
-                "delimiter-canopy-south-east"
+                "delimiter-grove-horizontal-long",
+                "delimiter-grove-horizontal-short",
+                "delimiter-grove-vertical-long",
+                "delimiter-grove-vertical-short",
+                "delimiter-grove-north-west",
+                "delimiter-grove-north-east",
+                "delimiter-grove-south-west",
+                "delimiter-grove-south-east"
             ],
             "width": 1024,
-            "height": 3140,
-            "bytes": 701047
+            "height": 3338,
+            "bytes": 827266
         },
         "delimiter-rock": {
             "image": "packs/delimiter-rock-c6f2b54dfb36.png",
@@ -9006,6 +9006,31 @@
             "width": 1024,
             "height": 3092,
             "bytes": 662531
+        },
+        "forage-mushrooms": {
+            "image": "packs/forage-mushrooms-4880ce398171.png",
+            "metadata": "packs/forage-mushrooms-4880ce398171.json",
+            "sprites": [
+                "forage-porcini-2",
+                "forage-porcini-3",
+                "forage-chanterelle-2",
+                "forage-chanterelle-3",
+                "forage-saffron-2",
+                "forage-saffron-3"
+            ],
+            "width": 256,
+            "height": 238,
+            "bytes": 21907
+        },
+        "forest-balance": {
+            "image": "packs/forest-balance-5ba917cb2977.png",
+            "metadata": "packs/forest-balance-5ba917cb2977.json",
+            "sprites": [
+                "forest-balance"
+            ],
+            "width": 256,
+            "height": 214,
+            "bytes": 16937
         },
         "forest-roots": {
             "image": "packs/forest-roots-decb625d9bdd.png",

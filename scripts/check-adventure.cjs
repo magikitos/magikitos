@@ -284,6 +284,7 @@ for (const objects of permutations([mushroom, twig, lighter, knife])) {
     }
     // Discovering the mushroom early is now a hint; return with the knife to cut it.
     if (!state.inventory.mushroom) react(mushroom, state, catalog);
+    react(e("forest-mushrooms-root"), state, catalog);
     if (!state.flags.fireLit) react(fire, state, catalog, { action: "light" });
     assert(actions(fire, state, catalog).some((a) => a.id === "cook"));
     const draft = planReaction(fire, state, catalog, { action: "cook" });

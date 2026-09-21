@@ -29,7 +29,7 @@
             "fireLit": true
           },
           "items": {
-            "mushroom": 1,
+            "mushroom": 5,
             "twig": 1,
             "knife": 1
           },
@@ -57,7 +57,7 @@
           {
             "type": "item",
             "item": "mushroom",
-            "amount": -1
+            "amount": -5
           },
           {
             "type": "item",
@@ -183,7 +183,7 @@
       {
         "when": {
           "maxItems": {
-            "mushroom": 0
+            "mushroom": 4
           }
         },
         "effects": [
@@ -225,7 +225,7 @@
             "fireLit": true
           },
           "items": {
-            "mushroom": 1,
+            "mushroom": 5,
             "twig": 1,
             "knife": 1
           },

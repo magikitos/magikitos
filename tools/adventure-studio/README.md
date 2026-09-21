@@ -114,7 +114,7 @@ No map change is applied live to the game. See [the collection contract](../../d
 
 ### Delimitadores
 
-La categoría **Delimitadores** ofrece 16 piezas originales: copas de bosque y rocas
+La categoría **Delimitadores** ofrece 16 piezas originales: arboledas en perspectiva 2.5D y rocas
 musgosas, cada material con dos tramos horizontales, dos verticales y cuatro esquinas.
 Cada tramo termina de forma natural por ambos lados: se puede dejar suelto, dejar
 un paso, alternar materiales o solapar ligeramente sus extremos para alargarlo.
@@ -130,7 +130,7 @@ El filtro de árboles oculta las copas, pero deja las rocas. Si está activo, vu
 a **Mostrar árboles** para colocar copas y verlas.
 
 Son elementos fijos, no empujables, del catálogo compartido del juego y Studio.
-Cada recta tiene un cuerpo conservador; cada esquina tiene dos cuerpos que siguen
+Cada tramo tiene cuerpos conservadores (tres en las arboledas verticales, siguiendo sus raíces); cada esquina tiene dos cuerpos que siguen
 su L y dejan libre el hueco interior. La escala y el reflejo transforman también
 los cuerpos. Antes de aplicar colocaciones se comprueban los pasos y las salidas:
 un delimitador no debe cerrar una conexión a una escena vecina.
@@ -140,12 +140,14 @@ guardado y diff. Guardar en Studio no publica nada: el agente revisa el diff,
 aplica las colocaciones y verifica el mapa antes de generar una nueva entrega.
 
 - Catálogo compartido: `data/aventura/elements.json`; paquetes:
-  `data/aventura/assets/delimiter-canopy.json` y `delimiter-rock.json`.
+  `data/aventura/assets/delimiter-grove.json` y `delimiter-rock.json`.
 - Originales, recortes, coordenadas, hashes y prompts:
-  [`data/aventura/art/delimiters`](../../data/aventura/art/delimiters).
+  [rocas](../../data/aventura/art/delimiters) y
+  [arboledas 2.5D](../../data/aventura/art/forest-market).
 - `catalog.js` expone las mismas familias y variantes que el juego, sin catálogo
   paralelo. Los identificadores originales se conservan para las colocaciones guardadas.
-- Reconstrucción técnica: `php tools/adventure-studio/prepare-delimiters.php`.
+- Reconstrucción técnica: `php tools/adventure-studio/prepare-delimiters.php` (rocas)
+  y `php scripts/prepare-forest-market.php` (arboledas).
   Conserva originales, limpia únicamente el mate y verifica extremos sin cortar.
 - El empaquetador habitual prepara dos paquetes **2× / reducción integrada**,
   cargados bajo demanda por material. El Studio usa su caché local de ese mismo

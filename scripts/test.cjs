@@ -5,6 +5,7 @@ for (const name of [
   "check-adventure",
   "check-adventure-locales",
   "check-forest-upgrade",
+  "check-forest-market",
   "check-forest-client",
   "check-forest-objects",
   "check-forest-objects-negative",

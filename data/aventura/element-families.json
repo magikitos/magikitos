@@ -1228,28 +1228,56 @@
       "template": {
         "sprite": "mushrooms",
         "behavior": "forest-mushrooms",
-        "scale": 0.72
+        "scale": 1
       },
       "variants": [
         {
           "id": "ochre",
-          "label": "Ocre",
-          "sprite": "mushrooms"
-        },
-        {
-          "id": "red",
-          "label": "Rojas",
-          "sprite": "mushroom-red-pair"
-        },
-        {
-          "id": "scarlet",
-          "label": "Escarlata",
-          "sprite": "scarlet-mushrooms"
+          "label": "Boletos · 3",
+          "sprite": "forage-porcini-3",
+          "yield": {
+            "mushroom": 3
+          }
         },
         {
           "id": "bolete",
-          "label": "Boleto",
-          "sprite": "mushroom-bolete-leaning"
+          "label": "Boletos · 2",
+          "sprite": "forage-porcini-2",
+          "yield": {
+            "mushroom": 2
+          }
+        },
+        {
+          "id": "scarlet",
+          "label": "Rebozuelos · 3",
+          "sprite": "forage-chanterelle-3",
+          "yield": {
+            "mushroom": 3
+          }
+        },
+        {
+          "id": "chanterelle-pair",
+          "label": "Rebozuelos · 2",
+          "sprite": "forage-chanterelle-2",
+          "yield": {
+            "mushroom": 2
+          }
+        },
+        {
+          "id": "red",
+          "label": "Níscalos · 2",
+          "sprite": "forage-saffron-2",
+          "yield": {
+            "mushroom": 2
+          }
+        },
+        {
+          "id": "saffron-trio",
+          "label": "Níscalos · 3",
+          "sprite": "forage-saffron-3",
+          "yield": {
+            "mushroom": 3
+          }
         }
       ]
     },
@@ -1373,174 +1401,223 @@
       ]
     },
     "studio-delimiter-canopy-horizontal": {
-      "label": "Copas · tramos horizontales",
+      "label": "Arboleda · tramos horizontales",
       "category": "Delimitadores",
       "tree": true,
       "randomVariants": false,
       "template": {
-        "sprite": "delimiter-canopy-horizontal-long",
+        "sprite": "delimiter-grove-horizontal-long",
         "rules": []
       },
-      "aliases": [],
+      "aliases": [
+        "delimiter-grove-horizontal-long",
+        "delimiter-grove-horizontal-short"
+      ],
       "variants": [
         {
           "id": "long",
           "label": "Largo",
-          "sprite": "delimiter-canopy-horizontal-long",
+          "sprite": "delimiter-grove-horizontal-long",
           "solids": [
             [
-              -9.75,
-              -2.875,
-              19.5625,
-              5.75
+              -11,
+              2.875,
+              21.9375,
+              2.375
             ]
           ]
         },
         {
           "id": "short",
           "label": "Corto",
-          "sprite": "delimiter-canopy-horizontal-short",
+          "sprite": "delimiter-grove-horizontal-short",
           "solids": [
             [
-              -6.75,
-              -2.75,
-              13.5,
-              5.5625
+              -8.1875,
+              2.8125,
+              16.375,
+              2.3125
             ]
           ]
         }
       ],
-      "boundary": true
+      "boundary": true,
+      "defaults": {
+        "delimiter-grove-horizontal-long": "long",
+        "delimiter-grove-horizontal-short": "short"
+      }
     },
     "studio-delimiter-canopy-vertical": {
-      "label": "Copas · tramos verticales",
+      "label": "Arboleda · tramos verticales",
       "category": "Delimitadores",
       "tree": true,
       "randomVariants": false,
       "template": {
-        "sprite": "delimiter-canopy-vertical-long",
+        "sprite": "delimiter-grove-vertical-long",
         "rules": []
       },
-      "aliases": [],
+      "aliases": [
+        "delimiter-grove-vertical-long",
+        "delimiter-grove-vertical-short"
+      ],
       "variants": [
         {
           "id": "long",
           "label": "Largo",
-          "sprite": "delimiter-canopy-vertical-long",
+          "sprite": "delimiter-grove-vertical-long",
           "solids": [
             [
-              -3.125,
-              -9.5625,
-              6.3125,
-              19.1875
+              0.25,
+              -6,
+              5.75,
+              6.375
+            ],
+            [
+              -2.75,
+              -0.375,
+              7.4375,
+              5.8125
+            ],
+            [
+              -6.3125,
+              4.8125,
+              7.4375,
+              4.375
             ]
           ]
         },
         {
           "id": "short",
           "label": "Corto",
-          "sprite": "delimiter-canopy-vertical-short",
+          "sprite": "delimiter-grove-vertical-short",
           "solids": [
             [
-              -2.9375,
-              -7.5625,
-              5.875,
-              15.125
+              0.25,
+              -5.875,
+              5,
+              6.25
+            ],
+            [
+              -2.375,
+              -0.375,
+              6.4375,
+              5.6875
+            ],
+            [
+              -5.4375,
+              4.6875,
+              6.4375,
+              4.3125
             ]
           ]
         }
       ],
-      "boundary": true
+      "boundary": true,
+      "defaults": {
+        "delimiter-grove-vertical-long": "long",
+        "delimiter-grove-vertical-short": "short"
+      }
     },
     "studio-delimiter-canopy-corner": {
-      "label": "Copas · esquinas",
+      "label": "Arboleda · esquinas",
       "category": "Delimitadores",
       "tree": true,
       "randomVariants": false,
       "template": {
-        "sprite": "delimiter-canopy-north-west",
+        "sprite": "delimiter-grove-north-west",
         "rules": []
       },
-      "aliases": [],
+      "aliases": [
+        "delimiter-grove-north-west",
+        "delimiter-grove-north-east",
+        "delimiter-grove-south-west",
+        "delimiter-grove-south-east"
+      ],
       "variants": [
         {
           "id": "north-west",
           "label": "Superior izquierda · ┌",
-          "sprite": "delimiter-canopy-north-west",
+          "sprite": "delimiter-grove-north-west",
           "solids": [
             [
-              -7.6875,
-              -7.125,
-              4.5,
-              14.8125
+              -8.25,
+              -3.625,
+              5.25,
+              12
             ],
             [
-              -6.1875,
-              -7.75,
-              14,
-              4.125
+              -5.625,
+              -4.5625,
+              13.875,
+              3.8125
             ]
           ]
         },
         {
           "id": "north-east",
           "label": "Superior derecha · ┐",
-          "sprite": "delimiter-canopy-north-east",
+          "sprite": "delimiter-grove-north-east",
           "solids": [
             [
-              3.1875,
-              -7.1875,
-              4.5,
-              14.9375
+              3,
+              -3.6875,
+              5.25,
+              12.0625
             ],
             [
-              -7.75,
-              -7.8125,
-              13.9375,
-              4.125
+              -8.25,
+              -4.5625,
+              13.875,
+              3.875
             ]
           ]
         },
         {
           "id": "south-west",
           "label": "Inferior izquierda · └",
-          "sprite": "delimiter-canopy-south-west",
+          "sprite": "delimiter-grove-south-west",
           "solids": [
             [
-              -7.75,
-              -7.125,
-              4.5,
-              13.75
+              -7.5,
+              -3.5,
+              5.25,
+              11.5625
             ],
             [
-              -6.25,
-              3.125,
-              14.125,
-              4.125
+              -5.625,
+              5.625,
+              13.875,
+              2.625
             ]
           ]
         },
         {
           "id": "south-east",
           "label": "Inferior derecha · ┘",
-          "sprite": "delimiter-canopy-south-east",
+          "sprite": "delimiter-grove-south-east",
           "solids": [
             [
-              3.3125,
-              -7.3125,
-              4.5,
-              14.1875
+              2.25,
+              -3.6875,
+              5.25,
+              12.0625
             ],
             [
-              -7.875,
-              3.375,
-              14.1875,
-              4.125
+              -8.25,
+              5.875,
+              13.875,
+              2.75
             ]
           ]
         }
       ],
-      "boundary": true
+      "boundary": true,
+      "defaults": {
+        "delimiter-grove-north-west": "north-west",
+        "delimiter-grove-north-east": "north-east",
+        "delimiter-grove-south-west": "south-west",
+        "delimiter-grove-south-east": "south-east"
+      }
     },
     "studio-delimiter-rock-horizontal": {
       "label": "Rocas musgosas · tramos horizontales",
@@ -1711,6 +1788,43 @@
         }
       ],
       "boundary": true
+    },
+    "forest-balance": {
+      "label": "Balanza del Setómetro",
+      "category": "Objetos",
+      "aliases": [
+        "forest-balance"
+      ],
+      "defaults": {
+        "forest-balance": "hazel"
+      },
+      "template": {
+        "sprite": "forest-balance",
+        "label": "setometro",
+        "solid": [
+          -1.65,
+          -0.85,
+          3.3,
+          1.05
+        ],
+        "rules": [
+          {
+            "effects": [
+              {
+                "type": "content",
+                "key": "setometro"
+              }
+            ]
+          }
+        ]
+      },
+      "variants": [
+        {
+          "id": "hazel",
+          "label": "Avellano y bellotas",
+          "sprite": "forest-balance"
+        }
+      ]
     }
   }
 }

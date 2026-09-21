@@ -6,6 +6,7 @@ class WorldSite {
   constructor(game) {
     this.game = game;
     this.current = null;
+    this.scales = new (require("./setometro").Setometro)(game);
     this.pending = null;
     this.body = document.getElementById("world-content-body");
     if (location.search || location.hash)
@@ -88,6 +89,7 @@ class WorldSite {
     if (play) this.game.media.start(item);
   }
   open(group) {
+    if (group === "setometro") return this.scales.open();
     if (group === "art") return this.art();
     const kind = this.game.catalog.contentRooms[group]?.kinds?.find((k) =>
       ["cuento", "chiste", "expresion"].includes(k),

@@ -1239,6 +1239,14 @@
       "x": 169,
       "y": 143.938,
       "artVariant": "long"
+    },
+    {
+      "id": "setometro-balance",
+      "family": "forest-balance",
+      "sprite": "forest-balance",
+      "x": 49,
+      "y": 125,
+      "artVariant": "hazel"
     }
   ],
   "neighbors": [

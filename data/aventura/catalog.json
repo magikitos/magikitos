@@ -222,6 +222,11 @@
       "scene": "overworld",
       "radius": 8,
       "focus": "art-table"
+    },
+    "setometro": {
+      "scene": "overworld",
+      "radius": 7,
+      "focus": "setometro-balance"
     }
   },
   "economy": {

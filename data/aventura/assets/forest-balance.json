@@ -1,0 +1,24 @@
+{
+    "frames": {
+        "forest-balance": {
+            "source": "data/aventura/art/forest-market/cutouts/forest-balance.png",
+            "grid": [
+                1,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                112,
+                105
+            ],
+            "preserveCanvas": true,
+            "anchor": [
+                56,
+                102
+            ]
+        }
+    }
+}

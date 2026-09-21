@@ -81,6 +81,7 @@ react("picnic-lighter");
 const beforeTools = structuredClone(state);
 react("forest-mushrooms-fern");
 react("picnic-twig");
+react("forest-mushrooms-root");
 react("picnic-barbecue", { action: "light" });
 react("picnic-barbecue", { action: "cook" });
 assert.equal(state.inventory.skewer, 1);
@@ -130,8 +131,13 @@ assert(
 // del dueño, 19-sep-2026): la mata de antes sigue descansando y la segunda brocheta sale de otra.
 react("forest-mushrooms-fern", { now: now + 5 * hour });
 assert(!state.inventory.mushroom, "The first patch still rests at five hours");
-react("forest-mushrooms-root", { now: now + 5 * hour });
-assert.equal(state.inventory.mushroom, 1, "Another patch feeds the second skewer");
+react("forest-mushrooms-camp", { now: now + 5 * hour });
+const riverPatch = Object.values(catalog.scenes).filter(s => s.id !== "overworld")
+  .flatMap(s => s.entities).find(e => e.family === "ground-mushrooms" &&
+    e.rules.some(r => r.effects.some(f => f.item === "mushroom" && f.amount === 3)));
+assert(riverPatch, "The navigable river has another trio for a repeat meal");
+state = planReaction(riverPatch, state, catalog, { now: now + 5 * hour }).state;
+assert.equal(state.inventory.mushroom, 5, "Exploring other patches supplies the second meal before regrowth");
 react("picnic-twigs", { now: now + 5 * hour });
 react("picnic-barbecue", { action: "cook", now: now + 5 * hour });
 assert(actions(entity("picnic-neighbor"), state).some((a) => a.id === "give"));

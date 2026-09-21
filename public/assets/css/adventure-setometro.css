@@ -1,0 +1,23 @@
+/* A woodland activity, scoped to the same native surface as stories and art. */
+.world-experience--setometro { text-align: center; }
+.world-scale-art { display: block; width: 108px; height: 102px; object-fit: contain; margin: 8px auto 12px; }
+.world-scale-choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+.world-scale-choices .world-scale-pan {
+  min-height: 108px; padding: 16px 12px; border: 1px solid #99805866;
+  border-bottom: 5px solid #987645; border-radius: 14px 14px 36px 36px;
+  background: linear-gradient(#f6edceee, #ddcba0ee); color: #263e2c;
+  display: flex; flex-direction: column; justify-content: center; gap: 9px;
+  font: inherit; font-weight: 650; line-height: 1.35; overflow-wrap: anywhere;
+  transition: transform .18s ease, background .18s ease;
+}
+.world-scale-pan:not(:disabled):hover, .world-scale-pan:focus-visible { transform: translateY(-3px); background: #fff2cd; }
+.world-scale-choices .world-scale-pan[aria-pressed="true"] { background: #375c43; color: #fff5d9; border-color: #bdd389; opacity: 1; }
+.world-scale-pan small { font-size: .85em; font-weight: 400; }
+.world-scale-status { min-height: 2.5em; margin: 14px 0; }
+.world-scale-ranking { padding-left: 2em; text-align: left; }
+.world-scale-ranking li { padding: 11px 2px; border-bottom: 1px solid #efdeb333; font-variant-numeric: tabular-nums; }
+.world-scale-ranking li::marker { color: #dfcf9f; }
+.world-scale-ranking li span { display: inline-block; width: calc(100% - 85px); vertical-align: middle; overflow-wrap: anywhere; }
+.world-scale-ranking li small { display: inline-block; width: 80px; text-align: right; color: #eee1b9; }
+@media (max-width: 420px) { .world-scale-choices { gap: 8px; } .world-scale-art { width: 84px; height: 80px; } }
+@media (prefers-reduced-motion: reduce) { .world-scale-pan { transition: none !important; transform: none !important; } }

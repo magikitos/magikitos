@@ -18,7 +18,7 @@ const scene=catalog.scenes.overworld, find=id=>scene.entities.find(e=>e.id===id)
 const bbq=find("picnic-barbecue"), fountain=find("fountain");
 for(let bits=0;bits<64;bits++){
   const s=cleanSave(null,catalog), keys=["lighter","twig","mushroom","knife","skewer"];
-  keys.forEach((k,i)=>{if(bits&(1<<i))s.inventory[k]=1;});
+  keys.forEach((k,i)=>{if(bits&(1<<i))s.inventory[k]=k==="mushroom"?5:1;});
   s.flags.fireLit=Boolean(bits&32);
   const expected=s.inventory.skewer?"barbecueAfter":
     !s.flags.fireLit?(s.inventory.lighter?"barbecueLightReady":"barbecueHint"):
@@ -45,7 +45,7 @@ state=planReaction(find("forest-mushrooms-fern"),state,catalog).state;
 assert(!state.inventory.mushroom,"Knife required to cut a portion");
 state=planReaction(find("picnic-knife"),state,catalog).state;
 state=planReaction(find("forest-mushrooms-fern"),state,catalog).state;
-assert.equal(state.inventory.mushroom,1);assert(!active(find("forest-mushrooms-fern"),state));
+assert.equal(state.inventory.mushroom,3);assert(!active(find("forest-mushrooms-fern"),state));
 assert.equal(state.inventory.knife,1,"Knife is reusable");
 /**
  * ⛔ LA FUENTE NO COBRA: SE PIDE UN DESEO Y YA (17-sep-2026, decisión del dueño). Se toca y se

@@ -69,13 +69,13 @@ const key = 'magikitos.adventure';
         assert.equal((await inspect()).player.direction,'down');
         assert.equal((await inspect()).sequence.data.sprite,world.items.mushroom.sprite);
         await dialogue();
-        assert.equal((await inspect()).inventory.mushroom,1);
+        assert.equal((await inspect()).inventory.mushroom,3);
         assert.equal((await inspect()).inventory.knife,1);
 
-        await seed({position: junto('picnic-barbecue'),flags:{fireLit:true},inventory:{knife:1,lighter:1,mushroom:1,twig:1}});
+        await seed({position: junto('picnic-barbecue'),flags:{fireLit:true},inventory:{knife:1,lighter:1,mushroom:5,twig:1}});
         await touchEntity('picnic-barbecue'); await dialogue();
         await page.locator('[data-action="cook"]').click(); await gesture('work');
-        assert.equal((await inspect()).inventory.mushroom,1,'Ingredients remain until commit');
+        assert.equal((await inspect()).inventory.mushroom,5,'Ingredients remain until commit');
         assert.equal((await inspect()).sequence.data.props.length,3);
         if(reducedMotion==='no-preference') {
           await page.waitForTimeout(700);

@@ -372,12 +372,12 @@
     "pt": "Para cortar o cogumelo é precisa uma navalha. Vamos lá ver quem empresta uma."
   },
   "skewerNeedMushroom": {
-    "es": "Vaya candelorro, voy a pillar una seta pa la brocheta.",
-    "en": "What a fire. Let's go get a mushroom for the skewer.",
-    "de": "Was für ein Feuer. Jetzt einen Pilz für den Spieß.",
-    "fr": "Quel beau feu. Allons chercher un champignon pour la brochette.",
-    "it": "Che bel fuocherello, vado a prendere un fungo per lo spiedino.",
-    "pt": "Que belo lume. Vou apanhar um cogumelo para a espetada."
+    "es": "Pa una brocheta en condiciones hacen falta cinco setas. Voy a buscar las que faltan.",
+    "en": "A proper skewer takes five mushrooms. Let's find the rest.",
+    "de": "Für einen ordentlichen Spieß brauche ich fünf Pilze. Den Rest such ich noch.",
+    "fr": "Pour une vraie brochette, il faut cinq champignons. Allons chercher les autres.",
+    "it": "Per uno spiedino come si deve servono cinque funghi. Cerco quelli che mancano.",
+    "pt": "Uma espetada a sério leva cinco cogumelos. Vou buscar os que faltam."
   },
   "skewerNeedTwig": {
     "es": "Qué buen candelorro, a ver si encuentro un palillo por ahí pa hacer una buena brocheta.",
@@ -388,12 +388,12 @@
     "pt": "Isto é que é uma bela fogueira! Vou buscar um pauzinho para uma espetada à maneira."
   },
   "skewerReady": {
-    "es": "Brasa, seta, palillo y navajita. ¡Apartarse, que viene el chef del bosque!",
-    "en": "Fire, mushroom, stick and knife. Step aside, woodland chef coming through!",
-    "de": "Glut, Pilz, Stock und Messer. Platz da, der Waldchef kocht persönlich!",
-    "fr": "Braises, champignon, bâton et couteau. Poussez-vous, le chef du bois débarque !",
-    "it": "Brace, fungo, bastoncino e coltellino. Fate largo, arriva lo chef del bosco!",
-    "pt": "Brasas, cogumelo, pauzinho e navalha. Afastem-se, chegou o chef da floresta!"
+    "es": "Brasa, cinco setas, palillo y navajita. ¡Apartarse, que viene el chef del bosque!",
+    "en": "Coals, five mushrooms, a stick and a knife. Woodland chef coming through!",
+    "de": "Glut, fünf Pilze, Stock und Messer. Platz da, der Waldkoch kommt!",
+    "fr": "Braises, cinq champignons, bâton et couteau. Place au chef du bois !",
+    "it": "Brace, cinque funghi, bastoncino e coltellino. Arriva lo chef del bosco!",
+    "pt": "Brasas, cinco cogumelos, pauzinho e navalha. Chegou o chef da floresta!"
   },
   "tortillaLook": {
     "es": "¡Una tortilla de patatas como una plaza! Con un trozo de eso como yo un mes.",

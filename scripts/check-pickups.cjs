@@ -37,7 +37,7 @@ assert(active(bottle, { ...state, flags: { skewerCooked: true } }), "Litter rema
  * de debajo, que siguen intactas.
  */
 assert.equal(planReaction(find("forest-mushrooms-fern"), state, world).state.inventory.mushroom, undefined);
-assert.equal(planReaction(find("forest-mushrooms-fern"), { ...state, inventory: { knife: 1 } }, world).state.inventory.mushroom, 1);
+assert.equal(planReaction(find("forest-mushrooms-fern"), { ...state, inventory: { knife: 1 } }, world).state.inventory.mushroom, 3);
 const twigCounts = Object.fromEntries(Object.entries(world.scenes).map(([id, s]) =>
   [id, s.entities.filter((e) => e.sprite === "twig").length]).filter(([, n]) => n));
 assert.deepEqual(twigCounts, { overworld: 4, "river-rapids": 2, "river-roots": 2, "river-willows": 2 });

@@ -2254,5 +2254,85 @@
     "fr": "L'entrepôt du constructeur. Cebolino est à l'intérieur : cinq champignons pour un sac de gravier, plus des bombinettes et des pinces.",
     "it": "Il magazzino del costruttore. Dentro c'è Cebolino: cinque funghi per un sacco di ghiaia, e anche bombette e tenaglie.",
     "pt": "O armazém do construtor. Lá dentro atende o Cebolino: cinco cogumelos por um saco de cascalho, e também bombinhas e tenazes."
+  },
+  "setometro": {
+    "es": "Setómetro",
+    "en": "Setómetro",
+    "de": "Setómetro",
+    "fr": "Setómetro",
+    "it": "Setómetro",
+    "pt": "Setómetro"
+  },
+  "setometroQuestion": {
+    "es": "¿Qué pesa más pa ti?",
+    "en": "What matters more to you?",
+    "de": "Was zählt für dich mehr?",
+    "fr": "Qu’est-ce qui compte le plus pour toi ?",
+    "it": "Cosa conta di più per te?",
+    "pt": "O que pesa mais para ti?"
+  },
+  "setometroDailyHint": {
+    "es": "Dos cosas, una decisión. Inclina la balanza de hoy.",
+    "en": "Two things, one choice. Tip today's balance.",
+    "de": "Zwei Dinge, eine Wahl. Heute entscheidest du.",
+    "fr": "Deux choses, un choix. Fais pencher la balance du jour.",
+    "it": "Due cose, una scelta. Fai pendere la bilancia di oggi.",
+    "pt": "Duas coisas, uma escolha. Faz pender a balança de hoje."
+  },
+  "setometroDaily": {
+    "es": "El duelo de hoy",
+    "en": "Today's duel",
+    "de": "Duell des Tages",
+    "fr": "Le duel du jour",
+    "it": "La sfida di oggi",
+    "pt": "O duelo de hoje"
+  },
+  "setometroRanking": {
+    "es": "Así pesa el mundo",
+    "en": "How the world weighs up",
+    "de": "So wiegt die Welt",
+    "fr": "Le poids des choses",
+    "it": "Quanto pesa il mondo",
+    "pt": "O peso das coisas"
+  },
+  "setometroRankingHint": {
+    "es": "Las preferencias de la gente, medidas en setas. No son las setas de tu saco.",
+    "en": "Everyone's preferences, measured in mushrooms. These aren't the mushrooms in your bag.",
+    "de": "Die Vorlieben aller, in Pilzen gemessen. Nicht die Pilze in deinem Beutel.",
+    "fr": "Les préférences de tous, mesurées en champignons. Pas ceux de ton sac.",
+    "it": "Le preferenze di tutti, misurate in funghi. Non sono quelli nel tuo sacco.",
+    "pt": "As preferências de todos, medidas em cogumelos. Não são os do teu saco."
+  },
+  "setometroScore": {
+    "es": ":count setas",
+    "en": ":count mushrooms",
+    "de": ":count Pilze",
+    "fr": ":count champignons",
+    "it": ":count funghi",
+    "pt": ":count cogumelos"
+  },
+  "setometroVoted": {
+    "es": "¡Ea, tu voto está echao! Mañana toca otro duelo.",
+    "en": "Your vote is in! A new duel tomorrow.",
+    "de": "Deine Stimme zählt! Morgen gibt’s ein neues Duell.",
+    "fr": "Ton vote est enregistré ! Un autre duel demain.",
+    "it": "Voto registrato! Domani una nuova sfida.",
+    "pt": "Voto feito! Amanhã há outro duelo."
+  },
+  "setometroChanged": {
+    "es": "Ha cambiao el día. Vamos a ver qué toca ahora.",
+    "en": "It's a new day. Let's see the new pair.",
+    "de": "Ein neuer Tag! Schau dir das neue Paar an.",
+    "fr": "On a changé de jour. Découvrons le nouveau duel.",
+    "it": "È cambiato il giorno. Vediamo la nuova sfida.",
+    "pt": "Mudou o dia. Vamos ver o novo duelo."
+  },
+  "setometroLimit": {
+    "es": "Por hoy la balanza ya ha tenío bastante. Vuelve mañana, figura.",
+    "en": "The scales have had enough for today. Come back tomorrow!",
+    "de": "Die Waage hat für heute genug. Morgen wieder!",
+    "fr": "La balance a assez pesé pour aujourd’hui. À demain !",
+    "it": "La bilancia ha finito per oggi. Torna domani!",
+    "pt": "A balança já teve que chegue por hoje. Volta amanhã!"
   }
 }

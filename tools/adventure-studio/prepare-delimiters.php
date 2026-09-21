@@ -43,7 +43,9 @@ foreach ($spec['sheets'] as $sheet => $entry) {
 $json = static fn($value) => json_encode($value, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR) . "\n";
 $assets = $root . '/data/aventura/assets';
 if (!is_dir($assets)) mkdir($assets, 0755, true);
+// The original canopy drawings are kept as authoring references, not shipped.
+// Upright 2.5D groves are prepared by scripts/prepare-forest-market.php.
 foreach ($definitions as $material => $pack)
-    file_put_contents("$assets/delimiter-$material.json", $json($pack));
+    if ($material === 'rock') file_put_contents("$assets/delimiter-$material.json", $json($pack));
 file_put_contents("$dir/preparation.json", $json($report));
-echo "Prepared 16 complete delimiter silhouettes; originals retained.\n";
+echo "Prepared 8 rock delimiters; original canopy references retained offline.\n";

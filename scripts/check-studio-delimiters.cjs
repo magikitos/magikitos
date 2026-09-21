@@ -37,7 +37,9 @@ for (const [id, value] of Object.entries(clean.overworld.added)) {
   const e = world.entities.find(e => e.id === id);
   assert.equal(e.artSprite, families[value.family].variants.find(v => v.id === value.artVariant).sprite);
   const bodies = collisionBodies(e);
-  assert.equal(bodies.length, value.family.endsWith("corner") ? 2 : 1);
+  const v = families[value.family].variants.find(v => v.id === value.artVariant);
+  assert.equal(bodies.length, v.solids.length);
+  if (value.family.endsWith("corner")) assert(bodies.length >= 2, "Corners leave their inner clearing open");
   assert(bodies.every(b => b.solid[2] > 0 && b.solid[3] > 0));
 }
 const exported = diff(base, clean)[0];

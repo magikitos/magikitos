@@ -1,0 +1,180 @@
+{
+  "mushrooms": {
+    "sha256": "febebefbadbf44e8e122ab60dd669e0c2339166e34228e088cfebbbf9e4c0daa",
+    "cells": {
+      "forage-porcini-2": {
+        "rect": [
+          0,
+          0,
+          512,
+          512
+        ],
+        "width": 46,
+        "pack": "forage-mushrooms"
+      },
+      "forage-porcini-3": {
+        "rect": [
+          0,
+          512,
+          512,
+          512
+        ],
+        "width": 54,
+        "pack": "forage-mushrooms"
+      },
+      "forage-chanterelle-2": {
+        "rect": [
+          512,
+          0,
+          512,
+          512
+        ],
+        "width": 46,
+        "pack": "forage-mushrooms"
+      },
+      "forage-chanterelle-3": {
+        "rect": [
+          512,
+          512,
+          512,
+          512
+        ],
+        "width": 54,
+        "pack": "forage-mushrooms"
+      },
+      "forage-saffron-2": {
+        "rect": [
+          1024,
+          0,
+          512,
+          512
+        ],
+        "width": 46,
+        "pack": "forage-mushrooms"
+      },
+      "forage-saffron-3": {
+        "rect": [
+          1024,
+          512,
+          512,
+          512
+        ],
+        "width": 54,
+        "pack": "forage-mushrooms"
+      }
+    }
+  },
+  "balance": {
+    "sha256": "09c565e12147c576520e6247cf5e2e8ff1a113783949ebb4a94698d3b9ee41dd",
+    "cells": {
+      "forest-balance": {
+        "rect": [
+          0,
+          0,
+          1312,
+          1199
+        ],
+        "width": 112,
+        "pack": "forest-balance"
+      }
+    }
+  },
+  "forest-strips": {
+    "sha256": "33e9d283b5587db92e4c725f36b406a4d8f5873a10a3ac531079d4d0c9333283",
+    "cells": {
+      "delimiter-grove-horizontal-long": {
+        "rect": [
+          0,
+          0,
+          850,
+          410
+        ],
+        "width": 382,
+        "center": true,
+        "pack": "delimiter-grove"
+      },
+      "delimiter-grove-horizontal-short": {
+        "rect": [
+          850,
+          0,
+          686,
+          430
+        ],
+        "width": 285,
+        "center": true,
+        "pack": "delimiter-grove"
+      },
+      "delimiter-grove-vertical-long": {
+        "rect": [
+          0,
+          410,
+          800,
+          614
+        ],
+        "width": 220,
+        "center": true,
+        "pack": "delimiter-grove"
+      },
+      "delimiter-grove-vertical-short": {
+        "rect": [
+          800,
+          430,
+          736,
+          594
+        ],
+        "width": 190,
+        "center": true,
+        "pack": "delimiter-grove"
+      }
+    }
+  },
+  "forest-corners": {
+    "sha256": "2c868a62fd6dc7babd35562078997bfcf50d8659d1af2a4c9e927da812c7b64a",
+    "cells": {
+      "delimiter-grove-north-west": {
+        "rect": [
+          0,
+          0,
+          656,
+          600
+        ],
+        "width": 300,
+        "center": true,
+        "pack": "delimiter-grove"
+      },
+      "delimiter-grove-north-east": {
+        "rect": [
+          656,
+          0,
+          656,
+          600
+        ],
+        "width": 300,
+        "center": true,
+        "pack": "delimiter-grove"
+      },
+      "delimiter-grove-south-west": {
+        "rect": [
+          0,
+          600,
+          656,
+          599
+        ],
+        "width": 300,
+        "center": true,
+        "pack": "delimiter-grove"
+      },
+      "delimiter-grove-south-east": {
+        "rect": [
+          656,
+          600,
+          656,
+          599
+        ],
+        "width": 300,
+        "center": true,
+        "pack": "delimiter-grove"
+      }
+    }
+  }
+}

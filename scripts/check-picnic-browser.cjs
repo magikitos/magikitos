@@ -101,8 +101,12 @@ const errors = [];
       await near("forest-mushrooms-fern");
       await click("forest-mushrooms-fern");
       await page.waitForFunction(
-        () => window.MagikitosAdventure.inspect().inventory.mushroom === 1,
+        () => window.MagikitosAdventure.inspect().inventory.mushroom === 3,
       );
+      await save();
+      await near("forest-mushrooms-root");
+      await click("forest-mushrooms-root");
+      await page.waitForFunction(() => window.MagikitosAdventure.inspect().inventory.mushroom === 5);
       await save();
       await near("picnic-twig");
       await click("picnic-twig");

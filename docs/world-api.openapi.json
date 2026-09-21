@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Magikitos World JSON API",
-    "version": "2026-09-18",
+    "version": "2026-09-21",
     "description": "Public content, shared website identity, private progress and a server-authoritative shared forest. JSON only; backend implementation stays in the private website repository."
   },
   "servers": [
@@ -11,6 +11,317 @@
     }
   ],
   "paths": {
+    "/setometro": {
+      "get": {
+        "operationId": "worldSetometroDaily",
+        "summary": "Today's shared pair; not collaborative sessions",
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Locale"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SetometroDaily"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/setometro-ranking": {
+      "get": {
+        "operationId": "worldSetometroRanking",
+        "summary": "Global concepts ordered by score, then id",
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Locale"
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SetometroRanking"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/setometro-vote": {
+      "post": {
+        "operationId": "worldSetometroVote",
+        "summary": "Vote on the current daily pair using the website's existing service",
+        "description": "Validates the current server date and exact pair. Same-origin check, CSRF, human proof and website vote quotas apply. Existing website reputation accounting is unchanged; grants no game mushrooms or inventory. No idempotency guarantee: do not automatically retry an ambiguous POST. The website's existing limit is three requests per identity per day, not a persistent one-vote-per-day record. No collaborative session endpoints are exposed.",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {}
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "lang",
+                  "day",
+                  "winner_id",
+                  "loser_id",
+                  "csrf_token"
+                ],
+                "properties": {
+                  "lang": {
+                    "$ref": "#/components/schemas/Locale"
+                  },
+                  "day": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "winner_id": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "loser_id": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "csrf_token": {
+                    "type": "string"
+                  },
+                  "turnstile_token": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SetometroVote"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/forest-ticket": {
       "post": {
         "operationId": "worldForestTicket",
@@ -3027,6 +3338,172 @@
       }
     },
     "schemas": {
+      "SetometroConcept": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "title",
+          "score"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 300
+          },
+          "score": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      },
+      "SetometroDaily": {
+        "type": "object",
+        "required": [
+          "ok",
+          "day",
+          "pair"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "day": {
+            "type": "string",
+            "format": "date"
+          },
+          "pair": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "items": {
+              "$ref": "#/components/schemas/SetometroConcept"
+            }
+          }
+        }
+      },
+      "SetometroRanking": {
+        "type": "object",
+        "required": [
+          "ok",
+          "items",
+          "offset",
+          "nextCursor"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "items": {
+            "type": "array",
+            "maxItems": 24,
+            "items": {
+              "$ref": "#/components/schemas/SetometroConcept"
+            }
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000
+          },
+          "nextCursor": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1,
+            "maximum": 10000
+          }
+        }
+      },
+      "SetometroVote": {
+        "type": "object",
+        "required": [
+          "success",
+          "winner",
+          "loser"
+        ],
+        "properties": {
+          "success": {
+            "const": true
+          },
+          "winner": {
+            "type": "object",
+            "required": [
+              "id",
+              "concept",
+              "icon",
+              "sta_value"
+            ],
+            "properties": {
+              "id": {
+                "oneOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^[1-9][0-9]*$"
+                  }
+                ]
+              },
+              "concept": {
+                "type": "string"
+              },
+              "icon": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "sta_value": {
+                "type": "integer"
+              }
+            }
+          },
+          "loser": {
+            "type": "object",
+            "required": [
+              "id",
+              "concept",
+              "icon",
+              "sta_value"
+            ],
+            "properties": {
+              "id": {
+                "oneOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^[1-9][0-9]*$"
+                  }
+                ]
+              },
+              "concept": {
+                "type": "string"
+              },
+              "icon": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "sta_value": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
       "ForestTicketResponse": {
         "type": "object",
         "additionalProperties": false,

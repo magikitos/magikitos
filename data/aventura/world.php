@@ -119,8 +119,8 @@ return (static function (): array {
         foreach ($scene['entities'] as &$entity) {
             foreach ($families as $familyId => $family) {
                 if (($entity['family'] ?? null) !== $familyId && !in_array($entity['sprite'] ?? null, $family['aliases'], true)) continue;
+                $entity = array_replace($family['template'], $entity);
                 if (($family['entrance'] ?? null) === 'open') {
-                    $entity = array_replace($family['template'], $entity);
                     if (empty($entity['portal']) || !array_filter($entity['rules'], static fn($r) => array_filter($r['effects'], static fn($e) => $e['type'] === 'travel')))
                         throw new RuntimeException('Open building without entrance: '.$entity['id']);
                 }
