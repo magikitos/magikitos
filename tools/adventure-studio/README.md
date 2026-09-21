@@ -215,6 +215,29 @@ diferencia. Límites: hasta 12 casillas del pie, de ¼ a 2 casillas de ancho, de
 alto; las escaleras no admiten entrada dibujada (su rellano sale de su cuerpo). Paridad PHP/JS:
 `check-door-geometry.cjs`; el editor en navegador, `npm run test:studio-entrance`.
 
+⛔ **NO SE PINTA LA PUERTA ENTERA, SE PINTA EL ESCALÓN** (21-sep-2026, pregunta del dueño: «¿tiene
+sentido pintar toda la puerta? ¿qué es mejor para el rendimiento?»). El **rendimiento da igual**:
+`insideThreshold` son cuatro comparaciones contra un rectángulo, así que una franja de dos casillas
+cuesta exactamente lo mismo que una de un cuarto, y el bucle descarta de primeras todo lo que no
+tenga umbral —el coste es «cuántas puertas hay en la pantalla», siete como mucho, y se mira al dar
+un paso, no en cada fotograma—. Lo que decide la forma es el TACTO, y por eso el alto está topado
+en media casilla:
+
+- **Dirección.** `acceptsEntry` exige venir andando HACIA la puerta (`motion.y * entryDirection > 0`,
+  y que lo vertical gane a lo horizontal). Con un rectángulo alto se pasan varios pasos dentro y
+  rozar la casa de lado acabaría metiéndote.
+- **El pestillo.** `portalLatch` cierra la puerta mientras sigues dentro y solo se rearma al salir
+  del rectángulo. Si es alto, al volver de la casa te quedas dentro y hay que alejarse mucho para
+  que vuelva a funcionar.
+- **Se mide el PIE, no el dibujo.** La prueba es el punto del pie contra un rectángulo del mundo; el
+  arco dibujado está por encima del suelo y ahí no pisa nadie.
+
+Las catorce puertas del bosque están de acuerdo: **1 × 0,375 casillas** las de fuera (con dirección
+−1) y **1 × 0,25** las salidas de dentro (dirección +1). Las dos escaleras son la excepción, con
+1,4 × 1,45 y NINGUNA dirección: un área grande solo funciona si se renuncia a la comprobación de
+dirección, que en una casa es justo lo que no se quiere. Si el vano es más ancho que una casilla,
+se ensancha la franja; el alto no.
+
 ## Continuous fences
 
 **Vallas** starts a single connected fence: click/tap its corners, then **Guardar

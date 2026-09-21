@@ -376,7 +376,14 @@ class BodyEditor {
     c.scale(scale * (entity.flip ? -1 : 1) * TILE, scale * TILE);
     const line = 1.5 / this.view.zoom / TILE / scale,
       grip = 5 / this.view.zoom / TILE / scale;
-    const paint = (box, selection, colour, fill) => {
+    /**
+     * El rótulo se dibuja al tamaño de la PANTALLA, no del mundo: escalado con el elemento sería
+     * gigante al acercarse, que es justo cuando se edita. Para eso se deshace la escala del
+     * elemento (`k`) antes de escribir, en vez de pedir una fuente de 0,2 px: un `font` por debajo
+     * de 1 px es territorio de mínimos del navegador y no se dibuja igual en todos.
+     */
+    const k = scale * TILE;
+    const paint = (box, selection, colour, fill, name) => {
       const on =
         this.selected &&
         this.selected.kind === selection.kind &&
@@ -386,6 +393,20 @@ class BodyEditor {
       c.lineWidth = line * (on ? 1.6 : 1);
       c.fillRect(box[0], box[1], box[2], box[3]);
       c.strokeRect(box[0], box[1], box[2], box[3]);
+      c.save();
+      // El texto no se refleja con la copia: un rótulo del revés no se lee.
+      if (entity.flip) c.scale(-1, 1);
+      c.scale(1 / k, 1 / k);
+      c.font = 11 / this.view.zoom + "px system-ui, sans-serif";
+      c.textBaseline = "bottom";
+      const at = ((entity.flip ? -(box[0] + box[2]) : box[0]) + line * 2) * k;
+      const top = (box[1] - line * 2) * k;
+      c.lineWidth = 3 / this.view.zoom;
+      c.strokeStyle = "#0b1a22cc";
+      c.strokeText(name, at, top);
+      c.fillStyle = colour;
+      c.fillText(name, at, top);
+      c.restore();
       if (!on) return;
       c.fillStyle = colour;
       for (const [gx, gy] of GRIPS)
@@ -397,10 +418,16 @@ class BodyEditor {
         );
     };
     this.solids.forEach((box, index) =>
-      paint(box, { kind: "solid", index }, "#9de0f5", "#69cbe93d"),
+      paint(box, { kind: "solid", index }, "#9de0f5", "#69cbe93d", "Colisión " + (index + 1)),
     );
+    /**
+     * ⛔ LA ENTRADA NO PUEDE SER DEL MISMO AZUL QUE UNA COLISIÓN (21-sep-2026). Eran `#9de0f5` y
+     * `#87e5ff`: dos cianes pálidos que nadie distingue, para dos cosas que hacen lo contrario
+     * —una te para, la otra te deja pasar—. La entrada va en violeta, que no se usa en ninguna
+     * otra capa del Studio, y cada caja lleva su nombre escrito encima.
+     */
     if (this.entrance)
-      paint(this.entrance, { kind: "entrance" }, "#87e5ff", "#87e5ff55");
+      paint(this.entrance, { kind: "entrance" }, "#e59bff", "#e59bff55", "Entrada");
     c.restore();
   }
 }

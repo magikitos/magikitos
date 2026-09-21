@@ -419,6 +419,16 @@ class MapViewport {
         ...this.elements(),
         ...this.game.world.architecture.map((e) => ({ e })),
       ]) {
+        /**
+         * ⛔ LA COPIA QUE SE ESTÁ EDITANDO NO LLEVA SU CUERPO VIEJO ENCIMA (21-sep-2026, pregunta
+         * del dueño: «¿por qué hay dos rectángulos azules?»). Abrir el editor enciende esta capa,
+         * que pinta el cuerpo COMPILADO de cada elemento en el mismo azul que usa el editor para
+         * el que estás dibujando. Sobre la casa quedaban dos rectángulos idénticos de color —el
+         * de antes y el de ahora— sin nada que dijera cuál era cuál. El de antes sobra justo ahí:
+         * el editor manda sobre esa copia. Las demás copias sí lo siguen enseñando, que es la
+         * referencia útil de lo que vas a cambiarles.
+         */
+        if (this.editor?.enabled && this.editor.entity?.() === e) continue;
         for (const body of collisionBodies(e).filter((part) => part.solid)) {
           const r = collisionBounds(body);
           c.fillStyle = "#69cbe933";
