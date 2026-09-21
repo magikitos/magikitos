@@ -1,5 +1,5 @@
 "use strict";
-const { TILE } = require("./geometry");
+const { TILE, FOOTPRINT } = require("./geometry");
 /**
  * Gemelo en JS de `adventureDoorGeometry` (src/adventure-geometry.php): el umbral, la dirección de
  * entrada y la llegada de una puerta, desde su pie o desde una `entrance` dibujada a mano en el
@@ -26,6 +26,49 @@ function validEntrance(entrance) {
     h >= ENTRANCE_LIMITS.height[0] &&
     h <= ENTRANCE_LIMITS.height[1]
   );
+}
+/**
+ * ⛔ UNA ENTRADA DENTRO DEL CUERPO NO ABRE NUNCA (22-sep-2026, decisión del dueño: «no permitas que
+ * la entrada esté dentro de colisión sin margen, que salga rojo si no es válida»).
+ *
+ * El umbral se prueba contra el PUNTO del duende, y ese punto no puede meterse en un sólido: su
+ * huella mide 12×10 px, así que nunca se acerca a un cuerpo a menos de 6 px por los lados ni 5 por
+ * arriba y abajo. Una franja dibujada dentro del cuerpo —o pegada a él— queda fuera de alcance y la
+ * puerta se queda cerrada para siempre, sin que nada avise. Medido en la casa de hojas: 297 puntos
+ * dentro del umbral, 0 donde el duende pueda estar.
+ *
+ * No vale con pedir que no se toquen: una franja que solape A MEDIAS sigue siendo buena si le queda
+ * un trozo libre. Lo que se exige es que quede ALGO: se engordan los cuerpos con la media huella
+ * —que es justo hasta donde llega el punto— y se comprueba que no cubran la franja entera. Con seis
+ * cajas como mucho, se resuelve exacto por compresión de coordenadas: los bordes parten la franja
+ * en celdas y basta con que el centro de UNA caiga libre.
+ */
+function entranceReachable(entrance, solids = []) {
+  if (!Array.isArray(entrance) || entrance.length !== 4) return false;
+  const [ex, ey, ew, eh] = entrance;
+  const margenX = FOOTPRINT.halfWidth / TILE,
+    margenY = FOOTPRINT.halfHeight / TILE;
+  const bloques = (Array.isArray(solids) ? solids : [])
+    .filter((b) => Array.isArray(b) && b.length === 4 && b.every(Number.isFinite))
+    .map(([x, y, w, h]) => [x - margenX, y - margenY, w + margenX * 2, h + margenY * 2]);
+  if (!bloques.length) return true;
+  const cortes = (inicio, largo, lado) => {
+    const puntos = new Set([inicio, inicio + largo]);
+    for (const b of bloques)
+      for (const v of [b[lado], b[lado] + b[lado + 2]])
+        if (v > inicio && v < inicio + largo) puntos.add(v);
+    return [...puntos].sort((a, b) => a - b);
+  };
+  const xs = cortes(ex, ew, 0),
+    ys = cortes(ey, eh, 1);
+  for (let i = 0; i < xs.length - 1; i++)
+    for (let j = 0; j < ys.length - 1; j++) {
+      const cx = (xs[i] + xs[i + 1]) / 2,
+        cy = (ys[j] + ys[j + 1]) / 2;
+      if (!bloques.some((b) => cx > b[0] && cx < b[0] + b[2] && cy > b[1] && cy < b[1] + b[3]))
+        return true;
+    }
+  return false;
 }
 function doorGeometry(scene, entity) {
   const stairs = entity.portal === "stairs";
@@ -122,4 +165,4 @@ function portalPath(world, from, entity) {
     return [];
   return [...path, lead, target];
 }
-module.exports = { portalArrival, acceptsEntry, portalPath, doorDestination, doorGeometry, validEntrance, ENTRANCE_LIMITS };
+module.exports = { portalArrival, acceptsEntry, portalPath, doorDestination, doorGeometry, validEntrance, entranceReachable, ENTRANCE_LIMITS };

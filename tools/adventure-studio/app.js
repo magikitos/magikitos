@@ -1251,6 +1251,8 @@ window.MagikitosStudio = Object.freeze({
     bodyScope: bodyEditor?.enabled ? bodyEditor.scope.key : null,
     bodySolids: bodyEditor?.enabled ? bodyEditor.solids : null,
     bodyEntrance: bodyEditor?.enabled ? bodyEditor.entrance : null,
+    // Para que la prueba de navegador pueda ver el rechazo, no solo el color.
+    bodyUnreachable: bodyEditor?.enabled ? Boolean(bodyEditor.unreachable) : false,
     baseHash: snapshot?.baseHash,
     dirty: workspace ? dirty() : false,
     revision: workspace?.revision,

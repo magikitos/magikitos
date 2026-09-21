@@ -14,6 +14,7 @@ const assert = require("node:assert/strict"),
 const { execFileSync } = require("node:child_process");
 const { collisionBodies } = require("../public/assets/js/adventure/collision-grid");
 const { TILE } = require("../public/assets/js/adventure/geometry");
+const { entranceReachable } = require("../public/assets/js/adventure/portals");
 
 const file = path.resolve("data/aventura/elements.json");
 const original = fs.readFileSync(file, "utf8");
@@ -99,6 +100,40 @@ conElemento({}, (e) => {
 }
 assert.equal(fs.readFileSync(file, "utf8"), original, "La prueba deja el catálogo como estaba");
 /**
+ * ⛔ UNA ENTRADA DENTRO DEL CUERPO NO ABRE NUNCA (22-sep-2026). El umbral prueba el PUNTO del
+ * duende y ese punto no entra en un sólido: su huella mide 12×10 px, así que se queda a 6 px por
+ * los lados y 5 por arriba y abajo. En la casa de hojas se midió sobre el mundo compilado: 297
+ * puntos dentro del umbral y CERO donde el duende pudiera estar. No basta con prohibir que se
+ * toquen —una franja que solape a medias sigue valiendo si le queda un trozo libre—, hay que pedir
+ * que quede algo pisable, que es lo que contesta `entranceReachable`.
+ */
+{
+  const cuerpo = [[-3.5, -3.75, 8.75, 4.45]];
+  // Las cuatro posiciones se contrastaron una a una contra el mundo compilado y su `canStand`.
+  for (const [entrada, alcanzable, puntos] of [
+    [[-1, -0.75, 2, 0.5], false, 0],
+    [[-1, 0.7, 2, 0.5], true, 132],
+    [[-1, 0.95, 2, 0.5], true, 264],
+    [[-1, 1.075, 2, 0.5], true, 297],
+  ])
+    assert.equal(
+      entranceReachable(entrada, cuerpo),
+      alcanzable,
+      "Entrada " + JSON.stringify(entrada) + ": el motor deja " + puntos + " puntos pisables",
+    );
+  assert.equal(entranceReachable([-1, -0.75, 2, 0.5], []), true, "Sin cuerpo no hay nada que estorbe");
+  assert.equal(entranceReachable([0, 0, 1, 0.375], [[0, 0, 1, 0.375]]), false, "Ni justa ni pegada");
+
+  // Y el validador del Studio la rechaza por ese mismo motivo.
+  const roto = () =>
+    require("../tools/adventure-studio/element-edits").validateElements({
+      "leaf-home": { avellano: { solids: cuerpo, entrance: [-1, -0.75, 2, 0.5] } },
+    });
+  assert.throws(roto, /no se puede pisar/, "El Studio no deja guardar una entrada inalcanzable");
+  console.log("  entrada alcanzable: 4 posiciones contrastadas con el motor y el rechazo del Studio.");
+}
+
+/**
  * ⛔ UN CUERPO DONDE NO HAY DIBUJO ES UN MURO INVISIBLE (21-sep-2026, repaso).
  *
  * Cuatro colocaciones del bosque —la taberna, el taller, la casa del pescador y el almacén—
@@ -163,6 +198,48 @@ assert.equal(fs.readFileSync(file, "utf8"), original, "La prueba deja el catálo
       }
     }
   }
+  /**
+   * ⛔ Y LOS CUERPOS DE LOS ELEMENTOS TAMBIÉN (22-sep-2026). Este bloque nació mirando solo las
+   * colocaciones de las escenas, que es donde estaban los cuatro muros de aquel día. Pero desde que
+   * el cuerpo es del ELEMENTO, lo que tapia el bosque entero se escribe en `elements.json` y este
+   * bucle no lo veía: una propuesta del Studio de 8,75 celdas para una lámina de 5,57 pasó la verja
+   * y solo se cazó midiendo a mano. Un cuerpo de familia vale por todas sus copias, así que si
+   * sobresale, sobresale en todas.
+   */
+  /**
+   * Dos matices que el bucle de las escenas no necesitaba:
+   *
+   * - Los **Delimitadores** quedan fuera: son barreras para el filo de una pantalla sin vecina, y
+   *   tapiar más de lo que dibujan es LITERALMENTE su trabajo. Medirlos contra su lámina sería
+   *   llamar fallo a lo único que hacen.
+   * - El tope sube a 2 celdas para una PLANTILLA de familia, porque una plantilla tiene que valer
+   *   para varias láminas a la vez y la más estrecha siempre le sobrará un poco. Sigue cazando lo
+   *   que importa: la propuesta de 8,75 celdas para una lámina de 5,57 sobresalía 3,18.
+   */
+  const TEMPLATE_LIMIT = 2;
+  for (const [familyId, family] of Object.entries(
+    JSON.parse(fs.readFileSync(file, "utf8")).families,
+  )) {
+    if (family.category === "Delimitadores") continue;
+    for (const variant of family.variants || []) {
+      const art = ink.get(variant.sprite);
+      if (!art) continue;
+      const bodies = Array.isArray(variant.solids)
+        ? variant.solids
+        : rect(family.template?.solid)
+          ? [family.template.solid]
+          : [];
+      for (const body of bodies.filter(rect)) {
+        measured++;
+        const out = overhang(body, art);
+        if (out > TEMPLATE_LIMIT)
+          walls.push(
+            familyId + "/" + variant.id + " (" + variant.sprite + "): " +
+              out.toFixed(2) + " celdas de muro invisible en TODAS sus copias",
+          );
+      }
+    }
+  }
   assert.deepEqual(walls, [], "Cuerpos que sobresalen del dibujo:\n  " + walls.join("\n  "));
 
   // Y la prueba sabe ponerse roja: el cuerpo que tenía el almacén hasta hoy.
@@ -177,5 +254,5 @@ assert.equal(fs.readFileSync(file, "utf8"), original, "La prueba deja el catálo
 }
 
 console.log(
-  "PASS cuerpo y entrada de elemento: herencia, límites, cuerpo vacío, entrada quitada, fichero de destino por familia, supervivencia a `art:catalog` y ningún muro invisible.",
+  "PASS cuerpo y entrada de elemento: herencia, límites, cuerpo vacío, entrada quitada, fichero de destino por familia, supervivencia a `art:catalog`, entrada pisable y ningún muro invisible.",
 );

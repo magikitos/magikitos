@@ -59,8 +59,19 @@ const written = diff(base, entrance)[0].proposedScene.entities.find((e) => e.id 
 assert.deepEqual(written.entrance, drawn, "La propuesta escribe entrance en la escena");
 assert(!Object.hasOwn(written, "threshold") && !Object.hasOwn(written, "arrival"), "La propuesta no escribe geometría derivada");
 assert.throws(
-  () => validateChanges(base, { overworld: { entities: { "home-one": { ...placement(cottage), entrance: [0, 0, 3, 0.25] } } } }),
+  // 3 casillas YA es legal desde el 22-sep-2026; lo que se rechaza es pasarse de ahí.
+  () => validateChanges(base, { overworld: { entities: { "home-one": { ...placement(cottage), entrance: [0, 0, 3.25, 0.25] } } } }),
   /fuera de rango/,
+);
+/**
+ * ⛔ Y UNA ENTRADA DENTRO DEL CUERPO TAMPOCO PASA (22-sep-2026). El umbral prueba el PUNTO del
+ * duende, que no entra en un sólido: dibujada ahí, la puerta no abre nunca y nada lo avisa. Se
+ * comprueba con `dy` a la altura del cuerpo de la cabaña, que es justo el error que cometió el
+ * dueño en la casa de hojas.
+ */
+assert.throws(
+  () => validateChanges(base, { overworld: { entities: { "home-one": { ...placement(cottage), entrance: [0, -0.5, 1, 0.25] } } } }),
+  /no se puede pisar/,
 );
 assert.throws(
   () => validateChanges(base, { house: { entities: { "human-bed": { ...placement(bed), entrance: [0, 0, 1, 0.25] } } } }),

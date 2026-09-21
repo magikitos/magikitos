@@ -10,6 +10,7 @@ const assert = require("node:assert/strict"),
   fs = require("node:fs"),
   path = require("node:path");
 const { isolateWorld } = require("./lib/world-fixture.cjs");
+const { resolveAppearance } = require("../public/assets/js/adventure/elements");
 const { compileWorld } = require("../tools/world.cjs");
 const { doorGeometry, validEntrance, ENTRANCE_LIMITS } = require("../public/assets/js/adventure/portals");
 const near = (a, b, label) => assert(Math.abs(a - b) < 1e-9, `${label}: ${a} ≠ ${b}`);
@@ -28,7 +29,16 @@ for (const scene of Object.values(compiled.scenes)) {
   for (const entity of scene.entities.filter((e) => e.portal)) {
     const authored = source.entities.find((e) => e.id === entity.id);
     if (!authored) continue;
-    same(doorGeometry(source, authored), entity, scene.id + "/" + entity.id);
+    /**
+     * ⛔ AL GEMELO HAY QUE DARLE LO MISMO QUE AL COMPILADOR (22-sep-2026). Esto le pasaba la
+     * entidad CRUDA de la escena, y `world.php` le mezcla antes el cuerpo y la entrada de la
+     * variante (`array_replace($inherited, $entity)`). Mientras ninguna variante tuvo `entrance`
+     * daba igual; en cuanto el dueño dibujó la primera, el gemelo derivaba la entrada automática
+     * y el compilador usaba la dibujada: 82 contra 81,5, y la prueba acusaba a los dos de no
+     * coincidir cuando lo que no coincidía eran sus ENTRADAS. `resolveAppearance` es la misma
+     * mezcla que hace el motor, así que se compara lo mismo con lo mismo.
+     */
+    same(doorGeometry(source, resolveAppearance(authored, source)), entity, scene.id + "/" + entity.id);
     doors++;
   }
 }

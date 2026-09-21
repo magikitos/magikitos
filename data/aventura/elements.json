@@ -139,7 +139,21 @@
         {
           "id": "avellano",
           "label": "Avellano",
-          "sprite": "human-house"
+          "sprite": "human-house",
+          "solids": [
+            [
+              -2.88,
+              -3.75,
+              6.57,
+              4.45
+            ]
+          ],
+          "entrance": [
+            -1,
+            1.075,
+            2,
+            0.5
+          ]
         },
         {
           "id": "otono",

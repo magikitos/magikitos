@@ -12,6 +12,7 @@ const { families } = require("./catalog");
 const {
   ENTRANCE_LIMITS,
   validEntrance,
+  entranceReachable,
 } = require("../../public/assets/js/adventure/portals");
 /** Lo más grande que se admite a mano: doce casillas de desplazamiento y un cuerpo de 32. */
 const BODY_LIMIT = 32,
@@ -102,6 +103,15 @@ function validateElements(elements = {}) {
           next.entrance = edit.entrance.map(Number);
         }
       }
+      /**
+       * ⛔ Y QUE SE PUEDA PISAR. Una franja dentro del cuerpo —o pegada a él sin dejar la media
+       * huella libre— no la alcanza nadie: el umbral prueba el PUNTO del duende y ese punto no
+       * entra en un sólido. La puerta se quedaría cerrada para siempre sin que nada avisara.
+       */
+      if (next.entrance && !entranceReachable(next.entrance, next.solids))
+        throw Error(
+          "La entrada queda dentro del cuerpo y no se puede pisar: " + familyId + "/" + variantId,
+        );
       const base = bodyOf(familyId, variantId);
       if (
         !same(next.solids, base.solids) ||

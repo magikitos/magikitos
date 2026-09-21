@@ -15,6 +15,7 @@ const {
   ENTRANCE_LIMITS,
 } = require("../../public/assets/js/adventure/portals");
 const { MIN_SIDE, MAX_BOXES } = require("./element-edits");
+const { entranceReachable } = require("../../public/assets/js/adventure/portals");
 const $ = (id) => document.getElementById(id);
 /** Los ocho tiradores de una caja, en fracción de su ancho y alto. */
 const GRIPS = [
@@ -138,10 +139,21 @@ class BodyEditor {
        * la automática, que es la parte que no se puede adivinar mirando el mapa.
        */
       const derivada = !this.entrance && this.scope.portal;
+      /**
+       * ⛔ SI NO SE PUEDE PISAR, SALE ROJA Y NO SE GUARDA (22-sep-2026, decisión del dueño: «no
+       * permitas que la entrada esté dentro de colisión sin margen, que salga rojo si no es
+       * válida»). El validador ya la rechaza al aplicar, pero enterarse al guardar es enterarse
+       * tarde: se ve mientras se arrastra.
+       */
+      this.unreachable = Boolean(this.entrance) && !entranceReachable(this.entrance, this.solids);
+      $("body-finish").disabled = this.unreachable;
       $("body-help").textContent =
         "Arrastra dentro para mover, de una esquina para redimensionar. El mapa está quieto mientras editas; mantén Espacio para apartarte." +
         (derivada
           ? " La entrada que ves es AUTOMÁTICA: sale del borde de abajo del cuerpo y se mueve con él, por eso no se puede coger. Dibuja la tuya para cambiarla."
+          : "") +
+        (this.unreachable
+          ? " ⛔ LA ENTRADA QUEDA DENTRO DEL CUERPO: el pie del duende no llega ahí y la puerta no abriría. Bájala hasta que salga del cuerpo."
           : "");
       $("body-instances").textContent = this.scope.reach;
       $("body-delete").disabled = !this.selected;
@@ -328,9 +340,22 @@ class BodyEditor {
     this.selected = { kind: "solid", index: this.solids.length - 1 };
     this.refresh();
   }
+  /**
+   * ⛔ LA ENTRADA NACE DONDE NACE LA AUTOMÁTICA (22-sep-2026). Nacía en `[0, 0, 1, 3/16]`, y dy=0
+   * cae DENTRO del cuerpo de casi todo: el botón te daba una entrada roja e inguardable, y había
+   * que adivinar que el remedio era bajarla. Ahora sale por debajo de la caja más baja, con los
+   * mismos 6 px que usa `doorGeometry` al derivarla, así que nace válida y solo queda ajustarla.
+   */
   toggleEntrance() {
-    this.entrance = this.entrance ? null : [0, 0, 1, 3 / 16];
-    this.selected = this.entrance ? { kind: "entrance" } : null;
+    if (this.entrance) {
+      this.entrance = null;
+      this.selected = null;
+      this.refresh();
+      return;
+    }
+    const suelo = this.solids.reduce((bajo, [, y, , h]) => Math.max(bajo, y + h), 0);
+    this.entrance = [-0.5, suelo + 6 / 16, 1, 3 / 16];
+    this.selected = { kind: "entrance" };
     this.refresh();
   }
   remove() {
@@ -349,6 +374,9 @@ class BodyEditor {
     this.refresh();
   }
   finish() {
+    // Enter tampoco la cuela: el aviso de la barra y el botón apagado no sirven de nada si el
+    // atajo se salta la comprobación.
+    if (this.unreachable) return;
     // La entrada quitada viaja como `null`: sin la clave, quien aplica la propuesta no sabría
     // distinguir «no la he tocado» de «quítala», y el elemento se quedaría con la de antes.
     if (
@@ -450,7 +478,13 @@ class BodyEditor {
      * otra capa del Studio, y cada caja lleva su nombre escrito encima.
      */
     if (this.entrance)
-      paint(this.entrance, { kind: "entrance" }, "#e59bff", "#e59bff55", "Entrada");
+      paint(
+        this.entrance,
+        { kind: "entrance" },
+        this.unreachable ? "#ff6b6b" : "#e59bff",
+        this.unreachable ? "#ff6b6b55" : "#e59bff55",
+        this.unreachable ? "Entrada · no se puede pisar" : "Entrada",
+      );
     c.restore();
   }
 }

@@ -16,6 +16,7 @@ const { validatePaths } = require("./path-edits");
 const {
   doorGeometry,
   validEntrance,
+  entranceReachable,
   ENTRANCE_LIMITS,
 } = require("../../public/assets/js/adventure/portals");
 const FIELDS = [
@@ -154,6 +155,15 @@ function validatePlacement(scene, source, value) {
             " píxeles de alto",
         );
       next.entrance = next.entrance.map((v) => Math.round(v * 16) / 16);
+      // Y que se pueda pisar: dentro del cuerpo no la alcanza el punto del duende y la puerta
+      // se queda cerrada para siempre. Misma regla que en el elemento (`entranceReachable`).
+      const cuerpo = Array.isArray(next.solids)
+        ? next.solids
+        : Array.isArray(next.solid)
+          ? [next.solid]
+          : [];
+      if (!entranceReachable(next.entrance, cuerpo))
+        throw Error("La entrada queda dentro del cuerpo y no se puede pisar");
     }
   }
   if (next.entrance === undefined) delete next.entrance;
