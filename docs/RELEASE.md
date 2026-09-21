@@ -4,6 +4,55 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: la bombita vuelve a salir del navegador y cuatro muros invisibles menos — 21 septiembre 2026
+
+Artefacto `bbc088623c786bcb5831`, fuente del juego `61eaa3f`, web `5ff89736` (solo puntero).
+Anterior conservada: `8fee2c4f72711c844e46`. Mismas rutas.
+
+SHA-256 de `release.json`: `4927a1636126e63c0ff33f54b5ab5ba2f914e69d0ffa3bc843e9d58a2ec4889f`. 817
+archivos verificados y ESTACIONADOS antes de mover el puntero. **Sin migración**, **sin PHP**, pero
+**SÍ cambia el contrato**: se van 19 `requires` de las escenas de río y cambian los rectángulos
+protegidos y el terreno construible alrededor de cuatro puertas; el demonio arrancó con
+`release=bbc088623c786bcb5831`.
+
+⛔ **Construido desde un árbol LIMPIO** (worktree disperso, 188 MB sin los másteres de arte) con
+el MISMO id que el árbol de trabajo, comparado además fichero a fichero.
+
+### Alcance publicado
+
+- **La bombita y la tenaza estaban MUERTAS desde que se escribieron.** El servidor las tenía
+  implementadas y en el OpenAPI, pero `community-mine` y `community-defuse` faltaban en la lista
+  blanca del cliente (`api.js`), que rechaza cualquier punto desconocido antes de tocar la red.
+  Como `maintain()` pasa el punto en una VARIABLE, ningún buscador de literales lo vio y el
+  jugador solo leía «vuelve a intentarlo», siempre. Comprobado en el paquete servido.
+- **Cuatro muros invisibles fuera.** Taberna, taller, casa del pescador y almacén arrastraban un
+  cuerpo de cuando su lámina tenía el ancla al borde izquierdo; el arte se reancló al centro y
+  ellos se quedaron empujados al este. El del almacén medía 17 celdas para un dibujo de 8,25:
+  **56 casillas de suelo libre tapiadas**, medidas con `cellCanStand` antes y después. Los cuatro
+  cuerpos nuevos están comprobados en el `adventure-config` que sirve producción.
+- **Las tres escenas de río ya no piden barca para estar en ellas**, que atascaba el buzón de
+  acciones de quien entraba a pie: 403 en la cabeza de la cola, para siempre. `human-hedge` sí
+  sigue pidiéndola, porque a ese jardín solo se llega remando.
+- **«Cancelar» dejó de mentir**: con una petición en el diario ya no se ofrece, porque el envío
+  sigue vivo y la pieza aparecería igual.
+- **Volver con la flecha de atrás vuelve a medir**, abriendo sesión nueva (`vuelta-atras`).
+- **Tres puertas nuevas en la verja**: `check-api-contract`, `check-element-bodies` (que compara
+  los 665 cuerpos del mundo con la tinta del atlas horneado) y `check-docs-links`.
+
+### Comprobado
+
+`npm test` entero (84 bloques, salida 0). Navegador: `test:browser`, `test:mobility`,
+`test:journeys`, `test:world-controls`, `test:warehouse`, `test:river` y `test:studio-entrance`.
+Con el demonio de verdad: `test:live-crossing` (ocho cruces seguidos), `test:forest` y
+`test:objects`. En producción, `check-release-live` en las seis rutas, más la lectura directa del
+`adventure-config` servido para las cuatro puertas y los tres ríos.
+
+⛔ **`test:studio-entrance` cazó un error MÍO** antes de salir: afirmaba que el cuerpo de una
+casita se escribe en `element-families.json`, y `build-woodland-kit.cjs` rehace esas 39 familias
+arrancando con `variants: []`, así que el siguiente `art:catalog` lo habría borrado en silencio.
+Va a `elements.json`. La prueba de la verja ya cubría los dos lados; la de navegador guardaba la
+afirmación perdedora.
+
 ## Producción: dieciocho melodías más y el peso medido — 21 septiembre 2026
 
 Artefacto `8fee2c4f72711c844e46`, fuente del juego `d4bde92`, web `13b100d0` (solo puntero).
