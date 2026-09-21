@@ -4,6 +4,46 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: el agua se pregunta por filas, no punto a punto — 21 septiembre 2026
+
+Artefacto `10a99014de5761a7c628`, fuente del juego `7e9f590`, web `bb9131cc` (solo puntero).
+Anterior conservada: `e8c39cd5111788d3b235`. Mismas rutas.
+
+SHA-256 de `release.json`: `c3fb6bdbf96085e5e607d0514e571fa1576ac2937abd7aad8fb1d348e9efd5aa`. 799
+archivos verificados y ESTACIONADOS antes de mover el puntero. **Sin migración**, **sin PHP**,
+**sin cambio de contrato**; el demonio arrancó con `release=10a99014de5761a7c628`.
+
+⛔ **Construido desde un árbol LIMPIO** con el MISMO id que el árbol de trabajo.
+
+### Alcance publicado
+
+- **El agua de una fila son intervalos.** El cauce entre dos orillas, las elipses de los charcos y
+  los puentes que la tapan: averiguarlo cuesta una interpolación de Hermite con dos senos por río,
+  preguntarlo después es comparar dos números. Se preguntaba punto a punto, treinta veces por
+  pisada y la misma fila una y otra vez.
+- **El pie es un rectángulo**, no una nube de treinta sondas, y **un tramo recto barre su banda de
+  filas** en vez de repetir la pregunta en cada paso de dos píxeles. Y el centro de una casilla ya
+  no se vuelve a medir: `navigationTerrain` lo tiene contestado desde que se construyó la pantalla.
+- **Medido**: la máscara de construcción de la pradera pasa de 704.842 evaluaciones de orilla
+  (240 ms) a 3.384 (82 ms); dos mil pisadas pegadas a la orilla, de 60.000 a cero; un toque largo
+  junto al lago, de 114.518 y 193 ms a cero y 34 ms. La respuesta es la MISMA:
+  `check-adventure-geography` compara 574.600 puntos y 143.650 pisadas contra la versión anterior
+  y ninguna difiere.
+
+### Dos pruebas que llevaban rotas, y no eran de este cambio
+
+Fallaban igual antes de tocarlo. La de recogidas esperaba una seta cuando la mata da tres desde el
+Setómetro: ahora lee la cantidad de la escena y no vuelve a romperse. La de gatos perseguía con las
+flechas a pelo y se estrellaba contra una valla colocada en medio, empujando veinticinco segundos:
+ahora se le persigue tocando hacia él dentro de lo que se ve, como se juega.
+
+### Comprobado
+
+`npm test` entero (82 bloques). En navegador: regresiones, viajes, controles del mundo, movilidad,
+río, cruces con demonio de verdad, gatos, recogidas, seto, picnic, arbolado, Ascua, capítulo y las
+cuatro del Studio. En producción, `check-release-live` en las seis rutas y el demonio con la
+release nueva.
+
 ## Producción: el Studio sin cabecera y los cruces sin fotogramas perdidos — 21 septiembre 2026
 
 Artefacto `e8c39cd5111788d3b235`, fuente del juego `7857c14`, web `80ff3097` (solo puntero).
