@@ -68,6 +68,44 @@ Old releases are retained for open browsers and rollback. No recursive prune
 is part of deployment. Browser and website service-worker caches do not own
 the immutable game's lifecycle.
 
+## Lo que pesa una release, y qué se puede comprimir (21-sep-2026)
+
+⛔ **YA ESTÁ COMPRIMIDO CASI TODO, Y ESTÁ MEDIDO.** Esta sección existe porque el número que
+se mira primero —«ese paquete ocupa 13 MB»— suele ser la memoria DESCODIFICADA, no el fichero.
+El artefacto de hoy son **87 MB**: 62 de audio, 22 de arte, 1,9 de páginas y menos de 1 el resto.
+
+**Arte: 19,0 MB de PNG en 351 paquetes, ya en el mínimo.** 348 de los 351 se guardan con paleta
+de 256 colores y `imagepng(..., 9)`; los otros tres son los retratos del elenco (2,5 MB), que
+tienen degradados y necesitan color real. Medido sobre los 351 ficheros:
+
+| intento | resultado |
+| --- | --- |
+| volver a comprimir el IDAT con zlib al máximo y tres estrategias | **0,2 %** menos |
+| elegir el mejor filtro PNG por línea, como `optipng` | **13,9 % MÁS** grande |
+| quedarse con el menor de los dos | **0,1 %** menos, y solo en los tres retratos |
+| ordenar la estantería del atlas por altura antes de empacar | **2 %** menos de memoria |
+
+El filtrado adaptativo EMPEORA porque en una imagen de paleta los índices vecinos no se parecen
+numéricamente: GD ya elige «sin filtro», que es lo correcto. No hay `oxipng` ni `zopflipng` en el
+proyecto y no hacen falta: no queda nada que ganar sin perder calidad.
+
+Los 405 MB «descodificados» del manifiesto son lo que ocuparían TODOS los atlas a la vez en
+memoria de textura, y no ocurre nunca: el presupuesto de hojas es de 192 MB y lo residente en la
+pradera son 62 MB. Reducir ese número es reducir píxeles de arte (la densidad 2× de la dirección
+de arte), no comprimir.
+
+**Audio: 62 MB en 23 ficheros, y al que juega le cuestan dos.** Los decks van con
+`preload="none"` y solo tienen la pista actual y la siguiente, así que entrar con el sonido puesto
+son dos peticiones haya cuatro pistas o cuarenta (medido en producción). El bitrate de entrega es
+128 kbit/s estéreo para música y 80 kbit/s mono para el río; bajarlo es una decisión de calidad.
+
+**Páginas: 333 KB cada una, 57 KB por el cable.** El 94 % de una página es el mundo entero
+incrustado como JSON (306 KB) para que el juego arranque sin una ida y vuelta; Cloudflare lo manda
+con brotli. No se toca.
+
+**Cómo volver a medirlo**: el manifiesto lleva `width`/`height` de cada atlas (memoria = w·h·4) y
+los PNG están en `public/assets/aventura/packs`; `release.json` lista los ficheros del artefacto.
+
 ## Smoke and rollback
 
 For shared forest, stage the artifact and apply reviewed/checksummed 4230/4231

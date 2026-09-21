@@ -92,9 +92,15 @@ public/assets/js/adventure/
   entry.js, fullscreen.js      activación y presentación
 ```
 
-Se han trasladado los cinco MP3 de `Downloads/game-music` conservando su contenido
+Se han trasladado los MP3 de `Downloads/game-music` conservando su contenido
 original en `data/audio/originals`. La herramienta comprueba el MD5 de la copia
 antes de retirar el fichero de entrada. No elimina la carpeta de entrada.
+
+⛔ **LA HERRAMIENTA SE LLEVA EL FICHERO DE ENTRADA** (`--import` hace un movimiento, no
+una copia, y por eso verifica el MD5 antes). Si la carpeta de origen es la de descargas
+del dueño y se quiere conservar, se copia a un directorio temporal y se importa de ahí:
+el resultado es el mismo y las descargas quedan intactas. Así se hicieron las 18 pistas
+del 21-sep-2026.
 
 Para añadir música (Node 22 y ffmpeg/ffprobe en PATH):
 
@@ -111,7 +117,14 @@ se declara su función en el catálogo y se amplía la política de ambiente.
 
 Normalización de entrega: dos pasadas `loudnorm`; música -20 LUFS, pico verdadero
 -2 dBTP, objetivo LRA 11, estéreo 44,1 kHz/128 kbit/s; río -24 LUFS,
-mono 32 kHz/80 kbit/s. Los cinco derivados ocupan **12.204.747 bytes**.
+mono 32 kHz/80 kbit/s. Los 23 derivados ocupan **64979984 bytes** (67 minutos de música).
+
+⛔ **UNA LISTA LARGA NO CUESTA NADA AL QUE JUEGA** (21-sep-2026, al pasar de 4 a 22 pistas).
+Los dos decks van con `preload="none"` y solo tienen cargadas la actual y la siguiente, así
+que el navegador se descarga dos pistas haya cuatro o cuarenta: medido en producción, entrar
+con el sonido puesto son dos peticiones de audio. Lo que sí crece es la RELEASE, que las lleva
+todas: 62 MB de los 87 MB del artefacto. Comprimir más la música es bajar el bitrate, y eso
+es una decisión de calidad, no una optimización: 128 kbit/s estéreo es el contrato de hoy.
 Son objetivos de procesamiento, no promesas de medición auditiva perfecta;
 escuchar y medir los nuevos archivos antes de publicarlos.
 
