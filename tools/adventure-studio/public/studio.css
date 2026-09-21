@@ -91,83 +91,69 @@ p {
   outline: 3px solid #f0c96d;
   outline-offset: 3px;
 }
-.studio-header {
+/**
+ * ⛔ UNA SOLA FRANJA ARRIBA (21-sep-2026, decisión del dueño: «quita cosas estúpidas que pillan
+ * espacio en la pantalla como toda la barra de cabecera y los botones gordos de guardar ahí en el
+ * medio»). Antes eran tres filas —marca, barra de proyecto y navegación— que se comían 180 px de
+ * mapa. Ahora hay una: a qué pantalla vas, y a la derecha lo poco que hace falta saber.
+ */
+.scene-bar {
   display: flex;
-  gap: 26px;
   align-items: center;
-  padding: 14px 20px;
-  border-bottom: 1px solid #354c39;
+  gap: 10px;
+  padding: 5px 12px;
   flex-shrink: 0;
+  border-bottom: 1px solid #354c39;
+  background: #20372a;
 }
-.brand {
-  text-decoration: none;
-  font-size: 14px;
-  letter-spacing: 2px;
-  font-weight: 700;
+.scene-bar > select {
+  flex-shrink: 0;
+  max-width: 220px;
+  font-size: 12px;
+  font-weight: 650;
+  padding: 6px 8px;
 }
-.brand small {
-  display: block;
-  font-size: 9px;
-  letter-spacing: 3px;
-  margin: 5px 0 0 19px;
-  color: #abbc9e;
-}
-.studio-header nav {
+.scene-neighbors {
   display: flex;
-  gap: 8px;
+  gap: 6px;
+  overflow-x: auto;
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 2px;
+  scrollbar-width: thin;
 }
-.studio-header nav a {
-  font-size: 13px;
-  text-decoration: none;
-  padding: 12px 20px;
-  border-radius: 8px;
+.scene-neighbors button {
+  flex-shrink: 0;
+  min-height: 32px;
+  padding: 4px 10px;
+  font-size: 12px;
+  white-space: nowrap;
 }
-.studio-header nav a.active {
-  background: #324a36;
-  color: #fff3d2;
-}
-.safe {
+.scene-bar-end {
   margin-left: auto;
-  font-size: 11px;
-  color: #cbb682;
-}
-.project-bar {
-  padding: 10px 18px;
   display: flex;
-  gap: 8px;
   align-items: center;
-  border-bottom: 1px solid #354c39;
-  background: #1b3024;
+  gap: 8px;
   flex-shrink: 0;
 }
-.project-bar button {
+.chip {
+  min-height: 32px;
+  padding: 4px 10px;
   font-size: 12px;
 }
-.project-bar #save-status {
+.chip-status {
   font-size: 11px;
-  color: #b2c49a;
-  margin-left: auto;
+  color: #8fa67f;
+  letter-spacing: 0.3px;
+}
+.chip-status[data-state="pending"] {
+  color: #f0c96d;
 }
 .workspace {
   display: grid;
   grid-template-columns: 230px minmax(0, 1fr) 265px;
   flex: 1;
   min-height: 0;
-}
-.scene-navigation {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 6px 14px;
-  flex-shrink: 0;
-  border-bottom: 1px solid #354c39;
-  background: #20372a;
-}
-.scene-current {
-  font-size: 12px;
-  font-weight: 650;
-  max-width: 180px;
-  flex-shrink: 0;
 }
 .scene-neighbors {
   display: flex;
@@ -355,14 +341,6 @@ p {
   line-height: 1.6;
   color: #9caf94;
 }
-.review {
-  margin-top: 26px;
-  border-top: 1px solid #40553f;
-  padding-top: 20px;
-}
-.review h2 {
-  font-size: 14px;
-}
 #warnings p {
   background: #6c4a254d;
   border: 1px solid #a8874f77;
@@ -432,12 +410,6 @@ dialog pre {
   .workspace {
     grid-template-columns: 180px minmax(0, 1fr) 220px;
   }
-  .safe {
-    display: none;
-  }
-  .project-bar {
-    flex-wrap: wrap;
-  }
   .map-bottom span {
     display: none;
   }
@@ -451,51 +423,19 @@ dialog pre {
   .map-tools button {
     padding: 0 9px;
   }
-  .studio-header {
-    padding: 10px 15px;
-  }
 }
 @media (max-width: 740px) {
-  .scene-navigation {
-    display: block;
+  .scene-bar {
+    flex-wrap: wrap;
     padding: 6px 8px;
   }
-  .scene-current {
-    display: block;
-    max-width: none;
-    margin: 0 3px 3px;
+  .scene-bar-end {
+    margin-left: 0;
   }
   body {
     overflow: auto;
     height: auto;
     min-height: 100dvh;
-  }
-  .studio-header {
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-  .studio-header nav {
-    margin-left: auto;
-  }
-  .studio-header nav a {
-    padding: 10px;
-    font-size: 12px;
-  }
-  .brand {
-    font-size: 11px;
-  }
-  .project-bar {
-    padding: 8px;
-    gap: 5px;
-  }
-  .project-bar button {
-    min-height: 44px;
-    padding: 0 10px;
-  }
-  .project-bar #save-status {
-    width: 100%;
-    margin: 5px 0;
-    font-size: 10px;
   }
   .workspace {
     display: grid;
@@ -555,14 +495,6 @@ dialog pre {
     bottom: 8px;
     padding: 8px;
   }
-  .studio-header .safe {
-    display: none;
-  }
-}
-.workspace-title {
-  color: var(--muted, #b8c6b2);
-  font-size: 0.8rem;
-  margin-right: auto;
 }
 .inspector details {
   border-top: 1px solid #4b5949;
@@ -674,4 +606,56 @@ dialog pre {
   .gallery summary {
     font-size: 0.8rem;
   }
+}
+
+/**
+ * El cuerpo de un elemento, mientras se dibuja. Las cajas se listan para poder elegirlas sin
+ * apuntar fino en el mapa, y la elegida se marca porque es la que llevan las flechas y ⌫.
+ */
+.body-section {
+  border-top: 1px solid #40513e;
+  padding-top: 12px;
+  margin-top: 4px;
+}
+.body-boxes {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 8px 0;
+}
+.body-box {
+  text-align: left;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  min-height: 30px;
+  padding: 4px 8px;
+}
+.body-box.on {
+  background: #33512f;
+  color: #fff3d2;
+}
+.body-box.entrance {
+  border-color: #4d7f93;
+}
+.body-actions {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+.body-actions button {
+  flex: 1;
+  font-size: 11px;
+  padding: 4px 6px;
+}
+/** El elemento que se arrastra desde la galería hasta el mapa. */
+.gallery-card[draggable="true"] {
+  cursor: grab;
+}
+.viewport.dropping::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 2px dashed #f0c96d;
+  border-radius: 10px;
+  pointer-events: none;
 }

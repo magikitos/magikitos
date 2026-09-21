@@ -11,25 +11,19 @@
     <link rel="stylesheet" href="/studio.css" />
   </head>
   <body>
-    <header class="studio-header">
-      <a class="brand" href="#map">✦ MAGIKITOS <small>STUDIO LOCAL</small></a>
-      <span class="safe">Tu estudio · juego intacto</span>
-    </header>
-    <div class="project-bar" id="map-project-bar">
-      <span class="workspace-title"
-        >Una sola versión · guardado automático</span
-      >
-      <button id="save" class="primary">Guardar ahora</button
-      ><button id="export">Exportar diff</button
-      ><span id="save-status" role="status">Sin cambios</span>
-    </div>
-    <nav id="scene-navigation" class="scene-navigation" aria-label="Escenas conectadas" hidden>
-      <span id="scene-current" class="scene-current"></span>
+    <nav class="scene-bar" aria-label="Escenas">
+      <select id="scene" aria-label="Escena que se edita"></select>
       <div id="scene-neighbors" class="scene-neighbors"></div>
+      <span class="scene-bar-end">
+        <span id="save-status" role="status" class="chip-status"></span>
+        <button id="review" class="chip" title="Ver lo que cambiaría en el juego">
+          Cambios · <span id="diff-count">0</span>
+        </button>
+        <button id="save" class="chip" title="Guardar ahora · ⌘S">Guardar</button>
+      </span>
     </nav>
     <main class="workspace" id="map-panel">
       <aside class="library">
-        <label>Escena<select id="scene"></select></label>
         <div class="editor-modes">
           <button id="objects-mode" aria-pressed="true">Elementos</button
           ><button id="paths-mode" aria-pressed="false">Caminos</button>
@@ -119,7 +113,6 @@
         <div id="loading" class="loading">Preparando el mapa local…</div>
       </section>
       <aside class="inspector">
-        <h1>Colocar con calma</h1>
         <p id="selection-help">
           Selecciona un elemento en el mapa o en la lista. Nada se modifica en
           el juego.
@@ -136,6 +129,27 @@
             Backspace o Supr retira los objetos decorativos. Puertas y objetos
             de misión se conservan. Puedes deshacer.
           </p>
+        </div>
+        <div id="body-properties" hidden>
+          <h2 id="body-title"></h2>
+          <p id="body-help" class="note"></p>
+          <div id="body-boxes" class="body-boxes"></div>
+          <div class="coordinates">
+            <label>X · tiles<input id="body-x" type="number" step=".0625" /></label
+            ><label>Y · tiles<input id="body-y" type="number" step=".0625" /></label>
+          </div>
+          <div class="coordinates">
+            <label>Ancho<input id="body-w" type="number" step=".0625" min=".0625" /></label
+            ><label>Alto<input id="body-h" type="number" step=".0625" min=".0625" /></label>
+          </div>
+          <div class="body-actions">
+            <button id="body-add">Añadir caja</button
+            ><button id="body-entrance">Entrada</button
+            ><button id="body-delete">Borrar · ⌫</button>
+          </div>
+          <button id="body-finish" class="primary">Terminar · Enter</button>
+          <button id="body-reset">Volver al original</button>
+          <p id="body-instances" class="note"></p>
         </div>
         <div id="fence-properties" hidden>
           <h2>Valla continua</h2>
@@ -267,79 +281,12 @@
               mantiene en su sitio.
             </p>
           </details>
-          <details id="collision-section">
-            <summary>Colisión · cuerpo físico</summary>
-            <p id="collision-help" class="note"></p>
-            <div class="coordinates">
-              <label>X<input id="body-x" type="number" step="1" /></label
-              ><label>Y<input id="body-y" type="number" step="1" /></label>
-            </div>
-            <div class="coordinates">
-              <label
-                >Ancho<input
-                  id="body-w"
-                  type="number"
-                  step="1"
-                  min="1" /></label
-              ><label
-                >Alto<input id="body-h" type="number" step="1" min="1"
-              /></label>
-            </div>
-          </details>
-          <details id="entrance-section" open hidden>
-            <summary>Entrada · por dónde se cruza la puerta</summary>
-            <p id="entrance-help" class="note"></p>
-            <div class="coordinates">
-              <label
-                >ΔX · tiles<input
-                  id="entrance-dx"
-                  type="number"
-                  step=".0625"
-                  min="-12"
-                  max="12" /></label
-              ><label
-                >ΔY · tiles<input
-                  id="entrance-dy"
-                  type="number"
-                  step=".0625"
-                  min="-12"
-                  max="12"
-              /></label>
-            </div>
-            <div class="coordinates">
-              <label
-                >Ancho<input
-                  id="entrance-w"
-                  type="number"
-                  step=".0625"
-                  min=".25"
-                  max="2" /></label
-              ><label
-                >Alto<input
-                  id="entrance-h"
-                  type="number"
-                  step=".0625"
-                  min=".0625"
-                  max=".5"
-              /></label>
-            </div>
-            <button id="entrance-auto">Volver a la entrada automática</button>
-            <p class="note">
-              Franja azul en el mapa, relativa al pie naranja de la puerta;
-              arrástrala para moverla. El punto azul es donde se llega al salir.
-              Se guarda como «entrance» en la escena.
-            </p>
-          </details>
+          <section id="body-section" class="body-section" hidden>
+            <h2>Cuerpo y entrada</h2>
+            <p id="body-scope" class="note"></p>
+            <button id="body-edit" class="primary">Editar en el mapa</button>
+          </section>
           <div id="warnings" role="status"></div>
-        </div>
-        <div class="review">
-          <h2>Para revisar juntos</h2>
-          <p id="diff-count">Sin cambios de colocación.</p>
-          <button id="review">Ver cambios</button>
-          <p class="note">
-            Dile al agente «he cambiado las escenas». Leerá el diff local y
-            revisará la propuesta. El estudio nunca publica ni edita el juego.
-          </p>
         </div>
       </aside>
     </main>

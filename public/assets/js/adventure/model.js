@@ -66,6 +66,33 @@ function seamBands(data) {
     };
   });
 }
+/**
+ * ⛔ EL SUELO PISABLE SE CALCULA UNA VEZ POR PANTALLA (21-sep-2026, medido en Chrome). Son 27.648
+ * casillas y cada una pregunta treinta veces si hay agua bajo los pies: 48 ms de reloj en la
+ * pradera, 25 en las raíces. Y se rehacía ENTERO en cada llegada, porque la caché de mundos no
+ * vale en las pantallas con obra de la comunidad —cuatro de las cinco de fuera—, así que entrar a
+ * la pradera costaba dos o tres fotogramas perdidos, siempre, y en un teléfono un cuarto de
+ * segundo. Lo que decide este mapa es el marco, las bandas de las costuras, el contorno de un
+ * interior y el agua; NI las entidades NI los caminos, que van por `occupancy`. Así que la clave
+ * es exactamente eso: si cambia una orilla, se recalcula solo; si llega otro duende, no.
+ */
+const TERRAIN_FIELDS = [
+  "id",
+  "width",
+  "height",
+  "rivers",
+  "waters",
+  "islands",
+  "bridges",
+  "interior",
+  "indoor",
+  "baseWater",
+  "navigation",
+];
+const TERRAIN_GRIDS = 16;
+const terrainGrids = new Map();
+const terrainKey = (data) =>
+  JSON.stringify(TERRAIN_FIELDS.map((field) => data[field] ?? null));
 class World {
   constructor(data) {
     data = resolveSceneAnchors(data);
@@ -117,10 +144,18 @@ class World {
           this.terrain[y * this.width + x] = 0;
         }
     // Static navigation is built once. Picking up a leaf only refreshes entity occupancy.
-    for (let y = 0; y < this.height; y++)
-      for (let x = 0; x < this.width; x++)
-        if (!this.terrainCanStand((x + 0.5) * TILE, (y + 0.5) * TILE))
-          this.setBlocked(x, y);
+    const key = terrainKey(data),
+      cached = terrainGrids.get(key);
+    if (cached) this.blocked.set(cached);
+    else {
+      for (let y = 0; y < this.height; y++)
+        for (let x = 0; x < this.width; x++)
+          if (!this.terrainCanStand((x + 0.5) * TILE, (y + 0.5) * TILE))
+            this.setBlocked(x, y);
+      terrainGrids.set(key, this.blocked.slice());
+      if (terrainGrids.size > TERRAIN_GRIDS)
+        terrainGrids.delete(terrainGrids.keys().next().value);
+    }
     this.navigationTerrain = this.blocked.slice();
     this.refresh({ flags: {}, inventory: {} });
   }

@@ -38,6 +38,17 @@ Dos cosas hacían que el bosque diera saltitos al moverse, y ninguna era la anim
   la fila que asoma se construían en el mismo fotograma (hasta 77 ms en portátil). Ahora se pinta
   una por adelantado y por fotograma, del anillo que rodea la vista, cuando el fotograma va suelto.
 
+- **El suelo pisable se rehacía entero en cada llegada** (21-sep-2026, medido en Chrome). Cada
+  pantalla tiene 27.648 casillas y cada una pregunta treinta veces si hay agua bajo los pies:
+  48 ms de reloj en la pradera, 25 en las raíces, y `riverSection` era el 20 % de toda la CPU de
+  un cruce. La caché de mundos no vale en las pantallas donde se construye —cuatro de las cinco de
+  fuera—, así que el mundo que la precarga acababa de armar se tiraba y se volvía a armar. Entrar
+  a la pradera costaba dos o tres fotogramas perdidos, SIEMPRE. Ahora ese mapa se guarda por
+  pantalla (`model.js`, `terrainGrids`) con una clave que son exactamente sus ingredientes —marco,
+  bandas de las costuras, contorno del interior y agua—, así que cambiar una orilla lo recalcula y
+  que llegue otro duende no. Medido: `new World` de la pradera pasa de 73,6 ms a 6,2, y los diez
+  cruces del banco de pruebas pasan de perder dos o tres fotogramas cada vez a no perder ninguno.
+
 Y con ellos, tres cosas que hacían «aparecer y desaparecer» al cruzar: la pantalla que dejas pasa
 de activa a **caliente en el acto** (sus hojas no quedan sin proteger los ~600 ms hasta la
 siguiente precarga), sus **residentes siguen donde estaban** (no se rehacen al entrar), y las hojas

@@ -16,11 +16,18 @@ const { validateSprites, spriteDiff, cropFor } = require("./sprite-edits");
 const { MapViewport } = require("./viewport");
 const {
   placement,
+  familyIdOf,
   validateChanges,
   renderScene,
   diff,
   removable,
 } = require("./scene-edits");
+const { BodyEditor } = require("./body-editor");
+const {
+  proposedBody,
+  validateElements,
+  elementDiff,
+} = require("./element-edits");
 const { capabilities } = require("../../public/assets/js/adventure/entity-art");
 const { doorGeometry } = require("../../public/assets/js/adventure/portals");
 const {
@@ -103,6 +110,7 @@ let gallery,
   cropEditor,
   pathEditor,
   fenceEditor,
+  bodyEditor,
   context,
   snapshot,
   workspace,
@@ -129,7 +137,11 @@ const count = () =>
     0,
   );
 const editsJSON = () =>
-  JSON.stringify({ changes: workspace.changes, sprites: workspace.sprites });
+  JSON.stringify({
+    changes: workspace.changes,
+    sprites: workspace.sprites,
+    elements: workspace.elements,
+  });
 const restoreEdits = (text) => Object.assign(workspace, JSON.parse(text));
 const dirty = () => editsJSON() !== savedJSON;
 const sceneViews = new Map();
@@ -203,7 +215,10 @@ function rebuild(fit = false, keep) {
         ? [keep]
         : view.selection.map(selectionTools.identifies);
   cropEditor?.apply(snapshot, workspace.sprites);
-  view.setScene(renderScene(snapshot, sceneId, workspace.changes), fit);
+  view.setScene(
+    renderScene(snapshot, sceneId, workspace.changes, workspace.elements),
+    fit,
+  );
   view.setSelection(selections);
   paintList();
   paintInspector();
@@ -232,21 +247,30 @@ function paintStatus() {
   const pathScenes = Object.values(workspace.changes).filter((s) =>
     Object.hasOwn(s, "paths"),
   ).length;
-  $("diff-count").textContent =
-    count() || pathScenes
-      ? count() +
-        " elementos ajustados" +
-        (pathScenes ? " · caminos en " + pathScenes + " escena(s)" : "") +
-        "."
-      : "Sin cambios de mapa.";
-  if (Object.keys(workspace.sprites).length)
-    $("diff-count").textContent +=
-      " · " + Object.keys(workspace.sprites).length + " sprites recortados.";
-  $("save-status").textContent = dirty()
-    ? "Cambios pendientes de guardar"
-    : workspace.revision
-      ? "Guardado automático · juego intacto"
-      : "Tu versión del estudio";
+  const elements = Object.values(workspace.elements || {}).reduce(
+    (n, variants) => n + Object.keys(variants).length,
+    0,
+  );
+  const total =
+    count() +
+    pathScenes +
+    elements +
+    Object.keys(workspace.sprites).length;
+  $("diff-count").textContent = String(total);
+  $("review").disabled = !total;
+  $("review").title = total
+    ? count() +
+      " elementos movidos · " +
+      elements +
+      " cuerpos de elemento · " +
+      Object.keys(workspace.sprites).length +
+      " recortes · caminos en " +
+      pathScenes +
+      " escena(s)"
+    : "Nada que revisar todavía";
+  // Un punto, no un párrafo: el guardado es automático y solo interesa cuando aún no ha ocurrido.
+  $("save-status").textContent = dirty() ? "● sin guardar" : "guardado";
+  $("save-status").dataset.state = dirty() ? "pending" : "saved";
 }
 function setChanges(entries) {
   const data = JSON.parse(JSON.stringify(workspace.changes)),
@@ -301,58 +325,132 @@ function adjust(value) {
     paintInspector();
   }
 }
+/**
+ * ⛔ EL CUERPO Y LA ENTRADA SON DEL ELEMENTO, NO DE LA COPIA (21-sep-2026, decisión del dueño).
+ *
+ * De un elemento con familia se edita su VARIANTE, y desde ahí vale para todas sus copias, las
+ * puestas y las que se pongan mañana. De uno sin familia —un cartel, un saco— no hay dónde
+ * guardarlo más que en las copias, así que se escriben TODAS las de ese mismo dibujo, en todas las
+ * pantallas: el resultado que se ve es el mismo, y el dueño no tiene que repetir el trabajo doce
+ * veces. Lo que no se hace nunca es tocar solo la que está seleccionada.
+ */
+function bodyScope(row) {
+  const e = row?.e;
+  if (!e || e.fence || e.actor || e.neighbor) return null;
+  const sprite = frameName(e),
+    family = familyOf(e),
+    familyId = family && familyIdOf(e),
+    variant = e.artVariant;
+  const portal = !!e.portal && e.portal !== "stairs";
+  if (familyId && variant && family.variants.some((v) => v.id === variant)) {
+    const instances = countInstances((row) => familyIdOf(row) === familyId && row.artVariant === variant);
+    return {
+      kind: "element",
+      key: familyId + "/" + variant,
+      family: familyId,
+      variant,
+      sprite,
+      portal,
+      label: family.label + " · " + (family.variants.find((v) => v.id === variant)?.label || variant),
+      reach:
+        "Vale para " +
+        copies(instances) +
+        " de este elemento en el bosque, y para las que pongas después.",
+      body: proposedBody(familyId, variant, workspace.elements) || {},
+    };
+  }
+  const instances = countInstances((row) => frameName(row) === sprite);
+  return {
+    kind: "sprite",
+    key: "sprite:" + sprite,
+    sprite,
+    portal,
+    label: label(e) + " · " + sprite,
+    reach:
+      "Este dibujo no tiene familia todavía, así que se escribe en " +
+      copies(instances) +
+      " del bosque, todas a la vez.",
+    body: {
+      solids: e.solids ? clone(e.solids) : e.solid ? [clone(e.solid)] : [],
+      ...(e.entrance ? { entrance: clone(e.entrance) } : {}),
+    },
+  };
+}
+/** Cómo se cuentan las copias en el aviso: una es una, y ninguna se dice sin rodeos. */
+const copies = (n) =>
+  n === 0 ? "ninguna copia" : n === 1 ? "la única copia" : "las " + n + " copias";
+/** Cuántas copias hay en TODO el bosque, que es el alcance que se anuncia antes de tocar nada. */
+function countInstances(matches) {
+  let n = 0;
+  for (const scene of Object.values(snapshot.world.scenes))
+    for (const e of scene.entities) if (matches(e)) n++;
+  for (const props of Object.values(snapshot.scenery))
+    for (const e of props) if (matches(e)) n++;
+  return n;
+}
+const clone = (value) => JSON.parse(JSON.stringify(value));
+/**
+ * Guarda el cuerpo del elemento y, de paso, RETIRA los cuerpos sueltos que cada copia llevaba
+ * encima: si no, la copia antigua seguiría ganando y el dueño vería que su cambio no hace nada.
+ */
+function applyBody(scope, body) {
+  const before = editsJSON();
+  try {
+    if (scope.kind === "element") {
+      const elements = JSON.parse(JSON.stringify(workspace.elements));
+      (elements[scope.family] ||= {})[scope.variant] = body;
+      workspace.elements = validateElements(elements);
+      clearOwnBodies((e) => familyIdOf(e) === scope.family && e.artVariant === scope.variant);
+    } else {
+      writeOwnBodies((e) => frameName(e) === scope.sprite, body);
+    }
+    rebuild();
+    history(before);
+    return true;
+  } catch (error) {
+    restoreEdits(before);
+    toast(error.message);
+    return false;
+  }
+}
+/** Recorre TODAS las pantallas: un elemento no vive solo en la que se está mirando. */
+function eachInstance(matches, write) {
+  const data = JSON.parse(JSON.stringify(workspace.changes));
+  for (const [scene, source] of Object.entries(snapshot.world.scenes)) {
+    for (const layer of ["entities", "scenery"]) {
+      const rows = layer === "entities" ? source.entities : snapshot.scenery[scene];
+      for (const e of rows || []) {
+        if (!matches(e)) continue;
+        const group = (data[scene] ||= { entities: {}, scenery: {} });
+        const current = group[layer]?.[e.id] ||
+          (layer === "entities" ? group.added?.[e.id] : null) ||
+          placement(e);
+        const next = write({ ...placement(e), ...current });
+        if (group.added?.[e.id]) group.added[e.id] = { ...group.added[e.id], ...next };
+        else (group[layer] ||= {})[e.id] = next;
+      }
+    }
+  }
+  workspace.changes = validateChanges(snapshot, data);
+}
+const clearOwnBodies = (matches) =>
+  eachInstance(matches, (value) => {
+    const next = { ...value };
+    delete next.solid;
+    delete next.entrance;
+    return next;
+  });
+const writeOwnBodies = (matches, body) =>
+  eachInstance(matches, (value) => ({
+    ...value,
+    ...(body.solids?.length ? { solid: body.solids[0] } : { solid: undefined }),
+    ...(body.entrance ? { entrance: body.entrance } : { entrance: undefined }),
+  }));
 function currentEntityInTiles() {
   const e = currentEntity();
   return { ...e, x: e.x / TILE, y: e.y / TILE };
 }
-/**
- * Arrastrar la franja azul de una puerta mueve su entrada, no la puerta. Mientras dura el arrastre
- * se recalcula en vivo el umbral con el mismo gemelo que usa el compilador; al soltar se rehace la
- * escena y entra en el historial como un solo cambio.
- */
-function dragEntrance(info, position, commit, cancel) {
-  const e = currentEntity();
-  if (!e) return;
-  if (!dragBefore) dragBefore = editsJSON();
-  if (cancel) {
-    restoreEdits(dragBefore);
-    dragBefore = null;
-    rebuild();
-    return;
-  }
-  if (position) {
-    const step = Number($("snap").value),
-      [, , w, h] = e.threshold,
-      entrance = [
-        Math.round((position.x - e.x / TILE) / step) * step,
-        Math.round((position.y - e.y / TILE) / step) * step,
-        w,
-        h,
-      ];
-    try {
-      setChanges([
-        { selection: selected, value: { ...placement(currentEntityInTiles()), entrance } },
-      ]);
-      Object.assign(
-        e,
-        { entrance },
-        doorGeometry(snapshot.world.scenes[sceneId], { ...e, x: e.x / TILE, y: e.y / TILE, entrance }),
-      );
-      paintEntrance(e);
-      view.dirty = true;
-    } catch (error) {
-      toast(error.message);
-    }
-  }
-  if (commit) {
-    const before = dragBefore;
-    dragBefore = null;
-    rebuild();
-    history(before);
-  }
-}
 function drag(info, position, commit, cancel) {
-  if (info.entrance) return dragEntrance(info, position, commit, cancel);
   if (!dragBefore) {
     dragBefore = editsJSON();
     dragMembers = selectionTools
@@ -513,24 +611,9 @@ function warnings(entity) {
  * La entrada de una puerta en el inspector: la franja que la abre, relativa al pie, tal y como la
  * escribirá el compilador (`entrance`). Automática si nadie la ha dibujado.
  */
-const ENTRANCE_INPUTS = ["entrance-dx", "entrance-dy", "entrance-w", "entrance-h"];
-function paintEntrance(e) {
-  const door = !!e.portal && e.portal !== "stairs" && Array.isArray(e.threshold);
-  $("entrance-section").hidden = !door;
-  if (!door) return;
-  const [tx, ty, tw, th] = e.threshold,
-    values = [tx - e.x / TILE, ty - e.y / TILE, tw, th];
-  ENTRANCE_INPUTS.forEach((id, i) => {
-    $(id).value = Math.round(values[i] * 16) / 16;
-  });
-  $("entrance-auto").disabled = !e.entrance;
-  $("entrance-help").textContent = e.entrance
-    ? "Entrada dibujada a mano. Se guarda como «entrance» en la escena; el compilador saca de ahí el umbral y la llegada."
-    : "Entrada automática desde el pie de la puerta. Cambia los valores o arrastra la franja azul del mapa para dibujarla a mano.";
-}
 function paintInspector() {
   const multi = view.selection.length > 1;
-  if (fenceEditor?.enabled) {
+  if (fenceEditor?.enabled || bodyEditor?.enabled) {
     $("properties").hidden = true;
     $("multi-properties").hidden = true;
     $("selection-help").hidden = true;
@@ -598,23 +681,9 @@ function paintInspector() {
       sprite +
       "”. No cambia el punto de apoyo ni la colisión."
     : "";
-  const editableBody = !!e.solid && !e.portal && !e.threshold && !e.actor;
-  $("collision-section").hidden = !e.solid;
-  for (const [index, id] of [
-    "body-x",
-    "body-y",
-    "body-w",
-    "body-h",
-  ].entries()) {
-    $(id).value = e.solid?.[index] * TILE || 0;
-    $(id).disabled = !editableBody;
-  }
-  $("collision-help").textContent = editableBody
-    ? "Cuerpo físico en píxeles, relativo al pie naranja. Independiente del recorte; azul en el mapa."
-    : e.portal && e.portal !== "stairs"
-      ? "Cuerpo protegido. La franja por la que se entra se ajusta abajo, en «Entrada»."
-      : "Umbral protegido: su geometría se calcula desde la puerta o escalera.";
-  paintEntrance(e);
+  const scope = bodyScope({ e, layer: selected.layer });
+  $("body-section").hidden = !scope || bodyEditor?.enabled;
+  $("body-scope").textContent = scope ? scope.reach : "";
   thumbnail($("preview"), view.renderer.sprites, e, 15);
   $("warnings").innerHTML = warnings(e)
     .map((m) => "<p>" + escape(m) + "</p>")
@@ -637,9 +706,12 @@ async function save() {
   try {
     const result = await savePromise;
     workspace.revision = result.revision;
+    // La MISMA forma que `editsJSON`: si se escribe dos veces, un campo nuevo deja el estudio
+    // «sin guardar» para siempre y el guardado automático no para nunca.
     savedJSON = JSON.stringify({
       changes: sending.changes,
       sprites: sending.sprites,
+      elements: sending.elements,
     });
     paintStatus();
   } finally {
@@ -650,23 +722,6 @@ function modal(title, body) {
   $("modal-title").textContent = title;
   $("modal-body").innerHTML = body;
   if (!$("modal").open) $("modal").showModal();
-}
-function exportDiff() {
-  const payload = {
-    purpose: "review-only",
-    baseHash: snapshot.baseHash,
-    scenes: diff(snapshot, workspace.changes),
-    sprites: spriteDiff(snapshot, workspace.sprites),
-  };
-  const blob = new Blob([JSON.stringify(payload, null, 2) + "\n"], {
-      type: "application/json",
-    }),
-    url = URL.createObjectURL(blob),
-    a = document.createElement("a");
-  a.href = url;
-  a.download = "magikitos-studio-diff.json";
-  a.click();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 function adjustCrop(crop) {
   const e = currentEntity();
@@ -687,13 +742,6 @@ function adjustCrop(crop) {
     paintInspector();
   }
 }
-$("collision-section").ontoggle = () => {
-  if ($("collision-section").open) {
-    view.bodies = true;
-    $("bodies").checked = true;
-    view.dirty = true;
-  }
-};
 $("crop-auto").onclick = () => cropEditor.auto();
 $("crop-reset").onclick = () => {
   const record = snapshot.sprites[frameName(currentEntity() || {})];
@@ -704,21 +752,8 @@ for (const id of ["crop-x", "crop-y", "crop-w", "crop-h"])
     adjustCrop(
       ["crop-x", "crop-y", "crop-w", "crop-h"].map((k) => Number($(k).value)),
     );
-for (const id of ENTRANCE_INPUTS)
-  $(id).addEventListener("change", () =>
-    adjust({ entrance: ENTRANCE_INPUTS.map((k) => Number($(k).value)) }),
-  );
-$("entrance-auto").onclick = () => adjust({ entrance: undefined });
-for (const id of ["body-x", "body-y", "body-w", "body-h"])
-  $(id).onchange = () =>
-    adjust({
-      solid: ["body-x", "body-y", "body-w", "body-h"].map(
-        (k) => Number($(k).value) / TILE,
-      ),
-    });
 function paintSceneLinks() {
   const links = sceneLinks(snapshot.world.scenes, sceneId);
-  $("scene-current").textContent = context.nombres[sceneId] || sceneId;
   $("scene-neighbors").replaceChildren(...links.map((link) => {
     const button = document.createElement("button"),
       name = context.nombres[link.scene] || link.scene,
@@ -730,7 +765,7 @@ function paintSceneLinks() {
     button.addEventListener("click", () => switchScene(link.scene));
     return button;
   }));
-  $("scene-navigation").hidden = !links.length;
+  $("scene-neighbors").hidden = !links.length;
 }
 function switchScene(next) {
   if (!view.world || !Object.hasOwn(snapshot.world.scenes, next) || next === sceneId) return;
@@ -847,32 +882,38 @@ function removeSelection() {
 }
 $("remove").onclick = removeSelection;
 $("multi-remove").onclick = removeSelection;
-function addFromGallery(family, artVariant) {
+/**
+ * Coloca un elemento de la galería. Sin punto, cae en el centro de la vista (el botón); con punto,
+ * justo donde se ha soltado, que es lo que se pidió: nada de aparecer en el centro y arrastrar.
+ */
+function addFromGallery(family, artVariant, point = null) {
   const before = editsJSON(),
     id = "studio-" + crypto.randomUUID();
   const scene = snapshot.world.scenes[sceneId],
-    center = {
+    center = point || {
       x: (view.camera.x + view.renderer.width / 2) / TILE,
       y: (view.camera.y + view.renderer.height / 2) / TILE,
     };
-  const x = Math.max(
-      1,
-      Math.min(scene.width - 1, Math.round(center.x * 4) / 4),
-    ),
-    y = Math.max(1, Math.min(scene.height - 1, Math.round(center.y * 4) / 4));
+  const step = Number($("snap").value) || 0.25;
+  const round = (v) => Math.round(v / step) * step;
+  const x = Math.max(1, Math.min(scene.width - 1, round(center.x))),
+    y = Math.max(1, Math.min(scene.height - 1, round(center.y)));
   const next = JSON.parse(JSON.stringify(workspace.changes)),
     group = (next[sceneId] ||= { entities: {}, scenery: {} });
-  (group.added ||= {})[id] = {
-    family,
-    ...placement(makeElement(family, id, x, y, artVariant)),
-  };
+  // El cuerpo y la entrada NO se copian en la copia nueva: son del elemento, y de ahí los hereda.
+  const { solid, entrance, ...where } = placement(
+    makeElement(family, id, x, y, artVariant),
+  );
+  (group.added ||= {})[id] = { family, ...where };
   try {
     workspace.changes = validateChanges(snapshot, next);
     selected = { id, layer: "entities" };
     rebuild(false, selected);
     history(before);
     toast(
-      "Colocado en el centro de la vista. Arrástralo a su sitio; solo cambia el estudio.",
+      point
+        ? "Colocado donde lo has soltado. Solo cambia el estudio."
+        : "Colocado en el centro de la vista. Arrástralo a su sitio; solo cambia el estudio.",
     );
   } catch (error) {
     toast(error.message);
@@ -882,13 +923,30 @@ $("save").onclick = () =>
   save()
     .then(() => toast("Estudio guardado. El juego sigue intacto."))
     .catch((e) => toast(e.message));
-$("export").onclick = () =>
-  save()
-    .then(exportDiff)
-    .catch((e) => toast(e.message));
 $("review").onclick = () => {
   const scenes = diff(snapshot, workspace.changes),
     sprites = spriteDiff(snapshot, workspace.sprites);
+  const bodies = elementDiff(workspace.elements || {});
+  const cuerpos = bodies.length
+    ? "<h3>Cuerpo y entrada de elementos</h3><p>Se escriben en <code>data/aventura/element-families.json</code> y valen para todas sus copias.</p><pre>" +
+      escape(
+        bodies
+          .map(
+            (b) =>
+              b.familyLabel +
+              " · " +
+              b.variantLabel +
+              " (" +
+              b.sprite +
+              ")\n  antes " +
+              JSON.stringify(b.before) +
+              "\n  ahora " +
+              JSON.stringify(b.after),
+          )
+          .join("\n\n"),
+      ) +
+      "</pre>"
+    : "";
   const art = sprites.length
     ? "<h3>Recortes de sprites</h3><pre>" +
       escape(
@@ -906,7 +964,8 @@ $("review").onclick = () => {
     : "";
   modal(
     "Cambios del estudio",
-    art +
+    cuerpos +
+      art +
       (scenes.length
         ? "<p>Solo propuesta. No se ha escrito ningún JSON de las escenas del juego.</p>" +
           scenes
@@ -978,7 +1037,7 @@ document.addEventListener("keydown", (e) => {
     $(e.shiftKey || e.key.toLowerCase() === "y" ? "redo" : "undo").click();
     return;
   }
-  if (fenceEditor?.key(e) || pathEditor.key(e)) {
+  if (bodyEditor?.key(e) || fenceEditor?.key(e) || pathEditor.key(e)) {
     e.preventDefault();
     return;
   }
@@ -1032,6 +1091,19 @@ function setPaths(paths) {
     return false;
   }
 }
+bodyEditor = new BodyEditor(
+  view,
+  { scopeOf: bodyScope, apply: applyBody },
+  () => {
+    pathEditor?.stop?.();
+    fenceEditor?.stop();
+    paintInspector();
+  },
+  () => {
+    paintInspector();
+    paintSelection();
+  },
+);
 pathEditor = new PathEditor(
   view,
   () =>
@@ -1083,6 +1155,37 @@ fenceEditor = new (require("./fence-editor").FenceEditor)(
     paintInspector();
   },
 );
+/** El mapa recibe lo que se arrastra desde la galería y lo deja en el punto exacto del suelo. */
+const DROP_TYPE = "application/x-magikitos-element";
+const dropPayload = (event) => {
+  if (!event.dataTransfer?.types.includes(DROP_TYPE)) return null;
+  try {
+    return JSON.parse(event.dataTransfer.getData(DROP_TYPE));
+  } catch {
+    return null;
+  }
+};
+for (const type of ["dragenter", "dragover"])
+  $("viewport").addEventListener(type, (event) => {
+    if (!event.dataTransfer?.types.includes(DROP_TYPE)) return;
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "copy";
+    $("viewport").classList.add("dropping");
+  });
+$("viewport").addEventListener("dragleave", (event) => {
+  if (event.target === $("viewport")) $("viewport").classList.remove("dropping");
+});
+$("viewport").addEventListener("drop", (event) => {
+  const payload = dropPayload(event);
+  $("viewport").classList.remove("dropping");
+  if (!payload) return;
+  event.preventDefault();
+  const point = view.point(event.clientX, event.clientY);
+  addFromGallery(payload.family, payload.artVariant, {
+    x: point.x / TILE,
+    y: point.y / TILE,
+  });
+});
 $("objects-mode").addEventListener("click", () => fenceEditor.stop());
 $("river-topology").addEventListener("change", () => {
   view.dirty = true;
@@ -1092,6 +1195,7 @@ $("river-topology").addEventListener("change", () => {
     context = await api("/api/context");
     snapshot = context.snapshot;
     workspace = context.workspace;
+    workspace.elements ||= {};
     savedJSON = editsJSON();
     if (context.conflicts.length)
       toast(
@@ -1125,6 +1229,8 @@ $("river-topology").addEventListener("change", () => {
   }
 })();
 window.MagikitosStudio = Object.freeze({
+  /** Seleccionar sin apuntar con el ratón: lo usan las pruebas y el teclado. */
+  select: (id, layer = "entities") => view.select(id, layer, true),
   inspect: () => ({
     ready: !!view.world,
     scene: sceneId,
@@ -1140,6 +1246,11 @@ window.MagikitosStudio = Object.freeze({
     paths: view.world?.data.paths,
     changes: workspace?.changes,
     sprites: workspace?.sprites,
+    elements: workspace?.elements,
+    bodyEditing: bodyEditor?.enabled || false,
+    bodyScope: bodyEditor?.enabled ? bodyEditor.scope.key : null,
+    bodySolids: bodyEditor?.enabled ? bodyEditor.solids : null,
+    bodyEntrance: bodyEditor?.enabled ? bodyEditor.entrance : null,
     baseHash: snapshot?.baseHash,
     dirty: workspace ? dirty() : false,
     revision: workspace?.revision,

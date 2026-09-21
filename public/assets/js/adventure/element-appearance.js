@@ -16,12 +16,22 @@ function appearanceFor(families) {
   };
   const resolveAppearance = (entity, seed) => {
     const family = familyOf(entity), variant = variantOf(entity, seed);
-    return variant ? {
-      ...family.template, ...entity,
-      // A changed orientation must not inherit the previous silhouette's footprint.
-      ...(variant.solids ? { solids: variant.solids } : {}),
+    if (!variant) return entity;
+    // A changed orientation must not inherit the previous silhouette's footprint: the VARIANT
+    // decides, never the solids a previous resolution left on the entity.
+    const solids = variant.solids;
+    const resolved = {
+      ...family.template, ...entity, ...(solids ? { solids } : {}),
       artVariant: entity.artVariant || variant.id, artSprite: variant.sprite,
-    } : entity;
+    };
+    /**
+     * ⛔ UN CUERPO COMPUESTO SUSTITUYE AL SIMPLE, NO SE SUMA (21-sep-2026). `collisionBodies`
+     * rechaza a quien lleve los dos, y la plantilla de la familia trae `solid` justo cuando la
+     * variante trae `solids`: sin esta línea, dar varias cajas a un elemento que heredaba una
+     * sola rompía la escena entera al construirla.
+     */
+    if (solids) delete resolved.solid;
+    return resolved;
   };
   return { familyOf, variantOf, resolveAppearance };
 }

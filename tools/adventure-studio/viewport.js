@@ -198,20 +198,6 @@ class MapViewport {
       });
   }
   /** La puerta seleccionada cuya franja de entrada está bajo el puntero, o null. */
-  entranceHandle(point) {
-    if (this.selection.length !== 1) return null;
-    const p = this.selection[0],
-      e = p.e;
-    if (!e.portal || e.portal === "stairs" || !Array.isArray(e.threshold)) return null;
-    const [x, y, w, h] = e.threshold,
-      pad = 6 / this.zoom;
-    return point.x >= x * TILE - pad &&
-      point.x <= (x + w) * TILE + pad &&
-      point.y >= y * TILE - pad &&
-      point.y <= (y + h) * TILE + pad
-      ? p
-      : null;
-  }
   setSelection(keys) {
     const { key } = require("./selection");
     const elements = new Map(this.elements().map((p) => [key(p), p]));
@@ -255,22 +241,6 @@ class MapViewport {
     if (this.editor?.enabled && !this.hand && !this.space && e.button === 0) {
       this.drag = { type: "tool" };
       this.editor.down(point, e);
-      return;
-    }
-    // La franja azul de la puerta seleccionada se arrastra aparte: mueve la entrada, no la casa.
-    const handle =
-      !this.hand && !this.space && e.button === 0 ? this.entranceHandle(point) : null;
-    if (handle) {
-      this.drag = {
-        type: "move",
-        entrance: true,
-        id: handle.e.id,
-        layer: handle.layer,
-        start: point,
-        entity: { x: handle.e.threshold[0] * TILE, y: handle.e.threshold[1] * TILE },
-        origin: { x: e.clientX, y: e.clientY },
-        moved: false,
-      };
       return;
     }
     const hit =

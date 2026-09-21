@@ -119,7 +119,29 @@ return (static function (): array {
         foreach ($scene['entities'] as &$entity) {
             foreach ($families as $familyId => $family) {
                 if (($entity['family'] ?? null) !== $familyId && !in_array($entity['sprite'] ?? null, $family['aliases'], true)) continue;
-                $entity = array_replace($family['template'], $entity);
+                /**
+                 * ⛔ EL CUERPO Y LA ENTRADA SON DEL ELEMENTO, NO DE CADA COPIA (21-sep-2026,
+                 * decisión del dueño). Viven en la VARIANTE, que es el dibujo concreto, y desde
+                 * ahí valen para todas sus instancias. La variante fijada —la que se pide por
+                 * nombre o la que `defaults` ata al sprite autorado— se resuelve igual aquí que
+                 * en `element-appearance.js`, que es lo que permite calcular la puerta en el
+                 * build. Una variante al azar solo cambia el cuerpo, y eso lo aplica el cliente.
+                 */
+                $pinned = $entity['artVariant'] ?? $family['defaults'][$entity['sprite'] ?? ''] ?? null;
+                $variant = null;
+                foreach ($family['variants'] as $candidate) {
+                    if ($pinned !== null && $pinned !== 'auto' ? $candidate['id'] === $pinned : ($candidate['sprite'] ?? null) === ($entity['sprite'] ?? null)) {
+                        $variant = $candidate;
+                        break;
+                    }
+                }
+                $inherited = $family['template'];
+                foreach (['solids', 'entrance'] as $field) {
+                    if (isset($variant[$field])) $inherited[$field] = $variant[$field];
+                }
+                $entity = array_replace($inherited, $entity);
+                // Un cuerpo compuesto sustituye al simple: llevar los dos es un error de datos.
+                if (isset($entity['solids'])) unset($entity['solid']);
                 if (($family['entrance'] ?? null) === 'open') {
                     if (empty($entity['portal']) || !array_filter($entity['rules'], static fn($r) => array_filter($r['effects'], static fn($e) => $e['type'] === 'travel')))
                         throw new RuntimeException('Open building without entrance: '.$entity['id']);

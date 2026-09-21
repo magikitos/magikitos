@@ -4,6 +4,7 @@ const fs = require("node:fs"),
   crypto = require("node:crypto");
 const { World, TILE } = require("../../public/assets/js/adventure/model");
 const {
+  families,
   resolveAppearance,
 } = require("./catalog");
 const { readUnits } = require("../locales.cjs");
@@ -84,7 +85,11 @@ function snapshot(root) {
       };
     }
   }
-  const baseHash = hash(JSON.stringify({ world, sources, manifest, sprites }));
+  // Las familias entran en la huella: el cuerpo y la entrada de un elemento viven ahí, así que
+  // aplicarlos al juego tiene que rebasar la propuesta del estudio igual que un recorte aplicado.
+  const baseHash = hash(
+    JSON.stringify({ world, sources, manifest, sprites, families }),
+  );
   return {
     baseHash,
     createdAt: new Date().toISOString(),

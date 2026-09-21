@@ -78,9 +78,23 @@ class Gallery {
       select.onchange = draw;
       draw();
       const add = document.createElement("button");
-      add.textContent = "Colocar";
+      add.textContent = "Colocar en el centro";
       add.setAttribute("aria-label", "Colocar " + family.label);
       add.onclick = () => this.onAdd(id, select.value);
+      /**
+       * ⛔ SE ARRASTRA HASTA SU SITIO (21-sep-2026, decisión del dueño: «quiero hacer directamente
+       * drag de elementos desde la barra lateral, no que se añadan en el centro y yo tener que
+       * moverlo»). El botón se queda para el teclado y para quien prefiera soltarlo en el centro.
+       */
+      card.draggable = true;
+      card.addEventListener("dragstart", (event) => {
+        event.dataTransfer.effectAllowed = "copy";
+        event.dataTransfer.setData(
+          "application/x-magikitos-element",
+          JSON.stringify({ family: id, artVariant: select.value }),
+        );
+        event.dataTransfer.setDragImage(canvas, canvas.width / 2, canvas.height - 6);
+      });
       card.append(canvas, title, select, add);
       this.list.append(card);
     }

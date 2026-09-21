@@ -43,11 +43,17 @@ es FIJA; y Ascua es el protagonista con los otros once duendes como vecinos.
 
 ## Arrange objects
 
-La barra superior muestra **las escenas conectadas**, con flechas para las vecinas
-del mapa y una casa para los interiores. Sus destinos y nombres proceden de las
-salidas/puertas y textos actuales, sin otra lista que mantener. Un clic cambia de
-escena; al volver se recuperan el zoom y el encuadre de esa sesión. El selector
-habitual sigue dando acceso a todas las escenas. Los cambios de distintas escenas
+⛔ **UNA SOLA FRANJA ARRIBA** (21-sep-2026, decisión del dueño: «quita cosas estúpidas
+que pillan espacio en la pantalla como toda la barra de cabecera y los botones gordos
+de guardar ahí en el medio»). La marca, la barra de proyecto y la navegación eran tres
+filas que se comían 180 píxeles de mapa; ahora hay una. A la izquierda, el selector con
+TODAS las escenas y, al lado, **las conectadas**, con flechas para las vecinas del mapa
+y una casa para los interiores: sus destinos y nombres proceden de las salidas/puertas
+y textos actuales, sin otra lista que mantener. Un clic cambia de escena; al volver se
+recuperan el zoom y el encuadre de esa sesión. A la derecha solo queda lo que hace
+falta saber: si está guardado, cuántos cambios hay y el botón de guardar ya. El
+guardado es automático de todos modos; no se exporta ningún diff a mano, porque el
+agente lo lee de `/api/diff`. Los cambios de distintas escenas
 se conservan juntos y siguen guardándose automáticamente.
 
 **Ocultar árboles / Mostrar árboles** filtra los árboles de ambas familias,
@@ -92,9 +98,12 @@ overwrite newer work. Prefer one editing tab at a time.
 
 ## Gallery and variants
 
-Open **Galería de elementos** in the Elements pane. Search by family/category, choose
-a specific variant or **Variada · fija por objeto**, and press **Colocar**.
-The object appears at the viewport centre, selected for dragging. The inspector's
+Open **Galería de elementos** in the Elements pane. Search by family/category and choose
+a specific variant or **Variada · fija por objeto**. **Drag the card onto the map** and it
+lands exactly where you drop it, snapped to the current step — that is the normal way
+(owner, 21-sep-2026: "quiero hacer directamente drag de elementos desde la barra lateral,
+no que se añadan en el centro y yo tener que moverlo"). **Colocar en el centro** stays for
+the keyboard. A new copy carries no body of its own: it inherits the element's. The inspector's
 variant selector changes only its artwork; quest rules and IDs remain intact.
 Auto uses a deterministic scene/object hash, so a reload never shuffles the map.
 
@@ -159,21 +168,34 @@ La noche y el corrillo de cuentos se anclan a `story-fire`: al mover la hoguera,
 `scene-anchors.js` resuelve su centro y el del fuego desde la entidad, tanto en
 Studio como en el juego. No hay coordenadas de ambiente duplicadas que actualizar.
 
-## Entradas de casas y salidas (20-sep-2026)
+## Cuerpo y entrada de un elemento (21-sep-2026)
 
-Selecciona una casa, la taberna, el taller o la salida de un interior y el inspector enseña
-**Entrada · por dónde se cruza la puerta**: la franja azul del mapa que abre la puerta al pisarla
-andando hacia ella, en casillas relativas al pie naranja (ΔX, ΔY, ancho, alto), y el punto azul
-donde se llega al salir. Por defecto es **automática** (el compilador la deriva del pie y del
-cuerpo, como siempre). Si el dibujo de una casa tiene la puerta a un lado y «no cuadra», cambia
-los valores o **arrastra la franja azul** en el mapa: se guarda como `entrance` en la escena y
-`data/aventura/world.php` la convierte en el mismo umbral y llegada que una puerta derivada, así
-que el motor, el contrato del bosque vivo y las pruebas no notan la diferencia. Límites: hasta 12
-casillas del pie, de ¼ a 2 casillas de ancho, de 1 a 8 píxeles de alto; las escaleras no admiten
-entrada dibujada (su rellano sale de su cuerpo). **Volver a la entrada automática** la borra. El
-inspector avisa si la franja cae sobre un cuerpo o agua. Mover la casa arrastra su franja con
-ella, tanto la automática como la dibujada. Paridad PHP/JS: `check-door-geometry.cjs`; el editor
-en navegador, `npm run test:studio-entrance`.
+⛔ **SON DEL ELEMENTO, NO DE LA COPIA** (decisión del dueño: «esos valores deben ser relativos a
+ese elemento, en TOOODAS sus instancias, no solo la que estoy editando»). Un cartel tiene un
+cuerpo; los doce carteles del bosque tienen ESE cuerpo. Antes cada copia llevaba el suyo escrito
+encima, así que ajustar uno no arreglaba los otros once.
+
+Selecciona un elemento y pulsa **Editar en el mapa**. Mientras el editor está abierto manda él:
+arrastrar el fondo ya no mueve el mapa —así una caja se dibuja sin que el suelo se escape debajo—
+y la vista se acerca al elemento. Arrastra dentro de una caja para moverla, de una esquina o un
+lado para redimensionarla; las flechas la empujan (con Mayús, cuatro pasos) y ⌫ la borra. Los
+mismos cuatro números están en el panel para escribirlos a mano. **Añadir caja** da hasta seis
+—un arco con dos patas y el hueco libre en medio—, y **Entrada** añade la franja por la que se
+cruza una puerta. `Enter` guarda, `Esc` cancela, **Volver al original** deshace lo tanteado.
+
+Lo que se guarda va a la VARIANTE de la familia en `data/aventura/element-families.json`
+(`solids`, `entrance`) y de ahí lo heredan todas sus copias, las puestas y las que pongas después;
+el panel dice cuántas son antes de tocar nada. Si el elemento aún no tiene familia, se escribe en
+todas sus copias del bosque a la vez, en todas las pantallas, y el panel también lo dice. Al
+guardar se RETIRAN los cuerpos sueltos que cada copia llevaba encima: si no, la copia antigua
+seguiría ganando y el cambio no se vería.
+
+La entrada sigue siendo la franja que abre la puerta al pisarla andando hacia ella, en casillas
+relativas al pie, y `data/aventura/world.php` la convierte en el mismo umbral y llegada que una
+puerta derivada, así que el motor, el contrato del bosque vivo y las pruebas no notan la
+diferencia. Límites: hasta 12 casillas del pie, de ¼ a 2 casillas de ancho, de 1 a 8 píxeles de
+alto; las escaleras no admiten entrada dibujada (su rellano sale de su cuerpo). Paridad PHP/JS:
+`check-door-geometry.cjs`; el editor en navegador, `npm run test:studio-entrance`.
 
 ## Continuous fences
 
@@ -239,10 +261,10 @@ The game never loads those preview packs or scans image pixels at startup.
 
 ## Collision bodies
 
-**Colisión · cuerpo físico** shows the collision independently in blue.
-Offsets and dimensions are in native pixels relative to the object's foot.
-Existing furniture bodies are editable; derived doors, stairs and actors are
-protected. The renderer and physics both apply the object's supported transform.
+Bodies are drawn in blue on the map and edited there, per ELEMENT — see «Cuerpo y
+entrada de un elemento». Offsets and sizes are tiles relative to the object's
+foot, and the renderer and physics both apply the object's supported transform,
+so what you drag on a scaled or mirrored copy is what the game gets.
 
 Do not crop a tree canopy to "fix" the trunk collision. A tree's visible canopy
 and its physical trunk intentionally have different sizes.
@@ -260,7 +282,8 @@ node tools/adventure-studio/review.cjs --full
 ```
 
 The first command prints a concise before/after diff; `--full` includes proposed
-scene JSON. `/api/diff` and **Exportar diff** provide the full review payload.
+scene JSON. `/api/diff` provides the full review payload; the **Cambios** chip in the
+scene strip shows the same thing on screen.
 The agent reviews and edits the source scenes/asset definitions, then rebuilds
 and tests. There is deliberately **no apply or deploy endpoint** in the Studio.
 

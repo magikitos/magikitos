@@ -9,6 +9,9 @@ const {
   makeElement,
   families,
 } = require("./catalog");
+/** El identificador de la familia de un elemento: la clave con la que se guarda su cuerpo. */
+const familyIdOf = (e) =>
+  Object.keys(families).find((id) => families[id] === familyOf(e)) || null;
 const { validatePaths } = require("./path-edits");
 const {
   doorGeometry,
@@ -26,7 +29,19 @@ const FIELDS = [
   "entrance",
 ];
 const clone = (value) => JSON.parse(JSON.stringify(value));
+const same = (a, b) => JSON.stringify(a ?? null) === JSON.stringify(b ?? null);
+/**
+ * ⛔ UNA COLOCACIÓN NO REPITE EL CUERPO DE SU ELEMENTO (21-sep-2026). El cuerpo y la entrada viven
+ * en la familia y desde ahí valen para todas las copias; si cada copia se los volviera a escribir,
+ * editar el elemento no cambiaría nada, porque la copia ganaría. Solo se anota lo que de verdad se
+ * aparta de lo heredado, que es para lo que existe una colocación.
+ */
+function inheritedBody(e) {
+  const id = familyIdOf(e);
+  return id ? require("./element-edits").bodyOf(id, e.artVariant) : null;
+}
 function placement(e) {
+  const inherited = inheritedBody(e);
   return {
     x: e.x,
     y: e.y,
@@ -34,8 +49,12 @@ function placement(e) {
     rotation: e.rotation || 0,
     flip: !!e.flip,
     ...(e.fence ? { fence: clone(e.fence) } : {}),
-    ...(e.solid ? { solid: [...e.solid] } : {}),
-    ...(e.entrance ? { entrance: [...e.entrance] } : {}),
+    ...(e.solid && !same([e.solid], inherited?.solids)
+      ? { solid: [...e.solid] }
+      : {}),
+    ...(e.entrance && !same(e.entrance, inherited?.entrance)
+      ? { entrance: [...e.entrance] }
+      : {}),
     ...(familyOf(e)
       ? {
           artVariant:
@@ -72,7 +91,8 @@ function validatePlacement(scene, source, value) {
     Object.keys(value).some((k) => !FIELDS.includes(k))
   )
     throw Error("Elemento o propiedad desconocida");
-  const next = { ...placement(source), ...value },
+  const recorded = placement(source),
+    next = { ...recorded, ...value },
     cap = capabilities(source);
   if (
     !Number.isFinite(next.x) ||
@@ -90,7 +110,9 @@ function validatePlacement(scene, source, value) {
     (!cap.mirror && next.flip !== !!source.flip)
   )
     throw Error("Transformación no admitida por el arte");
-  if (JSON.stringify(next.solid) !== JSON.stringify(source.solid)) {
+  // Se compara con lo que la colocación ANOTA, no con lo que el elemento hereda: una colocación
+  // sin `solid` es una que se conforma con el cuerpo de su elemento, no una que lo borra.
+  if (JSON.stringify(next.solid) !== JSON.stringify(recorded.solid)) {
     if (
       !source.solid ||
       source.portal ||
@@ -110,7 +132,7 @@ function validatePlacement(scene, source, value) {
    * compilador la deriva del pie como siempre. Solo las puertas la tienen —una escalera deriva su
    * rellano de su cuerpo— y va con los mismos límites que exige el compilador (`portals.js`).
    */
-  if (JSON.stringify(next.entrance) !== JSON.stringify(source.entrance)) {
+  if (JSON.stringify(next.entrance) !== JSON.stringify(recorded.entrance)) {
     if (!source.portal || source.portal === "stairs")
       throw Error("Solo las puertas tienen entrada; las escaleras derivan su rellano");
     if (next.entrance !== undefined) {
@@ -265,20 +287,39 @@ function validateChanges(snapshot, changes) {
   }
   return clean;
 }
-function renderScene(snapshot, sceneId, changes = {}) {
+/**
+ * La escena tal y como se vería con la propuesta puesta: colocaciones, altas, bajas, caminos y
+ * —desde el 21-sep-2026— el cuerpo y la entrada que el estudio propone para cada ELEMENTO, que
+ * valen para todas sus copias y por eso se aplican aquí y no en cada una.
+ */
+function renderScene(snapshot, sceneId, changes = {}, elements = {}) {
   const scene = clone(snapshot.world.scenes[sceneId]),
     edits = changes[sceneId] || {};
+  const elementBody = (e) => {
+    const family = familyOf(e);
+    const edit = family && elements[familyIdOf(e)]?.[e.artVariant];
+    if (!edit) return null;
+    return {
+      ...(edit.solids ? { solids: clone(edit.solids) } : {}),
+      ...(Object.hasOwn(edit, "entrance")
+        ? { entrance: clone(edit.entrance) }
+        : {}),
+    };
+  };
   const keep = (e, layer) =>
     !edits.removed?.some((r) => r.layer === layer && r.id === e.id);
   if (Object.hasOwn(edits, "paths")) scene.paths = clone(edits.paths);
   scene.entities = scene.entities
     .filter((e) => keep(e, "entities"))
     .map((e) => {
-      const edit = edits.entities?.[e.id];
-      if (!edit) return e;
-      const merged = { ...e, ...edit };
+      const edit = edits.entities?.[e.id],
+        body = elementBody(e);
+      if (!edit && !body) return e;
+      const merged = { ...e, ...edit, ...body };
       // Una colocación es completa: sin `entrance` en ella, la puerta vuelve a derivarse.
-      if (!Object.hasOwn(edit, "entrance")) delete merged.entrance;
+      if (edit && !Object.hasOwn(edit, "entrance") && !body?.entrance)
+        delete merged.entrance;
+      if (body?.solids) delete merged.solid;
       // La vista previa enseña el umbral y la llegada que escribirá el compilador para el pie y la
       // entrada de AHORA, no los de la escena compilada antes de mover la casa.
       if (merged.portal) {
@@ -297,7 +338,7 @@ function renderScene(snapshot, sceneId, changes = {}) {
     });
   scene.scenery = clone(snapshot.scenery[sceneId])
     .filter((e) => keep(e, "scenery"))
-    .map((e) => ({ ...e, ...edits.scenery?.[e.id] }));
+    .map((e) => ({ ...e, ...edits.scenery?.[e.id], ...elementBody(e) }));
   return scene;
 }
 function proposedScene(snapshot, sceneId, changes) {
@@ -372,6 +413,7 @@ function diff(snapshot, changes) {
 }
 module.exports = {
   FIELDS,
+  familyIdOf,
   placement,
   validateChanges,
   renderScene,

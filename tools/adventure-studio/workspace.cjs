@@ -10,6 +10,7 @@ const {
   removable,
 } = require("./scene-edits");
 const { validateSprites, spriteDiff, cropFor } = require("./sprite-edits");
+const { validateElements, elementDiff, bodyOf } = require("./element-edits");
 const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 /** Three-way rebase: already-applied edits disappear; conflicting edits are never discarded. */
 function rebase(workspace, before, current) {
@@ -115,6 +116,9 @@ function rebase(workspace, before, current) {
       baseHash: current.baseHash,
       changes: validateChanges(current, changes),
       sprites: validateSprites(current, sprites),
+      // El cuerpo de un elemento se valida contra el catálogo VIVO: una propuesta ya aplicada al
+      // juego vale lo mismo que la fuente y desaparece sola, sin conflicto que resolver.
+      elements: validateElements(workspace.elements || {}),
     },
     conflicts: [],
   };
@@ -180,6 +184,7 @@ class WorkspaceStore {
         updatedAt: new Date().toISOString(),
         changes: {},
         sprites: {},
+        elements: {},
       };
       this.write(value);
     } else if (value.baseHash !== current.baseHash) {
@@ -217,6 +222,7 @@ class WorkspaceStore {
       updatedAt: new Date().toISOString(),
       changes: validateChanges(source, input.changes),
       sprites: validateSprites(source, input.sprites),
+      elements: validateElements(input.elements),
     };
     this.write(next, previous);
     return next;
@@ -231,6 +237,7 @@ class WorkspaceStore {
       revision: value.revision,
       scenes: diff(source, value.changes),
       sprites: spriteDiff(source, value.sprites),
+      elements: elementDiff(value.elements || {}),
     };
   }
 }
