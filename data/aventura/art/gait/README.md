@@ -47,6 +47,28 @@ direcciones en `.local/gait-review/contacts`; acepta una dirección para limitar
 La composición se hace offline: no hay máscaras, procesamiento de imagen, texturas
 más grandes ni fotogramas adicionales en el navegador.
 
+### Encaje entre paseo y carrera
+
+Las cuatro poses de carrera de una dirección comparten el mismo desplazamiento
+horizontal, medido respecto al cuerpo que camina (no al borde de un gorro, mano o
+pie). `horizontalOffsets` en `residents/actions/catalog.json` se aplica durante
+el registro offline de la hoja. No mueve al jugador, su sombra, el ancla, los pies
+en vertical ni la cámara, y no redibuja ni deforma las piernas aprobadas.
+
+La revisión de los 18 protagonistas / ocho direcciones detectó descentrados
+frontales en siete hojas. Brezo necesitaba +2,5 px lógicos hacia la derecha al
+correr hacia abajo; las otras correcciones están entre +0,5 y +2,5 px. Las vistas
+laterales/diagonales conservan su inclinación y dibujo aprobados, sin normalizar
+cada fotograma por su silueta (lo que introduciría temblores).
+
+`php scripts/check-gait-alignment.php` comprueba los píxeles de los atlas exportados:
+anclas comunes en las ocho direcciones y eje medio cara/torso frontal/trasero al
+cambiar de marcha. Una prueba negativa detecta el salto original de Brezo. Esta
+medida acotada permite la oscilación natural; no exige congelar el cuerpo.
+La cobertura de navegador incluye 5.472 pasos de cambio paseo → carrera → paseo
+en las cuatro fases del ciclo, ocho direcciones y los tres tamaños de pantalla,
+además de los 912 casos de marcha: posición física, fase continua y ancla común.
+
 QA: SHA de fuentes y recortes, receta vigente, 32 fases por pack, 6 contactos por
 corrección, pies en y=46 y margen de lienzo; comparación de píxeles opacos del
 gorro/cabeza/torso con su pose original. Las pruebas del motor cubren velocidades,

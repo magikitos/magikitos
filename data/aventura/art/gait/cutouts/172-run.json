@@ -1,7 +1,7 @@
 {
     "sourceSha256": "649f2ed22afb6844c62f67cc07ccce66e280ecb2ade0b174fb0c5de8075ea35b",
     "recipeSha256": "09d785bbf3e3ed27d655402152c9dc3d4b950db5c50f95fc47baf61a81a102a8",
-    "originalFramesSha256": "0186d8f50e9c386646375bca9b84c741b9048de50906cf3b3cd8508cf4e3c356",
+    "originalFramesSha256": "4e58dabe0822289de730e724993cb329c7007408daa575e556915d90385ac952",
     "poses": {
         "person-172-right-run-2": {
             "baseFrame": {

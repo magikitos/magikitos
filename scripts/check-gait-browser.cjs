@@ -4,6 +4,7 @@ const fs = require("node:fs");
 const { chromium } = require("playwright");
 const { enterWorld } = require("./browser-entry.cjs");
 const { WALK_SPEED, RUN_SPEED } = require("../public/assets/js/adventure/locomotion");
+const { GAITS } = require("../public/assets/js/adventure/characters");
 const origin = process.env.OFFLINE_GAME_ORIGIN || "http://127.0.0.1:47838";
 if (!["127.0.0.1", "localhost"].includes(new URL(origin).hostname)) throw Error("Local tests only");
 
@@ -68,7 +69,7 @@ async function reviewBundle() {
       });
       for (const variant of variants) {
         await page.evaluate(async variant => { await gaitReview.wear(variant, { push: false }); }, variant);
-        const result = await page.evaluate(({ variant, width }) => {
+        const result = await page.evaluate(({ variant, width, speeds, strides }) => {
           const g = gaitReview, results = [];
           const directions = [
             ["down", ["ArrowDown"]], ["down-right", ["ArrowDown", "ArrowRight"]],
@@ -92,10 +93,37 @@ async function reviewBundle() {
             g.keys.clear();
             g.tick(g.lastTime + 100); cancelAnimationFrame(g.frame);
             results.at(-1).idle = g.trace.at(-1).sprite;
+            if (pace === "walk") {
+              // Switch pace on every quarter-cycle, not just at a convenient
+              // idle pose. Neither the world position nor the gait may snap.
+              const switches = results.at(-1).switches = [];
+              const dx = Number(keys.includes("ArrowRight")) - Number(keys.includes("ArrowLeft"));
+              const dy = Number(keys.includes("ArrowDown")) - Number(keys.includes("ArrowUp"));
+              const length = Math.hypot(dx, dy);
+              for (const phase of [0.01, 0.26, 0.51, 0.76]) {
+                Object.assign(g.player, g.reviewStart, { direction, gaitPhase: phase });
+                for (const nextPace of ["walk", "run", "walk"]) {
+                  const before = { x: g.player.x, y: g.player.y, phase: g.player.gaitPhase };
+                  g.keys = new Set([...keys.map(k => k.toLowerCase()), ...(nextPace === "run" ? [" "] : [])]);
+                  g.tick(g.lastTime + 1000 / 60); cancelAnimationFrame(g.frame);
+                  const painted = g.trace.at(-1), frame = g.renderer.sprites.frame(painted.painted);
+                  const distance = speeds[nextPace] / 60;
+                  switches.push({
+                    pace: nextPace, sprite: painted.sprite, exactArt: painted.available && painted.painted === painted.sprite,
+                    anchor: frame.anchor, size: [frame.w, frame.h],
+                    dx: g.player.x - before.x, dy: g.player.y - before.y,
+                    expectedDx: dx / length * distance, expectedDy: dy / length * distance,
+                    phase: g.player.gaitPhase, expectedPhase: (before.phase + distance / strides[nextPace]) % 1,
+                  });
+                }
+              }
+              g.keys.clear();
+            }
           }
           g.reducedMotion = false;
           return results;
-        }, { variant, width });
+        }, { variant, width, speeds: { walk: WALK_SPEED, run: RUN_SPEED },
+          strides: { walk: GAITS.walk.stride, run: GAITS.run.stride } });
         for (const r of result) {
           assert.equal(r.draws, 36, `Essential movement paints every tick, including reduced motion: ${JSON.stringify(r)}`);
           assert(r.exactArt, "All requested poses are available and painted: no stationary fallback");
@@ -103,6 +131,14 @@ async function reviewBundle() {
           assert(r.names.every(n => n.startsWith(`person-${variant}-${r.direction}-${r.pace}-`)), `Correct direction/body: ${JSON.stringify(r)}`);
           assert.equal(r.idle, `person-${variant}-${r.direction}`, "Stopping restores idle, no recovery squat");
           assert(Math.abs(r.distance - (r.pace === "walk" ? WALK_SPEED : RUN_SPEED) * 1.2) < 0.001, `No movement regression: ${JSON.stringify(r)}`);
+          for (const s of r.switches || []) {
+            assert(s.exactArt && s.sprite.startsWith(`person-${variant}-${r.direction}-${s.pace}-`), "Pace switch paints the exact requested body");
+            assert.deepEqual(s.anchor, [24, 46], "Walking and running share their world attachment");
+            assert.deepEqual(s.size, [48, 48]);
+            assert(Math.abs(s.dx - s.expectedDx) < 1e-7 && Math.abs(s.dy - s.expectedDy) < 1e-7, "No sideways world-position jump when switching pace");
+            const diff = Math.abs(s.phase - s.expectedPhase);
+            assert(Math.min(diff, Math.abs(diff - 1)) < 1e-7, "Pace switches preserve the continuous supporting phase");
+          }
         }
         report.push(...result);
         console.log(`PASS gait browser ${width}: actor ${variant}, eight directions, walk/run/stop${result.length > 16 ? ', reduced motion' : ''}`);
@@ -114,5 +150,5 @@ async function reviewBundle() {
   } finally { await browser.close(); }
   assert.deepEqual(errors, []);
   fs.writeFileSync(".local/gait-review/runtime.json", JSON.stringify(report, null, 2));
-  console.log(`PASS ${report.length} actual-engine gait cases; no page errors.`);
+  console.log(`PASS ${report.length} actual-engine gait cases and ${report.reduce((sum, r) => sum + (r.switches?.length || 0), 0)} pace-switch steps; no page errors.`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

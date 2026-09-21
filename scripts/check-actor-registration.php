@@ -19,6 +19,16 @@ $pose['id'] = 'running'; $pose['reference'] = 'standing'; $pose['action'] = 'run
 $action = adventureRegisterActor($pose, $defaults, $cell, [[60, 10, 80, 176]], $ref['measurement']);
 check($action['measurement']['ratio'] === $ref['measurement']['ratio'], 'Running must borrow standing scale, not normalize a long stride');
 check(abs($action['poses']['person-100-down-run-0']['support'] - 46) < 0.0001, 'Foot line is shared');
+$aligned = adventureRegisterActor($pose + ['horizontalOffsets'=>['down'=>2.5]], $defaults, $cell, [[60, 10, 80, 176]], $ref['measurement']);
+$before = $action['frames']['person-100-down-run-0'];
+$after = $aligned['frames']['person-100-down-run-0'];
+check($after['registration']['offset'][0] === $before['registration']['offset'][0] + 2.5, 'Reviewed body alignment is baked into registration');
+check($after['registration']['offset'][1] === $before['registration']['offset'][1]
+    && $after['registration']['scale'] === $before['registration']['scale']
+    && $after['anchor'] === $before['anchor'], 'Body alignment cannot move the feet, scale or world anchor');
+foreach ([['left'=>1], ['down'=>'2'], ['down'=>INF], ['down'=>[2,0]]] as $invalid)
+    rejects(fn() => adventureRegisterActor($pose + ['horizontalOffsets'=>$invalid], $defaults, $cell, [[60,10,80,176]], $ref['measurement']), 'horizontal alignment');
+rejects(fn() => adventureRegisterActor($pose + ['horizontalOffsets'=>['down'=>48]], $defaults, $cell, [[60,10,80,176]], $ref['measurement']), 'clipped');
 rejects(fn() => adventureRegisterActor($pose, $defaults, $cell, [[60, 10, 80, 176]], null), 'Missing standing reference');
 $carried = array_replace($pose, ['action' => 'carried', 'canvas' => [48, 50], 'anchor' => [24, 4], 'registrationPoint' => 'top']);
 $hanging = adventureRegisterActor($carried, $defaults, $cell, [[55, 20, 90, 100]], $ref['measurement']);

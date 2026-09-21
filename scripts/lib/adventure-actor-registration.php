@@ -58,6 +58,14 @@ function adventureRegisterActor(array $sheet, array $catalog, array $cells, arra
         throw new RuntimeException("Missing measured seat anchors: $id");
     $frames = $poses = [];
     [$columns] = $sheet['grid'];
+    // Reviewed artwork alignment, baked once. Translate the whole directional
+    // cycle, never centre individual frames by swinging hands/feet or hat tips.
+    $horizontalOffsets = $sheet['horizontalOffsets'] ?? [];
+    if (!is_array($horizontalOffsets)
+        || array_diff(array_keys($horizontalOffsets), $sheet['directions'] ?? [])
+        || array_filter($horizontalOffsets, fn($offset) =>
+            !(is_int($offset) || is_float($offset)) || !is_finite((float)$offset)))
+        throw new RuntimeException("Invalid horizontal alignment: $id");
     foreach ($cells as $index => $rect) {
         [$sx, $sy, $sw, $sh] = $rect;
         $row = intdiv($index, $columns); $col = $index % $columns;
@@ -83,6 +91,7 @@ function adventureRegisterActor(array $sheet, array $catalog, array $cells, arra
             $dx = $ax - $seat[0] * $ratio;
             $dy = $ay - $seat[1] * $ratio;
         }
+        $dx += $horizontalOffsets[$sheet['directions'][$col] ?? ''] ?? 0;
         $ink = [$dx + ($bx - $sx) * $ratio, $dy + ($by - $sy) * $ratio, $bw * $ratio, $bh * $ratio];
         $epsilon = 0.000001;
         if ($ink[0] < -$epsilon || $ink[1] < -$epsilon || $ink[0] + $ink[2] > $cw + $epsilon || $ink[1] + $ink[3] > $ch + $epsilon)

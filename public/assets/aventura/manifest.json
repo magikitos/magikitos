@@ -391,8 +391,8 @@
             "bytes": 59612
         },
         "actor-100-run": {
-            "image": "packs/actor-100-run-94f82a0adf8e.png",
-            "metadata": "packs/actor-100-run-94f82a0adf8e.json",
+            "image": "packs/actor-100-run-b84b183adff6.png",
+            "metadata": "packs/actor-100-run-b84b183adff6.json",
             "sprites": [
                 "person-100-down-run-0",
                 "person-100-down-right-run-0",
@@ -429,7 +429,7 @@
             ],
             "width": 1024,
             "height": 400,
-            "bytes": 44954
+            "bytes": 45017
         },
         "actor-100-work": {
             "image": "packs/actor-100-work-242fa942aca1.png",
@@ -1480,8 +1480,8 @@
             "bytes": 63278
         },
         "actor-120-run": {
-            "image": "packs/actor-120-run-9b7baaa25e65.png",
-            "metadata": "packs/actor-120-run-9b7baaa25e65.json",
+            "image": "packs/actor-120-run-79c0c31b362b.png",
+            "metadata": "packs/actor-120-run-79c0c31b362b.json",
             "sprites": [
                 "person-120-down-run-0",
                 "person-120-down-right-run-0",
@@ -1518,7 +1518,7 @@
             ],
             "width": 1024,
             "height": 400,
-            "bytes": 51125
+            "bytes": 51172
         },
         "actor-120-work": {
             "image": "packs/actor-120-work-f37115d6ee34.png",
@@ -2282,8 +2282,8 @@
             "bytes": 69533
         },
         "actor-135-run": {
-            "image": "packs/actor-135-run-29960f63a8b0.png",
-            "metadata": "packs/actor-135-run-29960f63a8b0.json",
+            "image": "packs/actor-135-run-49441b799732.png",
+            "metadata": "packs/actor-135-run-49441b799732.json",
             "sprites": [
                 "person-135-down-run-0",
                 "person-135-down-right-run-0",
@@ -2320,7 +2320,7 @@
             ],
             "width": 1024,
             "height": 400,
-            "bytes": 53591
+            "bytes": 53606
         },
         "actor-135-work": {
             "image": "packs/actor-135-work-4117be3ac0b4.png",
@@ -2756,8 +2756,8 @@
             "bytes": 73851
         },
         "actor-142-run": {
-            "image": "packs/actor-142-run-c283a0783b27.png",
-            "metadata": "packs/actor-142-run-c283a0783b27.json",
+            "image": "packs/actor-142-run-1dac91c4584f.png",
+            "metadata": "packs/actor-142-run-1dac91c4584f.json",
             "sprites": [
                 "person-142-down-run-0",
                 "person-142-down-right-run-0",
@@ -2794,7 +2794,7 @@
             ],
             "width": 1024,
             "height": 400,
-            "bytes": 63665
+            "bytes": 63691
         },
         "actor-142-work": {
             "image": "packs/actor-142-work-cd5d5af04849.png",
@@ -4360,8 +4360,8 @@
             "bytes": 65691
         },
         "actor-172-run": {
-            "image": "packs/actor-172-run-f5b13f972dea.png",
-            "metadata": "packs/actor-172-run-f5b13f972dea.json",
+            "image": "packs/actor-172-run-20f8049c50ce.png",
+            "metadata": "packs/actor-172-run-20f8049c50ce.json",
             "sprites": [
                 "person-172-down-run-0",
                 "person-172-down-right-run-0",
@@ -4398,7 +4398,7 @@
             ],
             "width": 1024,
             "height": 400,
-            "bytes": 53259
+            "bytes": 53261
         },
         "actor-172-work": {
             "image": "packs/actor-172-work-54ff7b911c0d.png",
@@ -5449,8 +5449,8 @@
             "bytes": 65786
         },
         "actor-194-run": {
-            "image": "packs/actor-194-run-85ee4234bb00.png",
-            "metadata": "packs/actor-194-run-85ee4234bb00.json",
+            "image": "packs/actor-194-run-f5624ffb43a7.png",
+            "metadata": "packs/actor-194-run-f5624ffb43a7.json",
             "sprites": [
                 "person-194-down-run-0",
                 "person-194-down-right-run-0",
@@ -5487,7 +5487,7 @@
             ],
             "width": 1024,
             "height": 400,
-            "bytes": 50574
+            "bytes": 50563
         },
         "actor-194-work": {
             "image": "packs/actor-194-work-b14c3212253e.png",
@@ -5800,8 +5800,8 @@
             "bytes": 83060
         },
         "actor-198-run": {
-            "image": "packs/actor-198-run-6e7ac424357b.png",
-            "metadata": "packs/actor-198-run-6e7ac424357b.json",
+            "image": "packs/actor-198-run-24330b3c1f96.png",
+            "metadata": "packs/actor-198-run-24330b3c1f96.json",
             "sprites": [
                 "person-198-down-run-0",
                 "person-198-down-right-run-0",
@@ -5838,7 +5838,7 @@
             ],
             "width": 1024,
             "height": 400,
-            "bytes": 56937
+            "bytes": 56941
         },
         "actor-198-work": {
             "image": "packs/actor-198-work-b3c3c053e9f6.png",
