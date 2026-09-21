@@ -1,0 +1,230 @@
+{
+    "sourceSha256": "2014733a30dfcbc004f371daab6a22de57770c8e1bdb3ec9d87da3ae7767ce1f",
+    "recipeSha256": "35e45b517a001d88fa31a3e0288160bc350c0aa3753822e55ee8041c92e1202d",
+    "originalFramesSha256": "3d6cdf00944d6bb7f6baca2c1e15ce3a1f88469a9306d3153039186656bb93e8",
+    "poses": {
+        "person-207-right-walk-3": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/cutouts/resident-108.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    2,
+                    3
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14760147601476015,
+                    "offset": [
+                        -4.339483394833948,
+                        -7.136531365313651
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                13.25,
+                9.625,
+                21.375,
+                36.375
+            ],
+            "contactWidth": 16.375
+        },
+        "person-207-down-right-walk-3": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/cutouts/resident-108.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    1,
+                    3
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14760147601476015,
+                    "offset": [
+                        -4.339483394833948,
+                        -7.136531365313651
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                13.625,
+                9.25,
+                20.625,
+                36.75
+            ],
+            "contactWidth": 15.875
+        },
+        "person-207-up-right-walk-3": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/cutouts/resident-108.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    3,
+                    3
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14760147601476015,
+                    "offset": [
+                        -4.339483394833948,
+                        -7.136531365313651
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                13.875,
+                8.625,
+                20.25,
+                37.375
+            ],
+            "contactWidth": 14.625
+        },
+        "person-207-left-walk-3": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/cutouts/resident-108.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    6,
+                    3
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14760147601476015,
+                    "offset": [
+                        -4.339483394833948,
+                        -7.136531365313651
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                13.75,
+                9.625,
+                20.375,
+                36.375
+            ],
+            "contactWidth": 16.75
+        },
+        "person-207-down-left-walk-3": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/cutouts/resident-108.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    7,
+                    3
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14760147601476015,
+                    "offset": [
+                        -4.339483394833948,
+                        -7.136531365313651
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                13.625,
+                9,
+                20.625,
+                37
+            ],
+            "contactWidth": 17.5
+        },
+        "person-207-up-left-walk-3": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/cutouts/resident-108.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    5,
+                    3
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14760147601476015,
+                    "offset": [
+                        -4.339483394833948,
+                        -7.136531365313651
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                13.5,
+                8.75,
+                20.875,
+                37.25
+            ],
+            "contactWidth": 15.125
+        }
+    },
+    "cutoutSha256": "abd96c012197145905f4c3d03512203fb518f02ff8d3362056200d177c84a9f2"
+}

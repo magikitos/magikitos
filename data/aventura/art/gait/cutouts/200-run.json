@@ -1,0 +1,230 @@
+{
+    "sourceSha256": "680e280f0aa0df9bf2aa15a46fc21338c63cf9cc3f2fea7305c00632ffc5dc4d",
+    "recipeSha256": "3e9b700c2f625417ec9780a1a412b31bb260a9cb01aa836faa76000c7e5547a6",
+    "originalFramesSha256": "7d0b10865eca2cc1e6fb0e945fa6e2e8565043c711c9860af26edba3fd74c51e",
+    "poses": {
+        "person-200-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/rizo-alba-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    2,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14814814814814814,
+                    "offset": [
+                        -4.444444444444443,
+                        -7.333333333333329
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                12.125,
+                4.625,
+                23.5,
+                41.375
+            ],
+            "contactWidth": 23
+        },
+        "person-200-down-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/rizo-alba-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    1,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14814814814814814,
+                    "offset": [
+                        -4.444444444444443,
+                        -7.333333333333329
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                12.375,
+                3.75,
+                23.5,
+                42.25
+            ],
+            "contactWidth": 22.5
+        },
+        "person-200-up-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/rizo-alba-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    3,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14814814814814814,
+                    "offset": [
+                        -4.444444444444443,
+                        -7.333333333333329
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                12,
+                3.875,
+                23.875,
+                42.125
+            ],
+            "contactWidth": 22.5
+        },
+        "person-200-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/rizo-alba-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    6,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14814814814814814,
+                    "offset": [
+                        -4.444444444444443,
+                        -7.333333333333329
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                12.25,
+                4.625,
+                23.75,
+                41.375
+            ],
+            "contactWidth": 22.25
+        },
+        "person-200-down-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/rizo-alba-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    7,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14814814814814814,
+                    "offset": [
+                        -4.444444444444443,
+                        -7.333333333333329
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                13.875,
+                2.75,
+                21.375,
+                43.25
+            ],
+            "contactWidth": 14.625
+        },
+        "person-200-up-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/rizo-alba-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    5,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14814814814814814,
+                    "offset": [
+                        -4.444444444444443,
+                        -7.333333333333329
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                11.25,
+                3.75,
+                25.25,
+                42.25
+            ],
+            "contactWidth": 23.625
+        }
+    },
+    "cutoutSha256": "01adec185badb3398808dda4ff9cb53dfb5eafe5e552cd5fe5771ce806eaf2d3"
+}

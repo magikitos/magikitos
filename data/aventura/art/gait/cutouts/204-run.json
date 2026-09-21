@@ -1,0 +1,230 @@
+{
+    "sourceSha256": "dfbfe21f5e5c47514ed4b4cb395e494e006629ffb79a99d7579f811e65648df8",
+    "recipeSha256": "fb0b2d7b822740c1fa6cec6b5da0ab7602d8161e89f335d10e3e2e7f3f504a8c",
+    "originalFramesSha256": "956f24b3259f3a69a41e1fc0745307d9337c9ebc82759d8bb82e5ad625691134",
+    "poses": {
+        "person-204-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/trebol-bruma-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    2,
+                    3
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14336917562724014,
+                    "offset": [
+                        -3.5268817204301044,
+                        -5.612903225806448
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                15,
+                6.875,
+                18.5,
+                39.125
+            ],
+            "contactWidth": 18.75
+        },
+        "person-204-down-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/trebol-bruma-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    1,
+                    3
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14336917562724014,
+                    "offset": [
+                        -3.5268817204301044,
+                        -5.612903225806448
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                15,
+                6.875,
+                18.25,
+                39.125
+            ],
+            "contactWidth": 16.125
+        },
+        "person-204-up-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/trebol-bruma-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    3,
+                    3
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14336917562724014,
+                    "offset": [
+                        -3.5268817204301044,
+                        -5.612903225806448
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                15,
+                7.375,
+                18,
+                38.625
+            ],
+            "contactWidth": 12.125
+        },
+        "person-204-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/trebol-bruma-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    6,
+                    3
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14336917562724014,
+                    "offset": [
+                        -3.5268817204301044,
+                        -5.612903225806448
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                13.75,
+                6.75,
+                18.875,
+                39.25
+            ],
+            "contactWidth": 18.25
+        },
+        "person-204-down-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/trebol-bruma-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    7,
+                    3
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14336917562724014,
+                    "offset": [
+                        -3.5268817204301044,
+                        -5.612903225806448
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                14.875,
+                6.625,
+                18.125,
+                39.375
+            ],
+            "contactWidth": 13.625
+        },
+        "person-204-up-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/trebol-bruma-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    5,
+                    3
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14336917562724014,
+                    "offset": [
+                        -3.5268817204301044,
+                        -5.612903225806448
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                14.25,
+                7,
+                18.75,
+                39
+            ],
+            "contactWidth": 12.5
+        }
+    },
+    "cutoutSha256": "791cc714d54b9d61db937368e310804babce50dd7de6ad1ff4578fc02448fd45"
+}

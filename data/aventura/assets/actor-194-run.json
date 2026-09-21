@@ -36,7 +36,7 @@
             ],
             "cell": [
                 1,
-                0
+                1
             ],
             "size": [
                 48,
@@ -64,7 +64,7 @@
             ],
             "cell": [
                 2,
-                0
+                1
             ],
             "size": [
                 48,
@@ -92,7 +92,7 @@
             ],
             "cell": [
                 3,
-                0
+                1
             ],
             "size": [
                 48,
@@ -148,7 +148,7 @@
             ],
             "cell": [
                 5,
-                0
+                1
             ],
             "size": [
                 48,
@@ -176,7 +176,7 @@
             ],
             "cell": [
                 6,
-                0
+                1
             ],
             "size": [
                 48,
@@ -204,7 +204,7 @@
             ],
             "cell": [
                 7,
-                0
+                1
             ],
             "size": [
                 48,
@@ -260,7 +260,7 @@
             ],
             "cell": [
                 1,
-                1
+                0
             ],
             "size": [
                 48,
@@ -288,7 +288,7 @@
             ],
             "cell": [
                 2,
-                1
+                0
             ],
             "size": [
                 48,
@@ -316,7 +316,7 @@
             ],
             "cell": [
                 3,
-                1
+                0
             ],
             "size": [
                 48,
@@ -372,7 +372,7 @@
             ],
             "cell": [
                 5,
-                1
+                0
             ],
             "size": [
                 48,
@@ -400,7 +400,7 @@
             ],
             "cell": [
                 6,
-                1
+                0
             ],
             "size": [
                 48,
@@ -428,7 +428,7 @@
             ],
             "cell": [
                 7,
-                1
+                0
             ],
             "size": [
                 48,
@@ -477,14 +477,14 @@
             "cleanFragments": 0.015
         },
         "person-194-down-right-run-2": {
-            "source": "data/aventura/art/residents/actions/cutouts/acebo-noche-run-master.png",
+            "source": "data/aventura/art/gait/cutouts/194-run.png",
             "grid": [
-                8,
-                4
+                6,
+                1
             ],
             "cell": [
                 1,
-                2
+                0
             ],
             "size": [
                 48,
@@ -496,23 +496,23 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.1659688995215311,
+                "scale": 0.125,
                 "offset": [
-                    -7.866028708133971,
-                    -13.748803827751196
+                    0,
+                    0
                 ]
             },
             "cleanFragments": 0.015
         },
         "person-194-right-run-2": {
-            "source": "data/aventura/art/residents/actions/cutouts/acebo-noche-run-master.png",
+            "source": "data/aventura/art/gait/cutouts/194-run.png",
             "grid": [
-                8,
-                4
+                6,
+                1
             ],
             "cell": [
-                2,
-                2
+                0,
+                0
             ],
             "size": [
                 48,
@@ -524,23 +524,23 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.1659688995215311,
+                "scale": 0.125,
                 "offset": [
-                    -7.866028708133971,
-                    -13.748803827751196
+                    0,
+                    0
                 ]
             },
             "cleanFragments": 0.015
         },
         "person-194-up-right-run-2": {
-            "source": "data/aventura/art/residents/actions/cutouts/acebo-noche-run-master.png",
+            "source": "data/aventura/art/gait/cutouts/194-run.png",
             "grid": [
-                8,
-                4
+                6,
+                1
             ],
             "cell": [
-                3,
-                2
+                2,
+                0
             ],
             "size": [
                 48,
@@ -552,10 +552,10 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.1659688995215311,
+                "scale": 0.125,
                 "offset": [
-                    -7.866028708133971,
-                    -13.748803827751196
+                    0,
+                    0
                 ]
             },
             "cleanFragments": 0.015
@@ -589,14 +589,14 @@
             "cleanFragments": 0.015
         },
         "person-194-up-left-run-2": {
-            "source": "data/aventura/art/residents/actions/cutouts/acebo-noche-run-master.png",
+            "source": "data/aventura/art/gait/cutouts/194-run.png",
             "grid": [
-                8,
-                4
+                6,
+                1
             ],
             "cell": [
                 5,
-                2
+                0
             ],
             "size": [
                 48,
@@ -608,23 +608,23 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.1659688995215311,
+                "scale": 0.125,
                 "offset": [
-                    -7.866028708133971,
-                    -13.748803827751196
+                    0,
+                    0
                 ]
             },
             "cleanFragments": 0.015
         },
         "person-194-left-run-2": {
-            "source": "data/aventura/art/residents/actions/cutouts/acebo-noche-run-master.png",
+            "source": "data/aventura/art/gait/cutouts/194-run.png",
             "grid": [
-                8,
-                4
+                6,
+                1
             ],
             "cell": [
-                6,
-                2
+                3,
+                0
             ],
             "size": [
                 48,
@@ -636,23 +636,23 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.1659688995215311,
+                "scale": 0.125,
                 "offset": [
-                    -7.866028708133971,
-                    -13.748803827751196
+                    0,
+                    0
                 ]
             },
             "cleanFragments": 0.015
         },
         "person-194-down-left-run-2": {
-            "source": "data/aventura/art/residents/actions/cutouts/acebo-noche-run-master.png",
+            "source": "data/aventura/art/gait/cutouts/194-run.png",
             "grid": [
-                8,
-                4
+                6,
+                1
             ],
             "cell": [
-                7,
-                2
+                4,
+                0
             ],
             "size": [
                 48,
@@ -664,10 +664,10 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.1659688995215311,
+                "scale": 0.125,
                 "offset": [
-                    -7.866028708133971,
-                    -13.748803827751196
+                    0,
+                    0
                 ]
             },
             "cleanFragments": 0.015
@@ -708,7 +708,7 @@
             ],
             "cell": [
                 1,
-                3
+                2
             ],
             "size": [
                 48,
@@ -736,7 +736,7 @@
             ],
             "cell": [
                 2,
-                3
+                2
             ],
             "size": [
                 48,
@@ -764,7 +764,7 @@
             ],
             "cell": [
                 3,
-                3
+                2
             ],
             "size": [
                 48,
@@ -820,7 +820,7 @@
             ],
             "cell": [
                 5,
-                3
+                2
             ],
             "size": [
                 48,
@@ -848,7 +848,7 @@
             ],
             "cell": [
                 6,
-                3
+                2
             ],
             "size": [
                 48,
@@ -876,7 +876,7 @@
             ],
             "cell": [
                 7,
-                3
+                2
             ],
             "size": [
                 48,

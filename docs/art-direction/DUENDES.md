@@ -63,20 +63,23 @@ El recorte alfa conserva anclas, tamaño lógico y colisión. `ink` describe el
 área visible para retratos e iconos; no altera el cuerpo ni la física.
 `pixelRatio` solo multiplica las coordenadas de lectura de la textura.
 
-### Andar y correr: reproducción común (20-sep-2026)
+### Andar y correr: reproducción común (21-sep-2026)
 
 `public/assets/js/adventure/characters.js` define los dos ciclos de piernas para
-todo el elenco, NPC y jugadores remotos. Las hojas y sus anclas no cambian:
+todo el elenco, NPC y jugadores remotos. Se mantienen las anclas y el presupuesto
+de fotogramas. Los protagonistas tienen el apoyo lateral contrario corregido
+offline; fuentes, encaje y reconstrucción en
+[`art/gait`](../../data/aventura/art/gait/README.md).
 
 | Marcha | Orden de poses | Distancia por ciclo completo (dos pies) | Cambios de pose/s |
 | --- | --- | ---: | ---: |
-| Andar a 72 px/s | `walk-1 → walk-2 → walk-3 → walk-2` | 40 px | 7,2 |
-| Correr a 190 px/s | `run-0 → run-1 → run-2 → run-3` | 64 px | 11,875 |
+| Andar a 84 px/s | `walk-1 → walk-2 → walk-3 → walk-2` | 44 px | 7,64 |
+| Correr a 216 px/s | `run-0 → run-1 → run-2 → run-3` | 72 px | 12 |
 
-Antes correr recorría las cuatro poses en 36 px: 21,1 cambios/s, que hacía difícil
-leer las piernas, especialmente con el pintado a 12 FPS de movimiento reducido.
-El paseo anterior cambiaba de pose cada 7 px (10,3/s). Ahora el ciclo se deja leer
-sin ralentizar al jugador ni añadir rebotes, deformaciones o fotogramas inventados.
+La velocidad de desplazamiento sube moderadamente respecto a 72/190 px/s, pero
+la cadencia apenas aumenta para no convertirlo en un pataleo. No hay rebote añadido.
+El límite de movimiento del servidor se deriva de las mismas constantes al construir
+el contrato; no debe desplegarse JavaScript nuevo con un contrato antiguo.
 
 La fase normalizada `gaitPhase` avanza **solo con distancia realmente recorrida**;
 no se vuelve a calcular dividiendo toda la distancia histórica al pulsar Espacio.

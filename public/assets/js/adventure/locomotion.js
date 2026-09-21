@@ -1,6 +1,6 @@
 "use strict";
-const WALK_SPEED = 72;
-const RUN_SPEED = 190;
+const WALK_SPEED = 84;
+const RUN_SPEED = 216;
 
 /** World-pixel distances: independent of screen, zoom and input device. */
 function routeDistance(actor, path) {

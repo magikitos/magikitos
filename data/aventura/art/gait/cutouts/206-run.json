@@ -1,0 +1,230 @@
+{
+    "sourceSha256": "027cf57d0d73775226d6feee29b9bf1ab0cfd80e9b313b796915ff2889a4e09d",
+    "recipeSha256": "f45eb21ea36a21a0ec229f6376b15b65044b0240afb2eda39d6396c500f485f1",
+    "originalFramesSha256": "b8dbbe372f7158a1c4e877bb6def9f60069d5df4e271ac640632834392b89cf2",
+    "poses": {
+        "person-206-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/avellano-cobre-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    2,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14925373134328357,
+                    "offset": [
+                        -4.656716417910445,
+                        -7.731343283582085
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                15.375,
+                9.125,
+                19.375,
+                36.875
+            ],
+            "contactWidth": 18.625
+        },
+        "person-206-down-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/avellano-cobre-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    1,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14925373134328357,
+                    "offset": [
+                        -4.656716417910445,
+                        -7.731343283582085
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                12.125,
+                8.375,
+                24,
+                37.625
+            ],
+            "contactWidth": 13.5
+        },
+        "person-206-up-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/avellano-cobre-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    3,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14925373134328357,
+                    "offset": [
+                        -4.656716417910445,
+                        -7.731343283582085
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                14.125,
+                9.75,
+                20,
+                36.25
+            ],
+            "contactWidth": 17.75
+        },
+        "person-206-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/avellano-cobre-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    6,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14925373134328357,
+                    "offset": [
+                        -4.656716417910445,
+                        -7.731343283582085
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                13,
+                8,
+                21.5,
+                38
+            ],
+            "contactWidth": 18
+        },
+        "person-206-down-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/avellano-cobre-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    7,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14925373134328357,
+                    "offset": [
+                        -4.656716417910445,
+                        -7.731343283582085
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                12.875,
+                8.25,
+                22.25,
+                37.75
+            ],
+            "contactWidth": 12.625
+        },
+        "person-206-up-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/avellano-cobre-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    5,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14925373134328357,
+                    "offset": [
+                        -4.656716417910445,
+                        -7.731343283582085
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                13.75,
+                8.75,
+                20,
+                37.25
+            ],
+            "contactWidth": 17.375
+        }
+    },
+    "cutoutSha256": "7ab4736e75f014a7372ae23c4f2ce05ea5682b4f859b5c3d5705383147132e30"
+}

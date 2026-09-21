@@ -1,0 +1,230 @@
+{
+    "sourceSha256": "8cf0062f2a156f04614676db9385ad42fc92d33953dcb7a9863990e68c238c88",
+    "recipeSha256": "735baba8dd8fe82dba6f177f1111a225d0bb443b545b34e122466ec89d1c678b",
+    "originalFramesSha256": "9d147f5694ae01e1ba9be50d0231b1bb54490c2c3bc986cd8f7093e6cacbee39",
+    "poses": {
+        "person-166-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/dalia-bruma-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    2,
+                    3
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.17172029702970296,
+                    "offset": [
+                        -8.97029702970297,
+                        -15.819306930693067
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                11.75,
+                6.375,
+                24.75,
+                39.625
+            ],
+            "contactWidth": 21.875
+        },
+        "person-166-down-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/dalia-bruma-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    1,
+                    3
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.17172029702970296,
+                    "offset": [
+                        -8.97029702970297,
+                        -15.819306930693067
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                11.625,
+                5.875,
+                22.25,
+                40.125
+            ],
+            "contactWidth": 19
+        },
+        "person-166-up-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/dalia-bruma-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    3,
+                    3
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.17172029702970296,
+                    "offset": [
+                        -8.97029702970297,
+                        -15.819306930693067
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                11.625,
+                6.75,
+                24.5,
+                39.25
+            ],
+            "contactWidth": 21.875
+        },
+        "person-166-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/dalia-bruma-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    6,
+                    3
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.17172029702970296,
+                    "offset": [
+                        -8.97029702970297,
+                        -15.819306930693067
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                11.625,
+                6.5,
+                24.375,
+                39.5
+            ],
+            "contactWidth": 21.875
+        },
+        "person-166-down-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/dalia-bruma-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    7,
+                    3
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.17172029702970296,
+                    "offset": [
+                        -8.97029702970297,
+                        -15.819306930693067
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                14.375,
+                6.125,
+                21.5,
+                39.875
+            ],
+            "contactWidth": 15.5
+        },
+        "person-166-up-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/dalia-bruma-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    5,
+                    3
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.17172029702970296,
+                    "offset": [
+                        -8.97029702970297,
+                        -15.819306930693067
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                11.875,
+                6.5,
+                24.5,
+                39.5
+            ],
+            "contactWidth": 21.125
+        }
+    },
+    "cutoutSha256": "9de90585f9db187eb60abbf22cc2298d6f1b8c01d7bdaeabaab99862d0ea88bd"
+}

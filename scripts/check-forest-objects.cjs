@@ -4,6 +4,7 @@ const { World } = require("../public/assets/js/adventure/model");
 const { ForestObjects } = require("../public/assets/js/adventure/forest-objects");
 const { Journey } = require("../public/assets/js/adventure/journey");
 const { move } = require("../public/assets/js/adventure/movement");
+const { WALK_SPEED } = require("../public/assets/js/adventure/locomotion");
 const { active } = require("../public/assets/js/adventure/rules");
 const { sharedObjectContract } = require("../tools/shared-object-contract.cjs");
 const { SharedObjects } = require(path.resolve(process.env.GAME_WEB_REPO || "../magikitos", "bosque-vivo/shared-objects.cjs"));
@@ -59,18 +60,24 @@ function simulate(fps, click = false) {
   assert(f.snapshot(server.visible("forest", [0, 0, 384, 384])));
   if (click) assert(journey.start(world, player, { kind: "push", entity }));
   else f.input({ x: 1, y: 0 });
-  let nextSend = 0, tick = 0, frames = 0;
+  let nextSend = 0, tick = 0, frames = 0, lastPacket = null;
+  const deliver = () => {
+    for (const packet of f.packets.splice(0)) {
+      lastPacket = packet;
+      server.receive(peer, "player", packet);
+    }
+  };
   const step = () => {
     f.advance(1000 / fps); objects.begin(world);
     const resolveCollision = (e, dx, dy) => objects.push(e, dx, dy);
-    game.walking = click ? journey.step(world, player, 1 / fps, 72, { resolveCollision }).moved :
-      move(world, player, 72 / fps, 0, () => {}, { resolveCollision });
+    game.walking = click ? journey.step(world, player, 1 / fps, WALK_SPEED, { resolveCollision }).moved :
+      move(world, player, WALK_SPEED / fps, 0, () => {}, { resolveCollision });
     objects.update();
     if (f.now() >= nextSend) {
       nextSend = f.now() + 100;
       Object.assign(peer, { x: player.x, y: player.y, observedAt: f.now() });
       objects.transmit();
-      for (const packet of f.packets.splice(0)) server.receive(peer, "player", packet);
+      deliver();
     }
     server.tick(peers);
     if (f.now() >= tick) { tick = f.now() + 50; assert(f.snapshot(server.visible("forest", [0, 0, 384, 384]))); }
@@ -90,7 +97,14 @@ function simulate(fps, click = false) {
   for (let i = 0; i < fps * 5 && (!click || journey.intent); i++) step();
   assert(entity.x > 170, "Admitted player really moves the server-owned crate");
   if (click) assert.equal(journey.intent, null, "Click push eventually reaches its original endpoint");
-  objects.stop(); assert.equal(f.packets.at(-1).object, null, "Stopping immediately cancels the last push");
+  // A completed click journey may already have sent cancellation in this tick.
+  // Verify the delivered state, not whether a duplicate happens to remain queued.
+  const wasSent = Boolean(objects.sent);
+  objects.stop();
+  if (wasSent) assert.equal(f.packets.at(-1)?.object, null, "Stopping queues cancellation immediately");
+  deliver();
+  assert.equal(lastPacket?.object, null, "The final command cancels the last push");
+  assert(!server.intents.has(peer.user), "No server push intent survives stopping");
   assert.deepEqual(game.state.objects, {});
   return frames;
 }

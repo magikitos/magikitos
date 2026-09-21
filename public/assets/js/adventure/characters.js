@@ -17,12 +17,12 @@ function facing(dx, dy, previous = "down") {
   return DIRECTIONS[(Math.round(Math.atan2(dy, dx) / (Math.PI / 4)) + 8) % 8];
 }
 // One cycle = both feet. Four readable poses, not four animation frames per
-// browser tick. At 72/190 world px/s these give 7.2/11.875 pose changes/s.
+// browser tick. At 84/216 world px/s these give 7.64/12 pose changes/s.
 // Keep a single phase through pace/direction changes: dividing the lifetime
 // distance by a different stride on Space made the supporting leg jump.
 const GAITS = Object.freeze({
-  walk: Object.freeze({ stride: 40, poses: Object.freeze([1, 2, 3, 2]) }),
-  run: Object.freeze({ stride: 64, poses: Object.freeze([0, 1, 2, 3]) }),
+  walk: Object.freeze({ stride: 44, poses: Object.freeze([1, 2, 3, 2]) }),
+  run: Object.freeze({ stride: 72, poses: Object.freeze([0, 1, 2, 3]) }),
 });
 function advanceGait(actor, distance, pace = "walk") {
   if (!(distance > 0)) return;

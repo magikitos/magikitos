@@ -1,0 +1,230 @@
+{
+    "sourceSha256": "2014733a30dfcbc004f371daab6a22de57770c8e1bdb3ec9d87da3ae7767ce1f",
+    "recipeSha256": "35e45b517a001d88fa31a3e0288160bc350c0aa3753822e55ee8041c92e1202d",
+    "originalFramesSha256": "e163578573424f096faa07a566b07610769238e30f0b593281082425f5f9382d",
+    "poses": {
+        "person-207-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/oria-musgo-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    2,
+                    3
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14760147601476015,
+                    "offset": [
+                        -4.339483394833948,
+                        -7.136531365313651
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                14.625,
+                11.375,
+                18.5,
+                34.625
+            ],
+            "contactWidth": 16.75
+        },
+        "person-207-down-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/oria-musgo-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    1,
+                    3
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14760147601476015,
+                    "offset": [
+                        -4.339483394833948,
+                        -7.136531365313651
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                14.5,
+                10.625,
+                18.875,
+                35.375
+            ],
+            "contactWidth": 16
+        },
+        "person-207-up-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/oria-musgo-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    3,
+                    3
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14760147601476015,
+                    "offset": [
+                        -4.339483394833948,
+                        -7.136531365313651
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                15.25,
+                13.25,
+                17.625,
+                32.75
+            ],
+            "contactWidth": 17.375
+        },
+        "person-207-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/oria-musgo-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    6,
+                    3
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14760147601476015,
+                    "offset": [
+                        -4.339483394833948,
+                        -7.136531365313651
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                14.875,
+                11.25,
+                18.5,
+                34.75
+            ],
+            "contactWidth": 18.25
+        },
+        "person-207-down-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/oria-musgo-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    7,
+                    3
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14760147601476015,
+                    "offset": [
+                        -4.339483394833948,
+                        -7.136531365313651
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                14.5,
+                10.625,
+                18.625,
+                35.375
+            ],
+            "contactWidth": 13.5
+        },
+        "person-207-up-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/oria-musgo-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    5,
+                    3
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14760147601476015,
+                    "offset": [
+                        -4.339483394833948,
+                        -7.136531365313651
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                14.875,
+                12.25,
+                18.125,
+                33.75
+            ],
+            "contactWidth": 11.875
+        }
+    },
+    "cutoutSha256": "f10eb712ca9521afa4fa5a46a063da6d01ac4b54973f3c91539e0c402ea5092c"
+}

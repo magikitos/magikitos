@@ -1,0 +1,230 @@
+{
+    "sourceSha256": "edd6217db6b7cf59cdd4947c79ebdd759109ff99d4aa08052b18aa138d62e9a1",
+    "recipeSha256": "3138d5841e9b67b485b5a76b9e33d09a3572a93ab28588490b68304b261ccfba",
+    "originalFramesSha256": "87adbec1759d3550335dc68b0bd6f72693eed9d2fee0a3ed8cf88d9b73c82b24",
+    "poses": {
+        "person-205-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/mimbrera-noche-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    2,
+                    3
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14652014652014653,
+                    "offset": [
+                        -4.131868131868131,
+                        -6.747252747252752
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                11.625,
+                8.625,
+                24.75,
+                37.375
+            ],
+            "contactWidth": 16.5
+        },
+        "person-205-down-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/mimbrera-noche-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    1,
+                    3
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14652014652014653,
+                    "offset": [
+                        -4.131868131868131,
+                        -6.747252747252752
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                11.875,
+                8.125,
+                24.125,
+                37.875
+            ],
+            "contactWidth": 16.125
+        },
+        "person-205-up-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/mimbrera-noche-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    3,
+                    3
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14652014652014653,
+                    "offset": [
+                        -4.131868131868131,
+                        -6.747252747252752
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                12.875,
+                8.625,
+                22.125,
+                37.375
+            ],
+            "contactWidth": 10.125
+        },
+        "person-205-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/mimbrera-noche-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    6,
+                    3
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14652014652014653,
+                    "offset": [
+                        -4.131868131868131,
+                        -6.747252747252752
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                11.875,
+                7.75,
+                24.25,
+                38.25
+            ],
+            "contactWidth": 18.375
+        },
+        "person-205-down-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/mimbrera-noche-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    7,
+                    3
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14652014652014653,
+                    "offset": [
+                        -4.131868131868131,
+                        -6.747252747252752
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                12.5,
+                8.5,
+                22.875,
+                37.5
+            ],
+            "contactWidth": 10.75
+        },
+        "person-205-up-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/mimbrera-noche-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    5,
+                    3
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14652014652014653,
+                    "offset": [
+                        -4.131868131868131,
+                        -6.747252747252752
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                13.125,
+                8.625,
+                21.5,
+                37.375
+            ],
+            "contactWidth": 10.75
+        }
+    },
+    "cutoutSha256": "d69a0fe41664335ff87c94f5253d2e98de40e4298ec076da99e49ffadaea7747"
+}

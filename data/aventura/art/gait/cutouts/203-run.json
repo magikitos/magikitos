@@ -1,0 +1,230 @@
+{
+    "sourceSha256": "b87142c8b770beba59a5c99edddad5c7b10588863a4673701aef840b888c5890",
+    "recipeSha256": "2210cbb24da57a0a7da3a7833468ffa0d528bc7fef040426e3ebf2d700c9d64a",
+    "originalFramesSha256": "778028a6a49cda6f850d43ad99195901e0e91964579a735656270b178b2465bd",
+    "poses": {
+        "person-203-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/nispera-sol-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    2,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14869888475836432,
+                    "offset": [
+                        -4.5501858736059475,
+                        -7.531598513011154
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                12.25,
+                7.125,
+                23.625,
+                38.875
+            ],
+            "contactWidth": 16.25
+        },
+        "person-203-down-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/nispera-sol-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    1,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14869888475836432,
+                    "offset": [
+                        -4.5501858736059475,
+                        -7.531598513011154
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                11.375,
+                7,
+                25.25,
+                39
+            ],
+            "contactWidth": 16.875
+        },
+        "person-203-up-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/nispera-sol-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    3,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14869888475836432,
+                    "offset": [
+                        -4.5501858736059475,
+                        -7.531598513011154
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                11.875,
+                7.625,
+                24.25,
+                38.375
+            ],
+            "contactWidth": 15.875
+        },
+        "person-203-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/nispera-sol-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    6,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14869888475836432,
+                    "offset": [
+                        -4.5501858736059475,
+                        -7.531598513011154
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                12,
+                7.625,
+                25.375,
+                38.375
+            ],
+            "contactWidth": 14.75
+        },
+        "person-203-down-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/nispera-sol-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    7,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14869888475836432,
+                    "offset": [
+                        -4.5501858736059475,
+                        -7.531598513011154
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                11.875,
+                6.875,
+                24.25,
+                39.125
+            ],
+            "contactWidth": 14.875
+        },
+        "person-203-up-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/nispera-sol-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    5,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14869888475836432,
+                    "offset": [
+                        -4.5501858736059475,
+                        -7.531598513011154
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                11.875,
+                6.25,
+                24.25,
+                39.75
+            ],
+            "contactWidth": 10.75
+        }
+    },
+    "cutoutSha256": "cf03e9b9103210845dbbce12786d9760f361d729edcd897e656d096b2235d37d"
+}

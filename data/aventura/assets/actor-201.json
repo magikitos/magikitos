@@ -701,14 +701,14 @@
             "cleanFragments": 0.015
         },
         "person-201-down-right-walk-3": {
-            "source": "data/aventura/art/residents/cutouts/resident-102.png",
+            "source": "data/aventura/art/gait/cutouts/201-walk.png",
             "grid": [
-                8,
-                4
+                6,
+                1
             ],
             "cell": [
                 1,
-                3
+                0
             ],
             "size": [
                 48,
@@ -720,23 +720,23 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.14705882352941177,
+                "scale": 0.125,
                 "offset": [
-                    -4.235294117647058,
-                    -6.941176470588239
+                    0,
+                    0
                 ]
             },
             "cleanFragments": 0.015
         },
         "person-201-right-walk-3": {
-            "source": "data/aventura/art/residents/cutouts/resident-102.png",
+            "source": "data/aventura/art/gait/cutouts/201-walk.png",
             "grid": [
-                8,
-                4
+                6,
+                1
             ],
             "cell": [
-                2,
-                3
+                0,
+                0
             ],
             "size": [
                 48,
@@ -748,23 +748,23 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.14705882352941177,
+                "scale": 0.125,
                 "offset": [
-                    -4.235294117647058,
-                    -6.941176470588239
+                    0,
+                    0
                 ]
             },
             "cleanFragments": 0.015
         },
         "person-201-up-right-walk-3": {
-            "source": "data/aventura/art/residents/cutouts/resident-102.png",
+            "source": "data/aventura/art/gait/cutouts/201-walk.png",
             "grid": [
-                8,
-                4
+                6,
+                1
             ],
             "cell": [
-                3,
-                3
+                2,
+                0
             ],
             "size": [
                 48,
@@ -776,10 +776,10 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.14705882352941177,
+                "scale": 0.125,
                 "offset": [
-                    -4.235294117647058,
-                    -6.941176470588239
+                    0,
+                    0
                 ]
             },
             "cleanFragments": 0.015
@@ -813,14 +813,14 @@
             "cleanFragments": 0.015
         },
         "person-201-up-left-walk-3": {
-            "source": "data/aventura/art/residents/cutouts/resident-102.png",
+            "source": "data/aventura/art/gait/cutouts/201-walk.png",
             "grid": [
-                8,
-                4
+                6,
+                1
             ],
             "cell": [
                 5,
-                3
+                0
             ],
             "size": [
                 48,
@@ -832,23 +832,23 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.14705882352941177,
+                "scale": 0.125,
                 "offset": [
-                    -4.235294117647058,
-                    -6.941176470588239
+                    0,
+                    0
                 ]
             },
             "cleanFragments": 0.015
         },
         "person-201-left-walk-3": {
-            "source": "data/aventura/art/residents/cutouts/resident-102.png",
+            "source": "data/aventura/art/gait/cutouts/201-walk.png",
             "grid": [
-                8,
-                4
+                6,
+                1
             ],
             "cell": [
-                6,
-                3
+                3,
+                0
             ],
             "size": [
                 48,
@@ -860,23 +860,23 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.14705882352941177,
+                "scale": 0.125,
                 "offset": [
-                    -4.235294117647058,
-                    -6.941176470588239
+                    0,
+                    0
                 ]
             },
             "cleanFragments": 0.015
         },
         "person-201-down-left-walk-3": {
-            "source": "data/aventura/art/residents/cutouts/resident-102.png",
+            "source": "data/aventura/art/gait/cutouts/201-walk.png",
             "grid": [
-                8,
-                4
+                6,
+                1
             ],
             "cell": [
-                7,
-                3
+                4,
+                0
             ],
             "size": [
                 48,
@@ -888,10 +888,10 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.14705882352941177,
+                "scale": 0.125,
                 "offset": [
-                    -4.235294117647058,
-                    -6.941176470588239
+                    0,
+                    0
                 ]
             },
             "cleanFragments": 0.015

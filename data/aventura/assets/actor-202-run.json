@@ -477,14 +477,14 @@
             "cleanFragments": 0.015
         },
         "person-202-down-right-run-2": {
-            "source": "data/aventura/art/residents/actions/cutouts/tizon-musgo-run-master.png",
+            "source": "data/aventura/art/gait/cutouts/202-run.png",
             "grid": [
-                8,
-                4
+                6,
+                1
             ],
             "cell": [
                 1,
-                2
+                0
             ],
             "size": [
                 48,
@@ -496,23 +496,23 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.1520912547528517,
+                "scale": 0.125,
                 "offset": [
-                    -5.2015209125475295,
-                    -8.752851711026615
+                    0,
+                    0
                 ]
             },
             "cleanFragments": 0.015
         },
         "person-202-right-run-2": {
-            "source": "data/aventura/art/residents/actions/cutouts/tizon-musgo-run-master.png",
+            "source": "data/aventura/art/gait/cutouts/202-run.png",
             "grid": [
-                8,
-                4
+                6,
+                1
             ],
             "cell": [
-                2,
-                2
+                0,
+                0
             ],
             "size": [
                 48,
@@ -524,23 +524,23 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.1520912547528517,
+                "scale": 0.125,
                 "offset": [
-                    -5.2015209125475295,
-                    -8.752851711026615
+                    0,
+                    0
                 ]
             },
             "cleanFragments": 0.015
         },
         "person-202-up-right-run-2": {
-            "source": "data/aventura/art/residents/actions/cutouts/tizon-musgo-run-master.png",
+            "source": "data/aventura/art/gait/cutouts/202-run.png",
             "grid": [
-                8,
-                4
+                6,
+                1
             ],
             "cell": [
-                3,
-                2
+                2,
+                0
             ],
             "size": [
                 48,
@@ -552,10 +552,10 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.1520912547528517,
+                "scale": 0.125,
                 "offset": [
-                    -5.2015209125475295,
-                    -8.752851711026615
+                    0,
+                    0
                 ]
             },
             "cleanFragments": 0.015
@@ -589,14 +589,14 @@
             "cleanFragments": 0.015
         },
         "person-202-up-left-run-2": {
-            "source": "data/aventura/art/residents/actions/cutouts/tizon-musgo-run-master.png",
+            "source": "data/aventura/art/gait/cutouts/202-run.png",
             "grid": [
-                8,
-                4
+                6,
+                1
             ],
             "cell": [
                 5,
-                2
+                0
             ],
             "size": [
                 48,
@@ -608,23 +608,23 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.1520912547528517,
+                "scale": 0.125,
                 "offset": [
-                    -5.2015209125475295,
-                    -8.752851711026615
+                    0,
+                    0
                 ]
             },
             "cleanFragments": 0.015
         },
         "person-202-left-run-2": {
-            "source": "data/aventura/art/residents/actions/cutouts/tizon-musgo-run-master.png",
+            "source": "data/aventura/art/gait/cutouts/202-run.png",
             "grid": [
-                8,
-                4
+                6,
+                1
             ],
             "cell": [
-                6,
-                2
+                3,
+                0
             ],
             "size": [
                 48,
@@ -636,23 +636,23 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.1520912547528517,
+                "scale": 0.125,
                 "offset": [
-                    -5.2015209125475295,
-                    -8.752851711026615
+                    0,
+                    0
                 ]
             },
             "cleanFragments": 0.015
         },
         "person-202-down-left-run-2": {
-            "source": "data/aventura/art/residents/actions/cutouts/tizon-musgo-run-master.png",
+            "source": "data/aventura/art/gait/cutouts/202-run.png",
             "grid": [
-                8,
-                4
+                6,
+                1
             ],
             "cell": [
-                7,
-                2
+                4,
+                0
             ],
             "size": [
                 48,
@@ -664,10 +664,10 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.1520912547528517,
+                "scale": 0.125,
                 "offset": [
-                    -5.2015209125475295,
-                    -8.752851711026615
+                    0,
+                    0
                 ]
             },
             "cleanFragments": 0.015

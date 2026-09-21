@@ -5,6 +5,8 @@ const { collisionBounds } = require("../public/assets/js/adventure/geometry");
 const { canPlace } = require("../public/assets/js/adventure/movables");
 const { catalogGround } = require("../public/assets/js/adventure/construction-ground");
 const { sharedObjectContract, compileGround } = require("../tools/shared-object-contract.cjs");
+const { WALK_SPEED } = require("../public/assets/js/adventure/locomotion");
+const { PUSH_SPEED_RATIO } = require("../public/assets/js/adventure/movables");
 const web = process.env.GAME_WEB_REPO || path.resolve(__dirname, "../../magikitos");
 const { DryGround } = require(path.join(web, "bosque-vivo/object-geometry.cjs"));
 const { SharedObjects } = require(path.join(web, "bosque-vivo/shared-objects.cjs"));
@@ -23,7 +25,7 @@ let parity = 0;
 for (let y = 0; y < 288; y += 3) for (let x = 0; x < 320; x += 3) {
   assert.equal(authority.canPlace(state, prop, x, y), canPlace(model, object, x, y), `Placement parity at ${x},${y}`); parity++;
 }
-assert.equal(compiled.pushSpeed, 72 * 0.42);
+assert.equal(compiled.pushSpeed, WALK_SPEED * PUSH_SPEED_RATIO);
 assert.deepEqual(compiled.props[box.id].bounds, Object.values(collisionBounds({ ...object, x: 0, y: 0 })));
 assert.deepEqual(sharedObjectContract({ ...data, entities: [{ ...box, shared: false }] }, zone).props, {}, "Personal puzzle props are not exported; the zone still has construction authority");
 assert.equal(sharedObjectContract({ ...data, entities: [] }, null), null, "Non-community scenes do not need construction metadata");

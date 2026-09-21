@@ -1,0 +1,230 @@
+{
+    "sourceSha256": "7297e6993c2ff9313488bca1be77ca92693bc5452ca0c56a9147d6fd2134c9e4",
+    "recipeSha256": "443b72e6ecd6649d28d9e62fb03eb4d8614bde01fcb2f88f0f02327ce981a96b",
+    "originalFramesSha256": "bfd30089389bcd58516d10020c0088e48d2fea67f2eac1481cc8e521e0043ea8",
+    "poses": {
+        "person-209-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/zarza-sol-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    2,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.1606425702811245,
+                    "offset": [
+                        -6.843373493975903,
+                        -11.83132530120482
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                10.125,
+                5.625,
+                27.375,
+                40.375
+            ],
+            "contactWidth": 21.125
+        },
+        "person-209-down-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/zarza-sol-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    1,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.1606425702811245,
+                    "offset": [
+                        -6.843373493975903,
+                        -11.83132530120482
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                10.125,
+                5.375,
+                27.375,
+                40.625
+            ],
+            "contactWidth": 15.625
+        },
+        "person-209-up-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/zarza-sol-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    3,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.1606425702811245,
+                    "offset": [
+                        -6.843373493975903,
+                        -11.83132530120482
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                10.75,
+                4.875,
+                26.375,
+                41.125
+            ],
+            "contactWidth": 17.375
+        },
+        "person-209-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/zarza-sol-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    6,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.1606425702811245,
+                    "offset": [
+                        -6.843373493975903,
+                        -11.83132530120482
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                10.125,
+                5.625,
+                27.375,
+                40.375
+            ],
+            "contactWidth": 19.625
+        },
+        "person-209-down-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/zarza-sol-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    7,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.1606425702811245,
+                    "offset": [
+                        -6.843373493975903,
+                        -11.83132530120482
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                11.875,
+                4.75,
+                24.125,
+                41.25
+            ],
+            "contactWidth": 13
+        },
+        "person-209-up-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/zarza-sol-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    5,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.1606425702811245,
+                    "offset": [
+                        -6.843373493975903,
+                        -11.83132530120482
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                10.125,
+                5.875,
+                27.5,
+                40.125
+            ],
+            "contactWidth": 19
+        }
+    },
+    "cutoutSha256": "823d48bb2733a9964f5df1238189d959fe3a96390ced2395b86b77d5fc033f72"
+}

@@ -1,0 +1,230 @@
+{
+    "sourceSha256": "581be9637a4efb1690ff2a960702f88952e6e5386014bb217ab089b6e707073e",
+    "recipeSha256": "c0cea4ac17a0aed7b770013c3d8a7a3194fcf8fab4da9ca36b6ce540e72f576c",
+    "originalFramesSha256": "df791f678ce3fdd91f086b165cfa45601221884b62edcc653682a9434ceac0d2",
+    "poses": {
+        "person-201-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/chispa-sol-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    2,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14705882352941177,
+                    "offset": [
+                        -4.235294117647058,
+                        -6.941176470588239
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                11.75,
+                5.125,
+                24.375,
+                40.875
+            ],
+            "contactWidth": 21.875
+        },
+        "person-201-down-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/chispa-sol-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    1,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14705882352941177,
+                    "offset": [
+                        -4.235294117647058,
+                        -6.941176470588239
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                11.625,
+                3.375,
+                24.5,
+                42.625
+            ],
+            "contactWidth": 16.875
+        },
+        "person-201-up-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/chispa-sol-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    3,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14705882352941177,
+                    "offset": [
+                        -4.235294117647058,
+                        -6.941176470588239
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                12.125,
+                3.25,
+                23.625,
+                42.75
+            ],
+            "contactWidth": 14.375
+        },
+        "person-201-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/chispa-sol-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    6,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14705882352941177,
+                    "offset": [
+                        -4.235294117647058,
+                        -6.941176470588239
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                11.875,
+                4.25,
+                24.125,
+                41.75
+            ],
+            "contactWidth": 17.875
+        },
+        "person-201-down-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/chispa-sol-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    7,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14705882352941177,
+                    "offset": [
+                        -4.235294117647058,
+                        -6.941176470588239
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                12.5,
+                4.25,
+                22.75,
+                41.75
+            ],
+            "contactWidth": 10.375
+        },
+        "person-201-up-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/chispa-sol-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    5,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.14705882352941177,
+                    "offset": [
+                        -4.235294117647058,
+                        -6.941176470588239
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                12,
+                5.25,
+                24,
+                40.75
+            ],
+            "contactWidth": 18.75
+        }
+    },
+    "cutoutSha256": "35e9341cc7487cffbdc7d2736f4edbb1a2eb819de9442428e1e2bd02164e6415"
+}

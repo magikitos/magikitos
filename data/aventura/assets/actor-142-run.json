@@ -477,14 +477,14 @@
             "cleanFragments": 0.015
         },
         "person-142-down-right-run-2": {
-            "source": "data/aventura/art/residents/actions/cutouts/tomillo-sol-run-master.png",
+            "source": "data/aventura/art/gait/cutouts/142-run.png",
             "grid": [
-                8,
-                4
+                6,
+                1
             ],
             "cell": [
                 1,
-                2
+                0
             ],
             "size": [
                 48,
@@ -496,23 +496,23 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.17003676470588236,
+                "scale": 0.125,
                 "offset": [
-                    -8.647058823529413,
-                    -15.213235294117652
+                    0,
+                    0
                 ]
             },
             "cleanFragments": 0.015
         },
         "person-142-right-run-2": {
-            "source": "data/aventura/art/residents/actions/cutouts/tomillo-sol-run-master.png",
+            "source": "data/aventura/art/gait/cutouts/142-run.png",
             "grid": [
-                8,
-                4
+                6,
+                1
             ],
             "cell": [
-                2,
-                2
+                0,
+                0
             ],
             "size": [
                 48,
@@ -524,23 +524,23 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.17003676470588236,
+                "scale": 0.125,
                 "offset": [
-                    -8.647058823529413,
-                    -15.213235294117652
+                    0,
+                    0
                 ]
             },
             "cleanFragments": 0.015
         },
         "person-142-up-right-run-2": {
-            "source": "data/aventura/art/residents/actions/cutouts/tomillo-sol-run-master.png",
+            "source": "data/aventura/art/gait/cutouts/142-run.png",
             "grid": [
-                8,
-                4
+                6,
+                1
             ],
             "cell": [
-                3,
-                2
+                2,
+                0
             ],
             "size": [
                 48,
@@ -552,10 +552,10 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.17003676470588236,
+                "scale": 0.125,
                 "offset": [
-                    -8.647058823529413,
-                    -15.213235294117652
+                    0,
+                    0
                 ]
             },
             "cleanFragments": 0.015
@@ -589,14 +589,14 @@
             "cleanFragments": 0.015
         },
         "person-142-up-left-run-2": {
-            "source": "data/aventura/art/residents/actions/cutouts/tomillo-sol-run-master.png",
+            "source": "data/aventura/art/gait/cutouts/142-run.png",
             "grid": [
-                8,
-                4
+                6,
+                1
             ],
             "cell": [
                 5,
-                2
+                0
             ],
             "size": [
                 48,
@@ -608,23 +608,23 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.17003676470588236,
+                "scale": 0.125,
                 "offset": [
-                    -8.647058823529413,
-                    -15.213235294117652
+                    0,
+                    0
                 ]
             },
             "cleanFragments": 0.015
         },
         "person-142-left-run-2": {
-            "source": "data/aventura/art/residents/actions/cutouts/tomillo-sol-run-master.png",
+            "source": "data/aventura/art/gait/cutouts/142-run.png",
             "grid": [
-                8,
-                4
+                6,
+                1
             ],
             "cell": [
-                6,
-                2
+                3,
+                0
             ],
             "size": [
                 48,
@@ -636,23 +636,23 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.17003676470588236,
+                "scale": 0.125,
                 "offset": [
-                    -8.647058823529413,
-                    -15.213235294117652
+                    0,
+                    0
                 ]
             },
             "cleanFragments": 0.015
         },
         "person-142-down-left-run-2": {
-            "source": "data/aventura/art/residents/actions/cutouts/tomillo-sol-run-master.png",
+            "source": "data/aventura/art/gait/cutouts/142-run.png",
             "grid": [
-                8,
-                4
+                6,
+                1
             ],
             "cell": [
-                7,
-                2
+                4,
+                0
             ],
             "size": [
                 48,
@@ -664,10 +664,10 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.17003676470588236,
+                "scale": 0.125,
                 "offset": [
-                    -8.647058823529413,
-                    -15.213235294117652
+                    0,
+                    0
                 ]
             },
             "cleanFragments": 0.015

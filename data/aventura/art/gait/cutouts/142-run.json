@@ -1,0 +1,230 @@
+{
+    "sourceSha256": "5044c1955eb2768dee914a414c07d265985c15511a519b59f41b292ea6398218",
+    "recipeSha256": "5ce2229098fcfb2bbaf68252bae7ead1dbf8fe08426c5b9b09c9fc41d98e8bda",
+    "originalFramesSha256": "f48cfa17c9de40f62f3609a54a9af78dc03634987f9feed21c53b9765c8e7861",
+    "poses": {
+        "person-142-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/tomillo-sol-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    2,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.17003676470588236,
+                    "offset": [
+                        -8.647058823529413,
+                        -15.213235294117652
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                11.125,
+                5.875,
+                25.625,
+                40.125
+            ],
+            "contactWidth": 22.25
+        },
+        "person-142-down-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/tomillo-sol-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    1,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.17003676470588236,
+                    "offset": [
+                        -8.647058823529413,
+                        -15.213235294117652
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                12,
+                5.625,
+                23.875,
+                40.375
+            ],
+            "contactWidth": 19.125
+        },
+        "person-142-up-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/tomillo-sol-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    3,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.17003676470588236,
+                    "offset": [
+                        -8.647058823529413,
+                        -15.213235294117652
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                11.125,
+                7,
+                25.75,
+                39
+            ],
+            "contactWidth": 20.375
+        },
+        "person-142-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/tomillo-sol-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    6,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.17003676470588236,
+                    "offset": [
+                        -8.647058823529413,
+                        -15.213235294117652
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                11.125,
+                6.5,
+                25.25,
+                39.5
+            ],
+            "contactWidth": 19.625
+        },
+        "person-142-down-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/tomillo-sol-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    7,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.17003676470588236,
+                    "offset": [
+                        -8.647058823529413,
+                        -15.213235294117652
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                12,
+                5,
+                23.375,
+                41
+            ],
+            "contactWidth": 13.75
+        },
+        "person-142-up-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/tomillo-sol-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    5,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.17003676470588236,
+                    "offset": [
+                        -8.647058823529413,
+                        -15.213235294117652
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                11.875,
+                7,
+                24.375,
+                39
+            ],
+            "contactWidth": 21.25
+        }
+    },
+    "cutoutSha256": "d5c32f3382509f4c0179825c0f484bc4f8619430cb5b4c0cdb5ce2dc7e3d7618"
+}

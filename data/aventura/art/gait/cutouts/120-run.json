@@ -1,0 +1,230 @@
+{
+    "sourceSha256": "ec56acff63cce74449d39a37656f60a1aa39a73795d81dbae7a193bd1afe72e8",
+    "recipeSha256": "1b18ffff13c1efeee773f7ca7a824c4cc57b319a2f8a953fc5b81b9046e6da0f",
+    "originalFramesSha256": "4aeee5670769df0619eebe3d7d0e325239e0e9d7d656f0d0b52b6ad81a10309d",
+    "poses": {
+        "person-120-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/mora-alba-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    2,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.16757246376811594,
+                    "offset": [
+                        -8.173913043478258,
+                        -14.326086956521735
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                11.875,
+                8,
+                23.75,
+                38
+            ],
+            "contactWidth": 21.5
+        },
+        "person-120-down-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/mora-alba-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    1,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.16757246376811594,
+                    "offset": [
+                        -8.173913043478258,
+                        -14.326086956521735
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                12.375,
+                7.25,
+                22.625,
+                38.75
+            ],
+            "contactWidth": 20.875
+        },
+        "person-120-up-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/mora-alba-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    3,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.16757246376811594,
+                    "offset": [
+                        -8.173913043478258,
+                        -14.326086956521735
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                11.75,
+                8.125,
+                24.625,
+                37.875
+            ],
+            "contactWidth": 20.875
+        },
+        "person-120-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/mora-alba-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    6,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.16757246376811594,
+                    "offset": [
+                        -8.173913043478258,
+                        -14.326086956521735
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                12.75,
+                7.25,
+                23.375,
+                38.75
+            ],
+            "contactWidth": 20.125
+        },
+        "person-120-down-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/mora-alba-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    7,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.16757246376811594,
+                    "offset": [
+                        -8.173913043478258,
+                        -14.326086956521735
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                13.5,
+                6.75,
+                21.25,
+                39.25
+            ],
+            "contactWidth": 12.875
+        },
+        "person-120-up-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/mora-alba-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    5,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.16757246376811594,
+                    "offset": [
+                        -8.173913043478258,
+                        -14.326086956521735
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                12,
+                8.25,
+                23.875,
+                37.75
+            ],
+            "contactWidth": 22.5
+        }
+    },
+    "cutoutSha256": "acb8b48dcfcca497eeb60d00d7ed193871b8f93e0298fd4f522d6b9bea03af36"
+}

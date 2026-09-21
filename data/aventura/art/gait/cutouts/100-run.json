@@ -1,0 +1,230 @@
+{
+    "sourceSha256": "dfb10fbdf0f8432851ab6f2af71bb7b51fa15d9378899c0536af4d612982b3b9",
+    "recipeSha256": "47dfb9942f7892f96e16e2bad378fe46ecff129afcae61372a54c7c3911ef645",
+    "originalFramesSha256": "92346bcd29ffa082e1d4be6437424f2c8e211332f8d5a9350c9fc4f7ff289bc4",
+    "poses": {
+        "person-100-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/brezo-alba-run-matte.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    2,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.19607843137254902,
+                    "offset": [
+                        2.235294117647058,
+                        0.117647058823529
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                13.625,
+                6.75,
+                21.25,
+                39.25
+            ],
+            "contactWidth": 21.125
+        },
+        "person-100-down-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/brezo-alba-run-matte.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    1,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.19607843137254902,
+                    "offset": [
+                        2.235294117647058,
+                        0.117647058823529
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                14,
+                6.25,
+                20.625,
+                39.75
+            ],
+            "contactWidth": 21.125
+        },
+        "person-100-up-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/brezo-alba-run-matte.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    3,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.19607843137254902,
+                    "offset": [
+                        2.235294117647058,
+                        0.117647058823529
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                13.875,
+                6.125,
+                21,
+                39.875
+            ],
+            "contactWidth": 20
+        },
+        "person-100-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/brezo-alba-run-matte.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    6,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.19607843137254902,
+                    "offset": [
+                        2.235294117647058,
+                        0.117647058823529
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                13.625,
+                5.625,
+                21,
+                40.375
+            ],
+            "contactWidth": 20
+        },
+        "person-100-down-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/brezo-alba-run-matte.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    7,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.19607843137254902,
+                    "offset": [
+                        2.235294117647058,
+                        0.117647058823529
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                16.75,
+                5.625,
+                17.625,
+                40.375
+            ],
+            "contactWidth": 12.125
+        },
+        "person-100-up-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/brezo-alba-run-matte.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    5,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.19607843137254902,
+                    "offset": [
+                        2.235294117647058,
+                        0.117647058823529
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                12.125,
+                7.625,
+                21.875,
+                38.375
+            ],
+            "contactWidth": 22
+        }
+    },
+    "cutoutSha256": "c03c431dbea51bac9595fed0452c2f66a8c05338cf83e9acdbb8e1bc6c153994"
+}

@@ -1,0 +1,230 @@
+{
+    "sourceSha256": "afa486d12b7782e87b470d340c2d8f0f4cb6d4df90e38ef3679ab2173716c9a3",
+    "recipeSha256": "6ad3cb253476a20dc32a8e548057ea7c84b365303b3b75d694b35dae769688f3",
+    "originalFramesSha256": "b09a3435194839e6e7131d8e740dc475689e00b47887b875b0c689a6837f438c",
+    "poses": {
+        "person-135-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/lila-alba-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    2,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.16517857142857142,
+                    "offset": [
+                        -7.714285714285715,
+                        -13.464285714285715
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                13.5,
+                8,
+                21,
+                38
+            ],
+            "contactWidth": 20.5
+        },
+        "person-135-down-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/lila-alba-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    1,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.16517857142857142,
+                    "offset": [
+                        -7.714285714285715,
+                        -13.464285714285715
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                13.375,
+                7.625,
+                21.25,
+                38.375
+            ],
+            "contactWidth": 20.5
+        },
+        "person-135-up-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/lila-alba-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    3,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.16517857142857142,
+                    "offset": [
+                        -7.714285714285715,
+                        -13.464285714285715
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                13.125,
+                7.875,
+                21.625,
+                38.125
+            ],
+            "contactWidth": 20
+        },
+        "person-135-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/lila-alba-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    6,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.16517857142857142,
+                    "offset": [
+                        -7.714285714285715,
+                        -13.464285714285715
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                13.5,
+                7.125,
+                20.875,
+                38.875
+            ],
+            "contactWidth": 20.125
+        },
+        "person-135-down-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/lila-alba-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    7,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.16517857142857142,
+                    "offset": [
+                        -7.714285714285715,
+                        -13.464285714285715
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                14.75,
+                6.125,
+                18.375,
+                39.875
+            ],
+            "contactWidth": 13.625
+        },
+        "person-135-up-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/lila-alba-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    5,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.16517857142857142,
+                    "offset": [
+                        -7.714285714285715,
+                        -13.464285714285715
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                13.25,
+                7.875,
+                21.375,
+                38.125
+            ],
+            "contactWidth": 22.125
+        }
+    },
+    "cutoutSha256": "14d0fb02f2fe70350c35c40f30c937027080c5484286e1d6757cf2b9cbe7a19d"
+}

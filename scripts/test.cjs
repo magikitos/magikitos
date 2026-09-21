@@ -67,6 +67,9 @@ execFileSync("php", ["scripts/check-adventure-crops.php"], {
 execFileSync("php", ["scripts/check-actor-registration.php"], {
   stdio: "inherit",
 });
+execFileSync("php", ["scripts/check-gait-art.php"], {
+  stdio: "inherit",
+});
 execFileSync(process.execPath, ["scripts/check-playable-art.cjs", "--sources-only"], {
   stdio: "inherit",
 });

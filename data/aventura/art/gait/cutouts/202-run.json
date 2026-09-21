@@ -1,0 +1,230 @@
+{
+    "sourceSha256": "ff72775ece07829bf732bbcb7e673f59b532f223c902b2e32d41fc5ad2f7d814",
+    "recipeSha256": "48de22d0748ddcbbeabbbb67a38979f02e6580e400d8c080e583a5e1c2276e54",
+    "originalFramesSha256": "af7d719dd29caa5a57f8f5600c3681d6fb5fe43411dcde4c8d4721b7e78fedf1",
+    "poses": {
+        "person-202-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/tizon-musgo-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    2,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.1520912547528517,
+                    "offset": [
+                        -5.2015209125475295,
+                        -8.752851711026615
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                14.625,
+                7.875,
+                19.125,
+                38.125
+            ],
+            "contactWidth": 19
+        },
+        "person-202-down-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/tizon-musgo-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    1,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.1520912547528517,
+                    "offset": [
+                        -5.2015209125475295,
+                        -8.752851711026615
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                12.25,
+                7.75,
+                23.375,
+                38.25
+            ],
+            "contactWidth": 17.125
+        },
+        "person-202-up-right-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/tizon-musgo-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    3,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.1520912547528517,
+                    "offset": [
+                        -5.2015209125475295,
+                        -8.752851711026615
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                13,
+                8.625,
+                21.875,
+                37.375
+            ],
+            "contactWidth": 14
+        },
+        "person-202-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/tizon-musgo-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    6,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.1520912547528517,
+                    "offset": [
+                        -5.2015209125475295,
+                        -8.752851711026615
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                12.75,
+                7.75,
+                22.125,
+                38.25
+            ],
+            "contactWidth": 18.875
+        },
+        "person-202-down-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/tizon-musgo-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    7,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.1520912547528517,
+                    "offset": [
+                        -5.2015209125475295,
+                        -8.752851711026615
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                12.625,
+                8.5,
+                22.625,
+                37.5
+            ],
+            "contactWidth": 13.375
+        },
+        "person-202-up-left-run-2": {
+            "baseFrame": {
+                "source": "data/aventura/art/residents/actions/cutouts/tizon-musgo-run-master.png",
+                "grid": [
+                    8,
+                    4
+                ],
+                "cell": [
+                    5,
+                    2
+                ],
+                "size": [
+                    48,
+                    48
+                ],
+                "anchor": [
+                    24,
+                    46
+                ],
+                "preserveCanvas": true,
+                "registration": {
+                    "scale": 0.1520912547528517,
+                    "offset": [
+                        -5.2015209125475295,
+                        -8.752851711026615
+                    ]
+                },
+                "cleanFragments": 0.015
+            },
+            "bounds": [
+                12.5,
+                7.875,
+                22.75,
+                38.125
+            ],
+            "contactWidth": 16.625
+        }
+    },
+    "cutoutSha256": "cc7537cdfc03aadb2fbca0c75a78481d779382fdae71f999af622e474ad40e9a"
+}

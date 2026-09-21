@@ -11,6 +11,8 @@ const catalog = require("../.local/build/world.json");
 const owners = new Set(Object.values(manifest.packs).flatMap(p => p.sprites));
 const clear = { collisionAt: () => null, canStand: () => true, clearSegment: () => true };
 const near = (a, b, why) => assert(Math.abs(a - b) < 1e-8, `${why}: ${a} vs ${b}`);
+// A phase is circular: accumulated floating-point error may represent 0 as 1-epsilon.
+const nearPhase = (a, b, why) => near(Math.min(Math.abs(a-b), Math.abs(a-b-1), Math.abs(a-b+1)), 0, why);
 
 for (const [pace, speed] of [["walk", WALK_SPEED], ["run", RUN_SPEED]]) {
   assert(speed / GAITS[pace].stride * 4 <= 12, "Each pose lasts >= 83 ms at full speed");
@@ -23,7 +25,7 @@ for (const [pace, speed] of [["walk", WALK_SPEED], ["run", RUN_SPEED]]) {
         poses.add(gaitPose(actor, pace));
       }
       near(actor.walkDistance, speed, "Speed and diagonal normalization are unchanged");
-      near(actor.gaitPhase, speed / GAITS[pace].stride % 1, `${pace} at ${fps} FPS`);
+      nearPhase(actor.gaitPhase, speed / GAITS[pace].stride % 1, `${pace} at ${fps} FPS`);
       assert.equal(poses.size, pace === "walk" ? 3 : 4, "Every authored leg pose is visible");
       const old = { ...actor };
       assert(!move({ ...clear, collisionAt: () => ({ id: "wall" }) }, actor, 5, 0, undefined, { gait: pace }));
@@ -32,7 +34,7 @@ for (const [pace, speed] of [["walk", WALK_SPEED], ["run", RUN_SPEED]]) {
     }
     const actor = { x: 0, y: 0 }, path = Array.from({ length: 400 }, (_, i) => ({ x: i + 1, y: 0 }));
     for (let i = 0; i < fps; i++) follow(clear, actor, path, 1 / fps, speed, undefined, undefined, { gait: pace });
-    near(actor.gaitPhase, speed / GAITS[pace].stride % 1, "Waypoints cannot reset or accelerate legs");
+    nearPhase(actor.gaitPhase, speed / GAITS[pace].stride % 1, "Waypoints cannot reset or accelerate legs");
   }
   const actor = { x: 0, y: 0 }, journey = new Journey();
   journey.intent = { kind: "ground", point: { x: 400, y: 0 } };
@@ -44,9 +46,9 @@ for (const [pace, speed] of [["walk", WALK_SPEED], ["run", RUN_SPEED]]) {
 const actor = { direction: "down", walkDistance: 99999, gaitPhase: 0.3 };
 assert.equal(gaitPose(actor, "walk"), 2);
 assert.equal(gaitPose(actor, "run"), 1, "Space keeps the same quarter-cycle, not a new lifetime-distance modulo");
-recordStep(actor, 0.64, 0, "run");
+recordStep(actor, GAITS.run.stride / 100, 0, "run");
 near(actor.gaitPhase, 0.31, "Pace change advances continuously");
-recordStep(actor, 0, -0.4, "walk");
+recordStep(actor, 0, -GAITS.walk.stride / 100, "walk");
 near(actor.gaitPhase, 0.32, "Turning and slowing retain phase");
 recordStep(actor, 0, 0);
 near(actor.gaitPhase, 0.32, "Idle does not advance");

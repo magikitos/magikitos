@@ -1,6 +1,7 @@
 "use strict";
 /** Full delivery gate by default. --sources-only checks provenance during production of the art. */
 const assert = require("node:assert/strict"), fs = require("node:fs"), crypto = require("node:crypto");
+const { isGaitCorrection, checkGaitArt } = require("./check-gait-art.cjs");
 const directory = "data/aventura/art/residents/";
 const residents = JSON.parse(fs.readFileSync(directory + "catalog.json"));
 const actions = JSON.parse(fs.readFileSync(directory + "actions/catalog.json"));
@@ -60,6 +61,11 @@ for (const [sheets, active] of [[actions.sheets, true], [actions.rejectedSheets,
         assert.equal(definitions.frames[name].source, directory + 'actions/cutouts/' + patch.id + '.png');
       }
     }
+    for (const name of pack.sprites) if (isGaitCorrection(sheet.variant, sheet.action, name)) {
+      assert(!patched.has(name), "A contact correction cannot silently override another directional correction");
+      assert.equal(definitions.frames[name].source, `data/aventura/art/gait/cutouts/${sheet.variant}-${sheet.action}.png`);
+      patched.add(name);
+    }
     for (const name of pack.sprites) if (!patched.has(name))
       assert.equal(definitions.frames[name].source, directory + 'actions/cutouts/' + sheet.id + '.png', 'Unpatched directions keep their approved source');
     for (const name of pack.sprites) {
@@ -69,6 +75,7 @@ for (const [sheets, active] of [[actions.sheets, true], [actions.rejectedSheets,
   }
 }
 const expected = selected.length * Object.keys(actions.actions).length;
+checkGaitArt();
 /**
  * ⛔ LA PUERTA MIDE EL ELENCO QUE SE OFRECE, NO LAS CANDIDATURAS AÚN EN PRODUCCIÓN.
  *
