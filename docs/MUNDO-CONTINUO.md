@@ -49,6 +49,20 @@ Dos cosas hacían que el bosque diera saltitos al moverse, y ninguna era la anim
   que llegue otro duende no. Medido: `new World` de la pradera pasa de 73,6 ms a 6,2, y los diez
   cruces del banco de pruebas pasan de perder dos o tres fotogramas cada vez a no perder ninguno.
 
+- **Y preguntar por el agua estaba mal planteado** (21-sep-2026, decisión del dueño: «preguntar
+  siempre si hay agua es un poco raro, hay que hacerlo eficientemente»). En una fila de píxeles el
+  agua es siempre lo mismo —el cauce entre dos orillas, las elipses de los charcos, los puentes que
+  la tapan— y averiguarlo cuesta una interpolación de Hermite con dos senos por río. Se preguntaba
+  punto a punto: treinta sondas por pisada, y la misma fila una y otra vez. Ahora el agua de una
+  fila se calcula una vez y se guarda; el pie pregunta por el RECTÁNGULO que ocupa en cada una de
+  sus ocho filas en vez de tantear treinta puntos; un tramo recto barre su banda de filas en vez de
+  repetirlo en cada paso; y el centro de una casilla no se vuelve a medir, porque `navigationTerrain`
+  ya lo tiene contestado (`cellCanStand`). Medido: la máscara de construcción de la pradera pasa de
+  704.842 evaluaciones de orilla (240 ms) a 3.384 (82 ms); dos mil pisadas pegadas a la orilla, de
+  60.000 a cero; y un toque largo junto al lago, de 114.518 evaluaciones y 193 ms a cero y 34 ms.
+  La respuesta es la MISMA: `check-adventure-geography` compara 574.600 puntos y 143.650 pisadas
+  contra la versión punto a punto, y ninguna difiere.
+
 Y con ellos, tres cosas que hacían «aparecer y desaparecer» al cruzar: la pantalla que dejas pasa
 de activa a **caliente en el acto** (sus hojas no quedan sin proteger los ~600 ms hasta la
 siguiente precarga), sus **residentes siguen donde estaban** (no se rehacen al entrar), y las hojas

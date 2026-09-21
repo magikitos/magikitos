@@ -148,7 +148,8 @@ async function openEditor(p, id) {
   await page.locator("#body-w").press("Tab");
   const entrance = (await inspect(page)).bodyEntrance;
   assert.equal(entrance[2], 2, "Una franja de nueve casillas se recorta al máximo de dos");
-  await page.keyboard.press("Enter");
+  // Enter dentro del número también cierra: el atajo del documento no llega hasta un input.
+  await page.locator("#body-h").press("Enter");
   await wait(page, () => !window.MagikitosStudio.inspect().bodyEditing);
   assert.deepEqual((await inspect(page)).elements["log-home"].redondo.entrance, entrance);
 

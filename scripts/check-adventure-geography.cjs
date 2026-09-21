@@ -7,6 +7,8 @@ const {
   FOOTPRINT,
   actorBounds,
   collisionBounds,
+  waterAt,
+  dryFootprint,
 } = require("../public/assets/js/adventure/model");
 const { move } = require("../public/assets/js/adventure/movement");
 const {
@@ -121,8 +123,46 @@ for (let i = 0; i < corners.length; i++)
     world.path(corners[i], corners[(i + 1) % corners.length])?.length,
     "Plaza can be circled on both sides",
   );
+/**
+ * ⛔ EL AGUA SE PREGUNTA POR FILAS, Y TIENE QUE CONTESTAR LO MISMO (21-sep-2026). `waterAt` dejó de
+ * medir la orilla en cada punto y pasó a calcular los intervalos de cada fila una vez; `dryFootprint`
+ * dejó de tantear treinta sondas y pregunta por el rectángulo del pie. Las dos cosas son más
+ * baratas, y aquí se exige que sigan diciendo exactamente lo que decían: la copia literal de la
+ * versión anterior vive en esta prueba, que es el único sitio donde tiene sentido conservarla.
+ */
+const box = (x, y, [rx, ry, rw, rh]) => x >= rx && y >= ry && x < rx + rw && y < ry + rh;
+function pointWater(data, x, y) {
+  if ((data.bridges || []).some((b) => box(x, y, b.rect))) return false;
+  if ((data.rivers || []).some((r) => {
+    if (y < r.rect[1] || y >= r.rect[1] + r.rect[3]) return false;
+    const banks = riverSection(r, y);
+    return x >= banks.left && x < banks.right;
+  })) return true;
+  if (data.baseWater && !(data.islands || []).some((p) => ((x - p.x) / p.rx) ** 2 + ((y - p.y) / p.ry) ** 2 < 1)) return true;
+  return (data.waters || []).some((p) => ((x - p.x) / p.rx) ** 2 + ((y - p.y) / p.ry) ** 2 < 1);
+}
+const PROBES = [];
+for (let px = -8; px <= 8; px += 2) PROBES.push([px, -7], [px, 7]);
+for (let py = -5; py < 7; py += 2) PROBES.push([-8, py], [8, py]);
+const probeDry = (data, x, y) =>
+  PROBES.every(([dx, dy]) => !pointWater(data, (x + dx) / TILE, (y + dy) / TILE));
+let points = 0, feet = 0;
+for (const data of Object.values(catalog.scenes)) {
+  for (let y = 0; y < data.height; y += 0.5)
+    for (let x = 0; x < data.width; x += 0.5) {
+      assert.equal(waterAt(data, x, y), pointWater(data, x, y), `agua ${data.id} ${x},${y}`);
+      points++;
+    }
+  for (let ty = 0; ty < data.height; ty++)
+    for (let tx = 0; tx < data.width; tx++) {
+      const px = (tx + 0.5) * TILE, py = (ty + 0.5) * TILE;
+      assert.equal(dryFootprint(data, px, py), probeDry(data, px, py), `pie ${data.id} ${tx},${ty}`);
+      feet++;
+    }
+}
 console.log(
   "PASS: single save contract, shared feet, " +
     checked +
-    " dry standing points, lake shores, shoreline sweeps, connected fountain plaza.",
+    " dry standing points, lake shores, shoreline sweeps, connected fountain plaza, " +
+    points + " puntos y " + feet + " pisadas con la misma respuesta de agua que punto a punto.",
 );

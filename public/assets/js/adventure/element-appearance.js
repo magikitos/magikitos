@@ -17,9 +17,12 @@ function appearanceFor(families) {
   const resolveAppearance = (entity, seed) => {
     const family = familyOf(entity), variant = variantOf(entity, seed);
     if (!variant) return entity;
-    // A changed orientation must not inherit the previous silhouette's footprint: the VARIANT
-    // decides, never the solids a previous resolution left on the entity.
-    const solids = variant.solids;
+    /**
+     * La VARIANTE manda sobre lo que la entidad traiga: al cambiar de orientación no puede heredar
+     * la silueta de la anterior, que es lo que una resolución previa dejó puesto. Y si la variante
+     * no dice nada, vale el cuerpo compuesto que la entidad sí trae (un arco con dos patas).
+     */
+    const solids = variant.solids || entity.solids;
     const resolved = {
       ...family.template, ...entity, ...(solids ? { solids } : {}),
       artVariant: entity.artVariant || variant.id, artSprite: variant.sprite,

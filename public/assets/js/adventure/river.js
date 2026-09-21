@@ -1,5 +1,6 @@
 "use strict";
 const { findPath } = require("./navigation");
+const { TILE } = require("./geometry");
 const { drawCurrentTraces } = require("./current-traces");
 const { docks, dockAt, atDock, enteringDock } = require("./docks");
 const { facing } = require("./characters");
@@ -135,13 +136,16 @@ class River {
     if (this.dockTarget) point = this.dockTarget.wet;
     if (!canFloat(world, point.x, point.y)) return;
     // Reuse the A* implementation with vessel geometry, never the dry-foot grid.
+    /**
+     * Lo que `findPath` necesita de un mundo son cuatro cosas: su tamaño, si una casilla admite al
+     * que la va a ocupar, y si un tramo recto está libre. Aquí el que ocupa es la barca, así que
+     * las dos respuestas salen del casco (`canFloat`) y no del pie.
+     */
     const navigation = {
       width: world.width,
       height: world.height,
-      blocked: new Uint8Array(world.width * world.height),
-      walkable: (x, y) =>
-        x >= 0 && y >= 0 && x < world.width && y < world.height,
-      canStand: (x, y) => canFloat(world, x, y),
+      cellCanStand: (x, y) =>
+        canFloat(world, (x + 0.5) * TILE, (y + 0.5) * TILE),
       clearSegment: (a, b) => {
         const steps = Math.max(
           1,

@@ -10,8 +10,16 @@ const {
   overlaps,
   FOOTPRINT,
   dryFootprint,
+  dryAlong,
   waterAt,
 } = geometry;
+/** Las cuatro esquinas del pie, que es lo que pisa. */
+const CORNERS = [
+  [-FOOTPRINT.halfWidth, -FOOTPRINT.halfHeight],
+  [FOOTPRINT.halfWidth, -FOOTPRINT.halfHeight],
+  [-FOOTPRINT.halfWidth, FOOTPRINT.halfHeight],
+  [FOOTPRINT.halfWidth, FOOTPRINT.halfHeight],
+];
 const { matches, active } = require("./rules");
 const { CollisionGrid, collisionBodies } = require("./collision-grid");
 const { resolveAppearance } = require("./elements");
@@ -212,29 +220,37 @@ class World {
   canStand(x, y, ignore = null) {
     return this.terrainCanStand(x, y) && !this.collisionAt(x, y, ignore);
   }
-  terrainCanStand(x, y) {
+  /**
+   * ⛔ EL AGUA DE UNA CASILLA YA ESTÁ CONTESTADA (21-sep-2026, decisión del dueño: «preguntar
+   * siempre si hay agua es un poco raro»).
+   *
+   * `navigationTerrain` guarda EXACTAMENTE `terrainCanStand` en el centro de cada casilla, medido
+   * al construir la pantalla, y el terreno no cambia después: `refresh` parte siempre de esa copia
+   * y solo le suma los cuerpos. Así que si `walkable` dice que sí, el suelo ya dijo que sí, y
+   * volver a medir la orilla es preguntar dos veces lo mismo. Lo único que falta es lo que la
+   * rejilla no puede saber —los cuerpos vivos, y a quién hay que ignorar—, y eso es lo que se
+   * mira aquí. Medido: una búsqueda de camino junto al lago evaluaba la orilla 170.000 veces.
+   */
+  cellCanStand(cx, cy, ignore = null) {
+    return (
+      this.walkable(cx, cy) &&
+      !this.collisionAt((cx + 0.5) * TILE, (cy + 0.5) * TILE, ignore)
+    );
+  }
+  /** El suelo sin contar el agua: el marco, la vecina enlazada y el contorno de un interior. */
+  groundCanStand(x, y) {
     if (!Number.isFinite(x) || !Number.isFinite(y)) return false;
     const { halfWidth: hw, halfHeight: hh } = FOOTPRINT;
-    return (
-      [
-        [-hw, -hh],
-        [hw, -hh],
-        [-hw, hh],
-        [hw, hh],
-      ].every(([dx, dy]) =>
+    return CORNERS.every(
+      ([dx, dy]) =>
         this.terrainWalkable(
           Math.floor((x + dx) / TILE),
           Math.floor((y + dy) / TILE),
-        ),
-      ) &&
-      [
-        [-hw, -hh],
-        [hw, -hh],
-        [-hw, hh],
-        [hw, hh],
-      ].every(([dx, dy]) => room.contains(this.data, x + dx, y + dy)) &&
-      dryFootprint(this.data, x, y)
+        ) && room.contains(this.data, x + dx, y + dy),
     );
+  }
+  terrainCanStand(x, y) {
+    return this.groundCanStand(x, y) && dryFootprint(this.data, x, y);
   }
   refresh(state) {
     this.state = state;
@@ -436,19 +452,22 @@ class World {
     }
     return null;
   }
+  /**
+   * ⛔ EL AGUA DEL TRAMO SE PREGUNTA UNA VEZ, BARRIENDO (21-sep-2026). Lo demás —el marco, el
+   * contorno y los cuerpos vivos— sigue mirándose paso a paso, porque cambia de una casilla a la
+   * siguiente; el agua no: es la misma banda de filas para todo el tramo.
+   */
   clearSegment(from, to, ignore = from) {
+    if (!dryAlong(this.data, from, to)) return false;
     const dx = to.x - from.x,
       dy = to.y - from.y;
     const steps = Math.max(1, Math.ceil(Math.hypot(dx, dy) / 2));
-    for (let i = 1; i <= steps; i++)
-      if (
-        !this.canStand(
-          from.x + (dx * i) / steps,
-          from.y + (dy * i) / steps,
-          ignore,
-        )
-      )
+    for (let i = 1; i <= steps; i++) {
+      const x = from.x + (dx * i) / steps,
+        y = from.y + (dy * i) / steps;
+      if (!this.groundCanStand(x, y) || this.collisionAt(x, y, ignore))
         return false;
+    }
     return true;
   }
 }

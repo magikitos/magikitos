@@ -138,32 +138,39 @@ const catStart = scene.entities.find((e) => e.id === "picnic-cat");
       await page.waitForTimeout(8000);
       {
         assert(!(await inspect()).carried, "se empieza libre");
-        // Se le persigue con el teclado reapuntando, porque el gato patrulla: lo que se
-        // comprueba es el TOPETAZO, y para darlo hay que alcanzarlo.
+        /**
+         * ⛔ SE LE PERSIGUE TOCANDO, COMO SE JUEGA (21-sep-2026). Con las flechas a pelo la
+         * prueba se rompía el día que alguien colocaba una valla en medio: el duende empujaba
+         * contra ella los veinticinco segundos y nunca llegaba. Lo que se comprueba aquí es el
+         * TOPETAZO, no la orientación del jugador, así que se toca al gato y el juego rodea lo
+         * que haya —que es justo lo que hace una persona— y se vuelve a tocar porque patrulla.
+         */
         const empezo = Date.now();
-        let tecla = null;
         while (Date.now() - empezo < 25000) {
           const s = await inspect();
           if (s.carried) break;
-          const gato = s.cats[0];
-          const dx = gato.x - s.player.x,
-            dy = gato.y - s.player.y;
-          const quiero =
-            Math.abs(dx) > Math.abs(dy)
-              ? dx > 0
-                ? "ArrowRight"
-                : "ArrowLeft"
-              : dy > 0
-                ? "ArrowDown"
-                : "ArrowUp";
-          if (quiero !== tecla) {
-            if (tecla) await page.keyboard.up(tecla);
-            await page.keyboard.down(quiero);
-            tecla = quiero;
+          if (s.dialogue) {
+            await page.keyboard.press("Enter");
+            continue;
           }
-          await page.waitForTimeout(120);
+          const gato = s.cats[0];
+          // Hacia el gato pero DENTRO de lo que se ve, que es donde se puede tocar.
+          const lejos = Math.max(
+            1,
+            Math.hypot(gato.x - s.player.x, gato.y - s.player.y),
+          );
+          const alcance = Math.min(lejos - 12, s.view.width / 2 - 48);
+          const destino = {
+            x: s.player.x + ((gato.x - s.player.x) / lejos) * alcance,
+            y: s.player.y + ((gato.y - s.player.y) / lejos) * alcance,
+          };
+          const caja = await page.locator("#world-canvas").boundingBox();
+          await page.touchscreen.tap(
+            caja.x + ((destino.x - s.camera.x) * caja.width) / s.view.width,
+            caja.y + ((destino.y - s.camera.y) * caja.height) / s.view.height,
+          );
+          await page.waitForTimeout(600);
         }
-        if (tecla) await page.keyboard.up(tecla);
         assert((await inspect()).carried, "alcanzar al gato te cuesta el viaje");
         console.log("  PASS topetazo: alcanzarlo te cuesta el viaje");
       }

@@ -40,12 +40,13 @@ function findPath(world, from, target, ignore = from) {
   // Occupancy cells alone miss feet overlapping a prop at a cell edge, and
   // residents are deliberately not baked into the static grid. Cache the live
   // body checks only for this search; the next search sees their new positions.
+  // Los límites se miran AQUÍ, una vez: quien contesta por una casilla contesta por una casilla
+  // que existe, y así el mundo del pie y el de la barca dicen lo mismo sin repetir la guarda.
   const cells = new Map();
   const walkable = (x, y) => {
-    if (!world.walkable(x, y)) return false;
+    if (x < 0 || y < 0 || x >= world.width || y >= world.height) return false;
     const id = y * world.width + x;
-    if (!cells.has(id))
-      cells.set(id, world.canStand((x + 0.5) * TILE, (y + 0.5) * TILE, ignore));
+    if (!cells.has(id)) cells.set(id, world.cellCanStand(x, y, ignore));
     return cells.get(id);
   };
   const clear = (a, b) => world.clearSegment(a, b, ignore);
@@ -77,7 +78,7 @@ function findPath(world, from, target, ignore = from) {
   const start = sy * world.width + sx,
     goal = ty * world.width + tx,
     w = world.width;
-  const g = new Float32Array(world.blocked.length).fill(Infinity),
+  const g = new Float32Array(world.width * world.height).fill(Infinity),
     parents = new Int32Array(g.length).fill(-1),
     closed = new Uint8Array(g.length);
   // Binary heap keeps long cross-map clicks O(n log n), not repeated linear open-list scans.

@@ -94,8 +94,15 @@ const read = (page) => page.evaluate(() => window.MagikitosAdventure.inspect());
         path: ".local/pickup-review/mushroom-" + width + ".png",
       });
       await click("forest-mushrooms-fern");
+      // Cuántas setas da la mata lo dice la ESCENA, no esta prueba: el día que la economía
+      // cambie de tres a cinco, la prueba sigue valiendo en vez de romperse sin motivo.
+      const setas = scene.entities
+        .find((e) => e.id === "forest-mushrooms-fern")
+        .rules.flatMap((r) => r.effects)
+        .find((e) => e.type === "item" && e.item === "mushroom").amount;
       await page.waitForFunction(
-        () => window.MagikitosAdventure.inspect().inventory.mushroom === 1,
+        (n) => window.MagikitosAdventure.inspect().inventory.mushroom === n,
+        setas,
       );
       await seed({}, "picnic-twig");
       await click("picnic-twig");

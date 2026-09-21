@@ -535,9 +535,9 @@ async function pinch(page) {
     page,
     () => window.MagikitosStudio.inspect().sprites.bed?.crop[2] === 53,
   );
-  await page.locator("#collision-section summary").click();
-  await page.locator("#body-w").fill("48");
-  await page.locator("#body-w").press("Tab");
+  // El cuerpo se edita en el mapa y pertenece al ELEMENTO, no a esta cama: ver
+  // `check-studio-entrance-browser.cjs`, que cubre el editor entero. Aquí solo interesa que el
+  // recorte del sprite sobreviva a una recarga junto con las colocaciones.
   await wait(page, () => !window.MagikitosStudio.inspect().dirty);
   const saved = await page.evaluate(() => window.MagikitosStudio.inspect());
   await page.reload();
@@ -549,7 +549,6 @@ async function pinch(page) {
     await page.request.get("http://127.0.0.1:47836/api/diff")
   ).json();
   assert.equal(exported.sprites[0].sprite, "bed");
-  assert.equal(exported.scenes[0].placements[0].after.solid[2], 3);
   assert.equal(
     (
       await page.request.post("http://127.0.0.1:47836/api/workspace", {

@@ -60,8 +60,16 @@ class BodyEditor {
     $("body-entrance").onclick = () => this.toggleEntrance();
     $("body-delete").onclick = () => this.remove();
     $("body-reset").onclick = () => this.reset();
-    for (const id of ["body-x", "body-y", "body-w", "body-h"])
+    for (const id of ["body-x", "body-y", "body-w", "body-h"]) {
       $(id).onchange = () => this.readNumbers();
+      // Enter dentro de un número también termina: el atajo del documento no llega a un input.
+      $(id).onkeydown = (e) => {
+        if (e.key !== "Enter") return;
+        e.preventDefault();
+        this.readNumbers();
+        this.finish();
+      };
+    }
   }
   /** `row` es la copia que se está mirando; lo que se edita es su ELEMENTO. */
   start(row) {

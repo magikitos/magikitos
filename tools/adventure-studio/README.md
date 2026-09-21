@@ -270,6 +270,10 @@ Do not crop a tree canopy to "fix" the trunk collision. A tree's visible canopy
 and its physical trunk intentionally have different sizes.
 Turning on collision inspection also shows architectural walls and door thresholds.
 
+El pie del duende es un rectángulo de 16 × 14 píxeles con dos de margen de orilla, y el suelo
+pisable se calcula preguntando si ESE rectángulo toca agua en cada una de sus ocho filas. Un
+cuerpo que llegue al agua no es un error del Studio: es que ahí no se puede estar de pie.
+
 ## Tell the agent
 
 > He cambiado las escenas.
