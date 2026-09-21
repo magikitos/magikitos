@@ -52,7 +52,7 @@ same(back, doorGeometry(house, exit), "house/exit dibujada");
 assert.equal(back.entryDirection, 1, "Dentro se sale hacia abajo");
 near(back.arrival[1], back.threshold[1] - 2, "La llegada de vuelta queda dos casillas dentro");
 // Lo que el compilador rechaza, el gemelo también.
-for (const bad of [[0, 0, 3, 0.25], [0, 0, 1, 0.75], [13, 0, 1, 0.25], [0, 0, 0.1, 0.25], ["a", 0, 1, 0.25], [0, 0, 1]]) {
+for (const bad of [[0, 0, 3.25, 0.25], [0, 0, 1, 0.75], [13, 0, 1, 0.25], [0, 0, 0.1, 0.25], ["a", 0, 1, 0.25], [0, 0, 1]]) {
   assert.equal(validEntrance(bad), false, "Entrada inválida: " + JSON.stringify(bad));
   const broken = raw(root, "overworld");
   broken.entities.find((e) => e.id === "home-one").entrance = bad;
@@ -60,6 +60,25 @@ for (const bad of [[0, 0, 3, 0.25], [0, 0, 1, 0.75], [13, 0, 1, 0.25], [0, 0, 0.
   assert.throws(() => compileWorld(root), /Entrance/, "El compilador rechaza " + JSON.stringify(bad));
 }
 fs.writeFileSync(path.join(root, "data/aventura/scenes/overworld.json"), JSON.stringify(meadow));
+
+/**
+ * ⛔ Y EL LÍMITE DE ARRIBA TAMBIÉN SE COMPRUEBA POR EL LADO QUE ACEPTA (22-sep-2026). Lo de arriba
+ * solo probaba que ambos RECHAZAN lo mismo, y `ENTRANCE_LIMITS` se comparaba con un literal de JS.
+ * Con eso, bajar el tope en el PHP y dejarlo alto en el JS pasaba la prueba tan campante: ninguna
+ * puerta del mundo mide más de 1,4, así que el desajuste no salía por ningún lado. Se descubrió
+ * mutando el PHP a mano al subir el ancho de 2 a 3. Ahora se compila una entrada del ANCHO MÁXIMO:
+ * si un gemelo se queda corto, el compilador revienta aquí y no en el bosque de alguien.
+ */
+{
+  const tope = raw(root, "overworld");
+  tope.entities.find((e) => e.id === "home-one").entrance = [0, 0.5, ENTRANCE_LIMITS.width[1], 0.375];
+  fs.writeFileSync(path.join(root, "data/aventura/scenes/overworld.json"), JSON.stringify(tope));
+  const ancha = compileWorld(root).scenes.overworld.entities.find((e) => e.id === "home-one");
+  near(ancha.threshold[2], ENTRANCE_LIMITS.width[1], "El PHP acepta el ancho máximo que promete el JS");
+  same(ancha, doorGeometry(tope, tope.entities.find((e) => e.id === "home-one")), "overworld/home-one al tope");
+  fs.writeFileSync(path.join(root, "data/aventura/scenes/overworld.json"), JSON.stringify(meadow));
+}
+
 const stairsScene = Object.values(compiled.scenes).find((s) => s.entities.some((e) => e.portal === "stairs"));
 if (stairsScene) {
   const withStairs = raw(root, stairsScene.id);
@@ -68,5 +87,5 @@ if (stairsScene) {
   assert.throws(() => compileWorld(root), /Stairs/, "Una escalera no admite entrada dibujada");
 }
 fs.rmSync(root, { recursive: true, force: true });
-assert.deepEqual(ENTRANCE_LIMITS, { offset: 12, width: [0.25, 2], height: [1 / 16, 0.5] });
+assert.deepEqual(ENTRANCE_LIMITS, { offset: 12, width: [0.25, 3], height: [1 / 16, 0.5] });
 console.log(`PASS door geometry: ${doors} puertas iguales en PHP y JS, entrada dibujada dentro y fuera, límites y escaleras rechazados.`);

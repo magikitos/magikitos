@@ -220,7 +220,7 @@ por detrás—; más ancho es un muro que nadie ve.
 La entrada sigue siendo la franja que abre la puerta al pisarla andando hacia ella, en casillas
 relativas al pie, y `data/aventura/world.php` la convierte en el mismo umbral y llegada que una
 puerta derivada, así que el motor, el contrato del bosque vivo y las pruebas no notan la
-diferencia. Límites: hasta 12 casillas del pie, de ¼ a 2 casillas de ancho, de 1 a 8 píxeles de
+diferencia. Límites: hasta 12 casillas del pie, de ¼ a 3 casillas de ancho, de 1 a 8 píxeles de
 alto; las escaleras no admiten entrada dibujada (su rellano sale de su cuerpo). Paridad PHP/JS:
 `check-door-geometry.cjs`; el editor en navegador, `npm run test:studio-entrance`.
 

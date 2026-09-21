@@ -16,6 +16,7 @@ const { validatePaths } = require("./path-edits");
 const {
   doorGeometry,
   validEntrance,
+  ENTRANCE_LIMITS,
 } = require("../../public/assets/js/adventure/portals");
 const FIELDS = [
   "x",
@@ -136,9 +137,21 @@ function validatePlacement(scene, source, value) {
     if (!source.portal || source.portal === "stairs")
       throw Error("Solo las puertas tienen entrada; las escaleras derivan su rellano");
     if (next.entrance !== undefined) {
+      // El mensaje sale de ENTRANCE_LIMITS: escrito a mano se queda con el tope de ayer, que es
+      // justo lo que pasó al subir el ancho de 2 a 3 —seguía diciendo «2» al rechazarte un 2,5—.
       if (!validEntrance(next.entrance))
         throw Error(
-          "Entrada fuera de rango: hasta 12 casillas del pie, de ¼ a 2 casillas de ancho y de 1 a 8 píxeles de alto",
+          "Entrada fuera de rango: hasta " +
+            ENTRANCE_LIMITS.offset +
+            " casillas del pie, de " +
+            ENTRANCE_LIMITS.width[0] +
+            " a " +
+            ENTRANCE_LIMITS.width[1] +
+            " casillas de ancho y de " +
+            Math.round(ENTRANCE_LIMITS.height[0] * 16) +
+            " a " +
+            Math.round(ENTRANCE_LIMITS.height[1] * 16) +
+            " píxeles de alto",
         );
       next.entrance = next.entrance.map((v) => Math.round(v * 16) / 16);
     }

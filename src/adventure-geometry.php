@@ -11,7 +11,7 @@ declare(strict_types=1);
  * Sin `entrance`, todo sigue derivándose del pie de la puerta como siempre. Gemelo en JS:
  * `doorGeometry` (portals.js), con prueba de paridad (`check-door-geometry.cjs`).
  */
-const ENTRANCE_LIMITS = ['offset' => 12, 'width' => [0.25, 2], 'height' => [1 / 16, 0.5]];
+const ENTRANCE_LIMITS = ['offset' => 12, 'width' => [0.25, 3], 'height' => [1 / 16, 0.5]];
 
 function adventureEntrance(array $entity): ?array
 {

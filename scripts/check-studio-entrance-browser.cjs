@@ -15,6 +15,7 @@ const assert = require("node:assert/strict"),
   os = require("node:os"),
   path = require("node:path");
 const { chromium } = require("playwright");
+const { ENTRANCE_LIMITS } = require("../public/assets/js/adventure/portals");
 const { startStudio } = require("./browser-studio.cjs");
 const origin = "http://127.0.0.1:47841",
   temp = fs.mkdtempSync(path.join(os.tmpdir(), "magikitos-bodies-browser-")),
@@ -157,7 +158,13 @@ async function openEditor(p, id) {
   await page.locator("#body-w").fill("9");
   await page.locator("#body-w").press("Tab");
   const entrance = (await inspect(page)).bodyEntrance;
-  assert.equal(entrance[2], 2, "Una franja de nueve casillas se recorta al máximo de dos");
+  // El tope sale de ENTRANCE_LIMITS, no de un número escrito aquí: al subir el ancho de 2 a 3 esta
+  // línea se puso roja anunciando un fallo que no existía —el recorte funcionaba, decía «2»—.
+  assert.equal(
+    entrance[2],
+    ENTRANCE_LIMITS.width[1],
+    "Una franja de nueve casillas se recorta al máximo de " + ENTRANCE_LIMITS.width[1],
+  );
   // Enter dentro del número también cierra: el atajo del documento no llega hasta un input.
   await page.locator("#body-h").press("Enter");
   await wait(page, () => !window.MagikitosStudio.inspect().bodyEditing);

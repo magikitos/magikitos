@@ -6,7 +6,15 @@ const { TILE } = require("./geometry");
  * Studio ([dx, dy, ancho, alto] relativos al pie). El Studio lo usa para enseñar en vivo lo que el
  * compilador escribirá; `check-door-geometry.cjs` exige que los dos digan lo mismo.
  */
-const ENTRANCE_LIMITS = Object.freeze({ offset: 12, width: [0.25, 2], height: [1 / 16, 0.5] });
+/**
+ * ⛔ HASTA TRES CASILLAS DE ANCHO (22-sep-2026, decisión del dueño: «necesito poder hacerlas más
+ * anchas, un 50% más que ahora»). Eran dos. El tope de ancho nunca fue mecánico como el de alto
+ * —ese sí: media casilla, porque una franja alta rompe la guarda de dirección y el pestillo—, era
+ * un juicio para que no se entrase por el lado de la puerta. Con tres sigue habiendo que venir
+ * ANDANDO HACIA ella y con lo vertical mandando, que es lo que de verdad la protege. Vive por
+ * duplicado en `src/adventure-geometry.php` y lo casa `check-door-geometry.cjs`.
+ */
+const ENTRANCE_LIMITS = Object.freeze({ offset: 12, width: [0.25, 3], height: [1 / 16, 0.5] });
 function validEntrance(entrance) {
   if (!Array.isArray(entrance) || entrance.length !== 4 || !entrance.every(Number.isFinite)) return false;
   const [dx, dy, w, h] = entrance;
