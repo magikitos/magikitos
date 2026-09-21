@@ -79,4 +79,5 @@ Verificación de esta entrega: suite general completa; 912 casos del motor a
 1440×900, 768×1024 y 390×844; movilidad en esos tres tamaños; ocho cruces seguidos
 con el daemon local real y cero rechazos; 216 contactos inspeccionados en láminas.
 Los 36 packs mantienen exactamente sus dimensiones de textura y número de poses.
-Publicación en producción: no realizada en esta ronda.
+Publicado el 21-sep-2026 como `82a321d87cc9d16beca7`; verificaciones, cambios del
+contrato de velocidad y límites de las pruebas en [el registro de entrega](../../../../docs/RELEASE.md).

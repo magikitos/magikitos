@@ -4,6 +4,53 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: apoyos alternos y encaje paseo/carrera — 21 septiembre 2026
+
+Artefacto `82a321d87cc9d16beca7`, fuente del juego `f7cfe43` (incluye `5d2abf5`),
+web `d450e5a6` (**solo puntero**). Anterior conservada: `d1ef0ad5d748e9217e61`.
+Las rutas no cambian. Publicación autorizada después de probar la corrección local.
+
+SHA-256 de `release.json`:
+`102ee2e7bde3558a077fd57793f28cba5f453d820e11f60e69e4d08b2cc76602`.
+791 archivos verificados y estacionados antes de activar. Una copia limpia del
+commit, con los atlas registrados y sin los másteres, reconstruye exactamente el
+mismo ID mediante `node tools/build.cjs --reuse-art`.
+
+- 216 contactos opuestos en las seis direcciones con componente horizontal de
+  los 18 protagonistas; cabeza, gorro y torso originales conservados. Mismo número
+  de poses y tamaño de textura, sin procesamiento de imágenes durante el juego.
+- Carrera frontal alineada con el paseo en siete hojas, incluida Brezo:
+  corrección offline de +0,5 a +2,5 px lógicos, sin mover jugador, sombra o cámara.
+- Marcha de 72 a 84 px/s y carrera de 190 a 216 px/s, con zancadas de 44/72 px.
+  El contrato cambia únicamente `maxFootSpeed` y el `pushSpeed` derivado.
+  `bosque-vivo.service` se detuvo ordenadamente y arrancó con la nueva release
+  durante el cambio de puntero (07:45:16 UTC), sin errores de persistencia.
+- Sin migraciones, cambios de PHP, modificaciones de partidas, importaciones,
+  cambios de mapas ni reinicios de otros servicios. Identidad personal verificada
+  en los dos repositorios. El cambio ajeno de `taramundi/cuentos/build-pdf.mjs`
+  quedó intacto y fuera de esta entrega.
+
+Comprobado: `npm test` completo, 1.152 muestras de alineación de los atlas
+(desvío medio frontal/trasero máximo de 0,875 px lógicos), Ascua en tres tamaños
+y ambos modos de movimiento reducido, ocho cruces con el daemon real y cero
+rechazos, Studio aislado (caminos, recorte, colisiones, guardado y diff).
+Las pruebas específicas previas cubren 912 casos de marcha y 5.472 pasos de cambio
+paseo/carrera, más la última comprobación de las variantes 100 y 142 tras el ajuste final.
+
+La suite general de navegador pasó con una espera diagnóstica adicional de 2,5 s
+antes de medir la caché, sin modificar el test registrado ni el motor. La espera
+original de 400 ms mide a veces la precarga aún en curso: reproducido también con
+el JS anterior de producción; ambos terminan y se mantienen en 225 bloques para
+844×390. El arranque frío del Studio necesitó ampliar solo en el ejecutor temporal
+el plazo a 600 s. Se utilizó Chromium headless instalado (1228). DDEV no estaba
+disponible, por lo que no se acredita la suite completa `test:boundary` local.
+
+En producción: seis HTML idénticos byte a byte contra el origen; seis landings,
+API pública y web normal correctas; `check-release-live` en 1440×900, 768×1024 y
+390×844 (marcha, remada, controles táctiles, desembarco y carga diferida), sin errores
+ni escrituras de jugador. Los 72 archivos PNG/JSON de los 36 packs modificados
+se comprobaron por SHA-256 a través de la CDN. El daemon anuncia la release nueva.
+
 ## Producción: el repaso a fondo — lo que se ve no se expulsa y una herramienta por trabajo — 20 septiembre 2026
 
 Artefacto `d1ef0ad5d748e9217e61`, fuente del juego `071cc70`, web `5c11c7e9` (solo puntero). Anterior conservada:
