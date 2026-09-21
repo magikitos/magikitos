@@ -1408,12 +1408,12 @@
     "pt": "Ver mais"
   },
   "mushroomDescription": {
-    "es": "Un buen trocito cortado con la navajita. Listo pa pasarlo por la brasa.",
-    "en": "A tidy piece cut with the pocketknife. Ready for the barbecue.",
-    "de": "Ein mit dem Taschenmesser geschnittenes Stück Pilz. Ab damit auf den Grill.",
-    "fr": "Un morceau découpé au petit couteau. Prêt à passer sur les braises.",
-    "it": "Un pezzetto tagliato col coltellino. Pronto per la brace.",
-    "pt": "Um pedaço cortado com a navalhinha. Prontinho para ir à brasa."
+    "es": "Recogida con la navajita. Pa una brocheta... o un buen trueque en el almacén.",
+    "en": "Gathered with the pocketknife. For a skewer... or a handy trade at the storehouse.",
+    "de": "Mit dem Taschenmesser geerntet. Für einen Spieß... oder zum Tauschen im Lager.",
+    "fr": "Cueilli au petit couteau. Pour une brochette... ou un bon troc à l'entrepôt.",
+    "it": "Raccolto col coltellino. Per uno spiedino... o un bello scambio al magazzino.",
+    "pt": "Apanhado com a navalhinha. Para uma espetada... ou uma boa troca no armazém."
   },
   "mushroomName": {
     "es": "Seta",
