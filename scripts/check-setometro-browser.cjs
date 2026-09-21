@@ -22,6 +22,8 @@ const text = key => require("../data/aventura/locales/core.json")[key].es;
       await page.route("**/*",async route=>{
         const url=new URL(route.request().url()), endpoint=url.pathname.split("/").at(-1);
         if(![new URL(origin).hostname,"magikitos.ddev.site"].includes(url.hostname)) return route.abort();
+        if(readOnly && !["GET","HEAD"].includes(route.request().method()))
+          return route.fulfill({status:503,json:{ok:false,error:"read_only_review"}});
         if(url.pathname.startsWith("/api/")) {
           if(readOnly) {
             if(route.request().method()==="GET" && ["bootstrap","setometro","setometro-ranking"].includes(endpoint))
