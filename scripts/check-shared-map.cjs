@@ -8,7 +8,7 @@ const pointer = JSON.parse(fs.readFileSync(path.join(build, "current.json")));
 const contract = JSON.parse(fs.readFileSync(path.join(build, "releases", pointer.id, "game-contract.json")));
 let now = 1800000000000;
 const objects = new SharedObjects({ scenes: contract.live.scenes, now: () => now });
-const expected = { overworld: ["clearing-willow-crate", "art-moveable-planter"], "river-willows": ["meadow-harbor-crate"] };
+const expected = { overworld: ["clearing-willow-crate"], "river-willows": ["meadow-harbor-crate"] };
 for (const [scene, ids] of Object.entries(expected)) {
   const model = new World(world.scenes[scene]), forbiddenSave = {};
   for (const id of ids) {
@@ -36,4 +36,4 @@ for (const [scene, ids] of Object.entries(expected)) {
 const privatePots = new World(world.scenes["human-hedge"]).entities.filter(e => e.pushable);
 assert.equal(privatePots.length, 5); assert(privatePots.every(e => !e.shared));
 assert(!contract.live.scenes["human-hedge"].objects, "The cats' personal puzzle is not part of public physics");
-console.log("PASS authored shared map: three family-derived movable bodies in two scenes, free approaches, real opposing forces, no private-save positions and five independent puzzle pots.");
+console.log("PASS authored shared map: two family-derived movable bodies in two scenes, free approaches, real opposing forces, no private-save positions and five independent puzzle pots.");

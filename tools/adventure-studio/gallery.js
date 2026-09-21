@@ -1,5 +1,5 @@
 "use strict";
-const { families } = require("../../public/assets/js/adventure/elements");
+const { families, variantOptions } = require("./catalog");
 const { thumbnail } = require("./thumbnail");
 
 /** The palette contains native, already baked sprites; it never loads source masters. */
@@ -61,10 +61,7 @@ class Gallery {
       title.textContent = family.label;
       const select = document.createElement("select");
       select.setAttribute("aria-label", "Variante de " + family.label);
-      for (const v of [
-        { id: "auto", label: "Variada · fija por objeto" },
-        ...variants,
-      ]) {
+      for (const v of variantOptions(family, variants)) {
         const option = document.createElement("option");
         option.value = v.id;
         option.textContent = v.label;

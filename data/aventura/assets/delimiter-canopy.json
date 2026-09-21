@@ -1,0 +1,164 @@
+{
+    "frames": {
+        "delimiter-canopy-horizontal-long": {
+            "source": "data/aventura/art/delimiters/cutouts/canopy-horizontal-long.png",
+            "grid": [
+                1,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                333,
+                136
+            ],
+            "preserveCanvas": true,
+            "anchor": [
+                166,
+                68
+            ]
+        },
+        "delimiter-canopy-horizontal-short": {
+            "source": "data/aventura/art/delimiters/cutouts/canopy-horizontal-short.png",
+            "grid": [
+                1,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                236,
+                133
+            ],
+            "preserveCanvas": true,
+            "anchor": [
+                118,
+                66
+            ]
+        },
+        "delimiter-canopy-vertical-long": {
+            "source": "data/aventura/art/delimiters/cutouts/canopy-vertical-long.png",
+            "grid": [
+                1,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                145,
+                331
+            ],
+            "preserveCanvas": true,
+            "anchor": [
+                72,
+                165
+            ]
+        },
+        "delimiter-canopy-vertical-short": {
+            "source": "data/aventura/art/delimiters/cutouts/canopy-vertical-short.png",
+            "grid": [
+                1,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                138,
+                266
+            ],
+            "preserveCanvas": true,
+            "anchor": [
+                69,
+                133
+            ]
+        },
+        "delimiter-canopy-north-west": {
+            "source": "data/aventura/art/delimiters/cutouts/canopy-north-west.png",
+            "grid": [
+                1,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                282,
+                285
+            ],
+            "preserveCanvas": true,
+            "anchor": [
+                141,
+                142
+            ]
+        },
+        "delimiter-canopy-north-east": {
+            "source": "data/aventura/art/delimiters/cutouts/canopy-north-east.png",
+            "grid": [
+                1,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                281,
+                287
+            ],
+            "preserveCanvas": true,
+            "anchor": [
+                140,
+                143
+            ]
+        },
+        "delimiter-canopy-south-west": {
+            "source": "data/aventura/art/delimiters/cutouts/canopy-south-west.png",
+            "grid": [
+                1,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                284,
+                268
+            ],
+            "preserveCanvas": true,
+            "anchor": [
+                142,
+                134
+            ]
+        },
+        "delimiter-canopy-south-east": {
+            "source": "data/aventura/art/delimiters/cutouts/canopy-south-east.png",
+            "grid": [
+                1,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                285,
+                275
+            ],
+            "preserveCanvas": true,
+            "anchor": [
+                142,
+                137
+            ]
+        }
+    }
+}

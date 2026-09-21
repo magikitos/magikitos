@@ -34,6 +34,9 @@ function resolveAppearance(entity, seed) {
     ? {
         ...f.template,
         ...entity,
+        // Compound footprints belong to the selected silhouette. Re-resolving a
+        // Studio snapshot must not retain the previous orientation's bodies.
+        ...(variant.solids ? { solids: variant.solids } : {}),
         artVariant: entity.artVariant || variant.id,
         artSprite: variant.sprite,
       }

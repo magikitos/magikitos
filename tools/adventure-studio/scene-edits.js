@@ -8,7 +8,7 @@ const {
   familyOf,
   makeElement,
   families,
-} = require("../../public/assets/js/adventure/elements");
+} = require("./catalog");
 const { validatePaths } = require("./path-edits");
 const {
   doorGeometry,
@@ -126,6 +126,7 @@ function validatePlacement(scene, source, value) {
     const family = familyOf(source);
     if (
       !family ||
+      (next.artVariant === "auto" && family.randomVariants === false) ||
       (next.artVariant !== "auto" &&
         !family.variants.some((v) => v.id === next.artVariant))
     )

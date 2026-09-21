@@ -40,6 +40,8 @@
     "install:local": "node tools/install-local.cjs",
     "dev:offline": "node tools/preview.cjs --offline",
     "test:studio": "node scripts/check-studio-paths-browser.cjs",
+    "test:studio-navigation": "node scripts/check-studio-navigation.cjs && node scripts/check-studio-navigation-browser.cjs",
+    "test:studio-delimiters": "node scripts/check-studio-delimiters.cjs && node scripts/check-studio-delimiters-browser.cjs",
     "test:native": "node scripts/check-native-browser.cjs",
     "test:api:local": "node scripts/check-api-local.cjs",
     "test:boundary": "node scripts/check-boundary-browser.cjs",

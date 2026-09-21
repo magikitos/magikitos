@@ -3,12 +3,14 @@ const { PathEditor } = require("./path-editor");
 const { Gallery } = require("./gallery");
 const selectionTools = require("./selection");
 const { thumbnail } = require("./thumbnail");
+const { sceneLinks } = require("./scene-links");
 const {
   families,
   familyOf,
   frameName,
   makeElement,
-} = require("../../public/assets/js/adventure/elements");
+  variantOptions,
+} = require("./catalog");
 const { CropEditor } = require("./crop-editor");
 const { validateSprites, spriteDiff, cropFor } = require("./sprite-edits");
 const { MapViewport } = require("./viewport");
@@ -130,6 +132,8 @@ const editsJSON = () =>
   JSON.stringify({ changes: workspace.changes, sprites: workspace.sprites });
 const restoreEdits = (text) => Object.assign(workspace, JSON.parse(text));
 const dirty = () => editsJSON() !== savedJSON;
+const sceneViews = new Map();
+const TREE_FILTER_KEY = "magikitos.studio.hideTrees";
 function toast(message) {
   $("toast").textContent = message;
   $("toast").hidden = false;
@@ -435,7 +439,8 @@ function paintList() {
           (label(p.e) + " " + p.e.id).toLocaleLowerCase().includes(query),
       );
   $("count").textContent =
-    rows.length + " elementos · ordenados por profundidad";
+    rows.length + " elementos · ordenados por profundidad" +
+    (view.hideTrees ? " · árboles ocultos" : "");
   $("elements").replaceChildren();
   for (const { e, layer: rowLayer } of rows) {
     const b = document.createElement("button");
@@ -559,10 +564,7 @@ function paintInspector() {
   $("variant-field").hidden = !family;
   $("variant").replaceChildren(
     ...(family
-      ? [
-          { id: "auto", label: "Variada · fija para este objeto" },
-          ...family.variants,
-        ].map((v) => {
+      ? variantOptions(family).map((v) => {
           const option = document.createElement("option");
           option.value = v.id;
           option.textContent = v.label;
@@ -580,7 +582,9 @@ function paintInspector() {
   $("revert").disabled = added;
   $("flip").checked = !!e.flip;
   $("flip").disabled = !cap.mirror;
-  $("transform-help").textContent = e.fence
+  $("transform-help").textContent = family?.boundary
+    ? "Extremos naturales: solapa un poco las puntas para alargar; para doblar, elige una esquina propia. Sus cuerpos físicos siguen la variante y la escala."
+    : e.fence
     ? "Ajusta longitud y ángulos con Editar trazado de valla. Los postes y la colisión siguen el trazado."
     : "Reflejo y escala solo cuando no rompen su función. No se ofrece giro: no genera otra vista del objeto.";
   const sprite = frameName(e),
@@ -712,13 +716,46 @@ for (const id of ["body-x", "body-y", "body-w", "body-h"])
         (k) => Number($(k).value) / TILE,
       ),
     });
-$("scene").onchange = () => {
+function paintSceneLinks() {
+  const links = sceneLinks(snapshot.world.scenes, sceneId);
+  $("scene-current").textContent = context.nombres[sceneId] || sceneId;
+  $("scene-neighbors").replaceChildren(...links.map((link) => {
+    const button = document.createElement("button"),
+      name = context.nombres[link.scene] || link.scene,
+      arrow = { up: "↑", right: "→", down: "↓", left: "←" }[link.direction] || "⌂";
+    button.type = "button";
+    button.dataset.sceneTarget = link.scene;
+    button.textContent = arrow + " " + name;
+    button.title = "Editar " + name;
+    button.addEventListener("click", () => switchScene(link.scene));
+    return button;
+  }));
+  $("scene-navigation").hidden = !links.length;
+}
+function switchScene(next) {
+  if (!view.world || !Object.hasOwn(snapshot.world.scenes, next) || next === sceneId) return;
+  sceneViews.set(sceneId, { zoom: view.zoom, camera: { ...view.camera } });
   fenceEditor?.stop();
-  sceneId = $("scene").value;
+  sceneId = next;
+  $("scene").value = next;
   selected = null;
-  rebuild(true, null);
+  const previous = sceneViews.get(next);
+  rebuild(!previous, null);
+  if (previous) view.restoreView(previous);
   pathEditor.sceneChanged();
+  paintSceneLinks();
+}
+$("scene").onchange = () => switchScene($("scene").value);
+$("hide-trees").onclick = () => {
+  view.setTreesHidden(!view.hideTrees);
+  paintTreeFilter();
+  if (view.world) paintList();
+  try { localStorage.setItem(TREE_FILTER_KEY, String(view.hideTrees)); } catch {}
 };
+function paintTreeFilter() {
+  $("hide-trees").setAttribute("aria-pressed", String(view.hideTrees));
+  $("hide-trees").textContent = view.hideTrees ? "Mostrar árboles" : "Ocultar árboles";
+}
 $("search").oninput = paintList;
 for (const b of document.querySelectorAll("[data-layer]"))
   b.onclick = () => {
@@ -1069,6 +1106,8 @@ $("river-topology").addEventListener("change", () => {
       }),
     );
     $("scene").value = sceneId;
+    try { view.hideTrees = localStorage.getItem(TREE_FILTER_KEY) === "true"; } catch {}
+    paintTreeFilter();
     await view.initialize();
     cropEditor = new CropEditor(
       $("crop-preview"),
@@ -1076,6 +1115,7 @@ $("river-topology").addEventListener("change", () => {
       adjustCrop,
     );
     rebuild(true, null);
+    paintSceneLinks();
     gallery = new Gallery($("gallery"), view.renderer.sprites, addFromGallery);
     gallery.sceneChanged(view.world.data);
     $("loading").hidden = true;
@@ -1088,6 +1128,9 @@ window.MagikitosStudio = Object.freeze({
   inspect: () => ({
     ready: !!view.world,
     scene: sceneId,
+    sceneLinks: snapshot ? sceneLinks(snapshot.world.scenes, sceneId) : [],
+    hideTrees: view.hideTrees,
+    visibleElements: view.world ? view.elements().map(selectionTools.identifies) : [],
     selected,
     selection: view.selection.map(selectionTools.identifies),
     fenceEditing: fenceEditor.enabled,

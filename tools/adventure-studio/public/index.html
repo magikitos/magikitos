@@ -23,6 +23,10 @@
       ><button id="export">Exportar diff</button
       ><span id="save-status" role="status">Sin cambios</span>
     </div>
+    <nav id="scene-navigation" class="scene-navigation" aria-label="Escenas conectadas" hidden>
+      <span id="scene-current" class="scene-current"></span>
+      <div id="scene-neighbors" class="scene-neighbors"></div>
+    </nav>
     <main class="workspace" id="map-panel">
       <aside class="library">
         <label>Escena<select id="scene"></select></label>
@@ -97,7 +101,10 @@
           ><button id="redo" title="Rehacer · ⌘/Ctrl Shift Z">↷</button
           ><button id="zoom-out" aria-label="Alejar">−</button
           ><button id="zoom-in" aria-label="Acercar">+</button
-          ><button id="fit">Encajar</button><span id="zoom">100%</span>
+          ><button id="fit">Encajar</button>
+          <button id="hide-trees" aria-pressed="false" title="Filtro visual: las plantas pequeñas se quedan; no elimina ni cambia ningún objeto">
+            Ocultar árboles
+          </button><span id="zoom">100%</span>
         </div>
         <div class="map-bottom">
           <label><input id="grid" type="checkbox" /> Cuadrícula</label

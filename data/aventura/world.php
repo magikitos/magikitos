@@ -204,6 +204,16 @@ return (static function (): array {
         unset($entity, $rule, $effect);
         $world['scenes'][$id] = $scene;
     }
+    // Content areas follow their physical focus, just like portals follow their doors.
+    foreach ($world['contentRooms'] as &$room) {
+        if (!isset($room['radius'])) continue;
+        $focus = array_values(array_filter($world['scenes'][$room['scene']]['entities'],
+            static fn($entity) => $entity['id'] === $room['focus']))[0] ?? null;
+        if (!$focus) throw new RuntimeException('Missing content room focus');
+        $room['circle'] = [$focus['x'], $focus['y'], $room['radius']];
+        unset($room['radius']);
+    }
+    unset($room);
     // Portal arrivals follow authored buildings; return trips never duplicate their coordinates.
     $arrivals = [];
     foreach ($world['scenes'] as $id => $scene) {

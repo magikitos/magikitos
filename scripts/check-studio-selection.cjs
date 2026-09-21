@@ -154,6 +154,8 @@ const world = new World({
   ...snap.world.scenes.overworld,
   entities: [proposed],
   scenery: [],
+  night: null,
+  gatherings: [],
 });
 world.refresh({ flags: {}, inventory: {} });
 assert(!world.canStand(44 * 16, 70 * 16), "Fence rail blocks crossing");

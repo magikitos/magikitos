@@ -19,6 +19,7 @@ const { restorePositions } = require("./movables");
 const room = require("./room-shape");
 const { populate } = require("./placement");
 const { findPath } = require("./navigation");
+const { resolveSceneAnchors } = require("./scene-anchors");
 /**
  * Las bandas por las que una pantalla se abre a sus vecinas, una por salida de borde: qué borde,
  * qué tramo de ese borde (en casillas) y por qué modos se cruza. Es geometría de los DATOS, sin
@@ -67,6 +68,7 @@ function seamBands(data) {
 }
 class World {
   constructor(data) {
+    data = resolveSceneAnchors(data);
     this.data = data;
     this.width = data.width;
     this.height = data.height;

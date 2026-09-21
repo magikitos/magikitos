@@ -1,0 +1,326 @@
+{
+    "canopy-straights": {
+        "sha256": "19ff3deb2f1f4b6cb5dc69b1cb3c072fb9ef574b7b0f7dc7f6d950860780ef5c",
+        "size": [
+            1254,
+            1254
+        ],
+        "cells": {
+            "canopy-horizontal-long": {
+                "rect": [
+                    0,
+                    0,
+                    714,
+                    484
+                ],
+                "visible": [
+                    50,
+                    195,
+                    657,
+                    263
+                ],
+                "native": [
+                    333,
+                    136
+                ]
+            },
+            "canopy-horizontal-short": {
+                "rect": [
+                    714,
+                    0,
+                    540,
+                    484
+                ],
+                "visible": [
+                    28,
+                    211,
+                    464,
+                    258
+                ],
+                "native": [
+                    236,
+                    133
+                ]
+            },
+            "canopy-vertical-long": {
+                "rect": [
+                    0,
+                    484,
+                    710,
+                    770
+                ],
+                "visible": [
+                    292,
+                    20,
+                    281,
+                    654
+                ],
+                "native": [
+                    145,
+                    331
+                ]
+            },
+            "canopy-vertical-short": {
+                "rect": [
+                    710,
+                    484,
+                    544,
+                    770
+                ],
+                "visible": [
+                    101,
+                    123,
+                    267,
+                    524
+                ],
+                "native": [
+                    138,
+                    266
+                ]
+            }
+        }
+    },
+    "canopy-corners": {
+        "sha256": "b8cb88261fea45fbd45371b87273137efe20175a2510af96618644ae3862eee4",
+        "size": [
+            1254,
+            1254
+        ],
+        "cells": {
+            "canopy-north-west": {
+                "rect": [
+                    0,
+                    0,
+                    627,
+                    627
+                ],
+                "visible": [
+                    43,
+                    45,
+                    555,
+                    562
+                ],
+                "native": [
+                    282,
+                    285
+                ]
+            },
+            "canopy-north-east": {
+                "rect": [
+                    627,
+                    0,
+                    627,
+                    627
+                ],
+                "visible": [
+                    38,
+                    38,
+                    553,
+                    565
+                ],
+                "native": [
+                    281,
+                    287
+                ]
+            },
+            "canopy-south-west": {
+                "rect": [
+                    0,
+                    627,
+                    627,
+                    627
+                ],
+                "visible": [
+                    39,
+                    41,
+                    559,
+                    528
+                ],
+                "native": [
+                    284,
+                    268
+                ]
+            },
+            "canopy-south-east": {
+                "rect": [
+                    627,
+                    627,
+                    627,
+                    627
+                ],
+                "visible": [
+                    30,
+                    39,
+                    561,
+                    541
+                ],
+                "native": [
+                    285,
+                    275
+                ]
+            }
+        }
+    },
+    "rock-straights": {
+        "sha256": "982c80a309a42267a4d7906091b436f154a3608622826dce9998d74e1b65c10f",
+        "size": [
+            1254,
+            1254
+        ],
+        "cells": {
+            "rock-horizontal-long": {
+                "rect": [
+                    0,
+                    0,
+                    784,
+                    443
+                ],
+                "visible": [
+                    17,
+                    143,
+                    756,
+                    270
+                ],
+                "native": [
+                    382,
+                    139
+                ]
+            },
+            "rock-horizontal-short": {
+                "rect": [
+                    784,
+                    0,
+                    470,
+                    443
+                ],
+                "visible": [
+                    11,
+                    182,
+                    444,
+                    208
+                ],
+                "native": [
+                    226,
+                    108
+                ]
+            },
+            "rock-vertical-long": {
+                "rect": [
+                    0,
+                    443,
+                    700,
+                    811
+                ],
+                "visible": [
+                    232,
+                    35,
+                    260,
+                    719
+                ],
+                "native": [
+                    134,
+                    364
+                ]
+            },
+            "rock-vertical-short": {
+                "rect": [
+                    700,
+                    443,
+                    554,
+                    811
+                ],
+                "visible": [
+                    159,
+                    181,
+                    253,
+                    462
+                ],
+                "native": [
+                    131,
+                    235
+                ]
+            }
+        }
+    },
+    "rock-corners": {
+        "sha256": "422552224d48f4dee22b367e97b11b83917fb6b70f60b847562f15e9bc962f99",
+        "size": [
+            1254,
+            1254
+        ],
+        "cells": {
+            "rock-north-west": {
+                "rect": [
+                    0,
+                    0,
+                    627,
+                    627
+                ],
+                "visible": [
+                    55,
+                    69,
+                    543,
+                    521
+                ],
+                "native": [
+                    276,
+                    265
+                ]
+            },
+            "rock-north-east": {
+                "rect": [
+                    627,
+                    0,
+                    627,
+                    627
+                ],
+                "visible": [
+                    36,
+                    71,
+                    550,
+                    513
+                ],
+                "native": [
+                    279,
+                    261
+                ]
+            },
+            "rock-south-west": {
+                "rect": [
+                    0,
+                    627,
+                    627,
+                    627
+                ],
+                "visible": [
+                    52,
+                    33,
+                    542,
+                    523
+                ],
+                "native": [
+                    275,
+                    266
+                ]
+            },
+            "rock-south-east": {
+                "rect": [
+                    627,
+                    627,
+                    627,
+                    627
+                ],
+                "visible": [
+                    40,
+                    35,
+                    542,
+                    518
+                ],
+                "native": [
+                    275,
+                    263
+                ]
+            }
+        }
+    }
+}

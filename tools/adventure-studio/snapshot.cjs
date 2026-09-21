@@ -5,7 +5,7 @@ const fs = require("node:fs"),
 const { World, TILE } = require("../../public/assets/js/adventure/model");
 const {
   resolveAppearance,
-} = require("../../public/assets/js/adventure/elements");
+} = require("./catalog");
 const { readUnits } = require("../locales.cjs");
 const { compileWorld } = require("../world.cjs");
 const hash = (value) => crypto.createHash("sha256").update(value).digest("hex");
@@ -68,16 +68,17 @@ function snapshot(root) {
     "utf8",
   );
   const sprites = {};
+  const folder = "data/aventura/assets";
   for (const file of fs
-    .readdirSync(path.join(dir, "assets"))
+    .readdirSync(path.join(root, folder))
     .filter((f) => f.endsWith(".json"))) {
-    const source = fs.readFileSync(path.join(dir, "assets", file), "utf8"),
+    const source = fs.readFileSync(path.join(root, folder, file), "utf8"),
       pack = JSON.parse(source);
     for (const [name, definition] of Object.entries(pack.frames || {})) {
       if (name.startsWith("person-") && !/^person-1\d\d-down$/.test(name))
         continue;
       sprites[name] = {
-        file: "data/aventura/assets/" + file,
+        file: folder + "/" + file,
         sourceHash: hash(source),
         definition,
       };

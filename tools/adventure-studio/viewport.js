@@ -11,6 +11,7 @@ const {
 const {
   artworkBounds,
 } = require("../../public/assets/js/adventure/entity-art");
+const { visibleWorld } = require("./visibility");
 class MapViewport {
   constructor(canvas, viewport, onSelect, onMove, onChange) {
     Object.assign(this, {
@@ -25,6 +26,7 @@ class MapViewport {
       selection: [],
       grid: false,
       bodies: false,
+      hideTrees: false,
       hand: false,
       dirty: true,
     });
@@ -88,11 +90,27 @@ class MapViewport {
     if (groundKey !== this.groundKey) this.renderer.terrain.chunks.clear();
     this.groundKey = groundKey;
     this.world = new World(data);
-    this.game.world = this.world;
+    this.game.world = visibleWorld(this.world, this.hideTrees);
     this.selected = null;
     this.selection = [];
     if (fit) this.fit();
     this.dirty = true;
+  }
+  setTreesHidden(hidden) {
+    this.hideTrees = !!hidden;
+    if (!this.world) return;
+    this.game.world = visibleWorld(this.world, this.hideTrees);
+    // No invisible selections: Delete, linked dragging and box selection must
+    // only operate on things the editor can currently see.
+    this.setSelection(this.selection.map(require("./selection").identifies));
+    this.dirty = true;
+  }
+  restoreView({ zoom, camera }) {
+    this.zoom = zoom;
+    this.resize();
+    Object.assign(this.camera, camera);
+    this.dirty = true;
+    this.onChange();
   }
   resize() {
     const r = this.viewport.getBoundingClientRect(),
@@ -147,9 +165,10 @@ class MapViewport {
     this.onChange();
   }
   elements() {
+    const visible = this.game.world;
     return [
-      ...this.world.props.map((e) => ({ e, layer: "scenery" })),
-      ...this.world.entities.map((e) => ({ e, layer: "entities" })),
+      ...visible.props.map((e) => ({ e, layer: "scenery" })),
+      ...visible.entities.map((e) => ({ e, layer: "entities" })),
     ].sort((a, b) => a.e.y - b.e.y);
   }
   hit(point) {
@@ -428,7 +447,7 @@ class MapViewport {
     if (this.bodies)
       for (const { e } of [
         ...this.elements(),
-        ...this.world.architecture.map((e) => ({ e })),
+        ...this.game.world.architecture.map((e) => ({ e })),
       ]) {
         for (const body of collisionBodies(e).filter((part) => part.solid)) {
           const r = collisionBounds(body);

@@ -40,16 +40,16 @@
         58.25
       ],
       [
-        38.5,
-        62.25
+        43.5,
+        65
       ],
       [
-        30.75,
-        69.25
+        43,
+        74.75
       ],
       [
-        26.25,
-        82
+        36,
+        81
       ],
       [
         19,
@@ -131,14 +131,9 @@
     ]
   ],
   "night": {
-    "x": 108,
-    "y": 83,
+    "anchor": "story-fire",
     "inner": 17,
-    "outer": 30,
-    "fire": [
-      105.5,
-      81.5
-    ]
+    "outer": 30
   },
   "regions": [
     {
@@ -164,10 +159,10 @@
     {
       "id": "picnic",
       "rect": [
-        13,
-        14,
-        25,
-        22
+        5,
+        49,
+        32,
+        18
       ],
       "ground": "meadow"
     }
@@ -256,8 +251,8 @@
     {
       "id": "story-fire",
       "sprite": "fire",
-      "x": 105.5,
-      "y": 81.5,
+      "x": 12.75,
+      "y": 132.5,
       "rules": [
         {
           "effects": [
@@ -273,8 +268,8 @@
     {
       "id": "story-bench",
       "sprite": "bench",
-      "x": 104,
-      "y": 77,
+      "x": 15.75,
+      "y": 125.5,
       "rules": [
         {
           "when": [],
@@ -344,8 +339,8 @@
     {
       "id": "story-lantern",
       "sprite": "lantern",
-      "x": 109.5,
-      "y": 78.5,
+      "x": 18.5,
+      "y": 131.5,
       "rules": []
     },
     {
@@ -372,8 +367,8 @@
     {
       "id": "tavern-door",
       "sprite": "tavern",
-      "x": 39,
-      "y": 104.5,
+      "x": 35.75,
+      "y": 128.5,
       "rules": [
         {
           "effects": [
@@ -472,8 +467,8 @@
     {
       "id": "human-door",
       "sprite": "human-house",
-      "x": 26.75,
-      "y": 101.25,
+      "x": 82.5,
+      "y": 84.75,
       "rules": [
         {
           "effects": [
@@ -634,14 +629,14 @@
     {
       "id": "leaves-clearing",
       "behavior": "toilet-plant",
-      "x": 27.25,
-      "y": 67.75
+      "x": 24,
+      "y": 81.25
     },
     {
       "id": "leaves-river",
       "behavior": "toilet-plant",
-      "x": 10.75,
-      "y": 63.75
+      "x": 7.5,
+      "y": 77.25
     },
     {
       "id": "leaves-stories",
@@ -657,24 +652,10 @@
       "rules": []
     },
     {
-      "id": "fountain-fern",
-      "sprite": "fern",
-      "x": 21.75,
-      "y": 57.25,
-      "rules": []
-    },
-    {
-      "id": "tavern-garden",
-      "sprite": "berries",
-      "x": 19.75,
-      "y": 43.25,
-      "rules": []
-    },
-    {
       "id": "human-picnic-blanket",
       "sprite": "picnic-blanket",
-      "x": 13.75,
-      "y": 12.25,
+      "x": 19.25,
+      "y": 62.75,
       "depth": -1000,
       "hiddenWhen": {
         "flags": {
@@ -688,8 +669,8 @@
       "scale": 1.08,
       "visionBlocker": true,
       "sprite": "picnic-smoker",
-      "x": 11.25,
-      "y": 9.25,
+      "x": 16.75,
+      "y": 59.75,
       "hiddenWhen": {
         "flags": {
           "skewerCooked": true
@@ -718,8 +699,8 @@
       "scale": 1.08,
       "visionBlocker": true,
       "sprite": "picnic-human-friend",
-      "x": 17,
-      "y": 10,
+      "x": 22.5,
+      "y": 60.5,
       "hiddenWhen": {
         "flags": {
           "skewerCooked": true
@@ -746,8 +727,8 @@
     {
       "id": "human-picnic-tortilla",
       "sprite": "picnic-tortilla",
-      "x": 15.75,
-      "y": 13.5,
+      "x": 21.25,
+      "y": 64,
       "hiddenWhen": {
         "flags": {
           "skewerCooked": true
@@ -774,8 +755,8 @@
     {
       "id": "human-picnic-guacamole",
       "sprite": "picnic-guacamole",
-      "x": 11.75,
-      "y": 10.75,
+      "x": 17.25,
+      "y": 61.25,
       "hiddenWhen": {
         "flags": {
           "skewerCooked": true
@@ -786,8 +767,8 @@
     {
       "id": "human-picnic-chips",
       "sprite": "picnic-tortilla-chips",
-      "x": 12.75,
-      "y": 12.25,
+      "x": 18.25,
+      "y": 62.75,
       "hiddenWhen": {
         "flags": {
           "skewerCooked": true
@@ -798,8 +779,8 @@
     {
       "id": "human-picnic-lemonade",
       "sprite": "picnic-lemonade",
-      "x": 8.25,
-      "y": 6.5,
+      "x": 13.75,
+      "y": 57,
       "hiddenWhen": {
         "flags": {
           "skewerCooked": true
@@ -810,8 +791,8 @@
     {
       "id": "human-picnic-soda",
       "sprite": "picnic-orange-soda",
-      "x": 13.75,
-      "y": 10.5,
+      "x": 19.25,
+      "y": 62,
       "hiddenWhen": {
         "flags": {
           "skewerCooked": true
@@ -822,8 +803,8 @@
     {
       "id": "human-picnic-speaker",
       "sprite": "picnic-speaker",
-      "x": 14.5,
-      "y": 5.25,
+      "x": 20,
+      "y": 55.75,
       "hiddenWhen": {
         "flags": {
           "skewerCooked": true
@@ -834,20 +815,20 @@
     {
       "id": "picnic-lighter",
       "behavior": "picnic-lighter",
-      "x": 8,
-      "y": 9.25
+      "x": 13.5,
+      "y": 59.75
     },
     {
       "id": "picnic-knife",
       "behavior": "picnic-knife",
-      "x": 18.75,
-      "y": 10.75
+      "x": 24.25,
+      "y": 61.25
     },
     {
       "id": "picnic-waymarker",
       "sprite": "sign",
-      "x": 29.25,
-      "y": 14.5,
+      "x": 40.75,
+      "y": 58.25,
       "label": "sign",
       "rules": [
         {
@@ -872,28 +853,18 @@
       "rules": []
     },
     {
-      "id": "art-moveable-planter",
-      "shared": true,
-      "family": "planter",
-      "sprite": "flower-pot",
-      "x": 32.75,
-      "y": 54,
-      "artVariant": "margaritas",
-      "rules": []
-    },
-    {
       "id": "picnic-trash-bin",
       "behavior": "picnic-bin",
       "scale": 0.5,
-      "x": 4.25,
-      "y": 8.5
+      "x": 31,
+      "y": 64.75
     },
     {
       "id": "picnic-bin",
       "behavior": "ground-bottle",
       "scale": 0.65,
-      "x": 5.5,
-      "y": 9.75,
+      "x": 28.75,
+      "y": 65,
       "visibleWhen": {
         "flags": {
           "skewerCooked": true
@@ -907,14 +878,14 @@
     {
       "id": "picnic-twigs",
       "behavior": "picnic-twig",
-      "x": 3.25,
-      "y": 60.75
+      "x": 14,
+      "y": 78.25
     },
     {
       "id": "twig-fountain",
       "behavior": "picnic-twig",
-      "x": 4.75,
-      "y": 84.5
+      "x": 6.75,
+      "y": 89.25
     },
     {
       "id": "twig-root",
@@ -925,8 +896,8 @@
     {
       "id": "picnic-leaves",
       "behavior": "toilet-plant",
-      "x": 58.5,
-      "y": 11.25
+      "x": 11.75,
+      "y": 12.25
     },
     {
       "id": "river-dock",
@@ -936,39 +907,32 @@
       "landing": "woodland"
     },
     {
-      "id": "picnic-table-flower",
-      "sprite": "flowers-daisy-white",
-      "x": 15.25,
-      "y": 51.75,
-      "rules": []
-    },
-    {
       "id": "picnic-cat",
       "family": "woodland-cat",
       "sprite": "cat-ginger-down-0",
       "artVariant": "ginger",
-      "x": 6.75,
-      "y": 12.75,
+      "x": 12.25,
+      "y": 63.25,
       "animal": {
         "species": "cat",
         "range": 7,
         "direction": "up",
         "patrol": [
           [
-            6.75,
-            12.75
+            12.25,
+            63.25
           ],
           [
-            10,
-            15
+            15.5,
+            65.5
           ],
           [
-            20,
-            14.75
+            25.5,
+            65.25
           ],
           [
-            20,
-            8
+            25.5,
+            58.5
           ]
         ]
       },
@@ -979,28 +943,28 @@
       "family": "woodland-cat",
       "sprite": "cat-calico-down-0",
       "artVariant": "calico",
-      "x": 20.5,
-      "y": 14.5,
+      "x": 26.5,
+      "y": 57.5,
       "animal": {
         "species": "cat",
         "range": 6.5,
         "direction": "left",
         "patrol": [
           [
-            20.5,
-            14.5
+            26.5,
+            57.5
           ],
           [
-            15,
-            16
+            21,
+            59
           ],
           [
-            8,
-            14.5
+            14,
+            57.5
           ],
           [
-            12,
-            10
+            18,
+            53
           ]
         ]
       },
@@ -1021,40 +985,20 @@
             0
           ],
           [
-            23.25,
+            31.25,
             0
           ],
           [
-            27.5,
-            -4.75
+            38.75,
+            -7.75
           ]
         ]
       },
       "family": "fence-line",
       "id": "studio-d4e9cbd2-1a74-4df4-8fc9-02a4d3391c7e",
-      "x": 0,
-      "y": 18.25,
+      "x": 0.5,
+      "y": 67.75,
       "artVariant": "ramas"
-    },
-    {
-      "sprite": "ancient-root",
-      "rules": [],
-      "solid": [
-        -2.5,
-        -2.8,
-        5,
-        3.4
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
-      "family": "canopy-tree",
-      "id": "studio-12de300a-3f50-47c3-bd5d-e27d2bb8cc2d",
-      "x": 2,
-      "y": 88.5,
-      "artVariant": "abedul"
     },
     {
       "id": "forest-mushrooms-fern",
@@ -1159,6 +1103,142 @@
       ],
       "label": "sign",
       "edgeSlide": true
+    },
+    {
+      "id": "studio-7be63775-6b2b-429d-af05-ee2f11835c31",
+      "family": "studio-delimiter-rock-corner",
+      "rules": [],
+      "x": 6.5,
+      "y": 137.25,
+      "artVariant": "south-west"
+    },
+    {
+      "id": "studio-0a9d5848-176f-4b28-ae2d-d6bd0a1978f9",
+      "family": "studio-delimiter-rock-vertical",
+      "rules": [],
+      "x": 0,
+      "y": 120.25,
+      "artVariant": "long"
+    },
+    {
+      "id": "studio-d9e86997-48ce-4cb9-bebe-6651942592f2",
+      "family": "studio-delimiter-rock-vertical",
+      "rules": [],
+      "x": 0,
+      "y": 99.75,
+      "artVariant": "long"
+    },
+    {
+      "id": "studio-80fcdf16-f6ed-4265-bcf1-bf6fd401db95",
+      "family": "studio-delimiter-rock-vertical",
+      "rules": [],
+      "x": 0,
+      "y": 79.5,
+      "artVariant": "long"
+    },
+    {
+      "id": "studio-b513dd33-9817-4b91-9346-35ebf1b5cc9c",
+      "family": "canopy-tree",
+      "rules": [],
+      "x": 0,
+      "y": 69.5,
+      "artVariant": "abedul"
+    },
+    {
+      "id": "studio-e9f30211-56e9-4b7f-8445-2b34a50f495d",
+      "family": "canopy-tree",
+      "rules": [],
+      "x": 0,
+      "y": 57.5,
+      "artVariant": "roble"
+    },
+    {
+      "id": "studio-45955289-074d-46b7-836e-841c8aed8764",
+      "family": "canopy-tree",
+      "rules": [],
+      "x": 22.25,
+      "y": 45.75,
+      "artVariant": "willow"
+    },
+    {
+      "id": "studio-89dd7430-5c02-433a-8138-8df4c0e7774c",
+      "family": "canopy-tree",
+      "rules": [],
+      "x": 7,
+      "y": 45.25,
+      "artVariant": "auto"
+    },
+    {
+      "id": "studio-513ee2d1-6d26-4adc-a4df-34c986cea502",
+      "family": "studio-delimiter-rock-vertical",
+      "rules": [],
+      "x": 0,
+      "y": 11.25,
+      "artVariant": "long"
+    },
+    {
+      "id": "studio-880dc187-b586-49f3-b8e5-6998db4b66d7",
+      "family": "studio-delimiter-rock-horizontal",
+      "rules": [],
+      "x": 22.5,
+      "y": 143.938,
+      "artVariant": "long"
+    },
+    {
+      "id": "studio-52a24a46-0614-4a24-8ea1-f4db769fc5c0",
+      "family": "studio-delimiter-rock-horizontal",
+      "rules": [],
+      "x": 42.5,
+      "y": 143.938,
+      "artVariant": "long"
+    },
+    {
+      "id": "studio-2d8fc192-20a7-4d5c-ac25-7fd1f7f4999e",
+      "family": "studio-delimiter-rock-horizontal",
+      "rules": [],
+      "x": 62.5,
+      "y": 143.938,
+      "artVariant": "long"
+    },
+    {
+      "id": "studio-2808cfc1-3be6-44f6-8a19-fd577b321796",
+      "family": "studio-delimiter-rock-horizontal",
+      "rules": [],
+      "x": 82.75,
+      "y": 143.938,
+      "artVariant": "long"
+    },
+    {
+      "id": "studio-4e5922f5-843b-45fb-a3e1-e58db73d808a",
+      "family": "studio-delimiter-rock-horizontal",
+      "rules": [],
+      "x": 104.25,
+      "y": 143.938,
+      "artVariant": "long"
+    },
+    {
+      "id": "studio-b58ed570-c674-4730-90af-007d9a0475e7",
+      "family": "studio-delimiter-rock-horizontal",
+      "rules": [],
+      "x": 125.75,
+      "y": 143.938,
+      "artVariant": "long"
+    },
+    {
+      "id": "studio-6eb10076-f581-4e3d-8323-05c0695c68e9",
+      "family": "studio-delimiter-rock-horizontal",
+      "rules": [],
+      "x": 147.75,
+      "y": 143.938,
+      "artVariant": "long"
+    },
+    {
+      "id": "studio-9a913d95-fda3-4945-a085-7a1273845340",
+      "family": "studio-delimiter-rock-horizontal",
+      "rules": [],
+      "x": 169,
+      "y": 143.938,
+      "artVariant": "long"
     }
   ],
   "neighbors": [
@@ -1195,8 +1275,7 @@
     {
       "id": "storytellers",
       "content": "stories",
-      "x": 105.5,
-      "y": 81.5,
+      "anchor": "story-fire",
       "radius": 4,
       "min": 6,
       "max": 10
@@ -1293,19 +1372,6 @@
   ],
   "scenery": [
     {
-      "sprite": "berries",
-      "rules": [],
-      "wind": {
-        "amplitude": 0.55,
-        "fixedFrom": 0.78,
-        "share": 0.3
-      },
-      "id": "decor-7",
-      "x": 11.75,
-      "y": 59,
-      "artVariant": "berries"
-    },
-    {
       "sprite": "mushrooms",
       "rules": [],
       "id": "decor-17",
@@ -1322,8 +1388,11 @@
     {
       "id": "decor-30",
       "sprite": "fern",
-      "x": 6,
-      "y": 2.25
+      "x": 21.75,
+      "y": 48.5,
+      "scale": 1,
+      "rotation": 0,
+      "flip": false
     },
     {
       "sprite": "bush",
@@ -1382,12 +1451,6 @@
       "x": 17.541140203829855,
       "y": 89.92118912469596,
       "artVariant": "bush"
-    },
-    {
-      "id": "decor-61",
-      "sprite": "fern",
-      "x": 6.25,
-      "y": 60.75
     },
     {
       "id": "decor-62",
@@ -1469,15 +1532,21 @@
         "share": 0.3
       },
       "id": "decor-106",
-      "x": 36.14156922698021,
-      "y": 68.61611657263711,
-      "artVariant": "bush"
+      "x": 37.25,
+      "y": 68.75,
+      "artVariant": "bush",
+      "scale": 1,
+      "rotation": 0,
+      "flip": false
     },
     {
       "id": "decor-124",
       "sprite": "fern",
-      "x": 22.75,
-      "y": 69.25
+      "x": 20,
+      "y": 77.5,
+      "scale": 1,
+      "rotation": 0,
+      "flip": false
     },
     {
       "sprite": "berries",
@@ -1543,19 +1612,6 @@
       "artVariant": "berries"
     },
     {
-      "sprite": "bush",
-      "rules": [],
-      "wind": {
-        "amplitude": 0.55,
-        "fixedFrom": 0.78,
-        "share": 0.3
-      },
-      "id": "decor-154",
-      "x": 13,
-      "y": 41.25,
-      "artVariant": "bush"
-    },
-    {
       "id": "decor-164",
       "sprite": "fern",
       "x": 59.21663458785042,
@@ -1594,25 +1650,6 @@
       "artVariant": "bush"
     },
     {
-      "id": "decor-198",
-      "sprite": "fern",
-      "x": 26.441718516405672,
-      "y": 56.68960109772161
-    },
-    {
-      "sprite": "berries",
-      "rules": [],
-      "wind": {
-        "amplitude": 0.55,
-        "fixedFrom": 0.78,
-        "share": 0.3
-      },
-      "id": "decor-220",
-      "x": 22.5,
-      "y": 51.75,
-      "artVariant": "berries"
-    },
-    {
       "sprite": "bush",
       "rules": [],
       "wind": {
@@ -1632,12 +1669,6 @@
       "y": 28.5
     },
     {
-      "id": "decor-237",
-      "sprite": "fern",
-      "x": 26.619360390584916,
-      "y": 62.56409154692665
-    },
-    {
       "id": "decor-239",
       "sprite": "fern",
       "x": 21.42183994455263,
@@ -1652,28 +1683,12 @@
         "share": 0.3
       },
       "id": "decor-241",
-      "x": 21,
-      "y": 21.25,
-      "artVariant": "berries"
-    },
-    {
-      "sprite": "bush",
-      "rules": [],
-      "wind": {
-        "amplitude": 0.55,
-        "fixedFrom": 0.78,
-        "share": 0.3
-      },
-      "id": "decor-245",
-      "x": 15.75,
-      "y": 30,
-      "artVariant": "bush"
-    },
-    {
-      "id": "decor-248",
-      "sprite": "fern",
-      "x": 27.28777237655595,
-      "y": 59.71875229803845
+      "x": 21.25,
+      "y": 71.5,
+      "artVariant": "berries",
+      "scale": 1,
+      "rotation": 0,
+      "flip": false
     },
     {
       "id": "decor-251",
@@ -1698,21 +1713,8 @@
     {
       "id": "decor-263",
       "sprite": "fern",
-      "x": 13.75,
-      "y": 1.75
-    },
-    {
-      "sprite": "bush",
-      "rules": [],
-      "wind": {
-        "amplitude": 0.55,
-        "fixedFrom": 0.78,
-        "share": 0.3
-      },
-      "id": "decor-278",
-      "x": 12,
-      "y": 109.5,
-      "artVariant": "bush",
+      "x": 15.25,
+      "y": 47,
       "scale": 1,
       "rotation": 0,
       "flip": false
@@ -1729,19 +1731,6 @@
       "x": 93.31803068518639,
       "y": 23.054108477197587,
       "artVariant": "reeds"
-    },
-    {
-      "sprite": "berries",
-      "rules": [],
-      "wind": {
-        "amplitude": 0.55,
-        "fixedFrom": 0.78,
-        "share": 0.3
-      },
-      "id": "decor-299",
-      "x": 41.5,
-      "y": 33,
-      "artVariant": "berries"
     },
     {
       "id": "decor-300",
@@ -1792,12 +1781,6 @@
       "artVariant": "bush"
     },
     {
-      "id": "decor-307",
-      "sprite": "fern",
-      "x": 18.75,
-      "y": 53.5
-    },
-    {
       "sprite": "berries",
       "rules": [],
       "wind": {
@@ -1838,9 +1821,12 @@
         "share": 0.3
       },
       "id": "decor-325",
-      "x": 9.5,
-      "y": 25.75,
-      "artVariant": "bush"
+      "x": 9.75,
+      "y": 76,
+      "artVariant": "bush",
+      "scale": 1,
+      "rotation": 0,
+      "flip": false
     },
     {
       "sprite": "bush",
@@ -1851,9 +1837,12 @@
         "share": 0.3
       },
       "id": "decor-336",
-      "x": 24.25,
-      "y": 21.25,
-      "artVariant": "bush"
+      "x": 24.5,
+      "y": 71.5,
+      "artVariant": "bush",
+      "scale": 1,
+      "rotation": 0,
+      "flip": false
     },
     {
       "sprite": "scarlet-mushrooms",
@@ -1878,22 +1867,12 @@
         "share": 0.25
       },
       "id": "woodland-flowers-1",
-      "x": 12.5,
-      "y": 68.5,
-      "artVariant": "auto"
-    },
-    {
-      "sprite": "flowers-daisy-white",
-      "rules": [],
-      "wind": {
-        "amplitude": 0.6,
-        "fixedFrom": 0.82,
-        "share": 0.25
-      },
-      "id": "woodland-flowers-3",
-      "x": 20.25,
-      "y": 27.5,
-      "artVariant": "auto"
+      "x": 9.25,
+      "y": 82,
+      "artVariant": "auto",
+      "scale": 1,
+      "rotation": 0,
+      "flip": false
     },
     {
       "sprite": "flowers-daisy-white",
@@ -1922,35 +1901,6 @@
       "artVariant": "auto"
     },
     {
-      "sprite": "flowers-primrose",
-      "rules": [],
-      "wind": {
-        "amplitude": 0.6,
-        "fixedFrom": 0.82,
-        "share": 0.25
-      },
-      "id": "woodland-flowers-15",
-      "x": 16.5,
-      "y": 109.5,
-      "artVariant": "auto",
-      "scale": 1,
-      "rotation": 0,
-      "flip": false
-    },
-    {
-      "sprite": "flowers-daisy-white",
-      "rules": [],
-      "wind": {
-        "amplitude": 0.6,
-        "fixedFrom": 0.82,
-        "share": 0.25
-      },
-      "id": "woodland-flowers-19",
-      "x": 13.75,
-      "y": 36,
-      "artVariant": "auto"
-    },
-    {
       "sprite": "ancient-root",
       "rules": [],
       "solid": [
@@ -1965,55 +1915,13 @@
         "share": 0.35
       },
       "id": "picnic-west",
-      "x": 50.75,
-      "y": 15.25,
+      "x": 51,
+      "y": 44,
       "scale": 1,
       "visionBlocker": true,
       "artVariant": "roble",
       "rotation": 0,
       "flip": false
-    },
-    {
-      "sprite": "forest-birch",
-      "rules": [],
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
-      "id": "forest-south",
-      "x": 1.75,
-      "y": 111.938,
-      "scale": 1.05,
-      "visionBlocker": true,
-      "artVariant": "abedul"
-    },
-    {
-      "sprite": "crooked-oak",
-      "rules": [],
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 0.8,
-        "fixedFrom": 0.6,
-        "share": 0.35
-      },
-      "id": "clearing-rim",
-      "x": 29,
-      "y": 48.25,
-      "scale": 1,
-      "visionBlocker": true,
-      "artVariant": "crooked-oak"
     },
     {
       "sprite": "ancient-root",
@@ -2030,53 +1938,13 @@
         "share": 0.35
       },
       "id": "south-grove",
-      "x": 79.75,
-      "y": 100,
+      "x": 13,
+      "y": 118.25,
       "scale": 1.1,
       "visionBlocker": true,
-      "artVariant": "roble"
-    },
-    {
-      "sprite": "forest-birch",
-      "rules": [],
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
-      "id": "home-grove",
-      "x": 1.75,
-      "y": 63.5,
-      "scale": 1.1,
-      "visionBlocker": true,
-      "artVariant": "abedul"
-    },
-    {
-      "sprite": "forest-birch",
-      "rules": [],
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
-      "id": "path-shelter",
-      "x": 2,
-      "y": 44.75,
-      "scale": 0.85,
-      "visionBlocker": true,
-      "artVariant": "abedul"
+      "artVariant": "roble",
+      "rotation": 0,
+      "flip": false
     },
     {
       "sprite": "ancient-root",
@@ -2093,11 +1961,13 @@
         "share": 0.35
       },
       "id": "night-rim",
-      "x": 89,
-      "y": 84.25,
+      "x": 24,
+      "y": 123.25,
       "scale": 0.8,
       "visionBlocker": true,
-      "artVariant": "roble"
+      "artVariant": "roble",
+      "rotation": 0,
+      "flip": false
     },
     {
       "sprite": "forest-chestnut",
@@ -2114,32 +1984,13 @@
         "share": 0.35
       },
       "id": "village-grove",
-      "x": 32,
-      "y": 8.25,
+      "x": 34.75,
+      "y": 36.5,
       "scale": 0.85,
       "visionBlocker": true,
-      "artVariant": "chestnut"
-    },
-    {
-      "sprite": "crooked-oak",
-      "rules": [],
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 0.8,
-        "fixedFrom": 0.6,
-        "share": 0.35
-      },
-      "id": "workshop-north",
-      "x": 76,
-      "y": 13,
-      "scale": 0.85,
-      "visionBlocker": true,
-      "artVariant": "crooked-oak"
+      "artVariant": "chestnut",
+      "rotation": 0,
+      "flip": false
     },
     {
       "sprite": "forest-birch",
@@ -2156,25 +2007,13 @@
         "share": 0.35
       },
       "id": "north-rim",
-      "x": 71.75,
-      "y": 6.75,
+      "x": 0,
+      "y": 43.25,
       "scale": 1.42,
       "visionBlocker": true,
-      "artVariant": "abedul"
-    },
-    {
-      "sprite": "giant-fern",
-      "rules": [],
-      "wind": {
-        "amplitude": 1.25,
-        "fixedFrom": 0.92,
-        "share": 0.5
-      },
-      "id": "picnic-understory-0",
-      "x": 0,
-      "y": 16.5,
-      "scale": 0.65,
-      "artVariant": "auto"
+      "artVariant": "abedul",
+      "rotation": 0,
+      "flip": false
     },
     {
       "sprite": "flowers-daisy-white",
@@ -2185,24 +2024,12 @@
         "share": 0.25
       },
       "id": "picnic-understory-2",
-      "x": 27.5,
-      "y": 18,
+      "x": 32.25,
+      "y": 74.75,
       "scale": 1.2,
-      "artVariant": "auto"
-    },
-    {
-      "sprite": "berries",
-      "rules": [],
-      "wind": {
-        "amplitude": 0.55,
-        "fixedFrom": 0.78,
-        "share": 0.3
-      },
-      "id": "picnic-understory-3",
-      "x": 36,
-      "y": 33,
-      "scale": 1.2,
-      "artVariant": "auto"
+      "artVariant": "auto",
+      "rotation": 0,
+      "flip": false
     },
     {
       "sprite": "giant-fern",
@@ -2213,10 +2040,12 @@
         "share": 0.5
       },
       "id": "picnic-understory-4",
-      "x": 7.5,
-      "y": 23,
+      "x": 7.75,
+      "y": 73.25,
       "scale": 0.65,
-      "artVariant": "auto"
+      "artVariant": "auto",
+      "rotation": 0,
+      "flip": false
     },
     {
       "sprite": "giant-clover",
@@ -2241,10 +2070,12 @@
         "share": 0.25
       },
       "id": "picnic-understory-6",
-      "x": 13.75,
-      "y": 21.75,
+      "x": 14,
+      "y": 72,
       "scale": 1.2,
-      "artVariant": "auto"
+      "artVariant": "auto",
+      "rotation": 0,
+      "flip": false
     },
     {
       "sprite": "berries",
@@ -2255,24 +2086,12 @@
         "share": 0.3
       },
       "id": "picnic-understory-7",
-      "x": 1.5,
-      "y": 2.5,
+      "x": 10,
+      "y": 49.5,
       "scale": 1.2,
-      "artVariant": "auto"
-    },
-    {
-      "sprite": "giant-clover",
-      "rules": [],
-      "wind": {
-        "amplitude": 0.75,
-        "fixedFrom": 0.82,
-        "share": 0.3
-      },
-      "id": "village-understory-1",
-      "x": 40,
-      "y": 43.75,
-      "scale": 0.65,
-      "artVariant": "auto"
+      "artVariant": "auto",
+      "rotation": 0,
+      "flip": false
     },
     {
       "sprite": "flowers-daisy-white",
@@ -2331,20 +2150,6 @@
       "artVariant": "auto"
     },
     {
-      "sprite": "giant-fern",
-      "rules": [],
-      "wind": {
-        "amplitude": 1.25,
-        "fixedFrom": 0.92,
-        "share": 0.5
-      },
-      "id": "south-understory-0",
-      "x": 27.75,
-      "y": 30.5,
-      "scale": 0.65,
-      "artVariant": "auto"
-    },
-    {
       "sprite": "giant-clover",
       "rules": [],
       "wind": {
@@ -2353,8 +2158,8 @@
         "share": 0.3
       },
       "id": "south-understory-1",
-      "x": 16,
-      "y": 104.5,
+      "x": 54.5,
+      "y": 79.75,
       "scale": 0.65,
       "artVariant": "auto",
       "rotation": 0,
@@ -2397,40 +2202,12 @@
         "share": 0.3
       },
       "id": "south-understory-5",
-      "x": 24.25,
-      "y": 76.75,
+      "x": 16.25,
+      "y": 17.5,
       "scale": 0.65,
       "artVariant": "auto",
       "rotation": 0,
       "flip": false
-    },
-    {
-      "sprite": "giant-fern",
-      "rules": [],
-      "wind": {
-        "amplitude": 1.25,
-        "fixedFrom": 0.92,
-        "share": 0.5
-      },
-      "id": "brizno-understory-0",
-      "x": 35,
-      "y": 27.25,
-      "scale": 0.65,
-      "artVariant": "auto"
-    },
-    {
-      "sprite": "giant-clover",
-      "rules": [],
-      "wind": {
-        "amplitude": 0.75,
-        "fixedFrom": 0.82,
-        "share": 0.3
-      },
-      "id": "brizno-understory-1",
-      "x": 22.5,
-      "y": 36.75,
-      "scale": 0.65,
-      "artVariant": "auto"
     },
     {
       "sprite": "flowers-daisy-white",
@@ -2484,10 +2261,12 @@
         0.8
       ],
       "id": "picnic-tree-root",
-      "x": 18,
-      "y": 21.5,
+      "x": 18.25,
+      "y": 71.75,
       "scale": 1.2,
-      "artVariant": "fallen-log"
+      "artVariant": "fallen-log",
+      "rotation": 0,
+      "flip": false
     },
     {
       "sprite": "flowers-bell-blue",
@@ -2506,8 +2285,8 @@
       "flip": false
     },
     {
-      "id": "orilla-forest-birch-1",
       "sprite": "forest-birch",
+      "rules": [],
       "solid": [
         -1.3,
         -1.2,
@@ -2519,14 +2298,16 @@
         "fixedFrom": 0.62,
         "share": 0.35
       },
+      "id": "orilla-forest-birch-1",
       "scale": 1.05,
       "visionBlocker": true,
       "x": 149.571,
-      "y": 8.403
+      "y": 8.403,
+      "artVariant": "abedul"
     },
     {
-      "id": "orilla-forest-birch-2",
       "sprite": "forest-birch",
+      "rules": [],
       "solid": [
         -1.3,
         -1.2,
@@ -2538,14 +2319,16 @@
         "fixedFrom": 0.62,
         "share": 0.35
       },
+      "id": "orilla-forest-birch-2",
       "scale": 1.05,
       "visionBlocker": true,
       "x": 178.579,
-      "y": 9.681
+      "y": 9.681,
+      "artVariant": "abedul"
     },
     {
-      "id": "orilla-crooked-oak-3",
       "sprite": "crooked-oak",
+      "rules": [],
       "solid": [
         -1.3,
         -1.2,
@@ -2557,14 +2340,16 @@
         "fixedFrom": 0.6,
         "share": 0.35
       },
+      "id": "orilla-crooked-oak-3",
       "scale": 1,
       "visionBlocker": true,
       "x": 185.369,
-      "y": 11.261
+      "y": 11.261,
+      "artVariant": "crooked-oak"
     },
     {
-      "id": "orilla-crooked-oak-4",
       "sprite": "crooked-oak",
+      "rules": [],
       "solid": [
         -1.3,
         -1.2,
@@ -2576,14 +2361,16 @@
         "fixedFrom": 0.6,
         "share": 0.35
       },
+      "id": "orilla-crooked-oak-4",
       "scale": 1,
       "visionBlocker": true,
       "x": 152.672,
-      "y": 14.525
+      "y": 14.525,
+      "artVariant": "crooked-oak"
     },
     {
-      "id": "orilla-forest-birch-5",
       "sprite": "forest-birch",
+      "rules": [],
       "solid": [
         -1.3,
         -1.2,
@@ -2595,14 +2382,16 @@
         "fixedFrom": 0.62,
         "share": 0.35
       },
+      "id": "orilla-forest-birch-5",
       "scale": 1.05,
       "visionBlocker": true,
       "x": 164.869,
-      "y": 16.306
+      "y": 16.306,
+      "artVariant": "abedul"
     },
     {
-      "id": "orilla-forest-chestnut-6",
       "sprite": "forest-chestnut",
+      "rules": [],
       "solid": [
         -1.3,
         -1.2,
@@ -2614,14 +2403,16 @@
         "fixedFrom": 0.62,
         "share": 0.35
       },
+      "id": "orilla-forest-chestnut-6",
       "scale": 0.85,
       "visionBlocker": true,
       "x": 184.486,
-      "y": 14.559
+      "y": 14.559,
+      "artVariant": "chestnut"
     },
     {
-      "id": "orilla-ancient-root-7",
       "sprite": "ancient-root",
+      "rules": [],
       "solid": [
         -1.3,
         -1.2,
@@ -2633,16 +2424,18 @@
         "fixedFrom": 0.62,
         "share": 0.35
       },
+      "id": "orilla-ancient-root-7",
       "scale": 1,
       "visionBlocker": true,
       "rotation": 0,
       "flip": false,
       "x": 160.113,
-      "y": 21.678
+      "y": 21.678,
+      "artVariant": "roble"
     },
     {
-      "id": "orilla-forest-birch-8",
       "sprite": "forest-birch",
+      "rules": [],
       "solid": [
         -1.3,
         -1.2,
@@ -2654,14 +2447,16 @@
         "fixedFrom": 0.62,
         "share": 0.35
       },
+      "id": "orilla-forest-birch-8",
       "scale": 1.05,
       "visionBlocker": true,
       "x": 167.251,
-      "y": 21.683
+      "y": 21.683,
+      "artVariant": "abedul"
     },
     {
-      "id": "orilla-ancient-root-9",
       "sprite": "ancient-root",
+      "rules": [],
       "solid": [
         -1.3,
         -1.2,
@@ -2673,16 +2468,18 @@
         "fixedFrom": 0.62,
         "share": 0.35
       },
+      "id": "orilla-ancient-root-9",
       "scale": 1,
       "visionBlocker": true,
       "rotation": 0,
       "flip": false,
       "x": 172.985,
-      "y": 23.288
+      "y": 23.288,
+      "artVariant": "roble"
     },
     {
-      "id": "orilla-crooked-oak-10",
       "sprite": "crooked-oak",
+      "rules": [],
       "solid": [
         -1.3,
         -1.2,
@@ -2694,14 +2491,16 @@
         "fixedFrom": 0.6,
         "share": 0.35
       },
+      "id": "orilla-crooked-oak-10",
       "scale": 1,
       "visionBlocker": true,
       "x": 166.926,
-      "y": 35.223
+      "y": 35.223,
+      "artVariant": "crooked-oak"
     },
     {
-      "id": "orilla-forest-birch-11",
       "sprite": "forest-birch",
+      "rules": [],
       "solid": [
         -1.3,
         -1.2,
@@ -2713,14 +2512,16 @@
         "fixedFrom": 0.62,
         "share": 0.35
       },
+      "id": "orilla-forest-birch-11",
       "scale": 1.05,
       "visionBlocker": true,
       "x": 173.382,
-      "y": 34.901
+      "y": 34.901,
+      "artVariant": "abedul"
     },
     {
-      "id": "orilla-crooked-oak-12",
       "sprite": "crooked-oak",
+      "rules": [],
       "solid": [
         -1.3,
         -1.2,
@@ -2732,14 +2533,16 @@
         "fixedFrom": 0.6,
         "share": 0.35
       },
+      "id": "orilla-crooked-oak-12",
       "scale": 1,
       "visionBlocker": true,
       "x": 171.036,
-      "y": 38.738
+      "y": 38.738,
+      "artVariant": "crooked-oak"
     },
     {
-      "id": "orilla-crooked-oak-13",
       "sprite": "crooked-oak",
+      "rules": [],
       "solid": [
         -1.3,
         -1.2,
@@ -2751,14 +2554,16 @@
         "fixedFrom": 0.6,
         "share": 0.35
       },
+      "id": "orilla-crooked-oak-13",
       "scale": 1,
       "visionBlocker": true,
       "x": 182.541,
-      "y": 44.656
+      "y": 44.656,
+      "artVariant": "crooked-oak"
     },
     {
-      "id": "orilla-crooked-oak-14",
       "sprite": "crooked-oak",
+      "rules": [],
       "solid": [
         -1.3,
         -1.2,
@@ -2770,14 +2575,16 @@
         "fixedFrom": 0.6,
         "share": 0.35
       },
+      "id": "orilla-crooked-oak-14",
       "scale": 1,
       "visionBlocker": true,
       "x": 171.677,
-      "y": 51.591
+      "y": 51.591,
+      "artVariant": "crooked-oak"
     },
     {
-      "id": "orilla-ancient-root-15",
       "sprite": "ancient-root",
+      "rules": [],
       "solid": [
         -1.3,
         -1.2,
@@ -2789,16 +2596,18 @@
         "fixedFrom": 0.62,
         "share": 0.35
       },
+      "id": "orilla-ancient-root-15",
       "scale": 1,
       "visionBlocker": true,
       "rotation": 0,
       "flip": false,
       "x": 182.641,
-      "y": 58.199
+      "y": 58.199,
+      "artVariant": "roble"
     },
     {
-      "id": "orilla-forest-birch-16",
       "sprite": "forest-birch",
+      "rules": [],
       "solid": [
         -1.3,
         -1.2,
@@ -2810,132 +2619,16 @@
         "fixedFrom": 0.62,
         "share": 0.35
       },
+      "id": "orilla-forest-birch-16",
       "scale": 1.05,
       "visionBlocker": true,
       "x": 183.12,
-      "y": 75.425
+      "y": 75.425,
+      "artVariant": "abedul"
     },
     {
-      "id": "orilla-forest-chestnut-17",
-      "sprite": "forest-chestnut",
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
-      "scale": 0.85,
-      "visionBlocker": true,
-      "x": 68.489,
-      "y": 113.489
-    },
-    {
-      "id": "orilla-forest-chestnut-18",
-      "sprite": "forest-chestnut",
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
-      "scale": 0.85,
-      "visionBlocker": true,
-      "x": 92.406,
-      "y": 113.081
-    },
-    {
-      "id": "orilla-forest-birch-19",
-      "sprite": "forest-birch",
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
-      "scale": 1.05,
-      "visionBlocker": true,
-      "x": 104.585,
-      "y": 112.808
-    },
-    {
-      "id": "orilla-forest-chestnut-20",
-      "sprite": "forest-chestnut",
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
-      "scale": 0.85,
-      "visionBlocker": true,
-      "x": 184.377,
-      "y": 111.393
-    },
-    {
-      "id": "orilla-ancient-root-21",
-      "sprite": "ancient-root",
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
-      "scale": 1,
-      "visionBlocker": true,
-      "rotation": 0,
-      "flip": false,
-      "x": 17.296,
-      "y": 116.807
-    },
-    {
-      "id": "orilla-ancient-root-22",
-      "sprite": "ancient-root",
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
-      "scale": 1,
-      "visionBlocker": true,
-      "rotation": 0,
-      "flip": false,
-      "x": 39.536,
-      "y": 118.453
-    },
-    {
-      "id": "orilla-crooked-oak-23",
       "sprite": "crooked-oak",
+      "rules": [],
       "solid": [
         -1.3,
         -1.2,
@@ -2947,14 +2640,16 @@
         "fixedFrom": 0.6,
         "share": 0.35
       },
+      "id": "orilla-crooked-oak-23",
       "scale": 1,
       "visionBlocker": true,
       "x": 52.845,
-      "y": 116.557
+      "y": 116.557,
+      "artVariant": "crooked-oak"
     },
     {
-      "id": "orilla-ancient-root-24",
       "sprite": "ancient-root",
+      "rules": [],
       "solid": [
         -1.3,
         -1.2,
@@ -2966,195 +2661,18 @@
         "fixedFrom": 0.62,
         "share": 0.35
       },
-      "scale": 1,
-      "visionBlocker": true,
-      "rotation": 0,
-      "flip": false,
-      "x": 70.26,
-      "y": 118.715
-    },
-    {
-      "id": "orilla-forest-birch-25",
-      "sprite": "forest-birch",
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
-      "scale": 1.05,
-      "visionBlocker": true,
-      "x": 87.841,
-      "y": 118.907
-    },
-    {
       "id": "orilla-ancient-root-26",
-      "sprite": "ancient-root",
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
       "scale": 1,
       "visionBlocker": true,
       "rotation": 0,
       "flip": false,
-      "x": 179.292,
-      "y": 119.399
+      "x": 185.75,
+      "y": 143.938,
+      "artVariant": "roble"
     },
     {
-      "id": "orilla-ancient-root-27",
-      "sprite": "ancient-root",
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
-      "scale": 1,
-      "visionBlocker": true,
-      "rotation": 0,
-      "flip": false,
-      "x": 11.379,
-      "y": 124.099
-    },
-    {
-      "id": "orilla-forest-birch-28",
-      "sprite": "forest-birch",
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
-      "scale": 1.05,
-      "visionBlocker": true,
-      "x": 32.792,
-      "y": 124.039
-    },
-    {
-      "id": "orilla-forest-birch-29",
-      "sprite": "forest-birch",
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
-      "scale": 1.05,
-      "visionBlocker": true,
-      "x": 40.256,
-      "y": 123.17
-    },
-    {
-      "id": "orilla-forest-birch-30",
-      "sprite": "forest-birch",
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
-      "scale": 1.05,
-      "visionBlocker": true,
-      "x": 76.098,
-      "y": 122.668
-    },
-    {
-      "id": "orilla-ancient-root-31",
-      "sprite": "ancient-root",
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
-      "scale": 1,
-      "visionBlocker": true,
-      "rotation": 0,
-      "flip": false,
-      "x": 89.33,
-      "y": 123.991
-    },
-    {
-      "id": "orilla-ancient-root-32",
-      "sprite": "ancient-root",
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
-      "scale": 1,
-      "visionBlocker": true,
-      "rotation": 0,
-      "flip": false,
-      "x": 100.454,
-      "y": 124.963
-    },
-    {
-      "id": "orilla-forest-birch-33",
-      "sprite": "forest-birch",
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
-      "scale": 1.05,
-      "visionBlocker": true,
-      "x": 113.066,
-      "y": 124.728
-    },
-    {
-      "id": "orilla-crooked-oak-34",
       "sprite": "crooked-oak",
+      "rules": [],
       "solid": [
         -1.3,
         -1.2,
@@ -3166,471 +2684,160 @@
         "fixedFrom": 0.6,
         "share": 0.35
       },
-      "scale": 1,
-      "visionBlocker": true,
-      "x": 177.929,
-      "y": 124.295
-    },
-    {
-      "id": "orilla-forest-chestnut-35",
-      "sprite": "forest-chestnut",
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
-      "scale": 0.85,
-      "visionBlocker": true,
-      "x": 16.912,
-      "y": 130.017
-    },
-    {
-      "id": "orilla-forest-chestnut-36",
-      "sprite": "forest-chestnut",
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
-      "scale": 0.85,
-      "visionBlocker": true,
-      "x": 21.504,
-      "y": 128.894
-    },
-    {
-      "id": "orilla-forest-chestnut-37",
-      "sprite": "forest-chestnut",
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
-      "scale": 0.85,
-      "visionBlocker": true,
-      "x": 39.766,
-      "y": 129.629
-    },
-    {
-      "id": "orilla-ancient-root-38",
-      "sprite": "ancient-root",
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
-      "scale": 1,
-      "visionBlocker": true,
-      "rotation": 0,
-      "flip": false,
-      "x": 47.44,
-      "y": 128.471
-    },
-    {
-      "id": "orilla-ancient-root-39",
-      "sprite": "ancient-root",
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
-      "scale": 1,
-      "visionBlocker": true,
-      "rotation": 0,
-      "flip": false,
-      "x": 93.993,
-      "y": 131.5
-    },
-    {
-      "id": "orilla-forest-birch-40",
-      "sprite": "forest-birch",
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
-      "scale": 1.05,
-      "visionBlocker": true,
-      "x": 111.691,
-      "y": 130.779
-    },
-    {
-      "id": "orilla-forest-chestnut-41",
-      "sprite": "forest-chestnut",
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
-      "scale": 0.85,
-      "visionBlocker": true,
-      "x": 165.204,
-      "y": 129.376
-    },
-    {
-      "id": "orilla-forest-birch-42",
-      "sprite": "forest-birch",
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
-      "scale": 1.05,
-      "visionBlocker": true,
-      "x": 170.506,
-      "y": 131.591
-    },
-    {
-      "id": "orilla-crooked-oak-43",
-      "sprite": "crooked-oak",
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 0.8,
-        "fixedFrom": 0.6,
-        "share": 0.35
-      },
-      "scale": 1,
-      "visionBlocker": true,
-      "x": 178.987,
-      "y": 129.119
-    },
-    {
-      "id": "orilla-ancient-root-44",
-      "sprite": "ancient-root",
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
-      "scale": 1,
-      "visionBlocker": true,
-      "rotation": 0,
-      "flip": false,
-      "x": 10.659,
-      "y": 137.244
-    },
-    {
-      "id": "orilla-ancient-root-45",
-      "sprite": "ancient-root",
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
-      "scale": 1,
-      "visionBlocker": true,
-      "rotation": 0,
-      "flip": false,
-      "x": 28.118,
-      "y": 137.076
-    },
-    {
-      "id": "orilla-crooked-oak-46",
-      "sprite": "crooked-oak",
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 0.8,
-        "fixedFrom": 0.6,
-        "share": 0.35
-      },
-      "scale": 1,
-      "visionBlocker": true,
-      "x": 44.824,
-      "y": 137.069
-    },
-    {
-      "id": "orilla-forest-chestnut-47",
-      "sprite": "forest-chestnut",
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
-      "scale": 0.85,
-      "visionBlocker": true,
-      "x": 70.404,
-      "y": 136.977
-    },
-    {
-      "id": "orilla-ancient-root-48",
-      "sprite": "ancient-root",
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
-      "scale": 1,
-      "visionBlocker": true,
-      "rotation": 0,
-      "flip": false,
-      "x": 95.548,
-      "y": 137.235
-    },
-    {
-      "id": "orilla-ancient-root-49",
-      "sprite": "ancient-root",
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
-      "scale": 1,
-      "visionBlocker": true,
-      "rotation": 0,
-      "flip": false,
-      "x": 119.464,
-      "y": 136.662
-    },
-    {
       "id": "orilla-crooked-oak-50",
-      "sprite": "crooked-oak",
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 0.8,
-        "fixedFrom": 0.6,
-        "share": 0.35
-      },
       "scale": 1,
       "visionBlocker": true,
       "x": 161.075,
-      "y": 136.425
+      "y": 136.425,
+      "artVariant": "crooked-oak"
     },
     {
-      "id": "orilla-forest-chestnut-51",
-      "sprite": "forest-chestnut",
-      "solid": [
-        -1.3,
-        -1.2,
-        2.6,
-        1.7
-      ],
-      "wind": {
-        "amplitude": 1,
-        "fixedFrom": 0.62,
-        "share": 0.35
-      },
-      "scale": 0.85,
-      "visionBlocker": true,
-      "x": 177.13,
-      "y": 135.353
-    },
-    {
-      "id": "orilla-flowers-daisy-white-52",
       "sprite": "flowers-daisy-white",
+      "rules": [],
       "wind": {
         "amplitude": 0.6,
         "fixedFrom": 0.82,
         "share": 0.25
       },
+      "id": "orilla-flowers-daisy-white-52",
       "x": 151.256,
-      "y": 4.463
+      "y": 4.463,
+      "artVariant": "blancas"
     },
     {
-      "id": "orilla-berries-53",
       "sprite": "berries",
+      "rules": [],
       "wind": {
         "amplitude": 0.55,
         "fixedFrom": 0.78,
         "share": 0.3
       },
+      "id": "orilla-berries-53",
       "x": 167.176,
-      "y": 4.47
+      "y": 4.47,
+      "artVariant": "berries"
     },
     {
-      "id": "orilla-giant-fern-54",
       "sprite": "giant-fern",
+      "rules": [],
       "wind": {
         "amplitude": 1.25,
         "fixedFrom": 0.92,
         "share": 0.5
       },
+      "id": "orilla-giant-fern-54",
       "scale": 0.65,
       "x": 177.702,
-      "y": 4.329
+      "y": 4.329,
+      "artVariant": "rizada"
     },
     {
-      "id": "orilla-bush-55",
       "sprite": "bush",
+      "rules": [],
       "wind": {
         "amplitude": 0.55,
         "fixedFrom": 0.78,
         "share": 0.3
       },
+      "id": "orilla-bush-55",
       "x": 144.485,
-      "y": 7.366
+      "y": 7.366,
+      "artVariant": "bush"
     },
     {
-      "id": "orilla-flowers-daisy-white-56",
       "sprite": "flowers-daisy-white",
+      "rules": [],
       "wind": {
         "amplitude": 0.6,
         "fixedFrom": 0.82,
         "share": 0.25
       },
+      "id": "orilla-flowers-daisy-white-56",
       "x": 164.834,
-      "y": 7.933
+      "y": 7.933,
+      "artVariant": "blancas"
     },
     {
-      "id": "orilla-bush-57",
       "sprite": "bush",
+      "rules": [],
       "wind": {
         "amplitude": 0.55,
         "fixedFrom": 0.78,
         "share": 0.3
       },
+      "id": "orilla-bush-57",
       "x": 167.636,
-      "y": 8.027
+      "y": 8.027,
+      "artVariant": "bush"
     },
     {
-      "id": "orilla-giant-clover-58",
       "sprite": "giant-clover",
+      "rules": [],
       "wind": {
         "amplitude": 0.75,
         "fixedFrom": 0.82,
         "share": 0.3
       },
+      "id": "orilla-giant-clover-58",
       "scale": 0.65,
       "x": 171.597,
-      "y": 7.422
+      "y": 7.422,
+      "artVariant": "redondo"
     },
     {
-      "id": "orilla-giant-fern-59",
       "sprite": "giant-fern",
+      "rules": [],
       "wind": {
         "amplitude": 1.25,
         "fixedFrom": 0.92,
         "share": 0.5
       },
+      "id": "orilla-giant-fern-59",
       "scale": 0.65,
       "x": 176.87,
-      "y": 6.4
+      "y": 6.4,
+      "artVariant": "rizada"
     },
     {
-      "id": "orilla-berries-60",
       "sprite": "berries",
+      "rules": [],
       "wind": {
         "amplitude": 0.55,
         "fixedFrom": 0.78,
         "share": 0.3
       },
+      "id": "orilla-berries-60",
       "x": 154.095,
-      "y": 11.414
+      "y": 11.414,
+      "artVariant": "berries"
     },
     {
-      "id": "orilla-giant-clover-61",
       "sprite": "giant-clover",
+      "rules": [],
       "wind": {
         "amplitude": 0.75,
         "fixedFrom": 0.82,
         "share": 0.3
       },
+      "id": "orilla-giant-clover-61",
       "scale": 0.65,
       "x": 157.863,
-      "y": 11.162
+      "y": 11.162,
+      "artVariant": "redondo"
     },
     {
-      "id": "orilla-giant-clover-62",
       "sprite": "giant-clover",
+      "rules": [],
       "wind": {
         "amplitude": 0.75,
         "fixedFrom": 0.82,
         "share": 0.3
       },
+      "id": "orilla-giant-clover-62",
       "scale": 0.65,
       "x": 161.883,
-      "y": 9.741
+      "y": 9.741,
+      "artVariant": "redondo"
     },
     {
       "id": "orilla-fern-63",
@@ -3639,83 +2846,97 @@
       "y": 13.42
     },
     {
-      "id": "orilla-berries-64",
       "sprite": "berries",
+      "rules": [],
       "wind": {
         "amplitude": 0.55,
         "fixedFrom": 0.78,
         "share": 0.3
       },
+      "id": "orilla-berries-64",
       "x": 173.11,
-      "y": 14.579
+      "y": 14.579,
+      "artVariant": "berries"
     },
     {
-      "id": "orilla-flowers-daisy-white-65",
       "sprite": "flowers-daisy-white",
+      "rules": [],
       "wind": {
         "amplitude": 0.6,
         "fixedFrom": 0.82,
         "share": 0.25
       },
+      "id": "orilla-flowers-daisy-white-65",
       "x": 147.554,
-      "y": 15.844
+      "y": 15.844,
+      "artVariant": "blancas"
     },
     {
-      "id": "orilla-flowers-primrose-66",
       "sprite": "flowers-primrose",
+      "rules": [],
       "wind": {
         "amplitude": 0.6,
         "fixedFrom": 0.82,
         "share": 0.25
       },
+      "id": "orilla-flowers-primrose-66",
       "x": 158.629,
-      "y": 17.027
+      "y": 17.027,
+      "artVariant": "primulas"
     },
     {
-      "id": "orilla-giant-clover-67",
       "sprite": "giant-clover",
+      "rules": [],
       "wind": {
         "amplitude": 0.75,
         "fixedFrom": 0.82,
         "share": 0.3
       },
+      "id": "orilla-giant-clover-67",
       "scale": 0.65,
       "x": 187.145,
-      "y": 17.782
+      "y": 17.782,
+      "artVariant": "redondo"
     },
     {
-      "id": "orilla-flowers-primrose-68",
       "sprite": "flowers-primrose",
+      "rules": [],
       "wind": {
         "amplitude": 0.6,
         "fixedFrom": 0.82,
         "share": 0.25
       },
+      "id": "orilla-flowers-primrose-68",
       "x": 153.275,
-      "y": 19.62
+      "y": 19.62,
+      "artVariant": "primulas"
     },
     {
-      "id": "orilla-giant-fern-69",
       "sprite": "giant-fern",
+      "rules": [],
       "wind": {
         "amplitude": 1.25,
         "fixedFrom": 0.92,
         "share": 0.5
       },
+      "id": "orilla-giant-fern-69",
       "scale": 0.65,
       "x": 157.089,
-      "y": 20.457
+      "y": 20.457,
+      "artVariant": "rizada"
     },
     {
-      "id": "orilla-flowers-primrose-70",
       "sprite": "flowers-primrose",
+      "rules": [],
       "wind": {
         "amplitude": 0.6,
         "fixedFrom": 0.82,
         "share": 0.25
       },
+      "id": "orilla-flowers-primrose-70",
       "x": 182.169,
-      "y": 19.932
+      "y": 19.932,
+      "artVariant": "primulas"
     },
     {
       "id": "orilla-fern-71",
@@ -3724,140 +2945,164 @@
       "y": 22.273
     },
     {
-      "id": "orilla-berries-72",
       "sprite": "berries",
+      "rules": [],
       "wind": {
         "amplitude": 0.55,
         "fixedFrom": 0.78,
         "share": 0.3
       },
+      "id": "orilla-berries-72",
       "x": 186.616,
-      "y": 22.147
+      "y": 22.147,
+      "artVariant": "berries"
     },
     {
+      "sprite": "bush",
+      "rules": [],
+      "wind": {
+        "amplitude": 0.55,
+        "fixedFrom": 0.78,
+        "share": 0.3
+      },
       "id": "orilla-bush-73",
-      "sprite": "bush",
-      "wind": {
-        "amplitude": 0.55,
-        "fixedFrom": 0.78,
-        "share": 0.3
-      },
       "x": 173.833,
-      "y": 26.637
+      "y": 26.637,
+      "artVariant": "bush"
     },
     {
-      "id": "orilla-flowers-daisy-white-74",
       "sprite": "flowers-daisy-white",
+      "rules": [],
       "wind": {
         "amplitude": 0.6,
         "fixedFrom": 0.82,
         "share": 0.25
       },
+      "id": "orilla-flowers-daisy-white-74",
       "x": 180.108,
-      "y": 25.868
+      "y": 25.868,
+      "artVariant": "blancas"
     },
     {
-      "id": "orilla-flowers-primrose-75",
       "sprite": "flowers-primrose",
+      "rules": [],
       "wind": {
         "amplitude": 0.6,
         "fixedFrom": 0.82,
         "share": 0.25
       },
+      "id": "orilla-flowers-primrose-75",
       "x": 186.212,
-      "y": 25.929
+      "y": 25.929,
+      "artVariant": "primulas"
     },
     {
-      "id": "orilla-bush-76",
       "sprite": "bush",
+      "rules": [],
       "wind": {
         "amplitude": 0.55,
         "fixedFrom": 0.78,
         "share": 0.3
       },
+      "id": "orilla-bush-76",
       "x": 160.4,
-      "y": 30.708
+      "y": 30.708,
+      "artVariant": "bush"
     },
     {
+      "sprite": "flowers-primrose",
+      "rules": [],
+      "wind": {
+        "amplitude": 0.6,
+        "fixedFrom": 0.82,
+        "share": 0.25
+      },
       "id": "orilla-flowers-primrose-77",
-      "sprite": "flowers-primrose",
-      "wind": {
-        "amplitude": 0.6,
-        "fixedFrom": 0.82,
-        "share": 0.25
-      },
       "x": 173.605,
-      "y": 29.32
+      "y": 29.32,
+      "artVariant": "primulas"
     },
     {
-      "id": "orilla-flowers-primrose-78",
       "sprite": "flowers-primrose",
+      "rules": [],
       "wind": {
         "amplitude": 0.6,
         "fixedFrom": 0.82,
         "share": 0.25
       },
+      "id": "orilla-flowers-primrose-78",
       "x": 175.902,
-      "y": 28.539
+      "y": 28.539,
+      "artVariant": "primulas"
     },
     {
-      "id": "orilla-giant-fern-79",
       "sprite": "giant-fern",
+      "rules": [],
       "wind": {
         "amplitude": 1.25,
         "fixedFrom": 0.92,
         "share": 0.5
       },
+      "id": "orilla-giant-fern-79",
       "scale": 0.65,
       "x": 187.452,
-      "y": 29.703
+      "y": 29.703,
+      "artVariant": "rizada"
     },
     {
-      "id": "orilla-giant-fern-80",
       "sprite": "giant-fern",
+      "rules": [],
       "wind": {
         "amplitude": 1.25,
         "fixedFrom": 0.92,
         "share": 0.5
       },
+      "id": "orilla-giant-fern-80",
       "scale": 0.65,
       "x": 166.508,
-      "y": 31.702
+      "y": 31.702,
+      "artVariant": "rizada"
     },
     {
-      "id": "orilla-giant-clover-81",
       "sprite": "giant-clover",
+      "rules": [],
       "wind": {
         "amplitude": 0.75,
         "fixedFrom": 0.82,
         "share": 0.3
       },
+      "id": "orilla-giant-clover-81",
       "scale": 0.65,
       "x": 182.583,
-      "y": 33.661
+      "y": 33.661,
+      "artVariant": "redondo"
     },
     {
-      "id": "orilla-giant-clover-82",
       "sprite": "giant-clover",
+      "rules": [],
       "wind": {
         "amplitude": 0.75,
         "fixedFrom": 0.82,
         "share": 0.3
       },
+      "id": "orilla-giant-clover-82",
       "scale": 0.65,
       "x": 160.996,
-      "y": 38.02
+      "y": 38.02,
+      "artVariant": "redondo"
     },
     {
-      "id": "orilla-bush-83",
       "sprite": "bush",
+      "rules": [],
       "wind": {
         "amplitude": 0.55,
         "fixedFrom": 0.78,
         "share": 0.3
       },
+      "id": "orilla-bush-83",
       "x": 167.216,
-      "y": 38.99
+      "y": 38.99,
+      "artVariant": "bush"
     },
     {
       "id": "orilla-fern-84",
@@ -3866,61 +3111,71 @@
       "y": 40.016
     },
     {
-      "id": "orilla-flowers-primrose-85",
       "sprite": "flowers-primrose",
+      "rules": [],
       "wind": {
         "amplitude": 0.6,
         "fixedFrom": 0.82,
         "share": 0.25
       },
+      "id": "orilla-flowers-primrose-85",
       "x": 183.024,
-      "y": 40.142
+      "y": 40.142,
+      "artVariant": "primulas"
     },
     {
-      "id": "orilla-flowers-daisy-white-86",
       "sprite": "flowers-daisy-white",
+      "rules": [],
       "wind": {
         "amplitude": 0.6,
         "fixedFrom": 0.82,
         "share": 0.25
       },
+      "id": "orilla-flowers-daisy-white-86",
       "x": 169.685,
-      "y": 42.014
+      "y": 42.014,
+      "artVariant": "blancas"
     },
     {
-      "id": "orilla-giant-clover-87",
       "sprite": "giant-clover",
+      "rules": [],
       "wind": {
         "amplitude": 0.75,
         "fixedFrom": 0.82,
         "share": 0.3
       },
+      "id": "orilla-giant-clover-87",
       "scale": 0.65,
       "x": 172.721,
-      "y": 41.981
+      "y": 41.981,
+      "artVariant": "redondo"
     },
     {
-      "id": "orilla-giant-clover-88",
       "sprite": "giant-clover",
+      "rules": [],
       "wind": {
         "amplitude": 0.75,
         "fixedFrom": 0.82,
         "share": 0.3
       },
+      "id": "orilla-giant-clover-88",
       "scale": 0.65,
       "x": 173.363,
-      "y": 44.548
+      "y": 44.548,
+      "artVariant": "redondo"
     },
     {
-      "id": "orilla-flowers-primrose-89",
       "sprite": "flowers-primrose",
+      "rules": [],
       "wind": {
         "amplitude": 0.6,
         "fixedFrom": 0.82,
         "share": 0.25
       },
+      "id": "orilla-flowers-primrose-89",
       "x": 180.944,
-      "y": 48.175
+      "y": 48.175,
+      "artVariant": "primulas"
     },
     {
       "id": "orilla-fern-90",
@@ -3929,27 +3184,31 @@
       "y": 49.431
     },
     {
-      "id": "orilla-giant-fern-91",
       "sprite": "giant-fern",
+      "rules": [],
       "wind": {
         "amplitude": 1.25,
         "fixedFrom": 0.92,
         "share": 0.5
       },
+      "id": "orilla-giant-fern-91",
       "scale": 0.65,
       "x": 186.848,
-      "y": 50.828
+      "y": 50.828,
+      "artVariant": "rizada"
     },
     {
-      "id": "orilla-flowers-daisy-white-92",
       "sprite": "flowers-daisy-white",
+      "rules": [],
       "wind": {
         "amplitude": 0.6,
         "fixedFrom": 0.82,
         "share": 0.25
       },
+      "id": "orilla-flowers-daisy-white-92",
       "x": 177.632,
-      "y": 57.344
+      "y": 57.344,
+      "artVariant": "blancas"
     },
     {
       "id": "orilla-fern-93",
@@ -3958,38 +3217,44 @@
       "y": 62.127
     },
     {
-      "id": "orilla-giant-fern-94",
       "sprite": "giant-fern",
+      "rules": [],
       "wind": {
         "amplitude": 1.25,
         "fixedFrom": 0.92,
         "share": 0.5
       },
+      "id": "orilla-giant-fern-94",
       "scale": 0.65,
       "x": 185.642,
-      "y": 67.116
+      "y": 67.116,
+      "artVariant": "rizada"
     },
     {
-      "id": "orilla-bush-95",
       "sprite": "bush",
+      "rules": [],
       "wind": {
         "amplitude": 0.55,
         "fixedFrom": 0.78,
         "share": 0.3
       },
+      "id": "orilla-bush-95",
       "x": 186.547,
-      "y": 75.301
+      "y": 75.301,
+      "artVariant": "bush"
     },
     {
-      "id": "orilla-flowers-daisy-white-96",
       "sprite": "flowers-daisy-white",
+      "rules": [],
       "wind": {
         "amplitude": 0.6,
         "fixedFrom": 0.82,
         "share": 0.25
       },
+      "id": "orilla-flowers-daisy-white-96",
       "x": 187.276,
-      "y": 81.654
+      "y": 81.654,
+      "artVariant": "blancas"
     },
     {
       "id": "orilla-fern-97",
@@ -3998,207 +3263,207 @@
       "y": 84.289
     },
     {
-      "id": "orilla-bush-98",
       "sprite": "bush",
+      "rules": [],
       "wind": {
         "amplitude": 0.55,
         "fixedFrom": 0.78,
         "share": 0.3
       },
+      "id": "orilla-bush-98",
       "x": 186.99,
-      "y": 89.794
+      "y": 89.794,
+      "artVariant": "bush"
     },
     {
+      "sprite": "berries",
+      "rules": [],
+      "wind": {
+        "amplitude": 0.55,
+        "fixedFrom": 0.78,
+        "share": 0.3
+      },
       "id": "orilla-berries-99",
-      "sprite": "berries",
-      "wind": {
-        "amplitude": 0.55,
-        "fixedFrom": 0.78,
-        "share": 0.3
-      },
       "x": 183.247,
-      "y": 94.005
+      "y": 94.005,
+      "artVariant": "berries"
     },
     {
-      "id": "orilla-rocks-100",
       "sprite": "rocks",
+      "rules": [],
+      "solid": [
+        -0.6,
+        -0.45,
+        1.2,
+        0.7
+      ],
+      "id": "orilla-rocks-100",
       "x": 182.588,
-      "y": 97.872
+      "y": 97.872,
+      "artVariant": "rocks"
     },
     {
-      "id": "orilla-berries-101",
       "sprite": "berries",
+      "rules": [],
       "wind": {
         "amplitude": 0.55,
         "fixedFrom": 0.78,
         "share": 0.3
       },
+      "id": "orilla-berries-101",
       "x": 184.14,
-      "y": 100.229
+      "y": 100.229,
+      "artVariant": "berries"
     },
     {
-      "id": "orilla-giant-clover-102",
       "sprite": "giant-clover",
+      "rules": [],
       "wind": {
         "amplitude": 0.75,
         "fixedFrom": 0.82,
         "share": 0.3
       },
+      "id": "orilla-giant-clover-102",
       "scale": 0.65,
       "x": 186.183,
-      "y": 103.881
+      "y": 103.881,
+      "artVariant": "redondo"
     },
     {
-      "id": "orilla-rocks-103",
       "sprite": "rocks",
+      "rules": [],
+      "solid": [
+        -0.6,
+        -0.45,
+        1.2,
+        0.7
+      ],
+      "id": "orilla-rocks-103",
       "x": 180.207,
-      "y": 108.796
+      "y": 108.796,
+      "artVariant": "rocks"
     },
     {
-      "id": "orilla-flowers-primrose-104",
       "sprite": "flowers-primrose",
+      "rules": [],
       "wind": {
         "amplitude": 0.6,
         "fixedFrom": 0.82,
         "share": 0.25
       },
-      "x": 17.358,
-      "y": 112.476
-    },
-    {
       "id": "orilla-flowers-primrose-105",
-      "sprite": "flowers-primrose",
-      "wind": {
-        "amplitude": 0.6,
-        "fixedFrom": 0.82,
-        "share": 0.25
-      },
       "x": 39.613,
-      "y": 112.36
+      "y": 112.36,
+      "artVariant": "primulas"
     },
     {
-      "id": "orilla-giant-clover-106",
       "sprite": "giant-clover",
+      "rules": [],
       "wind": {
         "amplitude": 0.75,
         "fixedFrom": 0.82,
         "share": 0.3
       },
+      "id": "orilla-giant-clover-106",
       "scale": 0.65,
       "x": 42.366,
-      "y": 112.318
+      "y": 112.318,
+      "artVariant": "redondo"
     },
     {
-      "id": "orilla-bush-107",
       "sprite": "bush",
+      "rules": [],
       "wind": {
         "amplitude": 0.55,
         "fixedFrom": 0.78,
         "share": 0.3
       },
+      "id": "orilla-bush-107",
       "x": 46.294,
-      "y": 112.089
+      "y": 112.089,
+      "artVariant": "bush"
     },
     {
-      "id": "orilla-flowers-daisy-white-108",
       "sprite": "flowers-daisy-white",
+      "rules": [],
       "wind": {
         "amplitude": 0.6,
         "fixedFrom": 0.82,
         "share": 0.25
       },
+      "id": "orilla-flowers-daisy-white-108",
       "x": 56.01,
-      "y": 112.704
+      "y": 112.704,
+      "artVariant": "blancas"
     },
     {
+      "sprite": "bush",
+      "rules": [],
+      "wind": {
+        "amplitude": 0.55,
+        "fixedFrom": 0.78,
+        "share": 0.3
+      },
       "id": "orilla-bush-109",
-      "sprite": "bush",
-      "wind": {
-        "amplitude": 0.55,
-        "fixedFrom": 0.78,
-        "share": 0.3
-      },
       "x": 57.77,
-      "y": 112.126
+      "y": 112.126,
+      "artVariant": "bush"
     },
     {
-      "id": "orilla-bush-110",
       "sprite": "bush",
+      "rules": [],
       "wind": {
         "amplitude": 0.55,
         "fixedFrom": 0.78,
         "share": 0.3
       },
+      "id": "orilla-bush-110",
       "x": 60.962,
-      "y": 113.411
+      "y": 113.411,
+      "artVariant": "bush"
     },
     {
-      "id": "orilla-giant-clover-111",
       "sprite": "giant-clover",
+      "rules": [],
       "wind": {
         "amplitude": 0.75,
         "fixedFrom": 0.82,
         "share": 0.3
       },
+      "id": "orilla-giant-clover-111",
       "scale": 0.65,
       "x": 78.641,
-      "y": 113.35
+      "y": 113.35,
+      "artVariant": "redondo"
     },
     {
-      "id": "orilla-berries-112",
       "sprite": "berries",
+      "rules": [],
       "wind": {
         "amplitude": 0.55,
         "fixedFrom": 0.78,
         "share": 0.3
       },
+      "id": "orilla-berries-112",
       "x": 84.834,
-      "y": 113.276
+      "y": 113.276,
+      "artVariant": "berries"
     },
     {
-      "id": "orilla-flowers-primrose-113",
-      "sprite": "flowers-primrose",
+      "sprite": "flowers-daisy-white",
+      "rules": [],
       "wind": {
         "amplitude": 0.6,
         "fixedFrom": 0.82,
         "share": 0.25
       },
-      "x": 4.809,
-      "y": 114.834
-    },
-    {
       "id": "orilla-flowers-daisy-white-114",
-      "sprite": "flowers-daisy-white",
-      "wind": {
-        "amplitude": 0.6,
-        "fixedFrom": 0.82,
-        "share": 0.25
-      },
-      "x": 9.291,
-      "y": 116.994
-    },
-    {
-      "id": "orilla-flowers-daisy-white-115",
-      "sprite": "flowers-daisy-white",
-      "wind": {
-        "amplitude": 0.6,
-        "fixedFrom": 0.82,
-        "share": 0.25
-      },
-      "x": 23.622,
-      "y": 114.916
-    },
-    {
-      "id": "orilla-giant-fern-116",
-      "sprite": "giant-fern",
-      "wind": {
-        "amplitude": 1.25,
-        "fixedFrom": 0.92,
-        "share": 0.5
-      },
-      "scale": 0.65,
-      "x": 29.398,
-      "y": 114.833
+      "x": 36.5,
+      "y": 94,
+      "artVariant": "blancas",
+      "scale": 1,
+      "rotation": 0,
+      "flip": false
     },
     {
       "id": "orilla-fern-117",
@@ -4219,16 +3484,18 @@
       "y": 115.545
     },
     {
-      "id": "orilla-giant-clover-120",
       "sprite": "giant-clover",
+      "rules": [],
       "wind": {
         "amplitude": 0.75,
         "fixedFrom": 0.82,
         "share": 0.3
       },
+      "id": "orilla-giant-clover-120",
       "scale": 0.65,
       "x": 80.612,
-      "y": 115.515
+      "y": 115.515,
+      "artVariant": "redondo"
     },
     {
       "id": "orilla-fern-121",
@@ -4243,60 +3510,31 @@
       "y": 116.965
     },
     {
-      "id": "orilla-bush-123",
       "sprite": "bush",
+      "rules": [],
       "wind": {
         "amplitude": 0.55,
         "fixedFrom": 0.78,
         "share": 0.3
       },
+      "id": "orilla-bush-123",
       "x": 107.234,
-      "y": 116.942
+      "y": 116.942,
+      "artVariant": "bush"
     },
     {
-      "id": "orilla-rocks-124",
       "sprite": "rocks",
+      "rules": [],
+      "solid": [
+        -0.6,
+        -0.45,
+        1.2,
+        0.7
+      ],
+      "id": "orilla-rocks-124",
       "x": 175.753,
-      "y": 114.93
-    },
-    {
-      "id": "orilla-fern-125",
-      "sprite": "fern",
-      "x": 186.949,
-      "y": 116.841
-    },
-    {
-      "id": "orilla-flowers-primrose-126",
-      "sprite": "flowers-primrose",
-      "wind": {
-        "amplitude": 0.6,
-        "fixedFrom": 0.82,
-        "share": 0.25
-      },
-      "x": 28.492,
-      "y": 118.724
-    },
-    {
-      "id": "orilla-flowers-primrose-127",
-      "sprite": "flowers-primrose",
-      "wind": {
-        "amplitude": 0.6,
-        "fixedFrom": 0.82,
-        "share": 0.25
-      },
-      "x": 31.679,
-      "y": 119.022
-    },
-    {
-      "id": "orilla-berries-128",
-      "sprite": "berries",
-      "wind": {
-        "amplitude": 0.55,
-        "fixedFrom": 0.78,
-        "share": 0.3
-      },
-      "x": 36.449,
-      "y": 119.941
+      "y": 114.93,
+      "artVariant": "rocks"
     },
     {
       "id": "orilla-fern-129",
@@ -4305,15 +3543,17 @@
       "y": 119.293
     },
     {
-      "id": "orilla-flowers-daisy-white-130",
       "sprite": "flowers-daisy-white",
+      "rules": [],
       "wind": {
         "amplitude": 0.6,
         "fixedFrom": 0.82,
         "share": 0.25
       },
+      "id": "orilla-flowers-daisy-white-130",
       "x": 59.015,
-      "y": 118.26
+      "y": 118.26,
+      "artVariant": "blancas"
     },
     {
       "id": "orilla-fern-131",
@@ -4322,76 +3562,69 @@
       "y": 118.015
     },
     {
+      "sprite": "bush",
+      "rules": [],
+      "wind": {
+        "amplitude": 0.55,
+        "fixedFrom": 0.78,
+        "share": 0.3
+      },
       "id": "orilla-bush-132",
-      "sprite": "bush",
-      "wind": {
-        "amplitude": 0.55,
-        "fixedFrom": 0.78,
-        "share": 0.3
-      },
       "x": 77.942,
-      "y": 119.743
+      "y": 119.743,
+      "artVariant": "bush"
     },
     {
-      "id": "orilla-berries-133",
       "sprite": "berries",
+      "rules": [],
       "wind": {
         "amplitude": 0.55,
         "fixedFrom": 0.78,
         "share": 0.3
       },
+      "id": "orilla-berries-133",
       "x": 106.322,
-      "y": 119.43
+      "y": 119.43,
+      "artVariant": "berries"
     },
     {
-      "id": "orilla-bush-134",
       "sprite": "bush",
+      "rules": [],
       "wind": {
         "amplitude": 0.55,
         "fixedFrom": 0.78,
         "share": 0.3
       },
+      "id": "orilla-bush-134",
       "x": 110.08,
-      "y": 118.735
+      "y": 118.735,
+      "artVariant": "bush"
     },
     {
-      "id": "orilla-flowers-daisy-white-135",
       "sprite": "flowers-daisy-white",
+      "rules": [],
       "wind": {
         "amplitude": 0.6,
         "fixedFrom": 0.82,
         "share": 0.25
       },
+      "id": "orilla-flowers-daisy-white-135",
       "x": 119.457,
-      "y": 118.171
+      "y": 118.171,
+      "artVariant": "blancas"
     },
     {
-      "id": "orilla-reeds-136",
       "sprite": "reeds",
+      "rules": [],
       "wind": {
         "amplitude": 0.85,
         "fixedFrom": 0.9,
         "share": 0.45
       },
+      "id": "orilla-reeds-136",
       "x": 173.736,
-      "y": 118.716
-    },
-    {
-      "id": "orilla-flowers-primrose-137",
-      "sprite": "flowers-primrose",
-      "wind": {
-        "amplitude": 0.6,
-        "fixedFrom": 0.82,
-        "share": 0.25
-      },
-      "x": 26.645,
-      "y": 121.947
-    },
-    {
-      "id": "orilla-fern-138",
-      "sprite": "fern",
-      "x": 45.718,
-      "y": 121.487
+      "y": 118.716,
+      "artVariant": "reeds"
     },
     {
       "id": "orilla-fern-139",
@@ -4400,15 +3633,17 @@
       "y": 122.512
     },
     {
-      "id": "orilla-flowers-primrose-140",
       "sprite": "flowers-primrose",
+      "rules": [],
       "wind": {
         "amplitude": 0.6,
         "fixedFrom": 0.82,
         "share": 0.25
       },
+      "id": "orilla-flowers-primrose-140",
       "x": 58.397,
-      "y": 123.542
+      "y": 123.542,
+      "artVariant": "primulas"
     },
     {
       "id": "orilla-fern-141",
@@ -4429,16 +3664,18 @@
       "y": 122.43
     },
     {
-      "id": "orilla-giant-fern-144",
       "sprite": "giant-fern",
+      "rules": [],
       "wind": {
         "amplitude": 1.25,
         "fixedFrom": 0.92,
         "share": 0.5
       },
+      "id": "orilla-giant-fern-144",
       "scale": 0.65,
       "x": 94.367,
-      "y": 123.359
+      "y": 123.359,
+      "artVariant": "rizada"
     },
     {
       "id": "orilla-fern-145",
@@ -4447,95 +3684,73 @@
       "y": 121.879
     },
     {
-      "id": "orilla-flowers-daisy-white-146",
       "sprite": "flowers-daisy-white",
+      "rules": [],
       "wind": {
         "amplitude": 0.6,
         "fixedFrom": 0.82,
         "share": 0.25
       },
+      "id": "orilla-flowers-daisy-white-146",
       "x": 105.84,
-      "y": 122.736
+      "y": 122.736,
+      "artVariant": "blancas"
     },
     {
+      "sprite": "flowers-primrose",
+      "rules": [],
+      "wind": {
+        "amplitude": 0.6,
+        "fixedFrom": 0.82,
+        "share": 0.25
+      },
       "id": "orilla-flowers-primrose-147",
-      "sprite": "flowers-primrose",
-      "wind": {
-        "amplitude": 0.6,
-        "fixedFrom": 0.82,
-        "share": 0.25
-      },
       "x": 108.64,
-      "y": 123.565
+      "y": 123.565,
+      "artVariant": "primulas"
     },
     {
-      "id": "orilla-bush-148",
       "sprite": "bush",
+      "rules": [],
       "wind": {
         "amplitude": 0.55,
         "fixedFrom": 0.78,
         "share": 0.3
       },
+      "id": "orilla-bush-148",
       "x": 119.642,
-      "y": 123.341
+      "y": 123.341,
+      "artVariant": "bush"
     },
     {
-      "id": "orilla-rocks-149",
       "sprite": "rocks",
+      "rules": [],
+      "solid": [
+        -0.6,
+        -0.45,
+        1.2,
+        0.7
+      ],
+      "id": "orilla-rocks-149",
       "x": 169.766,
-      "y": 122.787
+      "y": 122.787,
+      "artVariant": "rocks"
     },
     {
-      "id": "orilla-flowers-primrose-150",
-      "sprite": "flowers-primrose",
+      "sprite": "giant-fern",
+      "rules": [],
       "wind": {
-        "amplitude": 0.6,
-        "fixedFrom": 0.82,
-        "share": 0.25
+        "amplitude": 1.25,
+        "fixedFrom": 0.92,
+        "share": 0.5
       },
-      "x": 6.084,
-      "y": 126.031
-    },
-    {
-      "id": "orilla-berries-151",
-      "sprite": "berries",
-      "wind": {
-        "amplitude": 0.55,
-        "fixedFrom": 0.78,
-        "share": 0.3
-      },
-      "x": 14.479,
-      "y": 125.345
-    },
-    {
       "id": "orilla-giant-fern-152",
-      "sprite": "giant-fern",
-      "wind": {
-        "amplitude": 1.25,
-        "fixedFrom": 0.92,
-        "share": 0.5
-      },
       "scale": 0.65,
-      "x": 16.089,
-      "y": 126.034
-    },
-    {
-      "id": "orilla-giant-fern-153",
-      "sprite": "giant-fern",
-      "wind": {
-        "amplitude": 1.25,
-        "fixedFrom": 0.92,
-        "share": 0.5
-      },
-      "scale": 0.65,
-      "x": 36.117,
-      "y": 126.517
-    },
-    {
-      "id": "orilla-fern-154",
-      "sprite": "fern",
-      "x": 45.198,
-      "y": 125.796
+      "x": 27.5,
+      "y": 87.75,
+      "artVariant": "rizada",
+      "rotation": 0,
+      "flip": false
     },
     {
       "id": "orilla-fern-155",
@@ -4544,50 +3759,58 @@
       "y": 126.274
     },
     {
-      "id": "orilla-giant-clover-156",
       "sprite": "giant-clover",
+      "rules": [],
       "wind": {
         "amplitude": 0.75,
         "fixedFrom": 0.82,
         "share": 0.3
       },
+      "id": "orilla-giant-clover-156",
       "scale": 0.65,
       "x": 62.543,
-      "y": 124.561
+      "y": 124.561,
+      "artVariant": "redondo"
     },
     {
-      "id": "orilla-giant-clover-157",
       "sprite": "giant-clover",
+      "rules": [],
       "wind": {
         "amplitude": 0.75,
         "fixedFrom": 0.82,
         "share": 0.3
       },
+      "id": "orilla-giant-clover-157",
       "scale": 0.65,
       "x": 68.873,
-      "y": 124.903
+      "y": 124.903,
+      "artVariant": "redondo"
     },
     {
-      "id": "orilla-flowers-daisy-white-158",
       "sprite": "flowers-daisy-white",
+      "rules": [],
       "wind": {
         "amplitude": 0.6,
         "fixedFrom": 0.82,
         "share": 0.25
       },
+      "id": "orilla-flowers-daisy-white-158",
       "x": 71.579,
-      "y": 125.662
+      "y": 125.662,
+      "artVariant": "blancas"
     },
     {
-      "id": "orilla-berries-159",
       "sprite": "berries",
+      "rules": [],
       "wind": {
         "amplitude": 0.55,
         "fixedFrom": 0.78,
         "share": 0.3
       },
+      "id": "orilla-berries-159",
       "x": 81.066,
-      "y": 126.044
+      "y": 126.044,
+      "artVariant": "berries"
     },
     {
       "id": "orilla-fern-160",
@@ -4596,38 +3819,17 @@
       "y": 126.367
     },
     {
-      "id": "orilla-bush-161",
       "sprite": "bush",
+      "rules": [],
       "wind": {
         "amplitude": 0.55,
         "fixedFrom": 0.78,
         "share": 0.3
       },
+      "id": "orilla-bush-161",
       "x": 105.887,
-      "y": 126.711
-    },
-    {
-      "id": "orilla-flowers-primrose-162",
-      "sprite": "flowers-primrose",
-      "wind": {
-        "amplitude": 0.6,
-        "fixedFrom": 0.82,
-        "share": 0.25
-      },
-      "x": 183.572,
-      "y": 124.478
-    },
-    {
-      "id": "orilla-fern-163",
-      "sprite": "fern",
-      "x": 32.896,
-      "y": 129.189
-    },
-    {
-      "id": "orilla-fern-164",
-      "sprite": "fern",
-      "x": 35.089,
-      "y": 129.917
+      "y": 126.711,
+      "artVariant": "bush"
     },
     {
       "id": "orilla-fern-165",
@@ -4636,191 +3838,140 @@
       "y": 128.692
     },
     {
-      "id": "orilla-giant-fern-166",
       "sprite": "giant-fern",
+      "rules": [],
       "wind": {
         "amplitude": 1.25,
         "fixedFrom": 0.92,
         "share": 0.5
       },
+      "id": "orilla-giant-fern-166",
       "scale": 0.65,
       "x": 54.941,
-      "y": 128.301
+      "y": 128.301,
+      "artVariant": "rizada"
     },
     {
+      "sprite": "flowers-daisy-white",
+      "rules": [],
+      "wind": {
+        "amplitude": 0.6,
+        "fixedFrom": 0.82,
+        "share": 0.25
+      },
       "id": "orilla-flowers-daisy-white-167",
-      "sprite": "flowers-daisy-white",
-      "wind": {
-        "amplitude": 0.6,
-        "fixedFrom": 0.82,
-        "share": 0.25
-      },
       "x": 58.357,
-      "y": 128.83
+      "y": 128.83,
+      "artVariant": "blancas"
     },
     {
-      "id": "orilla-flowers-daisy-white-168",
       "sprite": "flowers-daisy-white",
+      "rules": [],
       "wind": {
         "amplitude": 0.6,
         "fixedFrom": 0.82,
         "share": 0.25
       },
+      "id": "orilla-flowers-daisy-white-168",
       "x": 60.946,
-      "y": 129.728
+      "y": 129.728,
+      "artVariant": "blancas"
     },
     {
-      "id": "orilla-giant-fern-169",
       "sprite": "giant-fern",
+      "rules": [],
       "wind": {
         "amplitude": 1.25,
         "fixedFrom": 0.92,
         "share": 0.5
       },
+      "id": "orilla-giant-fern-169",
       "scale": 0.65,
       "x": 72.259,
-      "y": 128.145
+      "y": 128.145,
+      "artVariant": "rizada"
     },
     {
+      "sprite": "flowers-daisy-white",
+      "rules": [],
+      "wind": {
+        "amplitude": 0.6,
+        "fixedFrom": 0.82,
+        "share": 0.25
+      },
       "id": "orilla-flowers-daisy-white-170",
-      "sprite": "flowers-daisy-white",
-      "wind": {
-        "amplitude": 0.6,
-        "fixedFrom": 0.82,
-        "share": 0.25
-      },
       "x": 76.493,
-      "y": 129.083
+      "y": 129.083,
+      "artVariant": "blancas"
     },
     {
+      "sprite": "flowers-daisy-white",
+      "rules": [],
+      "wind": {
+        "amplitude": 0.6,
+        "fixedFrom": 0.82,
+        "share": 0.25
+      },
       "id": "orilla-flowers-daisy-white-171",
-      "sprite": "flowers-daisy-white",
-      "wind": {
-        "amplitude": 0.6,
-        "fixedFrom": 0.82,
-        "share": 0.25
-      },
       "x": 80.605,
-      "y": 129.084
+      "y": 129.084,
+      "artVariant": "blancas"
     },
     {
-      "id": "orilla-flowers-daisy-white-172",
       "sprite": "flowers-daisy-white",
+      "rules": [],
       "wind": {
         "amplitude": 0.6,
         "fixedFrom": 0.82,
         "share": 0.25
       },
+      "id": "orilla-flowers-daisy-white-172",
       "x": 96.139,
-      "y": 128.449
+      "y": 128.449,
+      "artVariant": "blancas"
     },
     {
-      "id": "orilla-giant-clover-173",
       "sprite": "giant-clover",
+      "rules": [],
       "wind": {
         "amplitude": 0.75,
         "fixedFrom": 0.82,
         "share": 0.3
       },
+      "id": "orilla-giant-clover-173",
       "scale": 0.65,
       "x": 121.631,
-      "y": 128.201
+      "y": 128.201,
+      "artVariant": "redondo"
     },
     {
-      "id": "orilla-reeds-174",
       "sprite": "reeds",
+      "rules": [],
       "wind": {
         "amplitude": 0.85,
         "fixedFrom": 0.9,
         "share": 0.45
       },
+      "id": "orilla-reeds-174",
       "x": 161.412,
-      "y": 128.716
+      "y": 128.716,
+      "artVariant": "reeds"
     },
     {
-      "id": "orilla-flowers-daisy-white-175",
-      "sprite": "flowers-daisy-white",
+      "sprite": "giant-fern",
+      "rules": [],
       "wind": {
-        "amplitude": 0.6,
-        "fixedFrom": 0.82,
-        "share": 0.25
+        "amplitude": 1.25,
+        "fixedFrom": 0.92,
+        "share": 0.5
       },
-      "x": 172.961,
-      "y": 129.384
-    },
-    {
-      "id": "orilla-berries-176",
-      "sprite": "berries",
-      "wind": {
-        "amplitude": 0.55,
-        "fixedFrom": 0.78,
-        "share": 0.3
-      },
-      "x": 7.634,
-      "y": 133.148
-    },
-    {
       "id": "orilla-giant-fern-177",
-      "sprite": "giant-fern",
-      "wind": {
-        "amplitude": 1.25,
-        "fixedFrom": 0.92,
-        "share": 0.5
-      },
       "scale": 0.65,
-      "x": 13.063,
-      "y": 131.203
-    },
-    {
-      "id": "orilla-flowers-daisy-white-178",
-      "sprite": "flowers-daisy-white",
-      "wind": {
-        "amplitude": 0.6,
-        "fixedFrom": 0.82,
-        "share": 0.25
-      },
-      "x": 20.31,
-      "y": 132.202
-    },
-    {
-      "id": "orilla-fern-179",
-      "sprite": "fern",
-      "x": 26.978,
-      "y": 132.233
-    },
-    {
-      "id": "orilla-giant-fern-180",
-      "sprite": "giant-fern",
-      "wind": {
-        "amplitude": 1.25,
-        "fixedFrom": 0.92,
-        "share": 0.5
-      },
-      "scale": 0.65,
-      "x": 29.532,
-      "y": 131.193
-    },
-    {
-      "id": "orilla-flowers-daisy-white-181",
-      "sprite": "flowers-daisy-white",
-      "wind": {
-        "amplitude": 0.6,
-        "fixedFrom": 0.82,
-        "share": 0.25
-      },
-      "x": 33.674,
-      "y": 131.488
-    },
-    {
-      "id": "orilla-bush-182",
-      "sprite": "bush",
-      "wind": {
-        "amplitude": 0.55,
-        "fixedFrom": 0.78,
-        "share": 0.3
-      },
-      "x": 46.796,
-      "y": 132.349
+      "x": 60,
+      "y": 90.75,
+      "artVariant": "rizada",
+      "rotation": 0,
+      "flip": false
     },
     {
       "id": "orilla-fern-183",
@@ -4829,200 +3980,175 @@
       "y": 131.746
     },
     {
+      "sprite": "bush",
+      "rules": [],
+      "wind": {
+        "amplitude": 0.55,
+        "fixedFrom": 0.78,
+        "share": 0.3
+      },
       "id": "orilla-bush-184",
-      "sprite": "bush",
-      "wind": {
-        "amplitude": 0.55,
-        "fixedFrom": 0.78,
-        "share": 0.3
-      },
       "x": 87.457,
-      "y": 131.201
+      "y": 131.201,
+      "artVariant": "bush"
     },
     {
+      "sprite": "flowers-primrose",
+      "rules": [],
+      "wind": {
+        "amplitude": 0.6,
+        "fixedFrom": 0.82,
+        "share": 0.25
+      },
       "id": "orilla-flowers-primrose-185",
-      "sprite": "flowers-primrose",
-      "wind": {
-        "amplitude": 0.6,
-        "fixedFrom": 0.82,
-        "share": 0.25
-      },
       "x": 90.698,
-      "y": 132.338
+      "y": 132.338,
+      "artVariant": "primulas"
     },
     {
+      "sprite": "flowers-daisy-white",
+      "rules": [],
+      "wind": {
+        "amplitude": 0.6,
+        "fixedFrom": 0.82,
+        "share": 0.25
+      },
       "id": "orilla-flowers-daisy-white-186",
-      "sprite": "flowers-daisy-white",
-      "wind": {
-        "amplitude": 0.6,
-        "fixedFrom": 0.82,
-        "share": 0.25
-      },
       "x": 104.336,
-      "y": 131.95
+      "y": 131.95,
+      "artVariant": "blancas"
     },
     {
+      "sprite": "bush",
+      "rules": [],
+      "wind": {
+        "amplitude": 0.55,
+        "fixedFrom": 0.78,
+        "share": 0.3
+      },
       "id": "orilla-bush-187",
-      "sprite": "bush",
-      "wind": {
-        "amplitude": 0.55,
-        "fixedFrom": 0.78,
-        "share": 0.3
-      },
       "x": 115.275,
-      "y": 131.83
+      "y": 131.83,
+      "artVariant": "bush"
     },
     {
+      "sprite": "flowers-daisy-white",
+      "rules": [],
+      "wind": {
+        "amplitude": 0.6,
+        "fixedFrom": 0.82,
+        "share": 0.25
+      },
       "id": "orilla-flowers-daisy-white-188",
-      "sprite": "flowers-daisy-white",
-      "wind": {
-        "amplitude": 0.6,
-        "fixedFrom": 0.82,
-        "share": 0.25
-      },
       "x": 125.4,
-      "y": 131.888
+      "y": 131.888,
+      "artVariant": "blancas"
     },
     {
+      "sprite": "bush",
+      "rules": [],
+      "wind": {
+        "amplitude": 0.55,
+        "fixedFrom": 0.78,
+        "share": 0.3
+      },
       "id": "orilla-bush-189",
-      "sprite": "bush",
-      "wind": {
-        "amplitude": 0.55,
-        "fixedFrom": 0.78,
-        "share": 0.3
-      },
       "x": 132.619,
-      "y": 131.389
+      "y": 131.389,
+      "artVariant": "bush"
     },
     {
+      "sprite": "bush",
+      "rules": [],
+      "wind": {
+        "amplitude": 0.55,
+        "fixedFrom": 0.78,
+        "share": 0.3
+      },
       "id": "orilla-bush-190",
-      "sprite": "bush",
-      "wind": {
-        "amplitude": 0.55,
-        "fixedFrom": 0.78,
-        "share": 0.3
-      },
       "x": 160.328,
-      "y": 132.244
+      "y": 132.244,
+      "artVariant": "bush"
     },
     {
-      "id": "orilla-giant-fern-191",
-      "sprite": "giant-fern",
-      "wind": {
-        "amplitude": 1.25,
-        "fixedFrom": 0.92,
-        "share": 0.5
-      },
-      "scale": 0.65,
-      "x": 163.888,
-      "y": 132.655
-    },
-    {
-      "id": "orilla-berries-192",
-      "sprite": "berries",
-      "wind": {
-        "amplitude": 0.55,
-        "fixedFrom": 0.78,
-        "share": 0.3
-      },
-      "x": 4.658,
-      "y": 134.34
-    },
-    {
-      "id": "orilla-flowers-daisy-white-193",
       "sprite": "flowers-daisy-white",
+      "rules": [],
       "wind": {
         "amplitude": 0.6,
         "fixedFrom": 0.82,
         "share": 0.25
       },
-      "x": 23.567,
-      "y": 135.629
-    },
-    {
-      "id": "orilla-fern-194",
-      "sprite": "fern",
-      "x": 25.313,
-      "y": 135.521
-    },
-    {
-      "id": "orilla-flowers-primrose-195",
-      "sprite": "flowers-primrose",
-      "wind": {
-        "amplitude": 0.6,
-        "fixedFrom": 0.82,
-        "share": 0.25
-      },
-      "x": 38.821,
-      "y": 134.089
-    },
-    {
       "id": "orilla-flowers-daisy-white-196",
-      "sprite": "flowers-daisy-white",
-      "wind": {
-        "amplitude": 0.6,
-        "fixedFrom": 0.82,
-        "share": 0.25
-      },
       "x": 51.052,
-      "y": 135.625
+      "y": 135.625,
+      "artVariant": "blancas"
     },
     {
-      "id": "orilla-bush-197",
       "sprite": "bush",
+      "rules": [],
       "wind": {
         "amplitude": 0.55,
         "fixedFrom": 0.78,
         "share": 0.3
       },
+      "id": "orilla-bush-197",
       "x": 57.394,
-      "y": 136.016
+      "y": 136.016,
+      "artVariant": "bush"
     },
     {
-      "id": "orilla-giant-fern-198",
       "sprite": "giant-fern",
+      "rules": [],
       "wind": {
         "amplitude": 1.25,
         "fixedFrom": 0.92,
         "share": 0.5
       },
+      "id": "orilla-giant-fern-198",
       "scale": 0.65,
       "x": 67.085,
-      "y": 136.38
+      "y": 136.38,
+      "artVariant": "rizada"
     },
     {
-      "id": "orilla-bush-199",
       "sprite": "bush",
+      "rules": [],
       "wind": {
         "amplitude": 0.55,
         "fixedFrom": 0.78,
         "share": 0.3
       },
+      "id": "orilla-bush-199",
       "x": 74.375,
-      "y": 135.695
+      "y": 135.695,
+      "artVariant": "bush"
     },
     {
-      "id": "orilla-flowers-daisy-white-200",
       "sprite": "flowers-daisy-white",
+      "rules": [],
       "wind": {
         "amplitude": 0.6,
         "fixedFrom": 0.82,
         "share": 0.25
       },
+      "id": "orilla-flowers-daisy-white-200",
       "x": 80.248,
-      "y": 135.765
+      "y": 135.765,
+      "artVariant": "blancas"
     },
     {
-      "id": "orilla-giant-fern-201",
       "sprite": "giant-fern",
+      "rules": [],
       "wind": {
         "amplitude": 1.25,
         "fixedFrom": 0.92,
         "share": 0.5
       },
+      "id": "orilla-giant-fern-201",
       "scale": 0.65,
       "x": 91.152,
-      "y": 134.742
+      "y": 134.742,
+      "artVariant": "rizada"
     },
     {
       "id": "orilla-fern-202",
@@ -5031,78 +4157,56 @@
       "y": 135.654
     },
     {
+      "sprite": "berries",
+      "rules": [],
+      "wind": {
+        "amplitude": 0.55,
+        "fixedFrom": 0.78,
+        "share": 0.3
+      },
       "id": "orilla-berries-203",
-      "sprite": "berries",
-      "wind": {
-        "amplitude": 0.55,
-        "fixedFrom": 0.78,
-        "share": 0.3
-      },
       "x": 112.976,
-      "y": 135.267
+      "y": 135.267,
+      "artVariant": "berries"
     },
     {
-      "id": "orilla-berries-204",
       "sprite": "berries",
+      "rules": [],
       "wind": {
         "amplitude": 0.55,
         "fixedFrom": 0.78,
         "share": 0.3
       },
+      "id": "orilla-berries-204",
       "x": 128.031,
-      "y": 136.373
+      "y": 136.373,
+      "artVariant": "berries"
     },
     {
-      "id": "orilla-bush-205",
       "sprite": "bush",
+      "rules": [],
       "wind": {
         "amplitude": 0.55,
         "fixedFrom": 0.78,
         "share": 0.3
       },
+      "id": "orilla-bush-205",
       "x": 138.809,
-      "y": 135.237
+      "y": 135.237,
+      "artVariant": "bush"
     },
     {
-      "id": "orilla-reeds-206",
       "sprite": "reeds",
+      "rules": [],
       "wind": {
         "amplitude": 0.85,
         "fixedFrom": 0.9,
         "share": 0.45
       },
+      "id": "orilla-reeds-206",
       "x": 143.764,
-      "y": 135.888
-    },
-    {
-      "id": "orilla-giant-clover-207",
-      "sprite": "giant-clover",
-      "wind": {
-        "amplitude": 0.75,
-        "fixedFrom": 0.82,
-        "share": 0.3
-      },
-      "scale": 0.65,
-      "x": 181.176,
-      "y": 135.997
-    },
-    {
-      "id": "orilla-fern-208",
-      "sprite": "fern",
-      "x": 185.821,
-      "y": 134.415
-    },
-    {
-      "id": "orilla-giant-clover-209",
-      "sprite": "giant-clover",
-      "wind": {
-        "amplitude": 0.75,
-        "fixedFrom": 0.82,
-        "share": 0.3
-      },
-      "scale": 0.65,
-      "x": 32.271,
-      "y": 137.214
+      "y": 135.888,
+      "artVariant": "reeds"
     },
     {
       "id": "orilla-fern-210",
@@ -5117,51 +4221,59 @@
       "y": 138.418
     },
     {
-      "id": "orilla-flowers-primrose-212",
       "sprite": "flowers-primrose",
+      "rules": [],
       "wind": {
         "amplitude": 0.6,
         "fixedFrom": 0.82,
         "share": 0.25
       },
+      "id": "orilla-flowers-primrose-212",
       "x": 67.115,
-      "y": 138.367
+      "y": 138.367,
+      "artVariant": "primulas"
     },
     {
-      "id": "orilla-giant-clover-213",
       "sprite": "giant-clover",
+      "rules": [],
       "wind": {
         "amplitude": 0.75,
         "fixedFrom": 0.82,
         "share": 0.3
       },
+      "id": "orilla-giant-clover-213",
       "scale": 0.65,
       "x": 73.832,
-      "y": 138.128
+      "y": 138.128,
+      "artVariant": "redondo"
     },
     {
-      "id": "orilla-giant-fern-214",
       "sprite": "giant-fern",
+      "rules": [],
       "wind": {
         "amplitude": 1.25,
         "fixedFrom": 0.92,
         "share": 0.5
       },
+      "id": "orilla-giant-fern-214",
       "scale": 0.65,
       "x": 89.756,
-      "y": 139.156
+      "y": 139.156,
+      "artVariant": "rizada"
     },
     {
-      "id": "orilla-giant-fern-215",
       "sprite": "giant-fern",
+      "rules": [],
       "wind": {
         "amplitude": 1.25,
         "fixedFrom": 0.92,
         "share": 0.5
       },
+      "id": "orilla-giant-fern-215",
       "scale": 0.65,
       "x": 99.929,
-      "y": 138.731
+      "y": 138.731,
+      "artVariant": "rizada"
     },
     {
       "id": "orilla-fern-216",
@@ -5170,37 +4282,43 @@
       "y": 137.597
     },
     {
-      "id": "orilla-flowers-primrose-217",
       "sprite": "flowers-primrose",
+      "rules": [],
       "wind": {
         "amplitude": 0.6,
         "fixedFrom": 0.82,
         "share": 0.25
       },
+      "id": "orilla-flowers-primrose-217",
       "x": 112.856,
-      "y": 138.806
+      "y": 138.806,
+      "artVariant": "primulas"
     },
     {
+      "sprite": "berries",
+      "rules": [],
+      "wind": {
+        "amplitude": 0.55,
+        "fixedFrom": 0.78,
+        "share": 0.3
+      },
       "id": "orilla-berries-218",
-      "sprite": "berries",
-      "wind": {
-        "amplitude": 0.55,
-        "fixedFrom": 0.78,
-        "share": 0.3
-      },
       "x": 123.443,
-      "y": 139.233
+      "y": 139.233,
+      "artVariant": "berries"
     },
     {
-      "id": "orilla-berries-219",
       "sprite": "berries",
+      "rules": [],
       "wind": {
         "amplitude": 0.55,
         "fixedFrom": 0.78,
         "share": 0.3
       },
+      "id": "orilla-berries-219",
       "x": 125.895,
-      "y": 138.63
+      "y": 138.63,
+      "artVariant": "berries"
     },
     {
       "id": "orilla-fern-220",
@@ -5209,55 +4327,57 @@
       "y": 139.428
     },
     {
-      "id": "orilla-rocks-221",
       "sprite": "rocks",
+      "rules": [],
+      "solid": [
+        -0.6,
+        -0.45,
+        1.2,
+        0.7
+      ],
+      "id": "orilla-rocks-221",
       "x": 148.461,
-      "y": 137.585
+      "y": 137.585,
+      "artVariant": "rocks"
     },
     {
-      "id": "orilla-bush-222",
       "sprite": "bush",
+      "rules": [],
       "wind": {
         "amplitude": 0.55,
         "fixedFrom": 0.78,
         "share": 0.3
       },
+      "id": "orilla-bush-222",
       "x": 151.099,
-      "y": 138.411
+      "y": 138.411,
+      "artVariant": "bush"
     },
     {
-      "id": "orilla-flowers-primrose-223",
       "sprite": "flowers-primrose",
+      "rules": [],
       "wind": {
         "amplitude": 0.6,
         "fixedFrom": 0.82,
         "share": 0.25
       },
+      "id": "orilla-flowers-primrose-223",
       "x": 154.598,
-      "y": 138.312
+      "y": 138.312,
+      "artVariant": "primulas"
     },
     {
-      "id": "orilla-berries-224",
       "sprite": "berries",
+      "rules": [],
       "wind": {
         "amplitude": 0.55,
         "fixedFrom": 0.78,
         "share": 0.3
       },
+      "id": "orilla-berries-224",
       "x": 163.102,
-      "y": 138.951
-    },
-    {
-      "id": "orilla-giant-fern-225",
-      "sprite": "giant-fern",
-      "wind": {
-        "amplitude": 1.25,
-        "fixedFrom": 0.92,
-        "share": 0.5
-      },
-      "scale": 0.65,
-      "x": 187.277,
-      "y": 138.367
+      "y": 138.951,
+      "artVariant": "berries"
     }
   ],
   "navigation": {

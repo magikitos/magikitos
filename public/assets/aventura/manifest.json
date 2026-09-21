@@ -8973,6 +8973,40 @@
             "height": 78,
             "bytes": 4547
         },
+        "delimiter-canopy": {
+            "image": "packs/delimiter-canopy-849f3556c02a.png",
+            "metadata": "packs/delimiter-canopy-849f3556c02a.json",
+            "sprites": [
+                "delimiter-canopy-horizontal-long",
+                "delimiter-canopy-horizontal-short",
+                "delimiter-canopy-vertical-long",
+                "delimiter-canopy-vertical-short",
+                "delimiter-canopy-north-west",
+                "delimiter-canopy-north-east",
+                "delimiter-canopy-south-west",
+                "delimiter-canopy-south-east"
+            ],
+            "width": 1024,
+            "height": 3140,
+            "bytes": 701047
+        },
+        "delimiter-rock": {
+            "image": "packs/delimiter-rock-c6f2b54dfb36.png",
+            "metadata": "packs/delimiter-rock-c6f2b54dfb36.json",
+            "sprites": [
+                "delimiter-rock-horizontal-long",
+                "delimiter-rock-horizontal-short",
+                "delimiter-rock-vertical-long",
+                "delimiter-rock-vertical-short",
+                "delimiter-rock-north-west",
+                "delimiter-rock-north-east",
+                "delimiter-rock-south-west",
+                "delimiter-rock-south-east"
+            ],
+            "width": 1024,
+            "height": 3092,
+            "bytes": 662531
+        },
         "forest-roots": {
             "image": "packs/forest-roots-decb625d9bdd.png",
             "metadata": "packs/forest-roots-decb625d9bdd.json",

@@ -1,0 +1,120 @@
+{
+  "sheets": {
+    "canopy-straights": {
+      "sha256": "19ff3deb2f1f4b6cb5dc69b1cb3c072fb9ef574b7b0f7dc7f6d950860780ef5c",
+      "cells": {
+        "canopy-horizontal-long": [
+          0,
+          0,
+          714,
+          484
+        ],
+        "canopy-horizontal-short": [
+          714,
+          0,
+          540,
+          484
+        ],
+        "canopy-vertical-long": [
+          0,
+          484,
+          710,
+          770
+        ],
+        "canopy-vertical-short": [
+          710,
+          484,
+          544,
+          770
+        ]
+      }
+    },
+    "canopy-corners": {
+      "sha256": "b8cb88261fea45fbd45371b87273137efe20175a2510af96618644ae3862eee4",
+      "cells": {
+        "canopy-north-west": [
+          0,
+          0,
+          627,
+          627
+        ],
+        "canopy-north-east": [
+          627,
+          0,
+          627,
+          627
+        ],
+        "canopy-south-west": [
+          0,
+          627,
+          627,
+          627
+        ],
+        "canopy-south-east": [
+          627,
+          627,
+          627,
+          627
+        ]
+      }
+    },
+    "rock-straights": {
+      "sha256": "982c80a309a42267a4d7906091b436f154a3608622826dce9998d74e1b65c10f",
+      "cells": {
+        "rock-horizontal-long": [
+          0,
+          0,
+          784,
+          443
+        ],
+        "rock-horizontal-short": [
+          784,
+          0,
+          470,
+          443
+        ],
+        "rock-vertical-long": [
+          0,
+          443,
+          700,
+          811
+        ],
+        "rock-vertical-short": [
+          700,
+          443,
+          554,
+          811
+        ]
+      }
+    },
+    "rock-corners": {
+      "sha256": "422552224d48f4dee22b367e97b11b83917fb6b70f60b847562f15e9bc962f99",
+      "cells": {
+        "rock-north-west": [
+          0,
+          0,
+          627,
+          627
+        ],
+        "rock-north-east": [
+          627,
+          0,
+          627,
+          627
+        ],
+        "rock-south-west": [
+          0,
+          627,
+          627,
+          627
+        ],
+        "rock-south-east": [
+          627,
+          627,
+          627,
+          627
+        ]
+      }
+    }
+  }
+}

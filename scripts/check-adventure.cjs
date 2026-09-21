@@ -459,7 +459,8 @@ rooms.enforce();
 assert.equal(closed, 1);
 assert.equal(stopped, 1);
 game.state.scene = "overworld";
-game.player = { x: 105.5 * TILE, y: 81.5 * TILE };
+const storyFocus = catalog.scenes.overworld.entities.find(e => e.id === catalog.contentRooms.stories.focus);
+game.player = { x: storyFocus.x * TILE, y: storyFocus.y * TILE };
 assert(rooms.contains("stories"));
 assert(!rooms.contains("expressions"));
 for (const name of ["oak", "human-house"]) {

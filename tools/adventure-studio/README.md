@@ -43,6 +43,21 @@ es FIJA; y Ascua es el protagonista con los otros once duendes como vecinos.
 
 ## Arrange objects
 
+La barra superior muestra **las escenas conectadas**, con flechas para las vecinas
+del mapa y una casa para los interiores. Sus destinos y nombres proceden de las
+salidas/puertas y textos actuales, sin otra lista que mantener. Un clic cambia de
+escena; al volver se recuperan el zoom y el encuadre de esa sesión. El selector
+habitual sigue dando acceso a todas las escenas. Los cambios de distintas escenas
+se conservan juntos y siguen guardándose automáticamente.
+
+**Ocultar árboles / Mostrar árboles** filtra los árboles de ambas familias,
+incluidas sus variantes, los colocados manualmente y los delimitadores de copas. Las flores, arbustos,
+helechos, setas y casas permanecen. Un árbol oculto no se puede seleccionar ni
+mover/borrar accidentalmente; desaparece también de la lista y de la superposición
+de colisiones. Es una vista del editor: no borra datos, no entra en deshacer/diff,
+no cambia la física ni se aplica al juego. La preferencia se recuerda en este
+navegador, separada del archivo de trabajo. Pruebas: `npm run test:studio-navigation`.
+
 Choose a scene, select a placed object or vegetation, and drag.
 The inspector supports coordinates, native-pixel snapping, continuous scale (25–300% where allowed)
 and horizontal mirroring where the art supports them. There is no rotation control:
@@ -96,6 +111,51 @@ Planters/crates placed as entities inherit the reusable pushing capability.
 quest objects, entrances, actors and other functional entities.
 Additions/removals/variants share undo, redo, autosave and the one reviewed diff.
 No map change is applied live to the game. See [the collection contract](../../docs/WOODLAND-KIT.md).
+
+### Delimitadores
+
+La categoría **Delimitadores** ofrece 16 piezas originales: copas de bosque y rocas
+musgosas, cada material con dos tramos horizontales, dos verticales y cuatro esquinas.
+Cada tramo termina de forma natural por ambos lados: se puede dejar suelto, dejar
+un paso, alternar materiales o solapar ligeramente sus extremos para alargarlo.
+No es un marco obligatorio ni un tile recortado. Las esquinas están dibujadas como
+una formación curva completa, no ensambladas cruzando dos rectas. Para cambiar de
+lado usa las variantes ┌ ┐ └ ┘; no gires un bitmap para inventar otra perspectiva.
+
+Elige la pieza y su longitud/orientación explícita, pulsa **Colocar** y ajusta
+posición/escala. El ancla está en el centro. Un solape moderado de los remates
+(aproximadamente 2–4 casillas al 100%, según la pieza) suele bastar: compruébalo al
+zoom del juego. Puedes combinarlas libremente; no hay encaje automático forzado.
+El filtro de árboles oculta las copas, pero deja las rocas. Si está activo, vuelve
+a **Mostrar árboles** para colocar copas y verlas.
+
+Son elementos fijos, no empujables, del catálogo compartido del juego y Studio.
+Cada recta tiene un cuerpo conservador; cada esquina tiene dos cuerpos que siguen
+su L y dejan libre el hueco interior. La escala y el reflejo transforman también
+los cuerpos. Antes de aplicar colocaciones se comprueban los pasos y las salidas:
+un delimitador no debe cerrar una conexión a una escena vecina.
+
+Todo queda en el único archivo de trabajo habitual, con deshacer, borrado,
+guardado y diff. Guardar en Studio no publica nada: el agente revisa el diff,
+aplica las colocaciones y verifica el mapa antes de generar una nueva entrega.
+
+- Catálogo compartido: `data/aventura/elements.json`; paquetes:
+  `data/aventura/assets/delimiter-canopy.json` y `delimiter-rock.json`.
+- Originales, recortes, coordenadas, hashes y prompts:
+  [`data/aventura/art/delimiters`](../../data/aventura/art/delimiters).
+- `catalog.js` expone las mismas familias y variantes que el juego, sin catálogo
+  paralelo. Los identificadores originales se conservan para las colocaciones guardadas.
+- Reconstrucción técnica: `php tools/adventure-studio/prepare-delimiters.php`.
+  Conserva originales, limpia únicamente el mate y verifica extremos sin cortar.
+- El empaquetador habitual prepara dos paquetes **2× / reducción integrada**,
+  cargados bajo demanda por material. El Studio usa su caché local de ese mismo
+  empaquetador. No hay escaneo alfa al dibujar.
+- Pruebas: `npm run test:studio-delimiters`. El navegador usa un workspace temporal,
+  nunca el archivo de trabajo del dueño.
+
+La noche y el corrillo de cuentos se anclan a `story-fire`: al mover la hoguera,
+`scene-anchors.js` resuelve su centro y el del fuego desde la entidad, tanto en
+Studio como en el juego. No hay coordenadas de ambiente duplicadas que actualizar.
 
 ## Entradas de casas y salidas (20-sep-2026)
 
