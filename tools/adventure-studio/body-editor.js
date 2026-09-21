@@ -129,14 +129,26 @@ class BodyEditor {
     $("body-section").hidden = this.enabled || !this.scopeReady();
     if (this.enabled) {
       $("body-title").textContent = this.scope.label;
+      /**
+       * ⛔ «AÑADIR ENTRADA» MIENTRAS YA SE VE UNA ES MENTIRA (22-sep-2026, pregunta del dueño:
+       * «¿por qué no me deja editar la entrada que ya sale?»). La que se ve sin haber dibujado
+       * nada es DERIVADA: `doorGeometry` la calcula desde el borde de abajo del cuerpo, así que no
+       * hay nada que agarrar y se mueve sola cuando mueves la caja. El botón decía «Añadir», que
+       * suena a que habría dos. Dice lo que hace —dibujar la tuya— y el panel cuenta de dónde sale
+       * la automática, que es la parte que no se puede adivinar mirando el mapa.
+       */
+      const derivada = !this.entrance && this.scope.portal;
       $("body-help").textContent =
-        "Arrastra dentro para mover, de una esquina para redimensionar. El mapa está quieto mientras editas; mantén Espacio para apartarte.";
+        "Arrastra dentro para mover, de una esquina para redimensionar. El mapa está quieto mientras editas; mantén Espacio para apartarte." +
+        (derivada
+          ? " La entrada que ves es AUTOMÁTICA: sale del borde de abajo del cuerpo y se mueve con él, por eso no se puede coger. Dibuja la tuya para cambiarla."
+          : "");
       $("body-instances").textContent = this.scope.reach;
       $("body-delete").disabled = !this.selected;
       $("body-add").disabled = this.solids.length >= MAX_BOXES;
       $("body-entrance").textContent = this.entrance
         ? "Quitar entrada"
-        : "Añadir entrada";
+        : "Dibujar entrada";
       $("body-entrance").hidden = !this.scope.portal;
       this.paintBoxes();
       this.paintNumbers();

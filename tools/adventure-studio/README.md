@@ -238,8 +238,18 @@ en media casilla:
 - **El pestillo.** `portalLatch` cierra la puerta mientras sigues dentro y solo se rearma al salir
   del rectángulo. Si es alto, al volver de la casa te quedas dentro y hay que alejarse mucho para
   que vuelva a funcionar.
-- **Se mide el PIE, no el dibujo.** La prueba es el punto del pie contra un rectángulo del mundo; el
-  arco dibujado está por encima del suelo y ahí no pisa nadie.
+- **Se mide UN PUNTO, no el dibujo ni la huella.** `insideThreshold` prueba `player.x/y`, que es
+  el registro de la lámina (`[24,46]` de 48×48): el punto del suelo entre los pies. Las colisiones
+  y el agua usan un RECTÁNGULO alrededor de ese punto (`FOOTPRINT`, 12×10 px); la puerta no. Por
+  eso una puerta es más estricta que una pared: la pared te para cuando la roza el borde de la
+  huella, la puerta solo se abre cuando entra el punto. Y por eso se dibuja donde PISA el duende
+  —la línea del suelo delante del vano—, no sobre la puerta dibujada, que está en la pared.
+
+Cómo de ancha y cómo de alta, en la práctica: **ancha como el vano que se cruza** (si la abertura
+mide una casilla, una casilla; más ancha y se entra atravesando la pared de al lado) y **de 3 a 6
+píxeles de alto**, que es lo que usan las catorce. El mínimo de 1 px existe porque el movimiento se
+subdivide en pasos de 2 px (`Math.ceil(distancia / 2)`) y se comprueba en cada subpaso: por debajo
+de eso el punto podría saltársela corriendo.
 
 Las catorce puertas del bosque están de acuerdo: **1 × 0,375 casillas** las de fuera (con dirección
 −1) y **1 × 0,25** las salidas de dentro (dirección +1). Las dos escaleras son la excepción, con
