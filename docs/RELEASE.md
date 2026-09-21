@@ -4,6 +4,49 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: el Studio sin cabecera y los cruces sin fotogramas perdidos — 21 septiembre 2026
+
+Artefacto `e8c39cd5111788d3b235`, fuente del juego `7857c14`, web `80ff3097` (solo puntero).
+Anterior conservada: `d1ef0ad5d748e9217e61`. Mismas rutas.
+
+SHA-256 de `release.json`: `b30634a167ab41f372501351cde64036a0993be403f65e6e169f943d190ed587`. 799
+archivos verificados y ESTACIONADOS antes de mover el puntero. **Sin migración**, **sin PHP nuevo**
+(el compilador del mundo sí cambia), **sin cambio de contrato**; el demonio arrancó con
+`release=e8c39cd5111788d3b235`.
+
+⛔ **Construido desde un árbol LIMPIO** con el MISMO id que el árbol de trabajo.
+
+### Alcance publicado
+
+- **Cruzar deja de perder fotogramas.** Cada pantalla tiene 27.648 casillas y cada una pregunta
+  treinta veces si hay agua bajo los pies: 48 ms de reloj en la pradera, y `riverSection` era el
+  20 % de toda la CPU de un cruce. Ese mapa se rehacía ENTERO en cada llegada, porque la caché de
+  mundos no vale en las pantallas donde se construye (cuatro de las cinco de fuera), así que la
+  pradera costaba dos o tres fotogramas perdidos SIEMPRE. Ahora se guarda por pantalla con una
+  clave que son exactamente sus ingredientes —marco, bandas de las costuras, contorno del interior
+  y agua—, así que cambiar una orilla lo recalcula y que llegue otro duende no. Medido en Chrome,
+  diez cruces ida y vuelta: sin la caché seis pierden fotogramas (huecos de hasta 50 ms), con ella
+  ninguno, todos a 16,8 ms; `new World` de la pradera pasa de 73,6 ms a 6,2.
+- **El cuerpo y la entrada de un elemento son del ELEMENTO** (decisión del dueño). Viven en la
+  variante de su familia y valen para todas sus copias, las puestas y las que se pongan después.
+  El compilador resuelve la variante fijada antes de calcular la puerta, así que PHP y el motor
+  leen el mismo cuerpo, y un cuerpo compuesto sustituye al simple en vez de sumarse: llevar los dos
+  rompía la escena entera al construirla.
+
+### El Studio (no viaja en la release, es local)
+
+Tres barras arriba pasan a ser una franja; fuera el exportar diff y el bloque de revisión. El
+cuerpo y la entrada se dibujan ENCIMA del elemento en el mapa, con el mapa bloqueado mientras se
+dibuja, y lo guardado va a su variante, retirando de paso los cuerpos sueltos de cada copia. Los
+elementos se arrastran desde la galería hasta el punto exacto donde se sueltan.
+
+### Comprobado
+
+`npm test` entero (82 bloques). En navegador: las cuatro suites del Studio, con la del cuerpo y la
+entrada reescrita para el editor nuevo. El control negativo del rendimiento está medido en los dos
+sentidos con el mismo banco. En producción, `check-release-live` en las seis rutas y el demonio
+arrancado con la release nueva.
+
 ## Producción: arboledas 2.5D, setas y balanza — 21 septiembre 2026
 
 Artefacto `7a20d5b13025487467c0`; fuente `528aea9` (implementación `f9c7435`);
