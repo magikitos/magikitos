@@ -4,6 +4,59 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: la primera puerta ancha, y una entrada dentro del cuerpo ya no se puede guardar — 22 septiembre 2026
+
+Artefacto `16680a394ddf68e7cc91`, fuente del juego `b201827`, web `575fc41d` (solo puntero).
+Anterior conservada: `bbc088623c786bcb5831`. Mismas rutas.
+
+SHA-256 de `release.json`: `12c82d27794faa3d5351b3dc3f597016de0e1d82b4aff1dda19c5f58ccc71893`. 817
+archivos verificados y ESTACIONADOS antes de mover el puntero. **Sin migración**, **sin PHP nuevo**;
+cambia el contrato (el cuerpo y la entrada del refugio de hojas) y el demonio arrancó con
+`release=16680a394ddf68e7cc91`. Construido desde un árbol limpio, idéntico byte a byte al del árbol
+de trabajo.
+
+### Alcance publicado
+
+- **La primera puerta del bosque más ancha que una casilla.** `leaf-home/avellano` estrena cuerpo y
+  una entrada de **2 casillas** (`umbral [81.5, 85.825, 2, 0.5]`, leído del `adventure-config` que
+  sirve producción). Las otras catorce siguen a 1 × 0,375 fuera y 1 × 0,25 dentro.
+- **El tope de ancho sube de 2 a 3 casillas.** El de ALTO no se toca: media casilla, porque una
+  franja alta rompe la guarda de dirección y el pestillo. El de ancho nunca fue mecánico.
+- **Una entrada dentro del cuerpo no abre NUNCA, y ahora se sabe.** El umbral se prueba contra el
+  PUNTO del duende, que no entra en un sólido: su huella mide 12×10 px, así que se queda a 6 px por
+  los lados y 5 por arriba y abajo. Medido sobre el mundo compilado en la entrada que dibujó el
+  dueño: 297 puntos dentro del umbral y **cero** donde pudiera estar. `entranceReachable` engorda
+  los cuerpos con la media huella y exige que quede algo pisable —una franja que solape A MEDIAS
+  sigue valiendo—, contrastado con el motor en cuatro posiciones (0, 132, 264 y 297 alcanzables).
+- **En el Studio se ve antes de guardar**: roja y con su nombre en el mapa, aviso en la barra,
+  «Terminar» apagado y el atajo `Enter` cortado. Y «Dibujar entrada» ya no nace roja: la entrada
+  sale donde sale la automática, por debajo del cuerpo.
+
+### Tres agujeros que salieron al hacerlo
+
+1. **El control de muros invisibles solo miraba las escenas.** Desde que el cuerpo es del ELEMENTO,
+   lo que tapia el bosque entero vive en `elements.json` y no lo veía nadie: la propuesta del dueño
+   pedía 8,75 celdas para una lámina de 5,57 y pasó la verja. Extendido a las variantes, con los
+   Delimitadores fuera —tapiar más de lo que dibujan es su trabajo—. El cuerpo se recortó a la
+   lámina antes de publicarlo.
+2. **La paridad PHP/JS de puertas comparaba mal.** Le daba al gemelo la entidad CRUDA, sin la
+   variante mezclada; el compilador sí la mezcla. Aguantó mientras ninguna variante tuvo `entrance`:
+   con la primera, 82 contra 81,5. Ahora resuelve la apariencia igual que el compilador.
+3. **Dos pruebas llevaban el tope escrito a mano** y se pusieron rojas anunciando fallos que no
+   existían. Salen de `ENTRANCE_LIMITS`, como el mensaje de error que enseña el Studio.
+
+### Descartado a propósito
+
+El cuerpo propuesto para `log-home/redondo` movía la caja una casilla a la derecha sin cambiar el
+ancho: deja 1,28 celdas de cabaña dibujada sin cuerpo y pone 2,16 de muro invisible, en cabaña,
+taller y tronco torcido a la vez. Y la entrada de `workshop-door` estaba escrita en la COPIA y
+dentro de su propio cuerpo; su entrada automática ya funciona.
+
+### Comprobado
+
+`npm test` entero (84 bloques, salida 0), `npm run test:studio-entrance`, y en producción
+`check-release-live` en las seis rutas más la lectura directa del `adventure-config` servido.
+
 ## Producción: la bombita vuelve a salir del navegador y cuatro muros invisibles menos — 21 septiembre 2026
 
 Artefacto `bbc088623c786bcb5831`, fuente del juego `61eaa3f`, web `5ff89736` (solo puntero).
