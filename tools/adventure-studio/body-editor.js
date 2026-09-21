@@ -397,15 +397,13 @@ class BodyEditor {
       // El texto no se refleja con la copia: un rótulo del revés no se lee.
       if (entity.flip) c.scale(-1, 1);
       c.scale(1 / k, 1 / k);
-      c.font = 11 / this.view.zoom + "px system-ui, sans-serif";
-      c.textBaseline = "bottom";
-      const at = ((entity.flip ? -(box[0] + box[2]) : box[0]) + line * 2) * k;
-      const top = (box[1] - line * 2) * k;
-      c.lineWidth = 3 / this.view.zoom;
-      c.strokeStyle = "#0b1a22cc";
-      c.strokeText(name, at, top);
-      c.fillStyle = colour;
-      c.fillText(name, at, top);
+      this.view.label(
+        c,
+        name,
+        ((entity.flip ? -(box[0] + box[2]) : box[0]) + line * 2) * k,
+        box[1] * k,
+        colour,
+      );
       c.restore();
       if (!on) return;
       c.fillStyle = colour;
@@ -417,8 +415,21 @@ class BodyEditor {
           grip * 2,
         );
     };
+    /**
+     * ⛔ EL NÚMERO SOLO CUANDO HAY VARIAS (21-sep-2026, dueño: «¿por qué lo llamas colisión 1?»).
+     * Con una sola caja, el «1» promete un «2» que no existe. Varias sí las hay de verdad —el arco
+     * de jardín son dos patas con el hueco libre en medio, y los delimitadores de copas hasta
+     * tres—, y ahí el número es lo que dice cuál estás cogiendo.
+     */
+    const varias = this.solids.length > 1;
     this.solids.forEach((box, index) =>
-      paint(box, { kind: "solid", index }, "#9de0f5", "#69cbe93d", "Colisión " + (index + 1)),
+      paint(
+        box,
+        { kind: "solid", index },
+        "#9de0f5",
+        "#69cbe93d",
+        varias ? "Colisión " + (index + 1) : "Colisión",
+      ),
     );
     /**
      * ⛔ LA ENTRADA NO PUEDE SER DEL MISMO AZUL QUE UNA COLISIÓN (21-sep-2026). Eran `#9de0f5` y

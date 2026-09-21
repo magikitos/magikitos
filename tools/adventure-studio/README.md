@@ -181,8 +181,17 @@ arrastrar el fondo ya no mueve el mapa —así una caja se dibuja sin que el sue
 y la vista se acerca al elemento. Arrastra dentro de una caja para moverla, de una esquina o un
 lado para redimensionarla; las flechas la empujan (con Mayús, cuatro pasos) y ⌫ la borra. Los
 mismos cuatro números están en el panel para escribirlos a mano. **Añadir caja** da hasta seis
-—un arco con dos patas y el hueco libre en medio—, y **Entrada** añade la franja por la que se
-cruza una puerta. `Enter` guarda, `Esc` cancela, **Volver al original** deshace lo tanteado.
+—el arco de jardín son dos patas con el hueco libre en medio, y los delimitadores de copas usan
+tres—, y **Entrada** añade la franja por la que se cruza una puerta. `Enter` guarda, `Esc` cancela,
+**Volver al original** deshace lo tanteado.
+
+Lo que se dibuja encima, y nada más: **azul** es cuerpo que PARA, **violeta** entrada que DEJA
+PASAR, y cada rectángulo lleva su nombre. Las cajas se numeran solo cuando hay varias: con una
+sola, un «Colisión 1» promete un «2» que no existe. Mientras el editor tiene cogido un elemento no
+se le pinta ni el marco amarillo de la selección ni su cuerpo compilado ni su punto de llegada
+—queda su ancla, que es el origen de los cuatro números—, y su entrada automática desaparece en
+cuanto dibujas una propia. Cada concepto se dibuja en UN solo sitio (`viewport.overlay`): el umbral
+llegó a pintarse dos veces, desde dos capas, y eso es lo que hacía parecer que sobraban rectángulos.
 
 Lo que se guarda va a la VARIANTE de la familia (`solids`, `entrance`) y de ahí lo heredan todas
 sus copias, las puestas y las que pongas después; el panel dice cuántas son antes de tocar nada.

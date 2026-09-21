@@ -47,6 +47,16 @@ let studio, browser;
     assert.equal((await inspect(page)).revision, before.revision, "Filter never saves a scene mutation");
     assert.deepEqual(await (await page.request.get(origin + "/api/diff")).json(), initialDiff);
 
+    /**
+     * ⛔ EL STUDIO GUARDA A LA MILÉSIMA DE CASILLA, Y ESTA PRUEBA EXIGÍA CATORCE DECIMALES
+     * (21-sep-2026). `scene-edits` redondea `x`/`y` a 1/1000 de casilla desde el primer commit
+     * —0,016 px, para que el dato autorado salga limpio—, pero aquí se comparaba el valor guardado
+     * con el float crudo del campo. Aguantó mientras el primer elemento no-árbol de la pradera
+     * tenía una `x` corta; al cambiar la escena pasó a ser uno con `63.08948079217225` y se puso
+     * roja sin que nadie hubiera tocado nada. Se compara con la precisión que el editor PROMETE,
+     * que además es lo que hay que defender: no que el redondeo no exista.
+     */
+    const guardado = (n) => Math.round(n * 1000) / 1000;
     // Edit, leave BEFORE the autosave delay, edit the neighbour and come back.
     await page.locator(`#elements [data-id="${plant.id}"]`).click();
     const nextX = Number(await page.locator("#x").inputValue()) + 0.25;
@@ -58,7 +68,7 @@ let studio, browser;
     let next = await inspect(page);
     assert.equal(next.scene, "river-willows");
     assert.equal(next.hideTrees, true);
-    assert.equal(next.changes.overworld.scenery[plant.id].x, nextX);
+    assert.equal(next.changes.overworld.scenery[plant.id].x, guardado(nextX));
     const neighborPlant = context.snapshot.scenery["river-willows"].find(e => !isTree(e));
     await page.locator(`#elements [data-id="${neighborPlant.id}"]`).click();
     const neighborX = Number(await page.locator("#x").inputValue()) + 0.25;
@@ -68,7 +78,7 @@ let studio, browser;
     next = await inspect(page);
     assert.equal(next.zoom, framing.zoom);
     assert.deepEqual(next.camera, framing.camera, "Returning restores the zoom and framing");
-    assert.equal(next.changes["river-willows"].scenery[neighborPlant.id].x, neighborX);
+    assert.equal(next.changes["river-willows"].scenery[neighborPlant.id].x, guardado(neighborX));
     await page.waitForFunction(() => !window.MagikitosStudio.inspect().dirty);
     await page.reload();
     await page.waitForFunction(() => window.MagikitosStudio?.inspect().ready);

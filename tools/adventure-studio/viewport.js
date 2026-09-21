@@ -388,6 +388,22 @@ class MapViewport {
     }
     this.frame = requestAnimationFrame(() => this.tick());
   }
+  /**
+   * Un rótulo pegado a una caja, en coordenadas de mundo y al tamaño de la PANTALLA. Lo usan esta
+   * capa y el editor de cuerpos (`body-editor`), que llega aquí por `this.view`: un rectángulo sin
+   * nombre es justo lo que hizo preguntar «¿y este pequeño de abajo qué es?».
+   */
+  label(c, text, x, y, colour) {
+    c.save();
+    c.font = 11 / this.zoom + "px system-ui, sans-serif";
+    c.textBaseline = "bottom";
+    c.lineWidth = 3 / this.zoom;
+    c.strokeStyle = "#0b1a22cc";
+    c.strokeText(text, x, y - 3 / this.zoom);
+    c.fillStyle = colour;
+    c.fillText(text, x, y - 3 / this.zoom);
+    c.restore();
+  }
   overlay() {
     const c = this.renderer.ctx;
     c.save();
@@ -414,64 +430,86 @@ class MapViewport {
       }
       c.stroke();
     }
+    /**
+     * ⛔ UNA COSA, UN COLOR, UN SITIO QUE LA DIBUJA (21-sep-2026, dueño: «¿por qué tantos
+     * rectángulos? solo necesito la colisión y la entrada»). Tenía razón y el problema era de
+     * origen: el umbral se pintaba DOS veces —aquí sin relleno y otra vez en la capa de selección
+     * con relleno—, así que un elemento seleccionado enseñaba dos marcos casi iguales encima del
+     * mismo sitio; y sobre el que estabas editando se juntaban además el marco amarillo y su
+     * cuerpo compilado. Cuatro dibujos para dos conceptos. El contrato, ahora, entero:
+     *
+     * - **Azul** = cuerpo que PARA. **Violeta** = entrada que DEJA PASAR. Un color por concepto,
+     *   aquí y en el editor, esté seleccionado o no.
+     * - Cada concepto se dibuja **en un solo sitio**: este bucle. La capa de selección ya no
+     *   pinta umbrales.
+     * - Del elemento que el editor tiene cogido no se dibuja su cuerpo —lo dibuja el editor, con
+     *   tiradores—, y su umbral automático solo mientras no hayas dibujado una entrada propia.
+     * - Se rotula lo que estás mirando: el elemento seleccionado o el que se edita. Rotular las
+     *   siete puertas del bosque a la vez sería otra pared de texto.
+     */
+    const owned = (e) => this.editor?.enabled && this.editor.entity?.() === e;
     if (this.bodies)
       for (const { e } of [
         ...this.elements(),
         ...this.game.world.architecture.map((e) => ({ e })),
       ]) {
-        /**
-         * ⛔ LA COPIA QUE SE ESTÁ EDITANDO NO LLEVA SU CUERPO VIEJO ENCIMA (21-sep-2026, pregunta
-         * del dueño: «¿por qué hay dos rectángulos azules?»). Abrir el editor enciende esta capa,
-         * que pinta el cuerpo COMPILADO de cada elemento en el mismo azul que usa el editor para
-         * el que estás dibujando. Sobre la casa quedaban dos rectángulos idénticos de color —el
-         * de antes y el de ahora— sin nada que dijera cuál era cuál. El de antes sobra justo ahí:
-         * el editor manda sobre esa copia. Las demás copias sí lo siguen enseñando, que es la
-         * referencia útil de lo que vas a cambiarles.
-         */
-        if (this.editor?.enabled && this.editor.entity?.() === e) continue;
-        for (const body of collisionBodies(e).filter((part) => part.solid)) {
-          const r = collisionBounds(body);
-          c.fillStyle = "#69cbe933";
-          c.strokeStyle = "#9de0f5cc";
-          c.fillRect(r.x, r.y, r.w, r.h);
-          c.strokeRect(r.x, r.y, r.w, r.h);
+        const mine = owned(e),
+          named = mine || this.selection.some((s) => s.e === e);
+        if (!mine) {
+          const cuerpos = collisionBodies(e).filter((part) => part.solid);
+          cuerpos.forEach((body, index) => {
+            const r = collisionBounds(body);
+            c.fillStyle = "#69cbe933";
+            c.strokeStyle = "#9de0f5cc";
+            c.lineWidth = 1.5 / this.zoom;
+            c.fillRect(r.x, r.y, r.w, r.h);
+            c.strokeRect(r.x, r.y, r.w, r.h);
+            // Misma regla que el editor: el número solo cuando de verdad hay varias.
+            if (named)
+              this.label(
+                c,
+                cuerpos.length > 1 ? "Colisión " + (index + 1) : "Colisión",
+                r.x,
+                r.y,
+                "#9de0f5",
+              );
+          });
         }
-        if (e.threshold) {
-          const [x, y, w, h] = e.threshold;
-          c.strokeStyle = "#87e5ff";
-          c.strokeRect(x * TILE, y * TILE, w * TILE, h * TILE);
-        }
-      }
-    for (const selected of this.selection) {
-      const e = selected.e,
-        f = this.renderer.sprites.frame(
-          require("../../public/assets/js/adventure/elements").frameName(e),
-        ),
-        r = f
-          ? artworkBounds(e, f)
-          : { x: e.x - 12, y: e.y - 12, w: 24, h: 24 };
-      c.strokeStyle = "#ffdf89";
-      c.lineWidth = 2 / this.zoom;
-      c.strokeRect(r.x - 2, r.y - 2, r.w + 4, r.h + 4);
-      c.fillStyle = "#ffdf89";
-      c.beginPath();
-      c.arc(e.x, e.y, 3 / this.zoom, 0, 7);
-      c.fill();
-      // La entrada de una puerta: la franja que la abre (azul) y el punto de llegada al salir.
-      if (e.portal && Array.isArray(e.threshold)) {
+        if (!Array.isArray(e.threshold) || (mine && this.editor.entrance)) continue;
         const [x, y, w, h] = e.threshold;
-        c.fillStyle = "#87e5ff66";
-        c.strokeStyle = "#87e5ff";
+        c.fillStyle = "#e59bff33";
+        c.strokeStyle = "#e59bff";
         c.lineWidth = 1.5 / this.zoom;
         c.fillRect(x * TILE, y * TILE, w * TILE, h * TILE);
         c.strokeRect(x * TILE, y * TILE, w * TILE, h * TILE);
-        if (Array.isArray(e.arrival)) {
-          c.fillStyle = "#87e5ff";
+        if (named)
+          this.label(c, mine ? "Entrada automática" : "Entrada", x * TILE, y * TILE, "#e59bff");
+        // El punto de llegada es cosa de la puerta, no del cuerpo: estorba mientras se edita.
+        if (Array.isArray(e.arrival) && !mine) {
+          c.fillStyle = "#e59bff";
           c.beginPath();
           c.arc(e.arrival[0] * TILE, e.arrival[1] * TILE, 3 / this.zoom, 0, 7);
           c.fill();
         }
       }
+    /** Amarillo = «esto es lo que tienes elegido». Con el editor abierto sobra el marco: ya está
+     *  enfocado y su caja es el asunto. Se queda el punto del ancla, que es el origen de los
+     *  cuatro números del panel. */
+    for (const selected of this.selection) {
+      const e = selected.e;
+      if (!owned(e)) {
+        const f = this.renderer.sprites.frame(
+            require("../../public/assets/js/adventure/elements").frameName(e),
+          ),
+          r = f ? artworkBounds(e, f) : { x: e.x - 12, y: e.y - 12, w: 24, h: 24 };
+        c.strokeStyle = "#ffdf89";
+        c.lineWidth = 2 / this.zoom;
+        c.strokeRect(r.x - 2, r.y - 2, r.w + 4, r.h + 4);
+      }
+      c.fillStyle = "#ffdf89";
+      c.beginPath();
+      c.arc(e.x, e.y, 3 / this.zoom, 0, 7);
+      c.fill();
     }
     if (this.drag?.type === "box") {
       const { start: a, end: b } = this.drag;
