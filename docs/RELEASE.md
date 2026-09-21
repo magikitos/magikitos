@@ -4,6 +4,39 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: dieciocho melodías más y el peso medido — 21 septiembre 2026
+
+Artefacto `8fee2c4f72711c844e46`, fuente del juego `d4bde92`, web `13b100d0` (solo puntero).
+Anterior conservada: `10a99014de5761a7c628`. Mismas rutas.
+
+SHA-256 de `release.json`: `02373564754d82b54d9c250939f9cda8a2d6a27313300a33f97c2fb9b38f19e0`. 817
+archivos verificados y ESTACIONADOS antes de mover el puntero. **Sin migración**, **sin PHP**,
+**sin cambio de contrato**; el demonio arrancó con `release=8fee2c4f72711c844e46`.
+
+⛔ **Construido desde un árbol LIMPIO** (worktree disperso, 188 MB sin los másteres de arte) con
+el MISMO id que el árbol de trabajo.
+
+### Alcance publicado
+
+- **De cuatro pistas a veintidós**, de doce minutos de música a sesenta y siete. Entran por la
+  herramienta de siempre: original intacto en `data/audio/originals` con su MD5 por nombre y
+  derivado normalizado a −20 LUFS, pico −2 dBTP, estéreo 44,1 kHz a 128 kbit/s. Se importaron
+  desde una COPIA de la carpeta de descargas, porque `--import` mueve el fichero de entrada.
+- **Al que juega no le cuesta nada**: los dos decks van con `preload="none"` y solo tienen
+  cargadas la pista actual y la siguiente, así que entrar con el sonido puesto son dos peticiones
+  de audio haya cuatro pistas o cuarenta. Lo que crece es el artefacto: 87 MB, de los que 62 son
+  audio y 22 arte.
+- **El peso, medido y escrito** en RELEASING.md: el arte ya está en el mínimo (348 de 351
+  paquetes en paleta de 256 colores; recomprimir el IDAT ahorra 0,2 %, refiltrar por línea lo deja
+  13,9 % MÁS grande, y reordenar el atlas ahorraría un 2 % a cambio de que todo el mundo se
+  vuelva a descargar 19 MB). Los «13 MB» de un paquete eran memoria descodificada: en disco son
+  808 KB.
+
+### Comprobado
+
+`npm test` entero (82 bloques) y `test:audio` con las veintidós pistas. En producción,
+`check-release-live` en las seis rutas y el catálogo servido con las 22 pistas.
+
 ## Producción: el agua se pregunta por filas, no punto a punto — 21 septiembre 2026
 
 Artefacto `10a99014de5761a7c628`, fuente del juego `7e9f590`, web `bb9131cc` (solo puntero).
