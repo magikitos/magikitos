@@ -4,6 +4,10 @@ const { activity } = require("./activities");
 const { ratingView } = require("./ratings");
 const { operationId } = require("./ids");
 
+const LANGUAGES = ["es", "en", "de", "fr", "it", "pt"];
+/** Each language written in itself, as a language menu should read. */
+const languageName = code => new Intl.DisplayNames([code], { type: "language" }).of(code);
+
 /** Website-owned recipes, rendered as native game cards. Drafts stay in this browser only;
  * the website validates identity and ingredients. Seats never gate personal publication. */
 class Restaurant {
@@ -54,7 +58,9 @@ class Restaurant {
     const list = el("ul", { class:"world-recipe-ingredients" });
     for (const ingredient of item.ingredients || []) {
       const name = this.data.ingredients.find(d => d.id === ingredient.id)?.name || ingredient.id;
-      list.append(el("li", { text: `${ingredient.quantity} ${ingredient.unit} · ${name}` }));
+      const unit = this.data.units.find(u => u.id === ingredient.unit)?.label || ingredient.unit;
+      const quantity = new Intl.NumberFormat(g.config.locale, { maximumFractionDigits: 2 }).format(ingredient.quantity);
+      list.append(el("li", { text: `${quantity} ${unit} · ${name}` }));
     }
     root.append(list);
     if (item.audio) {
@@ -95,7 +101,7 @@ class Restaurant {
     const instructions = el("textarea", { rows: 6, maxlength: this.data.limits.instructions, placeholder: l.textHint, text: draft.instructions });
     title.oninput = () => { draft.title = title.value; draft.operationId = operationId(); };
     instructions.oninput = () => { draft.instructions = instructions.value; draft.operationId = operationId(); };
-    const lang = el("select", {}, ["es","en","de","fr","it","pt"].map(value => el("option", { value, text: ({es:"Español",en:"English",de:"Deutsch",fr:"Français",it:"Italiano",pt:"Português"})[value] })));
+    const lang = el("select", {}, LANGUAGES.map(value => el("option", { value, text: languageName(value) })));
     lang.value = draft.lang;
     lang.onchange = () => { draft.lang = lang.value; draft.operationId = operationId(); };
     form.append(field(l.dish,title),field(l.language,lang),el("h2",{text:l.ingredients}));
@@ -103,7 +109,7 @@ class Restaurant {
       const existing = draft.ingredients.find(i => i.id === definition.id);
       const check = el("input", { type:"checkbox", "aria-label":definition.name }); check.checked = !!existing;
       const count = el("input", { type:"number", min:0.01, max:100000, step:"any", value:existing?.quantity || 1, "aria-label":l.quantity });
-      const units = el("select", { "aria-label":l.unit }, ["g","kg","ml","l","unit","tsp","tbsp","pinch"].map(value => el("option", { value,text:value })));
+      const units = el("select", { "aria-label":l.unit }, this.data.units.map(unit => el("option", { value:unit.id, text:unit.label })));
       units.value = existing?.unit || "unit";
       const update = () => {
         draft.ingredients = draft.ingredients.filter(i => i.id !== definition.id);
@@ -124,13 +130,18 @@ class Restaurant {
         if (request.signal.aborted) { stream.getTracks().forEach(t=>t.stop()); return; }
         g.media.stop(); g.narrating(true);
         const recorder = new MediaRecorder(stream), chunks = [];
-        this.recording = { recorder, stream, timer: setTimeout(()=>this.stopRecording(), this.data.limits.audioSeconds[1]*1000) };
+        this.recording = { recorder, stream, startedAt: performance.now(), timer: setTimeout(()=>this.stopRecording(), this.data.limits.audioSeconds[1]*1000) };
+        const startedAt = this.recording.startedAt;
         let bytes = 0;
         recorder.ondataavailable = event => { chunks.push(event.data); bytes += event.data.size; if (bytes > this.data.limits.audioBytes) this.stopRecording(); };
         recorder.onstop = () => {
           stream.getTracks().forEach(t=>t.stop()); g.narrating(false);
-          draft.audio = new Blob(chunks, { type:recorder.mimeType }); draft.operationId = operationId();
-          if (!request.signal.aborted) { record.textContent = l.record; preview(); send.disabled = false; }
+          const tooShort = performance.now() - startedAt < this.data.limits.audioSeconds[0] * 1000;
+          draft.audio = tooShort ? null : new Blob(chunks, { type:recorder.mimeType }); draft.operationId = operationId();
+          if (!request.signal.aborted) {
+            record.textContent = l.record; preview(); send.disabled = false;
+            if (tooShort) status.textContent = l.audioDuration;
+          }
         };
         recorder.onerror = () => { this.stopRecording(); status.textContent = l.error; };
         recorder.start(1000); record.textContent = l.stop; send.disabled = true;
@@ -181,7 +192,7 @@ class Restaurant {
       } catch (error) {
         // A lost acknowledgement must resend the SAME publication, not turn an edit into a second recipe.
         if (error.status >= 400 && error.status < 500 && error.status !== 429) this.publication = null;
-        status.textContent = error.code === "ingredients_required" ? l.missing : l.error;
+        status.textContent = ({ ingredients_required:l.missing, too_many:l.tooMany, invalid_audio_duration:l.audioDuration })[error.code] || l.error;
         freeze(!!this.publication);
       }
       finally { send.disabled = false; send.textContent = l.send; }

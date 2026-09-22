@@ -177,7 +177,7 @@ class WorldApi {
     let body;
     if (method === "POST") {
       body = JSON.stringify(params);
-      if (multipart) { body = new FormData(); body.set("recipe", JSON.stringify(params)); body.set("audio", options.audio, "recipe.webm"); }
+      if (multipart) { body = new FormData(); body.set("recipe", JSON.stringify(params)); body.set("audio", options.audio, "recipe." + (/^audio\/(\w+)/.exec(options.audio.type || "")?.[1] || "webm")); }
     }
     const timeout = AbortSignal.timeout(options.timeout || 12000);
     const signal = options.signal

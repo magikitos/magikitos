@@ -6135,6 +6135,7 @@
           "ok",
           "labels",
           "ingredients",
+          "units",
           "limits",
           "items",
           "nextCursor"
@@ -6153,6 +6154,34 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/RecipeIngredientDefinition"
+            }
+          },
+          "units": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "label"
+              ],
+              "properties": {
+                "id": {
+                  "enum": [
+                    "g",
+                    "kg",
+                    "ml",
+                    "l",
+                    "unit",
+                    "tsp",
+                    "tbsp",
+                    "pinch"
+                  ]
+                },
+                "label": {
+                  "type": "string"
+                }
+              }
             }
           },
           "limits": {
@@ -6216,6 +6245,7 @@
           "ok",
           "labels",
           "ingredients",
+          "units",
           "limits",
           "recipe"
         ],
@@ -6233,6 +6263,34 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/RecipeIngredientDefinition"
+            }
+          },
+          "units": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "label"
+              ],
+              "properties": {
+                "id": {
+                  "enum": [
+                    "g",
+                    "kg",
+                    "ml",
+                    "l",
+                    "unit",
+                    "tsp",
+                    "tbsp",
+                    "pinch"
+                  ]
+                },
+                "label": {
+                  "type": "string"
+                }
+              }
             }
           },
           "limits": {

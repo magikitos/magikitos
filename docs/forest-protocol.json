@@ -15,7 +15,6 @@
     "lostMs": 15000,
     "graceMs": 60000,
     "idleMs": 60000,
-    "idleWarningMs": 60000,
     "playerSnapshotMs": 100,
     "spectatorSnapshotMs": 2500,
     "zoneSnapshotMs": 1000,
@@ -48,7 +47,6 @@
     "zona": ["now", "scene", "zone", "revision"],
     "corregir": ["position"],
     "cruce": ["request", "ok", "position"],
-    "inactivo": ["remainingMs"],
     "renovado": ["expiresAt"],
     "adios": ["reason"]
   },

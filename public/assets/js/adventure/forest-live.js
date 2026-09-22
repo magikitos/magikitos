@@ -53,7 +53,6 @@ class ForestLive {
       { width: g.world.width * TILE, height: g.world.height * TILE });
     else if (packet.type === "objetos") this.objects.snapshot(packet);
     else if (packet.type === "zona") g.community.sync.notice(packet);
-    else if (packet.type === "inactivo") g.toast(g.text("forestIdle"));
     else if (packet.type === "adios" && ["protocol_mismatch", "replaced"].includes(packet.reason))
       g.toast(g.text(packet.reason === "replaced" ? "forestOtherWindow" : "forestReload"));
   }

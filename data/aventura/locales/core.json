@@ -123,22 +123,6 @@
     "it": "Qui c'è tanta gente! Possono costruire dieci persone alla volta. Se siete di più, ha priorità chi ha più reputazione Magikitos (setines), senza spenderla. Ora non sei tra quei dieci. Continua a esplorare e cucinare: potrai costruire automaticamente quando si libera un posto o cambia la priorità.",
     "pt": "Este cantinho está cheio! Podem construir dez pessoas de cada vez. Havendo mais, a reputação Magikitos (setines) dá prioridade, sem ser gasta. Neste momento não estás entre essas dez. Continua a explorar e a cozinhar: o acesso volta automaticamente quando houver lugar ou a prioridade mudar."
   },
-  "forestAdmitted": {
-    "es": "¡Ea, ya tienes sitio en el bosque!",
-    "en": "You're in! The forest has a place for you.",
-    "de": "Du bist dabei! Im Wald ist jetzt Platz für dich.",
-    "fr": "Ça y est, la forêt te fait une place !",
-    "it": "Ci sei! Il bosco ti ha fatto spazio!",
-    "pt": "Já estás dentro! O bosque tem lugar para ti!"
-  },
-  "forestIdle": {
-    "es": "¿Sigues por ahí, figura? Si descansas, dejamos tu sitio a quien está esperando.",
-    "en": "Still there? If you're taking a break, we'll let someone waiting have your place.",
-    "de": "Bist du noch da? Wenn du Pause machst, lassen wir jemanden von der Warteliste rein.",
-    "fr": "Toujours là ? Si tu fais une pause, on laisse ta place à quelqu'un qui attend.",
-    "it": "Sei ancora lì? Se fai una pausa, lasciamo il posto a chi sta aspettando.",
-    "pt": "Ainda estás aí? Se estás a descansar, damos lugar a quem está à espera."
-  },
   "forestOtherWindow": {
     "es": "Has entrado al bosque desde otra ventana. Aquí puedes seguir a tu aire.",
     "en": "You entered the forest in another window. You can keep exploring on your own here.",
