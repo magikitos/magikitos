@@ -4,6 +4,81 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: restaurante público y diez plazas por reputación — 22 septiembre 2026
+
+Artefacto `f57b112ebbdfdf23a875`, fuente del juego `73b8df3`, web `d43d435a`.
+Activado a las 17:00 UTC mediante el pipeline de la web; `bosque-vivo` arrancó
+con esa misma release. 819 archivos verificados antes de activar el puntero.
+Reconstrucción desde el commit sin cambios: mismo ID. SHA-256 de `release.json`:
+`bb4bbcf90a491dd887604fa7661c66b4d6676f48a8da472ccc7537fe74cd0296`.
+Anterior conservada: `ffbc872aa296a92f8867`. Mismo artefacto instalado en DDEV.
+
+- Bosque enteramente público. Diez jugadores visibles/con permiso para iniciar
+  obras **por escena**, participación automática y prioridad por los setines
+  reales de la web, sin gastarlos. Empates por llegada; 60 s sin acción ceden
+  sitio solo si hay candidatos activos. Visitantes conservan aventura y contenidos.
+- Permisos de una acción ligados a identidad/sesión/zona/tipo/objeto. Una valla
+  o bombita iniciada se puede guardar después de perder plaza; otra requiere
+  permiso nuevo. Consumo atómico, recibos y reintentos sin doble cobro.
+- Restaurante exterior de teja en el claro, con arte original, mesas, comida,
+  asientos, faroles y vecinos. Atlas independiente de 88.680 bytes, 2× integrado;
+  las actividades ambientales son locales y acotadas, sin fabricar reputación.
+- Recetas propiedad de la web: JSON, SSR en seis idiomas, texto/voz libre,
+  ingredientes comprobados en servidor (no gastados), votos, Content Pulse,
+  ranking, búsqueda y moderación. Leer/escuchar/votar no exige ingredientes.
+  Rutas operativas **sin enlace en la navegación pública**. Catálogo inicial:
+  setas; los demás ingredientes llegarán con sus aventuras, no como materiales
+  inventados. [Contrato y límites actuales](RESTAURANT.md).
+- Corregido un doble gesto táctil: el clic sintetizado después de abrir un
+  diálogo largo ya no lo cierra inmediatamente. Sin cambios de marcha ni zoom.
+- Studio revision 802: sin diferencias pendientes ni conflictos; conservado el
+  trabajo del dueño. Los 18 protagonistas y los residentes no cambian.
+
+Migraciones aditivas **4241** (permisos) y **4242** (recetas/ingredientes),
+aplicadas por el runner del VPS con checksum y dump previo individual:
+
+- `/var/backups/migrations/magikitos/20260922T165626Z__4241_forest_construction_permits.sql.gz`
+- `/var/backups/migrations/magikitos/20260922T165733Z__4242_recipes.sql.gz`
+- Dump adicional previo al despliegue:
+  `/var/backups/deploys/magikitos/20260922T165910Z__f7edc5814da0baa948b75afd9542b2b67e5830c2.sql.gz`.
+
+Audio de recetas en el volumen, enlazado desde `public/assets/audios/recipes`;
+escritura del usuario del sitio y FFmpeg comprobados. Sin importaciones, usuarios,
+recetas, votos ni partidas de prueba en producción. No se reinician otros servicios.
+Un rollback conserva las tablas aditivas y las escrituras de los jugadores: nunca
+restaurar esos dumps encima de aportaciones posteriores sin una decisión explícita.
+
+Verificación:
+
+- `npm test -- --reuse-art` completo, después de reconstruir/verificar el arte;
+  18 protagonistas / 126 sheets, rutas, navegación, física, streaming, contratos
+  y Studio. Reconstrucción final reproduce el mismo artefacto.
+- 65 comprobaciones reales de HTTP/PHP/SQL/WebSocket en DDEV: permisos, democión,
+  replay, falsificación, cambio real de reputación/ticket antiguo, publicación,
+  ingredientes, audio multipart y las seis páginas SSR.
+- Navegadores: restaurante en cinco tamaños (incluido 320 px y horizontal),
+  grabación real con micrófono sintético, votos sin ingredientes y reintento
+  de publicación; cuenta/diálogos y controles en cuatro tamaños; bosque vivo
+  en escritorio/tablet/móvil; valla dibujada, democión, guardado y siguiente
+  acción denegada en escritorio y móvil. PHP de comunidad, mensajes y mantenimiento.
+- Carga local aislada: 10 activos + 1.000 visitantes, 146 MiB para servidor y
+  clientes de prueba juntos, p99 del event loop 34 ms. Es una medición local,
+  no una promesa de capacidad del VPS ni una prueba de carga de producción.
+- `check-release-live` completo contra DDEV y producción: seis shells/landings,
+  recetas SSR/JSON, API pública, hashes, navegación/remado, assets diferidos y
+  ausencia de desbordamiento. Cero escrituras de jugador; telemetría y los POST
+  de seguridad inyectados se bloquean en esa prueba. Web pública intacta.
+- Origen de producción: las seis páginas coinciden byte por byte. En el borde
+  solo se admite la inserción de seguridad de Cloudflare. Servicio activo y
+  log de arranque de la release comprobados. Home sin enlace a recetas.
+
+La antigua `check-community-browser` no se da por pasada: aún prueba recogidas
+y retirada/reembolso ya retirados. La construcción actual queda cubierta por
+la nueva prueba de permisos, el núcleo y las 65 comprobaciones de API real;
+no se reintroducen acciones obsoletas para hacer pasar un test histórico.
+Capturas: `.local/restaurant-review/`, `.local/forest-review/`,
+`.local/self-dialogue-review/` y `.local/controls-review/`.
+
 ## Producción: «Yo», diálogos, muelles y prueba física del Studio — 22 septiembre 2026
 
 Artefacto `ffbc872aa296a92f8867`, juego `3d64f9e`, web `f7edc581`.
