@@ -4,6 +4,63 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: el mapa nuevo del dueño, y la accesibilidad deja de mirar una sola pantalla — 22 septiembre 2026
+
+Artefacto `1271c25008e2655db47f`, fuente del juego `542b658`, web `621ed663` (solo puntero).
+Anterior conservada: `16680a394ddf68e7cc91`. Mismas rutas.
+
+SHA-256 de `release.json`: `8b2452695a2b60f5519b951064b5d490f2c361020184a380c037aff1d1e7552a`. 817
+archivos verificados y ESTACIONADOS antes de mover el puntero. **Sin migración**, **sin PHP nuevo**;
+cambia el contrato (medio bosque de sitio) y el demonio arrancó con `release=1271c25008e2655db47f`.
+Construido desde un árbol limpio, idéntico byte a byte al del árbol de trabajo.
+
+### Lo que publicó el dueño
+
+Sesión entera de Studio aplicada tal cual: **92 decoraciones retiradas**, **30 colocaciones
+movidas** y **entrada dibujada en cuatro casas**. El **almacén** se muda a la orilla ESTE
+(171,75 · 36,25), la **casa de hojas** al hueco que deja (103,75 · 103), el **setómetro** arriba del
+todo, y **cuatro rocas alineadas en x=146,75** sellan a propósito el paso a pie: a esa orilla se
+llega desembarcando río arriba y entrando por la costura de arriba. La decoración del bosque baja
+de 232 a 143 piezas.
+
+⛔ **Y ESO ES LO QUE LA VERJA NO SABÍA MIRAR.** `check-adventure` declaró el almacén perdido, y se
+equivocaba por partida doble. La cadena de errores, porque las tres veces el dueño tenía razón:
+
+1. Medía «se llega andando desde el `spawn` de ESTA pantalla». A una pantalla se entra también por
+   la costura de una vecina y desembarcando en un muelle.
+2. Al meter la llegada de las PUERTAS como entrada, el almacén pasó a declararse alcanzable **desde
+   su propia puerta**, que es no comprobar nada: la llegada de una puerta es donde apareces al
+   SALIR, y para salir has tenido que entrar. Medido: era la única entrada que llegaba.
+3. Y el error de fondo: **`exit.position` es dónde aterrizas en la pantalla de DESTINO**, así que
+   las salidas de una pantalla describen puntos de OTRA. Mirando las suyas se le atribuían al
+   bosque llegadas en el filo de abajo (y=143,9) donde no se puede estar, mientras se le ocultaba
+   la que sí tiene: `river-willows/meadow-down-bank` deja en **(160, 0,1)**, arriba en la orilla
+   este, y desde ahí se llega al almacén andando. Ahora se recorre el catálogo entero.
+
+Comprobado en negativo: desviando esa costura a la orilla oeste, la prueba vuelve a ponerse roja
+nombrando las entradas que probó.
+
+### Dos más, de que la entrada viva ya en el ELEMENTO
+
+- `validatePlacement` juzgaba la entrada contra el cuerpo escrito en la COPIA, y casi ninguna lo
+  lleva desde que el cuerpo es del elemento: veía «sin cuerpo, nada que estorbe» y habría aceptado
+  una entrada metida dentro de la casa. Ahora pregunta a la familia.
+- `renderScene` BORRABA la entrada heredada al mover una copia (`elementBody` solo contesta por las
+  propuestas pendientes): mover una casa dos casillas devolvía su puerta ancha a la automática de
+  una casilla en la vista previa.
+
+### Y un tercer tope escrito a mano
+
+`check-adventure-doors` exigía `w <= 2` y se puso roja por una puerta de 2,75 perfectamente legal
+desde que el ancho subió a 3. Sale de `ENTRANCE_LIMITS`, como los otros dos que ya se corrigieron.
+Van tres pruebas con el mismo vicio en dos días: **un límite no se escribe dos veces**.
+
+### Comprobado
+
+`npm test` entero (84 bloques, salida 0) y en producción `check-release-live` en las seis rutas,
+más la lectura directa del `adventure-config` servido para el almacén, la casa de hojas, el
+setómetro y las rocas.
+
 ## Producción: la primera puerta ancha, y una entrada dentro del cuerpo ya no se puede guardar — 22 septiembre 2026
 
 Artefacto `16680a394ddf68e7cc91`, fuente del juego `b201827`, web `575fc41d` (solo puntero).
