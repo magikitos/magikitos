@@ -56,6 +56,12 @@ bloques vigilan cosas que antes no vigilaba nadie y que se rompieron de verdad:
 
 Según el cambio:
 
+- `npm run test:self`: formulario anónimo antes del avatar, envío y confirmación,
+  errores junto al campo, cierre al elegir duende y gestos de diálogo; cuatro
+  tamaños con API simulada, sin enviar correos ni modificar cuentas reales.
+- `npm run test:dock-access`: acceso del muelle compartido por variante, paridad
+  con el servidor y editor en tres tamaños con un workspace temporal.
+
 - `node scripts/review-world.cjs nombre`: capturas locales de bosque, picnic,
   taberna, jardín de gatos, cinco ríos y claro comunitario. Perfiles aislados,
   escrituras bloqueadas; revisar los PNG, no solo que el comando termine.
@@ -85,6 +91,9 @@ Según el cambio:
   `npm run test:river-ddev` (embarque autenticado de verdad contra DDEV) y
   `npm run test:release-live <origen> <artefacto>` (humo en producción tras desplegar).
 - `npm run test:browser`: integración con API local, seis idiomas e interiores.
+- `npm run test:studio-probe`: duende de prueba, geometría pendiente/guardada,
+  superficie caminable de muelles, colores de contacto/entrada y guardado en
+  escritorio/tablet/móvil. Solo workspaces temporales.
 - `npm run test:journeys`, `test:world-controls`: destinos, navegación y el mando
   del mapa (el dedo es un joystick invisible que SOLO anda, soltar para, y la cámara
   es del duende; lo de plantar destino arrastrando y correr por distancia se retiró

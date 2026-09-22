@@ -1,13 +1,11 @@
 "use strict";
 const { clampCamera } = require("./camera");
-const DRAG_SLOP = 8; // CSS pixels, equally comfortable for mouse, pen and touch.
+const { DRAG_SLOP, STICK_DEAD, STICK_RADIUS, steerStick, stickIntent } = require("./direction-stick");
 /**
  * El mando invisible, en píxeles de PANTALLA y no de mundo: la sensación en el pulgar no puede
  * cambiar con el zoom. Más cerca del origen que STICK_DEAD no hay dirección; STICK_RADIUS es el
  * aro, y pasado el aro el origen se arrastra detrás del dedo. La distancia NO es la marcha.
  */
-const STICK_DEAD = 10;
-const STICK_RADIUS = 100;
 const point = (event) => ({ x: event.clientX, y: event.clientY });
 
 /**
@@ -233,22 +231,11 @@ class MapGestures {
    * hacia atrás es cambiar de rumbo al instante, sin levantar.
    */
   steer(p) {
-    const s = this.stick;
-    s.finger = { x: p.x, y: p.y };
-    const dx = p.x - s.origin.x,
-      dy = p.y - s.origin.y,
-      len = Math.hypot(dx, dy);
-    if (len > STICK_RADIUS)
-      s.origin = { x: p.x - (dx / len) * STICK_RADIUS, y: p.y - (dy / len) * STICK_RADIUS };
+    steerStick(this.stick, p);
   }
   /** Hacia dónde empuja el dedo, o null si no hay mando o está en la zona muerta. */
   intent() {
-    const s = this.stick;
-    if (!s) return null;
-    const dx = s.finger.x - s.origin.x,
-      dy = s.finger.y - s.origin.y,
-      len = Math.hypot(dx, dy);
-    return len < STICK_DEAD ? null : { x: dx / len, y: dy / len };
+    return stickIntent(this.stick);
   }
   /**
    * El mando tal y como se ve, en unidades de la VISTA (píxeles de mundo sin cámara), para que el

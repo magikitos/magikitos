@@ -33,6 +33,7 @@ class MapViewport {
     this.renderer = new Renderer(canvas, viewport);
     this.renderer.terrain.limit = 128;
     this.pointers = new Map();
+    this.doubleTap = new (require("./element-double-tap").ElementDoubleTap)();
     this.state = { flags: {}, inventory: {}, traces: [] };
     this.game = {
       state: this.state,
@@ -46,6 +47,7 @@ class MapViewport {
       self: { frame: () => null, drawGround() {}, drawStream() {} },
       roll: { frame: () => null },
     };
+    this.probe = new (require("./physics-probe").PhysicsProbe)(this);
     this.resizeObserver = new ResizeObserver(() => this.resize());
     this.resizeObserver.observe(viewport);
     canvas.addEventListener("pointerdown", (e) => this.down(e));
@@ -82,6 +84,7 @@ class MapViewport {
     this.renderer.sprites.activate(prepared);
   }
   setScene(data, fit = false) {
+    this.doubleTap.clear();
     const groundKey = JSON.stringify({
       ...data,
       entities: undefined,
@@ -90,10 +93,12 @@ class MapViewport {
     if (groundKey !== this.groundKey) this.renderer.terrain.chunks.clear();
     this.groundKey = groundKey;
     this.world = new World(data);
+    this.dockRows = require("./dock-elements").dockElements(data);
     this.game.world = visibleWorld(this.world, this.hideTrees);
     this.selected = null;
     this.selection = [];
     if (fit) this.fit();
+    this.probe.refreshWorld();
     this.dirty = true;
   }
   setTreesHidden(hidden) {
@@ -169,12 +174,17 @@ class MapViewport {
     return [
       ...visible.props.map((e) => ({ e, layer: "scenery" })),
       ...visible.entities.map((e) => ({ e, layer: "entities" })),
+      ...(this.dockRows || []),
     ].sort((a, b) => a.e.y - b.e.y);
   }
   hit(point) {
     return this.elements()
       .reverse()
       .find(({ e }) => {
+        if (e.hitRect) {
+          const r = e.hitRect;
+          return point.x >= r.x && point.x <= r.x + r.w && point.y >= r.y && point.y <= r.y + r.h;
+        }
         if (e.fence)
           return require("../../public/assets/js/adventure/fences").hit(
             e,
@@ -226,7 +236,10 @@ class MapViewport {
     this.canvas.focus();
     this.canvas.setPointerCapture(e.pointerId);
     this.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    this.tapTarget = null;
     if (this.pointers.size === 2) {
+      this.doubleTap.clear();
+      this.probe.clear();
       if (this.drag?.type === "move") this.cancelDrag();
       if (this.drag?.type === "tool") this.editor.cancelGesture();
       const [a, b] = [...this.pointers.values()];
@@ -238,6 +251,11 @@ class MapViewport {
       return;
     }
     const point = this.point(e.clientX, e.clientY);
+    if (this.probe.enabled && !this.hand && e.button === 0) {
+      this.drag = { type: "probe", point };
+      this.probe.down(e);
+      return;
+    }
     if (this.editor?.enabled && !this.hand && !this.space && e.button === 0) {
       this.drag = { type: "tool" };
       this.editor.down(point, e);
@@ -247,6 +265,7 @@ class MapViewport {
       !this.hand && !this.space && e.button === 0 ? this.hit(point) : null;
     if (hit) {
       if (e.shiftKey || e.metaKey || e.ctrlKey) {
+        this.doubleTap.clear();
         this.select(hit.e.id, hit.layer, false, true);
         this.drag = null;
         return;
@@ -255,6 +274,8 @@ class MapViewport {
         (p) => p.e.id === hit.e.id && p.layer === hit.layer,
       );
       if (!alreadySelected) this.select(hit.e.id, hit.layer, false, this.multi);
+      this.tapTarget = { row: hit, origin: { x: e.clientX, y: e.clientY } };
+      if (hit.e.dockAccess) { this.drag = null; return; }
       this.drag = {
         type: "move",
         id: hit.e.id,
@@ -305,6 +326,7 @@ class MapViewport {
     }
     const d = this.drag;
     if (!d) return;
+    if (d.type === "probe") { this.probe.move(e); return; }
     if (d.type === "tool") {
       this.editor.motion(this.point(e.clientX, e.clientY), e);
     } else if (d.type === "pan") {
@@ -343,7 +365,13 @@ class MapViewport {
   }
   up(e, cancel = false) {
     if (!this.pointers.has(e.pointerId)) return;
-    if (this.drag?.type === "tool") this.editor.up(cancel);
+    const tap = this.tapTarget;
+    const double = !cancel && tap && !this.drag?.moved && this.pointers.size === 1 &&
+      Math.hypot(e.clientX - tap.origin.x, e.clientY - tap.origin.y) < 4 &&
+      this.doubleTap.tap(tap.row, { x: e.clientX, y: e.clientY }, performance.now(), e.pointerType);
+    if (cancel || !tap || this.drag?.moved) this.doubleTap.clear();
+    if (this.drag?.type === "probe") this.probe.up(this.drag.point, cancel);
+    else if (this.drag?.type === "tool") this.editor.up(cancel);
     else if (cancel) this.cancelDrag();
     else if (this.drag?.type === "box") {
       const { start: a, end: b, previous } = this.drag;
@@ -375,9 +403,15 @@ class MapViewport {
     this.pointers.delete(e.pointerId);
     this.drag = null;
     this.pinch = null;
+    this.tapTarget = null;
+    if (double) {
+      this.select(tap.row.e.id, tap.row.layer);
+      this.onEditBody?.(this.selected);
+    }
     this.dirty = true;
   }
   tick() {
+    this.probe.tick(performance.now());
     // `active` existía para apagar el dibujado mientras se miraba el laboratorio de
     // experimentos. El laboratorio se borró con ellos, así que aquí solo queda tener mundo y
     // algo que repintar.
@@ -455,6 +489,15 @@ class MapViewport {
       ]) {
         const mine = owned(e),
           named = mine || this.selection.some((s) => s.e === e);
+        if (e.dockAccess && !mine) {
+          c.save(); c.translate(e.x, e.y); c.rotate((e.rotation || 0) * Math.PI / 180);
+          for (const [box, color] of [[e.walkable, "#94e760"], [e.entrance, "#e59bff"]]) {
+            c.fillStyle = color + "33"; c.strokeStyle = color;
+            c.fillRect(...box.map(v => v * TILE)); c.strokeRect(...box.map(v => v * TILE));
+          }
+          c.restore();
+          if (named) this.label(c, "Caminable · Embarcar", e.hitRect.x, e.hitRect.y, "#c5ff75");
+        }
         if (!mine) {
           const cuerpos = collisionBodies(e).filter((part) => part.solid);
           cuerpos.forEach((body, index) => {
@@ -501,7 +544,7 @@ class MapViewport {
         const f = this.renderer.sprites.frame(
             require("../../public/assets/js/adventure/elements").frameName(e),
           ),
-          r = f ? artworkBounds(e, f) : { x: e.x - 12, y: e.y - 12, w: 24, h: 24 };
+          r = e.hitRect || (f ? artworkBounds(e, f) : { x: e.x - 12, y: e.y - 12, w: 24, h: 24 });
         c.strokeStyle = "#ffdf89";
         c.lineWidth = 2 / this.zoom;
         c.strokeRect(r.x - 2, r.y - 2, r.w + 4, r.h + 4);
@@ -519,6 +562,7 @@ class MapViewport {
       c.strokeRect(a.x, a.y, b.x - a.x, b.y - a.y);
     }
     this.editor?.draw(c);
+    this.probe.draw(c);
     if (document.getElementById("river-topology")?.checked)
       require("./river-overlay").drawRiverOverlay(
         c,

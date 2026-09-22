@@ -98,7 +98,6 @@
         <span id="page-count"></span>
       </div>
       <div id="dialogue-actions"></div>
-      <button type="button" id="dialogue-next">{{done}}</button>
     </div>
     <div
       id="pickup-status"
@@ -252,6 +251,49 @@
       </div>
 
       <div class="world-self-columns">
+        <section class="world-self-account world-card" id="self-account" aria-labelledby="self-account-title">
+          <h3 id="self-account-title" class="world-card-title">{{accountTitle}}</h3>
+          <div id="self-signin" hidden>
+            <p class="world-self-lead">{{accountSave}}</p>
+            <button type="button" class="world-primary world-self-google" id="self-google">
+              {{authGoogle}}
+            </button>
+            <p class="world-self-or" id="self-signin-or"><span>{{authOr}}</span></p>
+            <form id="self-email-form" novalidate>
+              <input
+                type="email"
+                id="self-email"
+                autocomplete="email"
+                inputmode="email"
+                maxlength="190"
+                aria-label="{{authEmailPlaceholder}}"
+                placeholder="{{authEmailPlaceholder}}"
+                aria-describedby="self-email-error"
+              />
+              <p id="self-email-error" class="world-field-error" role="alert"></p>
+              <button type="submit" class="world-primary">{{authSendCode}}</button>
+            </form>
+            <form id="self-code-form" hidden novalidate>
+              <input
+                type="text"
+                id="self-code"
+                inputmode="numeric"
+                pattern="[0-9]*"
+                maxlength="6"
+                autocomplete="one-time-code"
+                aria-label="{{authCodePlaceholder}}"
+                placeholder="{{authCodePlaceholder}}"
+                aria-describedby="self-code-error self-identity-note"
+              />
+              <p id="self-code-error" class="world-field-error" role="alert"></p>
+              <button type="submit" class="world-primary">{{authConfirm}}</button>
+              <button type="button" class="world-self-link" id="self-code-back">
+                {{authChangeEmail}}
+              </button>
+            </form>
+          </div>
+          <p id="self-identity-note" role="status"></p>
+        </section>
         <!-- ⛔ SIN CATEGORÍAS: TODOS A LA VEZ Y SE ELIGE POR LA CARA. Partir el elenco en hombres y
              mujeres, o en tonos de piel, obliga a la persona a declarar algo para poder mirar. Aquí
              están todos, y lo único que hace falta saber es cuál te gusta. La sección no se pinta si
@@ -271,50 +313,7 @@
           <!-- Por qué se ha abierto este panel solo: quien lo abre lo explica aquí, encima de la
                puerta que hace falta cruzar. -->
           <p id="self-why" class="world-callout" role="status" hidden></p>
-          <section class="world-self-account world-card" id="self-account" aria-labelledby="self-account-title">
-            <h3 id="self-account-title" class="world-card-title">{{accountTitle}}</h3>
-            <div id="self-signin" hidden>
-              <p class="world-self-lead">{{accountSave}}</p>
-              <button type="button" class="world-primary world-self-google" id="self-google">
-                {{authGoogle}}
-              </button>
-              <p class="world-self-or" id="self-signin-or"><span>{{authOr}}</span></p>
-              <form id="self-email-form" novalidate>
-                <input
-                  type="email"
-                  id="self-email"
-                  autocomplete="email"
-                  inputmode="email"
-                  maxlength="190"
-                  aria-label="{{authEmailPlaceholder}}"
-                  placeholder="{{authEmailPlaceholder}}"
-                />
-                <button type="submit" class="world-primary">{{authSendCode}}</button>
-              </form>
-              <form id="self-code-form" hidden novalidate>
-                <input
-                  type="text"
-                  id="self-code"
-                  inputmode="numeric"
-                  pattern="[0-9]*"
-                  maxlength="6"
-                  autocomplete="one-time-code"
-                  aria-label="{{authCodePlaceholder}}"
-                  placeholder="{{authCodePlaceholder}}"
-                />
-                <button type="submit" class="world-primary">{{authConfirm}}</button>
-                <button type="button" class="world-self-link" id="self-code-back">
-                  {{authChangeEmail}}
-                </button>
-              </form>
-            </div>
-            <div id="self-identity" hidden>
-              <a id="self-account-link" class="world-self-link-out" target="_blank" rel="noopener"
-                >{{account}} ↗</a
-              >
-            </div>
-            <p id="self-identity-note" role="status"></p>
-          </section>
+
 
           <section class="world-cloud-save world-card" aria-labelledby="cloud-title">
             <h3 id="cloud-title" class="world-card-title">{{cloudTitle}}</h3>

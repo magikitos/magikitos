@@ -238,7 +238,7 @@ class River {
       g.blocked()
     )
       return;
-    const { x, y } = landing.dry;
+    const { x, y } = landing.arrival || landing.dry;
     if (!g.world.canStand(x, y, g.player)) {
       g.toast(g.text("blocked"));
       return false;

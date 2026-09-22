@@ -1,6 +1,22 @@
 "use strict";
 const assert = require("node:assert/strict");
-const { TravelPace, routeDistance, WALK_SPEED, RUN_SPEED } = require("../public/assets/js/adventure/locomotion");
+const { TravelPace, routeDistance, walkingSpeed, WALK_SPEED, LARGE_WALK_SPEED, RUN_SPEED } = require("../public/assets/js/adventure/locomotion");
+assert.equal(walkingSpeed(), WALK_SPEED);
+assert.equal(walkingSpeed({ width: 390, height: 844 }), WALK_SPEED);
+assert.equal(walkingSpeed({ width: 844, height: 390 }), WALK_SPEED);
+assert.equal(walkingSpeed({ width: 0, height: 900 }), WALK_SPEED);
+assert.equal(walkingSpeed({ width: 3840, height: 2160 }), LARGE_WALK_SPEED);
+let lastSpeed = WALK_SPEED;
+for (let side = 320; side <= 1800; side++) {
+  const speed = walkingSpeed({ width: side, height: 1920 });
+  assert(speed >= lastSpeed && speed <= LARGE_WALK_SPEED);
+  assert(speed - lastSpeed < 0.05, "No abrupt speed breakpoint");
+  lastSpeed = speed;
+}
+const resizedPace = new TravelPace();
+assert.equal(resizedPace.speed({}, [], LARGE_WALK_SPEED), LARGE_WALK_SPEED);
+resizedPace.running = true;
+assert.equal(resizedPace.speed({x: 0, y: 0}, [{x: 200, y: 0}], LARGE_WALK_SPEED), RUN_SPEED);
 const { follow } = require("../public/assets/js/adventure/movement");
 const { runFrame, DIRECTIONS } = require("../public/assets/js/adventure/characters");
 const { seatedClip } = require("../public/assets/js/adventure/seating");

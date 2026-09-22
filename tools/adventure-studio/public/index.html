@@ -98,8 +98,12 @@
           ><button id="fit">Encajar</button>
           <button id="hide-trees" aria-pressed="false" title="Filtro visual: las plantas pequeñas se quedan; no elimina ni cambia ningún objeto">
             Ocultar árboles
-          </button><span id="zoom">100%</span>
+          </button>
+          <button id="probe-toggle" aria-pressed="false" title="Mismo duende y mismas colisiones que el juego, sin guardar partida">Probar con duende</button>
+          <button id="probe-place" aria-pressed="false" hidden>Recolocar duende</button>
+          <span id="zoom">100%</span>
         </div>
+        <div id="probe-status" role="status" aria-live="polite" hidden></div>
         <div class="map-bottom">
           <label><input id="grid" type="checkbox" /> Cuadrícula</label
           ><label><input id="bodies" type="checkbox" /> Colisiones</label

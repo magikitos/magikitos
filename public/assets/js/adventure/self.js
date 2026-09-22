@@ -196,16 +196,20 @@ class Self {
       this.castBusy ||
       game.transitioning ||
       game.cats?.locked ||
-      game.community?.editing ||
-      variant === playerVariant(game.player)
+      game.community?.editing
     )
       return;
+    if (variant === playerVariant(game.player)) {
+      byId("self-dialog").close();
+      return;
+    }
     this.castBusy = true;
     try {
       // Un hito y no un evento propio: elegir duende pasa como mucho una vez por partida, así
       // que cabe en el vocabulario que ya existe y no pide otra fila que barrer durante un año.
       game.telemetry?.milestone("duende");
       await game.wear(variant);
+      byId("self-dialog").close();
     } catch (error) {
       game.toast(game.text("loadError"));
     } finally {

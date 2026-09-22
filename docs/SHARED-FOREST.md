@@ -39,8 +39,9 @@ Sin vidas, combate, Libro del Bosque, fiambreras ni parcelas privadas.
 - Clic/toque en suelo: caminar/correr hasta allí, rodeando obstáculos sin activar
   conversaciones. Clic en objeto: acercarse y realizar esa interacción.
 - Flechas/WASD: movimiento directo. Espacio sostenido: correr o remar más rápido.
-  Espacio en diálogo: siguiente; Enter/Escape: cerrar. Clic fuera del diálogo:
-  cerrar y utilizar ese mismo clic para caminar/interactuar. **No hay rodar**.
+  Espacio o clic en el diálogo: siguiente; el último mensaje se cierra al tocarlo.
+  Enter/Escape: cerrar. Clic fuera: solo cerrar, sin caminar ni activar otro control
+  con ese gesto. No hay botón «Ok». **No hay rodar**.
 - **EL MANDO ES UN JOYSTICK INVISIBLE QUE NACE DONDE APOYAS EL DEDO** (19-sep-2026,
   decisión del dueño, tercera y definitiva del día). Por la mañana se fue el joystick
   fijo de la esquina («es una mierda, no me gusta nada, ni el botón de turbo»); a
@@ -126,7 +127,9 @@ Sin vidas, combate, Libro del Bosque, fiambreras ni parcelas privadas.
   En exteriores se puede alejar hasta el límite geométrico de cobertura del mapa,
   sin un porcentaje mínimo artificial ni bordes vacíos; el encuadre inicial no cambia.
   Los interiores conservan su presentación de habitación recortada con exterior pintado.
-- Caminar/correr: 84/216 píxeles de mundo por segundo. Remar/turbo: 82/205,
+- Caminar: 72 píxeles de mundo por segundo en móvil; aumenta suavemente hasta 84
+  según el lado corto del área visible (480–960 píxeles CSS). No depende del zoom,
+  los píxeles físicos ni la orientación del teléfono. Correr: 216. Remar/turbo: 82/205,
   antes de sumar corrientes. El núcleo más fuerte de los rápidos mantiene el
   retroceso físico incluso con turbo; hay remansos para remontar, no vidas que perder.
 - Las rutas de clic, vecinos, gatos y barca comparten A* y simplificación por

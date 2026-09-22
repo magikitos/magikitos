@@ -71,6 +71,7 @@ function sourceEntities(snapshot, scene, layer) {
     : snapshot.scenery[scene];
 }
 function removable(snapshot, scene, layer, id) {
+  if (layer === "docks") return false;
   const e = sourceEntities(snapshot, scene, layer)?.find((e) => e.id === id);
   return (
     !!e &&
@@ -326,6 +327,12 @@ function validateChanges(snapshot, changes) {
 function renderScene(snapshot, sceneId, changes = {}, elements = {}) {
   const scene = clone(snapshot.world.scenes[sceneId]),
     edits = changes[sceneId] || {};
+  for (const bridge of scene.bridges || [])
+    if (bridge.sprite === "jetty") {
+      const body = elements["dock-jetty"]?.[bridge.artVariant || "planks"];
+      if (body?.entrance) bridge.entrance = clone(body.entrance);
+      if (body?.walkable) bridge.walkable = clone(body.walkable);
+    }
   const elementBody = (e) => {
     const family = familyOf(e);
     const edit = family && elements[familyIdOf(e)]?.[e.artVariant];
@@ -364,6 +371,7 @@ function renderScene(snapshot, sceneId, changes = {}, elements = {}) {
       )
         delete merged.entrance;
       if (body?.solids) delete merged.solid;
+      if (merged.entrance === null) delete merged.entrance;
       // La vista previa enseña el umbral y la llegada que escribirá el compilador para el pie y la
       // entrada de AHORA, no los de la escena compilada antes de mover la casa.
       if (merged.portal) {

@@ -32,6 +32,7 @@ class Renderer {
   resize(zoom = this.zoom || 1) {
     this.zoom = zoom;
     const r = this.viewport.getBoundingClientRect();
+    this.viewportSize = { width: r.width, height: r.height };
     const dpr = Math.min(window.devicePixelRatio || 1, 3);
     const metrics = cameraMetrics(r, this.world, this.requestedZoom, zoom);
     this.viewZoom = metrics.ratio;

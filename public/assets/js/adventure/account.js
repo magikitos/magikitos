@@ -28,10 +28,14 @@ class Account {
       this.verifyCode();
     });
     on("self-code-back", "click", () => {
+      if (this.busy) return;
       this.email = "";
       this.step("email");
       this.note("");
+      this.fieldError("code", "");
     });
+    for (const field of ["email", "code"])
+      on("self-" + field, "input", () => this.fieldError(field, ""));
   }
 
   /** The identity this browser already has, if any. Never mints. */
@@ -114,11 +118,13 @@ class Account {
       .trim()
       .toLowerCase();
     if (!EMAIL.test(email) || email.length > 190) {
-      this.note(this.game.text("authInvalidEmail"));
+      this.fieldError("email", this.game.text("authInvalidEmail"));
       return;
     }
     this.busy = true;
-    this.note(this.game.text("authSending"));
+    this.fieldError("email", "");
+    this.note("");
+    this.pending("email");
     try {
       const token = await this.game.proof.request();
       await this.game.api.authRequest("request-code", {
@@ -132,9 +138,11 @@ class Account {
       this.note(this.game.text("authCodeSent").replace(":email", email));
       byId("self-code")?.focus();
     } catch (error) {
-      this.note(this.game.text(this.reason(error.code, error.status)));
+      this.fieldError("email", this.game.text(this.reason(error.code, error.status)));
     } finally {
       this.busy = false;
+      this.pending(null);
+      if (this.email) byId("self-code")?.focus();
     }
   }
 
@@ -142,11 +150,12 @@ class Account {
     if (this.busy) return;
     const code = String(byId("self-code")?.value || "").replace(/\D/g, "");
     if (code.length !== 6) {
-      this.note(this.game.text("authCodeInvalid"));
+      this.fieldError("code", this.game.text("authCodeInvalid"));
       return;
     }
     this.busy = true;
-    this.note(this.game.text("authSending"));
+    this.fieldError("code", "");
+    this.pending("code");
     try {
       // The client adopts the returned session token; from here the browser is
       // that account everywhere, game and website alike.
@@ -161,7 +170,7 @@ class Account {
       this.step("email");
       const field = byId("self-code");
       if (field) field.value = "";
-      this.note(this.game.text("authDone"));
+      this.note("");
       this.game.telemetry?.account("done");
       this.game.telemetry?.milestone("account");
       this.paint();
@@ -169,11 +178,12 @@ class Account {
       // than leaving the panel claiming the previous one.
       this.game.cloud?.connect(false);
     } catch (error) {
-      this.note(this.game.text(this.reason(error.code, error.status)));
+      this.fieldError("code", this.game.text(this.reason(error.code, error.status)));
       const field = byId("self-code");
       if (field) field.select();
     } finally {
       this.busy = false;
+      this.pending(null);
     }
   }
 
@@ -204,6 +214,32 @@ class Account {
   note(text) {
     const el = byId("self-identity-note");
     if (el) el.textContent = text || "";
+  }
+
+  fieldError(field, text) {
+    byId("self-" + field)?.setAttribute("aria-invalid", text ? "true" : "false");
+    const error = byId("self-" + field + "-error");
+    if (error) error.textContent = text;
+  }
+
+  /** Busy state belongs to the pressed button, not to a line under the input. */
+  pending(field) {
+    for (const [name, label] of [["email", "authSendCode"], ["code", "authConfirm"]]) {
+      const form = byId("self-" + name + "-form");
+      if (!form) continue;
+      form.setAttribute("aria-busy", String(field === name));
+      for (const control of form.querySelectorAll("button,input")) control.disabled = !!field;
+      const button = form.querySelector('[type="submit"]');
+      button.textContent = this.game.text(field === name ? "authSending" : label);
+      if (field === name) {
+        // The small Font Awesome-style spinner is local: no icon font/network dependency.
+        const spinner = document.createElement("span");
+        spinner.className = "fa fa-spinner fa-spin world-auth-spinner";
+        spinner.setAttribute("aria-hidden", "true");
+        button.prepend(spinner);
+      }
+    }
+    if (byId("self-google")) byId("self-google").disabled = !!field;
   }
 
   step(which) {
@@ -238,25 +274,22 @@ class Account {
 
   paint() {
     this.title();
-    const signin = byId("self-signin"),
-      identity = byId("self-identity");
-    if (!signin || !identity) return;
-    const link = byId("self-account-link"),
-      url = this.game.config.destinations.account;
-    if (link && url) link.href = url;
+    const signin = byId("self-signin");
+    if (!signin) return;
 
     // Anonymous counts as "no account yet": the name exists but nothing brings
     // it back on another device, which is exactly what this door is for.
     const claimed = this.user && !this.user.anonymous;
     signin.hidden = Boolean(claimed);
-    identity.hidden = !claimed;
-    if (!claimed) this.step("email");
-    if (link) link.hidden = !claimed || !url;
+    byId("self-account").hidden = Boolean(claimed);
+    if (!claimed) this.step(this.email ? "code" : "email");
     // Una línea bajo tu nombre que dice, sin rodeos, si esta partida te sigue o vive aquí: es lo
     // primero que hay que saber al abrir el panel, y antes había que deducirlo de qué botones había.
     const state = byId("self-identity-state");
-    if (state) state.textContent = this.game.text(claimed ? "accountClaimed" : "accountNone");
-    byId("self-account")?.classList.toggle("is-claimed", Boolean(claimed));
+    if (state) {
+      state.hidden = Boolean(claimed);
+      state.textContent = claimed ? "" : this.game.text("accountNone");
+    }
 
     // Handle and portrait belong to the identity, claimed or not: an anonymous
     // player already has both, and they sit next to the sprite, not inside the

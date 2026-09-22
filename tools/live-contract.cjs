@@ -25,7 +25,7 @@ function transitions(world, scene) {
       areas: Object.fromEntries(["foot", "boat"].map(mode => [mode, crossingAreas(scene, e, mode).map(pixels)])) }];
   }));
   return { doors, edges, docks: Object.fromEntries(docks(scene).map(d => [d.id,
-    { dry: d.dry, wet: d.wet, outward: d.outward, width: d.width }])) };
+    { dry: d.dry, arrival: d.arrival, wet: d.wet, outward: d.outward, width: d.width, boarding: d.boarding }])) };
 }
 
 /** Movement ceilings use the same physics data as the client, not copied server constants.

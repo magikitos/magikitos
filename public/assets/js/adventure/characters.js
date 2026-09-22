@@ -17,7 +17,7 @@ function facing(dx, dy, previous = "down") {
   return DIRECTIONS[(Math.round(Math.atan2(dy, dx) / (Math.PI / 4)) + 8) % 8];
 }
 // One cycle = both feet. Four readable poses, not four animation frames per
-// browser tick. At 84/216 world px/s these give 7.64/12 pose changes/s.
+// browser tick. At 72–84/216 world px/s these give 6.55–7.64/12 pose changes/s.
 // Keep a single phase through pace/direction changes: dividing the lifetime
 // distance by a different stride on Space made the supporting leg jump.
 const GAITS = Object.freeze({

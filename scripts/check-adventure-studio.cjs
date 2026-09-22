@@ -85,7 +85,11 @@ assert.equal(
   cottage.threshold[0] + 2,
   "Mover la casa mueve su umbral en la vista previa",
 );
-const reset = validateChanges(base, {
+// The live cottage now has an authored entrance. Use an automatic-door fixture
+// for the no-op assertion; removing its real authored entrance IS a change.
+const automaticBase = structuredClone(base);
+delete automaticBase.world.scenes.overworld.entities.find(e => e.id === "home-one").entrance;
+const reset = validateChanges(automaticBase, {
   overworld: { entities: { "home-one": { ...placement(cottage), entrance: undefined } } },
 });
 assert.deepEqual(reset, {}, "Volver a la entrada automática sin haberla dibujado no es un cambio");

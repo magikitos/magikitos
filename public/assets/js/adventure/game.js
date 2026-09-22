@@ -26,7 +26,7 @@ const { SceneDirector } = require("./scenes");
 const { fare } = require("./economy");
 const { dialogueText } = require("./dialogue");
 const { WorldInput } = require("./input");
-const { WALK_SPEED, RUN_SPEED, routeDistance } = require("./locomotion");
+const { walkingSpeed, RUN_SPEED, routeDistance } = require("./locomotion");
 /**
  * Lo deprisa que la cámara se pega a quien sigue, y lo despacio que VIAJA a un sitio que acabas
  * de señalar. Son dos ritmos porque son dos cosas: seguir al duende que anda es no despegarse, y
@@ -222,7 +222,8 @@ class Adventure {
       this.syncForeground();
     });
     window.addEventListener("pagehide", () => this.save());
-    byId("dialogue-next").addEventListener("click", () => {
+    byId("dialogue").addEventListener("click", (event) => {
+      if (event.target.closest("button,a,input")) return;
       this.unlockAudio();
       this.nextDialogue();
     });
@@ -624,10 +625,6 @@ class Adventure {
       `${this.dialogue.index + 1} / ${this.dialogue.lines.length}`;
     byId("page-count").hidden = this.dialogue.lines.length < 2;
     this.paintActions();
-    byId("dialogue-next").textContent =
-      this.dialogue.index === this.dialogue.lines.length - 1
-        ? this.s.done
-        : this.s.next + " ▸";
   }
   paintActions() {
     const holder = byId("dialogue-actions");
@@ -845,9 +842,13 @@ class Adventure {
     return chosen;
   }
   paintPortrait(variant = require("./player-art").playerVariant(this.player)) {
+    const visible = Boolean(variant);
+    byId("portrait").hidden = !visible;
+    byId("dialogue").classList.toggle("without-portrait", !visible);
     const c = byId("portrait").getContext("2d");
     c.imageSmoothingEnabled = false;
     c.clearRect(0, 0, c.canvas.width, c.canvas.height);
+    if (!visible) return;
     const sprite =
       typeof variant === "string" ? variant : `person-${variant}-down`;
     this.renderer.sprites.portrait(c, sprite, c.canvas.width, c.canvas.height);
@@ -1169,9 +1170,10 @@ class Adventure {
       if (this.river.active) {
         this.river.update(dt, this.reducedMotion ? 0 : ms / 1000);
       } else {
+        const walkSpeed = walkingSpeed(this.renderer.viewportSize);
         const intent = this.directionIntent();
         if (intent) {
-          const speed = this.boosted() ? RUN_SPEED : WALK_SPEED;
+          const speed = this.boosted() ? RUN_SPEED : walkSpeed;
           const k = (speed * dt) / Math.hypot(intent.x, intent.y);
           this.walking = move(
             this.world,
@@ -1193,7 +1195,7 @@ class Adventure {
         } else {
           const speed = this.boosted()
             ? RUN_SPEED
-            : this.journey.pace.speed(this.player, this.journey.path);
+            : this.journey.pace.speed(this.player, this.journey.path, walkSpeed);
           const travel = this.journey.step(this.world, this.player, dt, speed, {
             gait: speed === RUN_SPEED ? "run" : "walk",
             onStep: (motion) => !this.checkThresholds(motion),

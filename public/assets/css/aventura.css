@@ -302,19 +302,6 @@ body.world-page {
   grid-column: 2;
   grid-row: 2;
 }
-#dialogue-next {
-  grid-column: 3;
-  grid-row: 2;
-  justify-self: end;
-  align-self: flex-end;
-  border: 0;
-  background: none;
-  color: #426443;
-  font:
-    13px WorldRound,
-    serif;
-  min-height: 44px;
-}
 .world-toast {
   position: fixed;
   z-index: 100;
@@ -525,10 +512,6 @@ body.world-page {
   #dialogue-text {
     font-size: 14px;
   }
-  #dialogue-next {
-    font-size: 12px;
-    padding: 0;
-  }
   .world-dialogue canvas {
     width: 42px;
     height: 60px;
@@ -547,9 +530,6 @@ body.world-page {
   }
   #dialogue-actions {
     grid-column: 1;
-  }
-  #dialogue-next {
-    grid-column: 2;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -1039,19 +1019,6 @@ body:has(.world-dialogue:not([hidden])) .world-held-item {
   font: 13px Roboto, system-ui, sans-serif;
   text-decoration: underline;
 }
-.world-self-link-out {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  padding: 0 14px;
-  border-radius: 12px;
-  border: 1px solid #b5a37b;
-  background: #fffbec;
-  color: inherit;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 14px;
-}
 #self-identity-note:empty {
   display: none;
 }
@@ -1317,3 +1284,17 @@ body:has(.world-dialogue:not([hidden])) .world-held-item {
     height: 80px;
   }
 }
+
+/* A dialogue without a portrait has no empty portrait column at any viewport. */
+.world-dialogue { cursor: pointer; }
+.world-dialogue.without-portrait { grid-template-columns: minmax(0, 1fr); }
+.world-dialogue.without-portrait .world-dialogue__body,
+.world-dialogue.without-portrait #dialogue-actions { grid-column: 1; }
+#self-account { grid-column: 1 / -1; }
+.world-self-account form input { grid-column: 1; grid-row: 1; }
+.world-self-account form button[type="submit"] { grid-column: 2; grid-row: 1; }
+.world-field-error { grid-column: 1 / -1; grid-row: 2; margin: 0; color: #a52c32; font-size: 13px; }
+.world-field-error:empty { display: none; }
+.world-self-account input[aria-invalid="true"] { border-color: #b7343c; box-shadow: 0 0 0 1px #b7343c; }
+.world-auth-spinner { display: inline-block; width: 1em; height: 1em; margin-right: .5em; vertical-align: -.12em; border: 2px dotted currentColor; border-right-color: transparent; border-radius: 50%; animation: world-auth-spin .85s linear infinite; }
+@keyframes world-auth-spin { to { transform: rotate(360deg); } }

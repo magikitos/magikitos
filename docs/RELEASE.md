@@ -4,6 +4,55 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Candidato local: «Yo», diálogos, muelles y prueba física del Studio — 22 septiembre 2026
+
+Artefacto `ffbc872aa296a92f8867`, instalado en DDEV y con su autoridad local
+reiniciada. **No desplegado, no subido a producción.** El puntero del repositorio
+web está modificado únicamente para probar esta versión local.
+
+- Cuenta anónima antes del elenco, envío/confirmación en el botón, errores bajo
+  el campo y cierre al elegir duende. Sin acceso redundante a «Mi cuenta».
+- Diálogos sin botón «Ok» ni columna vacía para carteles. Tocar fuera consume
+  ese gesto: no inicia un viaje. Caminar parte de 72 px/s en móvil y aumenta
+  suavemente hasta 84 según el lado corto visible (480–960 px CSS); correr sigue a 216.
+- Propuesta del Studio aplicada: 19 colocaciones, cuatro retiradas y un camino
+  de la escena principal. Aplicada también la revisión 799: entrada del muelle
+  `[-1.25,-1,1.4375,1.5]`, fuente, casa de seta, bota, roble y taller con sus
+  cajas compuestas. El vecino de la fuente se aparta 1,5 casillas para no nacer
+  dentro de su nuevo cuerpo. El Studio quedó sin diferencias ni conflictos.
+- Acceso `dock-jetty/planks` editable sobre el muelle, compartido por variante
+  y orientado hacia el agua. Se compila en el contrato que valida el servidor;
+  ahora incluye superficie caminable normalizada al dibujo y desembarco seguro
+  derivado de ella. No admite un destino fuera de las tablas. La aproximación
+  admite tablas más estrechas que la cuadrícula sin ensanchar la colisión real.
+- Studio: «Probar con duende», recolocación, teclado, toque y arrastre; mismos
+  movimiento, navegación, huella y reglas direccionales del juego. Prueba también
+  rectángulos aún sin guardar y no escribe partidas ni cambia de escena.
+  La caja seleccionada se resalta; contacto rojo, entrada activada amarilla,
+  suelo caminable verde. La revisión 793 del dueño sobrevivió al reinicio
+  como 794, sin conflictos y con exactamente la misma entrada propuesta.
+- Doble clic/toque sobre un elemento abre la edición y encuadra el dibujo y todas
+  sus cajas, entrada y superficie caminable. El duende de prueba se mantiene
+  centrado al caminar o recolocarlo. Verificado en 1440×1000, 768×1024 y 390×844.
+- Corregida la prueba de cuerpos contra el arte: `ink` y `anchor` ya usan píxeles
+  lógicos; dividirlos por `pixelRatio` otra vez producía falsos muros invisibles.
+  Se conserva la geometría dibujada por el dueño y la prueba rechaza exceso real.
+- La aproximación a una puerta acepta una casilla vecina y comprueba el tramo
+  preciso final: la barbacoa ya no invalida por redondeo la nueva puerta de Brizno.
+- Solo en DDEV: `/bosque` distingue página HTTP y conexión WebSocket; portada
+  comprobada con 200 y negociación WebSocket con 101.
+
+Verificado: `npm test` entero, cuenta/diálogos en cuatro tamaños, controles y
+teclado en cuatro tamaños, edición/guardado/recarga de muelles en tres tamaños,
+68 comprobaciones de transiciones reales y pruebas negativas del servidor.
+Prueba física del Studio en tres tamaños, superficies editadas con paridad de
+desembarco en servidor y 912 casos reales de marcha / 5.472 cambios de ritmo
+con los 18 protagonistas. `npm test` completo y comprobaciones específicas
+repetidas tras ajustar la aproximación al muelle estrecho.
+`check-release-live` completo contra DDEV: seis rutas, seis portadas, API,
+web intacta y juego en escritorio/tablet/móvil, sin escrituras de jugador.
+Capturas locales: `.local/self-dialogue-review/`, `.local/probe-review/` y `.local/gait-review/`.
+
 ## Producción: el mapa nuevo del dueño, y la accesibilidad deja de mirar una sola pantalla — 22 septiembre 2026
 
 Artefacto `1271c25008e2655db47f`, fuente del juego `542b658`, web `621ed663` (solo puntero).

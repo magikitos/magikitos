@@ -403,8 +403,8 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
       );
       const after = (await inspect()).player;
       assert(
-        Math.hypot(after.x - target.x, after.y - target.y) < 1,
-        "Same outside click closes dialogue AND reaches destination " +
+        Math.hypot(after.x - before.x, after.y - before.y) < 0.01,
+        "Outside click closes dialogue without walking " +
           JSON.stringify({ before, after, target, state: await inspect() }),
       );
 
@@ -524,7 +524,7 @@ const { fulfillArena } = require("./lib/input-arena.cjs");
       await cdp.detach();
       await page.close();
       console.log(
-        `PASS ${width}×${height}: joystick invisible (nace bajo el dedo, anda/corre por radio, el origen sigue al dedo, soltar para, aro mientras manda), dos dedos solo hacen zoom, sin joystick fijo ni turbo en el DOM, hablar retira la esquina, la cámara viaja al sitio tocado sin acercarse al duende, clic a través del diálogo, rueda/pellizco cubriendo el mapa entero y remo ${rowNormal.toFixed(0)}→${rowFast.toFixed(0)} px con espacio.`,
+        `PASS ${width}×${height}: joystick invisible (nace bajo el dedo, anda, el origen sigue al dedo, soltar para, aro mientras manda), dos dedos solo hacen zoom, sin joystick fijo ni turbo en el DOM, hablar retira la esquina, la cámara viaja al sitio tocado sin acercarse al duende, clic fuera solo cierra el diálogo, rueda/pellizco cubriendo el mapa entero y remo ${rowNormal.toFixed(0)}→${rowFast.toFixed(0)} px con espacio.`,
       );
     }
     assert.deepEqual(errors, []);

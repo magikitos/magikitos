@@ -180,6 +180,7 @@ const view = new MapViewport(
 );
 function baseEntity(selection = selected) {
   if (!selection) return null;
+  if (selection.layer === "docks") return view.dockRows.find(r => r.e.id === selection.id)?.e;
   return (
     (selection &&
       (selection.layer === "entities"
@@ -199,6 +200,7 @@ function addedEntity(id) {
     : null;
 }
 function currentEntity() {
+  if (selected?.layer === "docks") return view.dockRows.find(r => r.e.id === selected.id)?.e;
   return (
     selected &&
     (selected.layer === "entities"
@@ -276,6 +278,7 @@ function setChanges(entries) {
   const data = JSON.parse(JSON.stringify(workspace.changes)),
     groups = (data[sceneId] ||= { entities: {}, scenery: {} });
   for (const { selection, value } of entries) {
+    if (selection.layer === "docks") continue; // Terrain topology is not a placement.
     if (selection.layer === "entities" && groups.added?.[selection.id])
       groups.added[selection.id] = { ...groups.added[selection.id], ...value };
     else (groups[selection.layer] ||= {})[selection.id] = value;
@@ -284,6 +287,7 @@ function setChanges(entries) {
 }
 function adjust(value) {
   if (!selected) return;
+  if (selected.layer === "docks") return;
   const before = editsJSON(),
     source = baseEntity();
   try {
@@ -341,7 +345,7 @@ function bodyScope(row) {
     family = familyOf(e),
     familyId = family && familyIdOf(e),
     variant = e.artVariant;
-  const portal = !!e.portal && e.portal !== "stairs";
+  const portal = (!!e.portal && e.portal !== "stairs") || !!e.dockAccess;
   if (familyId && variant && family.variants.some((v) => v.id === variant)) {
     const instances = countInstances((row) => familyIdOf(row) === familyId && row.artVariant === variant);
     return {
@@ -351,6 +355,7 @@ function bodyScope(row) {
       variant,
       sprite,
       portal,
+      dock: !!e.dockAccess,
       label: family.label + " · " + (family.variants.find((v) => v.id === variant)?.label || variant),
       reach:
         "Vale para " +
@@ -386,6 +391,8 @@ function countInstances(matches) {
     for (const e of scene.entities) if (matches(e)) n++;
   for (const props of Object.values(snapshot.scenery))
     for (const e of props) if (matches(e)) n++;
+  for (const scene of Object.values(snapshot.world.scenes))
+    for (const { e } of require("./dock-elements").dockElements(scene)) if (matches(e)) n++;
   return n;
 }
 const clone = (value) => JSON.parse(JSON.stringify(value));
@@ -400,7 +407,7 @@ function applyBody(scope, body) {
       const elements = JSON.parse(JSON.stringify(workspace.elements));
       (elements[scope.family] ||= {})[scope.variant] = body;
       workspace.elements = validateElements(elements);
-      clearOwnBodies((e) => familyIdOf(e) === scope.family && e.artVariant === scope.variant);
+      if (!scope.dock) clearOwnBodies((e) => familyIdOf(e) === scope.family && e.artVariant === scope.variant);
     } else {
       writeOwnBodies((e) => frameName(e) === scope.sprite, body);
     }
@@ -451,6 +458,7 @@ function currentEntityInTiles() {
   return { ...e, x: e.x / TILE, y: e.y / TILE };
 }
 function drag(info, position, commit, cancel) {
+  if (view.selection.some(r => r.layer === "docks")) return;
   if (!dragBefore) {
     dragBefore = editsJSON();
     dragMembers = selectionTools
@@ -633,6 +641,7 @@ function paintInspector() {
   $("selected-id").textContent = sceneId + " / " + e.id;
   $("x").value = e.x / TILE;
   $("y").value = e.y / TILE;
+  for (const id of ["x", "y"]) $(id).disabled = !!e.dockAccess;
   for (const [id, multiplier] of [
     ["scale", 1],
     ["scale-percent", 100],
@@ -644,7 +653,7 @@ function paintInspector() {
   }
   $("scale-reset").disabled = cap.scale.min === cap.scale.max;
   const family = familyOf(e);
-  $("variant-field").hidden = !family;
+  $("variant-field").hidden = !family || !!e.dockAccess;
   $("variant").replaceChildren(
     ...(family
       ? variantOptions(family).map((v) => {
@@ -662,7 +671,7 @@ function paintInspector() {
   $("remove").title = $("remove").disabled
     ? "Elemento funcional protegido: se modifica con revisión de sus reglas."
     : "Retirar del estudio; puedes deshacerlo.";
-  $("revert").disabled = added;
+  $("revert").disabled = added || !!e.dockAccess;
   $("flip").checked = !!e.flip;
   $("flip").disabled = !cap.mirror;
   $("transform-help").textContent = family?.boundary
@@ -672,7 +681,7 @@ function paintInspector() {
     : "Reflejo y escala solo cuando no rompen su función. No se ofrece giro: no genera otra vista del objeto.";
   const sprite = frameName(e),
     record = snapshot.sprites?.[sprite];
-  $("crop-section").hidden = !record || !!e.fence;
+  $("crop-section").hidden = !record || !!e.fence || !!e.dockAccess;
   cropEditor?.select(sprite, record, workspace.sprites[sprite]);
   $("sprite-scope").textContent = record
     ? "Recorte compartido: afecta a todas las piezas “" +
@@ -1037,7 +1046,7 @@ document.addEventListener("keydown", (e) => {
     $(e.shiftKey || e.key.toLowerCase() === "y" ? "redo" : "undo").click();
     return;
   }
-  if (bodyEditor?.key(e) || fenceEditor?.key(e) || pathEditor.key(e)) {
+  if (view.probe.key(e) || bodyEditor?.key(e) || fenceEditor?.key(e) || pathEditor.key(e)) {
     e.preventDefault();
     return;
   }
@@ -1068,6 +1077,7 @@ document.addEventListener("keydown", (e) => {
   }
 });
 document.addEventListener("keyup", (e) => {
+  view.probe.key(e, false);
   if (e.code === "Space") view.space = false;
 });
 window.addEventListener("blur", () => (view.space = false));
@@ -1104,6 +1114,7 @@ bodyEditor = new BodyEditor(
     paintSelection();
   },
 );
+view.onEditBody = row => bodyEditor.start(row);
 pathEditor = new PathEditor(
   view,
   () =>
@@ -1112,6 +1123,7 @@ pathEditor = new PathEditor(
     [],
   setPaths,
   (enabled) => {
+    if (enabled) view.probe.enable(false);
     if (enabled) fenceEditor?.stop();
     paintInspector();
   },
@@ -1149,7 +1161,7 @@ fenceEditor = new (require("./fence-editor").FenceEditor)(
       return false;
     }
   },
-  () => pathEditor.enable(false),
+  () => { view.probe.enable(false); pathEditor.enable(false); },
   () => {
     view.editor = pathEditor;
     paintInspector();
@@ -1251,6 +1263,11 @@ window.MagikitosStudio = Object.freeze({
     bodyScope: bodyEditor?.enabled ? bodyEditor.scope.key : null,
     bodySolids: bodyEditor?.enabled ? bodyEditor.solids : null,
     bodyEntrance: bodyEditor?.enabled ? bodyEditor.entrance : null,
+    bodyWalkable: bodyEditor?.enabled ? bodyEditor.walkable : null,
+    bodySelected: bodyEditor?.enabled ? bodyEditor.selected : null,
+    bodyBounds: bodyEditor?.enabled ? bodyEditor.bounds : null,
+    viewSize: { width: view.renderer.width, height: view.renderer.height },
+    probe: view.probe.inspect(),
     // Para que la prueba de navegador pueda ver el rechazo, no solo el color.
     bodyUnreachable: bodyEditor?.enabled ? Boolean(bodyEditor.unreachable) : false,
     baseHash: snapshot?.baseHash,

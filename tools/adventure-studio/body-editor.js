@@ -16,6 +16,8 @@ const {
 } = require("../../public/assets/js/adventure/portals");
 const { MIN_SIDE, MAX_BOXES } = require("./element-edits");
 const { entranceReachable } = require("../../public/assets/js/adventure/portals");
+const { DOCK_ENTRANCE_LIMITS, boardingPoint, walkableBox, walkableDefinition, withWalkable } = require("../../public/assets/js/adventure/dock-geometry");
+const { validWalkable } = require("../../public/assets/js/adventure/bridge-geometry");
 const $ = (id) => document.getElementById(id);
 /** Los ocho tiradores de una caja, en fracción de su ancho y alto. */
 const GRIPS = [
@@ -76,6 +78,7 @@ class BodyEditor {
   start(row) {
     const scope = row && this.commit.scopeOf(row);
     if (!scope) return;
+    this.view.probe?.enable(false);
     // El estado ANTES del aviso: `begin` repinta el inspector y tiene que verlo ya abierto.
     this.enabled = true;
     this.begin();
@@ -85,7 +88,8 @@ class BodyEditor {
     this.original = clone(scope.body);
     this.solids = clone(scope.body.solids || []);
     this.entrance = scope.body.entrance ? clone(scope.body.entrance) : null;
-    this.selected = this.solids.length ? { kind: "solid", index: 0 } : null;
+    this.walkable = scope.dock ? walkableBox(withWalkable(row.e.dockGeometry, scope.body.walkable)) : null;
+    this.selected = scope.dock ? { kind: "entrance" } : this.solids.length ? { kind: "solid", index: 0 } : null;
     this.press = null;
     this.view.bodies = true;
     $("bodies").checked = true;
@@ -93,20 +97,18 @@ class BodyEditor {
     this.refresh();
   }
   /**
-   * Un cuerpo no se dibuja al 35 %: al abrir el editor la vista se acerca al elemento lo justo
-   * para que sus tiradores se puedan coger con el dedo, sin alejar a quien ya estaba cerca.
+   * Encajar el dibujo, TODAS sus cajas y la entrada; no centrar solo el pie.
+   * También aleja si se estaba demasiado cerca para ver una pieza diagonal completa.
    */
   focus() {
     const e = this.entity();
     if (!e) return;
-    const zoom = Math.max(this.view.zoom, 1.5);
-    this.view.restoreView({
-      zoom,
-      camera: {
-        x: e.x - this.view.viewport.clientWidth / zoom / 2,
-        y: e.y - this.view.viewport.clientHeight / zoom / 2,
-      },
-    });
+    const { bodyBounds, bodyView } = require("./body-framing");
+    const frame = this.view.renderer.sprites.frame(require("./catalog").frameName(e));
+    this.bounds = bodyBounds(e, frame, { solids: this.solids, entrance: this.entrance, walkable: this.walkable });
+    const viewport = this.view.viewport.getBoundingClientRect();
+    const tools = this.view.viewport.querySelector(".map-tools").getBoundingClientRect();
+    this.view.restoreView(bodyView(this.bounds, viewport, { x: 32, y: tools.bottom - viewport.top + 24 }));
   }
   stop() {
     this.enabled = false;
@@ -117,6 +119,7 @@ class BodyEditor {
   }
   /** El elemento vivo, ya con la propuesta encima: de ahí salen su sitio y su transformación. */
   entity() {
+    if (this.target?.layer === "docks") return this.view.dockRows.find(r => r.e.id === this.target.e.id)?.e;
     return (
       this.target &&
       (this.target.layer === "entities"
@@ -145,7 +148,9 @@ class BodyEditor {
        * válida»). El validador ya la rechaza al aplicar, pero enterarse al guardar es enterarse
        * tarde: se ve mientras se arrastra.
        */
-      this.unreachable = Boolean(this.entrance) && !entranceReachable(this.entrance, this.solids);
+      this.unreachable = this.scope.dock
+        ? !validWalkable(this.body().walkable) || !boardingPoint({ ...withWalkable(this.entity().dockGeometry, this.body().walkable), boarding: this.entrance.map(v => v * TILE) })
+        : Boolean(this.entrance) && !entranceReachable(this.entrance, this.solids);
       $("body-finish").disabled = this.unreachable;
       $("body-help").textContent =
         "Arrastra dentro para mover, de una esquina para redimensionar. El mapa está quieto mientras editas; mantén Espacio para apartarte." +
@@ -156,16 +161,23 @@ class BodyEditor {
           ? " ⛔ LA ENTRADA QUEDA DENTRO DEL CUERPO: el pie del duende no llega ahí y la puerta no abriría. Bájala hasta que salga del cuerpo."
           : "");
       $("body-instances").textContent = this.scope.reach;
-      $("body-delete").disabled = !this.selected;
-      $("body-add").disabled = this.solids.length >= MAX_BOXES;
+      if (this.scope.dock) $("body-help").textContent = "Verde: suelo caminable sobre el agua. Violeta: entrada para embarcar. Selecciona una zona y ajusta su rectángulo. Se comparte por variante, sin cambiar el dibujo ni el río." + (this.unreachable ? " ⛔ La superficie debe quedar dentro del dibujo y permitir apoyar los pies en la entrada." : "");
+      $("body-delete").disabled = !this.selected || !!this.scope.dock;
+      $("body-add").disabled = this.solids.length >= MAX_BOXES || !!this.scope.dock;
       $("body-entrance").textContent = this.entrance
         ? "Quitar entrada"
         : "Dibujar entrada";
-      $("body-entrance").hidden = !this.scope.portal;
+      $("body-entrance").hidden = !this.scope.portal || !!this.scope.dock;
       this.paintBoxes();
       this.paintNumbers();
     }
+    this.view.probe?.refreshWorld();
     this.view.dirty = true;
+  }
+  body() {
+    return { solids: clone(this.solids),
+      ...(this.scope.portal ? { entrance: this.entrance ? clone(this.entrance) : null } : {}),
+      ...(this.scope.dock ? { walkable: walkableDefinition(this.entity().dockGeometry, this.walkable) } : {}) };
   }
   scopeReady() {
     return Boolean(this.view.selection.length === 1);
@@ -194,12 +206,16 @@ class BodyEditor {
           this.entrance.map((v) => v.toFixed(2).replace(/\.?0+$/, "")).join(" ") +
           "</button>",
       );
+    if (this.walkable)
+      rows.unshift('<button type="button" class="body-box walkable' +
+        (this.selected?.kind === "walkable" ? " on" : "") +
+        '" data-box="walkable">Caminable · ' + this.walkable.map(v => v.toFixed(2)).join(" ") + '</button>');
     $("body-boxes").innerHTML = rows.join("");
     for (const button of $("body-boxes").querySelectorAll("[data-box]"))
       button.onclick = () => {
         this.selected =
-          button.dataset.box === "entrance"
-            ? { kind: "entrance" }
+          ["entrance", "walkable"].includes(button.dataset.box)
+            ? { kind: button.dataset.box }
             : { kind: "solid", index: Number(button.dataset.box) };
         this.refresh();
       };
@@ -230,6 +246,7 @@ class BodyEditor {
     if (!selection) return null;
     return selection.kind === "entrance"
       ? this.entrance
+      : selection.kind === "walkable" ? this.walkable
       : this.solids[selection.index];
   }
   /** Qué tirador cae bajo el dedo: una esquina, un lado o el interior de una caja. */
@@ -241,7 +258,10 @@ class BodyEditor {
     const candidates = [
       ...(this.entrance ? [{ kind: "entrance" }] : []),
       ...this.solids.map((_, index) => ({ kind: "solid", index })),
+      ...(this.walkable ? [{ kind: "walkable" }] : []),
     ];
+    candidates.sort((a, b) => Number(b.kind === this.selected?.kind && b.index === this.selected?.index) -
+      Number(a.kind === this.selected?.kind && a.index === this.selected?.index));
     for (const selection of candidates) {
       const box = this.boxOf(selection);
       for (const [gx, gy] of GRIPS) {
@@ -268,7 +288,7 @@ class BodyEditor {
     this.press = hit
       ? {
           ...hit,
-          before: { solids: clone(this.solids), entrance: clone(this.entrance) },
+          before: { solids: clone(this.solids), entrance: clone(this.entrance), walkable: clone(this.walkable) },
           moved: false,
         }
       : null;
@@ -285,6 +305,7 @@ class BodyEditor {
     const before =
       press.selection.kind === "entrance"
         ? press.before.entrance
+        : press.selection.kind === "walkable" ? press.before.walkable
         : press.before.solids[press.selection.index];
     const dx = round(local.x - press.local.x),
       dy = round(local.y - press.local.y);
@@ -313,13 +334,15 @@ class BodyEditor {
   /** Los límites viven en un solo sitio: la entrada los tiene escritos, el cuerpo es libre. */
   write(selection, box) {
     if (selection.kind === "entrance") {
+      const limits = this.scope.dock ? DOCK_ENTRANCE_LIMITS : ENTRANCE_LIMITS;
       this.entrance = [
-        clamp(box[0], -ENTRANCE_LIMITS.offset, ENTRANCE_LIMITS.offset),
-        clamp(box[1], -ENTRANCE_LIMITS.offset, ENTRANCE_LIMITS.offset),
-        clamp(box[2], ...ENTRANCE_LIMITS.width),
-        clamp(box[3], ...ENTRANCE_LIMITS.height),
+        clamp(box[0], -limits.offset, limits.offset),
+        clamp(box[1], -limits.offset, limits.offset),
+        clamp(box[2], ...limits.width),
+        clamp(box[3], ...limits.height),
       ];
-    } else this.solids[selection.index] = box;
+    } else if (selection.kind === "walkable") this.walkable = box;
+    else this.solids[selection.index] = box;
   }
   up(cancel = false) {
     const press = this.press;
@@ -328,6 +351,7 @@ class BodyEditor {
     if (cancel) {
       this.solids = press.before.solids;
       this.entrance = press.before.entrance;
+      this.walkable = press.before.walkable;
     }
     this.refresh();
   }
@@ -335,6 +359,7 @@ class BodyEditor {
     this.up(true);
   }
   addBox() {
+    if (this.scope.dock) return;
     if (this.solids.length >= MAX_BOXES) return;
     this.solids.push([-0.5, -0.5, 1, 0.75]);
     this.selected = { kind: "solid", index: this.solids.length - 1 };
@@ -359,6 +384,7 @@ class BodyEditor {
     this.refresh();
   }
   remove() {
+    if (this.scope.dock) return;
     if (!this.selected) return;
     if (this.selected.kind === "entrance") this.entrance = null;
     else this.solids.splice(this.selected.index, 1);
@@ -371,6 +397,7 @@ class BodyEditor {
       ? clone(this.original.entrance)
       : null;
     this.selected = null;
+    if (this.scope.dock) this.walkable = walkableBox(withWalkable(this.entity().dockGeometry, this.original.walkable));
     this.refresh();
   }
   finish() {
@@ -380,12 +407,7 @@ class BodyEditor {
     // La entrada quitada viaja como `null`: sin la clave, quien aplica la propuesta no sabría
     // distinguir «no la he tocado» de «quítala», y el elemento se quedaría con la de antes.
     if (
-      this.commit.apply(this.scope, {
-        solids: clone(this.solids),
-        ...(this.scope.portal
-          ? { entrance: this.entrance ? clone(this.entrance) : null }
-          : {}),
-      })
+      this.commit.apply(this.scope, this.body())
     )
       this.stop();
   }
@@ -428,24 +450,30 @@ class BodyEditor {
         this.selected &&
         this.selected.kind === selection.kind &&
         this.selected.index === selection.index;
-      c.fillStyle = fill;
+      if (on && !this.unreachable) {
+        colour = selection.kind === "entrance" ? "#ffc4ff" : selection.kind === "walkable" ? "#c5ff75" : "#36e6ff";
+        fill = selection.kind === "entrance" ? "#e59bff99" : selection.kind === "walkable" ? "#94e76099" : "#36e6ff88";
+      }
+      c.fillStyle = this.view.probe?.enabled ? colour + "22" : fill;
       c.strokeStyle = colour;
       c.lineWidth = line * (on ? 1.6 : 1);
       c.fillRect(box[0], box[1], box[2], box[3]);
       c.strokeRect(box[0], box[1], box[2], box[3]);
       c.save();
-      // El texto no se refleja con la copia: un rótulo del revés no se lee.
+      // La geometría gira con el acceso; el rótulo siempre se lee de pie.
+      c.translate(box[0] + line * 2, box[1]);
       if (entity.flip) c.scale(-1, 1);
+      c.rotate(-((entity.rotation || 0) * Math.PI) / 180);
       c.scale(1 / k, 1 / k);
       this.view.label(
         c,
         name,
-        ((entity.flip ? -(box[0] + box[2]) : box[0]) + line * 2) * k,
-        box[1] * k,
+        0,
+        0,
         colour,
       );
       c.restore();
-      if (!on) return;
+      if (!on || this.view.probe?.enabled) return;
       c.fillStyle = colour;
       for (const [gx, gy] of GRIPS)
         c.fillRect(
@@ -462,6 +490,8 @@ class BodyEditor {
      * tres—, y ahí el número es lo que dice cuál estás cogiendo.
      */
     const varias = this.solids.length > 1;
+    if (this.walkable) paint(this.walkable, { kind: "walkable" },
+      this.unreachable ? "#ff6b6b" : "#94e760", this.unreachable ? "#ff6b6b55" : "#94e76044", "Caminable");
     this.solids.forEach((box, index) =>
       paint(
         box,
@@ -483,7 +513,7 @@ class BodyEditor {
         { kind: "entrance" },
         this.unreachable ? "#ff6b6b" : "#e59bff",
         this.unreachable ? "#ff6b6b55" : "#e59bff55",
-        this.unreachable ? "Entrada · no se puede pisar" : "Entrada",
+        this.scope.dock ? "Embarcar" : this.unreachable ? "Entrada · no se puede pisar" : "Entrada",
       );
     c.restore();
   }

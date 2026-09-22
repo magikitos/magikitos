@@ -73,7 +73,8 @@ significa llegar esquivando sin activar otros objetos; clic en objeto significa
 interactuar. Flechas/WASD siguen moviendo directo y espacio sostenido corre o rema
 más rápido. Rodar no está activo; se conserva su arte. El zoom afecta únicamente al
 mapa. No se dibuja marcador de destino. Diálogos: Espacio avanza, Enter/Esc
-cierran; clic fuera cierra y usa ese mismo clic como destino.
+cierran; tocar el mensaje avanza o cierra el último, sin botón «Ok».
+Tocar fuera solo cierra: ese gesto no ordena caminar ni activa otro control.
 [Navegación](NAVIGATION.md) · [Controles detallados](SHARED-FOREST.md#controles-y-construcción).
 
 Arte: 2× con reducción integrada; animación selectiva, sutil para vegetación y

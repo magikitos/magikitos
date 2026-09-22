@@ -3,7 +3,7 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const { chromium } = require("playwright");
 const { enterWorld } = require("./browser-entry.cjs");
-const { WALK_SPEED, RUN_SPEED } = require("../public/assets/js/adventure/locomotion");
+const { walkingSpeed, RUN_SPEED } = require("../public/assets/js/adventure/locomotion");
 const { GAITS } = require("../public/assets/js/adventure/characters");
 const origin = process.env.OFFLINE_GAME_ORIGIN || "http://127.0.0.1:47838";
 if (!["127.0.0.1", "localhost"].includes(new URL(origin).hostname)) throw Error("Local tests only");
@@ -122,7 +122,7 @@ async function reviewBundle() {
           }
           g.reducedMotion = false;
           return results;
-        }, { variant, width, speeds: { walk: WALK_SPEED, run: RUN_SPEED },
+        }, { variant, width, speeds: { walk: walkingSpeed({ width, height }), run: RUN_SPEED },
           strides: { walk: GAITS.walk.stride, run: GAITS.run.stride } });
         for (const r of result) {
           assert.equal(r.draws, 36, `Essential movement paints every tick, including reduced motion: ${JSON.stringify(r)}`);
@@ -130,7 +130,7 @@ async function reviewBundle() {
           assert.equal(r.names.length, r.pace === "walk" ? 3 : 4, `All expected sprite frames painted: ${JSON.stringify(r)}`);
           assert(r.names.every(n => n.startsWith(`person-${variant}-${r.direction}-${r.pace}-`)), `Correct direction/body: ${JSON.stringify(r)}`);
           assert.equal(r.idle, `person-${variant}-${r.direction}`, "Stopping restores idle, no recovery squat");
-          assert(Math.abs(r.distance - (r.pace === "walk" ? WALK_SPEED : RUN_SPEED) * 1.2) < 0.001, `No movement regression: ${JSON.stringify(r)}`);
+          assert(Math.abs(r.distance - (r.pace === "walk" ? walkingSpeed({ width, height }) : RUN_SPEED) * 1.2) < 0.001, `No movement regression: ${JSON.stringify(r)}`);
           for (const s of r.switches || []) {
             assert(s.exactArt && s.sprite.startsWith(`person-${variant}-${r.direction}-${s.pace}-`), "Pace switch paints the exact requested body");
             assert.deepEqual(s.anchor, [24, 46], "Walking and running share their world attachment");

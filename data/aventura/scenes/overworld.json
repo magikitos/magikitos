@@ -18,16 +18,16 @@
         37.25
       ],
       [
-        77,
-        23
+        74,
+        26
       ],
       [
-        83.75,
-        13.25
+        82.75,
+        16.75
       ],
       [
-        84.75,
-        4
+        83,
+        12
       ]
     ],
     [
@@ -215,8 +215,8 @@
     {
       "id": "picnic-barbecue",
       "behavior": "picnic-barbecue",
-      "x": 82.75,
-      "y": 43.5
+      "x": 81.5,
+      "y": 39.5
     },
     {
       "id": "picnic-twig",
@@ -227,14 +227,14 @@
     {
       "id": "picnic-neighbor",
       "behavior": "picnic-neighbor",
-      "x": 86.15,
-      "y": 43
+      "x": 84.75,
+      "y": 39.5
     },
     {
       "id": "forest-sign",
       "sprite": "sign",
-      "x": 98.5,
-      "y": 106.5,
+      "x": 98.25,
+      "y": 104.5,
       "rules": [
         {
           "effects": [
@@ -410,8 +410,8 @@
     {
       "id": "home-one",
       "sprite": "cottage",
-      "x": 85,
-      "y": 5.25,
+      "x": 82.75,
+      "y": 11.75,
       "rules": [
         {
           "effects": [
@@ -430,7 +430,13 @@
         5.1
       ],
       "label": "cottage",
-      "portal": true
+      "portal": true,
+      "entrance": [
+        -1.25,
+        0.5,
+        2.25,
+        0.25
+      ]
     },
     {
       "id": "home-two",
@@ -485,8 +491,8 @@
     {
       "id": "fisher-door",
       "sprite": "home-pot-terracotta",
-      "x": 84,
-      "y": 39.75,
+      "x": 84.25,
+      "y": 35.75,
       "rules": [
         {
           "effects": [
@@ -505,14 +511,26 @@
         3.7
       ],
       "label": "fisher",
-      "portal": true
+      "portal": true,
+      "entrance": [
+        -3.75,
+        0,
+        3,
+        0.5
+      ]
     },
     {
       "id": "fountain",
       "behavior": "wishing-fountain",
       "x": 66.75,
       "y": 59.75,
-      "scale": 1.26
+      "scale": 1.26,
+      "solid": [
+        -1.9,
+        -2.75,
+        3.8,
+        2.75
+      ]
     },
     {
       "id": "no-pooping",
@@ -566,8 +584,8 @@
     {
       "id": "dock-lantern",
       "sprite": "lantern",
-      "x": 87.5,
-      "y": 42.75,
+      "x": 87.25,
+      "y": 39,
       "rules": []
     },
     {
@@ -587,8 +605,8 @@
     {
       "id": "story-reeds-north",
       "sprite": "reeds",
-      "x": 110.5,
-      "y": 77.5,
+      "x": 110,
+      "y": 77.75,
       "rules": []
     },
     {
@@ -622,13 +640,6 @@
       "behavior": "toilet-plant",
       "x": 116.75,
       "y": 110.75
-    },
-    {
-      "id": "fountain-flowers",
-      "sprite": "flower-pot",
-      "x": 76.75,
-      "y": 39.25,
-      "rules": []
     },
     {
       "id": "human-picnic-blanket",
@@ -881,8 +892,8 @@
     {
       "id": "river-dock",
       "behavior": "river-dock",
-      "x": 92,
-      "y": 44,
+      "x": 88.75,
+      "y": 43.5,
       "landing": "woodland"
     },
     {
@@ -983,8 +994,8 @@
       "id": "forest-mushrooms-fern",
       "behavior": "forest-mushrooms",
       "family": "ground-mushrooms",
-      "x": 43.5,
-      "y": 15.75,
+      "x": 42.5,
+      "y": 15.25,
       "artVariant": "ochre",
       "scale": 0.72
     },
@@ -1068,8 +1079,8 @@
     {
       "id": "warehouse-sign",
       "sprite": "sign",
-      "x": 107.5,
-      "y": 107.25,
+      "x": 163.25,
+      "y": 32.75,
       "rules": [
         {
           "effects": [
@@ -1232,7 +1243,7 @@
     {
       "id": "plaza-1",
       "x": 66,
-      "y": 57,
+      "y": 55.5,
       "radius": 2,
       "dialogue": "ambientGarden"
     },
@@ -1389,19 +1400,6 @@
       "artVariant": "bush"
     },
     {
-      "sprite": "reeds",
-      "rules": [],
-      "wind": {
-        "amplitude": 0.85,
-        "fixedFrom": 0.9,
-        "share": 0.45
-      },
-      "id": "decor-39",
-      "x": 106.72478020377457,
-      "y": 78.10834531160071,
-      "artVariant": "reeds"
-    },
-    {
       "sprite": "berries",
       "rules": [],
       "wind": {
@@ -1532,9 +1530,12 @@
         "share": 0.3
       },
       "id": "decor-136",
-      "x": 92.93695145240054,
-      "y": 17.527888116426766,
-      "artVariant": "berries"
+      "x": 93.75,
+      "y": 20.25,
+      "artVariant": "berries",
+      "scale": 1,
+      "rotation": 0,
+      "flip": false
     },
     {
       "sprite": "bush",
@@ -1545,9 +1546,12 @@
         "share": 0.3
       },
       "id": "decor-139",
-      "x": 92.88057884247974,
-      "y": 13.470283955801278,
-      "artVariant": "bush"
+      "x": 94.75,
+      "y": 14.5,
+      "artVariant": "bush",
+      "scale": 1,
+      "rotation": 0,
+      "flip": false
     },
     {
       "sprite": "berries",
@@ -1678,24 +1682,11 @@
     {
       "id": "decor-263",
       "sprite": "fern",
-      "x": 15.25,
-      "y": 47,
+      "x": 16.5,
+      "y": 48.25,
       "scale": 1,
       "rotation": 0,
       "flip": false
-    },
-    {
-      "sprite": "reeds",
-      "rules": [],
-      "wind": {
-        "amplitude": 0.85,
-        "fixedFrom": 0.9,
-        "share": 0.45
-      },
-      "id": "decor-293",
-      "x": 93.31803068518639,
-      "y": 23.054108477197587,
-      "artVariant": "reeds"
     },
     {
       "sprite": "bush",
@@ -2018,8 +2009,8 @@
         "share": 0.3
       },
       "id": "picnic-understory-7",
-      "x": 10,
-      "y": 49.5,
+      "x": 12.75,
+      "y": 50.75,
       "scale": 1.2,
       "artVariant": "auto",
       "rotation": 0,
@@ -2144,20 +2135,6 @@
       "artVariant": "auto"
     },
     {
-      "sprite": "berries",
-      "rules": [],
-      "wind": {
-        "amplitude": 0.55,
-        "fixedFrom": 0.78,
-        "share": 0.3
-      },
-      "id": "brizno-understory-3",
-      "x": 89,
-      "y": 39.25,
-      "scale": 1.2,
-      "artVariant": "auto"
-    },
-    {
       "sprite": "fallen-log",
       "rules": [],
       "solid": [
@@ -2222,15 +2199,21 @@
         "share": 0.25
       },
       "id": "orilla-flowers-primrose-89",
-      "x": 180.944,
-      "y": 48.175,
-      "artVariant": "primulas"
+      "x": 181.25,
+      "y": 33.5,
+      "artVariant": "primulas",
+      "scale": 1,
+      "rotation": 0,
+      "flip": false
     },
     {
       "id": "orilla-fern-90",
       "sprite": "fern",
-      "x": 182.946,
-      "y": 49.431
+      "x": 164.75,
+      "y": 32.5,
+      "scale": 1,
+      "rotation": 0,
+      "flip": false
     },
     {
       "sprite": "flowers-daisy-white",
@@ -2333,9 +2316,12 @@
         0.7
       ],
       "id": "orilla-rocks-100",
-      "x": 182.588,
-      "y": 97.872,
-      "artVariant": "rocks"
+      "x": 170.25,
+      "y": 123.25,
+      "artVariant": "rocks",
+      "scale": 1,
+      "rotation": 0,
+      "flip": false
     },
     {
       "sprite": "berries",
@@ -2360,9 +2346,11 @@
       },
       "id": "orilla-giant-clover-102",
       "scale": 0.65,
-      "x": 186.183,
-      "y": 103.881,
-      "artVariant": "redondo"
+      "x": 182.75,
+      "y": 112,
+      "artVariant": "redondo",
+      "rotation": 0,
+      "flip": false
     },
     {
       "sprite": "rocks",
@@ -2750,9 +2738,12 @@
         "share": 0.45
       },
       "id": "orilla-reeds-174",
-      "x": 161.412,
-      "y": 128.716,
-      "artVariant": "reeds"
+      "x": 161.75,
+      "y": 129,
+      "artVariant": "reeds",
+      "scale": 1,
+      "rotation": 0,
+      "flip": false
     },
     {
       "id": "orilla-fern-183",

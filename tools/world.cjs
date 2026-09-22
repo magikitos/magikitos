@@ -17,6 +17,21 @@ function compileWorld(root = process.cwd()) {
     ),
   );
   const families = JSON.parse(fs.readFileSync(path.join(root, "data/aventura/elements.json"))).families;
+  for (const scene of Object.values(world.scenes))
+    for (const bridge of scene.bridges || []) {
+      const family = families["dock-jetty"];
+      if (bridge.sprite !== "jetty" || !family) continue;
+      bridge.entrance = family.variants.find(v => v.id === (bridge.artVariant || "planks"))?.entrance;
+      bridge.walkable = family.variants.find(v => v.id === (bridge.artVariant || "planks"))?.walkable || [0, 0, 1, 1];
+      if (!require("../public/assets/js/adventure/bridge-geometry").validWalkable(bridge.walkable))
+        throw Error("Invalid jetty walkable surface: " + scene.id);
+      if (!require("../public/assets/js/adventure/dock-geometry").validDockEntrance(bridge.entrance))
+        throw Error("Invalid jetty access: " + scene.id);
+    }
+  for (const scene of Object.values(world.scenes))
+    for (const dock of require("../public/assets/js/adventure/docks").docks(scene))
+      if (!require("../public/assets/js/adventure/dock-geometry").boardingPoint(dock))
+        throw Error("Jetty access outside the walkable planks: " + scene.id + "/" + dock.id);
   return require("./harvest-yields.cjs").resolveHarvestYields(world,
     require("../public/assets/js/adventure/element-appearance").appearanceFor(families));
 }

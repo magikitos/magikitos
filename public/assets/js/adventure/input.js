@@ -27,7 +27,10 @@ class WorldInput {
     const canvas = document.getElementById("world-canvas");
     this.game = game;
     this.canvas = canvas;
-    // Dismiss before the target's pointer handler, without swallowing that gesture.
+    // An outside gesture only dismisses. Consume its whole pointer sequence,
+    // including the generated click: it must not start a journey or press a HUD tool.
+    const dismissed = new Set();
+    let dismissedClick = false;
     document.addEventListener(
       "pointerdown",
       (event) => {
@@ -35,11 +38,30 @@ class WorldInput {
           game.dialogue &&
           !event.target.closest("#dialogue") &&
           !game.hasOverlay()
-        )
+        ) {
+          dismissed.add(event.pointerId);
+          dismissedClick = true;
+          this.map?.clear();
           game.closeDialogue();
+          event.preventDefault();
+          event.stopImmediatePropagation();
+        } else dismissedClick = false;
       },
       true,
     );
+    for (const type of ["pointermove", "pointerup", "pointercancel"])
+      document.addEventListener(type, (event) => {
+        if (!dismissed.has(event.pointerId)) return;
+        if (type !== "pointermove") dismissed.delete(event.pointerId);
+        event.preventDefault();
+        event.stopImmediatePropagation();
+      }, true);
+    document.addEventListener("click", (event) => {
+      if (!dismissedClick) return;
+      dismissedClick = false;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }, true);
     this.map = new MapGestures(game, canvas);
     const press = (event) => {
       if (!event.isPrimary || event.button !== 0) return;
@@ -88,8 +110,7 @@ class WorldInput {
         if (game.dialogue) {
           if (MOVE_KEYS.has(key)) {
             if (event.repeat) return;
-            // Closing a conversation uses this same press to walk, just like an
-            // outside click. Do not stop propagation or require a second press.
+            // Direction keys still close and walk; an outside tap only dismisses.
             game.closeDialogue();
           } else if (["enter", "escape", " "].includes(key)) {
             event.preventDefault();

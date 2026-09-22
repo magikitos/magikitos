@@ -156,7 +156,10 @@ function portalPath(world, from, entity) {
   const target = { x: (x + w / 2) * TILE, y: (y + h / 2) * TILE };
   if (!entity.entryDirection) return world.path(from, target) || [];
   const lead = { x: target.x, y: target.y - entity.entryDirection * TILE * 2 };
-  const path = world.path(from, lead);
+  // The exact lead can be clear while its navigation-cell centre is occupied
+  // by a nearby prop. Approach a neighbouring cell, then verify the final
+  // precise segments rather than rejecting a perfectly reachable doorway.
+  const path = world.path(from, lead) || world.approach(from, lead, 1);
   if (
     !path ||
     !world.clearSegment(path.at(-1) || from, lead, from) ||

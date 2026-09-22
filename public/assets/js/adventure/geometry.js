@@ -1,6 +1,7 @@
 "use strict";
 const { transformedRect } = require("./entity-art");
 const { riverSection, riverEnvelope } = require("./river-course");
+const { bridgeWalkable } = require("./bridge-geometry");
 const TILE = 16;
 const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
 const distance = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
@@ -123,8 +124,9 @@ function waterSpans(data, y) {
   if (known) return known;
   const row = {
     bridges: (data.bridges || [])
-      .filter((b) => y >= b.rect[1] && y < b.rect[1] + b.rect[3])
-      .map((b) => [b.rect[0], b.rect[0] + b.rect[2]]),
+      .map(bridgeWalkable)
+      .filter((b) => y >= b[1] && y < b[1] + b[3])
+      .map((b) => [b[0], b[0] + b[2]]),
     bands: (data.rivers || [])
       .filter((r) => y >= r.rect[1] && y < r.rect[1] + r.rect[3])
       .map((r) => {

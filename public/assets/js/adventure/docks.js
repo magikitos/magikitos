@@ -1,6 +1,8 @@
 "use strict";
 const { TILE, inRect } = require("./geometry");
 const cache = new WeakMap();
+const { validDockEntrance, boardingPoint, arrivalPoint } = require("./dock-geometry");
+const { bridgeWalkable } = require("./bridge-geometry");
 
 /** Transport thresholds derive from the actual jetty, not a proximity bubble.
  * land/water remain the authored safe anchors. The dry threshold is at the end
@@ -24,17 +26,24 @@ function docks(data) {
     const tip = horizontal
       ? { x: outward.x > 0 ? x + w : x, y: ly }
       : { x: lx, y: outward.y > 0 ? y + h : y };
-    return {
+    const width = ((horizontal ? h : w) * TILE) / 2 - 4;
+    const entrance = bridge.entrance;
+    if (entrance && !validDockEntrance(entrance)) throw Error("Invalid dock entrance: " + landing.id);
+    const dock = {
       ...landing,
       outward,
       bridge: bridge.rect,
+      walkableRect: bridgeWalkable(bridge),
       dry: {
         x: tip.x * TILE - outward.x * 10,
         y: tip.y * TILE - outward.y * 10,
       },
       wet: { x: wx * TILE, y: wy * TILE },
-      width: ((horizontal ? h : w) * TILE) / 2 - 4,
+      width,
+      boarding: entrance ? entrance.map(v => v * TILE) : [-5, -width, 19, width * 2],
     };
+    dock.arrival = arrivalPoint(dock);
+    return dock;
   });
   cache.set(data, result);
   return result;
@@ -51,10 +60,10 @@ function atDock(dock, point, mode) {
   const dx = point.x - target.x,
     dy = point.y - target.y;
   const along = dx * dock.outward.x + dy * dock.outward.y;
-  const across = Math.abs(dx * dock.outward.y - dy * dock.outward.x);
+  const across = dy * dock.outward.x - dx * dock.outward.y;
+  if (mode !== "boat") return inRect(along, across, dock.boarding);
   return (
-    across <= dock.width &&
-    (mode === "boat" ? along >= -24 && along <= 12 : along >= -5 && along <= 14)
+    Math.abs(across) <= dock.width && along >= -24 && along <= 12
   );
 }
 function enteringDock(dock, point, intent, mode) {
@@ -67,18 +76,19 @@ function enteringDock(dock, point, intent, mode) {
 }
 /** Approach along the boards, then cross the tip head-on, including pointer travel. */
 function dockPath(world, actor, dock) {
-  const approach = {
-    x: dock.dry.x - dock.outward.x * 20,
-    y: dock.dry.y - dock.outward.y * 20,
-  };
-  const path =
-    world.path(actor, approach) || world.approach(actor, approach, 1);
-  if (
-    !path?.length ||
-    !world.clearSegment(path.at(-1), approach, actor) ||
-    !world.clearSegment(approach, dock.dry, actor)
-  )
-    return null;
-  return [...path, approach, { ...dock.dry }];
+  const target = boardingPoint(dock);
+  if (!target) return null;
+  // A narrow authored surface can support the exact footprint without containing
+  // any navigation-grid centre. Extend the straight final leg back to the bank;
+  // never widen physics just to make the coarser path grid fit.
+  const reach = Math.hypot(dock.bridge[2], dock.bridge[3]) * TILE + TILE * 2;
+  for (let distance = 20; distance <= reach; distance += TILE) {
+    const approach = { x: target.x - dock.outward.x * distance, y: target.y - dock.outward.y * distance };
+    if (!world.canStand(approach.x, approach.y, actor) || !world.clearSegment(approach, target, actor)) continue;
+    if (world.clearSegment(actor, approach, actor)) return [approach, target];
+    const path = world.path(actor, approach) || world.approach(actor, approach, 1);
+    if (path?.length && world.clearSegment(path.at(-1), approach, actor)) return [...path, approach, target];
+  }
+  return null;
 }
 module.exports = { docks, dockAt, atDock, enteringDock, dockPath };

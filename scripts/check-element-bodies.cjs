@@ -139,12 +139,9 @@ assert.equal(fs.readFileSync(file, "utf8"), original, "La prueba deja el catálo
 /**
  * ⛔ UN CUERPO DONDE NO HAY DIBUJO ES UN MURO INVISIBLE (21-sep-2026, repaso).
  *
- * Cuatro colocaciones del bosque —la taberna, el taller, la casa del pescador y el almacén—
- * arrastraban un cuerpo escrito cuando su lámina tenía el ancla pegada al borde izquierdo. El arte
- * se recortó y se volvió a anclar al centro; los cuerpos se quedaron donde estaban, empujados al
- * este. El del almacén medía 17 celdas para un dibujo de 8,25: **56 casillas de suelo libre
- * tapiadas** contra las que el jugador choca sin ver nada. No lo cazaba nadie porque ninguna prueba
- * comparaba la física con el dibujo REAL; se midió sobre el atlas horneado, que es lo que se pinta.
+ * `ink`, `anchor`, `w` y `h` YA están en píxeles lógicos; pixelRatio solo convierte
+ * al atlas de textura. Dividir de nuevo por dos hacía que el test viera casas de
+ * la mitad de su tamaño y rechazara cajas correctas dibujadas en el Studio.
  *
  * El límite es asimétrico a propósito. Un cuerpo MÁS ESTRECHO que su lámina es correcto y común:
  * el tronco de un árbol, la base de una casa por la que se pasa por detrás. Lo que no puede pasar
@@ -162,13 +159,12 @@ assert.equal(fs.readFileSync(file, "utf8"), original, "La prueba deja el catálo
     for (const [name, frame] of Object.entries(JSON.parse(fs.readFileSync(meta, "utf8")).frames || {})) {
       if (!frame.ink || !frame.anchor) continue;
       const [ax, ay] = frame.anchor,
-        [ix, iy, iw, ih] = frame.ink,
-        r = frame.pixelRatio || 1;
+        [ix, iy, iw, ih] = frame.ink;
       ink.set(name, {
-        x0: (ix - ax) / r / TILE,
-        x1: (ix + iw - ax) / r / TILE,
-        y0: (iy - ay) / r / TILE,
-        y1: (iy + ih - ay) / r / TILE,
+        x0: (ix - ax) / TILE,
+        x1: (ix + iw - ax) / TILE,
+        y0: (iy - ay) / TILE,
+        y1: (iy + ih - ay) / TILE,
       });
     }
   }
@@ -205,8 +201,7 @@ assert.equal(fs.readFileSync(file, "utf8"), original, "La prueba deja el catálo
    * ⛔ Y LOS CUERPOS DE LOS ELEMENTOS TAMBIÉN (22-sep-2026). Este bloque nació mirando solo las
    * colocaciones de las escenas, que es donde estaban los cuatro muros de aquel día. Pero desde que
    * el cuerpo es del ELEMENTO, lo que tapia el bosque entero se escribe en `elements.json` y este
-   * bucle no lo veía: una propuesta del Studio de 8,75 celdas para una lámina de 5,57 pasó la verja
-   * y solo se cazó midiendo a mano. Un cuerpo de familia vale por todas sus copias, así que si
+   * bucle no lo veía. Un cuerpo de familia vale por todas sus copias, así que si
    * sobresale, sobresale en todas.
    */
   /**
@@ -216,8 +211,7 @@ assert.equal(fs.readFileSync(file, "utf8"), original, "La prueba deja el catálo
    *   tapiar más de lo que dibujan es LITERALMENTE su trabajo. Medirlos contra su lámina sería
    *   llamar fallo a lo único que hacen.
    * - El tope sube a 2 celdas para una PLANTILLA de familia, porque una plantilla tiene que valer
-   *   para varias láminas a la vez y la más estrecha siempre le sobrará un poco. Sigue cazando lo
-   *   que importa: la propuesta de 8,75 celdas para una lámina de 5,57 sobresalía 3,18.
+   *   para varias láminas a la vez y la más estrecha siempre le sobrará un poco.
    */
   const TEMPLATE_LIMIT = 2;
   for (const [familyId, family] of Object.entries(
@@ -245,12 +239,15 @@ assert.equal(fs.readFileSync(file, "utf8"), original, "La prueba deja el catálo
   }
   assert.deepEqual(walls, [], "Cuerpos que sobresalen del dibujo:\n  " + walls.join("\n  "));
 
-  // Y la prueba sabe ponerse roja: el cuerpo que tenía el almacén hasta hoy.
+  // Regresión de unidades: ancho lógico, nunca ancho / densidad del atlas.
+  const workshop = ink.get("workshop");
+  assert.equal(workshop.x1 - workshop.x0, 196 / TILE);
+  // Y la prueba sigue rechazando un cuerpo que de verdad sobresale del arte.
   const warehouse = ink.get("warehouse-watering-can");
   assert(warehouse, "La regadera del almacén sigue en el atlas");
   assert(
-    overhang([-8.5, -7.5, 17, 7.7], warehouse) > LIMIT,
-    "El muro de 17 celdas del almacén tiene que seguir siendo un fallo",
+    overhang([-12, -7.5, 24, 7.7], warehouse) > LIMIT,
+    "Un cuerpo de 24 celdas no cabe en el dibujo del almacén",
   );
   assert(overhang([-5, -7.5, 9.3, 7.7], warehouse) <= LIMIT, "Y el cuerpo corregido, correcto");
   console.log("  " + measured + " cuerpos comparados con su lámina horneada; ninguno tapia lo que no dibuja.");

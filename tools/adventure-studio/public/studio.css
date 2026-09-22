@@ -635,7 +635,17 @@ dialog pre {
   color: #fff3d2;
 }
 .body-box.entrance {
-  border-color: #4d7f93;
+  border-color: #e59bff;
+}
+.body-box.walkable { border-color: #94e760; }
+.body-box.on { background: #164456; border-color: #36e6ff; }
+.body-box.entrance.on { background: #52335f; border-color: #ffc4ff; }
+.body-box.walkable.on { background: #33512f; border-color: #c5ff75; }
+#probe-status {
+  position: absolute; bottom: 48px; left: 12px; right: 12px;
+  width: fit-content; max-width: calc(100% - 24px); padding: 8px 12px;
+  border-radius: 9px; background: #122b28ed; color: #eeffd4;
+  font-size: 12px; pointer-events: none;
 }
 .body-actions {
   display: flex;

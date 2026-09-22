@@ -3,6 +3,7 @@
 const FLAT = new Set(["toilet-leaf", "poop", "pee-puddle", "shells"]);
 function capabilities(entity) {
   const fixed =
+    entity.dockAccess ||
     entity.fence ||
     entity.portal ||
     entity.threshold ||

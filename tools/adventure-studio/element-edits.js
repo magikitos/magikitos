@@ -9,6 +9,8 @@
  * revisa, porque el estudio no toca el juego.
  */
 const { families } = require("./catalog");
+const { validDockEntrance } = require("../../public/assets/js/adventure/dock-geometry");
+const { FULL_SURFACE, validWalkable } = require("../../public/assets/js/adventure/bridge-geometry");
 const {
   ENTRANCE_LIMITS,
   validEntrance,
@@ -45,6 +47,7 @@ function bodyOf(familyId, variantId) {
   return {
     ...(solids ? { solids: clone(solids) } : {}),
     ...(entrance ? { entrance: clone(entrance) } : {}),
+    ...(family.access === "dock" ? { walkable: clone(variant.walkable || FULL_SURFACE) } : {}),
   };
 }
 function validBox(box) {
@@ -74,9 +77,14 @@ function validateElements(elements = {}) {
         throw Error("Variante desconocida: " + familyId + "/" + variantId);
       if (!edit || typeof edit !== "object" || Array.isArray(edit))
         throw Error("Cuerpo inválido: " + familyId + "/" + variantId);
-      if (Object.keys(edit).some((k) => !["solids", "entrance"].includes(k)))
+      if (Object.keys(edit).some((k) => !["solids", "entrance", "walkable"].includes(k)))
         throw Error("Campo desconocido en " + familyId + "/" + variantId);
       const next = {};
+      if (Object.hasOwn(edit, "walkable")) {
+        if (families[familyId].access !== "dock" || !validWalkable(edit.walkable))
+          throw Error("Superficie caminable fuera del dibujo: " + familyId + "/" + variantId);
+        next.walkable = [...edit.walkable];
+      }
       if (Object.hasOwn(edit, "solids")) {
         const solids = edit.solids;
         if (
@@ -91,7 +99,7 @@ function validateElements(elements = {}) {
         // `null` es quitar la entrada dibujada y volver a la automática, y se conserva como tal.
         if (edit.entrance === null) next.entrance = null;
         else {
-          if (!validEntrance(edit.entrance))
+          if (!(families[familyId].access === "dock" ? validDockEntrance : validEntrance)(edit.entrance))
             throw Error(
               "Entrada fuera de límites (" +
                 ENTRANCE_LIMITS.offset +
@@ -108,14 +116,17 @@ function validateElements(elements = {}) {
        * huella libre— no la alcanza nadie: el umbral prueba el PUNTO del duende y ese punto no
        * entra en un sólido. La puerta se quedaría cerrada para siempre sin que nada avisara.
        */
-      if (next.entrance && !entranceReachable(next.entrance, next.solids))
+      if (families[familyId].access === "dock" && (!next.entrance || next.solids?.length))
+        throw Error("El muelle necesita un acceso, no cajas de colisión");
+      if (next.entrance && families[familyId].access !== "dock" && !entranceReachable(next.entrance, next.solids))
         throw Error(
           "La entrada queda dentro del cuerpo y no se puede pisar: " + familyId + "/" + variantId,
         );
       const base = bodyOf(familyId, variantId);
       if (
         !same(next.solids, base.solids) ||
-        !same(next.entrance, base.entrance)
+        !same(next.entrance, base.entrance) ||
+        (Object.hasOwn(next, "walkable") && !same(next.walkable, base.walkable))
       )
         (out[familyId] ||= {})[variantId] = next;
     }

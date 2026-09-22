@@ -1825,6 +1825,38 @@
           "sprite": "forest-balance"
         }
       ]
+    },
+    "dock-jetty": {
+      "label": "Muelle · acceso",
+      "category": "Navegación",
+      "placeable": false,
+      "randomVariants": false,
+      "access": "dock",
+      "aliases": [
+        "jetty"
+      ],
+      "defaults": {
+        "jetty": "planks"
+      },
+      "template": {
+        "sprite": "jetty",
+        "rules": []
+      },
+      "variants": [
+        {
+          "id": "planks",
+          "label": "Tablas",
+          "sprite": "jetty",
+          "walkable": [0, 0, 1, 1],
+          "entrance": [
+            -1.25,
+            -1,
+            1.4375,
+            1.5
+          ],
+          "solids": []
+        }
+      ]
     }
   }
 }

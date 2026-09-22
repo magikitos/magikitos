@@ -22,6 +22,8 @@ bin, ground bottle, collectable twigs and cleaning-leaf plants. **Río** overlay
 land/water arrival pairs and reach exits. This overlay is read-only: topology is
 authored in each scene's `navigation` JSON and checked by `check-river-core.cjs`.
 Normal props/paths/crops remain editable in the single Studio workspace.
+The boarding area on each jetty is editable too (see below); the river overlay's
+water topology and land/water arrival anchors remain read-only.
 Guest scenes reuse the owner's garden/interior templates; derived guest copies
 and moored boats are not exposed as independently editable duplicate source.
 
@@ -84,6 +86,10 @@ keep their normal text editing, and functional objects remain protected. A mixed
 selection removes only its permitted objects and keeps protected ones selected.
 
 Drag the background or hold Space to pan. Wheel or pinch to zoom.
+Double-click/double-tap an element to edit its collisions and entrance directly.
+The camera frames its complete artwork and **all** body rectangles together,
+including rotated/scaled elements. Each box stays visible while editing another;
+select its inspector button or click it on the map to adjust it.
 Arrow keys nudge; Shift multiplies the step by four. Cmd/Ctrl-Z and
 Cmd/Ctrl-Shift-Z undo/redo the last 100 changes, including crops, paths and bodies.
 Cmd/Ctrl-S saves immediately; otherwise edits save after a short pause.
@@ -98,6 +104,59 @@ the source, reload the Studio tab before continuing; stale revisions cannot
 overwrite newer work. Prefer one editing tab at a time.
 
 ## Gallery and variants
+
+### Suelo caminable y acceso al muelle
+
+Selecciona las **tablas del muelle** (Muelle · acceso), no su cartel, y pulsa
+**Editar en el mapa**. Hay dos rectángulos: **Caminable** (verde) sostiene los pies
+sobre el agua; **Entrada / Embarcar** (violeta) activa el embarque al ir hacia el río.
+Selecciona el correspondiente en el inspector y arrastra sus tiradores o cambia
+los números. La selección ilumina el rectángulo, además del botón.
+Deshacer, guardado automático y el diff son los mismos.
+El cambio pertenece a la variante `dock-jetty/planks`: se aplica a sus copias
+en todas las escenas, orientado hacia el agua en cada muelle.
+Si la franja queda fuera de las tablas pisables, se avisa en rojo y no se permite
+terminar la edición; el compilador también rechaza un acceso sin apoyo para los pies.
+
+La definición vive en `data/aventura/element-families.json`, campo `entrance`,
+en casillas relativas al ancla seca: X hacia el agua, Y transversal a las tablas.
+`walkable` se guarda como `[u,v,ancho,alto]`, fracciones del dibujo del muelle:
+la misma superficie se adapta a todas sus copias. En el inspector se transforma
+a casillas locales para editarla igual que la entrada. La superficie no puede
+salir del dibujo. `bridge.rect` sigue siendo solo el rectángulo visual.
+No se gira el dibujo ni se desplaza el muelle, la orilla o el río. El desembarco
+seguro se deriva de la nueva superficie; el ancla de la entrada no se mueve.
+Ambas geometrías se compilan en el mundo y en el contrato del servidor.
+Al publicar cambios de esta geometría deben estar coordinados el artefacto
+del juego y el soporte de `boarding`/`arrival` de `bosque-vivo/transitions.cjs` en la web.
+
+Pruebas: `npm run test:dock-access` (paridad cliente/servidor y edición,
+guardado, cambio de escena y recarga en escritorio, tablet y móvil).
+
+### Probar con duende
+
+Pulsa **Probar con duende**: flechas/WASD o arrastrar sobre el mapa para andar,
+Espacio para correr, un toque para viajar. **Recolocar duende** coloca sus pies
+en el siguiente punto que toques. **Volver a editar** o Escape devuelve los
+tiradores sin perder lo que estás dibujando.
+Mientras caminas, el duende permanece centrado: la cámara acompaña cada paso,
+tanto con teclado como arrastrando o siguiendo un destino. Recolocarlo también
+centra la vista, sin modificar la posición del elemento seleccionado.
+
+La huella es la del protagonista real (12×10 px), idéntica para todo el elenco.
+Se reutilizan `World`, `move`, `Journey`, el mando de dirección y las reglas
+direccionales de puertas y muelles. Los árboles ocultos conservan su colisión.
+La prueba usa también los rectángulos aún sin terminar de editar: una geometría
+inválida pausa la prueba hasta corregirla. No escribe partida, consume objetos,
+activa misiones, llama a la API ni cambia de escena.
+
+El suelo pisado se ilumina verde; la colisión alcanzada, roja; una entrada
+activada, amarilla. El pie también indica si cabe. La entrada se señala durante
+0,8 segundos para que se pueda ver incluso al llegar con un toque.
+`npm run test:studio-probe` comprueba física y navegador a tres tamaños sin tocar
+el workspace del dueño. Capturas locales: `.local/probe-review/`.
+
+### Colocar elementos
 
 Open **Galería de elementos** in the Elements pane. Search by family/category and choose
 a specific variant or **Variada · fija por objeto**. **Drag the card onto the map** and it
