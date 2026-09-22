@@ -219,6 +219,11 @@ class Community {
     return this.grounds.get(scene);
   }
   /** Si ya hay instantánea de lo construido en una pantalla (o no tiene zona que construir). */
+  /** The snapshot object a shared scene was built from, or null: its identity is the cache key. */
+  snapshotOf(sceneId) {
+    const zone = this.zoneOf(sceneId);
+    return (zone && this.snapshots.get(zone)) || null;
+  }
   hasSnapshot(sceneId) {
     const zone = this.zoneOf(sceneId);
     return !zone || this.snapshots.has(zone);

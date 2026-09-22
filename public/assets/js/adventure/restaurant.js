@@ -3,6 +3,7 @@ const { el, button } = require("./dom");
 const { activity } = require("./activities");
 const { ratingView } = require("./ratings");
 const { operationId } = require("./ids");
+const { VoiceRecorder } = require("./voice-recorder");
 
 const LANGUAGES = ["es", "en", "de", "fr", "it", "pt"];
 /** Each language written in itself, as a language menu should read. */
@@ -11,7 +12,7 @@ const languageName = code => new Intl.DisplayNames([code], { type: "language" })
 /** Website-owned recipes, rendered as native game cards. Drafts stay in this browser only;
  * the website validates identity and ingredients. Seats never gate personal publication. */
 class Restaurant {
-  constructor(game) { this.game = game; this.draft = null; this.data = null; this.recording = null; this.seen = new Set(); this.queue = []; this.round = 1; }
+  constructor(game) { this.game = game; this.draft = null; this.data = null; this.seen = new Set(); this.queue = []; this.round = 1; }
   open(filters = {}) {
     const g = this.game;
     return g.site.load("restaurant", g.text("restaurant"), async signal => {
@@ -121,32 +122,38 @@ class Restaurant {
     }
     form.append(field(l.preparation,instructions));
     const status = el("p", { role:"status", "aria-live":"polite" });
+    const recorder = new VoiceRecorder({
+      minSeconds: this.data.limits.audioSeconds[0],
+      maxSeconds: this.data.limits.audioSeconds[1],
+      maxBytes: this.data.limits.audioBytes,
+      signal: request.signal,
+    });
+    this.recorder = recorder;
     const record = button(l.record, async () => {
-      if (this.recording) { this.stopRecording(); return; }
-      let stream;
+      if (recorder.recording) { recorder.stop(); return; }
       record.disabled = true;
+      let take;
       try {
-        stream = await navigator.mediaDevices.getUserMedia({ audio:true });
-        if (request.signal.aborted) { stream.getTracks().forEach(t=>t.stop()); return; }
+        take = await recorder.start();
         g.media.stop(); g.narrating(true);
-        const recorder = new MediaRecorder(stream), chunks = [];
-        this.recording = { recorder, stream, startedAt: performance.now(), timer: setTimeout(()=>this.stopRecording(), this.data.limits.audioSeconds[1]*1000) };
-        const startedAt = this.recording.startedAt;
-        let bytes = 0;
-        recorder.ondataavailable = event => { chunks.push(event.data); bytes += event.data.size; if (bytes > this.data.limits.audioBytes) this.stopRecording(); };
-        recorder.onstop = () => {
-          stream.getTracks().forEach(t=>t.stop()); g.narrating(false);
-          const tooShort = performance.now() - startedAt < this.data.limits.audioSeconds[0] * 1000;
-          draft.audio = tooShort ? null : new Blob(chunks, { type:recorder.mimeType }); draft.operationId = operationId();
-          if (!request.signal.aborted) {
-            record.textContent = l.record; preview(); send.disabled = false;
-            if (tooShort) status.textContent = l.audioDuration;
-          }
-        };
-        recorder.onerror = () => { this.stopRecording(); status.textContent = l.error; };
-        recorder.start(1000); record.textContent = l.stop; send.disabled = true;
-      } catch (_) { stream?.getTracks().forEach(t=>t.stop()); g.narrating(false); status.textContent = l.error; }
-      finally { record.disabled = false; }
+        record.textContent = l.stop; send.disabled = true;
+      } catch (_) {
+        if (!request.signal.aborted) status.textContent = l.error;
+        return;
+      } finally { record.disabled = false; }
+      try {
+        const result = await take.finished;
+        const usable = !result.short && !result.silent;
+        draft.audio = usable ? result.blob : null; draft.operationId = operationId();
+        if (!request.signal.aborted) {
+          status.textContent = result.short ? l.audioDuration : result.silent ? l.audioSilent : "";
+        }
+      } catch (_) {
+        if (!request.signal.aborted) status.textContent = l.error;
+      } finally {
+        g.narrating(false);
+        if (!request.signal.aborted) { record.textContent = l.record; preview(); send.disabled = false; }
+      }
     });
     const remove = button(l.removeAudio, () => { draft.audio = null; draft.operationId = operationId(); preview(); });
     const audio = el("audio", { controls:"", preload:"metadata" });
@@ -159,15 +166,15 @@ class Restaurant {
     };
     audio.onplay = () => { g.media.stop(); g.narrating(true); };
     audio.onpause = audio.onended = () => g.narrating(false);
-    request.signal.addEventListener("abort", () => { this.stopRecording(); audio.pause(); if (blobUrl) URL.revokeObjectURL(blobUrl); }, { once:true });
-    record.disabled = !navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === "undefined";
+    request.signal.addEventListener("abort", () => { audio.pause(); if (blobUrl) URL.revokeObjectURL(blobUrl); }, { once:true });
+    record.disabled = !VoiceRecorder.supported();
     const send = el("button", { type:"submit", text:l.send, class:"world-primary" });
     preview();
     form.append(el("p",{text:l.audioHint}),record,audio,remove,status,send);
     const freeze = locked => {
       for (const field of form.querySelectorAll("input,textarea,select,button"))
         if (field !== send) field.disabled = locked;
-      if (!locked) record.disabled = !navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === "undefined";
+      if (!locked) record.disabled = !VoiceRecorder.supported();
     };
     freeze(!!this.publication);
     form.onsubmit = async event => {
@@ -198,12 +205,6 @@ class Restaurant {
       finally { send.disabled = false; send.textContent = l.send; }
     };
     root.append(form); g.site.mount(root,request);
-  }
-  stopRecording() {
-    const active = this.recording; if (!active) return;
-    this.recording = null; clearTimeout(active.timer);
-    if (active.recorder.state !== "inactive") active.recorder.stop();
-    active.stream.getTracks().forEach(track=>track.stop());
   }
 }
 module.exports = { Restaurant };

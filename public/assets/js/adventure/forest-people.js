@@ -4,7 +4,14 @@ const { advanceGait, characterFrame, runFrame } = require("./characters");
 const { VesselMotion } = require("./river-navigation");
 const { vesselLayers } = require("./vessel-art");
 const { reliefFrame } = require("./relief-art");
-const INTERPOLATION_MS = protocol.limits.playerSnapshotMs;
+/**
+ * How long a peer takes to glide to its newest position: the MEASURED gap between snapshots, not
+ * a constant. A fixed 100 ms made a spectator (one snapshot every 2.5 s) see everybody sprint
+ * for a tenth of a second and freeze for the rest, and any late packet stopped a player dead
+ * before it jumped. Arriving just as the next snapshot lands keeps the motion continuous.
+ */
+const MIN_WINDOW_MS = protocol.limits.playerSnapshotMs,
+  MAX_WINDOW_MS = protocol.limits.spectatorSnapshotMs * 1.2;
 
 /**
  * Render-only peers. Never inserted into personal NPCs, save data, inventory or collision.
@@ -23,7 +30,10 @@ class ForestPeople {
     this.now = now;
     this.clear();
   }
-  clear() { this.scene = null; this.people = new Map(); this.list = []; }
+  clear() {
+    this.scene = null; this.people = new Map(); this.list = [];
+    this.lastSnapshotAt = null; this.window = MIN_WINDOW_MS;
+  }
   snapshot(packet, scene, bounds) {
     if (packet.scene !== scene || !Array.isArray(packet.people) || packet.people.length > protocol.limits.players) return false;
     const rows = packet.people;
@@ -35,6 +45,12 @@ class ForestPeople {
     if (this.scene !== scene) this.clear();
     this.scene = scene;
     const now = this.now(), keep = new Set();
+    if (this.lastSnapshotAt !== null) {
+      const gap = Math.min(MAX_WINDOW_MS, Math.max(MIN_WINDOW_MS, now - this.lastSnapshotAt));
+      // Quick to slow down (a late packet), gentle to speed up (one early packet is not a trend).
+      this.window = gap > this.window ? gap : this.window * 0.8 + gap * 0.2;
+    }
+    this.lastSnapshotAt = now;
     for (const [id, x, y, direction, pose, variant, mode] of rows) {
       keep.add(id);
       let peer = this.people.get(id);
@@ -54,7 +70,7 @@ class ForestPeople {
   update(reducedMotion = false) {
     const now = this.now();
     for (const p of this.list) {
-      const t = Math.min(1, Math.max(0, (now - p.at) / INTERPOLATION_MS));
+      const t = Math.min(1, Math.max(0, (now - p.at) / this.window));
       const x = p.fromX + (p.toX - p.fromX) * t, y = p.fromY + (p.toY - p.fromY) * t;
       const distance = Math.hypot(p.x - x, p.y - y);
       p.walkDistance += distance; p.x = x; p.y = y;
@@ -63,7 +79,7 @@ class ForestPeople {
       // A render on the exact snapshot boundary has zero delta. Hold its leg
       // rather than flashing idle between packets; stop when packets go stale.
       const moving = walking && !reducedMotion && (distance > 0.001 ||
-        (now - p.at < INTERPOLATION_MS * 2 && Math.hypot(p.toX - p.fromX, p.toY - p.fromY) > 0.001));
+        (now - p.at < this.window * 2 && Math.hypot(p.toX - p.fromX, p.toY - p.fromY) > 0.001));
       const elapsed = (now - p.poseAt) / 1000, phase = reducedMotion ? 0 : Math.floor(elapsed * 5) % 4;
       const base = `person-${p.variant}`, heading = `${base}-${p.direction}`;
       p.vesselArt = null;

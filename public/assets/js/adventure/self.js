@@ -52,28 +52,21 @@ class Self {
     byId("puzzle-reset").onclick = async () => {
       if (!game.world.data.puzzleReset || game.cats.locked) return;
       byId("self-dialog").close();
-      game.pauseMovement();
-      game.transitioning = true;
       // Las posiciones se borran ANTES de preparar, porque la pantalla se rehace con el estado ya
       // limpio; si preparar falla, hay que devolverlas: si no, se seguiría jugando un mundo que ya
       // no coincide con lo guardado y el siguiente `save` lo daría por bueno.
       const scene = game.state.scene,
         placed = game.state.objects[scene];
-      let prepared;
       try {
         delete game.state.objects[scene];
         game.scenes.cache.delete(scene);
-        prepared = await game.scenes.prepare(scene, null, game.state);
-        game.scenes.enter(prepared);
-        game.dirty = true;
-        game.save();
+        await game.scenes.transition(scene, null, game.state, {
+          after: () => { game.dirty = true; game.save(); },
+        });
       } catch (error) {
         if (placed !== undefined) game.state.objects[scene] = placed;
         console.error("Puzzle reset:", error);
         game.toast(game.text("travelError"));
-      } finally {
-        prepared?.packs.release?.();
-        game.transitioning = false;
       }
     };
   }

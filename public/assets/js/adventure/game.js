@@ -58,6 +58,8 @@ const { ForestBody } = require("./forest-body");
 const { ForestNotes } = require("./forest-notes");
 const byId = (id) => document.getElementById(id);
 
+const SAVE_IDLE_MS = 2000,
+  SAVE_WHILE_WALKING_MS = 10000;
 class Adventure {
   constructor(config) {
     this.config = config;
@@ -216,7 +218,10 @@ class Adventure {
     window.addEventListener("blur", () => {
       this.pauseMovement();
     });
-    document.addEventListener("visibilitychange", () => this.syncForeground());
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) this.save();
+      this.syncForeground();
+    });
     window.addEventListener("magikitos:app-state", (event) => {
       this.nativeInactive = !event.detail.active;
       this.syncForeground();
@@ -546,7 +551,7 @@ class Adventure {
           destination.position,
           plan.state,
         );
-        await this.live.cross("door", entity.id, prepared.id, prepared.position);
+        this.live.cross("door", entity.id, prepared.id, prepared.position);
       }
       for (const effect of plan.effects)
         if (effect.type === "presentation")
@@ -578,7 +583,8 @@ class Adventure {
         else if (effect.type === "content") this.openContent(effect.key);
       }
       if (held) this.inventory.clear();
-      this.world.refresh(this.state);
+      // A travel already entered its world with this very state.
+      if (this.world.state !== this.state) this.world.refresh(this.state);
       this.dirty = true;
       this.updateUI();
       this.pickups.gained(before, this.state, {
@@ -1245,7 +1251,10 @@ class Adventure {
       this.renderer.render(this, this.reducedMotion ? 0 : ms / 1000);
       this.lastRender = ms;
     }
-    if (ms - this.lastSave > 2000) {
+    // Saving is a synchronous stringify + localStorage write. While walking every frame
+    // dirties the position, so a 2 s cadence meant a hitch every 2 s of walking; the walk is
+    // saved when it stops (next pulse), on hide and on pagehide, and at worst every 10 s.
+    if (ms - this.lastSave > (this.walking ? SAVE_WHILE_WALKING_MS : SAVE_IDLE_MS)) {
       this.save();
       this.lastSave = ms;
     }

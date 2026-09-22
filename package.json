@@ -8,6 +8,7 @@
   },
   "scripts": {
     "build": "node tools/build.cjs",
+    "sync:contracts": "node tools/sync-contracts.cjs",
     "audio:prepare": "node tools/prepare-audio.cjs",
     "test:audio:core": "node scripts/check-audio-core.cjs",
     "test:audio": "node scripts/check-audio-core.cjs && node scripts/check-audio-browser.cjs",
@@ -57,9 +58,9 @@
     "test:pickups": "node scripts/check-pickups-browser.cjs",
     "test:river": "node scripts/check-river-browser.cjs",
     "test:selection": "node scripts/check-studio-selection-browser.cjs",
-    "test:community": "node scripts/check-community-browser.cjs",
     "test:construction-permits": "node scripts/check-construction-permit-browser.cjs",
     "test:restaurant": "node scripts/check-restaurant-browser.cjs",
+    "test:transitions": "node scripts/check-transitions-browser.cjs",
     "art:catalog": "node scripts/build-woodland-kit.cjs",
     "art:cast": "php scripts/prepare-adventure-cast.php",
     "art:garden": "php scripts/prepare-adventure-garden.php",

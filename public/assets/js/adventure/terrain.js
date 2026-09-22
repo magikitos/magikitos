@@ -107,6 +107,9 @@ class Terrain {
     }
     return false;
   }
+  has(world, cx, cy) {
+    return this.chunks.has(world.data.id + ":" + cx + ":" + cy);
+  }
   /** Un claro con caminos nuevos hay que repintarlo: las baldosas se cachean por escena. */
   invalidate(sceneId) {
     for (const key of [...this.chunks.keys()])

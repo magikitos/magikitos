@@ -71,6 +71,7 @@ for (const name of [
   execFileSync(process.execPath, ["scripts/" + name + ".cjs"], {
     stdio: "inherit",
   });
+execFileSync(process.execPath, ["tools/sync-contracts.cjs", "--check"], { stdio: "inherit" });
 execFileSync("php", ["scripts/check-adventure-crops.php"], {
   stdio: "inherit",
 });

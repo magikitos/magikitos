@@ -75,6 +75,11 @@ Sin vidas, combate, Libro del Bosque, fiambreras ni parcelas privadas.
   hay aviso. Lo que no es ninguna pantalla se pinta como continuación del borde más
   cercano, y un toque en la pantalla de al lado es un viaje que cruza la costura y
   termina allí.
+  **Y cruzar no espera al servidor** (22-sep-2026): por una costura o una puerta se entra
+  en local al momento y el `cruzar` va por detrás (`ForestLive.cross`, en cola y sin mandar
+  `estoy` hasta la respuesta); si el bosque vivo lo rechaza, su posición manda y se vuelve
+  a ella. La espera de un viaje de ida y vuelta por WebSocket en cada cruce era el corte que
+  se notaba. Un muelle sí espera: embarcar necesita el permiso firmado de la barca.
   **El aro se ve siempre que el dedo manda.** El lienzo pinta un aro tenue donde
   lo apoyaste, una bolita donde está y, dentro del aro, una porción casi transparente
   («pizza slice», un octavo de vuelta) que apunta a donde manda (`renderer.stickHint`,

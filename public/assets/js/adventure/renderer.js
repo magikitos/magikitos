@@ -14,6 +14,12 @@ const { drawRipples } = require("./water");
 const { cameraMetrics } = require("./camera");
 const { chunkRange } = require("./scene-frame");
 const fences = require("./fences");
+const { frameName } = require("./elements");
+const { riverVisitors, drawFishing } = require("./river-life");
+const { drawSeat } = require("./seating");
+const { drawAmbientActor } = require("./ambient-actors");
+const { drawVegetation } = require("./vegetation");
+const { drawKeepsakes } = require("./keepsakes");
 /** La porción del aro del mando que marca la dirección: un octavo de vuelta. */
 const STICK_SLICE = Math.PI / 4;
 class Renderer {
@@ -70,7 +76,7 @@ class Renderer {
       return entity.pulse.sprite;
     return (
       (entity.visuals || []).find((v) => matches(state, v.when))?.sprite ||
-      require("./elements").frameName(entity)
+      frameName(entity)
     );
   }
   hit(entity, point, state) {
@@ -79,7 +85,7 @@ class Renderer {
     // en cuanto alguien construye una de verdad en el claro. `fences.hit` mide la distancia a los
     // travesaños, que es lo que la persona ve.
     if (entity.fence)
-      return require("./fences").hit(
+      return fences.hit(
         entity,
         point,
         Math.max(2, 12 / this.scale),
@@ -181,7 +187,7 @@ class Renderer {
       ...game.neighbors,
       ...(game.notes?.entities || []),
       ...(game.live?.people.list || []),
-      ...require("./river-life").riverVisitors(world.data, time),
+      ...riverVisitors(world.data, time),
       ...(game.cats?.renderables() || []),
       ...(game.cats?.carried() ? [game.cats.carried()] : []),
       ...(game.guardian ? [game.guardian] : []),
@@ -204,7 +210,7 @@ class Renderer {
         ...w.architecture,
         ...w.entities.filter((e) => active(e, game.state)),
         ...(w.actors || []),
-        ...require("./river-life").riverVisitors(w.data, time),
+        ...riverVisitors(w.data, time),
       ].flatMap((e) => (e.fence ? fences.parts(e) : e));
       for (const e of theirs) {
         if (!this.inView(e, local, game.state)) continue;
@@ -250,19 +256,21 @@ class Renderer {
         this.sprites,
       );
     this.stickHint(game.stickHint?.());
-    // A quiet edge vignette; no per-frame image processing.
-    const gradient = c.createRadialGradient(
-      this.width / 2,
-      this.height / 2,
-      this.width * 0.28,
-      this.width / 2,
-      this.height / 2,
-      this.width * 0.8,
-    );
-    gradient.addColorStop(0, "rgba(19,38,27,0)");
-    gradient.addColorStop(1, "rgba(19,38,27,.17)");
-    c.fillStyle = gradient;
+    // A quiet edge vignette; no per-frame image processing, and one gradient per view size.
+    c.fillStyle = this.vignette();
     c.fillRect(0, 0, this.width, this.height);
+  }
+  vignette() {
+    const key = this.width + "x" + this.height;
+    if (this.vignetteKey !== key) {
+      const w = this.width,
+        h = this.height;
+      this.vignetteGradient = this.ctx.createRadialGradient(w / 2, h / 2, w * 0.28, w / 2, h / 2, w * 0.8);
+      this.vignetteGradient.addColorStop(0, "rgba(19,38,27,0)");
+      this.vignetteGradient.addColorStop(1, "rgba(19,38,27,.17)");
+      this.vignetteKey = key;
+    }
+    return this.vignetteGradient;
   }
   /** Si un renderable cae dentro de una vista (píxeles de mundo de su propia pantalla). */
   inView(e, view, state) {
@@ -387,7 +395,7 @@ class Renderer {
     const name = this.actorArt.frame(frameFor(e)),
       f = this.sprites.frame(name);
     if (!f) return;
-    require("./seating").drawSeat(c, this.sprites, e);
+    drawSeat(c, this.sprites, e);
     if ((e.player && !game.river?.active) || e.neighbor) {
       c.fillStyle = "rgba(31,46,33,.22)";
       c.beginPath();
@@ -395,13 +403,13 @@ class Renderer {
       c.fill();
     }
     if (
-      !require("./ambient-actors").drawAmbientActor(c, this.sprites, e, name, time) &&
-      !require("./vegetation").drawVegetation(c, this.sprites, e, name, time)
+      !drawAmbientActor(c, this.sprites, e, name, time) &&
+      !drawVegetation(c, this.sprites, e, name, time)
     )
       drawArtwork(c, this.sprites, e, name);
     drawAttachments(c, this.sprites, e);
     if (e.player) game.self.drawStream(c);
-    require("./river-life").drawFishing(c, e, time);
+    drawFishing(c, e, time);
     if (e.cat) game.cats.drawWarning(c, e);
     if (e.lightRadius) {
       const radius = e.lightRadius;
@@ -411,7 +419,7 @@ class Renderer {
       c.fillStyle = light;
       c.fillRect(e.x - radius, e.y - 12 - radius, radius * 2, radius * 2);
     }
-    require("./keepsakes").drawKeepsakes(c, this.sprites, e, game.state);
+    drawKeepsakes(c, this.sprites, e, game.state);
     if (
       player &&
       (e.rules?.length || e.neighbor || e.interactAs) &&

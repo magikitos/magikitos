@@ -8,6 +8,7 @@ const { playerPack } = require("./player-art");
 const { definition: vesselDefinition } = require("./vessel-art");
 const { clampCamera } = require("./camera");
 const { layoutScenes, seamsOf, frameOf, scenesIntersecting } = require("./world-layout");
+const { chunkRange } = require("./scene-frame");
 /** Cuántas vecinas se tienen calientes a la vez. Ver `prewarm`: precargar es un favor, no una
  * excusa para reservar el bosque entero en memoria. Cuatro y no tres desde el mundo continuo:
  * en una esquina del plano la cámara puede enseñar tres pantallas a la vez además de la tuya. */
@@ -165,12 +166,62 @@ class SceneDirector {
     this.game.renderer.sprites.retainWarm(this.warmIds(), this.visibleIds());
   }
   /**
-   * `seam` es para quien llega por una costura del mundo continuo: la instantánea de lo construido
-   * en esa pantalla ya se pidió al calentarla, así que no se vuelve a esperar a la red para cruzar
-   * —se refresca por detrás—. Esperarla congelaba al duende en el borde lo que tardara la petición,
-   * que es justo el corte que el plano quiere borrar. Sin instantánea previa se espera, como siempre.
+   * La instantánea de lo construido que ya se tiene no se vuelve a esperar para cruzar, ni por una
+   * costura ni por una puerta: se refresca por detrás (ver `prepareFresh`). Sin instantánea previa
+   * se espera, como siempre.
    */
+  /**
+   * ONE way to change the scene under the player: pause, mark the transition, prepare, commit,
+   * enter, and ALWAYS hand the leased sprite packs back and clear the flag, whatever throws.
+   * `commit(prepared)` runs between preparing and entering (the caller's state switch, a live
+   * crossing); returning false aborts without entering. `after(prepared)` runs once entered.
+   * Every caller used to repeat this choreography, and a forgotten `release` pinned a scene's art
+   * for the rest of the session. Doors keep their own flow: presentations run in between.
+   */
+  async transition(id, position, state, { pause = {}, enter = {}, commit = null, after = null } = {}) {
+    const g = this.game;
+    g.pauseMovement(pause);
+    g.transitioning = true;
+    let prepared;
+    try {
+      prepared = await this.prepare(id, position, state);
+      if (commit && commit(prepared) === false) return null;
+      this.enter(prepared, enter);
+      after?.(prepared);
+      return prepared;
+    } finally {
+      prepared?.packs.release?.();
+      g.transitioning = false;
+    }
+  }
   async prepare(id, position, state, options = {}) {
+    const prepared = await this.resolve(id, position, state, options);
+    // A real journey paints the ground it arrives on before entering. Painting is per pixel
+    // (~7 ms per 256 px tile on a laptop, several times that on a phone), and entering through a
+    // door left every visible tile to the first frame: one long freeze on arrival. Here each tile
+    // is its own task, so the old scene keeps drawing in between. Warming stays lazy.
+    if (!options.reuse) await this.paintArrival(prepared.world, prepared.position);
+    return prepared;
+  }
+  async paintArrival(world, position) {
+    const renderer = this.game.renderer,
+      terrain = renderer.terrain;
+    if (!renderer.width || !position) return;
+    const camera = clampCamera(
+      { x: position.x - renderer.width / 2, y: position.y - renderer.height / 2 },
+      world,
+      renderer,
+    );
+    const view = { x: camera.x, y: camera.y, width: renderer.width, height: renderer.height };
+    const range = chunkRange(world, view);
+    for (let y = range.top; y <= range.bottom; y++)
+      for (let x = range.left; x <= range.right; x++) {
+        if (terrain.has(world, x, y)) continue;
+        terrain.chunk(world, x, y, renderer.sprites);
+        await new Promise((resolve) => setTimeout(resolve, 0));
+      }
+  }
+  async resolve(id, position, state, options) {
     // Una preparación por pantalla a la vez: si la precarga ya está trayendo esta pantalla, el
     // viaje espera a ESA en vez de arrancar otra igual (dos mundos, dos reservas de arte). La
     // posición de llegada se resuelve después sobre el mundo que salga de ahí.
@@ -204,9 +255,12 @@ class SceneDirector {
       valid(point?.x, point?.y),
     ) || null;
   }
-  async prepareFresh(id, position, state, { seam = false } = {}) {
+  async prepareFresh(id, position, state) {
     const game = this.game;
-    if (seam && game.community?.hasSnapshot(id)) game.community.prepare(game.catalog.scenes[id]);
+    // A snapshot already in hand is used as is and refreshed behind (the live zone sync applies
+    // what changed), through a door as much as across a seam: waiting for it stopped the duende
+    // at every door into a shared zone for one HTTP round trip, up to its 3 s timeout.
+    if (game.community?.hasSnapshot(id)) game.community.prepare(game.catalog.scenes[id]);
     else await game.community?.prepare(game.catalog.scenes[id]);
     const scenes = game.catalog.scenes;
     const data =
@@ -216,8 +270,16 @@ class SceneDirector {
     const shared = Object.values(game.catalog.construction.zones).some(
       (z) => z.scene === id,
     );
-    const cached = shared ? null : this.cache.get(id);
-    const world = cached && cached !== game.world ? cached : new World(data);
+    // A shared zone's world bakes the community snapshot in, so it is reused only while that
+    // snapshot is the same object (`accept` replaces it, never mutates it). Rebuilding it on every
+    // preparation cost a full World construction per crossing into the meadow.
+    const snapshot = shared ? game.community?.snapshotOf(id) ?? null : null;
+    const cached = this.cache.get(id);
+    const world =
+      cached && cached !== game.world && (!shared || cached.communitySnapshot === snapshot)
+        ? cached
+        : new World(data);
+    world.communitySnapshot = snapshot;
     world.actors = [];
     world.refresh(state);
     game.live?.objects.prepare(world);
@@ -479,7 +541,9 @@ class SceneDirector {
     game.state.position = { ...prepared.position };
     game.guardian = null;
     game.world.actors = [game.player, ...game.neighbors];
-    game.world.refresh(game.state);
+    // `prepareFresh` already indexed this world's bodies for this very state; a warmed world was
+    // prepared for another one and is rebuilt here.
+    if (game.world.state !== game.state) game.world.refresh(game.state);
     game.live?.objects.bind(game.world);
     game.pauseMovement({ keepControls, keepPointerGesture });
     game.contactLatch = null;

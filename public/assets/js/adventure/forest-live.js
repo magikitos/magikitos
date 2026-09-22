@@ -65,21 +65,20 @@ class ForestLive {
         !Number.isFinite(position.x) || !Number.isFinite(position.y)) return;
     if (position.scene !== g.state.scene || position.mode !== (g.river.active ? "boat" : "foot")) {
       const generation = this.connection.generation;
-      g.pauseMovement(); g.transitioning = true;
-      let prepared;
+      const state = { ...g.state, navigation: { ...g.state.navigation, mode: position.mode } };
       try {
-        const state = { ...g.state, navigation: { ...g.state.navigation, mode: position.mode } };
-        prepared = await g.scenes.prepare(position.scene, position, state);
-        if (generation !== this.connection.generation) return;
-        g.state = state;
-        g.scenes.enter(prepared);
-        g.save();
+        await g.scenes.transition(position.scene, position, state, {
+          commit: () => {
+            if (generation !== this.connection.generation) return false;
+            g.state = state;
+          },
+          after: () => g.save(),
+        });
       } catch (error) {
         // Sin identidad, `update` vuelve a arrancar la presencia; con `stop` a secas quedaba muerta.
         console.error("Correction:", error);
         this.connection.stop(); this.identity = null;
       }
-      finally { prepared?.packs.release?.(); g.transitioning = false; }
       return;
     }
     if (Math.hypot(position.x - g.player.x, position.y - g.player.y) < 1) return;
@@ -143,7 +142,7 @@ class ForestLive {
       }
     }
     g.community.sync.update();
-    if (!this.connection.ready || this.connection.crossing) return;
+    if (!this.connection.ready || this.connection.crossing || this.pendingCrossings) return;
     const pose = g.cats.locked ? "carried" : g.sequence.current?.type === "relief" ? g.sequence.current.data.kind :
       g.presentation.frame() ? (g.sequence.current?.data.kind === "discover" ? "discover" : "work") :
       g.player.pushing ? "push" : g.walking ? (g.river.active ? "row" : g.running ? "run" : "walk") : "idle";
@@ -163,26 +162,57 @@ class ForestLive {
       this.lastView = encoded;
     }
   }
-  async cross(kind, id, scene, position, mode = this.game.river.active ? "boat" : "foot") {
+  /**
+   * Tells the forest authority about a local transition. Doors and edges are OPTIMISTIC: the
+   * caller enters the new scene without waiting for this round trip (it was a visible stop of
+   * one RTT on every crossing), because the connection sends no movement while a crossing is
+   * pending and a rejection carries the authoritative position, which `rejected` restores.
+   * A dock is not optimistic: boarding needs the signed boat entitlement first, so the caller
+   * awaits it and a rejection throws. Crossings are queued in order, so crossing back before
+   * the first acknowledgement is not a `crossing_pending` failure.
+   */
+  cross(kind, id, scene, position, mode = this.game.river.active ? "boat" : "foot") {
     const g = this.game;
     if (!this.connection.ready) {
       // Do not let a greeting issued for the old scene arrive after the local transition.
-      this.connection.stop(); this.identity = null; return;
+      this.connection.stop(); this.identity = null; return Promise.resolve();
     }
-    if (kind === "dock" && mode === "boat") {
-      await g.materials.flush();
-      if (g.materials.queue.length || g.materials.error)
-        throw Error(g.materials.error || "materials_pending");
-      const renewed = await this.connection.renew(); // Wait for the signed entitlement's server ACK.
-      if (!renewed) {
-        if (this.connection.ready) throw Error("ticket_renewal_failed");
-        this.connection.stop(); this.identity = null; return;
-      }
-    }
-    const reply = await this.connection.cross({ kind, id, from: [g.player.x, g.player.y, g.player.direction],
-      scene, position: [position.x, position.y], mode });
-    if (reply && !reply.ok) throw Error("crossing_rejected");
+    const packet = { kind, id, from: [g.player.x, g.player.y, g.player.direction],
+      scene, position: [position.x, position.y], mode };
+    const optimistic = kind !== "dock";
     this.people.clear(); this.lastView = null;
+    const send = async () => {
+      if (kind === "dock" && mode === "boat") {
+        await g.materials.flush();
+        if (g.materials.queue.length || g.materials.error)
+          throw Error(g.materials.error || "materials_pending");
+        const renewed = await this.connection.renew(); // Wait for the signed entitlement's server ACK.
+        if (!renewed) {
+          if (this.connection.ready) throw Error("ticket_renewal_failed");
+          this.connection.stop(); this.identity = null; return;
+        }
+      }
+      const reply = await this.connection.cross(packet);
+      if (reply && !reply.ok) {
+        if (!optimistic) throw Error("crossing_rejected");
+        this.rejected(reply.position);
+      }
+    };
+    // No movement may reach the authority for the new scene before its crossing does.
+    this.pendingCrossings = (this.pendingCrossings || 0) + 1;
+    const task = (this.crossings || Promise.resolve()).then(send)
+      .finally(() => { this.pendingCrossings--; });
+    this.crossings = task.catch(() => {});
+    if (optimistic) task.catch((error) => console.warn("Forest crossing:", error));
+    return task;
+  }
+  /** A refused optimistic crossing: back to where the authority says, once no transition runs. */
+  rejected(position) {
+    if (this.game.transitioning) {
+      setTimeout(() => this.rejected(position), 150);
+      return;
+    }
+    this.correct(position);
   }
   canWrite() {
     if (this.connection.ready && this.role === "player") return true;

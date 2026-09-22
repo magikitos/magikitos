@@ -325,8 +325,8 @@ restoration reclaims them from the original owner. It is not publicly routed.
 ### Verification
 
 Game: `npm test`, `node scripts/check-cats-browser.cjs`,
-`node scripts/check-community-browser.cjs`, `npm run test:mobility`,
-`npm run test:api:local`, `npm run test:boundary`.
+`npm run test:construction-permits`, `npm run test:mobility`,
+`npm run test:api:local`, `npm run test:boundary`, `npm run test:transitions`.
 
 Private web/DDEV: `scripts/check-community.php`,
 `scripts/check-community-concurrency.php`, `scripts/check-game-profiles.php`,

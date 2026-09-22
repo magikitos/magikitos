@@ -268,11 +268,6 @@ class Crossings {
   async travel(exit, mode) {
     const g = this.game;
     if (g.transitioning) return;
-    g.transitioning = true;
-    // ⛔ CRUZAR NO SUELTA EL DEDO. Se para el viaje de este lado, pero el gesto sigue siendo el
-    // mismo gesto: el mando del dedo es un vector, como una tecla pulsada, y `directionIntent` lo
-    // lee igual en la pantalla nueva en cuanto `transitioning` se suelta.
-    g.pauseMovement({ keepControls: true, keepPointerGesture: true });
     // Dónde estabas DE VERDAD, aunque hayas rebasado el borde; y el origen recogido al borde, que
     // es el que el servidor admite y el que la llegada geométrica toma como referencia.
     const actual = { x: g.player.x, y: g.player.y };
@@ -289,42 +284,52 @@ class Crossings {
     const camera = { x: g.camera.x - shift.x, y: g.camera.y - shift.y };
     const pending = this.pending?.scene === exit.scene ? this.pending : null;
     this.pending = null;
-    let prepared;
+    const state = {
+      ...g.state,
+      navigation: { ...g.state.navigation, mode, direction: exit.direction },
+    };
+    // Si justo enfrente hay un árbol, se aparece un paso al lado dentro de la banda antes de
+    // recurrir al centro escrito: con las bandas anchas de la rejilla (20-sep-2026) eso evita
+    // el salto al centro que el dueño veía como «se desplaza a la derecha».
+    // Los pasos de al lado se acotan a la banda de DESTINO, centrada en `exit.position` y tan
+    // ancha como la banda de salida (los centros están alineados por el plano). La medida es la
+    // MISMA que la de `crossingArrival` y la que admite el bosque vivo (`transitions.cjs`): con
+    // media casilla menos, la llegada exacta de quien cruza pegado al filo de la banda se caía
+    // del filtro y el duende daba un salto de 8 px.
+    const vertical = exit.direction === "up" || exit.direction === "down";
+    const [, , aw, ah] = exit.area,
+      centre = (vertical ? exit.position[0] : exit.position[1]) * TILE,
+      half = ((vertical ? aw : ah) / 2) * TILE;
+    const side = [0, -8, 8, -16, 16, -24, 24, -32, 32]
+      .map((d) => (vertical ? { x: arrival.x + d, y: arrival.y } : { x: arrival.x, y: arrival.y + d }))
+      .filter((p) => Math.abs((vertical ? p.x : p.y) - centre) <= half);
+    // ⛔ CRUZAR NO SUELTA EL DEDO. Se para el viaje de este lado, pero el gesto sigue siendo el
+    // mismo gesto: el mando del dedo es un vector, como una tecla pulsada, y `directionIntent` lo
+    // lee igual en la pantalla nueva en cuanto `transitioning` se suelta.
+    const keep = { keepControls: true, keepPointerGesture: true };
     try {
-      const state = {
-        ...g.state,
-        navigation: { ...g.state.navigation, mode, direction: exit.direction },
-      };
-      // Si justo enfrente hay un árbol, se aparece un paso al lado dentro de la banda antes de
-      // recurrir al centro escrito: con las bandas anchas de la rejilla (20-sep-2026) eso evita
-      // el salto al centro que el dueño veía como «se desplaza a la derecha».
-      // Los pasos de al lado se acotan a la banda de DESTINO, centrada en `exit.position` y tan
-      // ancha como la banda de salida (los centros están alineados por el plano). La medida es la
-      // MISMA que la de `crossingArrival`: con media casilla menos, la llegada exacta de quien
-      // cruza pegado al filo de la banda se caía del filtro y el duende daba un salto de 8 px.
-      const vertical = exit.direction === "up" || exit.direction === "down";
-      const [, , aw, ah] = exit.area,
-        centre = (vertical ? exit.position[0] : exit.position[1]) * TILE,
-        half = ((vertical ? aw : ah) / 2) * TILE;
-      const side = [0, -8, 8, -16, 16, -24, 24, -32, 32]
-        .map((d) => (vertical ? { x: arrival.x + d, y: arrival.y } : { x: arrival.x, y: arrival.y + d }))
-        .filter((p) => Math.abs((vertical ? p.x : p.y) - centre) <= half);
-      prepared = await g.scenes.prepare(
+      await g.scenes.transition(
         exit.scene,
         [...side, { x: exit.position[0] * TILE, y: exit.position[1] * TILE }],
         state,
-        { seam: true },
+        {
+          pause: keep,
+          enter: { ...keep, camera },
+          commit: (prepared) => {
+            g.live?.cross("edge", exit.id, prepared.id, prepared.position, mode);
+            g.state = state;
+          },
+          after: () => {
+            if (seam) this.settle(actual, shift, mode);
+            // Se aparece dentro de la banda de vuelta a propósito; esa salida queda cerrada hasta que
+            // se salga de ella, que si no se volvería por donde se vino en el mismo fotograma.
+            const back = crossingAt(g.world.data, g.player, mode, SEAM_TRIGGER, true);
+            this.latched = back ? { id: back.id, x: g.player.x, y: g.player.y } : null;
+            g.save();
+            if (pending) g.tap(pending.point);
+          },
+        },
       );
-      await g.live?.cross("edge", exit.id, prepared.id, prepared.position, mode);
-      g.state = state;
-      g.scenes.enter(prepared, { keepControls: true, keepPointerGesture: true, camera });
-      if (seam) this.settle(actual, shift, mode);
-      // Se aparece dentro de la banda de vuelta a propósito; esa salida queda cerrada hasta que
-      // se salga de ella, que si no se volvería por donde se vino en el mismo fotograma.
-      const back = crossingAt(g.world.data, g.player, mode, SEAM_TRIGGER, true);
-      this.latched = back ? { id: back.id, x: g.player.x, y: g.player.y } : null;
-      g.save();
-      if (pending) g.tap(pending.point);
     } catch (error) {
       console.error("Crossing:", error);
       // Se conservan la barca y el saco en la orilla de partida; se reintenta al apartarse. El
@@ -332,9 +337,6 @@ class Crossings {
       this.failed = exit.id;
       this.lastError = { exit: exit.id, scene: exit.scene, reason: String(error?.message || error), at: Date.now() };
       g.toast(g.text("travelError"));
-    } finally {
-      prepared?.packs.release?.();
-      g.transitioning = false;
     }
   }
 }

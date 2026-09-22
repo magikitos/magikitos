@@ -199,20 +199,9 @@ class CloudSave {
     const g = this.game;
     const next = cleanSave(profile.state, g.catalog);
     g.scenes.cache.clear();
-    if (g.ready) {
-      g.pauseMovement();
-      g.transitioning = true;
-      let prepared;
-      try {
-        prepared = await g.scenes.prepare(next.scene, next.position, next);
-        g.state = next;
-        g.scenes.enter(prepared);
-      } finally {
-        // La preparación es un préstamo de hojas: se devuelve siempre, o quedarían fijas para siempre.
-        prepared?.packs.release?.();
-        g.transitioning = false;
-      }
-    } else g.state = next;
+    if (g.ready)
+      await g.scenes.transition(next.scene, next.position, next, { commit: () => { g.state = next; } });
+    else g.state = next;
     g.dirty = true;
     if (g.ready) {
       g.updateUI();
