@@ -4,11 +4,16 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
-## Candidato local: «Yo», diálogos, muelles y prueba física del Studio — 22 septiembre 2026
+## Producción: «Yo», diálogos, muelles y prueba física del Studio — 22 septiembre 2026
 
-Artefacto `ffbc872aa296a92f8867`, instalado en DDEV y con su autoridad local
-reiniciada. **No desplegado, no subido a producción.** El puntero del repositorio
-web está modificado únicamente para probar esta versión local.
+Artefacto `ffbc872aa296a92f8867`, juego `3d64f9e`, web `f7edc581`.
+Desplegado mediante el pipeline de la web; `bosque-vivo` activo con esa release.
+817 archivos verificados antes de activar el puntero; sin migraciones ni cambios
+en las partidas. SHA-256 de `release.json`:
+`f732095a94d74b802cabf393a88f24c3d1b3f4a7cd56955f6684c209a0440085`.
+Anterior conservada: `1271c25008e2655db47f`. Mismo artefacto instalado en DDEV.
+El Studio sigue siendo exclusivamente local; sus fuentes están subidas al repo,
+no expuestas en producción.
 
 - Cuenta anónima antes del elenco, envío/confirmación en el botón, errores bajo
   el campo y cierre al elegir duende. Sin acceso redundante a «Mi cuenta».
@@ -49,8 +54,16 @@ Prueba física del Studio en tres tamaños, superficies editadas con paridad de
 desembarco en servidor y 912 casos reales de marcha / 5.472 cambios de ritmo
 con los 18 protagonistas. `npm test` completo y comprobaciones específicas
 repetidas tras ajustar la aproximación al muelle estrecho.
-`check-release-live` completo contra DDEV: seis rutas, seis portadas, API,
-web intacta y juego en escritorio/tablet/móvil, sin escrituras de jugador.
+`check-release-live` completo contra DDEV **y producción**: seis rutas, seis
+portadas, API, hashes de assets, web intacta y juego en escritorio/tablet/móvil,
+sin escrituras de jugador. Producción acepta únicamente la inserción de seguridad
+de Cloudflare; los bytes de aplicación coinciden. Ascua/recogida/cocina pasa en
+tres tamaños, con y sin movimiento reducido. `check-forest-client-sockets`
+verifica cliente real contra WebSockets aislados.
+La antigua suite auxiliar `check-boundary-browser` no se da por pasada: conserva
+flujos retirados (alta desde construir, libro de expresiones/guardián). La frontera
+actual se cubre por las pruebas unitarias, `check-self-dialogue-browser` y el smoke
+de la release; queda actualizar esa suite histórica, no restaurar esos flujos.
 Capturas locales: `.local/self-dialogue-review/`, `.local/probe-review/` y `.local/gait-review/`.
 
 ## Producción: el mapa nuevo del dueño, y la accesibilidad deja de mirar una sola pantalla — 22 septiembre 2026
