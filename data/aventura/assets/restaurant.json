@@ -1,0 +1,24 @@
+{
+    "frames": {
+        "restaurant-tile-kitchen": {
+            "source": "data/aventura/art/restaurant/cutouts/tile-kitchen.png",
+            "grid": [
+                1,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                224,
+                249
+            ],
+            "preserveCanvas": true,
+            "anchor": [
+                112,
+                245
+            ]
+        }
+    }
+}

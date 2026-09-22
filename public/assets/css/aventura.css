@@ -1,6 +1,7 @@
 @import "./adventure-experience.css";
 @import "./adventure-entry.css";
 @import "./adventure-setometro.css";
+@import "./adventure-restaurant.css";
 /* Isolated adventure. Never loaded by the normal website. */
 @font-face {
   font-family: WorldRound;

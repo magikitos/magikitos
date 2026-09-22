@@ -1457,6 +1457,43 @@
         }
       ]
     },
+    "restaurant-kitchen": {
+      "label": "Restaurante · cocina bajo teja",
+      "category": "Edificios",
+      "aliases": [
+        "restaurant-tile-kitchen"
+      ],
+      "defaults": {
+        "restaurant-tile-kitchen": "terracotta"
+      },
+      "template": {
+        "sprite": "restaurant-tile-kitchen",
+        "label": "restaurant",
+        "solid": [
+          -6,
+          -3.5,
+          12,
+          3.6
+        ],
+        "rules": [
+          {
+            "effects": [
+              {
+                "type": "content",
+                "key": "restaurant"
+              }
+            ]
+          }
+        ]
+      },
+      "variants": [
+        {
+          "id": "terracotta",
+          "label": "Teja, ramas y barro",
+          "sprite": "restaurant-tile-kitchen"
+        }
+      ]
+    },
     "tavern-feast": {
       "label": "Mesa puesta",
       "category": "Taberna",

@@ -236,7 +236,7 @@ class Self {
     for (const kind of ["pee", "poop"])
       byId("self-" + kind).hidden =
         status !== kind ||
-        Boolean(game.river?.active || game.community?.editing || game.live?.spectator ||
+        Boolean(game.river?.active || game.community?.editing ||
           game.body?.actions.ownPending || (game.body?.connected && !game.body.known));
     // El elenco se repinta por el MISMO camino que el resto del panel: la firma de abajo lleva
     // el duende, así que cambiar de cara desde cualquier sitio mueve la marca de la rejilla. La
@@ -244,7 +244,8 @@ class Self {
     // preguntarle a la sección si está oculta daría por abierta una que nunca llegó a abrirse.
     if (this.castLease) this.paintCast();
     byId("self-forest-retry").hidden = !game.body?.actions.ownPending;
-    byId("self-forest-retry").disabled = Boolean(game.body?.actions.busy || !game.body?.connected || game.live?.spectator);
+    byId("self-forest-retry").disabled = Boolean(game.body?.actions.busy || !game.body?.connected ||
+      (game.live?.spectator && game.body?.actions.ownPending?.endpoint === "forest-message"));
     byId("self-note-write").hidden = !game.notes?.writable(game.notes.fresh?.id);
     this.lastStatus = this.signature();
   }
@@ -269,7 +270,6 @@ class Self {
       game.cats?.locked ||
       game.river?.active ||
       game.community?.editing ||
-      game.live?.spectator ||
       game.body?.actions.ownPending
     )
       return;
@@ -325,7 +325,8 @@ class Self {
   }
   async retry() {
     const g = this.game;
-    if (g.transitioning || !g.body.actions.ownPending || !g.body.connected || g.live.spectator) return;
+    if (g.transitioning || !g.body.actions.ownPending || !g.body.connected ||
+      (g.live.spectator && g.body.actions.ownPending.endpoint === "forest-message")) return;
     byId("self-dialog").close(); g.pauseMovement(); g.transitioning = true;
     try {
       const result = await g.body.retry();

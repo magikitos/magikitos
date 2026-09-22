@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Magikitos World JSON API",
-    "version": "2026-09-21",
+    "version": "2026-09-22",
     "description": "Public content, shared website identity, private progress and a server-authoritative shared forest. JSON only; backend implementation stays in the private website repository."
   },
   "servers": [
@@ -1868,7 +1868,8 @@
                     "enum": [
                       "cuento",
                       "chiste",
-                      "voz"
+                      "voz",
+                      "recipe"
                     ]
                   },
                   "id": {
@@ -2874,7 +2875,7 @@
       "post": {
         "operationId": "worldCommunityBuild",
         "summary": "Place, move or dismantle an owned non-heritage object",
-        "description": "JSON only. Existing bearer identity and a live player seat observed on foot in the requested zone are required. Spectators or clients without a live observation receive live_player_required (403); a different scene receives live_zone_required (403); an unavailable authority returns live_unavailable (503), without spending resources. 120 requests/minute/IP; construction additionally 12 writes/minute/user. No general analytics events. Server catalog, prerequisites, costs, terrain and permissions are authoritative.",
+        "description": "JSON only. Existing bearer identity and a live player seat observed on foot in the requested zone are required. Spectators or clients without a live observation receive live_player_required (403); a different scene receives live_zone_required (403); an unavailable authority returns live_unavailable (503), without spending resources. 120 requests/minute/IP; construction additionally 12 writes/minute/user. No general analytics events. Server catalog, prerequisites, costs, terrain and permissions are authoritative. Requires a server-issued scoped permit from community-permit BEFORE beginning the action. Losing reputation admission while editing does not cancel this one action; commit consumes its permit atomically. A new action needs a new permit and top-ten admission. Same operationId replays safely; another endpoint, subject, user or session cannot reuse the permit.",
         "security": [
           {
             "bearerAuth": []
@@ -3125,7 +3126,7 @@
       "post": {
         "operationId": "worldCommunityMine",
         "summary": "Set the single little bomb from the sack on another player's object",
-        "description": "JSON only. Same live seat and zone rules as community-build. Consumes the caller's `bomba` (cap 1 per account, earned in-game), refuses heritage objects, protected corners, paths (`bombable: false`), objects already mined and callers without a bomb; validates the optional note with the forest-notes policy; writes history (`mine`), bumps the zone revision and notifies the author (`forest_bomb`). The fuse (construction.bomb.fuseMs) is enforced by the website cron; the DTO carries `explodesAt` as absolute server time.",
+        "description": "JSON only. Same live seat and zone rules as community-build. Consumes the caller's `bomba` (cap 1 per account, earned in-game), refuses heritage objects, protected corners, paths (`bombable: false`), objects already mined and callers without a bomb; validates the optional note with the forest-notes policy; writes history (`mine`), bumps the zone revision and notifies the author (`forest_bomb`). The fuse (construction.bomb.fuseMs) is enforced by the website cron; the DTO carries `explodesAt` as absolute server time. Requires a server-issued scoped permit from community-permit BEFORE beginning the action. Losing reputation admission while editing does not cancel this one action; commit consumes its permit atomically. A new action needs a new permit and top-ten admission. Same operationId replays safely; another endpoint, subject, user or session cannot reuse the permit.",
         "security": [
           {
             "bearerAuth": []
@@ -3229,7 +3230,7 @@
       "post": {
         "operationId": "worldCommunityDefuse",
         "summary": "Defuse a little bomb with the pliers, silently",
-        "description": "JSON only. Same live seat and zone rules as community-build. Consumes the caller's `desactivador`, clears the bomb, writes history (`defuse`) and bumps the zone revision. Nobody is notified.",
+        "description": "JSON only. Same live seat and zone rules as community-build. Consumes the caller's `desactivador`, clears the bomb, writes history (`defuse`) and bumps the zone revision. Nobody is notified. Requires a server-issued scoped permit from community-permit BEFORE beginning the action. Losing reputation admission while editing does not cancel this one action; commit consumes its permit atomically. A new action needs a new permit and top-ten admission. Same operationId replays safely; another endpoint, subject, user or session cannot reuse the permit.",
         "security": [
           {
             "bearerAuth": []
@@ -3327,6 +3328,636 @@
             }
           }
         }
+      }
+    },
+    "/community-access": {
+      "post": {
+        "operationId": "worldCommunityAccess",
+        "summary": "Record a real interaction and check automatic reputation admission; never opt in",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmptyObject"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommunityAccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/community-permit": {
+      "post": {
+        "operationId": "worldCommunityPermit",
+        "summary": "Begin ONE construction/bomb action; permits survive demotion, never grant a second action",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommunityPermit"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommunityPermitResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recipes": {
+      "get": {
+        "operationId": "worldRecipes",
+        "summary": "Public recipe catalogue, ranking and pulse discovery; no inventory or seat required",
+        "parameters": [
+          {
+            "name": "mode",
+            "in": "query",
+            "description": "Ranking pages by default; discover returns six Content Pulse selections with exploration slots.",
+            "schema": { "type": "string", "enum": ["ranking", "discover"], "default": "ranking" }
+          },
+          {
+            "name": "round",
+            "in": "query",
+            "description": "Discovery round; ignored by ranking.",
+            "schema": { "type": "integer", "minimum": 1, "maximum": 10000, "default": 1 }
+          },
+          {
+            "name": "exclude",
+            "in": "query",
+            "description": "Up to 500 previously seen IDs, comma-separated. Used by discovery only.",
+            "schema": { "type": "string", "maxLength": 6000, "pattern": "^$|^[0-9]+(,[0-9]+)*$" }
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Locale"
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "ingredient",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 40
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecipeList"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recipe": {
+      "get": {
+        "operationId": "worldRecipe",
+        "summary": "Read or listen to one published recipe without ingredients",
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Locale"
+            }
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecipeDetail"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recipe-publish": {
+      "post": {
+        "operationId": "worldRecipePublish",
+        "summary": "Publish text and/or free recorded audio; website verifies ingredients without spending them, not seat rank",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecipePublication"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "recipe"
+                ],
+                "properties": {
+                  "recipe": {
+                    "type": "string",
+                    "description": "JSON serialized RecipePublication"
+                  },
+                  "audio": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecipePublished"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          }
+        },
+        "description": "At most 5 new recipes per identity per day; one idempotent operationId per publication. Replaying identical input returns the original recipe, altered input is rejected. No AI or transcription. Multipart: recipe is the JSON serialization of RecipePublication; optional audio <=12 MiB, 2..600 seconds. Audio is format-normalized for playback. Culinary quantity/unit does not multiply the separate catalogue inventory requirement."
       }
     }
   },
@@ -4971,7 +5602,8 @@
           "zone",
           "zoneRevision",
           "operation",
-          "object"
+          "object",
+          "permit"
         ],
         "properties": {
           "operationId": {
@@ -4991,9 +5623,7 @@
           "operation": {
             "type": "string",
             "enum": [
-              "place",
-              "move",
-              "remove"
+              "place"
             ]
           },
           "object": {
@@ -5027,9 +5657,25 @@
               "revision": {
                 "type": "integer",
                 "minimum": 1
+              },
+              "points": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": {
+                    "type": "number",
+                    "multipleOf": 0.5
+                  }
+                }
               }
             },
-            "description": "place: kind,variant,x,y,rotation. move: id,revision,x,y,rotation. remove: id,revision. Catalog identity is immutable after placement."
+            "description": "Place one immutable catalogue item or one bounded connected fence/path polyline; all geometry/materials/heritage checked by server."
+          },
+          "permit": {
+            "$ref": "#/components/schemas/GameId"
           }
         }
       },
@@ -5173,7 +5819,8 @@
           "baseRevision",
           "zone",
           "zoneRevision",
-          "id"
+          "id",
+          "permit"
         ],
         "properties": {
           "operationId": {
@@ -5198,6 +5845,9 @@
             "minLength": 1,
             "maxLength": 500,
             "description": "Optional message left beside the bomb; same policy as forest notes (adventure.messages.maxCharacters)."
+          },
+          "permit": {
+            "$ref": "#/components/schemas/GameId"
           }
         }
       },
@@ -5209,7 +5859,8 @@
           "baseRevision",
           "zone",
           "zoneRevision",
-          "id"
+          "id",
+          "permit"
         ],
         "properties": {
           "operationId": {
@@ -5228,6 +5879,422 @@
           },
           "id": {
             "$ref": "#/components/schemas/GameId"
+          },
+          "permit": {
+            "$ref": "#/components/schemas/GameId"
+          }
+        }
+      },
+      "EmptyObject": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [],
+        "properties": {}
+      },
+      "CommunityAccess": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "ok",
+          "allowed"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "allowed": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CommunityPermit": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "zone",
+          "endpoint",
+          "subject"
+        ],
+        "properties": {
+          "zone": {
+            "type": "string"
+          },
+          "endpoint": {
+            "enum": [
+              "community-build",
+              "community-mine",
+              "community-defuse"
+            ]
+          },
+          "subject": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Construction kind or target object ID for maintenance"
+          }
+        }
+      },
+      "CommunityPermitResult": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "ok",
+          "permit"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "permit": {
+            "$ref": "#/components/schemas/GameId"
+          }
+        }
+      },
+      "RecipeIngredient": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "quantity",
+          "unit"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 40
+          },
+          "quantity": {
+            "type": "number",
+            "minimum": 0.01,
+            "maximum": 100000
+          },
+          "unit": {
+            "enum": [
+              "g",
+              "kg",
+              "ml",
+              "l",
+              "unit",
+              "tsp",
+              "tbsp",
+              "pinch"
+            ]
+          }
+        }
+      },
+      "RecipePublication": {
+        "type": "object",
+        "description": "Existing human-proof window applies. On turnstile_required, retry with turnstile_token; it is excluded from the publication fingerprint.",
+        "additionalProperties": false,
+        "required": [
+          "operationId",
+          "lang",
+          "title",
+          "instructions",
+          "ingredients"
+        ],
+        "properties": {
+          "turnstile_token": {
+            "type": "string",
+            "maxLength": 2048
+          },
+          "operationId": {
+            "$ref": "#/components/schemas/GameId"
+          },
+          "lang": {
+            "$ref": "#/components/schemas/Locale"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 160
+          },
+          "instructions": {
+            "type": "string",
+            "maxLength": 10000
+          },
+          "ingredients": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 24,
+            "items": {
+              "$ref": "#/components/schemas/RecipeIngredient"
+            }
+          }
+        }
+      },
+      "Recipe": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "lang",
+          "title",
+          "instructions",
+          "ingredients",
+          "audio",
+          "duration",
+          "revision",
+          "url",
+          "author",
+          "rating"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "kind": {
+            "const": "recipe"
+          },
+          "lang": {
+            "$ref": "#/components/schemas/Locale"
+          },
+          "title": {
+            "type": "string"
+          },
+          "instructions": {
+            "type": "string"
+          },
+          "ingredients": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RecipeIngredient"
+            }
+          },
+          "audio": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "duration": {
+            "type": "number",
+            "minimum": 0
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "url": {
+            "type": "string"
+          },
+          "author": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "handle"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "handle": {
+                "type": "string"
+              }
+            }
+          },
+          "rating": {
+            "type": [
+              "number",
+              "null"
+            ]
+          }
+        }
+      },
+      "RecipeIngredientDefinition": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "name",
+          "item",
+          "required"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "item": {
+            "type": "string"
+          },
+          "required": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      },
+      "RecipeList": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "ok",
+          "labels",
+          "ingredients",
+          "limits",
+          "items",
+          "nextCursor"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "labels": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "ingredients": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RecipeIngredientDefinition"
+            }
+          },
+          "limits": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "audioSeconds",
+              "audioBytes",
+              "ingredients",
+              "title",
+              "instructions"
+            ],
+            "properties": {
+              "audioSeconds": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "minItems": 2,
+                "maxItems": 2
+              },
+              "audioBytes": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "ingredients": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "title": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "instructions": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          },
+          "items": {
+            "type": "array",
+            "maxItems": 24,
+            "items": {
+              "$ref": "#/components/schemas/Recipe"
+            }
+          },
+          "nextCursor": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          }
+        }
+      },
+      "RecipeDetail": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "ok",
+          "labels",
+          "ingredients",
+          "limits",
+          "recipe"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "labels": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "ingredients": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RecipeIngredientDefinition"
+            }
+          },
+          "limits": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "audioSeconds",
+              "audioBytes",
+              "ingredients",
+              "title",
+              "instructions"
+            ],
+            "properties": {
+              "audioSeconds": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "minItems": 2,
+                "maxItems": 2
+              },
+              "audioBytes": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "ingredients": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "title": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "instructions": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          },
+          "recipe": {
+            "$ref": "#/components/schemas/Recipe"
+          }
+        }
+      },
+      "RecipePublished": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "ok",
+          "recipe",
+          "replayed"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "recipe": {
+            "$ref": "#/components/schemas/Recipe"
+          },
+          "replayed": {
+            "type": "boolean"
           }
         }
       }

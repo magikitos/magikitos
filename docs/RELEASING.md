@@ -2,8 +2,10 @@
 
 Development commands never deploy. A release needs explicit owner authorization,
 reviewed commits in both repositories when the API changes, and an immutable artifact.
-The initial Ascua release needed no migration. The shared-forest release requires
-additive migrations 4230 and 4231 in the private website; no production DB import.
+The initial Ascua release needed no migration. The shared forest required
+4230/4231; reputation permits and recipes require additive 4241/4242 in the
+private website plus the recipes audio-volume directory. No production DB import.
+Current behavior: [restaurant and admission](RESTAURANT.md).
 
 ## Git identity
 
@@ -108,8 +110,8 @@ los PNG están en `public/assets/aventura/packs`; `release.json` lista los fiche
 
 ## Smoke and rollback
 
-For shared forest, stage the artifact and apply reviewed/checksummed 4230/4231
-migrations with the VPS migration runner **before activating the API and pointer**.
+Stage the artifact and apply any new reviewed/checksummed additive migrations
+with the VPS migration runner **before activating the API and pointer**.
 Keep its database backups. The cutover snapshot freezes old import candidates once.
 Check both OpenAPI copies, identity lifecycle, CAS/retry tests and public DTOs.
 Do not roll back a database over new player writes. A code/pointer rollback retains
@@ -185,9 +187,9 @@ JavaScript. Browser storage works across the game and website when hosted on
 the **same origin**. Separate preview ports deliberately have isolated storage.
 
 The existing pulse selector still supplies six-item discovery batches and its
-exploration slots. The game performs no analytics collection, play-count writes,
-movement streaming. Bounded game snapshots use the separate private save API,
-not analytics/events. See [save protocol](API.md#save-protocol-and-server-authority).
+exploration slots. Live movement uses the bounded WebSocket protocol, not SQL
+events. Bounded game snapshots use the separate private save API, not analytics/
+events. See [save protocol](API.md#save-protocol-and-server-authority).
 
 Offline progress is local and untrusted. Spendable construction materials and game
 setines have their own server-authoritative account. Website reputation, content

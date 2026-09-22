@@ -79,6 +79,7 @@
   ],
   "waters": [],
   "clearings": [
+    [72,89,16],
     [
       27,
       72,
@@ -196,6 +197,32 @@
     ]
   },
   "entities": [
+    {
+      "id":"restaurant-kitchen","sprite":"restaurant-tile-kitchen","x":72,"y":87,
+      "label":"restaurant","solid":[-6,-3.5,12,3.6],
+      "rules":[{"effects":[{"type":"content","key":"restaurant"}]}]
+    },
+    {
+      "id":"restaurant-table-west","sprite":"table","x":62,"y":93,"artVariant":"auto",
+      "label":"restaurant","solid":[-1.65,-1.5,3.3,1.8],
+      "capabilities":["socialize"],"slots":[[-2.5,0,"right"],[2.5,0,"left"],[0,1.6,"up"]],
+      "attachments":[{"sprite":"feast-stew","offset":[-10,-34],"scale":0.6},{"sprite":"feast-bottles","offset":[13,-32],"scale":0.65}],
+      "rules":[{"effects":[{"type":"content","key":"restaurant"}]}]
+    },
+    {
+      "id":"restaurant-table-east","sprite":"table","x":83,"y":93,"artVariant":"auto",
+      "label":"restaurant","solid":[-1.65,-1.5,3.3,1.8],
+      "capabilities":["socialize"],"slots":[[-2.5,0,"right"],[2.5,0,"left"],[0,1.6,"up"]],
+      "attachments":[{"sprite":"feast-stew","offset":[-10,-34],"scale":0.6},{"sprite":"feast-bottles","offset":[13,-32],"scale":0.65}],
+      "rules":[{"effects":[{"type":"content","key":"restaurant"}]}]
+    },
+    {"id":"restaurant-lantern-west","sprite":"lantern","x":57,"y":91,"rules":[]},
+    {"id":"restaurant-lantern-east","sprite":"lantern","x":89,"y":91,"rules":[]},
+    {"id":"restaurant-stool-west","family":"stool","artVariant":"bellota","x":62,"y":95.5,"rules":[],"capabilities":["sit"],"slots":[[0,0.8,"up"]]},
+    {"id":"restaurant-stool-east","family":"stool","artVariant":"cáscara","x":83,"y":95.5,"rules":[],"capabilities":["sit"],"slots":[[0,0.8,"up"]]},
+    {"id":"restaurant-bluebells","family":"flowers-bell","artVariant":"azules","x":57.5,"y":97,"rules":[]},
+    {"id":"restaurant-daisies","family":"flowers-daisy","artVariant":"auto","x":88,"y":97,"rules":[]},
+    {"id":"restaurant-bench","sprite":"bench","x":72,"y":99,"artVariant":"auto","rules":[],"capabilities":["sit"],"slots":[[0,0.8,"up"]]},
     {
       "id": "forest-parchment",
       "family": "forest-parchment",
@@ -1240,6 +1267,9 @@
     }
   ],
   "neighbors": [
+    {"id":"restaurant-guest-1","x":59.5,"y":93,"radius":2,"content":"restaurant","lookAt":[62,93]},
+    {"id":"restaurant-guest-2","x":85.5,"y":93,"radius":2,"content":"restaurant","lookAt":[83,93]},
+    {"id":"restaurant-guest-3","x":72,"y":97,"radius":2,"content":"restaurant","lookAt":[72,87]},
     {
       "id": "plaza-1",
       "x": 66,

@@ -10,6 +10,9 @@ const METHODS = Object.freeze({
   browse: "GET",
   index: "GET",
   catalog: "GET",
+  recipes: "GET",
+  recipe: "GET",
+  "recipe-publish": "POST",
   setometro: "GET",
   "setometro-ranking": "GET",
   "setometro-vote": "POST",
@@ -31,6 +34,8 @@ const METHODS = Object.freeze({
   "game-action": "POST",
   community: "GET",
   "community-build": "POST",
+  "community-permit": "POST",
+  "community-access": "POST",
   "community-use": "POST",
   // ⛔ MANTENIMIENTO: la bombita y la tenaza (21-sep-2026). Faltaban aquí desde que se escribió
   // la función: `maintain()` pasa el nombre del punto en una variable, así que ningún buscador de
@@ -167,7 +172,13 @@ class WorldApi {
     const headers = { Accept: "application/json" };
     const token = options.auth ? this.session.get() : "";
     if (token) headers.Authorization = "Bearer " + token;
-    if (method === "POST") headers["Content-Type"] = "application/json";
+    const multipart = endpoint === "recipe-publish" && options.audio;
+    if (method === "POST" && !multipart) headers["Content-Type"] = "application/json";
+    let body;
+    if (method === "POST") {
+      body = JSON.stringify(params);
+      if (multipart) { body = new FormData(); body.set("recipe", JSON.stringify(params)); body.set("audio", options.audio, "recipe.webm"); }
+    }
     const timeout = AbortSignal.timeout(options.timeout || 12000);
     const signal = options.signal
       ? AbortSignal.any([timeout, options.signal])
@@ -179,7 +190,7 @@ class WorldApi {
         headers,
         signal,
         credentials: "include",
-        ...(method === "POST" ? { body: JSON.stringify(params) } : {}),
+        ...(method === "POST" ? { body } : {}),
       });
     } catch (error) {
       if (options.signal?.aborted) throw error;

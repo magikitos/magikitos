@@ -122,6 +122,7 @@ function sceneKeys(scene) {
   for (const neighbor of scene.neighbors || []) {
     add(neighbor.dialogue);
     add(neighbor.bump);
+    if (neighbor.content) for (const key of BUILT.gathering(neighbor.content)) add(key);
   }
   // Quien navega el río se queja con su propia frase: la declara el cuerpo, no el motor.
   for (const visitor of scene.riverLife || []) add(visitor.bump);

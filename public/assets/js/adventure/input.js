@@ -65,7 +65,12 @@ class WorldInput {
     this.map = new MapGestures(game, canvas);
     const press = (event) => {
       if (!event.isPrimary || event.button !== 0) return;
-      if (this.tapAt(event.clientX, event.clientY)) event.preventDefault();
+      if (this.tapAt(event.clientX, event.clientY)) {
+        // The map already handled this pointer sequence. A newly opened, tall dialogue
+        // may cover its release point; the touch-generated click must not dismiss it.
+        dismissedClick = true;
+        event.preventDefault();
+      }
     };
     canvas.addEventListener("pointerdown", (event) => {
       if (event.defaultPrevented) return;

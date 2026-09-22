@@ -1,0 +1,14 @@
+.world-recipe-form { display:grid; gap:1rem; }
+.world-recipe-field { display:grid; gap:.4rem; min-width:0; }
+.world-recipe-form input:not([type=checkbox]), .world-recipe-form textarea, .world-recipe-form select {
+  width:100%; min-width:0; box-sizing:border-box; font:inherit; color:var(--world-ink);
+  background:#fffcf3; border:1px solid var(--world-line); border-radius:.65rem; padding:.7rem;
+}
+.world-recipe-ingredient { display:grid; grid-template-columns:minmax(7rem,1fr) minmax(4rem,.6fr) minmax(4rem,.6fr); align-items:center; gap:.5rem; }
+.world-recipe-ingredient label { display:flex; flex-direction:row-reverse; justify-content:flex-end; align-items:center; }
+.world-recipe-ingredient input[type=checkbox] { width:1.3rem; height:1.3rem; }
+.world-recipe-form audio { width:100%; max-width:100%; }
+.world-recipe-instructions { white-space:pre-wrap; overflow-wrap:anywhere; line-height:1.65; }
+.world-recipe-ingredients { list-style:none; padding:0; display:grid; gap:.4rem; }
+.world-experience--restaurant h2 { margin:1.4rem 0 .65rem; }
+.world-recipe-form [role=status]:empty { display:none; }

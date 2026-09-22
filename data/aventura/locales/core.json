@@ -1,4 +1,8 @@
 {
+  "restaurant": {
+    "es": "La mesa del bosque", "en": "The forest table", "de": "Die Waldtafel",
+    "fr": "La table de la forêt", "it": "La tavola del bosco", "pt": "A mesa do bosque"
+  },
   "noteTitle": {
     "es": "Nota del bosque",
     "en": "Forest note",
@@ -112,12 +116,12 @@
     "pt": "O teu acesso ao bosque partilhado está suspenso. Podes continuar a aventura a solo."
   },
   "forestSpectator": {
-    "es": "Ahora estás de visita. Cuando haya hueco, podrás dejar tu huella.",
-    "en": "You're visiting for now. When a place opens up, you can leave your mark.",
-    "de": "Du bist gerade zu Besuch. Sobald ein Platz frei wird, kannst du mitgestalten.",
-    "fr": "Pour l'instant, tu es en visite. Dès qu'une place se libère, tu pourras laisser ta trace.",
-    "it": "Per ora sei in visita. Appena si libera un posto, potrai lasciare il tuo segno.",
-    "pt": "Por agora estás de visita. Quando houver lugar, podes deixar a tua marca."
+    "es": "¡Este rincón está a tope! Pueden construir diez personas a la vez. Si hay más, tienen prioridad quienes tienen más setines de reputación en Magikitos; no se gastan. Ahora mismo no estás entre esas diez. Puedes seguir explorando, cocinando y disfrutando del bosque. Cuando quede hueco o cambie la prioridad, podrás construir sin apuntarte a nada.",
+    "en": "This corner is busy! Ten people can build at a time. When there are more, higher Magikitos reputation (setines) takes priority; nothing is spent. You are not currently in that ten. Keep exploring, cooking and enjoying the forest. Access returns automatically when space or priority changes.",
+    "de": "Hier ist viel los! Zehn Personen können gleichzeitig bauen. Bei mehr Menschen entscheidet der Magikitos-Ruf (Setines); er wird nicht verbraucht. Du gehörst gerade nicht zu diesen zehn. Entdecke und koche weiter! Sobald Platz frei wird oder sich die Reihenfolge ändert, kannst du automatisch wieder bauen.",
+    "fr": "Il y a du monde ici ! Dix personnes peuvent construire à la fois. Au-delà, la réputation Magikitos (setines) donne la priorité, sans être dépensée. Tu n'es pas parmi ces dix pour le moment. Continue d'explorer et de cuisiner : l'accès revient automatiquement quand une place se libère ou que la priorité change.",
+    "it": "Qui c'è tanta gente! Possono costruire dieci persone alla volta. Se siete di più, ha priorità chi ha più reputazione Magikitos (setines), senza spenderla. Ora non sei tra quei dieci. Continua a esplorare e cucinare: potrai costruire automaticamente quando si libera un posto o cambia la priorità.",
+    "pt": "Este cantinho está cheio! Podem construir dez pessoas de cada vez. Havendo mais, a reputação Magikitos (setines) dá prioridade, sem ser gasta. Neste momento não estás entre essas dez. Continua a explorar e a cozinhar: o acesso volta automaticamente quando houver lugar ou a prioridade mudar."
   },
   "forestAdmitted": {
     "es": "¡Ea, ya tienes sitio en el bosque!",

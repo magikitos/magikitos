@@ -7,6 +7,7 @@ class WorldSite {
     this.game = game;
     this.current = null;
     this.scales = new (require("./setometro").Setometro)(game);
+    this.restaurant = new (require("./restaurant").Restaurant)(game);
     this.pending = null;
     this.body = document.getElementById("world-content-body");
     if (location.search || location.hash)
@@ -81,6 +82,7 @@ class WorldSite {
     }
   }
   showPiece(item, { play = false } = {}) {
+    if (item.kind === "recipe") { this.restaurant.show(item); if (play) this.game.media.start(item); return; }
     const group = this.game.rooms.forKind(item.kind),
       request = this.begin(group);
     if (!request) return;
@@ -89,6 +91,7 @@ class WorldSite {
     if (play) this.game.media.start(item);
   }
   open(group) {
+    if (group === "restaurant") return this.restaurant.open();
     if (group === "setometro") return this.scales.open();
     if (group === "art") return this.art();
     const kind = this.game.catalog.contentRooms[group]?.kinds?.find((k) =>

@@ -9232,6 +9232,16 @@
             "height": 448,
             "bytes": 61236
         },
+        "restaurant": {
+            "image": "packs/restaurant-6e7295451512.png",
+            "metadata": "packs/restaurant-6e7295451512.json",
+            "sprites": [
+                "restaurant-tile-kitchen"
+            ],
+            "width": 512,
+            "height": 498,
+            "bytes": 88680
+        },
         "river-craft": {
             "image": "packs/river-craft-4db0728ff806.png",
             "metadata": "packs/river-craft-4db0728ff806.json",

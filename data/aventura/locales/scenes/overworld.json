@@ -1,4 +1,15 @@
 {
+  "enter_restaurant": {
+    "es": "Ver las recetas", "en": "Browse recipes", "de": "Rezepte ansehen", "fr": "Voir les recettes", "it": "Sfoglia le ricette", "pt": "Ver receitas"
+  },
+  "invite_restaurant": {
+    "es": "¡Arrímate a la mesa, que aquí cabe to el mundo! Trae tus recetas y cuenta cómo las haces. Pa leer o escuchar las de la peña no hace falta traer na.",
+    "en": "Pull up a chair, there’s room for everyone! Share a recipe and tell us how you make it. Reading or listening costs nothing.",
+    "de": "Rück an den Tisch, hier ist Platz für alle! Teile dein Rezept und erzähl, wie du es machst. Zum Lesen und Hören brauchst du nichts.",
+    "fr": "Viens à table, y a de la place pour tout le monde ! Partage ta recette et raconte comment tu la fais. Pour lire ou écouter, rien à apporter.",
+    "it": "Vieni a tavola, c’è posto per tutti! Condividi la tua ricetta e racconta come la fai. Per leggere o ascoltare non serve portare niente.",
+    "pt": "Chega à mesa, há lugar para toda a gente! Partilha a tua receita e conta como a fazes. Para ler ou ouvir não precisas de trazer nada."
+  },
   "parchmentFound": {
     "es": "¡Ea, papelito pa dejar recados! Con un boli y un palo planto el cartelito en mi próxima caca. Arte moderno, vaya.",
     "en": "Paper for leaving notes! With a pen and a stick I can plant a sign in my next poop. Modern art, mate.",

@@ -125,6 +125,7 @@ class Community {
         saved && typeof saved === "object" && !Array.isArray(saved) &&
         (typeof saved.owner === "string" || Number.isSafeInteger(saved.owner)) &&
         saved.request && typeof saved.request === "object" &&
+        [undefined, "community-build", "community-mine", "community-defuse"].includes(saved.endpoint) &&
         /^[a-f0-9]{32}$/.test(saved.request.operationId) &&
         Number.isSafeInteger(saved.request.baseRevision) &&
         typeof saved.request.zone === "string";
@@ -508,6 +509,8 @@ class Community {
   async useTool(item, entity) {
     const g = this.game,
       object = this.snapshot?.objects.find((o) => o.id === entity.community);
+    if (this.busy || this.granting) return;
+    if (this.pending) return this.begin(); // Resolve the exact previous action before granting another.
     if (!object) return g.openDialogue(g.lines("noUse"));
     if (item === "bomba") {
       // La cuenta es null mientras no haya sesión con la nube: sin ella no hay bombita que gastar.
@@ -515,6 +518,9 @@ class Community {
         hasBomb: (g.materials.account?.inventory.bomba || 0) >= 1,
       });
       if (reason) return g.toast(g.text(RAZONES[reason] || "communityRetry"));
+      const permit = await this.startPermit("community-mine", object.id);
+      if (!permit) return;
+      this.toolPermit = permit;
       this.composing = object;
       const dialog = byId("bomb-dialog"), text = byId("bomb-note");
       text.value = "";
@@ -548,17 +554,18 @@ class Community {
   async maintain(endpoint, extra, successKey) {
     const g = this.game;
     if (this.busy || !this.snapshot || !this.zone) return;
-    if (g.live && !g.live.canWrite()) return;
+    if (this.pending && (this.pending.owner !== g.materials.owner || this.pending.endpoint !== endpoint)) return this.begin();
+    const permit = this.pending?.request.permit || (endpoint === "community-mine" ? this.toolPermit : await this.startPermit(endpoint, extra.id));
+    if (!permit) return;
     // Sin cuenta no hay revisión que mandar ni materiales que descontar: se dice y no se viaja.
     if (!(await g.materials.ready()) || !g.materials.account)
       return g.self.explain(g.session.get() ? "communitySyncNeeded" : "communityNeedsAccount");
     this.busy = true;
     try {
-      const result = await g.api.request(
-        endpoint,
-        { operationId: operationId(), baseRevision: g.materials.account.revision, zone: this.zone, zoneRevision: this.snapshot.revision, ...extra },
-        { auth: true },
-      );
+      this.pending ||= { owner: g.materials.owner, endpoint, request:
+        { operationId: operationId(), permit, baseRevision: g.materials.account.revision, zone: this.zone, zoneRevision: this.snapshot.revision, ...extra } };
+      const result = await this.sendPending();
+      this.clearPending();
       this.accept(result);
       g.materials.accept(result.account);
       g.materials.reconcile();
@@ -569,8 +576,11 @@ class Community {
       g.save();
       g.audio.effect("found");
       g.toast(g.text(successKey));
+      this.toolPermit = null;
+      if (g.live?.spectator) g.openDialogue([g.text("forestSpectator")]);
     } catch (error) {
       if (error.status >= 400 && error.status < 500) {
+        this.clearPending();
         if (error.details?.account) g.materials.accept(error.details.account);
         await this.prepare(g.catalog.scenes[g.state.scene]);
         await this.refreshWorld();
@@ -586,7 +596,6 @@ class Community {
   }
   async begin() {
     const g = this.game;
-    if (g.live && !g.live.canWrite()) return;
     if (!this.zone || g.river.active || this.busy || g.transitioning) return;
     this.busy = true;
     g.pauseMovement();
@@ -626,6 +635,7 @@ class Community {
         this.clearPending();
         await this.refreshWorld();
       }
+      if (g.live && !(await g.live.checkWrite())) return;
       await this.prepare(g.catalog.scenes[g.state.scene]);
       if (this.unavailable || !this.snapshot) throw Error("offline");
       // ⛔ AQUÍ LA CÁMARA VIAJABA AL CLARO, y ahora el claro es el bosque entero: llevarte a
@@ -856,7 +866,27 @@ class Community {
    * elegido tú. Ahora nace sin coordenadas: con el ratón aparece bajo el cursor y lo sigue, y con
    * el dedo aparece donde tocas. Un trazado nace además sin un solo poste.
    */
-  select(kind, variant) {
+  async startPermit(endpoint, subject) {
+    if (this.granting) return null;
+    const zone = this.zone, owner = this.game.materials.owner;
+    this.granting = true;
+    try {
+      const result = await this.game.api.request("community-permit", { endpoint, subject, zone }, { auth: true });
+      if (zone !== this.zone || owner !== this.game.materials.owner) return null;
+      return result.permit;
+    } catch (error) {
+      byId("build-dialog").close();
+      this.game.openDialogue([this.game.text(error.code === "live_player_required" ? "forestSpectator" : "communityOffline")]);
+      return null;
+    } finally { this.granting = false; }
+  }
+  async select(kind, variant) {
+    if (this.busy) return;
+    this.busy = true;
+    const permit = await this.startPermit("community-build", kind);
+    this.busy = false;
+    if (!permit) return;
+    this.permit = permit;
     const d = this.catalog.definitions[kind];
     this.editing = true;
     this.hover = null;
@@ -1063,6 +1093,7 @@ class Community {
   cancel() {
     if (this.busy) return;
     this.editing = false;
+    this.permit = null;
     this.ghost = null;
     this.invalid = null;
     this.hover = null;
@@ -1076,7 +1107,7 @@ class Community {
   /** ⛔ Solo COLOCAR. Mover y quitar siguen existiendo en el servidor y en los datos, pero no
    *  tienen puerta: lo que se pone se queda (18-sep-2026, decisión del dueño). */
   async commit() {
-    if (this.game.live && !this.game.live.canWrite()) return;
+    if (!this.permit && !this.pending) return;
     if (this.busy || !this.ready || !this.snapshot || this.invalid || this.missing()) return;
     const g = this.game;
     // After the guards: a rejected commit is not a milestone.
@@ -1092,6 +1123,7 @@ class Community {
       );
       const request = {
         operationId: operationId(),
+        permit: this.permit,
         baseRevision: g.materials.account.revision,
         zone: this.zone,
         zoneRevision: this.snapshot.revision,
@@ -1114,9 +1146,12 @@ class Community {
       // sola, y volver al catálogo entre flor y flor son dos toques de más. Antes se quedaba
       // donde estaba y salía roja ella sola, porque lo que tenía debajo era lo que acababas de
       // poner. Ahora vuelve a estar por apuntar, igual que al elegirla.
-      this.ghost = { ...this.ghost, x: null, y: null, ...(this.drawing ? { points: [] } : {}) };
-      this.parked = false;
-      this.invalid = null;
+      const next = { ...this.ghost };
+      this.permit = null;
+      this.busy = false;
+      this.cancel();
+      // Ask again for a NEW action. Demotion never cancels the one just saved.
+      await this.select(next.kind, next.variant);
     } catch (error) {
       if (error.status >= 400 && error.status < 500) {
         this.clearPending();
@@ -1138,14 +1173,14 @@ class Community {
     }
   }
   sendPending() {
-    const g = this.game, owner = this.pending.owner;
+    const g = this.game, owner = this.pending.owner, endpoint = this.pending.endpoint || "community-build";
     const guard = () => {
       if (owner !== g.materials.owner) throw Error("pending_identity");
     };
     return sendConstruction(this.pending.request, {
       send: async (request) => {
         guard();
-        const result = await g.api.request("community-build", request, { auth: true });
+        const result = await g.api.request(endpoint, request, { auth: true });
         guard();
         return result;
       },
@@ -1158,7 +1193,7 @@ class Community {
       },
       remember: (request) => {
         guard();
-        this.pending = { owner, request };
+        this.pending = { owner, endpoint, request };
         localStorage.setItem("magikitos.adventure.build-pending", JSON.stringify(this.pending));
       },
     });
@@ -1316,7 +1351,6 @@ class Community {
     // el icono se queda; si no, se va por `!this.zone`.
     byId("build-toggle").hidden =
       !this.zone ||
-      g.live?.spectator ||
       g.river?.active ||
       g.dialogue ||
       g.hasOverlay();

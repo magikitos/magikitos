@@ -26,6 +26,7 @@
       "surface": "flat-ground",
       "maxObjects": 320,
       "protected": [
+        [56,80,35,21],
         [
           0,
           4,

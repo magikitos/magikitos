@@ -1,6 +1,6 @@
 "use strict";
 const { execFileSync } = require("node:child_process");
-execFileSync(process.execPath, ["tools/build.cjs"], { stdio: "inherit" });
+execFileSync(process.execPath, ["tools/build.cjs", ...(process.argv.includes("--reuse-art") ? ["--reuse-art"] : [])], { stdio: "inherit" });
 for (const name of [
   "check-adventure",
   "check-adventure-locales",

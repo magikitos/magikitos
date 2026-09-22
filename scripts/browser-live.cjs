@@ -75,6 +75,7 @@ async function routeLiveWebsite(page, { origin, port, bundled, user, secret, sta
     if (!url.pathname.startsWith("/api/")) return route.continue();
     const endpoint = url.pathname.split("/").at(-1);
     let body = await extra(endpoint, route, url);
+    if (body === "handled") return;
     if (body === "abort") return route.abort("failed");
     if (body === undefined) {
       if (endpoint === "identity") body = { user: { id: user, handle: "synthetic-" + user, name: "Test" } };

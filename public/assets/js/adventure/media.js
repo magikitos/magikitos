@@ -191,6 +191,7 @@ class WorldMedia {
       this.game.text(playing ? "pause" : "listen"),
     );
     byId("listening-next").disabled = this.busy;
+    byId("listening-next").hidden = this.item?.kind === "recipe";
     if (this.item) {
       byId("listening-title").textContent = this.item.title;
       byId("listening-kind").textContent = this.game.text(

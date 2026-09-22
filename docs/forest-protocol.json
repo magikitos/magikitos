@@ -4,7 +4,7 @@
   "ticketAudience": "magikitos:forest",
   "ticketLifetimeMs": 300000,
   "limits": {
-    "players": 100,
+    "players": 10,
     "messageBytes": 4096,
     "bufferedBytes": 65536,
     "messagesPerSecond": 40,
@@ -14,7 +14,7 @@
     "heartbeatMs": 5000,
     "lostMs": 15000,
     "graceMs": 60000,
-    "idleMs": 900000,
+    "idleMs": 60000,
     "idleWarningMs": 60000,
     "playerSnapshotMs": 100,
     "spectatorSnapshotMs": 2500,

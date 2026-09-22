@@ -27,6 +27,14 @@ class ForestLive {
       } });
     window.addEventListener("pagehide", () => this.connection.stop());
     window.addEventListener("pageshow", () => { this.identity = null; });
+    const activity = event => {
+      if (!event.isTrusted || !this.connection.ready || performance.now() < (this.nextActivity || 0)) return;
+      this.nextActivity = performance.now() + 1000;
+      this.connection.send({ type: "actividad" });
+    };
+    window.addEventListener("pointerdown", activity, { passive: true });
+    window.addEventListener("pointermove", event => { if (game.community?.editing) activity(event); }, { passive: true });
+    window.addEventListener("keydown", activity);
   }
   get spectator() { return this.connection.ready && this.role === "spectator"; }
   viewport() {
@@ -37,11 +45,8 @@ class ForestLive {
     const g = this.game;
     if (packet.type === "bienvenido" || packet.type === "plaza") {
       g.serverClock.sync(packet.now);
-      const previous = this.role;
       this.role = packet.role;
-      if (this.spectator) g.community.cancel();
-      if (previous !== this.role && (packet.type === "plaza" || this.spectator))
-        g.toast(g.text(this.spectator ? "forestSpectator" : "forestAdmitted"));
+      // Admission is silent. A scoped placement already in hand survives losing the seat.
       if (packet.type === "bienvenido") this.correct(packet.position);
     } else if (packet.type === "corregir") this.correct(packet.position);
     else if (packet.type === "vecinos") this.people.snapshot(packet, g.state.scene,
@@ -123,7 +128,7 @@ class ForestLive {
     this.bodies();
     this.objects.update();
     if (ms < this.next) return;
-    this.next = ms + protocol.limits.playerSnapshotMs;
+    this.next = ms + (this.spectator ? 400 : protocol.limits.playerSnapshotMs);
     const identity = g.cloud.owner && !g.cloud.conflict && g.session.get()
       ? `${g.cloud.owner}:${g.session.get()}` : null;
     if (identity !== this.identity) {
@@ -181,8 +186,16 @@ class ForestLive {
     this.people.clear(); this.lastView = null;
   }
   canWrite() {
-    if (!this.spectator) return true;
-    this.game.toast(this.game.text("forestSpectator"));
+    if (this.connection.ready && this.role === "player") return true;
+    this.game.openDialogue([this.game.text(this.spectator ? "forestSpectator" : "communityOffline")]);
+    return false;
+  }
+  async checkWrite() {
+    try {
+      const result = await this.game.api.request("community-access", {}, { auth: true });
+      if (result.allowed) return true;
+      this.game.openDialogue([this.game.text("forestSpectator")]);
+    } catch (_) { this.game.toast(this.game.text("communityOffline")); }
     return false;
   }
   /** Los desconocidos que hay en pantalla, con el duende y la pose que se les está dibujando.

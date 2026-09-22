@@ -196,6 +196,12 @@
     }
   },
   "contentRooms": {
+    "restaurant": {
+      "scene": "overworld",
+      "radius": 15,
+      "kinds": ["recipe"],
+      "focus": "restaurant-kitchen"
+    },
     "stories": {
       "scene": "overworld",
       "radius": 10,

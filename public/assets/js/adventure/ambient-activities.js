@@ -66,8 +66,8 @@ class AmbientActivities {
     if (n.path.length || n.rand() > 0.4) return;
     const choices = g.world.entities.filter(
       (e) =>
-        e.community &&
         e.slots?.length &&
+        distance(e, n) < 28 * TILE &&
         e.capabilities?.some((c) => ["sit", "socialize", "garden"].includes(c)),
     );
     if (!choices.length) return;

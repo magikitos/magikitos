@@ -181,7 +181,7 @@ const notes = new Map(), debits = new Map(), operations = new Map();
       await page.waitForFunction(() => window.MagikitosAdventure.inspect().live.visible >= 1);
     assert.equal(await phone.evaluate(() => window.MagikitosAdventure.inspect().live.role), "spectator");
     await phone.locator("#self-toggle").click();
-    assert.equal(await phone.locator("#self-poop").isVisible(), false, "Spectators cannot leave a trace");
+    assert.equal(await phone.locator("#self-poop").isVisible(), true, "Visitors retain personal body actions; only public traces require a seat");
     await phone.keyboard.press("Escape");
     await writeNote(tablet, 2, "tablet");
     for (const [name, page] of [["desktop", desktop], ["tablet", tablet], ["mobile", phone]])
