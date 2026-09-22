@@ -4,6 +4,27 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: vecinos con vida — 23 septiembre 2026
+
+Artefacto `cff289b6ff32edbc5353`, fuente del juego `4f97537` (worktree limpio), web `fb22ba0e`
++ puntero. 829 archivos. SHA-256 de `release.json`:
+`35d87d4f78c91d1e4c6f1d1a03d63d8e45704b8b99c73b590e7b2c4218b72e79`. Anterior conservada: `8b10d0883504699d6e41`.
+
+- `life.js`: pasear por los caminos, caminar en pareja, charlar, sentarse, siesta en la hamaca,
+  cuidar el huerto, hoguera, mesas y pesca, con episodios del reloj compartido y sitios derivados
+  del cuerpo de cada mueble (`data/aventura/life.json`). Arte opcional por nombre: `REQUIRED-ART.md`.
+- Rutas de vecino con tope (700 casillas, 36 baldosas): la vida sin tope metía picos de 1,8–2,6 s
+  al volver a la pradera con CPU ×4; con tope, 17–67 ms en seis pasadas seguidas.
+- Suelo exterior en un Web Worker (OffscreenCanvas), lienzo a DPR 2 como máximo.
+- iPhone: manifiesto por idioma `display: fullscreen` + iconos; el botón de pantalla completa
+  explica cómo añadir el bosque a la pantalla de inicio (WebKit no tiene fullscreen de elemento).
+- Plan del Diario del Bosque en `DIARIO.md` (sin implementar).
+
+Verificado: `npm test` (89 PASS, con `check-resident-life`), transiciones, restaurante, permisos,
+bosque, aventura, viajes, río, gatos, diálogo, controles, pícnic y puzle en navegador; checks PHP
+de acceso y mantenimiento en DDEV; `check-release-live` contra producción (cero escrituras).
+`check-boundary-browser` necesita la web local detrás del preview y no se corrió. Sin migraciones.
+
 ## Producción: cruzar sin cortes — 22 septiembre 2026
 
 Artefacto `8b10d0883504699d6e41`, fuente del juego `2e052d2` (worktree limpio), web `620b4b70`
