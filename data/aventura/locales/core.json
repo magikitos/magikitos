@@ -267,14 +267,6 @@
     "it": "Conferma",
     "pt": "Confirmar"
   },
-  "authDone": {
-    "es": "Ya estás dentro.",
-    "en": "You are in.",
-    "de": "Du bist drin.",
-    "fr": "Tu es dedans.",
-    "it": "Sei dentro.",
-    "pt": "Já estás dentro."
-  },
   "authEmailPlaceholder": {
     "es": "tu@email.com",
     "en": "you@email.com",
@@ -1091,6 +1083,14 @@
     "it": "Schermo intero",
     "pt": "Ecrã inteiro"
   },
+  "installHome": {
+    "es": "En el iPhone, el bosque se juega a pantalla completa abriéndolo desde tu pantalla de inicio: pulsa Compartir y luego «Añadir a pantalla de inicio». Desde ese icono se abre sin barras.",
+    "en": "On iPhone, the forest plays full screen when you open it from your home screen: tap Share, then “Add to Home Screen”. That icon opens it without any bars.",
+    "de": "Auf dem iPhone spielst du den Wald im Vollbild, wenn du ihn vom Home-Bildschirm öffnest: Tippe auf Teilen und dann auf „Zum Home-Bildschirm“. Über dieses Symbol öffnet er sich ohne Leisten.",
+    "fr": "Sur iPhone, la forêt se joue en plein écran quand tu l’ouvres depuis ton écran d’accueil : touche Partager, puis « Sur l’écran d’accueil ». Cette icône l’ouvre sans barres.",
+    "it": "Su iPhone il bosco si gioca a schermo intero aprendolo dalla schermata Home: tocca Condividi e poi «Aggiungi alla schermata Home». Da quell’icona si apre senza barre.",
+    "pt": "No iPhone, a floresta joga-se em ecrã inteiro abrindo-a a partir do ecrã principal: toca em Partilhar e depois em «Adicionar ao ecrã principal». Esse ícone abre-a sem barras."
+  },
   "fullscreenUnavailable": {
     "es": "Aquí no se puede abrir a pantalla completa. ¡Seguimos igual!",
     "en": "Full screen is unavailable here. You can still explore!",
@@ -1194,14 +1194,6 @@
     "fr": "Pas encore de compte : cette partie ne vit que dans ce navigateur.",
     "it": "Ancora senza account: questa partita vive solo in questo browser.",
     "pt": "Ainda sem conta: esta partida vive só neste navegador."
-  },
-  "accountClaimed": {
-    "es": "Cuenta guardada: tu partida te sigue a cualquier dispositivo.",
-    "en": "Account saved: your game follows you to any device.",
-    "de": "Konto gespeichert: dein Spiel folgt dir auf jedes Gerät.",
-    "fr": "Compte enregistré : ta partie te suit sur n’importe quel appareil.",
-    "it": "Account salvato: la tua partita ti segue su qualsiasi dispositivo.",
-    "pt": "Conta guardada: a tua partida segue-te para qualquer dispositivo."
   },
   "communityYouHave": {
     "es": "Llevas",

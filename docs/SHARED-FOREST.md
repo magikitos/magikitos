@@ -216,7 +216,7 @@ se erradicaron enteros.
 | construction-layout.js | Previsualización pura, paridad con el validador PHP |
 | material-account.js | Cola durable de comandos, reconciliación y recuperación, sin subir saldos |
 | community.js | Snapshot compartido, colocación y confirmaciones de API |
-| ambient-activities.js | Reservar puntos de actividad y escogerlos por capacidades, no por mueble |
+| life.js | La vida de los vecinos: episodios con el reloj compartido, sitios derivados del cuerpo de cada mueble (`life.json`), paseos por los caminos, charlas, siestas, huerto y pesca |
 | cloud-save.js | Posición/progreso privado, conflictos y archivos de recuperación |
 | construction-ground.js | Dónde se puede estar de pie: una sola definición para el compilador y el navegador |
 | tools/community-terrain.cjs | Límites, máscara de suelo, rincones prohibidos y anclajes de paso, compilados desde la pantalla real |

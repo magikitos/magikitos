@@ -25,19 +25,6 @@ const manifest = JSON.parse(
 const sprites = new Set(
   Object.values(manifest.packs).flatMap((p) => p.sprites),
 );
-const flat = () =>
-  new World({
-    id: "test",
-    width: 80,
-    height: 80,
-    indoor: true,
-    seed: 1,
-    paths: [],
-    waters: [],
-    clearings: [],
-    regions: [],
-    entities: [],
-  });
 /* ⛔ AQUÍ VIVÍAN LA VOLTERETA Y LA DOBLE PULSACIÓN, y las dos se han ido con el laboratorio
    archivado que las implementaba (17-sep-2026). Ninguna de las dos es una habilidad del juego:
    `locomotion.js` no exporta la voltereta —lo sigue comprobando la línea de arriba— y no hay un
@@ -123,6 +110,16 @@ assert.equal(
   );
   // Un documento ya en pantalla completa se reconoce con los dos nombres.
   assert(screenApi({ webkitFullscreenElement: {} }).element(), "Prefixed element is recognised");
+
+  // ⛔ En un iPhone no hay API de elemento con ningún nombre: la salida es la pantalla de inicio.
+  const { appleHandheld, standalone } = require("../public/assets/js/adventure/fullscreen");
+  const chromeIos = { userAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) CriOS/130.0" };
+  assert.equal(appleHandheld(chromeIos), true, "Chrome on iPhone is WebKit: no element fullscreen");
+  assert.equal(appleHandheld({ userAgent: "Mozilla/5.0 (iPad; CPU OS 18_0)" }), false, "An iPad has the API");
+  const media = (on) => (q) => ({ matches: on && q.includes("fullscreen") });
+  assert.equal(standalone({ navigator: {}, matchMedia: media(true) }), true, "Opened installed");
+  assert.equal(standalone({ navigator: { standalone: true }, matchMedia: media(false) }), true, "Legacy Safari flag");
+  assert.equal(standalone({ navigator: {}, matchMedia: media(false) }), false, "In a browser tab");
 }
 console.log(
   "PASS: rolling stays out of the game, reachable doors, wallet validation, boat landings and fullscreen across both APIs.",

@@ -4,12 +4,35 @@ const fs = require("node:fs"),
   cp = require("node:child_process"),
   crypto = require("node:crypto");
 const { esbuild } = require("./adventure-studio/build.cjs");
+const { bundleGame } = require("./bundle.cjs");
 const { compileWorld } = require("./world.cjs");
 const { page, ROUTES } = require("./page.cjs");
 const { composeLocales } = require("./locales.cjs");
 const { verify } = require("./artifact.cjs");
 const root = path.resolve(__dirname, ".."),
   out = path.join(root, ".local/build");
+const APP_ICONS = [180, 192, 512];
+/** One manifest per locale: each language installs as its own app that opens on its own route. */
+function appManifest(locale, name) {
+  return {
+    name,
+    short_name: "Magikitos",
+    lang: locale,
+    start_url: ROUTES[locale],
+    scope: ROUTES[locale],
+    display: "fullscreen",
+    display_override: ["fullscreen", "standalone"],
+    orientation: "any",
+    background_color: "#263f31",
+    theme_color: "#263f31",
+    icons: APP_ICONS.filter((size) => size !== 180).map((size) => ({
+      src: "icon-" + size + ".png",
+      sizes: size + "x" + size,
+      type: "image/png",
+      purpose: "any",
+    })),
+  };
+}
 function build({ reuseArt = false } = {}) {
   const scratch = fs.mkdtempSync(
     path.join(require("node:os").tmpdir(), "magikitos-build-"),
@@ -30,16 +53,7 @@ function build({ reuseArt = false } = {}) {
         cwd: root,
         stdio: "inherit",
       });
-  cp.execFileSync(
-    esbuild(root),
-    [
-      "public/assets/js/aventura.js",
-      "--bundle",
-      "--minify",
-      "--outfile=" + path.join(assets, "js/aventura.min.js"),
-    ],
-    { cwd: root, stdio: "inherit" },
-  );
+  bundleGame(root, path.join(assets, "js/aventura.min.js"));
   cp.execFileSync(
     esbuild(root),
     [
@@ -71,10 +85,23 @@ function build({ reuseArt = false } = {}) {
     path.join(assets, "fonts"),
     { recursive: true },
   );
+  // Installable web app: opened from the home screen the game runs without browser chrome,
+  // which on an iPhone is the only way to play full screen (no Fullscreen API for elements).
+  fs.mkdirSync(path.join(assets, "app"), { recursive: true });
+  for (const size of APP_ICONS)
+    fs.copyFileSync(
+      path.join(root, "public/assets/app/icon-" + size + ".png"),
+      path.join(assets, "app/icon-" + size + ".png"),
+    );
   const world = compileWorld(root);
   // El motor va incrustado en la página; lo que dice cada pantalla viaja con la pantalla.
   // Ver tools/locales.cjs: componer aborta si una clave falta, se repite o ya no la dice nadie.
   const locales = composeLocales(world);
+  for (const [locale, strings] of Object.entries(locales.core))
+    fs.writeFileSync(
+      path.join(assets, "app/manifest-" + locale + ".json"),
+      JSON.stringify(appManifest(locale, strings.title)),
+    );
   for (const [scene, bundle] of Object.entries(locales.scenes))
     for (const [locale, strings] of Object.entries(bundle)) {
       const target = path.join(assets, "locales", locale, scene + ".json");

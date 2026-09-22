@@ -20,6 +20,14 @@ const { drawSeat } = require("./seating");
 const { drawAmbientActor } = require("./ambient-actors");
 const { drawVegetation } = require("./vegetation");
 const { drawKeepsakes } = require("./keepsakes");
+const { drawBubble, drawSplash, drawTending } = require("./life-draw");
+/**
+ * The canvas is never denser than 2 device pixels per CSS pixel. It is pixel art shown with
+ * `image-rendering: pixelated`, so on a 3× phone the compositor keeps every world pixel an
+ * integer block (6 canvas px → 9 screen px) while each frame fills 2.25 times fewer pixels:
+ * the heaviest fixed cost of painting on an iPhone.
+ */
+const MAX_CANVAS_DPR = 2;
 /** La porción del aro del mando que marca la dirección: un octavo de vuelta. */
 const STICK_SLICE = Math.PI / 4;
 class Renderer {
@@ -39,7 +47,7 @@ class Renderer {
     this.zoom = zoom;
     const r = this.viewport.getBoundingClientRect();
     this.viewportSize = { width: r.width, height: r.height };
-    const dpr = Math.min(window.devicePixelRatio || 1, 3);
+    const dpr = Math.min(window.devicePixelRatio || 1, MAX_CANVAS_DPR);
     const metrics = cameraMetrics(r, this.world, this.requestedZoom, zoom);
     this.viewZoom = metrics.ratio;
     this.scale = metrics.scale;
@@ -76,6 +84,7 @@ class Renderer {
       return entity.pulse.sprite;
     return (
       (entity.visuals || []).find((v) => matches(state, v.when))?.sprite ||
+      this.life?.cropFrame(entity) ||
       frameName(entity)
     );
   }
@@ -396,13 +405,22 @@ class Renderer {
       f = this.sprites.frame(name);
     if (!f) return;
     drawSeat(c, this.sprites, e);
-    if ((e.player && !game.river?.active) || e.neighbor) {
+    if ((e.player && !game.river?.active) || (e.neighbor && !e.napAt && !e.seatAt)) {
       c.fillStyle = "rgba(31,46,33,.22)";
       c.beginPath();
       c.ellipse(e.x, e.y + 1, 8, 3, 0, 0, 7);
       c.fill();
     }
-    if (
+    if (e.napAt) {
+      // Lying in the hammock: the standing body turned on its side over the cloth, swaying a
+      // little. A quarter turn keeps every pixel square, so the art stays crisp.
+      const sway = Math.sin(time * 1.4) * 1.5;
+      drawArtwork(c, this.sprites, { ...e, x: e.napAt.x + 12 + sway, y: e.napAt.y - 22, rotation: -90 }, name);
+    } else if (e.seatAt) {
+      // Sitting without a seated sheet: the body on the seat, its lower third behind the seat.
+      drawArtwork(c, this.sprites, { ...e, x: e.seatAt.x, y: e.seatAt.y + 1 }, name,
+        { x: -f.anchor[0], y: -f.anchor[1], w: f.w, h: Math.round(f.h * 0.72) });
+    } else if (
       !drawAmbientActor(c, this.sprites, e, name, time) &&
       !drawVegetation(c, this.sprites, e, name, time)
     )
@@ -410,6 +428,13 @@ class Renderer {
     drawAttachments(c, this.sprites, e);
     if (e.player) game.self.drawStream(c);
     drawFishing(c, e, time);
+    drawTending(c, e, time);
+    if (e.neighbor && (e.bubble || e.splash)) {
+      const now = game.life.now();
+      drawSplash(c, e, now, this.sprites);
+      const at = e.napAt ? { ...e, x: e.napAt.x - 6 } : e.seatAt ? { ...e, x: e.seatAt.x } : e;
+      drawBubble(c, at, e.napAt ? e.napAt.y - 30 : e.seatAt ? e.seatAt.y - f.anchor[1] : artworkBounds(e, f).y, now, time, this.sprites);
+    }
     if (e.cat) game.cats.drawWarning(c, e);
     if (e.lightRadius) {
       const radius = e.lightRadius;

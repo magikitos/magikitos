@@ -24,6 +24,7 @@ const NEEDS = [
   ["data/aventura/elements.json"],
   ["data/aventura/construction.json"],
   ["data/aventura/resource-nodes.json"],
+  ["data/aventura/life.json"],
   ["data/aventura/scene-instances.json"],
   ["data/aventura/scenes"],
   ["data/aventura/behaviors"],

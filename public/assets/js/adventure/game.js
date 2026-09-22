@@ -1,4 +1,5 @@
 "use strict";
+const { ResidentLife } = require("./life");
 const { tryPush } = require("./movables");
 const { releaseContact } = require("./obstacles");
 const { World, TILE, insideThreshold } = require("./model");
@@ -127,6 +128,8 @@ class Adventure {
     this.crossings = new Crossings(this);
     this.cats = new CatEncounters(this);
     this.community = new Community(this);
+    this.life = new ResidentLife(this);
+    this.renderer.life = this.life;
     this.cloud = new CloudSave(this);
     this.materials = new MaterialAccount(this);
     this.live = new ForestLive(this);
@@ -1006,7 +1009,7 @@ class Adventure {
     });
   }
   updateNeighbors(dt) {
-    this.community.activities.update(dt);
+    this.life.update(dt);
     this.wander(this.world, this.neighbors, dt, this.camera);
     // ⛔ LOS DE LA PANTALLA DE AL LADO TAMBIÉN VIVEN (mundo continuo): sus residentes pasean en
     // su propio mundo con la cámara traducida a sus coordenadas, así que quien cae en la vista se
@@ -1021,7 +1024,9 @@ class Adventure {
   wander(world, residents, dt, camera) {
     for (const n of residents) {
       if (!n.neighbor && !n.home) continue; // Solo residentes: la presencia y los gatos van aparte.
-      if (n.activity && !n.path.length) {
+      // Doing something of its own (`life.js`): it walks the route it was given and holds still
+      // otherwise; only a resident with nothing to do wanders around home.
+      if (n.life && n.life.kind !== "wander" && !n.path.length) {
         n.moving = false;
         continue;
       }
@@ -1337,6 +1342,8 @@ class Adventure {
       scale: this.renderer.scale,
       storageOK: this.storageOK,
       chunkCount: this.renderer.terrain.chunks.size,
+      terrainWorker: Boolean(this.renderer.terrain.worker),
+      life: this.life.inspect(),
       terrainBuilds: this.renderer.terrain.buildCount,
       assets: this.renderer.sprites.inspect(),
       wallet: {

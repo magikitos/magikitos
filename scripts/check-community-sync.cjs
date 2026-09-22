@@ -2,7 +2,7 @@
 const assert = require("node:assert/strict");
 const { Community } = require("../public/assets/js/adventure/community");
 const { CommunitySync } = require("../public/assets/js/adventure/community-sync");
-const { AmbientActivities } = require("../public/assets/js/adventure/ambient-activities");
+const { ResidentLife } = require("../public/assets/js/adventure/life");
 const { World } = require("../public/assets/js/adventure/model");
 const { Journey } = require("../public/assets/js/adventure/journey");
 const { collisionBounds } = require("../public/assets/js/adventure/geometry");
@@ -30,7 +30,7 @@ function fixture(Sync = CommunitySync) {
   c.catalog = { maxObjectsPerZone: 320, zones: { forest: { scene: "forest" }, river: { scene: "river" } },
     definitions: { bench: definition, fence: { shape: "polyline", sprite: "twig-fence", family: "twig-fence", rotations: [0], variants: [{ id: "one" }] },
       trail: { shape: "polyline", paint: "path", rotations: [0], variants: [{ id: "one" }] } } };
-  c.snapshots = new Map(); c.activities = new AmbientActivities(g);
+  c.snapshots = new Map(); g.life = new ResidentLife(g);
   c.revalidate = () => {}; c.paint = () => {};
   const item = (n, extra = {}) => ({ id: id(n), kind: "bench", variant: "one", x: 10 + n * 3, y: 15, rotation: 0, revision: 1, ...extra });
   const snapshot = (revision, objects = [], zone = "forest") => ({ zone, now: 1800000000000 + now, revision, objects });
@@ -108,9 +108,10 @@ function layers() {
   const old = world.entities.find(e => e.community === bench.id), stable = world.entities.find(e => e.community === other.id);
   const fenceBodies = world.colliders.filter(e => e.community === fence.id);
   assert(fenceBodies.length > 2, "Actual compound fence bodies are installed");
-  const walker = { x: 50, y: 50, path: [{ x: 80, y: 80 }], activity: { key: `${old.id}:0` } };
-  const sitter = { x: 60, y: 60, path: [], activity: { key: `${stable.id}:0` }, activitySprite: "seated" };
-  g.neighbors = [walker, sitter]; c.activities.reserved.set(walker.activity.key, "walker"); c.activities.reserved.set(sitter.activity.key, "sitter");
+  const walker = { id: "walker", neighbor: true, lifeFree: true, x: 900, y: 900, path: [{ x: 80, y: 80 }], life: { kind: "sit", entity: old.id, key: `${old.id}:0` } };
+  const sitter = { id: "sitter", neighbor: true, lifeFree: true, x: 960, y: 900, path: [], life: { kind: "sit", entity: stable.id, key: `${stable.id}:0`, arrived: true }, activitySprite: "seated" };
+  world.actors.push(walker, sitter);
+  g.life.reserved.set(walker.life.key, "walker"); g.life.reserved.set(sitter.life.key, "sitter");
   g.journey.start(world, g.player, { kind: "interact", entity: old });
   const route = g.journey.path;
   set(2, [bench, other, fence]);
@@ -119,7 +120,7 @@ function layers() {
   // Metadata changes do not move furniture; its interaction must still use current ownership.
   const protectedBench = { ...bench, heritage: true, mine: false, author: { name: "Synthetic author" } };
   set(2, [protectedBench, other, fence]);
-  assert.equal(g.journey.target, old); assert(walker.activity, "Heritage notice must not throw a seated NPC off the bench");
+  assert.equal(g.journey.target, old); assert(walker.life, "Heritage notice must not throw a seated NPC off the bench");
   let inspected; c.inspect = value => { inspected = value; };
   old.onInteract(); assert.equal(inspected, protectedBench, "Stable visual reference reads the newest author/protection data");
   const moved = { ...bench, x: bench.x + 4, revision: 2 };
@@ -127,7 +128,8 @@ function layers() {
   assert.notEqual(g.journey.target, old); assert.equal(g.journey.target.x, moved.x * 16);
   assert.equal(world.collisionGrid.at(old.x, old.y), null, "Old body is removed, not duplicated");
   assert(world.collisionGrid.at(moved.x * 16, moved.y * 16));
-  assert(!walker.activity); assert.equal(walker.path.length, 0);
+  assert(!walker.life); assert.equal(walker.path.length, 0);
+  assert(!g.life.reserved.has(`${old.id}:0`), "The moved bench's place is given back");
   assert.equal(sitter.activitySprite, "seated", "Unrelated seated resident is not reset");
   for (const body of fenceBodies) assert(!world.collisionGrid.bounds.has(body), "Every segment of the removed fence leaves the index");
   set(4, [other, item(4, { kind: "trail", points: [[0, 0], [4, 0]] })]);

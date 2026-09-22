@@ -71,17 +71,21 @@ function riverBodies(data, time) {
 }
 function drawFishing(ctx, actor, time) {
   if (!actor.fishing) return;
+  // The rod may be part of the angler's own sheet; the line and float are always drawn here.
+  const rod = !actor.fishing.drawnRod;
   const [tx, ty] = actor.fishing.target.map((n) => n * TILE);
   const side = tx < actor.x ? -1 : 1;
   const hand = { x: actor.x + side * 8, y: actor.y - 14 };
   const tip = { x: actor.x + side * 42, y: actor.y - 42 };
   ctx.save();
-  ctx.strokeStyle = "#655236";
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  ctx.moveTo(hand.x, hand.y);
-  ctx.quadraticCurveTo(tip.x, hand.y - 24, tip.x, tip.y);
-  ctx.stroke();
+  if (rod) {
+    ctx.strokeStyle = "#655236";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(hand.x, hand.y);
+    ctx.quadraticCurveTo(tip.x, hand.y - 24, tip.x, tip.y);
+    ctx.stroke();
+  }
   ctx.lineWidth = 0.6;
   ctx.strokeStyle = "rgba(234,229,199,.65)";
   ctx.beginPath();

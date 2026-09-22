@@ -35,8 +35,13 @@ function smoothPath(world, from, points, ignore = from) {
   }
   return result;
 }
-/** A* over dry actor-sized cells; geometric checks also protect curved shore edges. */
-function findPath(world, from, target, ignore = from) {
+/** A* over dry actor-sized cells; geometric checks also protect curved shore edges.
+ *
+ * ⛔ `limit` ACOTA LAS CASILLAS QUE SE CIERRAN, y lo piden los vecinos, nunca el jugador. Un
+ * destino al otro lado de la pradera —o uno al que no se llega— hace que el A* recorra el mapa
+ * entero: 67 ms medidos en un solo tick, casi 300 en un teléfono, y ese era el tirón al volver a la
+ * pradera. Quien clica quiere llegar aunque cueste; a un vecino le basta con dar la vuelta. */
+function findPath(world, from, target, ignore = from, limit = Infinity) {
   // Occupancy cells alone miss feet overlapping a prop at a cell edge, and
   // residents are deliberately not baked into the static grid. Cache the live
   // body checks only for this search; the next search sees their new positions.
@@ -70,7 +75,7 @@ function findPath(world, from, target, ignore = from) {
       }
     connectors.sort((a, b) => distance(a, from) - distance(b, from));
     for (const point of connectors) {
-      const route = findPath(world, point, target, ignore);
+      const route = findPath(world, point, target, ignore, limit);
       if (route) return [point, ...route];
     }
     return null;
@@ -113,9 +118,11 @@ function findPath(world, from, target, ignore = from) {
   };
   g[start] = 0;
   push(start, heuristic(start));
+  let expanded = 0;
   while (heap.length) {
     const cur = pop();
     if (closed[cur]) continue;
+    if (++expanded > limit) return null;
     if (cur === goal) {
       const out = [];
       for (let n = goal; n !== start; n = parents[n])

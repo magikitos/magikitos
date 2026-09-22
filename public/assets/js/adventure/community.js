@@ -103,9 +103,6 @@ class Community {
     this.sync = new CommunitySync(this);
     this.editing = false;
     this.busy = false;
-    this.activities = new (require("./ambient-activities").AmbientActivities)(
-      game,
-    );
     // La nota de la bombita: la misma política que las notas del bosque (largo y saneado), y el
     // mismo caparazón de modal; solo cambia quién la lee.
     byId("bomb-note")?.addEventListener("input", () => this.paintBombNote());
@@ -463,7 +460,7 @@ class Community {
     localStorage.removeItem("magikitos.adventure.build-pending");
   }
   sceneChanged() {
-    this.activities.reset();
+    this.game.life.reset();
     this.cancel();
     this.paint();
   }

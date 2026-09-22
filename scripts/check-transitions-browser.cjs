@@ -11,7 +11,8 @@
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const { spawn } = require("node:child_process");
-const { chromium } = require("playwright"), { build } = require("esbuild");
+const { chromium } = require("playwright");
+const { bundleForTest } = require("../tools/bundle.cjs");
 const { enterWorld } = require("./browser-entry.cjs");
 const { nearbyPosition, entityScreenPoint } = require("./browser-world.cjs");
 const { cleanSave } = require("../public/assets/js/adventure/save");
@@ -35,7 +36,7 @@ async function reachable() {
     for (let i = 0; i < 50 && !(await reachable()); i++) await new Promise((r) => setTimeout(r, 200));
   }
   const world = JSON.parse(fs.readFileSync(".local/build/world.json"));
-  const bundled = await build({ entryPoints: ["public/assets/js/aventura.js"], bundle: true, write: false });
+  const bundled = await bundleForTest();
   const browser = await chromium.launch({ channel: "chrome", headless: true });
   const results = [];
   try {
@@ -59,6 +60,7 @@ async function reachable() {
       }, saved);
       await page.goto(origin + "/bosque/explorar");
       await enterWorld(page);
+      assert.equal(await page.evaluate(() => window.MagikitosAdventure.inspect().terrainWorker), true, "The ground paints off the main thread");
       const cdp = await page.context().newCDPSession(page);
       await page.waitForTimeout(4000); // la precarga calienta las vecinas, como en una partida
       await cdp.send("Emulation.setCPUThrottlingRate", { rate: THROTTLE });

@@ -421,8 +421,8 @@ class World {
       point.y - clamp(point.y, r.y, r.y + r.h),
     );
   }
-  path(from, target) {
-    return findPath(this, from, target);
+  path(from, target, limit = Infinity) {
+    return findPath(this, from, target, from, limit);
   }
   approach(from, target, radius = 3, minDistance = 0) {
     const candidates = [],

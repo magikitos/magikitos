@@ -62,6 +62,33 @@ walking sheets keep one identity. The bench is a separate reusable prop.
 Both complete prompts are in `art/residents/brizno-prompts.json`; originals
 are in `art/cast/sources/brizno-{seated,walk}.png`.
 
+## What residents do all day (`life.js`)
+
+Every resident not holding published content and not placed by the Studio to stand still (no
+`content`, no authored `fishing`, `radius` not 0) lives a schedule of 35–80 s **episodes**. The
+episode and its plan come from the shared server clock and the resident's id, so two players see
+the same neighbour on the same bench at the same time; only the steps between spots are local.
+
+- **Places are derived, not placed**: `data/aventura/life.json` `kinds` maps an element to what it
+  offers (`sit`, `nap`, `tend`, `warm`, `socialize`) and the spots come from the element's body
+  (front of a bench, the four sides of a bed, a ring around a fire). Community furniture keeps its
+  own `slots`. A new element is one line in that table; nothing is authored per scene.
+- **Activities**: strolls along `paths` and community paths, walking in pairs, chatting face to
+  face, sitting, napping in the hammock, tending beds, warming up by the fire, sitting at tables,
+  fishing from bank spots found along the water, and greeting you when you pass close.
+- **Art is optional**: a face with `sit`, `work` or `fish` sheets uses them; without them the game
+  draws a stand-in (seated over the seat, a bob with flicking leaves, a drawn rod). Crop growth
+  stages and emote icons switch on by name. What is missing is listed in `REQUIRED-ART.md`.
+- **Population**: `life.json` `population` adds ambient residents per scene, born on its paths
+  and preferring faces with action sheets.
+- **Cost**: four ticks a second, one route search per world every quarter second of game time,
+  and nobody walks off screen: out of view a resident is placed at its spot.
+- **⛔ Routes are capped**: a resident searches at most 700 cells and never for a place more than
+  36 tiles away, and prefers places, paths and banks within that reach. One uncapped search across
+  the meadow cost 67 ms and froze the arrival for up to 2.6 s on a throttled phone. The player's
+  routes carry no cap. `scripts/check-resident-life.cjs` fails if a resident asks for an uncapped
+  or cross-map route, keeps life under a millisecond per tick and checks one person per spot.
+
 ## Doors and shared interiors
 
 All open house families declare `entrance: "open"` in the canonical

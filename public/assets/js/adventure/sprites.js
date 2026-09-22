@@ -51,6 +51,10 @@ class SpriteLibrary {
       throw new Error("Sprite data unavailable: " + response.status);
     return response.json();
   }
+  /** Whether this release has the sprite at all, loaded or not. */
+  has(name) {
+    return this.owners.has(name);
+  }
   packageFor(name) {
     const id = this.owners.get(name);
     if (!id) throw new Error("Unregistered sprite: " + name);

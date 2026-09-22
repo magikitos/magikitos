@@ -20,7 +20,7 @@ function applyCommunityLayer(game, data) {
   const removed = new Set(previous.values());
   world.replaceEntities(removed, added);
   world.data = { ...world.data, entities: data.entities, communityPaths: data.communityPaths };
-  game.community.activities.reconcile(new Set(previous.keys()));
+  game.life.reconcile(new Set(previous.keys()), world);
   const target = game.journey.target;
   if (removed.has(target)) {
     const replacement = current.get(target.id);

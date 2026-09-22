@@ -10,6 +10,16 @@ function createNeighbors(world, config, ambientCast, choose = Math.random) {
       ? { lookAt: { x: slot.lookAt[0] * TILE, y: slot.lookAt[1] * TILE } }
       : {}),
   }));
+  // Ambient population: extra residents who live the scene (`life.json`), born on its paths.
+  const population = config.world?.life?.population?.[world.data.id] || 0;
+  if (population) {
+    const rand = random(hash(world.data.id + ":population")),
+      points = (world.data.paths || []).flat().filter(([x, y]) => world.canStand((x + 0.5) * TILE, (y + 0.5) * TILE));
+    for (let i = 0; i < population && points.length; i++) {
+      const [x, y] = points[Math.floor(rand() * points.length)];
+      slots.push({ id: world.data.id + "-life-" + i, x: x + 0.5, y: y + 0.5, radius: 4, population: true });
+    }
+  }
   for (const gathering of world.data.gatherings || []) {
     const count =
       gathering.min +
@@ -26,6 +36,7 @@ function createNeighbors(world, config, ambientCast, choose = Math.random) {
       });
     }
   }
+  const actionFaces = new Set(config.world?.playerArt?.enabledVariants || []);
   const seen = new Set(),
     cursors = {};
   const casting = new ZoneCasting(
@@ -40,8 +51,9 @@ function createNeighbors(world, config, ambientCast, choose = Math.random) {
     if (person) seen.add(person.handle);
     const identity = person?.handle || slot.id;
     // Appearance is a local art decision; website identity never selects an obsolete sprite index.
+    // The ambient population prefers faces with action sheets: they tend beds with their own hands.
     const variant =
-      slot.variant ?? casting.choose(identity, world.region(slot.x, slot.y));
+      slot.variant ?? casting.choose(identity, world.region(slot.x, slot.y), slot.population ? actionFaces : null);
     const cursor = cursors[slot.content] || 0;
     cursors[slot.content] = cursor + 1;
     // Visitors can share a published piece; its actual author remains credited in the folio.
@@ -58,6 +70,9 @@ function createNeighbors(world, config, ambientCast, choose = Math.random) {
       y: slot.y * TILE,
       home: { x: slot.x * TILE, y: slot.y * TILE },
       neighbor: true,
+      // Free to live its own day (`life.js`): not holding published content, not placed by the
+      // Studio to stand still or to fish at an authored spot.
+      lifeFree: !slot.content && !slot.fishing && slot.radius !== 0,
       person: person || null,
       piece,
       variant,

@@ -9,10 +9,24 @@
  * que en ese aparato el botón no llegaba a existir. Se resuelve con un adaptador de cuatro
  * líneas, no con una rama por dispositivo.
  *
- * Lo que NO se puede arreglar con código: en el iPhone la API de pantalla completa no existe para
- * un elemento, solo para un vídeo. Ahí el botón no aparece a propósito, y es lo honesto: el juego
- * ya ocupa el viewport entero. Un botón que no puede cumplir es peor que ningún botón.
+ * ⛔ EN EL IPHONE LA PANTALLA COMPLETA ES LA PANTALLA DE INICIO (22-sep-2026). Allí la API no
+ * existe para un elemento, solo para un vídeo, y da igual el navegador: Chrome en iOS es WebKit.
+ * Lo que sí existe es abrir el bosque instalado (manifiesto `display: fullscreen`): sin barras.
+ * Así que en un iPhone que no lo ha instalado el botón aparece y explica cómo; abierto desde la
+ * pantalla de inicio, ya está a pantalla completa y el botón sobra.
  */
+/** Opened from the home screen as an installed app: already without browser chrome. */
+function standalone(win = typeof window === "undefined" ? null : window) {
+  return Boolean(
+    win &&
+      (win.navigator?.standalone ||
+        ["fullscreen", "standalone"].some((mode) => win.matchMedia?.(`(display-mode: ${mode})`).matches)),
+  );
+}
+/** iPhone and iPod: WebKit without element fullscreen, whatever the browser's name. */
+function appleHandheld(nav = typeof navigator === "undefined" ? null : navigator) {
+  return Boolean(nav && /iP(hone|od)/.test(nav.userAgent || ""));
+}
 /** La misma capacidad con cualquiera de los dos nombres. Recibe el documento para poder
  *  preguntarle a uno de mentira: es la única forma de probar un navegador que no tienes. */
 function screenApi(doc = typeof document === "undefined" ? null : document) {
@@ -41,7 +55,12 @@ class Fullscreen {
         screen.enabled() &&
           (root.requestFullscreen || root.webkitRequestFullscreen),
       );
+    this.installable = !this.supported && !this.native && appleHandheld() && !standalone();
     this.button.addEventListener("click", () => {
+      if (this.installable) {
+        game.openDialogue(game.lines("installHome"));
+        return;
+      }
       // ⛔ NADA ASÍNCRONO ANTES DE PEDIRLA. El gesto de la persona se gasta en el primer `await`,
       // y a partir de ahí el navegador rechaza la petición sin decir por qué. Desbloquear el
       // audio devuelve una promesa que aquí NO se espera a propósito.
@@ -54,7 +73,7 @@ class Fullscreen {
   }
   paint() {
     this.button.hidden =
-      !this.supported ||
+      !(this.supported || this.installable) ||
       this.native ||
       Boolean(this.screen.element()) ||
       !this.game.entry?.entered;
@@ -86,4 +105,4 @@ class Fullscreen {
     return Promise.resolve(false);
   }
 }
-module.exports = { Fullscreen, screenApi };
+module.exports = { Fullscreen, screenApi, standalone, appleHandheld };

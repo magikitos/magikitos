@@ -213,13 +213,21 @@ class SceneDirector {
       renderer,
     );
     const view = { x: camera.x, y: camera.y, width: renderer.width, height: renderer.height };
-    const range = chunkRange(world, view);
+    const range = chunkRange(world, view),
+      tiles = [];
     for (let y = range.top; y <= range.bottom; y++)
-      for (let x = range.left; x <= range.right; x++) {
-        if (terrain.has(world, x, y)) continue;
-        terrain.chunk(world, x, y, renderer.sprites);
-        await new Promise((resolve) => setTimeout(resolve, 0));
-      }
+      for (let x = range.left; x <= range.right; x++) tiles.push([x, y]);
+    // With the terrain worker all tiles paint in parallel off this thread; without it, one per
+    // task so the old scene keeps drawing in between.
+    if (terrain.worker && !world.data.indoor) {
+      await Promise.all(tiles.map(([x, y]) => terrain.ensure(world, x, y, renderer.sprites)));
+      return;
+    }
+    for (const [x, y] of tiles) {
+      if (terrain.has(world, x, y)) continue;
+      terrain.chunk(world, x, y, renderer.sprites);
+      await new Promise((resolve) => setTimeout(resolve, 0));
+    }
   }
   async resolve(id, position, state, options) {
     // Una preparación por pantalla a la vez: si la precarga ya está trayendo esta pantalla, el
@@ -314,6 +322,7 @@ class SceneDirector {
           for (const name of Object.values(variant.views || {}))
             sprites.add(name);
         }
+    for (const name of game.life?.sprites(world) || []) sprites.add(name);
     for (const entity of [...world.entities, ...world.props]) {
       for (const attachment of entity.attachments || [])
         sprites.add(attachment.sprite);

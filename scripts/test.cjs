@@ -29,6 +29,7 @@ for (const name of [
   "check-cloud-save",
   "check-adventure-geography",
   "check-adventure-residents",
+  "check-resident-life",
   "check-adventure-picnic",
   "check-adventure-ascua",
   "check-adventure-controls",

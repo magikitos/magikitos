@@ -18,7 +18,6 @@ for (const value of [origin, offline, website]) {
     throw Error("Local tests only");
 }
 let browser;
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 (async () => {
   const pointer = JSON.parse(fs.readFileSync(path.join(out, "current.json")));
   verify(path.join(out, "releases", pointer.id), pointer.id);

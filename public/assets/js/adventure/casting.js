@@ -11,7 +11,8 @@ class ZoneCasting {
     );
     this.zones = new Map();
   }
-  choose(identity, zone) {
+  /** `prefer`: ids to try first (the faces with action sheets), without breaking family variety. */
+  choose(identity, zone, prefer = null) {
     const used = this.zones.get(zone) || {
       ids: new Set(),
       families: new Set(this.reservedFamilies),
@@ -24,7 +25,8 @@ class ZoneCasting {
     const available = ordered.filter(
       (p) => !this.reserved.has(p.id) && !used.ids.has(p.id),
     );
-    const profile = available.find((p) => !used.families.has(p.family));
+    const fresh = available.filter((p) => !used.families.has(p.family));
+    const profile = (prefer && fresh.find((p) => prefer.has(p.id))) || fresh[0];
     if (!profile) throw new Error("NPC repertoire exhausted in zone: " + zone);
     used.ids.add(profile.id);
     used.families.add(profile.family);

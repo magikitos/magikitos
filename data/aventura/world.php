@@ -11,6 +11,8 @@ return (static function (): array {
     $world['resourceRegions'] = $read(__DIR__ . '/resource-nodes.json');
     // Only lightweight identities ship to browsers, never the production prompts or source masters.
     $world['avatarProfiles'] = $read(__DIR__ . '/residents.json');
+    // What residents do with the places of a scene and how many live there (`life.js`).
+    $world['life'] = $read(__DIR__ . '/life.json');
     $world['avatarVariants'] = array_column($world['avatarProfiles'], 'id');
     /**
      * ⛔ EL ELENCO QUE SE PUEDE ELEGIR SE DERIVA, NO SE ESCRIBE.

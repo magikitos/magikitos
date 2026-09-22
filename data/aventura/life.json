@@ -1,0 +1,116 @@
+{
+  "episodeSeconds": [
+    35,
+    80
+  ],
+  "weights": {
+    "stroll": 24,
+    "walkTogether": 12,
+    "chat": 16,
+    "sit": 14,
+    "tend": 14,
+    "fish": 12,
+    "nap": 6,
+    "warm": 6,
+    "socialize": 8,
+    "wander": 6
+  },
+  "kinds": {
+    "bench": "sit",
+    "bench-log": "sit",
+    "stool-acorn": "sit",
+    "stool-shell": "sit",
+    "chair-bark": "sit",
+    "armchair": "sit",
+    "garden-hammock": "nap",
+    "garden-carrots": "tend",
+    "garden-cabbages": "tend",
+    "garden-beets": "tend",
+    "garden-herbs": "tend",
+    "garden-potting-table": "tend",
+    "workbench": "tend",
+    "fire": "warm",
+    "barbecue-lit": "warm",
+    "table": "socialize",
+    "table-twig": "socialize",
+    "picnic-blanket": "socialize",
+    "garden-tomatoes": "tend",
+    "garden-eggplants": "tend",
+    "garden-onions": "tend",
+    "garden-potatoes": "tend",
+    "garden-hammock-occupied": "nap"
+  },
+  "population": {
+    "overworld": 5,
+    "river-willows": 4,
+    "river-roots": 2,
+    "river-rapids": 2,
+    "human-hedge": 2
+  },
+  "crops": {
+    "garden-carrots": {
+      "stages": [
+        "garden-carrots-sprout",
+        "garden-carrots-young",
+        "garden-carrots"
+      ],
+      "cycleMinutes": 120
+    },
+    "garden-cabbages": {
+      "stages": [
+        "garden-cabbages-sprout",
+        "garden-cabbages-young",
+        "garden-cabbages"
+      ],
+      "cycleMinutes": 150
+    },
+    "garden-beets": {
+      "stages": [
+        "garden-beets-sprout",
+        "garden-beets-young",
+        "garden-beets"
+      ],
+      "cycleMinutes": 130
+    },
+    "garden-herbs": {
+      "stages": [
+        "garden-herbs-sprout",
+        "garden-herbs-young",
+        "garden-herbs"
+      ],
+      "cycleMinutes": 90
+    },
+    "garden-tomatoes": {
+      "stages": [
+        "garden-tomatoes-sprout",
+        "garden-tomatoes-young",
+        "garden-tomatoes"
+      ],
+      "cycleMinutes": 140
+    },
+    "garden-eggplants": {
+      "stages": [
+        "garden-eggplants-sprout",
+        "garden-eggplants-young",
+        "garden-eggplants"
+      ],
+      "cycleMinutes": 160
+    },
+    "garden-onions": {
+      "stages": [
+        "garden-onions-sprout",
+        "garden-onions-young",
+        "garden-onions"
+      ],
+      "cycleMinutes": 110
+    },
+    "garden-potatoes": {
+      "stages": [
+        "garden-potatoes-sprout",
+        "garden-potatoes-young",
+        "garden-potatoes"
+      ],
+      "cycleMinutes": 170
+    }
+  }
+}
