@@ -4,6 +4,22 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: unidades de receta desde la API — 22 septiembre 2026
+
+Artefacto `ee044ae502cfec9b29cb`, fuente del juego `b88c232` (construido desde un worktree
+limpio), web `e874f0a5` + puntero. 820 archivos verificados antes de activar. SHA-256 de
+`release.json`: `a669e238bfc85bf05fef194791659de45b3b287178e29c94373ac825ca494408`. Anterior conservada: `f57b112ebbdfdf23a875`.
+
+- Unidades de receta traducidas y servidas por la web (`units`); nombres de idioma por
+  `Intl.DisplayNames`; mensajes propios para el tope diario y la duración del audio.
+- Retirado el paquete `inactivo`: el servidor del bosque ya no lo emitía.
+- Web: la duración del audio se mide tras transcodificar (los WebM de Chrome no la traen);
+  las recetas no reparten setines de ranking; los permisos caducan a la hora sin usar.
+
+Verificado: `npm test -- --reuse-art` (88 PASS), restaurante en cinco tamaños contra la API
+local real, y `check-release-live` contra producción (seis rutas byte a byte, recetas SSR/JSON,
+API, bosque y remo en tres tamaños, cero escrituras). Sin migraciones.
+
 ## Producción: restaurante público y diez plazas por reputación — 22 septiembre 2026
 
 Artefacto `f57b112ebbdfdf23a875`, fuente del juego `73b8df3`, web `d43d435a`.
