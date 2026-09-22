@@ -4,6 +4,29 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: cruzar sin cortes — 22 septiembre 2026
+
+Artefacto `8b10d0883504699d6e41`, fuente del juego `2e052d2` (worktree limpio), web `620b4b70`
++ puntero. 820 archivos verificados antes de activar. SHA-256 de `release.json`:
+`10a50adc19c7a3c048da375f395a4e09f7801b5e099267b72bea59174d548b46`. Anterior conservada: `ee044ae502cfec9b29cb`.
+
+- Cruces optimistas por costura y puerta (el bosque vivo confirma por detrás; un rechazo
+  devuelve a su posición). La web acepta los pasos laterales de llegada que ofrece el cliente.
+- Salir por una puerta usa la foto de comunidad que ya hay; el suelo de la llegada se pinta
+  antes de entrar; mundos compartidos reutilizados; un solo `refresh` por cruce;
+  `SceneDirector.transition()` como camino único.
+- Otros jugadores interpolados al ritmo real de sus fotos; guardado cada 10 s andando;
+  colisión sin cadenas; grabadora compartida con silencio y duración mínima.
+- Web: permisos que conservan el recibo de una obra ya guardada; `Presence.shutdown` ya no
+  lanza al reiniciar (el reinicio anterior acabó en SIGKILL por ese fallo; este, limpio).
+
+Medido con CPU ×4 (`npm run test:transitions`): puerta de la taberna 17 ms de peor hueco
+entre fotogramas (antes ~100), costuras 17-33 ms. Verificado: `npm test` (88 PASS), cruces en
+vivo con el demonio real (9/9 en aislado; uno falló bajo carga, como ya le pasaba al código
+anterior), transiciones, restaurante, permisos, bosque, aventura, viajes, río, gatos y diálogo
+en navegador; checks PHP de acceso y mantenimiento en DDEV; `check-release-live` contra
+producción (cero escrituras). Sin migraciones.
+
 ## Producción: unidades de receta desde la API — 22 septiembre 2026
 
 Artefacto `ee044ae502cfec9b29cb`, fuente del juego `b88c232` (construido desde un worktree
