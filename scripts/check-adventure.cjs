@@ -8,6 +8,7 @@ const {
   spriteBounds,
   collisionBounds,
 } = require("../public/assets/js/adventure/model");
+const { docks } = require("../public/assets/js/adventure/docks");
 const {
   planReaction,
   active,
@@ -166,11 +167,56 @@ assert.equal(recordStep(walker, 0, 0), false);
 assert.equal(walker.walkDistance, 12);
 recordStep(walker, -3, -3);
 assert.equal(walker.direction, "up-left");
+/**
+ * ⛔ A UNA PANTALLA SE ENTRA POR MÁS SITIOS QUE SU `spawn` (22-sep-2026, decisión del dueño: «la
+ * accesibilidad tiene que tener en cuenta todas las escenas, no solo esta» y «se debe llegar por
+ * agua, por eso lo he sellado»).
+ *
+ * Esto medía «se llega andando desde el spawn» y con eso decidía si una entidad estaba perdida. En
+ * un mundo continuo eso es falso: se entra por el spawn, por la COSTURA de una pantalla vecina, por
+ * la llegada de una PUERTA y desembarcando en un MUELLE. Sellar un paso a pie no deja nada perdido
+ * si a esa orilla se llega remando, que es exactamente lo que el dueño hizo con las rocas. Se
+ * juntan todas las entradas reales de la pantalla y basta con llegar desde UNA.
+ */
+const entradas = (data, world) => {
+  const puntos = [];
+  const añade = (x, y, via) => {
+    if (Number.isFinite(x) && Number.isFinite(y) && world.canStand(x * TILE, y * TILE))
+      puntos.push({ x: x * TILE, y: y * TILE, via });
+  };
+  if (data.spawn) añade(data.spawn.x, data.spawn.y, "spawn");
+  /**
+   * ⛔ LAS COSTURAS QUE ENTRAN SON LAS DE LAS VECINAS, NO LAS SUYAS. `exit.position` es dónde
+   * aterrizas en la pantalla de DESTINO (así lo usa `crossings.js` al preparar `exit.scene`), así
+   * que las salidas de esta pantalla describen puntos de OTRA. Mirando las suyas, al bosque se le
+   * atribuían llegadas en el filo de abajo (y=143,9) que no son suyas y donde no se puede estar,
+   * mientras se le ocultaba la que sí tiene: `river-willows/meadow-down-bank` deja en (160, 0,1),
+   * arriba del todo en la orilla este. Desde ahí se llega al almacén andando, que es justo lo que
+   * el dueño dijo —«entra desde arriba al desembarcar, y llega a pie»— y lo que esta prueba
+   * negaba. Se recorre el catálogo entero: reachability es del MUNDO, no de una pantalla.
+   */
+  for (const otra of Object.values(catalog.scenes))
+    for (const exit of otra.navigation?.exits || [])
+      if (exit.scene === data.id && Array.isArray(exit.position))
+        añade(exit.position[0], exit.position[1], otra.id + "/" + exit.id);
+  /**
+   * ⛔ LA LLEGADA DE UNA PUERTA NO CUENTA COMO ENTRADA. Es donde apareces al SALIR, y para salir
+   * has tenido que entrar: contarla hacía que el almacén se declarase alcanzable desde su propia
+   * puerta, que es exactamente no comprobar nada. Se midió: con la llegada dentro, la ÚNICA
+   * entrada que llegaba al almacén era la del propio almacén. Las entradas de verdad son las que
+   * no dependen de estar ya dentro: el `spawn`, las costuras de las pantallas vecinas y los
+   * muelles donde se desembarca.
+   */
+  for (const muelle of docks(data)) if (Array.isArray(muelle.land)) añade(muelle.land[0], muelle.land[1], "muelle " + muelle.id);
+  return puntos;
+};
 for (const data of Object.values(catalog.scenes)) {
   const world = new World(data),
     start = { x: data.spawn.x * TILE, y: data.spawn.y * TILE };
   world.refresh(fresh());
   assert(world.canStand(start.x, start.y), data.id + ": spawn");
+  const puertas = entradas(data, world);
+  assert(puertas.length, data.id + ": la pantalla tiene por dónde entrar");
   for (const entity of world.entities) {
     if (entity.sprite)
       assert(
@@ -188,8 +234,20 @@ for (const data of Object.values(catalog.scenes)) {
     const target = entity.interactAs
       ? world.entities.find((e) => e.id === entity.interactAs)
       : entity;
-    const route = world.approach(start, target, 7);
-    assert(route?.length, data.id + "/" + entity.id + ": reachable");
+    let route = null,
+      via = null;
+    for (const puerta of puertas) {
+      route = world.approach(puerta, target, 7);
+      if (route?.length) {
+        via = puerta.via;
+        break;
+      }
+    }
+    assert(
+      route?.length,
+      data.id + "/" + entity.id + ": no se llega desde ninguna entrada (" +
+        puertas.map((p) => p.via).join(", ") + ")",
+    );
     for (let i = 1; i < route.length; i++)
       for (let t = 0; t <= 1; t += 0.1)
         assert(

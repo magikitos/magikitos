@@ -11,6 +11,7 @@ const {
 const {
   acceptsEntry,
   portalPath,
+  ENTRANCE_LIMITS,
 } = require("../public/assets/js/adventure/portals");
 const { move, follow } = require("../public/assets/js/adventure/movement");
 const catalog = JSON.parse(fs.readFileSync(".local/build/world.json"));
@@ -21,8 +22,10 @@ for (const scene of Object.values(catalog.scenes)) {
     const [x, y, w, h] = door.threshold,
       dir = door.entryDirection;
     assert.equal(dir, scene.indoor ? 1 : -1);
+    // ⛔ El tope sale de ENTRANCE_LIMITS, no de un número aquí: subió de 2 a 3 el 22-sep-2026 y
+    // esta línea se puso roja por una puerta de 2,75 perfectamente legal.
     assert(
-      w <= 2 && h <= 0.5,
+      w <= ENTRANCE_LIMITS.width[1] && h <= ENTRANCE_LIMITS.height[1],
       "Door requires physical proximity, not a large radius",
     );
     const center = {

@@ -43,7 +43,10 @@ conElemento({}, (e) => {
 
 // 2. Los límites se respetan y lo que no cambia no se propone.
 conElemento({}, (e) => {
-  assert.deepEqual(e.validateElements({ "log-home": { redondo: { solids: [[-3, -1, 7, 1.2]] } } }), {},
+  // Lo que ya hay se pregunta, no se escribe: en cuanto el dueño dibujó una entrada en esta misma
+  // variante, un `solids` copiado a mano dejó de ser «lo mismo» —le faltaba la entrada— y la
+  // prueba acusó de propuesta a algo que no cambiaba nada.
+  assert.deepEqual(e.validateElements({ "log-home": { redondo: { ...e.bodyOf("log-home", "redondo") } } }), {},
     "Proponer lo mismo que ya hay no es una propuesta");
   assert.throws(() => e.validateElements({ "no-existe": {} }), /Familia desconocida/);
   assert.throws(() => e.validateElements({ "log-home": { fantasma: { solids: [] } } }), /Variante desconocida/);

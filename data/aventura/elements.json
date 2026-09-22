@@ -40,12 +40,40 @@
         {
           "id": "taller",
           "label": "Taller",
-          "sprite": "workshop"
+          "sprite": "workshop",
+          "solids": [
+            [
+              -3,
+              -1,
+              7,
+              1.2
+            ]
+          ],
+          "entrance": [
+            -1.5,
+            0.5,
+            2.75,
+            0.25
+          ]
         },
         {
           "id": "redondo",
           "label": "Redondo",
-          "sprite": "cottage"
+          "sprite": "cottage",
+          "solids": [
+            [
+              -3,
+              -1,
+              7,
+              1.2
+            ]
+          ],
+          "entrance": [
+            -1.25,
+            0.5,
+            2.25,
+            0.26249999999999996
+          ]
         },
         {
           "id": "torcido",
@@ -151,7 +179,7 @@
           "entrance": [
             -1,
             1.075,
-            2,
+            2.25,
             0.5
           ]
         },
@@ -199,7 +227,21 @@
         {
           "id": "canela",
           "label": "Canela",
-          "sprite": "home-mushroom-canela"
+          "sprite": "home-mushroom-canela",
+          "solids": [
+            [
+              -3,
+              -1.4,
+              6,
+              1.6
+            ]
+          ],
+          "entrance": [
+            -1.25,
+            0.5,
+            2,
+            0.2625000000000002
+          ]
         },
         {
           "id": "roja",
@@ -245,7 +287,21 @@
         {
           "id": "terracota",
           "label": "Terracota",
-          "sprite": "home-pot-terracotta"
+          "sprite": "home-pot-terracotta",
+          "solids": [
+            [
+              -4.75,
+              -2.5,
+              8,
+              2.3
+            ]
+          ],
+          "entrance": [
+            -3.75,
+            0,
+            3,
+            0.5
+          ]
         },
         {
           "id": "musgo",

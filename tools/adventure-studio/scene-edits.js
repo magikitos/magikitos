@@ -155,13 +155,21 @@ function validatePlacement(scene, source, value) {
             " píxeles de alto",
         );
       next.entrance = next.entrance.map((v) => Math.round(v * 16) / 16);
-      // Y que se pueda pisar: dentro del cuerpo no la alcanza el punto del duende y la puerta
-      // se queda cerrada para siempre. Misma regla que en el elemento (`entranceReachable`).
-      const cuerpo = Array.isArray(next.solids)
+      /**
+       * Y que se pueda pisar: dentro del cuerpo no la alcanza el punto del duende y la puerta se
+       * queda cerrada para siempre. Misma regla que en el elemento (`entranceReachable`).
+       *
+       * ⛔ EL CUERPO PUEDE SER HEREDADO. Esto solo miraba el cuerpo escrito en la COPIA, y desde
+       * que el cuerpo es del elemento casi ninguna lo lleva: una colocación que hereda su caja
+       * llegaba aquí sin `solid`, la regla veía «sin cuerpo, nada que estorbe» y dejaba pasar una
+       * entrada metida dentro de la casa. Se pregunta a la familia lo que la copia no dice.
+       */
+      const propio = Array.isArray(next.solids)
         ? next.solids
         : Array.isArray(next.solid)
           ? [next.solid]
-          : [];
+          : null;
+      const cuerpo = propio || inheritedBody(source)?.solids || [];
       if (!entranceReachable(next.entrance, cuerpo))
         throw Error("La entrada queda dentro del cuerpo y no se puede pisar");
     }
@@ -339,8 +347,21 @@ function renderScene(snapshot, sceneId, changes = {}, elements = {}) {
         body = elementBody(e);
       if (!edit && !body) return e;
       const merged = { ...e, ...edit, ...body };
-      // Una colocación es completa: sin `entrance` en ella, la puerta vuelve a derivarse.
-      if (edit && !Object.hasOwn(edit, "entrance") && !body?.entrance)
+      /**
+       * Una colocación es completa: sin `entrance` en ella, la puerta vuelve a derivarse.
+       *
+       * ⛔ SALVO QUE LA ENTRADA SEA DEL ELEMENTO (22-sep-2026). `elementBody` solo contesta por las
+       * propuestas PENDIENTES, así que una copia cuya entrada viene del elemento ya guardado
+       * llegaba aquí como «sin entrada» y la vista previa la borraba: mover una casa dos casillas
+       * hacía que su puerta ancha volviera a la automática de una casilla delante de tus ojos. Lo
+       * que se revierte es la entrada de la COPIA, no la que hereda.
+       */
+      if (
+        edit &&
+        !Object.hasOwn(edit, "entrance") &&
+        !body?.entrance &&
+        !inheritedBody(e)?.entrance
+      )
         delete merged.entrance;
       if (body?.solids) delete merged.solid;
       // La vista previa enseña el umbral y la llegada que escribirá el compilador para el pie y la
