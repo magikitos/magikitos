@@ -61,6 +61,7 @@
     "test:construction-permits": "node scripts/check-construction-permit-browser.cjs",
     "test:restaurant": "node scripts/check-restaurant-browser.cjs",
     "test:transitions": "node scripts/check-transitions-browser.cjs",
+    "test:welcome": "node scripts/check-welcome-browser.cjs",
     "test:diary": "node scripts/check-diary-browser.cjs",
     "art:catalog": "node scripts/build-woodland-kit.cjs",
     "art:cast": "php scripts/prepare-adventure-cast.php",

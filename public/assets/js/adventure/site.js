@@ -14,8 +14,10 @@ class WorldSite {
     if (location.search || location.hash)
       history.replaceState(null, "", game.config.baseUrl);
   }
+  /** A panel with no room (the welcome) frames your brownie: asking the rooms for an undefined
+   * room would match the first entity without an id and send the camera to NaN. */
   focus() {
-    return this.game.rooms.focus(this.current?.group);
+    return this.current ? this.game.rooms.focus(this.current.group) : null;
   }
   cancel() {
     this.pending?.abort();
@@ -50,6 +52,19 @@ class WorldSite {
     this.body.scrollTop = 0;
     root.querySelector("h1")?.focus({ preventScroll: true });
     return true;
+  }
+  /** A panel that is not a content room (the welcome): same sheet, no room to walk to, so no
+   * `current` — the rooms' guard closes any panel whose room is out of reach, and this one has
+   * none. `held` keeps a stray tap on the map from closing it; only its own buttons or the exit do. */
+  present(root) {
+    this.cancel();
+    this.current = null;
+    this.body.replaceChildren(root);
+    const sheet = document.getElementById("world-content");
+    sheet.dataset.presentation = "experience";
+    sheet.toggleAttribute("data-held", true);
+    this.game.showContent();
+    this.body.scrollTop = 0;
   }
   async load(group, title, task, retry) {
     const request = this.begin(group);

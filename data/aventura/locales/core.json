@@ -2326,5 +2326,109 @@
     "fr": "La balance a assez pesé pour aujourd’hui. À demain !",
     "it": "La bilancia ha finito per oggi. Torna domani!",
     "pt": "A balança já teve que chegue por hoje. Volta amanhã!"
+  },
+  "welcome1Title": {
+    "es": "Explora",
+    "en": "Explore",
+    "de": "Erkunde",
+    "fr": "Explore",
+    "it": "Esplora",
+    "pt": "Explora"
+  },
+  "welcome1Text": {
+    "es": "Este es tu duende y este es tu bosque. Anda por donde quieras y toca todo, que casi nada está de adorno.",
+    "en": "This is your brownie and this is your forest. Wander wherever you like and touch everything: almost nothing here is just for show.",
+    "de": "Das ist dein Wichtel und das ist dein Wald. Geh, wohin du willst, und fass alles an: Fast nichts hier ist nur Deko.",
+    "fr": "Voici ton lutin et voici ta forêt. Va où tu veux et touche à tout : presque rien n’est là pour faire joli.",
+    "it": "Questo è il tuo folletto e questo è il tuo bosco. Vai dove vuoi e tocca tutto: quasi niente è lì solo per bellezza.",
+    "pt": "Este é o teu duende e esta é a tua floresta. Anda por onde quiseres e toca em tudo, que quase nada está aqui só de enfeite."
+  },
+  "welcome2Title": {
+    "es": "Escape room",
+    "en": "Escape room",
+    "de": "Escape Room",
+    "fr": "Escape game",
+    "it": "Escape room",
+    "pt": "Escape room"
+  },
+  "welcome2Text": {
+    "es": "¡Como un escape room, pero bosquero! Cada objeto sirve para algo y cada vecino sabe una pista.",
+    "en": "Like an escape room, but out in the woods! Every object is good for something and every neighbour knows a clue.",
+    "de": "Wie ein Escape Room, nur mitten im Wald! Jeder Gegenstand ist für etwas gut, und jeder Nachbar kennt einen Hinweis.",
+    "fr": "Comme un escape game, mais version forêt ! Chaque objet sert à quelque chose et chaque voisin connaît un indice.",
+    "it": "Come un escape room, ma in versione bosco! Ogni oggetto serve a qualcosa e ogni vicino sa un indizio.",
+    "pt": "Como um escape room, mas à moda da floresta! Cada objeto serve para alguma coisa e cada vizinho sabe uma pista."
+  },
+  "welcome3Title": {
+    "es": "Interactúa",
+    "en": "Get involved",
+    "de": "Mach mit",
+    "fr": "Agis",
+    "it": "Interagisci",
+    "pt": "Interage"
+  },
+  "welcome3Text": {
+    "es": "Habla con los vecinos y recoge lo que encuentres. Lo que llevas en el saco es la llave de algo.",
+    "en": "Talk to the neighbours and pick up whatever you find. What you carry in your sack is the key to something.",
+    "de": "Sprich mit den Nachbarn und heb auf, was du findest. Was du im Sack trägst, ist der Schlüssel zu irgendetwas.",
+    "fr": "Parle aux voisins et ramasse ce que tu trouves. Ce que tu portes dans ton sac est la clé de quelque chose.",
+    "it": "Parla con i vicini e raccogli quello che trovi. Quello che hai nel sacco è la chiave di qualcosa.",
+    "pt": "Fala com os vizinhos e apanha o que encontrares. O que levas no saco é a chave de alguma coisa."
+  },
+  "welcome4Title": {
+    "es": "Descubre",
+    "en": "Discover",
+    "de": "Entdecke",
+    "fr": "Découvre",
+    "it": "Scopri",
+    "pt": "Descobre"
+  },
+  "welcome4Text": {
+    "es": "Al principio solo llegas a la pradera. Cada acertijo que resuelves te abre un camino nuevo, primero el río y luego la otra orilla.",
+    "en": "At first you can only reach the meadow. Every riddle you solve opens a new path: first the river, then the far bank.",
+    "de": "Am Anfang kommst du nur bis zur Wiese. Jedes gelöste Rätsel öffnet dir einen neuen Weg: erst den Fluss, dann das andere Ufer.",
+    "fr": "Au début, tu n’atteins que la prairie. Chaque énigme résolue t’ouvre un nouveau chemin : d’abord la rivière, puis l’autre rive.",
+    "it": "All’inizio arrivi solo al prato. Ogni enigma che risolvi ti apre una strada nuova: prima il fiume, poi l’altra sponda.",
+    "pt": "No início só chegas ao prado. Cada enigma que resolves abre-te um caminho novo: primeiro o rio e depois a outra margem."
+  },
+  "welcome5Title": {
+    "es": "Relájate",
+    "en": "Relax",
+    "de": "Entspann dich",
+    "fr": "Détends-toi",
+    "it": "Rilassati",
+    "pt": "Relaxa"
+  },
+  "welcome5Text": {
+    "es": "Aquí no hay prisa y no se pierde nunca. Tu partida se guarda sola, así que vuelve cuando quieras.",
+    "en": "There is no rush here and you can never lose. Your game saves itself, so come back whenever you like.",
+    "de": "Hier gibt es keine Eile, und verlieren kann man nie. Dein Spiel speichert sich von selbst, also komm wieder, wann du willst.",
+    "fr": "Ici, rien ne presse et on ne perd jamais. Ta partie s’enregistre toute seule, alors reviens quand tu veux.",
+    "it": "Qui non c’è fretta e non si perde mai. La tua partita si salva da sola, quindi torna quando vuoi.",
+    "pt": "Aqui não há pressa e nunca se perde. O teu jogo guarda-se sozinho, por isso volta quando quiseres."
+  },
+  "welcomeNext": {
+    "es": "Siguiente",
+    "en": "Next",
+    "de": "Weiter",
+    "fr": "Suivant",
+    "it": "Avanti",
+    "pt": "Seguinte"
+  },
+  "welcomeStart": {
+    "es": "¡A explorar!",
+    "en": "Let’s explore!",
+    "de": "Los geht’s!",
+    "fr": "On explore !",
+    "it": "Si esplora!",
+    "pt": "Vamos explorar!"
+  },
+  "welcomeSkip": {
+    "es": "Saltar",
+    "en": "Skip",
+    "de": "Überspringen",
+    "fr": "Passer",
+    "it": "Salta",
+    "pt": "Saltar"
   }
 }

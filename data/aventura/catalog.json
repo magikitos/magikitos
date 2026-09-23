@@ -14,7 +14,8 @@
     "rakeFound",
     "grassSeedsFound",
     "parchmentFound",
-    "penFound"
+    "penFound",
+    "welcomed"
   ],
   "items": {
     "parchment": {

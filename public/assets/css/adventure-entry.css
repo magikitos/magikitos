@@ -55,7 +55,18 @@
   font-weight: 700;
   box-shadow: 0 4px 0 #ac935c;
 }
-.world-entry #entry-start:disabled {
+/* ⛔ PREPARÁNDOSE, EL BOTÓN SE LLENA; NO SE APAGA. Una franja apenas más clara avanza por
+   dentro con los paquetes que van llegando (Entry.progress): se lee «ya casi», y no «roto». */
+.world-entry #entry-start.is-loading {
+  cursor: progress;
+  background:
+    linear-gradient(90deg, #f8e5b6 var(--entry-progress, 4%), transparent 0) no-repeat,
+    #eed395;
+}
+.world-entry #entry-start.is-loading:disabled {
+  opacity: 1;
+}
+.world-entry #entry-start:disabled:not(.is-loading) {
   opacity: 0.65;
   cursor: progress;
 }

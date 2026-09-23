@@ -139,7 +139,12 @@ class Adventure {
     // Before the entry card, which asks the bridge whether there is a page that
     // already did the asking.
     this.embed = new Embed(this);
+    // El suavizado de la cámara lo pone cada fotograma, pero solo después de entrar: un panel que
+    // se abre en el mismo gesto de entrar (la bienvenida) seguiría la cámara con `undefined` y la
+    // dejaría en NaN para siempre. Uno es «ir directo», que para el primer encuadre es lo correcto.
+    this.cameraEase = this.cameraTravelEase = 1;
     this.entry = new Entry(this);
+    this.welcome = new (require("./welcome").Welcome)(this);
     this.bind();
   }
   text(key) {
@@ -175,6 +180,9 @@ class Adventure {
       byId("loading").hidden = true;
       this.renderer.render(this, 0);
       await this.renderer.sprites.initialize(this.config.assetManifest);
+      this.entry.progress(0.08);
+      this.renderer.sprites.onProgress = (done, asked) =>
+        this.entry.progress(0.08 + 0.9 * (done / Math.max(1, asked)));
       await cloud;
       // La cola de materiales se vacía en segundo plano: entrar no espera más de unos segundos a
       // una red lenta con muchos apuntes pendientes.
@@ -192,6 +200,7 @@ class Adventure {
       this.paintCards();
       byId("loading").hidden = true;
       this.ready = true;
+      this.renderer.sprites.onProgress = null;
       this.entry.ready();
       this.embed.ready();
       this.updateUI();
@@ -256,6 +265,7 @@ class Adventure {
       (event) => {
         if (
           !byId("world-content").hidden &&
+          !byId("world-content").hasAttribute("data-held") &&
           !event.target.closest("#world-content,.world-listening") &&
           !this.hasOverlay()
         ) {
@@ -708,6 +718,8 @@ class Adventure {
   closeContent() {
     this.site?.cancel();
     const sheet = byId("world-content");
+    sheet.removeAttribute("data-held");
+    if (this.welcome) this.welcome.open = false;
     if (sheet.hidden) return;
     sheet.hidden = true;
     this.experience.focus(false);

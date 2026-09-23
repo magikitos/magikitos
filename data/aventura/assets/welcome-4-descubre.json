@@ -1,0 +1,14 @@
+{
+  "frames": {
+    "welcome-4-descubre": {
+      "source": "data/aventura/art/welcome/sheets/welcome-4-descubre.png",
+      "rect": [0, 0, 760, 570],
+      "size": [380, 285],
+      "anchor": [190, 142],
+      "preserveCanvas": true,
+      "registration": { "scale": 0.5, "offset": [0, 0] },
+      "continuousAlpha": true,
+      "opaque": true
+    }
+  }
+}

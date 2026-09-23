@@ -136,11 +136,16 @@ class SpriteLibrary {
       }
     })();
     this.pending.set(id, task);
+    // Cuántos paquetes se han pedido y cuántos han llegado: es lo que pinta la barra del botón
+    // de entrada mientras el bosque se prepara (ver Entry.progress). Solo se escucha al arrancar.
+    this.asked = (this.asked || 0) + 1;
     try {
       await task;
     } finally {
       this.pending.delete(id);
       this.residency.reservations.delete(id);
+      this.done = (this.done || 0) + 1;
+      this.onProgress?.(this.done, this.asked);
     }
   }
   async bitmap(image) {

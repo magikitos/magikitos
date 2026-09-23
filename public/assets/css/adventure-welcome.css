@@ -1,0 +1,66 @@
+/* La bienvenida (welcome.js): el panel de los cuentos y los chistes con una lámina de
+   760×570 pintada a la mitad en su marco de papel. El hueco nace con su proporción, así que
+   la lámina que llega tarde no mueve el texto de debajo. */
+.world-welcome-object {
+  margin-bottom: 18px;
+}
+.world-welcome-object::after {
+  display: none;
+}
+.world-welcome-frame {
+  width: min(380px, 100%);
+  aspect-ratio: 4 / 3;
+  border: 8px solid #f5ebd4;
+  transform: rotate(-1.5deg);
+  box-shadow: 0 6px 0 #a98c62;
+  background: #e9dcbc;
+  overflow: hidden;
+}
+.world-welcome-frame.is-loading {
+  background: linear-gradient(100deg, #e9dcbc 40%, #f3e8cc 50%, #e9dcbc 60%) 0 0 / 300% 100%;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .world-welcome-frame.is-loading {
+    animation: world-welcome-shimmer 1.4s linear infinite;
+  }
+}
+@keyframes world-welcome-shimmer {
+  to { background-position: -150% 0; }
+}
+.world-welcome-art {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  image-rendering: auto;
+}
+.world-welcome-dots {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+  margin: 0 0 10px;
+}
+.world-welcome-dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #c7cdad55;
+}
+.world-welcome-dots span.is-on {
+  background: #e0bb78;
+}
+.world-welcome .world-welcome-text {
+  font: 16px/1.55 system-ui, sans-serif;
+  max-width: 460px;
+  margin: 8px auto 18px;
+  color: #e5ddbc;
+  text-wrap: pretty;
+}
+@media (max-height: 560px) and (min-width: 650px) {
+  .world-welcome-frame {
+    width: 240px;
+  }
+}
+/* Tocar el mapa no la cierra (`data-held`), así que el aviso que dice lo contrario se va. */
+.world-content[data-held] .world-content-dismiss-hint {
+  display: none;
+}

@@ -30,6 +30,8 @@ class Entry {
       hasSavedJourney() ? "continueExploring" : "entryExplore",
     );
     this.sound.checked = !game.state.muted;
+    this.start.classList.add("is-loading");
+    this.start.setAttribute("aria-busy", "true");
     this.dialog.addEventListener("cancel", (event) => event.preventDefault());
     // ⛔ EMBEDDED, THE CARD NEVER SHOWS. The page that holds the world already put
     // a door in front of the person and they walked through it; asking again,
@@ -40,8 +42,19 @@ class Entry {
       this.failed ? location.reload() : this.enter(),
     );
   }
+  /** ⛔ MIENTRAS SE PREPARA, EL BOTÓN SE LLENA; NO SE APAGA. Un botón apagado se lee como «esto no
+   * funciona»; uno que se va llenando dice que falta poco. La fracción sale de los paquetes de
+   * sprites que han llegado frente a los pedidos, y nunca retrocede aunque se pidan más. */
+  progress(fraction) {
+    const value = Math.max(this.shown || 0, Math.min(1, fraction));
+    this.shown = value;
+    this.start.style.setProperty("--entry-progress", (value * 100).toFixed(1) + "%");
+  }
   ready() {
     this.sound.checked = !this.game.state.muted;
+    this.progress(1);
+    this.start.classList.remove("is-loading");
+    this.start.removeAttribute("aria-busy");
     this.start.disabled = false;
     document.getElementById("entry-status").hidden = true;
   }
@@ -51,6 +64,8 @@ class Entry {
     status.textContent = this.game.s.loadError;
     status.hidden = false;
     this.start.textContent = this.game.text("retry");
+    this.start.classList.remove("is-loading");
+    this.start.removeAttribute("aria-busy");
     this.start.disabled = false;
   }
   /** `sound` and `fullscreen` are null when a person answered the card, and set
@@ -84,6 +99,7 @@ class Entry {
     game.telemetry.begin(hasSavedJourney() ? "retomada" : "nueva");
     document.getElementById("world-canvas").focus({ preventScroll: true });
     game.updateUI();
+    if (game.welcome?.due()) game.welcome.show();
   }
 }
 module.exports = { Entry, hasSavedJourney };

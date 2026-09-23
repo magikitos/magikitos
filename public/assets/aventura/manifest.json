@@ -10206,6 +10206,56 @@
             "height": 366,
             "bytes": 33844
         },
+        "welcome-1-explora": {
+            "image": "packs/welcome-1-explora-2ab93577cb49.png",
+            "metadata": "packs/welcome-1-explora-2ab93577cb49.json",
+            "sprites": [
+                "welcome-1-explora"
+            ],
+            "width": 1024,
+            "height": 574,
+            "bytes": 342995
+        },
+        "welcome-2-escape-room": {
+            "image": "packs/welcome-2-escape-room-654b6bc2fc96.png",
+            "metadata": "packs/welcome-2-escape-room-654b6bc2fc96.json",
+            "sprites": [
+                "welcome-2-escape-room"
+            ],
+            "width": 1024,
+            "height": 574,
+            "bytes": 354328
+        },
+        "welcome-3-interactua": {
+            "image": "packs/welcome-3-interactua-593b72b8e6a7.png",
+            "metadata": "packs/welcome-3-interactua-593b72b8e6a7.json",
+            "sprites": [
+                "welcome-3-interactua"
+            ],
+            "width": 1024,
+            "height": 574,
+            "bytes": 333054
+        },
+        "welcome-4-descubre": {
+            "image": "packs/welcome-4-descubre-fe2974d48148.png",
+            "metadata": "packs/welcome-4-descubre-fe2974d48148.json",
+            "sprites": [
+                "welcome-4-descubre"
+            ],
+            "width": 1024,
+            "height": 574,
+            "bytes": 318030
+        },
+        "welcome-5-relajate": {
+            "image": "packs/welcome-5-relajate-11da14423a27.png",
+            "metadata": "packs/welcome-5-relajate-11da14423a27.json",
+            "sprites": [
+                "welcome-5-relajate"
+            ],
+            "width": 1024,
+            "height": 574,
+            "bytes": 328260
+        },
         "woodland-art-easel": {
             "image": "packs/woodland-art-easel-e183d72f00bd.png",
             "metadata": "packs/woodland-art-easel-e183d72f00bd.json",

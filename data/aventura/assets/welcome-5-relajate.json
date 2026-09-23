@@ -1,0 +1,14 @@
+{
+  "frames": {
+    "welcome-5-relajate": {
+      "source": "data/aventura/art/welcome/sheets/welcome-5-relajate.png",
+      "rect": [0, 0, 760, 570],
+      "size": [380, 285],
+      "anchor": [190, 142],
+      "preserveCanvas": true,
+      "registration": { "scale": 0.5, "offset": [0, 0] },
+      "continuousAlpha": true,
+      "opaque": true
+    }
+  }
+}

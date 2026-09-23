@@ -1,8 +1,62 @@
-# Arte pendiente del bosque
+# Arte del bosque · encargos y entregas
 
-## Encargo abierto · 23 de septiembre de 2026: la bienvenida
+## Arte entregado · 23 de septiembre de 2026: la bienvenida
 
 **Cinco láminas para la presentación que ve una persona la primera vez que entra al bosque.**
+
+**Entregadas e integradas.** Salen en el juego la primera vez que alguien entra (ver
+«Estado de integración», más abajo). No falta ningún dibujo.
+
+### Archivos finales
+
+Todos son PNG indexados de **760×570 px**, opacos, **256 colores**, proporción 4:3,
+para mostrarlos a 380×285 px (densidad 2×). No llevan texto ni el marco de papel de la UI.
+
+| Paso | PNG listo para hornear | Peso |
+| --- | --- | --- |
+| 1 · Explora | [welcome-1-explora.png](data/aventura/art/welcome/sources/welcome-1-explora.png) | 335,4 KiB |
+| 2 · Escape room | [welcome-2-escape-room.png](data/aventura/art/welcome/sources/welcome-2-escape-room.png) | 347,4 KiB |
+| 3 · Interactúa | [welcome-3-interactua.png](data/aventura/art/welcome/sources/welcome-3-interactua.png) | 325,9 KiB |
+| 4 · Descubre | [welcome-4-descubre.png](data/aventura/art/welcome/sources/welcome-4-descubre.png) | 308,9 KiB |
+| 5 · Relájate | [welcome-5-relajate.png](data/aventura/art/welcome/sources/welcome-5-relajate.png) | 320,5 KiB |
+
+Total de los cinco PNG: **1.677.460 bytes, 1,60 MiB** antes del empaquetado.
+
+### Referencias y comprobaciones de la entrega
+
+- **Ascua es el mismo protagonista en las cinco láminas**: gorro naranja remendado, pelo
+  castaño, chaqueta azul petróleo, camiseta ocre, pañuelo naranja y pantalón marrón de parches.
+  Referencia: [ascua-walk.png](data/aventura/art/cast/cutouts/ascua-walk.png), variante 0 del
+  elenco. Es el hilo narrativo de estas ilustraciones; no cambia el avatar elegido en el juego.
+- El vecino de la tercera es **Brizno**, basado en
+  [brizno-seated.png](data/aventura/art/cast/cutouts/brizno-seated.png).
+  Su bocadillo solo contiene los tres puntos gráficos previstos, sin palabras.
+- Se han usado el roble, la casa-seta y la botella del juego como referencias de materiales
+  y siluetas. La barca aparece sin asiento y con los dos remos separados en la orilla.
+  Las láminas son viñetas narrativas, no un plano literal ni coordenadas navegables del mapa.
+- Revisadas juntas a [380×285 px](data/aventura/art/welcome/reviews/contact-380.png)
+  y a [280×210 px](data/aventura/art/welcome/reviews/contact-280.png): protagonistas,
+  pistas, barca y hamaca legibles. Los rótulos de estas hojas de revisión **no** están
+  incluidos en los PNG finales. Son copias de revisión locales, excluidas de Git según
+  la política existente del repositorio. Los cinco PNG finales, másteres y prompts sí
+  quedan en rutas no excluidas. Los motivos principales quedan a salvo del recorte de 8 px.
+- [delivery.json](data/aventura/art/welcome/delivery.json) contiene dimensiones, colores,
+  comprobación de opacidad, pesos, hashes y las rutas exactas de fuentes y referencias.
+  Es documentación de arte, **no un manifiesto registrado en el motor**.
+- Generación con la herramienta integrada **imagegen**. Se conservan los
+  [cinco prompts](data/aventura/art/welcome/prompts/) y los
+  [másteres originales](data/aventura/art/welcome/masters/) de 1448×1086 px, sin modificar.
+  Cada uno usa el mismo nombre base que su PNG final.
+- Preparación offline: reducción de área al tamaño final, sin recorte ni deformación;
+  cuantización con `pngquant 3.0.3`, 256 colores, `--speed 1 --nofs --quality 0-100 --strip`.
+  La paleta es una reducción con pérdida revisada visualmente; los másteres conservan
+  todos los colores. No se aplica tramado Floyd–Steinberg para evitar ruido en los detalles.
+
+**Para integrar:** en este encargo los archivos de `welcome/sources/` son ya los finales
+a 2×. Los originales de `masters/` son solo de archivo: no deben ir al navegador.
+No volver a duplicar el tamaño de los finales. Conservar el encuadre completo y añadir marco,
+texto traducido y botones desde
+la UI existente. No hay ningún asset pendiente de las cinco láminas.
 
 ### Qué es y por qué
 
@@ -47,11 +101,20 @@ Tampoco setines, monedas ni nada que parezca una puntuación: el bosque no va de
   `welcome-1-explora.png`, `welcome-2-escape-room.png`, `welcome-3-interactua.png`,
   `welcome-4-descubre.png`, `welcome-5-relajate.png`.
 
-### Mientras no estén
+### Estado de integración
 
-La bienvenida funciona ya sin ellas: donde irá cada lámina se pinta un marco neutro de papel
-vacío. Cuando lleguen, se hornean en un paquete propio que solo se descarga si la persona está
-viendo la bienvenida, así que no pesan nada a quien ya la ha visto. No hace falta cambiar código.
+Integradas el 23 de septiembre de 2026 (`public/assets/js/adventure/welcome.js`, prueba
+`npm run test:welcome`).
+
+- **Un paquete por lámina** (`data/aventura/assets/welcome-*.json`): se pide solo al llegar a
+  esa lámina, y la siguiente de antemano. A quien ya la ha visto no le cuesta ni un byte.
+- **Hojas preparadas en `welcome/sheets/`**: las de `sources/` cuantizadas una vez a **255**
+  colores (`pngquant 255 --speed 1 --nofs --strip`). El atlas lleva un margen transparente,
+  que es el color 256; con 256 en el dibujo el empaquetador no podía guardar paleta exacta y
+  cada paquete salía a ~1 MB. Así pesan 318-355 KB, y se ven igual.
+- `sources/` y `masters/` no viajan al navegador. Si el diseñador cambia una lámina, se
+  sustituye en `sources/`, se vuelve a cuantizar a `sheets/` y se hornea
+  (`php scripts/bake-adventure-atlas.php`).
 
 ---
 

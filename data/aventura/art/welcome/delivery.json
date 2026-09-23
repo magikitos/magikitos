@@ -1,0 +1,135 @@
+{
+    "scope": "art-only; not registered, baked or deployed",
+    "generator": "built-in image_gen",
+    "protagonist": "Ascua, cast variant 0",
+    "neighbor": "Brizno, welcome-3 only",
+    "pixelRatio": 2,
+    "displaySize": [
+        380,
+        285
+    ],
+    "deliverySize": [
+        760,
+        570
+    ],
+    "safeFrameInsetTexturePx": 8,
+    "processing": {
+        "resize": "area reduction, full frame, no crop or distortion",
+        "palette": "pngquant 3.0.3, 256 colors, speed 1, no Floyd-Steinberg dithering, quality 0-100",
+        "background": "opaque",
+        "masters": "unaltered imagegen output, do not send to browser"
+    },
+    "references": [
+        {
+            "path": "data/aventura/art/cast/cutouts/ascua-walk.png",
+            "sha256": "b158398d600d271b2e60a977a61c5d39a72b9f0ea3ddb17eff73c04461ddbd79"
+        },
+        {
+            "path": "data/aventura/art/cast/cutouts/brizno-seated.png",
+            "sha256": "83a3b9a0a004efce8638bd8d8c00d6910a030a9ef4ebd0f12f673b83dc62eb40"
+        },
+        {
+            "path": "data/aventura/art/woodland-kit/tree-oak-grounded.png",
+            "sha256": "3a6d5a45050986e5f77a8e09e4d64b4b69ce06853a75c11efb077b57f7607ea9"
+        },
+        {
+            "path": "data/aventura/art/woodland-kit/home-mushroom-red.png",
+            "sha256": "0d91a9b50a63a846e7df0c4ee4796ccfa55bddeb412d701b37d5726937ccd374"
+        },
+        {
+            "path": "data/aventura/art/river/cutouts/bottle-craft-wooden-oars.png",
+            "sha256": "0335463369f3bcd6ae0fddc0d8702fa0f56ecf5c666cf7362f03668d859972ad"
+        }
+    ],
+    "assets": [
+        {
+            "id": "welcome-1-explora",
+            "image": "data/aventura/art/welcome/sources/welcome-1-explora.png",
+            "master": "data/aventura/art/welcome/masters/welcome-1-explora.png",
+            "prompt": "data/aventura/art/welcome/prompts/welcome-1-explora.txt",
+            "width": 760,
+            "height": 570,
+            "paletteColors": 256,
+            "usedColors": 256,
+            "transparentPixels": 0,
+            "pngBitDepth": 8,
+            "pngColorType": 3,
+            "bytes": 343435,
+            "sha256": "eb54c3dd04b462a8b07783b48bf5e124039ab8e5d30f425816417ea88dbdcd2f",
+            "masterSha256": "6190dee3022ce3e61d7b80ab71bcf4feec12e4d1c7d9423de569bcfa20637e46"
+        },
+        {
+            "id": "welcome-2-escape-room",
+            "image": "data/aventura/art/welcome/sources/welcome-2-escape-room.png",
+            "master": "data/aventura/art/welcome/masters/welcome-2-escape-room.png",
+            "prompt": "data/aventura/art/welcome/prompts/welcome-2-escape-room.txt",
+            "width": 760,
+            "height": 570,
+            "paletteColors": 256,
+            "usedColors": 256,
+            "transparentPixels": 0,
+            "pngBitDepth": 8,
+            "pngColorType": 3,
+            "bytes": 355690,
+            "sha256": "f856354e0923a52d93248736b18b3125d1b023483515aefa128f1376c1c9385d",
+            "masterSha256": "146b97e473380a683cb82c602f8badc6232075f4245b1f81c49437de5b263602"
+        },
+        {
+            "id": "welcome-3-interactua",
+            "image": "data/aventura/art/welcome/sources/welcome-3-interactua.png",
+            "master": "data/aventura/art/welcome/masters/welcome-3-interactua.png",
+            "prompt": "data/aventura/art/welcome/prompts/welcome-3-interactua.txt",
+            "width": 760,
+            "height": 570,
+            "paletteColors": 256,
+            "usedColors": 256,
+            "transparentPixels": 0,
+            "pngBitDepth": 8,
+            "pngColorType": 3,
+            "bytes": 333750,
+            "sha256": "9086f8a8522745a4e0a87c7752df149285a65340ab987458dcac801831a6ac47",
+            "masterSha256": "fdb5b98d697b0a954a10645f928e9f5077329328903fc604a81c25c655c756f1"
+        },
+        {
+            "id": "welcome-4-descubre",
+            "image": "data/aventura/art/welcome/sources/welcome-4-descubre.png",
+            "master": "data/aventura/art/welcome/masters/welcome-4-descubre.png",
+            "prompt": "data/aventura/art/welcome/prompts/welcome-4-descubre.txt",
+            "width": 760,
+            "height": 570,
+            "paletteColors": 256,
+            "usedColors": 256,
+            "transparentPixels": 0,
+            "pngBitDepth": 8,
+            "pngColorType": 3,
+            "bytes": 316361,
+            "sha256": "c9e58effa117db07d2e4d4175706fde0514184c0d49139806c4587a4e252c66e",
+            "masterSha256": "ef1b37936200b846ac00f04c77354627b9ce41a8765bda4b3d1ae018b2745088"
+        },
+        {
+            "id": "welcome-5-relajate",
+            "image": "data/aventura/art/welcome/sources/welcome-5-relajate.png",
+            "master": "data/aventura/art/welcome/masters/welcome-5-relajate.png",
+            "prompt": "data/aventura/art/welcome/prompts/welcome-5-relajate.txt",
+            "width": 760,
+            "height": 570,
+            "paletteColors": 256,
+            "usedColors": 256,
+            "transparentPixels": 0,
+            "pngBitDepth": 8,
+            "pngColorType": 3,
+            "bytes": 328224,
+            "sha256": "41ca1cef631a448af6df5e6b42173adec97dbf342ebc790951212850eca986ff",
+            "masterSha256": "490c83969ca313f531d91ffbf19522d77c08acb63853981e487ebd7c9c18f67b"
+        }
+    ],
+    "validation": {
+        "status": "passed",
+        "errors": [],
+        "totalBytes": 1677460,
+        "count": 5,
+        "all760x570": true,
+        "allIndexedAtMost256Colors": true,
+        "allOpaque": true
+    }
+}
