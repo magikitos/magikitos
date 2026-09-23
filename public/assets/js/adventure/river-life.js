@@ -1,6 +1,6 @@
 "use strict";
 const { TILE } = require("./model");
-const { riverSection } = require("./river-course");
+const { riverSection, mainChannel } = require("./river-course");
 /**
  * Quien vive el río además de ti. Sin estado en red ni búsquedas de camino por fotograma: su
  * sitio es una función del reloj, así que dibujarlos y chocar con ellos leen exactamente lo
@@ -15,7 +15,7 @@ const { riverSection } = require("./river-course");
  */
 const FADE = 6;
 function riverVisitors(data, time) {
-  const river = data.rivers?.[0];
+  const river = mainChannel(data);
   if (!river) return [];
   return (data.riverLife || []).map((v) => {
     const lead = 10,

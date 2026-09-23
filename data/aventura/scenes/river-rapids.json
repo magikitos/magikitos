@@ -351,14 +351,6 @@
       "artVariant": "auto"
     },
     {
-      "id": "understory-1-2-1",
-      "sprite": "fern",
-      "x": 127.3,
-      "y": 43.7,
-      "scale": 0.87,
-      "artVariant": "auto"
-    },
-    {
       "id": "understory-1-2-2",
       "sprite": "flowers-bell-blue",
       "x": 129.1,
@@ -379,13 +371,6 @@
         1.8
       ],
       "visionBlocker": true
-    },
-    {
-      "id": "bank-bamboo--1-3",
-      "sprite": "riverbank-bamboo",
-      "x": 81.2,
-      "y": 55,
-      "scale": 0.5
     },
     {
       "id": "understory--1-3-0",
@@ -424,13 +409,6 @@
         1.8
       ],
       "visionBlocker": true
-    },
-    {
-      "id": "bank-bamboo-1-3",
-      "sprite": "riverbank-bamboo",
-      "x": 118.8,
-      "y": 55,
-      "scale": 0.5
     },
     {
       "id": "grove--1-4",
@@ -582,13 +560,6 @@
       "visionBlocker": true
     },
     {
-      "id": "bank-bamboo--1-6",
-      "sprite": "riverbank-bamboo",
-      "x": 93.2,
-      "y": 129,
-      "scale": 0.5
-    },
-    {
       "id": "understory--1-6-0",
       "sprite": "fern",
       "x": 92.5,
@@ -625,13 +596,6 @@
         1.8
       ],
       "visionBlocker": true
-    },
-    {
-      "id": "bank-bamboo-1-6",
-      "sprite": "riverbank-bamboo",
-      "x": 130.8,
-      "y": 129,
-      "scale": 0.5
     },
     {
       "id": "understory-1-6-0",
@@ -760,48 +724,6 @@
       "y": 4.995
     },
     {
-      "id": "oeste-ancient-root-2",
-      "sprite": "ancient-root",
-      "scale": 0.96,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 16.603,
-      "y": 5.511
-    },
-    {
-      "id": "oeste-crooked-oak-3",
-      "sprite": "crooked-oak",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 27.221,
-      "y": 4.255
-    },
-    {
-      "id": "oeste-crooked-oak-4",
-      "sprite": "crooked-oak",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 57.437,
-      "y": 4.367
-    },
-    {
       "id": "oeste-forest-birch-5",
       "sprite": "forest-birch",
       "scale": 0.87,
@@ -814,48 +736,6 @@
       "visionBlocker": true,
       "x": 40.647,
       "y": 9.044
-    },
-    {
-      "id": "oeste-crooked-oak-6",
-      "sprite": "crooked-oak",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 52.153,
-      "y": 8.627
-    },
-    {
-      "id": "oeste-crooked-oak-7",
-      "sprite": "crooked-oak",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 58.943,
-      "y": 11.543
-    },
-    {
-      "id": "oeste-ancient-root-8",
-      "sprite": "ancient-root",
-      "scale": 0.96,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 10.641,
-      "y": 15.903
     },
     {
       "id": "oeste-crooked-oak-9",
@@ -886,104 +766,6 @@
       "y": 15.561
     },
     {
-      "id": "oeste-ancient-root-11",
-      "sprite": "ancient-root",
-      "scale": 0.96,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 40.628,
-      "y": 16.67
-    },
-    {
-      "id": "oeste-crooked-oak-12",
-      "sprite": "crooked-oak",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 52.359,
-      "y": 16.275
-    },
-    {
-      "id": "oeste-crooked-oak-13",
-      "sprite": "crooked-oak",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 59.41,
-      "y": 14.938
-    },
-    {
-      "id": "oeste-crooked-oak-14",
-      "sprite": "crooked-oak",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 62.864,
-      "y": 17.107
-    },
-    {
-      "id": "oeste-forest-birch-15",
-      "sprite": "forest-birch",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 17.283,
-      "y": 21.707
-    },
-    {
-      "id": "oeste-ancient-root-16",
-      "sprite": "ancient-root",
-      "scale": 0.96,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 29.09,
-      "y": 22.326
-    },
-    {
-      "id": "oeste-forest-birch-17",
-      "sprite": "forest-birch",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 34.868,
-      "y": 22.333
-    },
-    {
       "id": "oeste-ancient-root-18",
       "sprite": "ancient-root",
       "scale": 0.96,
@@ -1012,20 +794,6 @@
       "y": 27.195
     },
     {
-      "id": "oeste-ancient-root-20",
-      "sprite": "ancient-root",
-      "scale": 0.96,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 21.116,
-      "y": 28.669
-    },
-    {
       "id": "oeste-ancient-root-21",
       "sprite": "ancient-root",
       "scale": 0.96,
@@ -1038,20 +806,6 @@
       "visionBlocker": true,
       "x": 33.916,
       "y": 28.157
-    },
-    {
-      "id": "oeste-forest-birch-22",
-      "sprite": "forest-birch",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 45.621,
-      "y": 26.817
     },
     {
       "id": "oeste-ancient-root-23",
@@ -1068,20 +822,6 @@
       "y": 28.121
     },
     {
-      "id": "oeste-forest-birch-24",
-      "sprite": "forest-birch",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 46.062,
-      "y": 33.301
-    },
-    {
       "id": "oeste-ancient-root-25",
       "sprite": "ancient-root",
       "scale": 0.96,
@@ -1096,34 +836,6 @@
       "y": 38.952
     },
     {
-      "id": "oeste-forest-birch-26",
-      "sprite": "forest-birch",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 59.517,
-      "y": 41.237
-    },
-    {
-      "id": "oeste-crooked-oak-27",
-      "sprite": "crooked-oak",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 4.067,
-      "y": 46.86
-    },
-    {
       "id": "oeste-forest-birch-28",
       "sprite": "forest-birch",
       "scale": 0.87,
@@ -1136,34 +848,6 @@
       "visionBlocker": true,
       "x": 20.921,
       "y": 46.568
-    },
-    {
-      "id": "oeste-ancient-root-29",
-      "sprite": "ancient-root",
-      "scale": 0.96,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 26.762,
-      "y": 46.324
-    },
-    {
-      "id": "oeste-ancient-root-30",
-      "sprite": "ancient-root",
-      "scale": 0.96,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 38.613,
-      "y": 47.456
     },
     {
       "id": "oeste-ancient-root-31",
@@ -1194,34 +878,6 @@
       "y": 51.654
     },
     {
-      "id": "oeste-crooked-oak-33",
-      "sprite": "crooked-oak",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 16.099,
-      "y": 51.83
-    },
-    {
-      "id": "oeste-crooked-oak-34",
-      "sprite": "crooked-oak",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 29.169,
-      "y": 50.512
-    },
-    {
       "id": "oeste-forest-birch-35",
       "sprite": "forest-birch",
       "scale": 0.87,
@@ -1234,146 +890,6 @@
       "visionBlocker": true,
       "x": 34.607,
       "y": 50.447
-    },
-    {
-      "id": "oeste-forest-birch-36",
-      "sprite": "forest-birch",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 46.068,
-      "y": 51.547
-    },
-    {
-      "id": "oeste-ancient-root-37",
-      "sprite": "ancient-root",
-      "scale": 0.96,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 50.859,
-      "y": 51.985
-    },
-    {
-      "id": "oeste-forest-birch-38",
-      "sprite": "forest-birch",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 4.863,
-      "y": 58.949
-    },
-    {
-      "id": "oeste-forest-birch-39",
-      "sprite": "forest-birch",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 21.698,
-      "y": 56.741
-    },
-    {
-      "id": "oeste-crooked-oak-40",
-      "sprite": "crooked-oak",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 34.268,
-      "y": 59.505
-    },
-    {
-      "id": "oeste-ancient-root-41",
-      "sprite": "ancient-root",
-      "scale": 0.96,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 51.69,
-      "y": 56.743
-    },
-    {
-      "id": "oeste-ancient-root-42",
-      "sprite": "ancient-root",
-      "scale": 0.96,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 22.888,
-      "y": 63.301
-    },
-    {
-      "id": "oeste-forest-birch-43",
-      "sprite": "forest-birch",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 33.061,
-      "y": 64.121
-    },
-    {
-      "id": "oeste-crooked-oak-44",
-      "sprite": "crooked-oak",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 39.667,
-      "y": 63.113
-    },
-    {
-      "id": "oeste-crooked-oak-45",
-      "sprite": "crooked-oak",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 46.569,
-      "y": 63.555
     },
     {
       "id": "oeste-ancient-root-46",
@@ -1404,34 +920,6 @@
       "y": 68.488
     },
     {
-      "id": "oeste-ancient-root-48",
-      "sprite": "ancient-root",
-      "scale": 0.96,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 62.872,
-      "y": 70.653
-    },
-    {
-      "id": "oeste-ancient-root-49",
-      "sprite": "ancient-root",
-      "scale": 0.96,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 14.899,
-      "y": 75.063
-    },
-    {
       "id": "oeste-ancient-root-50",
       "sprite": "ancient-root",
       "scale": 0.96,
@@ -1444,76 +932,6 @@
       "visionBlocker": true,
       "x": 41.252,
       "y": 76.754
-    },
-    {
-      "id": "oeste-forest-birch-51",
-      "sprite": "forest-birch",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 44.875,
-      "y": 75.676
-    },
-    {
-      "id": "oeste-crooked-oak-52",
-      "sprite": "crooked-oak",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 15.843,
-      "y": 82.022
-    },
-    {
-      "id": "oeste-ancient-root-53",
-      "sprite": "ancient-root",
-      "scale": 0.96,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 26.407,
-      "y": 81.936
-    },
-    {
-      "id": "oeste-forest-birch-54",
-      "sprite": "forest-birch",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 47.183,
-      "y": 82.661
-    },
-    {
-      "id": "oeste-forest-birch-55",
-      "sprite": "forest-birch",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 51.066,
-      "y": 82.966
     },
     {
       "id": "oeste-crooked-oak-56",
@@ -1530,20 +948,6 @@
       "y": 81.089
     },
     {
-      "id": "oeste-ancient-root-57",
-      "sprite": "ancient-root",
-      "scale": 0.96,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 23.198,
-      "y": 86.938
-    },
-    {
       "id": "oeste-forest-birch-58",
       "sprite": "forest-birch",
       "scale": 0.87,
@@ -1558,48 +962,6 @@
       "y": 88.986
     },
     {
-      "id": "oeste-ancient-root-59",
-      "sprite": "ancient-root",
-      "scale": 0.96,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 34.753,
-      "y": 88.027
-    },
-    {
-      "id": "oeste-forest-birch-60",
-      "sprite": "forest-birch",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 39.007,
-      "y": 86.482
-    },
-    {
-      "id": "oeste-ancient-root-61",
-      "sprite": "ancient-root",
-      "scale": 0.96,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 44.736,
-      "y": 86.777
-    },
-    {
       "id": "oeste-crooked-oak-62",
       "sprite": "crooked-oak",
       "scale": 0.87,
@@ -1612,62 +974,6 @@
       "visionBlocker": true,
       "x": 4.085,
       "y": 95.407
-    },
-    {
-      "id": "oeste-crooked-oak-63",
-      "sprite": "crooked-oak",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 17.566,
-      "y": 94.177
-    },
-    {
-      "id": "oeste-ancient-root-64",
-      "sprite": "ancient-root",
-      "scale": 0.96,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 22.965,
-      "y": 93.792
-    },
-    {
-      "id": "oeste-forest-birch-65",
-      "sprite": "forest-birch",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 40.16,
-      "y": 94.562
-    },
-    {
-      "id": "oeste-crooked-oak-66",
-      "sprite": "crooked-oak",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 51.147,
-      "y": 95.596
     },
     {
       "id": "oeste-forest-birch-67",
@@ -1712,48 +1018,6 @@
       "y": 101.507
     },
     {
-      "id": "oeste-crooked-oak-70",
-      "sprite": "crooked-oak",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 5.267,
-      "y": 106.394
-    },
-    {
-      "id": "oeste-forest-birch-71",
-      "sprite": "forest-birch",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 21.414,
-      "y": 106.693
-    },
-    {
-      "id": "oeste-forest-birch-72",
-      "sprite": "forest-birch",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 34.576,
-      "y": 106.5
-    },
-    {
       "id": "oeste-ancient-root-73",
       "sprite": "ancient-root",
       "scale": 0.96,
@@ -1768,62 +1032,6 @@
       "y": 106.011
     },
     {
-      "id": "oeste-forest-birch-74",
-      "sprite": "forest-birch",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 56.9,
-      "y": 104.795
-    },
-    {
-      "id": "oeste-ancient-root-75",
-      "sprite": "ancient-root",
-      "scale": 0.96,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 11.144,
-      "y": 110.456
-    },
-    {
-      "id": "oeste-ancient-root-76",
-      "sprite": "ancient-root",
-      "scale": 0.96,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 17.32,
-      "y": 111.132
-    },
-    {
-      "id": "oeste-ancient-root-77",
-      "sprite": "ancient-root",
-      "scale": 0.96,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 22.701,
-      "y": 110.491
-    },
-    {
       "id": "oeste-forest-birch-78",
       "sprite": "forest-birch",
       "scale": 0.87,
@@ -1836,76 +1044,6 @@
       "visionBlocker": true,
       "x": 26.878,
       "y": 110.46
-    },
-    {
-      "id": "oeste-forest-birch-79",
-      "sprite": "forest-birch",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 51.491,
-      "y": 113.509
-    },
-    {
-      "id": "oeste-forest-birch-80",
-      "sprite": "forest-birch",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 11.038,
-      "y": 117.43
-    },
-    {
-      "id": "oeste-forest-birch-81",
-      "sprite": "forest-birch",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 15.538,
-      "y": 118.1
-    },
-    {
-      "id": "oeste-crooked-oak-82",
-      "sprite": "crooked-oak",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 34.6,
-      "y": 118.516
-    },
-    {
-      "id": "oeste-crooked-oak-83",
-      "sprite": "crooked-oak",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 40.925,
-      "y": 117.932
     },
     {
       "id": "oeste-crooked-oak-84",
@@ -1936,48 +1074,6 @@
       "y": 125.08
     },
     {
-      "id": "oeste-forest-birch-86",
-      "sprite": "forest-birch",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 15.409,
-      "y": 125.335
-    },
-    {
-      "id": "oeste-forest-birch-87",
-      "sprite": "forest-birch",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 21.075,
-      "y": 125.397
-    },
-    {
-      "id": "oeste-ancient-root-88",
-      "sprite": "ancient-root",
-      "scale": 0.96,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 28.771,
-      "y": 123.929
-    },
-    {
       "id": "oeste-ancient-root-89",
       "sprite": "ancient-root",
       "scale": 0.96,
@@ -1990,76 +1086,6 @@
       "visionBlocker": true,
       "x": 40.136,
       "y": 122.575
-    },
-    {
-      "id": "oeste-forest-birch-90",
-      "sprite": "forest-birch",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 45.928,
-      "y": 122.985
-    },
-    {
-      "id": "oeste-forest-birch-91",
-      "sprite": "forest-birch",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 52.903,
-      "y": 123.103
-    },
-    {
-      "id": "oeste-forest-birch-92",
-      "sprite": "forest-birch",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 57.796,
-      "y": 122.408
-    },
-    {
-      "id": "oeste-forest-birch-93",
-      "sprite": "forest-birch",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 4.386,
-      "y": 129.797
-    },
-    {
-      "id": "oeste-ancient-root-94",
-      "sprite": "ancient-root",
-      "scale": 0.96,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 21.328,
-      "y": 128.703
     },
     {
       "id": "oeste-ancient-root-95",
@@ -2104,20 +1130,6 @@
       "y": 129.423
     },
     {
-      "id": "oeste-forest-birch-98",
-      "sprite": "forest-birch",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 23.3,
-      "y": 135.867
-    },
-    {
       "id": "oeste-crooked-oak-99",
       "sprite": "crooked-oak",
       "scale": 0.87,
@@ -2130,34 +1142,6 @@
       "visionBlocker": true,
       "x": 26.877,
       "y": 136.732
-    },
-    {
-      "id": "oeste-forest-birch-100",
-      "sprite": "forest-birch",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 32.736,
-      "y": 134.802
-    },
-    {
-      "id": "oeste-forest-birch-101",
-      "sprite": "forest-birch",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 38.448,
-      "y": 136.977
     },
     {
       "id": "oeste-crooked-oak-102",
@@ -2174,32 +1158,11 @@
       "y": 134.758
     },
     {
-      "id": "oeste-forest-birch-103",
-      "sprite": "forest-birch",
-      "scale": 0.87,
-      "solid": [
-        -1.5,
-        -1.3,
-        3,
-        1.8
-      ],
-      "visionBlocker": true,
-      "x": 57.978,
-      "y": 136.434
-    },
-    {
       "id": "oeste-fern-104",
       "sprite": "fern",
       "scale": 0.99,
       "x": 6.187,
       "y": 4.68
-    },
-    {
-      "id": "oeste-flowers-bell-blue-105",
-      "sprite": "flowers-bell-blue",
-      "scale": 0.75,
-      "x": 35.638,
-      "y": 4.019
     },
     {
       "id": "oeste-flowers-primrose-106",
@@ -2209,34 +1172,6 @@
       "y": 6.229
     },
     {
-      "id": "oeste-fern-107",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 36.95,
-      "y": 6.567
-    },
-    {
-      "id": "oeste-flowers-bell-blue-108",
-      "sprite": "flowers-bell-blue",
-      "scale": 0.75,
-      "x": 55.531,
-      "y": 8.189
-    },
-    {
-      "id": "oeste-flowers-bell-blue-109",
-      "sprite": "flowers-bell-blue",
-      "scale": 0.75,
-      "x": 7.349,
-      "y": 9.472
-    },
-    {
-      "id": "oeste-fern-110",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 10.991,
-      "y": 9.358
-    },
-    {
       "id": "oeste-flowers-bell-blue-111",
       "sprite": "flowers-bell-blue",
       "scale": 0.75,
@@ -2244,144 +1179,11 @@
       "y": 11.292
     },
     {
-      "id": "oeste-fern-112",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 32.686,
-      "y": 9.962
-    },
-    {
-      "id": "oeste-fern-113",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 36.088,
-      "y": 11.421
-    },
-    {
-      "id": "oeste-fern-114",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 55.485,
-      "y": 11.402
-    },
-    {
-      "id": "oeste-fern-115",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 63.701,
-      "y": 9.262
-    },
-    {
-      "id": "oeste-flowers-primrose-116",
-      "sprite": "flowers-primrose",
-      "scale": 0.87,
-      "x": 25.992,
-      "y": 14.496
-    },
-    {
-      "id": "oeste-fern-117",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 36.891,
-      "y": 14.516
-    },
-    {
-      "id": "oeste-flowers-bell-blue-118",
-      "sprite": "flowers-bell-blue",
-      "scale": 0.75,
-      "x": 38.573,
-      "y": 14.033
-    },
-    {
-      "id": "oeste-flowers-primrose-119",
-      "sprite": "flowers-primrose",
-      "scale": 0.87,
-      "x": 30.523,
-      "y": 16.537
-    },
-    {
-      "id": "oeste-flowers-primrose-120",
-      "sprite": "flowers-primrose",
-      "scale": 0.87,
-      "x": 33.335,
-      "y": 16.013
-    },
-    {
-      "id": "oeste-fern-121",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 35.322,
-      "y": 17.052
-    },
-    {
-      "id": "oeste-fern-122",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 56.211,
-      "y": 17.446
-    },
-    {
-      "id": "oeste-flowers-bell-blue-123",
-      "sprite": "flowers-bell-blue",
-      "scale": 0.75,
-      "x": 13.257,
-      "y": 21.092
-    },
-    {
       "id": "oeste-fern-124",
       "sprite": "fern",
       "scale": 0.99,
       "x": 24.271,
       "y": 20.024
-    },
-    {
-      "id": "oeste-fern-125",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 26.191,
-      "y": 19.923
-    },
-    {
-      "id": "oeste-flowers-bell-blue-126",
-      "sprite": "flowers-bell-blue",
-      "scale": 0.75,
-      "x": 32.354,
-      "y": 19.132
-    },
-    {
-      "id": "oeste-flowers-bell-blue-127",
-      "sprite": "flowers-bell-blue",
-      "scale": 0.75,
-      "x": 39.284,
-      "y": 20.828
-    },
-    {
-      "id": "oeste-flowers-primrose-128",
-      "sprite": "flowers-primrose",
-      "scale": 0.87,
-      "x": 45.958,
-      "y": 21.021
-    },
-    {
-      "id": "oeste-riverbank-bamboo-129",
-      "sprite": "riverbank-bamboo",
-      "scale": 0.6,
-      "x": 48.141,
-      "y": 21.049
-    },
-    {
-      "id": "oeste-riverbank-bamboo-130",
-      "sprite": "riverbank-bamboo",
-      "scale": 0.6,
-      "x": 58.991,
-      "y": 19.15
-    },
-    {
-      "id": "oeste-fern-131",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 63.797,
-      "y": 20.294
     },
     {
       "id": "oeste-fern-132",
@@ -2398,25 +1200,11 @@
       "y": 22.495
     },
     {
-      "id": "oeste-fern-134",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 46.769,
-      "y": 22.804
-    },
-    {
       "id": "oeste-riverbank-bamboo-135",
       "sprite": "riverbank-bamboo",
       "scale": 0.6,
       "x": 55.796,
       "y": 23.921
-    },
-    {
-      "id": "oeste-riverbank-bamboo-136",
-      "sprite": "riverbank-bamboo",
-      "scale": 0.6,
-      "x": 58.784,
-      "y": 22.688
     },
     {
       "id": "oeste-flowers-bell-blue-137",
@@ -2426,46 +1214,11 @@
       "y": 25.819
     },
     {
-      "id": "oeste-flowers-bell-blue-138",
-      "sprite": "flowers-bell-blue",
-      "scale": 0.75,
-      "x": 38.732,
-      "y": 27.4
-    },
-    {
-      "id": "oeste-flowers-bell-blue-139",
-      "sprite": "flowers-bell-blue",
-      "scale": 0.75,
-      "x": 41.609,
-      "y": 26.444
-    },
-    {
       "id": "oeste-flowers-bell-blue-140",
       "sprite": "flowers-bell-blue",
       "scale": 0.75,
       "x": 13.767,
       "y": 30.743
-    },
-    {
-      "id": "oeste-fern-141",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 29.483,
-      "y": 30.579
-    },
-    {
-      "id": "oeste-flowers-primrose-142",
-      "sprite": "flowers-primrose",
-      "scale": 0.87,
-      "x": 43.599,
-      "y": 30.648
-    },
-    {
-      "id": "oeste-riverbank-bamboo-143",
-      "sprite": "riverbank-bamboo",
-      "scale": 0.6,
-      "x": 49.47,
-      "y": 28.998
     },
     {
       "id": "oeste-riverbank-bamboo-144",
@@ -2480,27 +1233,6 @@
       "scale": 0.75,
       "x": 58.967,
       "y": 30.796
-    },
-    {
-      "id": "oeste-fern-146",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 24.095,
-      "y": 33.912
-    },
-    {
-      "id": "oeste-fern-147",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 30.07,
-      "y": 33.024
-    },
-    {
-      "id": "oeste-fern-148",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 42.395,
-      "y": 33.759
     },
     {
       "id": "oeste-riverbank-bamboo-149",
@@ -2524,41 +1256,6 @@
       "y": 32.706
     },
     {
-      "id": "oeste-flowers-primrose-152",
-      "sprite": "flowers-primrose",
-      "scale": 0.87,
-      "x": 17.95,
-      "y": 35.348
-    },
-    {
-      "id": "oeste-flowers-primrose-153",
-      "sprite": "flowers-primrose",
-      "scale": 0.87,
-      "x": 20.149,
-      "y": 34.886
-    },
-    {
-      "id": "oeste-flowers-primrose-154",
-      "sprite": "flowers-primrose",
-      "scale": 0.87,
-      "x": 22.273,
-      "y": 35.934
-    },
-    {
-      "id": "oeste-flowers-primrose-155",
-      "sprite": "flowers-primrose",
-      "scale": 0.87,
-      "x": 26.078,
-      "y": 35.544
-    },
-    {
-      "id": "oeste-fern-156",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 36.227,
-      "y": 36.275
-    },
-    {
       "id": "oeste-flowers-bell-blue-157",
       "sprite": "flowers-bell-blue",
       "scale": 0.75,
@@ -2566,67 +1263,11 @@
       "y": 34.842
     },
     {
-      "id": "oeste-fern-158",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 5.159,
-      "y": 38.79
-    },
-    {
-      "id": "oeste-flowers-bell-blue-159",
-      "sprite": "flowers-bell-blue",
-      "scale": 0.75,
-      "x": 19.743,
-      "y": 39.738
-    },
-    {
-      "id": "oeste-flowers-bell-blue-160",
-      "sprite": "flowers-bell-blue",
-      "scale": 0.75,
-      "x": 23.302,
-      "y": 39.989
-    },
-    {
-      "id": "oeste-fern-161",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 25.75,
-      "y": 38.713
-    },
-    {
-      "id": "oeste-fern-162",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 35.876,
-      "y": 38.006
-    },
-    {
-      "id": "oeste-riverbank-bamboo-163",
-      "sprite": "riverbank-bamboo",
-      "scale": 0.6,
-      "x": 40.333,
-      "y": 38.063
-    },
-    {
-      "id": "oeste-flowers-primrose-164",
-      "sprite": "flowers-primrose",
-      "scale": 0.87,
-      "x": 7.836,
-      "y": 42.217
-    },
-    {
       "id": "oeste-flowers-bell-blue-165",
       "sprite": "flowers-bell-blue",
       "scale": 0.75,
       "x": 20.763,
       "y": 43.31
-    },
-    {
-      "id": "oeste-fern-166",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 33.326,
-      "y": 41.644
     },
     {
       "id": "oeste-flowers-primrose-167",
@@ -2648,13 +1289,6 @@
       "scale": 0.75,
       "x": 17.532,
       "y": 46.324
-    },
-    {
-      "id": "oeste-fern-170",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 40.077,
-      "y": 44.476
     },
     {
       "id": "oeste-flowers-primrose-171",
@@ -2741,48 +1375,6 @@
       "y": 54.551
     },
     {
-      "id": "oeste-flowers-primrose-183",
-      "sprite": "flowers-primrose",
-      "scale": 0.87,
-      "x": 16.861,
-      "y": 55.649
-    },
-    {
-      "id": "oeste-riverbank-bamboo-184",
-      "sprite": "riverbank-bamboo",
-      "scale": 0.6,
-      "x": 26.532,
-      "y": 54.883
-    },
-    {
-      "id": "oeste-flowers-bell-blue-185",
-      "sprite": "flowers-bell-blue",
-      "scale": 0.75,
-      "x": 29.749,
-      "y": 55.159
-    },
-    {
-      "id": "oeste-fern-186",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 34.851,
-      "y": 55.393
-    },
-    {
-      "id": "oeste-flowers-primrose-187",
-      "sprite": "flowers-primrose",
-      "scale": 0.87,
-      "x": 43.355,
-      "y": 56.105
-    },
-    {
-      "id": "oeste-flowers-bell-blue-188",
-      "sprite": "flowers-bell-blue",
-      "scale": 0.75,
-      "x": 45.422,
-      "y": 56.257
-    },
-    {
       "id": "oeste-flowers-bell-blue-189",
       "sprite": "flowers-bell-blue",
       "scale": 0.75,
@@ -2797,34 +1389,6 @@
       "y": 58.2
     },
     {
-      "id": "oeste-flowers-bell-blue-191",
-      "sprite": "flowers-bell-blue",
-      "scale": 0.75,
-      "x": 15.678,
-      "y": 57.652
-    },
-    {
-      "id": "oeste-fern-192",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 25.72,
-      "y": 59.125
-    },
-    {
-      "id": "oeste-fern-193",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 29.632,
-      "y": 58.947
-    },
-    {
-      "id": "oeste-flowers-primrose-194",
-      "sprite": "flowers-primrose",
-      "scale": 0.87,
-      "x": 42.103,
-      "y": 59.315
-    },
-    {
       "id": "oeste-riverbank-bamboo-195",
       "sprite": "riverbank-bamboo",
       "scale": 0.6,
@@ -2837,34 +1401,6 @@
       "scale": 0.87,
       "x": 10.955,
       "y": 60.929
-    },
-    {
-      "id": "oeste-flowers-primrose-197",
-      "sprite": "flowers-primrose",
-      "scale": 0.87,
-      "x": 17.929,
-      "y": 62.779
-    },
-    {
-      "id": "oeste-flowers-bell-blue-198",
-      "sprite": "flowers-bell-blue",
-      "scale": 0.75,
-      "x": 28.647,
-      "y": 60.706
-    },
-    {
-      "id": "oeste-flowers-primrose-199",
-      "sprite": "flowers-primrose",
-      "scale": 0.87,
-      "x": 52.545,
-      "y": 60.926
-    },
-    {
-      "id": "oeste-riverbank-bamboo-200",
-      "sprite": "riverbank-bamboo",
-      "scale": 0.6,
-      "x": 54.126,
-      "y": 62.068
     },
     {
       "id": "oeste-fern-201",
@@ -2916,62 +1452,6 @@
       "y": 67.52
     },
     {
-      "id": "oeste-flowers-primrose-208",
-      "sprite": "flowers-primrose",
-      "scale": 0.87,
-      "x": 33.454,
-      "y": 68.221
-    },
-    {
-      "id": "oeste-riverbank-bamboo-209",
-      "sprite": "riverbank-bamboo",
-      "scale": 0.6,
-      "x": 39.225,
-      "y": 68.525
-    },
-    {
-      "id": "oeste-riverbank-bamboo-210",
-      "sprite": "riverbank-bamboo",
-      "scale": 0.6,
-      "x": 46.576,
-      "y": 66.963
-    },
-    {
-      "id": "oeste-flowers-bell-blue-211",
-      "sprite": "flowers-bell-blue",
-      "scale": 0.75,
-      "x": 25.673,
-      "y": 72.174
-    },
-    {
-      "id": "oeste-fern-212",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 29.409,
-      "y": 70.808
-    },
-    {
-      "id": "oeste-fern-213",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 36.591,
-      "y": 70.112
-    },
-    {
-      "id": "oeste-fern-214",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 41.774,
-      "y": 71.269
-    },
-    {
-      "id": "oeste-fern-215",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 45.973,
-      "y": 70.904
-    },
-    {
       "id": "oeste-flowers-bell-blue-216",
       "sprite": "flowers-bell-blue",
       "scale": 0.75,
@@ -3007,20 +1487,6 @@
       "y": 73.273
     },
     {
-      "id": "oeste-fern-221",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 26.218,
-      "y": 74.43
-    },
-    {
-      "id": "oeste-riverbank-bamboo-222",
-      "sprite": "riverbank-bamboo",
-      "scale": 0.6,
-      "x": 33.989,
-      "y": 73.868
-    },
-    {
       "id": "oeste-riverbank-bamboo-223",
       "sprite": "riverbank-bamboo",
       "scale": 0.6,
@@ -3047,13 +1513,6 @@
       "scale": 0.99,
       "x": 20.325,
       "y": 77.285
-    },
-    {
-      "id": "oeste-riverbank-bamboo-227",
-      "sprite": "riverbank-bamboo",
-      "scale": 0.6,
-      "x": 23.871,
-      "y": 77.655
     },
     {
       "id": "oeste-flowers-bell-blue-228",
@@ -3112,13 +1571,6 @@
       "y": 81.013
     },
     {
-      "id": "oeste-flowers-bell-blue-236",
-      "sprite": "flowers-bell-blue",
-      "scale": 0.75,
-      "x": 32.716,
-      "y": 81.898
-    },
-    {
       "id": "oeste-riverbank-bamboo-237",
       "sprite": "riverbank-bamboo",
       "scale": 0.6,
@@ -3133,53 +1585,11 @@
       "y": 81.461
     },
     {
-      "id": "oeste-riverbank-bamboo-239",
-      "sprite": "riverbank-bamboo",
-      "scale": 0.6,
-      "x": 35.573,
-      "y": 83.934
-    },
-    {
-      "id": "oeste-fern-240",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 11.276,
-      "y": 86.809
-    },
-    {
-      "id": "oeste-fern-241",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 13.853,
-      "y": 86.559
-    },
-    {
-      "id": "oeste-fern-242",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 57.894,
-      "y": 86.468
-    },
-    {
       "id": "oeste-flowers-bell-blue-243",
       "sprite": "flowers-bell-blue",
       "scale": 0.75,
       "x": 62.044,
       "y": 87.773
-    },
-    {
-      "id": "oeste-riverbank-bamboo-244",
-      "sprite": "riverbank-bamboo",
-      "scale": 0.6,
-      "x": 14.781,
-      "y": 90.627
-    },
-    {
-      "id": "oeste-fern-245",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 19.117,
-      "y": 90.473
     },
     {
       "id": "oeste-riverbank-bamboo-246",
@@ -3189,67 +1599,11 @@
       "y": 91.095
     },
     {
-      "id": "oeste-flowers-bell-blue-247",
-      "sprite": "flowers-bell-blue",
-      "scale": 0.75,
-      "x": 48.354,
-      "y": 91.445
-    },
-    {
-      "id": "oeste-flowers-primrose-248",
-      "sprite": "flowers-primrose",
-      "scale": 0.87,
-      "x": 52.939,
-      "y": 90.603
-    },
-    {
-      "id": "oeste-riverbank-bamboo-249",
-      "sprite": "riverbank-bamboo",
-      "scale": 0.6,
-      "x": 55.838,
-      "y": 91.17
-    },
-    {
-      "id": "oeste-riverbank-bamboo-250",
-      "sprite": "riverbank-bamboo",
-      "scale": 0.6,
-      "x": 26.623,
-      "y": 92.702
-    },
-    {
-      "id": "oeste-fern-251",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 32.268,
-      "y": 92.408
-    },
-    {
-      "id": "oeste-flowers-primrose-252",
-      "sprite": "flowers-primrose",
-      "scale": 0.87,
-      "x": 43.553,
-      "y": 94.646
-    },
-    {
-      "id": "oeste-flowers-bell-blue-253",
-      "sprite": "flowers-bell-blue",
-      "scale": 0.75,
-      "x": 45.264,
-      "y": 94.466
-    },
-    {
       "id": "oeste-fern-254",
       "sprite": "fern",
       "scale": 0.99,
       "x": 11.499,
       "y": 96.462
-    },
-    {
-      "id": "oeste-flowers-primrose-255",
-      "sprite": "flowers-primrose",
-      "scale": 0.87,
-      "x": 27.394,
-      "y": 97.31
     },
     {
       "id": "oeste-flowers-primrose-256",
@@ -3259,53 +1613,11 @@
       "y": 97.9
     },
     {
-      "id": "oeste-riverbank-bamboo-257",
-      "sprite": "riverbank-bamboo",
-      "scale": 0.6,
-      "x": 44.906,
-      "y": 97.202
-    },
-    {
-      "id": "oeste-fern-258",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 56.241,
-      "y": 97.051
-    },
-    {
-      "id": "oeste-fern-259",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 58.022,
-      "y": 96.396
-    },
-    {
       "id": "oeste-flowers-primrose-260",
       "sprite": "flowers-primrose",
       "scale": 0.87,
       "x": 9.628,
       "y": 100.43
-    },
-    {
-      "id": "oeste-flowers-primrose-261",
-      "sprite": "flowers-primrose",
-      "scale": 0.87,
-      "x": 28.877,
-      "y": 100.131
-    },
-    {
-      "id": "oeste-riverbank-bamboo-262",
-      "sprite": "riverbank-bamboo",
-      "scale": 0.6,
-      "x": 54.987,
-      "y": 100.803
-    },
-    {
-      "id": "oeste-flowers-bell-blue-263",
-      "sprite": "flowers-bell-blue",
-      "scale": 0.75,
-      "x": 57.901,
-      "y": 100.692
     },
     {
       "id": "oeste-fern-264",
@@ -3315,25 +1627,11 @@
       "y": 99.552
     },
     {
-      "id": "oeste-flowers-bell-blue-265",
-      "sprite": "flowers-bell-blue",
-      "scale": 0.75,
-      "x": 13.475,
-      "y": 104.355
-    },
-    {
       "id": "oeste-flowers-bell-blue-266",
       "sprite": "flowers-bell-blue",
       "scale": 0.75,
       "x": 20.524,
       "y": 102.011
-    },
-    {
-      "id": "oeste-fern-267",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 43.566,
-      "y": 102.264
     },
     {
       "id": "oeste-flowers-primrose-268",
@@ -3350,20 +1648,6 @@
       "y": 107.023
     },
     {
-      "id": "oeste-flowers-primrose-270",
-      "sprite": "flowers-primrose",
-      "scale": 0.87,
-      "x": 42.759,
-      "y": 105.329
-    },
-    {
-      "id": "oeste-fern-271",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 44.737,
-      "y": 106.147
-    },
-    {
       "id": "oeste-riverbank-bamboo-272",
       "sprite": "riverbank-bamboo",
       "scale": 0.6,
@@ -3376,104 +1660,6 @@
       "scale": 0.87,
       "x": 61.052,
       "y": 107.584
-    },
-    {
-      "id": "oeste-fern-274",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 6.942,
-      "y": 110.622
-    },
-    {
-      "id": "oeste-fern-275",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 29.945,
-      "y": 108.891
-    },
-    {
-      "id": "oeste-flowers-primrose-276",
-      "sprite": "flowers-primrose",
-      "scale": 0.87,
-      "x": 34.986,
-      "y": 110.774
-    },
-    {
-      "id": "oeste-riverbank-bamboo-277",
-      "sprite": "riverbank-bamboo",
-      "scale": 0.6,
-      "x": 42.035,
-      "y": 108.523
-    },
-    {
-      "id": "oeste-flowers-primrose-278",
-      "sprite": "flowers-primrose",
-      "scale": 0.87,
-      "x": 48.525,
-      "y": 110.783
-    },
-    {
-      "id": "oeste-flowers-primrose-279",
-      "sprite": "flowers-primrose",
-      "scale": 0.87,
-      "x": 13.127,
-      "y": 113.285
-    },
-    {
-      "id": "oeste-riverbank-bamboo-280",
-      "sprite": "riverbank-bamboo",
-      "scale": 0.6,
-      "x": 59.529,
-      "y": 112.39
-    },
-    {
-      "id": "oeste-fern-281",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 19.584,
-      "y": 116.233
-    },
-    {
-      "id": "oeste-flowers-primrose-282",
-      "sprite": "flowers-primrose",
-      "scale": 0.87,
-      "x": 22.845,
-      "y": 115.684
-    },
-    {
-      "id": "oeste-flowers-primrose-283",
-      "sprite": "flowers-primrose",
-      "scale": 0.87,
-      "x": 46.242,
-      "y": 114.926
-    },
-    {
-      "id": "oeste-fern-284",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 48.778,
-      "y": 115.719
-    },
-    {
-      "id": "oeste-fern-285",
-      "sprite": "fern",
-      "scale": 0.99,
-      "x": 59.353,
-      "y": 116.898
-    },
-    {
-      "id": "oeste-riverbank-bamboo-286",
-      "sprite": "riverbank-bamboo",
-      "scale": 0.6,
-      "x": 25.917,
-      "y": 119.117
-    },
-    {
-      "id": "oeste-flowers-bell-blue-287",
-      "sprite": "flowers-bell-blue",
-      "scale": 0.75,
-      "x": 46.23,
-      "y": 119.544
     },
     {
       "id": "oeste-riverbank-bamboo-288",
@@ -3490,25 +1676,11 @@
       "y": 121.347
     },
     {
-      "id": "oeste-riverbank-bamboo-290",
-      "sprite": "riverbank-bamboo",
-      "scale": 0.6,
-      "x": 24.182,
-      "y": 121.286
-    },
-    {
       "id": "oeste-fern-291",
       "sprite": "fern",
       "scale": 0.99,
       "x": 6.349,
       "y": 125.103
-    },
-    {
-      "id": "oeste-flowers-primrose-292",
-      "sprite": "flowers-primrose",
-      "scale": 0.87,
-      "x": 33.461,
-      "y": 125.495
     },
     {
       "id": "oeste-fern-293",

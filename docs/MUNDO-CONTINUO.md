@@ -105,6 +105,13 @@ a veces desaparecen cosas, otras… se queda pillado en la barrera invisible»):
   de los actores solo se admite en lo que queda, los más cercanos primero (`actor-art.js`).
 - **Ya no hay costas de un solo lado** (`coasts`): el lago es un `rivers` de dos orillas, y ese
   código se retiró de `geometry.js` y `ground.js`.
+- **Y un río puede cruzar la pantalla** (23-sep-2026): con `axis: "x"` sus `banks` son
+  `[x, orilla norte, orilla sur]` con la misma Hermite monótona. El canal del seto y el brazo de
+  las raíces eran un rectángulo recto de esquinas en escuadra y ahora serpentean como los demás.
+  Todo el que pregunta por el agua lo hace por `river-course.js` (`riverRowSpans` para una fila,
+  `riverShore` para la orilla pintada, `riverBox` para la fase gruesa); la corriente y los que
+  reman siguen el primer río que BAJA (`mainChannel`). La costura seto↔raíces vale 70..92 en las
+  dos pantallas y la vigila `check-world-polish`, igual que ningún decorado de pie en el agua.
 - **La pantalla vecina estaba a medio pintar** (20-sep-2026, repaso): sus baldosas salían bien
   —se pegan en píxeles de pantalla desde la vista traducida— pero lo que se dibuja en coordenadas
   del mundo (puentes, ondas y recortes de interiores) iba sin el desplazamiento de la costura y

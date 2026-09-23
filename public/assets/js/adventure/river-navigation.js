@@ -1,6 +1,6 @@
 "use strict";
 const { TILE, waterAt, collisionBounds, clamp } = require("./geometry");
-const { riverSection } = require("./river-course");
+const { riverSection, mainChannel } = require("./river-course");
 const { facing } = require("./characters");
 const { playerVariant } = require("./player-art");
 
@@ -197,8 +197,8 @@ function currentAt(data, x, y) {
   for (const current of data.navigation?.currents || []) {
     const [cx, cy, rx, ry] = current.area;
     const banks =
-      current.channel && data.rivers?.[0]
-        ? riverSection(data.rivers[0], y / TILE)
+      current.channel && mainChannel(data)
+        ? riverSection(mainChannel(data), y / TILE)
         : null;
     const bend = banks ? (banks.left + banks.right) / 2 - cx : 0;
     const d = Math.hypot((x / TILE - cx - bend) / rx, (y / TILE - cy) / ry);

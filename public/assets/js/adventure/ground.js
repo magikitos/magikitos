@@ -1,6 +1,6 @@
 "use strict";
 const { TILE, hash } = require("./geometry");
-const { riverSection } = require("./river-course");
+const { riverShore } = require("./river-course");
 const colors = {
   grass: ["#68884e", "#6a8a4f", "#6c8c51", "#6e8e52", "#709054"],
   path: ["#b2a16b", "#c3af7b", "#cebb88"],
@@ -69,15 +69,7 @@ function shoreRow(data, py) {
   // La distancia a la orilla se mide PERPENDICULAR a ella (20-sep-2026): medida en horizontal,
   // un tramo en diagonal estrechaba la banda de orilla y el degradado del agua por el coseno de
   // la pendiente (`tangent`), y la orilla salía como una raya fina.
-  const rivers = (data.rivers || []).map((r) => {
-    const banks = riverSection(r, y);
-    return {
-      left: banks.left * TILE,
-      width: (banks.right - banks.left) * TILE,
-      vertical: Math.min(y - r.rect[1], r.rect[1] + r.rect[3] - y) * TILE,
-      scale: 1 / Math.sqrt(1 + banks.tangent * banks.tangent),
-    };
-  });
+  const rivers = (data.rivers || []).map((r) => riverShore(r, y, TILE)).filter(Boolean);
   const ellipse = (p) => ({
     cx: p.x * TILE,
     inverse: 1 / (p.rx * TILE),
@@ -88,11 +80,7 @@ function shoreRow(data, py) {
     islands = (data.islands || []).map(ellipse);
   return (x) => {
     let d = -10000;
-    for (const r of rivers) {
-      if (r.width <= 0) continue; // el cauce ya se ha cerrado: ni agua ni orilla
-      const dx = x - r.left;
-      d = Math.max(d, Math.min(dx * r.scale, (r.width - dx) * r.scale, r.vertical));
-    }
+    for (const r of rivers) d = Math.max(d, r(x));
     for (const p of ponds) {
       const dx = (x - p.cx) * p.inverse;
       d = Math.max(d, (1 - Math.sqrt(dx * dx + p.dy)) * p.radius);

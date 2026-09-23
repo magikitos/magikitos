@@ -210,6 +210,34 @@ for (const s of Object.values(catalog.scenes).filter((s) =>
   const section = riverSection(river, boat.y / TILE);
   assert(boat.x / TILE > section.left + 2 && boat.x / TILE < section.right - 2);
 }
+/* ⛔ EL AGUA QUE CRUZA LA PANTALLA TAMBIÉN TIENE COSTURAS (23-sep-2026). El canal del seto y el
+   brazo de las raíces eran un rectángulo recto de esquinas en escuadra; hoy son ríos de orillas
+   curvas (`axis: "x"`), y donde uno entra en el otro tienen que valer lo mismo: 70..92 en las
+   últimas y primeras diez casillas. */
+{
+  const brazo = catalog.scenes["river-roots"].rivers.find((r) => r.axis === "x"),
+    canal = catalog.scenes["human-hedge"].rivers.find((r) => r.axis === "x");
+  assert(brazo && canal, "The roots branch and the hedge canal are curved horizontal rivers");
+  for (const [river, xs] of [[brazo, [188, 192, 196]], [canal, [-4, 0, 4]]])
+    for (const x of xs) {
+      const section = riverSection(river, x);
+      assert(
+        Math.abs(section.left - 70) < 1e-8 && Math.abs(section.right - 92) < 1e-8,
+        "Shared horizontal seam at x=" + x + " → " + JSON.stringify(section),
+      );
+    }
+}
+/* ⛔ Y NADA DEL DECORADO SE PLANTA EN EL AGUA: al curvar un cauce se come la orilla que tenía
+   debajo, y un bambú de pie en mitad del río no da ningún error. */
+{
+  const { waterAt } = require("../public/assets/js/adventure/geometry");
+  for (const s of Object.values(catalog.scenes).filter((s) => !s.indoor))
+    for (const p of s.scenery || [])
+      assert(
+        !(waterAt(s, p.x, p.y) && waterAt(s, p.x, p.y - 0.3)),
+        s.id + ": " + p.id + " stands in the water",
+      );
+}
 // Estas frases son de PANTALLA, así que se comprueban donde viven: en el paquete que viaja con
 // la pantalla que las dice, y en los seis idiomas.
 {

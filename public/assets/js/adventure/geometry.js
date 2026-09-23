@@ -1,6 +1,6 @@
 "use strict";
 const { transformedRect } = require("./entity-art");
-const { riverSection, riverEnvelope } = require("./river-course");
+const { riverRowSpans, riverBox } = require("./river-course");
 const { bridgeWalkable } = require("./bridge-geometry");
 const TILE = 16;
 const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
@@ -127,12 +127,7 @@ function waterSpans(data, y) {
       .map(bridgeWalkable)
       .filter((b) => y >= b[1] && y < b[1] + b[3])
       .map((b) => [b[0], b[0] + b[2]]),
-    bands: (data.rivers || [])
-      .filter((r) => y >= r.rect[1] && y < r.rect[1] + r.rect[3])
-      .map((r) => {
-        const banks = riverSection(r, y);
-        return [banks.left, banks.right];
-      }),
+    bands: (data.rivers || []).flatMap((r) => riverRowSpans(r, y)),
     base: !!data.baseWater,
     islands: data.baseWater
       ? (data.islands || []).map((p) => ovalSpan(p, y)).filter(Boolean)
@@ -222,14 +217,8 @@ function waterNearby(data, x, y) {
   )
     return true;
   for (const r of data.rivers || []) {
-    const [, ry, , rh] = r.rect,
-      banks = riverEnvelope(r);
-    if (
-      right >= banks.left &&
-      left <= banks.right &&
-      bottom >= ry &&
-      top <= ry + rh
-    )
+    const box = riverBox(r);
+    if (right >= box.left && left <= box.right && bottom >= box.top && top <= box.bottom)
       return true;
   }
   return (data.waters || []).some((p) => {

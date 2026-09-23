@@ -135,6 +135,12 @@ function pointWater(data, x, y) {
   if ((data.bridges || []).some((b) => box(x, y, b.rect))) return false;
   if ((data.rivers || []).some((r) => {
     if (y < r.rect[1] || y >= r.rect[1] + r.rect[3]) return false;
+    if (r.axis === "x") {
+      // A river across the screen: its banks are read at the centre of each 1/16-tile column.
+      if (x < r.rect[0] || x >= r.rect[0] + r.rect[2]) return false;
+      const banks = riverSection(r, r.rect[0] + (Math.floor((x - r.rect[0]) * 16) + 0.5) / 16);
+      return y >= banks.left && y < banks.right;
+    }
     const banks = riverSection(r, y);
     return x >= banks.left && x < banks.right;
   })) return true;

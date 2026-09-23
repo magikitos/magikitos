@@ -1,6 +1,6 @@
 "use strict";
 const { TILE, random } = require("./geometry");
-const { riverSection, riverEnvelope } = require("./river-course");
+const { riverSection, riverEnvelope, mainChannel } = require("./river-course");
 const { currentAt } = require("./river-navigation");
 const traceRandom = random(873421);
 const TRACES = Array.from({ length: 96 }, () => ({
@@ -15,7 +15,7 @@ const TRACES = Array.from({ length: 96 }, () => ({
 function drawCurrentTraces(ctx, world, camera, view, time) {
   for (const field of world.data.navigation?.currents || []) {
     const [cx, cy, rx, ry] = field.area;
-    const river = field.channel && world.data.rivers?.[0];
+    const river = field.channel && mainChannel(world.data);
     const envelope = river ? riverEnvelope(river) : null;
     const margin = envelope
       ? Math.max(Math.abs(envelope.left - cx), Math.abs(envelope.right - cx))
