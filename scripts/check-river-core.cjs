@@ -22,6 +22,7 @@ const {
   MODES,
   crossingAt,
   crossingArrival,
+  sideSteps,
 } = require("../public/assets/js/adventure/crossings");
 const { riverSection } = require("../public/assets/js/adventure/river-course");
 const {
@@ -541,6 +542,15 @@ check(starts.length === 0, "No off-screen current rendering");
         // árbol, `Crossings.travel` prueba las columnas de al lado antes que el centro.
         if (borde === null || (arriba ? borde : data.height - borde) > ah + 0.05) continue;
         const arrival = crossingArrival(exit, point0(along, borde));
+        // ⛔ Y NUNCA AL CENTRO (23-sep-2026): aunque justo enfrente haya un árbol, algún paso de al
+        // lado dentro de la banda es suelo, así que quien cruza aparece cerca de donde iba.
+        check(
+          sideSteps((aw / 2) * TILE)
+            .map((dx) => arrival.x + dx)
+            .filter((x) => Math.abs(x - exit.position[0] * TILE) <= (aw / 2) * TILE)
+            .some((x) => destino.canStand(x, arrival.y)),
+          id + "/" + exit.id + ": en " + along.toFixed(2) + " la llegada saltaría al centro de la banda",
+        );
         let frente = null;
         for (let d = 0; d <= 8; d += 0.05) {
           const y = arriba ? destino.height - d : d;
@@ -558,7 +568,7 @@ check(starts.length === 0, "No off-screen current rendering");
         );
         // Y donde aparece, o justo al lado dentro de la banda, se aguanta de pie.
         check(
-          [0, -8, 8, -16, 16, -24, 24, -32, 32].some((dx) => destino.canStand(arrival.x + dx, arrival.y)),
+          sideSteps((aw / 2) * TILE).some((dx) => destino.canStand(arrival.x + dx, arrival.y)),
           id + "/" + exit.id + ": la llegada en " + (arrival.x / TILE).toFixed(2) + " no es suelo",
         );
         // ⛔ DESDE EL MUNDO CONTINUO SE APARECE EN LA PROPIA BANDA DE VUELTA, a propósito: la

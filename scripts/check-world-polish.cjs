@@ -238,6 +238,32 @@ for (const s of Object.values(catalog.scenes).filter((s) =>
         s.id + ": " + p.id + " stands in the water",
       );
 }
+/* ⛔ NINGUNA CAJA DE CHOQUE ASOMA POR UN BORDE QUE SE CRUZA A PIE (23-sep-2026). Un roble de los
+   sauces pegado al borde de arriba sacaba su caja 0,05 casillas fuera del mapa, y en el mundo
+   continuo eso es un muro invisible en la pantalla de al lado: bajando de los rápidos pegado al
+   oeste, el duende se paraba a media casilla del borde y no cruzaba nunca. */
+{
+  const { collisionBounds } = require("../public/assets/js/adventure/geometry");
+  const state = cleanSave(null, catalog);
+  for (const s of Object.values(catalog.scenes).filter((s) => !s.indoor)) {
+    const bands = (s.navigation?.exits || []).filter((e) => e.mode === "foot" || e.mode === "both");
+    if (!bands.length) continue;
+    const world = new World(s);
+    world.refresh(state);
+    for (const c of world.colliders) {
+      const r = collisionBounds(c), W = s.width * TILE, H = s.height * TILE;
+      for (const e of bands) {
+        const [ax, ay, aw, ah] = e.area.map((v) => v * TILE);
+        const crosses =
+          e.direction === "up" ? r.y < 0 && r.x < ax + aw && r.x + r.w > ax
+          : e.direction === "down" ? r.y + r.h > H && r.x < ax + aw && r.x + r.w > ax
+          : e.direction === "left" ? r.x < 0 && r.y < ay + ah && r.y + r.h > ay
+          : r.x + r.w > W && r.y < ay + ah && r.y + r.h > ay;
+        assert(!crosses, s.id + ": " + c.id + " asoma por el borde de " + e.id + " y tapa la costura");
+      }
+    }
+  }
+}
 // Estas frases son de PANTALLA, así que se comprueban donde viven: en el paquete que viaja con
 // la pantalla que las dice, y en los seis idiomas.
 {

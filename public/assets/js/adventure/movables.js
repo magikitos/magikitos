@@ -2,7 +2,14 @@
 const { TILE, collisionBounds, overlaps } = require("./geometry");
 const { placementClear, entranceBounds } = require("./movable-geometry");
 const { facing } = require("./characters");
-const PUSH_SPEED_RATIO = 0.42;
+/**
+ * ⛔ EMPUJAR ES ANDAR UN POCO MÁS DESPACIO, NO ARRASTRARSE (23-sep-2026, el dueño: «empujar una
+ * caja o maceta va muuuy lenta, fatal»). Con 0,42 una maceta avanzaba 28 px por segundo —menos de
+ * dos casillas— y el duende movía las piernas a ritmo de paseo sin avanzar. Ahora es el 85 % del
+ * paso (unos 61 px/s andando) y no se corre empujando (`game.js`), así que la maceta va a la misma
+ * velocidad que el contrato de los objetos compartidos le da al bosque vivo.
+ */
+const PUSH_SPEED_RATIO = 0.85;
 /** Movable props use the same world-space body as rendering/navigation. No rigid-body engine. */
 function canPlace(
   world,

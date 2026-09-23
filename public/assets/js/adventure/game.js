@@ -1224,7 +1224,8 @@ class Adventure {
         const intent = this.directionIntent();
         if (intent) this.prompt.steer(this.keyboardIntent() ? "keys" : "drag");
         if (intent) {
-          const speed = this.boosted() ? RUN_SPEED : walkSpeed;
+          // Empujando no se corre: la caja va al paso (ver `PUSH_SPEED_RATIO`).
+          const speed = this.boosted() && !this.pushedLastStep ? RUN_SPEED : walkSpeed;
           const k = (speed * dt) / Math.hypot(intent.x, intent.y);
           this.walking = move(
             this.world,
@@ -1238,13 +1239,14 @@ class Adventure {
               onStep: (motion) => !this.checkThresholds(motion),
             },
           );
+          this.pushedLastStep = !!this.player.pushing;
           this.running =
             this.walking && speed === RUN_SPEED && !this.player.pushing;
           // Se anda hasta el borde de la pradera y se pasa a la pantalla de al lado, igual que
           // remando: la misma pieza, el mismo viaje y el mismo aviso.
           if (this.walking) this.crossings.check("foot");
         } else {
-          const speed = this.boosted()
+          const speed = this.boosted() && !this.pushedLastStep
             ? RUN_SPEED
             : this.journey.pace.speed(this.player, this.journey.path, walkSpeed);
           const travel = this.journey.step(this.world, this.player, dt, speed, {
@@ -1253,6 +1255,7 @@ class Adventure {
             resolveCollision: this.obstacleOptions().resolveCollision,
           });
           this.walking = travel.moved;
+          this.pushedLastStep = !!this.player.pushing;
           this.running =
             this.walking && speed === RUN_SPEED && !this.player.pushing;
           if (this.walking) this.crossings.check("foot");

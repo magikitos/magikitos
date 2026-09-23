@@ -130,6 +130,20 @@ function crossingAreas(data, exit, mode, margin = marginFor(mode)) {
  * es. Y quien llama prueba este punto ANTES que el escrito, que es el respaldo para cuando el
  * terreno de enfrente hace otra curva.
  */
+/**
+ * ⛔ LOS PASOS DE AL LADO RECORREN LA BANDA ENTERA (23-sep-2026, visto por el dueño: «a veces me
+ * mueve al centro de la escena en el cambio»). Eran ±8…32 px y, si ninguno era suelo, se aparecía
+ * en el CENTRO escrito de la banda: al bajar de los rápidos a los sauces pegado al oeste, un roble
+ * cuya caja llega al borde de arriba te plantaba 45 casillas a la derecha. No era la carga: era
+ * esto. Ahora se prueba cada 8 px hacia los dos lados, el más cercano primero, hasta cubrir la
+ * banda de destino, y el centro solo queda si la banda entera está tapada. El bosque vivo
+ * (`bosque-vivo/transitions.cjs`) genera la MISMA lista con la misma fórmula.
+ */
+function sideSteps(half) {
+  const steps = [0];
+  for (let d = 8; d <= 2 * half + 8; d += 8) steps.push(-d, d);
+  return steps;
+}
 function crossingArrival(exit, point) {
   const [ax, ay, aw, ah] = exit.area;
   const vertical = exit.direction === "up" || exit.direction === "down";
@@ -300,7 +314,7 @@ class Crossings {
     const [, , aw, ah] = exit.area,
       centre = (vertical ? exit.position[0] : exit.position[1]) * TILE,
       half = ((vertical ? aw : ah) / 2) * TILE;
-    const side = [0, -8, 8, -16, 16, -24, 24, -32, 32]
+    const side = sideSteps(half)
       .map((d) => (vertical ? { x: arrival.x + d, y: arrival.y } : { x: arrival.x, y: arrival.y + d }))
       .filter((p) => Math.abs((vertical ? p.x : p.y) - centre) <= half);
     // ⛔ CRUZAR NO SUELTA EL DEDO. Se para el viaje de este lado, pero el gesto sigue siendo el
@@ -340,4 +354,4 @@ class Crossings {
     }
   }
 }
-module.exports = { MODES, SEAM_TRIGGER, crossingAt, crossingAreas, crossingArrival, beyondEdge, ontoEdge, Crossings };
+module.exports = { MODES, SEAM_TRIGGER, crossingAt, crossingAreas, crossingArrival, sideSteps, beyondEdge, ontoEdge, Crossings };
