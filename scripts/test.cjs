@@ -4,6 +4,7 @@ execFileSync(process.execPath, ["tools/build.cjs", ...(process.argv.includes("--
 for (const name of [
   "check-adventure",
   "check-adventure-locales",
+  "check-hints",
   "check-forest-upgrade",
   "check-forest-market",
   "check-forest-client",

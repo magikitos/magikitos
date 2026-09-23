@@ -161,11 +161,31 @@ class Adventure {
   }
   lines(key) {
     const value = this.sceneStrings[key] ?? this.s[key];
-    return Array.isArray(value)
+    const lines = Array.isArray(value)
       ? value
       : typeof value === "string"
         ? [value]
         : [this.s.empty];
+    const hint = this.catalog.hintCarriers?.includes(key) ? this.hint() : null;
+    return hint ? [...lines, hint] : lines;
+  }
+  /**
+   * ⛔ CADA VECINO SABE UNA PISTA (23-sep-2026). La bienvenida lo promete, y hasta hoy los vecinos
+   * que pasean decían una gracia y nada más. Ahora la charla de los que no tienen oficio
+   * (`catalog.hintCarriers`) termina con la PRIMERA pista de `catalog.hints` que aún no está
+   * resuelta: el orden es el de la cadena de acertijos, así que cada vecino empuja al siguiente
+   * paso y nunca a uno que ya hiciste. Cada pista tiene varias formas de decirse y se van turnando,
+   * para que tres vecinos seguidos no suenen a disco rayado.
+   */
+  hint() {
+    const step = (this.catalog.hints || []).find((h) =>
+      matches(this.state, h.when),
+    );
+    const value = step && (this.sceneStrings[step.key] ?? this.s[step.key]);
+    if (!value) return null;
+    const pool = Array.isArray(value) ? value : [value];
+    this.hintTurn = (this.hintTurn || 0) + 1;
+    return pool[this.hintTurn % pool.length];
   }
   async init() {
     try {

@@ -91,12 +91,12 @@
     "pt": "O churrasco da clareira"
   },
   "binReminder": {
-    "es": "La basura va aquí dentro, quillo. No por el suelo.",
-    "en": "Rubbish belongs in here, mate. Not on the ground.",
-    "de": "Müll gehört hier rein, nicht auf den Boden.",
-    "fr": "Les déchets, ça va là-dedans, pas par terre !",
-    "it": "La spazzatura va qui dentro, mica per terra!",
-    "pt": "O lixo é aqui dentro, pá. Não é no chão."
+    "es": "La basura va aquí dentro, quillo. No por el suelo. Aunque esa botella de al lado… esa flota, ¿eh?",
+    "en": "Rubbish belongs in here, mate. Not on the ground. Although that bottle next to it… that one floats, you know.",
+    "de": "Müll gehört hier rein, nicht auf den Boden. Obwohl die Flasche daneben… die schwimmt, weißt du?",
+    "fr": "Les déchets, ça va là-dedans, pas par terre ! Quoique cette bouteille à côté… elle flotte, tu sais.",
+    "it": "La spazzatura va qui dentro, mica per terra! Anche se quella bottiglia lì accanto… quella galleggia, eh.",
+    "pt": "O lixo é aqui dentro, pá. Não é no chão. Se bem que aquela garrafa ao lado… aquela flutua, hã?"
   },
   "bottleFound": {
     "es": "¡Una botella! Con un cortecito y un par de remos, esto tiene pinta de barcazo.",
@@ -155,12 +155,12 @@
     "pt": "O abrigo no vaso"
   },
   "forestSign": {
-    "es": "«Bienvenido al bosque». Y debajo, en letra más chica: «no hace falta llegar a ningún sitio».",
-    "en": "«Welcome to the woods.» And underneath, in smaller letters: «there is nowhere you need to get to.»",
-    "de": "«Willkommen im Wald.» Und darunter, kleiner: «Du musst nirgendwo ankommen.»",
-    "fr": "« Bienvenue dans le bois. » Et dessous, en plus petit : « tu n'as nulle part où arriver. »",
-    "it": "«Benvenuto nel bosco». E sotto, in lettere più piccole: «non devi arrivare da nessuna parte».",
-    "pt": "«Bem-vindo ao bosque». E por baixo, em letra mais pequena: «não tens de chegar a lado nenhum»."
+    "es": "«Bienvenido al bosque». Y debajo, a boli: «casi todo lo que ves sirve para algo. Pregunta a los vecinos».",
+    "en": "«Welcome to the woods.» And underneath, in biro: «almost everything you see is good for something. Ask the neighbours.»",
+    "de": "«Willkommen im Wald.» Und darunter, mit Kuli: «Fast alles, was du siehst, ist für etwas gut. Frag die Nachbarn.»",
+    "fr": "« Bienvenue dans le bois. » Et dessous, au stylo : « presque tout ce que tu vois sert à quelque chose. Demande aux voisins. »",
+    "it": "«Benvenuto nel bosco». E sotto, a penna: «quasi tutto quello che vedi serve a qualcosa. Chiedi ai vicini».",
+    "pt": "«Bem-vindo ao bosque». E por baixo, a esferográfica: «quase tudo o que vês serve para alguma coisa. Pergunta aos vizinhos»."
   },
   "fountain": {
     "es": "La fuente de los deseos",
@@ -187,20 +187,20 @@
     "pt": "Oferecer a espetada"
   },
   "humanPicnicFriend": {
-    "es": "Se han traído merienda pa un regimiento. Y yo aquí, que quepo detrás de la cesta.",
-    "en": "They've packed enough for an army. Meanwhile, I could hide behind the basket.",
-    "de": "Die haben Essen für eine ganze Truppe dabei. Ich passe hinter den Korb.",
-    "fr": "Ils ont prévu à manger pour un régiment. Moi, je tiens derrière le panier.",
-    "it": "Hanno portato da mangiare per un esercito. Io potrei nascondermi dietro al cestino.",
-    "pt": "Trouxeram comida para um batalhão. Eu cá cabia atrás do cesto."
+    "es": "Se han traído merienda pa un regimiento, y una navajita pa cortar el chorizo que ni vigilan.",
+    "en": "They’ve packed enough for an army, and a little knife for the sausage that nobody’s keeping an eye on.",
+    "de": "Die haben Essen für eine ganze Truppe dabei, und ein Messerchen für die Wurst, auf das keiner aufpasst.",
+    "fr": "Ils ont prévu à manger pour un régiment, et un petit couteau pour le saucisson que personne ne surveille.",
+    "it": "Hanno portato da mangiare per un esercito, e un coltellino per il salame che nessuno tiene d’occhio.",
+    "pt": "Trouxeram comida para um batalhão, e um canivete para o chouriço que ninguém está a vigiar."
   },
   "humanSmoker": {
-    "es": "Este está a su cigarrito, tan pancho. Ni se huele lo que tiene alrededor.",
-    "en": "This one's away with his cigarette, not a care. Hasn't the faintest idea what's around him.",
-    "de": "Der ist ganz bei seiner Zigarette, seelenruhig. Hat keinen Schimmer, was um ihn herum liegt.",
-    "fr": "Celui-là est à sa cigarette, tranquille. Il n'a pas la moindre idée de ce qu'il a autour.",
-    "it": "Questo è tutto preso dalla sua sigaretta, beato lui. Non si accorge di niente di quel che ha intorno.",
-    "pt": "Este está entretido com o cigarro, todo descansado. Nem dá pela que tem à volta."
+    "es": "Este está a su cigarrito, tan pancho. Y el mechero ahí, a la vista, esperando que alguien lo adopte.",
+    "en": "This one’s away with his cigarette, not a care. And his lighter just sitting there in plain sight, waiting to be adopted.",
+    "de": "Der ist ganz bei seiner Zigarette, seelenruhig. Und das Feuerzeug liegt da, gut sichtbar, und wartet darauf, adoptiert zu werden.",
+    "fr": "Celui-là est à sa cigarette, tranquille. Et son briquet est là, bien en vue, qui attend qu’on l’adopte.",
+    "it": "Questo è tutto preso dalla sua sigaretta, beato lui. E l’accendino lì, bello in vista, che aspetta qualcuno che lo adotti.",
+    "pt": "Este está entretido com o cigarro, todo descansado. E o isqueiro ali, à vista, à espera de quem o adote."
   },
   "invite_stories": {
     "es": [

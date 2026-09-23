@@ -296,5 +296,19 @@
     "picnic": {
       "hours": 5
     }
-  }
+  },
+  "hints": [
+    {"key": "hintKnife", "when": {"flags": {"knifeFound": false}}},
+    {"key": "hintLighter", "when": {"flags": {"lighterFound": false}}},
+    {"key": "hintMushrooms", "when": {"flags": {"skewerCooked": false}, "maxItems": {"mushroom": 4}}},
+    {"key": "hintTwig", "when": {"flags": {"skewerCooked": false}, "maxItems": {"twig": 0}}},
+    {"key": "hintFire", "when": {"flags": {"fireLit": false}}},
+    {"key": "hintSkewer", "when": {"flags": {"skewerCooked": false}}},
+    {"key": "hintBrizno", "when": {"flags": {"picnicFed": false}}},
+    {"key": "hintBottle", "when": {"flags": {"boatBuilt": false}, "maxItems": {"bottle": 0}}},
+    {"key": "hintBoat", "when": {"flags": {"boatBuilt": false}}},
+    {"key": "hintHedge", "when": {"flags": {"bowlFound": false}}},
+    {"key": "hintFree", "when": {}}
+  ],
+  "hintCarriers": ["neighborGreeting", "ambientGarden", "ambientHat", "ambientLake", "ambientHunger", "meadowGreeting", "meadowGardener", "meadowFlowers", "meadowHammock", "meadowHarbor", "meadowHome", "riverAngler", "riverMemory"]
 }

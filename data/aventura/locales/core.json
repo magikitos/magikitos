@@ -2384,12 +2384,12 @@
     "pt": "Descobre"
   },
   "welcome4Text": {
-    "es": "Al principio solo llegas a la pradera. Cada acertijo que resuelves te abre un camino nuevo, primero el río y luego la otra orilla.",
-    "en": "At first you can only reach the meadow. Every riddle you solve opens a new path: first the river, then the far bank.",
-    "de": "Am Anfang kommst du nur bis zur Wiese. Jedes gelöste Rätsel öffnet dir einen neuen Weg: erst den Fluss, dann das andere Ufer.",
-    "fr": "Au début, tu n’atteins que la prairie. Chaque énigme résolue t’ouvre un nouveau chemin : d’abord la rivière, puis l’autre rive.",
-    "it": "All’inizio arrivi solo al prato. Ogni enigma che risolvi ti apre una strada nuova: prima il fiume, poi l’altra sponda.",
-    "pt": "No início só chegas ao prado. Cada enigma que resolves abre-te um caminho novo: primeiro o rio e depois a outra margem."
+    "es": "Hay sitios a los que no se llega andando. Cada acertijo que resuelves te acerca: con una barca, el río te lleva donde los pies no alcanzan.",
+    "en": "Some places can’t be reached on foot. Every riddle you solve brings you closer: with a boat, the river takes you where your feet can’t.",
+    "de": "Manche Orte erreicht man nicht zu Fuß. Jedes gelöste Rätsel bringt dich näher: Mit einem Boot trägt dich der Fluss dorthin, wo deine Füße nicht hinkommen.",
+    "fr": "Certains endroits ne s’atteignent pas à pied. Chaque énigme résolue t’en rapproche : avec une barque, la rivière t’emmène là où tes pieds n’arrivent pas.",
+    "it": "Ci sono posti dove non si arriva a piedi. Ogni enigma che risolvi ti avvicina: con una barca, il fiume ti porta dove i piedi non arrivano.",
+    "pt": "Há sítios aonde não se chega a pé. Cada enigma que resolves aproxima-te: com um barco, o rio leva-te aonde os pés não chegam."
   },
   "welcome5Title": {
     "es": "Relájate",
@@ -2430,5 +2430,93 @@
     "fr": "Passer",
     "it": "Salta",
     "pt": "Saltar"
+  },
+  "hintKnife": {
+    "es": ["Los humanos del merendero se han traído hasta navajita. Con lo que charlan, ni se enteran si les falta.", "Pa cortar setas hace falta navaja, y los humanos del merendero tienen una encima del mantel."],
+    "en": ["The humans at the picnic even brought a little knife. With all their chatter, they won’t notice if it goes missing.", "You need a knife to cut mushrooms, and the humans at the picnic have one lying on their blanket."],
+    "de": ["Die Menschen beim Picknick haben sogar ein Messerchen dabei. So viel wie die quatschen, merken die nicht, wenn es fehlt.", "Pilze schneidet man mit einem Messer, und die Menschen beim Picknick haben eins auf der Decke liegen."],
+    "fr": ["Les humains du pique-nique ont même apporté un petit couteau. Vu comme ils bavardent, ils ne verront pas s’il disparaît.", "Pour couper des champignons, il faut un couteau, et les humains du pique-nique en ont un sur leur nappe."],
+    "it": ["Gli umani del picnic si sono portati pure un coltellino. Con tutte le chiacchiere che fanno, non se ne accorgono se sparisce.", "Per tagliare i funghi serve un coltello, e gli umani del picnic ne hanno uno sulla tovaglia."],
+    "pt": ["Os humanos do piquenique até trouxeram um canivete. Com a conversa que têm, nem dão por falta dele.", "Para cortar cogumelos é preciso um canivete, e os humanos do piquenique têm um em cima da toalha."]
+  },
+  "hintLighter": {
+    "es": ["El humano del cigarrito deja el mechero donde le da. Y un mechero en el bosque vale oro.", "¿Fuego? El del cigarrito del merendero va sobrado."],
+    "en": ["The human with the cigarette leaves his lighter wherever. And a lighter in the woods is worth its weight in gold.", "Fire? The smoker at the picnic has plenty to spare."],
+    "de": ["Der Mensch mit der Zigarette lässt sein Feuerzeug einfach irgendwo liegen. Und ein Feuerzeug ist im Wald Gold wert.", "Feuer? Der Raucher beim Picknick hat mehr als genug."],
+    "fr": ["L’humain à la cigarette laisse traîner son briquet n’importe où. Et en forêt, un briquet vaut de l’or.", "Du feu ? Le fumeur du pique-nique en a à revendre."],
+    "it": ["L’umano con la sigaretta lascia l’accendino dove capita. E nel bosco un accendino vale oro.", "Fuoco? Quello della sigaretta al picnic ne ha da vendere."],
+    "pt": ["O humano do cigarro deixa o isqueiro em qualquer lado. E um isqueiro no bosque vale ouro.", "Lume? O do cigarro no piquenique tem de sobra."]
+  },
+  "hintMushrooms": {
+    "es": ["Las setas del bosque se cortan con navaja. Con cinco, sale una brocheta.", "Por entre los árboles salen setas que dan gusto. Junta cinco y tienes brocheta."],
+    "en": ["The forest mushrooms are cut with a knife. Five of them make a skewer.", "Lovely mushrooms grow between the trees. Gather five and you’ve got a skewer."],
+    "de": ["Die Waldpilze schneidet man mit dem Messer. Aus fünf wird ein Spieß.", "Zwischen den Bäumen wachsen prächtige Pilze. Sammle fünf, dann hast du einen Spieß."],
+    "fr": ["Les champignons de la forêt se coupent au couteau. Avec cinq, on fait une brochette.", "Entre les arbres poussent de beaux champignons. Ramasses-en cinq et tu as une brochette."],
+    "it": ["I funghi del bosco si tagliano col coltello. Con cinque ci esce uno spiedino.", "Tra gli alberi crescono funghi che è un piacere. Raccoglili cinque e hai uno spiedino."],
+    "pt": ["Os cogumelos do bosque cortam-se com canivete. Com cinco, sai uma espetada.", "Por entre as árvores nascem cogumelos que dá gosto. Junta cinco e tens espetada."]
+  },
+  "hintTwig": {
+    "es": ["Una brocheta sin palillo es una ensalada. Por el suelo del merendero hay palos buenos.", "Busca un palillo majo por el suelo, que sin él no hay brocheta."],
+    "en": ["A skewer without a stick is just a salad. There are good sticks on the ground around the picnic.", "Look for a nice stick on the ground: no stick, no skewer."],
+    "de": ["Ein Spieß ohne Stöckchen ist bloß ein Salat. Rund ums Picknick liegen gute Stöcke.", "Such dir ein schönes Stöckchen am Boden, ohne das gibt es keinen Spieß."],
+    "fr": ["Une brochette sans bâtonnet, c’est une salade. Autour du pique-nique, il y a de bons bâtons par terre.", "Cherche un joli bâtonnet par terre : sans lui, pas de brochette."],
+    "it": ["Uno spiedino senza stecco è un’insalata. Per terra attorno al picnic ci sono bastoncini buoni.", "Cerca un bel bastoncino per terra, che senza non c’è spiedino."],
+    "pt": ["Uma espetada sem pauzinho é uma salada. No chão do piquenique há bons paus.", "Procura um pauzinho jeitoso pelo chão, que sem ele não há espetada."]
+  },
+  "hintFire": {
+    "es": ["La barbacoa del claro está fría como un pie. Le falta una chispa.", "¿Has visto la barbacoa del claro? Con un mechero revive en un momento."],
+    "en": ["The barbecue in the clearing is stone cold. All it needs is a spark.", "Seen the barbecue in the clearing? A lighter would bring it back to life in no time."],
+    "de": ["Der Grill auf der Lichtung ist eiskalt. Ihm fehlt nur ein Funke.", "Schon den Grill auf der Lichtung gesehen? Mit einem Feuerzeug lebt der sofort wieder auf."],
+    "fr": ["Le barbecue de la clairière est froid comme la pierre. Il lui manque une étincelle.", "Tu as vu le barbecue de la clairière ? Avec un briquet, il reprend vie en un instant."],
+    "it": ["Il barbecue della radura è freddo come un sasso. Gli manca una scintilla.", "Hai visto il barbecue della radura? Con un accendino torna in vita in un attimo."],
+    "pt": ["O churrasco da clareira está frio como pedra. Falta-lhe uma faísca.", "Já viste o churrasco da clareira? Com um isqueiro ganha vida num instante."]
+  },
+  "hintSkewer": {
+    "es": ["Brasa, cinco setas, un palillo y navaja: en la barbacoa eso se convierte en brocheta.", "Con la barbacoa encendida ya puedes asar una brocheta. Huele desde aquí."],
+    "en": ["Embers, five mushrooms, a stick and a knife: on the barbecue, that turns into a skewer.", "With the barbecue lit, you can grill a skewer. I can smell it from here."],
+    "de": ["Glut, fünf Pilze, ein Stöckchen und ein Messer: Auf dem Grill wird daraus ein Spieß.", "Der Grill brennt, jetzt kannst du einen Spieß grillen. Das riecht man bis hier."],
+    "fr": ["Des braises, cinq champignons, un bâtonnet et un couteau : sur le barbecue, ça devient une brochette.", "Le barbecue est allumé, tu peux griller une brochette. Ça sent bon jusqu’ici."],
+    "it": ["Brace, cinque funghi, uno stecco e un coltello: sul barbecue diventa uno spiedino.", "Col barbecue acceso puoi arrostire uno spiedino. Si sente il profumino da qui."],
+    "pt": ["Brasa, cinco cogumelos, um pauzinho e um canivete: no churrasco, isso vira espetada.", "Com o churrasco aceso já podes assar uma espetada. Cheira daqui."]
+  },
+  "hintBrizno": {
+    "es": ["Brizno, el de la barriga de trueno, lleva todo el día oliendo el aire. Y dicen que guarda unos remos que ya no usa.", "Llévale la brocheta a Brizno, junto al merendero. Igual te suelta algo que rema."],
+    "en": ["Brizno, the one with the thunder belly, has been sniffing the air all day. They say he keeps a pair of oars he no longer uses.", "Take the skewer to Brizno, by the picnic. He might hand over something that rows."],
+    "de": ["Brizno, der mit dem Donnerbauch, schnuppert schon den ganzen Tag in der Luft. Man sagt, er hat Ruder, die er nicht mehr braucht.", "Bring den Spieß zu Brizno beim Picknick. Vielleicht rückt er dafür etwas raus, das rudert."],
+    "fr": ["Brizno, celui au ventre de tonnerre, renifle l’air depuis ce matin. On dit qu’il garde des rames dont il ne se sert plus.", "Apporte la brochette à Brizno, près du pique-nique. Il pourrait te donner quelque chose qui rame."],
+    "it": ["Brizno, quello dalla pancia di tuono, annusa l’aria da stamattina. Dicono che tenga dei remi che non usa più.", "Porta lo spiedino a Brizno, vicino al picnic. Magari ti molla qualcosa che rema."],
+    "pt": ["O Brizno, o da barriga de trovão, anda o dia todo a cheirar o ar. Dizem que guarda uns remos que já não usa.", "Leva a espetada ao Brizno, junto ao piquenique. Pode ser que te dê algo que rema."]
+  },
+  "hintBottle": {
+    "es": ["Remos ya tienes. Te falta algo que flote. ¿Has mirado junto a la papelera del merendero?", "Una botella gorda flota que da gusto. Y hay gente que las deja donde no toca."],
+    "en": ["You’ve got the oars. Now you need something that floats. Have you looked by the picnic bin?", "A fat bottle floats beautifully. And some folk leave them where they shouldn’t."],
+    "de": ["Ruder hast du schon. Jetzt fehlt etwas, das schwimmt. Hast du beim Mülleimer am Picknickplatz nachgesehen?", "Eine dicke Flasche schwimmt prima. Und manche lassen sie liegen, wo sie nicht hingehört."],
+    "fr": ["Des rames, tu en as. Il te manque quelque chose qui flotte. Tu as regardé près de la poubelle du pique-nique ?", "Une grosse bouteille, ça flotte à merveille. Et il y en a qui les laissent là où il ne faut pas."],
+    "it": ["I remi ce li hai. Ti manca qualcosa che galleggi. Hai guardato vicino al cestino del picnic?", "Una bottiglia bella grossa galleggia che è una meraviglia. E c’è chi le lascia dove non dovrebbe."],
+    "pt": ["Remos já tens. Falta-te algo que flutue. Já viste junto ao caixote do lixo do piquenique?", "Uma garrafa gorda flutua que é um regalo. E há quem as deixe onde não deve."]
+  },
+  "hintBoat": {
+    "es": ["Botella y remos: en el muelle se monta una barca. Lo pone en el cartel.", "Con la botella y los remos, baja al muelle, que allí se hacen las barcas."],
+    "en": ["Bottle and oars: down at the jetty, that makes a boat. It says so on the sign.", "With the bottle and the oars, head to the jetty: that’s where boats get built."],
+    "de": ["Flasche und Ruder: Am Steg wird daraus ein Boot. Steht so auf dem Schild.", "Mit Flasche und Rudern ab zum Steg, dort werden Boote gebaut."],
+    "fr": ["Une bouteille et des rames : au ponton, ça fait une barque. C’est écrit sur le panneau.", "Avec la bouteille et les rames, descends au ponton : c’est là qu’on fabrique les barques."],
+    "it": ["Bottiglia e remi: al pontile ci si fa una barca. Lo dice il cartello.", "Con la bottiglia e i remi scendi al pontile, che lì si fanno le barche."],
+    "pt": ["Garrafa e remos: no cais faz-se um barco. Está escrito na placa.", "Com a garrafa e os remos, desce ao cais, que é lá que se fazem os barcos."]
+  },
+  "hintHedge": {
+    "es": ["Río arriba, pasadas las raíces viejas, hay un seto de humanos al que solo se llega por agua. Y los gatos guardan ahí más de un tesoro.", "¿Has llegado en barca al Seto de los Bigotes? Dicen que allí hay cosas esperando a que alguien las rescate."],
+    "en": ["Upriver, past the old roots, there’s a human hedge you can only reach by water. And the cats there guard more than one treasure.", "Have you rowed to the Whisker Hedge yet? They say there are things there waiting to be rescued."],
+    "de": ["Flussaufwärts, hinter den alten Wurzeln, liegt eine Menschenhecke, die man nur übers Wasser erreicht. Und die Katzen dort bewachen mehr als einen Schatz.", "Bist du schon mit dem Boot zur Schnurrhaarhecke gefahren? Dort soll einiges darauf warten, gerettet zu werden."],
+    "fr": ["En remontant la rivière, après les vieilles racines, il y a une haie d’humains qu’on n’atteint que par l’eau. Et les chats y gardent plus d’un trésor.", "Tu es allé en barque jusqu’à la Haie des Moustaches ? On dit que des choses y attendent qu’on vienne les sauver."],
+    "it": ["Risalendo il fiume, oltre le radici vecchie, c’è una siepe di umani dove si arriva solo per acqua. E lì i gatti custodiscono più di un tesoro.", "Sei arrivato in barca alla Siepe dei Baffi? Dicono che lì ci siano cose che aspettano qualcuno che le salvi."],
+    "pt": ["Rio acima, depois das raízes velhas, há uma sebe de humanos onde só se chega pela água. E os gatos guardam lá mais do que um tesouro.", "Já foste de barco à Sebe dos Bigodes? Dizem que há lá coisas à espera de quem as salve."]
+  },
+  "hintFree": {
+    "es": ["Ya te mueves por el bosque como pez en el agua. En el claro de los sauces cada uno construye lo suyo: caminos, vallas, lo que se te ocurra.", "Cebolino, en su almacén, vende gravilla pa hacer caminos. Y el claro de los sauces está esperando los tuyos."],
+    "en": ["You get around the forest like a fish in water now. In the willow clearing everyone builds their own: paths, fences, whatever you fancy.", "Cebolino sells gravel for paths in his storehouse. And the willow clearing is waiting for yours."],
+    "de": ["Du bewegst dich im Wald inzwischen wie ein Fisch im Wasser. Auf der Weidenlichtung baut jeder, was er will: Wege, Zäune, was dir einfällt.", "Cebolino verkauft in seinem Lager Kies für Wege. Und die Weidenlichtung wartet schon auf deine."],
+    "fr": ["Tu te promènes dans la forêt comme un poisson dans l’eau. Dans la clairière des saules, chacun construit ce qu’il veut : chemins, clôtures, tout ce qui te passe par la tête.", "Cebolino vend du gravier pour les chemins dans son entrepôt. Et la clairière des saules attend les tiens."],
+    "it": ["Ormai ti muovi nel bosco come un pesce nell’acqua. Nella radura dei salici ognuno costruisce quel che vuole: sentieri, staccionate, quello che ti viene in mente.", "Cebolino vende ghiaia per i sentieri nel suo magazzino. E la radura dei salici aspetta i tuoi."],
+    "pt": ["Já andas pelo bosque como peixe na água. Na clareira dos salgueiros cada um constrói o que quer: caminhos, vedações, o que te der na cabeça.", "O Cebolino vende gravilha para caminhos no armazém. E a clareira dos salgueiros está à espera dos teus."]
   }
 }
