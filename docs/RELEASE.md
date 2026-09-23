@@ -4,6 +4,20 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: cruzar sin saltar al centro y empujar a buen paso — 23 septiembre 2026
+
+Artefacto `043b1a950bb587bab06d`, fuente `60bf9be` (worktree limpio), web `b285730a`. Anterior:
+`54d31a217190e798de17`. Al cruzar a pie, si enfrente no había suelo en ±32 px se aparecía en el
+centro de la banda (hasta 45 casillas de salto); ahora se prueba cada 8 px por toda la banda y el
+bosque vivo admite esa misma lista. Un roble de los sauces sacaba su caja por el borde de arriba y
+bajando de los rápidos pegado al oeste no se cruzaba nunca: bajado, y `check-world-polish` impide
+cajas que asomen por un borde que se cruza a pie. Empujar pasa del 42 % al 85 % del paso y
+empujando no se corre. En la web vuelven `communitySegmentWear` y `communityBombPhase`, gemelos PHP
+que la auditoría de ese día quitó como código muerto y que las pruebas de paridad del juego leen.
+Verificado: suite, river-core (con prueba negativa de la regla vieja), world-polish (negativa del
+roble), transiciones del servidor, las suites de escena y `check-release-live` (con Node 26: el
+`fetch` de Node 20.0 de esta máquina no conecta con el sitio, `curl` sí).
+
 ## Producción: ríos curvos y bosques que se ven — 23 septiembre 2026
 
 Artefacto `54d31a217190e798de17`, fuente `db015e8` (worktree limpio), web `e1539766`. Anterior:
