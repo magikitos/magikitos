@@ -76,9 +76,17 @@ the same neighbour on the same bench at the same time; only the steps between sp
 - **Activities**: strolls along `paths` and community paths, walking in pairs, chatting face to
   face, sitting, napping in the hammock, tending beds, warming up by the fire, sitting at tables,
   fishing from bank spots found along the water, and greeting you when you pass close.
-- **Art is optional**: a face with `sit`, `work` or `fish` sheets uses them; without them the game
-  draws a stand-in (seated over the seat, a bob with flicking leaves, a drawn rod). Crop growth
-  stages and emote icons switch on by name. What is missing is listed in `REQUIRED-ART.md`.
+- **Only what the face is drawn for**: sitting, digging and fishing are offered only to faces
+  with their `sit`, `work` or `fish` sheet (`REQUIRED-ART.md`); nobody fakes a pose. Each sheet is
+  its own package and streams in while the resident walks to the place (`artHints`, read by
+  `actor-art.js`), so a scene never pins eighteen of them. Anglers the Studio placed use the
+  sheet too when their face has one.
+- **Seats are sat ON**: `life.json` `seats` gives each seat its height and places; the resident
+  walks up to the front, then sits with the hip on the seat and is drawn just in front of it
+  (`depth`). The seat is measured on the drawn variant (`artSprite`).
+- **Growing beds and bubbles**: bed stages switch on the shared clock; the seven bubbles are the
+  `emotes` sheet, drawn by `life-draw.js` with a pixel stand-in only if the sheet is missing.
+- **The diary**: `forest-diary` offers `read` — residents stand at the table with the book bubble.
 - **Population**: `life.json` `population` adds ambient residents per scene, born on its paths
   and preferring faces with action sheets.
 - **Cost**: four ticks a second, one route search per world every quarter second of game time,

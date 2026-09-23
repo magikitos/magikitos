@@ -56,6 +56,9 @@ class ActorArt {
       if (!/-(sit|row|carried)-/.test(name)) offer(this.sprites.packageFor(base), distance);
       if (name !== base && this.sprites.owners.has(name))
         offer(this.sprites.packageFor(name), distance + 0.1);
+      // The sheet of what the resident is about to do (sit, dig, fish) streams in while it walks.
+      for (const hint of e.artHints || [])
+        if (this.sprites.owners.has(hint)) offer(this.sprites.packageFor(hint), distance + 0.2);
     }
     this.sprites.residency.focus = requests;
     // Work out the admissible set before scheduling. Repeatedly downloading far-away actors

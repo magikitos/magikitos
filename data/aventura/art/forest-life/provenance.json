@@ -1,0 +1,247 @@
+{
+    "generator": "built-in image_gen",
+    "referencePolicy": "existing in-repository Magikitos garden and resident identity references",
+    "postprocess": "offline alpha cleanup, explicit crops, area reduction at 2x, fixed registration; no runtime integration",
+    "sources": {
+        "emotes.png": {
+            "sha256": "2413d3155eabb107d6c0724900d18568bac5ad30ccbf1b0412c96a4d4dcb6cc3",
+            "size": [
+                2073,
+                758
+            ],
+            "bytes": 460805
+        },
+        "fish-splash.png": {
+            "sha256": "0255415519c463031333736b94bf5fc2c72ae7b10d05f0a19cae100911e5ab54",
+            "size": [
+                2172,
+                724
+            ],
+            "bytes": 398336
+        },
+        "forest-diary-panel.png": {
+            "sha256": "0dbffc4393605de5abcee3e2df99983cc9ce6a7b0afdd8263f89f42bf23524fb",
+            "size": [
+                1586,
+                992
+            ],
+            "bytes": 2006579
+        },
+        "forest-diary.png": {
+            "sha256": "9c235271bd79393f8462d28db794fd61335c9413c62e2785d20c7e696cc6412d",
+            "size": [
+                2172,
+                724
+            ],
+            "bytes": 934232
+        },
+        "garden-new.png": {
+            "sha256": "a9ca23a9bc0d95f0f696578f4bea6005f713f1958b7e9fd07b4f64700221bb1a",
+            "size": [
+                1536,
+                1024
+            ],
+            "bytes": 2986121
+        },
+        "garden-original-growth.png": {
+            "sha256": "704a923df07705d7e808f1d0a3a897f4d3f834243e2e85ee82f134464e732715",
+            "size": [
+                1024,
+                1536
+            ],
+            "bytes": 2683734
+        },
+        "person-100-fish.png": {
+            "sha256": "d8c7d876bf85870913b75bda87b20f6545362647b02dab486265651f8162b0e1",
+            "size": [
+                887,
+                1774
+            ],
+            "bytes": 959674
+        },
+        "person-100-sit.png": {
+            "sha256": "eb8aaaef76c1935c7275fd6f89f54353cf6f213605d5313780afd4fcea7395e9",
+            "size": [
+                1261,
+                1247
+            ],
+            "bytes": 1176660
+        },
+        "person-120-fish.png": {
+            "sha256": "396d9bf2e06784281f7c145fa0003a02ec3b2ec7c9b2bcead337910f80e5925c",
+            "size": [
+                887,
+                1774
+            ],
+            "bytes": 1024921
+        },
+        "person-120-sit.png": {
+            "sha256": "4fac7cd8977ed548fb1f3b00a2468ef23aac277906d4d6b179d77765603c0953",
+            "size": [
+                1265,
+                1244
+            ],
+            "bytes": 1332562
+        },
+        "person-135-sit.png": {
+            "sha256": "c8b805807227bfcc616dce1264c2da80878e1501b40d52a251f4d27ed89bf329",
+            "size": [
+                1263,
+                1246
+            ],
+            "bytes": 1309070
+        },
+        "person-142-fish.png": {
+            "sha256": "d22484a697b3378ecb4c626cb25b1384e52e3b37137608b7524a9e53c107f5b2",
+            "size": [
+                887,
+                1774
+            ],
+            "bytes": 1046839
+        },
+        "person-142-sit.png": {
+            "sha256": "23103c3b20e41924c690d080746fc5d3fd119a8639301f67818613e571fc27a6",
+            "size": [
+                1262,
+                1246
+            ],
+            "bytes": 1371622
+        },
+        "person-166-sit.png": {
+            "sha256": "06355b83640ab00deacd6e9b21ef9564116316989dab7bd27695bb84981369bd",
+            "size": [
+                1262,
+                1246
+            ],
+            "bytes": 1284540
+        },
+        "person-172-sit.png": {
+            "sha256": "431464db0b4e3b6f3431bde90c31311d37ff93578efee07f6b3da579882f06f6",
+            "size": [
+                1261,
+                1247
+            ],
+            "bytes": 1371119
+        },
+        "person-194-sit.png": {
+            "sha256": "71895508d81838e1e06e21fcddb62774a79f17b8be8e8f8e2ecc24b61dca5b6c",
+            "size": [
+                1269,
+                1240
+            ],
+            "bytes": 1191052
+        },
+        "person-198-fish.png": {
+            "sha256": "9b0b2f6b5e235608a0c7f36e04bebd2d48eeb63cee37f745210ca2143888e515",
+            "size": [
+                887,
+                1774
+            ],
+            "bytes": 999249
+        },
+        "person-198-sit.png": {
+            "sha256": "70681cfe3026b2ba7b2f33cc0927f6a413f44e5263290e5118d02399cb681336",
+            "size": [
+                1261,
+                1247
+            ],
+            "bytes": 1200099
+        },
+        "person-200-sit.png": {
+            "sha256": "cd2c0b7123f02271c1ddba97fd5d5dd86a3371c566421b407571ed7f70c43fe6",
+            "size": [
+                1265,
+                1243
+            ],
+            "bytes": 1116307
+        },
+        "person-201-sit.png": {
+            "sha256": "cee78cd77bb7366097035de285fec69d1a614d697ce9089a8da487d66956869d",
+            "size": [
+                1261,
+                1247
+            ],
+            "bytes": 1199830
+        },
+        "person-202-sit.png": {
+            "sha256": "fd2749eec28700590b205c28579ddbc7f43f19140a825383ec88c41c8c403fa1",
+            "size": [
+                1281,
+                1227
+            ],
+            "bytes": 1099944
+        },
+        "person-203-sit.png": {
+            "sha256": "669ccf505e863afeeaea9c7faa14ff7a73b3ebc869557d2f500a488e1db77961",
+            "size": [
+                1269,
+                1240
+            ],
+            "bytes": 1250430
+        },
+        "person-204-sit.png": {
+            "sha256": "306a78c3e0f4d92c09ba9e72180d3f2aa7c2c269b7c1ce328bcee200a3c6d221",
+            "size": [
+                1268,
+                1241
+            ],
+            "bytes": 1051555
+        },
+        "person-205-fish.png": {
+            "sha256": "288901e8a3698455ee99020ea35c907998d1d0972e03b6ae4688e592297397a8",
+            "size": [
+                887,
+                1774
+            ],
+            "bytes": 1084095
+        },
+        "person-205-sit.png": {
+            "sha256": "559d551c7fbed4b8c198434070c7bc6b634eac9f5572279f08f33347c84c4fec",
+            "size": [
+                1262,
+                1246
+            ],
+            "bytes": 1198226
+        },
+        "person-206-sit.png": {
+            "sha256": "f9bd68f254d2498ac93586633ac64cc83cbb6f86c0d80117eef0cd2e8b3056b3",
+            "size": [
+                1261,
+                1247
+            ],
+            "bytes": 1147680
+        },
+        "person-207-sit.png": {
+            "sha256": "73e52b7fb169faa82ffa7a1d617ed8aa1229ef66677b89798581049e8f5a4ced",
+            "size": [
+                1262,
+                1246
+            ],
+            "bytes": 1163299
+        },
+        "person-208-sit.png": {
+            "sha256": "7055b80b1d81ce428d4cb44468a073a7f0f5780462eda03a6ef5078813e4fb80",
+            "size": [
+                1293,
+                1217
+            ],
+            "bytes": 1208752
+        },
+        "person-209-fish.png": {
+            "sha256": "4af05e766032e9b3dc214fff7bc4bc6e2fde01b5e6db23f35a1ba703d7553678",
+            "size": [
+                887,
+                1774
+            ],
+            "bytes": 944565
+        },
+        "person-209-sit.png": {
+            "sha256": "6e72cb15220e9ca269cc0f56edf4134eef21912b186859d5a7d3a5597cb806ba",
+            "size": [
+                1290,
+                1219
+            ],
+            "bytes": 1130602
+        }
+    }
+}

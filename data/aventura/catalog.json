@@ -233,6 +233,11 @@
       "scene": "overworld",
       "radius": 7,
       "focus": "setometro-balance"
+    },
+    "diary": {
+      "scene": "overworld",
+      "radius": 6,
+      "focus": "forest-diary"
     }
   },
   "economy": {

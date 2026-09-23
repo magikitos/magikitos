@@ -35,7 +35,7 @@ function bubbleBox(c, x, y, w, h) {
   return { left, top };
 }
 
-const EMOTE = { talk: "emote-talk", note: "emote-note", sleep: "emote-zzz", catch: "emote-bang", hello: "emote-wave", love: "emote-heart" };
+const EMOTE = { talk: "emote-talk", note: "emote-note", sleep: "emote-zzz", catch: "emote-bang", hello: "emote-wave", love: "emote-heart", read: "emote-book" };
 /** The resident's bubble over its head (`top` is the head's y), if it has one right now. An
  *  `emotes` sheet (REQUIRED-ART.md §5) replaces the pixel stand-in icon by icon. */
 function drawBubble(c, e, top, now, time, sprites = null) {
@@ -94,16 +94,4 @@ function drawSplash(c, e, now, sprites = null) {
   }
 }
 
-/** Leaves and crumbs of soil flicking up from a bed somebody is tending by hand. */
-function drawTending(c, e, time) {
-  if (!e.tending) return;
-  const side = e.direction === "left" ? -1 : e.direction === "right" ? 1 : 0;
-  for (let i = 0; i < 3; i++) {
-    const t = (time * 1.3 + i / 3) % 1;
-    c.fillStyle = i % 2 ? "#6f9a4b" : "#7a5a3a";
-    c.globalAlpha = 1 - t;
-    c.fillRect(Math.round(e.x + side * 9 + (i - 1) * 3 + Math.sin(t * 6 + i) * 2), Math.round(e.y - 8 - t * 9), 1, 1);
-  }
-  c.globalAlpha = 1;
-}
-module.exports = { drawBubble, drawSplash, drawTending, glyph };
+module.exports = { drawBubble, drawSplash, glyph };

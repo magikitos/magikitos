@@ -13,7 +13,8 @@
     "nap": 6,
     "warm": 6,
     "socialize": 8,
-    "wander": 6
+    "wander": 6,
+    "read": 5
   },
   "kinds": {
     "bench": "sit",
@@ -38,7 +39,8 @@
     "garden-eggplants": "tend",
     "garden-onions": "tend",
     "garden-potatoes": "tend",
-    "garden-hammock-occupied": "nap"
+    "garden-hammock-occupied": "nap",
+    "forest-diary": "read"
   },
   "population": {
     "overworld": 5,
@@ -112,5 +114,227 @@
       ],
       "cycleMinutes": 170
     }
+  },
+  "seats": {
+    "bench": {
+      "height": 13,
+      "places": [
+        -9,
+        9
+      ]
+    },
+    "bench-log": {
+      "height": 12,
+      "places": [
+        -12,
+        12
+      ]
+    },
+    "stool-acorn": {
+      "height": 20
+    },
+    "stool-shell": {
+      "height": 20
+    },
+    "chair-bark": {
+      "height": 18
+    },
+    "armchair": {
+      "height": 17
+    }
+  },
+  "rodTips": {
+    "person-100-left-fish-0": [
+      -19.69,
+      -39.94
+    ],
+    "person-100-left-fish-1": [
+      -20.42,
+      -33.06
+    ],
+    "person-100-left-fish-2": [
+      -20.42,
+      -43.66
+    ],
+    "person-100-left-fish-3": [
+      -21.27,
+      -42.08
+    ],
+    "person-100-right-fish-0": [
+      20.7,
+      -39.26
+    ],
+    "person-100-right-fish-1": [
+      20.65,
+      -33.06
+    ],
+    "person-100-right-fish-2": [
+      19.01,
+      -42.98
+    ],
+    "person-100-right-fish-3": [
+      20.42,
+      -41.86
+    ],
+    "person-120-left-fish-0": [
+      -19.31,
+      -37.04
+    ],
+    "person-120-left-fish-1": [
+      -21.89,
+      -30.64
+    ],
+    "person-120-left-fish-2": [
+      -16.56,
+      -41.19
+    ],
+    "person-120-left-fish-3": [
+      -17.29,
+      -37.6
+    ],
+    "person-120-right-fish-0": [
+      19.64,
+      -36.93
+    ],
+    "person-120-right-fish-1": [
+      21.89,
+      -30.64
+    ],
+    "person-120-right-fish-2": [
+      16.61,
+      -41.19
+    ],
+    "person-120-right-fish-3": [
+      17.29,
+      -37.15
+    ],
+    "person-142-left-fish-0": [
+      -20.41,
+      -37.09
+    ],
+    "person-142-left-fish-1": [
+      -20.74,
+      -33.8
+    ],
+    "person-142-left-fish-2": [
+      -19.2,
+      -41.37
+    ],
+    "person-142-left-fish-3": [
+      -19.75,
+      -40.16
+    ],
+    "person-142-right-fish-0": [
+      20.41,
+      -36.98
+    ],
+    "person-142-right-fish-1": [
+      19.64,
+      -34.56
+    ],
+    "person-142-right-fish-2": [
+      20.57,
+      -41.81
+    ],
+    "person-142-right-fish-3": [
+      21.89,
+      -39.39
+    ],
+    "person-198-left-fish-0": [
+      -19.95,
+      -37.96
+    ],
+    "person-198-left-fish-1": [
+      -22,
+      -33.24
+    ],
+    "person-198-left-fish-2": [
+      -20.91,
+      -40.74
+    ],
+    "person-198-left-fish-3": [
+      -15.96,
+      -22.24
+    ],
+    "person-198-right-fish-0": [
+      19.76,
+      -37.96
+    ],
+    "person-198-right-fish-1": [
+      21.82,
+      -33.24
+    ],
+    "person-198-right-fish-2": [
+      20.79,
+      -40.74
+    ],
+    "person-198-right-fish-3": [
+      15.84,
+      -22.24
+    ],
+    "person-205-left-fish-0": [
+      -18.53,
+      -37.3
+    ],
+    "person-205-left-fish-1": [
+      -21.7,
+      -33
+    ],
+    "person-205-left-fish-2": [
+      -19.01,
+      -40.53
+    ],
+    "person-205-left-fish-3": [
+      -20.09,
+      -43.76
+    ],
+    "person-205-right-fish-0": [
+      18.71,
+      -37.18
+    ],
+    "person-205-right-fish-1": [
+      21.64,
+      -33.12
+    ],
+    "person-205-right-fish-2": [
+      18.89,
+      -40.65
+    ],
+    "person-205-right-fish-3": [
+      20.09,
+      -43.64
+    ],
+    "person-209-left-fish-0": [
+      -20.06,
+      -34.16
+    ],
+    "person-209-left-fish-1": [
+      -21.22,
+      -31.58
+    ],
+    "person-209-left-fish-2": [
+      -18.31,
+      -43.48
+    ],
+    "person-209-left-fish-3": [
+      -19.99,
+      -42.19
+    ],
+    "person-209-right-fish-0": [
+      19.99,
+      -34.04
+    ],
+    "person-209-right-fish-1": [
+      21.09,
+      -31.45
+    ],
+    "person-209-right-fish-2": [
+      18.31,
+      -43.35
+    ],
+    "person-209-right-fish-3": [
+      19.8,
+      -42.19
+    ]
   }
 }

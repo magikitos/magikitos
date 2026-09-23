@@ -1,6 +1,8 @@
 "use strict";
 const { TILE, hash, random, distance } = require("./geometry");
 const { facing } = require("./characters");
+const { artworkBounds } = require("./entity-art");
+const { frameName } = require("./elements");
 
 /**
  * ⛔ EL BOSQUE VIVE AUNQUE NO LE MIRES (22-sep-2026, decisión del dueño: «que se sienta más vivo…
@@ -94,36 +96,67 @@ class ResidentLife {
   /** Animation frames need more than four ticks a second: the work cycle and the nap sway. */
   animate() {
     const time = performance.now() / 1000;
-    for (const { world } of this.worlds())
+    for (const { world } of this.worlds()) {
+      // The anglers the Studio placed fish with their own sheet too, when their face has one.
+      for (const n of world.actors || [])
+        if (n.neighbor && !n.lifeFree && n.fishing?.target) this.angle(n, n.fishing.target, time, n.id.length);
       for (const n of this.residents(world)) {
         const life = n.life;
         if (!life?.arrived) continue;
-        if (life.kind === "tend" && life.work) {
+        if (life.kind === "tend") {
+          // Digging, four frames. Until the sheet has streamed in the resident stands at the bed.
           const frame = `person-${n.variant}-${CARDINAL[n.direction] || "down"}-work-${Math.floor(time * 5 + life.phase) % 4}`;
-          n.activitySprite = this.has(frame) ? frame : null;
-          // Without a work sheet for this face (most have none yet, see REQUIRED-ART.md) the
-          // same gesture is drawn: a small bob over the bed and leaves flicking up.
-          n.offset = n.activitySprite ? null : [0, Math.floor(time * 3 + life.phase) % 2];
-          n.tending = !n.activitySprite;
+          n.activitySprite = this.ready(frame) ? frame : null;
         }
-        if (life.kind === "fish") {
-          // An angler sheet, when this face has one (REQUIRED-ART.md §4): waiting, a tug, reeling
-          // and the fish held up right after a bite. Without it the rod is drawn by `drawFishing`.
-          const side = n.direction === "left" ? "left" : "right",
-            bite = n.splash ? this.now() - n.splash.at : Infinity,
-            // 0 waiting, 1 a tug now and then, 2 reeling in, 3 the fish held up.
-            step = bite < 700 ? 2 : bite < 1800 ? 3 : Math.floor(time * 0.7 + life.phase) % 5 === 0 ? 1 : 0,
-            frame = `person-${n.variant}-${side}-fish-${step}`;
-          n.activitySprite = this.has(frame) ? frame : null;
-          n.fishing = n.activitySprite ? { target: life.float, drawnRod: true } : { target: life.float };
+        if (life.kind === "fish") this.angle(n, life.float, time, life.phase);
+        if (life.kind === "sit" && life.seat) {
+          // Quiet or happy for the whole episode, with a blink every few seconds (`seating.js`
+          // does the same for the authored elders). Seated on the seat, drawn in front of it.
+          const blink = (time + life.phase * 3) % 4.2 < 0.16,
+            frame = `person-${n.variant}-${life.seat.direction}-sit-${life.mood + (blink ? 1 : 0)}`;
+          if (this.ready(frame)) {
+            if (!n.seated) Object.assign(n, { x: life.seat.x, y: life.seat.y, depth: life.seat.depth, seated: true });
+            n.direction = life.seat.direction;
+            n.activitySprite = frame;
+          }
         }
       }
+    }
+  }
+  /** 0 waiting, 1 a tug now and then, 2 reeling in, 3 the fish held up after a bite. The rod is in
+   *  the drawing; the line leaves from its tip (`life.json` `rodTips`) to the float. A face with no
+   *  angler sheet keeps the drawn rod over its standing body. */
+  angle(n, float, time, phase) {
+    const side = float[0] * TILE < n.x ? "left" : "right";
+    if (!this.has(`person-${n.variant}-${side}-fish-0`)) {
+      n.fishing = { target: float };
+      return;
+    }
+    n.artHints = [`person-${n.variant}-${side}-fish-0`];
+    const bite = n.splash ? this.now() - n.splash.at : Infinity,
+      step = bite < 700 ? 2 : bite < 1800 ? 3 : Math.floor(time * 0.7 + phase) % 5 === 0 ? 1 : 0,
+      frame = `person-${n.variant}-${side}-fish-${step}`;
+    const ready = this.ready(frame);
+    n.activitySprite = ready ? frame : null;
+    n.fishing = ready ? { target: float, drawnRod: true, tip: this.config.rodTips?.[frame] } : { target: float };
   }
   visible(n, view) {
     return n.x >= view.x && n.x <= view.x + view.w && n.y >= view.y && n.y <= view.y + view.h;
   }
   has(name) {
     return this.game.renderer.sprites.has(name);
+  }
+  /** Loaded, not just in the release: an activity frame that is still streaming draws nothing. */
+  ready(name) {
+    return Boolean(this.game.renderer.sprites.frame?.(name));
+  }
+  /** The first frame of each activity sheet a face HAS, so only those faces are offered it. */
+  canDo(n, kind) {
+    const v = n.variant;
+    if (kind === "sit") return this.has(`person-${v}-down-sit-0`);
+    if (kind === "tend") return this.has(`person-${v}-down-work-0`);
+    if (kind === "fish") return this.has(`person-${v}-left-fish-0`);
+    return true;
   }
   /** One resident, one tick: keep doing the episode's thing, or start the next episode. */
   live(world, n, now, view, current) {
@@ -142,7 +175,13 @@ class ResidentLife {
     if (life.kind === "follow") return this.during(world, n, now);
     if (!life.arrived) {
       if (n.path.length) return;
-      if (!life.target || distance(n, life.target) <= 10) return this.arrive(world, n, now);
+      // A route ends at the centre of the target's tile, up to half a diagonal away from the spot
+      // itself: within a tile, step onto the spot. With 10 px the resident searched the same
+      // route again forever and never arrived, standing in a knot beside the bench.
+      if (!life.target || distance(n, life.target) <= TILE) {
+        if (life.target) Object.assign(n, { x: life.target.x, y: life.target.y });
+        return this.arrive(world, n, now);
+      }
       if (!this.visible(n, view) && !this.visible(life.target, view)) {
         // Nobody is looking: be there already.
         Object.assign(n, { x: life.target.x, y: life.target.y });
@@ -170,9 +209,9 @@ class ResidentLife {
     add("stroll", this.paths(world).length ? weights.stroll : 0);
     add("walkTogether", this.paths(world).length ? weights.walkTogether : 0);
     add("chat", weights.chat);
-    for (const kind of ["sit", "tend", "nap", "warm", "socialize"])
-      add(kind, places.some((p) => p.kind === kind) ? weights[kind] : 0);
-    add("fish", this.fishingSpots(world).length ? weights.fish : 0);
+    for (const kind of ["sit", "tend", "nap", "warm", "socialize", "read"])
+      add(kind, this.canDo(n, kind) && places.some((p) => p.kind === kind) ? weights[kind] : 0);
+    add("fish", this.canDo(n, "fish") && this.fishingSpots(world).length ? weights.fish : 0);
     add("wander", weights.wander || 1);
     const plan = (life) => { n.life = { episode, rand, phase: rand() * 4, ...life }; };
     // Weighted choice, and if the chosen thing cannot happen right now (no free partner, every
@@ -202,6 +241,7 @@ class ResidentLife {
       if (!spot) return false;
       this.reserved.set(spot.key, n.id);
       plan({ kind, key: spot.key, target: spot, direction: spot.direction, float: spot.float });
+      n.artHints = [`person-${n.variant}-${spot.direction}-fish-0`];
       return true;
     }
     const free = [];
@@ -219,8 +259,12 @@ class ResidentLife {
       target: choice.spot,
       direction: choice.spot.direction,
       anchor: { x: choice.place.entity.x, y: choice.place.entity.y },
-      work: kind === "tend",
+      seat: choice.spot.seat,
+      mood: rand() < 0.5 ? 0 : 2,
     });
+    // The sheet streams in while the resident walks there (`actor-art.js` reads the hint).
+    if (kind === "sit") n.artHints = [`person-${n.variant}-${choice.spot.seat.direction}-sit-0`];
+    if (kind === "tend") n.artHints = [`person-${n.variant}-down-work-0`];
     return true;
   }
   /** Another free resident joins: walks alongside the leader, or meets it halfway to talk. */
@@ -267,17 +311,7 @@ class ResidentLife {
     life.since = now;
     n.path = [];
     if (life.direction) n.direction = life.direction;
-    if (life.kind === "sit") {
-      const sit = `person-${n.variant}-${n.direction}-sit-2`;
-      n.activitySprite = this.has(sit) ? sit : null;
-      // No seated sheet for this face yet: drawn on the seat facing out, legs hidden by it.
-      if (!n.activitySprite && life.anchor) {
-        n.seatAt = { x: life.anchor.x, y: life.anchor.y };
-        n.direction = "down";
-      }
-    }
     if (life.kind === "nap") n.napAt = { x: life.anchor.x, y: life.anchor.y };
-    if (life.kind === "fish") n.fishing = { target: life.float };
     if (life.kind === "warm" && life.anchor) n.direction = facing(life.anchor.x - n.x, life.anchor.y - n.y, n.direction);
   }
   /** What a settled resident does while its episode lasts: speech, catches, a stretch. */
@@ -324,6 +358,11 @@ class ResidentLife {
       }
       return;
     }
+    if (life.kind === "read") {
+      // Reading the forest diary: the little book over the head, most of the time.
+      if (!n.bubble && life.rand() < 0.08) n.bubble = { kind: "read", until: now + 2600 };
+      return;
+    }
     if (["sit", "warm", "socialize"].includes(life.kind) && !n.bubble && life.rand() < 0.012)
       n.bubble = { kind: life.kind === "warm" ? "note" : "talk", until: now + 1500 };
     if (life.kind === "wander") n.pause = Math.min(n.pause, 1);
@@ -353,12 +392,14 @@ class ResidentLife {
     const life = n.life;
     if (life?.key && this.reserved?.get(life.key) === n.id) this.reserved.delete(life.key);
     if (life?.partner?.life?.partner === n) life.partner.life = null;
+    // Standing up puts the feet back on the ground in front of the seat, where they sat down from.
+    if (n.seated && life?.target) Object.assign(n, { x: life.target.x, y: life.target.y });
     n.life = null;
     n.activitySprite = null;
+    n.artHints = null;
     n.napAt = null;
-    n.seatAt = null;
-    n.offset = null;
-    n.tending = false;
+    n.seated = false;
+    n.depth = undefined;
     if (life?.kind === "fish") n.fishing = null;
     n.bubble = null;
     n.splash = null;
@@ -390,8 +431,13 @@ class ResidentLife {
     for (const entity of [...world.entities, ...world.props]) {
       const kind = kinds[entity.sprite] || (entity.slots?.length && entity.capabilities?.find((c) => ["sit", "socialize", "tend", "garden"].includes(c)));
       if (!kind) continue;
-      const spots = (entity.slots?.length ? entity.slots.map(([x, y, direction]) => ({ x: entity.x + x * TILE, y: entity.y + y * TILE, direction })) : spotsFor(entity, kind))
-        .filter((s) => world.canStand(s.x, s.y))
+      // The seat is measured on what is DRAWN: a bench family can be drawn as its log variant.
+      const seat = kind === "sit" ? this.config.seats?.[frameName(entity)] ?? this.config.seats?.[entity.sprite] : null;
+      // Sitting needs the seat's geometry: a bench without it is not sat on, not faked.
+      if (kind === "sit" && !seat) continue;
+      const spots = (seat ? spotsFor(entity, kind, seat) : entity.slots?.length ? entity.slots.map(([x, y, direction]) => ({ x: entity.x + x * TILE, y: entity.y + y * TILE, direction })) : spotsFor(entity, kind))
+        .map((s) => settle(world, s))
+        .filter(Boolean)
         .map((s, i) => ({ ...s, key: world.data.id + ":" + entity.id + ":" + i }));
       if (spots.length) places.push({ entity, kind: kind === "garden" ? "tend" : kind, spots });
     }
@@ -402,18 +448,28 @@ class ResidentLife {
   fishingSpots(world) {
     if (this.banks.has(world)) return this.banks.get(world);
     const spots = [],
-      dirs = [["up", 0, -1], ["down", 0, 1], ["left", -1, 0], ["right", 1, 0]];
+      // The angler sheets face left or right, so do the banks they fish from.
+      dirs = [["left", -1, 0], ["right", 1, 0]];
     if ((world.data.rivers || []).length || (world.data.waters || []).length)
       for (let ty = 4; ty < world.height - 4; ty += 3)
         for (let tx = 4; tx < world.width - 4; tx += 3) {
           const x = (tx + 0.5) * TILE, y = (ty + 0.5) * TILE;
-          if (world.waterAt(tx + 0.5, ty + 0.5) || !world.canStand(x, y)) continue;
+          if (world.waterAt(tx + 0.5, ty + 0.5) || !reachable(world, { x, y })) continue;
           for (const [direction, dx, dy] of dirs)
             if (world.waterAt(tx + 0.5 + dx * 2.5, ty + 0.5 + dy * 2.5) && world.waterAt(tx + 0.5 + dx * 3.5, ty + 0.5 + dy * 3.5)) {
               spots.push({ x, y, direction, float: [tx + 0.5 + dx * 3, ty + 0.5 + dy * 3], key: world.data.id + ":fish:" + tx + ":" + ty });
               break;
             }
         }
+    // Not behind a tree: an angler under a canopy is a fishing line coming out of the leaves.
+    const drawnInFront = (spot) => [...world.entities, ...world.props].some((e) => {
+      if (!(e.y > spot.y) || !e.sprite) return false;
+      const f = this.game.renderer.sprites.frame?.(frameName(e));
+      if (!f?.anchor) return false;
+      const b = artworkBounds(e, f);
+      return spot.x > b.x - 12 && spot.x < b.x + b.w + 12 && spot.y - 40 < b.y + b.h && spot.y > b.y;
+    });
+    for (let i = spots.length - 1; i >= 0; i--) if (drawnInFront(spots[i])) spots.splice(i, 1);
     // A handful spread over the bank, the same ones on every screen.
     const rand = random(hash(world.data.id + ":banks")),
       chosen = [];
@@ -426,6 +482,7 @@ class ResidentLife {
     return this.residents(this.game.world).map((n) => ({
       id: n.id, x: n.x, y: n.y, kind: n.life?.kind || null, arrived: Boolean(n.life?.arrived),
       bubble: n.bubble?.kind || null, sprite: n.activitySprite || null, nap: Boolean(n.napAt), fishing: Boolean(n.fishing),
+      seated: Boolean(n.seated), variant: n.variant,
     }));
   }
   /** Sprites a scene needs for the life it can show (only those that exist in this release). */
@@ -435,6 +492,10 @@ class ResidentLife {
       const crop = this.config.crops?.[entity.sprite];
       if (crop) for (const stage of crop.stages) if (this.has(stage)) names.push(stage);
     }
+    // Bubbles and the splash are two small sheets; the seated, digging and fishing sheets are
+    // per face and stream in with the resident (`artHints`), so a scene never pins eighteen.
+    if (this.residents(world).length)
+      for (const name of ["emote-talk", "fish-splash-0"]) if (this.has(name)) names.push(name);
     return names;
   }
   /** A vegetable bed's growth stage, on the shared clock: sown, growing, ready, then again. */
@@ -446,9 +507,30 @@ class ResidentLife {
       this.cropReady.set(entity.sprite, crop.stages.every((stage) => this.has(stage)));
     if (!this.cropReady.get(entity.sprite)) return null;
     const cycle = crop.cycleMinutes * 60000,
-      at = ((this.now() + (hash(entity.id) % cycle)) % cycle) / cycle;
-    return crop.stages[Math.min(crop.stages.length - 1, Math.floor(at * crop.stages.length))];
+      at = ((this.now() + (hash(entity.id) % cycle)) % cycle) / cycle,
+      stage = crop.stages[Math.min(crop.stages.length - 1, Math.floor(at * crop.stages.length))];
+    return this.ready(stage) ? stage : null;
   }
+}
+
+/** A spot a route can end on: standable itself AND on a walkable tile, which is what the search
+ *  asks first. A bench's front can be standable while its tile is not, and then every search for
+ *  it failed at once and the resident gave the bench up, every time. */
+function reachable(world, s) {
+  return world.canStand(s.x, s.y) && (!world.cellCanStand || world.cellCanStand(Math.floor(s.x / TILE), Math.floor(s.y / TILE)));
+}
+
+/** The spot itself if a route can end there, else the centre of the nearest tile that can (the
+ *  one below first, then the sides), else nothing. Only where the resident STANDS moves; a seat
+ *  keeps its own place on the furniture. */
+function settle(world, s) {
+  if (reachable(world, s)) return s;
+  const tx = Math.floor(s.x / TILE), ty = Math.floor(s.y / TILE);
+  for (const [dx, dy] of [[0, 0], [0, 1], [-1, 0], [1, 0], [-1, 1], [1, 1], [0, -1]]) {
+    const p = { ...s, x: (tx + dx + 0.5) * TILE, y: (ty + dy + 0.5) * TILE };
+    if (reachable(world, p)) return p;
+  }
+  return null;
 }
 
 /** The options with a point within route reach of the resident, or all of them if none is: a
@@ -459,7 +541,7 @@ function near(n, options, points) {
 }
 
 /** Where a resident stands to use an element of this kind, from the element's body. */
-function spotsFor(entity, kind) {
+function spotsFor(entity, kind, seat = null) {
   const scale = entity.scale ?? 1,
     [sx, sy, sw, sh] = (entity.solid || [-1, -0.5, 2, 0.8]).map((v) => v * scale),
     left = entity.x + sx * TILE,
@@ -469,6 +551,16 @@ function spotsFor(entity, kind) {
     cx = (left + right) / 2,
     cy = (top + bottom) / 2;
   const gap = 0.7 * TILE;
+  if (kind === "sit" && seat) {
+    // One place per seat on the furniture: walked up to from the front, then sat on, the hip on
+    // the seat (the sheets register it 12 units above the feet) and drawn just in front of it.
+    const direction = seat.direction || "down";
+    return (seat.places || [0]).map((px) => {
+      const x = entity.x + px * scale;
+      return { x, y: bottom + gap, direction: "up",
+        seat: { x, y: entity.y - seat.height * scale + 12, depth: entity.y + 0.5, direction } };
+    });
+  }
   if (kind === "sit" || kind === "nap") return [{ x: cx, y: bottom + gap, direction: kind === "nap" ? "down" : "up" }];
   if (kind === "warm") {
     const radius = Math.max(sw, sh) * TILE * 0.5 + 1.6 * TILE;
@@ -484,7 +576,7 @@ function spotsFor(entity, kind) {
     { x: right + gap, y: cy, direction: "left" },
     { x: cx, y: top - gap, direction: "down" },
   ];
-  return kind === "socialize" ? sides.slice(0, 3) : sides;
+  return kind === "socialize" || kind === "read" ? sides.slice(0, 3) : sides;
 }
 
 module.exports = { ResidentLife, spotsFor };

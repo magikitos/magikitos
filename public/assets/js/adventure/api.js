@@ -13,6 +13,8 @@ const METHODS = Object.freeze({
   recipes: "GET",
   recipe: "GET",
   "recipe-publish": "POST",
+  diary: "GET",
+  "diary-write": "POST",
   setometro: "GET",
   "setometro-ranking": "GET",
   "setometro-vote": "POST",

@@ -1,0 +1,404 @@
+{
+  "frames": {
+    "person-201-down-sit-0": {
+      "source": "data/aventura/art/forest-life/sheets/person-201-sit.png",
+      "rect": [
+        0,
+        0,
+        96,
+        96
+      ],
+      "size": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        46
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "person-201-down-sit-1": {
+      "source": "data/aventura/art/forest-life/sheets/person-201-sit.png",
+      "rect": [
+        0,
+        96,
+        96,
+        96
+      ],
+      "size": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        46
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "person-201-down-sit-2": {
+      "source": "data/aventura/art/forest-life/sheets/person-201-sit.png",
+      "rect": [
+        0,
+        192,
+        96,
+        96
+      ],
+      "size": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        46
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "person-201-down-sit-3": {
+      "source": "data/aventura/art/forest-life/sheets/person-201-sit.png",
+      "rect": [
+        0,
+        288,
+        96,
+        96
+      ],
+      "size": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        46
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "person-201-left-sit-0": {
+      "source": "data/aventura/art/forest-life/sheets/person-201-sit.png",
+      "rect": [
+        288,
+        0,
+        96,
+        96
+      ],
+      "size": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        46
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "person-201-left-sit-1": {
+      "source": "data/aventura/art/forest-life/sheets/person-201-sit.png",
+      "rect": [
+        288,
+        96,
+        96,
+        96
+      ],
+      "size": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        46
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "person-201-left-sit-2": {
+      "source": "data/aventura/art/forest-life/sheets/person-201-sit.png",
+      "rect": [
+        288,
+        192,
+        96,
+        96
+      ],
+      "size": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        46
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "person-201-left-sit-3": {
+      "source": "data/aventura/art/forest-life/sheets/person-201-sit.png",
+      "rect": [
+        288,
+        288,
+        96,
+        96
+      ],
+      "size": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        46
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "person-201-right-sit-0": {
+      "source": "data/aventura/art/forest-life/sheets/person-201-sit.png",
+      "rect": [
+        96,
+        0,
+        96,
+        96
+      ],
+      "size": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        46
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "person-201-right-sit-1": {
+      "source": "data/aventura/art/forest-life/sheets/person-201-sit.png",
+      "rect": [
+        96,
+        96,
+        96,
+        96
+      ],
+      "size": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        46
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "person-201-right-sit-2": {
+      "source": "data/aventura/art/forest-life/sheets/person-201-sit.png",
+      "rect": [
+        96,
+        192,
+        96,
+        96
+      ],
+      "size": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        46
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "person-201-right-sit-3": {
+      "source": "data/aventura/art/forest-life/sheets/person-201-sit.png",
+      "rect": [
+        96,
+        288,
+        96,
+        96
+      ],
+      "size": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        46
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "person-201-up-sit-0": {
+      "source": "data/aventura/art/forest-life/sheets/person-201-sit.png",
+      "rect": [
+        192,
+        0,
+        96,
+        96
+      ],
+      "size": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        46
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "person-201-up-sit-1": {
+      "source": "data/aventura/art/forest-life/sheets/person-201-sit.png",
+      "rect": [
+        192,
+        96,
+        96,
+        96
+      ],
+      "size": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        46
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "person-201-up-sit-2": {
+      "source": "data/aventura/art/forest-life/sheets/person-201-sit.png",
+      "rect": [
+        192,
+        192,
+        96,
+        96
+      ],
+      "size": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        46
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "person-201-up-sit-3": {
+      "source": "data/aventura/art/forest-life/sheets/person-201-sit.png",
+      "rect": [
+        192,
+        288,
+        96,
+        96
+      ],
+      "size": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        46
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    }
+  }
+}

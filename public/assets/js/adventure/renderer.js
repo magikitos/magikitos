@@ -20,7 +20,7 @@ const { drawSeat } = require("./seating");
 const { drawAmbientActor } = require("./ambient-actors");
 const { drawVegetation } = require("./vegetation");
 const { drawKeepsakes } = require("./keepsakes");
-const { drawBubble, drawSplash, drawTending } = require("./life-draw");
+const { drawBubble, drawSplash } = require("./life-draw");
 /**
  * The canvas is never denser than 2 device pixels per CSS pixel. It is pixel art shown with
  * `image-rendering: pixelated`, so on a 3× phone the compositor keeps every world pixel an
@@ -30,6 +30,16 @@ const { drawBubble, drawSplash, drawTending } = require("./life-draw");
 const MAX_CANVAS_DPR = 2;
 /** La porción del aro del mando que marca la dirección: un octavo de vuelta. */
 const STICK_SLICE = Math.PI / 4;
+/** An object that moves now and then, not all the time: the diary turns a page every `every`
+ *  seconds, `step` seconds a frame, and rests on its own sprite in between. The phase comes from
+ *  the id, so two tables never turn their pages together. */
+function flipbookFrame(entity, now) {
+  const book = entity.flipbook;
+  if (!book || !Number.isFinite(now)) return null;
+  const phase = hash(entity.id) % 1000;
+  const at = ((now / 1000 + phase) % book.every) / book.step;
+  return at < book.frames.length ? book.frames[Math.floor(at)] : null;
+}
 class Renderer {
   constructor(canvas, viewport) {
     this.canvas = canvas;
@@ -85,6 +95,7 @@ class Renderer {
     return (
       (entity.visuals || []).find((v) => matches(state, v.when))?.sprite ||
       this.life?.cropFrame(entity) ||
+      flipbookFrame(entity, this.epochNow) ||
       frameName(entity)
     );
   }
@@ -405,7 +416,7 @@ class Renderer {
       f = this.sprites.frame(name);
     if (!f) return;
     drawSeat(c, this.sprites, e);
-    if ((e.player && !game.river?.active) || (e.neighbor && !e.napAt && !e.seatAt)) {
+    if ((e.player && !game.river?.active) || (e.neighbor && !e.napAt && !e.seated)) {
       c.fillStyle = "rgba(31,46,33,.22)";
       c.beginPath();
       c.ellipse(e.x, e.y + 1, 8, 3, 0, 0, 7);
@@ -416,10 +427,6 @@ class Renderer {
       // little. A quarter turn keeps every pixel square, so the art stays crisp.
       const sway = Math.sin(time * 1.4) * 1.5;
       drawArtwork(c, this.sprites, { ...e, x: e.napAt.x + 12 + sway, y: e.napAt.y - 22, rotation: -90 }, name);
-    } else if (e.seatAt) {
-      // Sitting without a seated sheet: the body on the seat, its lower third behind the seat.
-      drawArtwork(c, this.sprites, { ...e, x: e.seatAt.x, y: e.seatAt.y + 1 }, name,
-        { x: -f.anchor[0], y: -f.anchor[1], w: f.w, h: Math.round(f.h * 0.72) });
     } else if (
       !drawAmbientActor(c, this.sprites, e, name, time) &&
       !drawVegetation(c, this.sprites, e, name, time)
@@ -428,12 +435,11 @@ class Renderer {
     drawAttachments(c, this.sprites, e);
     if (e.player) game.self.drawStream(c);
     drawFishing(c, e, time);
-    drawTending(c, e, time);
     if (e.neighbor && (e.bubble || e.splash)) {
       const now = game.life.now();
       drawSplash(c, e, now, this.sprites);
-      const at = e.napAt ? { ...e, x: e.napAt.x - 6 } : e.seatAt ? { ...e, x: e.seatAt.x } : e;
-      drawBubble(c, at, e.napAt ? e.napAt.y - 30 : e.seatAt ? e.seatAt.y - f.anchor[1] : artworkBounds(e, f).y, now, time, this.sprites);
+      const at = e.napAt ? { ...e, x: e.napAt.x - 6 } : e;
+      drawBubble(c, at, e.napAt ? e.napAt.y - 30 : artworkBounds(e, f).y, now, time, this.sprites);
     }
     if (e.cat) game.cats.drawWarning(c, e);
     if (e.lightRadius) {

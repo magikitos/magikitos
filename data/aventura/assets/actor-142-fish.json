@@ -1,0 +1,204 @@
+{
+  "frames": {
+    "person-142-left-fish-0": {
+      "source": "data/aventura/art/forest-life/sheets/person-142-fish.png",
+      "rect": [
+        0,
+        0,
+        96,
+        96
+      ],
+      "size": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        46
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "person-142-left-fish-1": {
+      "source": "data/aventura/art/forest-life/sheets/person-142-fish.png",
+      "rect": [
+        0,
+        96,
+        96,
+        96
+      ],
+      "size": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        46
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "person-142-left-fish-2": {
+      "source": "data/aventura/art/forest-life/sheets/person-142-fish.png",
+      "rect": [
+        0,
+        192,
+        96,
+        96
+      ],
+      "size": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        46
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "person-142-left-fish-3": {
+      "source": "data/aventura/art/forest-life/sheets/person-142-fish.png",
+      "rect": [
+        0,
+        288,
+        96,
+        96
+      ],
+      "size": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        46
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "person-142-right-fish-0": {
+      "source": "data/aventura/art/forest-life/sheets/person-142-fish.png",
+      "rect": [
+        96,
+        0,
+        96,
+        96
+      ],
+      "size": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        46
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "person-142-right-fish-1": {
+      "source": "data/aventura/art/forest-life/sheets/person-142-fish.png",
+      "rect": [
+        96,
+        96,
+        96,
+        96
+      ],
+      "size": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        46
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "person-142-right-fish-2": {
+      "source": "data/aventura/art/forest-life/sheets/person-142-fish.png",
+      "rect": [
+        96,
+        192,
+        96,
+        96
+      ],
+      "size": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        46
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "person-142-right-fish-3": {
+      "source": "data/aventura/art/forest-life/sheets/person-142-fish.png",
+      "rect": [
+        96,
+        288,
+        96,
+        96
+      ],
+      "size": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        46
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    }
+  }
+}

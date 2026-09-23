@@ -331,6 +331,7 @@ class SceneDirector {
       if (entity.sprite && entity.sprite !== "doorway")
         addStatic(frameName(entity));
       for (const visual of entity.visuals || []) addStatic(visual.sprite);
+      for (const frame of entity.flipbook?.frames || []) addStatic(frame);
       if (typeof entity.portrait === "string") addStatic(entity.portrait);
     }
     // Las frases de la pantalla van con sus sprites, no con el motor: se piden a la vez y la

@@ -274,6 +274,84 @@
       ]
     },
     {
+      "id": "meadow-garden-tomatoes",
+      "sprite": "garden-tomatoes",
+      "x": 156.5,
+      "y": 55.5,
+      "rules": [],
+      "solid": [
+        -1.8,
+        -1.25,
+        3.6,
+        1.6
+      ]
+    },
+    {
+      "id": "meadow-garden-eggplants",
+      "sprite": "garden-eggplants",
+      "x": 163,
+      "y": 55.5,
+      "rules": [],
+      "solid": [
+        -1.8,
+        -1.25,
+        3.6,
+        1.6
+      ]
+    },
+    {
+      "id": "meadow-garden-onions",
+      "sprite": "garden-onions",
+      "x": 156.5,
+      "y": 59.5,
+      "rules": [],
+      "solid": [
+        -1.8,
+        -1.25,
+        3.6,
+        1.6
+      ]
+    },
+    {
+      "id": "meadow-garden-potatoes",
+      "sprite": "garden-potatoes",
+      "x": 163,
+      "y": 59.5,
+      "rules": [],
+      "solid": [
+        -1.8,
+        -1.25,
+        3.6,
+        1.6
+      ]
+    },
+    {
+      "id": "meadow-garden-fence-far-west",
+      "sprite": "garden-fence",
+      "x": 156,
+      "y": 52,
+      "rules": [],
+      "solid": [
+        -2,
+        -0.3,
+        4,
+        0.5
+      ]
+    },
+    {
+      "id": "meadow-garden-fence-far-east",
+      "sprite": "garden-fence",
+      "x": 162.5,
+      "y": 52,
+      "rules": [],
+      "solid": [
+        -2,
+        -0.3,
+        4,
+        0.5
+      ]
+    },
+    {
       "id": "meadow-garden-fence-west",
       "sprite": "garden-fence",
       "x": 143,
@@ -424,8 +502,8 @@
     {
       "id": "meadow-fern-east",
       "sprite": "giant-fern",
-      "x": 167,
-      "y": 63.5,
+      "x": 171,
+      "y": 67,
       "rules": [],
       "artVariant": "auto",
       "scale": 0.75
@@ -466,8 +544,8 @@
     {
       "id": "meadow-leaf-flowers",
       "sprite": "flowers-daisy-gold",
-      "x": 157,
-      "y": 60.5,
+      "x": 159.5,
+      "y": 64.5,
       "rules": []
     },
     {
@@ -547,18 +625,18 @@
     },
     {
       "id": "river-willows-angler",
-      "x": 130.64,
-      "y": 51,
+      "x": 124.5,
+      "y": 65,
       "radius": 0,
       "dialogue": "riverAngler",
       "lookAt": [
-        123.64,
-        51
+        120,
+        65
       ],
       "fishing": {
         "target": [
-          123.64,
-          51
+          120,
+          65
         ]
       },
       "bump": "riverBump"

@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Magikitos World JSON API",
-    "version": "2026-09-22",
+    "version": "2026-09-23",
     "description": "Public content, shared website identity, private progress and a server-authoritative shared forest. JSON only; backend implementation stays in the private website repository."
   },
   "servers": [
@@ -3565,19 +3565,35 @@
             "name": "mode",
             "in": "query",
             "description": "Ranking pages by default; discover returns six Content Pulse selections with exploration slots.",
-            "schema": { "type": "string", "enum": ["ranking", "discover"], "default": "ranking" }
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ranking",
+                "discover"
+              ],
+              "default": "ranking"
+            }
           },
           {
             "name": "round",
             "in": "query",
             "description": "Discovery round; ignored by ranking.",
-            "schema": { "type": "integer", "minimum": 1, "maximum": 10000, "default": 1 }
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10000,
+              "default": 1
+            }
           },
           {
             "name": "exclude",
             "in": "query",
             "description": "Up to 500 previously seen IDs, comma-separated. Used by discovery only.",
-            "schema": { "type": "string", "maxLength": 6000, "pattern": "^$|^[0-9]+(,[0-9]+)*$" }
+            "schema": {
+              "type": "string",
+              "maxLength": 6000,
+              "pattern": "^$|^[0-9]+(,[0-9]+)*$"
+            }
           },
           {
             "name": "lang",
@@ -3958,6 +3974,158 @@
           }
         },
         "description": "At most 5 new recipes per identity per day; one idempotent operationId per publication. Replaying identical input returns the original recipe, altered input is rejected. No AI or transcription. Multipart: recipe is the JSON serialization of RecipePublication; optional audio <=12 MiB, 2..600 seconds. Audio is format-normalized for playback. Culinary quantity/unit does not multiply the separate catalogue inventory requirement."
+      }
+    },
+    "/diary": {
+      "get": {
+        "operationId": "worldDiary",
+        "summary": "The Forest Diary of one language: published pages, newest first; whether the viewer has a real account and has already written today",
+        "parameters": [
+          {
+            "name": "before",
+            "in": "query",
+            "description": "Cursor: the last page id seen; omitted for the newest pages.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiaryList"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/diary-write": {
+      "post": {
+        "operationId": "worldDiaryWrite",
+        "summary": "One page a day per real account (email). Judged before it is stored as published; a page that is not published does not spend the day. The same operationId returns the same outcome.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DiaryWrite"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiaryWritten"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Validated JSON response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameError"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
@@ -6353,6 +6521,180 @@
           },
           "replayed": {
             "type": "boolean"
+          }
+        }
+      },
+      "DiaryPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "text",
+          "signature",
+          "day",
+          "mine"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "signature": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The visible name when it was written; null when the account was deleted."
+          },
+          "day": {
+            "type": "string",
+            "format": "date"
+          },
+          "mine": {
+            "type": "boolean"
+          }
+        }
+      },
+      "DiaryList": {
+        "type": "object",
+        "required": [
+          "ok",
+          "pages",
+          "next",
+          "me",
+          "limits",
+          "labels"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "pages": {
+            "type": "array",
+            "maxItems": 20,
+            "items": {
+              "$ref": "#/components/schemas/DiaryPage"
+            }
+          },
+          "next": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "me": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "account",
+              "wroteToday"
+            ],
+            "properties": {
+              "account": {
+                "type": "boolean"
+              },
+              "wroteToday": {
+                "type": "boolean"
+              }
+            }
+          },
+          "limits": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "minWords",
+              "maxWords",
+              "maxChars"
+            ],
+            "properties": {
+              "minWords": {
+                "type": "integer"
+              },
+              "maxWords": {
+                "type": "integer"
+              },
+              "maxChars": {
+                "type": "integer"
+              }
+            }
+          },
+          "labels": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "DiaryWrite": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "operationId",
+          "lang",
+          "text"
+        ],
+        "properties": {
+          "operationId": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{32}$"
+          },
+          "lang": {
+            "type": "string",
+            "enum": [
+              "es",
+              "en",
+              "de",
+              "fr",
+              "it",
+              "pt"
+            ]
+          },
+          "text": {
+            "type": "string",
+            "description": "10 to 400 words, at most 4000 characters."
+          },
+          "turnstile_token": {
+            "type": "string",
+            "maxLength": 2048
+          }
+        }
+      },
+      "DiaryWritten": {
+        "type": "object",
+        "required": [
+          "ok",
+          "status"
+        ],
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "published",
+              "rejected",
+              "care"
+            ]
+          },
+          "page": {
+            "$ref": "#/components/schemas/DiaryPage"
+          },
+          "reason": {
+            "type": "string",
+            "enum": [
+              "datos_personales",
+              "terceros",
+              "no_es_una_pagina",
+              "odio",
+              "sexual",
+              "instrucciones"
+            ]
           }
         }
       }

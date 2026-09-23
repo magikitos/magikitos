@@ -170,6 +170,51 @@ function adventureIndexedImage(GdImage $source): GdImage
     return $palette;
 }
 
+/** Every read below is `imagecolorat() >> 24`, which is the ALPHA only on a truecolor image: on an
+ *  indexed PNG it returns the palette index, so a transparent corner read as opaque and a sheet
+ *  saved with a palette was refused. Convert once on open, whatever the file was saved as. */
+function adventureOpenSource(string $file): GdImage
+{
+    $image = imagecreatefrompng($file);
+    if ($image === false) throw new RuntimeException('Unreadable sprite source: ' . $file);
+    if (!imageistruecolor($image)) imagepalettetotruecolor($image);
+    imagealphablending($image, false);
+    imagesavealpha($image, true);
+    return $image;
+}
+
+/**
+ * A soft-edged package whose pixels already use 256 colours or fewer (a sheet quantised once at
+ * the source, like the diary's panel) is stored with an EXACT palette: the same pixels, alpha
+ * included, at about half the bytes. More colours than that and it stays truecolor — this never
+ * quantises anything itself, so no package can lose a shade here.
+ */
+function adventureExactPalette(GdImage $image): ?GdImage
+{
+    $width = imagesx($image);
+    $height = imagesy($image);
+    $colours = [];
+    for ($y = 0; $y < $height; $y++) {
+        for ($x = 0; $x < $width; $x++) {
+            $colours[imagecolorat($image, $x, $y)] = true;
+            if (count($colours) > 256) return null;
+        }
+    }
+    $palette = imagecreate($width, $height);
+    imagealphablending($palette, false);
+    imagesavealpha($palette, true);
+    $index = [];
+    foreach (array_keys($colours) as $c) {
+        $index[$c] = imagecolorallocatealpha($palette, ($c >> 16) & 255, ($c >> 8) & 255, $c & 255, ($c >> 24) & 127);
+    }
+    for ($y = 0; $y < $height; $y++) {
+        for ($x = 0; $x < $width; $x++) {
+            imagesetpixel($palette, $x, $y, $index[imagecolorat($image, $x, $y)]);
+        }
+    }
+    return $palette;
+}
+
 function bakeAdventureSprites(array $definitions, string $root, array $profile = ADVENTURE_ART_PROFILE): array
 {
     $density = $profile['pixelRatio'];
@@ -199,7 +244,7 @@ function bakeAdventureSprites(array $definitions, string $root, array $profile =
     $clear = imagecolorallocatealpha($atlas, 0, 0, 0, 127);
     $sources = $prepared = $frames = $cells = $groups = [];
     foreach ($definitions as $name => $definition) {
-        $source = $sources[$definition['source']] ??= imagecreatefrompng($root . '/' . $definition['source']);
+        $source = $sources[$definition['source']] ??= adventureOpenSource($root . '/' . $definition['source']);
         if (($definition['opaque'] ?? false) !== true && ((imagecolorat($source, 0, 0) >> 24) & 127) < 100) {
             throw new RuntimeException('Source needs a real alpha channel: ' . $definition['source']);
         }
@@ -279,7 +324,7 @@ function bakeAdventureSprites(array $definitions, string $root, array $profile =
     $packed = imagecrop($atlas, ['x' => 0, 'y' => 0, 'width' => $width, 'height' => $height]);
     imagesavealpha($packed, true);
     ob_start();
-    imagepng($continuousAlpha ? $packed : adventureIndexedImage($packed), null, 9);
+    imagepng($continuousAlpha ? (adventureExactPalette($packed) ?? $packed) : adventureIndexedImage($packed), null, 9);
     $png = ob_get_clean();
     return [
         'png' => $png,

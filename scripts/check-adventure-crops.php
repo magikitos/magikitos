@@ -52,7 +52,10 @@ imagepng($card, $directory . '/card.png');
 $cardDefinition = ['source'=>'card.png','grid'=>[1,1],'cell'=>[0,0],'size'=>[32,40],
     'anchor'=>[16,40],'preserveCanvas'=>true,'continuousAlpha'=>true,'registration'=>['scale'=>1,'offset'=>[0,0]]];
 $cards = bakeAdventureSprites(['portrait'=>$cardDefinition], $directory);
-$image = imagecreatefromstring($cards['png']);$f = $cards['metadata']['frames']['portrait'];
+$image = imagecreatefromstring($cards['png']);
+// Few colours: stored with an exact palette (`adventureExactPalette`), so read it as truecolor.
+check(!imageistruecolor($image), 'A soft package with few colours is stored with an exact palette');
+imagepalettetotruecolor($image);$f = $cards['metadata']['frames']['portrait'];
 check($f['w'] === 32 && $f['h'] === 40 && $f['trim'] === [0,0], 'Halo canvas cannot be cropped to opaque body');
 $alpha = imagecolorat($image,$f['x']+8,$f['y']+8)>>24&127;
 check($alpha === 105, 'Continuous alpha survives the final PNG, not only the source card');

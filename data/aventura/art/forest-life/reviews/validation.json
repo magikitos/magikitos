@@ -1,0 +1,3427 @@
+{
+    "scope": "Offline asset validation, NOT runtime/browser integration",
+    "status": "passed",
+    "errors": [],
+    "sheetCount": 29,
+    "frameCount": 375,
+    "newFrameCount": 371,
+    "sheetBytes": 1368750,
+    "pixelRatio": 2,
+    "checks": {
+        "requiredIdsComplete": true,
+        "rectanglesAndAnchorsInBounds": true,
+        "allFramesHaveTransparentBackground": true,
+        "characterFramesInsideTheirCells": true
+    },
+    "preservedMatureGarden": {
+        "garden-carrots": {
+            "differentVisiblePixels": 0
+        },
+        "garden-cabbages": {
+            "differentVisiblePixels": 0
+        },
+        "garden-beets": {
+            "differentVisiblePixels": 0
+        },
+        "garden-herbs": {
+            "differentVisiblePixels": 0
+        }
+    },
+    "existingWorkSheets": {
+        "100": "data/aventura/art/residents/actions/cutouts/brezo-alba-work-scale.png",
+        "120": "data/aventura/art/residents/actions/cutouts/mora-alba-work-master.png",
+        "135": "data/aventura/art/residents/actions/cutouts/lila-alba-work-master.png",
+        "142": "data/aventura/art/residents/actions/cutouts/tomillo-sol-work-master.png",
+        "166": "data/aventura/art/residents/actions/cutouts/dalia-bruma-work-master.png",
+        "172": "data/aventura/art/residents/actions/cutouts/sauco-sol-work-master.png",
+        "194": "data/aventura/art/residents/actions/cutouts/acebo-noche-work-master.png",
+        "198": "data/aventura/art/residents/actions/cutouts/amapola-musgo-work-master.png",
+        "200": "data/aventura/art/residents/actions/cutouts/rizo-alba-work-master.png",
+        "201": "data/aventura/art/residents/actions/cutouts/chispa-sol-work-master.png",
+        "202": "data/aventura/art/residents/actions/cutouts/tizon-musgo-work-master.png",
+        "203": "data/aventura/art/residents/actions/cutouts/nispera-sol-work-master.png",
+        "204": "data/aventura/art/residents/actions/cutouts/trebol-bruma-work-master.png",
+        "205": "data/aventura/art/residents/actions/cutouts/mimbrera-noche-work-master.png",
+        "206": "data/aventura/art/residents/actions/cutouts/avellano-cobre-work-master.png",
+        "207": "data/aventura/art/residents/actions/cutouts/oria-musgo-work-master.png",
+        "208": "data/aventura/art/residents/actions/cutouts/silo-bruma-work-master.png",
+        "209": "data/aventura/art/residents/actions/cutouts/zarza-sol-work-master.png"
+    },
+    "frames": {
+        "emote-bang": {
+            "visibleRect": [
+                0,
+                4,
+                24,
+                24
+            ],
+            "opaquePixels": 444
+        },
+        "emote-book": {
+            "visibleRect": [
+                0,
+                3,
+                24,
+                25
+            ],
+            "opaquePixels": 459
+        },
+        "emote-heart": {
+            "visibleRect": [
+                0,
+                3,
+                24,
+                25
+            ],
+            "opaquePixels": 457
+        },
+        "emote-note": {
+            "visibleRect": [
+                0,
+                3,
+                24,
+                24
+            ],
+            "opaquePixels": 454
+        },
+        "emote-talk": {
+            "visibleRect": [
+                0,
+                3,
+                24,
+                24
+            ],
+            "opaquePixels": 453
+        },
+        "emote-wave": {
+            "visibleRect": [
+                0,
+                3,
+                24,
+                25
+            ],
+            "opaquePixels": 454
+        },
+        "emote-zzz": {
+            "visibleRect": [
+                0,
+                4,
+                24,
+                24
+            ],
+            "opaquePixels": 444
+        },
+        "fish-splash-0": {
+            "visibleRect": [
+                5,
+                19,
+                23,
+                11
+            ],
+            "opaquePixels": 106
+        },
+        "fish-splash-1": {
+            "visibleRect": [
+                4,
+                13,
+                25,
+                17
+            ],
+            "opaquePixels": 143
+        },
+        "fish-splash-2": {
+            "visibleRect": [
+                2,
+                24,
+                28,
+                6
+            ],
+            "opaquePixels": 130
+        },
+        "forest-diary": {
+            "visibleRect": [
+                5,
+                11,
+                54,
+                27
+            ],
+            "opaquePixels": 994
+        },
+        "forest-diary-flip-0": {
+            "visibleRect": [
+                5,
+                10,
+                53,
+                28
+            ],
+            "opaquePixels": 983
+        },
+        "forest-diary-flip-1": {
+            "visibleRect": [
+                5,
+                4,
+                55,
+                34
+            ],
+            "opaquePixels": 1038
+        },
+        "forest-diary-flip-2": {
+            "visibleRect": [
+                7,
+                10,
+                53,
+                28
+            ],
+            "opaquePixels": 1004
+        },
+        "forest-diary-panel": {
+            "visibleRect": [
+                4,
+                14,
+                632,
+                372
+            ],
+            "opaquePixels": 201450
+        },
+        "garden-beets": {
+            "visibleRect": [
+                0,
+                14,
+                128,
+                82
+            ],
+            "opaquePixels": 8322
+        },
+        "garden-beets-sprout": {
+            "visibleRect": [
+                0,
+                7,
+                128,
+                89
+            ],
+            "opaquePixels": 9208
+        },
+        "garden-beets-young": {
+            "visibleRect": [
+                0,
+                8,
+                128,
+                88
+            ],
+            "opaquePixels": 9168
+        },
+        "garden-cabbages": {
+            "visibleRect": [
+                1,
+                14,
+                127,
+                82
+            ],
+            "opaquePixels": 8129
+        },
+        "garden-cabbages-sprout": {
+            "visibleRect": [
+                0,
+                7,
+                128,
+                89
+            ],
+            "opaquePixels": 9206
+        },
+        "garden-cabbages-young": {
+            "visibleRect": [
+                0,
+                8,
+                128,
+                88
+            ],
+            "opaquePixels": 9058
+        },
+        "garden-carrots": {
+            "visibleRect": [
+                0,
+                6,
+                128,
+                90
+            ],
+            "opaquePixels": 8813
+        },
+        "garden-carrots-sprout": {
+            "visibleRect": [
+                0,
+                7,
+                128,
+                89
+            ],
+            "opaquePixels": 9202
+        },
+        "garden-carrots-young": {
+            "visibleRect": [
+                0,
+                9,
+                128,
+                87
+            ],
+            "opaquePixels": 9080
+        },
+        "garden-eggplants": {
+            "visibleRect": [
+                0,
+                29,
+                128,
+                61
+            ],
+            "opaquePixels": 6333
+        },
+        "garden-eggplants-sprout": {
+            "visibleRect": [
+                0,
+                28,
+                128,
+                62
+            ],
+            "opaquePixels": 6276
+        },
+        "garden-eggplants-young": {
+            "visibleRect": [
+                0,
+                29,
+                128,
+                61
+            ],
+            "opaquePixels": 6171
+        },
+        "garden-herbs": {
+            "visibleRect": [
+                4,
+                0,
+                120,
+                96
+            ],
+            "opaquePixels": 7315
+        },
+        "garden-herbs-sprout": {
+            "visibleRect": [
+                4,
+                8,
+                120,
+                88
+            ],
+            "opaquePixels": 7784
+        },
+        "garden-herbs-young": {
+            "visibleRect": [
+                4,
+                10,
+                120,
+                86
+            ],
+            "opaquePixels": 7733
+        },
+        "garden-onions": {
+            "visibleRect": [
+                0,
+                17,
+                128,
+                67
+            ],
+            "opaquePixels": 6459
+        },
+        "garden-onions-sprout": {
+            "visibleRect": [
+                0,
+                24,
+                128,
+                60
+            ],
+            "opaquePixels": 6075
+        },
+        "garden-onions-young": {
+            "visibleRect": [
+                0,
+                22,
+                128,
+                62
+            ],
+            "opaquePixels": 6208
+        },
+        "garden-potatoes": {
+            "visibleRect": [
+                0,
+                16,
+                128,
+                68
+            ],
+            "opaquePixels": 6700
+        },
+        "garden-potatoes-sprout": {
+            "visibleRect": [
+                0,
+                23,
+                128,
+                61
+            ],
+            "opaquePixels": 6115
+        },
+        "garden-potatoes-young": {
+            "visibleRect": [
+                0,
+                24,
+                128,
+                60
+            ],
+            "opaquePixels": 6154
+        },
+        "garden-tomatoes": {
+            "visibleRect": [
+                0,
+                23,
+                128,
+                67
+            ],
+            "opaquePixels": 6347
+        },
+        "garden-tomatoes-sprout": {
+            "visibleRect": [
+                0,
+                24,
+                128,
+                66
+            ],
+            "opaquePixels": 6193
+        },
+        "garden-tomatoes-young": {
+            "visibleRect": [
+                0,
+                24,
+                128,
+                66
+            ],
+            "opaquePixels": 6262
+        },
+        "person-100-down-sit-0": {
+            "visibleRect": [
+                32,
+                14,
+                30,
+                68
+            ],
+            "opaquePixels": 1249
+        },
+        "person-100-down-sit-1": {
+            "visibleRect": [
+                32,
+                14,
+                31,
+                68
+            ],
+            "opaquePixels": 1295
+        },
+        "person-100-down-sit-2": {
+            "visibleRect": [
+                32,
+                14,
+                30,
+                68
+            ],
+            "opaquePixels": 1250
+        },
+        "person-100-down-sit-3": {
+            "visibleRect": [
+                32,
+                14,
+                32,
+                68
+            ],
+            "opaquePixels": 1299
+        },
+        "person-100-left-fish-0": {
+            "visibleRect": [
+                9,
+                12,
+                66,
+                80
+            ],
+            "opaquePixels": 1718
+        },
+        "person-100-left-fish-1": {
+            "visibleRect": [
+                7,
+                14,
+                75,
+                78
+            ],
+            "opaquePixels": 1824
+        },
+        "person-100-left-fish-2": {
+            "visibleRect": [
+                7,
+                4,
+                76,
+                88
+            ],
+            "opaquePixels": 1963
+        },
+        "person-100-left-fish-3": {
+            "visibleRect": [
+                5,
+                8,
+                74,
+                84
+            ],
+            "opaquePixels": 2110
+        },
+        "person-100-left-sit-0": {
+            "visibleRect": [
+                28,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1228
+        },
+        "person-100-left-sit-1": {
+            "visibleRect": [
+                28,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1225
+        },
+        "person-100-left-sit-2": {
+            "visibleRect": [
+                28,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1237
+        },
+        "person-100-left-sit-3": {
+            "visibleRect": [
+                28,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1235
+        },
+        "person-100-right-fish-0": {
+            "visibleRect": [
+                24,
+                12,
+                66,
+                80
+            ],
+            "opaquePixels": 1700
+        },
+        "person-100-right-fish-1": {
+            "visibleRect": [
+                16,
+                14,
+                74,
+                78
+            ],
+            "opaquePixels": 1793
+        },
+        "person-100-right-fish-2": {
+            "visibleRect": [
+                14,
+                6,
+                73,
+                86
+            ],
+            "opaquePixels": 1927
+        },
+        "person-100-right-fish-3": {
+            "visibleRect": [
+                16,
+                8,
+                73,
+                84
+            ],
+            "opaquePixels": 2141
+        },
+        "person-100-right-sit-0": {
+            "visibleRect": [
+                34,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1209
+        },
+        "person-100-right-sit-1": {
+            "visibleRect": [
+                34,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1239
+        },
+        "person-100-right-sit-2": {
+            "visibleRect": [
+                34,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1206
+        },
+        "person-100-right-sit-3": {
+            "visibleRect": [
+                34,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1216
+        },
+        "person-100-up-sit-0": {
+            "visibleRect": [
+                32,
+                14,
+                33,
+                68
+            ],
+            "opaquePixels": 1348
+        },
+        "person-100-up-sit-1": {
+            "visibleRect": [
+                32,
+                14,
+                33,
+                68
+            ],
+            "opaquePixels": 1348
+        },
+        "person-100-up-sit-2": {
+            "visibleRect": [
+                32,
+                14,
+                33,
+                68
+            ],
+            "opaquePixels": 1348
+        },
+        "person-100-up-sit-3": {
+            "visibleRect": [
+                32,
+                14,
+                33,
+                68
+            ],
+            "opaquePixels": 1348
+        },
+        "person-120-down-sit-0": {
+            "visibleRect": [
+                27,
+                14,
+                42,
+                68
+            ],
+            "opaquePixels": 1648
+        },
+        "person-120-down-sit-1": {
+            "visibleRect": [
+                27,
+                14,
+                42,
+                68
+            ],
+            "opaquePixels": 1643
+        },
+        "person-120-down-sit-2": {
+            "visibleRect": [
+                27,
+                14,
+                42,
+                68
+            ],
+            "opaquePixels": 1645
+        },
+        "person-120-down-sit-3": {
+            "visibleRect": [
+                27,
+                14,
+                42,
+                68
+            ],
+            "opaquePixels": 1645
+        },
+        "person-120-left-fish-0": {
+            "visibleRect": [
+                9,
+                11,
+                69,
+                81
+            ],
+            "opaquePixels": 1945
+        },
+        "person-120-left-fish-1": {
+            "visibleRect": [
+                4,
+                12,
+                78,
+                80
+            ],
+            "opaquePixels": 1991
+        },
+        "person-120-left-fish-2": {
+            "visibleRect": [
+                15,
+                9,
+                67,
+                83
+            ],
+            "opaquePixels": 1984
+        },
+        "person-120-left-fish-3": {
+            "visibleRect": [
+                13,
+                14,
+                68,
+                78
+            ],
+            "opaquePixels": 2230
+        },
+        "person-120-left-sit-0": {
+            "visibleRect": [
+                18,
+                14,
+                50,
+                68
+            ],
+            "opaquePixels": 1589
+        },
+        "person-120-left-sit-1": {
+            "visibleRect": [
+                18,
+                14,
+                50,
+                68
+            ],
+            "opaquePixels": 1594
+        },
+        "person-120-left-sit-2": {
+            "visibleRect": [
+                18,
+                14,
+                50,
+                68
+            ],
+            "opaquePixels": 1591
+        },
+        "person-120-left-sit-3": {
+            "visibleRect": [
+                18,
+                14,
+                50,
+                68
+            ],
+            "opaquePixels": 1592
+        },
+        "person-120-right-fish-0": {
+            "visibleRect": [
+                18,
+                11,
+                68,
+                81
+            ],
+            "opaquePixels": 1940
+        },
+        "person-120-right-fish-1": {
+            "visibleRect": [
+                13,
+                12,
+                78,
+                80
+            ],
+            "opaquePixels": 2016
+        },
+        "person-120-right-fish-2": {
+            "visibleRect": [
+                14,
+                9,
+                67,
+                83
+            ],
+            "opaquePixels": 1978
+        },
+        "person-120-right-fish-3": {
+            "visibleRect": [
+                16,
+                14,
+                67,
+                78
+            ],
+            "opaquePixels": 2217
+        },
+        "person-120-right-sit-0": {
+            "visibleRect": [
+                29,
+                14,
+                49,
+                68
+            ],
+            "opaquePixels": 1571
+        },
+        "person-120-right-sit-1": {
+            "visibleRect": [
+                28,
+                14,
+                49,
+                68
+            ],
+            "opaquePixels": 1577
+        },
+        "person-120-right-sit-2": {
+            "visibleRect": [
+                28,
+                14,
+                49,
+                68
+            ],
+            "opaquePixels": 1579
+        },
+        "person-120-right-sit-3": {
+            "visibleRect": [
+                28,
+                14,
+                49,
+                68
+            ],
+            "opaquePixels": 1576
+        },
+        "person-120-up-sit-0": {
+            "visibleRect": [
+                29,
+                14,
+                37,
+                68
+            ],
+            "opaquePixels": 1598
+        },
+        "person-120-up-sit-1": {
+            "visibleRect": [
+                29,
+                14,
+                37,
+                68
+            ],
+            "opaquePixels": 1598
+        },
+        "person-120-up-sit-2": {
+            "visibleRect": [
+                29,
+                14,
+                37,
+                68
+            ],
+            "opaquePixels": 1598
+        },
+        "person-120-up-sit-3": {
+            "visibleRect": [
+                29,
+                14,
+                37,
+                68
+            ],
+            "opaquePixels": 1598
+        },
+        "person-135-down-sit-0": {
+            "visibleRect": [
+                32,
+                14,
+                31,
+                68
+            ],
+            "opaquePixels": 1349
+        },
+        "person-135-down-sit-1": {
+            "visibleRect": [
+                32,
+                14,
+                32,
+                68
+            ],
+            "opaquePixels": 1374
+        },
+        "person-135-down-sit-2": {
+            "visibleRect": [
+                32,
+                14,
+                31,
+                68
+            ],
+            "opaquePixels": 1372
+        },
+        "person-135-down-sit-3": {
+            "visibleRect": [
+                32,
+                14,
+                32,
+                68
+            ],
+            "opaquePixels": 1347
+        },
+        "person-135-left-sit-0": {
+            "visibleRect": [
+                24,
+                14,
+                40,
+                68
+            ],
+            "opaquePixels": 1399
+        },
+        "person-135-left-sit-1": {
+            "visibleRect": [
+                24,
+                14,
+                40,
+                68
+            ],
+            "opaquePixels": 1412
+        },
+        "person-135-left-sit-2": {
+            "visibleRect": [
+                24,
+                14,
+                40,
+                68
+            ],
+            "opaquePixels": 1401
+        },
+        "person-135-left-sit-3": {
+            "visibleRect": [
+                24,
+                14,
+                39,
+                68
+            ],
+            "opaquePixels": 1407
+        },
+        "person-135-right-sit-0": {
+            "visibleRect": [
+                33,
+                14,
+                37,
+                68
+            ],
+            "opaquePixels": 1406
+        },
+        "person-135-right-sit-1": {
+            "visibleRect": [
+                33,
+                14,
+                37,
+                68
+            ],
+            "opaquePixels": 1392
+        },
+        "person-135-right-sit-2": {
+            "visibleRect": [
+                34,
+                14,
+                37,
+                68
+            ],
+            "opaquePixels": 1412
+        },
+        "person-135-right-sit-3": {
+            "visibleRect": [
+                33,
+                14,
+                37,
+                68
+            ],
+            "opaquePixels": 1395
+        },
+        "person-135-up-sit-0": {
+            "visibleRect": [
+                31,
+                14,
+                33,
+                68
+            ],
+            "opaquePixels": 1466
+        },
+        "person-135-up-sit-1": {
+            "visibleRect": [
+                31,
+                14,
+                33,
+                68
+            ],
+            "opaquePixels": 1466
+        },
+        "person-135-up-sit-2": {
+            "visibleRect": [
+                31,
+                14,
+                33,
+                68
+            ],
+            "opaquePixels": 1466
+        },
+        "person-135-up-sit-3": {
+            "visibleRect": [
+                31,
+                14,
+                33,
+                68
+            ],
+            "opaquePixels": 1466
+        },
+        "person-142-down-sit-0": {
+            "visibleRect": [
+                31,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1678
+        },
+        "person-142-down-sit-1": {
+            "visibleRect": [
+                31,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1690
+        },
+        "person-142-down-sit-2": {
+            "visibleRect": [
+                31,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1688
+        },
+        "person-142-down-sit-3": {
+            "visibleRect": [
+                30,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1700
+        },
+        "person-142-left-fish-0": {
+            "visibleRect": [
+                7,
+                17,
+                64,
+                75
+            ],
+            "opaquePixels": 1923
+        },
+        "person-142-left-fish-1": {
+            "visibleRect": [
+                8,
+                22,
+                67,
+                70
+            ],
+            "opaquePixels": 1874
+        },
+        "person-142-left-fish-2": {
+            "visibleRect": [
+                11,
+                9,
+                64,
+                83
+            ],
+            "opaquePixels": 2030
+        },
+        "person-142-left-fish-3": {
+            "visibleRect": [
+                8,
+                11,
+                65,
+                81
+            ],
+            "opaquePixels": 2155
+        },
+        "person-142-left-sit-0": {
+            "visibleRect": [
+                25,
+                14,
+                39,
+                68
+            ],
+            "opaquePixels": 1586
+        },
+        "person-142-left-sit-1": {
+            "visibleRect": [
+                25,
+                14,
+                39,
+                68
+            ],
+            "opaquePixels": 1585
+        },
+        "person-142-left-sit-2": {
+            "visibleRect": [
+                25,
+                14,
+                39,
+                68
+            ],
+            "opaquePixels": 1585
+        },
+        "person-142-left-sit-3": {
+            "visibleRect": [
+                25,
+                14,
+                39,
+                68
+            ],
+            "opaquePixels": 1581
+        },
+        "person-142-right-fish-0": {
+            "visibleRect": [
+                31,
+                17,
+                58,
+                75
+            ],
+            "opaquePixels": 1805
+        },
+        "person-142-right-fish-1": {
+            "visibleRect": [
+                25,
+                22,
+                63,
+                70
+            ],
+            "opaquePixels": 1786
+        },
+        "person-142-right-fish-2": {
+            "visibleRect": [
+                27,
+                8,
+                63,
+                84
+            ],
+            "opaquePixels": 1927
+        },
+        "person-142-right-fish-3": {
+            "visibleRect": [
+                23,
+                13,
+                69,
+                79
+            ],
+            "opaquePixels": 2128
+        },
+        "person-142-right-sit-0": {
+            "visibleRect": [
+                34,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1499
+        },
+        "person-142-right-sit-1": {
+            "visibleRect": [
+                34,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1492
+        },
+        "person-142-right-sit-2": {
+            "visibleRect": [
+                34,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1502
+        },
+        "person-142-right-sit-3": {
+            "visibleRect": [
+                34,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1505
+        },
+        "person-142-up-sit-0": {
+            "visibleRect": [
+                30,
+                14,
+                36,
+                68
+            ],
+            "opaquePixels": 1688
+        },
+        "person-142-up-sit-1": {
+            "visibleRect": [
+                30,
+                14,
+                36,
+                68
+            ],
+            "opaquePixels": 1688
+        },
+        "person-142-up-sit-2": {
+            "visibleRect": [
+                30,
+                14,
+                36,
+                68
+            ],
+            "opaquePixels": 1688
+        },
+        "person-142-up-sit-3": {
+            "visibleRect": [
+                30,
+                14,
+                36,
+                68
+            ],
+            "opaquePixels": 1688
+        },
+        "person-166-down-sit-0": {
+            "visibleRect": [
+                29,
+                14,
+                38,
+                68
+            ],
+            "opaquePixels": 1619
+        },
+        "person-166-down-sit-1": {
+            "visibleRect": [
+                29,
+                14,
+                38,
+                68
+            ],
+            "opaquePixels": 1619
+        },
+        "person-166-down-sit-2": {
+            "visibleRect": [
+                29,
+                14,
+                37,
+                68
+            ],
+            "opaquePixels": 1570
+        },
+        "person-166-down-sit-3": {
+            "visibleRect": [
+                29,
+                14,
+                38,
+                68
+            ],
+            "opaquePixels": 1591
+        },
+        "person-166-left-sit-0": {
+            "visibleRect": [
+                25,
+                14,
+                38,
+                68
+            ],
+            "opaquePixels": 1482
+        },
+        "person-166-left-sit-1": {
+            "visibleRect": [
+                25,
+                14,
+                38,
+                68
+            ],
+            "opaquePixels": 1494
+        },
+        "person-166-left-sit-2": {
+            "visibleRect": [
+                25,
+                14,
+                38,
+                68
+            ],
+            "opaquePixels": 1500
+        },
+        "person-166-left-sit-3": {
+            "visibleRect": [
+                25,
+                14,
+                39,
+                68
+            ],
+            "opaquePixels": 1512
+        },
+        "person-166-right-sit-0": {
+            "visibleRect": [
+                32,
+                14,
+                40,
+                68
+            ],
+            "opaquePixels": 1546
+        },
+        "person-166-right-sit-1": {
+            "visibleRect": [
+                32,
+                14,
+                40,
+                68
+            ],
+            "opaquePixels": 1553
+        },
+        "person-166-right-sit-2": {
+            "visibleRect": [
+                32,
+                14,
+                40,
+                68
+            ],
+            "opaquePixels": 1557
+        },
+        "person-166-right-sit-3": {
+            "visibleRect": [
+                32,
+                14,
+                40,
+                68
+            ],
+            "opaquePixels": 1551
+        },
+        "person-166-up-sit-0": {
+            "visibleRect": [
+                29,
+                14,
+                38,
+                68
+            ],
+            "opaquePixels": 1589
+        },
+        "person-166-up-sit-1": {
+            "visibleRect": [
+                29,
+                14,
+                38,
+                68
+            ],
+            "opaquePixels": 1589
+        },
+        "person-166-up-sit-2": {
+            "visibleRect": [
+                29,
+                14,
+                38,
+                68
+            ],
+            "opaquePixels": 1589
+        },
+        "person-166-up-sit-3": {
+            "visibleRect": [
+                29,
+                14,
+                38,
+                68
+            ],
+            "opaquePixels": 1589
+        },
+        "person-172-down-sit-0": {
+            "visibleRect": [
+                29,
+                14,
+                39,
+                68
+            ],
+            "opaquePixels": 1418
+        },
+        "person-172-down-sit-1": {
+            "visibleRect": [
+                28,
+                14,
+                40,
+                68
+            ],
+            "opaquePixels": 1422
+        },
+        "person-172-down-sit-2": {
+            "visibleRect": [
+                29,
+                14,
+                39,
+                68
+            ],
+            "opaquePixels": 1419
+        },
+        "person-172-down-sit-3": {
+            "visibleRect": [
+                28,
+                14,
+                39,
+                68
+            ],
+            "opaquePixels": 1429
+        },
+        "person-172-left-sit-0": {
+            "visibleRect": [
+                27,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1377
+        },
+        "person-172-left-sit-1": {
+            "visibleRect": [
+                27,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1425
+        },
+        "person-172-left-sit-2": {
+            "visibleRect": [
+                27,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1423
+        },
+        "person-172-left-sit-3": {
+            "visibleRect": [
+                27,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1462
+        },
+        "person-172-right-sit-0": {
+            "visibleRect": [
+                34,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1451
+        },
+        "person-172-right-sit-1": {
+            "visibleRect": [
+                34,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1456
+        },
+        "person-172-right-sit-2": {
+            "visibleRect": [
+                34,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1449
+        },
+        "person-172-right-sit-3": {
+            "visibleRect": [
+                35,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1461
+        },
+        "person-172-up-sit-0": {
+            "visibleRect": [
+                28,
+                14,
+                40,
+                68
+            ],
+            "opaquePixels": 1479
+        },
+        "person-172-up-sit-1": {
+            "visibleRect": [
+                28,
+                14,
+                40,
+                68
+            ],
+            "opaquePixels": 1479
+        },
+        "person-172-up-sit-2": {
+            "visibleRect": [
+                28,
+                14,
+                40,
+                68
+            ],
+            "opaquePixels": 1479
+        },
+        "person-172-up-sit-3": {
+            "visibleRect": [
+                28,
+                14,
+                40,
+                68
+            ],
+            "opaquePixels": 1479
+        },
+        "person-194-down-sit-0": {
+            "visibleRect": [
+                31,
+                14,
+                33,
+                68
+            ],
+            "opaquePixels": 1324
+        },
+        "person-194-down-sit-1": {
+            "visibleRect": [
+                31,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1331
+        },
+        "person-194-down-sit-2": {
+            "visibleRect": [
+                31,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1321
+        },
+        "person-194-down-sit-3": {
+            "visibleRect": [
+                32,
+                14,
+                33,
+                68
+            ],
+            "opaquePixels": 1336
+        },
+        "person-194-left-sit-0": {
+            "visibleRect": [
+                24,
+                14,
+                39,
+                68
+            ],
+            "opaquePixels": 1270
+        },
+        "person-194-left-sit-1": {
+            "visibleRect": [
+                24,
+                14,
+                39,
+                68
+            ],
+            "opaquePixels": 1251
+        },
+        "person-194-left-sit-2": {
+            "visibleRect": [
+                25,
+                14,
+                39,
+                68
+            ],
+            "opaquePixels": 1254
+        },
+        "person-194-left-sit-3": {
+            "visibleRect": [
+                24,
+                14,
+                38,
+                68
+            ],
+            "opaquePixels": 1260
+        },
+        "person-194-right-sit-0": {
+            "visibleRect": [
+                35,
+                14,
+                33,
+                68
+            ],
+            "opaquePixels": 1212
+        },
+        "person-194-right-sit-1": {
+            "visibleRect": [
+                35,
+                14,
+                32,
+                68
+            ],
+            "opaquePixels": 1193
+        },
+        "person-194-right-sit-2": {
+            "visibleRect": [
+                35,
+                14,
+                32,
+                68
+            ],
+            "opaquePixels": 1200
+        },
+        "person-194-right-sit-3": {
+            "visibleRect": [
+                35,
+                14,
+                32,
+                68
+            ],
+            "opaquePixels": 1197
+        },
+        "person-194-up-sit-0": {
+            "visibleRect": [
+                32,
+                15,
+                32,
+                67
+            ],
+            "opaquePixels": 1263
+        },
+        "person-194-up-sit-1": {
+            "visibleRect": [
+                32,
+                15,
+                32,
+                67
+            ],
+            "opaquePixels": 1263
+        },
+        "person-194-up-sit-2": {
+            "visibleRect": [
+                32,
+                15,
+                32,
+                67
+            ],
+            "opaquePixels": 1263
+        },
+        "person-194-up-sit-3": {
+            "visibleRect": [
+                32,
+                15,
+                32,
+                67
+            ],
+            "opaquePixels": 1263
+        },
+        "person-198-down-sit-0": {
+            "visibleRect": [
+                29,
+                14,
+                39,
+                68
+            ],
+            "opaquePixels": 1567
+        },
+        "person-198-down-sit-1": {
+            "visibleRect": [
+                29,
+                14,
+                39,
+                68
+            ],
+            "opaquePixels": 1567
+        },
+        "person-198-down-sit-2": {
+            "visibleRect": [
+                28,
+                14,
+                39,
+                68
+            ],
+            "opaquePixels": 1567
+        },
+        "person-198-down-sit-3": {
+            "visibleRect": [
+                29,
+                14,
+                39,
+                68
+            ],
+            "opaquePixels": 1573
+        },
+        "person-198-left-fish-0": {
+            "visibleRect": [
+                8,
+                9,
+                62,
+                83
+            ],
+            "opaquePixels": 2197
+        },
+        "person-198-left-fish-1": {
+            "visibleRect": [
+                4,
+                12,
+                75,
+                80
+            ],
+            "opaquePixels": 2195
+        },
+        "person-198-left-fish-2": {
+            "visibleRect": [
+                6,
+                10,
+                69,
+                82
+            ],
+            "opaquePixels": 2414
+        },
+        "person-198-left-fish-3": {
+            "visibleRect": [
+                16,
+                6,
+                58,
+                86
+            ],
+            "opaquePixels": 2449
+        },
+        "person-198-left-sit-0": {
+            "visibleRect": [
+                26,
+                14,
+                36,
+                68
+            ],
+            "opaquePixels": 1515
+        },
+        "person-198-left-sit-1": {
+            "visibleRect": [
+                27,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1480
+        },
+        "person-198-left-sit-2": {
+            "visibleRect": [
+                26,
+                14,
+                36,
+                68
+            ],
+            "opaquePixels": 1531
+        },
+        "person-198-left-sit-3": {
+            "visibleRect": [
+                26,
+                14,
+                36,
+                68
+            ],
+            "opaquePixels": 1557
+        },
+        "person-198-right-fish-0": {
+            "visibleRect": [
+                26,
+                10,
+                62,
+                82
+            ],
+            "opaquePixels": 2174
+        },
+        "person-198-right-fish-1": {
+            "visibleRect": [
+                17,
+                13,
+                74,
+                79
+            ],
+            "opaquePixels": 2174
+        },
+        "person-198-right-fish-2": {
+            "visibleRect": [
+                21,
+                10,
+                69,
+                82
+            ],
+            "opaquePixels": 2415
+        },
+        "person-198-right-fish-3": {
+            "visibleRect": [
+                22,
+                7,
+                58,
+                85
+            ],
+            "opaquePixels": 2421
+        },
+        "person-198-right-sit-0": {
+            "visibleRect": [
+                33,
+                14,
+                37,
+                68
+            ],
+            "opaquePixels": 1580
+        },
+        "person-198-right-sit-1": {
+            "visibleRect": [
+                33,
+                14,
+                37,
+                68
+            ],
+            "opaquePixels": 1592
+        },
+        "person-198-right-sit-2": {
+            "visibleRect": [
+                33,
+                14,
+                37,
+                68
+            ],
+            "opaquePixels": 1583
+        },
+        "person-198-right-sit-3": {
+            "visibleRect": [
+                33,
+                14,
+                37,
+                68
+            ],
+            "opaquePixels": 1576
+        },
+        "person-198-up-sit-0": {
+            "visibleRect": [
+                29,
+                14,
+                37,
+                68
+            ],
+            "opaquePixels": 1565
+        },
+        "person-198-up-sit-1": {
+            "visibleRect": [
+                29,
+                14,
+                37,
+                68
+            ],
+            "opaquePixels": 1565
+        },
+        "person-198-up-sit-2": {
+            "visibleRect": [
+                29,
+                14,
+                37,
+                68
+            ],
+            "opaquePixels": 1565
+        },
+        "person-198-up-sit-3": {
+            "visibleRect": [
+                29,
+                14,
+                37,
+                68
+            ],
+            "opaquePixels": 1565
+        },
+        "person-200-down-sit-0": {
+            "visibleRect": [
+                31,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1401
+        },
+        "person-200-down-sit-1": {
+            "visibleRect": [
+                31,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1375
+        },
+        "person-200-down-sit-2": {
+            "visibleRect": [
+                31,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1369
+        },
+        "person-200-down-sit-3": {
+            "visibleRect": [
+                31,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1367
+        },
+        "person-200-left-sit-0": {
+            "visibleRect": [
+                26,
+                14,
+                37,
+                68
+            ],
+            "opaquePixels": 1324
+        },
+        "person-200-left-sit-1": {
+            "visibleRect": [
+                26,
+                14,
+                37,
+                68
+            ],
+            "opaquePixels": 1334
+        },
+        "person-200-left-sit-2": {
+            "visibleRect": [
+                26,
+                14,
+                37,
+                68
+            ],
+            "opaquePixels": 1333
+        },
+        "person-200-left-sit-3": {
+            "visibleRect": [
+                26,
+                14,
+                37,
+                68
+            ],
+            "opaquePixels": 1338
+        },
+        "person-200-right-sit-0": {
+            "visibleRect": [
+                32,
+                14,
+                39,
+                68
+            ],
+            "opaquePixels": 1368
+        },
+        "person-200-right-sit-1": {
+            "visibleRect": [
+                33,
+                14,
+                38,
+                68
+            ],
+            "opaquePixels": 1366
+        },
+        "person-200-right-sit-2": {
+            "visibleRect": [
+                32,
+                14,
+                39,
+                68
+            ],
+            "opaquePixels": 1383
+        },
+        "person-200-right-sit-3": {
+            "visibleRect": [
+                33,
+                14,
+                39,
+                68
+            ],
+            "opaquePixels": 1371
+        },
+        "person-200-up-sit-0": {
+            "visibleRect": [
+                31,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1402
+        },
+        "person-200-up-sit-1": {
+            "visibleRect": [
+                31,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1402
+        },
+        "person-200-up-sit-2": {
+            "visibleRect": [
+                31,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1402
+        },
+        "person-200-up-sit-3": {
+            "visibleRect": [
+                31,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1402
+        },
+        "person-201-down-sit-0": {
+            "visibleRect": [
+                30,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1434
+        },
+        "person-201-down-sit-1": {
+            "visibleRect": [
+                30,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1433
+        },
+        "person-201-down-sit-2": {
+            "visibleRect": [
+                30,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1471
+        },
+        "person-201-down-sit-3": {
+            "visibleRect": [
+                30,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1438
+        },
+        "person-201-left-sit-0": {
+            "visibleRect": [
+                25,
+                14,
+                38,
+                68
+            ],
+            "opaquePixels": 1402
+        },
+        "person-201-left-sit-1": {
+            "visibleRect": [
+                25,
+                14,
+                38,
+                68
+            ],
+            "opaquePixels": 1412
+        },
+        "person-201-left-sit-2": {
+            "visibleRect": [
+                25,
+                14,
+                38,
+                68
+            ],
+            "opaquePixels": 1415
+        },
+        "person-201-left-sit-3": {
+            "visibleRect": [
+                25,
+                14,
+                38,
+                68
+            ],
+            "opaquePixels": 1416
+        },
+        "person-201-right-sit-0": {
+            "visibleRect": [
+                33,
+                14,
+                37,
+                68
+            ],
+            "opaquePixels": 1366
+        },
+        "person-201-right-sit-1": {
+            "visibleRect": [
+                33,
+                14,
+                37,
+                68
+            ],
+            "opaquePixels": 1385
+        },
+        "person-201-right-sit-2": {
+            "visibleRect": [
+                33,
+                14,
+                37,
+                68
+            ],
+            "opaquePixels": 1382
+        },
+        "person-201-right-sit-3": {
+            "visibleRect": [
+                33,
+                14,
+                37,
+                68
+            ],
+            "opaquePixels": 1381
+        },
+        "person-201-up-sit-0": {
+            "visibleRect": [
+                30,
+                14,
+                36,
+                68
+            ],
+            "opaquePixels": 1463
+        },
+        "person-201-up-sit-1": {
+            "visibleRect": [
+                30,
+                14,
+                36,
+                68
+            ],
+            "opaquePixels": 1463
+        },
+        "person-201-up-sit-2": {
+            "visibleRect": [
+                30,
+                14,
+                36,
+                68
+            ],
+            "opaquePixels": 1463
+        },
+        "person-201-up-sit-3": {
+            "visibleRect": [
+                30,
+                14,
+                36,
+                68
+            ],
+            "opaquePixels": 1463
+        },
+        "person-202-down-sit-0": {
+            "visibleRect": [
+                31,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1688
+        },
+        "person-202-down-sit-1": {
+            "visibleRect": [
+                31,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1693
+        },
+        "person-202-down-sit-2": {
+            "visibleRect": [
+                31,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1700
+        },
+        "person-202-down-sit-3": {
+            "visibleRect": [
+                31,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1705
+        },
+        "person-202-left-sit-0": {
+            "visibleRect": [
+                25,
+                14,
+                39,
+                68
+            ],
+            "opaquePixels": 1680
+        },
+        "person-202-left-sit-1": {
+            "visibleRect": [
+                25,
+                14,
+                38,
+                68
+            ],
+            "opaquePixels": 1643
+        },
+        "person-202-left-sit-2": {
+            "visibleRect": [
+                25,
+                14,
+                38,
+                68
+            ],
+            "opaquePixels": 1644
+        },
+        "person-202-left-sit-3": {
+            "visibleRect": [
+                25,
+                14,
+                38,
+                68
+            ],
+            "opaquePixels": 1638
+        },
+        "person-202-right-sit-0": {
+            "visibleRect": [
+                33,
+                14,
+                39,
+                68
+            ],
+            "opaquePixels": 1699
+        },
+        "person-202-right-sit-1": {
+            "visibleRect": [
+                33,
+                14,
+                39,
+                68
+            ],
+            "opaquePixels": 1708
+        },
+        "person-202-right-sit-2": {
+            "visibleRect": [
+                33,
+                14,
+                38,
+                68
+            ],
+            "opaquePixels": 1676
+        },
+        "person-202-right-sit-3": {
+            "visibleRect": [
+                32,
+                14,
+                39,
+                68
+            ],
+            "opaquePixels": 1716
+        },
+        "person-202-up-sit-0": {
+            "visibleRect": [
+                31,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1695
+        },
+        "person-202-up-sit-1": {
+            "visibleRect": [
+                31,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1695
+        },
+        "person-202-up-sit-2": {
+            "visibleRect": [
+                31,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1695
+        },
+        "person-202-up-sit-3": {
+            "visibleRect": [
+                31,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1695
+        },
+        "person-203-down-sit-0": {
+            "visibleRect": [
+                26,
+                14,
+                44,
+                68
+            ],
+            "opaquePixels": 1763
+        },
+        "person-203-down-sit-1": {
+            "visibleRect": [
+                26,
+                14,
+                44,
+                68
+            ],
+            "opaquePixels": 1769
+        },
+        "person-203-down-sit-2": {
+            "visibleRect": [
+                26,
+                14,
+                44,
+                68
+            ],
+            "opaquePixels": 1756
+        },
+        "person-203-down-sit-3": {
+            "visibleRect": [
+                26,
+                14,
+                44,
+                68
+            ],
+            "opaquePixels": 1777
+        },
+        "person-203-left-sit-0": {
+            "visibleRect": [
+                23,
+                14,
+                41,
+                68
+            ],
+            "opaquePixels": 1621
+        },
+        "person-203-left-sit-1": {
+            "visibleRect": [
+                23,
+                14,
+                41,
+                68
+            ],
+            "opaquePixels": 1612
+        },
+        "person-203-left-sit-2": {
+            "visibleRect": [
+                23,
+                14,
+                42,
+                68
+            ],
+            "opaquePixels": 1652
+        },
+        "person-203-left-sit-3": {
+            "visibleRect": [
+                23,
+                14,
+                42,
+                68
+            ],
+            "opaquePixels": 1667
+        },
+        "person-203-right-sit-0": {
+            "visibleRect": [
+                31,
+                14,
+                42,
+                68
+            ],
+            "opaquePixels": 1655
+        },
+        "person-203-right-sit-1": {
+            "visibleRect": [
+                31,
+                14,
+                42,
+                68
+            ],
+            "opaquePixels": 1657
+        },
+        "person-203-right-sit-2": {
+            "visibleRect": [
+                31,
+                14,
+                42,
+                68
+            ],
+            "opaquePixels": 1668
+        },
+        "person-203-right-sit-3": {
+            "visibleRect": [
+                31,
+                14,
+                42,
+                68
+            ],
+            "opaquePixels": 1661
+        },
+        "person-203-up-sit-0": {
+            "visibleRect": [
+                27,
+                14,
+                42,
+                68
+            ],
+            "opaquePixels": 1751
+        },
+        "person-203-up-sit-1": {
+            "visibleRect": [
+                27,
+                14,
+                42,
+                68
+            ],
+            "opaquePixels": 1751
+        },
+        "person-203-up-sit-2": {
+            "visibleRect": [
+                27,
+                14,
+                42,
+                68
+            ],
+            "opaquePixels": 1751
+        },
+        "person-203-up-sit-3": {
+            "visibleRect": [
+                27,
+                14,
+                42,
+                68
+            ],
+            "opaquePixels": 1751
+        },
+        "person-204-down-sit-0": {
+            "visibleRect": [
+                31,
+                14,
+                33,
+                68
+            ],
+            "opaquePixels": 1262
+        },
+        "person-204-down-sit-1": {
+            "visibleRect": [
+                31,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1262
+        },
+        "person-204-down-sit-2": {
+            "visibleRect": [
+                31,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1296
+        },
+        "person-204-down-sit-3": {
+            "visibleRect": [
+                31,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1290
+        },
+        "person-204-left-sit-0": {
+            "visibleRect": [
+                27,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1175
+        },
+        "person-204-left-sit-1": {
+            "visibleRect": [
+                27,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1216
+        },
+        "person-204-left-sit-2": {
+            "visibleRect": [
+                27,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1213
+        },
+        "person-204-left-sit-3": {
+            "visibleRect": [
+                27,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1212
+        },
+        "person-204-right-sit-0": {
+            "visibleRect": [
+                35,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1298
+        },
+        "person-204-right-sit-1": {
+            "visibleRect": [
+                34,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1300
+        },
+        "person-204-right-sit-2": {
+            "visibleRect": [
+                34,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1292
+        },
+        "person-204-right-sit-3": {
+            "visibleRect": [
+                34,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1306
+        },
+        "person-204-up-sit-0": {
+            "visibleRect": [
+                31,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1211
+        },
+        "person-204-up-sit-1": {
+            "visibleRect": [
+                31,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1211
+        },
+        "person-204-up-sit-2": {
+            "visibleRect": [
+                31,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1211
+        },
+        "person-204-up-sit-3": {
+            "visibleRect": [
+                31,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1211
+        },
+        "person-205-down-sit-0": {
+            "visibleRect": [
+                27,
+                14,
+                41,
+                68
+            ],
+            "opaquePixels": 1548
+        },
+        "person-205-down-sit-1": {
+            "visibleRect": [
+                27,
+                14,
+                41,
+                68
+            ],
+            "opaquePixels": 1553
+        },
+        "person-205-down-sit-2": {
+            "visibleRect": [
+                27,
+                14,
+                41,
+                68
+            ],
+            "opaquePixels": 1556
+        },
+        "person-205-down-sit-3": {
+            "visibleRect": [
+                27,
+                14,
+                41,
+                68
+            ],
+            "opaquePixels": 1559
+        },
+        "person-205-left-fish-0": {
+            "visibleRect": [
+                11,
+                12,
+                66,
+                80
+            ],
+            "opaquePixels": 2106
+        },
+        "person-205-left-fish-1": {
+            "visibleRect": [
+                7,
+                14,
+                76,
+                78
+            ],
+            "opaquePixels": 2160
+        },
+        "person-205-left-fish-2": {
+            "visibleRect": [
+                10,
+                10,
+                68,
+                82
+            ],
+            "opaquePixels": 2222
+        },
+        "person-205-left-fish-3": {
+            "visibleRect": [
+                8,
+                4,
+                74,
+                88
+            ],
+            "opaquePixels": 2583
+        },
+        "person-205-left-sit-0": {
+            "visibleRect": [
+                23,
+                14,
+                41,
+                68
+            ],
+            "opaquePixels": 1598
+        },
+        "person-205-left-sit-1": {
+            "visibleRect": [
+                23,
+                14,
+                41,
+                68
+            ],
+            "opaquePixels": 1610
+        },
+        "person-205-left-sit-2": {
+            "visibleRect": [
+                23,
+                14,
+                42,
+                68
+            ],
+            "opaquePixels": 1589
+        },
+        "person-205-left-sit-3": {
+            "visibleRect": [
+                23,
+                14,
+                42,
+                68
+            ],
+            "opaquePixels": 1601
+        },
+        "person-205-right-fish-0": {
+            "visibleRect": [
+                20,
+                12,
+                65,
+                80
+            ],
+            "opaquePixels": 2080
+        },
+        "person-205-right-fish-1": {
+            "visibleRect": [
+                13,
+                14,
+                78,
+                78
+            ],
+            "opaquePixels": 2190
+        },
+        "person-205-right-fish-2": {
+            "visibleRect": [
+                18,
+                10,
+                68,
+                82
+            ],
+            "opaquePixels": 2216
+        },
+        "person-205-right-fish-3": {
+            "visibleRect": [
+                15,
+                4,
+                73,
+                88
+            ],
+            "opaquePixels": 2581
+        },
+        "person-205-right-sit-0": {
+            "visibleRect": [
+                31,
+                14,
+                42,
+                68
+            ],
+            "opaquePixels": 1580
+        },
+        "person-205-right-sit-1": {
+            "visibleRect": [
+                31,
+                14,
+                43,
+                68
+            ],
+            "opaquePixels": 1618
+        },
+        "person-205-right-sit-2": {
+            "visibleRect": [
+                31,
+                14,
+                42,
+                68
+            ],
+            "opaquePixels": 1590
+        },
+        "person-205-right-sit-3": {
+            "visibleRect": [
+                32,
+                14,
+                42,
+                68
+            ],
+            "opaquePixels": 1630
+        },
+        "person-205-up-sit-0": {
+            "visibleRect": [
+                28,
+                14,
+                40,
+                68
+            ],
+            "opaquePixels": 1562
+        },
+        "person-205-up-sit-1": {
+            "visibleRect": [
+                28,
+                14,
+                40,
+                68
+            ],
+            "opaquePixels": 1562
+        },
+        "person-205-up-sit-2": {
+            "visibleRect": [
+                28,
+                14,
+                40,
+                68
+            ],
+            "opaquePixels": 1562
+        },
+        "person-205-up-sit-3": {
+            "visibleRect": [
+                28,
+                14,
+                40,
+                68
+            ],
+            "opaquePixels": 1562
+        },
+        "person-206-down-sit-0": {
+            "visibleRect": [
+                30,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1685
+        },
+        "person-206-down-sit-1": {
+            "visibleRect": [
+                30,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1691
+        },
+        "person-206-down-sit-2": {
+            "visibleRect": [
+                30,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1701
+        },
+        "person-206-down-sit-3": {
+            "visibleRect": [
+                30,
+                14,
+                36,
+                68
+            ],
+            "opaquePixels": 1714
+        },
+        "person-206-left-sit-0": {
+            "visibleRect": [
+                24,
+                14,
+                40,
+                68
+            ],
+            "opaquePixels": 1594
+        },
+        "person-206-left-sit-1": {
+            "visibleRect": [
+                24,
+                14,
+                40,
+                68
+            ],
+            "opaquePixels": 1585
+        },
+        "person-206-left-sit-2": {
+            "visibleRect": [
+                24,
+                14,
+                40,
+                68
+            ],
+            "opaquePixels": 1593
+        },
+        "person-206-left-sit-3": {
+            "visibleRect": [
+                24,
+                14,
+                40,
+                68
+            ],
+            "opaquePixels": 1574
+        },
+        "person-206-right-sit-0": {
+            "visibleRect": [
+                32,
+                14,
+                39,
+                68
+            ],
+            "opaquePixels": 1606
+        },
+        "person-206-right-sit-1": {
+            "visibleRect": [
+                32,
+                14,
+                39,
+                68
+            ],
+            "opaquePixels": 1604
+        },
+        "person-206-right-sit-2": {
+            "visibleRect": [
+                32,
+                14,
+                40,
+                68
+            ],
+            "opaquePixels": 1652
+        },
+        "person-206-right-sit-3": {
+            "visibleRect": [
+                32,
+                14,
+                40,
+                68
+            ],
+            "opaquePixels": 1634
+        },
+        "person-206-up-sit-0": {
+            "visibleRect": [
+                30,
+                14,
+                36,
+                68
+            ],
+            "opaquePixels": 1715
+        },
+        "person-206-up-sit-1": {
+            "visibleRect": [
+                30,
+                14,
+                36,
+                68
+            ],
+            "opaquePixels": 1715
+        },
+        "person-206-up-sit-2": {
+            "visibleRect": [
+                30,
+                14,
+                36,
+                68
+            ],
+            "opaquePixels": 1715
+        },
+        "person-206-up-sit-3": {
+            "visibleRect": [
+                30,
+                14,
+                36,
+                68
+            ],
+            "opaquePixels": 1715
+        },
+        "person-207-down-sit-0": {
+            "visibleRect": [
+                31,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1593
+        },
+        "person-207-down-sit-1": {
+            "visibleRect": [
+                31,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1603
+        },
+        "person-207-down-sit-2": {
+            "visibleRect": [
+                30,
+                14,
+                36,
+                68
+            ],
+            "opaquePixels": 1608
+        },
+        "person-207-down-sit-3": {
+            "visibleRect": [
+                30,
+                14,
+                36,
+                68
+            ],
+            "opaquePixels": 1605
+        },
+        "person-207-left-sit-0": {
+            "visibleRect": [
+                26,
+                14,
+                37,
+                68
+            ],
+            "opaquePixels": 1446
+        },
+        "person-207-left-sit-1": {
+            "visibleRect": [
+                26,
+                14,
+                37,
+                68
+            ],
+            "opaquePixels": 1453
+        },
+        "person-207-left-sit-2": {
+            "visibleRect": [
+                26,
+                14,
+                37,
+                68
+            ],
+            "opaquePixels": 1449
+        },
+        "person-207-left-sit-3": {
+            "visibleRect": [
+                25,
+                14,
+                38,
+                68
+            ],
+            "opaquePixels": 1483
+        },
+        "person-207-right-sit-0": {
+            "visibleRect": [
+                32,
+                14,
+                40,
+                68
+            ],
+            "opaquePixels": 1526
+        },
+        "person-207-right-sit-1": {
+            "visibleRect": [
+                32,
+                14,
+                39,
+                68
+            ],
+            "opaquePixels": 1510
+        },
+        "person-207-right-sit-2": {
+            "visibleRect": [
+                32,
+                14,
+                40,
+                68
+            ],
+            "opaquePixels": 1526
+        },
+        "person-207-right-sit-3": {
+            "visibleRect": [
+                32,
+                14,
+                39,
+                68
+            ],
+            "opaquePixels": 1491
+        },
+        "person-207-up-sit-0": {
+            "visibleRect": [
+                31,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1510
+        },
+        "person-207-up-sit-1": {
+            "visibleRect": [
+                31,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1510
+        },
+        "person-207-up-sit-2": {
+            "visibleRect": [
+                31,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1510
+        },
+        "person-207-up-sit-3": {
+            "visibleRect": [
+                31,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1510
+        },
+        "person-208-down-sit-0": {
+            "visibleRect": [
+                31,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1453
+        },
+        "person-208-down-sit-1": {
+            "visibleRect": [
+                31,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1434
+        },
+        "person-208-down-sit-2": {
+            "visibleRect": [
+                31,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1487
+        },
+        "person-208-down-sit-3": {
+            "visibleRect": [
+                31,
+                14,
+                34,
+                68
+            ],
+            "opaquePixels": 1434
+        },
+        "person-208-left-sit-0": {
+            "visibleRect": [
+                27,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1345
+        },
+        "person-208-left-sit-1": {
+            "visibleRect": [
+                27,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1341
+        },
+        "person-208-left-sit-2": {
+            "visibleRect": [
+                27,
+                14,
+                36,
+                68
+            ],
+            "opaquePixels": 1379
+        },
+        "person-208-left-sit-3": {
+            "visibleRect": [
+                27,
+                14,
+                35,
+                68
+            ],
+            "opaquePixels": 1344
+        },
+        "person-208-right-sit-0": {
+            "visibleRect": [
+                34,
+                14,
+                36,
+                68
+            ],
+            "opaquePixels": 1400
+        },
+        "person-208-right-sit-1": {
+            "visibleRect": [
+                34,
+                14,
+                36,
+                68
+            ],
+            "opaquePixels": 1401
+        },
+        "person-208-right-sit-2": {
+            "visibleRect": [
+                34,
+                14,
+                36,
+                68
+            ],
+            "opaquePixels": 1405
+        },
+        "person-208-right-sit-3": {
+            "visibleRect": [
+                34,
+                14,
+                36,
+                68
+            ],
+            "opaquePixels": 1401
+        },
+        "person-208-up-sit-0": {
+            "visibleRect": [
+                30,
+                14,
+                36,
+                68
+            ],
+            "opaquePixels": 1409
+        },
+        "person-208-up-sit-1": {
+            "visibleRect": [
+                30,
+                14,
+                36,
+                68
+            ],
+            "opaquePixels": 1409
+        },
+        "person-208-up-sit-2": {
+            "visibleRect": [
+                30,
+                14,
+                36,
+                68
+            ],
+            "opaquePixels": 1409
+        },
+        "person-208-up-sit-3": {
+            "visibleRect": [
+                30,
+                14,
+                36,
+                68
+            ],
+            "opaquePixels": 1409
+        },
+        "person-209-down-sit-0": {
+            "visibleRect": [
+                28,
+                14,
+                40,
+                68
+            ],
+            "opaquePixels": 1661
+        },
+        "person-209-down-sit-1": {
+            "visibleRect": [
+                28,
+                14,
+                40,
+                68
+            ],
+            "opaquePixels": 1666
+        },
+        "person-209-down-sit-2": {
+            "visibleRect": [
+                28,
+                14,
+                40,
+                68
+            ],
+            "opaquePixels": 1670
+        },
+        "person-209-down-sit-3": {
+            "visibleRect": [
+                28,
+                14,
+                40,
+                68
+            ],
+            "opaquePixels": 1664
+        },
+        "person-209-left-fish-0": {
+            "visibleRect": [
+                8,
+                13,
+                72,
+                79
+            ],
+            "opaquePixels": 2151
+        },
+        "person-209-left-fish-1": {
+            "visibleRect": [
+                6,
+                10,
+                82,
+                82
+            ],
+            "opaquePixels": 2403
+        },
+        "person-209-left-fish-2": {
+            "visibleRect": [
+                11,
+                4,
+                77,
+                88
+            ],
+            "opaquePixels": 2534
+        },
+        "person-209-left-fish-3": {
+            "visibleRect": [
+                8,
+                7,
+                77,
+                85
+            ],
+            "opaquePixels": 2621
+        },
+        "person-209-left-sit-0": {
+            "visibleRect": [
+                21,
+                14,
+                45,
+                68
+            ],
+            "opaquePixels": 1617
+        },
+        "person-209-left-sit-1": {
+            "visibleRect": [
+                21,
+                14,
+                45,
+                68
+            ],
+            "opaquePixels": 1632
+        },
+        "person-209-left-sit-2": {
+            "visibleRect": [
+                21,
+                14,
+                45,
+                68
+            ],
+            "opaquePixels": 1614
+        },
+        "person-209-left-sit-3": {
+            "visibleRect": [
+                21,
+                14,
+                45,
+                68
+            ],
+            "opaquePixels": 1626
+        },
+        "person-209-right-fish-0": {
+            "visibleRect": [
+                16,
+                13,
+                72,
+                79
+            ],
+            "opaquePixels": 2150
+        },
+        "person-209-right-fish-1": {
+            "visibleRect": [
+                8,
+                12,
+                82,
+                80
+            ],
+            "opaquePixels": 2346
+        },
+        "person-209-right-fish-2": {
+            "visibleRect": [
+                8,
+                4,
+                77,
+                88
+            ],
+            "opaquePixels": 2529
+        },
+        "person-209-right-fish-3": {
+            "visibleRect": [
+                12,
+                7,
+                76,
+                85
+            ],
+            "opaquePixels": 2602
+        },
+        "person-209-right-sit-0": {
+            "visibleRect": [
+                30,
+                14,
+                45,
+                68
+            ],
+            "opaquePixels": 1672
+        },
+        "person-209-right-sit-1": {
+            "visibleRect": [
+                30,
+                14,
+                45,
+                68
+            ],
+            "opaquePixels": 1686
+        },
+        "person-209-right-sit-2": {
+            "visibleRect": [
+                30,
+                14,
+                45,
+                68
+            ],
+            "opaquePixels": 1676
+        },
+        "person-209-right-sit-3": {
+            "visibleRect": [
+                30,
+                14,
+                45,
+                68
+            ],
+            "opaquePixels": 1665
+        },
+        "person-209-up-sit-0": {
+            "visibleRect": [
+                26,
+                14,
+                44,
+                68
+            ],
+            "opaquePixels": 1759
+        },
+        "person-209-up-sit-1": {
+            "visibleRect": [
+                26,
+                14,
+                44,
+                68
+            ],
+            "opaquePixels": 1759
+        },
+        "person-209-up-sit-2": {
+            "visibleRect": [
+                26,
+                14,
+                44,
+                68
+            ],
+            "opaquePixels": 1759
+        },
+        "person-209-up-sit-3": {
+            "visibleRect": [
+                26,
+                14,
+                44,
+                68
+            ],
+            "opaquePixels": 1759
+        }
+    }
+}

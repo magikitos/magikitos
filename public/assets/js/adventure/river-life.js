@@ -76,7 +76,10 @@ function drawFishing(ctx, actor, time) {
   const [tx, ty] = actor.fishing.target.map((n) => n * TILE);
   const side = tx < actor.x ? -1 : 1;
   const hand = { x: actor.x + side * 8, y: actor.y - 14 };
-  const tip = { x: actor.x + side * 42, y: actor.y - 42 };
+  // A drawn rod says where its tip is, relative to the feet; the procedural one reaches 42 out.
+  const tip = actor.fishing.tip
+    ? { x: actor.x + actor.fishing.tip[0], y: actor.y + actor.fishing.tip[1] }
+    : { x: actor.x + side * 42, y: actor.y - 42 };
   ctx.save();
   if (rod) {
     ctx.strokeStyle = "#655236";

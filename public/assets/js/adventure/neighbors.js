@@ -15,9 +15,14 @@ function createNeighbors(world, config, ambientCast, choose = Math.random) {
   if (population) {
     const rand = random(hash(world.data.id + ":population")),
       points = (world.data.paths || []).flat().filter(([x, y]) => world.canStand((x + 0.5) * TILE, (y + 0.5) * TILE));
-    for (let i = 0; i < population && points.length; i++) {
+    // Each on its own point, three tiles from the others: two born on the same vertex block each
+    // other's body and neither can ever take a step.
+    const taken = [];
+    for (let i = 0, tries = 0; taken.length < population && points.length && tries < population * 12; tries++) {
       const [x, y] = points[Math.floor(rand() * points.length)];
-      slots.push({ id: world.data.id + "-life-" + i, x: x + 0.5, y: y + 0.5, radius: 4, population: true });
+      if (taken.some(([tx, ty]) => Math.hypot(tx - x, ty - y) < 3)) continue;
+      taken.push([x, y]);
+      slots.push({ id: world.data.id + "-life-" + i++, x: x + 0.5, y: y + 0.5, radius: 4, population: true });
     }
   }
   for (const gathering of world.data.gatherings || []) {

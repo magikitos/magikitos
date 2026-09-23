@@ -1,0 +1,604 @@
+{
+  "frames": {
+    "garden-beets": {
+      "source": "data/aventura/art/forest-life/sheets/garden-growth.png",
+      "rect": [
+        256,
+        192,
+        128,
+        96
+      ],
+      "size": [
+        64,
+        48
+      ],
+      "anchor": [
+        32,
+        42
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "garden-beets-sprout": {
+      "source": "data/aventura/art/forest-life/sheets/garden-growth.png",
+      "rect": [
+        0,
+        192,
+        128,
+        96
+      ],
+      "size": [
+        64,
+        48
+      ],
+      "anchor": [
+        32,
+        42
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "garden-beets-young": {
+      "source": "data/aventura/art/forest-life/sheets/garden-growth.png",
+      "rect": [
+        128,
+        192,
+        128,
+        96
+      ],
+      "size": [
+        64,
+        48
+      ],
+      "anchor": [
+        32,
+        42
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "garden-cabbages": {
+      "source": "data/aventura/art/forest-life/sheets/garden-growth.png",
+      "rect": [
+        256,
+        96,
+        128,
+        96
+      ],
+      "size": [
+        64,
+        48
+      ],
+      "anchor": [
+        32,
+        42
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "garden-cabbages-sprout": {
+      "source": "data/aventura/art/forest-life/sheets/garden-growth.png",
+      "rect": [
+        0,
+        96,
+        128,
+        96
+      ],
+      "size": [
+        64,
+        48
+      ],
+      "anchor": [
+        32,
+        42
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "garden-cabbages-young": {
+      "source": "data/aventura/art/forest-life/sheets/garden-growth.png",
+      "rect": [
+        128,
+        96,
+        128,
+        96
+      ],
+      "size": [
+        64,
+        48
+      ],
+      "anchor": [
+        32,
+        42
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "garden-carrots": {
+      "source": "data/aventura/art/forest-life/sheets/garden-growth.png",
+      "rect": [
+        256,
+        0,
+        128,
+        96
+      ],
+      "size": [
+        64,
+        48
+      ],
+      "anchor": [
+        32,
+        42
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "garden-carrots-sprout": {
+      "source": "data/aventura/art/forest-life/sheets/garden-growth.png",
+      "rect": [
+        0,
+        0,
+        128,
+        96
+      ],
+      "size": [
+        64,
+        48
+      ],
+      "anchor": [
+        32,
+        42
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "garden-carrots-young": {
+      "source": "data/aventura/art/forest-life/sheets/garden-growth.png",
+      "rect": [
+        128,
+        0,
+        128,
+        96
+      ],
+      "size": [
+        64,
+        48
+      ],
+      "anchor": [
+        32,
+        42
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "garden-eggplants": {
+      "source": "data/aventura/art/forest-life/sheets/garden-growth.png",
+      "rect": [
+        256,
+        480,
+        128,
+        90
+      ],
+      "size": [
+        64,
+        45
+      ],
+      "anchor": [
+        32,
+        39
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "garden-eggplants-sprout": {
+      "source": "data/aventura/art/forest-life/sheets/garden-growth.png",
+      "rect": [
+        0,
+        480,
+        128,
+        90
+      ],
+      "size": [
+        64,
+        45
+      ],
+      "anchor": [
+        32,
+        39
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "garden-eggplants-young": {
+      "source": "data/aventura/art/forest-life/sheets/garden-growth.png",
+      "rect": [
+        128,
+        480,
+        128,
+        90
+      ],
+      "size": [
+        64,
+        45
+      ],
+      "anchor": [
+        32,
+        39
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "garden-herbs": {
+      "source": "data/aventura/art/forest-life/sheets/garden-growth.png",
+      "rect": [
+        256,
+        288,
+        128,
+        96
+      ],
+      "size": [
+        64,
+        48
+      ],
+      "anchor": [
+        32,
+        42
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "garden-herbs-sprout": {
+      "source": "data/aventura/art/forest-life/sheets/garden-growth.png",
+      "rect": [
+        0,
+        288,
+        128,
+        96
+      ],
+      "size": [
+        64,
+        48
+      ],
+      "anchor": [
+        32,
+        42
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "garden-herbs-young": {
+      "source": "data/aventura/art/forest-life/sheets/garden-growth.png",
+      "rect": [
+        128,
+        288,
+        128,
+        96
+      ],
+      "size": [
+        64,
+        48
+      ],
+      "anchor": [
+        32,
+        42
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "garden-onions": {
+      "source": "data/aventura/art/forest-life/sheets/garden-growth.png",
+      "rect": [
+        256,
+        576,
+        128,
+        84
+      ],
+      "size": [
+        64,
+        42
+      ],
+      "anchor": [
+        32,
+        36
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "garden-onions-sprout": {
+      "source": "data/aventura/art/forest-life/sheets/garden-growth.png",
+      "rect": [
+        0,
+        576,
+        128,
+        84
+      ],
+      "size": [
+        64,
+        42
+      ],
+      "anchor": [
+        32,
+        36
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "garden-onions-young": {
+      "source": "data/aventura/art/forest-life/sheets/garden-growth.png",
+      "rect": [
+        128,
+        576,
+        128,
+        84
+      ],
+      "size": [
+        64,
+        42
+      ],
+      "anchor": [
+        32,
+        36
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "garden-potatoes": {
+      "source": "data/aventura/art/forest-life/sheets/garden-growth.png",
+      "rect": [
+        256,
+        672,
+        128,
+        84
+      ],
+      "size": [
+        64,
+        42
+      ],
+      "anchor": [
+        32,
+        36
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "garden-potatoes-sprout": {
+      "source": "data/aventura/art/forest-life/sheets/garden-growth.png",
+      "rect": [
+        0,
+        672,
+        128,
+        84
+      ],
+      "size": [
+        64,
+        42
+      ],
+      "anchor": [
+        32,
+        36
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "garden-potatoes-young": {
+      "source": "data/aventura/art/forest-life/sheets/garden-growth.png",
+      "rect": [
+        128,
+        672,
+        128,
+        84
+      ],
+      "size": [
+        64,
+        42
+      ],
+      "anchor": [
+        32,
+        36
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "garden-tomatoes": {
+      "source": "data/aventura/art/forest-life/sheets/garden-growth.png",
+      "rect": [
+        256,
+        384,
+        128,
+        90
+      ],
+      "size": [
+        64,
+        45
+      ],
+      "anchor": [
+        32,
+        39
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "garden-tomatoes-sprout": {
+      "source": "data/aventura/art/forest-life/sheets/garden-growth.png",
+      "rect": [
+        0,
+        384,
+        128,
+        90
+      ],
+      "size": [
+        64,
+        45
+      ],
+      "anchor": [
+        32,
+        39
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "garden-tomatoes-young": {
+      "source": "data/aventura/art/forest-life/sheets/garden-growth.png",
+      "rect": [
+        128,
+        384,
+        128,
+        90
+      ],
+      "size": [
+        64,
+        45
+      ],
+      "anchor": [
+        32,
+        39
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    }
+  }
+}

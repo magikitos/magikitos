@@ -1,108 +1,45 @@
-# Arte que falta para la vida del bosque
+# Arte de la vida del bosque
 
-El bosque ya vive con el arte que hay: los vecinos pasean por los caminos, caminan en pareja,
-charlan con bocadillos, se echan la siesta en la hamaca, se sientan en los bancos, cuidan el huerto,
-se calientan en la hoguera y pescan en la orilla (`public/assets/js/adventure/life.js`). Donde falta
-un dibujo, el juego usa un apaño que funciona, y el dibujo lo sustituye **solo, sin tocar código**,
-en cuanto entra en un paquete con el nombre de esta lista.
+## Estado · 23 de septiembre de 2026
 
-Estilo y formato, igual que lo que ya está en el juego:
+**Todo lo encargado está integrado y en el juego. No falta ningún dibujo.**
 
-- Pixel art del bosque Magikitos, mismo trazo, paleta y luz que `garden`, `woodland-bench` y los
-  actores `actor-105` y compañía.
-- **Densidad 2×**: se entrega al doble del tamaño en el mundo (un recuadro de 48×48 del mundo son
-  96×96 px en el PNG). Fondo transparente y sin sombra propia (la sombra la pinta el juego).
-- Personajes con los pies en el mismo punto de anclaje que su hoja de andar (48×48 del mundo, pies
-  a 24,46).
+| Entrega | En el juego |
+| --- | --- |
+| Huerto: 4 cultivos nuevos y las etapas de los 8 | Crecen con el reloj compartido (brote, joven, listo) en el huerto del sauce y en el huerto de cocina del restaurante |
+| Sentarse: 18 personajes | Se sientan de verdad en bancos, taburetes y butacas, pintados delante del asiento |
+| Pesca: 6 personajes y la salpicadura | Pescan con su caña dibujada y el sedal sale de la punta. También los pescadores fijos del Studio, si su cara tiene hoja |
+| Bocadillos: 7 iconos | Charla, canturreo, siesta, «¡pica!», saludo, cariño y lectura |
+| Diario: libro, hojas que pasan y panel | El libro está sobre su mesa en la plaza del restaurante y el panel es el libro que se lee y en el que se escribe (ver [`DIARIO.md`](DIARIO.md)) |
 
-Ordenado por lo que más vida da por cada dibujo.
+Solo pueden sentarse, cavar y pescar las caras que tienen su hoja: no se finge ninguna postura.
+Las demás pasean, charlan, duermen la siesta, se calientan en la hoguera, se juntan en las mesas y
+leen el diario.
 
-## 1. Huerto: cuatro verduras nuevas y el crecimiento (prioridad alta)
+## Dónde vive y cómo se vuelve a hornear
 
-Hoy hay zanahorias, coles, remolachas y hierbas, siempre en su punto. Faltan tomates, berenjenas,
-cebollas y patatas, y que el huerto **crezca**: con las etapas, cada bancal pasa por sembrado,
-creciendo y listo en un ciclo de 1,5 a 3 horas con el reloj compartido. Todos los jugadores lo ven
-en la misma etapa a la vez.
+- Las hojas preparadas son [`data/aventura/art/forest-life/sheets/`](data/aventura/art/forest-life/sheets/)
+  y su catálogo es [`catalog.json`](data/aventura/art/forest-life/catalog.json). Los originales
+  de alta resolución (`sources/`) no viajan nunca al navegador.
+- `node scripts/prepare-forest-life.cjs` convierte el catálogo en un paquete por hoja (cada cara
+  carga solo su hoja, y solo cuando va a sentarse o a pescar) y copia a `data/aventura/life.json`
+  las puntas de caña. Después, `php scripts/bake-adventure-atlas.php` hornea los paquetes.
+- Las celdas entran tal cual, sin reajustar ni recentrar: el registro es el del diseñador.
+- El panel del diario se cuantizó una vez en su hoja (`pngquant`, calidad 85–98): se ve igual y el
+  paquete pesa 149 KB en vez de 326.
 
-| Sprite | Qué es | Tamaño en el mundo |
-| --- | --- | --- |
-| `garden-tomatoes` | bancal de tomateras con tutores y tomates rojos | 64×45 |
-| `garden-eggplants` | bancal de berenjenas moradas | 64×45 |
-| `garden-onions` | bancal de cebollas asomando | 64×42 |
-| `garden-potatoes` | bancal de patatas: matas y alguna patata a la vista | 64×42 |
-| `garden-<cultivo>-sprout` | el mismo bancal recién sembrado: tierra removida y brotes | igual que su bancal |
-| `garden-<cultivo>-young` | a medio crecer, sin fruto | igual que su bancal |
+## Para el próximo encargo (opcional)
 
-`<cultivo>`: `carrots`, `cabbages`, `beets`, `herbs`, `tomatoes`, `eggplants`, `onions` y `potatoes`.
-En total son **4 bancales nuevos y 16 etapas (20 dibujos)**, en una sola hoja con los que ya hay.
-La caja y el ancla de cada etapa tienen que ser las de su bancal final, para que no salte al crecer.
-Los bancales nuevos los coloca el dueño con el Studio donde quiera: el juego ya sabe que se cuidan.
+Nada de esto hace falta para que el bosque funcione; solo daría más vida.
 
-## 2. Sentarse (prioridad alta)
+1. **`sit` y `work` para más caras.** Hoy se sientan y cavan los 18 personajes con acciones. Los
+   vecinos fijos de cada escena tienen otras caras y no lo hacen. Si se amplía, empezar por los que
+   más se ven en la pradera y el sauce. Misma receta: rejilla 4×4, `down`, `right`, `up`, `left` ×
+   `sit-0..3` (o `work-0..3`), celdas de 96×96 px, pies en `[24,46]` y cadera en `[24,34]`.
+2. **`fish` para más caras.** Hay 6 pescadores. Con 2 o 3 más, los pescadores fijos del sauce y
+   la pradera también pescarían con dibujo propio. Receta: 2×4, `left`, `right` × `fish-0..3`,
+   con `rodTip` en el catálogo.
 
-Solo una cara tiene dibujo de sentado. Mientras tanto, el juego sienta a los demás con un truco:
-el cuerpo de pie sobre el asiento y las piernas tapadas por el banco. Con dibujo propio se ve de
-verdad sentado y se balancea un poco (el ciclo de `seating.js` ya existe).
-
-- Acción `sit` para los **18 personajes que ya tienen acciones**, los de
-  `data/aventura/art/residents/actions/catalog.json` `variants` (100, 120, 135, 142, 166, 172, 194,
-  198 y 200 a 209).
-- Rejilla de **4 direcciones × 4 fotogramas**: `down`, `right`, `up`, `left` × `sit-0` (quieto),
-  `sit-1` (parpadeo), `sit-2` (contento) y `sit-3` (parpadeo contento). La dirección que más se ve
-  es `down`, sentado de cara a la cámara.
-- Nombres: `person-<id>-<dir>-sit-<n>`, como `person-12-*-sit-*`, que ya existe.
-- Cadera a la altura de un asiento de 12 px del mundo sobre el suelo, pies colgando y sin banco
-  dibujado: el banco es otro sprite.
-
-Son 16 celdas por personaje, 288 en total. Es la receta de `work`, con una línea más en
-`catalog.json` (`"sit": { "grid": [4, 4], "directions": ["down","right","up","left"] }`).
-
-## 3. Trabajar el huerto para todos (prioridad media)
-
-La acción `work` ya existe para esos 18 personajes y el huerto la usa: quien la tiene cava con su
-propio dibujo. El resto hace un vaivén y le saltan hojitas. La población nueva ya se reparte
-preferentemente entre esos 18. Si se quiere que cualquier vecino cave, es la misma acción `work`
-para más caras, y conviene empezar por las familias que más salen en los sauces y la pradera.
-
-## 4. Pesca con caña (prioridad baja)
-
-Hoy la caña, el sedal y el corcho se dibujan con líneas, y cuando pica salen un «¡!» y unas ondas.
-Funciona y se lee bien. Con dibujo propio:
-
-- Acción `fish` para **4 a 6 personajes**: no hace falta para todos, porque solo pescan unos pocos a
-  la vez. Rejilla de **2 direcciones (`left`, `right`) × 4 fotogramas**, llamados
-  `person-<id>-<dir>-fish-0` (esperando), `-1` (tirón), `-2` (recogiendo) y `-3` (pez en alto). La
-  caña va en el dibujo; el sedal y el corcho los sigue pintando el juego.
-- `fish-splash-0`, `-1` y `-2`: salpicadura en el corcho, 16×16.
-
-## 5. Opcional: bocadillos más bonitos
-
-Los bocadillos se dibujan con píxeles en el propio juego. Si se quieren con más personalidad, una
-hoja de **6 iconos de 12×14** con el bocadillo incluido: `emote-talk` (charla «…»), `emote-note`
-(canturreo), `emote-zzz` (siesta), `emote-bang` (¡pica!), `emote-wave` (saludo con la mano) y
-`emote-heart` (cariño).
-
-## 6. El Diario del Bosque (prioridad alta cuando se construya)
-
-Un libro gordo abierto encima de una mesa de la pradera, donde cualquiera deja una página al día
-(el plan entero está en [`DIARIO.md`](DIARIO.md)). La mesa ya existe (`table`); el libro va encima
-como sprite aparte, para poder ponerlo en cualquier mesa.
-
-| Sprite | Qué es | Tamaño en el mundo |
-| --- | --- | --- |
-| `forest-diary` | libro grande abierto, lomo de cuero verde, un tintero y una pluma al lado | 32×20 |
-| `forest-diary-flip-0`, `-1`, `-2` | una hoja pasando sola con la brisa (se reproduce de vez en cuando) | igual que `forest-diary` |
-| `forest-diary-panel` | la doble página vista de cerca, vacía, para el panel de leer y escribir: papel crema, lomo en el centro y bordes gastados, con un margen limpio de 16 px por dentro para el texto. Se escala entero (sin estirar), así que tiene que leerse bien a 1× y a 3× | 320×200 (se entrega a 2×) |
-| `emote-book` | icono de bocadillo: un librito abierto, para quien está leyendo | 12×14, en la hoja de §5 |
-
-Son **6 dibujos**. El ancla del libro es el centro de su base, para que caiga sobre el tablero de
-cualquier mesa. Mientras no lleguen, el juego pinta un rectángulo de papel sobre la mesa y el
-panel con los colores de la casa: funciona igual.
-
-## No hace falta
-
-- **Tumbarse en la hamaca:** el juego gira 90° el cuerpo de pie y lo mece en la tela; se ve bien y
-  no pixela.
-- **Más muebles o sitios:** bancos, taburetes, sillas, hamacas, bancales, mesas y hogueras ya se usan
-  solos allí donde se coloquen (`data/aventura/life.json` `kinds`). Un elemento nuevo entra con una
-  línea en esa tabla.
+Convención para cualquier hoja nueva: pixel art del bosque Magikitos a 2× (dos píxeles de textura
+por unidad del mundo), fondo transparente, sin sombra propia, celdas registradas por los pies, y
+una entrada por fotograma en el catálogo con `rect`, `size` y `anchor`.

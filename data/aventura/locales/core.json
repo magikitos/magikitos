@@ -3,6 +3,18 @@
     "es": "La mesa del bosque", "en": "The forest table", "de": "Die Waldtafel",
     "fr": "La table de la forêt", "it": "La tavola del bosco", "pt": "A mesa do bosque"
   },
+  "diaryNeedsAccount": {
+    "es": "Tu página se queda guardada aquí. Para dejarla en el diario hace falta tu cuenta: entra con Google o con tu correo y vuelve al libro.",
+    "en": "Your page is kept here. To leave it in the diary you need your account: sign in with Google or your email and come back to the book.",
+    "de": "Deine Seite bleibt hier gespeichert. Um sie ins Tagebuch zu legen, brauchst du dein Konto: Melde dich mit Google oder deiner E-Mail an und komm zum Buch zurück.",
+    "fr": "Ta page reste gardée ici. Pour la laisser dans le journal, il te faut ton compte : connecte-toi avec Google ou ton e-mail et reviens au livre.",
+    "it": "La tua pagina resta salvata qui. Per lasciarla nel diario serve il tuo account: entra con Google o con la tua e-mail e torna al libro.",
+    "pt": "A sua página fica guardada aqui. Para deixá-la no diário você precisa da sua conta: entre com o Google ou com o seu e-mail e volte ao livro."
+  },
+  "diary": {
+    "es": "El diario del bosque", "en": "The forest diary", "de": "Das Waldtagebuch",
+    "fr": "Le journal de la forêt", "it": "Il diario del bosco", "pt": "O diário do bosque"
+  },
   "noteTitle": {
     "es": "Nota del bosque",
     "en": "Forest note",

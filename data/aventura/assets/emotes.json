@@ -1,0 +1,179 @@
+{
+  "frames": {
+    "emote-bang": {
+      "source": "data/aventura/art/forest-life/sheets/emotes.png",
+      "rect": [
+        72,
+        0,
+        24,
+        28
+      ],
+      "size": [
+        12,
+        14
+      ],
+      "anchor": [
+        6,
+        14
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "emote-book": {
+      "source": "data/aventura/art/forest-life/sheets/emotes.png",
+      "rect": [
+        144,
+        0,
+        24,
+        28
+      ],
+      "size": [
+        12,
+        14
+      ],
+      "anchor": [
+        6,
+        14
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "emote-heart": {
+      "source": "data/aventura/art/forest-life/sheets/emotes.png",
+      "rect": [
+        120,
+        0,
+        24,
+        28
+      ],
+      "size": [
+        12,
+        14
+      ],
+      "anchor": [
+        6,
+        14
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "emote-note": {
+      "source": "data/aventura/art/forest-life/sheets/emotes.png",
+      "rect": [
+        24,
+        0,
+        24,
+        28
+      ],
+      "size": [
+        12,
+        14
+      ],
+      "anchor": [
+        6,
+        14
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "emote-talk": {
+      "source": "data/aventura/art/forest-life/sheets/emotes.png",
+      "rect": [
+        0,
+        0,
+        24,
+        28
+      ],
+      "size": [
+        12,
+        14
+      ],
+      "anchor": [
+        6,
+        14
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "emote-wave": {
+      "source": "data/aventura/art/forest-life/sheets/emotes.png",
+      "rect": [
+        96,
+        0,
+        24,
+        28
+      ],
+      "size": [
+        12,
+        14
+      ],
+      "anchor": [
+        6,
+        14
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "emote-zzz": {
+      "source": "data/aventura/art/forest-life/sheets/emotes.png",
+      "rect": [
+        48,
+        0,
+        24,
+        28
+      ],
+      "size": [
+        12,
+        14
+      ],
+      "anchor": [
+        6,
+        14
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    }
+  }
+}

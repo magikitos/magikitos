@@ -1,0 +1,79 @@
+{
+  "frames": {
+    "fish-splash-0": {
+      "source": "data/aventura/art/forest-life/sheets/fish-splash.png",
+      "rect": [
+        0,
+        0,
+        32,
+        32
+      ],
+      "size": [
+        16,
+        16
+      ],
+      "anchor": [
+        8,
+        13
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "fish-splash-1": {
+      "source": "data/aventura/art/forest-life/sheets/fish-splash.png",
+      "rect": [
+        32,
+        0,
+        32,
+        32
+      ],
+      "size": [
+        16,
+        16
+      ],
+      "anchor": [
+        8,
+        13
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "fish-splash-2": {
+      "source": "data/aventura/art/forest-life/sheets/fish-splash.png",
+      "rect": [
+        64,
+        0,
+        32,
+        32
+      ],
+      "size": [
+        16,
+        16
+      ],
+      "anchor": [
+        8,
+        13
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    }
+  }
+}

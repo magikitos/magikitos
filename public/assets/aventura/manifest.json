@@ -307,6 +307,23 @@
             "height": 200,
             "bytes": 7918
         },
+        "actor-100-fish": {
+            "image": "packs/actor-100-fish-405e9db7e4b2.png",
+            "metadata": "packs/actor-100-fish-405e9db7e4b2.json",
+            "sprites": [
+                "person-100-left-fish-0",
+                "person-100-left-fish-1",
+                "person-100-left-fish-2",
+                "person-100-left-fish-3",
+                "person-100-right-fish-0",
+                "person-100-right-fish-1",
+                "person-100-right-fish-2",
+                "person-100-right-fish-3"
+            ],
+            "width": 512,
+            "height": 200,
+            "bytes": 14606
+        },
         "actor-100-needs": {
             "image": "packs/actor-100-needs-1eee6b5ee95b.png",
             "metadata": "packs/actor-100-needs-1eee6b5ee95b.json",
@@ -430,6 +447,31 @@
             "width": 1024,
             "height": 400,
             "bytes": 45017
+        },
+        "actor-100-sit": {
+            "image": "packs/actor-100-sit-d8e9258d1222.png",
+            "metadata": "packs/actor-100-sit-d8e9258d1222.json",
+            "sprites": [
+                "person-100-down-sit-0",
+                "person-100-down-sit-1",
+                "person-100-down-sit-2",
+                "person-100-down-sit-3",
+                "person-100-left-sit-0",
+                "person-100-left-sit-1",
+                "person-100-left-sit-2",
+                "person-100-left-sit-3",
+                "person-100-right-sit-0",
+                "person-100-right-sit-1",
+                "person-100-right-sit-2",
+                "person-100-right-sit-3",
+                "person-100-up-sit-0",
+                "person-100-up-sit-1",
+                "person-100-up-sit-2",
+                "person-100-up-sit-3"
+            ],
+            "width": 512,
+            "height": 400,
+            "bytes": 17009
         },
         "actor-100-work": {
             "image": "packs/actor-100-work-242fa942aca1.png",
@@ -1396,6 +1438,23 @@
             "height": 200,
             "bytes": 8592
         },
+        "actor-120-fish": {
+            "image": "packs/actor-120-fish-dfebee8b7ba6.png",
+            "metadata": "packs/actor-120-fish-dfebee8b7ba6.json",
+            "sprites": [
+                "person-120-left-fish-0",
+                "person-120-left-fish-1",
+                "person-120-left-fish-2",
+                "person-120-left-fish-3",
+                "person-120-right-fish-0",
+                "person-120-right-fish-1",
+                "person-120-right-fish-2",
+                "person-120-right-fish-3"
+            ],
+            "width": 512,
+            "height": 200,
+            "bytes": 15541
+        },
         "actor-120-needs": {
             "image": "packs/actor-120-needs-1026f994c31f.png",
             "metadata": "packs/actor-120-needs-1026f994c31f.json",
@@ -1519,6 +1578,31 @@
             "width": 1024,
             "height": 400,
             "bytes": 51172
+        },
+        "actor-120-sit": {
+            "image": "packs/actor-120-sit-4b5f7134767c.png",
+            "metadata": "packs/actor-120-sit-4b5f7134767c.json",
+            "sprites": [
+                "person-120-down-sit-0",
+                "person-120-down-sit-1",
+                "person-120-down-sit-2",
+                "person-120-down-sit-3",
+                "person-120-left-sit-0",
+                "person-120-left-sit-1",
+                "person-120-left-sit-2",
+                "person-120-left-sit-3",
+                "person-120-right-sit-0",
+                "person-120-right-sit-1",
+                "person-120-right-sit-2",
+                "person-120-right-sit-3",
+                "person-120-up-sit-0",
+                "person-120-up-sit-1",
+                "person-120-up-sit-2",
+                "person-120-up-sit-3"
+            ],
+            "width": 512,
+            "height": 400,
+            "bytes": 19687
         },
         "actor-120-work": {
             "image": "packs/actor-120-work-f37115d6ee34.png",
@@ -2322,6 +2406,31 @@
             "height": 400,
             "bytes": 53606
         },
+        "actor-135-sit": {
+            "image": "packs/actor-135-sit-2970bf9144db.png",
+            "metadata": "packs/actor-135-sit-2970bf9144db.json",
+            "sprites": [
+                "person-135-down-sit-0",
+                "person-135-down-sit-1",
+                "person-135-down-sit-2",
+                "person-135-down-sit-3",
+                "person-135-left-sit-0",
+                "person-135-left-sit-1",
+                "person-135-left-sit-2",
+                "person-135-left-sit-3",
+                "person-135-right-sit-0",
+                "person-135-right-sit-1",
+                "person-135-right-sit-2",
+                "person-135-right-sit-3",
+                "person-135-up-sit-0",
+                "person-135-up-sit-1",
+                "person-135-up-sit-2",
+                "person-135-up-sit-3"
+            ],
+            "width": 512,
+            "height": 400,
+            "bytes": 20960
+        },
         "actor-135-work": {
             "image": "packs/actor-135-work-4117be3ac0b4.png",
             "metadata": "packs/actor-135-work-4117be3ac0b4.json",
@@ -2672,6 +2781,23 @@
             "height": 200,
             "bytes": 11131
         },
+        "actor-142-fish": {
+            "image": "packs/actor-142-fish-4e873d895d66.png",
+            "metadata": "packs/actor-142-fish-4e873d895d66.json",
+            "sprites": [
+                "person-142-left-fish-0",
+                "person-142-left-fish-1",
+                "person-142-left-fish-2",
+                "person-142-left-fish-3",
+                "person-142-right-fish-0",
+                "person-142-right-fish-1",
+                "person-142-right-fish-2",
+                "person-142-right-fish-3"
+            ],
+            "width": 512,
+            "height": 200,
+            "bytes": 15833
+        },
         "actor-142-needs": {
             "image": "packs/actor-142-needs-97180a02a99f.png",
             "metadata": "packs/actor-142-needs-97180a02a99f.json",
@@ -2795,6 +2921,31 @@
             "width": 1024,
             "height": 400,
             "bytes": 63691
+        },
+        "actor-142-sit": {
+            "image": "packs/actor-142-sit-40bfc7c12c68.png",
+            "metadata": "packs/actor-142-sit-40bfc7c12c68.json",
+            "sprites": [
+                "person-142-down-sit-0",
+                "person-142-down-sit-1",
+                "person-142-down-sit-2",
+                "person-142-down-sit-3",
+                "person-142-left-sit-0",
+                "person-142-left-sit-1",
+                "person-142-left-sit-2",
+                "person-142-left-sit-3",
+                "person-142-right-sit-0",
+                "person-142-right-sit-1",
+                "person-142-right-sit-2",
+                "person-142-right-sit-3",
+                "person-142-up-sit-0",
+                "person-142-up-sit-1",
+                "person-142-up-sit-2",
+                "person-142-up-sit-3"
+            ],
+            "width": 512,
+            "height": 400,
+            "bytes": 21153
         },
         "actor-142-work": {
             "image": "packs/actor-142-work-cd5d5af04849.png",
@@ -3967,6 +4118,31 @@
             "height": 400,
             "bytes": 51692
         },
+        "actor-166-sit": {
+            "image": "packs/actor-166-sit-c689ef3286c6.png",
+            "metadata": "packs/actor-166-sit-c689ef3286c6.json",
+            "sprites": [
+                "person-166-down-sit-0",
+                "person-166-down-sit-1",
+                "person-166-down-sit-2",
+                "person-166-down-sit-3",
+                "person-166-left-sit-0",
+                "person-166-left-sit-1",
+                "person-166-left-sit-2",
+                "person-166-left-sit-3",
+                "person-166-right-sit-0",
+                "person-166-right-sit-1",
+                "person-166-right-sit-2",
+                "person-166-right-sit-3",
+                "person-166-up-sit-0",
+                "person-166-up-sit-1",
+                "person-166-up-sit-2",
+                "person-166-up-sit-3"
+            ],
+            "width": 512,
+            "height": 400,
+            "bytes": 19034
+        },
         "actor-166-work": {
             "image": "packs/actor-166-work-ca1e06c66cc4.png",
             "metadata": "packs/actor-166-work-ca1e06c66cc4.json",
@@ -4399,6 +4575,31 @@
             "width": 1024,
             "height": 400,
             "bytes": 53261
+        },
+        "actor-172-sit": {
+            "image": "packs/actor-172-sit-69710910e92a.png",
+            "metadata": "packs/actor-172-sit-69710910e92a.json",
+            "sprites": [
+                "person-172-down-sit-0",
+                "person-172-down-sit-1",
+                "person-172-down-sit-2",
+                "person-172-down-sit-3",
+                "person-172-left-sit-0",
+                "person-172-left-sit-1",
+                "person-172-left-sit-2",
+                "person-172-left-sit-3",
+                "person-172-right-sit-0",
+                "person-172-right-sit-1",
+                "person-172-right-sit-2",
+                "person-172-right-sit-3",
+                "person-172-up-sit-0",
+                "person-172-up-sit-1",
+                "person-172-up-sit-2",
+                "person-172-up-sit-3"
+            ],
+            "width": 512,
+            "height": 400,
+            "bytes": 21212
         },
         "actor-172-work": {
             "image": "packs/actor-172-work-54ff7b911c0d.png",
@@ -5489,6 +5690,31 @@
             "height": 400,
             "bytes": 50563
         },
+        "actor-194-sit": {
+            "image": "packs/actor-194-sit-cc1913fe0b9d.png",
+            "metadata": "packs/actor-194-sit-cc1913fe0b9d.json",
+            "sprites": [
+                "person-194-down-sit-0",
+                "person-194-down-sit-1",
+                "person-194-down-sit-2",
+                "person-194-down-sit-3",
+                "person-194-left-sit-0",
+                "person-194-left-sit-1",
+                "person-194-left-sit-2",
+                "person-194-left-sit-3",
+                "person-194-right-sit-0",
+                "person-194-right-sit-1",
+                "person-194-right-sit-2",
+                "person-194-right-sit-3",
+                "person-194-up-sit-0",
+                "person-194-up-sit-1",
+                "person-194-up-sit-2",
+                "person-194-up-sit-3"
+            ],
+            "width": 512,
+            "height": 400,
+            "bytes": 18805
+        },
         "actor-194-work": {
             "image": "packs/actor-194-work-b14c3212253e.png",
             "metadata": "packs/actor-194-work-b14c3212253e.json",
@@ -5716,6 +5942,23 @@
             "height": 200,
             "bytes": 9194
         },
+        "actor-198-fish": {
+            "image": "packs/actor-198-fish-088306a6d7b2.png",
+            "metadata": "packs/actor-198-fish-088306a6d7b2.json",
+            "sprites": [
+                "person-198-left-fish-0",
+                "person-198-left-fish-1",
+                "person-198-left-fish-2",
+                "person-198-left-fish-3",
+                "person-198-right-fish-0",
+                "person-198-right-fish-1",
+                "person-198-right-fish-2",
+                "person-198-right-fish-3"
+            ],
+            "width": 512,
+            "height": 200,
+            "bytes": 17796
+        },
         "actor-198-needs": {
             "image": "packs/actor-198-needs-600166e9c1fc.png",
             "metadata": "packs/actor-198-needs-600166e9c1fc.json",
@@ -5839,6 +6082,31 @@
             "width": 1024,
             "height": 400,
             "bytes": 56941
+        },
+        "actor-198-sit": {
+            "image": "packs/actor-198-sit-9172327b0ed1.png",
+            "metadata": "packs/actor-198-sit-9172327b0ed1.json",
+            "sprites": [
+                "person-198-down-sit-0",
+                "person-198-down-sit-1",
+                "person-198-down-sit-2",
+                "person-198-down-sit-3",
+                "person-198-left-sit-0",
+                "person-198-left-sit-1",
+                "person-198-left-sit-2",
+                "person-198-left-sit-3",
+                "person-198-right-sit-0",
+                "person-198-right-sit-1",
+                "person-198-right-sit-2",
+                "person-198-right-sit-3",
+                "person-198-up-sit-0",
+                "person-198-up-sit-1",
+                "person-198-up-sit-2",
+                "person-198-up-sit-3"
+            ],
+            "width": 512,
+            "height": 400,
+            "bytes": 21386
         },
         "actor-198-work": {
             "image": "packs/actor-198-work-b3c3c053e9f6.png",
@@ -6150,6 +6418,31 @@
             "height": 400,
             "bytes": 64637
         },
+        "actor-200-sit": {
+            "image": "packs/actor-200-sit-d6bd9e527362.png",
+            "metadata": "packs/actor-200-sit-d6bd9e527362.json",
+            "sprites": [
+                "person-200-down-sit-0",
+                "person-200-down-sit-1",
+                "person-200-down-sit-2",
+                "person-200-down-sit-3",
+                "person-200-left-sit-0",
+                "person-200-left-sit-1",
+                "person-200-left-sit-2",
+                "person-200-left-sit-3",
+                "person-200-right-sit-0",
+                "person-200-right-sit-1",
+                "person-200-right-sit-2",
+                "person-200-right-sit-3",
+                "person-200-up-sit-0",
+                "person-200-up-sit-1",
+                "person-200-up-sit-2",
+                "person-200-up-sit-3"
+            ],
+            "width": 512,
+            "height": 400,
+            "bytes": 20199
+        },
         "actor-200-work": {
             "image": "packs/actor-200-work-ebc1c26cb863.png",
             "metadata": "packs/actor-200-work-ebc1c26cb863.json",
@@ -6377,6 +6670,31 @@
             "width": 1024,
             "height": 400,
             "bytes": 63752
+        },
+        "actor-201-sit": {
+            "image": "packs/actor-201-sit-d7c92af4f057.png",
+            "metadata": "packs/actor-201-sit-d7c92af4f057.json",
+            "sprites": [
+                "person-201-down-sit-0",
+                "person-201-down-sit-1",
+                "person-201-down-sit-2",
+                "person-201-down-sit-3",
+                "person-201-left-sit-0",
+                "person-201-left-sit-1",
+                "person-201-left-sit-2",
+                "person-201-left-sit-3",
+                "person-201-right-sit-0",
+                "person-201-right-sit-1",
+                "person-201-right-sit-2",
+                "person-201-right-sit-3",
+                "person-201-up-sit-0",
+                "person-201-up-sit-1",
+                "person-201-up-sit-2",
+                "person-201-up-sit-3"
+            ],
+            "width": 512,
+            "height": 400,
+            "bytes": 20844
         },
         "actor-201-work": {
             "image": "packs/actor-201-work-56db194fa90e.png",
@@ -6606,6 +6924,31 @@
             "height": 400,
             "bytes": 59301
         },
+        "actor-202-sit": {
+            "image": "packs/actor-202-sit-773384e9b710.png",
+            "metadata": "packs/actor-202-sit-773384e9b710.json",
+            "sprites": [
+                "person-202-down-sit-0",
+                "person-202-down-sit-1",
+                "person-202-down-sit-2",
+                "person-202-down-sit-3",
+                "person-202-left-sit-0",
+                "person-202-left-sit-1",
+                "person-202-left-sit-2",
+                "person-202-left-sit-3",
+                "person-202-right-sit-0",
+                "person-202-right-sit-1",
+                "person-202-right-sit-2",
+                "person-202-right-sit-3",
+                "person-202-up-sit-0",
+                "person-202-up-sit-1",
+                "person-202-up-sit-2",
+                "person-202-up-sit-3"
+            ],
+            "width": 512,
+            "height": 400,
+            "bytes": 22444
+        },
         "actor-202-work": {
             "image": "packs/actor-202-work-f93fdfa357ce.png",
             "metadata": "packs/actor-202-work-f93fdfa357ce.json",
@@ -6833,6 +7176,31 @@
             "width": 1024,
             "height": 400,
             "bytes": 61394
+        },
+        "actor-203-sit": {
+            "image": "packs/actor-203-sit-45cdfb7170ea.png",
+            "metadata": "packs/actor-203-sit-45cdfb7170ea.json",
+            "sprites": [
+                "person-203-down-sit-0",
+                "person-203-down-sit-1",
+                "person-203-down-sit-2",
+                "person-203-down-sit-3",
+                "person-203-left-sit-0",
+                "person-203-left-sit-1",
+                "person-203-left-sit-2",
+                "person-203-left-sit-3",
+                "person-203-right-sit-0",
+                "person-203-right-sit-1",
+                "person-203-right-sit-2",
+                "person-203-right-sit-3",
+                "person-203-up-sit-0",
+                "person-203-up-sit-1",
+                "person-203-up-sit-2",
+                "person-203-up-sit-3"
+            ],
+            "width": 512,
+            "height": 400,
+            "bytes": 23456
         },
         "actor-203-work": {
             "image": "packs/actor-203-work-02ba03363371.png",
@@ -7062,6 +7430,31 @@
             "height": 400,
             "bytes": 50921
         },
+        "actor-204-sit": {
+            "image": "packs/actor-204-sit-79ee36011585.png",
+            "metadata": "packs/actor-204-sit-79ee36011585.json",
+            "sprites": [
+                "person-204-down-sit-0",
+                "person-204-down-sit-1",
+                "person-204-down-sit-2",
+                "person-204-down-sit-3",
+                "person-204-left-sit-0",
+                "person-204-left-sit-1",
+                "person-204-left-sit-2",
+                "person-204-left-sit-3",
+                "person-204-right-sit-0",
+                "person-204-right-sit-1",
+                "person-204-right-sit-2",
+                "person-204-right-sit-3",
+                "person-204-up-sit-0",
+                "person-204-up-sit-1",
+                "person-204-up-sit-2",
+                "person-204-up-sit-3"
+            ],
+            "width": 512,
+            "height": 400,
+            "bytes": 19367
+        },
         "actor-204-work": {
             "image": "packs/actor-204-work-343befa98b59.png",
             "metadata": "packs/actor-204-work-343befa98b59.json",
@@ -7165,6 +7558,23 @@
             "width": 256,
             "height": 200,
             "bytes": 10367
+        },
+        "actor-205-fish": {
+            "image": "packs/actor-205-fish-fc3d8ffafb7f.png",
+            "metadata": "packs/actor-205-fish-fc3d8ffafb7f.json",
+            "sprites": [
+                "person-205-left-fish-0",
+                "person-205-left-fish-1",
+                "person-205-left-fish-2",
+                "person-205-left-fish-3",
+                "person-205-right-fish-0",
+                "person-205-right-fish-1",
+                "person-205-right-fish-2",
+                "person-205-right-fish-3"
+            ],
+            "width": 512,
+            "height": 200,
+            "bytes": 17825
         },
         "actor-205-needs": {
             "image": "packs/actor-205-needs-fe62dee2104f.png",
@@ -7289,6 +7699,31 @@
             "width": 1024,
             "height": 400,
             "bytes": 54845
+        },
+        "actor-205-sit": {
+            "image": "packs/actor-205-sit-4c7f81a85f0d.png",
+            "metadata": "packs/actor-205-sit-4c7f81a85f0d.json",
+            "sprites": [
+                "person-205-down-sit-0",
+                "person-205-down-sit-1",
+                "person-205-down-sit-2",
+                "person-205-down-sit-3",
+                "person-205-left-sit-0",
+                "person-205-left-sit-1",
+                "person-205-left-sit-2",
+                "person-205-left-sit-3",
+                "person-205-right-sit-0",
+                "person-205-right-sit-1",
+                "person-205-right-sit-2",
+                "person-205-right-sit-3",
+                "person-205-up-sit-0",
+                "person-205-up-sit-1",
+                "person-205-up-sit-2",
+                "person-205-up-sit-3"
+            ],
+            "width": 512,
+            "height": 400,
+            "bytes": 22311
         },
         "actor-205-work": {
             "image": "packs/actor-205-work-09fe08eb24a9.png",
@@ -7518,6 +7953,31 @@
             "height": 400,
             "bytes": 56260
         },
+        "actor-206-sit": {
+            "image": "packs/actor-206-sit-4a78f13555b2.png",
+            "metadata": "packs/actor-206-sit-4a78f13555b2.json",
+            "sprites": [
+                "person-206-down-sit-0",
+                "person-206-down-sit-1",
+                "person-206-down-sit-2",
+                "person-206-down-sit-3",
+                "person-206-left-sit-0",
+                "person-206-left-sit-1",
+                "person-206-left-sit-2",
+                "person-206-left-sit-3",
+                "person-206-right-sit-0",
+                "person-206-right-sit-1",
+                "person-206-right-sit-2",
+                "person-206-right-sit-3",
+                "person-206-up-sit-0",
+                "person-206-up-sit-1",
+                "person-206-up-sit-2",
+                "person-206-up-sit-3"
+            ],
+            "width": 512,
+            "height": 400,
+            "bytes": 22534
+        },
         "actor-206-work": {
             "image": "packs/actor-206-work-4eb5ba2ed27a.png",
             "metadata": "packs/actor-206-work-4eb5ba2ed27a.json",
@@ -7745,6 +8205,31 @@
             "width": 1024,
             "height": 400,
             "bytes": 46697
+        },
+        "actor-207-sit": {
+            "image": "packs/actor-207-sit-c23517b9ce79.png",
+            "metadata": "packs/actor-207-sit-c23517b9ce79.json",
+            "sprites": [
+                "person-207-down-sit-0",
+                "person-207-down-sit-1",
+                "person-207-down-sit-2",
+                "person-207-down-sit-3",
+                "person-207-left-sit-0",
+                "person-207-left-sit-1",
+                "person-207-left-sit-2",
+                "person-207-left-sit-3",
+                "person-207-right-sit-0",
+                "person-207-right-sit-1",
+                "person-207-right-sit-2",
+                "person-207-right-sit-3",
+                "person-207-up-sit-0",
+                "person-207-up-sit-1",
+                "person-207-up-sit-2",
+                "person-207-up-sit-3"
+            ],
+            "width": 512,
+            "height": 400,
+            "bytes": 21629
         },
         "actor-207-work": {
             "image": "packs/actor-207-work-38e48b976095.png",
@@ -7974,6 +8459,31 @@
             "height": 400,
             "bytes": 55339
         },
+        "actor-208-sit": {
+            "image": "packs/actor-208-sit-2b52eecf3e92.png",
+            "metadata": "packs/actor-208-sit-2b52eecf3e92.json",
+            "sprites": [
+                "person-208-down-sit-0",
+                "person-208-down-sit-1",
+                "person-208-down-sit-2",
+                "person-208-down-sit-3",
+                "person-208-left-sit-0",
+                "person-208-left-sit-1",
+                "person-208-left-sit-2",
+                "person-208-left-sit-3",
+                "person-208-right-sit-0",
+                "person-208-right-sit-1",
+                "person-208-right-sit-2",
+                "person-208-right-sit-3",
+                "person-208-up-sit-0",
+                "person-208-up-sit-1",
+                "person-208-up-sit-2",
+                "person-208-up-sit-3"
+            ],
+            "width": 512,
+            "height": 400,
+            "bytes": 20946
+        },
         "actor-208-work": {
             "image": "packs/actor-208-work-0571a300fefd.png",
             "metadata": "packs/actor-208-work-0571a300fefd.json",
@@ -8077,6 +8587,23 @@
             "width": 256,
             "height": 200,
             "bytes": 9792
+        },
+        "actor-209-fish": {
+            "image": "packs/actor-209-fish-52adb6007113.png",
+            "metadata": "packs/actor-209-fish-52adb6007113.json",
+            "sprites": [
+                "person-209-left-fish-0",
+                "person-209-left-fish-1",
+                "person-209-left-fish-2",
+                "person-209-left-fish-3",
+                "person-209-right-fish-0",
+                "person-209-right-fish-1",
+                "person-209-right-fish-2",
+                "person-209-right-fish-3"
+            ],
+            "width": 512,
+            "height": 200,
+            "bytes": 18726
         },
         "actor-209-needs": {
             "image": "packs/actor-209-needs-c4a961b1fbbe.png",
@@ -8201,6 +8728,31 @@
             "width": 1024,
             "height": 400,
             "bytes": 63311
+        },
+        "actor-209-sit": {
+            "image": "packs/actor-209-sit-bfeac0c76b7a.png",
+            "metadata": "packs/actor-209-sit-bfeac0c76b7a.json",
+            "sprites": [
+                "person-209-down-sit-0",
+                "person-209-down-sit-1",
+                "person-209-down-sit-2",
+                "person-209-down-sit-3",
+                "person-209-left-sit-0",
+                "person-209-left-sit-1",
+                "person-209-left-sit-2",
+                "person-209-left-sit-3",
+                "person-209-right-sit-0",
+                "person-209-right-sit-1",
+                "person-209-right-sit-2",
+                "person-209-right-sit-3",
+                "person-209-up-sit-0",
+                "person-209-up-sit-1",
+                "person-209-up-sit-2",
+                "person-209-up-sit-3"
+            ],
+            "width": 512,
+            "height": 400,
+            "bytes": 22557
         },
         "actor-209-work": {
             "image": "packs/actor-209-work-5b33ac806b5a.png",
@@ -9007,6 +9559,34 @@
             "height": 3092,
             "bytes": 662531
         },
+        "emotes": {
+            "image": "packs/emotes-4d67a735cb3d.png",
+            "metadata": "packs/emotes-4d67a735cb3d.json",
+            "sprites": [
+                "emote-bang",
+                "emote-book",
+                "emote-heart",
+                "emote-note",
+                "emote-talk",
+                "emote-wave",
+                "emote-zzz"
+            ],
+            "width": 128,
+            "height": 60,
+            "bytes": 2746
+        },
+        "fish-splash": {
+            "image": "packs/fish-splash-f06507ceb528.png",
+            "metadata": "packs/fish-splash-f06507ceb528.json",
+            "sprites": [
+                "fish-splash-0",
+                "fish-splash-1",
+                "fish-splash-2"
+            ],
+            "width": 128,
+            "height": 22,
+            "bytes": 996
+        },
         "forage-mushrooms": {
             "image": "packs/forage-mushrooms-4880ce398171.png",
             "metadata": "packs/forage-mushrooms-4880ce398171.json",
@@ -9031,6 +9611,29 @@
             "width": 256,
             "height": 214,
             "bytes": 16937
+        },
+        "forest-diary-panel": {
+            "image": "packs/forest-diary-panel-414a4aab41ec.png",
+            "metadata": "packs/forest-diary-panel-414a4aab41ec.json",
+            "sprites": [
+                "forest-diary-panel"
+            ],
+            "width": 1024,
+            "height": 404,
+            "bytes": 149399
+        },
+        "forest-diary": {
+            "image": "packs/forest-diary-46b7bb450f76.png",
+            "metadata": "packs/forest-diary-46b7bb450f76.json",
+            "sprites": [
+                "forest-diary",
+                "forest-diary-flip-0",
+                "forest-diary-flip-1",
+                "forest-diary-flip-2"
+            ],
+            "width": 128,
+            "height": 70,
+            "bytes": 4169
         },
         "forest-roots": {
             "image": "packs/forest-roots-decb625d9bdd.png",
@@ -9088,6 +9691,39 @@
             "height": 46,
             "bytes": 2157
         },
+        "garden-crops": {
+            "image": "packs/garden-crops-ddaf11e15edd.png",
+            "metadata": "packs/garden-crops-ddaf11e15edd.json",
+            "sprites": [
+                "garden-beets",
+                "garden-beets-sprout",
+                "garden-beets-young",
+                "garden-cabbages",
+                "garden-cabbages-sprout",
+                "garden-cabbages-young",
+                "garden-carrots",
+                "garden-carrots-sprout",
+                "garden-carrots-young",
+                "garden-eggplants",
+                "garden-eggplants-sprout",
+                "garden-eggplants-young",
+                "garden-herbs",
+                "garden-herbs-sprout",
+                "garden-herbs-young",
+                "garden-onions",
+                "garden-onions-sprout",
+                "garden-onions-young",
+                "garden-potatoes",
+                "garden-potatoes-sprout",
+                "garden-potatoes-young",
+                "garden-tomatoes",
+                "garden-tomatoes-sprout",
+                "garden-tomatoes-young"
+            ],
+            "width": 1024,
+            "height": 356,
+            "bytes": 126679
+        },
         "garden-seeds": {
             "image": "packs/garden-seeds-21b90f9a873c.png",
             "metadata": "packs/garden-seeds-21b90f9a873c.json",
@@ -9099,21 +9735,17 @@
             "bytes": 3234
         },
         "garden": {
-            "image": "packs/garden-9a5172d0bb86.png",
-            "metadata": "packs/garden-9a5172d0bb86.json",
+            "image": "packs/garden-d43f91285af6.png",
+            "metadata": "packs/garden-d43f91285af6.json",
             "sprites": [
-                "garden-carrots",
-                "garden-cabbages",
-                "garden-beets",
-                "garden-herbs",
                 "garden-potting-table",
                 "garden-fence",
                 "garden-hammock",
                 "garden-trellis"
             ],
             "width": 512,
-            "height": 346,
-            "bytes": 51853
+            "height": 294,
+            "bytes": 27826
         },
         "harbor": {
             "image": "packs/harbor-8bbe91eebfee.png",

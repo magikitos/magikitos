@@ -8,6 +8,7 @@ class WorldSite {
     this.current = null;
     this.scales = new (require("./setometro").Setometro)(game);
     this.restaurant = new (require("./restaurant").Restaurant)(game);
+    this.diary = new (require("./diary").Diary)(game);
     this.pending = null;
     this.body = document.getElementById("world-content-body");
     if (location.search || location.hash)
@@ -92,6 +93,7 @@ class WorldSite {
   }
   open(group) {
     if (group === "restaurant") return this.restaurant.open();
+    if (group === "diary") return this.diary.open();
     if (group === "setometro") return this.scales.open();
     if (group === "art") return this.art();
     const kind = this.game.catalog.contentRooms[group]?.kinds?.find((k) =>

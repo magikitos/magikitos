@@ -11,6 +11,7 @@ node_modules/
 data/aventura/art/woodland-kit/previews/
 data/aventura/art/*/review/
 data/aventura/art/*/*/review/
+data/aventura/art/*/reviews/*.png
 data/aventura/art/playable-cast/portraits-review.png
 data/aventura/art/playable-cast/review-101-110/
 data/audio/*.tmp

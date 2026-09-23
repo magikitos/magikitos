@@ -1,0 +1,30 @@
+{
+  "frames": {
+    "forest-diary-panel": {
+      "source": "data/aventura/art/forest-life/sheets/forest-diary-panel.png",
+      "rect": [
+        0,
+        0,
+        640,
+        400
+      ],
+      "size": [
+        320,
+        200
+      ],
+      "anchor": [
+        160,
+        100
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      },
+      "continuousAlpha": true
+    }
+  }
+}

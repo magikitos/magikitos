@@ -1869,13 +1869,21 @@
         "garden-carrots",
         "garden-cabbages",
         "garden-beets",
-        "garden-herbs"
+        "garden-herbs",
+        "garden-tomatoes",
+        "garden-eggplants",
+        "garden-onions",
+        "garden-potatoes"
       ],
       "defaults": {
         "garden-carrots": "garden-carrots",
         "garden-cabbages": "garden-cabbages",
         "garden-beets": "garden-beets",
-        "garden-herbs": "garden-herbs"
+        "garden-herbs": "garden-herbs",
+        "garden-tomatoes": "garden-tomatoes",
+        "garden-eggplants": "garden-eggplants",
+        "garden-onions": "garden-onions",
+        "garden-potatoes": "garden-potatoes"
       },
       "variants": [
         {
@@ -1897,6 +1905,26 @@
           "id": "garden-herbs",
           "sprite": "garden-herbs",
           "label": "Hierbas"
+        },
+        {
+          "id": "garden-tomatoes",
+          "sprite": "garden-tomatoes",
+          "label": "Tomates"
+        },
+        {
+          "id": "garden-eggplants",
+          "sprite": "garden-eggplants",
+          "label": "Berenjenas"
+        },
+        {
+          "id": "garden-onions",
+          "sprite": "garden-onions",
+          "label": "Cebollas"
+        },
+        {
+          "id": "garden-potatoes",
+          "sprite": "garden-potatoes",
+          "label": "Patatas"
         }
       ]
     },

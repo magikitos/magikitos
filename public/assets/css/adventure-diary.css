@@ -1,0 +1,60 @@
+/* El Diario del Bosque: el libro del diseñador (`forest-diary-panel`, 320×200) con las páginas
+ * encima de sus áreas seguras (izquierda 48,36,86,104 · derecha 188,36,86,104). En estrecho se
+ * ve solo la página izquierda: el libro recorta su mitad y se lee página a página. */
+.world-diary-book {
+  position: relative;
+  aspect-ratio: 320 / 200;
+  width: 100%;
+  max-width: 44rem;
+  margin: 1rem auto;
+  overflow: hidden;
+  container-type: inline-size;
+}
+.world-diary-book--plain { background: #f3e7c8; border: .5rem solid #3f5a37; border-radius: 1rem; }
+.world-diary-art { position: absolute; inset: 0; width: 100% !important; height: 100% !important; image-rendering: auto; }
+.world-diary-page {
+  position: absolute;
+  top: 18%;
+  height: 52%;
+  width: 26.9%;
+  display: flex;
+  flex-direction: column;
+  gap: .4em;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(.8rem, 2.6cqi, 1rem);
+  color: #3b2f22;
+  text-align: left;
+}
+.world-diary-page--left { left: 15%; }
+.world-diary-page--right { left: 58.75%; }
+.world-diary-day { margin: 0; font-style: italic; color: #7a5a3a; text-align: center; }
+.world-diary-text { flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-wrap: anywhere; line-height: 1.5; scrollbar-width: thin; scrollbar-color: #c9ae7c transparent; }
+/* Una página larga sigue más abajo: el borde inferior se desvanece en el papel para que se note. */
+.world-diary-text.is-long { mask-image: linear-gradient(#000 82%, transparent); }
+.world-diary-text.is-long.is-end { mask-image: none; }
+.world-diary-text p { margin: 0 0 .6em; white-space: pre-wrap; }
+.world-diary-signature { margin: 0; text-align: right; font-style: italic; }
+.world-diary-empty { margin: auto 0; font-style: italic; text-align: center; }
+.world-diary-input {
+  flex: 1 1 auto; width: 100%; min-height: 0; resize: none; box-sizing: border-box;
+  font: inherit; line-height: 1.5; color: inherit; background: transparent; border: 0; outline: none;
+}
+/* Se escribe EN la página: sin el aro de foco general del juego, que pintaba una caja naranja
+ * encima del papel. Sigue habiendo señal de foco: una línea de tinta bajo lo que se escribe. */
+.world-page .world-diary-input:focus-visible { outline: none; box-shadow: inset 0 -2px 0 #b88746; }
+.world-diary-count { margin: 0 0 .8rem; font-style: italic; text-align: center; }
+.world-diary-count.is-short, .world-diary-count.is-long { color: #9a3f22; }
+.world-diary-turn { display: flex; justify-content: center; gap: 1rem; margin: 0 0 1rem; }
+.world-diary-turn button { min-width: 3rem; min-height: 3rem; font-size: 1.4rem; }
+.world-diary-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; }
+.world-diary-note, .world-diary-status { margin: .6rem 0 0; }
+.world-diary-status:empty { display: none; }
+.world-diary-care { line-height: 1.6; }
+@media (max-width: 559px) {
+  /* Una página: el libro enseña su mitad izquierda y esa página ocupa su área a lo ancho. */
+  .world-diary-book { aspect-ratio: 160 / 200; }
+  .world-diary-art { width: 200% !important; }
+  .world-diary-page { width: 53.75%; font-size: clamp(.85rem, 4.2cqi, 1rem); }
+  .world-diary-page--left { left: 30%; }
+  .world-diary-page--right { display: none; }
+}

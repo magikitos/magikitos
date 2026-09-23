@@ -1,0 +1,104 @@
+{
+  "frames": {
+    "forest-diary": {
+      "source": "data/aventura/art/forest-life/sheets/forest-diary.png",
+      "rect": [
+        0,
+        0,
+        64,
+        40
+      ],
+      "size": [
+        32,
+        20
+      ],
+      "anchor": [
+        16,
+        19
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "forest-diary-flip-0": {
+      "source": "data/aventura/art/forest-life/sheets/forest-diary.png",
+      "rect": [
+        64,
+        0,
+        64,
+        40
+      ],
+      "size": [
+        32,
+        20
+      ],
+      "anchor": [
+        16,
+        19
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "forest-diary-flip-1": {
+      "source": "data/aventura/art/forest-life/sheets/forest-diary.png",
+      "rect": [
+        128,
+        0,
+        64,
+        40
+      ],
+      "size": [
+        32,
+        20
+      ],
+      "anchor": [
+        16,
+        19
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "forest-diary-flip-2": {
+      "source": "data/aventura/art/forest-life/sheets/forest-diary.png",
+      "rect": [
+        192,
+        0,
+        64,
+        40
+      ],
+      "size": [
+        32,
+        20
+      ],
+      "anchor": [
+        16,
+        19
+      ],
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.5,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    }
+  }
+}

@@ -10,6 +10,11 @@ const { World } = require("../public/assets/js/adventure/model");
 const { createNeighbors } = require("../public/assets/js/adventure/neighbors");
 const { ResidentLife, spotsFor } = require("../public/assets/js/adventure/life");
 const catalog = compileWorld(process.cwd());
+// The release's real sprite owners: which faces have seated, digging and angler sheets decides
+// who may sit, dig and fish. `frame` answers as if every sheet had already streamed in.
+const manifest = JSON.parse(require("node:fs").readFileSync("public/assets/aventura/manifest.json"));
+const owned = new Set(Object.values(manifest.packs).flatMap((p) => p.sprites));
+const sprites = { has: (n) => owned.has(n), frame: (n) => (owned.has(n) ? {} : null), manifest };
 assert(catalog.life?.kinds && catalog.life.weights, "life.json travels with the world");
 
 function simulate(sceneId, start, steps = 1600) {
@@ -21,7 +26,7 @@ function simulate(sceneId, start, steps = 1600) {
   const game = {
     catalog, world, journey: {}, dialogue: null, player: { x: -9999, y: -9999 },
     camera: { x: -99999, y: -99999 }, // nobody on screen: everyone is placed, not walked
-    renderer: { width: 480, height: 300, sprites: { has: () => false, manifest: {} } },
+    renderer: { width: 480, height: 300, sprites },
     serverClock: { now: () => start + t },
   };
   const life = new ResidentLife(game), timeline = [];
@@ -50,6 +55,23 @@ for (const sceneId of Object.keys(catalog.scenes)) {
   total += life.residents({ actors: residents }).length;
   for (const line of timeline) for (const cell of line.split(",")) if (cell) kinds.add(cell.split(":")[1]);
 }
+// Nobody fakes what their face has no drawing for, and a seat is sat ON, drawn in front of it.
+for (const sceneId of ["overworld", "river-willows"]) {
+  const { life, residents } = simulate(sceneId, start + 7e6, 800);
+  for (const n of life.residents({ actors: residents })) {
+    if (n.life?.kind === "sit") assert(owned.has(`person-${n.variant}-down-sit-0`), `${n.id} sits without a seated sheet`);
+    if (n.life?.kind === "tend") assert(owned.has(`person-${n.variant}-down-work-0`), `${n.id} digs without a work sheet`);
+    if (n.life?.kind === "fish") {
+      assert(owned.has(`person-${n.variant}-left-fish-0`), `${n.id} fishes without an angler sheet`);
+      assert(["left", "right"].includes(n.life.direction), "Angler sheets face sideways");
+    }
+    if (n.seated) {
+      assert.equal(n.x, n.life.seat.x); assert.equal(n.y, n.life.seat.y);
+      assert(n.depth > n.y, "A seated resident is drawn in front of its seat");
+      assert(/-sit-[0-3]$/.test(n.activitySprite), "Seated with the seated sheet");
+    }
+  }
+}
 for (const kind of ["stroll", "chat", "sit", "tend", "nap", "fish", "socialize"])
   assert(kinds.has(kind), "Somebody somewhere does: " + kind);
 
@@ -73,7 +95,7 @@ assert.equal(spotsFor({ x: 100, y: 100, solid: [-1, -1, 2, 2] }, "warm").length,
   const game = {
     catalog, world, journey: {}, dialogue: null, player: { x: -9999, y: -9999 },
     camera: { x: 0, y: 0 }, // the whole meadow on screen: nobody is placed, everybody walks
-    renderer: { width: world.width * 16, height: world.height * 16, sprites: { has: () => false, manifest: {} } },
+    renderer: { width: world.width * 16, height: world.height * 16, sprites },
     serverClock: { now: () => start + t },
   };
   const path = world.path.bind(world);
