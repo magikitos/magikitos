@@ -4,6 +4,19 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: entrar con Google desde el juego — 23 septiembre 2026
+
+Artefacto `5390068aae3091a35a68`, fuente del juego `f1c0ffc`, web `e9fca354` + puntero. Anterior
+conservada: `cf6e55f8e32671923bc8`.
+
+- «Continuar con Google» fallaba siempre en el juego: `api.url()` rechazaba la página de Google por
+  no ser de la web. Ahora se acepta solo `https://accounts.google.com`. Empotrado en la landing
+  viaja la ventana de fuera y vuelve a `/bosque#explorar`. El aviso sale bajo el botón.
+- La siesta en la hamaca, quieta.
+
+Verificado en producción con el código real: suelto y empotrado llegan a la página de Google
+(la ventana de fuera en el caso empotrado); `check-release-live`, suite (89) y `test:diary`.
+
 ## Producción: el arte de la vida y el Diario del Bosque — 23 septiembre 2026
 
 Artefacto `cf6e55f8e32671923bc8`, fuente del juego `e13bd6b` (worktree limpio), web `7ae59e57`
