@@ -4,6 +4,17 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: la bienvenida y los vecinos con pistas — 23 septiembre 2026
+
+Artefacto `56795a884c3a75778dec`, fuente `f932dcb`, web `859fffbc`. Anterior:
+`a4a9e8767342a703cdb5`. El botón de entrada se llena mientras carga (no se apaga); una partida en
+blanco ve cinco láminas una vez (marca `welcomed`, un paquete por lámina, solo al verlas); la
+charla de los vecinos sin oficio termina con la primera pista sin resolver (`catalog.hints`), y
+los carteles del bosque empujan al juego. Verificado: suite, `test:welcome`, `check-hints`,
+diario, diálogo, controles, empotrado, pícnic, `check-release-live` y la bienvenida contra
+producción en 390 y 1280. `test:browser` cae al arrancar el Studio por un Studio ajeno en el
+puerto 47832; `test:audio`, `actor-stream` y `native` fallan igual en el fuente anterior.
+
 ## Producción: posturas fuera de la vista y el diario sin scroll — 23 septiembre 2026
 
 Artefacto `a4a9e8767342a703cdb5`, fuente `4602f18`, web `b7d53abb` + puntero. Anterior:
