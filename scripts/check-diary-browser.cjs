@@ -65,7 +65,7 @@ async function reachable() {
       });
       await page.addInitScript((state) => {
         localStorage.setItem("magikitos.adventure", JSON.stringify(state));
-        localStorage.setItem("magikitos.session", "fixture-token");
+        localStorage.setItem("magikitos_session", "fixture-token");
       }, cleanSave({ scene: "overworld", position: { x: 59 * 16, y: 102 * 16 }, muted: true }, world));
       await page.goto(origin + "/bosque/explorar");
       await enterWorld(page);

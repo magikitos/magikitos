@@ -1,6 +1,22 @@
 "use strict";
 const byId = (id) => document.getElementById(id);
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+/**
+ * ⛔ GOOGLE'S CONSENT PAGE IS NOT OURS, SO `api.url()` REFUSED IT (23-sep-2026). That check only
+ * lets through addresses of the website, which is right for everything the API hands the game —
+ * and the one address that must leave the site is Google's. Every "Continue with Google" in the
+ * game ended in "something went wrong" with the server answering perfectly. The consent page is
+ * accepted by name and by nothing else.
+ */
+function googleConsentUrl(value) {
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" && url.hostname === "accounts.google.com" && !url.username && !url.password
+      ? url.href : null;
+  } catch (_) {
+    return null;
+  }
+}
 
 /** Identity uses the public API and the shared browser-session contract, never a website bundle.
  *
@@ -9,6 +25,19 @@ const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
  * and one set of rate limits, and a player who already has a Magikitos account
  * arrives here as themselves. Minting an anonymous identity is still a separate,
  * explicit act owned by the cloud-save panel. */
+/**
+ * ⛔ THE PAGE THAT TRAVELS TO GOOGLE IS THE ONE THE PERSON IS LOOKING AT. Inside the website's
+ * landing the game is a same-origin iframe, and Google refuses to be shown inside a frame: the
+ * trip has to be made by the window around it, and come back to that same window (the landing
+ * with the forest open, `/bosque#explorar`). Loose at `/bosque/explorar` it is this window.
+ */
+function pageWindow() {
+  try {
+    if (window.top !== window && window.top.location.origin === location.origin) return window.top;
+  } catch (_) { /* a foreign frame: stay where we are */ }
+  return window;
+}
+
 class Account {
   constructor(game) {
     this.game = game;
@@ -95,20 +124,26 @@ class Account {
     if (this.busy) return;
     this.game.telemetry?.account("google");
     this.busy = true;
-    this.note(this.game.text("authSending"));
+    // The wait and any failure belong to the button that was pressed, not to a line at the foot
+    // of the card, under a form the person never touched.
+    const button = byId("self-google");
+    this.fieldError("google", "");
+    if (button) { button.disabled = true; button.textContent = this.game.text("authSending"); }
     try {
+      const page = pageWindow();
       const data = await this.game.api.authRequest("google/prepare", {
-        return: location.pathname + location.search,
+        return: page.location.pathname + page.location.search + page.location.hash,
         locale: this.game.config.locale,
       });
-      const url = this.game.api.url(data && data.url);
+      const url = googleConsentUrl(data && data.url);
       if (!url) throw Object.assign(Error("auth"), { code: data?.error });
       // Save before leaving: the trip is a full navigation away.
       this.game.save();
-      location.href = url;
+      page.location.href = url;
     } catch (error) {
       this.busy = false;
-      this.note(this.game.text(this.reason(error.code, error.status)));
+      if (button) { button.disabled = false; button.textContent = this.game.text("authGoogle"); }
+      this.fieldError("google", this.game.text(this.reason(error.code, error.status)));
     }
   }
 
@@ -217,7 +252,8 @@ class Account {
   }
 
   fieldError(field, text) {
-    byId("self-" + field)?.setAttribute("aria-invalid", text ? "true" : "false");
+    const control = byId("self-" + field);
+    if (control?.matches("input")) control.setAttribute("aria-invalid", text ? "true" : "false");
     const error = byId("self-" + field + "-error");
     if (error) error.textContent = text;
   }
@@ -317,4 +353,4 @@ class Account {
   }
 }
 
-module.exports = { Account };
+module.exports = { Account, googleConsentUrl };

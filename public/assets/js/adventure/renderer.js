@@ -423,10 +423,10 @@ class Renderer {
       c.fill();
     }
     if (e.napAt) {
-      // Lying in the hammock: the standing body turned on its side over the cloth, swaying a
-      // little. A quarter turn keeps every pixel square, so the art stays crisp.
-      const sway = Math.sin(time * 1.4) * 1.5;
-      drawArtwork(c, this.sprites, { ...e, x: e.napAt.x + 12 + sway, y: e.napAt.y - 22, rotation: -90 }, name);
+      // Lying in the hammock: the standing body turned on its side over the cloth, and STILL —
+      // the hammock does not swing, so a body swaying on it looked like it was sliding (decisión
+      // del dueño, 23-sep-2026). A quarter turn keeps every pixel square, so the art stays crisp.
+      drawArtwork(c, this.sprites, { ...e, x: e.napAt.x + 12, y: e.napAt.y - 22, rotation: -90 }, name);
     } else if (
       !drawAmbientActor(c, this.sprites, e, name, time) &&
       !drawVegetation(c, this.sprites, e, name, time)

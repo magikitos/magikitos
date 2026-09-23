@@ -121,6 +121,15 @@ assert.equal(
   assert.equal(standalone({ navigator: { standalone: true }, matchMedia: media(false) }), true, "Legacy Safari flag");
   assert.equal(standalone({ navigator: {}, matchMedia: media(false) }), false, "In a browser tab");
 }
+// ⛔ «Continuar con Google» salía siempre en «algo ha fallado»: la página de Google no es de la web
+// y el filtro de direcciones del API la rechazaba. Se acepta por nombre, y solo esa.
+{
+  const { googleConsentUrl } = require("../public/assets/js/adventure/account");
+  assert(googleConsentUrl("https://accounts.google.com/o/oauth2/v2/auth?client_id=x"), "Google's consent page is accepted");
+  for (const bad of ["http://accounts.google.com/o", "https://accounts.google.com.evil.example/o", "https://evil.example/?accounts.google.com",
+    "https://user:pw@accounts.google.com/o", "javascript:alert(1)", "", null])
+    assert.equal(googleConsentUrl(bad), null, "Not Google's consent page: " + bad);
+}
 console.log(
   "PASS: rolling stays out of the game, reachable doors, wallet validation, boat landings and fullscreen across both APIs.",
 );

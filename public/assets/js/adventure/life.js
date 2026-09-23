@@ -93,7 +93,7 @@ class ResidentLife {
       for (const n of this.residents(world)) this.live(world, n, now, view, world === g.world);
     }
   }
-  /** Animation frames need more than four ticks a second: the work cycle and the nap sway. */
+  /** Animation frames need more than four ticks a second: the work cycle, the seated blink and the angler. */
   animate() {
     const time = performance.now() / 1000;
     for (const { world } of this.worlds()) {

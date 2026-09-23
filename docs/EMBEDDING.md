@@ -65,6 +65,10 @@ convenga sin que el juego sepa nada de rutas ni de fragmentos.
   salta el trabajo conservando el bucle. Sin esas dos guardas, un mundo precargado fuera
   de la vista arrancaba lanzando `InvalidStateError` dentro de `init()` y se anunciaba
   como fallido.
+- **A Google viaja la página de fuera.** Google no se deja mostrar dentro de un marco, así que
+  empotrado, «Continuar con Google» navega la ventana de la landing y pide volver a
+  `/bosque#explorar`, que reabre el bosque (`pageWindow()` en `account.js`). Suelto, viaja la
+  propia ventana.
 - **Un solo dueño del sonido**: `game.setMuted()` es el único sitio donde cambia la
   preferencia, y lo comparten el botón del juego y el puente.
 

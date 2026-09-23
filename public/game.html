@@ -261,9 +261,10 @@
           <h3 id="self-account-title" class="world-card-title">{{accountTitle}}</h3>
           <div id="self-signin" hidden>
             <p class="world-self-lead">{{accountSave}}</p>
-            <button type="button" class="world-primary world-self-google" id="self-google">
+            <button type="button" class="world-primary world-self-google" id="self-google" aria-describedby="self-google-error">
               {{authGoogle}}
             </button>
+            <p id="self-google-error" class="world-field-error" role="alert"></p>
             <p class="world-self-or" id="self-signin-or"><span>{{authOr}}</span></p>
             <form id="self-email-form" novalidate>
               <input
