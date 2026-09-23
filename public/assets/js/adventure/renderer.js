@@ -243,6 +243,9 @@ class Renderer {
     // El arte de los actores se pide una vez por fotograma para TODO lo que se ve, los de las
     // vecinas incluidos y ya traducidos a estas coordenadas: una segunda llamada pisaría la
     // primera, porque el foco de residencia se sustituye, no se suma.
+    // And the residents of this screen who are about to take a pose out of view: their sheet is
+    // asked for now, at the lowest priority, so it is there before they come into view.
+    if (artDue) for (const a of game.world.actors || []) if (a.artHints) streamed.push(a);
     if (artDue) this.actorArt.update(streamed, view, frameFor);
     placed.sort((a, b) => (a.e.depth ?? a.e.y) + a.oy - ((b.e.depth ?? b.e.y) + b.oy));
     for (const { e, ox, oy } of placed) {

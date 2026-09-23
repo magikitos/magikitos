@@ -45,6 +45,11 @@ class ActorArt {
       if (distance < (requests.get(id) ?? Infinity)) requests.set(id, distance);
     };
     for (const e of entities) {
+      // A pose taken out of view (`life.js` POSES) must already be drawable when it comes into
+      // view: its sheet is offered from anywhere, behind everything the view needs.
+      for (const hint of e.artHints || [])
+        if (this.sprites.owners.has(hint))
+          offer(this.sprites.packageFor(hint), 100000 + Math.hypot(e.x - view.x, e.y - view.y));
       const name = frameFor(e), base = baseActorFrame(name);
       if (!base || e.x < view.x - 96 || e.x > view.x + view.width + 96 ||
           e.y < view.y - 96 || e.y > view.y + view.height + 96) continue;

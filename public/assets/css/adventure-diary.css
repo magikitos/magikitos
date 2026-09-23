@@ -42,12 +42,39 @@
 /* Se escribe EN la página: sin el aro de foco general del juego, que pintaba una caja naranja
  * encima del papel. Sigue habiendo señal de foco: una línea de tinta bajo lo que se escribe. */
 .world-page .world-diary-input:focus-visible { outline: none; box-shadow: inset 0 -2px 0 #b88746; }
-.world-diary-count { margin: 0 0 .8rem; font-style: italic; text-align: center; }
+.world-diary-count { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-style: italic; font-size: .85em; color: #7a5a3a; }
 .world-diary-count.is-short, .world-diary-count.is-long { color: #9a3f22; }
+/* El pie de la página que se escribe: cuántas palabras, salir y dejarla. */
+.world-diary-foot { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: .15em .4em; }
+.world-diary-foot .world-diary-send { grid-column: 1 / -1; }
+.world-page .world-diary-send {
+  min-height: 2.4em; width: 100%; padding: 0 .9em; border: 0; border-radius: 999px; cursor: pointer; white-space: nowrap;
+  font: 700 .85em WorldRound, Georgia, serif; color: #2e2415; background: #e0b35a;
+  box-shadow: inset 0 -2px 0 #b8863c;
+}
+.world-page .world-diary-send:disabled { opacity: .45; cursor: default; }
+.world-page .world-diary-discard {
+  width: 2.4em; height: 2.4em; min-height: 0; padding: 0; border: 0; border-radius: 50%; cursor: pointer;
+  font: 700 1.1em/1 Georgia, serif; color: #7a5a3a; background: transparent;
+}
+.world-page .world-diary-discard:hover { background: #7a5a3a1a; }
+/* La pluma: dorada, en la esquina inferior de la última página visible, sobre el papel. */
+.world-page .world-diary-write {
+  position: absolute; right: 13%; bottom: 12.5%;
+  width: clamp(2.75rem, 7cqi, 3.6rem); height: clamp(2.75rem, 7cqi, 3.6rem);
+  display: grid; place-items: center; padding: 0; border: 0; border-radius: 50%; cursor: pointer;
+  background: #e0b35a; box-shadow: 0 3px 0 #b8863c, 0 6px 14px #3b2f2255;
+  transition: transform .15s ease;
+}
+.world-page .world-diary-write:hover { transform: rotate(-8deg); }
+.world-diary-write svg { width: 1.9rem; height: 1.9rem; display: block; }
+.world-diary-quill-feather { fill: #fbf3dd; stroke: #3b2f22; stroke-width: 1.6; stroke-linejoin: round; }
+.world-diary-quill-shaft { fill: none; stroke: #3b2f22; stroke-width: 1.6; stroke-linecap: round; }
+.world-diary-quill-plus { fill: none; stroke: #2f5a3c; stroke-width: 3; stroke-linecap: round; }
 .world-diary-turn { display: flex; justify-content: center; gap: 1rem; margin: 0 0 1rem; }
 .world-diary-turn button { min-width: 3rem; min-height: 3rem; font-size: 1.4rem; }
-.world-diary-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; }
-.world-diary-note, .world-diary-status { margin: .6rem 0 0; }
+.world-diary-note { margin: 0; text-align: center; }
+.world-diary-status { margin: 0; font-size: .8em; line-height: 1.35; color: #9a3f22; }
 .world-diary-status:empty { display: none; }
 .world-diary-care { line-height: 1.6; }
 @media (max-width: 559px) {
@@ -57,4 +84,5 @@
   .world-diary-page { width: 53.75%; font-size: clamp(.85rem, 4.2cqi, 1rem); }
   .world-diary-page--left { left: 30%; }
   .world-diary-page--right { display: none; }
+  .world-page .world-diary-write { right: 15%; }
 }

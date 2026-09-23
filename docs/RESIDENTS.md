@@ -81,6 +81,10 @@ the same neighbour on the same bench at the same time; only the steps between sp
   its own package and streams in while the resident walks to the place (`artHints`, read by
   `actor-art.js`), so a scene never pins eighteen of them. Anglers the Studio placed use the
   sheet too when their face has one.
+- **⛔ Poses without an animation in or out happen out of view**: lying in the hammock and getting
+  onto a seat are a jump, so they are only chosen for a resident whose place is out of view, and
+  a resident already in one stays in it while it is seen (`POSES` in `life.js`). Its sheet is
+  asked for from anywhere at the lowest priority, so it is drawn before it comes into view.
 - **Seats are sat ON**: `life.json` `seats` gives each seat its height and places; the resident
   walks up to the front, then sits with the hip on the seat and is drawn just in front of it
   (`depth`). The seat is measured on the drawn variant (`artSprite`).

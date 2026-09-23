@@ -18,6 +18,24 @@ const { operationId } = require("./ids");
 const DRAFT = "magikitos.diary.draft";
 const WORD = /[\p{L}\p{N}][\p{L}\p{N}\p{M}'’-]*/gu;
 const words = (text) => (text.match(WORD) || []).length;
+const SVG = "http://www.w3.org/2000/svg";
+/** A quill with a small plus: the only way in to writing, drawn on the open book itself. */
+function quill() {
+  const svg = document.createElementNS(SVG, "svg");
+  svg.setAttribute("viewBox", "0 0 32 32");
+  svg.setAttribute("aria-hidden", "true");
+  for (const [d, cls] of [
+    ["M25 3c-7 1-13 7-15 15l-2 7 2 1 3-5c7-1 12-7 12-14 0-1 0-3 0-4z", "world-diary-quill-feather"],
+    ["M9 25l9-13", "world-diary-quill-shaft"],
+    ["M22 21v8M18 25h8", "world-diary-quill-plus"],
+  ]) {
+    const path = document.createElementNS(SVG, "path");
+    path.setAttribute("d", d);
+    path.setAttribute("class", cls);
+    svg.append(path);
+  }
+  return svg;
+}
 
 function readDraft() {
   try { return JSON.parse(localStorage.getItem(DRAFT) || "null"); } catch (_) { return null; }
@@ -64,11 +82,11 @@ class Diary {
       if (this.canvas) this.canvas.className = "world-diary-art";
     } catch (_) { /* the book still reads without its drawing */ }
   }
-  book(left, right) {
+  book(left, right, extra = []) {
     const book = el("div", { class: "world-diary-book" + (this.canvas ? "" : " world-diary-book--plain") });
     if (this.canvas) book.append(this.canvas);
     book.append(el("div", { class: "world-diary-page world-diary-page--left" }, left),
-      el("div", { class: "world-diary-page world-diary-page--right" }, right));
+      el("div", { class: "world-diary-page world-diary-page--right" }, right), ...extra);
     return book;
   }
   today() {
@@ -106,7 +124,14 @@ class Diary {
     const step = this.spread();
     this.at = Math.max(0, Math.min(this.at, this.pages.length - 1));
     const left = this.pages[this.at], right = step === 2 ? this.pages[this.at + 1] : null;
-    root.append(this.book(left ? this.page(left) : [el("p", { class: "world-diary-empty", text: l.empty })], this.page(right)));
+    // Writing starts on the book: a quill on the corner of the page, where a pen would be left.
+    const pen = [];
+    if (!this.data.me.wroteToday) {
+      const write = el("button", { type: "button", class: "world-diary-write", "aria-label": l.write, title: l.write,
+        on: { click: () => this.compose() } }, [quill()]);
+      pen.push(write);
+    }
+    root.append(this.book(left ? this.page(left) : [el("p", { class: "world-diary-empty", text: l.empty })], this.page(right), pen));
     const newer = button("‹", () => { this.at = Math.max(0, this.at - step); this.redraw(); });
     const older = button("›", () => this.older(step));
     newer.disabled = this.at === 0;
@@ -114,11 +139,7 @@ class Diary {
     newer.setAttribute("aria-label", l.back);
     older.setAttribute("aria-label", l.more);
     root.append(el("div", { class: "world-diary-turn" }, [newer, older]));
-    const write = button(l.write, () => this.compose(), "world-primary");
-    if (this.data.me.wroteToday) {
-      write.disabled = true;
-      root.append(write, el("p", { class: "world-diary-note", text: l.already }));
-    } else root.append(write);
+    if (this.data.me.wroteToday) root.append(el("p", { class: "world-diary-note", text: l.already }));
     return root;
   }
   redraw(view = () => this.readView()) {
@@ -143,11 +164,11 @@ class Diary {
   composeView() {
     const g = this.game, l = this.l, limits = this.data.limits;
     const draft = this.draft ||= { operationId: operationId(), lang: g.config.locale, text: "" };
-    const root = activity(g, "diary", l.write);
+    const root = activity(g, "diary", l.title);
     const area = el("textarea", { class: "world-diary-input", maxlength: limits.maxChars, placeholder: l.placeholder, "aria-label": l.placeholder, text: draft.text });
-    const count = el("p", { class: "world-diary-count", "aria-live": "polite" });
+    const count = el("span", { class: "world-diary-count", "aria-live": "polite" });
     const status = el("p", { class: "world-diary-status", role: "status", "aria-live": "polite" });
-    const send = button(l.send, () => this.send(area, status, send), "world-primary");
+    const send = el("button", { type: "button", class: "world-diary-send", text: l.send, on: { click: () => this.send(area, status, send) } });
     const paint = () => {
       const n = words(area.value);
       count.textContent = l.words.replace(":n", n).replace(":max", limits.maxWords);
@@ -163,11 +184,20 @@ class Diary {
       paint();
     };
     paint();
-    root.append(this.book([area], []), count);
-    root.append(el("div", { class: "world-diary-actions" }, [
-      send,
-      button(l.discard, () => { this.draft = null; writeDraft(null); this.redraw(); }),
-    ]), status);
+    // Everything happens on the page: today's date, the paper, and at its foot the count, the way
+    // out and the way in. Nothing below the book, so a phone never has to scroll to send.
+    const discard = el("button", { type: "button", class: "world-diary-discard", text: "×", "aria-label": l.discard, title: l.discard,
+      on: { click: () => { this.draft = null; writeDraft(null); this.redraw(); } } });
+    const sheet = [
+      el("p", { class: "world-diary-day", text: l.today }),
+      area,
+      status,
+      el("div", { class: "world-diary-foot" }, [count, discard, send]),
+    ];
+    // Two pages open: the newest page on the left for company, the blank one on the right to write.
+    const two = this.spread() === 2;
+    root.append(this.book(two ? this.page(this.pages[0]) : sheet, two ? sheet : [], []));
+    root.querySelector(".world-diary-book").classList.add("is-writing");
     return root;
   }
   async send(area, status, send) {

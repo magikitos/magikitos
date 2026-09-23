@@ -112,6 +112,20 @@ assert.equal(spotsFor({ x: 100, y: 100, solid: [-1, -1, 2, 2] }, "warm").length,
     for (const n of world.actors) if (n.path.length) Object.assign(n, n.path.shift());
   }
   assert(searches > 20, `Residents on screen walk to their places (${searches} routes)`);
+  // ⛔ In view, nobody jumps into a pose: hammock and seats are taken where nobody looks.
+  for (const n of life.residents(world))
+    assert(!["sit", "nap"].includes(n.life?.kind), `${n.id} took a pose in plain view`);
+  // …and a resident already in one stays in it while it is seen, whatever its schedule says.
+  const napper = life.residents(world)[0];
+  life.release(napper);
+  napper.life = { kind: "nap", arrived: true, episode: -1, anchor: { x: napper.x, y: napper.y } };
+  napper.napAt = { x: napper.x, y: napper.y };
+  for (let i = 0; i < 1200; i++) { t += 250; life.update(0.25); }
+  assert.equal(napper.life?.kind, "nap", "Seen in the hammock, it does not get up");
+  game.camera = { x: -99999, y: -99999 };
+  game.renderer.width = game.renderer.height = 10;
+  for (let i = 0; i < 400; i++) { t += 250; life.update(0.25); }
+  assert.notEqual(napper.life?.kind, "nap", "Out of view, it gets up when its time comes");
 }
 
 // Content hosts and residents the Studio placed standing still keep their place.

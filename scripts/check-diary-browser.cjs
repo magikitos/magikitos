@@ -79,13 +79,16 @@ async function reachable() {
       await page.click(".world-diary-turn button:last-child");
       await page.waitForFunction((t) => document.querySelector(".world-diary-page--left").textContent.includes(t),
         width < 560 ? "Página 1" : "Página 2");
-      await page.click("text=" + labels.write);
+      await page.click(".world-diary-write");
       await page.waitForSelector(".world-diary-input");
+      // ⛔ Writing never scrolls: the paper and its send button fit in the viewport.
+      const fits = await page.$eval(".world-diary-send", (b) => { const r = b.getBoundingClientRect(); return r.bottom <= innerHeight && r.top >= 0; });
+      assert(fits, "The send button is on screen without scrolling");
       await page.fill(".world-diary-input", "Solo cuatro palabras aquí");
-      assert(await page.$eval("text=" + labels.send, (b) => b.disabled), "Fewer than ten words cannot be sent");
+      assert(await page.$eval(".world-diary-send", (b) => b.disabled), "Fewer than ten words cannot be sent");
       await page.fill(".world-diary-input", TEXT);
-      assert(!(await page.$eval("text=" + labels.send, (b) => b.disabled)), "Ten words or more can");
-      await page.click("text=" + labels.send);
+      assert(!(await page.$eval(".world-diary-send", (b) => b.disabled)), "Ten words or more can");
+      await page.click(".world-diary-send");
       if (!account) {
         await page.waitForFunction(() => document.getElementById("self-dialog")?.open, null, { timeout: 5000 });
         assert.equal(posts.length, 0, "Without an account nothing leaves the browser");

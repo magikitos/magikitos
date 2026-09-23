@@ -23,7 +23,10 @@ se ha muerto.
 
 1. Se toca el libro (o su mesa) y se abre por la página de hoy. En ancho se leen dos páginas; en
    el teléfono, una, y se pasa de una en una.
-2. «Escribir mi página de hoy»: se escribe EN la página. El borrador vive en el navegador
+2. Se escribe pulsando la pluma dorada pintada en la esquina de la página. La página en blanco
+   del libro se vuelve el papel (a la derecha, junto a la última publicada; en el teléfono, la
+   única página), con el contador, descartar y «Dejarla en el diario» en su pie: nada debajo del
+   libro, así que nunca hay que hacer scroll para enviar. El borrador vive en el navegador
    (`localStorage`, `magikitos.diary.draft`) hasta publicarse o descartarse.
 3. Al enviar **sin cuenta real** se abre el panel de cuenta del juego (Google o código). Nada sale
    del navegador; al volver con cuenta, el libro se abre con el borrador.

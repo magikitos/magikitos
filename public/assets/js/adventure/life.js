@@ -33,6 +33,14 @@ const PATH_LIMIT = 700,
   // every search walks the whole segment, and across the meadow that alone was 19 ms.
   PATH_REACH = 36 * TILE;
 const GREET_DISTANCE = 2.4 * TILE;
+/**
+ * ⛔ WHAT HAS NO ANIMATION IN OR OUT HAPPENS WHERE NOBODY IS LOOKING (23-sep-2026, decisión del
+ * dueño: «un duende que se baja de la hamaca, esas cosas que pasen si no estoy»). Lying down in the
+ * hammock and getting onto a seat are a jump from standing to the pose, so they are only chosen
+ * for a resident whose place is out of view, and a resident already in them stays there while it
+ * is in view, whatever its schedule says. Coming back, you find them in it or already gone.
+ */
+const POSES = new Set(["sit", "nap"]);
 const VIEW_MARGIN = 160;
 const CARDINAL = { down: "down", up: "up", left: "left", right: "right", "down-left": "left", "down-right": "right", "up-left": "left", "up-right": "right" };
 
@@ -163,10 +171,13 @@ class ResidentLife {
     const g = this.game;
     if (n === g.journey.target || (g.dialogue && g.dialogue.entity === n)) return;
     const episode = this.episode(n, now);
+    const posing = n.life?.arrived && POSES.has(n.life.kind) && this.visible(n, view);
     // A resident that joined somebody else's walk or chat keeps it until it ends, whatever its own
-    // episode says; everyone else starts the next episode when theirs changes.
-    if (!n.life || (n.life.episode !== episode && !(n.life.locked > now))) {
+    // episode says; one in a pose keeps it while it is seen; everyone else starts the next episode
+    // when theirs changes.
+    if (!n.life || (n.life.episode !== episode && !(n.life.locked > now) && !posing)) {
       this.release(n);
+      this.view = view;
       this.plan(world, n, episode, now);
     }
     const life = n.life;
@@ -245,9 +256,13 @@ class ResidentLife {
       return true;
     }
     const free = [];
+    const unseen = (p) => !p || !this.view || !this.visible(p, this.view);
+    if (POSES.has(kind) && !unseen(n)) return false;
     for (const place of this.affordances(world))
       if (place.kind === kind)
-        for (const spot of place.spots) if (!this.reserved.has(spot.key)) free.push({ place, spot });
+        for (const spot of place.spots)
+          if (!this.reserved.has(spot.key) && (!POSES.has(kind) || (unseen(spot) && unseen(spot.seat) && unseen(place.entity))))
+            free.push({ place, spot });
     const within = near(n, free, (f) => [f.spot]);
     const choice = within[Math.floor(rand() * within.length)];
     if (!choice) return false;
