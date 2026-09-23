@@ -127,15 +127,21 @@ for (const fps of [20, 30, 60, 120]) {
   assert.equal(f.journey.intent, null, "An inactive target is cancelled, never interacted with");
 }
 {
-  const f = fixture([obstacle("sign", 7, 11.5)]);
+  // ⛔ Chocar ya no abre carteles ni vecinos (prompt.js): solo recoge lo que mete algo en el saco.
+  const catalog = { flags: [], items: { leaf: { max: 99 } }, economy: { maxBalance: 999, rewards: {} } };
+  const sign = fixture([obstacle("sign", 7, 11.5, { rules: [{ effects: [{ type: "dialogue", key: "x" }] }] })]);
   const game = Object.assign(Object.create(Adventure.prototype), {
-    world: f.world, state: f.world.state, journey: f.journey,
+    world: sign.world, state: sign.world.state, journey: sign.journey, catalog,
     interact: entity => { game.contacted = entity; },
   });
-  move(f.world, f.actor, 40, 0, entity => game.contact(entity));
-  assert.equal(game.contacted, f.world.entities[0], "Keyboard bump dialogue remains intentional");
+  move(sign.world, sign.actor, 40, 0, entity => game.contact(entity));
+  assert.equal(game.contacted, undefined, "Bumping into a sign does not open it");
+  const leaf = fixture([obstacle("leaf", 7, 11.5, { rules: [{ effects: [{ type: "item", item: "leaf", amount: 1 }] }] })]);
+  Object.assign(game, { world: leaf.world, state: leaf.world.state, journey: leaf.journey, contactLatch: null });
+  move(leaf.world, leaf.actor, 40, 0, entity => game.contact(entity));
+  assert.equal(game.contacted, leaf.world.entities[0], "Bumping into something to pick up still picks it up");
   game.contacted = null;
-  move(f.world, f.actor, 40, 0, entity => game.contact(entity));
-  assert.equal(game.contacted, null, "The same contact latch still prevents repeated bump dialogue");
+  move(leaf.world, leaf.actor, 40, 0, entity => game.contact(entity));
+  assert.equal(game.contacted, null, "The contact latch still prevents picking twice in one bump");
 }
 console.log("PASS journeys: static/live avoidance, footprint edges, throttled wait/resume, exact target dispatch, deliberate pushing, no live roll, cancellation and keyboard bumps at 20/30/60/120 Hz.");

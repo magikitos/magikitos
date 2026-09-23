@@ -1,0 +1,38 @@
+/* La etiqueta de interactuar (prompt.js): una pastilla encima del elemento más cercano cuando
+   guías tú al duende. Con teclado lleva la tecla delante («E · Hablar»); con el dedo es la misma
+   pastilla, y se toca. Por debajo de los diálogos (40) y de las herramientas (15-16). */
+.world-prompt {
+  position: fixed;
+  z-index: 14;
+  transform: translate(-50%, calc(-100% - 8px));
+  min-height: 34px;
+  padding: 6px 13px;
+  border: 1px solid #ffebaf;
+  border-radius: 999px;
+  background: #eed395;
+  color: #233e32;
+  font: 700 14px/1.2 WorldRound, system-ui, sans-serif;
+  white-space: nowrap;
+  box-shadow: 0 3px 0 #ac935c, 0 6px 14px #17261c55;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.world-prompt:focus-visible {
+  outline: 2px solid #ffe4a1;
+  outline-offset: 3px;
+}
+/* En pantalla táctil, diana de dedo (44 px) aunque se vea igual de fina. */
+@media (pointer: coarse) {
+  .world-prompt {
+    min-height: 44px;
+    padding: 10px 16px;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .world-prompt:not([hidden]) {
+    animation: world-prompt-in 0.14s ease-out;
+  }
+}
+@keyframes world-prompt-in {
+  from { opacity: 0; translate: 0 4px; }
+}

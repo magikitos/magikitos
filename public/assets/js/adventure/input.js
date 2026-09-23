@@ -127,6 +127,11 @@ class WorldInput {
             return;
           }
         }
+        // E o Enter abren lo que dice la etiqueta de interactuar (prompt.js), solo si hay una.
+        if ((key === "e" || key === "enter") && !event.repeat && game.prompt?.open()) {
+          event.preventDefault();
+          return;
+        }
         if (key === "escape") {
           event.preventDefault();
           game.closeContent();

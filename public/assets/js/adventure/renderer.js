@@ -136,6 +136,16 @@ class Renderer {
       point.y <= b.y + b.h + pad
     );
   }
+  /** Where an element is drawn, in world pixels: the same box a tap is tested against, so the
+   * interaction prompt sits over what the person sees. Null when it has no drawing. */
+  artBounds(entity, state) {
+    if (entity.hitArea) {
+      const [dx, dy, w, h] = entity.hitArea;
+      return { x: entity.x + dx * TILE, y: entity.y + dy * TILE, w: w * TILE, h: h * TILE };
+    }
+    const frame = this.sprites.frame(this.actorArt.frame(this.frame(entity, state)));
+    return frame ? artworkBounds(entity, frame) : null;
+  }
   render(game, time) {
     // ⛔ NOTHING IS PAINTED ON A SURFACE THAT DOES NOT EXIST. The website keeps the
     // world in an iframe and hides it with `display: none`, which leaves this

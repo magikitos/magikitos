@@ -232,17 +232,12 @@ for (const start of [
     state: state(),
     interact: () => calls++,
   });
+  // ⛔ Chocar con un cartel ya no lo abre (prompt.js); el cerrojo de choque solo protege lo que se
+  // recoge, y eso lo prueba check-adventure-journeys.
   game.contact(entity);
   game.contact(entity);
-  assert.equal(calls, 1, "Holding against a sign doesn't loop");
-  game.contactLatch = releaseContact(
-    world,
-    { x: entity.x, y: entity.y + 80 },
-    game.contactLatch,
-  );
-  game.contact(entity);
-  assert.equal(calls, 2, "Leaving and returning allows a new interaction");
+  assert.equal(calls, 0, "Holding against a sign never opens it");
 }
 console.log(
-  "PASS: four-direction pushes, tap approach/push, dry bodies, entrance protection, incremental occupancy, simultaneous saved positions, untrusted input, edge assist and contact latches.",
+  "PASS: four-direction pushes, tap approach/push, dry bodies, entrance protection, incremental occupancy, simultaneous saved positions, untrusted input, edge assist and signs that a bump no longer opens.",
 );

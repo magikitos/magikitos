@@ -2518,5 +2518,53 @@
     "fr": ["Tu te promènes dans la forêt comme un poisson dans l’eau. Dans la clairière des saules, chacun construit ce qu’il veut : chemins, clôtures, tout ce qui te passe par la tête.", "Cebolino vend du gravier pour les chemins dans son entrepôt. Et la clairière des saules attend les tiens."],
     "it": ["Ormai ti muovi nel bosco come un pesce nell’acqua. Nella radura dei salici ognuno costruisce quel che vuole: sentieri, staccionate, quello che ti viene in mente.", "Cebolino vende ghiaia per i sentieri nel suo magazzino. E la radura dei salici aspetta i tuoi."],
     "pt": ["Já andas pelo bosque como peixe na água. Na clareira dos salgueiros cada um constrói o que quer: caminhos, vedações, o que te der na cabeça.", "O Cebolino vende gravilha para caminhos no armazém. E a clareira dos salgueiros está à espera dos teus."]
+  },
+  "promptTalk": {
+    "es": "Hablar",
+    "en": "Talk",
+    "de": "Sprechen",
+    "fr": "Parler",
+    "it": "Parla",
+    "pt": "Falar"
+  },
+  "promptLook": {
+    "es": "Mirar",
+    "en": "Look",
+    "de": "Ansehen",
+    "fr": "Regarder",
+    "it": "Guarda",
+    "pt": "Ver"
+  },
+  "promptUse": {
+    "es": "Usar",
+    "en": "Use",
+    "de": "Benutzen",
+    "fr": "Utiliser",
+    "it": "Usa",
+    "pt": "Usar"
+  },
+  "promptEnter": {
+    "es": "Entrar",
+    "en": "Enter",
+    "de": "Betreten",
+    "fr": "Entrer",
+    "it": "Entra",
+    "pt": "Entrar"
+  },
+  "promptOpen": {
+    "es": "Abrir",
+    "en": "Open",
+    "de": "Öffnen",
+    "fr": "Ouvrir",
+    "it": "Apri",
+    "pt": "Abrir"
+  },
+  "promptRead": {
+    "es": "Leer",
+    "en": "Read",
+    "de": "Lesen",
+    "fr": "Lire",
+    "it": "Leggi",
+    "pt": "Ler"
   }
 }

@@ -145,6 +145,7 @@ class Adventure {
     this.cameraEase = this.cameraTravelEase = 1;
     this.entry = new Entry(this);
     this.welcome = new (require("./welcome").Welcome)(this);
+    this.prompt = new (require("./prompt").WorldPrompt)(this);
     this.bind();
   }
   text(key) {
@@ -398,6 +399,8 @@ class Adventure {
    */
   tap(point) {
     if (this.cats.locked) return;
+    // Ir tocando no enseña la etiqueta de interactuar: al llegar, el elemento se abre solo.
+    this.prompt?.steer(null);
     // Un toque nuevo manda sobre el guardado al otro lado de una costura, lo consuma quien lo consuma.
     this.crossings?.forget();
     if (this.community.tap(point)) return;
@@ -767,13 +770,17 @@ class Adventure {
       this.cats?.bump(entity);
       return;
     }
+    // ⛔ CHOCAR SOLO RECOGE (24-sep-2026). Hablar, leer o usar se abre con la etiqueta (prompt.js)
+    // o tocando el elemento; aquí solo pasa lo que te mete algo en el saco al pisarlo.
     entity = this.interactionTarget(entity);
     if (
       !entity ||
       entity.threshold ||
       entity.pushable ||
+      entity.neighbor ||
       this.contactLatch === entity.id ||
-      !(entity.neighbor || entity.rules?.length)
+      !entity.rules?.length ||
+      !require("./prompt").givesItem(entity, this.state, this.catalog)
     )
       return;
     this.contactLatch = entity.id;
@@ -1215,6 +1222,7 @@ class Adventure {
       } else {
         const walkSpeed = walkingSpeed(this.renderer.viewportSize);
         const intent = this.directionIntent();
+        if (intent) this.prompt.steer(this.keyboardIntent() ? "keys" : "drag");
         if (intent) {
           const speed = this.boosted() ? RUN_SPEED : walkSpeed;
           const k = (speed * dt) / Math.hypot(intent.x, intent.y);
@@ -1284,6 +1292,7 @@ class Adventure {
       !this.sequence.current &&
       !this.walking &&
       (this.blocked() || this.reducedMotion || this.dialogue);
+    this.prompt.update(ms);
     if (!calm || ms - (this.lastRender || 0) > 83) {
       this.renderer.render(this, this.reducedMotion ? 0 : ms / 1000);
       this.lastRender = ms;
