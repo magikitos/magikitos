@@ -183,14 +183,6 @@
     "it": "Una penna degli umani. Qui c'è inchiostro per un bel po'.",
     "pt": "Uma caneta dos humanos. Há tinta para dar e vender."
   },
-  "account": {
-    "es": "Mi cuenta",
-    "en": "My account",
-    "de": "Mein Konto",
-    "fr": "Mon compte",
-    "it": "Il mio account",
-    "pt": "A minha conta"
-  },
   "accountSave": {
     "es": "Guarda tu cuenta o accede",
     "en": "Save your account or sign in",
@@ -999,14 +991,6 @@
     "it": "Conversazione",
     "pt": "Conversa"
   },
-  "done": {
-    "es": "Ok",
-    "en": "Ok",
-    "de": "Ok",
-    "fr": "Ok",
-    "it": "Ok",
-    "pt": "Ok"
-  },
   "empty": {
     "es": "Por aquí aún caben muchas historias.",
     "en": "There’s room for plenty more stories here.",
@@ -1271,14 +1255,6 @@
     "it": "Indice",
     "pt": "Índice"
   },
-  "interact": {
-    "es": "mirar",
-    "en": "look",
-    "de": "ansehen",
-    "fr": "regarder",
-    "it": "guarda",
-    "pt": "olhar"
-  },
   "jokes": {
     "es": "La taberna de los chistes",
     "en": "The joke tavern",
@@ -1374,14 +1350,6 @@
     "fr": "Le bois n’a pas pu s’ouvrir. Recharge la page pour réessayer.",
     "it": "Il bosco non si è aperto. Ricarica la pagina per riprovare.",
     "pt": "Não foi possível abrir o bosque. Atualiza a página para tentar de novo."
-  },
-  "loading": {
-    "es": "El bosque se está despertando…",
-    "en": "The woods are waking up…",
-    "de": "Der Wald wird wach…",
-    "fr": "Le bois se réveille…",
-    "it": "Il bosco si sta svegliando…",
-    "pt": "O bosque está a acordar…"
   },
   "missingMedia": {
     "es": "Este audio no está disponible ahora. Prueba con otro.",
@@ -1942,14 +1910,6 @@
     "fr": "Ça n’a pas marché. Réessaie un coup.",
     "it": "Non è andata. Riprova un attimo.",
     "pt": "Não deu para guardar. Tenta outra vez."
-  },
-  "walk": {
-    "es": "caminar",
-    "en": "walk",
-    "de": "gehen",
-    "fr": "marcher",
-    "it": "cammina",
-    "pt": "andar"
   },
   "walletBalance": {
     "es": ":count setines",

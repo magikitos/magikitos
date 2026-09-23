@@ -250,4 +250,4 @@ class Diary {
     return root;
   }
 }
-module.exports = { Diary, words };
+module.exports = { Diary };

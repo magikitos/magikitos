@@ -40,26 +40,6 @@
       ],
       "fit": true
     },
-    "maintenance-defuser": {
-      "source": "data/aventura/art/automaintenance/cutouts/defuser.png",
-      "grid": [
-        1,
-        1
-      ],
-      "cell": [
-        0,
-        0
-      ],
-      "size": [
-        22,
-        20
-      ],
-      "anchor": [
-        11,
-        18
-      ],
-      "fit": true
-    },
     "maintenance-bomb-icon": {
       "source": "data/aventura/art/automaintenance/cutouts/bomb.png",
       "grid": [

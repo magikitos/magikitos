@@ -118,4 +118,4 @@ class Welcome {
     this.game.closeContent();
   }
 }
-module.exports = { Welcome, WELCOME_SLIDES: SLIDES };
+module.exports = { Welcome };

@@ -31,6 +31,11 @@ class LocalSprites extends SpriteLibrary {
     if (this.fail && file.includes(this.fail))
       throw new Error("Deliberate asset failure");
     const bytes = fs.readFileSync(directory + file);
+    // Lossless WebP (VP8L): 14-bit width-1 and height-1 packed after the 0x2f signature.
+    if (bytes.toString("ascii", 12, 16) === "VP8L") {
+      const bits = bytes.readUInt32LE(21);
+      return { naturalWidth: (bits & 0x3fff) + 1, naturalHeight: ((bits >> 14) & 0x3fff) + 1 };
+    }
     return {
       naturalWidth: bytes.readUInt32BE(16),
       naturalHeight: bytes.readUInt32BE(20),
@@ -122,10 +127,10 @@ class LocalSprites extends SpriteLibrary {
     assert.equal(pack.width, metadata.width);
     assert.equal(pack.height, metadata.height);
     assert(
-      pack.image.includes("-") && /-[a-f0-9]{12}\.png$/.test(pack.image),
+      pack.image.includes("-") && /-[a-f0-9]{12}\.webp$/.test(pack.image),
       id + ": content-addressed PNG",
     );
-    assert(pack.metadata.replace(/\.json$/, ".png") === pack.image);
+    assert(pack.metadata.replace(/\.json$/, ".webp") === pack.image);
   }
   for (const id of ["actor-0-roll", "actor-0-bow", "actor-0-row"]) {
     assert(!manifest.packs[id], id + " has no active runtime package");

@@ -46,7 +46,7 @@ foreach($roster as $person){
             $pack=$manifest['packs']["actor-$variant".($action==='walk'?'':"-$action")] ??
                 throw new RuntimeException("Build the registered packs first: $key/$action");
             $baked=$read("$root/public/assets/aventura/{$pack['metadata']}");
-            $actual=imagecreatefrompng("$root/public/assets/aventura/{$pack['image']}");
+            $actual=imagecreatefromstring(file_get_contents("$root/public/assets/aventura/{$pack['image']}"));
             $expected=imagecreatefrompng("$dir/$action-atlas.png");
             imagepalettetotruecolor($actual);imagepalettetotruecolor($expected);
             foreach($metadata['frames'] as $name=>$f) {

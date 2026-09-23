@@ -138,32 +138,84 @@ function findPath(world, from, target, ignore = from, limit = Infinity) {
       return smoothPath(world, from, out, ignore);
     }
     closed[cur] = 1;
-    const x = cur % w,
-      y = Math.floor(cur / w);
-    for (let dy = -1; dy <= 1; dy++)
-      for (let dx = -1; dx <= 1; dx++) {
-        if (
-          (!dx && !dy) ||
-          !walkable(x + dx, y + dy) ||
-          (dx && dy && (!walkable(x + dx, y) || !walkable(x, y + dy)))
-        )
-          continue;
-        const id = (y + dy) * w + x + dx,
-          cost = g[cur] + (dx && dy ? Math.SQRT2 : 1);
-        if (closed[id] || cost >= g[id]) continue;
-        if (
-          !clear(
-            { x: (x + 0.5) * TILE, y: (y + 0.5) * TILE },
-            { x: (x + dx + 0.5) * TILE, y: (y + dy + 0.5) * TILE },
-          )
-        )
-          continue;
-        g[id] = cost;
-        parents[id] = cur;
-        push(id, cost + heuristic(id));
-      }
+    steps(w, walkable, clear, cur, (id, step, open) => {
+      const cost = g[cur] + step;
+      if (closed[id] || cost >= g[id] || !open()) return;
+      g[id] = cost;
+      parents[id] = cur;
+      push(id, cost + heuristic(id));
+    });
   }
   return null;
 }
+/**
+ * The eight moves out of a cell, with the rule every search shares: no corner cutting and a clear
+ * straight segment between the two cell centres. `findPath` and `reachableCells` both walk
+ * through here, so "reachable" can never disagree with "has a route".
+ */
+function steps(w, walkable, clear, cur, visit) {
+  const x = cur % w,
+    y = Math.floor(cur / w);
+  for (let dy = -1; dy <= 1; dy++)
+    for (let dx = -1; dx <= 1; dx++) {
+      if (
+        (!dx && !dy) ||
+        !walkable(x + dx, y + dy) ||
+        (dx && dy && (!walkable(x + dx, y) || !walkable(x, y + dy)))
+      )
+        continue;
+      const id = (y + dy) * w + x + dx;
+      visit(id, dx && dy ? Math.SQRT2 : 1, () =>
+        clear(
+          { x: (x + 0.5) * TILE, y: (y + 0.5) * TILE },
+          { x: (x + dx + 0.5) * TILE, y: (y + dy + 0.5) * TILE },
+        ),
+      );
+    }
+}
+/**
+ * ⛔ UNA SOLA INUNDACIÓN PARA SABER A QUÉ SE PUEDE LLEGAR (23-sep-2026, repaso de rendimiento).
+ * `approach()` probaba hasta 169 casillas alrededor del objetivo con una búsqueda completa cada
+ * una, así que tocar algo al otro lado del río congelaba el juego 13,8 s en un portátil (medido).
+ * Esto recorre UNA vez lo alcanzable desde `from` y devuelve las casillas tocadas; con eso se
+ * elige la mejor candidata alcanzable y se busca ruta solo a ella.
+ */
+function reachableCells(world, from, ignore = from, limit = Infinity) {
+  const w = world.width,
+    known = new Map();
+  const walkable = (x, y) => {
+    if (x < 0 || y < 0 || x >= world.width || y >= world.height) return false;
+    const id = y * w + x;
+    if (!known.has(id)) known.set(id, world.cellCanStand(x, y, ignore));
+    return known.get(id);
+  };
+  const clear = (a, b) => world.clearSegment(a, b, ignore);
+  const seen = new Uint8Array(world.width * world.height),
+    queue = [];
+  const sx = Math.floor(from.x / TILE),
+    sy = Math.floor(from.y / TILE);
+  // Same start rule as `findPath`: the own cell if you can stand there and reach its centre,
+  // otherwise every neighbour you can step onto in a straight line.
+  const centre = (x, y) => ({ x: (x + 0.5) * TILE, y: (y + 0.5) * TILE });
+  const seed = (x, y) => {
+    const id = y * w + x;
+    if (!seen[id]) {
+      seen[id] = 1;
+      queue.push(id);
+    }
+  };
+  if (walkable(sx, sy) && clear(from, centre(sx, sy))) seed(sx, sy);
+  else
+    for (let y = sy - 1; y <= sy + 1; y++)
+      for (let x = sx - 1; x <= sx + 1; x++)
+        if (walkable(x, y) && clear(from, centre(x, y))) seed(x, y);
+  for (let i = 0; i < queue.length && i < limit; i++)
+    steps(w, walkable, clear, queue[i], (id, _step, open) => {
+      if (seen[id] || !open()) return;
+      seen[id] = 1;
+      queue.push(id);
+    });
+  return seen;
+}
 
-module.exports = { findPath, smoothPath };
+module.exports = { findPath, smoothPath, reachableCells };

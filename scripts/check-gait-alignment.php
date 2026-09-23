@@ -33,7 +33,7 @@ foreach ($variants as $id) {
     foreach (['walk','run'] as $pace) {
         $pack=$manifest["actor-$id".($pace==='run'?'-run':'')];
         $packs[$pace]=[
-            imagecreatefrompng("$directory/{$pack['image']}"),
+            imagecreatefromstring(file_get_contents("$directory/{$pack['image']}")),
             json_decode(file_get_contents("$directory/{$pack['metadata']}"),true,512,JSON_THROW_ON_ERROR)['frames'],
         ];
     }

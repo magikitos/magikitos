@@ -323,11 +323,20 @@ function bakeAdventureSprites(array $definitions, string $root, array $profile =
     $height = $y + $rowHeight + $density;
     $packed = imagecrop($atlas, ['x' => 0, 'y' => 0, 'width' => $width, 'height' => $height]);
     imagesavealpha($packed, true);
+    // ⛔ EL PAQUETE VIAJA EN WEBP SIN PÉRDIDA (23-sep-2026, revisión de la compresión). Se cuantiza
+    // igual que antes —la paleta de 255 colores ES el aspecto de estos dibujos— y esa misma imagen
+    // se codifica sin pérdida: los píxeles son idénticos a los del PNG (comprobado paquete a
+    // paquete) y el total baja un 13 %. AVIF sin pérdida se probó y pesa 2,3 veces más que el PNG
+    // en arte de paleta, y con pérdida emborrona el píxel, que es lo único que no se puede tocar.
+    $final = $continuousAlpha ? (adventureExactPalette($packed) ?? $packed) : adventureIndexedImage($packed);
+    if (!imageistruecolor($final)) imagepalettetotruecolor($final);
+    imagealphablending($final, false);
+    imagesavealpha($final, true);
     ob_start();
-    imagepng($continuousAlpha ? (adventureExactPalette($packed) ?? $packed) : adventureIndexedImage($packed), null, 9);
-    $png = ob_get_clean();
+    imagewebp($final, null, IMG_WEBP_LOSSLESS);
+    $encoded = ob_get_clean();
     return [
-        'png' => $png,
+        'image' => $encoded,
         'metadata' => ['version' => 1, 'width' => $width, 'height' => $height, 'frames' => $frames],
     ];
 }

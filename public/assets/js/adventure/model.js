@@ -26,7 +26,7 @@ const { resolveAppearance } = require("./elements");
 const { restorePositions } = require("./movables");
 const room = require("./room-shape");
 const { populate } = require("./placement");
-const { findPath } = require("./navigation");
+const { findPath, reachableCells } = require("./navigation");
 const { resolveSceneAnchors } = require("./scene-anchors");
 /**
  * Las bandas por las que una pantalla se abre a sus vecinas, una por salida de borde: qué borde,
@@ -424,7 +424,7 @@ class World {
   path(from, target, limit = Infinity) {
     return findPath(this, from, target, from, limit);
   }
-  approach(from, target, radius = 3, minDistance = 0) {
+  approach(from, target, radius = 3, minDistance = 0, limit = Infinity) {
     const candidates = [],
       tx = Math.floor(target.x / TILE),
       ty = Math.floor(target.y / TILE);
@@ -446,8 +446,18 @@ class World {
         distance(a, target) - distance(b, target) ||
         distance(a, from) - distance(b, from),
     );
-    for (const point of candidates) {
-      const path = this.path(from, point);
+    if (!candidates.length) return null;
+    // The nearest spot is almost always reachable, and then one ordinary search is all it costs.
+    const first = this.path(from, candidates[0], limit);
+    if (first) return first;
+    // If not, ONE flood says which of the others can be reached, instead of one full failed search
+    // per candidate (up to 169 of them: a tap across the river froze the game for 13.8 s).
+    const reached = reachableCells(this, from, from, limit);
+    for (const point of candidates.slice(1)) {
+      const cell = Math.floor(point.y / TILE) * this.width + Math.floor(point.x / TILE);
+      // `findPath` also accepts a straight clear line, which the grid flood may not walk.
+      if (!reached[cell] && !this.clearSegment(from, point, from)) continue;
+      const path = this.path(from, point, limit);
       if (path) return path;
     }
     return null;

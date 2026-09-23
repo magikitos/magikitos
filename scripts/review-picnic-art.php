@@ -16,7 +16,7 @@ $ink = imagecolorallocate($contact, 255, 244, 210);
 foreach ($names as $i=>$name) {
  foreach ($manifest['packs'] as $pack) if (in_array($name, $pack['sprites'], true)) {
     $metadata = json_decode(file_get_contents($root . '/public/assets/aventura/' . $pack['metadata']), true);
-    $atlas = imagecreatefrompng($root . '/public/assets/aventura/' . $pack['image']);
+    $atlas = imagecreatefromstring(file_get_contents($root . '/public/assets/aventura/' . $pack['image']));
     $f = $metadata['frames'][$name];
     $x = ($i%4)*360 + 180 - $f['anchor'][0]*3;
     $y = intdiv($i,4)*350 + 320 - $f['anchor'][1]*3;

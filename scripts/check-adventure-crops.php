@@ -37,7 +37,7 @@ imagefilledrectangle($sheet, 64+36, 6, 64+39, 24, $ink);
 imagepng($sheet, $directory . '/poses.png');
 $registered = ['source'=>'poses.png','grid'=>[2,1],'size'=>[32,32],'anchor'=>[16,28],'preserveCanvas'=>true];
 $poses = bakeAdventureSprites(['rest'=>$registered+['cell'=>[0,0]],'raised'=>$registered+['cell'=>[1,0]]], $directory);
-$image = imagecreatefromstring($poses['png']);
+$image = imagecreatefromstring($poses['image']);
 foreach ($poses['metadata']['frames'] as $frame) {
     $footX = $frame['x'] + $frame['anchor'][0] * $frame['pixelRatio'];
     $footY = $frame['y'] + $frame['anchor'][1] * $frame['pixelRatio'] - 1;
@@ -52,13 +52,13 @@ imagepng($card, $directory . '/card.png');
 $cardDefinition = ['source'=>'card.png','grid'=>[1,1],'cell'=>[0,0],'size'=>[32,40],
     'anchor'=>[16,40],'preserveCanvas'=>true,'continuousAlpha'=>true,'registration'=>['scale'=>1,'offset'=>[0,0]]];
 $cards = bakeAdventureSprites(['portrait'=>$cardDefinition], $directory);
-$image = imagecreatefromstring($cards['png']);
-// Few colours: stored with an exact palette (`adventureExactPalette`), so read it as truecolor.
-check(!imageistruecolor($image), 'A soft package with few colours is stored with an exact palette');
+$image = imagecreatefromstring($cards['image']);
+// Packages travel as lossless WebP (always truecolor); what must survive is every alpha value.
+check(str_starts_with($cards['image'], 'RIFF') && substr($cards['image'], 8, 4) === 'WEBP', 'Packages are WebP');
 imagepalettetotruecolor($image);$f = $cards['metadata']['frames']['portrait'];
 check($f['w'] === 32 && $f['h'] === 40 && $f['trim'] === [0,0], 'Halo canvas cannot be cropped to opaque body');
 $alpha = imagecolorat($image,$f['x']+8,$f['y']+8)>>24&127;
-check($alpha === 105, 'Continuous alpha survives the final PNG, not only the source card');
+check($alpha === 105, 'Continuous alpha survives the final package, not only the source card');
 check((imagecolorat($image,$f['x'],$f['y'])>>24&127) === 127, 'Transparent outer edge stays transparent');
 try {
     bakeAdventureSprites(['portrait'=>$cardDefinition,'world'=>$definition], $directory);

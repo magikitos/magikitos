@@ -28,7 +28,7 @@ window.artReview={SpriteLibrary,VesselArt,definition,vesselLayers,rowingRigs};`}
    if(pathname==='/manifest.json')return route.fulfill({json:manifest});
    const file=pathname.startsWith('/review/')?path.resolve(dir,pathname.slice(8)):path.resolve(root,'.'+pathname);
    if(!file.startsWith(root+path.sep)||!fs.existsSync(file))return route.fulfill({status:404,body:'Missing local art'});
-   return route.fulfill({body:fs.readFileSync(file),contentType:file.endsWith('.png')?'image/png':'application/json'});
+   return route.fulfill({body:fs.readFileSync(file),contentType:file.endsWith('.webp')?'image/webp':file.endsWith('.png')?'image/png':'application/json'});
   });
   await page.goto('http://art-review.local/');await page.addScriptTag({content:code});
   await page.evaluate(async report=>{

@@ -102,4 +102,4 @@ class VoiceRecorder {
     }
   }
 }
-module.exports = { VoiceRecorder, SILENCE_RMS };
+module.exports = { VoiceRecorder };

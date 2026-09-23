@@ -134,9 +134,13 @@ class WorldPrompt {
     this.target = target;
     if (this.node.textContent !== text) this.node.textContent = text;
     this.node.classList.toggle("world-prompt--keys", this.mode === "keys");
-    this.node.style.left = Math.round(canvas.left + (x - g.camera.x) * fx) + "px";
-    this.node.style.top = Math.round(canvas.top + (y - g.camera.y) * fy) + "px";
-    this.node.hidden = false;
+    // Written only when it moves: an unchanged style write still invalidates layout, and the next
+    // frame's canvas measure would then force it.
+    const left = Math.round(canvas.left + (x - g.camera.x) * fx) + "px",
+      top = Math.round(canvas.top + (y - g.camera.y) * fy) + "px";
+    if (this.node.style.left !== left) this.node.style.left = left;
+    if (this.node.style.top !== top) this.node.style.top = top;
+    if (this.node.hidden) this.node.hidden = false;
   }
   /** E, Enter or a tap on the label: the same interaction a tap on the element starts. */
   open() {

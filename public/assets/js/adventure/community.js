@@ -8,7 +8,6 @@ const {
   polylineReason,
   validateConstruction,
   POLYLINE_MIN_SEGMENT,
-  POLYLINE_HALF,
   absolutePoints,
 } = require("./construction-layout");
 const { drawArtwork } = require("./entity-art");
@@ -1393,7 +1392,9 @@ class Community {
       }
     }
     const price = byId("build-price");
-    price.textContent = d ? this.costLabel(d, this.ghost) : "";
+    // Every frame in build mode: a text write replaces the node even when the words are the same.
+    const cost = d ? this.costLabel(d, this.ghost) : "";
+    if (price.textContent !== cost) price.textContent = cost;
     price.classList.toggle("is-short", Boolean(short || tool));
     // El cartel que enseña el gesto invisible, y solo hasta que clavas el primero: a partir de
     // ahí la cosa se explica sola, que ya se ve crecer.

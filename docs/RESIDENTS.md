@@ -157,7 +157,7 @@ cooking load on use. Scenes with cats or movable objects prepare the protagonist
 carried/pushing sheet before entry. Seated, carried and rowing actors never fall
 back to a standing pose. HUD and dialogues use the selected protagonist too.
 
-The manifest declares PNG bytes and physical dimensions. `SpriteResidency`
+The manifest declares the atlas bytes (lossless WebP since 23-sep-2026) and physical dimensions. `SpriteResidency`
 admits each image **before decoding**, including in-flight reservations, within
 a tiered RGBA sprite budget: 192 MiB with 4 GB of device memory or more, 128 MiB when
 the browser does not say how much there is (Safari) and 96 MiB below that — see

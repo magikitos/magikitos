@@ -15,21 +15,6 @@
         30
       ]
     },
-    "coals": {
-      "source": "data/aventura/art/props.png",
-      "grid": [
-        4,
-        3
-      ],
-      "cell": [
-        1,
-        0
-      ],
-      "size": [
-        28,
-        20
-      ]
-    },
     "sign": {
       "source": "data/aventura/art/props.png",
       "grid": [

@@ -138,9 +138,6 @@ function riverRowSpans(river, y) {
   }
   return spans;
 }
-function riverContains(river, x, y) {
-  return riverRowSpans(river, y).some(([l, r]) => x >= l && x < r);
-}
 /**
  * Signed distance (native pixels) from the nearest bank of this river for one pixel row, as
  * a function of x: positive inside the water. The shoreline paint needs it per pixel; it is
@@ -178,7 +175,6 @@ module.exports = {
   riverEnvelope,
   riverBox,
   riverRowSpans,
-  riverContains,
   riverShore,
   mainChannel,
 };

@@ -1,25 +1,5 @@
 {
   "frames": {
-    "gravel-sack-open": {
-      "size": [
-        24,
-        26
-      ],
-      "anchor": [
-        12,
-        24
-      ],
-      "source": "data/aventura/art/construction/cutouts/gravel-sack-open.png",
-      "grid": [
-        1,
-        1
-      ],
-      "cell": [
-        0,
-        0
-      ],
-      "fit": true
-    },
     "gravel-sack-tied": {
       "size": [
         24,

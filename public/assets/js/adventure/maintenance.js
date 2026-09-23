@@ -8,7 +8,7 @@
  * en la zona (avanzan solo con alguien dentro), nunca una diferencia de fechas: con una fecha, el
  * primer camino de una pantalla vacía se moriría antes de que llegara nadie a usarlo.
  */
-const { shapes, polylineLength } = require("./construction-layout");
+const { shapes } = require("./construction-layout");
 const { overlaps } = require("./geometry");
 
 /** Cuánto le queda a un tramo: 0 recién pisado … 1 muerto. */
@@ -82,4 +82,4 @@ function bombSpot(object, definition) {
   }
   return { x: right + 0.35, y: bottom };
 }
-module.exports = { segmentWear, erodePath, bombReason, bombPhase, bombSpot, polylineLength };
+module.exports = { segmentWear, erodePath, bombReason, bombPhase, bombSpot };

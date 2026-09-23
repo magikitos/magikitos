@@ -195,4 +195,4 @@ class VesselArt {
     return true;
   }
 }
-module.exports = { VesselArt, vesselLayers, compositionBounds, definition, placement };
+module.exports = { VesselArt, vesselLayers, compositionBounds, definition };

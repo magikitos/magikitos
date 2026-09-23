@@ -12,6 +12,7 @@ const types = {
   ".json": "application/json",
   ".css": "text/css",
   ".png": "image/png",
+  ".webp": "image/webp",
   ".mp3": "audio/mpeg",
 };
 const server = http.createServer((req, res) => {

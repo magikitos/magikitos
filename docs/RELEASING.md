@@ -91,6 +91,16 @@ El filtrado adaptativo EMPEORA porque en una imagen de paleta los índices vecin
 numéricamente: GD ya elige «sin filtro», que es lo correcto. No hay `oxipng` ni `zopflipng` en el
 proyecto y no hacen falta: no queda nada que ganar sin perder calidad.
 
+**⛔ Y EL FORMATO SÍ TENÍA MARGEN: DESDE EL 23-SEP-2026 LOS PAQUETES SON WEBP SIN PÉRDIDA.** Lo de
+arriba medía el PNG por dentro; cambiando de contenedor, los 385 paquetes pasan de **22,4 MB a
+19,5 MB (−13 %)** con los píxeles idénticos: descodificados en Chrome, 381 de 381 comparables dan
+cero diferencias. Se sigue cuantizando igual (la paleta de 255 colores es el aspecto) y esa misma
+imagen se codifica con `imagewebp(..., IMG_WEBP_LOSSLESS)`. Probado y descartado, sobre los doce
+paquetes más grandes: **AVIF sin pérdida pesa 2,3 veces el PNG** (convierte la paleta a un
+espacio de color de foto) y **AVIF con pérdida emborrona el borde del píxel**, que es lo único que
+no se puede tocar. `cwebp -z 9` rascaría hasta un −19 %, pero no está en el proyecto y el
+panadero es PHP. La web sigue en AVIF, que es lo correcto para ilustraciones y fotos.
+
 Los 405 MB «descodificados» del manifiesto son lo que ocuparían TODOS los atlas a la vez en
 memoria de textura, y no ocurre nunca: el presupuesto de hojas es de 192 MB y lo residente en la
 pradera son 62 MB. Reducir ese número es reducir píxeles de arte (la densidad 2× de la dirección

@@ -50,7 +50,9 @@ function drawCurrentTraces(ctx, world, camera, view, time) {
         y < camera.y - 24 ||
         x > camera.x + view.width + 24 ||
         y > camera.y + view.height + 24 ||
-        !world.waterAt(x / TILE, y / TILE)
+        // Rounded to the pixel row: a float y missed the per-row water cache on every trace
+        // and pushed out the rows the route searches rely on.
+        !world.waterAt(x / TILE, Math.round(y) / TILE)
       )
         continue;
       const flow = currentAt(world.data, x, y);

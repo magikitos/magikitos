@@ -25,6 +25,7 @@ const types = {
   ".css": "text/css",
   ".json": "application/json",
   ".png": "image/png",
+  ".webp": "image/webp",
   ".woff2": "font/woff2",
   ".txt": "text/plain",
   ".mp3": "audio/mpeg",

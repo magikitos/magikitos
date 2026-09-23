@@ -94,4 +94,4 @@ function drawSplash(c, e, now, sprites = null) {
   }
 }
 
-module.exports = { drawBubble, drawSplash, glyph };
+module.exports = { drawBubble, drawSplash };

@@ -1,6 +1,7 @@
 "use strict";
 const { ResidentLife } = require("./life");
 const { tryPush } = require("./movables");
+const WANDER_SEARCH = 700; // same budget as `life.js` PATH_LIMIT
 const { releaseContact } = require("./obstacles");
 const { World, TILE, insideThreshold } = require("./model");
 const { Renderer } = require("./renderer");
@@ -1098,7 +1099,8 @@ class Adventure {
                 0.5) *
               TILE,
           };
-          n.path = world.path(n, target) || [];
+          // Capped like `life.js`: a wander target in a fenced pocket used to flood the whole map.
+          n.path = world.path(n, target, WANDER_SEARCH) || [];
           n.pause = 4 + n.rand() * 8;
         }
       }

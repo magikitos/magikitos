@@ -40,26 +40,6 @@
                 10
             ]
         },
-        "setin-edge": {
-            "source": "data/aventura/art/cast/cutouts/setin.png",
-            "grid": [
-                2,
-                2
-            ],
-            "cell": [
-                0,
-                1
-            ],
-            "size": [
-                20,
-                20
-            ],
-            "fit": true,
-            "anchor": [
-                10,
-                10
-            ]
-        },
         "setin-flat": {
             "source": "data/aventura/art/cast/cutouts/setin.png",
             "grid": [

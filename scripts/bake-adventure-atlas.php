@@ -41,16 +41,16 @@ foreach (glob($root . '/data/aventura/assets/*.json') as $file) {
     }
     $result = bakeAdventureSprites($definitions, $root);
     $json = json_encode($result['metadata'], JSON_UNESCAPED_SLASHES|JSON_THROW_ON_ERROR) . "\n";
-    $hash = substr(hash('sha256', $result['png'] . $json), 0, 12);
+    $hash = substr(hash('sha256', $result['image'] . $json), 0, 12);
     $filename = "$id-$hash";
-    $write("$destination/$filename.png", $result['png']);
+    $write("$destination/$filename.webp", $result['image']);
     $write("$destination/$filename.json", $json);
     $manifest['packs'][$id] = [
-        'image'=>"packs/$filename.png", 'metadata'=>"packs/$filename.json", 'sprites'=>array_keys($definitions),
+        'image'=>"packs/$filename.webp", 'metadata'=>"packs/$filename.json", 'sprites'=>array_keys($definitions),
         'width'=>$result['metadata']['width'], 'height'=>$result['metadata']['height'],
-        'bytes'=>strlen($result['png']),
+        'bytes'=>strlen($result['image']),
     ];
-    $bytes += strlen($result['png']);
+    $bytes += strlen($result['image']);
 }
 /**
  * ⛔ UN PAQUETE SE NOMBRA POR SU CONTENIDO, ASÍ QUE CADA CAMBIO DE ARTE DEJA EL ANTERIOR DETRÁS.
@@ -70,4 +70,4 @@ foreach (glob($destination . '/*') as $file) {
     }
 }
 $write($assetRoot . '/manifest.json', json_encode($manifest, JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT|JSON_THROW_ON_ERROR) . "\n");
-echo count($owners) . ' sprites in ' . count($manifest['packs']) . " independent packages; $bytes PNG bytes.\n";
+echo count($owners) . ' sprites in ' . count($manifest['packs']) . " independent packages; $bytes WebP bytes.\n";

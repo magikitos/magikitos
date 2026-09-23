@@ -1,4 +1,5 @@
 "use strict";
+const CHASE_SEARCH = 900;
 const { TILE, collisionBounds, distance, random, hash } = require("./geometry");
 const { facing, DIRECTIONS } = require("./characters");
 const { follow } = require("./movement");
@@ -293,7 +294,8 @@ class CatEncounters {
         else if (!seen && ["notice", "chase"].includes(cat.phase))
           this.change(cat, "return");
         if (cat.phase === "chase")
-          cat.path = g.world.approach(cat, g.player, 2) || [];
+          // A cat chases what it can see, nearby: a capped search, re-planned 5 times a second.
+          cat.path = g.world.approach(cat, g.player, 2, 0, CHASE_SEARCH) || [];
       }
       if (cat.phase === "notice") {
         cat.direction = facing(g.player.x - cat.x, g.player.y - cat.y);
