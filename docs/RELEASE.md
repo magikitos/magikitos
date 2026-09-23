@@ -4,6 +4,13 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: posturas fuera de la vista y el diario sin scroll — 23 septiembre 2026
+
+Artefacto `a4a9e8767342a703cdb5`, fuente `4602f18`, web `b7d53abb` + puntero. Anterior:
+`5390068aae3091a35a68`. Hamaca y asientos se toman y se dejan solo fuera de la vista; el diario
+se escribe en la página del libro, con la pluma pintada como entrada. Verificado: suite (89),
+`test:diary` (el botón de enviar a la vista sin scroll), transiciones y `check-release-live`.
+
 ## Producción: entrar con Google desde el juego — 23 septiembre 2026
 
 Artefacto `5390068aae3091a35a68`, fuente del juego `f1c0ffc`, web `e9fca354` + puntero. Anterior
