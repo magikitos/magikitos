@@ -4,6 +4,27 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: ríos curvos y bosques que se ven — 23 septiembre 2026
+
+Artefacto `54d31a217190e798de17`, fuente `db015e8` (worktree limpio), web `e1539766`. Anterior:
+`629db0b17978b4926164`. El canal del seto y el brazo de las raíces pasan de rectángulos rectos a
+ríos de orillas curvas (`axis: "x"`), con la boca del brazo en abanico y la costura seto↔raíces a
+70..92. Los bosques generados de sauces, rápidos, raíces y seto se aclaran para que se vean los
+troncos (de 1.514 elementos a 762): fuera lo escondido bajo una copa y lo plantado en el agua, y
+tres piezas del puzle de los sauces y el cartel de las raíces salen de debajo de sus árboles.
+Interiores revisados sin cambios. Verificado: suite, geografía (el oráculo punto a punto conoce
+los ríos horizontales), `check-world-polish` (costura horizontal y ningún decorado en el agua),
+`test:river`, `hedge`, `vessels`, `dock-access`, `journeys`, `cats`, `pickups`, `mobility`,
+`residents`, `chapter`, `zoom`, `transitions` y `check-release-live` en las tres anchuras.
+
+## Producción: nada se abre por chocar — 23 septiembre 2026
+
+Artefacto `629db0b17978b4926164`, fuente `53c7c96`, web `b4bb25af`. Anterior:
+`56795a884c3a75778dec`. Chocar ya no abre carteles, puertas ni charlas: solo recoge lo que se
+lleva al saco. Al guiar al duende con teclas o arrastrando aparece una etiqueta con el verbo
+(«E · Hablar» con teclado, pulsable con el dedo); al navegar tocando el mapa no sale. Verificado:
+suite, `test:prompt`, journeys y movables con la regla nueva, y `check-release-live`.
+
 ## Producción: la bienvenida y los vecinos con pistas — 23 septiembre 2026
 
 Artefacto `56795a884c3a75778dec`, fuente `f932dcb`, web `859fffbc`. Anterior:
