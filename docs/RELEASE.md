@@ -4,6 +4,18 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: repaso de rendimiento, código muerto y WebP — 23 septiembre 2026
+
+Artefacto `7668b365d90d1079a9f5`, fuente `f8d1735` (worktree limpio), web `d702c277`. Anterior:
+`043b1a950bb587bab06d`. Los atlas pasan a WebP sin pérdida (22,4 → 19,5 MB, píxeles idénticos:
+381/381 comparables sin diferencias en Chrome; AVIF sin pérdida pesa 2,3× y con pérdida
+emborrona el píxel). `approach()` ya no lanza una búsqueda completa por casilla candidata: tocar
+algo inalcanzable congelaba 13,8 s y ahora cuesta 142 ms; gatos y vecinos buscan con tope. Fuera
+código muerto (exportaciones, una importación, cinco claves, cinco sprites y el paquete
+`forest-roots`). Verificado: suite, las 19 suites de escena, barrido en navegador de las 13
+pantallas a 390 y 1280 (60 fps estables, sin errores), WebP servido con `image/webp` e inmutable,
+y `check-release-live` en las tres anchuras.
+
 ## Producción: cruzar sin saltar al centro y empujar a buen paso — 23 septiembre 2026
 
 Artefacto `043b1a950bb587bab06d`, fuente `60bf9be` (worktree limpio), web `b285730a`. Anterior:
