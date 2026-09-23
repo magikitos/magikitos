@@ -4,6 +4,26 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: el arte de la vida y el Diario del Bosque — 23 septiembre 2026
+
+Artefacto `cf6e55f8e32671923bc8`, fuente del juego `e13bd6b` (worktree limpio), web `7ae59e57`
++ puntero y migración `4243_diario_del_bosque.sql` (aplicada antes del despliegue, copia en
+`/var/backups/migrations/magikitos/20260923T012319Z__4243_diario_del_bosque.sql.gz`). 887 archivos.
+SHA-256 de `release.json`: `e8971a2cd1614ef3dd9c825fb3f807f86a5ece7496f700ca4d0371dedd60990e`. Anterior conservada: `cff289b6ff32edbc5353`.
+
+- Arte del diseñador integrado: sentados sobre el asiento, pesca con caña dibujada, huerto que
+  crece (8 cultivos), bocadillos y el diario. Un paquete por hoja, cargado al acercarse.
+- Mapa: 4 bancales nuevos en el huerto del sauce, huerto de cocina y hamaca en la plaza del
+  restaurante, mesa del diario, pescador fijo del sauce fuera de la copa del roble.
+- Diario del Bosque (juego y web) y `users.real_name` privado para el nombre real.
+
+Verificado: `npm test` (89 PASS), `npm run test:diary` (escritorio, teléfono y sin cuenta),
+transiciones con CPU ×4 (peor hueco 33–50 ms, tres pasadas), revisión visual de sentados, pesca,
+lectura y huertos en navegador; juez real en el clon de dev (publica, rechaza por datos
+personales, spam, inyección y apellidos, acompaña el riesgo, alemán publicado, segunda página del
+día rechazada); checks PHP de acceso y mantenimiento en DDEV; `check-release-live` contra
+producción (cero escrituras) y el diario abierto en producción con el API real.
+
 ## Producción: vecinos con vida — 23 septiembre 2026
 
 Artefacto `cff289b6ff32edbc5353`, fuente del juego `4f97537` (worktree limpio), web `fb22ba0e`
