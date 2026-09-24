@@ -21,6 +21,7 @@
     "studio": "node tools/adventure-studio/server.cjs",
     "studio:diff": "node tools/adventure-studio/review.cjs",
     "test": "node scripts/test.cjs",
+    "clean": "node tools/clean-local.cjs",
     "test:browser": "node scripts/check-adventure-browser.cjs",
     "test:dialogue": "node scripts/check-dialogue-movement-browser.cjs",
     "test:self": "node scripts/check-self-dialogue-browser.cjs",

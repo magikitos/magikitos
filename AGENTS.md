@@ -19,3 +19,11 @@
   verify and stage an immutable artifact before activating the website pointer.
   Never copy private backend code, credentials, or Studio state into this repo
   or into the public artifact. Native/store delivery is separate from web delivery.
+- Clean up after yourself, and only after yourself. Browser checks launch Google Chrome, which on
+  macOS copies itself into `…/X/com.google.Chrome.code_sign_clone/` on every launch and leaves the
+  copy behind if the process dies. Builds leave ~90 MB artifacts in `.local/build/releases`, and
+  checks leave `magikitos-*` folders in the system temp dir. `tools/clean-local.cjs` removes exactly
+  those (Chrome copies no process holds open, test temp older than a day, old builds except the
+  published one and the three newest). It runs after `npm test`, after every build and when a
+  check that uses `scripts/browser-entry.cjs` exits; run `npm run clean` after anything else that
+  launched Chrome. Never delete anything else on the owner's machine.

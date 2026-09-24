@@ -1,4 +1,6 @@
 "use strict";
+// Every browser check that uses this helper tidies up after itself when it exits.
+process.once("exit", () => require("../tools/clean-local.cjs").cleanLocal({ quiet: true }));
 /** Exercise the actual welcome gesture; tests never bypass it in production code. */
 async function enterWorld(page) {
   await page.waitForFunction(() => window.MagikitosAdventure?.inspect().ready);

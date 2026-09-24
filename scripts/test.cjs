@@ -1,5 +1,7 @@
 "use strict";
 const { execFileSync } = require("node:child_process");
+// Pass or fail, the suite leaves no Chrome copies, test temp or old builds behind.
+process.on("exit", () => require("../tools/clean-local.cjs").cleanLocal());
 execFileSync(process.execPath, ["tools/build.cjs", ...(process.argv.includes("--reuse-art") ? ["--reuse-art"] : [])], { stdio: "inherit" });
 for (const name of [
   "check-adventure",

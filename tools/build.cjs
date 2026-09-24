@@ -201,6 +201,7 @@ function build({ reuseArt = false } = {}) {
   // Only the exact generated scratch directory is removed; user workspace/history is never touched.
   fs.rmSync(scratch, { recursive: true });
   console.log("Static game artifact: " + release);
+  require("./clean-local.cjs").cleanLocal();
   return release;
 }
 // Local JS/CSS iteration can reuse the already-baked, checksum-verified art. Normal builds always bake.
