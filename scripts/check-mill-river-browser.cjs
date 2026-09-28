@@ -5,7 +5,8 @@ const { enterWorld } = require("./browser-entry.cjs");
 const { compileWorld } = require("../tools/world.cjs");
 const { riverVisitors } = require("../public/assets/js/adventure/river-life");
 const origin = process.env.GAME_ORIGIN || "http://127.0.0.1:47834";
-const scene = compileWorld().scenes.overworld, mill = scene.entities.find(e => e.id === "mill-door");
+const catalog = compileWorld(), scene = catalog.scenes.overworld, exterior = catalog.scenes["river-willows"];
+const mill = exterior.entities.find(e => e.id === "mill-door");
 const folder = ".local/avelino-refine/movement"; fs.mkdirSync(folder, { recursive: true });
 async function pixels(page, box) {
   return page.evaluate(box => {
@@ -28,9 +29,9 @@ async function pixels(page, box) {
         return route.continue();
       });
       await page.clock.install();
-      await page.addInitScript(({ x, y }) => localStorage.setItem("magikitos.adventure", JSON.stringify({
-        scene: "overworld", position: { x, y }, muted: true, flags: { welcomed: true }, inventory: {},
-      })), { x: mill.x * 16, y: (mill.y + 2) * 16 });
+      await page.addInitScript(({ scene, x, y }) => localStorage.setItem("magikitos.adventure", JSON.stringify({
+        scene, position: { x, y }, muted: true, flags: { welcomed: true }, inventory: {},
+      })), { scene: exterior.id, x: mill.arrival[0] * 16, y: mill.arrival[1] * 16 });
       await page.goto(origin + "/bosque/explorar"); await enterWorld(page); await page.waitForTimeout(1000);
       const wheel = mill.attachments[0], box = { x: mill.x * 16 + wheel.offset[0] - 30,
         y: mill.y * 16 + wheel.offset[1] - 30, w: 60, h: 60 };
@@ -60,7 +61,12 @@ async function pixels(page, box) {
             ? route.fulfill({ status: 503, body: '{"ok":false}' }) : route.continue();
         });
         await riverPage.goto(origin + "/bosque/explorar"); await enterWorld(riverPage);
-        for (const time of [96, 102, 110]) {
+        let turn = 0, lowest = -Infinity;
+        for (let t = 0; t < 300; t += .25) {
+          const visitor = riverVisitors(scene, t)[0];
+          if (visitor && visitor.y > lowest) { lowest = visitor.y; turn = t; }
+        }
+        for (const time of [turn - 7, turn, turn + 8]) {
           const current = await riverPage.evaluate(() => performance.now());
           await riverPage.clock.fastForward(Math.max(0, time * 1000 - current));
           await riverPage.waitForTimeout(100);

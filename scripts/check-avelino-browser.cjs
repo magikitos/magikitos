@@ -3,6 +3,8 @@ const assert = require("node:assert/strict"), fs = require("node:fs"), path = re
 const { chromium } = require("playwright");
 const { enterWorld } = require("./browser-entry.cjs");
 const origin = process.env.GAME_ORIGIN || "http://127.0.0.1:47834";
+const exterior = require("../tools/world.cjs").compileWorld().scenes["river-willows"];
+const mill = exterior.entities.find(e => e.id === "mill-door");
 const shots = path.resolve(".local/avelino-work/review");
 fs.mkdirSync(shots, { recursive: true });
 (async () => {
@@ -20,11 +22,11 @@ fs.mkdirSync(shots, { recursive: true });
           return route.fulfill({ status: 503, contentType: "application/json", body: '{"ok":false,"error":"offline"}' });
         return route.continue();
       });
-      await page.addInitScript(() => {
+      await page.addInitScript(({ scene, x, y }) => {
         if (!localStorage.getItem("magikitos.adventure")) localStorage.setItem("magikitos.adventure", JSON.stringify({
-          scene: "overworld", position: { x: 95 * 16, y: 63 * 16 }, muted: true, flags: { welcomed: true }, inventory: {},
+          scene, position: { x, y }, muted: true, flags: { welcomed: true }, inventory: {},
         }));
-      });
+      }, { scene: exterior.id, x: mill.arrival[0] * 16, y: mill.arrival[1] * 16 });
       const inspect = () => page.evaluate(() => window.MagikitosAdventure.inspect());
       const tap = async (id, dy = -12) => {
         await page.waitForTimeout(350);
@@ -121,7 +123,7 @@ fs.mkdirSync(shots, { recursive: true });
       }
       await click(page.locator(".world-challenge .world-primary"));
       await tap("exit", 0);
-      await page.waitForFunction(() => window.MagikitosAdventure.inspect().scene === "overworld", null, { timeout: 20000 });
+      await page.waitForFunction(() => window.MagikitosAdventure.inspect().scene === "river-willows", null, { timeout: 20000 });
       await tap("mill-chest", -12);
       await page.waitForFunction(() => window.MagikitosAdventure.inspect().flags.avelinoChestOpened, null, { timeout: 20000 });
       assert.equal((await inspect()).inventory.millKey, 1, "Opening the chest keeps the key");

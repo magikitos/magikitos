@@ -9,10 +9,10 @@ const { advance } = require("../public/assets/js/adventure/challenges");
 const { World, TILE } = require("../public/assets/js/adventure/model");
 const catalog = compileWorld(process.cwd()), challenge = catalog.challenges[0];
 const wizard = catalog.scenes.mill.entities.find((e) => e.id === "avelino");
-const chest = catalog.scenes.overworld.entities.find((e) => e.id === "mill-chest");
-const exterior = new World(catalog.scenes.overworld);
+const chest = catalog.scenes["river-willows"].entities.find((e) => e.id === "mill-chest");
+const exterior = new World(catalog.scenes["river-willows"]);
 const mill = exterior.entities.find((e) => e.id === "mill-door");
-const dock = exterior.entities.find((e) => e.id === "river-dock");
+const dock = exterior.entities.find((e) => e.id === "bank-dock");
 const sourceFrame = require("../data/aventura/assets/mill-exterior.json").frames["mill-exterior"];
 const box = require("../public/assets/js/adventure/entity-art").artworkBounds(mill,
   { w: sourceFrame.size[0], h: sourceFrame.size[1], anchor: sourceFrame.anchor });
@@ -63,6 +63,7 @@ recovery.recoverLocalTools();
 assert.deepEqual(recovery.queue.map((c) => c.action), ["interact", "pair-mushroom", "pair-twig", "pair-shell", "pair-fern", "solveMemory", "interact"],
   "Joining an account after offline play recovers the intro, pairs, key and chest in dependency order");
 assert.equal(recovery.queue.at(-1).entity, "mill-chest");
+assert.equal(recovery.queue.at(-1).scene, "river-willows", "Offline recovery finds the relocated chest");
 const fresh = cleanSave(null, catalog), world = new World(catalog.scenes.mill);
 const game = { catalog, state: { ...fresh, scene: "mill" }, world,
   materials: { canRecord: () => true, record() { throw Error("should not record"); } } };
@@ -78,9 +79,20 @@ const contract = gameContract(catalog);
 assert(contract.progress.scenes.mill);
 assert(contract.progress.flags.includes(challenge.completed));
 assert.deepEqual(contract.adventure.entities.mill.avelino.rules, wizard.rules);
-assert(contract.live.scenes.overworld.transitions.doors["mill-door"]);
+assert(contract.live.scenes["river-willows"].transitions.doors["mill-door"]);
+assert(!contract.live.scenes.overworld.transitions.doors["mill-door"]);
+assert.deepEqual(contract.adventure.entities.overworld["mill-chest"], contract.adventure.entities["river-willows"]["mill-chest"],
+  "Old pending chest commands keep their address and receipt, governed by the same one-time rules");
 assert(contract.live.scenes.mill.transitions.doors.exit);
-for (const scene of [catalog.scenes.mill, catalog.scenes.overworld]) {
+const oldInteriorSave = cleanSave({ ...state, scene: "mill", entrance: { scene: "overworld", portal: "mill-door" } }, catalog);
+assert(!oldInteriorSave.entrance, "A saved visit discards the former doorway address");
+assert(oldInteriorSave.flags.avelinoMemorySolved && oldInteriorSave.inventory.millKey === 1);
+const exit = catalog.scenes.mill.entities.find(e => e.id === "exit"), travel = exit.rules[0].effects[0];
+const destination = require("../public/assets/js/adventure/portals").doorDestination(catalog, catalog.scenes.mill,
+  exit, travel, oldInteriorSave.entrance);
+assert.equal(destination.scene, "river-willows", "An old interior save exits beside the relocated mill");
+assert.deepEqual([destination.position.x, destination.position.y], mill.arrival.map(v => v * TILE));
+for (const scene of [catalog.scenes.mill, catalog.scenes["river-willows"]]) {
   const w = new World(scene); w.refresh(state);
   for (const e of scene.entities.filter((e) => e.id === "mill-door" || (scene.id === "mill" && e.id === "exit"))) {
     assert(w.canStand(e.arrival[0] * TILE, e.arrival[1] * TILE), "Both sides of the mill door are dry and walkable");

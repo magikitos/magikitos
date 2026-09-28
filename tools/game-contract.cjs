@@ -15,7 +15,7 @@ function gameContract(world) {
       ]),
     ),
   };
-  return {
+  const contract = {
     protocol: "river-commons",
     live: require("./live-contract.cjs").liveContract(world),
     construction,
@@ -90,5 +90,11 @@ function gameContract(world) {
       resourceRegions: world.resourceRegions,
     },
   };
+  // The chest moved with the mill. Keep the former action address for open/older
+  // clients and their durable receipts; it uses the same one-time quest rules.
+  // This is authority compatibility only, never a second chest in the world.
+  const chest = contract.adventure.entities["river-willows"]?.["mill-chest"];
+  if (chest) contract.adventure.entities.overworld["mill-chest"] = chest;
+  return contract;
 }
 module.exports = { gameContract };

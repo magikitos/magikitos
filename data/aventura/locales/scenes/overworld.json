@@ -1,6 +1,11 @@
 {
   "enter_restaurant": {
-    "es": "Ver las recetas", "en": "Browse recipes", "de": "Rezepte ansehen", "fr": "Voir les recettes", "it": "Sfoglia le ricette", "pt": "Ver receitas"
+    "es": "Ver las recetas",
+    "en": "Browse recipes",
+    "de": "Rezepte ansehen",
+    "fr": "Voir les recettes",
+    "it": "Sfoglia le ricette",
+    "pt": "Ver receitas"
   },
   "invite_restaurant": {
     "es": "¡Arrímate a la mesa, que aquí cabe to el mundo! Trae tus recetas y cuenta cómo las haces. Pa leer o escuchar las de la peña no hace falta traer na.",
@@ -462,14 +467,6 @@
     "it": "Semi di fiori! Li semino e tra un'ora qui sembra una cartolina.",
     "pt": "Sementes de flores! Semeio e daqui a uma hora isto parece um postal."
   },
-  "millChestName": {
-    "es": "El cofre de Avelino",
-    "en": "Avelino’s chest",
-    "de": "Avelinos Truhe",
-    "fr": "Le coffre d’Avelino",
-    "it": "Il baule di Avelino",
-    "pt": "O baú de Avelino"
-  },
   "millSignName": {
     "es": "Hacia el molino",
     "en": "To the mill",
@@ -479,53 +476,11 @@
     "pt": "Para o moinho"
   },
   "millSign": {
-    "es": "«El molino de Avelino». Sigue hacia la fuente y, desde allí, hacia el río. Dentro vive el mago más sabio del bosque. Tiene un primer reto para ti.",
-    "en": "“Avelino’s mill.” Head to the fountain, then towards the river. Inside lives the wisest wizard in the forest. He has a first challenge for you.",
-    "de": "„Avelinos Mühle.“ Gehe zum Brunnen und dann zum Fluss. Drinnen wohnt der weiseste Zauberer des Waldes. Er hat ein erstes Rätsel für dich.",
-    "fr": "« Le moulin d’Avelino ». Va vers la fontaine, puis vers la rivière. Le plus sage magicien de la forêt y habite. Il a un premier défi pour toi.",
-    "it": "«Il mulino di Avelino». Vai verso la fontana, poi verso il fiume. Dentro vive il mago più saggio del bosco. Ha una prima sfida per te.",
-    "pt": "«O moinho de Avelino». Segue até à fonte e depois em direção ao rio. Lá dentro vive o mago mais sábio da floresta. Tem um primeiro desafio para ti."
-  },
-  "millChestLocked": {
-    "es": "Una rueda de molino adorna la cerradura. Está cerrado. Quizá Avelino, que vive dentro del molino, sepa cómo conseguir la llave.",
-    "en": "A mill wheel decorates the lock. It’s locked. Perhaps Avelino, inside the mill, knows how to earn the key.",
-    "de": "Ein Mühlrad schmückt das Schloss. Es ist verschlossen. Vielleicht weiß Avelino in der Mühle, wie du den Schlüssel bekommst.",
-    "fr": "Une roue de moulin orne la serrure. C’est fermé. Avelino, dans le moulin, sait peut-être comment obtenir la clé.",
-    "it": "Una ruota da mulino decora la serratura. È chiuso. Forse Avelino, dentro il mulino, sa come ottenere la chiave.",
-    "pt": "Uma roda de moinho enfeita a fechadura. Está fechado. Talvez Avelino, dentro do moinho, saiba como conseguir a chave."
-  },
-  "millChestOpened": {
-    "es": [
-      "La llave gira y el cofre se abre. Dentro hay una nota escrita por Avelino.",
-      "«Toda gran magia empieza por prestar atención. Este ha sido tu primer reto. Guarda la llave: nuestra aventura acaba de comenzar.»"
-    ],
-    "en": [
-      "The key turns and the chest opens. Inside is a note from Avelino.",
-      "“All great magic starts with paying attention. This was your first challenge. Keep the key: our adventure has only just begun.”"
-    ],
-    "de": [
-      "Der Schlüssel dreht sich und die Truhe öffnet sich. Darin liegt eine Notiz von Avelino.",
-      "„Große Magie beginnt mit Aufmerksamkeit. Das war dein erstes Rätsel. Behalte den Schlüssel: Unser Abenteuer hat gerade erst begonnen.“"
-    ],
-    "fr": [
-      "La clé tourne et le coffre s’ouvre. À l’intérieur, un mot d’Avelino.",
-      "« Toute grande magie commence par l’attention. Voici ton premier défi accompli. Garde la clé : notre aventure ne fait que commencer. »"
-    ],
-    "it": [
-      "La chiave gira e il baule si apre. Dentro c’è un messaggio di Avelino.",
-      "«Ogni grande magia inizia dall’attenzione. Questa era la tua prima sfida. Conserva la chiave: la nostra avventura è appena cominciata.»"
-    ],
-    "pt": [
-      "A chave roda e o baú abre-se. Lá dentro há uma nota de Avelino.",
-      "«Toda a grande magia começa por prestar atenção. Este foi o teu primeiro desafio. Guarda a chave: a nossa aventura acabou de começar.»"
-    ]
-  },
-  "millChestAgain": {
-    "es": "El cofre está abierto. La nota de Avelino sigue dentro, y su llave sigue contigo.",
-    "en": "The chest is open. Avelino’s note is still inside, and you still have his key.",
-    "de": "Die Truhe ist offen. Avelinos Notiz liegt noch darin, und du hast seinen Schlüssel.",
-    "fr": "Le coffre est ouvert. Le mot d’Avelino est toujours dedans, et tu gardes sa clé.",
-    "it": "Il baule è aperto. Il messaggio di Avelino è ancora dentro e la chiave è con te.",
-    "pt": "O baú está aberto. A nota de Avelino continua lá dentro e a chave está contigo."
+    "es": "«El molino de Avelino». Sigue el sendero hacia el norte hasta la Curva de los Sauces. El molino está junto al gran meandro, en esta orilla. Dentro te espera el mago más sabio del bosque con tu primer reto.",
+    "en": "“Avelino’s mill.” Follow the path north to Willow Bend. The mill stands beside the broad river bend, on this bank. The wisest wizard in the forest awaits inside with your first challenge.",
+    "de": "„Avelinos Mühle.“ Folge dem Weg nach Norden zur Weidenkurve. Die Mühle steht an der großen Flussbiegung, auf diesem Ufer. Darin wartet der weiseste Zauberer des Waldes mit deinem ersten Rätsel.",
+    "fr": "« Le moulin d’Avelino ». Suis le sentier vers le nord jusqu’au Coude des saules. Le moulin se trouve près du grand méandre, sur cette rive. Le plus sage magicien de la forêt t’y attend avec ton premier défi.",
+    "it": "«Il mulino di Avelino». Segui il sentiero verso nord fino all’Ansa dei salici. Il mulino si trova accanto al grande meandro, su questa riva. Dentro ti aspetta il mago più saggio del bosco con la tua prima sfida.",
+    "pt": "«O moinho de Avelino». Segue o caminho para norte até à Curva dos Salgueiros. O moinho fica junto ao grande meandro, nesta margem. Lá dentro espera-te o mago mais sábio da floresta com o teu primeiro desafio."
   }
 }

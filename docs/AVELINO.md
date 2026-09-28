@@ -1,8 +1,9 @@
 # Avelino, el mago del molino
 
 Avelino tiene 678 años y es el más sabio de los Magikitos. Su molino está en la
-primera escena, en la orilla occidental del río, al este de la fuente. Un cartel
-cerca del inicio y las primeras pistas de los vecinos llevan hasta él. Se entra
+Curva de los Sauces, al norte de la pradera, en la orilla occidental de un meandro.
+Un cartel cerca del inicio, las pistas de los vecinos y un sendero continuo desde
+la fuente llevan hasta él. El sendero bordea la casa de hojas sin cruzarla. Se entra
 por la puerta; Avelino y su mesa están dentro, a la vista también en horizontal.
 
 La primera conversación abre directamente el panel centrado: la presentación completa
@@ -49,10 +50,14 @@ El [registro de prompts](../data/aventura/art/avelino/prompts.json) conserva las
 referencias relativas al repo. No incluye instrucciones ni ficheros privados.
 
 El molino de piedra y vigas de roble tiene una vista elevada, con tejados de pizarra.
-La casa y el umbral descansan en tierra; la orilla se ajusta localmente al apoyo del
-mecanismo. La rueda es una pieza independiente: gira en su plano vertical sobre el eje,
+La casa, el umbral y la llegada al salir descansan en tierra. El meandro aprovecha
+el espacio al oeste del huerto y conserva su muelle, sus vecinos y sus accesos.
+La ribera sigue la proyección del plano de la rueda: el eje sale de la pared hacia
+el agua. La rueda es una pieza independiente: gira en su plano vertical sobre el eje,
 con espesor, las palas inferiores sumergidas y pequeñas ondas en la línea de agua.
-El edificio no se mueve. El modo de movimiento reducido conserva el fotograma quieto.
+La inmersión se recorta en ese mismo plano, antes de girar las palas; las ondas
+siguen la superficie del agua. El edificio no se mueve. El modo de movimiento
+reducido conserva el fotograma quieto.
 El interior conserva su suelo y recorrido, con mampostería y vigas a juego con el exterior.
 La revisión del arte y sus prompts están en [refinement-prompts.json](../data/aventura/art/avelino/refinement-prompts.json).
 
@@ -81,6 +86,11 @@ ida y vuelta, continuidad de las costuras y casco entero en agua navegable.
 - Desde la web local: `ddev exec php < ../magikitos-game/scripts/check-avelino-authority.php`.
   Comprueba SQL y recibos reales con una identidad temporal que se elimina al acabar.
 - `check-forest-transitions.cjs` de la web recorre también las dos puertas nuevas.
+
+El cofre se traslada con el molino y conserva sus marcas y su llave. La recuperación
+de progreso sin conexión utiliza la nueva escena. El contrato conserva también
+la dirección anterior de la acción para las colas y recibos de clientes abiertos:
+aplica las mismas condiciones y recompensa única, sin dibujar un segundo cofre.
 
 Al publicar hay que reiniciar de forma ordenada `bosque-vivo.service` después de
 activar el artefacto: el demonio lee sus escenas y puertas al arrancar. No se

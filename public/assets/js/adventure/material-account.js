@@ -195,7 +195,7 @@ class MaterialAccount {
         if (s.flags[pair.flag]) add(challenge.giver, "pair-" + pair.id, challenge.scene);
       if (s.flags[challenge.completed]) add(challenge.giver, challenge.action, challenge.scene);
     }
-    if (s.flags.avelinoChestOpened) add("mill-chest");
+    if (s.flags.avelinoChestOpened) add("mill-chest", "interact", "river-willows");
     const fed = s.flags.picnicFed || s.inventory.boat;
     const cooked = fed || s.flags.skewerCooked || s.inventory.skewer;
     const lit = cooked || s.flags.fireLit;

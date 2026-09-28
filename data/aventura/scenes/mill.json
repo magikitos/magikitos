@@ -115,7 +115,7 @@
           "effects": [
             {
               "type": "travel",
-              "scene": "overworld",
+              "scene": "river-willows",
               "arrivalAt": "mill-door"
             }
           ]

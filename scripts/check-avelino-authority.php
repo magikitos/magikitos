@@ -29,7 +29,7 @@ try {
         catch (GameApiFailure $e) { $check($e->status === 409 && $e->getMessage() === $code, 'Rejects ' . $code); }
     };
     $reject($body('solveMemory'), 'requirements_not_met');
-    $reject($body('interact', 'overworld', 'mill-chest'), 'no_material_action');
+    $reject($body('interact', 'river-willows', 'mill-chest'), 'no_material_action');
     $act($body('interact'));
     $check($account['progress']->flags->avelinoMet === true, 'Meeting persists');
     foreach (['mushroom', 'twig', 'shell', 'fern'] as $pair) {
@@ -44,9 +44,12 @@ try {
     $revision = $account['revision']; $retry = $act($command);
     $check($retry['replayed'] && $account['revision'] === $revision && $account['inventory']->millKey === 1, 'Lost key acknowledgement is idempotent');
     $reject($body('solveMemory'), 'requirements_not_met');
-    $act($body('interact', 'overworld', 'mill-chest'));
+    // A queued action from before the move keeps its original address and receipt.
+    $command = $body('interact', 'overworld', 'mill-chest');
+    $act($command); $revision = $account['revision']; $retry = $act($command);
+    $check($retry['replayed'] && $account['revision'] === $revision, 'Old chest action and lost acknowledgement survive the move');
     $check($account['progress']->flags->avelinoChestOpened === true && $account['inventory']->millKey === 1, 'Chest opens and preserves the key');
-    $reject($body('interact', 'overworld', 'mill-chest'), 'no_material_action');
+    $reject($body('interact', 'river-willows', 'mill-chest'), 'no_material_action');
     $fresh = gameAccountGet($db, $user)['account'];
     $check(gameJson($fresh) === gameJson($account), 'Another device reads all persisted progress');
     $check($fresh['setines'] === 0, 'Puzzle never mints construction currency');

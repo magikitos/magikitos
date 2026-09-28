@@ -36,9 +36,19 @@ for (let time = 0; time < period + .5; time += .25) {
   previous = position;
 }
 assert.equal(visits.size, scenes.length * 2, "Every stretch is visited downstream and on the return");
-const meadow = catalog.scenes.overworld, mill = meadow.entities.find(e => e.id === "mill-door");
+const meadow = catalog.scenes["river-willows"], mill = meadow.entities.find(e => e.id === "mill-door");
 assert(!waterAt(meadow, mill.x, mill.y), "The mill entrance stays on dry land");
 const wheel = mill.attachments.find(a => a.waterwheel);
 assert(waterAt(meadow, mill.x + (wheel.offset[0] + 3) / TILE, mill.y + (wheel.offset[1] + 39) / TILE),
   "The animated wheel's immersion line is inside the actual river");
+const { riverSection } = require("../public/assets/js/adventure/river-course");
+const wetY = mill.y + (wheel.offset[1] + 44 * .86) / TILE;
+const slope = (riverSection(meadow.rivers[0], wetY + .15).left - riverSection(meadow.rivers[0], wetY - .15).left) / .3;
+assert(Math.abs(Math.atan2(1, -slope) - Math.atan2(.24, .68)) < .12,
+  "The wheel plane follows the local riverbank instead of crossing it");
+for (const u of [-24, 0, 24]) assert(waterAt(meadow,
+  mill.x + (wheel.offset[0] + .68 * u) / TILE,
+  mill.y + (wheel.offset[1] + 44 * .86 - .24 * u) / TILE), "The whole projected immersion line is in water");
+for (const [dx, dy] of [[-3, -.5], [0, 0], [4, -.5], [6.4, -.7], [7, -2]])
+  assert(!waterAt(meadow, mill.x + dx, mill.y + dy), "Main stone foundations stay on dry land");
 console.log("PASS river journey: one resident, full downstream/return circuit, continuous seams/turns, no fades, calm speed, navigable hull and waterwheel immersion.");
