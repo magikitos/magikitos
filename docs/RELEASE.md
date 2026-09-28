@@ -4,6 +4,34 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: molino en el agua, conversación directa y regreso por el río — 28 septiembre 2026
+
+Artefacto `003012be0f984aec42b1`, fuente `401dfa4` (worktree limpio), web `b159fc4b`.
+908 archivos verificados. SHA-256 de `release.json`:
+`91bba228daaf9dd7e922bb101b60158c05f96c985f0df9cd92ee365a83ebd19e`.
+Anterior conservada: artefacto `0de24b810ef33fab018d`, web `3522f4c0`.
+
+- Molino de piedra y roble, tejados de pizarra y perspectiva elevada. Casa y puerta en tierra,
+  orilla ajustada al mecanismo y rueda independiente en el agua: giro lento, espesor, palas
+  parcialmente sumergidas y ondas. Interior con los mismos materiales y recorrido conservado.
+- Hablar con Avelino presenta todo y permite empezar en un único panel centrado. Saludo posterior
+  natural, controles apartados y aviso de llegada retirado; botón inicial visible incluso a 320×568.
+- Un único navegante recorre raíces, rápidos, sauces y lago, gira y regresa a 2,1 casillas/s.
+  Sin desvanecimientos ni reinicios por escena, con arte de espaldas para el regreso. La misma
+  trayectoria mueve el dibujo y el cuerpo; separación con margen de 0,01 px evita quedar rozando
+  por redondeo al apartar una barca.
+
+Verificado: suite completa `npm test`, 15.949 comprobaciones del río, circuito completo con
+casco navegable y presencia única, navegador general/Studio, Ascua, frontera web/juego, 71
+transiciones del servidor y 20 comprobaciones HTTP. Avelino en 1440×900, 390×844, 320×568 y
+844×390, local y producción. Animación comprobada en píxeles: rueda en movimiento y edificio
+quieto, movimiento reducido y barca visible antes, durante y después del giro, también en
+producción. `check-release-live` en las tres anchuras, seis idiomas y API, sin escrituras de
+jugador; HTML de origen idéntico byte por byte en las seis rutas.
+Artefacto preparado antes de activar únicamente el puntero mediante avance rápido comprobado;
+`bosque-vivo.service` reiniciado y activo con el nuevo ID. Sin cambios del backend ni de base
+de datos. Los 2.084 archivos que tenía el Studio del dueño al empezar conservan su contenido.
+
 ## Producción: Avelino y la memoria del molino — 28 septiembre 2026
 
 Artefacto `0de24b810ef33fab018d`, fuente `c9526e1` (worktree limpio), web `3522f4c0`.
