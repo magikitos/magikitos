@@ -1,0 +1,246 @@
+{
+  "avelino": {
+    "sprite": "avelino",
+    "label": "avelinoName",
+    "portrait": "avelino-portrait",
+    "solid": [
+      -0.5,
+      -0.35,
+      1,
+      0.7
+    ],
+    "content": "challenges",
+    "rules": [
+      {
+        "action": [
+          "pair-mushroom"
+        ],
+        "when": {
+          "flags": {
+            "avelinoMet": true,
+            "avelinoPairMushroom": false,
+            "avelinoMemorySolved": false
+          }
+        },
+        "effects": [
+          {
+            "type": "flag",
+            "flag": "avelinoPairMushroom"
+          }
+        ]
+      },
+      {
+        "action": [
+          "pair-twig"
+        ],
+        "when": {
+          "flags": {
+            "avelinoMet": true,
+            "avelinoPairTwig": false,
+            "avelinoMemorySolved": false
+          }
+        },
+        "effects": [
+          {
+            "type": "flag",
+            "flag": "avelinoPairTwig"
+          }
+        ]
+      },
+      {
+        "action": [
+          "pair-shell"
+        ],
+        "when": {
+          "flags": {
+            "avelinoMet": true,
+            "avelinoPairShell": false,
+            "avelinoMemorySolved": false
+          }
+        },
+        "effects": [
+          {
+            "type": "flag",
+            "flag": "avelinoPairShell"
+          }
+        ]
+      },
+      {
+        "action": [
+          "pair-fern"
+        ],
+        "when": {
+          "flags": {
+            "avelinoMet": true,
+            "avelinoPairFern": false,
+            "avelinoMemorySolved": false
+          }
+        },
+        "effects": [
+          {
+            "type": "flag",
+            "flag": "avelinoPairFern"
+          }
+        ]
+      },
+      {
+        "action": [
+          "solveMemory"
+        ],
+        "when": {
+          "flags": {
+            "avelinoMet": true,
+            "avelinoMemorySolved": false,
+            "avelinoPairMushroom": true,
+            "avelinoPairTwig": true,
+            "avelinoPairShell": true,
+            "avelinoPairFern": true
+          },
+          "maxItems": {
+            "millKey": 0
+          }
+        },
+        "effects": [
+          {
+            "type": "flag",
+            "flag": "avelinoMemorySolved"
+          },
+          {
+            "type": "item",
+            "item": "millKey",
+            "amount": 1
+          }
+        ]
+      },
+      {
+        "when": {
+          "flags": {
+            "avelinoMet": false
+          }
+        },
+        "effects": [
+          {
+            "type": "flag",
+            "flag": "avelinoMet"
+          },
+          {
+            "type": "dialogue",
+            "key": "avelinoIntroduction"
+          }
+        ]
+      },
+      {
+        "when": {
+          "flags": {
+            "avelinoChestOpened": true
+          }
+        },
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "avelinoAfterChest"
+          }
+        ]
+      },
+      {
+        "when": {
+          "flags": {
+            "avelinoMemorySolved": true
+          }
+        },
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "avelinoHasKey"
+          }
+        ]
+      },
+      {
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "avelinoGreeting"
+          }
+        ]
+      }
+    ]
+  },
+  "mill-chest": {
+    "sprite": "mill-chest-closed",
+    "label": "millChestName",
+    "solid": [
+      -1,
+      -0.55,
+      2,
+      0.9
+    ],
+    "visuals": [
+      {
+        "when": {
+          "flags": {
+            "avelinoChestOpened": true
+          }
+        },
+        "sprite": "mill-chest-open"
+      }
+    ],
+    "rules": [
+      {
+        "action": [
+          "interact",
+          "use"
+        ],
+        "when": {
+          "flags": {
+            "avelinoChestOpened": true
+          }
+        },
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "millChestAgain"
+          }
+        ]
+      },
+      {
+        "action": [
+          "interact",
+          "use"
+        ],
+        "when": {
+          "flags": {
+            "avelinoMemorySolved": true
+          },
+          "items": {
+            "millKey": 1
+          },
+          "using": [
+            "millKey"
+          ]
+        },
+        "effects": [
+          {
+            "type": "flag",
+            "flag": "avelinoChestOpened"
+          },
+          {
+            "type": "sound",
+            "key": "found"
+          },
+          {
+            "type": "dialogue",
+            "key": "millChestOpened"
+          }
+        ]
+      },
+      {
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "millChestLocked"
+          }
+        ]
+      }
+    ]
+  }
+}

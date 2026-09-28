@@ -1,0 +1,66 @@
+{
+  "frames": {
+    "mill-key": {
+      "source": "data/aventura/art/avelino/mill-key.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        30
+      ],
+      "fit": true
+    },
+    "mill-chest-closed": {
+      "source": "data/aventura/art/avelino/mill-chest.png",
+      "grid": [
+        2,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        48,
+        44
+      ],
+      "anchor": [
+        24,
+        40
+      ],
+      "fit": true,
+      "preserveCanvas": true
+    },
+    "mill-chest-open": {
+      "source": "data/aventura/art/avelino/mill-chest.png",
+      "grid": [
+        2,
+        1
+      ],
+      "cell": [
+        1,
+        0
+      ],
+      "size": [
+        48,
+        44
+      ],
+      "anchor": [
+        24,
+        40
+      ],
+      "fit": true,
+      "preserveCanvas": true
+    }
+  }
+}

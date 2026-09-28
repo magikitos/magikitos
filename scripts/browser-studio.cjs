@@ -6,7 +6,7 @@
  * carga del juego. Lo comparten todas las suites del Studio.
  */
 const cp = require("node:child_process");
-function startStudio({ port, temp, timeoutMs = 120000 }) {
+function startStudio({ port, temp, timeoutMs = 240000 }) {
   const studio = cp.spawn(process.execPath, ["tools/adventure-studio/server.cjs"], {
     env: { ...process.env, STUDIO_PORT: String(port), STUDIO_DATA_DIR: temp },
     stdio: ["ignore", "pipe", "pipe"],

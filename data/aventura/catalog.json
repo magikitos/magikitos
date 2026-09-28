@@ -15,7 +15,14 @@
     "grassSeedsFound",
     "parchmentFound",
     "penFound",
-    "welcomed"
+    "welcomed",
+    "avelinoMet",
+    "avelinoPairMushroom",
+    "avelinoPairTwig",
+    "avelinoPairShell",
+    "avelinoPairFern",
+    "avelinoMemorySolved",
+    "avelinoChestOpened"
   ],
   "items": {
     "parchment": {
@@ -194,6 +201,14 @@
       "bundle": 10,
       "usable": false,
       "reusable": false
+    },
+    "millKey": {
+      "name": "millKeyName",
+      "description": "millKeyDescription",
+      "sprite": "mill-key",
+      "max": 1,
+      "usable": true,
+      "reusable": true
     }
   },
   "contentRooms": {
@@ -239,6 +254,11 @@
       "scene": "overworld",
       "radius": 6,
       "focus": "forest-diary"
+    },
+    "challenges": {
+      "scene": "mill",
+      "focus": "avelino",
+      "kinds": []
     }
   },
   "economy": {
@@ -298,6 +318,30 @@
     }
   },
   "hints": [
+    {
+      "key": "hintAvelino",
+      "when": {
+        "flags": {
+          "avelinoMet": false
+        }
+      }
+    },
+    {
+      "key": "hintAvelinoMemory",
+      "when": {
+        "flags": {
+          "avelinoMemorySolved": false
+        }
+      }
+    },
+    {
+      "key": "hintAvelinoChest",
+      "when": {
+        "flags": {
+          "avelinoChestOpened": false
+        }
+      }
+    },
     {"key": "hintKnife", "when": {"flags": {"knifeFound": false}}},
     {"key": "hintLighter", "when": {"flags": {"lighterFound": false}}},
     {"key": "hintMushrooms", "when": {"flags": {"skewerCooked": false}, "maxItems": {"mushroom": 4}}},
@@ -310,5 +354,44 @@
     {"key": "hintHedge", "when": {"flags": {"bowlFound": false}}},
     {"key": "hintFree", "when": {}}
   ],
-  "hintCarriers": ["neighborGreeting", "ambientGarden", "ambientHat", "ambientLake", "ambientHunger", "meadowGreeting", "meadowGardener", "meadowFlowers", "meadowHammock", "meadowHarbor", "meadowHome", "riverAngler", "riverMemory"]
+  "hintCarriers": ["neighborGreeting", "ambientGarden", "ambientHat", "ambientLake", "ambientHunger", "meadowGreeting", "meadowGardener", "meadowFlowers", "meadowHammock", "meadowHarbor", "meadowHome", "riverAngler", "riverMemory"],
+  "challenges": [
+    {
+      "id": "mill-memory",
+      "kind": "memory",
+      "scene": "mill",
+      "giver": "avelino",
+      "met": "avelinoMet",
+      "title": "challengeMemoryTitle",
+      "completed": "avelinoMemorySolved",
+      "action": "solveMemory",
+      "reward": "millKey",
+      "pairs": [
+        {
+          "id": "mushroom",
+          "sprite": "mushroom",
+          "label": "challengeMushroom",
+          "flag": "avelinoPairMushroom"
+        },
+        {
+          "id": "twig",
+          "sprite": "twig",
+          "label": "challengeTwig",
+          "flag": "avelinoPairTwig"
+        },
+        {
+          "id": "shell",
+          "sprite": "shells",
+          "label": "challengeShell",
+          "flag": "avelinoPairShell"
+        },
+        {
+          "id": "fern",
+          "sprite": "fern",
+          "label": "challengeFern",
+          "flag": "avelinoPairFern"
+        }
+      ]
+    }
+  ]
 }

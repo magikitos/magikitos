@@ -7,6 +7,7 @@ for (const name of [
   "check-adventure",
   "check-adventure-locales",
   "check-hints",
+  "check-avelino",
   "check-forest-upgrade",
   "check-forest-market",
   "check-forest-client",

@@ -1,0 +1,24 @@
+{
+  "frames": {
+    "mill-exterior": {
+      "source": "data/aventura/art/avelino/mill-exterior.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        240,
+        196
+      ],
+      "anchor": [
+        92,
+        190
+      ],
+      "fit": true
+    }
+  }
+}

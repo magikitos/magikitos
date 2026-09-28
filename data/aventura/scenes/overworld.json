@@ -75,6 +75,20 @@
         103.25,
         104
       ]
+    ],
+    [
+      [
+        68,
+        52.25
+      ],
+      [
+        77.5,
+        57.5
+      ],
+      [
+        86.5,
+        58.5
+      ]
     ]
   ],
   "waters": [],
@@ -129,6 +143,11 @@
       105,
       83,
       9
+    ],
+    [
+      86,
+      53,
+      8
     ]
   ],
   "night": {
@@ -1274,6 +1293,61 @@
       "x": 27.75,
       "y": 9.5,
       "artVariant": "hazel"
+    },
+    {
+      "id": "mill-door",
+      "sprite": "mill-exterior",
+      "x": 86.5,
+      "y": 57,
+      "label": "millName",
+      "portal": true,
+      "solid": [
+        -4.4,
+        -4.64,
+        9.92,
+        4.76
+      ],
+      "entrance": [
+        -1.2,
+        0.5,
+        2.4,
+        0.25
+      ],
+      "rules": [
+        {
+          "effects": [
+            {
+              "type": "travel",
+              "scene": "mill",
+              "spawn": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mill-chest",
+      "behavior": "mill-chest",
+      "x": 81.5,
+      "y": 59
+    },
+    {
+      "id": "mill-sign",
+      "sprite": "sign",
+      "x": 31.5,
+      "y": 68.75,
+      "label": "millSignName",
+      "rules": [
+        {
+          "effects": [
+            {
+              "type": "dialogue",
+              "key": "millSign"
+            }
+          ]
+        }
+      ],
+      "edgeSlide": true
     }
   ],
   "neighbors": [

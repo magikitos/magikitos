@@ -1,0 +1,24 @@
+{
+  "frames": {
+    "mill-interior": {
+      "source": "data/aventura/art/avelino/mill-interior.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        480,
+        469
+      ],
+      "anchor": [
+        0,
+        0
+      ],
+      "fit": true
+    }
+  }
+}

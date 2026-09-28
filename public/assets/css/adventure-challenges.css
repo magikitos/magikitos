@@ -1,0 +1,79 @@
+/* Avelino's table lives in the same forest sheet as stories and the Setómetro. */
+.world-challenge {
+  margin: 0 auto;
+  max-width: 560px;
+  padding: 18px 22px 20px;
+  border: 1px solid #b7ab7666;
+  border-radius: 24px;
+  background: linear-gradient(150deg, #2d453bf7, #182f25fa);
+  box-shadow: 0 12px 45px #0c1c1a66, inset 0 1px #f5e8bd16;
+}
+.world-challenge-header { display: flex; align-items: center; justify-content: center; gap: 20px; text-align: left; }
+.world-challenge-wizard { width: 78px; height: 104px; object-fit: contain; flex: 0 0 auto; filter: drop-shadow(0 5px 6px #071c1966); }
+.world-challenge .world-experience-eyebrow { font-size: 10px; letter-spacing: 1.8px; margin: 0; color: #d2bd85; }
+.world-challenge h1 { font-size: clamp(23px, 3vw, 31px); margin: 7px 0; }
+.world-challenge-byline { font: 12px/1.5 system-ui, sans-serif; color: #d1d7bf; margin: 0; }
+.world-challenge-invitation { font: 17px/1.6 WorldRound, serif; color: #f7e6bd; margin: 18px auto 10px; max-width: 420px; }
+.world-challenge-note { font: 12px/1.6 system-ui, sans-serif; color: #cdd4bc; margin: 10px auto 0; max-width: 420px; }
+.world-challenge-prize { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 14px 0 5px; font: 13px/1.5 system-ui, sans-serif; color: #ecd395; }
+.world-challenge-prize canvas { width: 48px; height: 48px; object-fit: contain; }
+.world-challenge-meta { display: flex; justify-content: space-between; align-items: center; gap: 12px; font: 12px/1.5 system-ui, sans-serif; color: #d5dac6; margin: 18px 0 10px; }
+.world-challenge-count { color: #f2d08b; white-space: nowrap; }
+.world-memory-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.world-challenge .world-memory-card {
+  display: grid; position: relative; place-items: center; aspect-ratio: 4 / 5;
+  width: 100%; min-width: 0; min-height: 64px; padding: 0; border-radius: 13px;
+  background: linear-gradient(145deg, #52654b, #304837);
+  border: 1px solid #b6ac728f; box-shadow: 0 3px 0 #10271d, inset 0 0 0 5px #d7c79b0c;
+  touch-action: manipulation; cursor: pointer; transition: background .18s, border-color .18s, transform .18s;
+}
+.world-challenge .world-memory-card:focus-visible { outline: 3px solid #ffe4a1; outline-offset: 3px; z-index: 1; }
+.world-memory-back, .world-memory-face { grid-area: 1 / 1; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none; }
+.world-memory-seal { font: 48px/1.1 Georgia, serif; color: #d3b775; text-shadow: 0 2px #203622; }
+.world-memory-number { font: 10px/1.2 system-ui; color: #d8d4b8; margin-top: 8px; }
+.world-memory-face { visibility: hidden; gap: 8px; font: 12px/1.2 WorldRound, serif; color: #314332; }
+.world-memory-face canvas { width: 54px; height: 48px; max-width: 72%; object-fit: contain; image-rendering: pixelated; }
+.world-memory-check { display: none; position: absolute; right: 6px; top: 4px; font: 700 13px/1 system-ui; color: #3a6139; }
+.world-challenge .world-memory-card.is-open { background: #f3e8c8; border-color: #eed390; transform: translateY(-2px); }
+.world-memory-card.is-open .world-memory-back { visibility: hidden; }
+.world-memory-card.is-open .world-memory-face { visibility: visible; }
+.world-challenge .world-memory-card.is-found { background: #d4deb6; border-color: #a6bf7e; cursor: default; transform: none; }
+.world-memory-card.is-found .world-memory-check { display: block; }
+.world-challenge-status { min-height: 1.6em; margin: 15px 0 0; font: 13px/1.6 system-ui; color: #f1d8a7; }
+.world-challenge-reward { display: grid; place-items: center; margin: 18px auto 0; width: 112px; height: 112px; border-radius: 50%; background: radial-gradient(#d5b36336, #d5b36300 72%); }
+.world-challenge-reward canvas { width: 88px; height: 88px; image-rendering: pixelated; }
+/* Held puzzles have an ordinary visible exit; no map tap is needed to put the cards away. */
+.world-content:has(.world-challenge) .world-accessible-exit {
+  position: static; align-self: center; clip-path: none; width: auto; height: auto;
+  min-height: 44px; flex-shrink: 0; margin: 6px 0 0; padding: 8px 18px;
+  background: #19372bea; border: 1px solid #bcb77b66; border-radius: 24px; color: #f6e7c4;
+  font: 13px/1.4 system-ui; cursor: pointer;
+}
+.world-content:has(.world-challenge) .world-content-dismiss-hint { display: none; }
+@media (max-width: 480px) {
+  .world-content:has(.world-challenge) { width: calc(100% - 12px); bottom: max(8px, var(--world-safe)); max-height: calc(100dvh - 82px); }
+  .world-content:has(.world-challenge) .world-folio-body { padding: 0 4px; }
+  .world-challenge { padding: 14px 12px 16px; border-radius: 20px; }
+  .world-challenge-header { gap: 12px; }
+  .world-challenge-wizard { width: 57px; height: 76px; }
+  .world-challenge h1 { font-size: 22px; }
+  .world-memory-grid { gap: 8px; }
+  .world-memory-seal { font-size: 36px; }
+  .world-memory-face { font-size: 10px; gap: 5px; }
+  .world-memory-face canvas { width: 44px; height: 40px; }
+  .world-challenge-meta { margin-top: 14px; font-size: 11px; }
+}
+@media (max-height: 550px) and (min-width: 481px) {
+  .world-content:has(.world-challenge) { bottom: 6px; max-height: calc(100dvh - 62px); }
+  .world-challenge { padding: 12px 20px; }
+  .world-challenge-wizard { width: 36px; height: 48px; }
+  .world-challenge h1 { font-size: 22px; margin: 3px 0; }
+  .world-challenge-header { gap: 12px; }
+  .world-memory-card { max-height: 85px; }
+  .world-challenge .world-memory-card { aspect-ratio: auto; height: 82px; }
+  .world-challenge-status, .world-challenge-note { margin-top: 7px; }
+  .world-challenge-meta { margin-top: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .world-challenge .world-memory-card { transition: none; transform: none; }
+}

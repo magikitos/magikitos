@@ -4,7 +4,10 @@ declare(strict_types=1);
 require __DIR__ . '/lib/adventure-sprite-packer.php';
 $root = dirname(__DIR__);
 $studio = in_array('--studio', $argv, true);
-$assetRoot = $root . ($studio ? '/.local/adventure-studio/art' : '/public/assets/aventura');
+// An isolated Studio owns its art cache too; a browser check must never rebake the owner's atlas.
+$assetRoot = $studio
+    ? rtrim(getenv('STUDIO_DATA_DIR') ?: $root . '/.local/adventure-studio', '/') . '/art'
+    : $root . '/public/assets/aventura';
 $destination = $assetRoot . '/packs';
 if (!is_dir($destination)) {
     mkdir($destination, 0755, true);

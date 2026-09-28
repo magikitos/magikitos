@@ -156,7 +156,7 @@ const server = http.createServer(async (req, res) => {
       file(
         res,
         req,
-        path.join(ROOT, ".local/adventure-studio/art"),
+        path.join(LOCAL, "art"),
         p.slice(12),
       );
       return;

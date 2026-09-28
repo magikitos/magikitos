@@ -64,6 +64,7 @@
     "test:transitions": "node scripts/check-transitions-browser.cjs",
     "test:prompt": "node scripts/check-prompt-browser.cjs",
     "test:welcome": "node scripts/check-welcome-browser.cjs",
+    "test:avelino": "node scripts/check-avelino.cjs && node scripts/check-avelino-browser.cjs",
     "test:diary": "node scripts/check-diary-browser.cjs",
     "art:catalog": "node scripts/build-woodland-kit.cjs",
     "art:cast": "php scripts/prepare-adventure-cast.php",

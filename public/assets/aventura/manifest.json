@@ -9137,6 +9137,17 @@
             "height": 108,
             "bytes": 2702
         },
+        "avelino": {
+            "image": "packs/avelino-215629c69cf0.webp",
+            "metadata": "packs/avelino-215629c69cf0.json",
+            "sprites": [
+                "avelino",
+                "avelino-portrait"
+            ],
+            "width": 512,
+            "height": 388,
+            "bytes": 47716
+        },
         "barbecue": {
             "image": "packs/barbecue-07da450bf873.webp",
             "metadata": "packs/barbecue-07da450bf873.json",
@@ -9767,6 +9778,38 @@
             "width": 128,
             "height": 110,
             "bytes": 4606
+        },
+        "mill-exterior": {
+            "image": "packs/mill-exterior-cb772a024a68.webp",
+            "metadata": "packs/mill-exterior-cb772a024a68.json",
+            "sprites": [
+                "mill-exterior"
+            ],
+            "width": 512,
+            "height": 388,
+            "bytes": 76632
+        },
+        "mill-interior": {
+            "image": "packs/mill-interior-05545c3b13b0.webp",
+            "metadata": "packs/mill-interior-05545c3b13b0.json",
+            "sprites": [
+                "mill-interior"
+            ],
+            "width": 1024,
+            "height": 920,
+            "bytes": 278148
+        },
+        "mill-treasures": {
+            "image": "packs/mill-treasures-87c54683eae9.webp",
+            "metadata": "packs/mill-treasures-87c54683eae9.json",
+            "sprites": [
+                "mill-key",
+                "mill-chest-closed",
+                "mill-chest-open"
+            ],
+            "width": 256,
+            "height": 68,
+            "bytes": 7144
         },
         "needs-props": {
             "image": "packs/needs-props-3960d52759a9.webp",

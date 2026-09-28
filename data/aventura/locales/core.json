@@ -2526,5 +2526,333 @@
     "fr": "Lire",
     "it": "Leggi",
     "pt": "Ler"
+  },
+  "challenges": {
+    "es": "Los retos de Avelino",
+    "en": "Avelino’s challenges",
+    "de": "Avelinos Rätsel",
+    "fr": "Les défis d’Avelino",
+    "it": "Le sfide di Avelino",
+    "pt": "Os desafios de Avelino"
+  },
+  "enter_challenges": {
+    "es": "Ver el reto",
+    "en": "See the challenge",
+    "de": "Zum Rätsel",
+    "fr": "Voir le défi",
+    "it": "Scopri la sfida",
+    "pt": "Ver o desafio"
+  },
+  "millKeyName": {
+    "es": "Llave del molino",
+    "en": "Mill key",
+    "de": "Mühlenschlüssel",
+    "fr": "Clé du moulin",
+    "it": "Chiave del mulino",
+    "pt": "Chave do moinho"
+  },
+  "millKeyDescription": {
+    "es": "Avelino te la entregó por resolver su primer reto. Abre el cofre junto al molino. Guárdala: la magia no se gasta.",
+    "en": "Avelino gave you this for solving his first challenge. It opens the chest beside the mill. Keep it: magic does not wear out.",
+    "de": "Avelino gab sie dir für sein erstes Rätsel. Sie öffnet die Truhe bei der Mühle. Behalte sie: Magie nutzt sich nicht ab.",
+    "fr": "Avelino te l’a donnée pour son premier défi. Elle ouvre le coffre près du moulin. Garde-la : la magie ne s’use pas.",
+    "it": "Avelino te l’ha data per la sua prima sfida. Apre il baule accanto al mulino. Conservala: la magia non si consuma.",
+    "pt": "Avelino deu-te esta chave pelo primeiro desafio. Abre o baú junto ao moinho. Guarda-a: a magia não se gasta."
+  },
+  "challengeMemoryTitle": {
+    "es": "La memoria del molino",
+    "en": "Memories of the mill",
+    "de": "Das Gedächtnis der Mühle",
+    "fr": "La mémoire du moulin",
+    "it": "La memoria del mulino",
+    "pt": "A memória do moinho"
+  },
+  "challengeChapter": {
+    "es": "Reto 01 · Memoria",
+    "en": "Challenge 01 · Memory",
+    "de": "Rätsel 01 · Gedächtnis",
+    "fr": "Défi 01 · Mémoire",
+    "it": "Sfida 01 · Memoria",
+    "pt": "Desafio 01 · Memória"
+  },
+  "challengeByline": {
+    "es": "Con Avelino, el mago del molino",
+    "en": "With Avelino, the mill wizard",
+    "de": "Mit Avelino, dem Mühlenzauberer",
+    "fr": "Avec Avelino, le magicien du moulin",
+    "it": "Con Avelino, il mago del mulino",
+    "pt": "Com Avelino, o mago do moinho"
+  },
+  "challengeInvitation": {
+    "es": "«Hasta el bosque más pequeño guarda grandes secretos. Empecemos por recordar lo que vemos.»",
+    "en": "“Even the smallest forest holds great secrets. Let’s start by remembering what we see.”",
+    "de": "„Auch der kleinste Wald birgt große Geheimnisse. Erinnern wir uns zuerst an das, was wir sehen.“",
+    "fr": "« Même la plus petite forêt cache de grands secrets. Commençons par nous souvenir de ce que nous voyons. »",
+    "it": "«Anche il bosco più piccolo custodisce grandi segreti. Iniziamo ricordando ciò che vediamo.»",
+    "pt": "«Até a floresta mais pequena guarda grandes segredos. Comecemos por recordar o que vemos.»"
+  },
+  "challengeInstructions": {
+    "es": "Gira dos cartas y encuentra las cuatro parejas del bosque.",
+    "en": "Turn over two cards and find all four woodland pairs.",
+    "de": "Decke zwei Karten auf und finde die vier Waldpaare.",
+    "fr": "Retourne deux cartes et retrouve les quatre paires de la forêt.",
+    "it": "Gira due carte e trova le quattro coppie del bosco.",
+    "pt": "Vira duas cartas e encontra os quatro pares da floresta."
+  },
+  "challengePrize": {
+    "es": "Tu recompensa: la llave del molino",
+    "en": "Your reward: the mill key",
+    "de": "Deine Belohnung: der Mühlenschlüssel",
+    "fr": "Ta récompense : la clé du moulin",
+    "it": "La tua ricompensa: la chiave del mulino",
+    "pt": "A tua recompensa: a chave do moinho"
+  },
+  "challengeAtYourPace": {
+    "es": "Sin reloj ni prisas. Cada pareja encontrada se guarda.",
+    "en": "No clock, no rush. Every pair you find is saved.",
+    "de": "Ohne Zeitdruck. Jedes gefundene Paar wird gespeichert.",
+    "fr": "Ni chrono, ni hâte. Chaque paire trouvée est sauvegardée.",
+    "it": "Niente timer, niente fretta. Ogni coppia trovata viene salvata.",
+    "pt": "Sem relógio nem pressa. Cada par encontrado fica guardado."
+  },
+  "challengeStart": {
+    "es": "Empezar el reto",
+    "en": "Start the challenge",
+    "de": "Rätsel beginnen",
+    "fr": "Commencer le défi",
+    "it": "Inizia la sfida",
+    "pt": "Começar o desafio"
+  },
+  "challengeResume": {
+    "es": "Continuar el reto",
+    "en": "Continue the challenge",
+    "de": "Rätsel fortsetzen",
+    "fr": "Continuer le défi",
+    "it": "Continua la sfida",
+    "pt": "Continuar o desafio"
+  },
+  "challengeChoose": {
+    "es": "Elige una carta. Avelino espera contigo.",
+    "en": "Choose a card. Avelino is here with you.",
+    "de": "Wähle eine Karte. Avelino wartet mit dir.",
+    "fr": "Choisis une carte. Avelino est là avec toi.",
+    "it": "Scegli una carta. Avelino è qui con te.",
+    "pt": "Escolhe uma carta. Avelino espera contigo."
+  },
+  "challengeChooseAnother": {
+    "es": "Ahora busca su pareja.",
+    "en": "Now look for its partner.",
+    "de": "Suche jetzt die passende Karte.",
+    "fr": "Cherche maintenant sa jumelle.",
+    "it": "Ora cerca la sua compagna.",
+    "pt": "Agora procura o seu par."
+  },
+  "challengePairFound": {
+    "es": "¡Una pareja más! El bosque va tomando forma.",
+    "en": "Another pair! The forest is coming together.",
+    "de": "Noch ein Paar! Der Wald nimmt Gestalt an.",
+    "fr": "Encore une paire ! La forêt prend forme.",
+    "it": "Un’altra coppia! Il bosco prende forma.",
+    "pt": "Mais um par! A floresta ganha forma."
+  },
+  "challengeTryAgain": {
+    "es": "Estas no van juntas. Míralas bien y vuelve a probar.",
+    "en": "These don’t match. Take a good look and try again.",
+    "de": "Diese passen nicht zusammen. Schau genau hin und versuch es erneut.",
+    "fr": "Elles ne vont pas ensemble. Regarde-les bien et réessaie.",
+    "it": "Queste non sono uguali. Guardale bene e riprova.",
+    "pt": "Estas não fazem par. Olha bem e tenta outra vez."
+  },
+  "challengeBoard": {
+    "es": "Cartas del bosque",
+    "en": "Woodland cards",
+    "de": "Waldkarten",
+    "fr": "Cartes de la forêt",
+    "it": "Carte del bosco",
+    "pt": "Cartas da floresta"
+  },
+  "challengeFindPairs": {
+    "es": "Encuentra las cuatro parejas",
+    "en": "Find the four pairs",
+    "de": "Finde die vier Paare",
+    "fr": "Trouve les quatre paires",
+    "it": "Trova le quattro coppie",
+    "pt": "Encontra os quatro pares"
+  },
+  "challengePractice": {
+    "es": "Jugamos otra vez, por gusto",
+    "en": "One more game, just for fun",
+    "de": "Noch eine Runde, zum Spaß",
+    "fr": "Encore une partie, pour le plaisir",
+    "it": "Un’altra partita, per divertirci",
+    "pt": "Outra partida, só por diversão"
+  },
+  "challengePairs": {
+    "es": ":n de :total parejas",
+    "en": ":n of :total pairs",
+    "de": ":n von :total Paaren",
+    "fr": ":n paires sur :total",
+    "it": ":n coppie su :total",
+    "pt": ":n de :total pares"
+  },
+  "challengeCard": {
+    "es": "Carta :n",
+    "en": "Card :n",
+    "de": "Karte :n",
+    "fr": "Carte :n",
+    "it": "Carta :n",
+    "pt": "Carta :n"
+  },
+  "challengeMatched": {
+    "es": "pareja encontrada",
+    "en": "pair found",
+    "de": "Paar gefunden",
+    "fr": "paire trouvée",
+    "it": "coppia trovata",
+    "pt": "par encontrado"
+  },
+  "challengeFaceDown": {
+    "es": "boca abajo",
+    "en": "face down",
+    "de": "verdeckt",
+    "fr": "face cachée",
+    "it": "coperta",
+    "pt": "virada para baixo"
+  },
+  "challengeMushroom": {
+    "es": "Seta",
+    "en": "Mushroom",
+    "de": "Pilz",
+    "fr": "Champignon",
+    "it": "Fungo",
+    "pt": "Cogumelo"
+  },
+  "challengeTwig": {
+    "es": "Ramita",
+    "en": "Twig",
+    "de": "Zweig",
+    "fr": "Brindille",
+    "it": "Ramoscello",
+    "pt": "Raminho"
+  },
+  "challengeShell": {
+    "es": "Conchas",
+    "en": "Shells",
+    "de": "Muscheln",
+    "fr": "Coquillages",
+    "it": "Conchiglie",
+    "pt": "Conchas"
+  },
+  "challengeFern": {
+    "es": "Helecho",
+    "en": "Fern",
+    "de": "Farn",
+    "fr": "Fougère",
+    "it": "Felce",
+    "pt": "Feto"
+  },
+  "challengeCompleted": {
+    "es": "Tu primer reto, resuelto",
+    "en": "Your first challenge, solved",
+    "de": "Dein erstes Rätsel ist gelöst",
+    "fr": "Ton premier défi est résolu",
+    "it": "La tua prima sfida è risolta",
+    "pt": "O teu primeiro desafio está resolvido"
+  },
+  "challengeSolved": {
+    "es": "¡Qué buena memoria!",
+    "en": "What a good memory!",
+    "de": "Was für ein gutes Gedächtnis!",
+    "fr": "Quelle bonne mémoire !",
+    "it": "Che bella memoria!",
+    "pt": "Que boa memória!"
+  },
+  "challengeKeyYours": {
+    "es": "La llave del molino ya está en tu saco. Es tuya: te la has ganado.",
+    "en": "The mill key is in your bag. It’s yours: you earned it.",
+    "de": "Der Mühlenschlüssel ist in deinem Beutel. Du hast ihn dir verdient.",
+    "fr": "La clé du moulin est dans ton sac. Elle est à toi : tu l’as méritée.",
+    "it": "La chiave del mulino è nel tuo sacco. È tua: te la sei guadagnata.",
+    "pt": "A chave do moinho está no teu saco. É tua: conquistaste-a."
+  },
+  "challengeWellDone": {
+    "es": "«Has encontrado las cuatro parejas. La primera llave de tu aventura te estaba esperando.»",
+    "en": "“You found all four pairs. The first key of your adventure was waiting for you.”",
+    "de": "„Du hast alle vier Paare gefunden. Der erste Schlüssel deines Abenteuers hat auf dich gewartet.“",
+    "fr": "« Tu as trouvé les quatre paires. La première clé de ton aventure t’attendait. »",
+    "it": "«Hai trovato le quattro coppie. La prima chiave della tua avventura ti stava aspettando.»",
+    "pt": "«Encontraste os quatro pares. A primeira chave da tua aventura estava à tua espera.»"
+  },
+  "challengeChestHint": {
+    "es": "Busca el cofre junto al camino, a la izquierda de la puerta del molino.",
+    "en": "Look for the chest beside the path, to the left of the mill door.",
+    "de": "Suche die Truhe am Weg, links von der Mühlentür.",
+    "fr": "Cherche le coffre près du chemin, à gauche de la porte du moulin.",
+    "it": "Cerca il baule lungo il sentiero, a sinistra della porta del mulino.",
+    "pt": "Procura o baú junto ao caminho, à esquerda da porta do moinho."
+  },
+  "challengeMoreToCome": {
+    "es": "Has abierto el primer cofre. Avelino aún guarda muchos secretos para tu aventura.",
+    "en": "You have opened the first chest. Avelino still holds many secrets for your adventure.",
+    "de": "Du hast die erste Truhe geöffnet. Avelino kennt noch viele Geheimnisse für dein Abenteuer.",
+    "fr": "Tu as ouvert le premier coffre. Avelino garde encore bien des secrets pour ton aventure.",
+    "it": "Hai aperto il primo baule. Avelino custodisce ancora tanti segreti per la tua avventura.",
+    "pt": "Abriste o primeiro baú. Avelino ainda guarda muitos segredos para a tua aventura."
+  },
+  "challengeClaim": {
+    "es": "Recoger la llave",
+    "en": "Take the key",
+    "de": "Schlüssel nehmen",
+    "fr": "Prendre la clé",
+    "it": "Prendi la chiave",
+    "pt": "Recolher a chave"
+  },
+  "challengeExplore": {
+    "es": "Seguir explorando",
+    "en": "Keep exploring",
+    "de": "Weiter erkunden",
+    "fr": "Continuer à explorer",
+    "it": "Continua a esplorare",
+    "pt": "Continuar a explorar"
+  },
+  "challengeReplay": {
+    "es": "Volver a jugar por gusto",
+    "en": "Play again for fun",
+    "de": "Noch einmal zum Spaß spielen",
+    "fr": "Rejouer pour le plaisir",
+    "it": "Rigioca per divertirti",
+    "pt": "Jogar outra vez por diversão"
+  },
+  "hintAvelino": {
+    "es": "¿Ya conoces a Avelino? Vive en el molino, junto al río, al este de la fuente. Dicen que tiene 678 años y un reto para ti.",
+    "en": "Have you met Avelino? He lives in the mill by the river, east of the fountain. They say he’s 678 years old and has a challenge for you.",
+    "de": "Kennst du Avelino schon? Er wohnt in der Mühle am Fluss, östlich des Brunnens. Er soll 678 Jahre alt sein und ein Rätsel für dich haben.",
+    "fr": "Tu connais Avelino ? Il vit au moulin près de la rivière, à l’est de la fontaine. On dit qu’il a 678 ans et un défi pour toi.",
+    "it": "Conosci già Avelino? Vive nel mulino sul fiume, a est della fontana. Dicono che abbia 678 anni e una sfida per te.",
+    "pt": "Já conheces Avelino? Vive no moinho junto ao rio, a leste da fonte. Dizem que tem 678 anos e um desafio para ti."
+  },
+  "hintAvelinoMemory": {
+    "es": "Avelino te espera en el molino. Sus cartas guardan la primera llave de tu aventura.",
+    "en": "Avelino is waiting at the mill. His cards hold the first key of your adventure.",
+    "de": "Avelino wartet in der Mühle. Seine Karten bergen den ersten Schlüssel deines Abenteuers.",
+    "fr": "Avelino t’attend au moulin. Ses cartes cachent la première clé de ton aventure.",
+    "it": "Avelino ti aspetta nel mulino. Le sue carte custodiscono la prima chiave della tua avventura.",
+    "pt": "Avelino espera-te no moinho. As suas cartas guardam a primeira chave da tua aventura."
+  },
+  "hintAvelinoChest": {
+    "es": "La llave de Avelino abre el cofre que hay junto al camino del molino. ¿Has mirado dentro?",
+    "en": "Avelino’s key opens the chest beside the mill path. Have you looked inside?",
+    "de": "Avelinos Schlüssel öffnet die Truhe am Mühlenweg. Hast du hineingeschaut?",
+    "fr": "La clé d’Avelino ouvre le coffre près du chemin du moulin. As-tu regardé dedans ?",
+    "it": "La chiave di Avelino apre il baule lungo il sentiero del mulino. Hai guardato dentro?",
+    "pt": "A chave de Avelino abre o baú junto ao caminho do moinho. Já espreitaste lá dentro?"
+  },
+  "challengePracticeNote": {
+    "es": "Esta partida es por gusto. La llave sigue en tu saco.",
+    "en": "This round is just for fun. The key stays in your bag.",
+    "de": "Diese Runde ist zum Spaß. Der Schlüssel bleibt in deinem Beutel.",
+    "fr": "Cette partie est pour le plaisir. La clé reste dans ton sac.",
+    "it": "Questa partita è per divertirti. La chiave resta nel tuo sacco.",
+    "pt": "Esta partida é por diversão. A chave continua no teu saco."
   }
 }

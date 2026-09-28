@@ -1,0 +1,44 @@
+{
+  "frames": {
+    "avelino": {
+      "source": "data/aventura/art/avelino/avelino.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        42,
+        56
+      ],
+      "anchor": [
+        23,
+        55
+      ],
+      "fit": true
+    },
+    "avelino-portrait": {
+      "source": "data/aventura/art/avelino/avelino.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        144,
+        192
+      ],
+      "anchor": [
+        72,
+        192
+      ],
+      "fit": true
+    }
+  }
+}

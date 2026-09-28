@@ -1,0 +1,40 @@
+{
+  "avelino": {
+    "transparent_background": true,
+    "referenced_image_paths": [
+      "data/aventura/art/construction/sprites/person-resident-111-down.png",
+      "data/aventura/art/woodland-kit/home-mushroom.png"
+    ],
+    "prompt": "Create one isolated full-body game character sprite on REAL TRANSPARENT alpha background: Avelino, a friendly elderly forest goblin wizard, 678 years old, the wisest Magikito, keeper of a river watermill. Match the existing Magikitos game references precisely: warm detailed pixel-painted fantasy game art, slightly elevated front view, squat little humanlike goblin with big expressive head, stubby legs, pointed ears, large warm nose, kind bright eyes, soft smile, earth brown leather boots. Avelino has bushy white eyebrows and a long cream-white beard with a tiny wooden bead. Moss green long floppy pointed wizard hat with a copper waterwheel brooch, weathered river-teal cloak over muted ochre tunic and leather belt; carries a crooked hazel walking staff with a tiny amber acorn at its tip. Old and wise but welcoming and lively, not scary. Entire character visible including hat tip, staff, feet, centered, standing facing the camera slightly turned to his left. Clean readable silhouette, compact proportions like reference character, earthy greens and warm amber palette like reference mushroom house. The small resident reference defines CHARACTER proportions and grounded neutral stance, the large house defines painted pixel texture and palette only. Single pose only, no sheets, no text, no environment, no floating decorative particles, no outer glow, no cast floor shadow, no frame. Leave transparent margins around all edges. This will be displayed about 45 logical pixels tall; prioritize face, beard and hat legibility. Do not enlarge the reference into output; create the new distinct wizard."
+  },
+  "mill-exterior": {
+    "transparent_background": true,
+    "referenced_image_paths": [
+      "data/aventura/art/woodland-kit/home-mushroom.png",
+      "data/aventura/art/construction/cutouts/warehouse-exterior.png"
+    ],
+    "prompt": "Create one game building sprite on REAL TRANSPARENT alpha background for Magikitos, precisely matching the warm finely pixel-painted storybook game assets in the supplied references. Avelino's tiny woodland watermill home, a squat hollow ancient oak stump cottage with mossy stone footing, a moss green and burnt ochre leaf-shingle roof, tiny mushroom chimney, round amber-lit windows, a inviting OPEN arched doorway facing FRONT at center-left, two short wooden steps down to the bottom edge. Attached to the RIGHT side is a very recognizable large wooden watermill wheel, about half the cottage height, vertical plane visible at three-quarter angle, wooden paddles and copper axle. House about 70% of image width, wheel about 30%, wheel extends to the right over where the river will be. A little wooden hanging sign above the entrance showing only a gold eight-spoked mill-wheel emblem, no lettering. Some ivy and a few white bellflowers on the left foundation, lovely worn handcrafted detail, old wise wizard home, quaint and cozy, no sinister motifs. Same camera as reference buildings, elevated front three-quarter orthographic game view, no dramatic perspective. Doors opened outward and dark amber interior visible; threshold must be clearly walkable, no object obstructs opening. Keep the house bottom center doorway horizontally around 43% of the composition. Isolated entire building and attached wheel only, NO water, NO river, NO ground plane or terrain patch, no people, no surrounding scene, no backdrop, no text, no border, no disconnected particles, no outer glow, no cast shadow outside silhouette. Full silhouette in frame with transparent margin. Match the existing illustration style, not vector, not smooth 3D. Suitable for baking at 300x245 logical pixels."
+  },
+  "mill-interior": {
+    "transparent_background": true,
+    "referenced_image_paths": [
+      "data/aventura/art/avelino/mill-exterior.png",
+      "data/aventura/art/construction/cutouts/warehouse-interior.png"
+    ],
+    "prompt": "One isolated INTERIOR FLOORPLAN sprite of the first reference woodland mill cottage, designed exactly like the second reference cutaway game interior. REAL transparent background outside the room. Same elevated almost front-on top-down game perspective, warm richly detailed pixel-painted Magikitos art. Rounded ancient hollow oak room, back half thick bark walls with a few cozy amber window lights, back-left built-in shelves filled with old books and little bottles, back-right visible wooden gears and a waterwheel axle coming through the wall. A crooked beam across the BACK wall with hanging dried leaves, tiny copper eight-spoked waterwheel emblem. Large clean honey-colored wooden plank floor taking up the entire central and lower area, unobstructed for player movement; no furniture on the floor, no carpet, no characters. Rounded perimeter bark wall gets LOW at the front, cut away to see inside. An OPEN wide entrance centered at the very BOTTOM with a short wooden two-step threshold, like the reference layout. Generous walkable floor from 36% to 76% of image height, and entry corridor continues to bottom 97%. Overall footprint round/oval, symmetrical enough for walkable outline, fits 30x30 tile game room. All storage built into BACK walls; central floor empty because furniture and characters will be separate sprites. Transparent outside irregular silhouette. NO roof, no exterior, no terrain, no titles, no text, no UI, no people, no scene backdrop. Match wooden materials and architectural identity of first reference house, retain camera and cutaway composition of second reference interior. All edges safely inside canvas."
+  },
+  "mill-chest": {
+    "transparent_background": true,
+    "referenced_image_paths": [
+      "data/aventura/art/avelino/mill-exterior.png"
+    ],
+    "prompt": "Two-state game sprite strip, one row of TWO equally sized square cells on real transparent alpha background. Both cells depict the exact SAME small oak treasure chest in the same position, same scale, same elevated front three-quarter view, pixel-painted warm detailed Magikitos forest game style like reference building. Left cell: CLOSED rounded-top weathered oak chest, copper bands, central round gold lock with tiny eight-spoked waterwheel emblem, a few leaves tucked at feet. Right cell: SAME chest OPEN, lid raised, warm honey inner wood and folded aged paper visible, no glow or particles. Both chests grounded at same bottom line and same x within each half, chest base absolutely identical. Compact clear silhouette, no jewels, no coins, no pile of loot. Only these two chest objects, lots of clear margin separating cells, no grid, no words or numbers, no floor or scene, no cast ground shadows, no background. Must read well at 40x38 game pixels per cell; no tiny noisy detail. The two cells never overlap."
+  },
+  "mill-key": {
+    "transparent_background": true,
+    "referenced_image_paths": [
+      "data/aventura/art/avelino/mill-exterior.png"
+    ],
+    "prompt": "One inventory item icon on real transparent alpha background: a small antique brass key to a woodland wizard's chest. The round bow of the key is a recognizable eight-spoked watermill wheel, slender weathered copper shaft, two simple teeth, a small muted moss-green silk ribbon tied to the bow. Key angled diagonally from upper left bow to lower right teeth. Rich finely pixel-painted warm storybook game art, precisely the copper woodsy palette and texture of supplied Magikitos reference. Single isolated object, centered, entire silhouette visible with generous transparent margins. Very clear at 32x32 logical game icon pixels. No lettering, no border, no backdrop, no ground shadow, no glow, no particles, no hands."
+  }
+}

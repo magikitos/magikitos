@@ -1,0 +1,74 @@
+{
+  "avelinoName": {
+    "es": "Avelino",
+    "en": "Avelino",
+    "de": "Avelino",
+    "fr": "Avelino",
+    "it": "Avelino",
+    "pt": "Avelino"
+  },
+  "avelinoTable": {
+    "es": "La mesa de los retos",
+    "en": "The challenge table",
+    "de": "Der Rätseltisch",
+    "fr": "La table des défis",
+    "it": "Il tavolo delle sfide",
+    "pt": "A mesa dos desafios"
+  },
+  "avelinoIntroduction": {
+    "es": [
+      "Soy Avelino, el mago del molino. Tengo 678 años y soy el más sabio de todos los Magikitos. Aunque a veces olvido dónde dejo las gafas…",
+      "Mis retos se resuelven uno a uno. Cada respuesta esconde algo que te ayudará a seguir tu aventura. Aquí las mejores herramientas son la curiosidad y el ingenio.",
+      "Empecemos con algo pequeño: cuatro parejas escondidas entre mis cartas. Si las encuentras, te entregaré la llave del cofre que hay fuera. ¿Jugamos?"
+    ],
+    "en": [
+      "I’m Avelino, the mill wizard. I’m 678 years old and the wisest of all the Magikitos. Though I sometimes forget where I put my glasses…",
+      "My challenges are solved one by one. Each answer holds something to help you on your adventure. Here, your best tools are curiosity and wit.",
+      "Let’s start small: four pairs hidden among my cards. Find them and I’ll give you the key to the chest outside. Shall we play?"
+    ],
+    "de": [
+      "Ich bin Avelino, der Mühlenzauberer. Ich bin 678 Jahre alt und der Weiseste aller Magikitos. Obwohl ich manchmal meine Brille verlege …",
+      "Meine Rätsel werden eines nach dem anderen gelöst. Jede Antwort birgt etwas für dein Abenteuer. Deine besten Werkzeuge hier sind Neugier und Einfallsreichtum.",
+      "Fangen wir klein an: vier Paare sind unter meinen Karten versteckt. Finde sie, dann bekommst du den Schlüssel zur Truhe draußen. Spielen wir?"
+    ],
+    "fr": [
+      "Je suis Avelino, le magicien du moulin. J’ai 678 ans et je suis le plus sage de tous les Magikitos. Même si j’oublie parfois où j’ai posé mes lunettes…",
+      "Mes défis se résolvent un à un. Chaque réponse cache quelque chose pour ton aventure. Ici, tes meilleurs outils sont la curiosité et l’ingéniosité.",
+      "Commençons doucement : quatre paires se cachent parmi mes cartes. Trouve-les et je te donnerai la clé du coffre dehors. On joue ?"
+    ],
+    "it": [
+      "Sono Avelino, il mago del mulino. Ho 678 anni e sono il più saggio di tutti i Magikitos. Anche se a volte dimentico dove metto gli occhiali…",
+      "Le mie sfide si risolvono una alla volta. Ogni risposta nasconde qualcosa per la tua avventura. Qui i tuoi migliori strumenti sono la curiosità e l’ingegno.",
+      "Iniziamo con qualcosa di semplice: quattro coppie nascoste tra le mie carte. Trovale e ti darò la chiave del baule qui fuori. Giochiamo?"
+    ],
+    "pt": [
+      "Sou Avelino, o mago do moinho. Tenho 678 anos e sou o mais sábio de todos os Magikitos. Embora às vezes me esqueça de onde ponho os óculos…",
+      "Os meus desafios resolvem-se um a um. Cada resposta esconde algo para a tua aventura. Aqui, as tuas melhores ferramentas são a curiosidade e o engenho.",
+      "Comecemos com algo simples: quatro pares escondidos nas minhas cartas. Encontra-os e dou-te a chave do baú lá fora. Vamos jogar?"
+    ]
+  },
+  "avelinoGreeting": {
+    "es": "Ah, has vuelto. Las cartas siguen en la mesa y yo tengo todo el tiempo del mundo. Cada pareja que encuentres quedará guardada.",
+    "en": "Ah, you’re back. The cards are still on the table, and I have all the time in the world. Every pair you find will be saved.",
+    "de": "Ah, du bist zurück. Die Karten liegen noch auf dem Tisch, und ich habe alle Zeit der Welt. Jedes gefundene Paar bleibt gespeichert.",
+    "fr": "Ah, te revoilà. Les cartes sont toujours sur la table, et j’ai tout mon temps. Chaque paire trouvée sera sauvegardée.",
+    "it": "Ah, sei tornato. Le carte sono ancora sul tavolo e io ho tutto il tempo del mondo. Ogni coppia che trovi verrà salvata.",
+    "pt": "Ah, voltaste. As cartas continuam na mesa e eu tenho todo o tempo do mundo. Cada par que encontrares ficará guardado."
+  },
+  "avelinoHasKey": {
+    "es": "La primera llave ya es tuya. El cofre te espera fuera, junto al camino, a la izquierda de mi puerta. Puedes abrirlo con solo tocarlo.",
+    "en": "The first key is yours. The chest waits outside, beside the path to the left of my door. Just touch it to open it.",
+    "de": "Der erste Schlüssel gehört dir. Die Truhe wartet draußen am Weg, links von meiner Tür. Berühre sie einfach zum Öffnen.",
+    "fr": "La première clé est à toi. Le coffre t’attend dehors, près du chemin, à gauche de ma porte. Touche-le pour l’ouvrir.",
+    "it": "La prima chiave è tua. Il baule ti aspetta fuori, lungo il sentiero a sinistra della porta. Basta toccarlo per aprirlo.",
+    "pt": "A primeira chave é tua. O baú espera lá fora, junto ao caminho à esquerda da porta. Basta tocar-lhe para o abrir."
+  },
+  "avelinoAfterChest": {
+    "es": "Una llave, un cofre y una primera lección: mirar con atención también es hacer magia. Guarda esa llave. Todavía nos quedan muchos secretos por descubrir.",
+    "en": "A key, a chest and a first lesson: looking closely is a kind of magic too. Keep that key. We still have many secrets to discover.",
+    "de": "Ein Schlüssel, eine Truhe und die erste Lektion: Genau hinzusehen ist auch Magie. Behalte den Schlüssel. Wir haben noch viele Geheimnisse zu entdecken.",
+    "fr": "Une clé, un coffre et une première leçon : regarder attentivement, c’est aussi de la magie. Garde cette clé. Il nous reste tant de secrets à découvrir.",
+    "it": "Una chiave, un baule e una prima lezione: anche osservare con attenzione è magia. Conserva la chiave. Abbiamo ancora tanti segreti da scoprire.",
+    "pt": "Uma chave, um baú e uma primeira lição: olhar com atenção também é fazer magia. Guarda a chave. Ainda temos muitos segredos para descobrir."
+  }
+}

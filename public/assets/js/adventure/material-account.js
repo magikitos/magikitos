@@ -188,6 +188,14 @@ class MaterialAccount {
       commands = [];
     const add = (entity, action = "interact", scene = "overworld") =>
       commands.push({ scene, entity, action, operationId: operationId() });
+    for (const challenge of this.game.catalog?.challenges || []) {
+      if (!s.flags[challenge.met]) continue;
+      add(challenge.giver, "interact", challenge.scene);
+      for (const pair of challenge.pairs || [])
+        if (s.flags[pair.flag]) add(challenge.giver, "pair-" + pair.id, challenge.scene);
+      if (s.flags[challenge.completed]) add(challenge.giver, challenge.action, challenge.scene);
+    }
+    if (s.flags.avelinoChestOpened) add("mill-chest");
     const fed = s.flags.picnicFed || s.inventory.boat;
     const cooked = fed || s.flags.skewerCooked || s.inventory.skewer;
     const lit = cooked || s.flags.fireLit;
