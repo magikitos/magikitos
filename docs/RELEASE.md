@@ -4,6 +4,19 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: el río y el Seto de los Bigotes, despejados — 28 septiembre 2026
+
+Artefacto `f02b23b72a88e3bef764`, fuente `1624208` (worktree limpio), web `a8993bae`. Anterior:
+`7668b365d90d1079a9f5`. Sesión del dueño en el Studio aplicada: 623 plantas fuera en las cuatro
+escenas del río (Seto 204, raíces 151, rápidos 138, sauces 130), 24 recolocadas, y en los sauces
+una hamaca y una ramita nueva. La ramita se registró en `resource-nodes.json` (índice 8, al
+final): sin eso el compilador no le da bit de guardado, y la alta del Studio llevaba `rules: []`,
+que le anulaba el comportamiento de su familia. El Studio llevaba abierto desde el 22-sep con un
+visor anterior a los ríos horizontales (pintaba el canal del Seto en vertical): reiniciado.
+`release.json` `216d34bc6c51e61a8e6aed6e87734cdc0744aae85894a5c9ff8140de428cb80d`. Verificado:
+`npm test` (90), comprobaciones del mundo, barridos del Seto, río y recogibles, y
+`check-release-live` en las tres anchuras.
+
 ## Producción: repaso de rendimiento, código muerto y WebP — 23 septiembre 2026
 
 Artefacto `7668b365d90d1079a9f5`, fuente `f8d1735` (worktree limpio), web `d702c277`. Anterior:
