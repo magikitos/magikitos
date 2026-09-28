@@ -4,6 +4,34 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: el molino en el meandro de los Sauces — 28 septiembre 2026
+
+Artefacto `aa011104a3bf4bcc47a0`, fuente `a3e1b2d`, web `d960216a`.
+908 archivos verificados. SHA-256 de `release.json`:
+`b9be4b06bd877d54cf60e15fc4d1bd62b32fad910c8ff493e34c54d2f3203484`.
+Anterior conservada: artefacto `003012be0f984aec42b1`, web `b159fc4b`.
+
+- Molino y cofre trasladados a la Curva de los Sauces. Meandro amplio hacia el oeste,
+  sendero continuo desde la pradera y pistas actualizadas en los seis idiomas. El camino
+  bordea la casa de hojas; el huerto, los vecinos y el muelle conservan sus accesos.
+- La ribera sigue el plano de la rueda. Casa, umbral y llegada en tierra; palas inferiores
+  dentro del agua. El recorte de inmersión y las ondas usan la misma perspectiva que la rueda.
+- Progreso y llave conservados, incluso al cargar una partida guardada dentro del antiguo
+  molino. El contrato acepta las acciones pendientes del cofre en su dirección anterior con
+  las mismas reglas y recibos; el mundo solo tiene un cofre, en su nueva ubicación.
+
+Verificado: `npm test -- --reuse-art` completo (sin cambios de imágenes), navegador/Studio,
+Ascua y frontera web/juego; 71 transiciones reales del servidor y 19 comprobaciones SQL de
+Avelino con identidad local desechable. Circuito fluvial completo, anchura del cauce, vecinos
+y vegetación en tierra, alineación e inmersión de la rueda, puerta y trayecto a pie.
+Avelino en producción a 1440×900, 390×844, 320×568 y 844×390; movimiento de rueda y barca,
+edificio quieto y movimiento reducido. Smoke público en tres anchuras y seis idiomas, sin
+escrituras de jugador; las seis páginas de origen coinciden byte por byte con el artefacto.
+
+Artefacto verificado y preparado antes del avance rápido del único puntero web.
+`bosque-vivo.service` reiniciado y activo con el nuevo ID. Sin cambios de backend ni de base
+de datos. Los 2.086 archivos del Studio del dueño conservan su contenido.
+
 ## Producción: molino en el agua, conversación directa y regreso por el río — 28 septiembre 2026
 
 Artefacto `003012be0f984aec42b1`, fuente `401dfa4` (worktree limpio), web `b159fc4b`.
