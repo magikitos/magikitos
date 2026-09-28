@@ -183,7 +183,9 @@ en `docs/RELEASE.md`. No queda otra familia de world art
 por generar para esta petición. Los ocho protagonistas anteriores y los 100 NPC
 no se han sustituido.
 
-Abrir la [galería local animada](../../data/aventura/art/playable-cast/review-101-110/index.html):
+La galería local animada (`data/aventura/art/playable-cast/review-101-110/index.html`, desde la raíz)
+es una salida regenerable excluida de Git. Tras preparar las revisiones, se crea con
+`php scripts/prepare-playable-gallery.php` y se abre en el navegador:
 cambio de personaje/acción, pausa, fase manual, fondos y capturas de las barcas.
 Fuentes, prompts, reconstrucción y advertencias concretas de integración:
 [la entrega de los diez protagonistas](../../data/aventura/ART.md#protagonistas-101110-integrados-el-19-sep-2026-como-200209).

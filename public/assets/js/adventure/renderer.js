@@ -192,7 +192,7 @@ class Renderer {
     game.self.drawGround(c);
     const visible = (e) => this.inView(e, view, game.state);
     const player = {
-      ...game.player,
+      ...(game.live?.objects.visualPlayer() || game.player),
       vesselArt: game.river?.layers(),
       sprite:
         game.river?.frame() ||

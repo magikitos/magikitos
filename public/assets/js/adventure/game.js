@@ -966,7 +966,7 @@ class Adventure {
     // que es lo que hace que empezar a construir sea VER dónde se puede.
     //
     const goal = this.cameraGoal();
-    const subject = (reading ? this.site.focus() : null) || goal || this.player;
+    const subject = (reading ? this.site.focus() : null) || goal || this.live?.objects.visualPlayer() || this.player;
     const target = clampCamera(
       {
         x: subject.x - this.renderer.width / 2,
@@ -979,7 +979,7 @@ class Adventure {
     // Qué cuenta como viaje continuo y cómo se sigue viven en `camera.js`, que es donde se
     // pueden probar. Aquí solo se dice en cuál de los tres estás.
     const tracking = continuousTravel({
-      walking: this.walking,
+      walking: this.walking || this.player.pushing?.moved,
       carried: this.cats?.locked,
       rowing: this.river?.active,
     });
@@ -1289,13 +1289,14 @@ class Adventure {
       this.cameraFollowing = true;
       this.focusPoint = null;
     }
-    this.centerCamera();
     this.live.update(ms);
+    this.centerCamera();
     // Resting/reading can paint at 12fps. Essential travel must stay smooth even
     // with reduced motion; otherwise a running cycle aliases and hides its legs.
     const calm =
       !this.sequence.current &&
       !this.walking &&
+      !this.player.pushing?.moved &&
       (this.blocked() || this.reducedMotion || this.dialogue);
     this.prompt.update(ms);
     if (!calm || ms - (this.lastRender || 0) > 83) {

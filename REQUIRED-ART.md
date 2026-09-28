@@ -34,8 +34,8 @@ Total de los cinco PNG: **1.677.460 bytes, 1,60 MiB** antes del empaquetado.
 - Se han usado el roble, la casa-seta y la botella del juego como referencias de materiales
   y siluetas. La barca aparece sin asiento y con los dos remos separados en la orilla.
   Las láminas son viñetas narrativas, no un plano literal ni coordenadas navegables del mapa.
-- Revisadas juntas a [380×285 px](data/aventura/art/welcome/reviews/contact-380.png)
-  y a [280×210 px](data/aventura/art/welcome/reviews/contact-280.png): protagonistas,
+- Revisadas juntas a 380×285 px (`data/aventura/art/welcome/reviews/contact-380.png`)
+  y a 280×210 px (`data/aventura/art/welcome/reviews/contact-280.png`): protagonistas,
   pistas, barca y hamaca legibles. Los rótulos de estas hojas de revisión **no** están
   incluidos en los PNG finales. Son copias de revisión locales, excluidas de Git según
   la política existente del repositorio. Los cinco PNG finales, másteres y prompts sí

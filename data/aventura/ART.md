@@ -448,11 +448,15 @@ Entrega gráfica del 19 de septiembre de 2026. **Independiente de `AUTOMANTENIMI
 
 ### Ver la entrega
 
-- **[Galería local con las ocho direcciones animadas del constructor](art/construction/review/index.html)**.
+Las rutas de `art/construction/review/` son salidas locales excluidas de Git y pueden
+limpiarse. Para regenerar la galería y las láminas, ejecutar
+`php data/aventura/art/construction/prepare.php` desde la raíz.
+
+- **Galería local con las ocho direcciones animadas del constructor (`art/construction/review/index.html`)**.
   Se puede abrir directamente como archivo en Chrome; no necesita servidor ni llama a la API.
-- **[Lámina de conjunto](art/construction/review/overview.png)**: exterior, escala del
+- **Lámina de conjunto (`art/construction/review/overview.png`)**: exterior, escala del
   NPC, montaje del interior y las 32 poses.
-- **[Interior amueblado de referencia](art/construction/review/warehouse-furnished.png)**.
+- **Interior amueblado de referencia (`art/construction/review/warehouse-furnished.png`)**.
   Es un montaje de revisión, **no el fondo que debe usarse en el juego**: no hornear al NPC ni los
   objetos interactivos dentro del escenario.
 
@@ -539,7 +543,7 @@ añadido un protagonista elegible.
 - Claves: `person-resident-111-{dirección}` y `person-resident-111-{dirección}-walk-{1|2|3}`.
 - Lienzo lógico común: **48 × 48**; ancla común: **[24, 46]**; altura de referencia: **40**.
 - Textura por celda: **96 × 96**, porque `pixelRatio = 2`.
-- **[Grid registrado para revisar](art/construction/review/resident-111-grid.png)**:
+- **Grid registrado para revisar (`art/construction/review/resident-111-grid.png`)**:
   768 × 384 píxeles, mismas celdas/registro que el atlas, sin escalado por pose que haga cambiar
   el tamaño del personaje.
 - La galería ilustra el ciclo `1 → 2 → 3 → 2`. Es una demostración gráfica, no una modificación
@@ -588,14 +592,14 @@ catálogos activos, escenas, `public/`, guardados, API ni producción. Los origi
   referencias de estilo. Edificio inspirado en el acabado de la bota; NPC nuevo, no recolor de otro.
 - [Definiciones de sprites](art/construction/sprite-definitions.json): para el
   empaquetador existente, **sin registrar todavía en `data/aventura/assets/`**.
-- [Informe QA](art/construction/review/qa.json): hashes, recortes alfa, 32 poses
+- Informe QA (`art/construction/review/qa.json`): hashes, recortes alfa, 32 poses
   medidas, márgenes estrictos por celda, ancla común y ausencia de celdas vacías/recortadas.
 - Revisión visual: exterior, interior compuesto y todas las direcciones/fases del constructor.
 - Galería comprobada en Chrome a **1280 × 1100, 834 × 1112 y 390 × 844**: imágenes cargadas, ocho
   direcciones animadas, sin errores ni desbordamiento horizontal, y movimiento reducido respetado.
-  Capturas: [escritorio](art/construction/review/desktop.png),
-  [tablet](art/construction/review/tablet.png),
-  [móvil](art/construction/review/mobile.png).
+  Capturas: escritorio (`art/construction/review/desktop.png`),
+  tablet (`art/construction/review/tablet.png`),
+  móvil (`art/construction/review/mobile.png`).
 
 **La entrega de arte está preparada. El almacén y el constructor no están puestos en el juego:
 la instalación y sus pruebas funcionales corresponden al otro agente.**
@@ -639,7 +643,9 @@ con los cambios del otro agente. El contrato deriva automáticamente los IDs 200
 y su sexo; **reiniciar `bosque-vivo.service` al activar la release** para que la
 presencia acepte el nuevo elenco. Seguir `docs/RELEASING.md`; no basta con copiar PNG.
 
-Abrir [la galería local](art/playable-cast/review-101-110/index.html) directamente en el navegador.
+La galería local (`art/playable-cast/review-101-110/index.html`) se abre directamente en el navegador
+después de generar las revisiones y ejecutar `php scripts/prepare-playable-gallery.php`.
+Es una salida local excluida de Git y puede limpiarse.
 Funciona sin servidor ni API: elegir duende/acción, animar o pausar y recorrer
 fases. Los tiempos de ese visor son de inspección, no los del juego. Dentro
 están las hojas completas, comparación de escalas, card y capturas de barcas.

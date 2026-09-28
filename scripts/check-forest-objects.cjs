@@ -43,13 +43,67 @@ function validateSnapshots(Type = ForestObjects) {
   const replacement = new World(data); objects.prepare(replacement);
   assert.equal(replacement.entities[0].x, 163); assert.equal(objects.world, world, "Prewarming cannot steal the current binding");
   game.world = replacement; objects.bind(replacement); assert.equal(objects.visual(replacement.entities[0]).x, 163);
+  assert.strictEqual(objects.visualPlayer(), game.player, "A world change drops any previous visual push offset");
   assert.deepEqual(game.state.objects, {}, "No communal position is written into a personal save");
   assert(f.snapshot([])); assert(!replacement.collisionGrid.bounds.has(replacement.entities[0]));
   replacement.refresh(game.state); assert(!replacement.collisionGrid.bounds.has(replacement.entities[0]), "Refresh cannot resurrect out-of-interest bodies");
   assert(f.snapshot([["crate", 166, 160, 8]])); objects.reconnect();
+  assert.strictEqual(objects.visualPlayer(), game.player, "Reconnecting drops any previous visual push offset");
   assert(f.snapshot([["crate", 160, 160, 1]]), "New process may restore an older persisted revision");
   game.live.role = "spectator"; assert.equal(objects.push(replacement.entities[0], 1, 0), false);
   game.live.role = "player"; game.live.connection.ready = false; assert.equal(objects.push(replacement.entities[0], 1, 0), false);
+}
+function validateSmoothMotion(Type = ForestObjects) {
+  for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]])
+  for (const fps of [20, 30, 60, 120]) for (const packetMs of [50, 100]) for (const reducedMotion of [false, true]) {
+    const f = fixture(Type), { objects, entity, game, player, world } = f;
+    const along = point => point.x * dx + point.y * dy;
+    Object.assign(player, { x: 160 - dx * 14, y: 160 - dy * 13 });
+    game.reducedMotion = reducedMotion;
+    f.input({ x: dx, y: dy });
+    f.snapshot([["crate", 160, 160, 0]]);
+    let nextPacket = packetMs, previous = along(entity), previousPose = false, stalls = 0, poseResets = 0;
+    const contactGaps = [];
+    for (let frame = 1; frame <= fps * 2; frame++) {
+      const elapsed = frame * 1000 / fps;
+      f.advance(1000 / fps);
+      if (elapsed + 0.001 >= nextPacket) {
+        f.snapshot([["crate", 160 + dx * nextPacket * 0.06, 160 + dy * nextPacket * 0.06, Math.round(nextPacket / packetMs)]]);
+        nextPacket += packetMs;
+      }
+      objects.begin(world);
+      game.walking = move(world, player, dx * 84 / fps, dy * 84 / fps, () => {}, {
+        resolveCollision: (e, dx, dy) => objects.push(e, dx, dy),
+      });
+      objects.update();
+      const x = along(objects.visual(entity)), movingPose = Boolean(player.pushing?.moved);
+      if (elapsed > 400) {
+        if (x - previous < 0.001) stalls++;
+        if (previousPose && !movingPose) poseResets++;
+        assert(x >= previous, "Confirmed forward pushes never render a backward step");
+        contactGaps.push(x - along(objects.visualPlayer()));
+      }
+      assert(x <= along(entity) + 0.001, "The visual object never predicts an unconfirmed position");
+      assert(world.canStand(player.x, player.y, player), "Smoothing never changes authoritative collision");
+      previous = x; previousPose = movingPose;
+    }
+    const label = `${dx},${dy}: ${fps} Hz, packets every ${packetMs} ms, reduced motion ${reducedMotion}`;
+    assert.equal(stalls, 0, "No frozen frames during a steady push: " + label);
+    assert.equal(poseResets, 0, "The pushing pose does not flash idle between packets: " + label);
+    assert(Math.max(...contactGaps) - Math.min(...contactGaps) < 0.001,
+      "The rendered player and camera keep a stable distance from the pushed object: " + label);
+    f.input(null); objects.stop(); f.advance(1000); objects.begin(world); objects.update();
+    assert.equal(along(objects.visual(entity)), along(entity), "A stopped stream settles at the last confirmed position");
+    assert(Math.abs(along(objects.visualPlayer()) - along(player)) < 0.001, "Releasing settles the visual player onto the real body");
+    assert.deepEqual(game.state.objects, {}, "Smoothing never persists a communal prop");
+  }
+  const f = fixture(Type), { objects, entity, game } = f;
+  f.snapshot([["crate", 160, 160, 0]]);
+  f.advance(10000); f.snapshot([["crate", 163, 160, 1]]);
+  f.advance(50); objects.update();
+  assert.equal(objects.visual(entity).x, 163, "A push after a long rest does not interpolate over the idle time");
+  f.advance(50); objects.begin(f.world); objects.update();
+  assert(!game.player.pushing, "A stationary object does not invent a pushing pose");
 }
 function simulate(fps, click = false) {
   const f = fixture(), { game, objects, entity, player, world, journey } = f;
@@ -110,8 +164,9 @@ function simulate(fps, click = false) {
 }
 function run() {
   validateSnapshots();
+  validateSmoothMotion();
   for (const fps of [20, 30, 60, 120]) { simulate(fps); simulate(fps, true); }
-  console.log("PASS shared client: authoritative collision, visual interpolation, interest eviction/rebinding, malformed packets, offline/spectator guards and real keyboard/click pushes at 20/30/60/120 Hz.");
+  console.log("PASS shared client: authoritative collision, continuous four-direction rendering/poses at 20/30/60/120 Hz and 50/100 ms snapshots, reduced motion, release, interest eviction/rebinding, malformed packets, offline/spectator guards and real keyboard/click pushes.");
 }
 if (require.main === module) run();
-module.exports = { run, fixture, validateSnapshots };
+module.exports = { run, fixture, validateSnapshots, validateSmoothMotion };

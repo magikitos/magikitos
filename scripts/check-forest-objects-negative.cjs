@@ -8,7 +8,7 @@ validateSnapshots();
 for (const [label, before, after] of [
   ["unknown home collider", "world.setBody(entity, Boolean(record));", "world.setBody(entity, true);"],
   ["confirmed physics", "world.relocate(entity, x, y); entity.liveHidden = false;", "entity.liveHidden = false;"],
-  ["visual interpolation", "(now - r.at) / protocol.limits.objectTickMs", "1"],
+  ["visual interpolation", "(now - r.at) / r.duration", "1"],
   ["stale scene isolation", "packet.scene !== world.data.id ||", ""],
   ["same revision cannot rewrite position", "(revision === prior.revision && (x !== prior.x || y !== prior.y))", "false"],
   ["spectator cannot push", 'live.role === "player" && entity.shared', "entity.shared"],

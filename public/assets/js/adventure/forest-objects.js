@@ -11,9 +11,11 @@ class ForestObjects {
     this.game = game; this.now = now; this.scene = null; this.world = null;
     this.records = new Map(); this.entities = new Map(); this.lastPacket = -Infinity;
     this.contact = null; this.holding = null; this.sent = null;
+    this.pushView = null; this.playerView = null;
   }
   bind(world) {
     if (this.world === world) return;
+    this.pushView = null; this.playerView = null;
     if (this.scene !== world.data.id) {
       this.records.clear(); this.lastPacket = -Infinity; this.holding = null;
     }
@@ -41,6 +43,7 @@ class ForestObjects {
     this.lastPacket = -Infinity;
     for (const record of this.records.values()) record.revision = -1;
     this.holding = null; this.sent = null;
+    this.pushView = null; this.playerView = null;
   }
   snapshot(packet) {
     const world = this.game.world;
@@ -64,9 +67,18 @@ class ForestObjects {
     for (const [id, x, y, revision] of packet.objects) {
       const entity = this.entities.get(id), old = this.records.get(id);
       if (old?.revision === revision) continue;
+      // Finish the elapsed part of the old segment before replacing it. Its last painted
+      // position is up to one frame behind; restarting there freezes every packet frame.
+      if (old) this.interpolate(old, now);
       const view = old?.view || { ...entity, x, y, liveHidden: false };
       const snap = !old || Math.hypot(x - view.x, y - view.y) > 32;
-      const record = { x, y, revision, at: now, fromX: snap ? x : view.x, fromY: snap ? y : view.y, view };
+      const base = this.game.live?.role === "spectator" ? protocol.limits.spectatorSnapshotMs : protocol.limits.objectTickMs;
+      const gap = old ? now - old.at : base;
+      // Follow the received cadence, including delayed packets. An idle object sends nothing,
+      // so a long silence starts a fresh segment instead of making the next push crawl.
+      const duration = old && gap <= Math.max(base, old.duration) * 3
+        ? Math.min(base * 3, Math.max(base, gap, old.duration * 0.8 + gap * 0.2)) : base;
+      const record = { x, y, revision, at: now, duration, fromX: snap ? x : view.x, fromY: snap ? y : view.y, view };
       this.records.set(id, record);
       world.relocate(entity, x, y); entity.liveHidden = false; world.setBody(entity, true);
     }
@@ -90,12 +102,18 @@ class ForestObjects {
     this.game.player.pushing = { direction: heading, moved: false, waiting: true };
     return { x: 0, y: 0 }; // Waiting is not speculative object/player movement.
   }
+  interpolate(r, now) {
+    // Moving furniture is essential travel, also with reduced motion. Never extrapolate
+    // past a confirmed position when packets stop arriving.
+    const t = Math.min(1, Math.max(0, (now - r.at) / r.duration));
+    const x = r.fromX + (r.x - r.fromX) * t, y = r.fromY + (r.y - r.fromY) * t;
+    r.moving = Math.hypot(x - r.view.x, y - r.view.y) > 0.001 ||
+      (t < 1 && Math.hypot(r.x - r.fromX, r.y - r.fromY) > 0.001);
+    r.view.x = x; r.view.y = y;
+  }
   update() {
     const g = this.game, now = this.now();
-    for (const r of this.records.values()) {
-      const t = g.reducedMotion ? 1 : Math.min(1, Math.max(0, (now - r.at) / protocol.limits.objectTickMs));
-      r.view.x = r.fromX + (r.x - r.fromX) * t; r.view.y = r.fromY + (r.y - r.fromY) * t;
-    }
+    for (const r of this.records.values()) this.interpolate(r, now);
     const previous = this.holding, motion = g.movementIntent();
     this.holding = this.contact;
     if (!this.holding && previous && motion && direction(motion.x, motion.y) === previous.direction) {
@@ -104,7 +122,42 @@ class ForestObjects {
       if (entity && deliberate && this.canPush(entity) && this.touching(entity, previous.direction)) this.holding = previous;
     }
     if (g.dialogue || g.blocked() || g.river.active) this.holding = null;
-    if (this.holding) g.player.pushing = { direction: this.holding.direction, moved: g.walking, waiting: !g.walking };
+    if (this.holding) g.player.pushing = { direction: this.holding.direction,
+      moved: g.walking || this.records.get(this.holding.object)?.moving, waiting: !g.walking };
+    this.updatePlayerView(now);
+  }
+  updatePlayerView(now) {
+    const player = this.game.player, previous = this.playerView;
+    let offsetX = 0, offsetY = 0, anchored = false;
+    const holding = this.holding, record = holding && this.records.get(holding.object);
+    if (!record && !previous?.offsetX && !previous?.offsetY) {
+      this.pushView = null; this.playerView = null;
+      return;
+    }
+    if (record) {
+      const axis = vector[holding.direction][0] ? "x" : "y";
+      if (this.pushView?.object !== holding.object || this.pushView.direction !== holding.direction)
+        this.pushView = { ...holding, offset: player[axis] +
+          (axis === "x" ? previous?.offsetX || 0 : previous?.offsetY || 0) - record.view[axis] };
+      // The body still catches up with confirmed physics in short steps. Draw the hands and
+      // furniture together so those steps do not shake the player or the following camera.
+      const offset = record.view[axis] + this.pushView.offset - player[axis];
+      if (Math.abs(offset) <= protocol.limits.pushContactPixels) {
+        if (axis === "x") offsetX = offset;
+        else offsetY = offset;
+        anchored = true;
+      }
+    }
+    if (!anchored) {
+      this.pushView = null;
+      // Releasing/changing direction eases out the small drawing offset, never the real body.
+      const decay = Math.exp(-Math.max(0, now - (previous?.at ?? now)) / protocol.limits.objectTickMs);
+      offsetX = (previous?.offsetX || 0) * decay;
+      offsetY = (previous?.offsetY || 0) * decay;
+      if (Math.abs(offsetX) < 0.001) offsetX = 0;
+      if (Math.abs(offsetY) < 0.001) offsetY = 0;
+    }
+    this.playerView = { at: now, offsetX, offsetY };
   }
   transmit() {
     const live = this.game.live, desired = this.holding;
@@ -115,6 +168,11 @@ class ForestObjects {
     }
   }
   stop() { this.holding = null; this.contact = null; this.transmit(); }
+  visualPlayer() {
+    const player = this.game.player;
+    if (!this.playerView) return player;
+    return { ...player, x: player.x + (this.playerView?.offsetX || 0), y: player.y + (this.playerView?.offsetY || 0) };
+  }
   visual(entity) { return entity.shared ? this.records.get(entity.id)?.view || entity : entity; }
   bounds() { return [...this.records.keys()].map(id => {
     const b = collisionBounds(this.entities.get(id)); return { x: b.x / TILE, y: b.y / TILE, w: b.w / TILE, h: b.h / TILE };

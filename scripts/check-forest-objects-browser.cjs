@@ -41,12 +41,27 @@ async function main() {
       .map(r => [r.x * 16, r.y * 16, r.w * 16, r.h * 16]);
     service.presence.objects.install({ zones: [{ scene: "overworld", zone: "overworld", revision: communityRevision, bodies }] });
   };
-  const bundled = await build({ entryPoints: ["public/assets/js/aventura.js"], bundle: true, write: false });
+  // Read the positions actually used by rendering/camera, not just the authoritative bodies.
+  // This instrumentation exists only in the test bundle; the production entry is unchanged.
+  const bundled = await build({ stdin: { resolveDir: process.cwd(), contents: `
+    const { Adventure } = require('./public/assets/js/adventure/game');
+    const step = Adventure.prototype.step;
+    Adventure.prototype.step = function(ms) {
+      step.call(this, ms);
+      const samples = window.__pushSamples, object = this.live?.objects.entities.get('shared-crate');
+      if (!samples || !object || samples.length >= 240) return;
+      const view = this.live.objects.visual(object), player = this.live.objects.visualPlayer();
+      samples.push({ at: ms, object: view.x, player: player.x, camera: this.camera.x,
+        width: this.renderer.width });
+    };
+    require('./public/assets/js/aventura.js');
+  ` }, bundle: true, write: false });
   const browser = await chromium.launch({ channel: "chrome", headless: true }), errors = [];
   const crate = () => service.presence.objects.prop("overworld", "shared-crate");
   try {
     async function open(user, viewport, x) {
-      const context = await browser.newContext({ viewport, hasTouch: viewport.width < 1000 });
+      const context = await browser.newContext({ viewport, hasTouch: viewport.width < 1000,
+        reducedMotion: process.env.GAME_REDUCED_MOTION || "no-preference" });
       await context.grantPermissions(["local-network-access"], { origin });
       const page = await context.newPage(), frames = [];
       page.on("pageerror", e => errors.push(e.message));
@@ -132,6 +147,22 @@ async function main() {
     await tablet.page.keyboard.down("ArrowRight"); await pause(1000); await tablet.page.keyboard.up("ArrowRight");
     await desktop.page.keyboard.down("ArrowRight");
     await until(() => crate().x > opposed + 15);
+    await desktop.page.evaluate(() => { window.__pushSamples = []; });
+    await pause(650);
+    const samples = await desktop.page.evaluate(() => {
+      const samples = window.__pushSamples; window.__pushSamples = null; return samples;
+    });
+    assert(samples.length >= 8, "The browser painted the sustained push");
+    const spread = values => Math.max(...values) - Math.min(...values);
+    assert(samples.at(-1).object - samples[0].object > 15, "The sampled object was moving");
+    assert(spread(samples.map(s => s.object - s.player)) < 0.01, "The hands stay with the moving object");
+    // A camera that has reached the scene edge must stop following; the prop then crosses
+    // the screen normally. Measure the part where the camera still has room to follow.
+    const following = samples.filter(s => s.camera > 0.01 && s.camera < scene.width * 16 - s.width - 0.01);
+    assert(following.length >= 8, "The sustained push exercises camera follow away from the scene edges");
+    const cameraSpread = spread(following.map(s => s.object - s.camera));
+    assert(cameraSpread < 0.01, "Camera follow does not shake the pushed object: " + cameraSpread);
+    console.log("PASS sustained push keeps the rendered player, object and camera together.");
     await desktop.page.keyboard.up("ArrowRight");
     await until(async () => {
       const a = await read(desktop.page), b = await read(tablet.page);
