@@ -70,5 +70,21 @@
     "fr": "Une clé, un coffre et une première leçon : regarder attentivement, c’est aussi de la magie. Garde cette clé. Il nous reste tant de secrets à découvrir.",
     "it": "Una chiave, un baule e una prima lezione: anche osservare con attenzione è magia. Conserva la chiave. Abbiamo ancora tanti segreti da scoprire.",
     "pt": "Uma chave, um baú e uma primeira lição: olhar com atenção também é fazer magia. Guarda a chave. Ainda temos muitos segredos para descobrir."
+  },
+  "millMachine": {
+    "es": "El hilador de luciérnagas",
+    "en": "The firefly spinner",
+    "de": "Der Glühwürmchenspinner",
+    "fr": "Le fileur de lucioles",
+    "it": "Il filatore di lucciole",
+    "pt": "O fiandeiro de pirilampos"
+  },
+  "millMachineStory": {
+    "es": "La rueda del río mueve los engranajes de esta vieja caja de música. Avelino atrapa sus notas en un frasco… ¡y las convierte en pequeñas luces para alumbrar sus ideas!",
+    "en": "The river wheel turns the gears of this old music box. Avelino catches its notes in a jar… and turns them into little lights to illuminate his ideas!",
+    "de": "Das Wasserrad treibt die Zahnräder dieser alten Spieluhr an. Avelino fängt ihre Töne in einem Glas ein … und verwandelt sie in kleine Lichter für seine Ideen!",
+    "fr": "La roue entraîne les engrenages de cette vieille boîte à musique. Avelino attrape ses notes dans un bocal… et les transforme en petites lumières pour éclairer ses idées !",
+    "it": "La ruota del fiume muove gli ingranaggi di questo vecchio carillon. Avelino cattura le note in un barattolo… e le trasforma in piccole luci per illuminare le sue idee!",
+    "pt": "A roda do rio move as engrenagens desta velha caixa de música. Avelino apanha as notas num frasco… e transforma-as em pequenas luzes para iluminar as suas ideias!"
   }
 }

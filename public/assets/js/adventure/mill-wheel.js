@@ -35,4 +35,26 @@ function drawMillWheel(ctx, sprites, part, time) {
   }
   ctx.restore();
 }
-module.exports = { drawMillWheel };
+/** The stationary front bearing meets the hub; its braced feet stand in the water. */
+function drawMillTrestle(ctx, sprites, part, time) {
+  const f = sprites.frame(part.sprite);
+  if (!f) return;
+  ctx.save();
+  ctx.translate(...part.offset);
+  ctx.beginPath();
+  ctx.moveTo(-40, -30); ctx.lineTo(40, -30);
+  ctx.lineTo(40, 31); ctx.lineTo(-40, 59); ctx.closePath(); ctx.clip();
+  sprites.draw(ctx, part.sprite, -f.anchor[0], -f.anchor[1]);
+  ctx.restore();
+  ctx.save();
+  ctx.translate(...part.offset);
+  ctx.strokeStyle = "rgba(220,238,201,.35)";
+  ctx.lineWidth = .7;
+  for (const [x, y] of [[-8, 46], [13, 38]]) {
+    const phase = (time * .18 + .3) % 1;
+    ctx.globalAlpha = 1 - phase * .6;
+    ctx.beginPath(); ctx.ellipse(x, y, 6 + phase * 5, 1.3 + phase, -.34, 0, Math.PI); ctx.stroke();
+  }
+  ctx.restore();
+}
+module.exports = { drawMillWheel, drawMillTrestle };

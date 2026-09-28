@@ -9780,25 +9780,28 @@
             "bytes": 4606
         },
         "mill-exterior": {
-            "image": "packs/mill-exterior-e5491d6426cf.webp",
-            "metadata": "packs/mill-exterior-e5491d6426cf.json",
+            "image": "packs/mill-exterior-0094535ff0ff.webp",
+            "metadata": "packs/mill-exterior-0094535ff0ff.json",
             "sprites": [
                 "mill-exterior",
-                "mill-wheel"
+                "mill-wheel",
+                "mill-trestle"
             ],
             "width": 1024,
-            "height": 468,
-            "bytes": 121440
+            "height": 444,
+            "bytes": 113146
         },
         "mill-interior": {
-            "image": "packs/mill-interior-010713da0e00.webp",
-            "metadata": "packs/mill-interior-010713da0e00.json",
+            "image": "packs/mill-interior-438a5e030a1a.webp",
+            "metadata": "packs/mill-interior-438a5e030a1a.json",
             "sprites": [
-                "mill-interior"
+                "mill-interior",
+                "mill-machine",
+                "mill-gear"
             ],
             "width": 1024,
-            "height": 908,
-            "bytes": 270678
+            "height": 1038,
+            "bytes": 234854
         },
         "mill-treasures": {
             "image": "packs/mill-treasures-87c54683eae9.webp",

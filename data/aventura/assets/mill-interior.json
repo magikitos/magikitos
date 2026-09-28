@@ -18,7 +18,50 @@
         0,
         0
       ],
-      "fit": true
+      "fit": true,
+      "preserveCanvas": true
+    },
+    "mill-machine": {
+      "source": "data/aventura/art/avelino/mill-machine.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        144,
+        144
+      ],
+      "anchor": [
+        72,
+        124
+      ],
+      "fit": true,
+      "preserveCanvas": true
+    },
+    "mill-gear": {
+      "source": "data/aventura/art/avelino/mill-gear.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        40,
+        40
+      ],
+      "anchor": [
+        20,
+        20
+      ],
+      "fit": true,
+      "preserveCanvas": true
     }
   }
 }

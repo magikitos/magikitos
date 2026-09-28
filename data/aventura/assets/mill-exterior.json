@@ -15,10 +15,11 @@
         232
       ],
       "anchor": [
-        84,
-        218
+        67,
+        210
       ],
-      "fit": true
+      "fit": true,
+      "preserveCanvas": true
     },
     "mill-wheel": {
       "source": "data/aventura/art/avelino/mill-wheel.png",
@@ -39,6 +40,27 @@
         56
       ],
       "fit": true
+    },
+    "mill-trestle": {
+      "source": "data/aventura/art/avelino/mill-trestle.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        54,
+        72
+      ],
+      "anchor": [
+        33,
+        17
+      ],
+      "fit": true,
+      "preserveCanvas": true
     }
   }
 }

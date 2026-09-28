@@ -46,6 +46,43 @@ async function pixels(page, box) {
       else assert(changedWood > 200, "The wooden wheel visibly rotates, independently of water ripples");
       assert.deepEqual(buildingAfter, building, "The mill building stays completely still");
       await page.screenshot({ path: folder + "/mill-" + reducedMotion + ".png" });
+      await page.evaluate(() => localStorage.setItem("magikitos.adventure", JSON.stringify({
+        scene: "mill", position: { x: 240, y: 352 }, muted: true, flags: { welcomed: true }, inventory: {},
+      })));
+      const workshop = await context.newPage();
+      workshop.on("pageerror", e => errors.push(e.message));
+      await workshop.route("**/*", route => {
+        const r = route.request();
+        return new URL(r.url()).pathname.startsWith("/api/") || !["GET", "HEAD"].includes(r.method())
+          ? route.fulfill({ status: 503, body: '{"ok":false}' }) : route.continue();
+      });
+      await workshop.goto(origin + "/bosque/explorar"); await enterWorld(workshop); await workshop.waitForTimeout(1000);
+      const machine = catalog.scenes.mill.entities.find(e => e.id === "music-light-machine");
+      const gears = { x: machine.x * 16 + 22, y: machine.y * 16 - 78, w: 50, h: 54 };
+      const jar = { x: machine.x * 16 - 59, y: machine.y * 16 - 120, w: 36, h: 66 };
+      const plinth = { x: machine.x * 16 - 10, y: machine.y * 16 - 10, w: 24, h: 8 };
+      const oldGears = await pixels(workshop, gears), oldJar = await pixels(workshop, jar), oldPlinth = await pixels(workshop, plinth);
+      await workshop.clock.fastForward(3000); await workshop.waitForTimeout(100);
+      const newGears = await pixels(workshop, gears), newJar = await pixels(workshop, jar);
+      const differences = (a,b) => a.reduce((n,v,i)=>n+(i%4===0 && Math.abs(v-b[i])>8 ? 1:0),0);
+      if (reducedMotion === "reduce") {
+        assert.deepEqual(newGears, oldGears, "Reduced motion freezes both interior gears");
+        assert.deepEqual(newJar, oldJar, "Reduced motion freezes magic and pipe lights");
+      } else {
+        assert(differences(oldGears,newGears)>100, "The actual interior cogwheels visibly rotate");
+        assert(differences(oldJar,newJar)>40, "Light travels into and out of the jar");
+      }
+      assert.deepEqual(await pixels(workshop,plinth),oldPlinth,"The machine's wooden base does not rotate or shimmer");
+      await workshop.screenshot({ path: folder + "/workshop-" + reducedMotion + ".png" });
+      const target = await workshop.evaluate(({x,y}) => {
+        const s = window.MagikitosAdventure.inspect(), r = document.getElementById("world-canvas").getBoundingClientRect();
+        return { x: r.left + (x*16-s.camera.x)*r.width/s.view.width,
+          y: r.top + (y*16-34-s.camera.y)*r.height/s.view.height };
+      }, machine);
+      await workshop.mouse.click(target.x,target.y);
+      await workshop.waitForFunction(() => Boolean(window.MagikitosAdventure.inspect().dialogue), null, { timeout: 20000 });
+      assert((await workshop.locator("#dialogue").innerText()).includes("caja de música"), "The player can approach and examine the functioning machine");
+      await workshop.close();
       if (reducedMotion === "no-preference") {
         // Watch the actual lake turn at its real speed; jump the clock only between observations.
         await page.evaluate(() => localStorage.setItem("magikitos.adventure", JSON.stringify({

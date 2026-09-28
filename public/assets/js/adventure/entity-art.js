@@ -103,6 +103,8 @@ function drawAttachments(ctx, sprites, entity, time = 0) {
   applyArtworkTransform(ctx, entity);
   for (const part of entity.attachments)
     if (part.waterwheel) require("./mill-wheel").drawMillWheel(ctx, sprites, part, time);
+    else if (part.millTrestle) require("./mill-wheel").drawMillTrestle(ctx, sprites, part, time);
+    else if (part.millMagic) require("./mill-magic").drawMillMagic(ctx, sprites, part, time);
     else drawArtwork(
       ctx,
       sprites,

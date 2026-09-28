@@ -243,7 +243,17 @@ class Terrain {
     if (!name || !sprites?.frame(name)) return null;
     if (!this.artworks) this.artworks = new Map();
     if (!this.artworks.has(name)) {
-      this.artworks.set(name, sprites.icon(name));
+      let artwork = sprites.icon(name);
+      if (data.interior.preserveCanvas) {
+        // Reconstruct the authored canvas after atlas trimming, so the room outline
+        // and wall-mounted machinery keep their original registration coordinates.
+        const f = sprites.frame(name), density = f.pixelRatio;
+        artwork = document.createElement("canvas");
+        artwork.width = f.nativeSize[0] * density;
+        artwork.height = f.nativeSize[1] * density;
+        sprites.draw(artwork.getContext("2d"), name, f.trim[0] * density, f.trim[1] * density, f.w * density, f.h * density);
+      }
+      this.artworks.set(name, artwork);
       if (this.artworks.size > 3) this.artworks.delete(this.artworks.keys().next().value);
     }
     return this.artworks.get(name);
