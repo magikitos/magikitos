@@ -4,6 +4,39 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: la caja de música de Avelino — 29 septiembre 2026
+
+Artefacto `ceb9fedc70615074c593`, fuente `3990b12`, web `13f5b1e6`.
+908 archivos verificados. SHA-256 de `release.json`:
+`18e479922af21c13f39ac253b28062a9aed33425f916b5819c4307a7e29fa82b`.
+Anterior conservada: artefacto `aa011104a3bf4bcc47a0`, web `d960216a`.
+
+- El molino es una caja de música humana reutilizada, con llave de cuerda gigante,
+  tapa verde y herrajes de latón. La orilla llega al zócalo; no queda hierba entre
+  la pared y la rueda. Un caballete de madera arriostrado sustituye los pilares.
+- Habitación rectangular, estantería bobina y lámpara dedal. El eje de la pared
+  conecta con el hilador de luciérnagas: engranajes que giran, peine musical, luz
+  que recorre el tubo y pequeñas luces que ascienden del frasco. Aparato examinable
+  en seis idiomas; animación detenida con movimiento reducido.
+- Fondo, piezas móviles y colisiones mantienen sus coordenadas al recortar el atlas.
+  Umbrales, salida y recorrido del reto conservan el progreso y la recompensa única.
+  Arte y prompts: [AVELINO.md](AVELINO.md).
+
+Verificado: horneado completo del arte y `npm test -- --reuse-art`, navegador/Studio,
+Ascua, frontera web/juego sobre la entrega instalada, 71 transiciones reales y 19
+comprobaciones SQL de Avelino con identidad local eliminada al terminar. Circuito
+fluvial completo, agua contra el zócalo, inmersión y soporte de la rueda.
+Pruebas de píxeles en local y producción: rueda y engranajes giran, luces avanzan,
+edificio y base del aparato quietos, movimiento reducido y acceso al mecanismo.
+Avelino completo en producción a 1440×900, 390×844, 320×568 y 844×390; smoke público
+en tres anchuras y seis idiomas, sin escrituras de jugador. Las seis páginas del
+origen coinciden byte por byte con el artefacto.
+
+Entrega preparada y verificada antes de activar el único puntero web mediante
+avance rápido al commit exacto. `bosque-vivo.service` reiniciado y activo; sin
+cambios de backend o base de datos. Los 2.086 archivos iniciales del Studio del
+dueño conservan su contenido. Capturas y temporales propios retirados al terminar.
+
 ## Producción: el molino en el meandro de los Sauces — 28 septiembre 2026
 
 Artefacto `aa011104a3bf4bcc47a0`, fuente `a3e1b2d`, web `d960216a`.
