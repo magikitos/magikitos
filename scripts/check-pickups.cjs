@@ -40,7 +40,9 @@ assert.equal(planReaction(find("forest-mushrooms-fern"), state, world).state.inv
 assert.equal(planReaction(find("forest-mushrooms-fern"), { ...state, inventory: { knife: 1 } }, world).state.inventory.mushroom, 3);
 const twigCounts = Object.fromEntries(Object.entries(world.scenes).map(([id, s]) =>
   [id, s.entities.filter((e) => e.sprite === "twig").length]).filter(([, n]) => n));
-assert.deepEqual(twigCounts, { overworld: 4, "river-rapids": 2, "river-roots": 2, "river-willows": 2 });
+// Cuántas ramitas hay por pantalla lo decide el dueño en el Studio (28-sep-2026: una tercera en
+// los sauces). Lo que sí es contrato es que todas estén registradas: ver resource-nodes.json.
+assert.deepEqual(twigCounts, { overworld: 4, "river-rapids": 2, "river-roots": 2, "river-willows": 3 });
 assert.deepEqual(entities.filter((e) => e.resource?.region === "overworld").map((e) => e.resource.index),
   [0, 1, 8, 11], "Removed placements never reassign another pickup's saved bit");
 const source = require("../data/aventura/element-families.json").families;
