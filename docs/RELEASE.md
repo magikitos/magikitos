@@ -4,6 +4,34 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: Avelino y la memoria del molino — 28 septiembre 2026
+
+Artefacto `0de24b810ef33fab018d`, fuente `c9526e1` (worktree limpio), web `3522f4c0`.
+908 archivos verificados. SHA-256 de `release.json`:
+`7289ef0630512b67e1247da2d2909117cd8a12d275a46cdbb5dd56a881d5bff3`.
+Anterior conservada: artefacto `f02b23b72a88e3bef764`, web `a8993bae`.
+
+- Avelino, de 678 años, vive dentro del molino junto al río de la primera escena.
+  Presentación, arte original, cartel y pistas de vecinos; el embarcadero sigue despejado.
+- Primer reto integrado en el panel del juego: cuatro parejas, sin reloj, con progreso
+  por pareja, teclado y toque. Una sola llave abre el cofre del camino y permanece en el saco.
+  Secuencia de retos preparada para continuar; seis idiomas. Diseño y prompts: [AVELINO.md](AVELINO.md).
+- Incluye `1909e14`: interpolación de objetos compartidos y acompañamiento visual del jugador
+  y la cámara para evitar los temblores al empujar.
+- El horneado y servidor del Studio respetan el directorio aislado de pruebas. Los 2.082
+  archivos del Studio del dueño conservan exactamente su huella anterior.
+
+Verificado: `npm test`, navegador general/Studio, Ascua, frontera web/juego, API local,
+71 transiciones del servidor, 20 comprobaciones HTTP y 18 de autoridad SQL de Avelino con
+identidad temporal eliminada al acabar. Recorrido completo de Avelino en 1440×900, 390×844,
+320×568 y 844×390, tanto local como contra producción: error de pareja, tercer toque rápido,
+recarga parcial, recompensa única, repetición, salida y cofre. Movimiento reducido incluido.
+`check-release-live` pasó en las tres anchuras, seis idiomas y API; cero escrituras de jugador.
+El HTML de origen coincide byte por byte en las seis rutas; el público solo añade el script
+de seguridad de Cloudflare. Activación estática por avance rápido guardado después de verificar
+y preparar el artefacto. `bosque-vivo.service` reiniciado y activo con el nuevo ID.
+Sin migraciones, importaciones de base de datos ni cambios del backend.
+
 ## Producción: el río y el Seto de los Bigotes, despejados — 28 septiembre 2026
 
 Artefacto `f02b23b72a88e3bef764`, fuente `1624208` (worktree limpio), web `a8993bae`. Anterior:
