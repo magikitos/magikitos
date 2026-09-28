@@ -97,12 +97,13 @@ function drawArtwork(ctx, sprites, entity, name, clip) {
   ctx.restore();
 }
 /** Table settings and other small assemblies inherit the complete parent transform. */
-function drawAttachments(ctx, sprites, entity) {
+function drawAttachments(ctx, sprites, entity, time = 0) {
   if (!entity.attachments?.length) return;
   ctx.save();
   applyArtworkTransform(ctx, entity);
   for (const part of entity.attachments)
-    drawArtwork(
+    if (part.waterwheel) require("./mill-wheel").drawMillWheel(ctx, sprites, part, time);
+    else drawArtwork(
       ctx,
       sprites,
       { x: part.offset[0], y: part.offset[1], scale: part.scale },

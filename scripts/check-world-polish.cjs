@@ -206,7 +206,8 @@ for (const s of Object.values(catalog.scenes).filter((s) =>
       );
   }
   assert(abierto, s.id + ": hay un tramo navegable de verdad");
-  const boat = riverVisitors(s, 30)[0];
+  const boat = Array.from({ length: 1200 }, (_, time) => riverVisitors(s, time)[0]).find(Boolean);
+  assert(boat, "The round-trip visitor reaches " + s.id);
   const section = riverSection(river, boat.y / TILE);
   assert(boat.x / TILE > section.left + 2 && boat.x / TILE < section.right - 2);
 }

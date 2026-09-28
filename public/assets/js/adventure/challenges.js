@@ -28,14 +28,19 @@ function advance(game, challenge, action) {
 
 class Challenges {
   constructor(game) { this.game = game; }
-  async open() {
+  async open({ conversation = null } = {}) {
     const g = this.game, sequence = g.catalog.challenges;
     this.challenge = sequence.find((c) => !g.state.flags[c.completed]) || sequence.at(-1);
     const c = this.challenge;
     if (!c || !g.state.flags[c.met] || c.kind !== "memory") return;
     const request = g.site.begin("challenges");
     if (!request) return;
+    // The arrival toast must not sit on top of Avelino's introduction on short screens.
+    // Later sync/error toasts remain available normally.
+    clearTimeout(g.toastTimer);
+    document.getElementById("world-toast").hidden = true;
     this.request = request;
+    this.conversation = conversation;
     this.practice = false;
     this.root = el("article", { class: "world-experience world-challenge" });
     this.root.append(el("h1", { tabindex: "-1", text: g.text(c.title) }),
@@ -65,7 +70,7 @@ class Challenges {
       if (request.signal.aborted) return;
       this.root.replaceChildren(el("h1", { tabindex: "-1", text: g.text(c.title) }),
         el("p", { role: "status", text: g.text("contentUnavailable") }),
-        button(g.text("retry"), () => this.open(), "world-primary"));
+        button(g.text("retry"), () => this.open({ conversation }), "world-primary"));
     }
   }
   active() { return this.request && !this.request.signal.aborted && this.game.rooms.contains("challenges"); }
@@ -96,8 +101,9 @@ class Challenges {
     this.heading(g.text(c.title));
     const found = c.pairs.filter((p) => g.state.flags[p.flag]).length;
     this.root.append(
-      el("p", { class: "world-challenge-invitation", text: g.text("challengeInvitation") }),
-      el("p", { class: "world-challenge-note", text: g.text("challengeInstructions") }),
+      el("div", { class: "world-challenge-conversation" },
+        (this.conversation || [g.text("challengeInvitation"), g.text("challengeInstructions")])
+          .map((text) => el("p", { text }))),
       el("div", { class: "world-challenge-prize" }, [this.icon("mill-key"),
         el("span", { text: g.text("challengePrize") })]),
       el("div", { class: "world-experience-actions" }, [button(

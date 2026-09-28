@@ -22,7 +22,7 @@ fs.mkdirSync(shots, { recursive: true });
       });
       await page.addInitScript(() => {
         if (!localStorage.getItem("magikitos.adventure")) localStorage.setItem("magikitos.adventure", JSON.stringify({
-          scene: "overworld", position: { x: 86.5 * 16, y: 59 * 16 }, muted: true, flags: { welcomed: true }, inventory: {},
+          scene: "overworld", position: { x: 95 * 16, y: 63 * 16 }, muted: true, flags: { welcomed: true }, inventory: {},
         }));
       });
       const inspect = () => page.evaluate(() => window.MagikitosAdventure.inspect());
@@ -41,15 +41,23 @@ fs.mkdirSync(shots, { recursive: true });
       const click = async (locator) => { if (touch) await locator.tap(); else await locator.click(); };
       const talk = async (first = false) => {
         await tap("avelino", -24);
-        await page.waitForFunction(() => window.MagikitosAdventure.inspect().dialogue?.entity?.id === "avelino");
+        await page.waitForSelector(".world-challenge .world-primary");
+        assert.equal((await inspect()).dialogue, null, "One conversation opens the challenge directly");
         if (first) {
-          const text = await page.locator("#dialogue-text").innerText();
+          const text = await page.locator(".world-challenge-conversation").innerText();
           assert(text.includes("Avelino, el mago del molino") && text.includes("678") && text.includes("más sabio"));
+          assert(text.includes("¿Jugamos?"), "The whole first invitation is present without greeting again");
+          if (height > 500) {
+            const start = await page.locator(".world-challenge .world-primary").boundingBox();
+            const body = await page.locator("#world-content-body").boundingBox();
+            assert(start.y + start.height <= body.y + body.height + 1, "The first start button is visible without scrolling");
+          }
+          assert(await page.locator("#world-toast").isHidden(), "Arrival toast never covers the challenge");
           await page.screenshot({ path: path.join(shots, `meeting-${width}.png`) });
         }
-        while (!(await page.locator("#dialogue-actions button").count())) await click(page.locator("#dialogue-text"));
-        await click(page.locator("#dialogue-actions button").last());
-        await page.waitForSelector(".world-challenge .world-primary");
+        const panel = await page.locator("#world-content").boundingBox();
+        assert(Math.abs(panel.y + panel.height / 2 - height / 2) < 2, "The challenge is centered in the viewport");
+        assert(panel.y >= 8 && panel.y + panel.height <= height - 8, "Conversation and exit fit in the viewport");
       };
       const cardNames = () => page.locator(".world-memory-face").evaluateAll((cards) => cards.map((c) => c.textContent));
       const turn = (i) => click(page.locator('[data-card="' + i + '"]'));

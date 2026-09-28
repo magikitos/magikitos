@@ -18,6 +18,7 @@ for (const name of [
   "check-shared-object-contract",
   "check-shared-map",
   "check-river-core",
+  "check-river-journey",
   "check-world-polish",
   "check-community-foundations",
   "check-pickups",

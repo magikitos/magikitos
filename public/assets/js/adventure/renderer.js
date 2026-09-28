@@ -445,7 +445,7 @@ class Renderer {
       !drawVegetation(c, this.sprites, e, name, time)
     )
       drawArtwork(c, this.sprites, e, name);
-    drawAttachments(c, this.sprites, e);
+    drawAttachments(c, this.sprites, e, time);
     if (e.player) game.self.drawStream(c);
     drawFishing(c, e, time);
     if (e.neighbor && (e.bubble || e.splash)) {

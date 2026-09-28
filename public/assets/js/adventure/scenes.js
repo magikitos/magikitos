@@ -305,7 +305,7 @@ class SceneDirector {
     if (data.interior?.artwork) sprites.add(data.interior.artwork);
     for (const bridge of data.bridges || []) sprites.add(bridge.sprite);
     for (const visitor of data.riverLife || [])
-      for (const frame of visitor.frames) sprites.add(frame);
+      for (const frame of [...visitor.frames, ...(visitor.returnFrames || [])]) sprites.add(frame);
     // Un objeto puede existir sin estampa: la pala se encuentra, se usa y se lee en el saco por su
     // nombre mientras nadie la haya dibujado. Lo que no puede es meter un hueco en la lista de
     // sprites que se piden, que es pedirle al almacén un nombre que no existe.

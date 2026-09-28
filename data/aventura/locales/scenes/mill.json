@@ -48,12 +48,12 @@
     ]
   },
   "avelinoGreeting": {
-    "es": "Ah, has vuelto. Las cartas siguen en la mesa y yo tengo todo el tiempo del mundo. Cada pareja que encuentres quedará guardada.",
-    "en": "Ah, you’re back. The cards are still on the table, and I have all the time in the world. Every pair you find will be saved.",
-    "de": "Ah, du bist zurück. Die Karten liegen noch auf dem Tisch, und ich habe alle Zeit der Welt. Jedes gefundene Paar bleibt gespeichert.",
-    "fr": "Ah, te revoilà. Les cartes sont toujours sur la table, et j’ai tout mon temps. Chaque paire trouvée sera sauvegardée.",
-    "it": "Ah, sei tornato. Le carte sono ancora sul tavolo e io ho tutto il tempo del mondo. Ogni coppia che trovi verrà salvata.",
-    "pt": "Ah, voltaste. As cartas continuam na mesa e eu tenho todo o tempo do mundo. Cada par que encontrares ficará guardado."
+    "es": "Las cartas están listas. Encuentra las cuatro parejas y la llave del cofre será tuya. Podemos ir con calma.",
+    "en": "The cards are ready. Find all four pairs and the chest key is yours. We can take our time.",
+    "de": "Die Karten liegen bereit. Finde alle vier Paare, dann gehört dir der Truhenschlüssel. Wir haben Zeit.",
+    "fr": "Les cartes sont prêtes. Trouve les quatre paires et la clé du coffre sera à toi. Prenons notre temps.",
+    "it": "Le carte sono pronte. Trova le quattro coppie e la chiave del baule sarà tua. Facciamo con calma.",
+    "pt": "As cartas estão prontas. Encontra os quatro pares e a chave do baú será tua. Podemos ir com calma."
   },
   "avelinoHasKey": {
     "es": "La primera llave ya es tuya. El cofre te espera fuera, junto al camino, a la izquierda de mi puerta. Puedes abrirlo con solo tocarlo.",

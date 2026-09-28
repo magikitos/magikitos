@@ -32,6 +32,7 @@ function compileWorld(root = process.cwd()) {
     for (const dock of require("../public/assets/js/adventure/docks").docks(scene))
       if (!require("../public/assets/js/adventure/dock-geometry").boardingPoint(dock))
         throw Error("Jetty access outside the walkable planks: " + scene.id + "/" + dock.id);
+  require("./river-journey.cjs").prepareRiverJourney(world);
   return require("./harvest-yields.cjs").resolveHarvestYields(world,
     require("../public/assets/js/adventure/element-appearance").appearanceFor(families));
 }

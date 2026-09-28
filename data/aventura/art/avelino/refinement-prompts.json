@@ -1,0 +1,35 @@
+{
+  "mode": "built-in image_gen",
+  "assets": [
+    {
+      "path": "mill-exterior.png",
+      "references": [
+        "../woodland-kit/cutouts/home-leaf-round.png",
+        "../construction/cutouts/warehouse-exterior.png"
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: replacement building sprite for the existing Magikitos game.\nReference 1 (leaf house) defines the CAMERA ANGLE and pixel-painted woodland style. Reference 2 (watering-can warehouse) defines material rendering and elevated view. Do not copy their house silhouettes.\nCreate a distinctive substantial ancient WATERMILL BUILDING belonging to a wise woodland wizard. A proper imposing working mill of mossy river stone, heavy dark oak beams, broad layered weathered teal SLATE ROOFS, a small raised timber loft and copper finial. Asymmetric architecture with a broad main hall and a narrow right-hand mill machinery annex supported by two stone piers that will stand IN the river. Warm amber small windows, sparse ivy, welcoming open wooden entrance near lower-left/front, visible floor and a short landing. NO mushroom roof, NO mushroom chimney, NO round stump cottage, NO leaf-shingle cottage.\nCRITICAL CAMERA: clearly elevated TOP-DOWN three-quarter orthographic game camera, about 55 degrees looking DOWN, matching the reference leaf house: large visible roof planes and visible tops of landing stones and beams, foreshortened lower walls, NO low eye-level facade, no horizon, no vanishing-point perspective. Main entrance faces the bottom of the sprite with a slight right side visible. The whole building must feel firmly planted in the same overhead game world.\nThe LARGE moving waterwheel is a SEPARATE animated asset. Therefore this sprite contains ONLY the stationary mill building, right-hand timber axle bearing / short axle, and supporting stone piers. Leave free transparent space beyond the right wall for a wheel; do NOT draw any wheel, spokes or paddles. Right wall axle emerges around 65% down the total height. Roof should not overhang that axle space.\nWarm crisp richly textured pixel-painted storybook art exactly like references, moss green / dark teal / honey timber palette. Readable silhouette at around 250 by 210 logical pixels. Entire building in frame with transparent margins. REAL TRANSPARENT alpha background, isolated object, no river/water, no ground patch, no terrain, no floating effects, no characters, no text, no cast shadow outside footprint."
+    },
+    {
+      "path": "mill-wheel.png",
+      "references": [
+        "mill-exterior.png"
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: isolated rotating waterwheel sprite for Magikitos game.\nThe reference image is the mill building this wheel belongs to; match its old dark oak, copper ironwork, warm finely pixel-painted woodland storybook game rendering.\nCreate ONE perfectly CIRCULAR wooden WATERMILL WHEEL seen EXACTLY face-on, orthographic, with no perspective and no visible side face. This wheel will be rotated and projected into the building's elevated perspective by the game engine. Eight thick radial oak spokes connect a small copper central axle cap to a stout circular timber rim with twelve evenly spaced short broad squared paddle tips just outside the rim. Open transparent gaps between the spokes. Precise centered rotational geometry, equal lengths, solid heavy handcrafted construction, coarse readable wood grain, warm worn copper bands/rivets. Symmetric overall light neutral shading suitable for rotation. Large practical WATERWHEEL, not a cart wheel, not a ship's steering wheel, no protruding handles.\nREAL TRANSPARENT alpha background including gaps between spokes. Entire wheel centered with equal transparent margins and no cropping. No building, supports, plants, moss vines, stone, water, splashes, scenery, floor, words, outer glow or cast shadow. One single wheel only. Clear enough to display at 100 logical pixels diameter."
+    },
+    {
+      "path": "walnut-return.png",
+      "references": [
+        "../world-polish/cutouts/walnut-boat.png"
+      ],
+      "prompt": "Use case: precise-object-edit. Asset type: rear-facing return journey sprite strip for Magikitos.\nThe reference is the existing river visitor sprite: same small friendly goblin in moss green floppy pointed hat, orange vest, cream shirt, sitting in a walnut-shell boat, two broad green LEAF paddles on wooden handles, stitched green bag behind his seat.\nGenerate the reverse-direction counterpart: exact SAME character, walnut boat, size, painterly pixel art, colors, camera elevation and proportions, now viewed from BEHIND as the boat sails toward the UPPER RIGHT of the screen. Back of the green hat and orange vest visible, no facing-the-viewer face. Boat keel angled lower-left to upper-right, leading end at upper right. Boat sits naturally on an invisible horizontal water plane, never tipped upright.\nONE horizontal strip of TWO equally sized SQUARE cells, identical centered boat/hull/character pose and scale in both cells. Only paddle stroke position changes gently between cells: first leaf oars extended laterally, second leaf oars pulled slightly back. The exact same framing and baseline in both cells. Entire hat, boat and BOTH leaf blades visible with ample margins. Match the reference's tiny detailed game art. Real transparent alpha background, including between oars and hull. No water, wake, shadow outside silhouette, scene, text, grid lines or labels."
+    },
+    {
+      "path": "mill-interior.png",
+      "references": [
+        "mill-interior.png (previous version)",
+        "mill-exterior.png"
+      ],
+      "prompt": "Use case: precise-object-edit. Edit target: first reference, the current cutaway game interior. Style/material reference: second image, its new watermill exterior.\nChange ONLY the wall construction and structural posts of the first image to match the second image: mossy warm grey RIVER STONE masonry with heavy squared dark OAK beams instead of round bark trunks and stump walls. This is the cozy interior of a proper old working stone watermill, not a hollow tree.\nCRITICAL INVARIANTS: preserve the exact camera angle, total silhouette footprint, canvas proportions, framing, entry centered at the bottom, open doorway width and step positions, existing golden wooden plank floor shape/area, shelves at back left, large gear/axle at back right, amber lamps, windows, circular wheel emblem. The unobstructed central wooden floor must retain its exact geometry because the game movement map already matches it. No furniture or other objects added to the floor. Maintain the same warm pixel-painted detail, same light and colors, same scale.\nReplace the round cross-section tops of stump posts with cut squared timber beam tops and stone coping. Sparse tiny ivy on stone okay, no large vegetation. Everything else stays as close to the first image as possible. Real transparent alpha outside the room; no roof, new doorway, backdrop, people, text, watermark, labels or UI."
+    }
+  ]
+}

@@ -609,7 +609,9 @@ class Adventure {
         );
       }
       for (const effect of plan.effects) {
-        if (effect.type === "dialogue")
+        if (effect.type === "dialogue" && entity.content === "challenges")
+          this.site.challenges.open({ conversation: this.lines(effect.key) });
+        else if (effect.type === "dialogue")
           this.openDialogue(
             this.lines(effect.key),
             this.text(entity.label || "you"),

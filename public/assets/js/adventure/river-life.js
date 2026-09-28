@@ -6,33 +6,34 @@ const { riverSection, mainChannel } = require("./river-course");
  * sitio es una función del reloj, así que dibujarlos y chocar con ellos leen exactamente lo
  * mismo y no pueden discrepar.
  */
-/**
- * El recorrido de un visitante empieza `lead` casillas antes del borde de arriba y sigue `beyond`
- * casillas más allá del de abajo —por defecto diez, o lo que diga `riverLife[].beyond`—, y en las
- * últimas y primeras casillas se DESVANECE en vez de cortarse (20-sep-2026, decisión del dueño:
- * «el NPC de la barquita… desaparece de repente en el mismo punto»). Como las vecinas se pintan
- * trasladadas, la barca de los sauces sigue remando por el lago de la pradera hasta esfumarse.
- */
-const FADE = 6;
-function riverVisitors(data, time) {
+const { journeyAt } = require("./river-journey");
+/** One circuit, one resident. Scene ownership changes at the seam, never their position.
+ * The boat follows a wide bend at each end and rows back, fully opaque throughout. */
+function riverVisitors(data, time, margin = 0) {
   const river = mainChannel(data);
   if (!river) return [];
-  return (data.riverLife || []).map((v) => {
-    const lead = 10,
-      beyond = v.beyond ?? 10,
-      span = data.height + lead + beyond,
-      y = ((time * v.speed + v.phase) % span) - lead;
-    const bank = riverSection(river, y);
-    const frame = v.frames[Math.floor(time / 0.9) % v.frames.length];
-    const opacity = Math.max(0, Math.min(1, (y + lead) / FADE, (data.height + beyond - y) / FADE));
+  return (data.riverLife || []).flatMap((v) => {
+    let p;
+    if (v.journey) {
+      p = journeyAt(v.journey, time * v.speed + v.phase);
+      if (p.y < -margin || p.y >= data.height + margin || p.x < -margin || p.x >= data.width + margin) return [];
+    } else {
+      // Standalone authoring scenes also turn back; they never wrap or fade away.
+      const phase = (time * v.speed + v.phase) / (data.height - 48), y = 24 + (1 - Math.cos(phase)) * (data.height - 48) / 2;
+      const bank = riverSection(river, y);
+      p = { x: (bank.left + bank.right) / 2 + (v.offset || 0), y, dx: bank.tangent * Math.sin(phase), dy: Math.sin(phase) };
+    }
+    const returning = p.dy < 0, frames = returning && v.returnFrames ? v.returnFrames : v.frames;
+    const frame = frames[Math.floor(time / 1.15) % frames.length];
     return {
       ...v,
-      x: ((bank.left + bank.right) / 2 + v.offset) * TILE,
-      y: y * TILE,
+      x: p.x * TILE,
+      y: p.y * TILE,
       sprite: frame,
       artSprite: frame,
-      flip: bank.tangent < -0.05,
-      opacity,
+      flip: returning ? p.dx < -Math.abs(p.dy) * .8 : p.dx > Math.abs(p.dy) * .8,
+      direction: returning ? "up" : "down",
+      opacity: 1,
     };
   });
 }
@@ -51,7 +52,7 @@ function riverVisitors(data, time) {
 const VISITOR_RADIUS = 20;
 const FLOAT_RADIUS = 12;
 function riverBodies(data, time) {
-  const bodies = riverVisitors(data, time).map((visitor) => ({
+  const bodies = riverVisitors(data, time, VISITOR_RADIUS / TILE).map((visitor) => ({
     id: visitor.id,
     x: visitor.x,
     y: visitor.y,

@@ -9780,24 +9780,25 @@
             "bytes": 4606
         },
         "mill-exterior": {
-            "image": "packs/mill-exterior-cb772a024a68.webp",
-            "metadata": "packs/mill-exterior-cb772a024a68.json",
+            "image": "packs/mill-exterior-e5491d6426cf.webp",
+            "metadata": "packs/mill-exterior-e5491d6426cf.json",
             "sprites": [
-                "mill-exterior"
+                "mill-exterior",
+                "mill-wheel"
             ],
-            "width": 512,
-            "height": 388,
-            "bytes": 76632
+            "width": 1024,
+            "height": 468,
+            "bytes": 121440
         },
         "mill-interior": {
-            "image": "packs/mill-interior-05545c3b13b0.webp",
-            "metadata": "packs/mill-interior-05545c3b13b0.json",
+            "image": "packs/mill-interior-010713da0e00.webp",
+            "metadata": "packs/mill-interior-010713da0e00.json",
             "sprites": [
                 "mill-interior"
             ],
             "width": 1024,
-            "height": 920,
-            "bytes": 278148
+            "height": 908,
+            "bytes": 270678
         },
         "mill-treasures": {
             "image": "packs/mill-treasures-87c54683eae9.webp",
@@ -10151,15 +10152,17 @@
             "bytes": 23158
         },
         "walnut-boat": {
-            "image": "packs/walnut-boat-1dd107c627a8.webp",
-            "metadata": "packs/walnut-boat-1dd107c627a8.json",
+            "image": "packs/walnut-boat-94493c0fe9f4.webp",
+            "metadata": "packs/walnut-boat-94493c0fe9f4.json",
             "sprites": [
                 "walnut-boat-0",
-                "walnut-boat-1"
+                "walnut-boat-1",
+                "walnut-return-0",
+                "walnut-return-1"
             ],
-            "width": 256,
-            "height": 296,
-            "bytes": 16554
+            "width": 512,
+            "height": 258,
+            "bytes": 28002
         },
         "warehouse-exterior": {
             "image": "packs/warehouse-exterior-a82fbe015bfe.webp",

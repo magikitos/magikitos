@@ -86,7 +86,9 @@ function yieldToRiverBodies(world, player, dt, motion = null) {
   const touching = riverBodyAt(world, player.x, player.y);
   if (!touching) return null;
   const away = Math.hypot(player.x - touching.x, player.y - touching.y) || 1;
-  const overlap = touching.radius + HULL_RADIUS - away;
+  // Clear the boundary by a hundredth of a pixel: curved journeys use fractional coordinates,
+  // and rounding back just inside the exact radius would otherwise leave boats touching forever.
+  const overlap = touching.radius + HULL_RADIUS + .01 - away;
   if (overlap <= 0) return null;
   const step = Math.min(
     Math.max(overlap * YIELD_STIFFNESS * dt, YIELD_CLOSE * dt),
