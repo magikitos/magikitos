@@ -7,6 +7,7 @@ const catalog = JSON.parse(fs.readFileSync(".local/build/world.json"));
 const { nearbyPosition, entityScreenPoint } = require("./browser-world.cjs");
 const errors = [];
 (async () => {
+  fs.mkdirSync(".local/picnic-review",{recursive:true});
   const browser = await chromium.launch({ channel: "chrome", headless: true });
   try {
     for (const [width, height] of [
@@ -21,10 +22,10 @@ const errors = [];
         hasTouch: true,
       });
       await page.route("**/*", (r) =>
-        ["127.0.0.1", "magikitos.ddev.site"].includes(
+        ["127.0.0.1", "magikitos.ddev.site", new URL(origin).hostname].includes(
           new URL(r.request().url()).hostname,
         )
-          ? r.continue()
+          && ["GET","HEAD"].includes(r.request().method()) ? r.continue()
           : r.abort(),
       );
       page.on("pageerror", (e) => errors.push(e.message));
@@ -122,27 +123,36 @@ const errors = [];
           window.MagikitosAdventure.inspect().flags.fireLit &&
           !!window.MagikitosAdventure.inspect().dialogue,
       );
-      assert.equal(await page.locator("[data-action='cook']").count(), 0);
       await save();
+      await near("picnic-barbecue");
+      await click("picnic-barbecue");
+      await page.locator("[data-action='grill']").click();
+      await page.waitForFunction(() => window.MagikitosAdventure.inspect().inventory.skewer === 1);
+      await save();
+      assert.equal(state.inventory.mushroom,3);
+      assert.equal(state.inventory.twig,undefined);
       await near("picnic-neighbor");
       await click("picnic-neighbor");
-      await page.waitForFunction(() => window.MagikitosAdventure.inspect().flags.oarsReceived);
+      await page.locator("[data-action='share']").click();
+      await page.waitForFunction(() => window.MagikitosAdventure.inspect().sequence?.data.kind === "offer");
+      await page.screenshot({path:'.local/picnic-review/offer-'+width+'.png'});
+      await page.waitForFunction(() => window.MagikitosAdventure.inspect().flags.picnicSkewerShared);
+      await page.screenshot({path:'.local/picnic-review/joke-'+width+'.png'});
       await save();
-      assert.equal(state.inventory.oars, 1);
+      assert.equal(state.inventory.oars, undefined, "The side quest never grants river access");
       assert.equal(state.wallet.balance, 0);
-      assert.equal(state.inventory.mushroom, 5, "Side-activity materials were not consumed");
-      assert.equal(state.inventory.twig, 1);
       assert.equal(state.inventory.knife, 1);
       assert.equal(state.inventory.lighter, 1);
       assert(!state.timers.picnic && !state.inventory.skewer);
       await near("picnic-neighbor");
       await click("picnic-neighbor");
-      assert.equal((await page.evaluate(() => window.MagikitosAdventure.inspect())).inventory.oars, 1);
-      assert.equal(await page.locator("[data-action='give']").count(), 0);
+      assert.equal((await page.evaluate(() => window.MagikitosAdventure.inspect())).inventory.oars, undefined);
+      assert.equal(await page.locator("[data-action='share']").count(), 0);
       assert((await page.evaluate(() => window.MagikitosAdventure.inspect().entities)).some(e => e.id === "human-smoker"));
+      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth>innerWidth), false);
       await page.close();
       console.log(
-        "PASS picnic pointer interactions, free oars, persistent scenery, no cooking and reload " +
+        "PASS optional picnic: ingredients, grill, handoff animation/joke once, no oars/money/timer and reload " +
           width +
           "×" +
           height,

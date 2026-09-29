@@ -130,9 +130,10 @@ class MaterialAccount {
     // ⛔ Y NO SE REORDENA LA COLA CON UN ENVÍO EN VUELO (21-sep-2026, revisión). `recoverLocalTools`
     // reescribe la cola entera y `flush` quita la cabeza por posición: si se cruzan, el acuse de
     // un mandato descarta OTRO sin haberlo mandado, y al conciliar desaparece del inventario algo
-    // que se acababa de recoger. Con un envío en vuelo se deja para el siguiente intento.
+    // que se acababa de recoger. Solo se bloquea durante una petición de acción: `busy` también
+    // está activo al conectar al principio de `flush`, cuando aún hay que recuperar las herramientas.
     if (
-      !this.busy &&
+      !this.sending &&
       this.account.revision === 0 &&
       !Object.keys(this.account.inventory).length &&
       !this.account.setines &&
@@ -185,23 +186,30 @@ class MaterialAccount {
   }
   recoverLocalTools() {
     const s = this.game.state,
-      commands = [];
+      commands = [],
+      // Older browser-only journeys earned their river access at the picnic.
+      // Recover that finite entitlement through today's prerequisite chain;
+      // never remove their boat or replay the former money/meal-timer rewards.
+      riverAccess = Boolean(s.inventory.oars || s.inventory.boat || s.flags.oarsReceived),
+      skewer = Boolean(s.inventory.skewer || s.flags.picnicSkewerMade || s.flags.picnicSkewerShared);
     const add = (entity, action = "interact", scene = "overworld") =>
       commands.push({ scene, entity, action, operationId: operationId() });
     for (const challenge of this.game.catalog?.challenges || []) {
-      if (!s.flags[challenge.met]) continue;
+      const inherited = riverAccess && challenge.id === "mill-memory";
+      if (!s.flags[challenge.met] && !inherited) continue;
       add(challenge.giver, "interact", challenge.scene);
       for (const pair of challenge.pairs || [])
-        if (s.flags[pair.flag]) add(challenge.giver, "pair-" + pair.id, challenge.scene);
-      if (s.flags[challenge.completed]) add(challenge.giver, challenge.action, challenge.scene);
+        if (s.flags[pair.flag] || inherited) add(challenge.giver, "pair-" + pair.id, challenge.scene);
+      if (s.flags[challenge.completed] || inherited) add(challenge.giver, challenge.action, challenge.scene);
     }
-    if (s.flags.avelinoChestOpened) add("mill-chest", "interact", "river-willows");
-    if (s.inventory.twig) add("picnic-twig");
-    if (s.inventory.lighter || s.flags.fireLit) add("picnic-lighter");
-    if (s.inventory.knife || s.inventory.mushroom || s.inventory.boat) add("picnic-knife");
-    if (s.inventory.mushroom) add("forest-mushrooms-fern");
-    if (s.flags.fireLit) add("picnic-barbecue", "light");
-    if (s.flags.oarsReceived || s.inventory.oars || s.inventory.boat) add("picnic-neighbor");
+    if (s.flags.avelinoChestOpened || riverAccess) add("mill-chest", "interact", "river-willows");
+    if (s.inventory.twig || skewer) add("picnic-twig");
+    if (s.inventory.lighter || s.flags.fireLit || skewer) add("picnic-lighter");
+    if (s.inventory.knife || s.inventory.mushroom || s.inventory.boat || skewer) add("picnic-knife");
+    if (s.inventory.mushroom || skewer) add("forest-mushrooms-fern");
+    if (s.flags.fireLit || skewer) add("picnic-barbecue", "light");
+    if (skewer) add("picnic-barbecue", "grill");
+    if (s.flags.picnicSkewerShared) add("picnic-neighbor", "share");
     if (s.inventory.bottle || s.inventory.boat) add("picnic-bin");
     if (s.inventory.boat) add("river-dock", "craft");
     if (s.inventory.boat && s.flags.bowlFound)
@@ -247,6 +255,7 @@ class MaterialAccount {
           entry.baseRevision ??= this.account.revision;
           this.persist();
           try {
+            this.sending = true;
             const result = await this.game.api.request("game-action", entry, {
               auth: true,
             });
@@ -296,6 +305,8 @@ class MaterialAccount {
             this.error = error.code || "offline";
             this.retry(error);
             return;
+          } finally {
+            this.sending = false;
           }
         }
         this.error = null;

@@ -39,8 +39,9 @@ no un cartel.
 
 ## Los setines no se ganan en el bosque
 
-El viejo del picnic da SUS REMOS y nada más, la vecina de las conchas recibe un
-regalo y la fuente no cobra por un deseo (decisiones del dueño, 17-sep-2026).
+Los remos se ganan en el cofre de Avelino. El viejo del picnic recibe una brocheta
+como favor cómico sin premio; la vecina de las conchas recibe un regalo y la fuente
+no cobra por un deseo (decisiones del dueño, actualizadas el 29-sep-2026).
 Los setines son reputación y se ganan en la web.
 
 Lo que NO se ha tirado es la maquinaria: los efectos `reward` y `spend`, los

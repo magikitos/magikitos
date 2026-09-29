@@ -371,20 +371,102 @@
     "it": "Che bel tepore. Per i misteri, Avelino ti aspetta al mulino.",
     "pt": "Que bom estar junto às brasas. Para mistérios, o Avelino espera-te no moinho."
   },
-  "picnicOarsGift": {
-    "es": "¡Ea, qué alegría una visita! Yo ya remo más en sueños que despierto. Toma mis remos; con una botella grande te puedes montar una barquita.",
-    "en": "A visitor! These days I row more in my dreams. Take my oars; a big bottle could make you a little boat.",
-    "de": "Besuch! Heute rudere ich meist im Traum. Nimm meine Ruder; aus einer großen Flasche kannst du ein Boot bauen.",
-    "fr": "De la visite ! Je rame surtout dans mes rêves. Prends mes rames ; une grande bouteille te fera une petite barque.",
-    "it": "Una visita! Ormai remo soprattutto nei sogni. Prendi i miei remi: con una bottiglia grande puoi farti una barchetta.",
-    "pt": "Uma visita! Hoje remo mais nos sonhos. Toma os meus remos; com uma garrafa grande fazes um barquinho."
-  },
   "picnicRest": {
-    "es": "Yo me quedo aquí de charla. Tú aprovecha esos remos, que el río tiene rincones preciosos.",
-    "en": "I’m staying for a chat. Put those oars to use; the river has beautiful corners.",
-    "de": "Ich bleibe zum Plaudern. Nutze die Ruder; am Fluss gibt es schöne Ecken.",
-    "fr": "Je reste bavarder. Profite des rames ; la rivière cache de jolis coins.",
-    "it": "Io resto a chiacchierare. Usa quei remi: il fiume ha angolini bellissimi.",
-    "pt": "Eu fico à conversa. Aproveita os remos, que o rio tem recantos lindos."
+    "es": "Tu brocheta se ha llevado una ovación de barriga. El banco sigue bajo mi estricta vigilancia.",
+    "en": "Your skewer got a standing ovation from my belly. This bench remains under strict supervision.",
+    "de": "Dein Spieß bekam tosenden Bauchbeifall. Die Bank bleibt streng bewacht.",
+    "fr": "Ta brochette a reçu une ovation de mon ventre. Le banc reste sous haute surveillance.",
+    "it": "Il tuo spiedino ha ricevuto un’ovazione dalla mia pancia. La panchina resta sorvegliata a vista.",
+    "pt": "A tua espetada recebeu uma ovação da minha barriga. O banco continua sob vigilância apertada."
+  },
+  "picnicOarsHint": {
+    "es": [
+      "Mi abuelo guardaba los remos bajo llave. Decía que el río había que ganárselo. Ahora están en el cofre del molino: Avelino sabrá cómo abrirlo.",
+      "Y si te apetece un desvío sabroso, ásame una brocheta con dos setas y una ramita. Mi receta secreta consiste en que cocine otro."
+    ],
+    "en": [
+      "My grandad kept the oars under lock and key. Said you had to earn the river. They’re in the mill’s chest now; Avelino knows the way in.",
+      "Fancy a tasty detour? Grill me two mushrooms on a twig. My secret recipe is getting somebody else to cook."
+    ],
+    "de": [
+      "Mein Opa hielt die Ruder unter Verschluss. Den Fluss müsse man sich verdienen. Jetzt liegen sie in der Truhe an der Mühle. Avelino weiß, wie sie aufgeht.",
+      "Lust auf einen leckeren Umweg? Grill mir zwei Pilze auf einem Zweig. Mein Geheimrezept: Jemand anders kocht."
+    ],
+    "fr": [
+      "Mon grand-père gardait les rames sous clé. La rivière, ça se mérite, disait-il. Elles sont dans le coffre du moulin ; Avelino sait comment l’ouvrir.",
+      "Envie d’un détour gourmand ? Grille-moi deux champignons sur une brindille. Ma recette secrète : faire cuisiner quelqu’un d’autre."
+    ],
+    "it": [
+      "Mio nonno teneva i remi sotto chiave. Diceva che il fiume bisognava guadagnarselo. Ora sono nel baule del mulino: Avelino sa come aprirlo.",
+      "Ti va una deviazione golosa? Grigliami due funghi su un rametto. La mia ricetta segreta è far cucinare qualcun altro."
+    ],
+    "pt": [
+      "O meu avô guardava os remos à chave. Dizia que o rio tinha de ser merecido. Agora estão no baú do moinho; o Avelino sabe como abri-lo.",
+      "Apetece-te um desvio saboroso? Grelha-me dois cogumelos num raminho. A minha receita secreta é pôr outro a cozinhar."
+    ]
+  },
+  "picnicSkewerRequest": {
+    "es": "¡Ya tienes remos! Si te apetece una parada, ásame dos setas en una ramita. Mi receta secreta: que cocine otro.",
+    "en": "You’ve got oars! If you fancy a break, grill me two mushrooms on a twig. My secret recipe: someone else does the cooking.",
+    "de": "Du hast Ruder! Für eine kleine Pause grill mir zwei Pilze auf einem Zweig. Mein Geheimrezept: Andere kochen lassen.",
+    "fr": "Tu as tes rames ! Pour une petite pause, grille-moi deux champignons sur une brindille. Mon secret : faire cuisiner les autres.",
+    "it": "Hai i remi! Se ti va una pausa, grigliami due funghi su un rametto. Il mio segreto: far cucinare gli altri.",
+    "pt": "Já tens remos! Se te apetecer uma pausa, grelha-me dois cogumelos num raminho. O meu segredo: pôr outro a cozinhar."
+  },
+  "picnicSkewerIngredients": {
+    "es": "Con estas brasas, dos setas y una ramita puedes hacerle una brocheta a Brizno. Un capricho suyo; el río puede esperar… o no.",
+    "en": "With these embers, two mushrooms and a twig, you can make Brizno a skewer. Just a little favour; the river can wait… or not.",
+    "de": "Mit dieser Glut, zwei Pilzen und einem Zweig kannst du Brizno einen Spieß machen. Nur ein kleiner Gefallen; der Fluss kann warten… oder auch nicht.",
+    "fr": "Avec ces braises, deux champignons et une brindille, tu peux faire une brochette à Brizno. Un petit plaisir ; la rivière peut attendre… ou pas.",
+    "it": "Con queste braci, due funghi e un rametto puoi fare uno spiedino a Brizno. Un suo sfizio; il fiume può aspettare… oppure no.",
+    "pt": "Com estas brasas, dois cogumelos e um raminho podes fazer uma espetada ao Brizno. Um mimo; o rio pode esperar… ou não."
+  },
+  "picnicSkewerReady": {
+    "es": "¡Brocheta lista! Brizno, el del banco de al lado, ya está oliendo el aire.",
+    "en": "Skewer ready! Brizno on the nearby bench is already sniffing the air.",
+    "de": "Spieß fertig! Brizno auf der Bank nebenan schnuppert schon.",
+    "fr": "Brochette prête ! Brizno, sur le banc à côté, renifle déjà l’air.",
+    "it": "Spiedino pronto! Brizno sulla panchina accanto sta già annusando l’aria.",
+    "pt": "Espetada pronta! O Brizno no banco ao lado já está a farejar o ar."
+  },
+  "picnicShareReady": {
+    "es": "¡Eso huele a gloria! Acércamela, que llevo toda la mañana supervisando cómo trabajan los demás.",
+    "en": "That smells heavenly! Pass it here; I’ve spent all morning supervising everyone else’s work.",
+    "de": "Das riecht himmlisch! Gib her, ich beaufsichtige schon den ganzen Morgen die Arbeit der anderen.",
+    "fr": "Ça sent divinement bon ! Passe-la-moi, j’ai supervisé le travail des autres toute la matinée.",
+    "it": "Che profumino! Passamela, ho passato la mattina a supervisionare il lavoro degli altri.",
+    "pt": "Que cheirinho! Passa-ma, que passei a manhã toda a supervisionar o trabalho dos outros."
+  },
+  "picnicSkewerJoke": {
+    "es": [
+      "Mmm… Crujiente por fuera, gorroneada por dentro. ¡Exactamente como la hacía mi abuelo!",
+      "¡BRUUUP!",
+      "No te asustes. Es el aplauso de mi barriga. Tú sigue con tus misterios, que yo vigilo el banco."
+    ],
+    "en": [
+      "Mmm… Crispy on the outside, freeloaded on the inside. Just like Grandad used to make!",
+      "BUUURP!",
+      "Don’t worry. That’s my belly applauding. You go solve your mysteries; I’ll guard this bench."
+    ],
+    "de": [
+      "Mmm… Außen knusprig, innen geschnorrt. Genau wie bei Opa!",
+      "RÜÜÜLPS!",
+      "Keine Sorge. Mein Bauch applaudiert nur. Löse du deine Rätsel, ich bewache die Bank."
+    ],
+    "fr": [
+      "Mmm… Croustillante dehors, offerte dedans. Tout comme celles de grand-père !",
+      "BUUURP !",
+      "Pas de panique. C’est mon ventre qui applaudit. Va résoudre tes mystères, je surveille le banc."
+    ],
+    "it": [
+      "Mmm… Croccante fuori, scroccato dentro. Proprio come lo faceva mio nonno!",
+      "BUUURP!",
+      "Tranquillo. È la mia pancia che applaude. Tu risolvi i tuoi misteri, io sorveglio la panchina."
+    ],
+    "pt": [
+      "Mmm… Crocante por fora, cravada por dentro. Tal como o meu avô fazia!",
+      "BUUURP!",
+      "Não te assustes. É a minha barriga a aplaudir. Tu resolve os teus mistérios, eu vigio o banco."
+    ]
   }
 }

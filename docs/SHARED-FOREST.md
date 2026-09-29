@@ -8,7 +8,7 @@ Sin vidas, combate, Libro del Bosque, fiambreras ni parcelas privadas.
 
 La rama principal son los retos de Avelino, en el molino de la Curva de los Sauces.
 El primer juego de memoria entrega una llave para el cofre junto al molino.
-Navegar, construir y cuidar gatos son actividades secundarias independientes.
+El cofre entrega los remos para navegar. Construir, cuidar gatos y la brocheta son actividades secundarias.
 
 1. Merendero humano al noroeste. Los humanos no detectan al duende; su gato sí.
    Mira su dirección, aprovecha los obstáculos y consigue navaja y mechero.
@@ -16,11 +16,11 @@ Navegar, construir y cuidar gatos son actividades secundarias independientes.
    culete arriba y las extremidades colgando. Te deja más lejos, nunca en el agua,
    sin quitar objetos ni puntos de vida. Hay margen para escapar tras soltarte.
 2. Con la navaja cortas setas para el almacén. Puedes encender la barbacoa y
-   charlar con Brizno, que entrega sus remos reutilizables al saludarlo por primera
-   vez. No hay cocina, hambre ni premio de setines. Los humanos y ambos gatos
+   preparar la brocheta opcional de Brizno con dos setas y una ramita. La entrega
+   tiene una broma; no hay hambre, temporizador ni premio de setines. Los humanos y ambos gatos
    permanecen en el picnic; solo uno puede transportar al protagonista.
 3. La botella junto a la papelera está disponible desde el comienzo. En el
-   embarcadero: botella + navaja + remos de Brizno. Solo se consume la botella.
+   embarcadero: botella + navaja + remos del cofre de Avelino. Solo se consume la botella.
    La navegación queda desbloqueada.
 4. Tres regiones de río, cada una una celda entera de la rejilla (192 × 144 tiles desde el
    20-sep-2026, con bosque nuevo por el oeste), con orillas explorables, desembarcos,
@@ -264,7 +264,7 @@ desplazamiento del torso, sin deformar ni inmovilizar las patas.
 Ascua tiene la pose específica colgante. Sus maestros y prompts quedan en
 `data/aventura/art/cats/`; `scripts/prepare-adventure-cats.php` prepara alfa/celdas
 localmente conservando originales. Los primeros intentos descartados no se exportan.
-Los remos de madera regalados por Brizno están también en la barca vacía y las
+Los remos de madera del cofre de Avelino están también en la barca vacía y las
 32 poses de navegación; maestros, referencias y prompts exactos en
 `data/aventura/art/river/catalog.json`. Se retienen los maestros anteriores.
 Se mantiene **2x con reducción integrada**, movimiento selectivo y sutil.

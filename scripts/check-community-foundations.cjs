@@ -88,12 +88,12 @@ const fed = planReaction(
   { action: "interact", now },
 ).state;
 check(
-  fed.inventory.oars === 1 && fed.wallet.balance === 0,
-  "First greeting gives the permanent oars and nothing else",
+  !fed.inventory.oars && fed.wallet.balance === 0,
+  "Brizno's greeting cannot bypass Avelino or mint money",
 );
 check(
-  planReaction(brizno, fed, catalog, { action: "interact", now }).state.inventory.oars === 1,
-  "Reward cannot repeat",
+  !planReaction(brizno, fed, catalog, { action: "interact", now }).state.inventory.oars,
+  "Repeated greetings still give no oars",
 );
 const dock = catalog.scenes.overworld.entities.find(
   (e) => e.id === "river-dock",

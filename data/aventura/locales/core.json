@@ -392,12 +392,12 @@
     "pt": "Por aí não passo. Vou tentar outro caminho."
   },
   "bottleBoatDescription": {
-    "es": "Media botella y los remos del abuelo. Sin billete ni ná: el río es de todos.",
-    "en": "Half a bottle and the old chap’s oars. No tickets: the river belongs to everyone.",
-    "de": "Eine halbe Flasche und Opas Ruder. Kein Ticket: Der Fluss gehört allen.",
-    "fr": "Une demi-bouteille et les rames du vieux. Pas de billet : la rivière est à tout le monde.",
-    "it": "Mezza bottiglia e i remi del nonno. Niente biglietti: il fiume è di tutti.",
-    "pt": "Meia garrafa e os remos do velhote. Sem bilhetes: o rio é de todos."
+    "es": "Media botella y los remos del cofre de Avelino. Tu ingenio ya tiene barco.",
+    "en": "Half a bottle and the oars from Avelino’s chest. Your wits have earned a boat.",
+    "de": "Eine halbe Flasche und die Ruder aus Avelinos Truhe. Dein Einfallsreichtum hat jetzt ein Boot.",
+    "fr": "Une demi-bouteille et les rames du coffre d’Avelino. Ton ingéniosité a son bateau.",
+    "it": "Mezza bottiglia e i remi del baule di Avelino. Il tuo ingegno ora ha una barca.",
+    "pt": "Meia garrafa e os remos do baú de Avelino. O teu engenho já tem barco."
   },
   "bottleBoatName": {
     "es": "Barca de botella",
@@ -1480,12 +1480,12 @@
     "pt": "Gastos, mas cheios de histórias do rio. Estes duram uma vida."
   },
   "oarsName": {
-    "es": "Los remos de Brizno",
-    "en": "Brizno’s old oars",
-    "de": "Briznos alte Ruder",
-    "fr": "Les rames de Brizno",
-    "it": "I vecchi remi di Brizno",
-    "pt": "Os remos do Brizno"
+    "es": "Los remos del molino",
+    "en": "The mill’s oars",
+    "de": "Die Ruder aus der Mühle",
+    "fr": "Les rames du moulin",
+    "it": "I remi del mulino",
+    "pt": "Os remos do moinho"
   },
   "outsideToClose": {
     "es": "Toca fuera para volver al mundo · Esc",
@@ -2720,12 +2720,12 @@
     "pt": "«Encontraste os quatro pares. A primeira chave da tua aventura estava à tua espera.»"
   },
   "challengeChestHint": {
-    "es": "Busca el cofre junto al camino, a la izquierda de la puerta del molino.",
-    "en": "Look for the chest beside the path, to the left of the mill door.",
-    "de": "Suche die Truhe am Weg, links von der Mühlentür.",
-    "fr": "Cherche le coffre près du chemin, à gauche de la porte du moulin.",
-    "it": "Cerca il baule lungo il sentiero, a sinistra della porta del mulino.",
-    "pt": "Procura o baú junto ao caminho, à esquerda da porta do moinho."
+    "es": "La llave abre el cofre a la izquierda del molino. Dentro te esperan unos remos para explorar el río.",
+    "en": "The key opens the chest to the left of the mill. Inside are oars for exploring the river.",
+    "de": "Der Schlüssel öffnet die Truhe links neben der Mühle. Darin warten Ruder für deine Flussreise.",
+    "fr": "La clé ouvre le coffre à gauche du moulin. Des rames t’y attendent pour explorer la rivière.",
+    "it": "La chiave apre il baule a sinistra del mulino. Dentro ti aspettano i remi per esplorare il fiume.",
+    "pt": "A chave abre o baú à esquerda do moinho. Lá dentro esperam-te remos para explorar o rio."
   },
   "challengeClaim": {
     "es": "Recoger la llave",
@@ -2856,11 +2856,43 @@
     "pt": "Escreve pelo menos três caracteres."
   },
   "hintOars": {
-    "es": "Brizno, junto al merendero, guarda unos remos que ya no usa. Acércate a saludarlo.",
-    "en": "Brizno keeps some spare oars by the picnic spot. Go say hello.",
-    "de": "Brizno hat beim Picknickplatz ein paar übrige Ruder. Begrüße ihn doch.",
-    "fr": "Brizno garde des rames près du pique-nique. Va le saluer.",
-    "it": "Brizno ha dei remi in più vicino al picnic. Vai a salutarlo.",
-    "pt": "O Brizno guarda uns remos junto ao parque de merendas. Vai cumprimentá-lo."
+    "es": "Los remos están en el cofre junto al molino. Avelino te propone un reto para ganar su llave.",
+    "en": "The oars are in the chest beside the mill. Solve Avelino’s challenge to earn its key.",
+    "de": "Die Ruder liegen in der Truhe neben der Mühle. Löse Avelinos Rätsel, um ihren Schlüssel zu gewinnen.",
+    "fr": "Les rames sont dans le coffre du moulin. Relève le défi d’Avelino pour gagner sa clé.",
+    "it": "I remi sono nel baule accanto al mulino. Risolvi la sfida di Avelino per ottenere la chiave.",
+    "pt": "Os remos estão no baú junto ao moinho. Resolve o desafio de Avelino para ganhar a chave."
+  },
+  "skewerName": {
+    "es": "Brocheta para Brizno",
+    "en": "Brizno’s skewer",
+    "de": "Spieß für Brizno",
+    "fr": "Brochette pour Brizno",
+    "it": "Spiedino per Brizno",
+    "pt": "Espetada para Brizno"
+  },
+  "skewerDescription": {
+    "es": "Dos setas, una ramita y un favor al cocinero más vago del bosque.",
+    "en": "Two mushrooms, a twig and a favour for the forest’s laziest cook.",
+    "de": "Zwei Pilze, ein Zweig und ein Gefallen für den faulsten Koch im Wald.",
+    "fr": "Deux champignons, une brindille et un service au cuisinier le plus paresseux du bois.",
+    "it": "Due funghi, un rametto e un favore al cuoco più pigro del bosco.",
+    "pt": "Dois cogumelos, um raminho e um favor ao cozinheiro mais preguiçoso da floresta."
+  },
+  "grillSkewer": {
+    "es": "Asar brocheta · 2 setas + 1 ramita",
+    "en": "Grill skewer · 2 mushrooms + 1 twig",
+    "de": "Spieß grillen · 2 Pilze + 1 Zweig",
+    "fr": "Griller · 2 champignons + 1 brindille",
+    "it": "Griglia spiedino · 2 funghi + 1 rametto",
+    "pt": "Grelhar espetada · 2 cogumelos + 1 ramo"
+  },
+  "shareSkewer": {
+    "es": "Darle la brocheta",
+    "en": "Give him the skewer",
+    "de": "Den Spieß geben",
+    "fr": "Lui donner la brochette",
+    "it": "Dagli lo spiedino",
+    "pt": "Dar-lhe a espetada"
   }
 }

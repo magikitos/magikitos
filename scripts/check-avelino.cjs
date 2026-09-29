@@ -53,7 +53,14 @@ assert(!react(wizard, challenge.action), "Replaying never duplicates the key");
 const before = structuredClone(state.inventory);
 state = react(chest).state;
 assert(state.flags.avelinoChestOpened);
-assert.deepEqual(state.inventory, before, "Opening the chest keeps the reusable key");
+assert.deepEqual(state.inventory, { ...before, oars: 1 }, "The earned chest gives oars and keeps the reusable key");
+assert(state.flags.oarsReceived);
+for (const legacy of [{flags: {avelinoChestOpened:true}, inventory:{}}, {flags: {avelinoMemorySolved:true}, inventory:{millKey:1,oars:1}}]) {
+  const saved = cleanSave(legacy, catalog);
+  const opened = planReaction(chest, saved, catalog).state;
+  assert.equal(opened.inventory.oars,1,"Old opened chests and already-owned oars remain usable");
+  assert.deepEqual(planReaction(chest,opened,catalog).state,opened,"Never a second pair of oars");
+}
 assert.equal(react(chest).effects[0].key, "millChestAgain");
 state = cleanSave(JSON.parse(JSON.stringify(state)), catalog);
 assert(state.flags.avelinoMemorySolved && state.flags.avelinoChestOpened && state.inventory.millKey === 1);

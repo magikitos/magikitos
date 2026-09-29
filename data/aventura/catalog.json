@@ -21,7 +21,9 @@
     "avelinoPairFern",
     "avelinoMemorySolved",
     "avelinoChestOpened",
-    "oarsReceived"
+    "oarsReceived",
+    "picnicSkewerMade",
+    "picnicSkewerShared"
   ],
   "items": {
     "parchment": {
@@ -200,6 +202,14 @@
       "max": 1,
       "usable": true,
       "reusable": true
+    },
+    "skewer": {
+      "name": "skewerName",
+      "description": "skewerDescription",
+      "sprite": "skewer",
+      "max": 1,
+      "usable": true,
+      "reusable": false
     }
   },
   "contentRooms": {
@@ -320,26 +330,22 @@
       }
     },
     {
+      "key": "hintOars",
+      "when": {
+        "flags": {
+          "oarsReceived": false,
+          "boatBuilt": false
+        },
+        "maxItems": {
+          "oars": 0
+        }
+      }
+    },
+    {
       "key": "hintKnife",
       "when": {
         "flags": {
           "knifeFound": false
-        }
-      }
-    },
-    {
-      "key": "hintLighter",
-      "when": {
-        "flags": {
-          "lighterFound": false
-        }
-      }
-    },
-    {
-      "key": "hintFire",
-      "when": {
-        "flags": {
-          "fireLit": false
         }
       }
     },
@@ -351,18 +357,6 @@
         },
         "maxItems": {
           "bottle": 0
-        }
-      }
-    },
-    {
-      "key": "hintOars",
-      "when": {
-        "flags": {
-          "oarsReceived": false,
-          "boatBuilt": false
-        },
-        "maxItems": {
-          "oars": 0
         }
       }
     },
@@ -379,6 +373,22 @@
       "when": {
         "flags": {
           "bowlFound": false
+        }
+      }
+    },
+    {
+      "key": "hintLighter",
+      "when": {
+        "flags": {
+          "lighterFound": false
+        }
+      }
+    },
+    {
+      "key": "hintFire",
+      "when": {
+        "flags": {
+          "fireLit": false
         }
       }
     },

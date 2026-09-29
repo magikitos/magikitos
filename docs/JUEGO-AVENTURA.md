@@ -46,9 +46,9 @@ real al andar hacia el umbral. No hay casas humanas en esta etapa: sí un picnic
 
 Los retos de Avelino, el mago del molino, guían la aventura. Vive en la Curva de
 los Sauces; su primer juego de memoria entrega una llave para el cofre del molino.
-El protagonista no tiene hambre ni una obligación inicial. La cocina está retirada.
-Brizno entrega remos al saludarlo; junto a la papelera hay una botella que, con
-navaja y remos, permite navegar. Los humanos y ambos gatos permanecen en el picnic.
+El cofre entrega remos; junto a la papelera hay una botella que, con navaja y remos,
+permite construir la barca y navegar. Brizno propone una brocheta como favor cómico
+opcional, sin hambre, premios ni temporizadores. No hay catálogo de recetas. Los humanos y ambos gatos permanecen en el picnic.
 Construir, reunir materiales y cuidar gatos son actividades secundarias. Recorrido
 y reglas comunitarias: [SHARED-FOREST.md](SHARED-FOREST.md).
 

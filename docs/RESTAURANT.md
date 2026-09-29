@@ -59,10 +59,12 @@ no se descarga un maestro ni se recorta en el hilo de arranque.
 ## Actividades secundarias
 
 El restaurante conserva el arte, los asientos y sus vecinos. No abre una biblioteca,
-un grabador ni un formulario de recetas. La cocina con ingredientes y brochetas
-se ha retirado también. Brizno entrega sus remos una vez al saludarlo; la botella
-está disponible desde el comienzo. Las partidas antiguas conservan sus herramientas
-y su barca, descartando únicamente las marcas y objetos retirados de cocina.
+un grabador ni un formulario de recetas. La publicación y el catálogo de recetas
+siguen retirados. Brizno propone un único favor cómico: asar dos setas en una ramita
+y llevarle la brocheta. Se entrega con una animación y tres frases, sin premios,
+repetición ni temporizador. Se puede omitir por completo.
+Los remos se ganan abriendo el cofre de Avelino. La botella está disponible desde el
+comienzo. Las partidas antiguas conservan sus herramientas y su barca.
 
 Construir, recoger materiales, intercambiarlos en el almacén y cuidar el bol de
 los gatos siguen siendo actividades secundarias. La secuencia principal son los
@@ -74,7 +76,7 @@ los gatos siguen siendo actividades secundarias. La secuencia principal son los
 - `npm run test:restaurant` comprueba que el restaurante sigue pintado y se puede
   conversar allí sin abrir paneles ni llamar a APIs de recetas.
 - `npm run test:construction-permits` comprueba permisos, cambios de plaza y reintentos.
-- `npm run test:picnic` comprueba los remos, materiales y recarga sin cocinar.
+- `npm run test:picnic` comprueba ingredientes, brocheta, entrega única, animación y recarga.
 - La web retira las rutas, publicación, audio, votos y moderación de recetas.
   Su migración de retirada solo elimina las tablas si están vacías, después de
   activar el backend que ya no las consulta. El historial de migraciones se conserva.

@@ -73,15 +73,16 @@ const key = 'magikitos.adventure';
         assert.equal((await inspect()).inventory.knife,1);
 
         await seed({position: junto('picnic-neighbor')});
-        await touchEntity('picnic-neighbor'); await gesture('discover'); await dialogue();
-        assert.equal((await inspect()).inventory.oars, 1);
+        await touchEntity('picnic-neighbor'); await dialogue();
+        assert.equal((await inspect()).inventory.oars, undefined);
+        assert.match((await inspect()).dialogue.lines.join(' '), /cofre|molino/);
         assert.equal((await inspect()).inventory.skewer, undefined);
         assert.equal(await page.locator('[data-action="cook"]').count(), 0);
         await page.screenshot({path:'.local/ascua-review/gift-'+width+'.png'});
         await require('./browser-art.cjs').assertRetiredActionsAbsent(page);
         assert.equal(await page.evaluate(() => document.documentElement.scrollWidth>innerWidth),false);
         await page.close();
-        console.log('PASS Ascua touch/keyboard, discovery, oars gift, local fountain/reload/interruption '+width+'×'+height+' '+reducedMotion);
+        console.log('PASS Ascua touch/keyboard, discovery, wizard hint, local fountain/reload/interruption '+width+'×'+height+' '+reducedMotion);
       }
     }
     assert.deepEqual(errors,[]);

@@ -17,7 +17,7 @@ class Presentation {
   async play(effect, entity) {
     const game = this.game, sprites = game.renderer.sprites;
     const kind = effect.sequence;
-    if (!["work","toss","discover"].includes(kind)) throw new Error("Unknown presentation");
+    if (!["work","toss","discover","offer"].includes(kind)) throw new Error("Unknown presentation");
     const props = (effect.props || []).map(id => {
       if (!game.catalog.items[id]) throw new Error("Unknown presentation item");
       return game.catalog.items[id].sprite;
@@ -78,6 +78,14 @@ class Presentation {
     }
     const horizontal=d.direction==="right"?1:d.direction==="left"?-1:0;
     const hand={x:a.x+horizontal*11,y:a.y-(d.direction==="up"?24:15)};
+    if (d.kind === "offer") {
+      const t = game.reducedMotion ? 1 : Math.min(1, p / .7), eased = t * t * (3 - 2 * t);
+      draw(d.props[0], hand.x + (d.target.x - hand.x) * eased,
+        hand.y + (d.target.y - hand.y) * eased - (game.reducedMotion ? 0 : Math.sin(t * Math.PI) * 8), 18);
+      if (p > .7) require("./life-draw").drawBubble(ctx,
+        {x:d.target.x,bubble:{kind:"love",until:Infinity}},d.target.y-20,0,0,s);
+      return;
+    }
     if (d.kind === "toss") {
       const t=Math.max(0,Math.min(1,(p-.23)/.67));
       const x=hand.x+(d.target.x-hand.x)*t;

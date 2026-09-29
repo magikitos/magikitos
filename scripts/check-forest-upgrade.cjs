@@ -44,7 +44,7 @@ state.inventory.twig = 1;
 reaction(fire, { action: "cook" });
 assert.equal(state.inventory.mushroom, 5, "Retired cooking consumes no materials");
 reaction(neighbor);
-assert(!active(node, state, { now }), "Receiving oars cannot respawn mushrooms");
+assert(!active(node, state, { now }), "Talking to Brizno cannot respawn mushrooms");
 assert(!active(node, state, { now: 101 * cycle - 1 }));
 assert(active(node, state, { now: 101 * cycle }), "Renews at the regional cycle");
 state.inventory.mushroom = 99;

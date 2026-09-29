@@ -193,12 +193,88 @@
         "when": {
           "flags": {
             "avelinoChestOpened": true
+          },
+          "maxItems": {
+            "oars": 0
+          }
+        },
+        "effects": [
+          {
+            "type": "item",
+            "item": "oars",
+            "amount": 1
+          },
+          {
+            "type": "flag",
+            "flag": "oarsReceived"
+          },
+          {
+            "type": "sound",
+            "key": "found"
+          },
+          {
+            "type": "dialogue",
+            "key": "millChestOpened"
+          }
+        ]
+      },
+      {
+        "action": [
+          "interact",
+          "use"
+        ],
+        "when": {
+          "flags": {
+            "avelinoChestOpened": true
           }
         },
         "effects": [
           {
             "type": "dialogue",
             "key": "millChestAgain"
+          }
+        ]
+      },
+      {
+        "action": [
+          "interact",
+          "use"
+        ],
+        "when": {
+          "flags": {
+            "avelinoMemorySolved": true
+          },
+          "items": {
+            "millKey": 1
+          },
+          "using": [
+            "millKey"
+          ],
+          "maxItems": {
+            "oars": 0
+          }
+        },
+        "effects": [
+          {
+            "type": "flag",
+            "flag": "avelinoChestOpened"
+          },
+          {
+            "type": "item",
+            "item": "oars",
+            "amount": 1
+          },
+          {
+            "type": "flag",
+            "flag": "oarsReceived"
+          },
+          {
+            "type": "sound",
+            "key": "found"
+          },
+          {
+            "type": "dialogue",
+            "key": "millChestOpened"
           }
         ]
       },
@@ -224,12 +300,16 @@
             "flag": "avelinoChestOpened"
           },
           {
+            "type": "flag",
+            "flag": "oarsReceived"
+          },
+          {
             "type": "sound",
             "key": "found"
           },
           {
             "type": "dialogue",
-            "key": "millChestOpened"
+            "key": "millChestKeepsOars"
           }
         ]
       },

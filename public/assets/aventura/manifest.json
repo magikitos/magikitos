@@ -9767,17 +9767,18 @@
             "bytes": 295940
         },
         "inventory": {
-            "image": "packs/inventory-6bf2ace00d05.webp",
-            "metadata": "packs/inventory-6bf2ace00d05.json",
+            "image": "packs/inventory-3be7a8b60581.webp",
+            "metadata": "packs/inventory-3be7a8b60581.json",
             "sprites": [
                 "mushroom",
                 "sack",
                 "twig",
-                "shells"
+                "shells",
+                "skewer"
             ],
             "width": 128,
-            "height": 92,
-            "bytes": 3808
+            "height": 110,
+            "bytes": 4602
         },
         "mill-exterior": {
             "image": "packs/mill-exterior-0094535ff0ff.webp",

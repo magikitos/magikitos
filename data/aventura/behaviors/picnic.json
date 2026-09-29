@@ -21,6 +21,68 @@
     "rules": [
       {
         "action": [
+          "grill",
+          "use"
+        ],
+        "when": {
+          "items": {
+            "mushroom": 2,
+            "twig": 1
+          },
+          "flags": {
+            "fireLit": true,
+            "picnicSkewerShared": false
+          },
+          "maxItems": {
+            "skewer": 0
+          },
+          "using": [
+            "mushroom",
+            "twig"
+          ]
+        },
+        "effects": [
+          {
+            "type": "presentation",
+            "sequence": "work",
+            "props": [
+              "mushroom",
+              "twig"
+            ],
+            "result": "skewer",
+            "duration": 1.8
+          },
+          {
+            "type": "item",
+            "item": "mushroom",
+            "amount": -2
+          },
+          {
+            "type": "item",
+            "item": "twig",
+            "amount": -1
+          },
+          {
+            "type": "item",
+            "item": "skewer",
+            "amount": 1
+          },
+          {
+            "type": "flag",
+            "flag": "picnicSkewerMade"
+          },
+          {
+            "type": "dialogue",
+            "key": "picnicSkewerReady"
+          },
+          {
+            "type": "sound",
+            "key": "found"
+          }
+        ]
+      },
+      {
+        "action": [
           "light",
           "use"
         ],
@@ -91,6 +153,23 @@
         ]
       },
       {
+        "when": {
+          "flags": {
+            "fireLit": true,
+            "picnicSkewerShared": false
+          },
+          "maxItems": {
+            "skewer": 0
+          }
+        },
+        "effects": [
+          {
+            "type": "dialogue",
+            "key": "picnicSkewerIngredients"
+          }
+        ]
+      },
+      {
         "effects": [
           {
             "type": "dialogue",
@@ -109,6 +188,23 @@
           },
           "flags": {
             "fireLit": false
+          }
+        }
+      },
+      {
+        "id": "grill",
+        "label": "grillSkewer",
+        "when": {
+          "items": {
+            "mushroom": 2,
+            "twig": 1
+          },
+          "flags": {
+            "fireLit": true,
+            "picnicSkewerShared": false
+          },
+          "maxItems": {
+            "skewer": 0
           }
         }
       }
@@ -161,33 +257,81 @@
     ],
     "rules": [
       {
+        "action": [
+          "share",
+          "use"
+        ],
+        "when": {
+          "items": {
+            "skewer": 1
+          },
+          "flags": {
+            "picnicSkewerShared": false
+          },
+          "using": [
+            "skewer"
+          ]
+        },
+        "effects": [
+          {
+            "type": "presentation",
+            "sequence": "offer",
+            "props": [
+              "skewer"
+            ],
+            "duration": 1.4
+          },
+          {
+            "type": "item",
+            "item": "skewer",
+            "amount": -1
+          },
+          {
+            "type": "flag",
+            "flag": "picnicSkewerShared"
+          },
+          {
+            "type": "dialogue",
+            "key": "picnicSkewerJoke"
+          }
+        ]
+      },
+      {
         "when": {
           "flags": {
-            "oarsReceived": false,
-            "boatBuilt": false
-          },
-          "maxItems": {
-            "oars": 0,
-            "boat": 0
+            "picnicSkewerShared": true
           }
         },
         "effects": [
           {
-            "type": "item",
-            "item": "oars",
-            "amount": 1
-          },
-          {
-            "type": "flag",
-            "flag": "oarsReceived"
-          },
+            "type": "dialogue",
+            "key": "picnicRest"
+          }
+        ]
+      },
+      {
+        "when": {
+          "items": {
+            "skewer": 1
+          }
+        },
+        "effects": [
           {
             "type": "dialogue",
-            "key": "picnicOarsGift"
-          },
+            "key": "picnicShareReady"
+          }
+        ]
+      },
+      {
+        "when": {
+          "items": {
+            "oars": 1
+          }
+        },
+        "effects": [
           {
-            "type": "sound",
-            "key": "found"
+            "type": "dialogue",
+            "key": "picnicSkewerRequest"
           }
         ]
       },
@@ -195,7 +339,7 @@
         "effects": [
           {
             "type": "dialogue",
-            "key": "picnicRest"
+            "key": "picnicOarsHint"
           }
         ]
       }
@@ -207,7 +351,21 @@
         0,
         -1
       ]
-    }
+    },
+    "actions": [
+      {
+        "id": "share",
+        "label": "shareSkewer",
+        "when": {
+          "items": {
+            "skewer": 1
+          },
+          "flags": {
+            "picnicSkewerShared": false
+          }
+        }
+      }
+    ]
   },
   "picnic-lighter": {
     "sprite": "lighter",

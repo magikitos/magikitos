@@ -32,13 +32,50 @@ function game(state = {}) {
 }
 (async () => {
   {
+    // The real startup calls flush directly, not connect then flush. Its busy
+    // marker must not suppress first-account recovery or discard a late-zone action.
+    const catalog = require("../tools/world.cjs").compileWorld(process.cwd()),
+      { cleanSave } = require("../public/assets/js/adventure/save"),
+      { planReaction, matches } = require("../public/assets/js/adventure/rules");
+    const g = game({ inventory: { boat: 1, knife: 1, oars: 1 }, flags: { boatBuilt: true } });
+    g.catalog = catalog;
+    let server = cleanSave(null, catalog), account = empty(), release, entered;
+    const started = new Promise(resolve => { entered = resolve; }), sent = [];
+    g.api = { request: async (endpoint, command) => {
+      if (endpoint === "game-account") return { account: structuredClone(account) };
+      sent.push(command);
+      if (sent.length === 1) { entered(); await new Promise(resolve => { release = resolve; }); }
+      const scene = catalog.scenes[command.scene], e = scene.entities.find(e => e.id === command.entity);
+      assert(matches(server, scene.requires), "Late-zone tools require the recovered boat first");
+      const result = planReaction(e, server, catalog, {action:command.action});
+      assert(result, command.entity + ":" + command.action);
+      server = result.state;
+      account = {...account, revision:account.revision+1, inventory:{...server.inventory},
+        progress:{flags:{...server.flags},timers:{},rewards:{}},resources:{...server.resources}};
+      return { account: structuredClone(account) };
+    } };
+    const m = new MaterialAccount(g), late = {operationId:"late-bowl",scene:"human-hedge",entity:"cat-water-bowl",action:"interact"};
+    m.owner=1; m.queue=[late];
+    const flushing=m.flush(); await started;
+    assert.equal(m.queue[0].entity,"avelino");
+    const inFlight=JSON.stringify(m.queue);
+    await m.connect();
+    assert.equal(JSON.stringify(m.queue),inFlight,"Reconnection during an action never reorders its receipt");
+    release(); await flushing;
+    assert.equal(m.queue.length,0);
+    assert.equal(sent.at(-1),late);
+    assert.equal(g.state.inventory.boat,1); assert.equal(g.state.inventory.oars,1);
+    assert(g.state.flags.bowlFound && g.state.flags.avelinoChestOpened);
+    assert.equal(g.state.wallet.balance,0,"Compatibility restores tools, never an arbitrary balance");
+  }
+  {
     const g = game(), m = new MaterialAccount(g);
-    m.account = { ...empty(), inventory: { skewer: 1, knife: 1, oars: 1, millKey: 1 },
+    m.account = { ...empty(), inventory: { retiredRecipeItem: 1, knife: 1, oars: 1, millKey: 1 },
       progress: { flags: { avelinoMemorySolved: true }, timers: {}, rewards: {} } };
     m.reconcile();
     assert.deepEqual(g.state.inventory, { knife: 1, oars: 1, millKey: 1 }, "Retired server items cannot break the bag");
     assert(g.state.flags.avelinoMemorySolved, "Quest progress survives retirement");
-    assert.equal(m.account.inventory.skewer, 1, "The client never edits the server account or receipts");
+    assert.equal(m.account.inventory.retiredRecipeItem, 1, "The client never edits the server account or receipts");
   }
   for (const state of [
     { inventory: { lighter: 1 } },
@@ -60,11 +97,11 @@ function game(state = {}) {
     assert(!verbs.some(v => v.endsWith(":cook") || v.endsWith(":give")), "Recovery never replays retired cooking");
     if (state.inventory.boat)
       assert(
-        verbs.includes("picnic-neighbor:interact") &&
+        verbs.includes("mill-chest:interact") &&
           verbs.includes("river-dock:craft"),
       );
     assert(
-      verbs.length < 12,
+      verbs.length < 18,
       "Finite migration commands, never arbitrary inventory upload",
     );
   }

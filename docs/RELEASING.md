@@ -4,7 +4,7 @@ Development commands never deploy. A release needs explicit owner authorization,
 reviewed commits in both repositories when the API changes, and an immutable artifact.
 The initial Ascua release needed no migration. The shared forest required
 4230/4231; reputation permits require 4241 in the private website. Recipe
-publication and cooking are retired; their empty tables are removed only after
+publication and the former cooking progression are retired; their empty tables are removed only after
 the new backend is active. Historical migration files stay immutable. No production DB import.
 Current behavior: [restaurant and admission](RESTAURANT.md).
 

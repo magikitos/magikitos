@@ -199,7 +199,7 @@ class Challenges {
     this.root.classList.toggle("is-completed", claimed);
     this.root.append(el("div", { class: "world-challenge-reward" }, [this.icon("mill-key")]),
       el("p", { class: "world-challenge-invitation", text: g.text(claimed ? "challengeKeyYours" : "challengeWellDone") }),
-      ...(!g.state.flags.avelinoChestOpened ? [el("p", { class: "world-challenge-note", text: g.text("challengeChestHint") })] : []));
+      ...(!g.state.inventory.oars ? [el("p", { class: "world-challenge-note", text: g.text("challengeChestHint") })] : []));
     const actions = el("div", { class: "world-experience-actions" });
     if (!claimed) actions.append(button(g.text("challengeClaim"), () => {
       if (!this.active() || !advance(g, this.challenge, this.challenge.action)) return;

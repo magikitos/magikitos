@@ -344,19 +344,20 @@ for (const objects of permutations([mushroom, twig, lighter, knife])) {
     if (!state.inventory.mushroom) react(mushroom, state, catalog);
     react(e("forest-mushrooms-root"), state, catalog);
     if (!state.flags.fireLit) react(fire, state, catalog, { action: "light" });
-    assert(!actions(fire, state, catalog).some((a) => a.id === "cook"));
-    assert.equal(planReaction(fire, state, catalog, { action: "cook" }), null);
-    const beforeGift = structuredClone(state);
-    const gift = planReaction(hungry, state, catalog);
-    assert.deepEqual(state, beforeGift, "Planning the gift never mutates live state");
-    Object.assign(state, gift.state);
-    assert(state.flags.oarsReceived);
-    assert.deepEqual(state.inventory, { lighter: 1, knife: 1, mushroom: 5, twig: 1, oars: 1 });
+    assert(actions(fire, state, catalog).some((a) => a.id === "grill"));
+    const beforeGreeting = structuredClone(state);
+    const greeting = planReaction(hungry, state, catalog);
+    assert.deepEqual(greeting.state, beforeGreeting, "Brizno gives hints, never oars");
+    react(fire, state, catalog, {action: "grill"});
+    assert.equal(state.inventory.skewer, 1);
+    react(hungry, state, catalog, {action: "share"});
+    assert(state.flags.picnicSkewerShared && !state.flags.oarsReceived);
+    assert.deepEqual(state.inventory, { lighter: 1, knife: 1, mushroom: 3 });
     const purse = structuredClone(state.wallet);
     assert.equal(purse.balance, 0);
     react(hungry, state, catalog);
     assert.deepEqual(state.wallet, purse, "A gift never touches the purse");
-    assert(!ferry, "Brizno shares his oars near the dock");
+    assert(!ferry, "The redundant ferryman stays retired");
     // La vida del islote se mudó a la pradera de los sauces (17-sep-2026): las tres casas se
     // borraron y sus vecinos viven ahora en el prado, con las conchas al filo del río.
     const meadow = new World(catalog.scenes["river-willows"]);
@@ -386,7 +387,7 @@ const onlyLighter = fresh();
 react(lighter, onlyLighter, catalog);
 react(fire, onlyLighter, catalog, { action: "use", item: "lighter" });
 assert(onlyLighter.flags.fireLit);
-assert(!catalog.items.skewer);
+assert(catalog.items.skewer);
 assert.equal(onlyLighter.inventory.lighter, 1);
 const onlyMushroom = fresh();
 react(mushroom, onlyMushroom, catalog);

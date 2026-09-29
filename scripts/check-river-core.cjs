@@ -228,6 +228,12 @@ apply("forest-mushrooms-root");
 apply("picnic-barbecue", "light");
 apply("picnic-bin");
 apply("picnic-neighbor");
+check(!state.inventory.oars, "Brizno cannot bypass the wizard's first challenge");
+const wizard = catalog.scenes.mill.entities.find(e => e.id === "avelino"),
+  chest = catalog.scenes["river-willows"].entities.find(e => e.id === "mill-chest");
+for (const action of ["interact", "pair-mushroom", "pair-twig", "pair-shell", "pair-fern", "solveMemory"])
+  Object.assign(state, planReaction(wizard,state,catalog,{action}).state);
+Object.assign(state, planReaction(chest,state,catalog).state);
 const recipe = apply("river-dock", "craft");
 check(
   recipe && state.inventory.boat === 1 && state.inventory.knife === 1,
@@ -242,7 +248,7 @@ check(
 );
 check(
   state.flags.oarsReceived && state.wallet.balance === 0,
-  "Brizno hands over his oars and nothing else: the game mints no setines",
+  "The wizard chest gives oars without minting setines",
 );
 check(!apply("river-dock", "board"), "Boarding has no dialogue/button action");
 check(

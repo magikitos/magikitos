@@ -161,36 +161,44 @@
   },
   "millChestOpened": {
     "es": [
-      "La llave gira y el cofre se abre. Dentro hay una nota escrita por Avelino.",
-      "«Toda gran magia empieza por prestar atención. Este ha sido tu primer reto. Guarda la llave: nuestra aventura acaba de comenzar.»"
+      "¡Unos remos! Los sacas del cofre junto con una nota de Avelino.",
+      "«El ingenio abre caminos. Con estos remos, una botella grande y una navajita podrás montar una barca en el muelle de la pradera. Guarda la llave y explora el río.»"
     ],
     "en": [
-      "The key turns and the chest opens. Inside is a note from Avelino.",
-      "“All great magic starts with paying attention. This was your first challenge. Keep the key: our adventure has only just begun.”"
+      "Oars! You lift them out of the chest beside a note from Avelino.",
+      "“Wits open new paths. With these oars, a big bottle and a little knife, you can build a boat at the meadow jetty. Keep the key and explore the river.”"
     ],
     "de": [
-      "Der Schlüssel dreht sich und die Truhe öffnet sich. Darin liegt eine Notiz von Avelino.",
-      "„Große Magie beginnt mit Aufmerksamkeit. Das war dein erstes Rätsel. Behalte den Schlüssel: Unser Abenteuer hat gerade erst begonnen.“"
+      "Ruder! Du holst sie aus der Truhe, neben einer Notiz von Avelino.",
+      "„Köpfchen öffnet Wege. Mit diesen Rudern, einer großen Flasche und einem kleinen Messer kannst du am Wiesensteg ein Boot bauen. Behalte den Schlüssel und erkunde den Fluss.“"
     ],
     "fr": [
-      "La clé tourne et le coffre s’ouvre. À l’intérieur, un mot d’Avelino.",
-      "« Toute grande magie commence par l’attention. Voici ton premier défi accompli. Garde la clé : notre aventure ne fait que commencer. »"
+      "Des rames ! Tu les sors du coffre avec un mot d’Avelino.",
+      "« L’ingéniosité ouvre des chemins. Avec ces rames, une grande bouteille et un petit couteau, construis une barque au ponton de la prairie. Garde la clé et explore la rivière. »"
     ],
     "it": [
-      "La chiave gira e il baule si apre. Dentro c’è un messaggio di Avelino.",
-      "«Ogni grande magia inizia dall’attenzione. Questa era la tua prima sfida. Conserva la chiave: la nostra avventura è appena cominciata.»"
+      "Dei remi! Li tiri fuori dal baule insieme a un messaggio di Avelino.",
+      "«L’ingegno apre nuove strade. Con questi remi, una bottiglia grande e un coltellino puoi costruire una barca al molo del prato. Conserva la chiave ed esplora il fiume.»"
     ],
     "pt": [
-      "A chave roda e o baú abre-se. Lá dentro há uma nota de Avelino.",
-      "«Toda a grande magia começa por prestar atenção. Este foi o teu primeiro desafio. Guarda a chave: a nossa aventura acabou de começar.»"
+      "Remos! Tiras do baú os remos e uma nota de Avelino.",
+      "«O engenho abre caminhos. Com estes remos, uma garrafa grande e uma navalhinha podes montar um barco no cais do prado. Guarda a chave e explora o rio.»"
     ]
   },
   "millChestAgain": {
-    "es": "El cofre está abierto. La nota de Avelino sigue dentro, y su llave sigue contigo.",
-    "en": "The chest is open. Avelino’s note is still inside, and you still have his key.",
-    "de": "Die Truhe ist offen. Avelinos Notiz liegt noch darin, und du hast seinen Schlüssel.",
-    "fr": "Le coffre est ouvert. Le mot d’Avelino est toujours dedans, et tu gardes sa clé.",
-    "it": "Il baule è aperto. Il messaggio di Avelino è ancora dentro e la chiave è con te.",
-    "pt": "O baú está aberto. A nota de Avelino continua lá dentro e a chave está contigo."
+    "es": "El cofre ya te dio sus remos. La nota señala el muelle de la pradera; con una botella y una navajita puedes montar tu barca.",
+    "en": "The chest has given you its oars. The note points to the meadow jetty; a bottle and a little knife will make your boat.",
+    "de": "Die Ruder hast du schon. Der Zettel zeigt zum Wiesensteg: Mit einer Flasche und einem Messer baust du dein Boot.",
+    "fr": "Le coffre t’a donné ses rames. Le mot indique le ponton de la prairie : une bouteille et un couteau pour construire ta barque.",
+    "it": "Il baule ti ha già dato i remi. Il messaggio indica il molo del prato: con una bottiglia e un coltellino puoi costruire la barca.",
+    "pt": "O baú já te deu os remos. A nota aponta para o cais do prado: com uma garrafa e uma navalhinha podes montar o barco."
+  },
+  "millChestKeepsOars": {
+    "es": "El cofre se abre. «Veo que ya tienes remos», dice la nota de Avelino. «Con una botella y una navajita, el muelle de la pradera te espera. Guarda la llave.»",
+    "en": "The chest opens. “I see you already have oars,” says Avelino’s note. “Take a bottle and a little knife to the meadow jetty. Keep the key.”",
+    "de": "Die Truhe öffnet sich. „Du hast schon Ruder“, steht auf Avelinos Zettel. „Nimm eine Flasche und ein Messer mit zum Wiesensteg. Behalte den Schlüssel.“",
+    "fr": "Le coffre s’ouvre. « Tu as déjà des rames », dit le mot d’Avelino. « Prends une bouteille et un couteau, direction le ponton de la prairie. Garde la clé. »",
+    "it": "Il baule si apre. «Vedo che hai già i remi», dice il messaggio di Avelino. «Con una bottiglia e un coltellino, ti aspetta il molo del prato. Conserva la chiave.»",
+    "pt": "O baú abre-se. «Vejo que já tens remos», diz a nota de Avelino. «Com uma garrafa e uma navalhinha, o cais do prado espera por ti. Guarda a chave.»"
   }
 }

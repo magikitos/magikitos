@@ -30,6 +30,8 @@ try {
     };
     $reject($body('solveMemory'), 'requirements_not_met');
     $reject($body('interact', 'river-willows', 'mill-chest'), 'no_material_action');
+    $reject($body('interact', 'overworld', 'picnic-neighbor'), 'no_material_action');
+    $check(empty($account['inventory']->oars), 'Greeting Brizno cannot grant oars');
     $act($body('interact'));
     $check($account['progress']->flags->avelinoMet === true, 'Meeting persists');
     foreach (['mushroom', 'twig', 'shell', 'fern'] as $pair) {
@@ -49,7 +51,37 @@ try {
     $act($command); $revision = $account['revision']; $retry = $act($command);
     $check($retry['replayed'] && $account['revision'] === $revision, 'Old chest action and lost acknowledgement survive the move');
     $check($account['progress']->flags->avelinoChestOpened === true && $account['inventory']->millKey === 1, 'Chest opens and preserves the key');
+    $check($account['inventory']->oars === 1 && $account['progress']->flags->oarsReceived, 'The chest is the unique oar reward');
     $reject($body('interact', 'river-willows', 'mill-chest'), 'no_material_action');
+    $act($body('interact','overworld','picnic-knife'));
+    $act($body('interact','overworld','picnic-bin'));
+    $act($body('craft','overworld','river-dock'));
+    $check($account['inventory']->boat === 1 && empty($account['progress']->flags->picnicSkewerShared), 'Boat can be built without the optional skewer');
+    $reject($body('share','overworld','picnic-neighbor'), 'requirements_not_met');
+    $reject($body('grill','overworld','picnic-barbecue'), 'requirements_not_met');
+    foreach (['picnic-lighter','picnic-twig','forest-mushrooms-fern'] as $entity) $act($body('interact','overworld',$entity));
+    $act($body('light','overworld','picnic-barbecue'));
+    $command=$body('grill','overworld','picnic-barbecue'); $act($command); $revision=$account['revision'];
+    $check($account['inventory']->skewer === 1 && $account['inventory']->mushroom === 1 && empty($account['inventory']->twig), 'Grill atomically uses exactly two mushrooms and a twig');
+    $check($act($command)['replayed'] && $account['revision']===$revision, 'Lost grill acknowledgement does not consume twice');
+    $command=$body('share','overworld','picnic-neighbor'); $act($command); $revision=$account['revision'];
+    $check(empty($account['inventory']->skewer) && $account['progress']->flags->picnicSkewerShared, 'Shared skewer persists, with no inventory reward');
+    $check($act($command)['replayed'] && $account['revision']===$revision, 'Lost share acknowledgement is idempotent');
+    $reject($body('share','overworld','picnic-neighbor'), 'requirements_not_met');
+    $reject($body('cook','overworld','picnic-barbecue'), 'requirements_not_met');
+    $reject($body('give','overworld','picnic-neighbor'), 'requirements_not_met');
+    $check(empty($account['progress']->timers->picnic) && $account['setines']===0, 'No old meal timer or currency reward');
+    // A player who opened the former note-only chest can collect its new contents.
+    $db->prepare("UPDATE game_accounts SET inventory_json=JSON_REMOVE(inventory_json,'$.oars') WHERE user_id=?")->execute([$user]);
+    $account=gameAccountGet($db,$user)['account'];
+    $act($body('interact','river-willows','mill-chest'));
+    $check($account['inventory']->oars===1 && $account['inventory']->boat===1, 'Old opened chest recovers oars without touching the boat');
+    $reject($body('interact','river-willows','mill-chest'),'no_material_action');
+    // Earlier Brizno recipients may later solve Avelino: their oars never overflow.
+    $db->prepare("UPDATE game_accounts SET progress_json=JSON_REMOVE(progress_json,'$.flags.avelinoChestOpened') WHERE user_id=?")->execute([$user]);
+    $account=gameAccountGet($db,$user)['account'];
+    $act($body('interact','river-willows','mill-chest'));
+    $check($account['inventory']->oars===1 && $account['inventory']->millKey===1, 'Existing oars and reusable key survive first chest opening');
     $fresh = gameAccountGet($db, $user)['account'];
     $check(gameJson($fresh) === gameJson($account), 'Another device reads all persisted progress');
     $check($fresh['setines'] === 0, 'Puzzle never mints construction currency');

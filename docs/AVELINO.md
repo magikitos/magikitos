@@ -12,9 +12,23 @@ a saludar para acceder al reto. Las visitas posteriores ofrecen continuar con la
 **La memoria del molino** tiene ocho cartas: seta, ramita, conchas y helecho.
 Se descubren de dos en dos, sin tiempo límite ni penalizaciones. Las cuatro
 parejas dan una llave. El cofre junto al camino, a la izquierda de la entrada,
-se abre con ella y contiene una nota de Avelino. La llave se conserva en el saco;
+se abre con ella y entrega los remos, junto con una nota que explica cómo construir
+la barca con botella y navaja en el muelle de la pradera. La llave se conserva en el saco;
 no se adelanta todavía su siguiente uso. Al completarlo no se ofrece repetirlo. Avelino anuncia que no hay más misterios
 por ahora e invita a enviar una opinión para seguir ampliando el juego.
+
+La secuencia principal es **memory → llave → cofre → remos → barca → exploración**.
+Los próximos retos se abrirán por hitos de aventura, no por horas de espera. Esta entrega
+mantiene un único reto: no anuncia como disponible una adivinanza todavía no publicada.
+Brizno cuenta la historia de los remos y ofrece un encargo opcional de brocheta, sin
+recompensas de navegación, dinero ni temporizadores.
+
+Un cofre abierto antes de esta entrega permite recoger los nuevos remos. Si ya se poseen,
+abrirlo conserva una sola pareja y su llave, sin desbordar el inventario. La recuperación
+acotada de una partida solo local que ya tenía remos/barca reconstruye la nueva cadena
+de herramientas al crear cuenta; conserva el acceso ganado antes del cambio. No importa
+cantidades arbitrarias ni dinero. El favor de la brocheta usa marcas nuevas para no
+resucitar los antiguos premios ni el temporizador del picnic.
 
 ## Diseño y progreso
 
@@ -138,7 +152,5 @@ aplica las mismas condiciones y recompensa única, sin dibujar un segundo cofre.
 
 Al publicar hay que reiniciar de forma ordenada `bosque-vivo.service` después de
 activar el artefacto: el demonio lee sus escenas y puertas al arrancar. No se
-importan partidas. Esta entrega incluye el endpoint de feedback de la web y la
-retirada de recetas: el backend y el puntero se publican juntos; después se aplica
-la migración revisada que retira las tablas vacías y los campos de cocina antiguos.
-Las herramientas, la llave, el progreso del mago y los saldos se conservan.
+importan partidas. Las reglas y marcas nuevas de este encargo viajan en el contrato del
+artefacto; no requieren cambios de esquema ni restaurar las tablas de recetas.

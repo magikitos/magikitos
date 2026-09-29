@@ -20,8 +20,9 @@ for (const lit of [false, true]) for (const lighter of [0, 1]) {
   const state = cleanSave(null, catalog);
   state.flags.fireLit = lit;
   state.inventory = { lighter, knife: 1, mushroom: 5, twig: 1 };
-  const expected = lit ? "barbecueRest" : lighter ? "barbecueLightReady" : "barbecueHint";
+  const expected = lit ? "picnicSkewerIngredients" : lighter ? "barbecueLightReady" : "barbecueHint";
   assert.equal(planReaction(bbq, state, catalog).effects.find(e => e.type === "dialogue").key, expected);
+  assert.equal(actions(bbq, state).some(a => a.id === "grill"), lit);
   assert(!actions(bbq, state).some(a => a.id === "cook"));
   assert.equal(planReaction(bbq, state, catalog, { action: "cook" }), null);
 }
@@ -132,4 +133,4 @@ for(const dt of [1/30,1/60,1/120]){
  assert.match(pushFrame(actor),/^person-100-right-push-/);
  assert.equal(w.collisionAt(actor.x,actor.y,actor),null);
 }
-console.log("PASS Ascua: ambient fire without cooking, whole pickup, free fountain with its machinery intact, bounded reload memories, gesture poses, exact density/crops, restrained wind and 30/60/120 Hz pushing.");
+console.log("PASS Ascua: ambient fire and optional skewer, whole pickup, free fountain with its machinery intact, bounded reload memories, gesture poses, exact density/crops, restrained wind and 30/60/120 Hz pushing.");

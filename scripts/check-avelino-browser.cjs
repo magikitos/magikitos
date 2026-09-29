@@ -168,6 +168,7 @@ fs.mkdirSync(shots, { recursive: true });
       await page.keyboard.press("Escape");
       await page.reload(); await enterWorld(page);
       assert((await inspect()).flags.avelinoChestOpened);
+      assert.equal((await inspect()).inventory.oars, 1);
       assert.equal((await inspect()).inventory.millKey, 1);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
       console.log(`PASS Avelino ${width}×${height}: real door, first introduction, memory/retry/rapid taps, resume after reload, key once, fullscreen/close/Escape/outside, proof + feedback retry, chest and persistence.`);

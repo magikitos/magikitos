@@ -292,7 +292,10 @@ once; only this immutable copy may initialize pre-existing balances. Future
 Browser-only pre-cutover games preserve a local recovery snapshot and replay a
 bounded set of existing quest/tool entitlements through normal validated commands.
 Arbitrary client material counts/setines are not imported. Old boat owners retain
-navigation and retain their tools. Brizno gives oars on greeting; cooking is retired.
+navigation and retain their tools by rebuilding the current wizard/key/chest prerequisite
+chain. New journeys earn oars in Avelino’s chest. The optional skewer uses new
+`picnicSkewerMade`/`picnicSkewerShared` flags and `grill`/`share` actions; retired
+meal timers, money rewards and recipe publication remain absent.
 Old private layouts are retained **privately** for recovery, never published as
 communal objects without an explicit construction transaction.
 
