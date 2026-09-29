@@ -4,7 +4,57 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
-## Producción: la caja de música de Avelino — 29 septiembre 2026
+## Producción: retos, opiniones y retirada de recetas — 29 septiembre 2026
+
+Artefacto `9dca7daaa7359c660766`, fuente `c838c50`, web `f3fd2094`.
+908 archivos verificados. SHA-256 de `release.json`:
+`d83bb1c9c818505dfd230e3e2a87d5139cdb3abfeb136ec44d8b36bf02c68738`.
+Anterior conservada: artefacto `ceb9fedc70615074c593`, web `13f5b1e6`.
+
+- Al completar el reto, Avelino anuncia que no hay más misterios por ahora y ofrece
+  un formulario de opinión. Sin repetición. Turnstile nuevo por intento, validación
+  estricta en servidor, correo privado y reintentos con recibo sin duplicar el envío.
+- Panel centrado, cierre con X/Escape/clic fuera; móvil a pantalla completa y X fija.
+  Avelino respira y se acaricia la barba, con pies quietos y movimiento reducido.
+- Retiradas la publicación de recetas de la web y la cocina del juego. El restaurante
+  conserva su decorado. Brizno entrega remos al saludar; construir y cuidar gatos
+  siguen como actividades secundarias. Los retos del mago guían la aventura.
+- Las cuentas antiguas no pueden introducir objetos retirados en el saco. La
+  migración limpia solo los campos de cocina, conservando herramientas, remos,
+  llave, avances del mago, saldos, recursos y recibos.
+
+Local: horneado completo y `npm test -- --reuse-art`; Avelino en cuatro tamaños,
+restaurante en tres, picnic en cinco y Ascua en seis combinaciones de tamaño/movimiento.
+Animación con pies idénticos, navegador/Studio general, frontera web/juego y molino/río.
+API: 182 lecturas/escrituras rechazadas; 19 puertas SQL de Avelino, 46 comprobaciones
+comunitarias, 71 transiciones y 59 comprobaciones PHP/API/WebSocket/DB. Servicio de
+feedback probado con verificador y transporte sustituidos, sin correos reales.
+La migración se probó en una base temporal: rechaza tablas con filas, conserva los
+datos vigentes e incrementa una sola vez las revisiones afectadas.
+
+Producción: seis HTML exactos byte a byte en origen; páginas, recursos y contrato
+verificados en el dominio público. Retiradas nueve rutas de recetas; feedback solo
+POST, rechaza prueba ausente, proveedor Turnstile accesible y prueba inválida rechazada.
+Avelino completo en 1440×900, 390×844, 320×568 y 844×390; navegación en tres tamaños;
+molino/río con movimiento normal y reducido. Todas las escrituras de navegador se
+sustituyeron o bloquearon. No se enviaron correos ni crearon cuentas reales de prueba.
+
+Pipeline web normal, artefacto instalado y verificado **antes** de activar el puntero;
+servicio `bosque-vivo` activo. Migración `4260_retire_recipes.sql` aplicada después:
+SHA-256 `12b569a2c0a8d5c01bba3a7f686d2ca090d5ac98ce92d4b20c13e89ee2a6b9df`.
+Las dos tablas estaban vacías; cinco cuentas tenían campos retirados. Tras aplicarla:
+cero tablas de recetas, cero cuentas con esos campos y política de usuarios coherente
+(38 tablas, 41 columnas). Copia previa conservada en el servidor:
+`/var/backups/migrations/magikitos/20260929T093439Z__4260_retire_recipes.sql.gz`.
+Un retorno al backend anterior exige revisar el esquema retirado; nunca restaurar una
+base antigua encima del progreso nuevo. Historial de migraciones anterior intacto.
+
+Limitación local preexistente: la base DDEV está atrasada en tablas ajenas a esta
+entrega y su comprobación global de política de usuarios detecta esas diferencias;
+la misma comprobación pasa en producción antes y después de esta migración.
+Studio del propietario: 2086 archivos comprobados sin cambios.
+
+## Anterior: la caja de música de Avelino — 29 septiembre 2026
 
 Artefacto `ceb9fedc70615074c593`, fuente `3990b12`, web `13f5b1e6`.
 908 archivos verificados. SHA-256 de `release.json`:

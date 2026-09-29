@@ -48,9 +48,11 @@ function assertShell(actual, expected, headers, route) {
   for (const route of ['/recetas','/en/recipes','/de/rezepte','/fr/recettes','/it/ricette','/pt/receitas',
     '/api/world/recipes','/api/world/recipe','/api/world/recipe-publish']) {
     const r = await fetch(new URL(route, origin), { signal: AbortSignal.timeout(25000), redirect: 'manual' });
+    await r.arrayBuffer();
     assert([404,410].includes(r.status), 'Retired recipe route: ' + route + ' (' + r.status + ')');
   }
   const method = await fetch(new URL('/api/world/feedback', origin), { signal: AbortSignal.timeout(25000) });
+  await method.arrayBuffer();
   assert.equal(method.status, 405, 'Feedback is POST-only');
   console.log('PASS retired recipe routes and POST-only feedback');
   for(const kind of ['cuento','chiste','expresion']) {
