@@ -146,6 +146,8 @@ ida y vuelta, continuidad de las costuras y casco entero en agua navegable.
   cofre, capacidad de la cola, accesos y contrato del bosque vivo.
   `check-avelino-motion.cjs` cubre pasos a 30/60/120 Hz, espera al hablar,
   cuerpos móviles, proporciones registradas, zócalo seco y postes dentro del río.
+- `node scripts/check-avelino-motion-browser.cjs`: paseo real, direcciones,
+  selección del mago caminando, conversación, Escape y movimiento reducido.
 - `npm run test:avelino`: recorrido real por puerta, conversación, puzzle,
   cierre/recarga, llave y cofre en escritorio, móvil pequeño y horizontal.
 - `npm run test:mill-river`: vuelta entera del vecino, rueda visible en movimiento,

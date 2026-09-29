@@ -4,6 +4,36 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: paseo de Avelino y apoyos del molino — 29 septiembre 2026
+
+Artefacto `04af0446cd96f96bcc02`, fuente `514466d`, web `2d1745c4`.
+908 archivos verificados. SHA-256 de `release.json`:
+`c252bee5437aeccd3d3e121ae6eaa6452ab156473519a5281da399cb0988f5a9`.
+Anterior conservada: artefacto `bfdd8d1c12f78c74ef3a`, web `a6889526`.
+
+- Avelino pasea por el taller con 32 poses en ocho direcciones y la marcha por
+  distancia de los residentes. Sin estirar ni balancear el cuerpo mediante escala.
+  El registro del arte mantiene su altura y la línea de las botas; se retiró el
+  antiguo dibujo alternativo de la barba y su código de respiración.
+- Su colisión acompaña los pasos. Se detiene al seleccionarlo y al acercarse para
+  hablar; conserva la presentación, los retos y el retrato. Movimiento reducido
+  mantiene posición y pose quietas.
+- Caballete sin base inferior: tres postes separados entran bajo el agua, con
+  inmersión translúcida y ondas. El cauce deja todo el zócalo, incluida la esquina
+  de latón, en tierra junto a la ribera; rueda y soportes permanecen dentro del río.
+
+Verificado: horneado completo, `npm test -- --reuse-art`, pasos a 30/60/120 Hz,
+navegador/Studio general, Ascua en seis combinaciones y frontera web/juego DDEV.
+En local y producción: paseo/conversación con movimiento normal y reducido,
+molino/río y reto completo en 1440×900, 390×844, 320×568 y 844×390.
+Seis HTML exactos byte a byte en origen y smoke del dominio público: recursos,
+contrato, API, navegación y ausencia de desbordamiento. Cero escrituras reales de
+jugadores o correo en los checks públicos. Studio conserva sus 2086 archivos.
+
+Instalación verificada con `--stage-only` antes de activar el único cambio web,
+`public/game/current.json`, mediante avance rápido al commit exacto revisado.
+`bosque-vivo.service` reiniciado y activo; sin backend, esquema ni importación de BD.
+
 ## Producción: remos en el cofre y brocheta opcional — 29 septiembre 2026
 
 Artefacto `bfdd8d1c12f78c74ef3a`, fuente `764b14a`, web `a6889526`.
