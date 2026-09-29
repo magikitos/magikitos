@@ -5,8 +5,6 @@
     "lighterFound",
     "fireLit",
     "twigFound",
-    "skewerCooked",
-    "picnicFed",
     "knifeFound",
     "boatBuilt",
     "bowlFound",
@@ -22,7 +20,8 @@
     "avelinoPairShell",
     "avelinoPairFern",
     "avelinoMemorySolved",
-    "avelinoChestOpened"
+    "avelinoChestOpened",
+    "oarsReceived"
   ],
   "items": {
     "parchment": {
@@ -78,14 +77,6 @@
       "description": "twigDescription",
       "sprite": "twig",
       "max": 99,
-      "usable": true,
-      "reusable": false
-    },
-    "skewer": {
-      "name": "skewerName",
-      "description": "skewerDescription",
-      "sprite": "skewer",
-      "max": 1,
       "usable": true,
       "reusable": false
     },
@@ -212,12 +203,6 @@
     }
   },
   "contentRooms": {
-    "restaurant": {
-      "scene": "overworld",
-      "radius": 15,
-      "kinds": ["recipe"],
-      "focus": "restaurant-kitchen"
-    },
     "stories": {
       "scene": "overworld",
       "radius": 10,
@@ -267,10 +252,6 @@
     "maxBalance": 9999,
     "fares": {},
     "rewards": {
-      "picnic": {
-        "once": true,
-        "amount": 10
-      },
       "shell": {
         "once": false,
         "amount": 5
@@ -312,11 +293,7 @@
     ],
     "stickItem": "twig"
   },
-  "timers": {
-    "picnic": {
-      "hours": 5
-    }
-  },
+  "timers": {},
   "hints": [
     {
       "key": "hintAvelino",
@@ -342,19 +319,89 @@
         }
       }
     },
-    {"key": "hintKnife", "when": {"flags": {"knifeFound": false}}},
-    {"key": "hintLighter", "when": {"flags": {"lighterFound": false}}},
-    {"key": "hintMushrooms", "when": {"flags": {"skewerCooked": false}, "maxItems": {"mushroom": 4}}},
-    {"key": "hintTwig", "when": {"flags": {"skewerCooked": false}, "maxItems": {"twig": 0}}},
-    {"key": "hintFire", "when": {"flags": {"fireLit": false}}},
-    {"key": "hintSkewer", "when": {"flags": {"skewerCooked": false}}},
-    {"key": "hintBrizno", "when": {"flags": {"picnicFed": false}}},
-    {"key": "hintBottle", "when": {"flags": {"boatBuilt": false}, "maxItems": {"bottle": 0}}},
-    {"key": "hintBoat", "when": {"flags": {"boatBuilt": false}}},
-    {"key": "hintHedge", "when": {"flags": {"bowlFound": false}}},
-    {"key": "hintFree", "when": {}}
+    {
+      "key": "hintKnife",
+      "when": {
+        "flags": {
+          "knifeFound": false
+        }
+      }
+    },
+    {
+      "key": "hintLighter",
+      "when": {
+        "flags": {
+          "lighterFound": false
+        }
+      }
+    },
+    {
+      "key": "hintFire",
+      "when": {
+        "flags": {
+          "fireLit": false
+        }
+      }
+    },
+    {
+      "key": "hintBottle",
+      "when": {
+        "flags": {
+          "boatBuilt": false
+        },
+        "maxItems": {
+          "bottle": 0
+        }
+      }
+    },
+    {
+      "key": "hintOars",
+      "when": {
+        "flags": {
+          "oarsReceived": false,
+          "boatBuilt": false
+        },
+        "maxItems": {
+          "oars": 0
+        }
+      }
+    },
+    {
+      "key": "hintBoat",
+      "when": {
+        "flags": {
+          "boatBuilt": false
+        }
+      }
+    },
+    {
+      "key": "hintHedge",
+      "when": {
+        "flags": {
+          "bowlFound": false
+        }
+      }
+    },
+    {
+      "key": "hintFree",
+      "when": {}
+    }
   ],
-  "hintCarriers": ["neighborGreeting", "ambientGarden", "ambientHat", "ambientLake", "ambientHunger", "meadowGreeting", "meadowGardener", "meadowFlowers", "meadowHammock", "meadowHarbor", "meadowHome", "riverAngler", "riverMemory"],
+  "hintCarriers": [
+    "neighborGreeting",
+    "ambientGarden",
+    "ambientHat",
+    "ambientLake",
+    "ambientHunger",
+    "meadowGreeting",
+    "meadowGardener",
+    "meadowFlowers",
+    "meadowHammock",
+    "meadowHarbor",
+    "meadowHome",
+    "riverAngler",
+    "riverMemory"
+  ],
   "challenges": [
     {
       "id": "mill-memory",

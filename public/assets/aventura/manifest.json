@@ -9138,15 +9138,16 @@
             "bytes": 2702
         },
         "avelino": {
-            "image": "packs/avelino-215629c69cf0.webp",
-            "metadata": "packs/avelino-215629c69cf0.json",
+            "image": "packs/avelino-bb62534506f1.webp",
+            "metadata": "packs/avelino-bb62534506f1.json",
             "sprites": [
                 "avelino",
-                "avelino-portrait"
+                "avelino-portrait",
+                "avelino-think"
             ],
             "width": 512,
             "height": 388,
-            "bytes": 47716
+            "bytes": 51032
         },
         "barbecue": {
             "image": "packs/barbecue-07da450bf873.webp",
@@ -9766,18 +9767,17 @@
             "bytes": 295940
         },
         "inventory": {
-            "image": "packs/inventory-a889c93d5bf8.webp",
-            "metadata": "packs/inventory-a889c93d5bf8.json",
+            "image": "packs/inventory-6bf2ace00d05.webp",
+            "metadata": "packs/inventory-6bf2ace00d05.json",
             "sprites": [
                 "mushroom",
                 "sack",
                 "twig",
-                "skewer",
                 "shells"
             ],
             "width": 128,
-            "height": 110,
-            "bytes": 4606
+            "height": 92,
+            "bytes": 3808
         },
         "mill-exterior": {
             "image": "packs/mill-exterior-0094535ff0ff.webp",

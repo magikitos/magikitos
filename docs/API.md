@@ -188,7 +188,7 @@ only to the private website. The public game consumes JSON and ships no backend.
 - `game_profiles`: private, client-authored location/adventure snapshots, CAS and
   recovery. They are **not** a source of spendable construction materials.
 - `game_accounts`: server-authoritative materials, reusable tools, reward flags,
-  recipe knowledge, game setines and limited social trust.
+  crafting progress, game setines and limited social trust.
 - `game_community_*`: public object snapshots, ownership, revisions, reversible
   history and deduplicated eligible human use. No private parcels remain live.
 
@@ -274,7 +274,7 @@ session after the 192-command synchronization warning: the outbox is bounded.
 
 If a queued object has since been removed, the API's explicit
 `404 unknown_action` is terminal. The same applies to `409 requirements_not_met`
-when an offline recipe no longer applies to the authoritative state (for example,
+when an offline craft no longer applies to the authoritative state (for example,
 an already-lit fire). Its exact command and owner are first saved in
 `magikitos.adventure.actions.rejected`, then the queue continues. This local
 recovery archive holds at most 192 records; a full/unwritable archive keeps the
@@ -292,7 +292,7 @@ once; only this immutable copy may initialize pre-existing balances. Future
 Browser-only pre-cutover games preserve a local recovery snapshot and replay a
 bounded set of existing quest/tool entitlements through normal validated commands.
 Arbitrary client material counts/setines are not imported. Old boat owners retain
-navigation and receive oars; unfinished cooking/tool progress remains recoverable.
+navigation and retain their tools. Brizno gives oars on greeting; cooking is retired.
 Old private layouts are retained **privately** for recovery, never published as
 communal objects without an explicit construction transaction.
 
@@ -305,7 +305,7 @@ identities with game progress or constructions.
 ### Security boundary and operation
 
 This is server-authoritative crafting, **not server-simulated movement**. The API
-validates finite pickups, recipes, prerequisites, timers and budgets. It does not
+validates finite pickups, crafts, prerequisites, timers and budgets. It does not
 prove a browser really walked past a cat or physically reached a pickup. A modified
 client can automate valid personal actions, but cannot invent counts, build on
 protected ground or bypass ownership/heritage with an arbitrary API call. Paid
@@ -357,3 +357,13 @@ authorization bypass; the server's shared quotas still apply.
 
 Read-only production tests never submit synthetic votes. Mocked browser tests exercise
 submission, cancellation, duplicate clicks, stale day, quota errors and pagination.
+
+## Feedback after the last challenge
+
+`POST /api/world/feedback` accepts plain text (3–2000 characters), language, a UUID v4
+submission id and fresh Turnstile proof for `game_feedback`. The private website
+verifies action/hostname, rate-limits attempts and sends to its fixed owner address.
+No identity is needed or created. A proof/service failure is an error; the client
+keeps its draft. Identical retries share the receipt id and cannot duplicate an
+accepted email during the 30-day receipt window. See [Avelino](AVELINO.md) and the
+[OpenAPI contract](world-api.openapi.json). Recipe publication endpoints are removed.

@@ -211,7 +211,7 @@ const apply = (name, action = "interact") => {
   if (plan) Object.assign(state, plan.state);
   return plan;
 };
-check(!apply("picnic-bin"), "No litter bottle before picnic leaves");
+check(apply("picnic-bin"), "Bottle is available without cooking");
 apply("picnic-knife");
 apply("picnic-twig");
 apply("picnic-twigs");
@@ -226,9 +226,8 @@ apply("picnic-lighter");
 apply("forest-mushrooms-fern");
 apply("forest-mushrooms-root");
 apply("picnic-barbecue", "light");
-apply("picnic-barbecue", "cook");
 apply("picnic-bin");
-apply("picnic-neighbor", "give");
+apply("picnic-neighbor");
 const recipe = apply("river-dock", "craft");
 check(
   recipe && state.inventory.boat === 1 && state.inventory.knife === 1,
@@ -236,13 +235,13 @@ check(
 );
 check(
   !state.inventory.bottle &&
-    state.inventory.twig === 1 &&
+    state.inventory.twig === 2 &&
     state.inventory.leaf === 1 &&
     state.inventory.oars === 1,
   "Boat only consumes the bottle; oars and knife are reusable",
 );
 check(
-  state.flags.picnicFed && state.wallet.balance === 0,
+  state.flags.oarsReceived && state.wallet.balance === 0,
   "Brizno hands over his oars and nothing else: the game mints no setines",
 );
 check(!apply("river-dock", "board"), "Boarding has no dialogue/button action");
@@ -251,14 +250,7 @@ check(
   "Brizno replaces the redundant ferryman",
 );
 check(!apply("river-dock", "craft"), "Cannot craft a duplicate boat");
-state.flags.skewerCooked = true;
-check(
-  !active(
-    world.entities.find((e) => e.id === "human-smoker"),
-    state,
-  ),
-  "Humans leave once skewer is made",
-);
+check(active(world.entities.find(e => e.id === "human-smoker"), state), "Humans remain after receiving the oars");
 const leftover = cleanSave(
   { ...state, inventory: {}, flags: { skewerCooked: true } },
   catalog,
@@ -269,7 +261,7 @@ check(
     leftover,
     catalog,
   ).state.inventory.bottle === 1,
-  "Bottle remains obtainable after humans leave",
+  "Bottle remains obtainable for old saves",
 );
 // Una partida guardada en una pantalla que ya no existe (el islote, los juncos, las kelihouses)
 // no se pierde: cae al arranque con lo suyo intacto. Es lo único que hace seguro recortar el
@@ -792,4 +784,4 @@ check(starts.length === 0, "No off-screen current rendering");
       " px/frame at " + donde,
   );
 }
-console.log(`${checks} river, recipe, geometry, current, drift and save checks PASS`);
+console.log(`${checks} river, crafting, geometry, current, drift and save checks PASS`);

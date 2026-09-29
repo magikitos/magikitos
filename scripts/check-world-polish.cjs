@@ -17,14 +17,10 @@ const state = cleanSave(null, catalog),
   world = new World(catalog.scenes.overworld);
 world.refresh(state);
 const bottle = world.entities.find((e) => e.id === "picnic-bin");
-assert(!active(bottle, state));
-assert.equal(planReaction(bottle, state, catalog), null);
-assert.equal(
-  require("../tools/game-contract.cjs").gameContract(catalog).adventure.entities
-    .overworld["picnic-bin"].visibleWhen.flags.skewerCooked,
-  true,
-  "The authoritative API receives the same story gate",
-);
+assert(active(bottle, state));
+assert.equal(planReaction(bottle, state, catalog).state.inventory.bottle, 1);
+assert.equal(require("../tools/game-contract.cjs").gameContract(catalog).adventure.entities
+  .overworld["picnic-bin"].visibleWhen.flags, undefined, "No cooking gate in authoritative rules");
 const player = { x: 20 * TILE, y: 28.5 * TILE, direction: "down" };
 world.actors = [player];
 const game = {
@@ -48,8 +44,8 @@ assert.equal(
   2,
   "Second cat is prepared without another scene load",
 );
-assert.equal(cats.renderables().length, 1);
-state.flags.skewerCooked = true;
+assert.equal(cats.renderables().length, 2);
+state.flags.oarsReceived = true;
 world.refresh(state);
 assert(active(bottle, state));
 assert.equal(cats.renderables().length, 2);
@@ -88,7 +84,7 @@ for (const entity of authoredOverworld.entities) {
   }
 }
 assert(
-  !active(
+  active(
     world.entities.find((e) => e.id === "human-smoker"),
     state,
   ),
@@ -290,5 +286,5 @@ assert(
   ).length >= 5,
 );
 console.log(
-  "PASS polished world: story-gated litter/two cats, exclusive carry and reliable homecoming, social tavern, river seams, bowl cover and six-language clues.",
+  "PASS polished world: accessible litter/two cats, exclusive carry and reliable homecoming, social tavern, river seams, bowl cover and six-language clues.",
 );

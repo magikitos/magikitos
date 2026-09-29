@@ -43,20 +43,6 @@
       ],
       "fit": true
     },
-    "skewer": {
-      "source": "data/aventura/art/skewer-items-cutout.png",
-      "rect": [
-        683,
-        0,
-        682,
-        683
-      ],
-      "size": [
-        20,
-        26
-      ],
-      "fit": true
-    },
     "shells": {
       "source": "data/aventura/art/shore-garden-cutout.png",
       "rect": [

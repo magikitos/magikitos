@@ -36,13 +36,17 @@ class HumanProof {
       });
     return this.loading;
   }
-  async request() {
+  async request({ action, signal, required = false } = {}) {
     await this.game.content.bootstrap();
+    signal?.throwIfAborted();
     const key = this.game.config.capabilities?.turnstileSiteKey;
-    if (!key) return "";
+    if (!key) {
+      if (required) throw Error("proof_unavailable");
+      return "";
+    }
     // Never share a one-use proof token between two writes.
     if (this.pending) throw Error("proof_busy");
-    const job = this.run(key);
+    const job = this.run(key, { action, signal });
     this.pending = job;
     try {
       return await job;
@@ -50,8 +54,9 @@ class HumanProof {
       this.pending = null;
     }
   }
-  async run(key) {
+  async run(key, { action, signal } = {}) {
     const provider = await this.load();
+    signal?.throwIfAborted();
     const dialog = el("dialog", {
       class: "world-modal world-proof",
       "aria-labelledby": "world-proof-title",
@@ -66,6 +71,7 @@ class HumanProof {
         if (finished) return;
         finished = true;
         clearTimeout(timer);
+        signal?.removeEventListener("abort", abort);
         if (widget !== undefined) provider.remove(widget);
         if (dialog.open) dialog.close();
         dialog.remove();
@@ -73,6 +79,8 @@ class HumanProof {
           if (previous.isConnected && !previous.open) previous.showModal();
         error ? reject(error) : resolve(token);
       };
+      const abort = () => finish(Error("proof_cancelled"));
+      signal?.addEventListener("abort", abort, { once: true });
       const show = () => {
         if (finished) return;
         for (const previous of document.querySelectorAll("dialog[open]")) {
@@ -103,6 +111,7 @@ class HumanProof {
       try {
         widget = provider.render(host, {
           sitekey: key,
+          ...(action ? { action } : {}),
           language: this.game.config.locale,
           theme: "dark",
           size: "compact",

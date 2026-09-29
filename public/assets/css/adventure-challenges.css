@@ -54,14 +54,35 @@
 .world-challenge-status { min-height: 1.6em; margin: 15px 0 0; font: 13px/1.6 system-ui; color: #f1d8a7; }
 .world-challenge-reward { display: grid; place-items: center; margin: 18px auto 0; width: 112px; height: 112px; border-radius: 50%; background: radial-gradient(#d5b36336, #d5b36300 72%); }
 .world-challenge-reward canvas { width: 88px; height: 88px; image-rendering: pixelated; }
-/* Held puzzles have an ordinary visible exit; no map tap is needed to put the cards away. */
-.world-content:has(.world-challenge) .world-accessible-exit {
-  position: static; align-self: center; clip-path: none; width: auto; height: auto;
-  min-height: 44px; flex-shrink: 0; margin: 6px 0 0; padding: 8px 18px;
-  background: #19372bea; border: 1px solid #bcb77b66; border-radius: 24px; color: #f6e7c4;
-  font: 13px/1.4 system-ui; cursor: pointer;
-}
+/* Dismissal belongs to the sheet, with a visible touch target at the top. */
+.world-content:has(.world-challenge) { z-index: 2147483000; }
+.world-content:has(.world-challenge) .world-accessible-exit,
 .world-content:has(.world-challenge) .world-content-dismiss-hint { display: none; }
+.world-challenge { position: relative; padding-top: 42px; }
+.world-challenge .world-challenge-close {
+  position: absolute; top: 7px; right: 8px; z-index: 2;
+  display: grid; place-items: center; width: 44px; height: 44px; min-height: 44px;
+  padding: 0; border: 0; border-radius: 50%; background: #e9dbac12;
+  color: #f7e6bd; font: 30px/1 system-ui; cursor: pointer;
+}
+.world-challenge-close:focus-visible { outline: 2px solid #ffe4a1; }
+.world-challenge.is-completed .world-challenge-reward { width: 56px; height: 56px; margin-top: 10px; }
+.world-challenge.is-completed .world-challenge-reward canvas { width: 48px; height: 48px; }
+.world-challenge.is-completed .world-challenge-invitation { font-size: 14px; margin-top: 6px; }
+.world-feedback { margin: 20px auto 0; max-width: 440px; text-align: left; font: 14px/1.5 system-ui, sans-serif; color: #e4e8d3; }
+.world-feedback-invitation { margin: 0 0 16px; }
+.world-feedback label { display: block; font-weight: 600; margin-bottom: 8px; }
+.world-feedback textarea {
+  display: block; box-sizing: border-box; width: 100%; min-height: 100px; resize: vertical;
+  padding: 12px; border: 1px solid #b7ab7680; border-radius: 12px;
+  background: #10291e; color: #fff3d5; font: 16px/1.5 system-ui;
+}
+.world-feedback textarea::placeholder { color: #a9b8a4; opacity: 1; }
+.world-feedback textarea:focus { outline: 2px solid #dfc581; outline-offset: 2px; }
+.world-feedback > button { display: block; margin: 16px auto 0; }
+.world-feedback button:disabled { opacity: .65; cursor: wait; }
+.world-feedback-status { margin: 12px 0 0; color: #f4d994; }
+.world-feedback-status:empty { display: none; }
 @media (max-width: 480px) {
   .world-content:has(.world-challenge) { width: calc(100% - 16px); }
   .world-content:has(.world-challenge) .world-folio-body { padding: 0 4px; }
@@ -102,4 +123,27 @@
   .world-challenge-prize { padding: 5px 0; font-size: 12px; }
   .world-challenge-prize canvas { width: 32px; height: 32px; }
   .world-challenge .world-experience-actions { margin-top: 10px; }
+}
+
+/* Cover every game control, including in landscape, and keep one scrolling surface. */
+@media (max-width: 800px), (max-height: 550px) and (pointer: coarse) {
+  .world-content:has(.world-challenge) {
+    position: fixed; inset: 0; transform: none; width: 100%; height: 100dvh;
+    max-width: none; max-height: none; margin: 0; border-radius: 0;
+    background: #1c3329; padding: 0; box-sizing: border-box;
+  }
+  .world-content:has(.world-challenge) .world-folio-body {
+    padding: 0; min-height: 0; flex: 1; overflow-y: auto; overscroll-behavior: contain;
+  }
+  .world-challenge {
+    box-sizing: border-box; max-width: none; min-height: 100%; margin: 0;
+    padding: calc(58px + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px))
+      calc(24px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+    border: 0; border-radius: 0; box-shadow: none;
+  }
+  .world-challenge > :not(.world-challenge-close) { max-width: 560px; margin-left: auto; margin-right: auto; }
+  .world-challenge .world-challenge-close {
+    position: fixed; top: calc(7px + env(safe-area-inset-top, 0px));
+    right: max(8px, env(safe-area-inset-right, 0px)); background: #304b3e;
+  }
 }

@@ -42,9 +42,9 @@ const neighbor = world.scenes.overworld.entities.find(e => e.id === "picnic-neig
 state.flags.fireLit = true;
 state.inventory.twig = 1;
 reaction(fire, { action: "cook" });
-assert(!state.inventory.mushroom, "Recipe consumes exactly five mushrooms");
-reaction(neighbor, { action: "give" });
-assert(!active(node, state, { now }), "Giving the skewer cannot respawn mushrooms");
+assert.equal(state.inventory.mushroom, 5, "Retired cooking consumes no materials");
+reaction(neighbor);
+assert(!active(node, state, { now }), "Receiving oars cannot respawn mushrooms");
 assert(!active(node, state, { now: 101 * cycle - 1 }));
 assert(active(node, state, { now: 101 * cycle }), "Renews at the regional cycle");
 state.inventory.mushroom = 99;
@@ -139,4 +139,4 @@ for (const [id, scene] of Object.entries(world.scenes)) {
   assert.deepEqual(contract.live.scenes[id].spawn, { x: scene.spawn.x * 16, y: scene.spawn.y * 16 });
   assert.equal(contract.live.scenes[id].maxFootSpeed, require("../public/assets/js/adventure/locomotion").RUN_SPEED);
 }
-console.log("PASS forest upgrade: multi-patch mushrooms, eight-hour bits, reusable tools, exact meal regression, capped bag, historical pickups, obtainable flower seeds, server-clock growth and mirrored API.");
+console.log("PASS forest upgrade: multi-patch mushrooms, eight-hour bits, reusable tools, retired cooking regression, capped bag, historical pickups, obtainable flower seeds, server-clock growth and mirrored API.");

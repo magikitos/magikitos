@@ -81,6 +81,9 @@ execFileSync(process.execPath, ["tools/sync-contracts.cjs", "--check"], { stdio:
 execFileSync("php", ["scripts/check-adventure-crops.php"], {
   stdio: "inherit",
 });
+execFileSync("php", ["scripts/check-feedback.php"], {
+  stdio: "inherit",
+});
 execFileSync("php", ["scripts/check-actor-registration.php"], {
   stdio: "inherit",
 });

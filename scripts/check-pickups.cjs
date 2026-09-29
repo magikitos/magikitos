@@ -18,14 +18,14 @@ const bottle = find("picnic-bin"), bin = find("picnic-trash-bin");
 assert.equal(planReaction(bin, state, world).state.inventory.bottle, undefined, "Bin never grants loot");
 const body = e => collisionBounds({ ...e, x: e.x * 16, y: e.y * 16 });
 assert(!overlaps(body(bottle), body(bin)), "Bottle sits beside, not inside, the scaled bin");
-assert.equal(planReaction(bottle, state, world), null, "Bottle appears only when the humans leave");
+assert.equal(planReaction(bottle, state, world).state.inventory.bottle, 1, "Bottle is available from the start");
 assert.equal(planReaction(bottle, { ...state, flags: { skewerCooked: true } }, world).state.inventory.bottle, 1);
 for (const inventory of [{ bottle: 1 }, { boat: 1 }]) {
   const saved = cleanSave({ inventory }, world);
   assert(!active(bottle, saved), "Existing bottle/boat saves cannot duplicate the pickup");
   assert.equal(planReaction(bottle, saved, world), null);
 }
-assert(active(bottle, { ...state, flags: { skewerCooked: true } }), "Litter remains after picnic departs");
+assert(active(bottle, { ...state, flags: { skewerCooked: true } }), "Old cooking saves can still pick up the bottle");
 /**
  * ⛔ AQUÍ SE CLAVABA `scale === 0.85`, Y ESO NO MEDÍA NINGUNA REGLA: MEDÍA UNA TARDE.
  *

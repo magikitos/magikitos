@@ -122,73 +122,27 @@ const errors = [];
           window.MagikitosAdventure.inspect().flags.fireLit &&
           !!window.MagikitosAdventure.inspect().dialogue,
       );
-      await page.locator("[data-action='cook']").click();
-      await page.waitForFunction(
-        () => window.MagikitosAdventure.inspect().inventory.skewer === 1,
-      );
+      assert.equal(await page.locator("[data-action='cook']").count(), 0);
       await save();
       await near("picnic-neighbor");
       await click("picnic-neighbor");
-      await page.locator("[data-action='give']").click();
-      await page.waitForFunction(
-        () => window.MagikitosAdventure.inspect().flags.picnicFed,
-      );
+      await page.waitForFunction(() => window.MagikitosAdventure.inspect().flags.oarsReceived);
       await save();
-      // Brizno suelta sus remos y nada más: el bosque no acuña setines (17-sep-2026).
       assert.equal(state.inventory.oars, 1);
       assert.equal(state.wallet.balance, 0);
-      assert(state.timers.picnic > Date.now() + 4.99 * 3600000);
+      assert.equal(state.inventory.mushroom, 5, "Side-activity materials were not consumed");
+      assert.equal(state.inventory.twig, 1);
       assert.equal(state.inventory.knife, 1);
       assert.equal(state.inventory.lighter, 1);
-      await position(25, 53);
-      assert(
-        !(
-          await page.evaluate(
-            () => window.MagikitosAdventure.inspect().entities,
-          )
-        ).some((e) => e.id === "human-smoker"),
-      );
-      const deadline = state.timers.picnic;
-      assert.equal(
-        (await page.evaluate(() => window.MagikitosAdventure.inspect().timers))
-          .picnic,
-        deadline,
-      );
-      // A prepared second meal waits in the test profile; the full repeat recipe is covered by pure tests.
-      state.inventory.skewer = 1;
+      assert(!state.timers.picnic && !state.inventory.skewer);
       await near("picnic-neighbor");
       await click("picnic-neighbor");
+      assert.equal((await page.evaluate(() => window.MagikitosAdventure.inspect())).inventory.oars, 1);
       assert.equal(await page.locator("[data-action='give']").count(), 0);
-      // Advance the test browser's clock, not game state or the user's session.
-      await page.evaluate((t) => {
-        const original = Date.now;
-        Date.now = () => Math.max(original(), t);
-      }, deadline + 1);
-      await page.waitForFunction(
-        () => !window.MagikitosAdventure.inspect().timers.picnic,
-      );
-      assert(
-        !(
-          await page.evaluate(
-            () => window.MagikitosAdventure.inspect().entities,
-          )
-        ).some((e) => e.id === "human-smoker"),
-      );
-      await page.waitForSelector("[data-action='give']");
-      await page.locator("[data-action='give']").click();
-      await page.waitForFunction(
-        () => window.MagikitosAdventure.inspect().timers.picnic > Date.now(),
-      );
-      const repeat = await page.evaluate(() =>
-        window.MagikitosAdventure.inspect(),
-      );
-      assert.equal(repeat.wallet.balance, 0, "Ni la segunda brocheta acuña nada");
-      assert.equal(repeat.inventory.knife, 1);
-      assert.equal(repeat.inventory.lighter, 1);
-      assert(!repeat.inventory.skewer);
+      assert((await page.evaluate(() => window.MagikitosAdventure.inspect().entities)).some(e => e.id === "human-smoker"));
       await page.close();
       console.log(
-        "PASS picnic pointer recipe, oars, departure, reload and live hunger expiry " +
+        "PASS picnic pointer interactions, free oars, persistent scenery, no cooking and reload " +
           width +
           "×" +
           height,

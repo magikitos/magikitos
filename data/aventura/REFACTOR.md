@@ -65,9 +65,9 @@ Al incorporar un recogible nuevo desde el diff:
    el recorrido real propuesta Studio → compilación → cliente/API en una copia aislada.
 
 La familia de botellas usa disponibilidad por inventario: no aparece si hay
-botella o barca. La colocación del picnic añade `flags.skewerCooked: true` en
-`visibleWhen`: solo aparece cuando se han marchado los humanos. Esa condición
-se exporta al contrato autoritativo, no es un mero ocultamiento gráfico.
+botella o barca. La botella del picnic está disponible desde el comienzo, sin
+depender de cocinar ni de que se marchen los humanos. Esa condición se exporta
+al contrato autoritativo, no es un mero ocultamiento gráfico.
 La recogida publicada conserva su ID estable `picnic-bin` aunque ahora representa
 la botella en el suelo. La papelera física es `picnic-trash-bin` y nunca da botín.
 Esto mantiene válidos los comandos pendientes sin migrar partidas.

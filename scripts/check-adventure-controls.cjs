@@ -44,7 +44,8 @@ assert.equal(
   workshop.height - 2 - FOOTPRINT.halfHeight / TILE,
   "The workshop door uses shared directional door geometry",
 );
-const wallet = { balance: 0, claimed: { picnic: true } };
+const wallet = { balance: 0, claimed: {} };
+assert.deepEqual(cleanWallet({ balance: 0, claimed: { picnic: true } }, catalog), wallet, "Retired meal rewards are discarded");
 assert.deepEqual(
   cleanWallet(wallet, catalog),
   wallet,

@@ -2,6 +2,7 @@
 const { el, button } = require("./dom");
 const { MemoryBoard } = require("./challenge-memory");
 const { planReaction } = require("./rules");
+const { Feedback } = require("./feedback");
 
 /** Personal puzzle progress uses the existing durable action queue and installed server rules.
  * No new currency, local-storage namespace, API endpoint or client snapshot mints rewards. */
@@ -41,13 +42,13 @@ class Challenges {
     document.getElementById("world-toast").hidden = true;
     this.request = request;
     this.conversation = conversation;
-    this.practice = false;
     this.root = el("article", { class: "world-experience world-challenge" });
-    this.root.append(el("h1", { tabindex: "-1", text: g.text(c.title) }),
-      el("p", { role: "status", text: g.text("findingContent") }));
+    this.icons = new Map();
+    this.heading(g.text(c.title));
+    this.root.append(el("p", { role: "status", text: g.text("findingContent") }));
     g.site.mount(this.root, request);
     const sheet = document.getElementById("world-content");
-    sheet.setAttribute("data-held", "");
+    sheet.removeAttribute("data-held");
     g.retireControls("challenge", true);
     request.signal.addEventListener("abort", () => {
       clearTimeout(this.timer);
@@ -68,8 +69,8 @@ class Challenges {
       else this.intro();
     } catch (_) {
       if (request.signal.aborted) return;
-      this.root.replaceChildren(el("h1", { tabindex: "-1", text: g.text(c.title) }),
-        el("p", { role: "status", text: g.text("contentUnavailable") }),
+      this.heading(g.text(c.title));
+      this.root.append(el("p", { role: "status", text: g.text("contentUnavailable") }),
         button(g.text("retry"), () => this.open({ conversation }), "world-primary"));
     }
   }
@@ -94,6 +95,9 @@ class Challenges {
         el("p", { class: "world-challenge-byline", text: g.text("challengeByline") }),
       ]),
     ]));
+    const close = button("×", () => g.closeContent(), "world-challenge-close");
+    close.setAttribute("aria-label", g.text("close"));
+    this.root.prepend(close);
   }
   focusTitle() { this.root.querySelector("h1")?.focus({ preventScroll: true }); }
   intro() {
@@ -112,11 +116,10 @@ class Challenges {
     );
     this.focusTitle();
   }
-  play(practice = false) {
+  play() {
     if (!this.active()) return;
     const g = this.game, c = this.challenge;
-    this.practice = practice;
-    this.board = new MemoryBoard(c.pairs, practice ? [] : c.pairs.filter((p) => g.state.flags[p.flag]).map((p) => p.id));
+    this.board = new MemoryBoard(c.pairs, c.pairs.filter((p) => g.state.flags[p.flag]).map((p) => p.id));
     if (this.board.complete) return this.reward();
     this.heading(g.text(c.title));
     this.counter = el("span", { class: "world-challenge-count" });
@@ -142,9 +145,9 @@ class Challenges {
     });
     this.grid.append(...this.cards);
     this.root.append(el("div", { class: "world-challenge-meta" }, [
-      el("span", { text: g.text(practice ? "challengePractice" : "challengeFindPairs") }), this.counter,
+      el("span", { text: g.text("challengeFindPairs") }), this.counter,
     ]), this.grid, this.status,
-    el("p", { class: "world-challenge-note", text: g.text(practice ? "challengePracticeNote" : "challengeAtYourPace") }));
+    el("p", { class: "world-challenge-note", text: g.text("challengeAtYourPace") }));
     this.paint();
     this.cards.find((card) => card.getAttribute("aria-disabled") !== "true")?.focus({ preventScroll: true });
   }
@@ -171,7 +174,7 @@ class Challenges {
     if (result.type === "pair") {
       const pair = this.challenge.pairs.find((p) => p.id === result.id);
       // Commit before acknowledging the match. A full offline queue keeps the pair playable.
-      if (!this.practice && !g.state.flags[pair.flag] && !advance(g, this.challenge, "pair-" + pair.id)) {
+      if (!g.state.flags[pair.flag] && !advance(g, this.challenge, "pair-" + pair.id)) {
         this.board.settle(false); this.paint();
         this.status.textContent = g.text("communitySyncNeeded");
         return;
@@ -192,10 +195,11 @@ class Challenges {
   reward() {
     if (!this.active()) return;
     const g = this.game, claimed = Boolean(g.state.flags[this.challenge.completed]);
-    this.heading(g.text(claimed ? "challengeCompleted" : "challengeSolved"));
+    this.heading(g.text(claimed ? "challengeNoMoreMysteries" : "challengeSolved"));
+    this.root.classList.toggle("is-completed", claimed);
     this.root.append(el("div", { class: "world-challenge-reward" }, [this.icon("mill-key")]),
       el("p", { class: "world-challenge-invitation", text: g.text(claimed ? "challengeKeyYours" : "challengeWellDone") }),
-      el("p", { class: "world-challenge-note", text: g.text(g.state.flags.avelinoChestOpened ? "challengeMoreToCome" : "challengeChestHint") }));
+      ...(!g.state.flags.avelinoChestOpened ? [el("p", { class: "world-challenge-note", text: g.text("challengeChestHint") })] : []));
     const actions = el("div", { class: "world-experience-actions" });
     if (!claimed) actions.append(button(g.text("challengeClaim"), () => {
       if (!this.active() || !advance(g, this.challenge, this.challenge.action)) return;
@@ -203,11 +207,11 @@ class Challenges {
       g.telemetry?.milestone("challenge:" + this.challenge.id);
       this.reward();
     }, "world-primary"));
-    else actions.append(button(g.text("challengeExplore"), () => g.closeContent(), "world-primary"));
-    this.root.append(actions);
-    if (claimed) this.root.append(el("div", { class: "world-experience-links" }, [
-      button(g.text("challengeReplay"), () => this.play(true)),
-    ]));
+    if (!claimed) this.root.append(actions);
+    if (claimed) {
+      this.feedback ||= new Feedback(g);
+      this.root.append(this.feedback.render(this.request.signal));
+    }
     this.focusTitle();
   }
 }

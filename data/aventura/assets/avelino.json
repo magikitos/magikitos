@@ -18,7 +18,15 @@
         23,
         55
       ],
-      "fit": true
+      "fit": true,
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.06086956521739131,
+        "offset": [
+          -16.22608695652174,
+          -10.591304347826087
+        ]
+      }
     },
     "avelino-portrait": {
       "source": "data/aventura/art/avelino/avelino.png",
@@ -39,6 +47,34 @@
         192
       ],
       "fit": true
+    },
+    "avelino-think": {
+      "source": "data/aventura/art/avelino/avelino-think.png",
+      "grid": [
+        1,
+        1
+      ],
+      "cell": [
+        0,
+        0
+      ],
+      "size": [
+        42,
+        56
+      ],
+      "anchor": [
+        23,
+        55
+      ],
+      "fit": true,
+      "preserveCanvas": true,
+      "registration": {
+        "scale": 0.06086956521739131,
+        "offset": [
+          -16.22608695652174,
+          -10.591304347826087
+        ]
+      }
     }
   }
 }

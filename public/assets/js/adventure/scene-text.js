@@ -3,7 +3,7 @@
  * LO QUE DICE UNA PANTALLA VIAJA CON LA PANTALLA.
  *
  * El motor lleva sus textos incrustados en la página (menús, botones, el nombre de lo que llevas
- * en el saco). Todo lo demás —cada cartel, cada vecino, cada receta— vive en un fichero por
+ * en el saco). Todo lo demás —cada cartel, cada vecino, cada reto— vive en un fichero por
  * pantalla y por idioma que se pide junto a sus sprites, en `SceneDirector.prepare()`. Un bosque
  * con cien pantallas no carga más que uno con diez.
  *

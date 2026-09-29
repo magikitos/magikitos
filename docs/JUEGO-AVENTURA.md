@@ -44,14 +44,13 @@ casas de botas, troncos, hojas, setas y macetas. Interiores naturales recortados
 con decoración coherente y espacio para caminar. Puerta abierta implica acceso
 real al andar hacia el umbral. No hay casas humanas en esta etapa: sí un picnic.
 
-El protagonista no tiene hambre ni una obligación inicial. Brizno, el abuelete
-barrigón junto a la barbacoa, sí. La secuencia y las reglas comunitarias están
-en [SHARED-FOREST.md](SHARED-FOREST.md), única guía detallada del recorrido:
-navaja y mechero vigilados por un gato → porción de seta y palo → brocheta →
-remos y setines → botella del suelo junto a la papelera → navegación libre.
-Los humanos se marchan al cocinar: aparece la botella y se suma un segundo gato,
-sin retirar el primero. Brizno vuelve a tener hambre cada cinco horas;
-solo la primera entrega paga el premio y da los remos. No hay ferry de pago.
+Los retos de Avelino, el mago del molino, guían la aventura. Vive en la Curva de
+los Sauces; su primer juego de memoria entrega una llave para el cofre del molino.
+El protagonista no tiene hambre ni una obligación inicial. La cocina está retirada.
+Brizno entrega remos al saludarlo; junto a la papelera hay una botella que, con
+navaja y remos, permite navegar. Los humanos y ambos gatos permanecen en el picnic.
+Construir, reunir materiales y cuidar gatos son actividades secundarias. Recorrido
+y reglas comunitarias: [SHARED-FOREST.md](SHARED-FOREST.md).
 
 Palos y plantas culilimpia se colocan deliberadamente, no se esparcen al azar.
 El bosque inicial contiene cuatro palos; cada tramo recolector del río, dos.

@@ -32,20 +32,20 @@
     "pt": "Pronto, deixa nascer folhas novas."
   },
   "picnicTwig": {
-    "es": "¡Ufff qué palo más pro, con esto hago yo una brocheta de setas que lo flipa hasta el alcalde!",
-    "en": "What a top-tier stick! I'll make a skewer so good even the mayor will lose it.",
-    "de": "Was für ein Premiumstock! Damit wird der Spieß so gut, da flippt sogar der Bürgermeister aus!",
-    "fr": "Ce bâton est une pépite ! Avec ça, je fais une brochette qui va scotcher même le maire !",
-    "it": "Che bastoncino da paura! Ci faccio uno spiedino che manda fuori di testa pure il sindaco!",
-    "pt": "Que pauzinho de luxo! Faço uma espetada que até o presidente da câmara fica maluco!"
+    "es": "¡Qué palo más apañao! Pa construir o plantar un mensaje viene de lujo.",
+    "en": "What a handy stick! Great for building or planting a message.",
+    "de": "Ein praktischer Stock! Zum Bauen oder für eine Nachricht.",
+    "fr": "Un bâton bien pratique ! Pour construire ou planter un message.",
+    "it": "Che bel bastone! Perfetto per costruire o piantare un messaggio.",
+    "pt": "Que pau jeitoso! Dá para construir ou deixar uma mensagem."
   },
   "mushroomsFound": {
-    "es": "¡Ea, setitas pa la saca! Con cinco y un palillo sale una brocheta de lujo.",
-    "en": "Mushrooms for the bag! Five and a stick make a cracking skewer.",
-    "de": "Pilze für den Beutel! Fünf und ein Stock ergeben einen prima Spieß.",
-    "fr": "Des champis pour le sac ! Cinq et un bâton font une sacrée brochette.",
-    "it": "Funghi nel sacco! Con cinque e un bastoncino viene uno spiedino da urlo.",
-    "pt": "Cogumelos para o saco! Cinco e um pauzinho dão uma espetada de luxo."
+    "es": "¡Setitas pa la saca! En el almacén las cambian por materiales.",
+    "en": "Mushrooms for the bag! Trade them for materials at the storehouse.",
+    "de": "Pilze für den Beutel! Im Lager gibt es dafür Material.",
+    "fr": "Des champignons dans le sac ! À échanger contre des matériaux à l’entrepôt.",
+    "it": "Funghi nel sacco! Al magazzino li scambi con materiali.",
+    "pt": "Cogumelos para o saco! No armazém trocam-se por materiais."
   },
   "mushroomsNeedKnife": {
     "es": "Con una navajita corto el pie y dejo el bosque bien apañao.",

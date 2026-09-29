@@ -1,20 +1,4 @@
 {
-  "enter_restaurant": {
-    "es": "Ver las recetas",
-    "en": "Browse recipes",
-    "de": "Rezepte ansehen",
-    "fr": "Voir les recettes",
-    "it": "Sfoglia le ricette",
-    "pt": "Ver receitas"
-  },
-  "invite_restaurant": {
-    "es": "¡Arrímate a la mesa, que aquí cabe to el mundo! Trae tus recetas y cuenta cómo las haces. Pa leer o escuchar las de la peña no hace falta traer na.",
-    "en": "Pull up a chair, there’s room for everyone! Share a recipe and tell us how you make it. Reading or listening costs nothing.",
-    "de": "Rück an den Tisch, hier ist Platz für alle! Teile dein Rezept und erzähl, wie du es machst. Zum Lesen und Hören brauchst du nichts.",
-    "fr": "Viens à table, y a de la place pour tout le monde ! Partage ta recette et raconte comment tu la fais. Pour lire ou écouter, rien à apporter.",
-    "it": "Vieni a tavola, c’è posto per tutti! Condividi la tua ricetta e racconta come la fai. Per leggere o ascoltare non serve portare niente.",
-    "pt": "Chega à mesa, há lugar para toda a gente! Partilha a tua receita e conta como a fazes. Para ler ou ouvir não precisas de trazer nada."
-  },
   "parchmentFound": {
     "es": "¡Ea, papelito pa dejar recados! Con un boli y un palo planto el cartelito en mi próxima caca. Arte moderno, vaya.",
     "en": "Paper for leaving notes! With a pen and a stick I can plant a sign in my next poop. Modern art, mate.",
@@ -62,14 +46,6 @@
     "fr": "Je suis venu écouter l’eau. Elle ne m’a encore demandé aucun service.",
     "it": "Sono venuto ad ascoltare l’acqua. Non mi ha ancora chiesto favori.",
     "pt": "Vim ouvir a água. Ainda não me pediu nenhum favor."
-  },
-  "barbecueAfter": {
-    "es": "Ya llevamos un pinchito en el saco. Vamos a repartir alegría antes de montar otro.",
-    "en": "Already got a skewer in the sack. Let's share it before grilling another.",
-    "de": "Ein Spieß ist schon im Sack. Erst verschenken, dann weitergrillen.",
-    "fr": "On a déjà une brochette. Allons la partager avant d’en refaire une.",
-    "it": "Abbiamo già uno spiedino nel sacco. Regaliamolo prima di prepararne un altro.",
-    "pt": "Já temos uma espetada no saco. Vamos partilhá-la antes de fazer outra."
   },
   "barbecueHint": {
     "es": "Esta barbacoa está más muerta que un peo, esto hay que encenderlo. A ver dónde encuentro fuego.",
@@ -127,14 +103,6 @@
     "it": "Il falò delle storie",
     "pt": "A fogueira dos contos"
   },
-  "cookSkewer": {
-    "es": "Asar la brocheta",
-    "en": "Grill the skewer",
-    "de": "Spieß grillen",
-    "fr": "Griller la brochette",
-    "it": "Griglia lo spiedino",
-    "pt": "Grelhar a espetada"
-  },
   "enter_stories": {
     "es": "Escuchar cuentos",
     "en": "Listen to stories",
@@ -144,12 +112,12 @@
     "pt": "Ouvir contos"
   },
   "fireLit": {
-    "es": "¡Ea, encendida! Y con las cejas en su sitio. Ya tenemos brasa pa ese pinchito.",
-    "en": "It's lit! And all my eyebrows are intact. The coals are ready for a skewer.",
-    "de": "Es brennt! Und meine Augenbrauen sind noch da. Die Glut ist bereit für den Spieß.",
-    "fr": "C’est allumé ! Et j’ai encore tous mes sourcils. La braise est prête pour la brochette.",
-    "it": "Accesa! E ho ancora tutte le sopracciglia. La brace è pronta per lo spiedino.",
-    "pt": "Aceso! E ainda tenho as sobrancelhas todas. A brasa está pronta para a espetada."
+    "es": "¡Ea, encendida! Y con las cejas en su sitio. Qué gustito da quedarse junto al fuego.",
+    "en": "It's lit! And all my eyebrows are intact. It's lovely to sit by the fire.",
+    "de": "Es brennt! Und meine Augenbrauen sind noch da. Am Feuer ist es richtig gemütlich.",
+    "fr": "C’est allumé ! Et j’ai encore tous mes sourcils. Qu’on est bien près du feu !",
+    "it": "Accesa! E ho ancora tutte le sopracciglia. Che bello stare vicino al fuoco!",
+    "pt": "Aceso! E ainda tenho as sobrancelhas todas. Que bom ficar junto ao lume!"
   },
   "fisher": {
     "es": "El refugio de la maceta",
@@ -182,14 +150,6 @@
     "fr": "Je fais un vœu. Je ne dis pas lequel, ça le casserait. Et celui-là, j'y tiens.",
     "it": "Esprimo un desiderio. Non dico quale, che se lo dici non si avvera. E a questo ci tengo.",
     "pt": "Peço um desejo. Não digo qual, que assim não se realiza. E a este tenho-lhe carinho."
-  },
-  "giveSkewer": {
-    "es": "Regalar la brocheta",
-    "en": "Give the skewer",
-    "de": "Pilzspieß schenken",
-    "fr": "Offrir la brochette",
-    "it": "Regala lo spiedino",
-    "pt": "Oferecer a espetada"
   },
   "humanPicnicFriend": {
     "es": "Se han traído merienda pa un regimiento, y una navajita pa cortar el chorizo que ni vigilan.",
@@ -267,14 +227,6 @@
     "it": "«Vietato fare la cacca qui»... sì, come no! Quando mi scappa, so già dove venire.",
     "pt": "«Proibido fazer cocó aqui»... está bem, está! Quando me der a vontade, já sei onde venho."
   },
-  "picnicAfter": {
-    "es": "Qué gloria de pinchito. Dame cinco horitas pa la digestión, que ahora no me cabe ni una mijita.",
-    "en": "Lovely stuff. Give me five hours to digest. Not even a crumb would fit right now.",
-    "de": "War das lecker! Gib mir fünf Stunden zum Verdauen. Nicht mal ein Krümel passt noch rein.",
-    "fr": "Quel régal ! Laisse-moi cinq heures pour digérer. Même une miette ne passerait plus.",
-    "it": "Che bontà! Dammi cinque ore per digerire. Non ci sta più neanche una briciola.",
-    "pt": "Que maravilha! Dá-me cinco horas para digerir. Não cabe nem mais uma migalha."
-  },
   "picnicBin": {
     "es": "Papelera del merendero",
     "en": "Picnic bin",
@@ -298,22 +250,6 @@
     "fr": "Les humains du pique-nique",
     "it": "Gli umani del picnic",
     "pt": "Os humanos do piquenique"
-  },
-  "picnicHungry": {
-    "es": "Estoy ya mu viejo pa remar y más viejo aún pa andar con barbacoas, pero pa compartir siempre me queda cuerda. ¿Nos zampamos una brocheta juntos?",
-    "en": "I'm too old for rowing and older still for barbecues, but I've always got rope left for sharing. Shall we split a skewer, you and me?",
-    "de": "Zum Rudern bin ich zu alt und zum Grillen erst recht, aber zum Teilen reicht's immer noch. Wie wär's mit einem Spieß zu zweit?",
-    "fr": "Je suis trop vieux pour ramer et encore plus pour le barbecue, mais pour partager il m'en reste toujours. On s'enfile une brochette à deux ?",
-    "it": "Sono troppo vecchio per remare e ancora di più per le grigliate, ma per condividere me ne resta sempre. Ci spartiamo uno spiedino?",
-    "pt": "Já estou velho de mais para remar e mais ainda para churrascos, mas para partilhar sobra-me sempre. Vamos a um espetinho a meias?"
-  },
-  "picnicHungryAgain": {
-    "es": "¡Ea, ya está la barriga dando palmas otra vez! ¿Me apañas otra brocheta, figura?",
-    "en": "There goes my belly again, kicking up a right fuss. Another skewer, legend?",
-    "de": "Na toll, mein Bauch macht wieder Randale! Noch einen Spieß, du Held?",
-    "fr": "Et voilà, mon ventre remet le bazar ! Tu me refais une brochette, champion ?",
-    "it": "Ecco, la pancia ricomincia a fare casino! Un altro spiedino, campione?",
-    "pt": "Pronto, a barriga já está a armar confusão outra vez! Fazes outra espetada, campeão?"
   },
   "picnicKnife": {
     "es": "Vaya navajita que tienen los colegas, esta me la llevo yo que me viene canela pa cortar las setas.",
@@ -339,30 +275,6 @@
     "it": "Rametto, pancia di tuono",
     "pt": "Raminho, barriga de trovão"
   },
-  "picnicSmellsGood": {
-    "es": "¡Ese olorcito! ¿Es para mí? Prometo masticar. Al menos las dos primeras veces.",
-    "en": "That smell… Is it for me? I promise to chew. At least the first two times.",
-    "de": "Dieser Duft… Ist das für mich? Ich verspreche zu kauen. Zumindest die ersten zwei Mal.",
-    "fr": "Cette odeur… C’est pour moi ? Promis, je mâcherai. Au moins les deux premières fois.",
-    "it": "Quel profumino… È per me? Prometto di masticare. Almeno le prime due volte.",
-    "pt": "Esse cheirinho… É para mim? Prometo mastigar. Pelo menos as primeiras duas vezes."
-  },
-  "picnicThanks": {
-    "es": "¡Ole esa brocheta! Toma, quédate mis remos, figura. A mí ya solo me llevan hasta la siesta.",
-    "en": "Now that's a skewer! Here, keep my oars, friend. These days they only row me as far as my nap.",
-    "de": "Was für ein Spieß! Hier, nimm meine Ruder, Freundchen. Mich bringen sie sowieso nur noch bis zum Mittagsschlaf.",
-    "fr": "Quelle brochette ! Tiens, garde mes rames, mon vieux. Moi, elles ne me mènent plus qu'à la sieste.",
-    "it": "Che spiedino! Tieni, prenditi i miei remi, bello. A me ormai mi portano solo fino al pisolino.",
-    "pt": "Que espetada! Toma, fica com os meus remos, ó pá. A mim já só me levam até à sesta."
-  },
-  "picnicThanksAgain": {
-    "es": "¡Ole tú, otra brocheta! Me has arreglao la tarde. Ahora toca siestecita, que cocinar cansa… de mirarlo.",
-    "en": "Another lovely skewer! You've made my day. Time for a nap. Watching you cook was exhausting.",
-    "de": "Noch ein Spieß, du bist klasse! Jetzt wird gedöst. Dir beim Kochen zuzusehen macht müde.",
-    "fr": "Encore une brochette, t’assures ! Maintenant, sieste. Te regarder cuisiner, ça fatigue.",
-    "it": "Un altro spiedino, sei un grande! Ora pennichella. Guardarti cucinare è faticoso.",
-    "pt": "Outra espetada, és o maior! Agora vou dormir a sesta. Ver-te cozinhar cansa."
-  },
   "picnicTortilla": {
     "es": "Tortilla de patatas",
     "en": "Spanish potato tortilla",
@@ -370,46 +282,6 @@
     "fr": "Tortilla de pommes de terre",
     "it": "Tortilla di patate",
     "pt": "Tortilla de batata"
-  },
-  "skewerCooked": {
-    "es": "¡Ole, brocheta al saco! Doradita y con más arte que un domingo de feria. Ahora a buscar una barriga que lo agradezca.",
-    "en": "Skewer in the sack! Golden and prettier than a fairground Sunday. Now to find a belly that'll thank me for it.",
-    "de": "Spieß im Sack! Goldbraun und schöner als ein Sonntag auf dem Jahrmarkt. Jetzt nur noch ein Bauch, der sich bedankt.",
-    "fr": "Brochette dans le sac ! Bien dorée et plus belle qu'un dimanche de fête. Reste à trouver un ventre qui dise merci.",
-    "it": "Spiedino nel sacco! Dorato e più bello di una domenica di sagra. Ora manca una pancia che ringrazi.",
-    "pt": "Espetada no saco! Douradinha e com mais arte que um domingo de feira. Agora só falta uma barriga que agradeça."
-  },
-  "skewerNeedKnife": {
-    "es": "Pa trocear la seta hace falta una navajita. A ver quién presta una.",
-    "en": "Slicing that mushroom takes a knife. Let's see who's lending one.",
-    "de": "Zum Zerteilen des Pilzes braucht's ein Messer. Mal sehen, wer eins verleiht.",
-    "fr": "Pour découper le champignon il faut un couteau. Voyons qui en prête un.",
-    "it": "Per tagliare il fungo ci vuole un coltellino. Vediamo chi ne presta uno.",
-    "pt": "Para cortar o cogumelo é precisa uma navalha. Vamos lá ver quem empresta uma."
-  },
-  "skewerNeedMushroom": {
-    "es": "Pa una brocheta en condiciones hacen falta cinco setas. Voy a buscar las que faltan.",
-    "en": "A proper skewer takes five mushrooms. Let's find the rest.",
-    "de": "Für einen ordentlichen Spieß brauche ich fünf Pilze. Den Rest such ich noch.",
-    "fr": "Pour une vraie brochette, il faut cinq champignons. Allons chercher les autres.",
-    "it": "Per uno spiedino come si deve servono cinque funghi. Cerco quelli che mancano.",
-    "pt": "Uma espetada a sério leva cinco cogumelos. Vou buscar os que faltam."
-  },
-  "skewerNeedTwig": {
-    "es": "Qué buen candelorro, a ver si encuentro un palillo por ahí pa hacer una buena brocheta.",
-    "en": "Now that's a proper fire. Time to find a stick for a cracking skewer.",
-    "de": "Das nenn ich ein Feuer! Jetzt such ich 'nen Stock für einen ordentlichen Spieß.",
-    "fr": "Ça, c'est du beau feu ! Je vais chercher un bâton pour une brochette de compet'.",
-    "it": "Questo sì che è un bel fuoco! Cerco un bastoncino per uno spiedino da urlo.",
-    "pt": "Isto é que é uma bela fogueira! Vou buscar um pauzinho para uma espetada à maneira."
-  },
-  "skewerReady": {
-    "es": "Brasa, cinco setas, palillo y navajita. ¡Apartarse, que viene el chef del bosque!",
-    "en": "Coals, five mushrooms, a stick and a knife. Woodland chef coming through!",
-    "de": "Glut, fünf Pilze, Stock und Messer. Platz da, der Waldkoch kommt!",
-    "fr": "Braises, cinq champignons, bâton et couteau. Place au chef du bois !",
-    "it": "Brace, cinque funghi, bastoncino e coltellino. Arriva lo chef del bosco!",
-    "pt": "Brasas, cinco cogumelos, pauzinho e navalha. Chegou o chef da floresta!"
   },
   "tortillaLook": {
     "es": "¡Una tortilla de patatas como una plaza! Con un trozo de eso como yo un mes.",
@@ -482,5 +354,37 @@
     "fr": "« Le moulin d’Avelino ». Suis le sentier vers le nord jusqu’au Coude des saules. Le moulin se trouve près du grand méandre, sur cette rive. Le plus sage magicien de la forêt t’y attend avec ton premier défi.",
     "it": "«Il mulino di Avelino». Segui il sentiero verso nord fino all’Ansa dei salici. Il mulino si trova accanto al grande meandro, su questa riva. Dentro ti aspetta il mago più saggio del bosco con la tua prima sfida.",
     "pt": "«O moinho de Avelino». Segue o caminho para norte até à Curva dos Salgueiros. O moinho fica junto ao grande meandro, nesta margem. Lá dentro espera-te o mago mais sábio da floresta com o teu primeiro desafio."
+  },
+  "restaurantRest": {
+    "es": "¡Arrímate, que aquí cabe to el mundo! Una sombrita, buena compañía y el río de fondo.",
+    "en": "Pull up a chair! Shade, good company and the river nearby.",
+    "de": "Rück näher! Schatten, nette Gesellschaft und der Fluss ganz nah.",
+    "fr": "Approche ! De l’ombre, de la compagnie et la rivière tout près.",
+    "it": "Avvicinati! Ombra, buona compagnia e il fiume vicino.",
+    "pt": "Chega-te para cá! Sombra, boa companhia e o rio ao fundo."
+  },
+  "barbecueRest": {
+    "es": "Qué gustito junto a las brasas. Si buscas misterios, Avelino te espera en el molino.",
+    "en": "Lovely warm embers. For mysteries, Avelino awaits you at the mill.",
+    "de": "Schön warm an der Glut. Für Rätsel wartet Avelino in der Mühle auf dich.",
+    "fr": "Qu’il fait bon près des braises. Pour les mystères, Avelino t’attend au moulin.",
+    "it": "Che bel tepore. Per i misteri, Avelino ti aspetta al mulino.",
+    "pt": "Que bom estar junto às brasas. Para mistérios, o Avelino espera-te no moinho."
+  },
+  "picnicOarsGift": {
+    "es": "¡Ea, qué alegría una visita! Yo ya remo más en sueños que despierto. Toma mis remos; con una botella grande te puedes montar una barquita.",
+    "en": "A visitor! These days I row more in my dreams. Take my oars; a big bottle could make you a little boat.",
+    "de": "Besuch! Heute rudere ich meist im Traum. Nimm meine Ruder; aus einer großen Flasche kannst du ein Boot bauen.",
+    "fr": "De la visite ! Je rame surtout dans mes rêves. Prends mes rames ; une grande bouteille te fera une petite barque.",
+    "it": "Una visita! Ormai remo soprattutto nei sogni. Prendi i miei remi: con una bottiglia grande puoi farti una barchetta.",
+    "pt": "Uma visita! Hoje remo mais nos sonhos. Toma os meus remos; com uma garrafa grande fazes um barquinho."
+  },
+  "picnicRest": {
+    "es": "Yo me quedo aquí de charla. Tú aprovecha esos remos, que el río tiene rincones preciosos.",
+    "en": "I’m staying for a chat. Put those oars to use; the river has beautiful corners.",
+    "de": "Ich bleibe zum Plaudern. Nutze die Ruder; am Fluss gibt es schöne Ecken.",
+    "fr": "Je reste bavarder. Profite des rames ; la rivière cache de jolis coins.",
+    "it": "Io resto a chiacchierare. Usa quei remi: il fiume ha angolini bellissimi.",
+    "pt": "Eu fico à conversa. Aproveita os remos, que o rio tem recantos lindos."
   }
 }

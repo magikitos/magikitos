@@ -20,6 +20,7 @@ const empty = () => ({
 function game(state = {}) {
   store.clear();
   return {
+    catalog: require("../data/aventura/catalog.json"),
     state: { flags: {}, inventory: {}, timers: {}, resources: {}, wallet: { balance: 0, claimed: {} }, ...state },
     cloud: { owner: 1 },
     session: { get: () => "token-one" },
@@ -30,6 +31,15 @@ function game(state = {}) {
   };
 }
 (async () => {
+  {
+    const g = game(), m = new MaterialAccount(g);
+    m.account = { ...empty(), inventory: { skewer: 1, knife: 1, oars: 1, millKey: 1 },
+      progress: { flags: { avelinoMemorySolved: true }, timers: {}, rewards: {} } };
+    m.reconcile();
+    assert.deepEqual(g.state.inventory, { knife: 1, oars: 1, millKey: 1 }, "Retired server items cannot break the bag");
+    assert(g.state.flags.avelinoMemorySolved, "Quest progress survives retirement");
+    assert.equal(m.account.inventory.skewer, 1, "The client never edits the server account or receipts");
+  }
   for (const state of [
     { inventory: { lighter: 1 } },
     { inventory: { knife: 1, mushroom: 1 } },
@@ -47,14 +57,10 @@ function game(state = {}) {
     const m = new MaterialAccount(g);
     await m.connect();
     const verbs = m.queue.map((e) => e.entity + ":" + e.action);
-    if (state.inventory.skewer)
-      assert(
-        verbs.includes("picnic-barbecue:cook") &&
-          !verbs.includes("picnic-neighbor:give"),
-      );
+    assert(!verbs.some(v => v.endsWith(":cook") || v.endsWith(":give")), "Recovery never replays retired cooking");
     if (state.inventory.boat)
       assert(
-        verbs.includes("picnic-neighbor:give") &&
+        verbs.includes("picnic-neighbor:interact") &&
           verbs.includes("river-dock:craft"),
       );
     assert(
@@ -75,7 +81,7 @@ function game(state = {}) {
     assert.equal(
       m.queue.length,
       0,
-      "Frozen server migration is never replayed as another meal",
+      "Existing server tools are not replayed",
     );
   }
   {

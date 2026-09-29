@@ -344,22 +344,19 @@ for (const objects of permutations([mushroom, twig, lighter, knife])) {
     if (!state.inventory.mushroom) react(mushroom, state, catalog);
     react(e("forest-mushrooms-root"), state, catalog);
     if (!state.flags.fireLit) react(fire, state, catalog, { action: "light" });
-    assert(actions(fire, state, catalog).some((a) => a.id === "cook"));
-    const draft = planReaction(fire, state, catalog, { action: "cook" });
-    assert(!state.flags.skewerCooked, "Planning never mutates live state");
-    Object.assign(state, draft.state);
-    assert(state.flags.skewerCooked && state.flags.fireLit);
-    assert.deepEqual(state.inventory, { lighter: 1, knife: 1, skewer: 1 });
-    react(hungry, state, catalog, { action: "use", item: "skewer" });
-    assert(state.flags.picnicFed);
-    assert.deepEqual(state.inventory, { lighter: 1, knife: 1, oars: 1 });
-    // ⛔ Lo que se lleva quien comparte la brocheta son LOS REMOS (17-sep-2026, decisión del
-    // dueño). Los setines son reputación y se ganan en la web; el bosque no acuña ni uno.
+    assert(!actions(fire, state, catalog).some((a) => a.id === "cook"));
+    assert.equal(planReaction(fire, state, catalog, { action: "cook" }), null);
+    const beforeGift = structuredClone(state);
+    const gift = planReaction(hungry, state, catalog);
+    assert.deepEqual(state, beforeGift, "Planning the gift never mutates live state");
+    Object.assign(state, gift.state);
+    assert(state.flags.oarsReceived);
+    assert.deepEqual(state.inventory, { lighter: 1, knife: 1, mushroom: 5, twig: 1, oars: 1 });
     const purse = structuredClone(state.wallet);
     assert.equal(purse.balance, 0);
-    react(hungry, state, catalog, { action: "give" });
-    assert.deepEqual(state.wallet, purse, "Sharing a meal never touches the purse");
-    assert(!ferry, "Brizno is the one cooking and sharing his oars near the dock");
+    react(hungry, state, catalog);
+    assert.deepEqual(state.wallet, purse, "A gift never touches the purse");
+    assert(!ferry, "Brizno shares his oars near the dock");
     // La vida del islote se mudó a la pradera de los sauces (17-sep-2026): las tres casas se
     // borraron y sus vecinos viven ahora en el prado, con las conchas al filo del río.
     const meadow = new World(catalog.scenes["river-willows"]);
@@ -389,7 +386,7 @@ const onlyLighter = fresh();
 react(lighter, onlyLighter, catalog);
 react(fire, onlyLighter, catalog, { action: "use", item: "lighter" });
 assert(onlyLighter.flags.fireLit);
-assert(!onlyLighter.flags.skewerCooked);
+assert(!catalog.items.skewer);
 assert.equal(onlyLighter.inventory.lighter, 1);
 const onlyMushroom = fresh();
 react(mushroom, onlyMushroom, catalog);
@@ -399,7 +396,7 @@ assert.deepEqual(
 );
 for (const badEffects of [
   [
-    { type: "flag", flag: "skewerCooked" },
+    { type: "flag", flag: "fireLit" },
     { type: "item", item: "lighter", amount: -1 },
   ],
   [{ type: "flag", flag: "arbitrary" }],
@@ -422,7 +419,7 @@ for (const badEffects of [
 world.refresh(fresh());
 const west = { x: 40.5 * TILE, y: 55.5 * TILE },
   east = { x: 49.5 * TILE, y: 55.5 * TILE };
-assert(world.path(west, east)?.length, "The former river crossing is continuous dry meadow before cooking");
+assert(world.path(west, east)?.length, "The former river crossing is continuous dry meadow from the start");
 assert(!world.entities.some((e) => e.id === "bridge-hunger"), "No hunger gate");
 assert(!world.waterAt(45, 45));
 assert(!world.waterAt(13, 43), "No picnic pond");
@@ -446,12 +443,12 @@ const poisoned = cleanSave(
   {
     scene: "house",
     position: { x: -1, y: Infinity },
-    flags: { picnicFed: true, arbitrary: true },
+    flags: { oarsReceived: true, picnicFed: true, skewerCooked: true, arbitrary: true },
     inventory: { lighter: 500, unknown: 99 },
   },
   catalog,
 );
-assert.deepEqual(poisoned.flags, { picnicFed: true });
+assert.deepEqual(poisoned.flags, { oarsReceived: true }, "Retired cooking flags are discarded");
 assert.deepEqual(poisoned.inventory, { lighter: 1 }, "Los remos solo los da Brizno: ninguna migración los regala");
 assert.equal(poisoned.position.x, catalog.scenes.house.spawn.x * TILE);
 for (const value of [null, [], 123, "invalid", { scene: "__proto__" }])
@@ -567,10 +564,10 @@ assert.deepEqual(
     },
     catalog,
   ).wallet,
-  { balance: 10, claimed: { picnic: true } },
+  { balance: 10, claimed: {} },
 );
 console.log(
   "PASS: " +
     paths +
-    " collision-safe routes; modular sprites; " + (catalog.avatarVariants.length+2) + " duendes × 8 directions × 4 poses; all ingredient orders; a purse the world never fills; river clues; content rooms; saves.",
+    " collision-safe routes; modular sprites; " + (catalog.avatarVariants.length+2) + " duendes × 8 directions × 4 poses; all pickup orders; a purse the world never fills; river clues; content rooms; saves.",
 );

@@ -1479,8 +1479,8 @@
           {
             "effects": [
               {
-                "type": "content",
-                "key": "restaurant"
+                "type": "dialogue",
+                "key": "restaurantRest"
               }
             ]
           }

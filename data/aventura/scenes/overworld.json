@@ -226,21 +226,21 @@
     {
       "id":"restaurant-kitchen","sprite":"restaurant-tile-kitchen","x":72,"y":87,
       "label":"restaurant","solid":[-6,-3.5,12,3.6],
-      "rules":[{"effects":[{"type":"content","key":"restaurant"}]}]
+      "rules":[{"effects":[{"type":"dialogue","key":"restaurantRest"}]}]
     },
     {
       "id":"restaurant-table-west","sprite":"table","x":62,"y":93,"artVariant":"auto",
       "label":"restaurant","solid":[-1.65,-1.5,3.3,1.8],
       "capabilities":["socialize"],"slots":[[-2.5,0,"right"],[2.5,0,"left"],[0,1.6,"up"]],
       "attachments":[{"sprite":"feast-stew","offset":[-10,-34],"scale":0.6},{"sprite":"feast-bottles","offset":[13,-32],"scale":0.65}],
-      "rules":[{"effects":[{"type":"content","key":"restaurant"}]}]
+      "rules":[{"effects":[{"type":"dialogue","key":"restaurantRest"}]}]
     },
     {
       "id":"restaurant-table-east","sprite":"table","x":83,"y":93,"artVariant":"auto",
       "label":"restaurant","solid":[-1.65,-1.5,3.3,1.8],
       "capabilities":["socialize"],"slots":[[-2.5,0,"right"],[2.5,0,"left"],[0,1.6,"up"]],
       "attachments":[{"sprite":"feast-stew","offset":[-10,-34],"scale":0.6},{"sprite":"feast-bottles","offset":[13,-32],"scale":0.65}],
-      "rules":[{"effects":[{"type":"content","key":"restaurant"}]}]
+      "rules":[{"effects":[{"type":"dialogue","key":"restaurantRest"}]}]
     },
     {"id":"restaurant-lantern-west","sprite":"lantern","x":57,"y":91,"rules":[]},
     {"id":"restaurant-lantern-east","sprite":"lantern","x":89,"y":91,"rules":[]},
@@ -710,11 +710,6 @@
       "x": 19.25,
       "y": 62.75,
       "depth": -1000,
-      "hiddenWhen": {
-        "flags": {
-          "skewerCooked": true
-        }
-      },
       "rules": []
     },
     {
@@ -724,11 +719,6 @@
       "sprite": "picnic-smoker",
       "x": 16.75,
       "y": 59.75,
-      "hiddenWhen": {
-        "flags": {
-          "skewerCooked": true
-        }
-      },
       "solid": [
         -2.5,
         -2.7,
@@ -754,11 +744,6 @@
       "sprite": "picnic-human-friend",
       "x": 22.5,
       "y": 60.5,
-      "hiddenWhen": {
-        "flags": {
-          "skewerCooked": true
-        }
-      },
       "solid": [
         -2.4,
         -2.7,
@@ -782,11 +767,6 @@
       "sprite": "picnic-tortilla",
       "x": 21.25,
       "y": 64,
-      "hiddenWhen": {
-        "flags": {
-          "skewerCooked": true
-        }
-      },
       "solid": [
         -1.65,
         -1.5,
@@ -810,11 +790,6 @@
       "sprite": "picnic-guacamole",
       "x": 17.25,
       "y": 61.25,
-      "hiddenWhen": {
-        "flags": {
-          "skewerCooked": true
-        }
-      },
       "rules": []
     },
     {
@@ -822,11 +797,6 @@
       "sprite": "picnic-tortilla-chips",
       "x": 18.25,
       "y": 62.75,
-      "hiddenWhen": {
-        "flags": {
-          "skewerCooked": true
-        }
-      },
       "rules": []
     },
     {
@@ -834,11 +804,6 @@
       "sprite": "picnic-lemonade",
       "x": 13.75,
       "y": 57,
-      "hiddenWhen": {
-        "flags": {
-          "skewerCooked": true
-        }
-      },
       "rules": []
     },
     {
@@ -846,11 +811,6 @@
       "sprite": "picnic-orange-soda",
       "x": 19.25,
       "y": 62,
-      "hiddenWhen": {
-        "flags": {
-          "skewerCooked": true
-        }
-      },
       "rules": []
     },
     {
@@ -858,11 +818,6 @@
       "sprite": "picnic-speaker",
       "x": 20,
       "y": 55.75,
-      "hiddenWhen": {
-        "flags": {
-          "skewerCooked": true
-        }
-      },
       "rules": []
     },
     {
@@ -919,9 +874,6 @@
       "x": 28.75,
       "y": 65,
       "visibleWhen": {
-        "flags": {
-          "skewerCooked": true
-        },
         "maxItems": {
           "bottle": 0,
           "boat": 0
@@ -1020,11 +972,6 @@
             53
           ]
         ]
-      },
-      "visibleWhen": {
-        "flags": {
-          "skewerCooked": true
-        }
       },
       "rules": []
     },
@@ -1321,9 +1268,9 @@
     }
   ],
   "neighbors": [
-    {"id":"restaurant-guest-1","x":59.5,"y":93,"radius":2,"content":"restaurant","lookAt":[62,93]},
-    {"id":"restaurant-guest-2","x":85.5,"y":93,"radius":2,"content":"restaurant","lookAt":[83,93]},
-    {"id":"restaurant-guest-3","x":72,"y":97,"radius":2,"content":"restaurant","lookAt":[72,87]},
+    {"id":"restaurant-guest-1","x":59.5,"y":93,"radius":2,"dialogue":"restaurantRest","lookAt":[62,93]},
+    {"id":"restaurant-guest-2","x":85.5,"y":93,"radius":2,"dialogue":"restaurantRest","lookAt":[83,93]},
+    {"id":"restaurant-guest-3","x":72,"y":97,"radius":2,"dialogue":"restaurantRest","lookAt":[72,87]},
     {
       "id": "plaza-1",
       "x": 66,

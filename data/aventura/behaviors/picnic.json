@@ -21,70 +21,6 @@
     "rules": [
       {
         "action": [
-          "cook",
-          "use"
-        ],
-        "when": {
-          "flags": {
-            "fireLit": true
-          },
-          "items": {
-            "mushroom": 5,
-            "twig": 1,
-            "knife": 1
-          },
-          "maxItems": {
-            "skewer": 0
-          },
-          "using": [
-            "mushroom",
-            "twig",
-            "knife"
-          ]
-        },
-        "effects": [
-          {
-            "type": "presentation",
-            "sequence": "work",
-            "props": [
-              "mushroom",
-              "knife",
-              "twig"
-            ],
-            "result": "skewer",
-            "duration": 2.4
-          },
-          {
-            "type": "item",
-            "item": "mushroom",
-            "amount": -5
-          },
-          {
-            "type": "item",
-            "item": "twig",
-            "amount": -1
-          },
-          {
-            "type": "item",
-            "item": "skewer",
-            "amount": 1
-          },
-          {
-            "type": "flag",
-            "flag": "skewerCooked"
-          },
-          {
-            "type": "dialogue",
-            "key": "skewerCooked"
-          },
-          {
-            "type": "sound",
-            "key": "found"
-          }
-        ]
-      },
-      {
-        "action": [
           "light",
           "use"
         ],
@@ -124,19 +60,6 @@
       },
       {
         "when": {
-          "items": {
-            "skewer": 1
-          }
-        },
-        "effects": [
-          {
-            "type": "dialogue",
-            "key": "barbecueAfter"
-          }
-        ]
-      },
-      {
-        "when": {
           "flags": {
             "fireLit": false
           },
@@ -168,72 +91,15 @@
         ]
       },
       {
-        "when": {
-          "maxItems": {
-            "twig": 0
-          }
-        },
         "effects": [
           {
             "type": "dialogue",
-            "key": "skewerNeedTwig"
-          }
-        ]
-      },
-      {
-        "when": {
-          "maxItems": {
-            "mushroom": 4
-          }
-        },
-        "effects": [
-          {
-            "type": "dialogue",
-            "key": "skewerNeedMushroom"
-          }
-        ]
-      },
-      {
-        "when": {
-          "maxItems": {
-            "knife": 0
-          }
-        },
-        "effects": [
-          {
-            "type": "dialogue",
-            "key": "skewerNeedKnife"
-          }
-        ]
-      },
-      {
-        "when": {},
-        "effects": [
-          {
-            "type": "dialogue",
-            "key": "skewerReady"
+            "key": "barbecueRest"
           }
         ]
       }
     ],
     "actions": [
-      {
-        "id": "cook",
-        "label": "cookSkewer",
-        "when": {
-          "flags": {
-            "fireLit": true
-          },
-          "items": {
-            "mushroom": 5,
-            "twig": 1,
-            "knife": 1
-          },
-          "maxItems": {
-            "skewer": 0
-          }
-        }
-      },
       {
         "id": "light",
         "label": "light",
@@ -293,58 +159,31 @@
       2.3,
       1.4
     ],
-    "visuals": [
-      {
-        "when": {
-          "timers": {
-            "picnic": true
-          }
-        },
-        "sprite": "person-12-down-left-sit-2"
-      }
-    ],
     "rules": [
       {
-        "action": [
-          "give",
-          "use"
-        ],
         "when": {
-          "items": {
-            "skewer": 1
-          },
           "flags": {
-            "picnicFed": false
+            "oarsReceived": false,
+            "boatBuilt": false
           },
-          "timers": {
-            "picnic": false
-          },
-          "using": [
-            "skewer"
-          ]
+          "maxItems": {
+            "oars": 0,
+            "boat": 0
+          }
         },
         "effects": [
-          {
-            "type": "item",
-            "item": "skewer",
-            "amount": -1
-          },
-          {
-            "type": "flag",
-            "flag": "picnicFed"
-          },
-          {
-            "type": "timer",
-            "timer": "picnic"
-          },
           {
             "type": "item",
             "item": "oars",
             "amount": 1
           },
           {
+            "type": "flag",
+            "flag": "oarsReceived"
+          },
+          {
             "type": "dialogue",
-            "key": "picnicThanks"
+            "key": "picnicOarsGift"
           },
           {
             "type": "sound",
@@ -353,104 +192,12 @@
         ]
       },
       {
-        "action": [
-          "give",
-          "use"
-        ],
-        "when": {
-          "items": {
-            "skewer": 1
-          },
-          "flags": {
-            "picnicFed": true
-          },
-          "timers": {
-            "picnic": false
-          },
-          "using": [
-            "skewer"
-          ]
-        },
-        "effects": [
-          {
-            "type": "item",
-            "item": "skewer",
-            "amount": -1
-          },
-          {
-            "type": "timer",
-            "timer": "picnic"
-          },
-          {
-            "type": "dialogue",
-            "key": "picnicThanksAgain"
-          },
-          {
-            "type": "sound",
-            "key": "found"
-          }
-        ]
-      },
-      {
-        "when": {
-          "timers": {
-            "picnic": true
-          }
-        },
         "effects": [
           {
             "type": "dialogue",
-            "key": "picnicAfter"
+            "key": "picnicRest"
           }
         ]
-      },
-      {
-        "when": {
-          "items": {
-            "skewer": 1
-          }
-        },
-        "effects": [
-          {
-            "type": "dialogue",
-            "key": "picnicSmellsGood"
-          }
-        ]
-      },
-      {
-        "when": {
-          "flags": {
-            "picnicFed": true
-          }
-        },
-        "effects": [
-          {
-            "type": "dialogue",
-            "key": "picnicHungryAgain"
-          }
-        ]
-      },
-      {
-        "effects": [
-          {
-            "type": "dialogue",
-            "key": "picnicHungry"
-          }
-        ]
-      }
-    ],
-    "actions": [
-      {
-        "id": "give",
-        "label": "giveSkewer",
-        "when": {
-          "items": {
-            "skewer": 1
-          },
-          "timers": {
-            "picnic": false
-          }
-        }
       }
     ],
     "seat": {

@@ -31,15 +31,6 @@ for (const variant of family.variants) {
 for (const [scene,data] of Object.entries(world.scenes)) for(const node of data.entities.filter(e=>e.harvest)) {
   assert.deepEqual(contract.adventure.entities[scene][node.id].rules,node.rules,"Server and player receive identical amounts");
 }
-const fire=world.scenes.overworld.entities.find(e=>e.id==="picnic-barbecue");
-for(let n=0;n<=6;n++){
-  const state=cleanSave(null,world);
-  state.inventory={knife:1,lighter:1,twig:1,mushroom:n}; state.flags.fireLit=true;
-  assert.equal(actions(fire,state).some(a=>a.id==="cook"),n>=5);
-  const p=planReaction(fire,state,world,{action:"cook"});
-  if(n<5) assert.equal(p,null);
-  else { assert.equal(p.state.inventory.mushroom||0,n-5); assert.equal(p.state.inventory.skewer,1); }
-}
 const row={id:1,title:"Una raíz",score:1000}, other={...row,id:2};
 assert.equal(daily({day:"2026-09-21",pair:[row,other]}).pair.length,2);
 for(const bad of [{}, {...row,id:NaN},{...row,id:"1"},{...row,score:-1},{...row,title:""}])
@@ -50,4 +41,4 @@ assert.deepEqual(ranking({items:[row],offset:0,nextCursor:1}),{items:[row],nextC
 assert.throws(()=>ranking({items:[row],offset:0,nextCursor:0}));
 assert.throws(()=>ranking({items:[row,row],offset:0,nextCursor:null}));
 assert.throws(()=>ranking({items:[row],offset:24,nextCursor:null}));
-console.log("PASS forest market: six exact-count harvests, full-group capacity, server parity, five-mushroom recipe, strict daily/ranking DTOs.");
+console.log("PASS forest market: six exact-count harvests, full-group capacity, server parity, strict daily/ranking DTOs.");

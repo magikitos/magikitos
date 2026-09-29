@@ -21,7 +21,7 @@ const MUTATIONS = new Set([
   "reward",
   "spend",
 ]);
-/** Bounded durable outbox. Server validates each recipe/pickup; local snapshots
+/** Bounded durable outbox. Server validates each craft/pickup; local snapshots
  * are never submitted as a request to mint community materials. */
 class MaterialAccount {
   constructor(game) {
@@ -52,7 +52,7 @@ class MaterialAccount {
   /**
    * A removed map entity can leave an offline command behind. Keep the original receipt for
    * inspection, but never let a definite API rejection block unrelated pickups or travel forever.
-   * A generic HTTP 404 is NOT sufficient. Recipe preconditions can also be definitively obsolete
+   * A generic HTTP 404 is NOT sufficient. Craft preconditions can also be definitively obsolete
    * (for example, lighting an already-lit fire after offline quest recovery).
    *
    * ⛔ Y EL ARCHIVO ES UN ANILLO, NO UN MURO (21-sep-2026, revisión). Estaba tope en 192 y sin
@@ -196,17 +196,12 @@ class MaterialAccount {
       if (s.flags[challenge.completed]) add(challenge.giver, challenge.action, challenge.scene);
     }
     if (s.flags.avelinoChestOpened) add("mill-chest", "interact", "river-willows");
-    const fed = s.flags.picnicFed || s.inventory.boat;
-    const cooked = fed || s.flags.skewerCooked || s.inventory.skewer;
-    const lit = cooked || s.flags.fireLit;
-    if (s.inventory.twig || cooked) add("picnic-twig");
-    if (s.inventory.lighter || lit) add("picnic-lighter");
-    if (s.inventory.knife || cooked || s.inventory.mushroom)
-      add("picnic-knife");
-    if (s.inventory.mushroom || cooked) add("forest-mushrooms-fern");
-    if (lit) add("picnic-barbecue", "light");
-    if (cooked) add("picnic-barbecue", "cook");
-    if (fed) add("picnic-neighbor", "give");
+    if (s.inventory.twig) add("picnic-twig");
+    if (s.inventory.lighter || s.flags.fireLit) add("picnic-lighter");
+    if (s.inventory.knife || s.inventory.mushroom || s.inventory.boat) add("picnic-knife");
+    if (s.inventory.mushroom) add("forest-mushrooms-fern");
+    if (s.flags.fireLit) add("picnic-barbecue", "light");
+    if (s.flags.oarsReceived || s.inventory.oars || s.inventory.boat) add("picnic-neighbor");
     if (s.inventory.bottle || s.inventory.boat) add("picnic-bin");
     if (s.inventory.boat) add("river-dock", "craft");
     if (s.inventory.boat && s.flags.bowlFound)
@@ -349,7 +344,9 @@ class MaterialAccount {
           JSON.stringify({ owner: this.owner, state: g.state }),
         );
     } catch (_) {}
-    g.state.inventory = { ...a.inventory };
+    // An older server/account can still carry retired items during a release.
+    // Keep their authoritative receipt intact, but never put unknown art in the bag.
+    g.state.inventory = Object.fromEntries(Object.entries(a.inventory).filter(([id]) => g.catalog.items[id]));
     Object.assign(g.state.flags, a.progress.flags || {});
     Object.assign(g.state.timers, a.progress.timers || {});
     g.state.resources = { ...a.resources };

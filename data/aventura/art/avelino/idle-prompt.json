@@ -1,0 +1,6 @@
+{
+  "mode": "built-in image_gen",
+  "reference": "avelino.png",
+  "output": "avelino-think.png",
+  "prompt": "Use case: precise-object-edit. Asset type: one registered alternate idle animation sprite for the Magikitos game. Edit target: the supplied transparent image of Avelino. Preserve EXACT character identity, pixel illustration style, palette, clothing, hat, cane, body proportions, lighting, canvas dimensions 1280x1280 and character bounding box. Change ONLY his free hand on image right: raise this hand slightly from his belt to the lower edge of his beard, as if thoughtfully stroking his beard. Give his eyes a gentle relaxed nearly closed blink. Everything else including his feet, legs, staff, hat silhouette, torso, belt and background must remain registered at identical pixel locations. No new props, no text, no glow, no cast shadow, no ground, no multiple figures or sprite grid. The feet must not move at all. Genuine transparent background, preserve alpha."
+}

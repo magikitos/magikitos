@@ -16,28 +16,14 @@ const {SpriteLibrary}=require(root+"sprites");
 const catalog=compileWorld(process.cwd());
 const scene=catalog.scenes.overworld, find=id=>scene.entities.find(e=>e.id===id);
 const bbq=find("picnic-barbecue"), fountain=find("fountain");
-for(let bits=0;bits<64;bits++){
-  const s=cleanSave(null,catalog), keys=["lighter","twig","mushroom","knife","skewer"];
-  keys.forEach((k,i)=>{if(bits&(1<<i))s.inventory[k]=k==="mushroom"?5:1;});
-  s.flags.fireLit=Boolean(bits&32);
-  const expected=s.inventory.skewer?"barbecueAfter":
-    !s.flags.fireLit?(s.inventory.lighter?"barbecueLightReady":"barbecueHint"):
-    !s.inventory.twig?"skewerNeedTwig":!s.inventory.mushroom?"skewerNeedMushroom":
-    !s.inventory.knife?"skewerNeedKnife":"skewerReady";
-  const hint=planReaction(bbq,s,catalog).effects.filter(e=>e.type==="dialogue");
-  assert.deepEqual(hint,[{type:"dialogue",key:expected}],"One correct hint, state "+bits);
-  const ready=Boolean(s.flags.fireLit&&s.inventory.twig&&s.inventory.mushroom&&s.inventory.knife&&!s.inventory.skewer);
-  assert.equal(actions(bbq,s).some(a=>a.id==="cook"),ready);
-  const before=JSON.stringify(s), cooked=planReaction(bbq,s,catalog,{action:"cook"});
-  assert.equal(Boolean(cooked),ready);
-  assert.equal(JSON.stringify(s),before,"Pure recipe planning");
-  if(cooked){
-    assert.equal(cooked.state.inventory.skewer,1);
-    assert.equal(cooked.state.inventory.knife,1);
-    assert.equal(cooked.state.inventory.lighter,s.inventory.lighter);
-    assert(!cooked.state.inventory.twig&&!cooked.state.inventory.mushroom);
-    assert(cooked.effects.some(e=>e.type==="presentation"&&e.sequence==="work"));
-  }
+for (const lit of [false, true]) for (const lighter of [0, 1]) {
+  const state = cleanSave(null, catalog);
+  state.flags.fireLit = lit;
+  state.inventory = { lighter, knife: 1, mushroom: 5, twig: 1 };
+  const expected = lit ? "barbecueRest" : lighter ? "barbecueLightReady" : "barbecueHint";
+  assert.equal(planReaction(bbq, state, catalog).effects.find(e => e.type === "dialogue").key, expected);
+  assert(!actions(bbq, state).some(a => a.id === "cook"));
+  assert.equal(planReaction(bbq, state, catalog, { action: "cook" }), null);
 }
 let state=cleanSave(null,catalog);
 assert(active(find("forest-mushrooms-fern"),state));
@@ -146,4 +132,4 @@ for(const dt of [1/30,1/60,1/120]){
  assert.match(pushFrame(actor),/^person-100-right-push-/);
  assert.equal(w.collisionAt(actor.x,actor.y,actor),null);
 }
-console.log("PASS Ascua: 64 barbecue states, whole pickup, free fountain with its machinery intact, bounded reload memories, gesture poses, exact density/crops, restrained wind and 30/60/120 Hz pushing.");
+console.log("PASS Ascua: ambient fire without cooking, whole pickup, free fountain with its machinery intact, bounded reload memories, gesture poses, exact density/crops, restrained wind and 30/60/120 Hz pushing.");

@@ -35,7 +35,7 @@ for (const a of [...kit.assets, ...(kit.archivedAssets || [])]) {
   assert(metadata.bounds.every(Number.isFinite));
 }
 const actorPack = require("../data/aventura/assets/picnic-humans.json");
-const authoredFrames = { ...actorPack.frames, ...require("../data/aventura/assets/picnic-neighbor.json").frames };
+const authoredFrames = { ...require("../data/aventura/assets/avelino.json").frames, ...actorPack.frames, ...require("../data/aventura/assets/picnic-neighbor.json").frames };
 for (const id of ["picnic-smoker-poses", "picnic-friend-poses"]) {
   const directory = "data/aventura/art/picnic-polish/";
   const metadata = JSON.parse(

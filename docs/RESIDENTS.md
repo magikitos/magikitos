@@ -223,7 +223,7 @@ and anchors. Bow/roll declarations were retired; their original masters remain.
 ## Verification and local preview
 
 - `npm test`: geography, routes, casting, all open doors, compound collision
-  parity, lazy asset budgets, pickup atomicity, recipes, travel, saves and Studio.
+  parity, lazy asset budgets, pickup atomicity, crafting, travel, saves and Studio.
 - `npm run test:chapter`: desktop, tablet and mobile screenshots; fresh entry,
   picnic, Brizno and the willow meadow; real walk-in/walk-out trips through the
   open houses, returning to the same building.

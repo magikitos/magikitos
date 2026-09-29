@@ -13,8 +13,8 @@ a saludar para acceder al reto. Las visitas posteriores ofrecen continuar con la
 Se descubren de dos en dos, sin tiempo límite ni penalizaciones. Las cuatro
 parejas dan una llave. El cofre junto al camino, a la izquierda de la entrada,
 se abre con ella y contiene una nota de Avelino. La llave se conserva en el saco;
-no se adelanta todavía su siguiente uso. El reto puede repetirse por gusto sin
-volver a entregar la recompensa.
+no se adelanta todavía su siguiente uso. Al completarlo no se ofrece repetirlo. Avelino anuncia que no hay más misterios
+por ahora e invita a enviar una opinión para seguir ampliando el juego.
 
 ## Diseño y progreso
 
@@ -22,7 +22,8 @@ El puzzle usa `WorldSite`, `ContentRooms` y el mismo panel de los cuentos y el
 Setómetro. Las cartas son botones con nombres accesibles, foco visible y control
 con teclado, ratón o toque. La cara oculta no revela el símbolo al lector de
 pantalla. Los aciertos se anuncian en una región de estado; las animaciones
-respetan movimiento reducido. Se puede salir con el botón visible o Escape.
+respetan movimiento reducido. Se cierra con la X, Escape o un clic fuera. En móvil ocupa el viewport completo,
+por encima de los controles, con la X fija arriba a la derecha.
 Cerrar cancela los temporizadores y devuelve el control al mundo.
 
 Las parejas, la presentación, el reto completado y el cofre abierto son marcas
@@ -39,7 +40,29 @@ personaje, título, marca de finalización, acción y recompensa; `advance()` ex
 que los anteriores estén completos. Las reglas viven en `behaviors/avelino.json`.
 Otro tipo de puzzle necesita su propia vista y su validación de resultado.
 Los seis idiomas se escriben juntos en `locales/core.json` y los paquetes de
-escena. No hay una pantalla externa ni una nueva API.
+escena. El feedback usa la API específica descrita a continuación; los premios siguen
+usando las acciones existentes.
+
+## Opiniones al terminar
+
+El formulario solo envía tras pulsar «Enviar mi opinión». El texto (3–2000 caracteres)
+permanece al cerrar el panel o al fallar un envío durante la visita; no se guarda en disco.
+La web envía el correo al propietario, con destinatario fijo y texto escapado. No crea
+cuentas, publicaciones ni conversaciones públicas. El destinatario y el transporte
+pertenecen al backend privado.
+
+`POST /api/world/feedback` comprueba un token nuevo de Turnstile, la acción
+`game_feedback` y el dominio autorizado. Una configuración ausente o una caída del
+proveedor bloquean el envío. No se usa la ventana de humanidad de otras funciones.
+Los detalles siguen la [validación oficial de Turnstile](https://developers.cloudflare.com/turnstile/get-started/server-side-validation/).
+Hay un límite de diez intentos por IP/hora. Un UUID de envío y un recibo bloqueado en
+el servidor evitan duplicados al reintentar una respuesta perdida durante 30 días;
+los recibos solo contienen hash, fecha y resultado. Cada reintento obtiene un token nuevo.
+
+Las pruebas de servicio sustituyen verificación y transporte por funciones de prueba,
+sin ninguna puerta de pruebas en la API y sin enviar correos reales. El navegador
+comprueba borrador, error, reintento, cierre y acuse. El éxito confirma la aceptación
+por el proveedor de correo; no equivale a una confirmación de lectura.
 
 ## Arte original
 
@@ -75,6 +98,12 @@ quieto con movimiento reducido. Las piezas raster y los prompts exactos están e
 [musicbox-prompts.json](../data/aventura/art/avelino/musicbox-prompts.json); el modo
 empleado es la herramienta integrada `image_gen`, con alfa transparente.
 
+Avelino respira suavemente y se acaricia la barba en un bucle pausado. El gesto
+[avelino-think.png](../data/aventura/art/avelino/avelino-think.png) comparte registro
+con el original; las botas y la base del bastón permanecen quietas. Ambos fotogramas
+viajan juntos. El [prompt exacto](../data/aventura/art/avelino/idle-prompt.json)
+se ejecutó con la herramienta integrada `image_gen`. Movimiento reducido fija la pose.
+
 Los paquetes independientes se hornean con la misma densidad 2×,
 cuantización y WebP sin pérdida del resto del juego. Los originales no entran
 en el artefacto público; el interior y Avelino se cargan al visitar el molino.
@@ -109,4 +138,7 @@ aplica las mismas condiciones y recompensa única, sin dibujar un segundo cofre.
 
 Al publicar hay que reiniciar de forma ordenada `bosque-vivo.service` después de
 activar el artefacto: el demonio lee sus escenas y puertas al arrancar. No se
-necesitan migraciones, cambios de backend ni importaciones de partidas.
+importan partidas. Esta entrega incluye el endpoint de feedback de la web y la
+retirada de recetas: el backend y el puntero se publican juntos; después se aplica
+la migración revisada que retira las tablas vacías y los campos de cocina antiguos.
+Las herramientas, la llave, el progreso del mago y los saldos se conservan.

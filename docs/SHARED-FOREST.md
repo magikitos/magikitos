@@ -6,20 +6,22 @@ Sin vidas, combate, Libro del Bosque, fiambreras ni parcelas privadas.
 
 ## Recorrido de esta entrega
 
+La rama principal son los retos de Avelino, en el molino de la Curva de los Sauces.
+El primer juego de memoria entrega una llave para el cofre junto al molino.
+Navegar, construir y cuidar gatos son actividades secundarias independientes.
+
 1. Merendero humano al noroeste. Los humanos no detectan al duende; su gato sí.
    Mira su dirección, aprovecha los obstáculos y consigue navaja y mechero.
    El gato avisa antes de perseguir; si te pilla, te lleva por el pantalón, con el
    culete arriba y las extremidades colgando. Te deja más lejos, nunca en el agua,
    sin quitar objetos ni puntos de vida. Hay margen para escapar tras soltarte.
-2. Con la navaja cortas seta. Recoges una ramita, enciendes y cocinas. Los humanos
-   se marchan **al cocinar**, no al entregar. El primer gato permanece y aparece
-   un segundo de otra variedad; solo uno puede transportar al protagonista.
-   Brizno vive junto al muelle y comparte la barbacoa al lado de su casa. Recibe
-   la primera brocheta y entrega diez setines y sus remos reutilizables. Vuelve a
-   tener hambre cada cinco horas; la recompensa inicial no es una granja infinita.
-3. Al marcharse los humanos aparece una botella tirada junto a la papelera;
-   antes no existe ni se puede obtener mediante la API. En el embarcadero: botella + navaja +
-   remos del viejo. Solo se consume la botella. La navegación queda desbloqueada.
+2. Con la navaja cortas setas para el almacén. Puedes encender la barbacoa y
+   charlar con Brizno, que entrega sus remos reutilizables al saludarlo por primera
+   vez. No hay cocina, hambre ni premio de setines. Los humanos y ambos gatos
+   permanecen en el picnic; solo uno puede transportar al protagonista.
+3. La botella junto a la papelera está disponible desde el comienzo. En el
+   embarcadero: botella + navaja + remos de Brizno. Solo se consume la botella.
+   La navegación queda desbloqueada.
 4. Tres regiones de río, cada una una celda entera de la rejilla (192 × 144 tiles desde el
    20-sep-2026, con bosque nuevo por el oeste), con orillas explorables, desembarcos,
    vegetación, recursos y corrientes. Las rápidas empujan de verdad: busca remansos.
@@ -204,7 +206,7 @@ se erradicaron enteros.
 
 | Módulo/dato | Responsabilidad |
 | --- | --- |
-| behaviors/*.json + rules.js | Reacciones y recetas declarativas; sin ramas por misión en interact |
+| behaviors/*.json + rules.js | Reacciones y fabricación declarativas; sin ramas por misión en interact |
 | resource-nodes.json + resources.js | Registro estable de recogidas; un bit por nodo y ciclo por región |
 | cat-encounters.js | Visión, cobertura, patrulla, persecución, transporte y salida segura locales |
 | input.js / map-gestures.js | Teclado, cámara y EL MANDO: el dedo es un joystick invisible que solo anda —arrastrar el mapa ya NO planta destino, se retiró el 19-sep-2026— y el toque suelto sigue yendo e interactuando |
@@ -342,9 +344,8 @@ costando palitos; el resto de piezas, lo que ya costaban. Lo vigila `check-bomb-
 Guía de autoría vigente; ubicaciones y recogibles están en las escenas.
 Manta y comida son piezas independientes: tortilla, nachos triangulares,
 guacamole, bebidas y altavoz. Navaja y mechero son herramientas; la botella del
-suelo aparece junto a la papelera al cocinar la primera brocheta. Los humanos y
-la manta desaparecen entonces; los utensilios no recogidos siguen disponibles.
-El gato permanece y se suma otro. Brizno y la barbacoa están junto a su casa,
+suelo está junto a la papelera desde el comienzo. Los humanos, la manta y ambos
+gatos permanecen visibles. Brizno y la barbacoa están junto a su casa,
 cerca del muelle. Recorrido y pistas: [SHARED-FOREST.md](SHARED-FOREST.md).
 
 ### Source art and prompts

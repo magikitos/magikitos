@@ -83,16 +83,16 @@ const brizno = catalog.scenes.overworld.entities.find(
 );
 const fed = planReaction(
   brizno,
-  { ...state, inventory: { skewer: 1 } },
+  state,
   catalog,
-  { action: "give", now },
+  { action: "interact", now },
 ).state;
 check(
   fed.inventory.oars === 1 && fed.wallet.balance === 0,
-  "First meal gives the permanent oars and nothing else",
+  "First greeting gives the permanent oars and nothing else",
 );
 check(
-  !planReaction(brizno, fed, catalog, { action: "give", now }),
+  planReaction(brizno, fed, catalog, { action: "interact", now }).state.inventory.oars === 1,
   "Reward cannot repeat",
 );
 const dock = catalog.scenes.overworld.entities.find(

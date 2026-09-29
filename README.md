@@ -12,7 +12,7 @@ original characters and music, and not a single reflex test.
 ## What the game is
 
 The game combines personal adventures with a [shared woodland](docs/SHARED-FOREST.md):
-cats, cooking, bottle navigation and community construction, backed by
+Avelino’s puzzles, cats, bottle navigation and community construction, backed by
 [private API saves and server-authoritative materials](docs/API.md#save-protocol-and-server-authority),
 and it looks after itself: [density price, the little bomb and the grass that
 comes back](docs/AUTOMANTENIMIENTO.md).

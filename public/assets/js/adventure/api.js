@@ -10,9 +10,7 @@ const METHODS = Object.freeze({
   browse: "GET",
   index: "GET",
   catalog: "GET",
-  recipes: "GET",
-  recipe: "GET",
-  "recipe-publish": "POST",
+  feedback: "POST",
   diary: "GET",
   "diary-write": "POST",
   setometro: "GET",
@@ -174,13 +172,8 @@ class WorldApi {
     const headers = { Accept: "application/json" };
     const token = options.auth ? this.session.get() : "";
     if (token) headers.Authorization = "Bearer " + token;
-    const multipart = endpoint === "recipe-publish" && options.audio;
-    if (method === "POST" && !multipart) headers["Content-Type"] = "application/json";
-    let body;
-    if (method === "POST") {
-      body = JSON.stringify(params);
-      if (multipart) { body = new FormData(); body.set("recipe", JSON.stringify(params)); body.set("audio", options.audio, "recipe." + (/^audio\/(\w+)/.exec(options.audio.type || "")?.[1] || "webm")); }
-    }
+    if (method === "POST") headers["Content-Type"] = "application/json";
+    const body = method === "POST" ? JSON.stringify(params) : undefined;
     const timeout = AbortSignal.timeout(options.timeout || 12000);
     const signal = options.signal
       ? AbortSignal.any([timeout, options.signal])

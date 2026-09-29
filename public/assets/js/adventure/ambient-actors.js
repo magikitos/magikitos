@@ -7,6 +7,12 @@ const { seatedClip } = require("./seating");
  * canvas readback, timers, or per-pose network requests.
  */
 const clips = {
+  avelino: {
+    phase: 0,
+    fixedBelow: -12,
+    steps: [["avelino", 3.8], ["avelino-think", 1.6], ["avelino", 2.7], ["avelino-think", 0.25], ["avelino", 1.7]],
+    breathe: true,
+  },
   "picnic-smoker": {
     phase: 1.3,
     fixedBelow: -32,
@@ -81,7 +87,7 @@ function drawAmbientActor(ctx, sprites, entity, name, time) {
   if (!clip || !sprites.frame(name)) return false;
   const p = pose(clip, time);
   const frame = sprites.frame(p.frame) ? p.frame : name;
-  if (frame === name) drawArtwork(ctx, sprites, entity, name);
+  if (frame === name && !clip.breathe) drawArtwork(ctx, sprites, entity, name);
   else {
     // Generated poses retain a shared registration canvas, but tiny drawing
     // differences must never make seated legs wobble. Keep the lower body exact.
@@ -94,12 +100,22 @@ function drawAmbientActor(ctx, sprites, entity, name, time) {
       w: width * 2,
       h: height * 2,
     });
+    ctx.save();
+    if (clip.breathe && time > 0) {
+      // Breathe about the waist; feet, staff base and collision stay planted.
+      const x = Math.round(entity.x + (entity.offset?.[0] || 0));
+      const y = Math.round(entity.y + (entity.offset?.[1] || 0)) + clip.fixedBelow * (entity.scale ?? 1);
+      ctx.translate(x, y);
+      ctx.transform(1, 0, Math.sin(time * 1.1) * .009, 1 + Math.sin(time * 1.65) * .016, 0, 0);
+      ctx.translate(-x, -y);
+    }
     drawArtwork(ctx, sprites, entity, frame, {
       x: -width,
       y: -height,
       w: width * 2,
       h: height + clip.fixedBelow,
     });
+    ctx.restore();
   }
   if (clip.smoke) drawSmoke(ctx, entity, clip.smoke.origin, p.smoke);
   return true;

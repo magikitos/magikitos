@@ -45,21 +45,14 @@ function assertShell(actual, expected, headers, route) {
     const r=await response('/api/world/bootstrap?lang='+lang), body=await r.json();
     assert(body.ok); assert.equal(body.locale,lang); assert(body.destinations.stories);
   }
-  // Website-owned recipes: public reading is never gated by a game identity or ingredients.
-  const recipeRoutes={es:'/recetas',en:'/en/recipes',de:'/de/rezepte',fr:'/fr/recettes',it:'/it/ricette',pt:'/pt/receitas'};
-  for(const [lang,route] of Object.entries(recipeRoutes)) {
-    const data=await (await response('/api/world/recipes?lang='+lang)).json();
-    assert(data.ok && Array.isArray(data.items) && Array.isArray(data.ingredients));
-    assert(data.labels.title && data.limits.audioSeconds[1]===600);
-    const html=await (await response(route)).text();
-    assert(html.includes(data.labels.title) && !/Fatal error|Deprecated:|<b>Warning<\/b>/.test(html));
-    assert(!html.includes('id="world-canvas"'),'Recipes are normal SSR website content');
-    if(data.items.length) {
-      const item=await (await response('/api/world/recipe?lang='+lang+'&id='+data.items[0].id)).json();
-      assert(item.ok && item.recipe.kind==='recipe' && !('user_id' in item.recipe));
-    }
+  for (const route of ['/recetas','/en/recipes','/de/rezepte','/fr/recettes','/it/ricette','/pt/receitas',
+    '/api/world/recipes','/api/world/recipe','/api/world/recipe-publish']) {
+    const r = await fetch(new URL(route, origin), { signal: AbortSignal.timeout(25000), redirect: 'manual' });
+    assert([404,410].includes(r.status), 'Retired recipe route: ' + route + ' (' + r.status + ')');
   }
-  console.log('PASS live recipes: six public SSR routes and JSON lists, no identity or inventory required');
+  const method = await fetch(new URL('/api/world/feedback', origin), { signal: AbortSignal.timeout(25000) });
+  assert.equal(method.status, 405, 'Feedback is POST-only');
+  console.log('PASS retired recipe routes and POST-only feedback');
   for(const kind of ['cuento','chiste','expresion']) {
     const r=await response('/api/world/discover?lang=es&kind='+kind), body=await r.json();
     assert(body.ok && Array.isArray(body.items));

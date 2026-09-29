@@ -40,7 +40,7 @@ pruebas que lo soportan. No dirigir pruebas de escritura contra producción.
 ## Verificación
 
 `npm test` hornea arte, construye el artefacto y ejecuta el núcleo: reglas,
-recetas, economía, guardado, 110 NPC, colisiones, orillas, navegación, cámara,
+retos, actividades secundarias, economía, guardado, 110 NPC, colisiones, orillas, navegación, cámara,
 entrada, audio, bitsets, API, Studio y verificación del instalador. Tres de sus
 bloques vigilan cosas que antes no vigilaba nadie y que se rompieron de verdad:
 
@@ -76,7 +76,7 @@ Según el cambio:
   área, movimiento en grupo, Backspace/deshacer, protección de campos/objetos,
   trazado y edición de vallas, persistencia y tres tamaños. Workspace temporal;
   comprueba que la versión del propietario no cambia.
-- `npm run test:picnic`: receta completa y hambre repetida en cinco tamaños.
+- `npm run test:picnic`: recogida, remos y recarga sin cocina en cinco tamaños.
 - **Las seis que no tenían mando** (21-sep-2026). Existían, cubrían cosas que no cubre nadie
   más y no las llamaba ni `package.json` ni otro script: encontrarlas era saber de antemano que
   estaban. Ya tienen comando, que es como se evita volver a confundirlas con código muerto: el

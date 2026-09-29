@@ -14,15 +14,30 @@ fs.mkdirSync(shots, { recursive: true });
       const touch = width < 900, context = await browser.newContext({ viewport: { width, height }, hasTouch: touch,
         isMobile: touch, deviceScaleFactor: 1, reducedMotion: width === 320 ? "reduce" : "no-preference" });
       const page = await context.newPage();
+      const feedback = [];
       page.on("pageerror", (e) => errors.push(e.message));
       // Works against the production artifact too: no identity, telemetry or save is ever sent.
       await page.route("**/*", (route) => {
         const r = route.request(), u = new URL(r.url());
+        if (u.pathname === "/api/world/bootstrap") return route.fulfill({ json: {
+          ok: true, locale: "es", destinations: {}, capabilities: { turnstileSiteKey: "test-site-key" },
+        } });
+        if (u.pathname === "/api/world/feedback") {
+          feedback.push(r.postDataJSON());
+          return route.fulfill({ status: feedback.length === 1 ? 503 : 200, json: feedback.length === 1 ?
+            { ok: false, error: "delivery_unavailable" } : { ok: true, sent: true } });
+        }
         if (u.pathname.startsWith("/api/") || !["GET", "HEAD"].includes(r.method()))
           return route.fulfill({ status: 503, contentType: "application/json", body: '{"ok":false,"error":"offline"}' });
         return route.continue();
       });
       await page.addInitScript(({ scene, x, y }) => {
+        let callback, issued = 0;
+        window.__proofActions = [];
+        window.turnstile = {
+          render(host, options) { window.__proofActions.push(options.action); callback = options.callback; return "test-widget"; },
+          execute() { setTimeout(() => callback("test-proof-" + ++issued), 80); }, remove() {},
+        };
         if (!localStorage.getItem("magikitos.adventure")) localStorage.setItem("magikitos.adventure", JSON.stringify({
           scene, position: { x, y }, muted: true, flags: { welcomed: true }, inventory: {},
         }));
@@ -43,7 +58,7 @@ fs.mkdirSync(shots, { recursive: true });
       const click = async (locator) => { if (touch) await locator.tap(); else await locator.click(); };
       const talk = async (first = false) => {
         await tap("avelino", -24);
-        await page.waitForSelector(".world-challenge .world-primary");
+        await page.waitForSelector(".world-challenge h1");
         assert.equal((await inspect()).dialogue, null, "One conversation opens the challenge directly");
         if (first) {
           const text = await page.locator(".world-challenge-conversation").innerText();
@@ -59,7 +74,14 @@ fs.mkdirSync(shots, { recursive: true });
         }
         const panel = await page.locator("#world-content").boundingBox();
         assert(Math.abs(panel.y + panel.height / 2 - height / 2) < 2, "The challenge is centered in the viewport");
-        assert(panel.y >= 8 && panel.y + panel.height <= height - 8, "Conversation and exit fit in the viewport");
+        if (touch) {
+          assert(Math.abs(panel.x) < 1 && Math.abs(panel.y) < 1 && Math.abs(panel.width - width) < 1 && Math.abs(panel.height - height) < 1,
+            "Mobile challenge fills the viewport: " + JSON.stringify(panel));
+          assert.equal(await page.locator("#world-content").evaluate(e => getComputedStyle(e).zIndex), "2147483000");
+        } else assert(panel.y >= 8 && panel.y + panel.height <= height - 8, "Desktop sheet fits");
+        assert(await page.locator("#content-exit").isHidden(), "No redundant return-to-world button");
+        const close = await page.locator(".world-challenge-close").boundingBox();
+        assert(close.width >= 44 && close.height >= 44 && close.y >= 0 && close.y < panel.y + 65, "Visible top close target");
       };
       const cardNames = () => page.locator(".world-memory-face").evaluateAll((cards) => cards.map((c) => c.textContent));
       const turn = (i) => click(page.locator('[data-card="' + i + '"]'));
@@ -88,7 +110,7 @@ fs.mkdirSync(shots, { recursive: true });
       await page.waitForFunction(() => !document.querySelector(".world-memory-card.is-open"));
       await turn(0); await turn(pair);
       assert.equal(await page.locator(".world-memory-card.is-found").count(), 2);
-      await click(page.locator("#content-exit"));
+      await click(page.locator(".world-challenge-close"));
       await page.reload(); await enterWorld(page);
       assert.equal(Object.keys((await inspect()).flags).filter((f) => f.startsWith("avelinoPair")).length, 1);
       await talk(); await click(page.locator(".world-challenge .world-primary"));
@@ -107,21 +129,36 @@ fs.mkdirSync(shots, { recursive: true });
       await click(page.locator(".world-challenge .world-primary"));
       assert.equal((await inspect()).inventory.millKey, 1);
       await page.screenshot({ path: path.join(shots, `reward-${width}.png`) });
-      if (width === 1440) {
-        const earned = (await inspect()).flags, pending = (await inspect()).materialSync.pending;
-        await click(page.locator(".world-challenge .world-experience-links button"));
-        const replay = await cardNames(), mismatch = replay.findIndex((n) => n !== replay[0]);
-        await turn(0); await turn(mismatch);
+      assert.equal(await page.locator(".world-experience-links").count(), 0, "Completed challenges offer no replay");
+      assert((await page.locator(".world-challenge h1").innerText()).includes("No hay más misterios"));
+      assert.equal(feedback.length, 0, "Opening the form never sends feedback");
+      const draft = "Me gusta el molino. Me gustaría otro misterio.";
+      await page.locator("#world-feedback-text").fill(draft);
+      const earned = (await inspect()).flags, pending = (await inspect()).materialSync.pending;
+      if (!touch) {
         await page.keyboard.press("Escape");
-        await page.waitForTimeout(1450);
-        assert(await page.locator("#world-content").isHidden(), "A reveal callback cannot reopen a closed puzzle");
+        assert(await page.locator("#world-content").isHidden(), "Escape closes while the textarea has focus");
         await talk();
-        assert.equal((await inspect()).inventory.millKey, 1);
-        assert.deepEqual((await inspect()).flags, earned, "Practice never changes quest progress");
-        assert.equal((await inspect()).materialSync.pending, pending, "Practice never queues extra rewards");
-        assert(await page.locator(".world-challenge-reward").isVisible());
+        assert.equal(await page.locator("#world-feedback-text").inputValue(), draft, "Draft survives closing");
+        await page.mouse.click(5, height / 2);
+        assert(await page.locator("#world-content").isHidden(), "Outside click closes the sheet");
+        await talk();
       }
-      await click(page.locator(".world-challenge .world-primary"));
+      await click(page.locator(".world-feedback button"));
+      await page.waitForFunction(() => document.querySelector(".world-feedback-status")?.textContent.includes("No hemos podido"));
+      assert.equal(await page.locator("#world-feedback-text").inputValue(), draft, "Failure keeps the draft");
+      await click(page.locator(".world-feedback button"));
+      await page.waitForFunction(() => document.querySelector(".world-feedback")?.textContent.includes("¡Gracias!"));
+      assert.equal(feedback.length, 2);
+      assert.equal(feedback[0].operationId, feedback[1].operationId, "Uncertain response reuses submission id");
+      assert.notEqual(feedback[0].turnstile_token, feedback[1].turnstile_token, "Each attempt has fresh proof");
+      assert.equal(feedback[1].text, draft);
+      assert.deepEqual(await page.evaluate(() => window.__proofActions), ["game_feedback", "game_feedback"]);
+      assert.deepEqual((await inspect()).flags, earned, "Feedback never alters quest progress");
+      assert.equal((await inspect()).materialSync.pending, pending);
+      assert.equal((await inspect()).inventory.millKey, 1);
+      await page.screenshot({ path: path.join(shots, `feedback-${width}.png`) });
+      await click(page.locator(".world-challenge-close"));
       await tap("exit", 0);
       await page.waitForFunction(() => window.MagikitosAdventure.inspect().scene === "river-willows", null, { timeout: 20000 });
       await tap("mill-chest", -12);
@@ -133,7 +170,7 @@ fs.mkdirSync(shots, { recursive: true });
       assert((await inspect()).flags.avelinoChestOpened);
       assert.equal((await inspect()).inventory.millKey, 1);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
-      console.log(`PASS Avelino ${width}×${height}: real door, first introduction, memory/retry/rapid taps, resume after reload, key, exit, chest and persistence.`);
+      console.log(`PASS Avelino ${width}×${height}: real door, first introduction, memory/retry/rapid taps, resume after reload, key once, fullscreen/close/Escape/outside, proof + feedback retry, chest and persistence.`);
       await context.close();
     }
     assert.deepEqual(errors, []);

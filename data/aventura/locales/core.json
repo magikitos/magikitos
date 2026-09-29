@@ -1368,12 +1368,12 @@
     "pt": "Ver mais"
   },
   "mushroomDescription": {
-    "es": "Recogida con la navajita. Pa una brocheta... o un buen trueque en el almacén.",
-    "en": "Gathered with the pocketknife. For a skewer... or a handy trade at the storehouse.",
-    "de": "Mit dem Taschenmesser geerntet. Für einen Spieß... oder zum Tauschen im Lager.",
-    "fr": "Cueilli au petit couteau. Pour une brochette... ou un bon troc à l'entrepôt.",
-    "it": "Raccolto col coltellino. Per uno spiedino... o un bello scambio al magazzino.",
-    "pt": "Apanhado com a navalhinha. Para uma espetada... ou uma boa troca no armazém."
+    "es": "Recogida con la navajita. En el almacén la cambian por materiales.",
+    "en": "Gathered with the pocketknife. Trade it for materials at the storehouse.",
+    "de": "Mit dem Taschenmesser gesammelt. Im Lager gibt es dafür Material.",
+    "fr": "Cueilli au canif. À échanger contre des matériaux à l’entrepôt.",
+    "it": "Raccolto col coltellino. Al magazzino lo scambi con materiali.",
+    "pt": "Apanhado com o canivete. Troca-o por materiais no armazém."
   },
   "mushroomName": {
     "es": "Seta",
@@ -1791,22 +1791,6 @@
     "it": "Belle conchiglie",
     "pt": "Conchas bonitas"
   },
-  "skewerDescription": {
-    "es": "Seta doradita al fuego. El vecino de la barbacoa lleva rato mirando de reojo.",
-    "en": "Golden grilled mushroom. The barbecue neighbour keeps glancing over.",
-    "de": "Goldbraun gegrillter Pilz. Der Nachbar am Grill schaut schon dauernd herüber.",
-    "fr": "Champignon bien doré. Le voisin du barbecue n’arrête pas de lorgner dessus.",
-    "it": "Fungo ben dorato. Il vicino della griglia continua a lanciare occhiate.",
-    "pt": "Cogumelo bem douradinho. O vizinho do churrasco não para de olhar de soslaio."
-  },
-  "skewerName": {
-    "es": "Brocheta de seta",
-    "en": "Mushroom skewer",
-    "de": "Pilzspieß",
-    "fr": "Brochette de champignon",
-    "it": "Spiedino di fungo",
-    "pt": "Espetada de cogumelo"
-  },
   "soundOff": {
     "es": "Activar música y sonidos",
     "en": "Turn on music and sounds",
@@ -1864,12 +1848,12 @@
     "pt": "Não foi possível dar-te esse corpo. Ficas com o anterior. Tenta outra vez."
   },
   "twigDescription": {
-    "es": "Una ramita recia. Sirve pa una brocheta, una vallita o un banco.",
-    "en": "A sturdy twig. Handy for a skewer, a fence or a bench.",
-    "de": "Ein kräftiger Zweig, für einen Spieß, einen Zaun oder eine Bank.",
-    "fr": "Une brindille solide, pour une brochette, une clôture ou un banc.",
-    "it": "Un rametto robusto, per uno spiedino, una staccionata o una panca.",
-    "pt": "Um ramo resistente, para uma espetada, uma vedação ou um banco."
+    "es": "Un palo resistente. Sirve para construir o dejar mensajes por el bosque.",
+    "en": "A sturdy stick for building or leaving messages in the forest.",
+    "de": "Ein stabiler Stock zum Bauen oder für Nachrichten im Wald.",
+    "fr": "Un bâton solide pour construire ou laisser des messages dans la forêt.",
+    "it": "Un bastone robusto per costruire o lasciare messaggi nel bosco.",
+    "pt": "Um pau resistente para construir ou deixar mensagens no bosque."
   },
   "twigName": {
     "es": "Palito",
@@ -2304,20 +2288,20 @@
     "pt": "Este é o teu duende e esta é a tua floresta. Anda por onde quiseres e toca em tudo, que quase nada está aqui só de enfeite."
   },
   "welcome2Title": {
-    "es": "Escape room",
-    "en": "Escape room",
-    "de": "Escape Room",
-    "fr": "Escape game",
-    "it": "Escape room",
-    "pt": "Escape room"
+    "es": "Los retos de Avelino",
+    "en": "Avelino’s challenges",
+    "de": "Avelinos Rätsel",
+    "fr": "Les défis d’Avelino",
+    "it": "Le sfide di Avelino",
+    "pt": "Os desafios do Avelino"
   },
   "welcome2Text": {
-    "es": "¡Como un escape room, pero bosquero! Cada objeto sirve para algo y cada vecino sabe una pista.",
-    "en": "Like an escape room, but out in the woods! Every object is good for something and every neighbour knows a clue.",
-    "de": "Wie ein Escape Room, nur mitten im Wald! Jeder Gegenstand ist für etwas gut, und jeder Nachbar kennt einen Hinweis.",
-    "fr": "Comme un escape game, mais version forêt ! Chaque objet sert à quelque chose et chaque voisin connaît un indice.",
-    "it": "Come un escape room, ma in versione bosco! Ogni oggetto serve a qualcosa e ogni vicino sa un indizio.",
-    "pt": "Como um escape room, mas à moda da floresta! Cada objeto serve para alguma coisa e cada vizinho sabe uma pista."
+    "es": "Avelino, el mago del molino, guarda los misterios del bosque. Búscalo en la Curva de los Sauces y resuelve sus retos, uno a uno.",
+    "en": "Avelino, the mill wizard, keeps the forest’s mysteries. Find him in Willow Bend and solve his challenges, one by one.",
+    "de": "Avelino, der Mühlenzauberer, hütet die Geheimnisse des Waldes. Finde ihn in der Weidenkurve und löse seine Rätsel nacheinander.",
+    "fr": "Avelino, le mage du moulin, garde les mystères de la forêt. Trouve-le au Méandre des Saules et résous ses défis, un par un.",
+    "it": "Avelino, il mago del mulino, custodisce i misteri del bosco. Cercalo alla Curva dei Salici e risolvi le sue sfide, una alla volta.",
+    "pt": "Avelino, o mago do moinho, guarda os mistérios do bosque. Procura-o na Curva dos Salgueiros e resolve os seus desafios, um a um."
   },
   "welcome3Title": {
     "es": "Interactúa",
@@ -2407,22 +2391,6 @@
     "it": ["L’umano con la sigaretta lascia l’accendino dove capita. E nel bosco un accendino vale oro.", "Fuoco? Quello della sigaretta al picnic ne ha da vendere."],
     "pt": ["O humano do cigarro deixa o isqueiro em qualquer lado. E um isqueiro no bosque vale ouro.", "Lume? O do cigarro no piquenique tem de sobra."]
   },
-  "hintMushrooms": {
-    "es": ["Las setas del bosque se cortan con navaja. Con cinco, sale una brocheta.", "Por entre los árboles salen setas que dan gusto. Junta cinco y tienes brocheta."],
-    "en": ["The forest mushrooms are cut with a knife. Five of them make a skewer.", "Lovely mushrooms grow between the trees. Gather five and you’ve got a skewer."],
-    "de": ["Die Waldpilze schneidet man mit dem Messer. Aus fünf wird ein Spieß.", "Zwischen den Bäumen wachsen prächtige Pilze. Sammle fünf, dann hast du einen Spieß."],
-    "fr": ["Les champignons de la forêt se coupent au couteau. Avec cinq, on fait une brochette.", "Entre les arbres poussent de beaux champignons. Ramasses-en cinq et tu as une brochette."],
-    "it": ["I funghi del bosco si tagliano col coltello. Con cinque ci esce uno spiedino.", "Tra gli alberi crescono funghi che è un piacere. Raccoglili cinque e hai uno spiedino."],
-    "pt": ["Os cogumelos do bosque cortam-se com canivete. Com cinco, sai uma espetada.", "Por entre as árvores nascem cogumelos que dá gosto. Junta cinco e tens espetada."]
-  },
-  "hintTwig": {
-    "es": ["Una brocheta sin palillo es una ensalada. Por el suelo del merendero hay palos buenos.", "Busca un palillo majo por el suelo, que sin él no hay brocheta."],
-    "en": ["A skewer without a stick is just a salad. There are good sticks on the ground around the picnic.", "Look for a nice stick on the ground: no stick, no skewer."],
-    "de": ["Ein Spieß ohne Stöckchen ist bloß ein Salat. Rund ums Picknick liegen gute Stöcke.", "Such dir ein schönes Stöckchen am Boden, ohne das gibt es keinen Spieß."],
-    "fr": ["Une brochette sans bâtonnet, c’est une salade. Autour du pique-nique, il y a de bons bâtons par terre.", "Cherche un joli bâtonnet par terre : sans lui, pas de brochette."],
-    "it": ["Uno spiedino senza stecco è un’insalata. Per terra attorno al picnic ci sono bastoncini buoni.", "Cerca un bel bastoncino per terra, che senza non c’è spiedino."],
-    "pt": ["Uma espetada sem pauzinho é uma salada. No chão do piquenique há bons paus.", "Procura um pauzinho jeitoso pelo chão, que sem ele não há espetada."]
-  },
   "hintFire": {
     "es": ["La barbacoa del claro está fría como un pie. Le falta una chispa.", "¿Has visto la barbacoa del claro? Con un mechero revive en un momento."],
     "en": ["The barbecue in the clearing is stone cold. All it needs is a spark.", "Seen the barbecue in the clearing? A lighter would bring it back to life in no time."],
@@ -2430,22 +2398,6 @@
     "fr": ["Le barbecue de la clairière est froid comme la pierre. Il lui manque une étincelle.", "Tu as vu le barbecue de la clairière ? Avec un briquet, il reprend vie en un instant."],
     "it": ["Il barbecue della radura è freddo come un sasso. Gli manca una scintilla.", "Hai visto il barbecue della radura? Con un accendino torna in vita in un attimo."],
     "pt": ["O churrasco da clareira está frio como pedra. Falta-lhe uma faísca.", "Já viste o churrasco da clareira? Com um isqueiro ganha vida num instante."]
-  },
-  "hintSkewer": {
-    "es": ["Brasa, cinco setas, un palillo y navaja: en la barbacoa eso se convierte en brocheta.", "Con la barbacoa encendida ya puedes asar una brocheta. Huele desde aquí."],
-    "en": ["Embers, five mushrooms, a stick and a knife: on the barbecue, that turns into a skewer.", "With the barbecue lit, you can grill a skewer. I can smell it from here."],
-    "de": ["Glut, fünf Pilze, ein Stöckchen und ein Messer: Auf dem Grill wird daraus ein Spieß.", "Der Grill brennt, jetzt kannst du einen Spieß grillen. Das riecht man bis hier."],
-    "fr": ["Des braises, cinq champignons, un bâtonnet et un couteau : sur le barbecue, ça devient une brochette.", "Le barbecue est allumé, tu peux griller une brochette. Ça sent bon jusqu’ici."],
-    "it": ["Brace, cinque funghi, uno stecco e un coltello: sul barbecue diventa uno spiedino.", "Col barbecue acceso puoi arrostire uno spiedino. Si sente il profumino da qui."],
-    "pt": ["Brasa, cinco cogumelos, um pauzinho e um canivete: no churrasco, isso vira espetada.", "Com o churrasco aceso já podes assar uma espetada. Cheira daqui."]
-  },
-  "hintBrizno": {
-    "es": ["Brizno, el de la barriga de trueno, lleva todo el día oliendo el aire. Y dicen que guarda unos remos que ya no usa.", "Llévale la brocheta a Brizno, junto al merendero. Igual te suelta algo que rema."],
-    "en": ["Brizno, the one with the thunder belly, has been sniffing the air all day. They say he keeps a pair of oars he no longer uses.", "Take the skewer to Brizno, by the picnic. He might hand over something that rows."],
-    "de": ["Brizno, der mit dem Donnerbauch, schnuppert schon den ganzen Tag in der Luft. Man sagt, er hat Ruder, die er nicht mehr braucht.", "Bring den Spieß zu Brizno beim Picknick. Vielleicht rückt er dafür etwas raus, das rudert."],
-    "fr": ["Brizno, celui au ventre de tonnerre, renifle l’air depuis ce matin. On dit qu’il garde des rames dont il ne se sert plus.", "Apporte la brochette à Brizno, près du pique-nique. Il pourrait te donner quelque chose qui rame."],
-    "it": ["Brizno, quello dalla pancia di tuono, annusa l’aria da stamattina. Dicono che tenga dei remi che non usa più.", "Porta lo spiedino a Brizno, vicino al picnic. Magari ti molla qualcosa che rema."],
-    "pt": ["O Brizno, o da barriga de trovão, anda o dia todo a cheirar o ar. Dizem que guarda uns remos que já não usa.", "Leva a espetada ao Brizno, junto ao piquenique. Pode ser que te dê algo que rema."]
   },
   "hintBottle": {
     "es": ["Remos ya tienes. Te falta algo que flote. ¿Has mirado junto a la papelera del merendero?", "Una botella gorda flota que da gusto. Y hay gente que las deja donde no toca."],
@@ -2679,14 +2631,6 @@
     "it": "Trova le quattro coppie",
     "pt": "Encontra os quatro pares"
   },
-  "challengePractice": {
-    "es": "Jugamos otra vez, por gusto",
-    "en": "One more game, just for fun",
-    "de": "Noch eine Runde, zum Spaß",
-    "fr": "Encore une partie, pour le plaisir",
-    "it": "Un’altra partita, per divertirci",
-    "pt": "Outra partida, só por diversão"
-  },
   "challengePairs": {
     "es": ":n de :total parejas",
     "en": ":n of :total pairs",
@@ -2751,14 +2695,6 @@
     "it": "Felce",
     "pt": "Feto"
   },
-  "challengeCompleted": {
-    "es": "Tu primer reto, resuelto",
-    "en": "Your first challenge, solved",
-    "de": "Dein erstes Rätsel ist gelöst",
-    "fr": "Ton premier défi est résolu",
-    "it": "La tua prima sfida è risolta",
-    "pt": "O teu primeiro desafio está resolvido"
-  },
   "challengeSolved": {
     "es": "¡Qué buena memoria!",
     "en": "What a good memory!",
@@ -2791,14 +2727,6 @@
     "it": "Cerca il baule lungo il sentiero, a sinistra della porta del mulino.",
     "pt": "Procura o baú junto ao caminho, à esquerda da porta do moinho."
   },
-  "challengeMoreToCome": {
-    "es": "Has abierto el primer cofre. Avelino aún guarda muchos secretos para tu aventura.",
-    "en": "You have opened the first chest. Avelino still holds many secrets for your adventure.",
-    "de": "Du hast die erste Truhe geöffnet. Avelino kennt noch viele Geheimnisse für dein Abenteuer.",
-    "fr": "Tu as ouvert le premier coffre. Avelino garde encore bien des secrets pour ton aventure.",
-    "it": "Hai aperto il primo baule. Avelino custodisce ancora tanti segreti per la tua avventura.",
-    "pt": "Abriste o primeiro baú. Avelino ainda guarda muitos segredos para a tua aventura."
-  },
   "challengeClaim": {
     "es": "Recoger la llave",
     "en": "Take the key",
@@ -2806,22 +2734,6 @@
     "fr": "Prendre la clé",
     "it": "Prendi la chiave",
     "pt": "Recolher a chave"
-  },
-  "challengeExplore": {
-    "es": "Seguir explorando",
-    "en": "Keep exploring",
-    "de": "Weiter erkunden",
-    "fr": "Continuer à explorer",
-    "it": "Continua a esplorare",
-    "pt": "Continuar a explorar"
-  },
-  "challengeReplay": {
-    "es": "Volver a jugar por gusto",
-    "en": "Play again for fun",
-    "de": "Noch einmal zum Spaß spielen",
-    "fr": "Rejouer pour le plaisir",
-    "it": "Rigioca per divertirti",
-    "pt": "Jogar outra vez por diversão"
   },
   "hintAvelino": {
     "es": "¿Ya conoces a Avelino? Sigue el sendero hacia el norte, hasta la Curva de los Sauces. Vive en el molino junto al gran meandro. Dicen que tiene 678 años y un reto para ti.",
@@ -2847,12 +2759,108 @@
     "it": "La chiave di Avelino apre il baule lungo il sentiero del mulino. Hai guardato dentro?",
     "pt": "A chave de Avelino abre o baú junto ao caminho do moinho. Já espreitaste lá dentro?"
   },
-  "challengePracticeNote": {
-    "es": "Esta partida es por gusto. La llave sigue en tu saco.",
-    "en": "This round is just for fun. The key stays in your bag.",
-    "de": "Diese Runde ist zum Spaß. Der Schlüssel bleibt in deinem Beutel.",
-    "fr": "Cette partie est pour le plaisir. La clé reste dans ton sac.",
-    "it": "Questa partita è per divertirti. La chiave resta nel tuo sacco.",
-    "pt": "Esta partida é por diversão. A chave continua no teu saco."
+  "challengeNoMoreMysteries": {
+    "es": "No hay más misterios… por ahora",
+    "en": "No more mysteries… for now",
+    "de": "Keine weiteren Rätsel… vorerst",
+    "fr": "Plus de mystères… pour le moment",
+    "it": "Niente più misteri… per ora",
+    "pt": "Não há mais mistérios… por agora"
+  },
+  "challengeFeedbackInvitation": {
+    "es": "Si te ha gustado este juego, puedes dejar tu feedback. Seguiremos ampliándolo con nuevos misterios y aventuras.",
+    "en": "If you enjoyed this game, leave us your feedback. We’ll keep adding new mysteries and adventures.",
+    "de": "Hat dir das Spiel gefallen? Schreib uns deine Meinung. Wir erweitern es weiter mit neuen Rätseln und Abenteuern.",
+    "fr": "Ce jeu t’a plu ? Laisse-nous ton avis. Nous continuerons à ajouter des mystères et des aventures.",
+    "it": "Ti è piaciuto il gioco? Lasciaci la tua opinione. Continueremo ad aggiungere misteri e avventure.",
+    "pt": "Gostaste do jogo? Deixa a tua opinião. Vamos continuar a acrescentar mistérios e aventuras."
+  },
+  "feedbackLabel": {
+    "es": "¿Qué te ha parecido?",
+    "en": "What did you think?",
+    "de": "Wie hat es dir gefallen?",
+    "fr": "Qu’en as-tu pensé ?",
+    "it": "Che ne pensi?",
+    "pt": "O que achaste?"
+  },
+  "feedbackPlaceholder": {
+    "es": "Lo que más te ha gustado, algo que mejorarías, una idea…",
+    "en": "A favourite moment, something to improve, an idea…",
+    "de": "Dein Lieblingsmoment, ein Verbesserungsvorschlag, eine Idee…",
+    "fr": "Un moment préféré, une amélioration, une idée…",
+    "it": "Un momento preferito, qualcosa da migliorare, un’idea…",
+    "pt": "Um momento favorito, algo a melhorar, uma ideia…"
+  },
+  "feedbackSend": {
+    "es": "Enviar mi opinión",
+    "en": "Send feedback",
+    "de": "Meinung senden",
+    "fr": "Envoyer mon avis",
+    "it": "Invia la tua opinione",
+    "pt": "Enviar opinião"
+  },
+  "feedbackSending": {
+    "es": "Enviando…",
+    "en": "Sending…",
+    "de": "Wird gesendet…",
+    "fr": "Envoi…",
+    "it": "Invio…",
+    "pt": "A enviar…"
+  },
+  "feedbackSent": {
+    "es": "¡Gracias! Tu opinión ha llegado a Álvaro y nos ayudará a seguir ampliando el bosque.",
+    "en": "Thank you! Your feedback has been sent to Álvaro and will help us grow the forest.",
+    "de": "Danke! Deine Meinung wurde an Álvaro gesendet und hilft uns, den Wald weiter auszubauen.",
+    "fr": "Merci ! Ton avis a été envoyé à Álvaro et nous aidera à agrandir la forêt.",
+    "it": "Grazie! La tua opinione è stata inviata ad Álvaro e ci aiuterà ad ampliare il bosco.",
+    "pt": "Obrigado! A tua opinião foi enviada ao Álvaro e vai ajudar-nos a ampliar o bosque."
+  },
+  "feedbackPrivacy": {
+    "es": "Se envía directamente a Álvaro. No hace falta incluir datos personales.",
+    "en": "Sent directly to Álvaro. No personal details needed.",
+    "de": "Wird direkt an Álvaro gesendet. Persönliche Daten sind nicht nötig.",
+    "fr": "Envoyé directement à Álvaro. Aucune donnée personnelle nécessaire.",
+    "it": "Inviata direttamente ad Álvaro. Non servono dati personali.",
+    "pt": "Enviada diretamente ao Álvaro. Não precisas de incluir dados pessoais."
+  },
+  "feedbackError": {
+    "es": "No hemos podido enviarlo. Tu texto sigue aquí; inténtalo de nuevo.",
+    "en": "We couldn’t send it. Your text is still here; please try again.",
+    "de": "Senden fehlgeschlagen. Dein Text bleibt hier; versuche es erneut.",
+    "fr": "L’envoi a échoué. Ton texte est toujours là ; réessaie.",
+    "it": "Invio non riuscito. Il testo è ancora qui: riprova.",
+    "pt": "Não foi possível enviar. O teu texto continua aqui; tenta novamente."
+  },
+  "feedbackProofError": {
+    "es": "No se ha completado la verificación. Vuelve a pulsar enviar para intentarlo de nuevo.",
+    "en": "Verification wasn’t completed. Press send to try again.",
+    "de": "Die Überprüfung wurde nicht abgeschlossen. Klicke zum Wiederholen auf Senden.",
+    "fr": "La vérification n’a pas abouti. Appuie sur Envoyer pour réessayer.",
+    "it": "Verifica non completata. Premi Invia per riprovare.",
+    "pt": "A verificação não foi concluída. Carrega em Enviar para tentar de novo."
+  },
+  "feedbackTooMany": {
+    "es": "Ya has enviado varias opiniones. Guarda tus ideas y vuelve dentro de una hora.",
+    "en": "You’ve sent several messages. Save your ideas and return in an hour.",
+    "de": "Du hast schon mehrere Nachrichten gesendet. Bewahre deine Ideen auf und komm in einer Stunde wieder.",
+    "fr": "Tu as envoyé plusieurs avis. Garde tes idées et reviens dans une heure.",
+    "it": "Hai già inviato vari messaggi. Conserva le tue idee e torna tra un’ora.",
+    "pt": "Já enviaste várias opiniões. Guarda as tuas ideias e volta daqui a uma hora."
+  },
+  "feedbackTooShort": {
+    "es": "Escribe al menos tres caracteres.",
+    "en": "Write at least three characters.",
+    "de": "Schreibe mindestens drei Zeichen.",
+    "fr": "Écris au moins trois caractères.",
+    "it": "Scrivi almeno tre caratteri.",
+    "pt": "Escreve pelo menos três caracteres."
+  },
+  "hintOars": {
+    "es": "Brizno, junto al merendero, guarda unos remos que ya no usa. Acércate a saludarlo.",
+    "en": "Brizno keeps some spare oars by the picnic spot. Go say hello.",
+    "de": "Brizno hat beim Picknickplatz ein paar übrige Ruder. Begrüße ihn doch.",
+    "fr": "Brizno garde des rames près du pique-nique. Va le saluer.",
+    "it": "Brizno ha dei remi in più vicino al picnic. Vai a salutarlo.",
+    "pt": "O Brizno guarda uns remos junto ao parque de merendas. Vai cumprimentá-lo."
   }
 }

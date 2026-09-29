@@ -44,152 +44,45 @@ const entity = (id) => world.entities.find((e) => e.id === id);
     }
   }
 }
-const hour = 3600000;
-/**
- * ⛔ LAS SETAS REBROTAN POR VENTANAS DE OCHO HORAS DEL RELOJ, no ocho horas después del corte
- * (`resources.js`: un ciclo por región, `floor(now / renewMs)`; el servidor lo valida igual en
- * `adventure-authority.php`). Esta prueba comprueba que a las cinco horas la mata sigue
- * descansando, y eso solo es cierto si las cinco horas no cruzan el cambio de ventana: con
- * `Date.now()` a secas fallaba tres horas de cada ocho (20-sep-2026). Si el reloj real cae en
- * esas tres horas, la prueba arranca en el inicio de la siguiente ventana, que es tiempo
- * inyectado y no cambia lo que se comprueba.
- */
-const renew = catalog.scenes.overworld.entities.find((e) => e.id === "forest-mushrooms-fern").resource.renewMs;
-let now = Date.now();
-if (Math.floor((now + 5 * hour) / renew) !== Math.floor(now / renew))
-  now = (Math.floor(now / renew) + 1) * renew + 1000;
-// Y el reloj de pared ES ese instante para todo el motor: `cleanSave` y los relojes por defecto
-// leen `Date.now()`, y con el arranque desplazado a la siguiente ventana un plazo de cinco horas
-// quedaba fuera del horizonte que `cleanTimers` admite (el «Reload does not restart the hunger
-// clock» fallaba solo en las tres últimas horas de cada ventana).
-Date.now = () => now;
 let state = cleanSave(null, catalog);
-function react(id, context = {}) {
-  const before = JSON.stringify(state);
-  const plan = planReaction(entity(id), state, catalog, { now, ...context });
-  assert.equal(JSON.stringify(state), before, "Planning is pure");
+const react = (id, context = {}) => {
+  const before = structuredClone(state), plan = planReaction(entity(id), state, catalog, context);
+  assert.deepEqual(state, before, "Planning remains pure");
   if (plan) state = plan.state;
   return plan;
+};
+react("picnic-neighbor");
+assert.equal(state.inventory.oars, 1, "A greeting is enough to receive Brizno's oars");
+assert(state.flags.oarsReceived);
+assert.equal(state.wallet.balance, 0);
+const once = structuredClone(state);
+react("picnic-neighbor");
+assert.deepEqual(state, once, "No second reward");
+for (const inventory of [{ oars: 1 }, { boat: 1 }]) {
+  const old = cleanSave({ inventory, flags: { picnicFed: true, skewerCooked: true } }, catalog);
+  assert.deepEqual(planReaction(entity("picnic-neighbor"), old, catalog).state, old, "Old completed saves get no duplicate");
 }
-react("forest-mushrooms-fern");
-assert(
-  !state.inventory.mushroom,
-  "Cutting a mushroom portion requires the knife",
-);
-react("picnic-knife");
-react("picnic-lighter");
-const beforeTools = structuredClone(state);
-react("forest-mushrooms-fern");
-react("picnic-twig");
-react("forest-mushrooms-root");
-react("picnic-barbecue", { action: "light" });
-react("picnic-barbecue", { action: "cook" });
-assert.equal(state.inventory.skewer, 1);
-assert.equal(state.inventory.knife, 1);
-assert.equal(state.inventory.lighter, 1);
-assert(!state.inventory.mushroom && !state.inventory.twig);
-react("picnic-neighbor", { action: "give" });
-assert.equal(state.timers.picnic, now + 5 * hour);
-assert.equal(state.inventory.oars, 1, "The old man hands over his oars");
-assert.equal(state.wallet.balance, 0, "and not a single setín: those are earned on the website");
-assert(state.flags.picnicFed);
-for (const e of world.entities.filter(
-  (e) => e.id.startsWith("human-picnic") || e.id === "human-smoker",
-))
-  assert(!active(e, state), e.id + " leaves after the first meal");
+const old = cleanSave({ inventory: { skewer: 1, knife: 1, boat: 1 },
+  flags: { picnicFed: true, skewerCooked: true, boatBuilt: true }, timers: { picnic: Date.now() + 10000 } }, catalog);
+assert.deepEqual(old.inventory, { knife: 1, boat: 1 });
+assert.deepEqual(old.flags, { boatBuilt: true });
+assert.deepEqual(old.timers, {});
+for (const e of world.entities.filter(e => e.id.startsWith("human-picnic") || e.id === "human-smoker"))
+  assert(active(e, state), e.id + " remains scenery after receiving the oars");
+assert(active(entity("picnic-bin"), cleanSave(null, catalog)), "Boat bottle is reachable without cooking");
 assert(!actions(entity("picnic-neighbor"), state).length);
-const deadline = state.timers.picnic;
-const timedEntity = {
-  visibleWhen: { timers: { picnic: false } },
-  rules: [{ effects: [] }],
-};
-assert.equal(
-  planReaction(timedEntity, state, catalog, { now: deadline - 1 }),
-  null,
-);
-assert(
-  planReaction(timedEntity, state, catalog, { now: deadline }),
-  "Injected time applies to visibility too",
-);
-assert.equal(cleanTimers(state.timers, catalog, now + hour).picnic, deadline);
-assert.equal(
-  cleanSave(state, catalog).timers.picnic,
-  deadline,
-  "Reload does not restart the hunger clock",
-);
-assert(!expireTimers(state, now + 5 * hour - 1));
-assert(
-  matches(state, { timers: { picnic: true } }, { now: now + 5 * hour - 1 }),
-);
-assert(matches(state, { timers: { picnic: false } }, { now: now + 5 * hour }));
-assert(expireTimers(state, now + 5 * hour));
-assert(
-  !expireTimers(state, now + 5 * hour + 1),
-  "Expiration is applied only once",
-);
-// Brizno vuelve a tener hambre a las cinco horas, pero las setas rebrotan a las OCHO (decisión
-// del dueño, 19-sep-2026): la mata de antes sigue descansando y la segunda brocheta sale de otra.
-react("forest-mushrooms-fern", { now: now + 5 * hour });
-assert(!state.inventory.mushroom, "The first patch still rests at five hours");
-react("forest-mushrooms-camp", { now: now + 5 * hour });
-const riverPatch = Object.values(catalog.scenes).filter(s => s.id !== "overworld")
-  .flatMap(s => s.entities).find(e => e.family === "ground-mushrooms" &&
-    e.rules.some(r => r.effects.some(f => f.item === "mushroom" && f.amount === 3)));
-assert(riverPatch, "The navigable river has another trio for a repeat meal");
-state = planReaction(riverPatch, state, catalog, { now: now + 5 * hour }).state;
-assert.equal(state.inventory.mushroom, 5, "Exploring other patches supplies the second meal before regrowth");
-react("picnic-twigs", { now: now + 5 * hour });
-react("picnic-barbecue", { action: "cook", now: now + 5 * hour });
-assert(actions(entity("picnic-neighbor"), state).some((a) => a.id === "give"));
-react("picnic-neighbor", { action: "give", now: now + 5 * hour });
-assert.equal(
-  state.timers.picnic,
-  now + 10 * hour,
-  "Every meal starts a fresh five hours",
-);
-assert.equal(state.wallet.balance, 0, "and a second meal still mints nothing");
-assert.equal(state.inventory.knife, 1);
-assert.equal(state.inventory.lighter, 1);
-assert(
-  !active(entity("human-smoker"), state),
-  "Humans never return with hunger",
-);
-assert.deepEqual(
-  cleanTimers({ picnic: NaN, unknown: now + hour }, catalog, now),
-  {},
-);
-assert.deepEqual(cleanTimers({ picnic: now + 100 * hour }, catalog, now), {});
-const invalid = {
-  rules: [
-    {
-      effects: [
-        { type: "item", item: "twig", amount: 1 },
-        { type: "timer", timer: "unknown" },
-      ],
-    },
-  ],
-};
-assert.throws(() => planReaction(invalid, beforeTools, catalog), /timer/);
-assert(
-  !beforeTools.inventory.twig && !beforeTools.timers.picnic,
-  "Invalid effects roll back atomically",
-);
-// Existing completed local saves can still collect the newly introduced tool.
-const established = cleanSave(
-  { flags: { picnicFed: true, skewerCooked: true }, inventory: { lighter: 1 } },
-  catalog,
-);
-assert(active(entity("picnic-knife"), established));
-assert(!active(entity("human-smoker"), established));
-for (const e of world.entities.filter((e) =>
-  /^picnic-(knife|lighter|mushroom|twig|barbecue|neighbor)$/.test(e.id),
-))
-  assert(
-    world.approach({ x: scene.spawn.x * TILE, y: scene.spawn.y * TILE }, e, 7)
-      ?.length,
-    e.id + ": walkable interaction",
-  );
-assert(!catalog.scenes.cottage.entities.some((e) => e.sprite === "lighter"));
-console.log(
-  "PASS picnic recipe, reusable tools, first/repeat meals, exact 5h boundary, reload, departure, existing progress and atomic deadlines.",
-);
+assert(!catalog.items.skewer && !catalog.contentRooms.restaurant && !catalog.timers.picnic);
+for (const sc of Object.values(catalog.scenes)) for (const e of sc.entities) {
+  assert(!(e.actions || []).some(a => a.id === "cook"));
+  assert(!e.rules.some(r => r.effects.some(f => f.item === "skewer" || f.type === "content" && f.key === "restaurant")));
+}
+react("picnic-knife");
+const now = Math.floor(Date.now() / 28800000) * 28800000 + 1000;
+react("forest-mushrooms-fern", { now });
+assert.equal(state.inventory.mushroom, 3);
+assert.equal(react("forest-mushrooms-fern", { now: now + 1000 }), null, "Harvest cannot duplicate");
+react("forest-mushrooms-fern", { now: now + 28800000 });
+assert.equal(state.inventory.mushroom, 6, "Storehouse materials still regrow");
+for (const e of world.entities.filter(e => /^picnic-(knife|lighter|twig|barbecue|neighbor)$/.test(e.id)))
+  assert(world.approach({ x: scene.spawn.x * TILE, y: scene.spawn.y * TILE }, e, 7)?.length, e.id + ": walkable");
+console.log("PASS picnic: gift once, old saves, no cooking or recipe publication, renewable materials, six languages and walkable side activities.");

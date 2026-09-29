@@ -8,7 +8,7 @@
       "template": {
         "sprite":"restaurant-tile-kitchen", "label":"restaurant",
         "solid":[-6,-3.5,12,3.6],
-        "rules":[{"effects":[{"type":"content","key":"restaurant"}]}]
+        "rules":[{"effects":[{"type":"dialogue","key":"restaurantRest"}]}]
       },
       "variants":[{"id":"terracotta","label":"Teja, ramas y barro","sprite":"restaurant-tile-kitchen"}]
     },
