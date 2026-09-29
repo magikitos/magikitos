@@ -4,6 +4,46 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: remos en el cofre y brocheta opcional — 29 septiembre 2026
+
+Artefacto `bfdd8d1c12f78c74ef3a`, fuente `764b14a`, web `a6889526`.
+908 archivos verificados. SHA-256 de `release.json`:
+`d116e2b83fb4f1a8461eff4783fe9c868af7bdca0de3fd2d7306b7497a633cf8`.
+Anterior conservada: artefacto `9dca7daaa7359c660766`, web `f3fd2094`.
+
+- La progresión es memory → llave → cofre → remos → barca. Brizno da la pista;
+  saludarlo no entrega remos. Las pistas de los vecinos priorizan el mago y el río.
+- Un cofre abierto en la versión anterior permite recoger los remos. Quien ya los
+  tiene conserva una sola pareja al abrir el cofre y mantiene la llave reutilizable.
+- Brocheta como favor cómico opcional: dos setas y una ramita, brasas, entrega
+  animada y el «aplauso de barriga» de Brizno. Una sola vez, sin premios ni espera.
+  No se reactivan el catálogo/publicación de recetas, sus APIs ni sus tablas.
+- Las partidas locales antiguas con barca recuperan las herramientas por la nueva
+  cadena. Corregida la primera sincronización: `flush` podía impedir su propia
+  recuperación por estar ocupado antes de enviar nada. Ahora solo se protege de
+  reordenación una petición de acción realmente en vuelo; se preservan sus recibos.
+- Continúa publicado un único reto. Los próximos se abrirán por hitos de aventura;
+  no se anuncia una segunda adivinanza que todavía no existe.
+
+Verificado: horneado completo del arte y `npm test -- --reuse-art`; Avelino en cuatro
+tamaños, picnic en cinco, Ascua con movimiento normal/reducido, restaurante en tres,
+navegador/Studio general y frontera web/juego. 36 puertas SQL reales prueban llave,
+remos, barca sin brocheta, consumo exacto, reintentos y cofres antiguos. Dos escenarios
+DDEV con PHP/WebSocket verifican recuperación de barca antigua, cola pendiente,
+embarque y desembarque; identidades sintéticas eliminadas al terminar.
+
+Producción: seis HTML idénticos byte a byte en origen; recursos/contrato, APIs y web
+verificados en el dominio público. Avelino en 1440×900, 390×844, 320×568 y 844×390;
+brocheta completa en cinco tamaños, navegación en tres. Sin errores de navegador ni
+desbordamiento; escrituras reales de jugador, correo y pruebas de Turnstile bloqueadas
+o sustituidas en los checks de navegador. Feedback y rutas de recetas siguen protegidos
+como antes.
+
+Artefacto instalado con `--stage-only` y comprobado antes de activar el puntero.
+Avance rápido al commit exacto revisado: único archivo web cambiado, `current.json`.
+Servicio `bosque-vivo` reiniciado y activo. Sin cambios de backend, esquema ni importación
+de base de datos. Studio del propietario: 2086 archivos conservan sus hashes.
+
 ## Producción: retos, opiniones y retirada de recetas — 29 septiembre 2026
 
 Artefacto `9dca7daaa7359c660766`, fuente `c838c50`, web `f3fd2094`.
