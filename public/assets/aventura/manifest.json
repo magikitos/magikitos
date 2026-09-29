@@ -9138,16 +9138,47 @@
             "bytes": 2702
         },
         "avelino": {
-            "image": "packs/avelino-bb62534506f1.webp",
-            "metadata": "packs/avelino-bb62534506f1.json",
+            "image": "packs/avelino-738e5f9f2995.webp",
+            "metadata": "packs/avelino-738e5f9f2995.json",
             "sprites": [
                 "avelino",
                 "avelino-portrait",
-                "avelino-think"
+                "avelino-down",
+                "avelino-down-walk-1",
+                "avelino-down-walk-2",
+                "avelino-down-walk-3",
+                "avelino-down-right",
+                "avelino-down-right-walk-1",
+                "avelino-down-right-walk-2",
+                "avelino-down-right-walk-3",
+                "avelino-right",
+                "avelino-right-walk-1",
+                "avelino-right-walk-2",
+                "avelino-right-walk-3",
+                "avelino-up-right",
+                "avelino-up-right-walk-1",
+                "avelino-up-right-walk-2",
+                "avelino-up-right-walk-3",
+                "avelino-up",
+                "avelino-up-walk-1",
+                "avelino-up-walk-2",
+                "avelino-up-walk-3",
+                "avelino-up-left",
+                "avelino-up-left-walk-1",
+                "avelino-up-left-walk-2",
+                "avelino-up-left-walk-3",
+                "avelino-left",
+                "avelino-left-walk-1",
+                "avelino-left-walk-2",
+                "avelino-left-walk-3",
+                "avelino-down-left",
+                "avelino-down-left-walk-1",
+                "avelino-down-left-walk-2",
+                "avelino-down-left-walk-3"
             ],
-            "width": 512,
-            "height": 388,
-            "bytes": 51032
+            "width": 1024,
+            "height": 588,
+            "bytes": 128364
         },
         "barbecue": {
             "image": "packs/barbecue-07da450bf873.webp",
@@ -9781,8 +9812,8 @@
             "bytes": 4602
         },
         "mill-exterior": {
-            "image": "packs/mill-exterior-0094535ff0ff.webp",
-            "metadata": "packs/mill-exterior-0094535ff0ff.json",
+            "image": "packs/mill-exterior-e2c8b6294d7e.webp",
+            "metadata": "packs/mill-exterior-e2c8b6294d7e.json",
             "sprites": [
                 "mill-exterior",
                 "mill-wheel",
@@ -9790,7 +9821,7 @@
             ],
             "width": 1024,
             "height": 444,
-            "bytes": 113146
+            "bytes": 113308
         },
         "mill-interior": {
             "image": "packs/mill-interior-438a5e030a1a.webp",

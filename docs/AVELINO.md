@@ -90,7 +90,9 @@ El molino reutiliza una caja de música humana: la gran llave de cuerda, la tapa
 verde entreabierta, el cilindro de latón y los herrajes conservan su identidad.
 Su zócalo rectangular llega al filo de la ribera, sin una franja de hierba entre
 la pared y la rueda. Un caballete de roble con riostras sostiene el extremo del
-eje en el agua; no hay pilares de piedra. El umbral y la llegada al salir
+eje en el agua; no hay pilares de piedra ni travesaños inferiores flotando.
+Sus tres postes entran por separado bajo la superficie, con una franja sumergida
+translúcida y ondas en cada punto de contacto. El umbral y la llegada al salir
 descansan en tierra. El meandro aprovecha
 el espacio al oeste del huerto y conserva su muelle, sus vecinos y sus accesos.
 La ribera sigue la proyección del plano de la rueda: el eje sale de la pared hacia
@@ -112,11 +114,17 @@ quieto con movimiento reducido. Las piezas raster y los prompts exactos están e
 [musicbox-prompts.json](../data/aventura/art/avelino/musicbox-prompts.json); el modo
 empleado es la herramienta integrada `image_gen`, con alfa transparente.
 
-Avelino respira suavemente y se acaricia la barba en un bucle pausado. El gesto
-[avelino-think.png](../data/aventura/art/avelino/avelino-think.png) comparte registro
-con el original; las botas y la base del bastón permanecen quietas. Ambos fotogramas
-viajan juntos. El [prompt exacto](../data/aventura/art/avelino/idle-prompt.json)
-se ejecutó con la herramienta integrada `image_gen`. Movimiento reducido fija la pose.
+Avelino camina con una [rejilla de 32 poses](../data/aventura/art/avelino/avelino-walk.png):
+ocho direcciones y reposo más tres pasos. `host-stroll.js` utiliza la misma marcha
+por distancia y movimiento con colisiones de los residentes. Da un paseo corto
+dentro del taller, espera al seleccionarlo y se vuelve hacia quien se acerca.
+Conserva sus reglas de retos y su retrato; no se convierte en un vecino genérico.
+Su cuerpo de colisión se actualiza con cada paso. Movimiento reducido lo deja quieto.
+No hay estiramientos, respiración por escala ni recortes del cuerpo por la cintura.
+`php scripts/prepare-avelino-art.php` registra las siluetas a 48 píxeles de altura,
+con las suelas en la misma línea, antes de hornear el atlas: el render solo cambia
+fotogramas enteros. Los [prompts exactos](../data/aventura/art/avelino/motion-prompts.json)
+de la rejilla y los postes se ejecutaron con la herramienta integrada `image_gen`.
 
 Los paquetes independientes se hornean con la misma densidad 2×,
 cuantización y WebP sin pérdida del resto del juego. Los originales no entran
@@ -136,6 +144,8 @@ ida y vuelta, continuidad de las costuras y casco entero en agua navegable.
 
 - `npm test`: turnos del memory, guardado parcial, dependencias, recompensa única,
   cofre, capacidad de la cola, accesos y contrato del bosque vivo.
+  `check-avelino-motion.cjs` cubre pasos a 30/60/120 Hz, espera al hablar,
+  cuerpos móviles, proporciones registradas, zócalo seco y postes dentro del río.
 - `npm run test:avelino`: recorrido real por puerta, conversación, puzzle,
   cierre/recarga, llave y cofre en escritorio, móvil pequeño y horizontal.
 - `npm run test:mill-river`: vuelta entera del vecino, rueda visible en movimiento,

@@ -41,17 +41,28 @@ function drawMillTrestle(ctx, sprites, part, time) {
   if (!f) return;
   ctx.save();
   ctx.translate(...part.offset);
+  // Each pile crosses the surface at its projected depth. The nearer centre
+  // post reaches lower on screen than the two rear legs. No floating base rail.
+  const surface = [[-40, 24], [-9, 44], [35, 28]];
+  ctx.save();
   ctx.beginPath();
-  ctx.moveTo(-40, -30); ctx.lineTo(40, -30);
-  ctx.lineTo(40, 31); ctx.lineTo(-40, 59); ctx.closePath(); ctx.clip();
+  surface.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y));
+  for (const [x, y] of [...surface].reverse()) ctx.lineTo(x, y + 5);
+  ctx.closePath(); ctx.clip();
+  ctx.globalAlpha *= .18;
   sprites.draw(ctx, part.sprite, -f.anchor[0], -f.anchor[1]);
   ctx.restore();
   ctx.save();
-  ctx.translate(...part.offset);
+  ctx.beginPath();
+  ctx.moveTo(-40, -30); ctx.lineTo(35, -30);
+  for (const [x, y] of [...surface].reverse()) ctx.lineTo(x, y);
+  ctx.closePath(); ctx.clip();
+  sprites.draw(ctx, part.sprite, -f.anchor[0], -f.anchor[1]);
+  ctx.restore();
   ctx.strokeStyle = "rgba(220,238,201,.35)";
   ctx.lineWidth = .7;
-  for (const [x, y] of [[-8, 46], [13, 38]]) {
-    const phase = (time * .18 + .3) % 1;
+  for (const [x, y] of [[-24, 34.3], [-9, 44], [15, 35.3]]) {
+    const phase = (time * .18 + (x + 30) / 60) % 1;
     ctx.globalAlpha = 1 - phase * .6;
     ctx.beginPath(); ctx.ellipse(x, y, 6 + phase * 5, 1.3 + phase, -.34, 0, Math.PI); ctx.stroke();
   }

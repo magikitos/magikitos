@@ -42,7 +42,7 @@
       "fit": true
     },
     "mill-trestle": {
-      "source": "data/aventura/art/avelino/mill-trestle.png",
+      "source": "data/aventura/art/avelino/cutouts/mill-trestle.png",
       "grid": [
         1,
         1

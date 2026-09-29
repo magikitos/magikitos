@@ -8,6 +8,7 @@ for (const name of [
   "check-adventure-locales",
   "check-hints",
   "check-avelino",
+  "check-avelino-motion",
   "check-forest-upgrade",
   "check-forest-market",
   "check-forest-client",

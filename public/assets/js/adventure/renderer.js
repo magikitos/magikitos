@@ -85,6 +85,7 @@ class Renderer {
     );
   }
   frame(entity, state) {
+    if (entity.stroll) return require("./host-stroll").hostFrame(entity);
     if (entity.neighbor)
       return entity.activitySprite || characterFrame(entity.variant, entity, entity.moving);
     // El parpadeo sutil de la bombita a media hora del final: dos sprites que se alternan despacio
@@ -429,7 +430,7 @@ class Renderer {
       f = this.sprites.frame(name);
     if (!f) return;
     drawSeat(c, this.sprites, e);
-    if ((e.player && !game.river?.active) || (e.neighbor && !e.napAt && !e.seated)) {
+    if ((e.player && !game.river?.active) || e.stroll || (e.neighbor && !e.napAt && !e.seated)) {
       c.fillStyle = "rgba(31,46,33,.22)";
       c.beginPath();
       c.ellipse(e.x, e.y + 1, 8, 3, 0, 0, 7);

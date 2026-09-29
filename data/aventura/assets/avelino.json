@@ -1,80 +1,948 @@
 {
-  "frames": {
-    "avelino": {
-      "source": "data/aventura/art/avelino/avelino.png",
-      "grid": [
-        1,
-        1
-      ],
-      "cell": [
-        0,
-        0
-      ],
-      "size": [
-        42,
-        56
-      ],
-      "anchor": [
-        23,
-        55
-      ],
-      "fit": true,
-      "preserveCanvas": true,
-      "registration": {
-        "scale": 0.06086956521739131,
-        "offset": [
-          -16.22608695652174,
-          -10.591304347826087
-        ]
-      }
-    },
-    "avelino-portrait": {
-      "source": "data/aventura/art/avelino/avelino.png",
-      "grid": [
-        1,
-        1
-      ],
-      "cell": [
-        0,
-        0
-      ],
-      "size": [
-        144,
-        192
-      ],
-      "anchor": [
-        72,
-        192
-      ],
-      "fit": true
-    },
-    "avelino-think": {
-      "source": "data/aventura/art/avelino/avelino-think.png",
-      "grid": [
-        1,
-        1
-      ],
-      "cell": [
-        0,
-        0
-      ],
-      "size": [
-        42,
-        56
-      ],
-      "anchor": [
-        23,
-        55
-      ],
-      "fit": true,
-      "preserveCanvas": true,
-      "registration": {
-        "scale": 0.06086956521739131,
-        "offset": [
-          -16.22608695652174,
-          -10.591304347826087
-        ]
-      }
+    "frames": {
+        "avelino": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2891566265060241,
+                "offset": [
+                    -10.599791551606984,
+                    -8.4578313253012
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "avelino-portrait": {
+            "source": "data/aventura/art/avelino/avelino.png",
+            "grid": [
+                1,
+                1
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                144,
+                192
+            ],
+            "anchor": [
+                72,
+                192
+            ],
+            "fit": true
+        },
+        "avelino-down": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                0,
+                0
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2891566265060241,
+                "offset": [
+                    -10.599791551606984,
+                    -8.4578313253012
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "avelino-down-walk-1": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                0,
+                1
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.27906976744186046,
+                "offset": [
+                    -9.323054637016043,
+                    -5.441860465116278
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "avelino-down-walk-2": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                0,
+                2
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2774566473988439,
+                "offset": [
+                    -9.118875130443698,
+                    -3.988439306358373
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "avelino-down-walk-3": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                0,
+                3
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2696629213483146,
+                "offset": [
+                    -8.13238987397056,
+                    1.68539325842697
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "avelino-down-right": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                1,
+                0
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2909090909090909,
+                "offset": [
+                    -11.09531386091382,
+                    -8.836363636363636
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "avelino-down-right-walk-1": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                1,
+                1
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.27906976744186046,
+                "offset": [
+                    -9.585620854946399,
+                    -5.441860465116278
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "avelino-down-right-walk-2": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                1,
+                2
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.27586206896551724,
+                "offset": [
+                    -9.176590730176898,
+                    -3.931034482758619
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "avelino-down-right-walk-3": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                1,
+                3
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2681564245810056,
+                "offset": [
+                    -8.194004396931739,
+                    1.977653631284916
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "avelino-right": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                2,
+                0
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2909090909090909,
+                "offset": [
+                    -10.407153194844916,
+                    -9.418181818181814
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "avelino-right-walk-1": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                2,
+                1
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2857142857142857,
+                "offset": [
+                    -9.757025459222682,
+                    -7.142857142857139
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "avelino-right-walk-2": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                2,
+                2
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.27906976744186046,
+                "offset": [
+                    -8.925466727612857,
+                    -4.604651162790695
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "avelino-right-walk-3": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                2,
+                3
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2727272727272727,
+                "offset": [
+                    -8.131706120167102,
+                    1.0909090909090935
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "avelino-up-right": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                3,
+                0
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2857142857142857,
+                "offset": [
+                    -11.467687383617893,
+                    -8.285714285714285
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "avelino-up-right-walk-1": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                3,
+                1
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2823529411764706,
+                "offset": [
+                    -11.026891061457682,
+                    -6.423529411764704
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "avelino-up-right-walk-2": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                3,
+                2
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.27906976744186046,
+                "offset": [
+                    -10.596345816557012,
+                    -4.604651162790695
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "avelino-up-right-walk-3": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                3,
+                3
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2727272727272727,
+                "offset": [
+                    -9.76461068436253,
+                    1.0909090909090935
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "avelino-up": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                4,
+                0
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2926829268292683,
+                "offset": [
+                    -9.129761209475532,
+                    -9.512195121951216
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "avelino-up-walk-1": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                4,
+                1
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2823529411764706,
+                "offset": [
+                    -7.8898872844352255,
+                    -6.705882352941174
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "avelino-up-walk-2": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                4,
+                2
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.28402366863905326,
+                "offset": [
+                    -8.090419161857916,
+                    -5.360946745562131
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "avelino-up-walk-3": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                4,
+                3
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2774566473988439,
+                "offset": [
+                    -7.302201377768718,
+                    0.1734104046242848
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "avelino-up-left": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                5,
+                0
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.294478527607362,
+                "offset": [
+                    -3.6606008104012346,
+                    -9.901840490797554
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "avelino-up-left-walk-1": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                5,
+                1
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2857142857142857,
+                "offset": [
+                    -2.777844833901195,
+                    -7.142857142857139
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "avelino-up-left-walk-2": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                5,
+                2
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.28402366863905326,
+                "offset": [
+                    -2.607561728375156,
+                    -5.360946745562131
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "avelino-up-left-walk-3": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                5,
+                3
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2774566473988439,
+                "offset": [
+                    -1.9461152144242817,
+                    0.7283236994219706
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "avelino-left": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                6,
+                0
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2891566265060241,
+                "offset": [
+                    -1.7356775472069828,
+                    -9.036144578313248
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "avelino-left-walk-1": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                6,
+                1
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.28402366863905326,
+                "offset": [
+                    -1.2433282416352647,
+                    -6.497041420118343
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "avelino-left-walk-2": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                6,
+                2
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.28402366863905326,
+                "offset": [
+                    -1.2433282416352647,
+                    -5.360946745562131
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "avelino-left-walk-3": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                6,
+                3
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.27586206896551724,
+                "offset": [
+                    -0.4604739818181578,
+                    0.48275862068965836
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "avelino-down-left": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                7,
+                0
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2891566265060241,
+                "offset": [
+                    -0.867661448478664,
+                    -8.4578313253012
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "avelino-down-left-walk-1": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                7,
+                1
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.28402366863905326,
+                "offset": [
+                    -0.39072071270685527,
+                    -6.497041420118343
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "avelino-down-left-walk-2": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                7,
+                2
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2807017543859649,
+                "offset": [
+                    -0.08205731255823423,
+                    -4.666666666666664
+                ]
+            },
+            "cleanFragments": 0.015
+        },
+        "avelino-down-left-walk-3": {
+            "source": "data/aventura/art/avelino/cutouts/avelino-walk.png",
+            "grid": [
+                8,
+                4
+            ],
+            "cell": [
+                7,
+                3
+            ],
+            "size": [
+                52,
+                56
+            ],
+            "anchor": [
+                26,
+                54
+            ],
+            "preserveCanvas": true,
+            "registration": {
+                "scale": 0.2742857142857143,
+                "offset": [
+                    0.5141039974430939,
+                    0.7885714285714229
+                ]
+            },
+            "cleanFragments": 0.015
+        }
     }
-  }
 }

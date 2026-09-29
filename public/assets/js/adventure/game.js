@@ -1051,6 +1051,7 @@ class Adventure {
     });
   }
   updateNeighbors(dt) {
+    require("./host-stroll").strollHosts(this, dt);
     this.life.update(dt);
     this.wander(this.world, this.neighbors, dt, this.camera);
     // ⛔ LOS DE LA PANTALLA DE AL LADO TAMBIÉN VIVEN (mundo continuo): sus residentes pasean en
@@ -1377,6 +1378,7 @@ class Adventure {
           x: e.x,
           y: e.y,
           presented: !this.presentation.hides(e),
+          ...(e.stroll ? { moving: Boolean(e.moving), direction: e.direction || "down", frame: this.renderer.frame(e, this.state) } : {}),
         })),
       bounds: {
         width: this.world.width * TILE,

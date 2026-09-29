@@ -52,11 +52,12 @@ for (const u of [-24, 0, 24]) assert(waterAt(meadow,
 for (const [dx, dy] of [[-3, -.5], [0, 0], [4, -.5], [6.4, -.7], [7, -2]])
   assert(!waterAt(meadow, mill.x + dx, mill.y + dy), "The music box's main foundation stays on dry land");
 // Sample the straight bottom edge of the right-hand plinth, in registered art pixels.
-// Its inner side is land; its outer side is water, with no grass strip in between.
-for (const t of [.15, .35, .55, .75, .9]) {
-  const x = mill.x + (53 + 124 * t) / TILE, y = mill.y + (14 - 45 * t) / TILE;
-  assert(!waterAt(meadow,x-10/TILE,y), "The bank supports the inside of the box plinth");
-  assert(waterAt(meadow,x+4/TILE,y), "Water meets the outer plinth without a strip of grass");
+// The actual bottom edge (including the brass corner) is dry. Ten pixels to
+// the right is only ~3.5px perpendicular to this bank: its painted shoreline.
+for (const t of [0, .15, .35, .55, .75, .9]) {
+  const x = mill.x + (51.3 + 121.6 * t) / TILE, y = mill.y + (16 - 47.6 * t) / TILE;
+  assert(!waterAt(meadow,x,y), "The bank supports the actual bottom edge of the box plinth");
+  assert(waterAt(meadow,x+10/TILE,y), "Water meets the plinth's narrow painted shoreline");
 }
 assert(mill.attachments.some(a => a.sprite === "mill-trestle" && a.millTrestle), "A stationary wooden trestle supports the wheel");
 console.log("PASS river journey: one resident, full downstream/return circuit, continuous seams/turns, no fades, calm speed, navigable hull and waterwheel immersion.");

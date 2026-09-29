@@ -1,0 +1,325 @@
+{
+    "sourceSha256": "a7e1f65557da44ff944c0afe8e2a7400eaca736bf148493576503cd624388105",
+    "poses": {
+        "avelino-down": {
+            "sourceBounds": [
+                59,
+                50,
+                125,
+                166
+            ],
+            "height": 48,
+            "baseline": 54
+        },
+        "avelino-down-walk-1": {
+            "sourceBounds": [
+                58,
+                263,
+                134,
+                172
+            ],
+            "height": 48,
+            "baseline": 54
+        },
+        "avelino-down-walk-2": {
+            "sourceBounds": [
+                57,
+                480,
+                130,
+                173
+            ],
+            "height": 47.99999999999999,
+            "baseline": 54
+        },
+        "avelino-down-walk-3": {
+            "sourceBounds": [
+                61,
+                681,
+                130,
+                178
+            ],
+            "height": 48,
+            "baseline": 54
+        },
+        "avelino-down-right": {
+            "sourceBounds": [
+                289,
+                51,
+                122,
+                165
+            ],
+            "height": 48,
+            "baseline": 54
+        },
+        "avelino-down-right-walk-1": {
+            "sourceBounds": [
+                287,
+                263,
+                123,
+                172
+            ],
+            "height": 48,
+            "baseline": 54
+        },
+        "avelino-down-right-walk-2": {
+            "sourceBounds": [
+                284,
+                480,
+                125,
+                174
+            ],
+            "height": 48,
+            "baseline": 54
+        },
+        "avelino-down-right-walk-3": {
+            "sourceBounds": [
+                287,
+                680,
+                118,
+                179
+            ],
+            "height": 48,
+            "baseline": 54
+        },
+        "avelino-right": {
+            "sourceBounds": [
+                523,
+                53,
+                99,
+                165
+            ],
+            "height": 48,
+            "baseline": 54
+        },
+        "avelino-right-walk-1": {
+            "sourceBounds": [
+                520,
+                268,
+                105,
+                168
+            ],
+            "height": 48,
+            "baseline": 54
+        },
+        "avelino-right-walk-2": {
+            "sourceBounds": [
+                516,
+                482,
+                108,
+                172
+            ],
+            "height": 48,
+            "baseline": 54
+        },
+        "avelino-right-walk-3": {
+            "sourceBounds": [
+                515,
+                683,
+                108,
+                176
+            ],
+            "height": 48,
+            "baseline": 54
+        },
+        "avelino-up-right": {
+            "sourceBounds": [
+                749,
+                50,
+                106,
+                168
+            ],
+            "height": 48,
+            "baseline": 54
+        },
+        "avelino-up-right-walk-1": {
+            "sourceBounds": [
+                745,
+                266,
+                112,
+                170
+            ],
+            "height": 48,
+            "baseline": 54
+        },
+        "avelino-up-right-walk-2": {
+            "sourceBounds": [
+                743,
+                482,
+                116,
+                172
+            ],
+            "height": 48,
+            "baseline": 54
+        },
+        "avelino-up-right-walk-3": {
+            "sourceBounds": [
+                742,
+                683,
+                118,
+                176
+            ],
+            "height": 48,
+            "baseline": 54
+        },
+        "avelino-up": {
+            "sourceBounds": [
+                941,
+                53,
+                120,
+                164
+            ],
+            "height": 48,
+            "baseline": 54
+        },
+        "avelino-up-walk-1": {
+            "sourceBounds": [
+                939,
+                267,
+                126,
+                170
+            ],
+            "height": 48,
+            "baseline": 54
+        },
+        "avelino-up-walk-2": {
+            "sourceBounds": [
+                936,
+                484,
+                130,
+                169
+            ],
+            "height": 48,
+            "baseline": 54
+        },
+        "avelino-up-walk-3": {
+            "sourceBounds": [
+                937,
+                686,
+                127,
+                173
+            ],
+            "height": 47.99999999999999,
+            "baseline": 54
+        },
+        "avelino-up-left": {
+            "sourceBounds": [
+                1162,
+                54,
+                97,
+                163
+            ],
+            "height": 48,
+            "baseline": 54
+        },
+        "avelino-up-left-walk-1": {
+            "sourceBounds": [
+                1160,
+                268,
+                104,
+                168
+            ],
+            "height": 48,
+            "baseline": 54
+        },
+        "avelino-up-left-walk-2": {
+            "sourceBounds": [
+                1159,
+                484,
+                105,
+                169
+            ],
+            "height": 48,
+            "baseline": 54
+        },
+        "avelino-up-left-walk-3": {
+            "sourceBounds": [
+                1159,
+                684,
+                105,
+                173
+            ],
+            "height": 47.99999999999999,
+            "baseline": 54
+        },
+        "avelino-left": {
+            "sourceBounds": [
+                1375,
+                52,
+                100,
+                166
+            ],
+            "height": 48,
+            "baseline": 54
+        },
+        "avelino-left-walk-1": {
+            "sourceBounds": [
+                1374,
+                266,
+                106,
+                169
+            ],
+            "height": 48,
+            "baseline": 54
+        },
+        "avelino-left-walk-2": {
+            "sourceBounds": [
+                1374,
+                484,
+                107,
+                169
+            ],
+            "height": 48,
+            "baseline": 54
+        },
+        "avelino-left-walk-3": {
+            "sourceBounds": [
+                1373,
+                685,
+                109,
+                174
+            ],
+            "height": 48,
+            "baseline": 54
+        },
+        "avelino-down-left": {
+            "sourceBounds": [
+                1576,
+                50,
+                129,
+                166
+            ],
+            "height": 48,
+            "baseline": 54
+        },
+        "avelino-down-left-walk-1": {
+            "sourceBounds": [
+                1574,
+                266,
+                138,
+                169
+            ],
+            "height": 48,
+            "baseline": 54
+        },
+        "avelino-down-left-walk-2": {
+            "sourceBounds": [
+                1575,
+                482,
+                136,
+                171
+            ],
+            "height": 48,
+            "baseline": 54
+        },
+        "avelino-down-left-walk-3": {
+            "sourceBounds": [
+                1573,
+                684,
+                138,
+                175
+            ],
+            "height": 48,
+            "baseline": 54
+        }
+    }
+}
