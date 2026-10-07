@@ -4,6 +4,43 @@ Registro operativo único. El historial de entregas y decisiones descartadas viv
 en Git, no en varias guías contradictorias. Distinguir siempre un candidato local
 de una activación en producción.
 
+## Producción: entrada sin controles redundantes y escala de carrera — 7 octubre 2026
+
+Artefacto `91cb3d1b2a6443e749c6`, fuente `3422628`, web `c94ef2b2`.
+908 archivos verificados. SHA-256 de `release.json`:
+`80ad320b90e982970216a4df0d5f47b1f52623c39e28397babecb11743831656`.
+Anterior conservada: artefacto `04af0446cd96f96bcc02`, web `9bd6db52`.
+
+- La pantalla completa de `/bosque` pertenece al contenedor de la landing, no al
+  documento del iframe. El juego comprueba y escucha ambos documentos; oculta el
+  botón al entrar y lo recupera al salir. También reconoce la app instalada y la
+  API con prefijo. Los padres de otro origen y elementos ajenos quedan excluidos.
+- Retirados el logo de acceso a la web, sus estilos, texto en seis idiomas y código
+  del botón. La entrada desde la landing y el historial mantienen el puente de
+  sonido y pausa. El contrato de integración documenta el comportamiento actual.
+- Revisión de 123 variantes, sus ocho direcciones y las 19 hojas de carrera.
+  Ajustes en 15 packs de carrera: una escala uniforme por ciclo direccional,
+  horneada alrededor de la misma línea de apoyo. Sin escalado dinámico, cambios
+  de física o memoria adicional. Fuentes y dibujos originales conservados.
+  La nueva puerta de QA mide 4.544 poses entregadas y detecta al deshacerlas las
+  regresiones originales de Rizo, Chispa y Oria. Diferencia media de tamaño entre
+  marcha y carrera <= 1,25 px lógicos; se conserva la oscilación natural del paso.
+
+Verificado: horneado completo y `npm test`; 24 láminas de ciclos; navegador/Studio,
+Ascua normal/reducido, actividades nativas con contenido local, frontera web/juego
+DDEV y prueba del iframe. El motor pasa 912 casos y 5.472 cambios de marcha en
+escritorio, tablet y móvil. La primera pasada general tuvo un timeout en una puerta;
+la repetición completa pasó. Studio conserva los hashes de sus 2.086 archivos.
+
+En DDEV y producción: entrada real desde `/bosque`, ausencia del logo/control
+redundante, salida de pantalla completa, botón para recuperarla, Atrás y reentrada,
+a 1440×900 y 390×844. Seis HTML exactos byte a byte en origen; smoke del dominio
+público en tres tamaños, recursos y API correctos, cero escrituras reales de jugador.
+
+Instalación `--stage-only` verificada antes de activar el puntero mediante avance
+rápido al commit exacto revisado. La web cambia solo puntero y documentación.
+`bosque-vivo.service` reiniciado y activo; sin backend, esquema ni importación de BD.
+
 ## Producción: paseo de Avelino y apoyos del molino — 29 septiembre 2026
 
 Artefacto `04af0446cd96f96bcc02`, fuente `514466d`, web `2d1745c4`.
