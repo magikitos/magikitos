@@ -6,28 +6,26 @@ reglas, guardados ni la API. Prueba: `npm run test:embed`.
 La web sirve el artefacto del juego desde su propio origen (`/bosque/explorar` y las cinco
 rutas traducidas, ver [RELEASE.md](RELEASE.md)), así que puede además tenerlo cargado
 DETRÁS de su landing `/bosque`, en un `<iframe>` que se levanta a pantalla completa cuando
-alguien pulsa «Explorar el bosque» y se baja cuando pulsa el logo. La página de debajo no se
+alguien pulsa «Explorar el bosque» y se baja al retroceder con el navegador. La página de debajo no se
 recarga: volver es instantáneo y el mundo no rearranca. Desde el 19-sep-2026 (decisión del
 dueño: «el juego NO se carga en todas las páginas») el marco solo existe en esa landing: las
 demás páginas de la web no saben nada del juego.
 
-## La garantía que sostiene todo esto
+## Entrada y navegación
 
-> **El camino de vuelta existe porque hay una página a la que volver, y eso es un
-> HECHO, no una bandera.**
+Se entra desde `/bosque`. El juego no muestra el antiguo logo de acceso a la web,
+ni dentro del iframe ni como página independiente ni en la app. El historial del
+navegador sigue perteneciendo a la página que lo aloja.
 
-`#world-leave` —el logo de la casa, arriba a la izquierda— solo se descubre cuando una
-ventana **padre del mismo origen** ha hablado con el mundo. De ahí salen tres cosas sin
-tener que acordarse de ninguna:
+Los mensajes solo se aceptan desde la ventana padre y el mismo origen. La web
+además envía `X-Frame-Options: SAMEORIGIN` en la ruta del juego.
 
-- **En la app NUNCA aparece.** Una compilación nativa no tiene ventana padre, así que
-  el botón no puede mostrarse por mucho que se compile el mismo artefacto. La promesa
-  «en iOS/Android solo hay juego» la cumple la forma de la cosa, no un `embedded: false`
-  pasado por cinco capas.
-- **Suelto en `/bosque/explorar` tampoco aparece**, que es correcto: ahí no hay página debajo.
-- **Un extraño que nos meta en un iframe no consigue nada**: sus mensajes vienen de otro
-  origen y se descartan. Además la web manda `X-Frame-Options: SAMEORIGIN` en esa ruta
-  (`src/game-release.php` del repositorio web), así que ni llega a pintarse.
+El control de pantalla completa comprueba también los documentos antecesores
+accesibles: si `/bosque` ha puesto su contenedor en pantalla completa, el botón
+se oculta aunque el documento del iframe no tenga `fullscreenElement`. Escuchar
+los cambios en ambos documentos permite recuperarlo cuando se sale con Escape.
+En la app instalada tampoco aparece. Un elemento ajeno al iframe (por ejemplo
+un vídeo de la página) no cuenta como pantalla completa del juego.
 
 ## El contrato
 
@@ -44,11 +42,6 @@ propio origen y de la ventana que nos abrió. Vive en
 | mundo → página | `hola` | Acabo de cargar, ¿hay alguien? |
 | mundo → página | `listo` | Mundo cargado (`{ ready }`). |
 | mundo → página | `abierto` | Ya he entrado. |
-| mundo → página | `cerrar` | Han pulsado el logo. Decide tú qué haces. |
-
-Quien decide qué pasa al pulsar el logo es la PÁGINA, no el juego: el mundo solo dice
-que se lo han pedido. Así la web puede cerrar, retroceder en su historial o lo que le
-convenga sin que el juego sepa nada de rutas ni de fragmentos.
 
 ## Consecuencias dentro del juego
 

@@ -188,10 +188,10 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.1734375,
+                "scale": 0.1673671875,
                 "offset": [
-                    -9.299999999999997,
-                    -16.4375
+                    -8.134499999999996,
+                    -14.252187499999998
                 ]
             },
             "cleanFragments": 0.015
@@ -412,10 +412,10 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.1734375,
+                "scale": 0.1673671875,
                 "offset": [
-                    -9.299999999999997,
-                    -16.4375
+                    -8.134499999999996,
+                    -14.252187499999998
                 ]
             },
             "cleanFragments": 0.015
@@ -636,10 +636,10 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.125,
+                "scale": 0.120625,
                 "offset": [
-                    0,
-                    0
+                    0.8399999999999999,
+                    1.6099999999999994
                 ]
             },
             "cleanFragments": 0.015
@@ -860,10 +860,10 @@
             ],
             "preserveCanvas": true,
             "registration": {
-                "scale": 0.1734375,
+                "scale": 0.1673671875,
                 "offset": [
-                    -9.299999999999997,
-                    -16.4375
+                    -8.134499999999996,
+                    -14.252187499999998
                 ]
             },
             "cleanFragments": 0.015

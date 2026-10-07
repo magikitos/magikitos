@@ -30,9 +30,31 @@ function appleHandheld(nav = typeof navigator === "undefined" ? null : navigator
 /** La misma capacidad con cualquiera de los dos nombres. Recibe el documento para poder
  *  preguntarle a uno de mentira: es la única forma de probar un navegador que no tienes. */
 function screenApi(doc = typeof document === "undefined" ? null : document) {
+  // /bosque puts its host in fullscreen. The child document has no fullscreen
+  // element in that case. Follow only accessible ancestors and only count an
+  // element that actually contains our iframe, never an unrelated video.
+  const documents = [];
+  let current = doc;
+  let frame = null;
+  while (current) {
+    documents.push({ doc: current, frame });
+    try {
+      frame = current.defaultView?.frameElement;
+      current = frame?.ownerDocument;
+    } catch (_) {
+      break; // Cross-origin parents are not part of this integration.
+    }
+  }
   return {
     enabled: () => Boolean(doc && (doc.fullscreenEnabled ?? doc.webkitFullscreenEnabled)),
-    element: () => (doc ? doc.fullscreenElement || doc.webkitFullscreenElement || null : null),
+    element: () => {
+      for (const { doc: owner, frame } of documents) {
+        const element = owner.fullscreenElement || owner.webkitFullscreenElement;
+        if (element && (!frame || element === frame || element.contains?.(frame))) return element;
+      }
+      return null;
+    },
+    documents: documents.map(({ doc: owner }) => owner),
     request: (node, options) =>
       node.requestFullscreen
         ? node.requestFullscreen(options)
@@ -67,14 +89,18 @@ class Fullscreen {
       game.unlockAudio();
       this.enter();
     });
-    for (const event of screen.events)
-      document.addEventListener(event, () => this.paint());
+    for (const owner of screen.documents)
+      for (const event of screen.events)
+        owner.addEventListener(event, () => this.paint());
+    for (const mode of ["fullscreen", "standalone"])
+      window.matchMedia?.(`(display-mode: ${mode})`).addEventListener?.("change", () => this.paint());
     this.paint();
   }
   paint() {
     this.button.hidden =
       !(this.supported || this.installable) ||
       this.native ||
+      standalone() ||
       Boolean(this.screen.element()) ||
       !this.game.entry?.entered;
   }
@@ -83,7 +109,7 @@ class Fullscreen {
       return Promise.resolve(window.MagikitosPlatform.immerse()).catch(
         () => false,
       );
-    if (!this.supported || this.screen.element())
+    if (!this.supported || standalone() || this.screen.element())
       return Promise.resolve(false);
     const asked = this.screen.request(document.documentElement, {
       navigationUI: "hide",

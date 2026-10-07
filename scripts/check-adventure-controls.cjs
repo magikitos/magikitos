@@ -111,6 +111,22 @@ assert.equal(
   );
   // Un documento ya en pantalla completa se reconoce con los dos nombres.
   assert(screenApi({ webkitFullscreenElement: {} }).element(), "Prefixed element is recognised");
+  const parent = { fullscreenElement: null };
+  const frame = { ownerDocument: parent };
+  const child = { ...moderno, defaultView: { frameElement: frame } };
+  const embedded = screenApi(child);
+  const host = { contains: (node) => node === frame };
+  parent.fullscreenElement = host;
+  assert.equal(embedded.element(), host, "The /bosque host owns fullscreen for its child");
+  assert.deepEqual(embedded.documents, [child, parent], "Both documents repaint on enter/exit");
+  parent.fullscreenElement = {};
+  assert.equal(embedded.element(), null, "An unrelated fullscreen video does not cover the game");
+  parent.fullscreenElement = null;
+  parent.webkitFullscreenElement = frame;
+  assert.equal(embedded.element(), frame, "An ancestor with the prefixed API also counts");
+  const foreign = { get frameElement() { throw new Error("SecurityError"); } };
+  assert.equal(screenApi({ ...moderno, defaultView: foreign }).element(), null,
+    "A cross-origin boundary stops inspection without breaking the game");
 
   // ⛔ En un iPhone no hay API de elemento con ningún nombre: la salida es la pantalla de inicio.
   const { appleHandheld, standalone } = require("../public/assets/js/adventure/fullscreen");

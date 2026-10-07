@@ -81,3 +81,25 @@ con el daemon local real y cero rechazos; 216 contactos inspeccionados en lámin
 Los 36 packs mantienen exactamente sus dimensiones de textura y número de poses.
 Publicado el 21-sep-2026 como `82a321d87cc9d16beca7`; verificaciones, cambios del
 contrato de velocidad y límites de las pruebas en [el registro de entrega](../../../../docs/RELEASE.md).
+
+### Tamaño al cambiar de marcha (7-oct-2026)
+
+Las hojas de carrera comparten cuadrícula con las de paseo, pero eso no significa
+que el dibujante haya usado el mismo tamaño. La revisión abarca 123 variantes,
+32 poses de paseo por variante y las 19 hojas de carrera (18 protagonistas y
+Ascua). Rizo y Chispa crecían claramente; Oria se encogía. También había saltos
+menores en otras hojas, aunque sus anclas y lienzos eran idénticos.
+
+`scale.json` registra los ajustes revisados por dirección. Se aplica **una sola
+escala uniforme a las cuatro poses del ciclo**, alrededor del apoyo [24,46],
+después de componer el contacto opuesto. No se ajusta una pose según la altura de
+su gorro o de su pie ni se deforma el personaje en tiempo de ejecución. El
+movimiento natural del paso sigue existiendo. Las fuentes, los recortes, los
+48×48 píxeles lógicos, las anclas y las duraciones se conservan.
+
+`php scripts/check-gait-scale.php` mide los atlas entregados: todos los personajes,
+las ocho direcciones, apoyo y márgenes, y diferencia de tamaño medio entre ciclos
+de paseo y carrera. Sus controles negativos deshacen los ajustes de Rizo,
+Chispa y Oria y deben detectar los tres saltos originales. Esto complementa la
+revisión de cabeza/cuerpo y las láminas visuales; una altura por sí sola no prueba
+que un dibujo tenga las proporciones correctas.

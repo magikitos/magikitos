@@ -3,6 +3,7 @@ const assert = require("node:assert/strict"), fs = require("node:fs"), crypto = 
 const directory = "data/aventura/art/gait/";
 const directions = ["right", "down-right", "up-right", "left", "down-left", "up-left"];
 const catalog = JSON.parse(fs.readFileSync(directory + "catalog.json"));
+const scales = JSON.parse(fs.readFileSync(directory + "scale.json"));
 const digest = file => crypto.createHash("sha256").update(fs.readFileSync(file)).digest("hex");
 
 function isGaitCorrection(variant, action, name) {
@@ -39,7 +40,9 @@ function checkGaitArt() {
         assert.deepEqual(frame.grid, [6,1]);
         assert.deepEqual(frame.size, [48,48]);
         assert.deepEqual(frame.anchor, [24,46]);
-        assert.deepEqual(frame.registration, { scale: 1/8, offset: [0,0] });
+        const direction = directions.find(d => name === `person-${id}-${d}-${action}-${action === "walk" ? 3 : 2}`);
+        const scale = scales.characters[id]?.[action]?.[direction] || 1;
+        assert.deepEqual(frame.registration, { scale: scale/8, offset: [24-24*scale,46-46*scale] });
         assert(qa.poses[name]);
         const [x,y,w,h] = qa.poses[name].bounds;
         assert(x > 0 && y > 0 && x+w < 48 && y+h < 48, `Unclipped silhouette: ${name}`);

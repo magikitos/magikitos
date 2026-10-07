@@ -3,6 +3,7 @@ declare(strict_types=1);
 /** Offline alpha extraction and actor registration. Original masters are never overwritten. */
 require_once __DIR__ . '/lib/adventure-actor-registration.php';
 require_once __DIR__ . '/lib/adventure-gait-art.php';
+require_once __DIR__ . '/lib/adventure-gait-scale.php';
 $root = dirname(__DIR__);
 $dir = $root . '/data/aventura/art/cast';
 $catalog = json_decode(file_get_contents($dir . '/catalog.json'), true, 512, JSON_THROW_ON_ERROR);
@@ -104,6 +105,7 @@ foreach ($definitions as $pack=>$frames) {
     if (preg_match('/^actor-(\d+)(-run)?$/D', $pack, $match)) {
         $variant=(int)$match[1];
         $frames=adventureGaitFrames($frames,$variant,isset($match[2])?'run':'walk',$root);
+        $frames=adventureGaitScale($frames,$variant,isset($match[2])?'run':'walk',$root);
     }
     $file=$root.'/data/aventura/assets/'.$pack.'.json';
     file_put_contents($file,json_encode(['frames'=>$frames],JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES)."\n");

@@ -139,26 +139,6 @@ body.world-page {
 .world-tool.is-muted {
   color: #acb9a3;
 }
-/* ⛔ THE WAY BACK, and only when there is one. `Embed` unhides this once a
- * same-origin page has spoken to the world; in the app nothing ever does, so the
- * app never grows a button that would lead nowhere. Round, because it is the
- * house's own mark and not another tool. Its base position lives here and not
- * next to .world-fullscreen (adventure-entry.css) because the two share a corner
- * and one of them has to move — which is the rule underneath. */
-.world-leave {
-  position: fixed;
-  top: max(18px, env(safe-area-inset-top));
-  left: max(18px, env(safe-area-inset-left));
-  z-index: 16;
-  padding: 0;
-  overflow: hidden;
-  border-radius: 50%;
-  background: #f8f1df;
-}
-.world-leave img { width: 34px; height: 34px; display: block; }
-#world-leave:not([hidden]) ~ .world-fullscreen {
-  left: calc(max(18px, env(safe-area-inset-left)) + 52px);
-}
 .world-recenter {
   position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
   width: 46px; height: 46px; border-radius: 50%; border: 1px solid #f1d699a0;
